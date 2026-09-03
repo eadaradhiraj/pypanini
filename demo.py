@@ -20,5 +20,8 @@ def main():
     # 3. Imperative (low)
     print_table(engine.derive_all("BU", "low"), "3. Imperative: 'low' (भवतु)")
 
+    # 4. Optative (viDiliN)
+    print_table(engine.derive_all("BU", "viDiliN"), "4. Optative: 'viDiliN' (भवेत्)")
+
 if __name__ == "__main__":
     main()
