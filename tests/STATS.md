@@ -2,7 +2,7 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-03T11:25:40.410082Z
+Date: 2026-09-03T11:31:32.839863Z
 Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
@@ -12,7 +12,7 @@ test_01_0003_sparD (tests.test_dhatu.TestDhatuGenerative.test_01_0003_sparD) ...
 test_cli (tests.test_dhatu.TestDhatuGenerative.test_cli) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 14.843s
+Ran 4 tests in 17.002s
 
 OK
 
@@ -1162,7 +1162,7 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
     ✓ laN       9/ 9
     ✓ viDiliN   9/ 9
     ✓ ASIrliN   9/ 9
-    ⚠ luN       0/ 9  e.g. ('prathama eka', '∅')
+    ⚠ luN       3/ 9  e.g. ('madhyama eka', 'aSvindayizwa')
     ✓ lfN       9/ 9
 
   [nich_yak] sanadi=nijanta prayoga=karmani
@@ -1214,6 +1214,6 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
   ⚠ yang_krut    (yananta   )  0/29
   ✓ yangluk_krut (yanluganta) 29/29
 ---------------------------------------------------------------------------
-GRAND  798/883  (90.4%)  ⚠ missing
+GRAND  801/883  (90.7%)  ⚠ missing
 ===========================================================================
 ```
