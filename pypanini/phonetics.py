@@ -14,13 +14,17 @@ def apply_guna(vowel: str) -> str:
 
 
 def apply_vriddhi(vowel: str) -> str:
-    """Pāṇini 7.2.115: aco YRiti (Vṛddhi substitution)"""
+    """Pāṇini 7.2.115: aco YRiti (Vṛddhi substitution)
+    Includes e->E, o->O for augment aT (6.4.72): a+e->E, a+o->O
+    """
     vriddhi_map = {
         'a': 'A',
         'i': 'E', 'I': 'E',
         'u': 'O', 'U': 'O',
         'f': 'Ar', 'F': 'Ar',
-        'x': 'Al', 'X': 'Al'
+        'x': 'Al', 'X': 'Al',
+        'e': 'E', 'E': 'E',
+        'o': 'O', 'O': 'O',
     }
     return vriddhi_map.get(vowel, vowel)
 

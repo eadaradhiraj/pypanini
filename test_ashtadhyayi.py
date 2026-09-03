@@ -75,13 +75,22 @@ def run_krdanta_suite(ke, dev_tokens, slp_tokens, sanadi, title):
                 else:
                     missing.append((f"{code} ({g})", form, dev_form))
         elif "avyaya" in item:
+            # avyaya may be list of variants (e.g., lyap with/without prefix)
+            av = item["avyaya"]
+            candidates = av if isinstance(av, list) else [av]
             total += 1
-            form = item["avyaya"]
-            found, dev_form = check_form(form, dev_tokens, slp_tokens)
-            if found:
+            found_any = False
+            dev_form_first = ""
+            for form in candidates:
+                found, dev_form = check_form(form, dev_tokens, slp_tokens)
+                dev_form_first = dev_form
+                if found:
+                    found_any = True
+                    break
+            if found_any:
                 matched += 1
             else:
-                missing.append((f"{code} (Avyaya)", form, dev_form))
+                missing.append((f"{code} (Avyaya)", candidates[0], dev_form_first))
         else:
             total += 1
             form = item["form"]
