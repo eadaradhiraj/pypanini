@@ -112,12 +112,13 @@ class KrdantaEngine:
     ) -> Optional[Dict]:
         meta = self._get_meta(dhatu)
         clean = meta["clean"]
-        # skudi/Svidi nasal for krdanta as well (skund/Svind)
-        if clean in ("skudi", "Svidi"):
-            base_wo_i = clean[:-1]
-            with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
-            clean = with_n
         pada = meta["pada"]
+        # i-ending Atman with nasal present for krdanta as well (skudi/Svidi/vadi etc.)
+        if clean.endswith("i") and pada == "Atmanepadi":
+            base_wo_i = clean[:-1]
+            if base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
+                with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
+                clean = with_n
         sew = meta["sew"]
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
 

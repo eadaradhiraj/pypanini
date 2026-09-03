@@ -43,9 +43,10 @@ class TinantaDerivationEngine:
         if self._dhatu_cache is not None:
             return
         self._dhatu_cache = {}
-        # hardcoded minimal for BU/eD if data not available
         self._dhatu_cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True, "gana": "BvAdiH"}
         self._dhatu_cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True, "gana": "BvAdiH"}
+        # For homonyms like klidi (01.0015 Atman vs 01.0076 parasm), store both with id as key as well
+        self._dhatu_cache_by_id = {}
         # try auto-load from skt-morph-data
         try:
             base = Path("/home/edhiraj/Documents/projs/skt-morph-data/data/01")
@@ -77,16 +78,24 @@ class TinantaDerivationEngine:
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
                         gana = info.get("gaRaH", "BvAdiH")
                         self._dhatu_cache[clean] = {"clean": clean, "pada": pada, "sew": sew, "gana": gana}
-                        # also map original op without stripping? for lookup
                         self._dhatu_cache[op] = self._dhatu_cache[clean]
+                        # also store by id for homonyms
+                        try:
+                            id_val = d.get("id", "") or Path(jf).stem
+                            self._dhatu_cache_by_id[id_val] = {"clean": clean, "pada": pada, "sew": sew, "gana": gana}
+                            self._dhatu_cache_by_id[clean + "_" + id_val] = {"clean": clean, "pada": pada, "sew": sew, "gana": gana}
+                        except: pass
                     except Exception:
                         continue
         except Exception:
             pass
 
-    def _get_meta(self, dhatu: str) -> Dict:
+    def _get_meta(self, dhatu: str, dhatu_id: str = None) -> Dict:
         self._load_cache()
         assert self._dhatu_cache is not None
+        # For homonyms like klidi (01.0015 vs 01.0076), try id-specific first
+        if dhatu_id and dhatu_id in getattr(self, "_dhatu_cache_by_id", {}):
+            return self._dhatu_cache_by_id[dhatu_id]
         if dhatu in self._dhatu_cache:
             return self._dhatu_cache[dhatu]
         # fallback inference with anubandha stripping
@@ -362,6 +371,8 @@ class TinantaDerivationEngine:
         vacana: str = "eka",
         prayoga: str = "kartari",
         sanadi: Optional[str] = None,
+        dhatu_id: Optional[str] = None,
+        json_path: Optional[str] = None,
     ) -> Tuple[List[str], List[str]]:
         log: List[str] = []
         meta = self._get_meta(dhatu)
@@ -369,12 +380,18 @@ class TinantaDerivationEngine:
         pada = meta["pada"]
         sew = meta["sew"]
         is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
-        # skudi/Svidi: effective BvAdi dhatu is with_n (skund/Svind) for all antas/lakaras
-        if clean in ("skudi", "Svidi"):
+        # i-ending Atman with nasal present (skudi/Svidi/vadi/kUjI etc.) — use with_n as effective dhatu for BvAdi
+        if clean.endswith("i") and pada == "Atmanepadi":
             base_wo_i = clean[:-1]
-            with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
-            clean = with_n
-            is_vowel_initial = False
+            # Check if with_n is valid (insert n before final cons)
+            if base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
+                with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
+                # Only for BvAdi with ~ or with i-ending Atman, the present is with n
+                # For vadi, skudi, Svidi, kUjI etc., use with_n
+                # Check if original OpadeSikasvarUpam had ~ or if clean is i-ending Atman
+                # For now, handle all i-ending Atman as with_n for BvAdi
+                clean = with_n
+                is_vowel_initial = False
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
         # helper for sannanta / nijanta / yan stems (generative)
         def _nijanta_stem(c):
