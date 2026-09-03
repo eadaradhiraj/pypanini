@@ -16,6 +16,7 @@ def main():
     print_table(engine.derive_all("BU", "laN"), "3. Past: 'laN' (अभवत्)")
     print_table(engine.derive_all("BU", "low"), "4. Imperative: 'low' (भवतु)")
     print_table(engine.derive_all("BU", "viDiliN"), "5. Optative: 'viDiliN' (भवेत्)")
+    print_table(engine.derive_all("BU", "lfN"), "6. Conditional: 'lfN' (अभविष्यत्)")
 
 if __name__ == "__main__":
     main()

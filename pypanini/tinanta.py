@@ -1,6 +1,7 @@
 """
-Tiṅanta Derivation Engine supporting the 5 core tenses in SLP1:
-'lw' (Present), 'laN' (Past), 'low' (Imperative), 'viDiliN' (Optative), and 'lfw' (Future).
+Tiṅanta Derivation Engine supporting 6 Lakāras in SLP1:
+'lw' (Present), 'lfw' (Future), 'laN' (Past), 'low' (Imperative), 
+'viDiliN' (Optative), and 'lfN' (Conditional).
 """
 from typing import Dict, List, Tuple
 from .pratyahara import MaheshvaraSutrasSLP1
@@ -29,7 +30,7 @@ class TinantaDerivationEngine:
             ("uttama", "bahu"): "mas",
         }
 
-        # 7.3.101 ato dīrgho yañi (Pratyāhāra 'yañ' = 'yY')
+        # 7.3.101 ato dīrgho yañi ('yañ' = 'yY')
         self.yan_set = self.ms.get_set("yY")
 
     def derive(self, dhatu: str, lakara: str, purusha: str, vacana: str) -> Tuple[str, List[str]]:
@@ -37,22 +38,26 @@ class TinantaDerivationEngine:
         raw = self.pratyayas[(purusha, vacana)]
         prat = raw
 
-        # --- 1. Sārvadhātuka Base Stem (Class 1) ---
+        # --- 1. Base Stem Formation ---
         guna_v = apply_guna(dhatu[-1])
         av = apply_sandhi_eco_ayavayavah(guna_v)
-        stem = dhatu[:-1] + av + "a"  # 'Bava'
 
-        # --- 2. Lakāra-Specific Stems and Endings ---
-        if lakara == "lfw":
-            # 3.1.33 syatAsI lflvwoH -> 'sya'
-            # 7.2.35 ArDaDAtukasyew valAdeH -> 'iw' ('i')
-            # 6.1.78 eco'yavAyAvaH: 'Bo' + 'i' -> 'Bavi'
-            base_with_it = dhatu[:-1] + av + "i"  # 'Bavi'
-            # 8.3.59 AdeSapratyayayoH (Satva: 's' -> 'z')
-            satva_s = apply_satva(base_with_it[-1], "s")
-            stem = base_with_it + satva_s + "ya"   # 'Bavizya'
+        # Stems with 'sya' (3.1.33 syatAsI lflvwoH: applies to both 'lfw' and 'lfN')
+        if lakara in ["lfw", "lfN"]:
+            base_with_it = dhatu[:-1] + av + "i"             # 7.2.35 iw-Agama
+            satva_s = apply_satva(base_with_it[-1], "s")      # 8.3.59 Satva
+            stem = base_with_it + satva_s + "ya"             # 'Bavizya'
+            if lakara == "lfN":
+                stem = "a" + stem                            # 6.4.71 aw-Agama ('aBavizya')
+        else:
+            stem = dhatu[:-1] + av + "a"                     # 'Bava'
+            if lakara == "laN":
+                stem = "a" + stem                            # 6.4.71 aw-Agama ('aBava')
 
-            # Wit lakāra ending rules (identical to 'lw')
+        # --- 2. Endings Application ---
+
+        # Wit endings: 'lw' and 'lfw'
+        if lakara in ["lw", "lfw"]:
             if prat.startswith("J"): prat = "ant" + prat[1:]
             if prat.endswith("p"): prat = prat[:-1]
 
@@ -64,20 +69,8 @@ class TinantaDerivationEngine:
                 final_form = stem + prat
             final_form = apply_rutva_visarga(final_form)
 
-        elif lakara == "lw":
-            if prat.startswith("J"): prat = "ant" + prat[1:]
-            if prat.endswith("p"): prat = prat[:-1]
-
-            if prat.startswith("anti"):
-                final_form = stem[:-1] + prat
-            elif prat[0] in self.yan_set:
-                final_form = stem[:-1] + "A" + prat
-            else:
-                final_form = stem + prat
-            final_form = apply_rutva_visarga(final_form)
-
-        elif lakara == "laN":
-            stem = "a" + stem  # 6.4.71 aw-Agama
+        # Rit past endings: 'laN' and 'lfN'
+        elif lakara in ["laN", "lfN"]:
             lan_replacements = {"tas": "tAm", "Tas": "tam", "Ta": "ta", "mip": "am"}
             if raw in lan_replacements:
                 prat = lan_replacements[raw]

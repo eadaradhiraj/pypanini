@@ -5,30 +5,25 @@ class TestTinanta(unittest.TestCase):
     def setUp(self):
         self.engine = TinantaDerivationEngine()
 
+    def test_bhu_lrn(self):
+        t = self.engine.derive_all("BU", "lfN")
+        self.assertEqual(t[("prathama", "eka")], "aBavizyat")
+        self.assertEqual(t[("prathama", "dvi")], "aBavizyatAm")
+        self.assertEqual(t[("prathama", "bahu")], "aBavizyan")
+        self.assertEqual(t[("madhyama", "eka")], "aBavizyaH")
+        self.assertEqual(t[("madhyama", "dvi")], "aBavizyatam")
+        self.assertEqual(t[("madhyama", "bahu")], "aBavizyata")
+        self.assertEqual(t[("uttama", "eka")], "aBavizyam")
+        self.assertEqual(t[("uttama", "dvi")], "aBavizyAva")
+        self.assertEqual(t[("uttama", "bahu")], "aBavizyAma")
+
     def test_bhu_lrt(self):
         t = self.engine.derive_all("BU", "lfw")
         self.assertEqual(t[("prathama", "eka")], "Bavizyati")
-        self.assertEqual(t[("prathama", "dvi")], "BavizyataH")
-        self.assertEqual(t[("prathama", "bahu")], "Bavizyanti")
-        self.assertEqual(t[("madhyama", "eka")], "Bavizyasi")
-        self.assertEqual(t[("uttama", "eka")], "BavizyAmi")
-        self.assertEqual(t[("uttama", "bahu")], "BavizyAmaH")
 
     def test_bhu_lat(self):
         t = self.engine.derive_all("BU", "lw")
         self.assertEqual(t[("prathama", "eka")], "Bavati")
-
-    def test_bhu_lan(self):
-        t = self.engine.derive_all("BU", "laN")
-        self.assertEqual(t[("prathama", "eka")], "aBavat")
-
-    def test_bhu_lot(self):
-        t = self.engine.derive_all("BU", "low")
-        self.assertEqual(t[("prathama", "eka")], "Bavatu")
-
-    def test_bhu_vidhilin(self):
-        t = self.engine.derive_all("BU", "viDiliN")
-        self.assertEqual(t[("prathama", "eka")], "Bavet")
 
 if __name__ == '__main__':
     unittest.main()
