@@ -13,10 +13,11 @@ def main():
     
     print_table(engine.derive_all("BU", "lw"), "1. Present: 'lw' (भवति)")
     print_table(engine.derive_all("BU", "lfw"), "2. Simple Future: 'lfw' (भविष्यति)")
-    print_table(engine.derive_all("BU", "laN"), "3. Past: 'laN' (अभवत्)")
-    print_table(engine.derive_all("BU", "low"), "4. Imperative: 'low' (भवतु)")
-    print_table(engine.derive_all("BU", "viDiliN"), "5. Optative: 'viDiliN' (भवेत्)")
-    print_table(engine.derive_all("BU", "lfN"), "6. Conditional: 'lfN' (अभविष्यत्)")
+    print_table(engine.derive_all("BU", "luw"), "3. First Future: 'luw' (भविता)")
+    print_table(engine.derive_all("BU", "laN"), "4. Past: 'laN' (अभवत्)")
+    print_table(engine.derive_all("BU", "low"), "5. Imperative: 'low' (भवतु)")
+    print_table(engine.derive_all("BU", "viDiliN"), "6. Optative: 'viDiliN' (भवेत्)")
+    print_table(engine.derive_all("BU", "lfN"), "7. Conditional: 'lfN' (अभविष्यत्)")
 
 if __name__ == "__main__":
     main()

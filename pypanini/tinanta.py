@@ -1,7 +1,7 @@
 """
-Tiṅanta Derivation Engine supporting 6 Lakāras in SLP1:
-'lw' (Present), 'lfw' (Future), 'laN' (Past), 'low' (Imperative), 
-'viDiliN' (Optative), and 'lfN' (Conditional).
+Tiṅanta Derivation Engine supporting 7 Lakāras in SLP1:
+'lw' (Present), 'lfw' (Simple Future), 'luw' (First Future),
+'laN' (Past), 'low' (Imperative), 'viDiliN' (Optative), and 'lfN' (Conditional).
 """
 from typing import Dict, List, Tuple
 from .pratyahara import MaheshvaraSutrasSLP1
@@ -38,25 +38,54 @@ class TinantaDerivationEngine:
         raw = self.pratyayas[(purusha, vacana)]
         prat = raw
 
-        # --- 1. Base Stem Formation ---
+        # --- Base Root Guṇa & Sandhi ---
         guna_v = apply_guna(dhatu[-1])
         av = apply_sandhi_eco_ayavayavah(guna_v)
 
-        # Stems with 'sya' (3.1.33 syatAsI lflvwoH: applies to both 'lfw' and 'lfN')
+        # ---------------------------------------------------------------------
+        # 1. 'luw' (First Future: tAsi affix - 3.1.33)
+        # ---------------------------------------------------------------------
+        if lakara == "luw":
+            # 2.4.85 lutaH prathamasya qArawrasaH
+            if purusha == "prathama":
+                if vacana == "eka":
+                    # 6.4.143 weH: qA deletes 'As' from 'BavitAs' -> 'BavitA'
+                    final_form = dhatu[:-1] + av + "itA"
+                elif vacana == "dvi":
+                    # 7.4.51 tAso ryoH: drop 's' before 'r' -> 'BavitArO'
+                    final_form = dhatu[:-1] + av + "itArO"
+                elif vacana == "bahu":
+                    # 7.4.51 tAso ryoH: drop 's' before 'r' -> 'BavitAraH'
+                    final_form = dhatu[:-1] + av + "itAraH"
+            else:
+                base_tas = dhatu[:-1] + av + "itAs"
+                if raw == "sip":
+                    # 7.4.50 tAsastyorlopaH: drop 's' of 'tAs' before 's'
+                    final_form = dhatu[:-1] + av + "itAsi"
+                else:
+                    clean_prat = raw[:-1] if raw.endswith("p") else raw
+                    final_form = apply_rutva_visarga(base_tas + clean_prat)
+
+            log.append(f"Result: {dhatu} + {lakara} + {raw} -> {final_form}")
+            return final_form, log
+
+        # ---------------------------------------------------------------------
+        # 2. Stems for other 6 Lakāras
+        # ---------------------------------------------------------------------
         if lakara in ["lfw", "lfN"]:
-            base_with_it = dhatu[:-1] + av + "i"             # 7.2.35 iw-Agama
-            satva_s = apply_satva(base_with_it[-1], "s")      # 8.3.59 Satva
-            stem = base_with_it + satva_s + "ya"             # 'Bavizya'
+            base_with_it = dhatu[:-1] + av + "i"
+            satva_s = apply_satva(base_with_it[-1], "s")
+            stem = base_with_it + satva_s + "ya"
             if lakara == "lfN":
-                stem = "a" + stem                            # 6.4.71 aw-Agama ('aBavizya')
+                stem = "a" + stem
         else:
-            stem = dhatu[:-1] + av + "a"                     # 'Bava'
+            stem = dhatu[:-1] + av + "a"
             if lakara == "laN":
-                stem = "a" + stem                            # 6.4.71 aw-Agama ('aBava')
+                stem = "a" + stem
 
-        # --- 2. Endings Application ---
-
-        # Wit endings: 'lw' and 'lfw'
+        # ---------------------------------------------------------------------
+        # 3. Endings application
+        # ---------------------------------------------------------------------
         if lakara in ["lw", "lfw"]:
             if prat.startswith("J"): prat = "ant" + prat[1:]
             if prat.endswith("p"): prat = prat[:-1]
@@ -69,7 +98,6 @@ class TinantaDerivationEngine:
                 final_form = stem + prat
             final_form = apply_rutva_visarga(final_form)
 
-        # Rit past endings: 'laN' and 'lfN'
         elif lakara in ["laN", "lfN"]:
             lan_replacements = {"tas": "tAm", "Tas": "tam", "Ta": "ta", "mip": "am"}
             if raw in lan_replacements:
