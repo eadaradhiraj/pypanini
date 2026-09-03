@@ -1,10 +1,8 @@
 """
 Tiṅanta Derivation Engine supporting:
-1. Primitive (Mūla): 10 Lakāras in Kartari + Karmaṇi
-2. Ṇijanta (Causative): Kartari (BAvayati) + Karmaṇi (BAvyate)
-3. Sannanta (Desiderative): Kartari (buBUzati) + Karmaṇi (buBUzyate)
-4. Yaṅanta (Intensive Ātmanepada): boBUyate
-5. Yaṅluganta (Intensive Parasmaipada): boBavIti / boBoti
+- 10 Lakāras with Pāṇinian optionality (Vikalpa)
+- Sannanta, Ṇijanta, Yaṅanta, Yaṅluganta
+- Kartari and Karmaṇi
 """
 from typing import Dict, List, Optional, Tuple
 from .pratyahara import MaheshvaraSutrasSLP1
@@ -21,7 +19,6 @@ class TinantaDerivationEngine:
     def __init__(self):
         self.ms = MaheshvaraSutrasSLP1()
 
-        # 9 Parasmaipada affixes (3.4.78)
         self.pratyayas_parasmai = {
             ("prathama", "eka"): "tip",
             ("prathama", "dvi"): "tas",
@@ -34,11 +31,9 @@ class TinantaDerivationEngine:
             ("uttama", "bahu"): "mas",
         }
 
-        # 7.3.101 ato dīrgho yañi ('yañ' = 'yY')
         self.yan_set = self.ms.get_set("yY")
 
-    def _conjugate_at_stem_parasmai(self, stem_base: str, lakara: str, purusha: str, vacana: str) -> str:
-        """Generic conjugator for any short 'a'-ending stem in Parasmaipada."""
+    def _conjugate_at_stem_parasmai(self, stem_base: str, lakara: str, purusha: str, vacana: str) -> List[str]:
         raw = self.pratyayas_parasmai[(purusha, vacana)]
         prat = raw
 
@@ -48,7 +43,7 @@ class TinantaDerivationEngine:
             if prat.startswith("anti"): final = stem_base + prat
             elif prat[0] in self.yan_set: final = stem_base + "A" + prat
             else: final = stem_base + "a" + prat
-            return apply_rutva_visarga(final)
+            return [apply_rutva_visarga(final)]
 
         elif lakara == "laN":
             stem = "a" + stem_base + "a"
@@ -61,7 +56,37 @@ class TinantaDerivationEngine:
             if prat.startswith("a"): final = stem[:-1] + prat
             elif prat[0] in self.yan_set: final = stem[:-1] + "A" + prat
             else: final = stem + prat
-            return apply_rutva_visarga(final)
+            return [apply_rutva_visarga(final)]
+
+        elif lakara == "low":
+            stem = stem_base + "a"
+            # 7.1.35 tuhanos tātaṅṅ āśiṣy anyatarasyām (Optional tātaṅ)
+            if raw == "tip": return [stem + "tu", stem + "tAt"]
+            elif raw == "tas": return [stem + "tAm"]
+            elif raw == "Ji": return [stem[:-1] + "antu"]
+            elif raw == "sip": return [stem, stem + "tAt"]
+            elif raw == "Tas": return [stem + "tam"]
+            elif raw == "Ta": return [stem + "ta"]
+            elif purusha == "uttama":
+                prat = "ni" if raw == "mip" else raw[:-1]
+                return [stem[:-1] + "A" + prat]
+
+        elif lakara == "viDiliN":
+            stem = stem_base + "a"
+            if raw == "Ji": prat = "us"
+            elif raw == "tip": prat = "t"
+            elif raw == "sip": prat = "s"
+            elif raw == "tas": prat = "tAm"
+            elif raw == "Tas": prat = "tam"
+            elif raw == "Ta": prat = "ta"
+            elif raw == "mip": prat = "am"
+            elif raw in ["vas", "mas"]: prat = raw[:-1]
+
+            if prat.startswith("a") or prat.startswith("u"):
+                final = stem[:-1] + "ey" + prat
+            else:
+                final = stem[:-1] + "e" + prat
+            return [apply_rutva_visarga(final)]
 
         elif lakara == "lfw":
             base_lrt = stem_base + "izy"
@@ -70,25 +95,24 @@ class TinantaDerivationEngine:
             if prat.startswith("anti"): final = base_lrt + prat
             elif prat[0] in self.yan_set: final = base_lrt + "A" + prat
             else: final = base_lrt + "a" + prat
-            return apply_rutva_visarga(final)
+            return [apply_rutva_visarga(final)]
 
-        return stem_base + "a" + raw
+        return [stem_base + "a" + raw]
 
-    def _conjugate_at_stem_atmane(self, stem_base: str, lakara: str, purusha: str, vacana: str) -> str:
-        """Generic conjugator for any short 'a'-ending stem in Ātmanepada."""
+    def _conjugate_at_stem_atmane(self, stem_base: str, lakara: str, purusha: str, vacana: str) -> List[str]:
         stem = stem_base + "a"
         atmane_lw = {
-            ("prathama", "eka"): stem[:-1] + "ate",
-            ("prathama", "dvi"): stem[:-1] + "ete",
-            ("prathama", "bahu"): stem[:-1] + "ante",
-            ("madhyama", "eka"): stem[:-1] + "ase",
-            ("madhyama", "dvi"): stem[:-1] + "eTe",
-            ("madhyama", "bahu"): stem[:-1] + "aDve",
-            ("uttama", "eka"): stem[:-1] + "e",
-            ("uttama", "dvi"): stem[:-1] + "Avahe",
-            ("uttama", "bahu"): stem[:-1] + "Amahe",
+            ("prathama", "eka"): [stem[:-1] + "ate"],
+            ("prathama", "dvi"): [stem[:-1] + "ete"],
+            ("prathama", "bahu"): [stem[:-1] + "ante"],
+            ("madhyama", "eka"): [stem[:-1] + "ase"],
+            ("madhyama", "dvi"): [stem[:-1] + "eTe"],
+            ("madhyama", "bahu"): [stem[:-1] + "aDve"],
+            ("uttama", "eka"): [stem[:-1] + "e"],
+            ("uttama", "dvi"): [stem[:-1] + "Avahe"],
+            ("uttama", "bahu"): [stem[:-1] + "Amahe"],
         }
-        return atmane_lw.get((purusha, vacana), stem)
+        return atmane_lw.get((purusha, vacana), [stem])
 
     def derive(
         self,
@@ -98,113 +122,83 @@ class TinantaDerivationEngine:
         vacana: str = "eka",
         prayoga: str = "kartari",
         sanadi: Optional[str] = None,
-    ) -> Tuple[str, List[str]]:
+    ) -> Tuple[List[str], List[str]]:
         log = []
 
-        # =====================================================================
-        # 1. YAṄLUGANTA (यङ्लुगन्त - Intensive Parasmaipada: boBavIti / boBoti)
-        # =====================================================================
+        # 1. Yaṅluganta with optionality (7.3.94 yaṅo vā)
         if sanadi == "yanluganta":
-            # 7.4.82 guRo yaNlukoH (boBU) + 7.3.94 yaNo vA (Iq-Agama)
             yanluk_map = {
-                ("prathama", "eka"): "boBavIti",      # or boBoti
-                ("prathama", "dvi"): "boBUtaH",       # no guṇa (tas is apit -> Nit)
-                ("prathama", "bahu"): "boBuvati",     # 7.1.4 adabhyastaḥ + 6.4.77 uvaN
-                ("madhyama", "eka"): "boBavIzi",      # 8.3.59 Satva
-                ("madhyama", "dvi"): "boBUTaH",
-                ("madhyama", "bahu"): "boBUTa",
-                ("uttama", "eka"): "boBavImi",
-                ("uttama", "dvi"): "boBUvaH",
-                ("uttama", "bahu"): "boBUmaH",
+                ("prathama", "eka"): ["boBavIti", "boBoti"],    # 7.3.94 yaNo vA
+                ("prathama", "dvi"): ["boBUtaH"],
+                ("prathama", "bahu"): ["boBuvati"],
+                ("madhyama", "eka"): ["boBavIzi", "boBozi"],    # 7.3.94 yaNo vA
+                ("madhyama", "dvi"): ["boBUTaH"],
+                ("madhyama", "bahu"): ["boBUTa"],
+                ("uttama", "eka"): ["boBavImi", "boBomi"],      # 7.3.94 yaNo vA
+                ("uttama", "dvi"): ["boBUvaH"],
+                ("uttama", "bahu"): ["boBUmaH"],
             }
-            final_form = yanluk_map[(purusha, vacana)]
-            log.append(f"Yaṅluganta: {dhatu} -> {final_form}")
-            return final_form, log
+            return yanluk_map[(purusha, vacana)], log
 
-        # =====================================================================
-        # 2. YAṄANTA (यङन्त - Intensive Ātmanepada: boBUyate)
-        # =====================================================================
+        # 2. Yaṅanta
         if sanadi == "yananta":
-            # 3.1.22 yaN + 7.4.82 guRo yaNlukoH -> stem 'boBUy'
-            stem_base = "boBUy"
-            final_form = self._conjugate_at_stem_atmane(stem_base, lakara, purusha, vacana)
-            log.append(f"Yaṅanta: {dhatu} -> {final_form}")
-            return final_form, log
+            return self._conjugate_at_stem_atmane("boBUy", lakara, purusha, vacana), log
 
-        # =====================================================================
-        # 3. KARMAṆI / PASSIVE (for Mūla, Ṇijanta, and Sannanta)
-        # =====================================================================
+        # 3. Karmaṇi
         if prayoga == "karmani":
-            if sanadi == "nijanta":
-                stem_base = "BAvy"             # 6.4.51 Reraniwi
-            elif sanadi == "sannanta":
-                stem_base = "buBUzy"           # 6.4.48 ato lopaH + 3.1.67 yak
-            else:
-                stem_base = dhatu + "y"        # 3.1.67 yak
-            final_form = self._conjugate_at_stem_atmane(stem_base, lakara, purusha, vacana)
-            log.append(f"Karmaṇi: {dhatu} [{sanadi}] -> {final_form}")
-            return final_form, log
+            stem_base = "BAvy" if sanadi == "nijanta" else ("buBUzy" if sanadi == "sannanta" else dhatu + "y")
+            return self._conjugate_at_stem_atmane(stem_base, lakara, purusha, vacana), log
 
-        # =====================================================================
-        # 4. SANNANTA KARTARI (Desiderative Active: buBUzati)
-        # =====================================================================
+        # 4. Sannanta
         if sanadi == "sannanta":
-            stem_base = "buBUz"
-            final_form = self._conjugate_at_stem_parasmai(stem_base, lakara, purusha, vacana)
-            return final_form, log
+            return self._conjugate_at_stem_parasmai("buBUz", lakara, purusha, vacana), log
 
-        # =====================================================================
-        # 5. ṆIJANTA KARTARI (Causative Active: BAvayati)
-        # =====================================================================
+        # 5. Ṇijanta
         if sanadi == "nijanta":
-            stem_base = "BAvay"
-            final_form = self._conjugate_at_stem_parasmai(stem_base, lakara, purusha, vacana)
-            return final_form, log
+            return self._conjugate_at_stem_parasmai("BAvay", lakara, purusha, vacana), log
 
-        # =====================================================================
-        # 6. PRIMITIVE ROOT (10 Lakāras for BU)
-        # =====================================================================
+        # 6. Primitive 10 Lakāras
         raw = self.pratyayas_parasmai[(purusha, vacana)]
 
         if lakara == "luN":
             lun_map = {
-                ("prathama", "eka"): "a" + dhatu + "t",
-                ("prathama", "dvi"): "a" + dhatu + "tAm",
-                ("prathama", "bahu"): "a" + dhatu + "van",
-                ("madhyama", "eka"): "a" + dhatu + "H",
-                ("madhyama", "dvi"): "a" + dhatu + "tam",
-                ("madhyama", "bahu"): "a" + dhatu + "ta",
-                ("uttama", "eka"): "a" + dhatu + "vam",
-                ("uttama", "dvi"): "a" + dhatu + "va",
-                ("uttama", "bahu"): "a" + dhatu + "ma",
+                ("prathama", "eka"): ["a" + dhatu + "t"],
+                ("prathama", "dvi"): ["a" + dhatu + "tAm"],
+                ("prathama", "bahu"): ["a" + dhatu + "van"],
+                ("madhyama", "eka"): ["a" + dhatu + "H"],
+                ("madhyama", "dvi"): ["a" + dhatu + "tam"],
+                ("madhyama", "bahu"): ["a" + dhatu + "ta"],
+                ("uttama", "eka"): ["a" + dhatu + "vam"],
+                ("uttama", "dvi"): ["a" + dhatu + "va"],
+                ("uttama", "bahu"): ["a" + dhatu + "ma"],
             }
             return lun_map[(purusha, vacana)], log
 
         if lakara == "liw":
             lit_map = {
-                ("prathama", "eka"): "baBUva",
-                ("prathama", "dvi"): "baBUvatuH",
-                ("prathama", "bahu"): "baBUvuH",
-                ("madhyama", "eka"): "baBUviTa",
-                ("madhyama", "dvi"): "baBUvaTuH",
-                ("madhyama", "bahu"): "baBUva",
-                ("uttama", "eka"): "baBUva",
-                ("uttama", "dvi"): "baBUviva",
-                ("uttama", "bahu"): "baBUvima",
+                ("prathama", "eka"): ["baBUva"],
+                ("prathama", "dvi"): ["baBUvatuH"],
+                ("prathama", "bahu"): ["baBUvuH"],
+                ("madhyama", "eka"): ["baBUviTa"],
+                ("madhyama", "dvi"): ["baBUvaTuH"],
+                ("madhyama", "bahu"): ["baBUva"],
+                ("uttama", "eka"): ["baBUva"],
+                ("uttama", "dvi"): ["baBUviva"],
+                ("uttama", "bahu"): ["baBUvima"],
             }
             return lit_map[(purusha, vacana)], log
 
         if lakara == "ASIrliN":
             asirlin_map = {
-                ("prathama", "eka"): dhatu + "yAt",
-                ("prathama", "dvi"): dhatu + "yAstAm",
-                ("prathama", "bahu"): dhatu + "yAsuH",
-                ("madhyama", "eka"): dhatu + "yAH",
-                ("madhyama", "dvi"): dhatu + "yAstam",
-                ("madhyama", "bahu"): dhatu + "yAsta",
-                ("uttama", "eka"): dhatu + "yAsam",
-                ("uttama", "dvi"): dhatu + "yAsva",
-                ("uttama", "bahu"): dhatu + "yAsma",
+                ("prathama", "eka"): [dhatu + "yAt"],
+                ("prathama", "dvi"): [dhatu + "yAstAm"],
+                ("prathama", "bahu"): [dhatu + "yAsuH"],
+                ("madhyama", "eka"): [dhatu + "yAH"],
+                ("madhyama", "dvi"): [dhatu + "yAstam"],
+                ("madhyama", "bahu"): [dhatu + "yAsta"],
+                ("uttama", "eka"): [dhatu + "yAsam"],
+                ("uttama", "dvi"): [dhatu + "yAsva"],
+                ("uttama", "bahu"): [dhatu + "yAsma"],
             }
             return asirlin_map[(purusha, vacana)], log
 
@@ -213,16 +207,16 @@ class TinantaDerivationEngine:
 
         if lakara == "luw":
             if purusha == "prathama":
-                if vacana == "eka": final_form = dhatu[:-1] + av + "itA"
-                elif vacana == "dvi": final_form = dhatu[:-1] + av + "itArO"
-                elif vacana == "bahu": final_form = dhatu[:-1] + av + "itAraH"
+                if vacana == "eka": final = [dhatu[:-1] + av + "itA"]
+                elif vacana == "dvi": final = [dhatu[:-1] + av + "itArO"]
+                elif vacana == "bahu": final = [dhatu[:-1] + av + "itAraH"]
             else:
                 base_tas = dhatu[:-1] + av + "itAs"
-                if raw == "sip": final_form = dhatu[:-1] + av + "itAsi"
+                if raw == "sip": final = [dhatu[:-1] + av + "itAsi"]
                 else:
                     clean_prat = raw[:-1] if raw.endswith("p") else raw
-                    final_form = apply_rutva_visarga(base_tas + clean_prat)
-            return final_form, log
+                    final = [apply_rutva_visarga(base_tas + clean_prat)]
+            return final, log
 
         if lakara in ["lfw", "lfN"]:
             base_with_it = dhatu[:-1] + av + "i"
@@ -237,10 +231,10 @@ class TinantaDerivationEngine:
         if lakara in ["lw", "lfw"]:
             if prat.startswith("J"): prat = "ant" + prat[1:]
             if prat.endswith("p"): prat = prat[:-1]
-            if prat.startswith("anti"): final_form = stem[:-1] + prat
-            elif prat[0] in self.yan_set: final_form = stem[:-1] + "A" + prat
-            else: final_form = stem + prat
-            final_form = apply_rutva_visarga(final_form)
+            if prat.startswith("anti"): final = stem[:-1] + prat
+            elif prat[0] in self.yan_set: final = stem[:-1] + "A" + prat
+            else: final = stem + prat
+            return [apply_rutva_visarga(final)], log
 
         elif lakara in ["laN", "lfN"]:
             lan_replacements = {"tas": "tAm", "Tas": "tam", "Ta": "ta", "mip": "am"}
@@ -249,21 +243,22 @@ class TinantaDerivationEngine:
             elif raw in ["tip", "sip"]: prat = raw[:-2] if raw.endswith("p") else raw[:-1]
             elif raw in ["vas", "mas"]: prat = raw[:-1]
 
-            if prat.startswith("a"): final_form = stem[:-1] + prat
-            elif prat[0] in self.yan_set: final_form = stem[:-1] + "A" + prat
-            else: final_form = stem + prat
-            final_form = apply_rutva_visarga(final_form)
+            if prat.startswith("a"): final = stem[:-1] + prat
+            elif prat[0] in self.yan_set: final = stem[:-1] + "A" + prat
+            else: final = stem + prat
+            return [apply_rutva_visarga(final)], log
 
         elif lakara == "low":
-            if raw == "tip": prat = "tu"; final_form = stem + prat
-            elif raw == "tas": prat = "tAm"; final_form = stem + prat
-            elif raw == "Ji": prat = "antu"; final_form = stem[:-1] + prat
-            elif raw == "sip": final_form = stem
-            elif raw == "Tas": prat = "tam"; final_form = stem + prat
-            elif raw == "Ta": prat = "ta"; final_form = stem + prat
+            # 7.1.35 tuhanos tātaṅ (Vikalpa)
+            if raw == "tip": return [stem + "tu", stem + "tAt"], log
+            elif raw == "tas": return [stem + "tAm"], log
+            elif raw == "Ji": return [stem[:-1] + "antu"], log
+            elif raw == "sip": return [stem, stem + "tAt"], log
+            elif raw == "Tas": return [stem + "tam"], log
+            elif raw == "Ta": return [stem + "ta"], log
             elif purusha == "uttama":
                 prat = "ni" if raw == "mip" else raw[:-1]
-                final_form = stem[:-1] + "A" + prat
+                return [stem[:-1] + "A" + prat], log
 
         elif lakara == "viDiliN":
             if raw == "Ji": prat = "us"
@@ -279,9 +274,9 @@ class TinantaDerivationEngine:
                 combined = stem[:-1] + "ey" + prat
             else:
                 combined = stem[:-1] + "e" + prat
-            final_form = apply_rutva_visarga(combined)
+            return [apply_rutva_visarga(combined)], log
 
-        return final_form, log
+        return [stem], log
 
     def derive_all(
         self,
@@ -293,6 +288,6 @@ class TinantaDerivationEngine:
         table = {}
         for p in ["prathama", "madhyama", "uttama"]:
             for v in ["eka", "dvi", "bahu"]:
-                form, _ = self.derive(dhatu, lakara, p, v, prayoga, sanadi)
-                table[(p, v)] = form
+                forms, _ = self.derive(dhatu, lakara, p, v, prayoga, sanadi)
+                table[(p, v)] = " / ".join(forms)
         return table
