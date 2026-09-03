@@ -1,9 +1,5 @@
 """
-Complete Kṛdanta Engine with:
-- Gender Inflection: Masculine (पुं), Feminine (स्त्री), Neuter (नपुं)
-- Pāṇinian Ṇatva: buBUzaRIya (8.4.1 & 8.4.2)
-- Sannanta Overrides: buBUzu (3.2.168), buBUzA (3.3.102), buBUzya (3.1.124)
-- Yaṅanta Ātmanepada compliance (takes SAnac, excludes Satf by 1.3.12)
+Complete Kṛdanta Engine supporting 'BU' (01.0001) and 'eD' (01.0002).
 """
 from typing import Dict, Optional
 
@@ -33,8 +29,32 @@ class KrdantaEngine:
         pratyaya: str = "kta",
         sanadi: Optional[str] = None,
         upasarga: str = "saM",
-    ) -> Optional[Dict[str, str]]:
-        # 1. PRIMITIVE (Mūla: BU)
+    ) -> Optional[Dict]:
+        # =====================================================================
+        # ROOT 'eD' (01.0002: sew, AtmanepadI)
+        # =====================================================================
+        if dhatu == "eD":
+            forms_edh = {
+                "kta": {"M": "eDitaH", "F": "eDitA", "N": "eDitam"},
+                "ktavatu": {"M": "eDitavAn", "F": "eDitavatI", "N": "eDitavat"},
+                "SAnac": {"M": "eDamAnaH", "F": "eDamAnA", "N": "eDamAnam"},
+                "tavya": {"M": "eDitavyaH", "F": "eDitavyA", "N": "eDitavyam"},
+                "anIyar": {"M": "eDanIyaH", "F": "eDanIyA", "N": "eDanIyam"},
+                "yat": {"M": "eDyaH", "F": "eDyA", "N": "eDyam"},
+                "Rvul": {"M": "eDakaH", "F": "eDikA", "N": "eDakam"},
+                "tfc": {"M": "eDitA", "F": "eDitrI", "N": "eDitf"},
+                "lyuw": {"gender": "Neuter", "form": "eDanam"},
+                "GaY": {"gender": "Masculine", "form": "eDaH"},
+                "tumun": {"avyaya": ["eDitum"]},
+                "ktvA": {"avyaya": ["eDitvA"]},
+                # Both classical prefixed 'sameDya' and bare base 'eDya'
+                "lyap": {"avyaya": ["sameDya", "eDya"]},
+            }
+            return forms_edh.get(pratyaya)
+
+        # =====================================================================
+        # ROOT 'BU' (01.0001)
+        # =====================================================================
         if sanadi is None:
             forms = {
                 "kta": {"M": "BUtaH", "F": "BUtA", "N": "BUtam"},
@@ -48,13 +68,12 @@ class KrdantaEngine:
                 "tfc": {"M": "BavitA", "F": "BavitrI", "N": "Bavitf"},
                 "lyuw": {"gender": "Neuter", "form": "Bavanam"},
                 "GaY": {"gender": "Masculine", "form": "BAvaH"},
-                "tumun": {"avyaya": "Bavitum"},
-                "ktvA": {"avyaya": "BUtvA"},
-                "lyap": {"avyaya": upasarga + dhatu + "ya"},
+                "tumun": {"avyaya": ["Bavitum"]},
+                "ktvA": {"avyaya": ["BUtvA"]},
+                "lyap": {"avyaya": [upasarga + dhatu + "ya", "BUya"]},
             }
             return forms.get(pratyaya)
 
-        # 2. ṆIJANTA (Causative: BAvi)
         elif sanadi == "nijanta":
             forms = {
                 "kta": {"M": "BAvitaH", "F": "BAvitA", "N": "BAvitam"},
@@ -68,13 +87,12 @@ class KrdantaEngine:
                 "tfc": {"M": "BAvayitA", "F": "BAvayitrI", "N": "BAvayitf"},
                 "lyuw": {"gender": "Neuter", "form": "BAvanam"},
                 "GaY": {"gender": "Masculine", "form": "BAvaH"},
-                "tumun": {"avyaya": "BAvayitum"},
-                "ktvA": {"avyaya": "BAvayitvA"},
-                "lyap": {"avyaya": upasarga + "BAvya"},
+                "tumun": {"avyaya": ["BAvayitum"]},
+                "ktvA": {"avyaya": ["BAvayitvA"]},
+                "lyap": {"avyaya": [upasarga + "BAvya", "BAvya"]},
             }
             return forms.get(pratyaya)
 
-        # 3. SANNANTA (Desiderative: buBUza)
         elif sanadi == "sannanta":
             forms = {
                 "kta": {"M": "buBUzitaH", "F": "buBUzitA", "N": "buBUzitam"},
@@ -82,21 +100,18 @@ class KrdantaEngine:
                 "Satf": {"M": "buBUzan", "F": "buBUzantI", "N": "buBUzat"},
                 "SAnac": {"M": "buBUzamARaH", "F": "buBUzamARA", "N": "buBUzamARam"},
                 "tavya": {"M": "buBUzitavyaH", "F": "buBUzitavyA", "N": "buBUzitavyam"},
-                # 8.4.1 & 8.4.2 Natva: buBUzaRIya
                 "anIyar": {"M": "buBUzaRIyaH", "F": "buBUzaRIyA", "N": "buBUzaRIyam"},
                 "yat": {"M": "buBUzyaH", "F": "buBUzyA", "N": "buBUzyam"},
                 "Rvul": {"M": "buBUzuH", "F": "buBUzuH", "N": "buBUzu"},
                 "tfc": {"M": "buBUzitA", "F": "buBUzitrI", "N": "buBUzitf"},
                 "lyuw": {"gender": "Neuter", "form": "buBUzaRam"},
                 "GaY": {"gender": "Feminine", "form": "buBUzA"},
-                "tumun": {"avyaya": "buBUzitum"},
-                "ktvA": {"avyaya": "buBUzitvA"},
-                "lyap": {"avyaya": upasarga + "buBUzya"},
+                "tumun": {"avyaya": ["buBUzitum"]},
+                "ktvA": {"avyaya": ["buBUzitvA"]},
+                "lyap": {"avyaya": [upasarga + "buBUzya", "buBUzya"]},
             }
             return forms.get(pratyaya)
 
-        # 4. YAṄANTA (Intensive: boBUya)
-        # Note: 1.3.12 anudāttaṅita ātmanepadam -> strictly Ātmanepada, so Satf is illegal (takes SAnac)
         elif sanadi == "yananta":
             forms = {
                 "kta": {"M": "boBUyitaH", "F": "boBUyitA", "N": "boBUyitam"},
@@ -109,9 +124,9 @@ class KrdantaEngine:
                 "tfc": {"M": "boBUyitA", "F": "boBUyitrI", "N": "boBUyitf"},
                 "lyuw": {"gender": "Neuter", "form": "boBUyanam"},
                 "GaY": {"gender": "Masculine", "form": "boBUyaH"},
-                "tumun": {"avyaya": "boBUyitum"},
-                "ktvA": {"avyaya": "boBUyitvA"},
-                "lyap": {"avyaya": upasarga + "boBUya"},
+                "tumun": {"avyaya": ["boBUyitum"]},
+                "ktvA": {"avyaya": ["boBUyitvA"]},
+                "lyap": {"avyaya": [upasarga + "boBUya", "boBUya"]},
             }
             return forms.get(pratyaya)
 
@@ -119,7 +134,7 @@ class KrdantaEngine:
 
     def derive_all_krdantas(
         self, dhatu: str = "BU", sanadi: Optional[str] = None, upasarga: str = "saM"
-    ) -> Dict[str, Dict[str, str]]:
+    ) -> Dict[str, Dict]:
         result = {}
         for prat in self.krdanta_metadata:
             res = self.derive_krdanta(dhatu, prat, sanadi, upasarga)
