@@ -134,7 +134,7 @@ class KrdantaEngine:
                 return c + "ay"
             def _sannanta_sec(c):
                 if c in ("skund","Svind"):
-                    return "cuskundiz" if c=="skund" else "Suskundiz"
+                    return "cuskundiz" if c=="skund" else "SiSvindiz"
                 is_vowel_init = c[0] in SLP1_VOWELS if c else False
                 is_vowel_final = c and c[-1] in SLP1_VOWELS
                 if is_vowel_init:
@@ -274,11 +274,12 @@ class KrdantaEngine:
                 if pratyaya == "lyap":
                     return {"avyaya": ["pra"+sec+"ya", sec+"ya"]} if sec.endswith("iz") else {"avyaya": ["pra"+sec+"ya", sec+"ya"]}
             if sanadi == "yananta":
-                # skudi/Svidi yan with o (coskund) not A (cAskund)
-                if sec in ("cAskundya","SoSvindya"):
-                    sec = sec.replace("cAskundya","coskundya").replace("SoSvindya","Soskundya") if sec in ("cAskundya","SoSvindya") else sec
-                    # For krdanta, base_no_ya should be coskund, not cAskund
-                    base_no_ya = "coskund" if sec=="coskundya" else "Soskund" if sec=="Soskundya" else sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya"):
+                    if sec in ("cAskundya","coskundya"):
+                        sec = "coskundya"
+                    elif sec in ("SoSvindya","SeSvindya"):
+                        sec = "SeSvindya"
+                    base_no_ya = "coskund" if sec=="coskundya" else "SeSvind" if sec=="SeSvindya" else sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                 else:
                     base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                 if pratyaya == "yat": return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}

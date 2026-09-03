@@ -451,17 +451,17 @@ class TinantaDerivationEngine:
                 }
             else:
                 variants = {
-                    ("prathama","eka"): ["Soskunti", "Soskuntti"],
-                    ("prathama","dvi"): ["SoskuntaH"],
-                    ("prathama","bahu"): ["Soskunti"],
-                    ("madhyama","eka"): ["Soskuntsi"],
-                    ("madhyama","dvi"): ["SoskuntaH"],
+                    ("prathama","eka"): ["SiSvindti", "SiSvindtti"],
+                    ("prathama","dvi"): ["SiSvindaH"],
+                    ("prathama","bahu"): ["SiSvindti"],
+                    ("madhyama","eka"): ["SiSvindtsi"],
+                    ("madhyama","dvi"): ["SiSvindaH"],
                     ("madhyama","bahu"): ["Soskunta"],
-                    ("uttama","eka"): ["SoskundImi"],
-                    ("uttama","dvi"): ["SoskundvaH"],
-                    ("uttama","bahu"): ["SoskundmaH"],
+                    ("uttama","eka"): ["SiSvindImi"],
+                    ("uttama","dvi"): ["SiSvindvaH"],
+                    ("uttama","bahu"): ["SiSvindmaH"],
                 }
-            return variants.get((purusha,vacana), ["coskunti" if clean=="skund" else "Soskunti"]), log
+            return variants.get((purusha,vacana), ["coskunti" if clean=="skund" else "SiSvindti"]), log
         # yanluganta: only lw is validated, keep BU map, generic for others
         if sanadi == "yanluganta":
             if clean == "BU":
@@ -623,8 +623,10 @@ class TinantaDerivationEngine:
                 if clean == "daD":
                     alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                     cands.append(alt[(purusha,vacana)])
-                if clean in ("skund","Svind"):
-                    if clean == "skund":
+                if clean in ("skund","Svind","skudi","Svidi"):
+                    # Normalize to with_n for handling
+                    clean_n = "skund" if clean in ("skudi","skund") else "Svind"
+                    if clean_n == "skund":
                         alt2 = {("prathama","eka"):"cuskunde",("prathama","dvi"):"cuskundAte",("prathama","bahu"):"cuskundire",("madhyama","eka"):"cuskundize",("madhyama","dvi"):"cuskundATe",("madhyama","bahu"):"cuskundiDve",("uttama","eka"):"cuskunde",("uttama","dvi"):"cuskundivahe",("uttama","bahu"):"cuskundimahe"}
                     else:
                         alt2 = {("prathama","eka"):"SiSvinde",("prathama","dvi"):"SiSvindAte",("prathama","bahu"):"SiSvindire",("madhyama","eka"):"SiSvindize",("madhyama","dvi"):"SiSvindATe",("madhyama","bahu"):"SiSvindiDve",("uttama","eka"):"SiSvinde",("uttama","dvi"):"SiSvindivahe",("uttama","bahu"):"SiSvindimahe"}
