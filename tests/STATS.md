@@ -23,7 +23,7 @@ OK
 ### 01.0001
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0001.json  |  dhatu=BU (BU sattAyAm)
+VALIDATION  skt-morph-data/01/01.0001.json  |  dhatu=BU (BU sattAyAm)
 ===========================================================================
 ✓ tokens: 41540  engine: generative (no hardcoded dict)
 
@@ -146,7 +146,7 @@ GRAND  895/895  (100.0%)  ✓ ALL MATCHED
 ### 01.0002
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0002.json  |  dhatu=eD (eDa~ vfdDO)
+VALIDATION  skt-morph-data/01/01.0002.json  |  dhatu=eD (eDa~ vfdDO)
 ===========================================================================
 ✓ tokens: 720  engine: generative (no hardcoded dict)
 
@@ -237,7 +237,7 @@ GRAND  627/627  (100.0%)  ✓ ALL MATCHED
 ### 01.0003
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0003.json  |  dhatu=sparD (sparDa~ saNGarze)
+VALIDATION  skt-morph-data/01/01.0003.json  |  dhatu=sparD (sparDa~ saNGarze)
 ===========================================================================
 ✓ tokens: 1879  engine: generative (no hardcoded dict)
 
@@ -360,7 +360,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0004
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0004.json  |  dhatu=gAD (gADf~ pratizWAlipsayorgranTe ca)
+VALIDATION  skt-morph-data/01/01.0004.json  |  dhatu=gAD (gADf~ pratizWAlipsayorgranTe ca)
 ===========================================================================
 ✓ tokens: 959  engine: generative (no hardcoded dict)
 
@@ -483,7 +483,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0005
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0005.json  |  dhatu=bAD (bADf~ loqane, rowane)
+VALIDATION  skt-morph-data/01/01.0005.json  |  dhatu=bAD (bADf~ loqane, rowane)
 ===========================================================================
 ✓ tokens: 13239  engine: generative (no hardcoded dict)
 
@@ -606,7 +606,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0006
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0006.json  |  dhatu=nAD (nADf~ yAcYopatApESvaryASIzzu)
+VALIDATION  skt-morph-data/01/01.0006.json  |  dhatu=nAD (nADf~ yAcYopatApESvaryASIzzu)
 ===========================================================================
 ✓ tokens: 957  engine: generative (no hardcoded dict)
 
@@ -729,7 +729,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0007
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0007.json  |  dhatu=nAT (nATf~ yAcYopatApESvaryASIzzu)
+VALIDATION  skt-morph-data/01/01.0007.json  |  dhatu=nAT (nATf~ yAcYopatApESvaryASIzzu)
 ===========================================================================
 ✓ tokens: 2209  engine: generative (no hardcoded dict)
 
@@ -852,7 +852,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0008
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0008.json  |  dhatu=daD (daDa~ DAraRe)
+VALIDATION  skt-morph-data/01/01.0008.json  |  dhatu=daD (daDa~ DAraRe)
 ===========================================================================
 ✓ tokens: 1146  engine: generative (no hardcoded dict)
 
@@ -975,7 +975,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0009
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0009.json  |  dhatu=skudi (skudi~ ApravaRe)
+VALIDATION  skt-morph-data/01/01.0009.json  |  dhatu=skudi (skudi~ ApravaRe)
 ===========================================================================
 ✓ tokens: 975  engine: generative (no hardcoded dict)
 
@@ -1098,7 +1098,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0010
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |  dhatu=Svidi (Svidi~ SvEtye)
+VALIDATION  skt-morph-data/01/01.0010.json  |  dhatu=Svidi (Svidi~ SvEtye)
 ===========================================================================
 ✓ tokens: 975  engine: generative (no hardcoded dict)
 
@@ -1221,7 +1221,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0011
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0011.json  |  dhatu=vadi (vadi~ aBivAdanastutyoH)
+VALIDATION  skt-morph-data/01/01.0011.json  |  dhatu=vadi (vadi~ aBivAdanastutyoH)
 ===========================================================================
 ✓ tokens: 3764  engine: generative (no hardcoded dict)
 

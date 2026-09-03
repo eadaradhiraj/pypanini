@@ -38,7 +38,7 @@ class KrdantaEngine:
         self._cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True}
         self._cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True}
         try:
-            base = Path("/home/edhiraj/Documents/projs/skt-morph-data/data/01")
+            base = Path("skt-morph-data/01")
             if base.exists():
                 for jf in glob.glob(str(base / "*.json")):
                     try:

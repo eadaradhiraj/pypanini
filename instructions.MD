@@ -2,7 +2,7 @@
 
 ## 1. Core Principle — Wholly Generative
 - **No per-dhātu hardcoded dictionaries.** Engine must derive from `pada` / `sew` / `gaNa` / `vowel-initial` only.
-- Auto-load `OpadeSikasvarUpam` / `padam` / `iqAgamayogyatA` / `gaRaH` from `skt-morph-data/data/01/*.json` (absolute `SKT_MORPH_DATA` or relative `../skt-morph-data`). Fallback inference: vowel-initial → `Atmanepadi`, else `parasmEpadi`, `sew=True`, `BvAdiH`.
+- Auto-load `OpadeSikasvarUpam` / `padam` / `iqAgamayogyatA` / `gaRaH` from `skt-morph-data/01/*.json` (absolute `SKT_MORPH_DATA` or relative `../skt-morph-data`). Fallback inference: vowel-initial → `Atmanepadi`, else `parasmEpadi`, `sew=True`, `BvAdiH`.
 - `skt-morph-data` JSON is **read-only cross-check**, never imported for generation. All `SLP1` internal (no Devanagari).
 - Keep `phonetics`/`pratyahara` pure, typed, unit-testable (no `I/O`, no `dhatu` logic).
 

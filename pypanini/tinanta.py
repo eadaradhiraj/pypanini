@@ -49,7 +49,7 @@ class TinantaDerivationEngine:
         self._dhatu_cache_by_id = {}
         # try auto-load from skt-morph-data
         try:
-            base = Path("/home/edhiraj/Documents/projs/skt-morph-data/data/01")
+            base = Path("skt-morph-data/01")
             if base.exists():
                 for jf in glob.glob(str(base / "*.json")):
                     try:
