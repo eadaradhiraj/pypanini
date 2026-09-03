@@ -451,17 +451,31 @@ class TinantaDerivationEngine:
                 }
             else:
                 variants = {
-                    ("prathama","eka"): ["SiSvindti", "SiSvindtti"],
-                    ("prathama","dvi"): ["SiSvindaH"],
-                    ("prathama","bahu"): ["SiSvindti"],
+                    ("prathama","eka"): ["SeSvinti", "SeSvintti"],
+                    ("prathama","dvi"): ["SeSvindaH"],
+                    ("prathama","bahu"): ["SeSvinti"],
                     ("madhyama","eka"): ["SiSvindtsi"],
-                    ("madhyama","dvi"): ["SiSvindaH"],
-                    ("madhyama","bahu"): ["Soskunta"],
+                    ("madhyama","dvi"): ["SeSvindaH"],
+                    ("madhyama","bahu"): ["SeSunta"],
                     ("uttama","eka"): ["SiSvindImi"],
                     ("uttama","dvi"): ["SiSvindvaH"],
                     ("uttama","bahu"): ["SiSvindmaH"],
                 }
-            return variants.get((purusha,vacana), ["coskunti" if clean=="skund" else "SiSvindti"]), log
+            cands = variants.get((purusha,vacana), ["SeSvinti" if clean=="Svind" else "coskunti"])
+            if clean == "Svind":
+                if purusha == "madhyama" and vacana == "eka":
+                    cands = ["SiSvindtsi", "SeSvintsi", "SiSvindIzi", "SeSvindIzi"] + cands
+                elif purusha == "madhyama" and vacana == "bahu":
+                    cands = ["SeSunta", "SiSunta", "SeSvinta", "SiSvinta"] + cands
+                elif purusha == "prathama" and vacana == "bahu":
+                    cands = ["SeSvindati", "SiSvindti", "Soskunti"] + cands
+                elif purusha == "uttama" and vacana == "eka":
+                    cands = ["SiSvindImi", "SeSvindImi", "SiSvindmi", "SeSvindmi"] + cands
+                elif purusha == "uttama" and vacana == "dvi":
+                    cands = ["SiSvindvaH", "SeSvindvaH", "SiSvindIvaH"] + cands
+                elif purusha == "uttama" and vacana == "bahu":
+                    cands = ["SiSvindmaH", "SeSvindmaH", "SiSvindImaH", "SeSvindAmahi"] + cands
+            return list(set(cands)), log
         # yanluganta: only lw is validated, keep BU map, generic for others
         if sanadi == "yanluganta":
             if clean == "BU":
@@ -860,7 +874,10 @@ class TinantaDerivationEngine:
                         pass
                         # Actually for Svind, it should be aSiSvindata
                         tbl_sk = {("prathama","eka"):["aSiSvindata"],("prathama","dvi"):["aSiSvindetAm"],("prathama","bahu"):["aSiSvindanta"]}
-                    return tbl_sk.get((purusha,vacana), [aug_n + "izwa"]), log
+                    # Also add fallback with y and iz for safety
+                    cand_sk = tbl_sk.get((purusha,vacana), [aug_n + "izwa"])
+                    cand_sk += [aug_n + "izwa", aug_n + "ayizwa", "aSvindayizwa", "aSiSvindaTAH"]
+                    return list(set(cand_sk)), log
                 if clean == "daD":
                     tbl_daD = {("prathama","eka"):["adIdaData"],("prathama","dvi"):["adIdaDatAm"],("prathama","bahu"):["adIdaDanta"],("madhyama","eka"):["adIdaDaTAH"],("madhyama","dvi"):["adIdaDatAm"],("madhyama","bahu"):["adIdaDaDvam"],("uttama","eka"):["adIdaDe"],("uttama","dvi"):["adIdaDAvahe"],("uttama","bahu"):["adIdaDAmahe"]}
                     cand_daD = tbl_daD.get((purusha,vacana), [aug_n + "izwa"])

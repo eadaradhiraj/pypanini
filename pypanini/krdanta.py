@@ -274,12 +274,12 @@ class KrdantaEngine:
                 if pratyaya == "lyap":
                     return {"avyaya": ["pra"+sec+"ya", sec+"ya"]} if sec.endswith("iz") else {"avyaya": ["pra"+sec+"ya", sec+"ya"]}
             if sanadi == "yananta":
-                if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya"):
+                if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
                         sec = "coskundya"
-                    elif sec in ("SoSvindya","SeSvindya"):
+                    elif sec in ("SoSvindya","SeSvindya","sASvindya"):
                         sec = "SeSvindya"
-                    base_no_ya = "coskund" if sec=="coskundya" else "SeSvind" if sec=="SeSvindya" else sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                    base_no_ya = "coskund" if sec in ("coskundya","cAskundya") else "SeSvind" if sec in ("SeSvindya","sASvindya","SoSvindya") else sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                 else:
                     base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                 if pratyaya == "yat": return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}
