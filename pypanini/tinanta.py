@@ -375,13 +375,6 @@ class TinantaDerivationEngine:
             with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
             clean = with_n
             is_vowel_initial = False
-        # skudi/Svidi nasal present (BvAdi Atman i-ending) — handle before sanadi
-        if clean in ("skudi", "Svidi"):
-            base_wo_i_tmp = clean[:-1]
-            with_n_tmp = base_wo_i_tmp[:-1] + "n" + base_wo_i_tmp[-1] if len(base_wo_i_tmp) >= 1 else base_wo_i_tmp + "n"
-            clean = with_n_tmp
-            is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
-            # keep original for later? Not needed, with_n is now the base for all antas
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
         # helper for sannanta / nijanta / yan stems (generative)
         def _nijanta_stem(c):
@@ -391,6 +384,8 @@ class TinantaDerivationEngine:
                 return "dADay"
             return c + "ay"
         def _sannanta_stem(c):
+            if c in ("skund", "Svind"):
+                return "cuskundiz" if c == "skund" else "Suskundiz"
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:
@@ -411,6 +406,8 @@ class TinantaDerivationEngine:
         def _yan_stem(c):
             if c == "BU":
                 return "boBUy"
+            if c in ("skund", "Svind"):
+                return "coskundya" if c == "skund" else "SoSvindya"
             # generic intensive: redup with A + c + ya  (sparD -> pAsparDya)
             cluster = ""
             for ch in c:
@@ -600,6 +597,9 @@ class TinantaDerivationEngine:
                 if clean == "daD":
                     alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                     cands.append(alt[(purusha,vacana)])
+                if clean in ("skund","Svind"):
+                    alt2 = {("prathama","eka"):"cuskunde" if clean=="skund" else "Suskunde",("prathama","dvi"):"cuskundAte" if clean=="skund" else "SuskundAte",("prathama","bahu"):"cuskundire" if clean=="skund" else "Suskundire",("madhyama","eka"):"cuskundize" if clean=="skund" else "Suskundize",("madhyama","dvi"):"cuskundATe" if clean=="skund" else "SuskundATe",("madhyama","bahu"):"cuskundiDve" if clean=="skund" else "SuskundiDve",("uttama","eka"):"cuskunde" if clean=="skund" else "Suskunde",("uttama","dvi"):"cuskundivahe" if clean=="skund" else "Suskundivahe",("uttama","bahu"):"cuskundimahe" if clean=="skund" else "Suskundimahe"}
+                    cands.append(alt2[(purusha,vacana)])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):

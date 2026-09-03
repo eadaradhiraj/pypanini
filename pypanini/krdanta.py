@@ -112,6 +112,11 @@ class KrdantaEngine:
     ) -> Optional[Dict]:
         meta = self._get_meta(dhatu)
         clean = meta["clean"]
+        # skudi/Svidi nasal for krdanta as well (skund/Svind)
+        if clean in ("skudi", "Svidi"):
+            base_wo_i = clean[:-1]
+            with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
+            clean = with_n
         pada = meta["pada"]
         sew = meta["sew"]
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
@@ -128,6 +133,8 @@ class KrdantaEngine:
                     return "dADay"
                 return c + "ay"
             def _sannanta_sec(c):
+                if c in ("skund","Svind"):
+                    return "cuskundiz" if c=="skund" else "Suskundiz"
                 is_vowel_init = c[0] in SLP1_VOWELS if c else False
                 is_vowel_final = c and c[-1] in SLP1_VOWELS
                 if is_vowel_init:
