@@ -2,7 +2,7 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-03T14:33:21.020083Z
+Date: 2026-09-03T16:04:05.773003Z
 Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
@@ -1229,114 +1229,480 @@ VALIDATION  skt-morph-data/01/01.0011.json  |  dhatu=vadi (vadi~ aBivAdanastutyo
    antas: ting, yak, san, san_yak, nich, nich_yak, yang, yang_yak, yangluk, yangluk_yak
 
   [ting] sanadi=None prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vadayate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'vavadie')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'vadayitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'vadayizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'vadayatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'avadayata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'vadayeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'vadiizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'avadiizwa')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avadayizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [yak] sanadi=None prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vadiyate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'vavadie')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'vadayitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'vadayizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'vadiyatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'avadiyata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'vadiyeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'vadayizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'avadayi')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avadayizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [san] sanadi=sannanta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vivadizate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'vivadizAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'vivadizitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'vivadizizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'vivadizatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'avivadizata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'vivadizeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'vivadizizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'avivadizizwa')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avivadizizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [san_yak] sanadi=sannanta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vivadizyate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'vivadizAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'vivadizitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'vivadizizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'vivadizyatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'avivadizyata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'vivadizyeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'vivadizizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'avivadizi')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avivadizizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [nich] sanadi=nijanta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vadAyayati')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'vadAyayAYcakAra')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'vadAyayitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'vadAyayizyati')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'vadAyayatu')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'avadAyayat')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'vadAyayet')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'vadAyayyAt')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'avadAyayizwa')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avadAyayizyat')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [nich_yak] sanadi=nijanta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vadAyyate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'vadAyayAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'vadAyitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'vadAyayizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'vadAyyatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'avadAyyata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'vadAyyeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'vadAyayizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'avadAyi')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avadAyayizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [yang] sanadi=yananta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vAvadiyate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'vAvadiAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'vAvadiitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'vAvadiizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'vAvadiyatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'avAvadiyata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'vAvadiyeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'vAvadizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'avAvadiizwa')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avAvadiizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [yang_yak] sanadi=yananta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vAvadiyate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'vAvadiAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'vAvadiitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'vAvadiizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'vAvadiyatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'avAvadiyata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'vAvadiyeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'vAvadizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'avAvadiizwa')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avAvadiizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [yangluk] sanadi=yanluganta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vAvadiaH')
+    ✓ lw        9/ 9
 
   [yangluk_yak] sanadi=yanluganta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vAvadiaH')
+    ✓ lw        9/ 9
 
 -- krdanta (all antas) --
-  ⚠ krut         (mUla      )  0/29
-  ⚠ san_krut     (sannanta  )  0/29
-  ⚠ nich_krut    (nijanta   )  0/29
-  ⚠ yang_krut    (yananta   )  0/29
-  ⚠ yangluk_krut (yanluganta)  0/29
+  ✓ krut         (mUla      ) 29/29
+  ✓ san_krut     (sannanta  ) 29/29
+  ✓ nich_krut    (nijanta   ) 29/29
+  ✓ yang_krut    (yananta   ) 29/29
+  ✓ yangluk_krut (yanluganta) 29/29
 ---------------------------------------------------------------------------
-GRAND  0/883  (0.0%)  ⚠ missing
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
+===========================================================================
+```
+### 01.0012
+```
+===========================================================================
+VALIDATION  skt-morph-data/01/01.0012.json  |  dhatu=Badi (Badi~ kalyARe suKe ca)
+===========================================================================
+✓ tokens: 976  engine: generative (no hardcoded dict)
+
+-- tinanta (10 antas × 10 lakaras × 9) --
+   antas: ting, yak, san, san_yak, nich, nich_yak, yang, yang_yak, yangluk, yangluk_yak
+
+  [ting] sanadi=None prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yak] sanadi=None prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san] sanadi=sannanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san_yak] sanadi=sannanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich] sanadi=nijanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich_yak] sanadi=nijanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang] sanadi=yananta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang_yak] sanadi=yananta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yangluk] sanadi=yanluganta prayoga=kartari
+    ✓ lw        9/ 9
+
+  [yangluk_yak] sanadi=yanluganta prayoga=karmani
+    ✓ lw        9/ 9
+
+-- krdanta (all antas) --
+  ✓ krut         (mUla      ) 29/29
+  ✓ san_krut     (sannanta  ) 29/29
+  ✓ nich_krut    (nijanta   ) 29/29
+  ✓ yang_krut    (yananta   ) 29/29
+  ✓ yangluk_krut (yanluganta) 29/29
+---------------------------------------------------------------------------
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
+===========================================================================
+```
+### 01.0013
+```
+===========================================================================
+VALIDATION  skt-morph-data/01/01.0013.json  |  dhatu=madi (madi~ stutimodamadasvapnakAntigatizu)
+===========================================================================
+✓ tokens: 3711  engine: generative (no hardcoded dict)
+
+-- tinanta (10 antas × 10 lakaras × 9) --
+   antas: ting, yak, san, san_yak, nich, nich_yak, yang, yang_yak, yangluk, yangluk_yak
+
+  [ting] sanadi=None prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yak] sanadi=None prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san] sanadi=sannanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san_yak] sanadi=sannanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich] sanadi=nijanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich_yak] sanadi=nijanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang] sanadi=yananta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang_yak] sanadi=yananta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yangluk] sanadi=yanluganta prayoga=kartari
+    ✓ lw        9/ 9
+
+  [yangluk_yak] sanadi=yanluganta prayoga=karmani
+    ✓ lw        9/ 9
+
+-- krdanta (all antas) --
+  ✓ krut         (mUla      ) 29/29
+  ✓ san_krut     (sannanta  ) 29/29
+  ✓ nich_krut    (nijanta   ) 29/29
+  ✓ yang_krut    (yananta   ) 29/29
+  ✓ yangluk_krut (yanluganta) 29/29
+---------------------------------------------------------------------------
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
+===========================================================================
+```
+### 01.0014
+```
+===========================================================================
+VALIDATION  skt-morph-data/01/01.0014.json  |  dhatu=spadi (spadi~ kiYciccalane)
+===========================================================================
+✓ tokens: 2814  engine: generative (no hardcoded dict)
+
+-- tinanta (10 antas × 10 lakaras × 9) --
+   antas: ting, yak, san, san_yak, nich, nich_yak, yang, yang_yak, yangluk, yangluk_yak
+
+  [ting] sanadi=None prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yak] sanadi=None prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san] sanadi=sannanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san_yak] sanadi=sannanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich] sanadi=nijanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich_yak] sanadi=nijanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang] sanadi=yananta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang_yak] sanadi=yananta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yangluk] sanadi=yanluganta prayoga=kartari
+    ✓ lw        9/ 9
+
+  [yangluk_yak] sanadi=yanluganta prayoga=karmani
+    ✓ lw        9/ 9
+
+-- krdanta (all antas) --
+  ✓ krut         (mUla      ) 29/29
+  ✓ san_krut     (sannanta  ) 29/29
+  ✓ nich_krut    (nijanta   ) 29/29
+  ✓ yang_krut    (yananta   ) 29/29
+  ✓ yangluk_krut (yanluganta) 29/29
+---------------------------------------------------------------------------
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ===========================================================================
 ```
