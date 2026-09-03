@@ -29,7 +29,7 @@ classical text, verified against the Kaśikā.
 References
 ----------
 * Siddhānta-Kaumudī, Maheśvara-Sūtra prakaraṇa
-* SLP1 → Devanagari mapping: :mod:`pypanini.transliteration`
+* SLP1 encoding: `docs/slp1.md` (internal, no Devanagari)
 
 Type hints are exhaustive; the public API is two methods:
 :py:meth:`MaheshvaraSutrasSLP1.get_pratyahara` and

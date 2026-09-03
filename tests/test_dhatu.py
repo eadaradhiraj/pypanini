@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from pypanini import TinantaDerivationEngine, KrdantaEngine, slp1_to_devanagari, devanagari_to_slp1
+from pypanini import TinantaDerivationEngine, KrdantaEngine
 
 # default data root (absolute on dev machine, overridable via env)
 DATA_ROOT = Path(os.getenv("SKT_MORPH_DATA", "/home/edhiraj/Documents/projs/skt-morph-data/data"))
@@ -142,15 +142,11 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
     dhatu_label = info.get("OpadeSikasvarUpam", dhatu)
     artha = info.get("arTaH", "")
 
-    raw_tokens = extract_all_text_tokens(data)
-    all_tokens = set(raw_tokens)
-    for t in raw_tokens:
-        all_tokens.add(devanagari_to_slp1(t))
-        all_tokens.add(slp1_to_devanagari(t))
+    all_tokens = extract_all_text_tokens(data)
 
     def check_slot(forms_slp):
         for f in forms_slp:
-            if f in all_tokens or slp1_to_devanagari(f) in all_tokens:
+            if f in all_tokens:
                 return True
         return False
 

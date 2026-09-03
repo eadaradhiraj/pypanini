@@ -17,11 +17,7 @@ A computational Sanskrit grammar engine implemented in Python, modeling Pāṇin
 - **Ṣatva**: 8.3.59 (*ādeśapratyayayoḥ* — dental `s` to retroflex `z` after `iR` or `ku`).
 - **Pada-kārya**: 8.2.66 (*sasajuṣo ruḥ*) and 8.3.15 (*kharavasānayor visarjanīyaḥ* — Rutva and Visarga transformation).
 
-### 3. Bidirectional Transliteration (`pypanini/transliteration.py`)
-- Native, dependency-free SLP1 <-> Devanagari converter.
-- Handles independent vowels, consonant-vowel combinations (*mātrās*), virāmas, and modifiers (`M`, `H`).
-
-### 4. Tiṅanta Engine (`pypanini/tinanta.py`)
+### 3. Tiṅanta Engine (`pypanini/tinanta.py`)
 Covers verbal conjugations across both **Parasmaipada** and **Ātmanepada**:
 
 - **All 10 Lakāras (*Daśa-lakārāḥ*)**:
@@ -54,7 +50,7 @@ Covers verbal conjugations across both **Parasmaipada** and **Ātmanepada**:
   - `01.0001` — **भू सत्तायाम् (`BU`)**: Parasmaipada, Class 1.
   - `01.0002` — **एध् वृद्धौ (`eD`)**: Ātmanepada, Seṭ, vowel-initial (*āṭ*-āgama, *ām*-pratyaya).
 
-### 5. Kṛdanta Engine (`pypanini/krdanta.py`)
+### 4. Kṛdanta Engine (`pypanini/krdanta.py`)
 Generates 14 primary verbal affixes across all 4 stem types (Primitive, Ṇijanta, Sannanta, Yaṅanta):
 
 - **Participles & Gerundives (inflected in Masculine, Feminine, Neuter)**:
@@ -90,7 +86,6 @@ pypanini/
 │   ├── __init__.py           # Package exports
 │   ├── pratyahara.py         # Māheśvara Sūtras & Pratyāhāra expansion
 │   ├── phonetics.py          # Guṇa, Vṛddhi, Sandhi, Ṣatva, Visarga rules
-│   ├── transliteration.py    # SLP1 <-> Devanagari converter
 │   ├── tinanta.py            # Verbal derivation engine (10 Lakāras, Sanādi, Voices)
 │   └── krdanta.py            # Primary verbal affixes across genders and antas
 ├── tests/

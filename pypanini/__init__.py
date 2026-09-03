@@ -11,7 +11,6 @@ from .phonetics import (
 )
 from .tinanta import TinantaDerivationEngine
 from .krdanta import KrdantaEngine
-from .transliteration import slp1_to_devanagari, devanagari_to_slp1
 
 __all__ = [
     "MaheshvaraSutrasSLP1",
@@ -22,6 +21,4 @@ __all__ = [
     "apply_rutva_visarga",
     "TinantaDerivationEngine",
     "KrdantaEngine",
-    "slp1_to_devanagari",
-    "devanagari_to_slp1",
 ]
