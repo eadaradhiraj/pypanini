@@ -2,7 +2,7 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-03T11:18:37.021611Z
+Date: 2026-09-03T11:25:40.410082Z
 Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
@@ -12,7 +12,7 @@ test_01_0003_sparD (tests.test_dhatu.TestDhatuGenerative.test_01_0003_sparD) ...
 test_cli (tests.test_dhatu.TestDhatuGenerative.test_cli) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 16.842s
+Ran 4 tests in 14.843s
 
 OK
 
@@ -1039,7 +1039,7 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0009.json  |
     ✓ laN       9/ 9
     ✓ viDiliN   9/ 9
     ✓ ASIrliN   9/ 9
-    ⚠ luN       8/ 9  e.g. ('prathama eka', 'askundayizwa')
+    ✓ luN       9/ 9
     ✓ lfN       9/ 9
 
   [nich_yak] sanadi=nijanta prayoga=karmani
@@ -1079,19 +1079,19 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0009.json  |
     ✓ lfN       9/ 9
 
   [yangluk] sanadi=yanluganta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'cAskundaH')
+    ✓ lw        9/ 9
 
   [yangluk_yak] sanadi=yanluganta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'cAskundaH')
+    ✓ lw        9/ 9
 
 -- krdanta (all antas) --
   ✓ krut         (mUla      ) 29/29
   ✓ san_krut     (sannanta  ) 29/29
   ✓ nich_krut    (nijanta   ) 29/29
-  ⚠ yang_krut    (yananta   )  0/29
+  ✓ yang_krut    (yananta   ) 29/29
   ✓ yangluk_krut (yanluganta) 29/29
 ---------------------------------------------------------------------------
-GRAND  835/883  (94.6%)  ⚠ missing
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ===========================================================================
 ```
 
@@ -1107,7 +1107,7 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
 
   [ting] sanadi=None prayoga=kartari
     ✓ lw        9/ 9
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'saSvinde')
+    ✓ liw       9/ 9
     ✓ luw       9/ 9
     ✓ lfw       9/ 9
     ✓ low       9/ 9
@@ -1119,7 +1119,7 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
 
   [yak] sanadi=None prayoga=karmani
     ✓ lw        9/ 9
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'saSvinde')
+    ✓ liw       9/ 9
     ✓ luw       9/ 9
     ✓ lfw       9/ 9
     ✓ low       9/ 9
@@ -1130,28 +1130,28 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
     ✓ lfN       9/ 9
 
   [san] sanadi=sannanta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'Suskundizate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'SuskundizAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'SuskundizitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'Suskundizizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'SuskundizatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'aSuskundizata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'Suskundizeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'SuskundizizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'aSuskundizizwa')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'aSuskundizizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [san_yak] sanadi=sannanta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'Suskundizyate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'SuskundizAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'SuskundizitA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'Suskundizizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'SuskundizyatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'aSuskundizyata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'Suskundizyeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'SuskundizizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'aSuskundizi')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'aSuskundizizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [nich] sanadi=nijanta prayoga=kartari
     ✓ lw        9/ 9
@@ -1162,7 +1162,7 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
     ✓ laN       9/ 9
     ✓ viDiliN   9/ 9
     ✓ ASIrliN   9/ 9
-    ⚠ luN       8/ 9  e.g. ('prathama eka', 'aSvindayizwa')
+    ⚠ luN       0/ 9  e.g. ('prathama eka', '∅')
     ✓ lfN       9/ 9
 
   [nich_yak] sanadi=nijanta prayoga=karmani
@@ -1178,34 +1178,34 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
     ✓ lfN       9/ 9
 
   [yang] sanadi=yananta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'SoSvindyate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'SoSvindAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'SoSvinditA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'SoSvindizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'SoSvindyatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'aSoSvindyata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'SoSvindyeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'SoSvindizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'aSoSvindizwa')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'aSoSvindizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [yang_yak] sanadi=yananta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'SoSvindyate')
-    ⚠ liw       0/ 9  e.g. ('prathama eka', 'SoSvindAYcakre')
-    ⚠ luw       0/ 9  e.g. ('prathama eka', 'SoSvinditA')
-    ⚠ lfw       0/ 9  e.g. ('prathama eka', 'SoSvindizyate')
-    ⚠ low       0/ 9  e.g. ('prathama eka', 'SoSvindyatAm')
-    ⚠ laN       0/ 9  e.g. ('prathama eka', 'aSoSvindyata')
-    ⚠ viDiliN   0/ 9  e.g. ('prathama eka', 'SoSvindyeta')
-    ⚠ ASIrliN   0/ 9  e.g. ('prathama eka', 'SoSvindizIzwa')
-    ⚠ luN       0/ 9  e.g. ('prathama eka', 'aSoSvindizwa')
-    ⚠ lfN       0/ 9  e.g. ('prathama eka', 'aSoSvindizyata')
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
 
   [yangluk] sanadi=yanluganta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'sASvindi')
+    ⚠ lw        0/ 9  e.g. ('prathama eka', 'Soskunti')
 
   [yangluk_yak] sanadi=yanluganta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'sASvindi')
+    ⚠ lw        0/ 9  e.g. ('prathama eka', 'Soskunti')
 
 -- krdanta (all antas) --
   ✓ krut         (mUla      ) 29/29
@@ -1214,6 +1214,6 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
   ⚠ yang_krut    (yananta   )  0/29
   ✓ yangluk_krut (yanluganta) 29/29
 ---------------------------------------------------------------------------
-GRAND  428/883  (48.5%)  ⚠ missing
+GRAND  798/883  (90.4%)  ⚠ missing
 ===========================================================================
 ```
