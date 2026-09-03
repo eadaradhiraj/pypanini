@@ -852,7 +852,7 @@ class TinantaDerivationEngine:
                 # Generate redup-based aorist: a + BAvay without ay -> Bav + a? Hard
                 # Return over-generated candidates that include known tokens
                 cands += [aug_n + "izwa", aug_n + "t", n_stem+"izwa"]
-                if clean in ("skund","Svind"):
+                if clean in ("skund","Svind","skudi","Svidi"):
                     # skudi nich luN is acuskundata (with cu, skun, data), not askundayizwa
                     tbl_sk = {("prathama","eka"):["acuskundata"],("prathama","dvi"):["acuskundetAm"],("prathama","bahu"):["acuskundanta"],("madhyama","eka"):["acuskundaTAH"],("madhyama","dvi"):["acuskundetAm"],("madhyama","bahu"):["acuskundaDvam"],("uttama","eka"):["acuskunde"],("uttama","dvi"):["acuskundAvahi"],("uttama","bahu"):["acuskundAmahi"]}
                     if clean == "Svind":
@@ -1009,7 +1009,7 @@ class TinantaDerivationEngine:
                     if clean == "daD":
                         alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                         cands.append(alt[(purusha,vacana)])
-                    if clean in ("skund","Svind"):
+                    if clean in ("skund","Svind","skudi","Svidi"):
                         if clean == "skund":
                             alt2 = {("prathama","eka"):"cuskunde",("prathama","dvi"):"cuskundAte",("prathama","bahu"):"cuskundire",("madhyama","eka"):"cuskundize",("madhyama","dvi"):"cuskundATe",("madhyama","bahu"):"cuskundiDve",("uttama","eka"):"cuskunde",("uttama","dvi"):"cuskundivahe",("uttama","bahu"):"cuskundimahe"}
                         else:
