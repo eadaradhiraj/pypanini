@@ -10,6 +10,7 @@ from .phonetics import (
     apply_rutva_visarga,
 )
 from .tinanta import TinantaDerivationEngine
+from .krdanta import KrdantaEngine
 
 __all__ = [
     "MaheshvaraSutrasSLP1",
@@ -19,4 +20,5 @@ __all__ = [
     "apply_satva",
     "apply_rutva_visarga",
     "TinantaDerivationEngine",
+    "KrdantaEngine",
 ]

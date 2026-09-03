@@ -1,37 +1,37 @@
-"""Demo Runner: Displaying Sannanta, Nijanta, and Karmani across multiple tenses"""
+"""Demo Runner: Displaying the Complete Matrix of Sanādyanta & Prayoga"""
 from pypanini import TinantaDerivationEngine
 
 def print_table(table, title):
     print(f"\n=== {title} ===")
-    print(f"{'Puruṣa':<10} | {'Ekavacana':<12} | {'Dvivacana':<12} | {'Bahuvacana':<12}")
-    print("-" * 52)
+    print(f"{'Puruṣa':<10} | {'Ekavacana':<14} | {'Dvivacana':<14} | {'Bahuvacana':<14}")
+    print("-" * 58)
     for p in ["prathama", "madhyama", "uttama"]:
-        print(f"{p:<10} | {table[(p, 'eka')]:<12} | {table[(p, 'dvi')]:<12} | {table[(p, 'bahu')]:<12}")
+        print(f"{p:<10} | {table[(p, 'eka')]:<14} | {table[(p, 'dvi')]:<14} | {table[(p, 'bahu')]:<14}")
 
 def main():
     engine = TinantaDerivationEngine()
 
-    print("=" * 60)
-    print("1. SANNANTA (DESIDERATIVE: BU + san -> buBUza 'desires to be')")
-    print("=" * 60)
-    print_table(engine.derive_all("BU", "lw", sanadi="sannanta"), "Sannanta Present: 'lw' (बुभूषति)")
-    print_table(engine.derive_all("BU", "laN", sanadi="sannanta"), "Sannanta Past: 'laN' (अबुभूषत्)")
-    print_table(engine.derive_all("BU", "lfw", sanadi="sannanta"), "Sannanta Future: 'lfw' (बुभूषिष्यति)")
+    print("=" * 65)
+    print("THE COMPLETE SANĀDYANTA & PRAYOGA MATRIX FOR 'BU' (in 'lw')")
+    print("=" * 65)
 
-    print("\n" + "=" * 60)
-    print("2. ṆIJANTA (CAUSATIVE: BU + Ric -> BAvaya 'causes to be')")
-    print("=" * 60)
-    print_table(engine.derive_all("BU", "lw", sanadi="nijanta"), "Ṇijanta Present: 'lw' (भावयति)")
-    print_table(engine.derive_all("BU", "laN", sanadi="nijanta"), "Ṇijanta Past: 'laN' (अभावयत्)")
-    print_table(engine.derive_all("BU", "lfw", sanadi="nijanta"), "Ṇijanta Future: 'lfw' (भावयिष्यति)")
+    # 1. Primitive: Kartari vs Karmani
+    print_table(engine.derive_all("BU", "lw", prayoga="kartari"), "1A. Primitive Kartari: 'Bavati' (भवति)")
+    print_table(engine.derive_all("BU", "lw", prayoga="karmani"), "1B. Primitive Karmaṇi: 'BUyate' (भूयते)")
 
-    print("\n" + "=" * 60)
-    print("3. KARMAṆI PRAYOGA (PASSIVE VOICE: BU + yak -> BUya 'is become')")
-    print("=" * 60)
-    print_table(engine.derive_all("BU", "lw", prayoga="karmani"), "Karmaṇi Present: 'lw' (भूयते)")
-    print_table(engine.derive_all("BU", "laN", prayoga="karmani"), "Karmaṇi Past: 'laN' (अभूयत)")
-    print_table(engine.derive_all("BU", "low", prayoga="karmani"), "Karmaṇi Imperative: 'low' (भूयताम्)")
-    print_table(engine.derive_all("BU", "viDiliN", prayoga="karmani"), "Karmaṇi Optative: 'viDiliN' (भूयेत)")
+    # 2. Ṇijanta: Kartari vs Karmani
+    print_table(engine.derive_all("BU", "lw", prayoga="kartari", sanadi="nijanta"), "2A. Ṇijanta Kartari: 'BAvayati' (भावयति)")
+    print_table(engine.derive_all("BU", "lw", prayoga="karmani", sanadi="nijanta"), "2B. Ṇijanta Karmaṇi: 'BAvyate' (भाव्यते)")
+
+    # 3. Sannanta: Kartari vs Karmani
+    print_table(engine.derive_all("BU", "lw", prayoga="kartari", sanadi="sannanta"), "3A. Sannanta Kartari: 'buBUzati' (बुभूषति)")
+    print_table(engine.derive_all("BU", "lw", prayoga="karmani", sanadi="sannanta"), "3B. Sannanta Karmaṇi: 'buBUzyate' (बुभूष्यते)")
+
+    # 4. Yaṅanta (Intensive Ātmanepada)
+    print_table(engine.derive_all("BU", "lw", sanadi="yananta"), "4. Yaṅanta: 'boBUyate' (बोभूयते)")
+
+    # 5. Yaṅluganta (Intensive Parasmaipada)
+    print_table(engine.derive_all("BU", "lw", sanadi="yanluganta"), "5. Yaṅluganta: 'boBavIti / boBoti' (बोभवीति/बोभोति)")
 
 if __name__ == "__main__":
     main()
