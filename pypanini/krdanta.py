@@ -1,8 +1,9 @@
 """
 Complete Kṛdanta Engine with:
 - Gender Inflection: Masculine (पुं), Feminine (स्त्री), Neuter (नपुं)
+- Pāṇinian Ṇatva: buBUzaRIya (8.4.1 & 8.4.2)
 - Sannanta Overrides: buBUzu (3.2.168), buBUzA (3.3.102), buBUzya (3.1.124)
-- Avyayas (Indeclinables)
+- Yaṅanta Ātmanepada compliance (takes SAnac, excludes Satf by 1.3.12)
 """
 from typing import Dict, Optional
 
@@ -32,16 +33,8 @@ class KrdantaEngine:
         pratyaya: str = "kta",
         sanadi: Optional[str] = None,
         upasarga: str = "saM",
-    ) -> Dict[str, str]:
-        """
-        Returns a dict:
-        - For participles: {"M": ..., "F": ..., "N": ...}
-        - For fixed nouns: {"gender": ..., "form": ...}
-        - For avyayas:     {"avyaya": ...}
-        """
-        # =====================================================================
+    ) -> Optional[Dict[str, str]]:
         # 1. PRIMITIVE (Mūla: BU)
-        # =====================================================================
         if sanadi is None:
             forms = {
                 "kta": {"M": "BUtaH", "F": "BUtA", "N": "BUtam"},
@@ -59,11 +52,9 @@ class KrdantaEngine:
                 "ktvA": {"avyaya": "BUtvA"},
                 "lyap": {"avyaya": upasarga + dhatu + "ya"},
             }
-            return forms[pratyaya]
+            return forms.get(pratyaya)
 
-        # =====================================================================
         # 2. ṆIJANTA (Causative: BAvi)
-        # =====================================================================
         elif sanadi == "nijanta":
             forms = {
                 "kta": {"M": "BAvitaH", "F": "BAvitA", "N": "BAvitam"},
@@ -81,11 +72,9 @@ class KrdantaEngine:
                 "ktvA": {"avyaya": "BAvayitvA"},
                 "lyap": {"avyaya": upasarga + "BAvya"},
             }
-            return forms[pratyaya]
+            return forms.get(pratyaya)
 
-        # =====================================================================
-        # 3. SANNANTA (Desiderative: buBUza) with Pāṇinian Overrides!
-        # =====================================================================
+        # 3. SANNANTA (Desiderative: buBUza)
         elif sanadi == "sannanta":
             forms = {
                 "kta": {"M": "buBUzitaH", "F": "buBUzitA", "N": "buBUzitam"},
@@ -93,29 +82,25 @@ class KrdantaEngine:
                 "Satf": {"M": "buBUzan", "F": "buBUzantI", "N": "buBUzat"},
                 "SAnac": {"M": "buBUzamARaH", "F": "buBUzamARA", "N": "buBUzamARam"},
                 "tavya": {"M": "buBUzitavyaH", "F": "buBUzitavyA", "N": "buBUzitavyam"},
-                "anIyar": {"M": "buBUzanIyaH", "F": "buBUzanIyA", "N": "buBUzanIyam"},
-                # 3.1.124 fhalorRyat (Ryat instead of yat for consonant-ending stems)
+                # 8.4.1 & 8.4.2 Natva: buBUzaRIya
+                "anIyar": {"M": "buBUzaRIyaH", "F": "buBUzaRIyA", "N": "buBUzaRIyam"},
                 "yat": {"M": "buBUzyaH", "F": "buBUzyA", "N": "buBUzyam"},
-                # 3.2.168 sanASaMsaBikza uH (Suffix 'u' replaces Rvul!)
                 "Rvul": {"M": "buBUzuH", "F": "buBUzuH", "N": "buBUzu"},
                 "tfc": {"M": "buBUzitA", "F": "buBUzitrI", "N": "buBUzitf"},
                 "lyuw": {"gender": "Neuter", "form": "buBUzaRam"},
-                # 3.3.102 a pratyayAt (a + wAp creates feminine noun, replaces GaY!)
                 "GaY": {"gender": "Feminine", "form": "buBUzA"},
                 "tumun": {"avyaya": "buBUzitum"},
                 "ktvA": {"avyaya": "buBUzitvA"},
                 "lyap": {"avyaya": upasarga + "buBUzya"},
             }
-            return forms[pratyaya]
+            return forms.get(pratyaya)
 
-        # =====================================================================
         # 4. YAṄANTA (Intensive: boBUya)
-        # =====================================================================
+        # Note: 1.3.12 anudāttaṅita ātmanepadam -> strictly Ātmanepada, so Satf is illegal (takes SAnac)
         elif sanadi == "yananta":
             forms = {
                 "kta": {"M": "boBUyitaH", "F": "boBUyitA", "N": "boBUyitam"},
                 "ktavatu": {"M": "boBUyitavAn", "F": "boBUyitavatI", "N": "boBUyitavat"},
-                "Satf": {"M": "boBUyat", "F": "boBUyantI", "N": "boBUyat"},
                 "SAnac": {"M": "boBUyamAnaH", "F": "boBUyamAnA", "N": "boBUyamAnam"},
                 "tavya": {"M": "boBUyitavyaH", "F": "boBUyitavyA", "N": "boBUyitavyam"},
                 "anIyar": {"M": "boBUyanIyaH", "F": "boBUyanIyA", "N": "boBUyanIyam"},
@@ -128,15 +113,16 @@ class KrdantaEngine:
                 "ktvA": {"avyaya": "boBUyitvA"},
                 "lyap": {"avyaya": upasarga + "boBUya"},
             }
-            return forms[pratyaya]
+            return forms.get(pratyaya)
 
-        else:
-            raise ValueError(f"Unsupported sanādi: {sanadi}")
+        return None
 
     def derive_all_krdantas(
         self, dhatu: str = "BU", sanadi: Optional[str] = None, upasarga: str = "saM"
     ) -> Dict[str, Dict[str, str]]:
-        return {
-            prat: self.derive_krdanta(dhatu, prat, sanadi, upasarga)
-            for prat in self.krdanta_metadata
-        }
+        result = {}
+        for prat in self.krdanta_metadata:
+            res = self.derive_krdanta(dhatu, prat, sanadi, upasarga)
+            if res is not None:
+                result[prat] = res
+        return result
