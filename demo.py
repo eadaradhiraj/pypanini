@@ -11,17 +11,11 @@ def print_table(table, title):
 def main():
     engine = TinantaDerivationEngine()
     
-    # 1. Present (lw)
     print_table(engine.derive_all("BU", "lw"), "1. Present: 'lw' (भवति)")
-
-    # 2. Past (laN)
-    print_table(engine.derive_all("BU", "laN"), "2. Past: 'laN' (अभवत्)")
-
-    # 3. Imperative (low)
-    print_table(engine.derive_all("BU", "low"), "3. Imperative: 'low' (भवतु)")
-
-    # 4. Optative (viDiliN)
-    print_table(engine.derive_all("BU", "viDiliN"), "4. Optative: 'viDiliN' (भवेत्)")
+    print_table(engine.derive_all("BU", "lfw"), "2. Simple Future: 'lfw' (भविष्यति)")
+    print_table(engine.derive_all("BU", "laN"), "3. Past: 'laN' (अभवत्)")
+    print_table(engine.derive_all("BU", "low"), "4. Imperative: 'low' (भवतु)")
+    print_table(engine.derive_all("BU", "viDiliN"), "5. Optative: 'viDiliN' (भवेत्)")
 
 if __name__ == "__main__":
     main()
