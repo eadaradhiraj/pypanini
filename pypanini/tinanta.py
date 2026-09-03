@@ -369,57 +369,19 @@ class TinantaDerivationEngine:
         pada = meta["pada"]
         sew = meta["sew"]
         is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
-        # skudi/Svidi nasal present (BvAdi Atman i-ending) — handle before sanadi
-        if clean in ("skudi", "Svidi") and sanadi is None:
+        # skudi/Svidi: effective BvAdi dhatu is with_n (skund/Svind) for all antas/lakaras
+        if clean in ("skudi", "Svidi"):
             base_wo_i = clean[:-1]
             with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
-            if lakara == "lw":
-                return self._conjugate_at_stem_atmane(with_n, "lw", purusha, vacana), log
-            elif lakara == "laN":
-                return self._conjugate_at_stem_atmane(self._add_augment(with_n, False), "laN", purusha, vacana), log
-            elif lakara == "low":
-                return self._conjugate_at_stem_atmane(with_n, "low", purusha, vacana), log
-            elif lakara == "viDiliN":
-                return self._conjugate_at_stem_atmane(with_n, "viDiliN", purusha, vacana), log
-            elif lakara == "liw":
-                redup = self._reduplicated_stem(clean)
-                endings = {("prathama", "eka"): "e", ("prathama", "dvi"): "Ate", ("prathama", "bahu"): "ire", ("madhyama", "eka"): "ize", ("madhyama", "dvi"): "ATe", ("madhyama", "bahu"): "iDve", ("uttama", "eka"): "e", ("uttama", "dvi"): "ivahe", ("uttama", "bahu"): "imahe"}
-                cands = [redup + endings[(purusha, vacana)]]
-                redup_n = self._reduplicated_stem(with_n)
-                cands.append(redup_n + endings[(purusha, vacana)])
-                # for skudi, also add cuskunde (with u)
-                if clean in ("skudi","Svidi"):
-                    # cuskunde is with u in redup and n
-                    # with_n is skund, redup for skund with u is cuskund, + e = cuskunde
-                    # Already have caskunde, now add cuskunde
-                    # For skundi, the redup vowel should be u, not a, so generate cuskunde
-                    # with_n is skund, redup for skund with u is cuskund (as per _sannanta logic)
-                    # We can generate cuskunde as with_n with u redup
-                    # Use _sannanta-like redup with u
-                    cands.append("cuskunde" if clean=="skudi" and purusha=="prathama" and vacana=="eka" else redup_n.replace("ca","cu") + endings[(purusha,vacana)] if "ca" in redup_n else redup_n + endings[(purusha,vacana)])
-                    # Also add cuskunde variants for all purusha/vacana
-                    # Generate cuskunde for all
-                    cands.append(with_n.replace("skud","cusk") + endings[(purusha,vacana)] if False else "cuskunde")
-                return list(set(cands)), log
-            elif lakara == "luw":
-                return self._conjugate_luw(with_n + "i", "Atmanepadi", purusha, vacana), log
-            elif lakara == "lfw":
-                core = with_n + "izya"
-                base_core = core[:-1] if core.endswith("a") else core
-                return self._conjugate_at_stem_atmane(base_core, "lw", purusha, vacana), log
-            elif lakara == "lfN":
-                base_aug = self._add_augment(with_n, False)
-                core = base_aug + "izya"
-                base_core = core[:-1] if core.endswith("a") else core
-                return self._conjugate_at_stem_atmane(base_core, "laN", purusha, vacana), log
-            elif lakara == "ASIrliN":
-                base_iz = with_n + "i" + apply_satva("i", "s")
-                endings = {("prathama", "eka"): "Izwa", ("prathama", "dvi"): "IyAstAm", ("prathama", "bahu"): "Iran", ("madhyama", "eka"): "IzWAH", ("madhyama", "dvi"): "IyAsTAm", ("madhyama", "bahu"): "IDvam", ("uttama", "eka"): "Iya", ("uttama", "dvi"): "Ivahi", ("uttama", "bahu"): "Imahi"}
-                return [base_iz + endings[(purusha, vacana)]], log
-            elif lakara == "luN":
-                aug_n = self._add_augment(with_n, False)
-                suffixes = {("prathama", "eka"): "a", ("prathama", "dvi"): "AtAm", ("prathama", "bahu"): "ata", ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "AtAm", ("madhyama", "bahu"): "aDvam", ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi"}
-                return [aug_n + suffixes[(purusha, vacana)]], log
+            clean = with_n
+            is_vowel_initial = False
+        # skudi/Svidi nasal present (BvAdi Atman i-ending) — handle before sanadi
+        if clean in ("skudi", "Svidi"):
+            base_wo_i_tmp = clean[:-1]
+            with_n_tmp = base_wo_i_tmp[:-1] + "n" + base_wo_i_tmp[-1] if len(base_wo_i_tmp) >= 1 else base_wo_i_tmp + "n"
+            clean = with_n_tmp
+            is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
+            # keep original for later? Not needed, with_n is now the base for all antas
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
         # helper for sannanta / nijanta / yan stems (generative)
         def _nijanta_stem(c):
@@ -1007,6 +969,9 @@ class TinantaDerivationEngine:
                     if clean == "daD":
                         alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                         cands.append(alt[(purusha,vacana)])
+                    if clean in ("skund","Svind"):
+                        alt2 = {("prathama","eka"):"cuskunde" if clean=="skund" else "Suskunde",("prathama","dvi"):"cuskundAte" if clean=="skund" else "SuskundAte",("prathama","bahu"):"cuskundire" if clean=="skund" else "Suskundire",("madhyama","eka"):"cuskundize" if clean=="skund" else "Suskundize",("madhyama","dvi"):"cuskundATe" if clean=="skund" else "SuskundATe",("madhyama","bahu"):"cuskundiDve" if clean=="skund" else "SuskundiDve",("uttama","eka"):"cuskunde" if clean=="skund" else "Suskunde",("uttama","dvi"):"cuskundivahe" if clean=="skund" else "Suskundivahe",("uttama","bahu"):"cuskundimahe" if clean=="skund" else "Suskundimahe"}
+                        cands.append(alt2[(purusha,vacana)])
                     return cands, log
                 else:
                     endings = {
