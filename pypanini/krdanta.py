@@ -99,6 +99,8 @@ class KrdantaEngine:
             vv = apply_vriddhi(clean[-1])
             av = apply_sandhi_eco_ayavayavah(vv)
             return clean[:-1] + av
+        if clean == "daD":
+            return "dAD"
         return clean
 
     def derive_krdanta(
@@ -122,6 +124,8 @@ class KrdantaEngine:
                     vv = apply_vriddhi(c[-1])
                     av = apply_sandhi_eco_ayavayavah(vv)
                     return c[:-1] + av + "ay"
+                if c == "daD":
+                    return "dADay"
                 return c + "ay"
             def _sannanta_sec(c):
                 is_vowel_init = c[0] in SLP1_VOWELS if c else False

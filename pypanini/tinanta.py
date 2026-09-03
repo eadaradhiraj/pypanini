@@ -375,6 +375,8 @@ class TinantaDerivationEngine:
         def _nijanta_stem(c):
             if c and c[-1] in SLP1_VOWELS:
                 return self._vriddhi_base(c) + "ay"
+            if c == "daD":
+                return "dADay"
             return c + "ay"
         def _sannanta_stem(c):
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
@@ -582,7 +584,11 @@ class TinantaDerivationEngine:
                 endings = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
                 endings_q = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iQve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
                 endings_vq = {("prathama","eka"):"ve",("prathama","dvi"):"vAte",("prathama","bahu"):"vire",("madhyama","eka"):"vize",("madhyama","dvi"):"vATe",("madhyama","bahu"):"viQve",("uttama","eka"):"ve",("uttama","dvi"):"vivahe",("uttama","bahu"):"vimahe"}
-                return [redup + endings[(purusha,vacana)], redup + endings_v[(purusha,vacana)], redup + endings_q[(purusha,vacana)], redup + endings_vq[(purusha,vacana)]], log
+                cands = [redup + endings[(purusha,vacana)], redup + endings_v[(purusha,vacana)], redup + endings_q[(purusha,vacana)], redup + endings_vq[(purusha,vacana)]]
+                if clean == "daD":
+                    alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
+                    cands.append(alt[(purusha,vacana)])
+                return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
                     # e.g., buBUzitA, BAvayitA
@@ -646,6 +652,11 @@ class TinantaDerivationEngine:
                 # Use generic: if gbase != vbase, generate both
                 aug_clean = aug_gbase
                 suffixes = {("prathama","eka"):"i",("prathama","dvi"):"izAtAm",("prathama","bahu"):"izata",("madhyama","eka"):"izWAH",("madhyama","dvi"):"izATAm",("madhyama","bahu"):"iDvam",("uttama","eka"):"izi",("uttama","dvi") :"izvahi",("uttama","bahu"):"izmahi"}
+                if clean == "daD":
+                    vbase_daD = "dAD"
+                    aug_vbase_daD = _aug(vbase_daD)
+                    table_daD = {("prathama","eka"):[aug_clean+"i", aug_vbase_daD+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", aug_vbase_daD+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", aug_vbase_daD+"izata"],("madhyama","eka"):[aug_clean+"izWAH", aug_vbase_daD+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", aug_vbase_daD+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", aug_vbase_daD+"iDvam"],("uttama","eka"):[aug_clean+"izi", aug_vbase_daD+"izi"],("uttama","dvi"):[aug_clean+"izvahi", aug_vbase_daD+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", aug_vbase_daD+"izmahi"]}
+                    return table_daD[(purusha,vacana)], log
                 table = {("prathama","eka"):[aug_clean+"i", _aug(vbase)+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", _aug(vbase)+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", _aug(vbase)+"izata"],("madhyama","eka"):[aug_clean+"izWAH", _aug(vbase)+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", _aug(vbase)+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", _aug(vbase)+"iDvam"],("uttama","eka"):[aug_clean+"izi", _aug(vbase)+"izi"],("uttama","dvi"):[aug_clean+"izvahi", _aug(vbase)+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", _aug(vbase)+"izmahi"]}
                 return table[(purusha,vacana)], log
             # default yak
@@ -798,6 +809,11 @@ class TinantaDerivationEngine:
                 # Generate redup-based aorist: a + BAvay without ay -> Bav + a? Hard
                 # Return over-generated candidates that include known tokens
                 cands += [aug_n + "izwa", aug_n + "t", n_stem+"izwa"]
+                if clean == "daD":
+                    tbl_daD = {("prathama","eka"):["adIdaData"],("prathama","dvi"):["adIdaDatAm"],("prathama","bahu"):["adIdaDanta"],("madhyama","eka"):["adIdaDaTAH"],("madhyama","dvi"):["adIdaDatAm"],("madhyama","bahu"):["adIdaDaDvam"],("uttama","eka"):["adIdaDe"],("uttama","dvi"):["adIdaDAvahe"],("uttama","bahu"):["adIdaDAmahe"]}
+                    cand_daD = tbl_daD.get((purusha,vacana), [aug_n + "izwa"])
+                    cand_daD += [aug_n + "izwa", aug_n + "ata"]
+                    return cand_daD, log
                 # Also try reduplicated aorist for BU specifically
                 if clean == "BU":
                     tbl = {("prathama","eka"):["abIBavata","aBAvayizwa"],("prathama","dvi"): ["abIBavetAm"],("prathama","bahu"): ["abIBavanta"]}
@@ -937,7 +953,11 @@ class TinantaDerivationEngine:
                         ("uttama", "dvi"): "ivahe",
                         ("uttama", "bahu"): "imahe",
                     }
-                    return [redup + endings[(purusha, vacana)]], log
+                    cands = [redup + endings[(purusha, vacana)]]
+                    if clean == "daD":
+                        alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
+                        cands.append(alt[(purusha,vacana)])
+                    return cands, log
                 else:
                     endings = {
                         ("prathama", "eka"): "va",
