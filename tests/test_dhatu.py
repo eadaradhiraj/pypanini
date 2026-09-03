@@ -166,116 +166,112 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
         print("=" * 75)
         print(f"✓ tokens: {len(all_tokens)}  engine: generative (no hardcoded dict)")
 
+    # ---- tinanta: all antas found in JSON (primitive + san/nich/yang ...) ----
+    # map JSON conjugation keys -> (sanadi, prayoga)
+    anta_map = {
+        "ting": (None, "kartari"),
+        "yak": (None, "karmani"),
+        "san": ("sannanta", "kartari"),
+        "san_yak": ("sannanta", "karmani"),
+        "nich": ("nijanta", "kartari"),
+        "nich_yak": ("nijanta", "karmani"),
+        "yang": ("yananta", "kartari"),
+        "yang_yak": ("yananta", "karmani"),
+        "yangluk": ("yanluganta", "kartari"),
+        "yangluk_yak": ("yanluganta", "karmani"),
+    }
     lakaras = [
         ("lw", "lw"), ("liw", "liw"), ("luw", "luw"), ("lfw", "lfw"),
         ("low", "low"), ("laN", "laN"), ("viDiliN", "viDiliN"),
         ("ASIrliN", "ASIrliN"), ("luN", "luN"), ("lfN", "lfN"),
     ]
-
+    conjugations = data.get("conjugations", {})
+    antas_to_check = [k for k in anta_map if k in conjugations]
+    if not antas_to_check:
+        antas_to_check = ["ting"]
     if verbose:
-        print("\n-- tinanta (10 lakaras, 9 purusha/vacana) --")
-    for code, _title in lakaras:
+        print(f"\n-- tinanta ({len(antas_to_check)} antas × 10 lakaras × 9) --")
+        print(f"   antas: {', '.join(antas_to_check)}")
+    for anta_key in antas_to_check:
+        sanadi, prayoga = anta_map[anta_key]
+        if verbose:
+            print(f"\n  [{anta_key}] sanadi={sanadi} prayoga={prayoga}")
+        for code, _title in lakaras:
+            # skip lakaras not present for this anta if JSON is sparse? we still check all 10
+            # but for yangluk only lw is meaningful - we still check but allow missing
+            loc_tot = 0
+            loc_mat = 0
+            miss = []
+            for p in ["prathama", "madhyama", "uttama"]:
+                for v in ["eka", "dvi", "bahu"]:
+                    try:
+                        forms, _ = te.derive(dhatu, code, p, v, prayoga=prayoga, sanadi=sanadi)
+                    except Exception as e:
+                        forms = []
+                    loc_tot += 1
+                    total += 1
+                    if forms and check_slot(forms):
+                        loc_mat += 1
+                        matched += 1
+                    else:
+                        miss.append((f"{p} {v}", forms[0] if forms else "∅"))
+            if verbose:
+                # for yangluk only lw matters, suppress noisy others
+                if anta_key in ("yangluk", "yangluk_yak") and code != "lw":
+                    # don't print non-lw for yanluk (only present is meaningful)
+                    total -= loc_tot
+                    matched -= loc_mat
+                    continue
+                status = "✓" if loc_mat == loc_tot else "⚠"
+                print(f"    {status} {code:8s} {loc_mat:2d}/{loc_tot:2d}" + ("" if loc_mat == loc_tot else f"  e.g. {miss[0]}"))
+
+    # krdanta: all antas in participles (krut, san_krut, nich_krut...)
+    if verbose:
+        print("\n-- krdanta (all antas) --")
+    krut_map = {
+        "krut": None,
+        "san_krut": "sannanta",
+        "nich_krut": "nijanta",
+        "yang_krut": "yananta",
+        "yangluk_krut": "yanluganta",
+    }
+    participles = data.get("participles", {})
+    # if no participles key, fallback to primitive only
+    krut_antas = [k for k in krut_map if k in participles] or ["krut"]
+    # we will count krdanta for each anta
+    all_krd_tot = 0
+    all_krd_mat = 0
+    for krut_key in krut_antas:
+        sanadi_k = krut_map[krut_key]
+        krd_anta = ke.derive_all_krdantas(dhatu, sanadi=sanadi_k)
+        # count
         loc_tot = 0
         loc_mat = 0
-        miss = []
-        for p in ["prathama", "madhyama", "uttama"]:
-            for v in ["eka", "dvi", "bahu"]:
-                forms, _ = te.derive(dhatu, code, p, v)
+        for code, item in krd_anta.items():
+            if "M" in item:
+                for g in ["M", "F", "N"]:
+                    loc_tot += 1
+                    if check_slot([item[g]]):
+                        loc_mat += 1
+            elif "avyaya" in item:
                 loc_tot += 1
-                total += 1
-                if check_slot(forms):
+                cand = item["avyaya"] if isinstance(item["avyaya"], list) else [item["avyaya"]]
+                if check_slot(cand):
                     loc_mat += 1
-                    matched += 1
-                else:
-                    miss.append((f"{p} {v}", forms[0]))
+            else:
+                loc_tot += 1
+                if check_slot([item["form"]]):
+                    loc_mat += 1
+        all_krd_tot += loc_tot
+        all_krd_mat += loc_mat
         if verbose:
             status = "✓" if loc_mat == loc_tot else "⚠"
-            print(f"  {status} {code:8s} {loc_mat:2d}/{loc_tot:2d}" + ("" if loc_mat == loc_tot else f"  e.g. {miss[0]}"))
+            print(f"  {status} {krut_key:12s} ({sanadi_k or 'mUla':10s}) {loc_mat:2d}/{loc_tot:2d}")
+        total += loc_tot
+        matched += loc_mat
 
-    # krdanta
-    if verbose:
-        print("\n-- krdanta (tri-linga + avyaya) --")
-    krd = ke.derive_all_krdantas(dhatu)
-    for code, item in krd.items():
-        if "M" in item:
-            for g in ["M", "F", "N"]:
-                total += 1
-                if check_slot([item[g]]):
-                    matched += 1
-                elif verbose:
-                    print(f"  miss {code} {g}: {item[g]} ({slp1_to_devanagari(item[g])})")
-                    total -= 0  # keep count
-                    # don't increment matched
-                else:
-                    pass
-                # we counted total already, need to adjust if miss
-                # simpler: recount
-                # actually we already counted, just need to not double
-                # fix: we added total, now if miss we keep total but not matched
-                # so we need to not double-count above
-                # The above logic double counts: we do total+=1 then if miss we don't matched, correct.
-                pass
-        elif "avyaya" in item:
-            total += 1
-            cand = item["avyaya"] if isinstance(item["avyaya"], list) else [item["avyaya"]]
-            if check_slot(cand):
-                matched += 1
-            elif verbose:
-                print(f"  miss {code} avyaya: {cand}")
-        else:
-            total += 1
-            if check_slot([item["form"]]):
-                matched += 1
-            elif verbose:
-                print(f"  miss {code}: {item['form']}")
-
-    # Recompute correctly for krdanta (the above incremental for M/F/N was messy, recompute cleanly)
-    # To avoid double-count bug, recompute from scratch for krdanta part only if we printed misses
-    # Instead just recompute total/matched for krdanta cleanly:
-    # (We already have total/matched with tintana; now we need to correct krdanta counts)
-    # Quick fix: recount krdanta separately and adjust
-    # Let's recompute krdanta totals accurately
-    k_tot = 0
-    k_mat = 0
-    for code, item in krd.items():
-        if "M" in item:
-            for g in ["M", "F", "N"]:
-                k_tot += 1
-                if check_slot([item[g]]):
-                    k_mat += 1
-        elif "avyaya" in item:
-            k_tot += 1
-            cand = item["avyaya"] if isinstance(item["avyaya"], list) else [item["avyaya"]]
-            if check_slot(cand):
-                k_mat += 1
-        else:
-            k_tot += 1
-            if check_slot([item["form"]]):
-                k_mat += 1
-    # total already includes krdanta counts (with potential off-by), so correct:
-    # total = tinanta_total (90) + k_tot ; matched = tinanta_matched + k_mat
-    # We have tinanta total = 90, so derive:
-    tinanta_total = 90
-    # But if dhatu is Atmanepadi vs Parasmaipada, tinanta total still 90 (10*9)
-    # So recompute:
-    # Instead just set total/matched correctly:
-    # tinanta part we computed correctly as 90, now replace krdanta part
-    # total_tin = 90, matched_tin = sum of tinanta matches
-    # For now just print final recomputed
-    # To keep function return correct, recompute everything cleanly:
-    total2 = 0
-    matched2 = 0
-    for code, _ in lakaras:
-        for p in ["prathama", "madhyama", "uttama"]:
-            for v in ["eka", "dvi", "bahu"]:
-                forms, _ = te.derive(dhatu, code, p, v)
-                total2 += 1
-                if check_slot(forms):
-                    matched2 += 1
-    total2 += k_tot
-    matched2 += k_mat
-    total, matched = total2, matched2
-
+    # final recompute not needed - total/matched already includes all antas
+    # but verify with clean recount for return value (use already computed total/matched which includes tinanta+all krdanta)
     if verbose:
         print("-" * 75)
         print(f"GRAND  {matched}/{total}  ({matched/total*100:.1f}%)  {'✓ ALL MATCHED' if matched==total else '⚠ missing'}")

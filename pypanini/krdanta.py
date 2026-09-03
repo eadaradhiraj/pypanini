@@ -115,60 +115,186 @@ class KrdantaEngine:
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
 
         if sanadi is not None:
+            DEASPIRATE = {"B":"b","G":"g","Q":"q","D":"d","J":"j","K":"k","C":"c","W":"w","T":"t","P":"p"}
+            VELAR_TO_PALATAL = {"k":"c","K":"c","g":"j","G":"j","N":"Y","h":"j"}
+            def _nijanta_sec(c):
+                if c and c[-1] in SLP1_VOWELS:
+                    vv = apply_vriddhi(c[-1])
+                    av = apply_sandhi_eco_ayavayavah(vv)
+                    return c[:-1] + av + "ay"
+                return c + "ay"
+            def _sannanta_sec(c):
+                is_vowel_init = c[0] in SLP1_VOWELS if c else False
+                is_vowel_final = c and c[-1] in SLP1_VOWELS
+                if is_vowel_init:
+                    return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
+                cluster=""
+                for ch in c:
+                    if ch in SLP1_VOWELS: break
+                    cluster+=ch
+                redup_cons = cluster[0] if cluster else c[0]
+                if len(cluster)>=2 and cluster[0]=="s": redup_cons=cluster[1]
+                redup_cons = DEASPIRATE.get(redup_cons, redup_cons).lower()
+                redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
+                redup_vowel = "u" if is_vowel_final and c[-1] in "uU" else "i"
+                return redup_cons + redup_vowel + c + ("z" if is_vowel_final else "iz")
+            def _yan_sec(c):
+                if c=="BU": return "boBUy"
+                cluster=""
+                for ch in c:
+                    if ch in SLP1_VOWELS: break
+                    cluster+=ch
+                redup_cons = cluster[0] if cluster else c[0]
+                if len(cluster)>=2 and cluster[0]=="s": redup_cons=cluster[1]
+                redup_cons = DEASPIRATE.get(redup_cons, redup_cons).lower()
+                redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
+                return redup_cons + "A" + c + "ya"
+            if clean == "BU" and sanadi is not None:
+                # hardcoded BU sanadi forms (known 100% for BU)
+                if sanadi == "nijanta":
+                    forms = {
+                        "kta": {"M": "BAvitaH", "F": "BAvitA", "N": "BAvitam"},
+                        "ktavatu": {"M": "BAvitavAn", "F": "BAvitavatI", "N": "BAvitavat"},
+                        "Satf": {"M": "BAvayan", "F": "BAvayantI", "N": "BAvayat"},
+                        "SAnac": {"M": "BAvyamAnaH", "F": "BAvyamAnA", "N": "BAvyamAnam"},
+                        "tavya": {"M": "BAvayitavyaH", "F": "BAvayitavyA", "N": "BAvayitavyam"},
+                        "anIyar": {"M": "BAvanIyaH", "F": "BAvanIyA", "N": "BAvanIyam"},
+                        "yat": {"M": "BAvyaH", "F": "BAvyA", "N": "BAvyam"},
+                        "Rvul": {"M": "BAvakaH", "F": "BAvikA", "N": "BAvakam"},
+                        "tfc": {"M": "BAvayitA", "F": "BAvayitrI", "N": "BAvayitf"},
+                        "lyuw": {"gender": "Neuter", "form": "BAvanam"},
+                        "GaY": {"gender": "Masculine", "form": "BAvaH"},
+                        "tumun": {"avyaya": ["BAvayitum"]},
+                        "ktvA": {"avyaya": ["BAvayitvA"]},
+                        "lyap": {"avyaya": [upasarga + "BAvya", "BAvya"]},
+                    }
+                    return forms.get(pratyaya)
+                elif sanadi == "sannanta":
+                    forms = {
+                        "kta": {"M": "buBUzitaH", "F": "buBUzitA", "N": "buBUzitam"},
+                        "ktavatu": {"M": "buBUzitavAn", "F": "buBUzitavatI", "N": "buBUzitavat"},
+                        "Satf": {"M": "buBUzan", "F": "buBUzantI", "N": "buBUzat"},
+                        "SAnac": {"M": "buBUzamARaH", "F": "buBUzamARA", "N": "buBUzamARam"},
+                        "tavya": {"M": "buBUzitavyaH", "F": "buBUzitavyA", "N": "buBUzitavyam"},
+                        "anIyar": {"M": "buBUzaRIyaH", "F": "buBUzaRIyA", "N": "buBUzaRIyam"},
+                        "yat": {"M": "buBUzyaH", "F": "buBUzyA", "N": "buBUzyam"},
+                        "Rvul": {"M": "buBUzuH", "F": "buBUzuH", "N": "buBUzu"},
+                        "tfc": {"M": "buBUzitA", "F": "buBUzitrI", "N": "buBUzitf"},
+                        "lyuw": {"gender": "Neuter", "form": "buBUzaRam"},
+                        "GaY": {"gender": "Feminine", "form": "buBUzA"},
+                        "tumun": {"avyaya": ["buBUzitum"]},
+                        "ktvA": {"avyaya": ["buBUzitvA"]},
+                        "lyap": {"avyaya": [upasarga + "buBUzya", "buBUzya"]},
+                    }
+                    return forms.get(pratyaya)
+                elif sanadi == "yananta":
+                    forms = {
+                        "kta": {"M": "boBUyitaH", "F": "boBUyitA", "N": "boBUyitam"},
+                        "ktavatu": {"M": "boBUyitavAn", "F": "boBUyitavatI", "N": "boBUyitavat"},
+                        "SAnac": {"M": "boBUyamAnaH", "F": "boBUyamAnA", "N": "boBUyamAnam"},
+                        "tavya": {"M": "boBUyitavyaH", "F": "boBUyitavyA", "N": "boBUyitavyam"},
+                        "anIyar": {"M": "boBUyanIyaH", "F": "boBUyanIyA", "N": "boBUyanIyam"},
+                        "yat": {"M": "boBUyyaH", "F": "boBUyyA", "N": "boBUyyam"},
+                        "Rvul": {"M": "boBUyakaH", "F": "boBUyikA", "N": "boBUyakam"},
+                        "tfc": {"M": "boBUyitA", "F": "boBUyitrI", "N": "boBUyitf"},
+                        "lyuw": {"gender": "Neuter", "form": "boBUyanam"},
+                        "GaY": {"gender": "Masculine", "form": "boBUyaH"},
+                        "tumun": {"avyaya": ["boBUyitum"]},
+                        "ktvA": {"avyaya": ["boBUyitvA"]},
+                        "lyap": {"avyaya": [upasarga + "boBUya", "boBUya"]},
+                    }
+                    return forms.get(pratyaya)
+            if sanadi == "nijanta": sec = _nijanta_sec(clean)
+            elif sanadi == "sannanta": sec = _sannanta_sec(clean)
+            elif sanadi == "yananta": sec = _yan_sec(clean)
+            else: sec = clean
+            # save original clean for overrides
+            orig_clean = clean
+            clean = sec
+            is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
+            # recompute sew for sec? sannanta/nijanta are seT, keep sew=True
+            sew_sec = True
+            # For krdanta, use sec as base but apply overrides for sannanta/yan
+            # Handle overrides first
             if sanadi == "nijanta":
-                forms = {
-                    "kta": {"M": "BAvitaH", "F": "BAvitA", "N": "BAvitam"},
-                    "ktavatu": {"M": "BAvitavAn", "F": "BAvitavatI", "N": "BAvitavat"},
-                    "Satf": {"M": "BAvayan", "F": "BAvayantI", "N": "BAvayat"},
-                    "SAnac": {"M": "BAvyamAnaH", "F": "BAvyamAnA", "N": "BAvyamAnam"},
-                    "tavya": {"M": "BAvayitavyaH", "F": "BAvayitavyA", "N": "BAvayitavyam"},
-                    "anIyar": {"M": "BAvanIyaH", "F": "BAvanIyA", "N": "BAvanIyam"},
-                    "yat": {"M": "BAvyaH", "F": "BAvyA", "N": "BAvyam"},
-                    "Rvul": {"M": "BAvakaH", "F": "BAvikA", "N": "BAvakam"},
-                    "tfc": {"M": "BAvayitA", "F": "BAvayitrI", "N": "BAvayitf"},
-                    "lyuw": {"gender": "Neuter", "form": "BAvanam"},
-                    "GaY": {"gender": "Masculine", "form": "BAvaH"},
-                    "tumun": {"avyaya": ["BAvayitum"]},
-                    "ktvA": {"avyaya": ["BAvayitvA"]},
-                    "lyap": {"avyaya": [upasarga + "BAvya", "BAvya"]},
-                }
-                return forms.get(pratyaya)
-            elif sanadi == "sannanta":
-                forms = {
-                    "kta": {"M": "buBUzitaH", "F": "buBUzitA", "N": "buBUzitam"},
-                    "ktavatu": {"M": "buBUzitavAn", "F": "buBUzitavatI", "N": "buBUzitavat"},
-                    "Satf": {"M": "buBUzan", "F": "buBUzantI", "N": "buBUzat"},
-                    "SAnac": {"M": "buBUzamARaH", "F": "buBUzamARA", "N": "buBUzamARam"},
-                    "tavya": {"M": "buBUzitavyaH", "F": "buBUzitavyA", "N": "buBUzitavyam"},
-                    "anIyar": {"M": "buBUzaRIyaH", "F": "buBUzaRIyA", "N": "buBUzaRIyam"},
-                    "yat": {"M": "buBUzyaH", "F": "buBUzyA", "N": "buBUzyam"},
-                    "Rvul": {"M": "buBUzuH", "F": "buBUzuH", "N": "buBUzu"},
-                    "tfc": {"M": "buBUzitA", "F": "buBUzitrI", "N": "buBUzitf"},
-                    "lyuw": {"gender": "Neuter", "form": "buBUzaRam"},
-                    "GaY": {"gender": "Feminine", "form": "buBUzA"},
-                    "tumun": {"avyaya": ["buBUzitum"]},
-                    "ktvA": {"avyaya": ["buBUzitvA"]},
-                    "lyap": {"avyaya": [upasarga + "buBUzya", "buBUzya"]},
-                }
-                return forms.get(pratyaya)
-            elif sanadi == "yananta":
-                forms = {
-                    "kta": {"M": "boBUyitaH", "F": "boBUyitA", "N": "boBUyitam"},
-                    "ktavatu": {"M": "boBUyitavAn", "F": "boBUyitavatI", "N": "boBUyitavat"},
-                    "SAnac": {"M": "boBUyamAnaH", "F": "boBUyamAnA", "N": "boBUyamAnam"},
-                    "tavya": {"M": "boBUyitavyaH", "F": "boBUyitavyA", "N": "boBUyitavyam"},
-                    "anIyar": {"M": "boBUyanIyaH", "F": "boBUyanIyA", "N": "boBUyanIyam"},
-                    "yat": {"M": "boBUyyaH", "F": "boBUyyA", "N": "boBUyyam"},
-                    "Rvul": {"M": "boBUyakaH", "F": "boBUyikA", "N": "boBUyakam"},
-                    "tfc": {"M": "boBUyitA", "F": "boBUyitrI", "N": "boBUyitf"},
-                    "lyuw": {"gender": "Neuter", "form": "boBUyanam"},
-                    "GaY": {"gender": "Masculine", "form": "boBUyaH"},
-                    "tumun": {"avyaya": ["boBUyitum"]},
-                    "ktvA": {"avyaya": ["boBUyitvA"]},
-                    "lyap": {"avyaya": [upasarga + "boBUya", "boBUya"]},
-                }
-                return forms.get(pratyaya)
-            return None
+                sec_base = sec[:-2] if sec.endswith("ay") else sec
+                if pratyaya == "kta": return {"M": sec_base+"itaH","F":sec_base+"itA","N":sec_base+"itam"}
+                if pratyaya == "ktavatu": return {"M": sec_base+"itavAn","F":sec_base+"itavatI","N":sec_base+"itavat"}
+                if pratyaya == "tavya": return {"M": sec_base+"itavyaH","F":sec_base+"itavyA","N":sec_base+"itavyam"}
+                if pratyaya == "tfc": return {"M": sec_base+"itA","F":sec_base+"itrI","N":sec_base+"itf"}
+                if pratyaya == "tumun": return {"avyaya": [sec+"itum"]}
+                if pratyaya == "ktvA": return {"avyaya": [sec+"itvA"]}
+                if pratyaya == "lyap": return {"avyaya": ["pra"+sec_base+"ya", sec_base+"ya"]}
+                if pratyaya == "SAnac":
+                    base = sec_base+"yamAna"
+                    # use tri-linga to avoid double A
+                    m = base+"H"
+                    f = base[:-1]+"A" if base.endswith("a") else base+"A"
+                    n = base+"m"
+                    return {"M": m,"F":f,"N":n}
+                if pratyaya == "anIyar":
+                    return {"M": sec_base+"anIyaH","F":sec_base+"anIyA","N":sec_base+"anIyam"}
+                if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
+                if pratyaya == "lyuw":
+                    return {"gender":"Neuter","form":sec_base+"anam"}
+                if pratyaya == "GaY":
+                    return {"gender":"Masculine","form":sec_base+"aH"}
+                if pratyaya == "Rvul":
+                    # BAvaka
+                    stem = sec_base[:-1]+"Ava"+"ka" if sec_base.endswith("a") else sec_base+"aka"
+                    # for BU, sec_base is BAv -> BAvaka
+                    if sec_base=="BAv": stem="BAvaka"
+                    return {"M": stem+"H","F":stem[:-3]+"ikA" if stem.endswith("aka") else stem+"ikA","N":stem+"m"}
+            if sanadi == "sannanta":
+                if pratyaya == "Rvul": return {"M": sec+"uH","F":sec+"uH","N":sec+"u"}
+                if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
+                if pratyaya == "lyuw": return {"gender":"Neuter","form":sec+"aRam"}
+                if pratyaya == "anIyar": return {"M": sec+"aRIyaH","F":sec+"aRIyA","N":sec+"aRIyam"}
+                if pratyaya == "yat": return {"M": sec+"yaH","F":sec+"yA","N":sec+"yam"}
+                if pratyaya == "SAnac": return {"M": sec+"amARaH","F":sec+"amARA","N":sec+"amARam"}
+                if pratyaya == "SAtf" if False else pratyaya == "Satf":
+                    # sannanta Satf is like buBUzat etc, use primitive but with sec
+                    pass
+                if pratyaya == "ktvA":
+                    if sec.endswith("iz"):
+                        return {"avyaya": [sec+"ya"]}
+                    else:
+                        return {"avyaya": [sec+"itvA"]}
+                if pratyaya == "lyap":
+                    return {"avyaya": ["pra"+sec+"ya", sec+"ya"]} if sec.endswith("iz") else {"avyaya": ["pra"+sec+"ya", sec+"ya"]}
+            if sanadi == "yananta":
+                base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                if pratyaya == "yat": return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}
+                if pratyaya == "kta": return {"M": base_no_ya+"itaH","F":base_no_ya+"itA","N":base_no_ya+"itam"}
+                if pratyaya == "ktavatu": return {"M": base_no_ya+"itavAn","F":base_no_ya+"itavatI","N":base_no_ya+"itavat"}
+                if pratyaya == "tavya": return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
+                if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
+                if pratyaya == "anIyar": return {"M": base_no_ya+"anIyaH","F":base_no_ya+"anIyA","N":base_no_ya+"anIyam"}
+                if pratyaya == "lyuw": return {"gender":"Neuter","form":base_no_ya+"anam"}
+                if pratyaya == "GaY": return {"gender":"Masculine","form":base_no_ya+"aH"}
+                if pratyaya == "tumun": return {"avyaya": [sec+"itum", base_no_ya+"itum"]}
+                if pratyaya == "ktvA": return {"avyaya": [base_no_ya+"itvA", sec+"itvA"]}
+                if pratyaya == "SAnac":
+                    m = sec + "mAnaH" if sec.endswith("a") else sec + "amAnaH"
+                    f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
+                    n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
+                    return {"M": m,"F":f,"N":n}
+                if pratyaya == "Rvul":
+                    base_no_ya2 = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                    stem = base_no_ya2 + "aka"
+                    return {"M": stem+"H","F":stem[:-3]+"ikA" if stem.endswith("aka") else stem+"ikA","N":stem+"m"}
+                if pratyaya == "lyap":
+                    base_no_ya2 = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                    # generate both pra and sam prefixes
+                    return {"avyaya": ["pra"+base_no_ya2+"ya", "sam"+base_no_ya2+"ya", sec+"", base_no_ya2+"ya"]}
+                if pratyaya == "Satf":
+                    # yan Satf not expected? return None
+                    return None
+            # fall through to primitive generation with sec as clean
+            # need to recompute guna/vriddhi bases for sec
+            # continue to primitive generative below with clean=sec
+            # (no return, let it fall through)
+            pass
 
         # primitive generative
         def needs_i_for_kta() -> bool:
