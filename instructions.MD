@@ -71,3 +71,6 @@ pypanini/
 
 ## 6. Definition of Done
 - `python -W ignore -m unittest tests.test_dhatu -v` → `OK 4/4` and `python tests/test_dhatu.py 01.0001` → `GRAND 895/895 100%` for all BvAdi pilots, expanded 10 antas, no hardcoded dicts.
+
+## 7. Update Instructions
+Update this instructions with progress
