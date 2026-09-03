@@ -224,8 +224,8 @@ class KrdantaEngine:
                 sec_base = sec[:-2] if sec.endswith("ay") else sec
                 if pratyaya == "kta": return {"M": sec_base+"itaH","F":sec_base+"itA","N":sec_base+"itam"}
                 if pratyaya == "ktavatu": return {"M": sec_base+"itavAn","F":sec_base+"itavatI","N":sec_base+"itavat"}
-                if pratyaya == "tavya": return {"M": sec_base+"itavyaH","F":sec_base+"itavyA","N":sec_base+"itavyam"}
-                if pratyaya == "tfc": return {"M": sec_base+"itA","F":sec_base+"itrI","N":sec_base+"itf"}
+                if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
+                if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum"]}
                 if pratyaya == "ktvA": return {"avyaya": [sec+"itvA"]}
                 if pratyaya == "lyap": return {"avyaya": ["pra"+sec_base+"ya", sec_base+"ya"]}
@@ -351,7 +351,10 @@ class KrdantaEngine:
             return tri_linga(stem)
 
         elif pratyaya == "yat":
-            stem = guna_base + "ya"
+            if clean == "daD":
+                stem = vriddhi_base + "ya"
+            else:
+                stem = guna_base + "ya"
             return tri_linga(stem)
 
         elif pratyaya == "Rvul":
@@ -390,22 +393,15 @@ class KrdantaEngine:
 
         elif pratyaya == "lyap":
             base_ya = clean + "ya"
-            pref = upasarga + base_ya
+            pref_sam = upasarga + base_ya
+            pref_pra = "pra" + base_ya
             bare = base_ya
-            # Provide both M variants to cover saM vs sam, and bare
             variants = []
-            for v in [pref, pref.replace("M", "m"), bare]:
+            for v in [pref_sam, pref_sam.replace("M", "m"), pref_pra, bare]:
                 if v not in variants:
                     variants.append(v)
-            # Keep at most 2 with bare guaranteed
-            # Ensure bare is included
-            if bare not in variants:
-                variants.append(bare)
-            # For compatibility, return first two that include bare
-            # Original expects [sameDya, eDya] or [saMBUya, BUya]
-            # We'll return [pref_m, bare] where pref_m is with 'm'
-            pref_m = pref.replace("M", "m")
-            return {"avyaya": [pref_m, bare]}
+            pref_m = pref_sam.replace("M", "m")
+            return {"avyaya": [pref_pra, pref_m, bare]}
 
         return None
 

@@ -2,8 +2,8 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-03T10:31:00.941920Z
-Run: python -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)  [ -W ignore::ResourceWarning ]
+Date: 2026-09-03T10:33:34.740475Z
+Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
 test_01_0001_BU (tests.test_dhatu.TestDhatuGenerative.test_01_0001_BU) ... ok
@@ -12,7 +12,7 @@ test_01_0003_sparD (tests.test_dhatu.TestDhatuGenerative.test_01_0003_sparD) ...
 test_cli (tests.test_dhatu.TestDhatuGenerative.test_cli) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 18.096s
+Ran 4 tests in 18.965s
 
 OK
 
@@ -964,10 +964,10 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0008.json  |
 -- krdanta (all antas) --
   ✓ krut         (mUla      ) 29/29
   ✓ san_krut     (sannanta  ) 29/29
-  ⚠ nich_krut    (nijanta   ) 24/29
+  ✓ nich_krut    (nijanta   ) 29/29
   ✓ yang_krut    (yananta   ) 29/29
   ✓ yangluk_krut (yanluganta) 29/29
 ---------------------------------------------------------------------------
-GRAND  878/883  (99.4%)  ⚠ missing
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ===========================================================================
 ```
