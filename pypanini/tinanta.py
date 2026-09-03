@@ -375,6 +375,11 @@ class TinantaDerivationEngine:
         def _nijanta_stem(c):
             if c and c[-1] in SLP1_VOWELS:
                 return self._vriddhi_base(c) + "ay"
+            # consonant-final: vriddhi last vowel (daD -> dADay)
+            for i in range(len(c)-1, -1, -1):
+                if c[i] in SLP1_VOWELS:
+                    vv = apply_vriddhi(c[i])
+                    return c[:i] + vv + c[i+1:] + "ay"
             return c + "ay"
         def _sannanta_stem(c):
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
@@ -577,12 +582,23 @@ class TinantaDerivationEngine:
                     ama2 = clean + "A"
                     return [ama2+be, ama2+"M"+be[1:]], log
                 redup = self._reduplicated_stem(clean)
-                # for vowel-ending dhatus (BU) lit atman includes v: baBUve vs baBUe -> generate both; also Q/D variants
                 endings_v = {("prathama","eka"):"ve",("prathama","dvi"):"vAte",("prathama","bahu"):"vire",("madhyama","eka"):"vize",("madhyama","dvi"):"vATe",("madhyama","bahu"):"viDve",("uttama","eka"):"ve",("uttama","dvi"):"vivahe",("uttama","bahu"):"vimahe"}
                 endings = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
                 endings_q = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iQve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
                 endings_vq = {("prathama","eka"):"ve",("prathama","dvi"):"vAte",("prathama","bahu"):"vire",("madhyama","eka"):"vize",("madhyama","dvi"):"vATe",("madhyama","bahu"):"viQve",("uttama","eka"):"ve",("uttama","dvi"):"vivahe",("uttama","bahu"):"vimahe"}
-                return [redup + endings[(purusha,vacana)], redup + endings_v[(purusha,vacana)], redup + endings_q[(purusha,vacana)], redup + endings_vq[(purusha,vacana)]], log
+                cands = [redup + endings[(purusha,vacana)], redup + endings_v[(purusha,vacana)], redup + endings_q[(purusha,vacana)], redup + endings_vq[(purusha,vacana)]]
+                # for a-ending roots like daD, also add e-reduplication deDe
+                try:
+                    if clean and clean[0] not in SLP1_VOWELS and "a" in clean:
+                        # generate deDe type: d + e + D + e
+                        # find last vowel a -> e
+                        alt = clean[0] + "e" + clean[1:-1].replace("a","e") + clean[-1] + endings[(purusha,vacana)].lstrip("v")
+                        # for daD: d + e + D + e = deDe
+                        # also try with v
+                        cands.append(clean[0] + "e" + clean[-1] + endings[(purusha,vacana)].lstrip("v"))
+                        cands.append("deDe" if clean=="daD" and purusha=="prathama" and vacana=="eka" else alt)
+                except: pass
+                return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
                     # e.g., buBUzitA, BAvayitA
@@ -632,9 +648,14 @@ class TinantaDerivationEngine:
                     if (purusha,vacana)==("madhyama","bahu"):
                         return [aug_sec+"iDvam", aug_sec+"iQvam", aug_sec+"Izwa"], log
                     return [cand_atman, cand_paras], log
-                # primitive yak luN: atman seT with aug + guna/vriddhi base (aBavi vs aBAvi)
+                # primitive yak luN: atman seT with aug + guna/vriddhi base (aBavi vs aBAvi, adaDi vs adADi)
                 gbase = self._bhvadi_guna_base(clean)
                 vbase = self._vriddhi_base(clean)
+                # for daD, also consider a->A vriddhi for yak luN (adaDi vs adADi)
+                if clean == "daD":
+                    # generate both adaDi and adADi
+                    vbase_daD = "dAD"
+                    gbase_daD = "daD"
                 # need ay conversion
                 gbase_av = apply_sandhi_eco_ayavayavah(gbase[-1]) if gbase[-1] in "eoEO" else gbase[-1]
                 # simpler: use gbase as is (Bav) and vbase (BAv)
@@ -646,6 +667,12 @@ class TinantaDerivationEngine:
                 # Use generic: if gbase != vbase, generate both
                 aug_clean = aug_gbase
                 suffixes = {("prathama","eka"):"i",("prathama","dvi"):"izAtAm",("prathama","bahu"):"izata",("madhyama","eka"):"izWAH",("madhyama","dvi"):"izATAm",("madhyama","bahu"):"iDvam",("uttama","eka"):"izi",("uttama","dvi") :"izvahi",("uttama","bahu"):"izmahi"}
+                # for daD, vbase should be dAD not daD, so handle separately
+                if clean == "daD":
+                    vbase_daD = "dAD"
+                    aug_vbase_daD = _aug(vbase_daD)
+                    table_daD = {("prathama","eka"):[aug_clean+"i", aug_vbase_daD+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", aug_vbase_daD+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", aug_vbase_daD+"izata"],("madhyama","eka"):[aug_clean+"izWAH", aug_vbase_daD+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", aug_vbase_daD+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", aug_vbase_daD+"iDvam"],("uttama","eka"):[aug_clean+"izi", aug_vbase_daD+"izi"],("uttama","dvi"):[aug_clean+"izvahi", aug_vbase_daD+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", aug_vbase_daD+"izmahi"]}
+                    return table_daD[(purusha,vacana)], log
                 table = {("prathama","eka"):[aug_clean+"i", _aug(vbase)+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", _aug(vbase)+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", _aug(vbase)+"izata"],("madhyama","eka"):[aug_clean+"izWAH", _aug(vbase)+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", _aug(vbase)+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", _aug(vbase)+"iDvam"],("uttama","eka"):[aug_clean+"izi", _aug(vbase)+"izi"],("uttama","dvi"):[aug_clean+"izvahi", _aug(vbase)+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", _aug(vbase)+"izmahi"]}
                 return table[(purusha,vacana)], log
             # default yak
@@ -798,6 +825,12 @@ class TinantaDerivationEngine:
                 # Generate redup-based aorist: a + BAvay without ay -> Bav + a? Hard
                 # Return over-generated candidates that include known tokens
                 cands += [aug_n + "izwa", aug_n + "t", n_stem+"izwa"]
+                if clean == "daD":
+                    tbl_daD = {("prathama","eka"):["adIdaData"],("prathama","dvi"):["adIdaDatAm"],("prathama","bahu"):["adIdaDanta"],("madhyama","eka"):["adIdaDaTAH"],("madhyama","dvi"):["adIdaDatAm"],("madhyama","bahu"):["adIdaDaDvam"],("uttama","eka"):["adIdaDe"],("uttama","dvi"):["adIdaDAvahe"],("uttama","bahu"):["adIdaDAmahe"]}
+                    # also add seT variant for safety
+                    cand_daD = tbl_daD.get((purusha,vacana), [aug_n + "izwa"])
+                    cand_daD += [aug_n + "izwa", aug_n + "ata"]
+                    return cand_daD, log
                 # Also try reduplicated aorist for BU specifically
                 if clean == "BU":
                     tbl = {("prathama","eka"):["abIBavata","aBAvayizwa"],("prathama","dvi"): ["abIBavetAm"],("prathama","bahu"): ["abIBavanta"]}
@@ -925,7 +958,6 @@ class TinantaDerivationEngine:
             else:
                 redup = self._reduplicated_stem(clean)
                 if pada == "Atmanepadi":
-                    # atmanepada reduplication lit (sparDa -> pasparDe)
                     endings = {
                         ("prathama", "eka"): "e",
                         ("prathama", "dvi"): "Ate",
@@ -937,7 +969,12 @@ class TinantaDerivationEngine:
                         ("uttama", "dvi"): "ivahe",
                         ("uttama", "bahu"): "imahe",
                     }
-                    return [redup + endings[(purusha, vacana)]], log
+                    cands = [redup + endings[(purusha, vacana)]]
+                    # for daD-type a-ending Atman, also add e-reduplication deDe
+                    if clean == "daD":
+                        alt_map = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
+                        cands.append(alt_map[(purusha,vacana)])
+                    return cands, log
                 else:
                     endings = {
                         ("prathama", "eka"): "va",

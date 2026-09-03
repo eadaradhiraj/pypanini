@@ -122,6 +122,12 @@ class KrdantaEngine:
                     vv = apply_vriddhi(c[-1])
                     av = apply_sandhi_eco_ayavayavah(vv)
                     return c[:-1] + av + "ay"
+                # consonant-final: vriddhi of last vowel before final cons
+                for i in range(len(c)-1, -1, -1):
+                    if c[i] in SLP1_VOWELS:
+                        vv = apply_vriddhi(c[i])
+                        # vv may be digraph like "Ar" for f, but for a it is "A"
+                        return c[:i] + vv + c[i+1:] + "ay"
                 return c + "ay"
             def _sannanta_sec(c):
                 is_vowel_init = c[0] in SLP1_VOWELS if c else False
