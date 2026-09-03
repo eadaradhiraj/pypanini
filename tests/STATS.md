@@ -2,7 +2,7 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-03T12:25:39.976409Z
+Date: 2026-09-03T14:33:21.020083Z
 Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
@@ -12,7 +12,7 @@ test_01_0003_sparD (tests.test_dhatu.TestDhatuGenerative.test_01_0003_sparD) ...
 test_cli (tests.test_dhatu.TestDhatuGenerative.test_cli) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 15.903s
+Ran 4 tests in 17.703s
 
 OK
 
@@ -1162,7 +1162,7 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
     ✓ laN       9/ 9
     ✓ viDiliN   9/ 9
     ✓ ASIrliN   9/ 9
-    ⚠ luN       3/ 9  e.g. ('madhyama eka', 'aSvindayizwa')
+    ✓ luN       9/ 9
     ✓ lfN       9/ 9
 
   [nich_yak] sanadi=nijanta prayoga=karmani
@@ -1202,19 +1202,19 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0010.json  |
     ✓ lfN       9/ 9
 
   [yangluk] sanadi=yanluganta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'SiSvindti')
+    ✓ lw        9/ 9
 
   [yangluk_yak] sanadi=yanluganta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'SiSvindti')
+    ✓ lw        9/ 9
 
 -- krdanta (all antas) --
   ✓ krut         (mUla      ) 29/29
   ✓ san_krut     (sannanta  ) 29/29
   ✓ nich_krut    (nijanta   ) 29/29
-  ⚠ yang_krut    (yananta   )  0/29
+  ✓ yang_krut    (yananta   ) 29/29
   ✓ yangluk_krut (yanluganta) 29/29
 ---------------------------------------------------------------------------
-GRAND  830/883  (94.0%)  ⚠ missing
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ===========================================================================
 ```
 
@@ -1325,10 +1325,10 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0011.json  |
     ⚠ lfN       0/ 9  e.g. ('prathama eka', 'avAvadiizyata')
 
   [yangluk] sanadi=yanluganta prayoga=kartari
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vAvadiati')
+    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vAvadiaH')
 
   [yangluk_yak] sanadi=yanluganta prayoga=karmani
-    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vAvadiati')
+    ⚠ lw        0/ 9  e.g. ('prathama eka', 'vAvadiaH')
 
 -- krdanta (all antas) --
   ⚠ krut         (mUla      )  0/29
