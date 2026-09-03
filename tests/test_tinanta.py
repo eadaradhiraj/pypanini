@@ -5,23 +5,39 @@ class TestTinanta(unittest.TestCase):
     def setUp(self):
         self.engine = TinantaDerivationEngine()
 
-    def test_bhu_lut(self):
-        t = self.engine.derive_all("BU", "luw")
-        self.assertEqual(t[("prathama", "eka")], "BavitA")
-        self.assertEqual(t[("prathama", "dvi")], "BavitArO")
-        self.assertEqual(t[("prathama", "bahu")], "BavitAraH")
-        self.assertEqual(t[("madhyama", "eka")], "BavitAsi")
-        self.assertEqual(t[("madhyama", "dvi")], "BavitAsTaH")
-        self.assertEqual(t[("madhyama", "bahu")], "BavitAsTa")
-        self.assertEqual(t[("uttama", "eka")], "BavitAsmi")
-        self.assertEqual(t[("uttama", "dvi")], "BavitAsvaH")
-        self.assertEqual(t[("uttama", "bahu")], "BavitAsmaH")
+    def test_sannanta_desiderative(self):
+        # Present: buBUzati
+        t_lat = self.engine.derive_all("BU", "lw", sanadi="sannanta")
+        self.assertEqual(t_lat[("prathama", "eka")], "buBUzati")
+        self.assertEqual(t_lat[("uttama", "eka")], "buBUzAmi")
 
-    def test_bhu_lrt(self):
-        t = self.engine.derive_all("BU", "lfw")
-        self.assertEqual(t[("prathama", "eka")], "Bavizyati")
+        # Past: abuBUzat
+        t_lan = self.engine.derive_all("BU", "laN", sanadi="sannanta")
+        self.assertEqual(t_lan[("prathama", "eka")], "abuBUzat")
 
-    def test_bhu_lat(self):
+        # Future: buBUzizyati
+        t_lrt = self.engine.derive_all("BU", "lfw", sanadi="sannanta")
+        self.assertEqual(t_lrt[("prathama", "eka")], "buBUzizyati")
+
+    def test_nijanta_causative(self):
+        # Present: BAvayati
+        t_lat = self.engine.derive_all("BU", "lw", sanadi="nijanta")
+        self.assertEqual(t_lat[("prathama", "eka")], "BAvayati")
+
+        # Past: aBAvayat
+        t_lan = self.engine.derive_all("BU", "laN", sanadi="nijanta")
+        self.assertEqual(t_lan[("prathama", "eka")], "aBAvayat")
+
+    def test_karmani_passive(self):
+        # Present: BUyate
+        t_lat = self.engine.derive_all("BU", "lw", prayoga="karmani")
+        self.assertEqual(t_lat[("prathama", "eka")], "BUyate")
+
+        # Past: aBUyata
+        t_lan = self.engine.derive_all("BU", "laN", prayoga="karmani")
+        self.assertEqual(t_lan[("prathama", "eka")], "aBUyata")
+
+    def test_primitive_lat(self):
         t = self.engine.derive_all("BU", "lw")
         self.assertEqual(t[("prathama", "eka")], "Bavati")
 

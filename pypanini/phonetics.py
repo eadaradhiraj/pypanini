@@ -13,6 +13,18 @@ def apply_guna(vowel: str) -> str:
     return guna_map.get(vowel, vowel)
 
 
+def apply_vriddhi(vowel: str) -> str:
+    """Pāṇini 7.2.115: aco YRiti (Vṛddhi substitution)"""
+    vriddhi_map = {
+        'a': 'A',
+        'i': 'E', 'I': 'E',
+        'u': 'O', 'U': 'O',
+        'f': 'Ar', 'F': 'Ar',
+        'x': 'Al', 'X': 'Al'
+    }
+    return vriddhi_map.get(vowel, vowel)
+
+
 def apply_sandhi_eco_ayavayavah(vowel: str) -> str:
     """Pāṇini 6.1.78: eco'yavAyAvaH"""
     adesha_map = {
