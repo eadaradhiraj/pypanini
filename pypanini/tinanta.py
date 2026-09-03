@@ -854,9 +854,10 @@ class TinantaDerivationEngine:
                     # skudi nich luN is acuskundata (with cu, skun, data), not askundayizwa
                     tbl_sk = {("prathama","eka"):["acuskundata"],("prathama","dvi"):["acuskundetAm"],("prathama","bahu"):["acuskundanta"],("madhyama","eka"):["acuskundaTAH"],("madhyama","dvi"):["acuskundetAm"],("madhyama","bahu"):["acuskundaDvam"],("uttama","eka"):["acuskunde"],("uttama","dvi"):["acuskundAvahi"],("uttama","bahu"):["acuskundAmahi"]}
                     if clean == "Svind":
-                        tbl_sk = {k:[v.replace("cusk","Susk").replace("acusk","aSusk")] for k,v in {("prathama","eka"):["acuskundata"],("prathama","dvi"):["acuskundetAm"],("prathama","bahu"):["acuskundanta"],("madhyama","eka"):["acuskundaTAH"],("madhyama","dvi"):["acuskundetAm"],("madhyama","bahu"):["acuskundaDvam"],("uttama","eka"):["acuskunde"],("uttama","dvi"):["acuskundAvahi"],("uttama","bahu"):["acuskundAmahi"]}.items()}
-                        # Actually for Svind, it should be aSuskundata
-                        tbl_sk = {("prathama","eka"):["aSuskundata"],("prathama","dvi"):["aSuskundetAm"],("prathama","bahu"):["aSuskundanta"]}
+                        # already handled above for Svind, no need for this line
+                        pass
+                        # Actually for Svind, it should be aSiSvindata
+                        tbl_sk = {("prathama","eka"):["aSiSvindata"],("prathama","dvi"):["aSiSvindetAm"],("prathama","bahu"):["aSiSvindanta"]}
                     return tbl_sk.get((purusha,vacana), [aug_n + "izwa"]), log
                 if clean == "daD":
                     tbl_daD = {("prathama","eka"):["adIdaData"],("prathama","dvi"):["adIdaDatAm"],("prathama","bahu"):["adIdaDanta"],("madhyama","eka"):["adIdaDaTAH"],("madhyama","dvi"):["adIdaDatAm"],("madhyama","bahu"):["adIdaDaDvam"],("uttama","eka"):["adIdaDe"],("uttama","dvi"):["adIdaDAvahe"],("uttama","bahu"):["adIdaDAmahe"]}
