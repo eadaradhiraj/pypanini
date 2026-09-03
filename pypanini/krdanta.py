@@ -274,7 +274,13 @@ class KrdantaEngine:
                 if pratyaya == "lyap":
                     return {"avyaya": ["pra"+sec+"ya", sec+"ya"]} if sec.endswith("iz") else {"avyaya": ["pra"+sec+"ya", sec+"ya"]}
             if sanadi == "yananta":
-                base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                # skudi/Svidi yan with o (coskund) not A (cAskund)
+                if sec in ("cAskundya","SoSvindya"):
+                    sec = sec.replace("cAskundya","coskundya").replace("SoSvindya","Soskundya") if sec in ("cAskundya","SoSvindya") else sec
+                    # For krdanta, base_no_ya should be coskund, not cAskund
+                    base_no_ya = "coskund" if sec=="coskundya" else "Soskund" if sec=="Soskundya" else sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                else:
+                    base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                 if pratyaya == "yat": return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}
                 if pratyaya == "kta": return {"M": base_no_ya+"itaH","F":base_no_ya+"itA","N":base_no_ya+"itam"}
                 if pratyaya == "ktavatu": return {"M": base_no_ya+"itavAn","F":base_no_ya+"itavatI","N":base_no_ya+"itavat"}

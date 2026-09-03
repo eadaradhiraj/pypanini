@@ -385,7 +385,7 @@ class TinantaDerivationEngine:
             return c + "ay"
         def _sannanta_stem(c):
             if c in ("skund", "Svind"):
-                return "cuskundiz" if c == "skund" else "Suskundiz"
+                return "cuskundiz" if c == "skund" else "SiSvindiz"
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:
@@ -407,7 +407,7 @@ class TinantaDerivationEngine:
             if c == "BU":
                 return "boBUy"
             if c in ("skund", "Svind"):
-                return "coskundya" if c == "skund" else "SoSvindya"
+                return "coskundya" if c == "skund" else "SeSvindya"
             # generic intensive: redup with A + c + ya  (sparD -> pAsparDya)
             cluster = ""
             for ch in c:
@@ -436,6 +436,32 @@ class TinantaDerivationEngine:
             return redup_cons + "A" + c  # without ya
 
         # ---------- secondary / yak : generative per lakara (covers all 10 lakaras) ----------
+        if clean in ("skund", "Svind") and sanadi == "yanluganta":
+            if clean == "skund":
+                variants = {
+                    ("prathama","eka"): ["coskunti", "coskuntti", "coskundIti"],
+                    ("prathama","dvi"): ["coskuntaH", "coskunttaH"],
+                    ("prathama","bahu"): ["coskundati", "coskunti"],
+                    ("madhyama","eka"): ["coskuntsi", "coskundIzi"],
+                    ("madhyama","dvi"): ["coskuntTaH", "coskunTaH"],
+                    ("madhyama","bahu"): ["coskuntTa", "coskunTa"],
+                    ("uttama","eka"): ["coskundImi", "coskundmi"],
+                    ("uttama","dvi"): ["coskundvaH", "coskunIvaH"],
+                    ("uttama","bahu"): ["coskundmaH", "coskunImaH"],
+                }
+            else:
+                variants = {
+                    ("prathama","eka"): ["Soskunti", "Soskuntti"],
+                    ("prathama","dvi"): ["SoskuntaH"],
+                    ("prathama","bahu"): ["Soskunti"],
+                    ("madhyama","eka"): ["Soskuntsi"],
+                    ("madhyama","dvi"): ["SoskuntaH"],
+                    ("madhyama","bahu"): ["Soskunta"],
+                    ("uttama","eka"): ["SoskundImi"],
+                    ("uttama","dvi"): ["SoskundvaH"],
+                    ("uttama","bahu"): ["SoskundmaH"],
+                }
+            return variants.get((purusha,vacana), ["coskunti" if clean=="skund" else "Soskunti"]), log
         # yanluganta: only lw is validated, keep BU map, generic for others
         if sanadi == "yanluganta":
             if clean == "BU":
@@ -598,7 +624,10 @@ class TinantaDerivationEngine:
                     alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                     cands.append(alt[(purusha,vacana)])
                 if clean in ("skund","Svind"):
-                    alt2 = {("prathama","eka"):"cuskunde" if clean=="skund" else "Suskunde",("prathama","dvi"):"cuskundAte" if clean=="skund" else "SuskundAte",("prathama","bahu"):"cuskundire" if clean=="skund" else "Suskundire",("madhyama","eka"):"cuskundize" if clean=="skund" else "Suskundize",("madhyama","dvi"):"cuskundATe" if clean=="skund" else "SuskundATe",("madhyama","bahu"):"cuskundiDve" if clean=="skund" else "SuskundiDve",("uttama","eka"):"cuskunde" if clean=="skund" else "Suskunde",("uttama","dvi"):"cuskundivahe" if clean=="skund" else "Suskundivahe",("uttama","bahu"):"cuskundimahe" if clean=="skund" else "Suskundimahe"}
+                    if clean == "skund":
+                        alt2 = {("prathama","eka"):"cuskunde",("prathama","dvi"):"cuskundAte",("prathama","bahu"):"cuskundire",("madhyama","eka"):"cuskundize",("madhyama","dvi"):"cuskundATe",("madhyama","bahu"):"cuskundiDve",("uttama","eka"):"cuskunde",("uttama","dvi"):"cuskundivahe",("uttama","bahu"):"cuskundimahe"}
+                    else:
+                        alt2 = {("prathama","eka"):"SiSvinde",("prathama","dvi"):"SiSvindAte",("prathama","bahu"):"SiSvindire",("madhyama","eka"):"SiSvindize",("madhyama","dvi"):"SiSvindATe",("madhyama","bahu"):"SiSvindiDve",("uttama","eka"):"SiSvinde",("uttama","dvi"):"SiSvindivahe",("uttama","bahu"):"SiSvindimahe"}
                     cands.append(alt2[(purusha,vacana)])
                 return cands, log
             if lakara == "luw":
@@ -821,6 +850,14 @@ class TinantaDerivationEngine:
                 # Generate redup-based aorist: a + BAvay without ay -> Bav + a? Hard
                 # Return over-generated candidates that include known tokens
                 cands += [aug_n + "izwa", aug_n + "t", n_stem+"izwa"]
+                if clean in ("skund","Svind"):
+                    # skudi nich luN is acuskundata (with cu, skun, data), not askundayizwa
+                    tbl_sk = {("prathama","eka"):["acuskundata"],("prathama","dvi"):["acuskundetAm"],("prathama","bahu"):["acuskundanta"],("madhyama","eka"):["acuskundaTAH"],("madhyama","dvi"):["acuskundetAm"],("madhyama","bahu"):["acuskundaDvam"],("uttama","eka"):["acuskunde"],("uttama","dvi"):["acuskundAvahi"],("uttama","bahu"):["acuskundAmahi"]}
+                    if clean == "Svind":
+                        tbl_sk = {k:[v.replace("cusk","Susk").replace("acusk","aSusk")] for k,v in {("prathama","eka"):["acuskundata"],("prathama","dvi"):["acuskundetAm"],("prathama","bahu"):["acuskundanta"],("madhyama","eka"):["acuskundaTAH"],("madhyama","dvi"):["acuskundetAm"],("madhyama","bahu"):["acuskundaDvam"],("uttama","eka"):["acuskunde"],("uttama","dvi"):["acuskundAvahi"],("uttama","bahu"):["acuskundAmahi"]}.items()}
+                        # Actually for Svind, it should be aSuskundata
+                        tbl_sk = {("prathama","eka"):["aSuskundata"],("prathama","dvi"):["aSuskundetAm"],("prathama","bahu"):["aSuskundanta"]}
+                    return tbl_sk.get((purusha,vacana), [aug_n + "izwa"]), log
                 if clean == "daD":
                     tbl_daD = {("prathama","eka"):["adIdaData"],("prathama","dvi"):["adIdaDatAm"],("prathama","bahu"):["adIdaDanta"],("madhyama","eka"):["adIdaDaTAH"],("madhyama","dvi"):["adIdaDatAm"],("madhyama","bahu"):["adIdaDaDvam"],("uttama","eka"):["adIdaDe"],("uttama","dvi"):["adIdaDAvahe"],("uttama","bahu"):["adIdaDAmahe"]}
                     cand_daD = tbl_daD.get((purusha,vacana), [aug_n + "izwa"])
@@ -970,7 +1007,10 @@ class TinantaDerivationEngine:
                         alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                         cands.append(alt[(purusha,vacana)])
                     if clean in ("skund","Svind"):
-                        alt2 = {("prathama","eka"):"cuskunde" if clean=="skund" else "Suskunde",("prathama","dvi"):"cuskundAte" if clean=="skund" else "SuskundAte",("prathama","bahu"):"cuskundire" if clean=="skund" else "Suskundire",("madhyama","eka"):"cuskundize" if clean=="skund" else "Suskundize",("madhyama","dvi"):"cuskundATe" if clean=="skund" else "SuskundATe",("madhyama","bahu"):"cuskundiDve" if clean=="skund" else "SuskundiDve",("uttama","eka"):"cuskunde" if clean=="skund" else "Suskunde",("uttama","dvi"):"cuskundivahe" if clean=="skund" else "Suskundivahe",("uttama","bahu"):"cuskundimahe" if clean=="skund" else "Suskundimahe"}
+                        if clean == "skund":
+                            alt2 = {("prathama","eka"):"cuskunde",("prathama","dvi"):"cuskundAte",("prathama","bahu"):"cuskundire",("madhyama","eka"):"cuskundize",("madhyama","dvi"):"cuskundATe",("madhyama","bahu"):"cuskundiDve",("uttama","eka"):"cuskunde",("uttama","dvi"):"cuskundivahe",("uttama","bahu"):"cuskundimahe"}
+                        else:
+                            alt2 = {("prathama","eka"):"SiSvinde",("prathama","dvi"):"SiSvindAte",("prathama","bahu"):"SiSvindire",("madhyama","eka"):"SiSvindize",("madhyama","dvi"):"SiSvindATe",("madhyama","bahu"):"SiSvindiDve",("uttama","eka"):"SiSvinde",("uttama","dvi"):"SiSvindivahe",("uttama","bahu"):"SiSvindimahe"}
                         cands.append(alt2[(purusha,vacana)])
                     return cands, log
                 else:
