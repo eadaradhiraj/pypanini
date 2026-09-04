@@ -135,7 +135,7 @@ class TinantaDerivationEngine:
         return {"clean": clean, "pada": pada, "sew": True, "gana": "BvAdiH", "is_idit": is_idit, "op": dhatu}
 
     # ---------- phonological helpers ----------
-    def _bhvadi_guna_base(self, clean: str) -> str:
+    def _bhvadi_guna_base(self, clean: str, is_idit: bool = False) -> str:
         if not clean:
             return clean
         last = clean[-1]
@@ -143,9 +143,21 @@ class TinantaDerivationEngine:
             gv = apply_guna(last)
             av = apply_sandhi_eco_ayavayavah(gv)
             return clean[:-1] + av
+        if is_idit:
+            return clean
+        last_vowel_idx = -1
+        last_vowel = None
+        for i in range(len(clean)-1, -1, -1):
+            if clean[i] in SLP1_VOWELS:
+                last_vowel_idx = i
+                last_vowel = clean[i]
+                break
+        if last_vowel_idx != -1 and last_vowel is not None:
+            gv = apply_guna(last_vowel)
+            return clean[:last_vowel_idx] + gv + clean[last_vowel_idx+1:]
         return clean
 
-    def _vriddhi_base(self, clean: str) -> str:
+    def _vriddhi_base(self, clean: str, is_idit: bool = False) -> str:
         if not clean:
             return clean
         last = clean[-1]
@@ -153,6 +165,18 @@ class TinantaDerivationEngine:
             vv = apply_vriddhi(last)
             av = apply_sandhi_eco_ayavayavah(vv)
             return clean[:-1] + av
+        if is_idit:
+            return clean
+        last_vowel_idx = -1
+        last_vowel = None
+        for i in range(len(clean)-1, -1, -1):
+            if clean[i] in SLP1_VOWELS:
+                last_vowel_idx = i
+                last_vowel = clean[i]
+                break
+        if last_vowel_idx != -1 and last_vowel is not None:
+            vv = apply_vriddhi(last_vowel)
+            return clean[:last_vowel_idx] + vv + clean[last_vowel_idx+1:]
         return clean
 
     def _add_augment(self, base: str, is_vowel_initial: bool) -> str:
@@ -445,9 +469,13 @@ class TinantaDerivationEngine:
         # helper for sannanta / nijanta / yan stems (generative)
         def _nijanta_stem(c):
             if c and c[-1] in SLP1_VOWELS:
-                return self._vriddhi_base(c) + "ay"
+                return self._vriddhi_base(c, is_idit) + "ay"
             if c == "daD":
                 return "dADay"
+            if not is_idit:
+                guna = self._bhvadi_guna_base(c, is_idit)
+                if guna != c:
+                    return guna + "ay"
             return c + "ay"
         def _sannanta_stem(c):
             if c in ("skund", "Svind"):
@@ -717,9 +745,9 @@ class TinantaDerivationEngine:
                     # fallback to generic
                 # primitive yak future: use guna base + izy + atman
                 if sew:
-                    b = self._bhvadi_guna_base(clean) + "i" + apply_satva("i","s") + "y"
+                    b = self._bhvadi_guna_base(clean, is_idit) + "i" + apply_satva("i","s") + "y"
                 else:
-                    b = self._bhvadi_guna_base(clean) + "sy"
+                    b = self._bhvadi_guna_base(clean, is_idit) + "sy"
                 if lakara == "lfN": b = _aug(b)
                 return self._conjugate_at_stem_atmane(b, "lw" if lakara=="lfw" else "laN", purusha, vacana), log
             if lakara == "liw":
@@ -764,7 +792,7 @@ class TinantaDerivationEngine:
                     # for nijanta BAvay -> BAvayitArO etc.
                     return tbl[(purusha,vacana)], log
                 # primitive yak luw is BavitA (same as paras)
-                base = self._bhvadi_guna_base(clean) + ("i" if sew else "")
+                base = self._bhvadi_guna_base(clean, is_idit) + ("i" if sew else "")
                 return self._conjugate_luw(base, "Atmanepadi", purusha, vacana), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -781,7 +809,7 @@ class TinantaDerivationEngine:
                     endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
                     return [base_iz + endings[(purusha,vacana)]], log
                 # primitive yak ASIrliN is atman seT BavizIzwa (guna + i + z)
-                gbase = self._bhvadi_guna_base(clean)
+                gbase = self._bhvadi_guna_base(clean, is_idit)
                 if sew:
                     base_iz = gbase + "i" + apply_satva("i","s")
                 else:
@@ -803,8 +831,8 @@ class TinantaDerivationEngine:
                         return [aug_sec+"iDvam", aug_sec+"iQvam", aug_sec+"Izwa"], log
                     return [cand_atman, cand_paras], log
                 # primitive yak luN: atman seT with aug + guna/vriddhi base (aBavi vs aBAvi)
-                gbase = self._bhvadi_guna_base(clean)
-                vbase = self._vriddhi_base(clean)
+                gbase = self._bhvadi_guna_base(clean, is_idit)
+                vbase = self._vriddhi_base(clean, is_idit)
                 # need ay conversion
                 gbase_av = apply_sandhi_eco_ayavayavah(gbase[-1]) if gbase[-1] in "eoEO" else gbase[-1]
                 # simpler: use gbase as is (Bav) and vbase (BAv)
@@ -827,19 +855,29 @@ class TinantaDerivationEngine:
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
         if sanadi == "sannanta":
             s_stem = _sannanta_stem(clean)
-            aug_s = self._add_augment(s_stem, s_stem[0] in SLP1_VOWELS if s_stem else False)
+            guna_base = self._bhvadi_guna_base(clean, is_idit)
+            s_stems = [s_stem]
+            if guna_base != clean and clean in s_stem:
+                s_alt = s_stem.replace(clean, guna_base, 1)
+                if s_alt not in s_stems:
+                    s_stems.append(s_alt)
+            aug_s_list = [self._add_augment(s, s[0] in SLP1_VOWELS if s else False) for s in s_stems]
+            aug_s = aug_s_list[0]
             # per-lakara sannanta (kartari, inherits pada)
             is_atman = (pada == "Atmanepadi")
             if lakara in ("lw", "laN", "low", "viDiliN"):
-                st = aug_s if lakara=="laN" else s_stem
-                if is_atman:
-                    return self._conjugate_at_stem_atmane(st, lakara, purusha, vacana), log
-                else:
-                    cands = self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
-                    # low uttama eka for sannanta has ARi variant (buBUzARi) vs Ani
-                    if lakara=="low" and purusha=="uttama" and vacana=="eka":
-                        cands = cands + [s_stem + "ARi", s_stem + "Ani"]
-                    return cands, log
+                cands_all = []
+                for idx, s in enumerate(s_stems):
+                    aug = aug_s_list[idx]
+                    st = aug if lakara=="laN" else s
+                    if is_atman:
+                        cands_all += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
+                    else:
+                        c = self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
+                        if lakara=="low" and purusha=="uttama" and vacana=="eka":
+                            c = c + [s + "ARi", s + "Ani"]
+                        cands_all += c
+                return list(set(cands_all)), log
             if lakara in ("lfw", "lfN"):
                 # buBUzizyati / buBUzizyate style
                 core = s_stem + "izya" if not s_stem.endswith("iz") else s_stem[:-2] + "izya" if s_stem.endswith("iz") else s_stem + "izya"
@@ -915,11 +953,14 @@ class TinantaDerivationEngine:
                     # data shows abuBUzIt, abuBUzItAm, abuBUzIzuH? Actually plung for BU san is abuBUzIt etc.
                     # use aug_s + It etc.
                     return [aug_s + tbl[(purusha,vacana)], aug_s + "It"], log
-            # fallback
-            if is_atman:
-                return self._conjugate_at_stem_atmane(s_stem, lakara, purusha, vacana), log
-            else:
-                return self._conjugate_at_stem_parasmai(s_stem, lakara, purusha, vacana), log
+            # fallback – handle both stems
+            cands = []
+            for s in s_stems:
+                if is_atman:
+                    cands += self._conjugate_at_stem_atmane(s, lakara, purusha, vacana)
+                else:
+                    cands += self._conjugate_at_stem_parasmai(s, lakara, purusha, vacana)
+            return list(set(cands)), log
         if sanadi == "nijanta":
             n_stem = _nijanta_stem(clean)
             is_atman = (pada == "Atmanepadi")
@@ -1029,14 +1070,14 @@ class TinantaDerivationEngine:
 
         # primitive - generative per lakara
         if lakara == "lw":
-            base = self._bhvadi_guna_base(clean)
+            base = self._bhvadi_guna_base(clean, is_idit)
             if pada == "Atmanepadi":
                 return self._conjugate_at_stem_atmane(base, "lw", purusha, vacana), log
             else:
                 return self._conjugate_at_stem_parasmai(base, "lw", purusha, vacana), log
 
         elif lakara == "laN":
-            base = self._bhvadi_guna_base(clean)
+            base = self._bhvadi_guna_base(clean, is_idit)
             aug = self._add_augment(base, is_vowel_initial)
             if pada == "Atmanepadi":
                 return self._conjugate_at_stem_atmane(aug, "laN", purusha, vacana), log
@@ -1044,26 +1085,26 @@ class TinantaDerivationEngine:
                 return self._conjugate_at_stem_parasmai(aug, "laN", purusha, vacana), log
 
         elif lakara == "low":
-            base = self._bhvadi_guna_base(clean)
+            base = self._bhvadi_guna_base(clean, is_idit)
             if pada == "Atmanepadi":
                 return self._conjugate_at_stem_atmane(base, "low", purusha, vacana), log
             else:
                 return self._conjugate_at_stem_parasmai(base, "low", purusha, vacana), log
 
         elif lakara == "viDiliN":
-            base = self._bhvadi_guna_base(clean)
+            base = self._bhvadi_guna_base(clean, is_idit)
             if pada == "Atmanepadi":
                 return self._conjugate_at_stem_atmane(base, "viDiliN", purusha, vacana), log
             else:
                 return self._conjugate_at_stem_parasmai(base, "viDiliN", purusha, vacana), log
 
         elif lakara == "luw":
-            base = self._bhvadi_guna_base(clean)
+            base = self._bhvadi_guna_base(clean, is_idit)
             luw_stem = base + ("i" if sew else "")
             return self._conjugate_luw(luw_stem, pada, purusha, vacana), log
 
         elif lakara == "lfw":
-            base = self._bhvadi_guna_base(clean)
+            base = self._bhvadi_guna_base(clean, is_idit)
             if sew:
                 base_i = base + "i"
                 sat = apply_satva(base_i[-1], "s")
@@ -1076,7 +1117,7 @@ class TinantaDerivationEngine:
                 return self._conjugate_at_stem_parasmai(core, "lw", purusha, vacana), log
 
         elif lakara == "lfN":
-            base = self._bhvadi_guna_base(clean)
+            base = self._bhvadi_guna_base(clean, is_idit)
             if sew:
                 base_i = base + "i"
                 sat = apply_satva(base_i[-1], "s")
@@ -1181,13 +1222,14 @@ class TinantaDerivationEngine:
                 }
                 return [clean + endings[(purusha, vacana)]], log
             else:
-                # Atmanepadi sew: eDizIzwa etc.
+                # Atmanepadi sew: eDizIzwa / modizIzwa etc. Use guna base for consonant-final non-idit (mud->mod)
+                guna_base = self._bhvadi_guna_base(clean, is_idit)
                 if sew:
-                    base_i = clean + "i"
+                    base_i = guna_base + "i"
                     sat = apply_satva(base_i[-1], "s")
                     base_iz = base_i + sat
                 else:
-                    base_iz = clean + apply_satva(clean[-1], "s")
+                    base_iz = guna_base + apply_satva(guna_base[-1], "s")
                 endings = {
                     ("prathama", "eka"): "Izwa",
                     ("prathama", "dvi"): "IyAstAm",
@@ -1231,8 +1273,10 @@ class TinantaDerivationEngine:
                         cands.append(aug + "iz" + ending)
                 return list(set(cands)), log
             else:
-                # Atmanepadi sew luN: EDizwa etc. = _aug(clean) + i + suffix
-                aug_clean = self._add_augment(clean, is_vowel_initial)
+                # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit
+                guna_base = self._bhvadi_guna_base(clean, is_idit)
+                is_vowel_initial_guna = guna_base[0] in SLP1_VOWELS if guna_base else False
+                aug_clean = self._add_augment(guna_base, is_vowel_initial_guna)
                 # suffixes include z where needed
                 suffixes = {
                     ("prathama", "eka"): "izwa",
