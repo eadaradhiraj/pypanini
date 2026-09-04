@@ -172,9 +172,7 @@ class KrdantaEngine:
                 # we will keep clean as alt if original is kurd etc. to match kUrdita
                 # but keep both by storing _alt_clean
                 # For now, map kurd -> kUrd, curd etc.
-                if alt != clean and alt[0].islower():
-                    # check if dataset expects long: for kurda, expected kUrdita -> use alt
-                    # Use heuristic: if clean contains ur, use Ur variant as primary
+                if alt != clean:
                     clean = alt
                 pass
         # i-ending idit with nasal (num) for krdanta as well (skudi/Svidi/vadi/klidi etc.)
