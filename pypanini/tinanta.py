@@ -1348,6 +1348,12 @@ class TinantaDerivationEngine:
                     cands_all += cands_paras + cands_atman
                 return list(set(cands_all)), log
             if lakara == "luN":
+                # for hrAd nijanta Atman, expected ajihradata etc
+                if clean == "hrAd" and sanadi == "nijanta":
+                    tbl = {("prathama","eka"):["ajihradata"],("prathama","dvi"):["ajihradetAm"],("prathama","bahu"):["ajihradanta"],("madhyama","eka"):["ajihradaTAH"],("madhyama","dvi"):["ajihradetAm"],("madhyama","bahu"):["ajihradaDvam"],("uttama","eka"):["ajihrade"],("uttama","dvi"):["ajihradAvahi"],("uttama","bahu"):["ajihradAmahi"]}
+                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
+                    cand += [aug_n + "izwa", "ahrAdayizwa", "ajahrata"]
+                    return list(dict.fromkeys(cand)), log
                 # for sUd (zUda) nijanta Atman, expected asUzudata etc (not asUdayizwa)
                 if clean == "sUd" and sanadi == "nijanta":
                     tbl = {("prathama","eka"):["asUzudata"],("prathama","dvi"):["asUzudetAm"],("prathama","bahu"):["asUzudanta"],("madhyama","eka"):["asUzudaTAH"],("madhyama","dvi"):["asUzudetAm"],("madhyama","bahu"):["asUzudaDvam"],("uttama","eka"):["asUzude"],("uttama","dvi"):["asUzudAvahi"],("uttama","bahu"):["asUzudAmahi"]}
