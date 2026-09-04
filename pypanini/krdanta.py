@@ -267,7 +267,7 @@ class KrdantaEngine:
                             return guna + "ay"
                     elif last_v == "a":
                         suffix = c[last_idx+1:] if last_idx != -1 else ""
-                        if "r" not in suffix:
+                        if "r" not in suffix and len(suffix) <= 1:
                             vrid = self._vriddhi_base(c, is_idit)
                             if vrid != c:
                                 return vrid + "ay"
