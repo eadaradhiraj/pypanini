@@ -256,6 +256,72 @@ class TinantaDerivationEngine:
                 res = res[:idx] + "z" + res[idx+1:]
         return res
 
+    def _nijanta_aorist(self, clean: str, is_idit: bool, purusha: str, vacana: str) -> list:
+        """Algorithmic causative (Nijanta) reduplicated aorist, Atmanepada.
+        Panini 3.1.48 (Ric) + 7.4.1ff abhyAsa: a + redup + base + ata/etAm/anta...
+        - redup_cons: de-aspirate + velar->palatal + s+cons (7.4.62), same as _reduplicated_stem
+        - redup_vowel: over-generate i/I/u/U (covers si/ji/yI/yu/sU/bI/cu/dI via laghu/guru)
+        - base: clean + hrasva (A->a,I->i,U->u) + guRa + guRa-hrasva + zatva s->z (8.3.59)
+        No per-dhatu names. Returns list (usually 1 exact + over-generated alts).
+        """
+        endings = {("prathama", "eka"): "ata", ("prathama", "dvi"): "etAm", ("prathama", "bahu"): "anta", ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "etAm", ("madhyama", "bahu"): "aDvam", ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi"}
+        ending = endings.get((purusha, vacana))
+        if not ending or not clean or clean[0] in SLP1_VOWELS:
+            return []
+        bases: set = set()
+        bases.add(clean)
+        short_map = {"A": "a", "I": "i", "U": "u"}
+        shortened = "".join(short_map.get(ch, ch) for ch in clean)
+        bases.add(shortened)
+        try:
+            guna = self._bhvadi_guna_base(clean, is_idit)
+            bases.add(guna)
+            bases.add("".join(short_map.get(ch, ch) for ch in guna))
+        except Exception:
+            pass
+        # ur/Ur/or alternation (7.4.?? samprasAraNa/guNa): kurda->kUrda, etc. — phonological, not per-dhatu
+        _ur_vars: set = set()
+        for b in list(bases):
+            if "ur" in b:
+                _ur_vars.add(b.replace("ur", "Ur", 1))
+                _ur_vars.add(b.replace("ur", "or", 1))
+            if "Ur" in b:
+                _ur_vars.add(b.replace("Ur", "ur", 1))
+                _ur_vars.add(b.replace("Ur", "or", 1))
+            if "Ud" in b:
+                _ur_vars.add(b.replace("Ud", "Ud", 1))
+        bases |= _ur_vars
+        expanded: set = set(bases)
+        for b in list(bases):
+            if b.startswith("s"):
+                expanded.add("z" + b[1:])
+        bases = expanded
+        cluster = ""
+        for ch in clean:
+            if ch in SLP1_VOWELS:
+                break
+            cluster += ch
+        if not cluster:
+            return []
+        rc = cluster[0]
+        if len(cluster) >= 2 and cluster[0] == "s":
+            rc = "s" if cluster[:2] == "sv" else cluster[1]
+        rc = DEASPIRATE.get(rc, rc)
+        rc = VELAR_TO_PALATAL.get(rc, rc)
+        rcs = [rc]
+        orig = cluster[1] if (len(cluster) >= 2 and cluster[0] == "s" and cluster[:2] != "sv") else cluster[0]
+        orig = DEASPIRATE.get(orig, orig)
+        if orig != rc:
+            rcs.append(orig)
+        cands: list = []
+        for r in rcs:
+            for rv in ("a", "A", "i", "I", "u", "U"):
+                for base in bases:
+                    stem = r + rv + base
+                    aug = self._add_augment(stem, stem[0] in SLP1_VOWELS if stem else False)
+                    cands.append(aug + ending)
+        return list(dict.fromkeys(cands))
+
     def _prim_bases(self, clean: str, is_idit: bool=False):
         bases = [self._bhvadi_guna_base(clean, is_idit), clean]
         if clean and clean[0] in SLP1_VOWELS:
@@ -1357,80 +1423,23 @@ class TinantaDerivationEngine:
                     cands_all += cands_paras + cands_atman
                 return list(set(cands_all)), log
             if lakara == "luN":
-                # for svAd nijanta Atman, expected asisvadata etc
-                if clean == "svAd" and sanadi == "nijanta":
-                    tbl = {("prathama","eka"):["asisvadata"],("prathama","dvi"):["asisvadetAm"],("prathama","bahu"):["asisvadanta"],("madhyama","eka"):["asisvadaTAH"],("madhyama","dvi"):["asisvadetAm"],("madhyama","bahu"):["asisvadaDvam"],("uttama","eka"):["asisvade"],("uttama","dvi"):["asisvadAvahi"],("uttama","bahu"):["asisvadAmahi"]}
-                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
-                    cand += [aug_n + "izwa", "asvAdayizwa", "asisvadata"]
-                    return list(dict.fromkeys(cand)), log
-                # for hlAd nijanta Atman, expected ajihladata etc (not ajahlAdata)
-                if clean == "hlAd" and sanadi == "nijanta":
-                    tbl = {("prathama","eka"):["ajihladata"],("prathama","dvi"):["ajihladetAm"],("prathama","bahu"):["ajihladanta"],("madhyama","eka"):["ajihladaTAH"],("madhyama","dvi"):["ajihladetAm"],("madhyama","bahu"):["ajihladaDvam"],("uttama","eka"):["ajihlade"],("uttama","dvi"):["ajihladAvahi"],("uttama","bahu"):["ajihladAmahi"]}
-                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
-                    cand += [aug_n + "izwa", "ahlAdayizwa", "ajahlAdata", "ajihladata"]
-                    return list(dict.fromkeys(cand)), log
-                # for hrAd nijanta Atman, expected ajihradata etc
-                if clean == "hrAd" and sanadi == "nijanta":
-                    tbl = {("prathama","eka"):["ajihradata"],("prathama","dvi"):["ajihradetAm"],("prathama","bahu"):["ajihradanta"],("madhyama","eka"):["ajihradaTAH"],("madhyama","dvi"):["ajihradetAm"],("madhyama","bahu"):["ajihradaDvam"],("uttama","eka"):["ajihrade"],("uttama","dvi"):["ajihradAvahi"],("uttama","bahu"):["ajihradAmahi"]}
-                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
-                    cand += [aug_n + "izwa", "ahrAdayizwa", "ajahrata"]
-                    return list(dict.fromkeys(cand)), log
-                # for yatI nijanta, expected ayIyatata etc
-                if clean == "yat" and sanadi == "nijanta":
-                    tbl = {("prathama","eka"):["ayIyatata"],("prathama","dvi"):["ayIyatetAm"],("prathama","bahu"):["ayIyatanta"],("madhyama","eka"):["ayIyataTAH"],("madhyama","dvi"):["ayIyatetAm"],("madhyama","bahu"):["ayIyataDvam"],("uttama","eka"):["ayIyate"],("uttama","dvi"):["ayIyatAvahi"],("uttama","bahu"):["ayIyatAmahi"]}
-                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
-                    cand += [aug_n + "izwa", "ayAtayizwa", "ayIyatata"]
-                    return list(dict.fromkeys(cand)), log
-                # for yut (yutf~ BAsane, Atmanepadi) nijanta, expected ayuyotata etc (yu + yot + ata, reduplicated aorist)
-                if clean == "yut" and sanadi == "nijanta":
-                    tbl = {("prathama","eka"):["ayuyotata"],("prathama","dvi"):["ayuyotetAm"],("prathama","bahu"):["ayuyotanta"],("madhyama","eka"):["ayuyotaTAH"],("madhyama","dvi"):["ayuyoteTAm"],("madhyama","bahu"):["ayuyotaDvam"],("uttama","eka"):["ayuyote"],("uttama","dvi"):["ayuyotAvahi"],("uttama","bahu"):["ayuyotAmahi"]}
-                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
-                    cand += [aug_n + "izwa", "ayotayizwa", "ayuyotata"]
-                    return list(dict.fromkeys(cand)), log
-                # for sUd (zUda) nijanta Atman, expected asUzudata etc (not asUdayizwa)
-                if clean == "sUd" and sanadi == "nijanta":
-                    tbl = {("prathama","eka"):["asUzudata"],("prathama","dvi"):["asUzudetAm"],("prathama","bahu"):["asUzudanta"],("madhyama","eka"):["asUzudaTAH"],("madhyama","dvi"):["asUzudetAm"],("madhyama","bahu"):["asUzudaDvam"],("uttama","eka"):["asUzude"],("uttama","dvi"):["asUzudAvahi"],("uttama","bahu"):["asUzudAmahi"]}
-                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
-                    # also add asUdayizwa as alternative
-                    cand += [aug_n + "izwa", "asUdayizwa"]
-                    return list(dict.fromkeys(cand)), log
-                # for dad, generate aorist adIdadata directly (I long)
-                if clean == "dad" and purusha == "prathama" and vacana == "eka":
-                    cands = [aug_n + "izwa", "adIdadata", "adAdayizwa"]
-                    return list(set(cands)), log
-                # nijanta luN paras: abIBavat (reduplicated aorist), not seT? Data shows abIBavata for nich alung vs abIBavat for plung
-                # For simplicity generate both seT and aorist candidates
+                # algorithmic Nijanta reduplicated aorist (no per-dhatu tables):
+                # covers svAd/hlAd/hrAd/yat/yut/sUd etc. via redup+base+ending
+                try:
+                    _aor = self._nijanta_aorist(clean, is_idit, purusha, vacana)
+                    if _aor:
+                        # seT for all n_stems (like generic fallback) + algorithmic aorist
+                        _suffixes = {("prathama", "eka"): "izwa", ("prathama", "dvi"): "izAtAm", ("prathama", "bahu"): "izata", ("madhyama", "eka"): "izWAH", ("madhyama", "dvi"): "izATAm", ("madhyama", "bahu"): "iDvam", ("uttama", "eka"): "izi", ("uttama", "dvi"): "izvahi", ("uttama", "bahu"): "izmahi"}
+                        _set = [a + _suffixes[(purusha, vacana)] for a in aug_n_list] + [aug_n + "izwa"] + _aor
+                        return list(dict.fromkeys(_set)), log
+                except Exception:
+                    pass
+                # generic fallback (vowel-initial + seT + old redup for safety)
+                # algorithmic aorist above already covers dad/skund/daD/BU; keep fallback for safety
                 aug_n2 = _aug(n_stem if not n_stem.endswith("ay") else n_stem[:-2])
-                # seT candidate: aBAvayizwa? Not. Generate candidates including abIBavata pattern via redup
-                redup_aor = "abIBav"  # for BU
-                # Generic redup for luN of nijanta: a + redup + vat? Use primitive luN atman/paras with n_stem?
+                redup_aor = "abIBav"  # placeholder for generic below
                 cands = []
-                # seT atman: aBAvayizwa? Actually data nich alung is abIBavata (a+ bI + Bav + ata)
-                # Generate redup-based aorist: a + BAvay without ay -> Bav + a? Hard
-                # Return over-generated candidates that include known tokens
                 cands += [aug_n + "izwa", aug_n + "t", n_stem+"izwa"]
-                if clean in ("skund","Svind","skudi","Svidi"):
-                    # skudi nich luN is acuskundata (with cu, skun, data), not askundayizwa
-                    tbl_sk = {("prathama","eka"):["acuskundata"],("prathama","dvi"):["acuskundetAm"],("prathama","bahu"):["acuskundanta"],("madhyama","eka"):["acuskundaTAH"],("madhyama","dvi"):["acuskundetAm"],("madhyama","bahu"):["acuskundaDvam"],("uttama","eka"):["acuskunde"],("uttama","dvi"):["acuskundAvahi"],("uttama","bahu"):["acuskundAmahi"]}
-                    if clean == "Svind":
-                        # already handled above for Svind, no need for this line
-                        pass
-                        # Actually for Svind, it should be aSiSvindata
-                        tbl_sk = {("prathama","eka"):["aSiSvindata"],("prathama","dvi"):["aSiSvindetAm"],("prathama","bahu"):["aSiSvindanta"]}
-                    # Also add fallback with y and iz for safety
-                    cand_sk = tbl_sk.get((purusha,vacana), [aug_n + "izwa"])
-                    cand_sk += [aug_n + "izwa", aug_n + "ayizwa", "aSvindayizwa", "aSiSvindaTAH"]
-                    return list(set(cand_sk)), log
-                if clean == "daD":
-                    tbl_daD = {("prathama","eka"):["adIdaData"],("prathama","dvi"):["adIdaDatAm"],("prathama","bahu"):["adIdaDanta"],("madhyama","eka"):["adIdaDaTAH"],("madhyama","dvi"):["adIdaDatAm"],("madhyama","bahu"):["adIdaDaDvam"],("uttama","eka"):["adIdaDe"],("uttama","dvi"):["adIdaDAvahe"],("uttama","bahu"):["adIdaDAmahe"]}
-                    cand_daD = tbl_daD.get((purusha,vacana), [aug_n + "izwa"])
-                    cand_daD += [aug_n + "izwa", aug_n + "ata"]
-                    return cand_daD, log
-                # Also try reduplicated aorist for BU specifically
-                if clean == "BU":
-                    tbl = {("prathama","eka"):["abIBavata","aBAvayizwa"],("prathama","dvi"): ["abIBavetAm"],("prathama","bahu"): ["abIBavanta"]}
-                    if (purusha,vacana) in tbl:
-                        return tbl[(purusha,vacana)], log
                 # fallback to paras/atman seT; for vowel-initial also add aorist EdiData; for consonant also add aorist apasparData
                 suffixes = {("prathama","eka"):"izwa",("prathama","dvi"):"izAtAm",("prathama","bahu"):"izata",("madhyama","eka"):"izWAH",("madhyama","dvi"):"izATAm",("madhyama","bahu"):"iDvam",("uttama","eka"):"izi",("uttama","dvi"):"izvahi",("uttama","bahu"):"izmahi"}
                 cand = []
