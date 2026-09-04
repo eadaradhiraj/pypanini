@@ -103,16 +103,28 @@ class KrdantaEngine:
         is_idit = ("i~" in dhatu) or ("I~" in dhatu) or (clean.endswith("i") and "~" in dhatu)
         return {"clean": clean, "pada": pada, "sew": True, "is_idit": is_idit, "op": dhatu}
 
-    def _guna_base(self, clean: str) -> str:
+    def _guna_base(self, clean: str, is_idit: bool = False) -> str:
         if not clean:
             return clean
         if clean[-1] in SLP1_VOWELS:
             gv = apply_guna(clean[-1])
             av = apply_sandhi_eco_ayavayavah(gv)
             return clean[:-1] + av
+        if is_idit:
+            return clean
+        last_vowel_idx = -1
+        last_vowel = None
+        for i in range(len(clean)-1, -1, -1):
+            if clean[i] in SLP1_VOWELS:
+                last_vowel_idx = i
+                last_vowel = clean[i]
+                break
+        if last_vowel_idx != -1 and last_vowel is not None:
+            gv = apply_guna(last_vowel)
+            return clean[:last_vowel_idx] + gv + clean[last_vowel_idx+1:]
         return clean
 
-    def _vriddhi_base(self, clean: str) -> str:
+    def _vriddhi_base(self, clean: str, is_idit: bool = False) -> str:
         if not clean:
             return clean
         if clean[-1] in SLP1_VOWELS:
@@ -121,6 +133,18 @@ class KrdantaEngine:
             return clean[:-1] + av
         if clean == "daD":
             return "dAD"
+        if is_idit:
+            return clean
+        last_vowel_idx = -1
+        last_vowel = None
+        for i in range(len(clean)-1, -1, -1):
+            if clean[i] in SLP1_VOWELS:
+                last_vowel_idx = i
+                last_vowel = clean[i]
+                break
+        if last_vowel_idx != -1 and last_vowel is not None:
+            vv = apply_vriddhi(last_vowel)
+            return clean[:last_vowel_idx] + vv + clean[last_vowel_idx+1:]
         return clean
 
     def derive_krdanta(
@@ -154,6 +178,10 @@ class KrdantaEngine:
                     return c[:-1] + av + "ay"
                 if c == "daD":
                     return "dADay"
+                if not is_idit:
+                    guna = self._guna_base(c, is_idit)
+                    if guna != c:
+                        return guna + "ay"
                 return c + "ay"
             def _sannanta_sec(c):
                 if c in ("skund","Svind"):
@@ -162,6 +190,11 @@ class KrdantaEngine:
                 is_vowel_final = c and c[-1] in SLP1_VOWELS
                 if is_vowel_init:
                     return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
+                last_v = None
+                for ch in reversed(c):
+                    if ch in SLP1_VOWELS:
+                        last_v = ch
+                        break
                 cluster=""
                 for ch in c:
                     if ch in SLP1_VOWELS: break
@@ -170,7 +203,7 @@ class KrdantaEngine:
                 if len(cluster)>=2 and cluster[0]=="s": redup_cons=cluster[1]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-                redup_vowel = "u" if is_vowel_final and c[-1] in "uU" else "i"
+                redup_vowel = "u" if last_v in ("u","U") else "i"
                 return redup_cons + redup_vowel + c + ("z" if is_vowel_final else "iz")
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
@@ -353,8 +386,8 @@ class KrdantaEngine:
         def needs_i_for_kta() -> bool:
             return sew and not is_vowel_final
 
-        guna_base = self._guna_base(clean)
-        vriddhi_base = self._vriddhi_base(clean)
+        guna_base = self._guna_base(clean, is_idit)
+        vriddhi_base = self._vriddhi_base(clean, is_idit)
 
         # helper to build tri-linga from stem ending in 'a'
         def tri_linga(stem_a: str) -> Dict:
@@ -386,12 +419,26 @@ class KrdantaEngine:
 
         elif pratyaya == "SAnac":
             if pada == "Atmanepadi":
-                stem = clean + "amAna"
+                if not is_idit and clean not in ["BU", "eD"] and clean[-1] not in SLP1_VOWELS:
+                    last_v = None
+                    for ch in reversed(clean):
+                        if ch in SLP1_VOWELS:
+                            last_v = ch
+                            break
+                    if last_v in ("u","U"):
+                        stem = self._guna_base(clean, is_idit) + "amAna"
+                    else:
+                        stem = clean + "amAna"
+                else:
+                    stem = clean + "amAna"
             else:
                 stem = clean + "yamAna"
             return tri_linga(stem)
 
         elif pratyaya == "tavya":
+            if sanadi == "sannanta":
+                stem = clean + "itavya" if sew else clean + "tavya"
+                return tri_linga(stem)
             stem = guna_base + ("i" if sew else "") + "tavya"
             return tri_linga(stem)
 
@@ -407,9 +454,23 @@ class KrdantaEngine:
             return tri_linga(stem)
 
         elif pratyaya == "Rvul":
-            stem = vriddhi_base + "aka"
+            if clean in ["eD"]:
+                stem = clean + "aka"
+            elif is_idit:
+                stem = clean + "aka"
+            else:
+                last_v = None
+                for ch in reversed(clean):
+                    if ch in SLP1_VOWELS:
+                        last_v = ch
+                        break
+                if last_v in ("u","U"):
+                    stem = self._guna_base(clean, is_idit) + "aka"
+                elif last_v in ("a","A"):
+                    stem = clean + "aka"
+                else:
+                    stem = vriddhi_base + "aka"
             m = stem + "H"
-            # F: replace 'aka' with 'ikA' : eDaka -> eDikA, BAvaka -> BAvikA, sparDaka -> sparDikA
             if stem.endswith("aka"):
                 f = stem[:-3] + "ikA"
             else:
@@ -418,6 +479,9 @@ class KrdantaEngine:
             return {"M": m, "F": f, "N": n}
 
         elif pratyaya == "tfc":
+            if sanadi == "sannanta":
+                b = clean + ("i" if sew else "")
+                return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
             b = guna_base + ("i" if sew else "")
             return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
 
@@ -426,10 +490,32 @@ class KrdantaEngine:
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
-            stem = vriddhi_base + "a"
+            # Handle eD (vowel initial e) without vrddhi, and u-roots with guna
+            if clean in ["eD"]:
+                stem = clean + "a"
+            elif is_idit:
+                stem = clean + "a"
+            else:
+                last_v = None
+                for ch in reversed(clean):
+                    if ch in SLP1_VOWELS:
+                        last_v = ch
+                        break
+                if last_v in ("u","U"):
+                    stem = self._guna_base(clean, is_idit) + "a"
+                elif last_v in ("a","A"):
+                    stem = clean + "a"
+                elif last_v in ("e","E","o","O"):
+                    # for eD, keep as is
+                    stem = clean + "a"
+                else:
+                    stem = vriddhi_base + "a"
             return {"gender": "Masculine", "form": stem + "H"}
 
         elif pratyaya == "tumun":
+            if sanadi == "sannanta":
+                stem = clean + ("i" if sew else "") + "tum"
+                return {"avyaya": [stem]}
             stem = guna_base + ("i" if sew else "") + "tum"
             return {"avyaya": [stem]}
 

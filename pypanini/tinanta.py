@@ -484,6 +484,12 @@ class TinantaDerivationEngine:
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:
                 return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
+            # find last vowel for redup vowel (u for mud)
+            last_v = None
+            for ch in reversed(c):
+                if ch in SLP1_VOWELS:
+                    last_v = ch
+                    break
             cluster = ""
             for ch in c:
                 if ch in SLP1_VOWELS:
@@ -494,7 +500,7 @@ class TinantaDerivationEngine:
                 redup_cons = cluster[1]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-            redup_vowel = "u" if is_vowel_final and c[-1] in "uU" else "i"
+            redup_vowel = "u" if last_v in ("u","U") else "i"
             suffix = "z" if is_vowel_final else "iz"
             return redup_cons + redup_vowel + c + suffix
         def _yan_stem(c):
@@ -1046,6 +1052,22 @@ class TinantaDerivationEngine:
                     aor_map = {("prathama","eka"):"ata",("prathama","dvi"):"atAm",("prathama","bahu"):"anta",("madhyama","eka"):"aTAH",("madhyama","dvi"):"atAm",("madhyama","bahu"):"aDvam",("uttama","eka"):"e",("uttama","dvi"):"Avahi",("uttama","bahu"):"Amahi"}
                     if (purusha,vacana) in aor_map:
                         cand.append(aug_redup + aor_map[(purusha,vacana)])
+                    # also generate long vowel aorist for u-roots (mud -> mUmud)
+                    last_vowel = None
+                    for ch in reversed(clean):
+                        if ch in SLP1_VOWELS:
+                            last_vowel = ch
+                            break
+                    if last_vowel in ("u","i","a"):
+                        long_map = {"u":"U","i":"I","a":"A","U":"U","I":"I","A":"A"}
+                        long_vowel = long_map.get(last_vowel, last_vowel)
+                        for idx, ch in enumerate(redup_aor):
+                            if ch in SLP1_VOWELS:
+                                redup_long = redup_aor[:idx] + long_vowel + redup_aor[idx+1:]
+                                aug_long = _aug(redup_long)
+                                if (purusha,vacana) in aor_map:
+                                    cand.append(aug_long + aor_map[(purusha,vacana)])
+                                break
                     # also for vowel-initial nijanta, EdiData
                     if is_vowel_initial:
                         aug_redup_v = _aug(clean[0] + "di" + clean[1:])
