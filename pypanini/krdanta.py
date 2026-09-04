@@ -326,10 +326,12 @@ class KrdantaEngine:
                     if ch in SLP1_VOWELS:
                         root_vowel = ch
                         break
-                if root_vowel in ("i","I","f","F"):
+                if root_vowel in ("i", "I", "f", "F", "e", "E"):
                     yan_vowel = "e"
-                elif root_vowel in ("u","U"):
+                elif root_vowel in ("u", "U", "o", "O"):
                     yan_vowel = "o"
+                elif root_vowel in ("a", "A"):
+                    yan_vowel = "A"
                 else:
                     yan_vowel = "A"
                 cluster=""
@@ -609,7 +611,7 @@ class KrdantaEngine:
                         break
                 if last_v in ("u", "U", "i", "I"):
                     stem = self._guna_base(clean, is_idit) + "aka"
-                elif last_v in ("a", "A"):
+                elif last_v in ("a", "A", "e", "E", "o", "O"):
                     stem = clean + "aka"
                 else:
                     stem = vriddhi_base + "aka"

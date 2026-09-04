@@ -229,9 +229,9 @@ class TinantaDerivationEngine:
             # vowel-final root (e.g., BU, kF) -> abhyAsa 'a'
             # but for idit roots transformed to klind etc, they are cons-final, so not here
             abhyasa_vowel = "a"
-        elif root_vowel in ("i", "I", "f", "F"):
+        elif root_vowel in ("i", "I", "f", "F", "e", "E"):
             abhyasa_vowel = "i"
-        elif root_vowel in ("u", "U"):
+        elif root_vowel in ("u", "U", "o", "O"):
             abhyasa_vowel = "u"
         else:
             abhyasa_vowel = "a"
@@ -682,9 +682,11 @@ class TinantaDerivationEngine:
                 yan_vowel = "e"
             elif root_vowel in ("u", "U"):
                 yan_vowel = "o"
-            elif root_vowel == "a":
-                yan_vowel = "A"
-            elif root_vowel in ("A", "e", "E", "o", "O"):
+            elif root_vowel in ("e", "E"):
+                yan_vowel = "e"
+            elif root_vowel in ("o", "O"):
+                yan_vowel = "o"
+            elif root_vowel in ("a", "A"):
                 yan_vowel = "A"
             else:
                 yan_vowel = "A"
@@ -713,10 +715,12 @@ class TinantaDerivationEngine:
                 if ch in SLP1_VOWELS:
                     root_vowel = ch
                     break
-            if root_vowel in ("i", "I", "f", "F"):
+            if root_vowel in ("i", "I", "f", "F", "e", "E"):
                 yan_vowel = "e"
-            elif root_vowel in ("u", "U"):
+            elif root_vowel in ("u", "U", "o", "O"):
                 yan_vowel = "o"
+            elif root_vowel in ("a", "A"):
+                yan_vowel = "A"
             else:
                 yan_vowel = "A"
             cluster = ""
