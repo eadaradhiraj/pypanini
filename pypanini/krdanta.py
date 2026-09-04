@@ -35,8 +35,9 @@ class KrdantaEngine:
         if self._cache is not None:
             return
         self._cache = {}
-        self._cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True}
-        self._cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True}
+        self._cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True, "is_idit": False, "op": "BU"}
+        self._cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True, "is_idit": False, "op": "eD"}
+        self._cache_by_id = {}
         try:
             base = Path("skt-morph-data/01")
             if base.exists():
@@ -61,16 +62,34 @@ class KrdantaEngine:
                         else:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
-                        self._cache[clean] = {"clean": clean, "pada": pada, "sew": sew}
-                        self._cache[op] = self._cache[clean]
+                        is_idit = ("i~" in op) or ("I~" in op) or (op.endswith("~") and raw.endswith("i"))
+                        entry = {"clean": clean, "pada": pada, "sew": sew, "is_idit": is_idit, "op": op}
+                        self._cache[clean] = entry
+                        self._cache[op] = entry
+                        self._cache[op.replace("~","").replace("`","").strip()] = entry
+                        try:
+                            id_val = d.get("id", "") or Path(jf).stem
+                            self._cache_by_id[id_val] = entry
+                            self._cache_by_id[clean + "_" + id_val] = entry
+                            self._cache_by_id[op + "_" + id_val] = entry
+                        except: pass
                     except Exception:
                         continue
         except Exception:
             pass
 
-    def _get_meta(self, dhatu: str) -> Dict:
+    def _get_meta(self, dhatu: str, dhatu_id: str = None) -> Dict:
         self._load_cache()
         assert self._cache is not None
+        if dhatu_id:
+            if dhatu_id in getattr(self, "_cache_by_id", {}):
+                return self._cache_by_id[dhatu_id]
+            key = f"{dhatu}_{dhatu_id}"
+            if key in self._cache_by_id:
+                return self._cache_by_id[key]
+            for k in [dhatu+"_"+dhatu_id, dhatu.replace("~","")+"_"+dhatu_id]:
+                if k in self._cache_by_id:
+                    return self._cache_by_id[k]
         if dhatu in self._cache:
             return self._cache[dhatu]
         raw = dhatu.replace("~", "").replace("`", "").strip()
@@ -81,7 +100,8 @@ class KrdantaEngine:
             clean = clean[:-1]
         is_vowel_init = clean[0] in SLP1_VOWELS if clean else False
         pada = "Atmanepadi" if is_vowel_init else "parasmEpadi"
-        return {"clean": clean, "pada": pada, "sew": True}
+        is_idit = ("i~" in dhatu) or ("I~" in dhatu) or (clean.endswith("i") and "~" in dhatu)
+        return {"clean": clean, "pada": pada, "sew": True, "is_idit": is_idit, "op": dhatu}
 
     def _guna_base(self, clean: str) -> str:
         if not clean:
@@ -109,12 +129,14 @@ class KrdantaEngine:
         pratyaya: str = "kta",
         sanadi: Optional[str] = None,
         upasarga: str = "saM",
+        dhatu_id: Optional[str] = None,
     ) -> Optional[Dict]:
-        meta = self._get_meta(dhatu)
+        meta = self._get_meta(dhatu, dhatu_id)
         clean = meta["clean"]
         pada = meta["pada"]
-        # i-ending Atman with nasal present for krdanta as well (skudi/Svidi/vadi etc.)
-        if clean.endswith("i") and pada == "Atmanepadi":
+        is_idit = meta.get("is_idit", False)
+        # i-ending idit with nasal (num) for krdanta as well (skudi/Svidi/vadi/klidi etc.)
+        if clean.endswith("i") and (is_idit or pada == "Atmanepadi"):
             base_wo_i = clean[:-1]
             if base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
                 with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
@@ -146,21 +168,33 @@ class KrdantaEngine:
                     cluster+=ch
                 redup_cons = cluster[0] if cluster else c[0]
                 if len(cluster)>=2 and cluster[0]=="s": redup_cons=cluster[1]
-                redup_cons = DEASPIRATE.get(redup_cons, redup_cons).lower()
+                redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 redup_vowel = "u" if is_vowel_final and c[-1] in "uU" else "i"
                 return redup_cons + redup_vowel + c + ("z" if is_vowel_final else "iz")
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
+                # guna vowel for reduplication: i->e, u->o, a->A
+                root_vowel = None
+                for ch in c:
+                    if ch in SLP1_VOWELS:
+                        root_vowel = ch
+                        break
+                if root_vowel in ("i","I","f","F"):
+                    yan_vowel = "e"
+                elif root_vowel in ("u","U"):
+                    yan_vowel = "o"
+                else:
+                    yan_vowel = "A"
                 cluster=""
                 for ch in c:
                     if ch in SLP1_VOWELS: break
                     cluster+=ch
                 redup_cons = cluster[0] if cluster else c[0]
                 if len(cluster)>=2 and cluster[0]=="s": redup_cons=cluster[1]
-                redup_cons = DEASPIRATE.get(redup_cons, redup_cons).lower()
+                redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-                return redup_cons + "A" + c + "ya"
+                return redup_cons + yan_vowel + c + "ya"
             if clean == "BU" and sanadi is not None:
                 # hardcoded BU sanadi forms (known 100% for BU)
                 if sanadi == "nijanta":
@@ -421,11 +455,11 @@ class KrdantaEngine:
         return None
 
     def derive_all_krdantas(
-        self, dhatu: str = "BU", sanadi: Optional[str] = None, upasarga: str = "saM"
+        self, dhatu: str = "BU", sanadi: Optional[str] = None, upasarga: str = "saM", dhatu_id: Optional[str] = None
     ) -> Dict[str, Dict]:
         result = {}
         for prat in self.krdanta_metadata:
-            res = self.derive_krdanta(dhatu, prat, sanadi, upasarga)
+            res = self.derive_krdanta(dhatu, prat, sanadi, upasarga, dhatu_id=dhatu_id)
             if res is not None:
                 result[prat] = res
         return result

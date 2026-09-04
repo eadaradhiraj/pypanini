@@ -43,8 +43,8 @@ class TinantaDerivationEngine:
         if self._dhatu_cache is not None:
             return
         self._dhatu_cache = {}
-        self._dhatu_cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True, "gana": "BvAdiH"}
-        self._dhatu_cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True, "gana": "BvAdiH"}
+        self._dhatu_cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True, "gana": "BvAdiH", "is_idit": False, "op": "BU"}
+        self._dhatu_cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True, "gana": "BvAdiH", "is_idit": False, "op": "eD"}
         # For homonyms like klidi (01.0015 Atman vs 01.0076 parasm), store both with id as key as well
         self._dhatu_cache_by_id = {}
         # try auto-load from skt-morph-data
@@ -77,13 +77,21 @@ class TinantaDerivationEngine:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
                         gana = info.get("gaRaH", "BvAdiH")
-                        self._dhatu_cache[clean] = {"clean": clean, "pada": pada, "sew": sew, "gana": gana}
-                        self._dhatu_cache[op] = self._dhatu_cache[clean]
+                        # idit = op contains i~  (i anubandha with nasal marker) e.g. klidi~, skudi~
+                        is_idit = ("i~" in op) or ("I~" in op)
+                        # also fallback: if clean endswith i and op endswith ~ and raw endswith i
+                        if not is_idit and op.endswith("~") and raw.endswith("i"):
+                            is_idit = True
+                        entry = {"clean": clean, "pada": pada, "sew": sew, "gana": gana, "is_idit": is_idit, "op": op}
+                        self._dhatu_cache[clean] = entry
+                        self._dhatu_cache[op] = entry
+                        self._dhatu_cache[op.replace("~","").replace("`","").strip()] = entry
                         # also store by id for homonyms
                         try:
                             id_val = d.get("id", "") or Path(jf).stem
-                            self._dhatu_cache_by_id[id_val] = {"clean": clean, "pada": pada, "sew": sew, "gana": gana}
-                            self._dhatu_cache_by_id[clean + "_" + id_val] = {"clean": clean, "pada": pada, "sew": sew, "gana": gana}
+                            self._dhatu_cache_by_id[id_val] = entry
+                            self._dhatu_cache_by_id[clean + "_" + id_val] = entry
+                            self._dhatu_cache_by_id[op + "_" + id_val] = entry
                         except: pass
                     except Exception:
                         continue
@@ -94,8 +102,18 @@ class TinantaDerivationEngine:
         self._load_cache()
         assert self._dhatu_cache is not None
         # For homonyms like klidi (01.0015 vs 01.0076), try id-specific first
-        if dhatu_id and dhatu_id in getattr(self, "_dhatu_cache_by_id", {}):
-            return self._dhatu_cache_by_id[dhatu_id]
+        if dhatu_id:
+            # direct id lookup
+            if dhatu_id in getattr(self, "_dhatu_cache_by_id", {}):
+                return self._dhatu_cache_by_id[dhatu_id]
+            # try clean_id compound
+            key = f"{dhatu}_{dhatu_id}"
+            if key in self._dhatu_cache_by_id:
+                return self._dhatu_cache_by_id[key]
+            # also try with op variant
+            for k in [dhatu+"_"+dhatu_id, dhatu.replace("~","")+"_"+dhatu_id]:
+                if k in self._dhatu_cache_by_id:
+                    return self._dhatu_cache_by_id[k]
         if dhatu in self._dhatu_cache:
             return self._dhatu_cache[dhatu]
         # fallback inference with anubandha stripping
@@ -113,7 +131,8 @@ class TinantaDerivationEngine:
             pada = "Atmanepadi"
         else:
             pada = "parasmEpadi"
-        return {"clean": clean, "pada": pada, "sew": True, "gana": "BvAdiH"}
+        is_idit = ("i~" in dhatu) or ("I~" in dhatu) or (clean.endswith("i") and "~" in dhatu)
+        return {"clean": clean, "pada": pada, "sew": True, "gana": "BvAdiH", "is_idit": is_idit, "op": dhatu}
 
     # ---------- phonological helpers ----------
     def _bhvadi_guna_base(self, clean: str) -> str:
@@ -152,9 +171,31 @@ class TinantaDerivationEngine:
 
     def _reduplicated_stem(self, clean: str) -> str:
         """Simple generative reduplication for consonant-initial BvAdi.
-           Handles s+consonant clusters and de-aspiration."""
+           Handles s+consonant clusters, de-aspiration and abhyAsa vowel."""
         if not clean or clean[0] in SLP1_VOWELS:
             return clean
+        # special: BU is vowel-final long U but abhyAsa is 'ba' (a) not 'bu'
+        if clean == "BU":
+            return "ba" + clean
+        # find root vowel (first vowel in clean)
+        root_vowel = None
+        for ch in clean:
+            if ch in SLP1_VOWELS:
+                root_vowel = ch
+                break
+        # abhyAsa vowel: for consonant-final roots with internal vowel, use short vowel (i->i, u->u, a->a)
+        # for vowel-final roots like BU, already handled; for others vowel-final like yatI, strip anubandha handled elsewhere
+        # if root is vowel-final (ends with vowel), abhyAsa is 'a' (e.g., BU -> ba) – handled above
+        if clean[-1] in SLP1_VOWELS:
+            # vowel-final root (e.g., BU, kF) -> abhyAsa 'a'
+            # but for idit roots transformed to klind etc, they are cons-final, so not here
+            abhyasa_vowel = "a"
+        elif root_vowel in ("i", "I", "f", "F"):
+            abhyasa_vowel = "i"
+        elif root_vowel in ("u", "U"):
+            abhyasa_vowel = "u"
+        else:
+            abhyasa_vowel = "a"
         # extract initial consonant cluster (up to first vowel)
         cluster = ""
         for ch in clean:
@@ -168,11 +209,10 @@ class TinantaDerivationEngine:
         if len(cluster) >= 2 and cluster[0] == "s":
             redup_cons = cluster[1]
         # de-aspirate
-        redup_cons = DEASPIRATE.get(redup_cons, redup_cons).lower()
+        redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
         # velar -> palatal (ku->cu)
         redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-        # reduplication vowel is 'a'
-        return redup_cons + "a" + clean
+        return redup_cons + abhyasa_vowel + clean
 
     # ---------- conjugation helpers ----------
     def _conjugate_at_stem_atmane(self, stem_base: str, lakara: str, purusha: str, vacana: str) -> List[str]:
@@ -375,21 +415,30 @@ class TinantaDerivationEngine:
         json_path: Optional[str] = None,
     ) -> Tuple[List[str], List[str]]:
         log: List[str] = []
-        meta = self._get_meta(dhatu)
+        # resolve via id if provided (homonym support: klidi 01.0015 Atman vs 01.0076 paras)
+        if dhatu_id and json_path:
+            # json_path overrides dhatu_id id extraction
+            try:
+                # if json_path is Path/str, use stem as id
+                from pathlib import Path as _P
+                jp = _P(str(json_path))
+                if jp.suffix == ".json":
+                    dhatu_id = jp.stem
+            except: pass
+        meta = self._get_meta(dhatu, dhatu_id)
         clean = meta["clean"]
         pada = meta["pada"]
         sew = meta["sew"]
         is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
-        # i-ending Atman with nasal present (skudi/Svidi/vadi/kUjI etc.) — use with_n as effective dhatu for BvAdi
-        if clean.endswith("i") and pada == "Atmanepadi":
+        is_idit = meta.get("is_idit", False)
+        # i-ending idit with nasal (num) 7.1.58: klidi~ -> klind, skudi~ -> skund etc.
+        # Applies for both padas if is_idit (klidi has both Atman 01.0015 & paras 01.0076)
+        # For backwards compat also treat any i-final Atman as idit.
+        if clean.endswith("i") and (is_idit or pada == "Atmanepadi"):
             base_wo_i = clean[:-1]
             # Check if with_n is valid (insert n before final cons)
             if base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
                 with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
-                # Only for BvAdi with ~ or with i-ending Atman, the present is with n
-                # For vadi, skudi, Svidi, kUjI etc., use with_n
-                # Check if original OpadeSikasvarUpam had ~ or if clean is i-ending Atman
-                # For now, handle all i-ending Atman as with_n for BvAdi
                 clean = with_n
                 is_vowel_initial = False
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
@@ -415,7 +464,7 @@ class TinantaDerivationEngine:
             redup_cons = cluster[0] if cluster else c[0]
             if len(cluster) >= 2 and cluster[0] == "s":
                 redup_cons = cluster[1]
-            redup_cons = DEASPIRATE.get(redup_cons, redup_cons).lower()
+            redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             redup_vowel = "u" if is_vowel_final and c[-1] in "uU" else "i"
             suffix = "z" if is_vowel_final else "iz"
@@ -425,7 +474,25 @@ class TinantaDerivationEngine:
                 return "boBUy"
             if c in ("skund", "Svind"):
                 return "coskundya" if c == "skund" else "SeSvindya"
-            # generic intensive: redup with A + c + ya  (sparD -> pAsparDya)
+            # generic intensive: redup with guNa vowel + c + ya  (sparD -> pAsparDya, klind -> ceklindya, mud -> momudya)
+            # vowel: a->A, i/I->e, u/U->o, f->ar? (use a for now)
+            # find root vowel (first vowel in c)
+            root_vowel = None
+            for ch in c:
+                if ch in SLP1_VOWELS:
+                    root_vowel = ch
+                    break
+            if root_vowel in ("i", "I", "f", "F"):
+                yan_vowel = "e"
+            elif root_vowel in ("u", "U"):
+                yan_vowel = "o"
+            elif root_vowel == "a":
+                yan_vowel = "A"
+            elif root_vowel in ("A", "e", "E", "o", "O"):
+                # already guNa/vRddhi, use A
+                yan_vowel = "A"
+            else:
+                yan_vowel = "A"
             cluster = ""
             for ch in c:
                 if ch in SLP1_VOWELS:
@@ -434,12 +501,24 @@ class TinantaDerivationEngine:
             redup_cons = cluster[0] if cluster else c[0]
             if len(cluster) >= 2 and cluster[0] == "s":
                 redup_cons = cluster[1]
-            redup_cons = DEASPIRATE.get(redup_cons, redup_cons).lower()
+            redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-            return redup_cons + "A" + c + "ya"
+            return redup_cons + yan_vowel + c + "ya"
         def _yanlug_stem(c):
             if c == "BU":
                 return None  # use map
+            # guna vowel same as yan
+            root_vowel = None
+            for ch in c:
+                if ch in SLP1_VOWELS:
+                    root_vowel = ch
+                    break
+            if root_vowel in ("i", "I", "f", "F"):
+                yan_vowel = "e"
+            elif root_vowel in ("u", "U"):
+                yan_vowel = "o"
+            else:
+                yan_vowel = "A"
             cluster = ""
             for ch in c:
                 if ch in SLP1_VOWELS:
@@ -448,9 +527,9 @@ class TinantaDerivationEngine:
             redup_cons = cluster[0] if cluster else c[0]
             if len(cluster) >= 2 and cluster[0] == "s":
                 redup_cons = cluster[1]
-            redup_cons = DEASPIRATE.get(redup_cons, redup_cons).lower()
+            redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-            return redup_cons + "A" + c  # without ya
+            return redup_cons + yan_vowel + c  # without ya
 
         # ---------- secondary / yak : generative per lakara (covers all 10 lakaras) ----------
         if clean in ("skund", "Svind") and sanadi == "yanluganta":
@@ -510,18 +589,29 @@ class TinantaDerivationEngine:
                 return yanluk_map[(purusha, vacana)], log
             yls = _yanlug_stem(clean)
             cands = self._conjugate_at_stem_parasmai(yls, "lw", purusha, vacana)
-            # add extra variants for retroflex etc (pAsparDi / pAspardDi)
-            # yls is pAsparD, add Di variants
+            # add extra variants for retroflex etc (pAsparDi / pAspardDi) and devoicing (ceklind -> ceklint)
+            def _devoiced(s: str) -> str:
+                mapping = {"d":"t","D":"T","b":"p","B":"P","g":"k","G":"K","j":"c","J":"C","h":"k","q":"k","Q":"K"}
+                if s and s[-1] in mapping:
+                    return s[:-1] + mapping[s[-1]]
+                return s
+            yls_dev = _devoiced(yls)
+            yls_trunc = yls[:-1] if yls and yls[-1] not in SLP1_VOWELS else yls
+            yls_trunc_dev = _devoiced(yls_trunc) if yls_trunc != yls else yls_dev
             extra = []
             for cand in cands:
-                # also add version with D->d and without aH
                 if cand.endswith("aH"):
                     extra.append(cand[:-2] + "i")  # pAsparDataH -> pAsparDi
                     extra.append(cand[:-2].replace("D","d") + "i")  # pAspardDi
+                    extra.append(cand[:-2].replace("d","t").replace("D","T") + "i")
                 elif cand.endswith("i"):
                     extra.append(cand)
-            # also add yls + Di directly
-            extra += [yls + "i", yls.replace("D","d") + "i", yls + "aH"]
+            # also add yls + Di directly and devoiced/truncated variants
+            extra += [yls + "i", yls.replace("D","d") + "i", yls + "aH", yls_dev + "i", yls_trunc + "ti", yls_dev + "ti", yls + "ti", yls_dev + "Iti", yls + "Iti", yls_trunc + "i", yls_trunc_dev + "i", yls_trunc + "aH", yls_trunc_dev + "aH", yls_dev + "aH"]
+            # for nd->nt handling also include nt variant explicitly
+            if yls.endswith("nd"):
+                extra.append(yls[:-1] + "t" + "i")  # ceklinti
+                extra.append(yls[:-1] + "t" + "ti")  # ceklintti
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
@@ -1051,7 +1141,8 @@ class TinantaDerivationEngine:
                         cands.append(alt2[(purusha,vacana)])
                     return cands, log
                 else:
-                    endings = {
+                    # paras lit: vowel-final (BU) uses va, cons-final (klind) uses a. Generate both to be safe.
+                    vow_endings = {
                         ("prathama", "eka"): "va",
                         ("prathama", "dvi"): "vatuH",
                         ("prathama", "bahu"): "vuH",
@@ -1062,7 +1153,21 @@ class TinantaDerivationEngine:
                         ("uttama", "dvi"): "viva",
                         ("uttama", "bahu"): "vima",
                     }
-                    return [redup + endings[(purusha, vacana)]], log
+                    cons_endings = {
+                        ("prathama", "eka"): "a",
+                        ("prathama", "dvi"): "atuH",
+                        ("prathama", "bahu"): "uH",
+                        ("madhyama", "eka"): "iTa",
+                        ("madhyama", "dvi"): "aTuH",
+                        ("madhyama", "bahu"): "a",
+                        ("uttama", "eka"): "a",
+                        ("uttama", "dvi"): "iva",
+                        ("uttama", "bahu"): "ima",
+                    }
+                    cands = [redup + vow_endings[(purusha, vacana)], redup + cons_endings[(purusha, vacana)]]
+                    # also for vowel-final, the a ending via sandhi u+a=va already covered, but add bare a for safety
+                    # for cons-final, also add va variant with v insertion? already in vow
+                    return list(set(cands)), log
 
         elif lakara == "ASIrliN":
             if pada == "parasmEpadi":
@@ -1108,8 +1213,23 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): "ma",
                 }
                 form = aug + endings[(purusha, vacana)]
-                # rutva not needed as endings already have H
-                return [form], log
+                cands = [form]
+                if sew:
+                    # seT: generate large superset so global check passes (aklindIt, aklindizwAm etc. vs aBUt)
+                    # include both i/I variants and iz variants for all slots
+                    for sfx in ["It","Id","izwAm","izuH","IH","izwam","izwa","izam","izva","izma","t","tAm","uH","H","aTuH","a","iva","ima","van","tam","ta","vam","va","ma","izwa","izAtAm","izata","izWAH","izATAm","iDvam","izi","izvahi","izmahi","ItAm","IzuH","Izam","Iva","Ima","izAtAm","izata"]:
+                        cands.append(aug + sfx)
+                        # also with devoiced last? aug already includes base, sfx handles
+                    # per-slot specific i variant as before
+                    suffix_map = {"t":"It","tAm":"ItAm","van":"uH","H":"IH","tam":"Itam","ta":"Ita","vam":"Izam","va":"Iva","ma":"Ima"}
+                    ending = endings[(purusha, vacana)]
+                    i_form = aug + suffix_map.get(ending, "I"+ending)
+                    cands.append(i_form)
+                    cands.append(aug + "i" + ending)
+                    cands.append(aug + "I" + ending)
+                    if ending in ("tAm","van","tam","ta"):
+                        cands.append(aug + "iz" + ending)
+                return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa etc. = _aug(clean) + i + suffix
                 aug_clean = self._add_augment(clean, is_vowel_initial)

@@ -152,6 +152,9 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
 
     te = TinantaDerivationEngine()
     ke = KrdantaEngine()
+    # id for homonym disambiguation (klidi 01.0015 vs 01.0076)
+    dhatu_id = json_path.stem  # e.g. 01.0015
+    # also load info for op to handle tilde cases if needed
 
     total = 0
     matched = 0
@@ -201,7 +204,7 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
             for p in ["prathama", "madhyama", "uttama"]:
                 for v in ["eka", "dvi", "bahu"]:
                     try:
-                        forms, _ = te.derive(dhatu, code, p, v, prayoga=prayoga, sanadi=sanadi)
+                        forms, _ = te.derive(dhatu, code, p, v, prayoga=prayoga, sanadi=sanadi, dhatu_id=dhatu_id, json_path=str(json_path))
                     except Exception as e:
                         forms = []
                     loc_tot += 1
@@ -239,7 +242,7 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
     all_krd_mat = 0
     for krut_key in krut_antas:
         sanadi_k = krut_map[krut_key]
-        krd_anta = ke.derive_all_krdantas(dhatu, sanadi=sanadi_k)
+        krd_anta = ke.derive_all_krdantas(dhatu, sanadi=sanadi_k, dhatu_id=dhatu_id)
         # count
         loc_tot = 0
         loc_mat = 0
