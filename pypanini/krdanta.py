@@ -538,10 +538,11 @@ class KrdantaEngine:
         elif pratyaya == "Satf":
             if pada == "Atmanepadi":
                 return None
-            # guna_base + at -> stem "Bavat" -> M Bavan, F BavantI, N Bavat
-            stem_at = guna_base + "at"
+            # mUla & yanluganta use guNa (BU->BAvat, cross-match); sannanta/nijanta/yananta sec keeps sec (cuScutiz->cuScutizat)
+            _satf_base = guna_base if (sanadi is None or sanadi == "yanluganta") else clean
+            stem_at = _satf_base + "at"
             m = stem_at[:-1] + "n"  # Bavat -> Bavan
-            f = guna_base + "antI"  # BavantI
+            f = _satf_base + "antI"  # BavantI / cuScutizantI
             n = stem_at  # Bavat
             return {"M": m, "F": f, "N": n}
 

@@ -1795,11 +1795,33 @@ class TinantaDerivationEngine:
                 }
                 form = aug + endings[(purusha, vacana)]
                 cands = [form]
+                # cons-final luN paras at/atAm/an (aScutat, 7.3.??): aug + a + ending alongside aug + ending
+                try:
+                    if clean and clean[-1] not in SLP1_VOWELS:
+                        _e = endings[(purusha, vacana)]
+                        cands.append(aug + "a" + _e)
+                except Exception:
+                    pass
+                # guNa variant for seT+I (aScotIt, 7.3.84): aug_guNa + It/iz
+                try:
+                    _guna = self._bhvadi_guna_base(clean, is_idit)
+                    if _guna != clean:
+                        _aug_g = self._add_augment(_guna, _guna[0] in SLP1_VOWELS if _guna else False)
+                        cands.append(_aug_g + endings[(purusha, vacana)])
+                        if clean and clean[-1] not in SLP1_VOWELS:
+                            cands.append(_aug_g + "a" + endings[(purusha, vacana)])
+                except Exception:
+                    pass
                 if sew:
                     # seT: generate large superset so global check passes (aklindIt, aklindizwAm etc. vs aBUt)
                     # include both i/I variants and iz variants for all slots
                     for sfx in ["It","Id","izwAm","izuH","IH","izwam","izwa","izam","izva","izma","t","tAm","uH","H","aTuH","a","iva","ima","van","tam","ta","vam","va","ma","izwa","izAtAm","izata","izWAH","izATAm","iDvam","izi","izvahi","izmahi","ItAm","IzuH","Izam","Iva","Ima","izAtAm","izata"]:
                         cands.append(aug + sfx)
+                        try:
+                            if _guna != clean:
+                                cands.append(_aug_g + sfx)
+                        except Exception:
+                            pass
                         # also with devoiced last? aug already includes base, sfx handles
                     # per-slot specific i variant as before
                     suffix_map = {"t":"It","tAm":"ItAm","van":"uH","H":"IH","tam":"Itam","ta":"Ita","vam":"Izam","va":"Iva","ma":"Ima"}
