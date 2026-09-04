@@ -62,6 +62,16 @@ class TinantaDerivationEngine:
                         # strip anubandha f/F/x/X for dhatus like gADf~ -> gAD
                         if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
                             raw = raw[:-1]
+                        # Panini anubandha: ~r (e.g. cyuti~r -> cyut, no num 7.1.58 blocked)
+                        no_num_r = ("~r" in op)
+                        if no_num_r and raw.endswith("r") and len(raw) > 1:
+                            raw = raw[:-1]
+                        # U~ anubandha (e.g. ziDU~ -> ziD, gupU~ -> gup); BU has no ~ so kept
+                        if op.endswith("U~") and raw.endswith("U") and len(raw) > 1:
+                            raw = raw[:-1]
+                        # ~r idit strips i without num (cyuti~r -> cyut, not cyunt)
+                        if no_num_r and raw.endswith("i") and len(raw) > 1:
+                            raw = raw[:-1]
                         clean = raw
                         # strip trailing 'a' added for consonant-ending dhatus (eDa->eD, sparDa->sparD)
                         if clean.endswith("a") and len(clean) > 1:
@@ -80,10 +90,10 @@ class TinantaDerivationEngine:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
                         gana = info.get("gaRaH", "BvAdiH")
-                        # idit = op contains i~  (i anubandha with nasal marker) e.g. klidi~, skudi~
-                        is_idit = ("i~" in op) or ("I~" in op)
+                        # idit = op contains i~  (e.g. klidi~); ~r blocks num/guna-block (cyuti~r -> cyut, guna applies)
+                        is_idit = (("i~" in op) or ("I~" in op)) and not no_num_r
                         # also fallback: if clean endswith i and op endswith ~ and raw endswith i
-                        if not is_idit and op.endswith("~") and raw.endswith("i"):
+                        if not is_idit and not no_num_r and op.endswith("~") and raw.endswith("i"):
                             is_idit = True
                         entry = {"clean": clean, "pada": pada, "sew": sew, "gana": gana, "is_idit": is_idit, "op": op}
                         self._dhatu_cache[clean] = entry
@@ -233,12 +243,12 @@ class TinantaDerivationEngine:
             cluster += ch
         if not cluster:
             return clean
-        # if cluster starts with 's' + consonant, take second consonant
-        # for sv (svad), redup is s (sa), not v (va)
+        # if cluster starts with sibilant s/S + consonant, take second consonant (7.4.62)
+        # for sv/Sv (svad), redup is s (sa), not v (va)
         redup_cons = cluster[0]
-        if len(cluster) >= 2 and cluster[0] == "s":
-            if cluster[:2] == "sv":
-                redup_cons = "s"
+        if len(cluster) >= 2 and cluster[0] in ("s", "S"):
+            if cluster[:2] in ("sv", "Sv"):
+                redup_cons = cluster[0]
             else:
                 redup_cons = cluster[1]
         # de-aspirate
@@ -304,12 +314,12 @@ class TinantaDerivationEngine:
         if not cluster:
             return []
         rc = cluster[0]
-        if len(cluster) >= 2 and cluster[0] == "s":
-            rc = "s" if cluster[:2] == "sv" else cluster[1]
+        if len(cluster) >= 2 and cluster[0] in ("s", "S"):
+            rc = cluster[0] if cluster[:2] in ("sv", "Sv") else cluster[1]
         rc = DEASPIRATE.get(rc, rc)
         rc = VELAR_TO_PALATAL.get(rc, rc)
         rcs = [rc]
-        orig = cluster[1] if (len(cluster) >= 2 and cluster[0] == "s" and cluster[:2] != "sv") else cluster[0]
+        orig = cluster[1] if (len(cluster) >= 2 and cluster[0] in ("s", "S") and cluster[:2] not in ("sv", "Sv")) else cluster[0]
         orig = DEASPIRATE.get(orig, orig)
         if orig != rc:
             rcs.append(orig)
@@ -642,10 +652,10 @@ class TinantaDerivationEngine:
                     break
                 cluster += ch
             redup_cons = cluster[0] if cluster else c[0]
-            if len(cluster) >= 2 and cluster[0] == "s":
-                # for sv (svad), redup is s (si), not v (vi)
-                if cluster[:2] == "sv":
-                    redup_cons = "s"
+            if len(cluster) >= 2 and cluster[0] in ("s", "S"):
+                # for sv/Sv (svad), redup is s (si), not v (vi)
+                if cluster[:2] in ("sv", "Sv"):
+                    redup_cons = cluster[0]
                 else:
                     redup_cons = cluster[1]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
@@ -684,9 +694,9 @@ class TinantaDerivationEngine:
                     break
                 cluster += ch
             redup_cons = cluster[0] if cluster else c_eff[0]
-            if len(cluster) >= 2 and cluster[0] == "s":
-                if cluster[:2] == "sv":
-                    redup_cons = "s"
+            if len(cluster) >= 2 and cluster[0] in ("s", "S"):
+                if cluster[:2] in ("sv", "Sv"):
+                    redup_cons = cluster[0]
                 else:
                     redup_cons = cluster[1]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
@@ -715,9 +725,9 @@ class TinantaDerivationEngine:
                     break
                 cluster += ch
             redup_cons = cluster[0] if cluster else c_eff[0]
-            if len(cluster) >= 2 and cluster[0] == "s":
-                if cluster[:2] == "sv":
-                    redup_cons = "s"
+            if len(cluster) >= 2 and cluster[0] in ("s", "S"):
+                if cluster[:2] in ("sv", "Sv"):
+                    redup_cons = cluster[0]
                 else:
                     redup_cons = cluster[1]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
