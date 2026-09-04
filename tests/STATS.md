@@ -2,7 +2,7 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-04T10:14:18Z
+Date: 2026-09-04T10:16:37Z
 Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
@@ -3144,6 +3144,128 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0027.json  |  dhatu=hlAdI (hlAdI~ avyakte Sabde suKe ca)
 ===========================================================================
 ✓ tokens: 2293  engine: generative (no hardcoded dict)
+
+-- tinanta (10 antas × 10 lakaras × 9) --
+   antas: ting, yak, san, san_yak, nich, nich_yak, yang, yang_yak, yangluk, yangluk_yak
+
+  [ting] sanadi=None prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yak] sanadi=None prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san] sanadi=sannanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san_yak] sanadi=sannanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich] sanadi=nijanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich_yak] sanadi=nijanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang] sanadi=yananta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang_yak] sanadi=yananta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yangluk] sanadi=yanluganta prayoga=kartari
+    ✓ lw        9/ 9
+
+  [yangluk_yak] sanadi=yanluganta prayoga=karmani
+    ✓ lw        9/ 9
+
+-- krdanta (all antas) --
+  ✓ krut         (mUla      ) 29/29
+  ✓ san_krut     (sannanta  ) 29/29
+  ✓ nich_krut    (nijanta   ) 29/29
+  ✓ yang_krut    (yananta   ) 29/29
+  ✓ yangluk_krut (yanluganta) 29/29
+---------------------------------------------------------------------------
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
+===========================================================================
+```
+### 01.0028
+```
+===========================================================================
+VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0028.json  |  dhatu=svAd (svAda~ AsvAdane)
+===========================================================================
+✓ tokens: 961  engine: generative (no hardcoded dict)
 
 -- tinanta (10 antas × 10 lakaras × 9) --
    antas: ting, yak, san, san_yak, nich, nich_yak, yang, yang_yak, yangluk, yangluk_yak
