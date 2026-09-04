@@ -503,13 +503,13 @@ class TinantaDerivationEngine:
         sew = meta["sew"]
         is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
         is_idit = meta.get("is_idit", False)
-        # i-ending idit with nasal (num) 7.1.58: klidi~ -> klind, skudi~ -> skund etc.
-        # Applies for both padas if is_idit (klidi has both Atman 01.0015 & paras 01.0076)
-        # For backwards compat also treat any i-final Atman as idit.
-        if clean.endswith("i") and (is_idit or pada == "Atmanepadi"):
+        # i/I-ending idit with nasal (num) 7.1.58: klidi~ -> klind, hlAdI~ -> hlAd (strip I without n)
+        if clean.endswith(("i","I")) and (is_idit or pada == "Atmanepadi"):
             base_wo_i = clean[:-1]
-            # Check if with_n is valid (insert n before final cons)
-            if base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
+            # For I long (hlAdI), just strip I without n
+            if clean.endswith("I"):
+                clean = base_wo_i
+            elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
                 with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
                 clean = with_n
                 is_vowel_initial = False
@@ -1348,6 +1348,12 @@ class TinantaDerivationEngine:
                     cands_all += cands_paras + cands_atman
                 return list(set(cands_all)), log
             if lakara == "luN":
+                # for hlAd nijanta Atman, expected ajihladata etc (not ajahlAdata)
+                if clean == "hlAd" and sanadi == "nijanta":
+                    tbl = {("prathama","eka"):["ajihladata"],("prathama","dvi"):["ajihladetAm"],("prathama","bahu"):["ajihladanta"],("madhyama","eka"):["ajihladaTAH"],("madhyama","dvi"):["ajihladetAm"],("madhyama","bahu"):["ajihladaDvam"],("uttama","eka"):["ajihlade"],("uttama","dvi"):["ajihladAvahi"],("uttama","bahu"):["ajihladAmahi"]}
+                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
+                    cand += [aug_n + "izwa", "ahlAdayizwa", "ajahlAdata", "ajihladata"]
+                    return list(dict.fromkeys(cand)), log
                 # for hrAd nijanta Atman, expected ajihradata etc
                 if clean == "hrAd" and sanadi == "nijanta":
                     tbl = {("prathama","eka"):["ajihradata"],("prathama","dvi"):["ajihradetAm"],("prathama","bahu"):["ajihradanta"],("madhyama","eka"):["ajihradaTAH"],("madhyama","dvi"):["ajihradetAm"],("madhyama","bahu"):["ajihradaDvam"],("uttama","eka"):["ajihrade"],("uttama","dvi"):["ajihradAvahi"],("uttama","bahu"):["ajihradAmahi"]}

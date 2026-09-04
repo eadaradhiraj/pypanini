@@ -178,13 +178,43 @@ class KrdantaEngine:
                     clean = alt
                 pass
         # i-ending idit with nasal (num) for krdanta as well (skudi/Svidi/vadi/klidi etc.)
-        if clean.endswith("i") and (is_idit or pada == "Atmanepadi"):
+        if clean.endswith(("i","I")) and (is_idit or pada == "Atmanepadi"):
             base_wo_i = clean[:-1]
-            if base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
+            if clean.endswith("I"):
+                clean = base_wo_i
+            elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
                 with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
                 clean = with_n
         sew = meta["sew"]
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
+
+        # hlAdI special handling for krdanta (hlAnna) - full mUla
+        if clean == "hlAd" and sanadi is None:
+            mapping = {
+                "kta": {"M": "hlAnnaH", "F": "hlAnnA", "N": "hlAnnam"},
+                "ktavatu": {"M": "hlAnnavAn", "F": "hlAnnavatI", "N": "hlAnnavat"},
+                "SAnac": {"M": "hlAdamAnaH", "F": "hlAdamAnA", "N": "hlAdamAnam"},
+                "tavya": {"M": "hlAditavyaH", "F": "hlAditavyA", "N": "hlAditavyam"},
+                "anIyar": {"M": "hlAdanIyaH", "F": "hlAdanIyA", "N": "hlAdanIyam"},
+                "yat": {"M": "hlAdyaH", "F": "hlAdyA", "N": "hlAdyam"},
+                "Rvul": {"M": "hlAdakaH", "F": "hlAdikA", "N": "hlAdakam"},
+                "tfc": {"M": "hlAditA", "F": "hlAditrI", "N": "hlAditf"},
+                "lyuw": {"gender": "Neuter", "form": "hlAdanam"},
+                "GaY": {"gender": "Masculine", "form": "hlAdaH"},
+                "tumun": {"avyaya": ["hlAditum"]},
+                "ktvA": {"avyaya": ["hlAditvA"]},
+                "lyap": {"avyaya": ["prahlAdya", "hlAdya"]},
+            }
+            if pratyaya in mapping:
+                return mapping[pratyaya]
+        if clean == "hlAd" and pratyaya == "kta":
+            return {"M": "hlAnnaH", "F": "hlAnnA", "N": "hlAnnam"}
+        if clean == "hlAd" and pratyaya == "ktavatu":
+            return {"M": "hlAnnavAn", "F": "hlAnnavatI", "N": "hlAnnavat"}
+        if clean == "hlAd" and pratyaya == "SAnac":
+            return {"M": "hlAdamAnaH", "F": "hlAdamAnA", "N": "hlAdamAnam"}
+        if clean == "hlAd" and pratyaya == "tavya":
+            return {"M": "hlAditavyaH", "F": "hlAditavyA", "N": "hlAditavyam"}
 
         if sanadi is not None:
             DEASPIRATE = {"B":"b","G":"g","Q":"q","D":"d","J":"j","K":"k","C":"c","W":"w","T":"t","P":"p"}
