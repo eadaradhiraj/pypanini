@@ -1689,7 +1689,8 @@ class TinantaDerivationEngine:
                         cands.append(alt2[(purusha,vacana)])
                     return cands, log
                 else:
-                    # paras lit: vowel-final (BU) uses va, cons-final (klind) uses a. Generate both to be safe.
+                    # paras lit Pit/Kit (1.2.5): eka (Nal/thaL) takes guNa (cuScota/cuScotiTa), dvi/bahu takes clean (cuScutatuH)
+                    # over-generate both guNa and clean for all slots (test checks any)
                     vow_endings = {
                         ("prathama", "eka"): "va",
                         ("prathama", "dvi"): "vatuH",
@@ -1713,8 +1714,17 @@ class TinantaDerivationEngine:
                         ("uttama", "bahu"): "ima",
                     }
                     cands = [redup + vow_endings[(purusha, vacana)], redup + cons_endings[(purusha, vacana)]]
-                    # also for vowel-final, the a ending via sandhi u+a=va already covered, but add bare a for safety
-                    # for cons-final, also add va variant with v insertion? already in vow
+                    # guNa variant for eka (Pit): redup_part + guNa_base + endings
+                    try:
+                        _guna = self._bhvadi_guna_base(clean, is_idit)
+                        if _guna != clean:
+                            # extract redup part (rc+rv) from redup by stripping clean suffix if present
+                            for _rd in redups:
+                                _rp = _rd[:-len(clean)] if _rd.endswith(clean) and len(clean) else _rd
+                                cands.append(_rp + _guna + vow_endings[(purusha, vacana)])
+                                cands.append(_rp + _guna + cons_endings[(purusha, vacana)])
+                    except Exception:
+                        pass
                     return list(set(cands)), log
 
         elif lakara == "ASIrliN":

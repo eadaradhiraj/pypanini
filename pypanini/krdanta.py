@@ -10,6 +10,7 @@ from pathlib import Path
 from .phonetics import apply_guna, apply_vriddhi, apply_sandhi_eco_ayavayavah
 
 SLP1_VOWELS = set(list("aAiIuUfFxXeEoO"))
+SLP1_STOPS = set(list("kKgGNcCjJYwWqQRtTdDnpPbBm"))
 
 class KrdantaEngine:
     def __init__(self):
@@ -306,7 +307,8 @@ class KrdantaEngine:
                     if ch in SLP1_VOWELS: break
                     cluster+=ch
                 redup_cons = cluster[0] if cluster else c[0]
-                if len(cluster)>=2 and cluster[0]=="s": redup_cons=cluster[1]
+                if len(cluster) >= 2 and cluster[0] in ("s", "S"):
+                    redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 # for sv (svad), redup is s (si) not v (vi) - handle sv cluster
@@ -341,11 +343,8 @@ class KrdantaEngine:
                     if ch in SLP1_VOWELS: break
                     cluster+=ch
                 redup_cons = cluster[0] if cluster else c[0]
-                if len(cluster)>=2 and cluster[0]=="s":
-                    if cluster[:2]=="sv":
-                        redup_cons = "s"
-                    else:
-                        redup_cons = cluster[1]
+                if len(cluster) >= 2 and cluster[0] in ("s", "S"):
+                    redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 return redup_cons + yan_vowel + c + "ya"
