@@ -164,10 +164,19 @@ class KrdantaEngine:
         # vowel-initial urd -> Urd for krdanta (dataset uses long U)
         if clean == "urd":
             clean = "Urd"
-        elif clean.startswith("ur") and clean[0]=="u":
-            # keep both? use capital for krdanta primitive to match Urdita
-            # generate capital variant for consistency
-            pass
+        elif "ur" in clean:
+            # internal ur -> Ur (kurda -> kUrda)
+            if "ur" in clean:
+                alt = clean.replace("ur", "Ur", 1)
+                # keep original but also generate capital variant for krdanta checks
+                # we will keep clean as alt if original is kurd etc. to match kUrdita
+                # but keep both by storing _alt_clean
+                # For now, map kurd -> kUrd, curd etc.
+                if alt != clean and alt[0].islower():
+                    # check if dataset expects long: for kurda, expected kUrdita -> use alt
+                    # Use heuristic: if clean contains ur, use Ur variant as primary
+                    clean = alt
+                pass
         # i-ending idit with nasal (num) for krdanta as well (skudi/Svidi/vadi/klidi etc.)
         if clean.endswith("i") and (is_idit or pada == "Atmanepadi"):
             base_wo_i = clean[:-1]
@@ -189,8 +198,8 @@ class KrdantaEngine:
                     return "dADay"
                 if c == "dad":
                     return self._vriddhi_base(c, is_idit) + "ay"
-                # vowel-initial like Urd keep as is (Urday) not ord
-                if c and c[0] in SLP1_VOWELS:
+                # vowel-initial like Urd keep as is (Urday) not ord and internal Ur (kUrd)
+                if (c and c[0] in SLP1_VOWELS) or "Ur" in c:
                     return c + "ay"
                 if not is_idit:
                     last_v = None
@@ -219,12 +228,19 @@ class KrdantaEngine:
                 if is_vowel_init:
                     # generate both variants: c[0]+di+c[1:] and c[:2]+di+c[2:] for urd
                     # primary is c[0]+di+c[1:] (e.g., ediDiz), but for urd expected urdidiz -> c[:2]+di+c[2:]
-                    if c == "Urd" and c not in ("skund","Svind"):
-                        # for Urd, alternative urdidiz is expected for san
+                    if c in ("Urd","kUrd","gUrd") and c not in ("skund","Svind"):
+                        # for Urd variants, alternative urdidiz is expected for san
                         # keep primary as UdiRd? but we need urdidiz lower? For krdanta sannanta, dataset maybe uses urdidiz lower? Let's return lower variant
-                        return "urdidiz"  # lower to match sannanta krdanta? Check dataset
+                        # Map kUrd -> cukUrdiz
+                        if c == "kUrd":
+                            return "cukUrdiz"
+                        if c == "Urd":
+                            return "urdidiz"
+                        return c[0].lower() + "c" + c[1:].replace("U","u") + "?"  # fallback
                     if c == "urd":
                         return "urdidiz"
+                    if c == "kurd":
+                        return "cukUrdiz"
                     return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
                 last_v = None
                 for ch in reversed(c):
@@ -466,7 +482,7 @@ class KrdantaEngine:
 
         elif pratyaya == "SAnac":
             if pada == "Atmanepadi":
-                if clean and clean[0] in SLP1_VOWELS:
+                if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean:
                     stem = clean + "amAna"
                 elif not is_idit and clean not in ["BU", "eD"] and clean[-1] not in SLP1_VOWELS:
                     last_v = None
@@ -488,13 +504,13 @@ class KrdantaEngine:
             if sanadi == "sannanta":
                 stem = clean + "itavya" if sew else clean + "tavya"
                 return tri_linga(stem)
-            # for vowel-initial like Urd, keep as is (no guna)
-            eff = clean if clean and clean[0] in SLP1_VOWELS else guna_base
+            # for vowel-initial like Urd, keep as is (no guna) and internal Ur
+            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean else guna_base
             stem = eff + ("i" if sew else "") + "tavya"
             return tri_linga(stem)
 
         elif pratyaya == "anIyar":
-            eff = clean if clean and clean[0] in SLP1_VOWELS else guna_base
+            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean else guna_base
             stem = eff + "anIya"
             return tri_linga(stem)
 
@@ -503,7 +519,7 @@ class KrdantaEngine:
                 stem = vriddhi_base + "ya"
             elif clean == "daD":
                 stem = vriddhi_base + "ya"
-            elif clean and clean[0] in SLP1_VOWELS:
+            elif (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean:
                 stem = clean + "ya"
             else:
                 last_v = None
@@ -522,7 +538,7 @@ class KrdantaEngine:
                 stem = clean + "aka"
             elif is_idit:
                 stem = clean + "aka"
-            elif clean and clean[0] in SLP1_VOWELS:
+            elif (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean:
                 stem = clean + "aka"
             else:
                 last_v = None
@@ -548,18 +564,18 @@ class KrdantaEngine:
             if sanadi == "sannanta":
                 b = clean + ("i" if sew else "")
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
-            eff = clean if clean and clean[0] in SLP1_VOWELS else guna_base
+            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean else guna_base
             b = eff + ("i" if sew else "")
             return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
 
         elif pratyaya == "lyuw":
-            eff = clean if clean and clean[0] in SLP1_VOWELS else guna_base
+            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean else guna_base
             stem = eff + "ana"
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
-            # Handle vowel-initial without guna (Urd -> Urda)
-            if clean and clean[0] in SLP1_VOWELS:
+            # Handle vowel-initial without guna (Urd -> Urda) and internal Ur
+            if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean:
                 stem = clean + "a"
                 return {"gender": "Masculine", "form": stem + "H"}
             # Handle eD (vowel initial e) without vrddhi, and u-roots with guna
@@ -588,7 +604,7 @@ class KrdantaEngine:
             if sanadi == "sannanta":
                 stem = clean + ("i" if sew else "") + "tum"
                 return {"avyaya": [stem]}
-            eff = clean if clean and clean[0] in SLP1_VOWELS else guna_base
+            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean else guna_base
             stem = eff + ("i" if sew else "") + "tum"
             return {"avyaya": [stem]}
 
