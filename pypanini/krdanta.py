@@ -186,44 +186,7 @@ class KrdantaEngine:
                 with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
                 clean = with_n
         sew = meta["sew"]
-        if dhatu_id in ("01.0030", "01.0031") and clean in ("yat", "yatI", "yut") and sanadi is None and pratyaya in ("kta","ktavatu","SAnac","tavya","anIyar","yat","Rvul","tfc","lyuw","GaY","tumun","ktvA","lyap","ac","ap","ktin","kvasu","cAnaS","Ramul","naN","vun","sya-SAnac"):
-            import json, pathlib
-            jf = pathlib.Path(f"/home/edhiraj/Documents/projs/skt-morph-data/data/01/{dhatu_id}.json")
-            try:
-                jd=json.load(open(jf, encoding="utf-8"))
-                part = jd.get("participles", {}).get("krut", {})
-                if pratyaya in part:
-                    entry = part[pratyaya][0] if isinstance(part[pratyaya], list) and part[pratyaya] else part[pratyaya]
-                    if isinstance(entry, dict) and "m" in entry:
-                        return {"M": entry["m"], "F": entry["f"], "N": entry["n"]}
-                    if isinstance(entry, dict) and "form" in entry:
-                        return {"gender": entry.get("gender", "Neuter"), "form": entry["form"]}
-            except: pass
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
-        # Force 01.0030/01.0031 krdanta to 100% via dataset
-        if dhatu_id in ("01.0030", "01.0031") and clean in ("yat", "yatI", "yut"):
-            import json, pathlib
-            jf = pathlib.Path(f"/home/edhiraj/Documents/projs/skt-morph-data/data/01/{dhatu_id}.json")
-            try:
-                jd=json.load(open(jf, encoding="utf-8"))
-                # krdanta is stored in participles krut
-                # Map pratyaya to dataset key
-                # For mUla, the participles are in "krut" (mUla) - need to map pratyaya to dataset
-                # Simplified: just return dataset's expected for that pratyaya if present
-                # For krdanta, the dataset's participles are under "krut" with various pratyayas
-                # We'll try to find the pratyaya in dataset's participles
-                # For 01.0030, the krdanta is in participles krut
-                # For 01.0031, similar
-                # Use the dataset's expected directly
-                # The pratyaya names in krdanta are like "kta", "ktavatu" etc, which correspond to dataset's "kta", "ktavatu" etc
-                # The dataset's participles are under "krut" with keys like "kta", "ktavatu" etc
-                # We'll try to return the dataset's expected for that pratyaya
-                # For mUla, the dataset's participles are in "krut" (mUla) - need to map
-                # For now, just return the dataset's expected for that pratyaya if present
-                # This is a fallback to make 01.0030/01.0031 100%
-                pass
-            except: pass
-
         # yatI special handling for krdanta (yatta) - full mUla
         if clean == "yat" and sanadi is None:
             mapping_yat = {

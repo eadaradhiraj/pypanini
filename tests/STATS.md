@@ -2,7 +2,7 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-04T10:51:39Z
+Date: 2026-09-04T12:00:12Z
 Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
@@ -12,7 +12,7 @@ test_01_0003_sparD (tests.test_dhatu.TestDhatuGenerative.test_01_0003_sparD) ...
 test_cli (tests.test_dhatu.TestDhatuGenerative.test_cli) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 17.703s
+Ran 4 tests in 18.163s
 
 OK
 
@@ -3507,7 +3507,7 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 ### 01.0030
 ```
 ===========================================================================
-VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0030.json  |  dhatu=yatI (yatI~ prayatne)
+VALIDATION  D:\Data\skt-morph-data\data\01\01.0030.json  |  dhatu=yatI (yatI~ prayatne)
 ===========================================================================
 ✓ tokens: 14105  engine: generative (no hardcoded dict)
 
