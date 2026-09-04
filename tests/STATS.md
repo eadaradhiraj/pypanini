@@ -2,7 +2,7 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-04T12:00:12Z
+Date: 2026-09-04T12:03:30Z
 Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
@@ -12,7 +12,7 @@ test_01_0003_sparD (tests.test_dhatu.TestDhatuGenerative.test_01_0003_sparD) ...
 test_cli (tests.test_dhatu.TestDhatuGenerative.test_cli) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 18.163s
+Ran 4 tests in 19.097s
 
 OK
 
@@ -3510,6 +3510,128 @@ GRAND  883/883  (100.0%)  ✓ ALL MATCHED
 VALIDATION  D:\Data\skt-morph-data\data\01\01.0030.json  |  dhatu=yatI (yatI~ prayatne)
 ===========================================================================
 ✓ tokens: 14105  engine: generative (no hardcoded dict)
+
+-- tinanta (10 antas × 10 lakaras × 9) --
+   antas: ting, yak, san, san_yak, nich, nich_yak, yang, yang_yak, yangluk, yangluk_yak
+
+  [ting] sanadi=None prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yak] sanadi=None prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san] sanadi=sannanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san_yak] sanadi=sannanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich] sanadi=nijanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich_yak] sanadi=nijanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang] sanadi=yananta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yang_yak] sanadi=yananta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yangluk] sanadi=yanluganta prayoga=kartari
+    ✓ lw        9/ 9
+
+  [yangluk_yak] sanadi=yanluganta prayoga=karmani
+    ✓ lw        9/ 9
+
+-- krdanta (all antas) --
+  ✓ krut         (mUla      ) 29/29
+  ✓ san_krut     (sannanta  ) 29/29
+  ✓ nich_krut    (nijanta   ) 29/29
+  ✓ yang_krut    (yananta   ) 29/29
+  ✓ yangluk_krut (yanluganta) 29/29
+---------------------------------------------------------------------------
+GRAND  883/883  (100.0%)  ✓ ALL MATCHED
+===========================================================================
+```
+### 01.0031
+```
+===========================================================================
+VALIDATION  D:\Data\skt-morph-data\data\01\01.0031.json  |  dhatu=yut (yutf~ BAsane)
+===========================================================================
+✓ tokens: 1357  engine: generative (no hardcoded dict)
 
 -- tinanta (10 antas × 10 lakaras × 9) --
    antas: ting, yak, san, san_yak, nich, nich_yak, yang, yang_yak, yangluk, yangluk_yak

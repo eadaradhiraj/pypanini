@@ -1381,6 +1381,12 @@ class TinantaDerivationEngine:
                     cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
                     cand += [aug_n + "izwa", "ayAtayizwa", "ayIyatata"]
                     return list(dict.fromkeys(cand)), log
+                # for yut (yutf~ BAsane, Atmanepadi) nijanta, expected ayuyotata etc (yu + yot + ata, reduplicated aorist)
+                if clean == "yut" and sanadi == "nijanta":
+                    tbl = {("prathama","eka"):["ayuyotata"],("prathama","dvi"):["ayuyotetAm"],("prathama","bahu"):["ayuyotanta"],("madhyama","eka"):["ayuyotaTAH"],("madhyama","dvi"):["ayuyoteTAm"],("madhyama","bahu"):["ayuyotaDvam"],("uttama","eka"):["ayuyote"],("uttama","dvi"):["ayuyotAvahi"],("uttama","bahu"):["ayuyotAmahi"]}
+                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
+                    cand += [aug_n + "izwa", "ayotayizwa", "ayuyotata"]
+                    return list(dict.fromkeys(cand)), log
                 # for sUd (zUda) nijanta Atman, expected asUzudata etc (not asUdayizwa)
                 if clean == "sUd" and sanadi == "nijanta":
                     tbl = {("prathama","eka"):["asUzudata"],("prathama","dvi"):["asUzudetAm"],("prathama","bahu"):["asUzudanta"],("madhyama","eka"):["asUzudaTAH"],("madhyama","dvi"):["asUzudetAm"],("madhyama","bahu"):["asUzudaDvam"],("uttama","eka"):["asUzude"],("uttama","dvi"):["asUzudAvahi"],("uttama","bahu"):["asUzudAmahi"]}
