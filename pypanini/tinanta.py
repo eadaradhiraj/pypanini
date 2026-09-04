@@ -20,6 +20,8 @@ from .phonetics import (
 )
 
 SLP1_VOWELS = set(list("aAiIuUfFxXeEoO"))
+# stops (sparSa) for s+cons reduplication (7.4.62): s+stop -> stop, s+sonorant -> s
+SLP1_STOPS = set(list("kKgGNcCjJYwWqQRtTdDnpPbBm"))
 # de-aspiration + velar->palatal for reduplication (Panini 7.4.62)
 DEASPIRATE = {
     "B": "b", "G": "g", "Q": "q", "D": "d", "J": "j",
@@ -243,14 +245,11 @@ class TinantaDerivationEngine:
             cluster += ch
         if not cluster:
             return clean
-        # if cluster starts with sibilant s/S + consonant, take second consonant (7.4.62)
-        # for sv/Sv (svad), redup is s (sa), not v (va)
+        # sibilant + stop -> stop, sibilant + sonorant -> sibilant (7.4.62)
+        # sp->p, sk->k, sv->s (v sonorant), Sr->S (r sonorant)
         redup_cons = cluster[0]
         if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-            if cluster[:2] in ("sv", "Sv"):
-                redup_cons = cluster[0]
-            else:
-                redup_cons = cluster[1]
+            redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
         # de-aspirate
         redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
         # velar -> palatal (ku->cu)
@@ -315,11 +314,11 @@ class TinantaDerivationEngine:
             return []
         rc = cluster[0]
         if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-            rc = cluster[0] if cluster[:2] in ("sv", "Sv") else cluster[1]
+            rc = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
         rc = DEASPIRATE.get(rc, rc)
         rc = VELAR_TO_PALATAL.get(rc, rc)
         rcs = [rc]
-        orig = cluster[1] if (len(cluster) >= 2 and cluster[0] in ("s", "S") and cluster[:2] not in ("sv", "Sv")) else cluster[0]
+        orig = cluster[1] if (len(cluster) >= 2 and cluster[0] in ("s", "S") and cluster[1] in SLP1_STOPS) else cluster[0]
         orig = DEASPIRATE.get(orig, orig)
         if orig != rc:
             rcs.append(orig)
@@ -653,11 +652,7 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c[0]
             if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-                # for sv/Sv (svad), redup is s (si), not v (vi)
-                if cluster[:2] in ("sv", "Sv"):
-                    redup_cons = cluster[0]
-                else:
-                    redup_cons = cluster[1]
+                redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             redup_vowel = "u" if last_v in ("u","U") else "i"
@@ -697,10 +692,7 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c_eff[0]
             if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-                if cluster[:2] in ("sv", "Sv"):
-                    redup_cons = cluster[0]
-                else:
-                    redup_cons = cluster[1]
+                redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             return redup_cons + yan_vowel + c_eff + "ya"
@@ -730,10 +722,7 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c_eff[0]
             if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-                if cluster[:2] in ("sv", "Sv"):
-                    redup_cons = cluster[0]
-                else:
-                    redup_cons = cluster[1]
+                redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             return redup_cons + yan_vowel + c_eff  # without ya
