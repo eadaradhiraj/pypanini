@@ -2,28 +2,28 @@
 
 Engine: wholly generative (tinanta/krdanta from pada/sew/gana/vowel-initial, NO per-dhatu `if clean=="x"`, NO JSON import for generation).
 Cross-check: `skt-morph-data/01/*.json` read-only, any-token match counts as hit.
-Date: 2026-09-04T19:15:11Z
+Date: 2026-09-04T19:29:49Z
 Run: `python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v` (pilots 01.0001-01.0003 must stay OK) + `PYTHONIOENCODING=utf-8 python tests/sweep_gana.py --all --workers 8 --out tests/sweep_all.csv` (shared engine cache, ~0.1s/dhatu).
-Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save context — see table + `tests/sweep_all.csv` (fid,matched,total,pct,misses, 1166 rows, query via `grep`, do not dump).
+Passes: **247/1166 100%**. Fails: 919. Full per-dhatu logs removed to save context — see table + `tests/sweep_all.csv` (fid,matched,total,pct,misses, 1166 rows, query via `grep`, do not dump).
 
 ## How to validate (for next LLM)
 - Single: `PYTHONIOENCODING=utf-8 python tests/test_dhatu.py 01.0038` (verbose, GRAND must be 100%).
 - Batch: `PYTHONIOENCODING=utf-8 python tests/sweep_gana.py --from 01.0038 --to 01.0100 --workers 8`.
-- GRAND = tinanta (ting/yak/san/san_yak/nich/nich_yak/yang/yang_yak 10×9 + yangluk/yangluk_yak lw-only 9) + krdanta (krut/san_krut/nich_krut/yang_krut/yangluk_krut). yangluk non-lw excluded.
-- Workflow: fix generally via sutra → `test_dhatu.py <id>` → `unittest` pilots → update this file + `instructions.MD` → `git add -A && git commit -m "..." && git push`.
+- GRAND = tinanta (ting/yak/san/san_yak/nich/nich_yak/yang/yang_yak 10x9 + yangluk/yangluk_yak lw-only 9) + krdanta (krut/san_krut/nich_krut/yang_krut/yangluk_krut). yangluk non-lw excluded.
+- Workflow: fix generally via sutra -> `test_dhatu.py <id>` -> `unittest` pilots -> update this file + `git add -A && git commit -m "..." && git push`.
 
 ## Algorithmic rules implemented (general, Panini — do NOT re-add per-dhatu tables)
-- Anubandha stripping: `~r→strip r, no num` (`cyuti~r→cyut`, 7.1.58 blocked), `U~→strip U` (`ziDU~→ziD`, BU kept), `I~→strip I, allow guNa` (`citI~→cit→cet`), `i~→num` (`klidi~→klind`), `f/F/x/X`, trailing-`a`, `z→s`.
-- Reduplication `7.4.62`: `s/S+stop→stop` else `s` (`sp→p`, `sk→k→c`, `sv→s`, `Sr→S`); `abhyasa e/E→i, o/O→u` (`veT→vi`).
-- `yan` (`yaṄ`): `i→e, u→o, a/A→A, e→e, o→o` (`veT→veve`, not `vAve`). Same in tinanta `_yan_stem/_yanlug_stem` + krdanta `_yan_sec`.
-- `kta` (`7.2.10/8.2.30/8.2.42`): `I~→no-iT` (`yatI~→yatta`, `hlAdI~→hlAnna`); `c/j→k` (`Bfj→Bfkta`); `d→nna` default, `t→tta` concat; `seT+iT` else (`sparDita`). `ktavatu = kta-stem + vat`. `I~` blocks only mUla+yanluganta, sec keeps `iT`. Nijanta `kta` uses mUla stem for cross-match safety.
-- `Nic` aorist (`3.1.48`): `_nijanta_aorist` = `a+redup+base+ata/etAm/anta…` with `redup a/A/i/I/u/U`, `base clean/hrasva/guNa/guNa-hrasva + ur→Ur/or + s→z`. Deleted `svAd/hlAd/hrAd/yat/yut/sUd/dad/skund/daD/BU` tables. `Nic` vriddhi only single-cons no-`r` (`yat→yAtay`, `katT→katTay`, `sparD→sparDay`).
-- `krdanta guNa` (`7.3.84`): `SAnac/Rvul/GaY` guna for `i/I` too (`viT→veTaka/veTa/veTamAna`, not `vET`); `Rvul` clean for `e/o` (`veTaka`); `Satf` mUla+yanluganta→guna (`BAvat`), sannanta/nijanta/yananta sec→sec (`cuScutizat`).
-- `liw Pit/Kit` (`1.2.5`): paras `eka→guNa` (`cuScotiTa`), `dvi/bahu→clean` (`cuScutatuH`), over-generated both. Vowel-liw: periphrastic (`eDAYcakre`) + `vriddhi+paras/Atman` (`Ata/Ate`). Sannanta `ti/di` both (`atitiz/aditiz`).
-- `luN` paras (`7.3.84`): `aug+a+ending` for cons-final (`aScutat`) + `aug_guNa+I/iz` (`aScotIt`) alongside `aug+t`.
-- Deleted: `yat/hlAd` full krdanta maps, `svAd/hlAd/hrAd/yat/yut/sUd` nijanta tables, `dad/skund/daD/BU` nijanta tables, JSON-import cheats. `tinanta clean== 25→~11`, `krdanta` yat/hlAd gone.
+- Anubandha: `~r→strip r no-num` (7.1.58 blocked), `U~→strip U`, `I~→strip I allow-guNa`, `i~→num`, `f/F/x/X`, trailing-`a`, `z→s`.
+- Redup `7.4.62`: `s/S+stop→stop` else `s` (`Sr→S`); `abhyasa e/E→i o/O→u`; `sibilant` handling in tinanta+krdanta.
+- `yan`: `i→e u→o a/A→A e→e o→o` (`veT→veve`).
+- `kta` (`7.2.10/8.2.30/8.2.42`): `I~→no-iT`, `c/j→k`, `d→nna/t→tta`, `seT+iT`; `ktavatu=stem+vat`; `I~` blocks mUla+yanluganta only; nijanta kta uses mUla for cross-match.
+- `Nic` aorist (`3.1.48`): `a+redup+base+ata…`, `redup a/A/i/I/u/U`, `base clean/hrasva/guNa + ur→Ur/or + s→z + e→i/o→u samprasArana (tej→tij)`. Nic vriddhi single-cons no-r.
+- `krdanta guNa` (`7.3.84`): `SAnac/Rvul/GaY` guna `i/I` too; `Rvul` clean `e/o`; `Satf` mUla+yanluganta→guna else sec.
+- `liw Pit/Kit` (`1.2.5`): paras `eka→guNa` over-generated both; vowel-liw periphrastic + `vriddhi+paras/Atman`; sannanta `ti/di` both.
+- `luN` paras: `aug+a+ending` cons-final + `aug_guNa+I/iz`; `ASIrliN` madhyama-bahu `IDvam+IQvam` both (D/Q).
+- Deleted: yat/hlAd maps, svAd tables, dad/skund/daD/BU tables, JSON cheats.
 
-## Passes (190, all 100%)
+## Passes (247, all 100%)
 | fid | OpadeSika | GRAND |
 |---|---|---|
 | 01.0001 | BU | 895/895 |
@@ -101,6 +101,7 @@ Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save conte
 | 01.0134 | SAKf~ | 895/895 |
 | 01.0135 | SlAKf~ | 895/895 |
 | 01.0152 | valga~ | 895/895 |
+| 01.0160 | Svelf~ | 895/895 |
 | 01.0180 | GagGa~ | 895/895 |
 | 01.0186 | varca~ | 883/883 |
 | 01.0204 | Brejf~ | 883/883 |
@@ -116,12 +117,14 @@ Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save conte
 | 01.0259 | tarja~ | 895/895 |
 | 01.0260 | karja~ | 895/895 |
 | 01.0261 | Karja~ | 895/895 |
+| 01.0263 | teja~ | 895/895 |
 | 01.0273 | lAja~ | 895/895 |
 | 01.0277 | tuja~ | 895/895 |
 | 01.0283 | muja~ | 895/895 |
 | 01.0288 | vezwa~ | 883/883 |
 | 01.0289 | cezwa~ | 883/883 |
 | 01.0292 | Gawwa~ | 883/883 |
+| 01.0299 | heWa~ | 883/883 |
 | 01.0318 | heqf~ | 883/883 |
 | 01.0320 | bAqf~ | 883/883 |
 | 01.0321 | vAqf~ | 883/883 |
@@ -175,8 +178,51 @@ Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save conte
 | 01.0509 | BAma~ | 883/883 |
 | 01.0527 | pERf~ | 895/895 |
 | 01.0528 | prERf~ | 895/895 |
+| 01.0562 | tAyf~ | 883/883 |
+| 01.0565 | valla~ | 883/883 |
+| 01.0567 | malla~ | 883/883 |
+| 01.0569 | Balla~ | 883/883 |
+| 01.0571 | kalla~ | 883/883 |
+| 01.0572 | tevf~ | 883/883 |
+| 01.0573 | devf~ | 883/883 |
+| 01.0575 | gevf~ | 883/883 |
+| 01.0576 | glevf~ | 883/883 |
+| 01.0577 | pevf~ | 883/883 |
+| 01.0578 | mevf~ | 883/883 |
+| 01.0579 | mlevf~ | 883/883 |
+| 01.0580 | Sevf~ | 883/883 |
+| 01.0581 | Kevf~ | 883/883 |
+| 01.0582 | plevf~ | 883/883 |
+| 01.0583 | kevf~ | 883/883 |
+| 01.0585 | mavya~ | 895/895 |
+| 01.0612 | tila~ | 895/895 |
+| 01.0614 | velf~ | 895/895 |
+| 01.0615 | celf~ | 895/895 |
+| 01.0616 | kelf~ | 895/895 |
+| 01.0617 | Kelf~ | 895/895 |
+| 01.0618 | kzvelf~ | 895/895 |
+| 01.0619 | vella~ | 895/895 |
+| 01.0620 | cella~ | 895/895 |
+| 01.0621 | pelf~ | 895/895 |
+| 01.0622 | Pelf~ | 895/895 |
+| 01.0623 | Self~ | 895/895 |
+| 01.0631 | Svalla~ | 895/895 |
+| 01.0671 | pivi~ | 895/895 |
+| 01.0672 | mivi~ | 895/895 |
+| 01.0675 | hivi~ | 895/895 |
+| 01.0676 | divi~ | 895/895 |
+| 01.0678 | jivi~ | 895/895 |
+| 01.0681 | Davi~ | 895/895 |
+| 01.0691 | kleSa~ | 883/883 |
 | 01.0711 | BAsf~ | 883/883 |
 | 01.0713 | rAsf~ | 883/883 |
+| 01.0724 | galha~ | 883/883 |
+| 01.0726 | balha~ | 883/883 |
+| 01.0728 | valha~ | 883/883 |
+| 01.0729 | pliha~ | 883/883 |
+| 01.0730 | vehf~ | 883/883 |
+| 01.0731 | jehf~ | 883/883 |
+| 01.0732 | bAhf~ | 883/883 |
 | 01.0734 | kASf~ | 883/883 |
 | 01.0807 | tusa~ | 895/895 |
 | 01.0813 | jarja~ | 895/895 |
@@ -189,6 +235,8 @@ Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save conte
 | 01.0820 | piSf~ | 895/895 |
 | 01.0821 | peSf~ | 895/895 |
 | 01.0824 | miSa~ | 895/895 |
+| 01.0838 | tuhi~r | 895/895 |
+| 01.0839 | duhi~r | 895/895 |
 | 01.0847 | ruca~ | 883/883 |
 | 01.0848 | Guwa~ | 883/883 |
 | 01.0849 | ruwa~ | 883/883 |
@@ -199,10 +247,18 @@ Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save conte
 | 01.0878 | kadi~ | 883/883 |
 | 01.0879 | kradi~ | 883/883 |
 | 01.0880 | kladi~ | 883/883 |
+| 01.0916 | jvala~ | 895/895 |
+| 01.0917 | hvala~ | 895/895 |
+| 01.0918 | hmala~ | 895/895 |
 | 01.0947 | mleqf~ | 895/895 |
 | 01.0948 | mewf~ | 895/895 |
 | 01.0949 | biqa~ | 895/895 |
+| 01.0952 | vAhf~ | 883/883 |
 | 01.0956 | rAjf~ | 895/895 |
+| 01.0965 | jvala~ | 895/895 |
+| 01.0975 | pula~ | 895/895 |
+| 01.0976 | kula~ | 895/895 |
+| 01.0978 | hula~ | 895/895 |
 | 01.0993 | kuca~ | 895/895 |
 | 01.0994 | buDa~ | 895/895 |
 | 01.1002 | rewf~ | 895/895 |
@@ -216,47 +272,46 @@ Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save conte
 | 01.1019 | venf~ | 895/895 |
 | 01.1025 | dASf~ | 895/895 |
 | 01.1041 | dAsf~ | 895/895 |
+| 01.1042 | mAhf~ | 895/895 |
 
-## Fails (976) by anta — fix generally, never `if clean=="x"`
+## Fails (919) by anta
 | anta | miss-hits | example | sutra / fix |
 |---|---|---|---|
-| krut | 5250 | 01.0038 krut/yat/M:atyaH | krdanta guna/vriddhi/iT (7.3.84/7.2.10/8.2.30): yat-guna (KadyaH), Rvul e (veTaka), kta samyoga |
-| ting | 3242 | 01.0049 ting/liw/madhyama/eka:siziDviTa | tinanta liw/luN (1.2.5/7.3.84): liw eka-guna (cucyutiTa→cucyotiTa), luN at/guNa+I (aScutat/aScotIt) |
-| nich_krut | 696 | 01.0082 nich_krut/SAnac/M:SrekyamAnaH | nijanta krdanta sec vs mUla (exact hladita vs cross-match hlAnna) |
-| san_krut | 349 | 01.0038 san_krut/kta/M:aditizitaH | sannanta krdanta Satf/SAnac iT/guna (cuScutizat, 3.2.124) |
-| yangluk_krut | 275 | 01.0052 yangluk_krut/yat/M:KadyaH | yangluk krdanta stem (yAyatta exact vs mUla cross-match) |
-| yak | 268 | 01.0038 yak/liw/prathama/eka:atAYcakre | karmani yak Atman (yak liw Ate, 3.1.67) |
-| yang | 229 | 01.0048 yang/lw/prathama/eka:mAmanTyate | yananta lw (veve vs vAve, 7.4.??) |
-| san | 208 | 01.0080 san/lw/prathama/eka:lilokizate | sannanta tinanta ti/di, redup (atitiz) |
-| yang_krut | 148 | 01.0048 yang_krut/kta/M:mAmanTitaH | yananta krdanta (sec+at, no guna) |
-| yang_yak | 92 | 01.0160 yang_yak/ASIrliN/madhyama/bahu:SeSvelizIDvam | yananta yak (same as yang) |
-| nich | 19 | 01.0263 nich/luN/prathama/eka:atejayizwa | nijanta tinanta (sec ay, aorist) |
+| krut | 5253 | 01.0038 krut/yat/M:atyaH | krdanta guna/vriddhi/iT (7.3.84/7.2.10/8.2.30) |
+| ting | 3242 | 01.0049 ting/liw/madhyama/eka:siziDiTa | tinanta liw/luN (1.2.5/7.3.84) |
+| nich_krut | 741 | 01.0082 nich_krut/SAnac/M:SrekyamAnaH | nijanta sec vs mUla |
+| san_krut | 349 | 01.0038 san_krut/kta/M:aditizitaH | sannanta Satf/SAnac (3.2.124) |
+| yangluk_krut | 275 | 01.0052 yangluk_krut/yat/M:KadyaH | yangluk stem |
+| yak | 268 | 01.0038 yak/liw/prathama/eka:atAYcakre | karmani yak Atman (3.1.67) |
+| san | 208 | 01.0080 san/lw/prathama/eka:lilokizate | sannanta ti/di |
+| yang_krut | 148 | 01.0048 yang_krut/kta/M:mAmanTitaH | yananta krdanta |
+| yang | 137 | 01.0048 yang/lw/prathama/eka:mAmanTyate | yananta lw |
+| nich | 16 | 01.0440 nich/luN/prathama/eka:akAbayizwa | nijanta tinanta |
 
-### Easiest next (≥97%, few slots) — do these first
-- 01.0263 894/895 99.9% | nich/luN/prathama/eka:atejayizwa
-- 01.0299 882/883 99.9% | nich/luN/prathama/eka:aheWayizwa
+### Easiest next (>=97%)
 - 01.0440 882/883 99.9% | nich/luN/prathama/eka:akAbayizwa
-- 01.0691 882/883 99.9% | nich/luN/prathama/eka:akleSayizwa
-- 01.0160 893/895 99.8% | yang/ASIrliN/madhyama/bahu:SeSvelizIDvam | yang_yak/ASIrliN/madhyama/bahu:SeSvelizIDvam
-- 01.0562 881/883 99.8% | yang/ASIrliN/madhyama/bahu:tAtAyizIDvam | yang_yak/ASIrliN/madhyama/bahu:tAtAyizIDvam
-- 01.0565 881/883 99.8% | yang/ASIrliN/madhyama/bahu:vAvallizIDvam | yang_yak/ASIrliN/madhyama/bahu:vAvallizIDvam
-- 01.0567 881/883 99.8% | yang/ASIrliN/madhyama/bahu:mAmallizIDvam | yang_yak/ASIrliN/madhyama/bahu:mAmallizIDvam
-- 01.0569 881/883 99.8% | yang/ASIrliN/madhyama/bahu:bABallizIDvam | yang_yak/ASIrliN/madhyama/bahu:bABallizIDvam
-- 01.0571 881/883 99.8% | yang/ASIrliN/madhyama/bahu:cAkallizIDvam | yang_yak/ASIrliN/madhyama/bahu:cAkallizIDvam
-- 01.0572 881/883 99.8% | yang/ASIrliN/madhyama/bahu:tetevizIDvam | yang_yak/ASIrliN/madhyama/bahu:tetevizIDvam
-- 01.0573 881/883 99.8% | yang/ASIrliN/madhyama/bahu:dedevizIDvam | yang_yak/ASIrliN/madhyama/bahu:dedevizIDvam
-- 01.0575 881/883 99.8% | yang/ASIrliN/madhyama/bahu:jegevizIDvam | yang_yak/ASIrliN/madhyama/bahu:jegevizIDvam
-- 01.0576 881/883 99.8% | yang/ASIrliN/madhyama/bahu:jeglevizIDvam | yang_yak/ASIrliN/madhyama/bahu:jeglevizIDvam
-- 01.0577 881/883 99.8% | yang/ASIrliN/madhyama/bahu:pepevizIDvam | yang_yak/ASIrliN/madhyama/bahu:pepevizIDvam
-- 01.0578 881/883 99.8% | yang/ASIrliN/madhyama/bahu:memevizIDvam | yang_yak/ASIrliN/madhyama/bahu:memevizIDvam
-- 01.0579 881/883 99.8% | yang/ASIrliN/madhyama/bahu:memlevizIDvam | yang_yak/ASIrliN/madhyama/bahu:memlevizIDvam
-- 01.0580 881/883 99.8% | yang/ASIrliN/madhyama/bahu:SeSevizIDvam | yang_yak/ASIrliN/madhyama/bahu:SeSevizIDvam
-- 01.0581 881/883 99.8% | yang/ASIrliN/madhyama/bahu:ceKevizIDvam | yang_yak/ASIrliN/madhyama/bahu:ceKevizIDvam
-- 01.0582 881/883 99.8% | yang/ASIrliN/madhyama/bahu:peplevizIDvam | yang_yak/ASIrliN/madhyama/bahu:peplevizIDvam
+- 01.1023 892/895 99.7% | yang_krut/yat/M:cAcAyyaH | yang_krut/yat/F:cAcAyyA | yang_krut/yat/N:cAcAyyam
+- 01.0286 891/895 99.6% | krut/yat/M:vrajyaH | krut/yat/N:vrajyam | yangluk_krut/yat/M:vrajyaH | yangluk_krut/yat/N:vrajyam
+- 01.0052 889/895 99.3% | krut/yat/M:KadyaH | krut/yat/F:KadyA | krut/yat/N:Kadyam | yangluk_krut/yat/M:KadyaH | yangluk_krut/yat/F:KadyA | yangluk_krut/yat/N:Kadyam
+- 01.0095 877/883 99.3% | krut/yat/M:kakyaH | krut/yat/F:kakyA | krut/yat/N:kakyam | yangluk_krut/yat/M:kakyaH | yangluk_krut/yat/F:kakyA | yangluk_krut/yat/N:kakyam
+- 01.0128 889/895 99.3% | krut/yat/M:kaKyaH | krut/yat/F:kaKyA | krut/yat/N:kaKyam | yangluk_krut/yat/M:kaKyaH | yangluk_krut/yat/F:kaKyA | yangluk_krut/yat/N:kaKyam
+- 01.0138 889/895 99.3% | krut/yat/M:vaKyaH | krut/yat/F:vaKyA | krut/yat/N:vaKyam | yangluk_krut/yat/M:vaKyaH | yangluk_krut/yat/F:vaKyA | yangluk_krut/yat/N:vaKyam
+- 01.0179 889/895 99.3% | krut/yat/M:GaGyaH | krut/yat/F:GaGyA | krut/yat/N:GaGyam | yangluk_krut/yat/M:GaGyaH | yangluk_krut/yat/F:GaGyA | yangluk_krut/yat/N:GaGyam
+- 01.0190 877/883 99.3% | krut/yat/M:SvacyaH | krut/yat/F:SvacyA | krut/yat/N:Svacyam | yangluk_krut/yat/M:SvacyaH | yangluk_krut/yat/F:SvacyA | yangluk_krut/yat/N:Svacyam
+- 01.0192 877/883 99.3% | krut/yat/M:kacyaH | krut/yat/F:kacyA | krut/yat/N:kacyam | yangluk_krut/yat/M:kacyaH | yangluk_krut/yat/F:kacyA | yangluk_krut/yat/N:kacyam
+- 01.0245 889/895 99.3% | krut/yat/M:DrajyaH | krut/yat/F:DrajyA | krut/yat/N:Drajyam | yangluk_krut/yat/M:DrajyaH | yangluk_krut/yat/F:DrajyA | yangluk_krut/yat/N:Drajyam
+- 01.0251 889/895 99.3% | krut/yat/M:DvajyaH | krut/yat/F:DvajyA | krut/yat/N:Dvajyam | yangluk_krut/yat/M:DvajyaH | yangluk_krut/yat/F:DvajyA | yangluk_krut/yat/N:Dvajyam
+- 01.0264 889/895 99.3% | krut/yat/M:KajyaH | krut/yat/F:KajyA | krut/yat/N:Kajyam | yangluk_krut/yat/M:KajyaH | yangluk_krut/yat/F:KajyA | yangluk_krut/yat/N:Kajyam
+- 01.0265 889/895 99.3% | krut/yat/M:kavyaH | krut/yat/F:kavyA | krut/yat/N:kavyam | yangluk_krut/yat/M:kavyaH | yangluk_krut/yat/F:kavyA | yangluk_krut/yat/N:kavyam
+- 01.0279 889/895 99.3% | krut/yat/M:gajyaH | krut/yat/F:gajyA | krut/yat/N:gajyam | yangluk_krut/yat/M:gajyaH | yangluk_krut/yat/F:gajyA | yangluk_krut/yat/N:gajyam
+- 01.0285 889/895 99.3% | krut/yat/M:vajyaH | krut/yat/F:vajyA | krut/yat/N:vajyam | yangluk_krut/yat/M:vajyaH | yangluk_krut/yat/F:vajyA | yangluk_krut/yat/N:vajyam
+- 01.0337 889/895 99.3% | krut/yat/M:vawyaH | krut/yat/F:vawyA | krut/yat/N:vawyam | yangluk_krut/yat/M:vawyaH | yangluk_krut/yat/F:vawyA | yangluk_krut/yat/N:vawyam
+- 01.0343 889/895 99.3% | krut/yat/M:JawyaH | krut/yat/F:JawyA | krut/yat/N:Jawyam | yangluk_krut/yat/M:JawyaH | yangluk_krut/yat/F:JawyA | yangluk_krut/yat/N:Jawyam
+- 01.0344 889/895 99.3% | krut/yat/M:BawyaH | krut/yat/F:BawyA | krut/yat/N:Bawyam | yangluk_krut/yat/M:BawyaH | yangluk_krut/yat/F:BawyA | yangluk_krut/yat/N:Bawyam
+- 01.0346 889/895 99.3% | krut/yat/M:KawyaH | krut/yat/F:KawyA | krut/yat/N:Kawyam | yangluk_krut/yat/M:KawyaH | yangluk_krut/yat/F:KawyA | yangluk_krut/yat/N:Kawyam
 
 ## Next actions
-1. `ting/liw+luN` guna (Scut/cit): liw/luN eka already done for paras liw — extend same Pit/Kit + guNa+I to luN Atman + yak liw Ate.
-2. `san_krut/Satf` (ciKAdezan): sannanta Satf sec+iT+guna — currently sec without guna for some; add guna variant alongside (over-generate, test picks).
-3. `krut/yat` (KadyaH): yat (a+t) guna in yat-pratyaya — currently clean+ya, need guna_base+ya for a-roots without r/conjunct (like tavya/anIyar already do).
-4. `R`-initial + vowel-yak + `yang` (Radati, Ate, mAmanTyate): R→r + vriddhi liw, yak Atman e-endings already added — verify.
-5. Re-sweep `--all`, move newly-100% fids from fails to passes table, keep this file compact (no full logs).
+1. ting/liw+luN guna + sannanta Satf (same Pit/Kit pattern).
+2. krut/yat guna (KadyaH).
+3. R-initial + vowel-yak + yang.
+4. Re-sweep --all, move newly-100% to passes table, keep compact.
