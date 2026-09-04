@@ -58,6 +58,8 @@ class KrdantaEngine:
                             raw = raw[:-1]
                         if no_num_r and raw.endswith("i") and len(raw) > 1:
                             raw = raw[:-1]
+                        if ("I~" in op) and raw.endswith("I") and len(raw) > 1:
+                            raw = raw[:-1]
                         clean = raw
                         if clean.endswith("a") and len(clean) > 1:
                             clean = clean[:-1]
@@ -71,7 +73,7 @@ class KrdantaEngine:
                         else:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
-                        is_idit = (("i~" in op) or ("I~" in op) or (op.endswith("~") and raw.endswith("i"))) and not no_num_r
+                        is_idit = (("i~" in op) or (op.endswith("~") and raw.endswith("i"))) and not no_num_r and ("I~" not in op)
                         entry = {"clean": clean, "pada": pada, "sew": sew, "is_idit": is_idit, "op": op}
                         self._cache[clean] = entry
                         self._cache[op] = entry

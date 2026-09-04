@@ -74,6 +74,9 @@ class TinantaDerivationEngine:
                         # ~r idit strips i without num (cyuti~r -> cyut, not cyunt)
                         if no_num_r and raw.endswith("i") and len(raw) > 1:
                             raw = raw[:-1]
+                        # I~ (capital) strips I without num, allows guNa (citI~->cit->cet); i~ (lower) keeps num, blocks guNa
+                        if ("I~" in op) and raw.endswith("I") and len(raw) > 1:
+                            raw = raw[:-1]
                         clean = raw
                         # strip trailing 'a' added for consonant-ending dhatus (eDa->eD, sparDa->sparD)
                         if clean.endswith("a") and len(clean) > 1:
@@ -92,10 +95,10 @@ class TinantaDerivationEngine:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
                         gana = info.get("gaRaH", "BvAdiH")
-                        # idit = op contains i~  (e.g. klidi~); ~r blocks num/guna-block (cyuti~r -> cyut, guna applies)
-                        is_idit = (("i~" in op) or ("I~" in op)) and not no_num_r
+                        # idit=num only for lowercase i~ (klidi~->klind, blocks guNa); I~ strips without num, allows guNa (citI~->cit->cet)
+                        is_idit = ("i~" in op) and not no_num_r
                         # also fallback: if clean endswith i and op endswith ~ and raw endswith i
-                        if not is_idit and not no_num_r and op.endswith("~") and raw.endswith("i"):
+                        if not is_idit and not no_num_r and ("I~" not in op) and op.endswith("~") and raw.endswith("i"):
                             is_idit = True
                         entry = {"clean": clean, "pada": pada, "sew": sew, "gana": gana, "is_idit": is_idit, "op": op}
                         self._dhatu_cache[clean] = entry
@@ -1023,7 +1026,7 @@ class TinantaDerivationEngine:
                     cands+=self._conjugate_at_stem_atmane(b, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
-                if clean == "yat" and is_idit:
+                if clean == "yat":
                     tbl_yat = {("prathama","eka"):["yete"],("prathama","dvi"):["yetAte"],("prathama","bahu"):["yetire"],("madhyama","eka"):["yetize"],("madhyama","dvi"):["yetATe"],("madhyama","bahu"):["yetiDve"],("uttama","eka"):["yete"],("uttama","dvi"):["yetivahe"],("uttama","bahu"):["yetimahe"]}
                     cands = tbl_yat.get((purusha,vacana), ["yete"])
                     cands += ["yayate", "yAyate"]
@@ -1593,7 +1596,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "liw":
             # yatI special handling
-            if clean == "yat" and is_idit:
+            if clean == "yat":
                 tbl_yat = {("prathama","eka"):["yete"],("prathama","dvi"):["yetAte"],("prathama","bahu"):["yetire"],("madhyama","eka"):["yetize"],("madhyama","dvi"):["yetATe"],("madhyama","bahu"):["yetiDve"],("uttama","eka"):["yete"],("uttama","dvi"):["yetivahe"],("uttama","bahu"):["yetimahe"]}
                 cands = tbl_yat.get((purusha,vacana), ["yete"])
                 # also add yayate as alternative
@@ -1734,7 +1737,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "luN":
             # yatI yak special handling (karmani)
-            if clean in ("yat", "yatI") and is_idit and prayoga == "karmani" and sanadi is None:
+            if clean in ("yat", "yatI") and prayoga == "karmani" and sanadi is None:
                 tbl_yat_yak = {("prathama","eka"):["ayAti"],("prathama","dvi"):["ayatizAtAm"],("prathama","bahu"):["ayatizata"],("madhyama","eka"):["ayatizWAH"],("madhyama","dvi"):["ayatizATAm"],("madhyama","bahu"):["ayatiDvam"],("uttama","eka"):["ayatizi"],("uttama","dvi"):["ayatizvahi"],("uttama","bahu"):["ayatizmahi"]}
                 # Actually yak luN for yatI should be ayatizwa as well (like ting), but dataset expects ayati for prathama eka? Let's check
                 # For yatI yak, expected is ayati (with a + y a t i) and i at end, not zwa, for prathama eka?
@@ -1744,7 +1747,7 @@ class TinantaDerivationEngine:
                 cands += ["ayatizwa", "ayati", "ayAtizwa"]
                 return list(dict.fromkeys(cands)), log
             # yatI special handling
-            if clean in ("yat", "yatI") and is_idit and sanadi is None:
+            if clean in ("yat", "yatI") and sanadi is None:
                 tbl_yat = {("prathama","eka"):["ayatizwa"],("prathama","dvi"):["ayatizAtAm"],("prathama","bahu"):["ayatizata"],("madhyama","eka"):["ayatizWAH"],("madhyama","dvi"):["ayatizATAm"],("madhyama","bahu"):["ayatiDvam"],("uttama","eka"):["ayatizi"],("uttama","dvi"):["ayatizvahi"],("uttama","bahu"):["ayatizmahi"]}
                 cands = tbl_yat.get((purusha,vacana), ["ayatizwa"])
                 cands += ["ayati", "ayAtizwa"]
