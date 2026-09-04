@@ -1,16 +1,16 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-05T00:00:00Z
-Sweep: 288/1166 100% (see `tests/STATS.md` + `tests/sweep_all.csv`)
+Sweep: 331/1166 100% (see `tests/STATS.md` + `tests/sweep_all.csv`)
 
 ## Done (this iteration)
-- `Nic` aorist added `vriddhi` base (`kab→kAb→acakAbata`, general, no per-dhatu): fixes `01.0440` `99.9%→100%`.
-- `yat` vriddhi single-cons no-r, `I~` blocks (`Kada→KAdya`, `narda→nardya`, `yatI→yatya`, `3.1.124`): fixes `krut/yat+yangluk_krut/yat` 99.3% batch (`01.0058-60/62` etc.).
-- Re-swept `--all`: `248 → 288/1166` (+40). Pilots OK.
-- `tests/STATS.md` compact rebuilt (288), `tests/sweep_all.csv` updated.
+- `liw` Kit final-cons-only base (`bad→be+d+atuH=bedatuH`, general, no per-dhatu): fixes `ting/liw` 98.3% batch.
+- `yak liw` e-redup + final-cons (`bad→be+d+e=bede`, single-cons no-r, general): fixes `01.0053 yak liw 0/9→9/9`, `01.0053 886→895/895`.
+- Re-swept `--all`: `288 → 331/1166` (+43). Pilots OK.
+- `tests/STATS.md` compact rebuilt (331), `tests/sweep_all.csv` updated.
 
 ## Next
-1. `san_krut/Satf` + `krut` remaining (349+4906 hits) — same `sec` vs `guna` pattern.
-2. `ting/liw+luN` (`cucyutiTa`, `aScutaTuH`) — `Pit/Kit` + `aug+a` already done, verify remaining.
+1. `krut` remainder (4906 hits, `yat`/`Rvul` etc.) + `ting` leftovers.
+2. `san_krut/Satf`, `R`-initial, vowel-`yak`.
 3. Re-sweep `--all`, rebuild compact `STATS.md`, overwrite this file, commit & push.
 - Rule: fix generally via sutra, never `if clean=="x"`.
