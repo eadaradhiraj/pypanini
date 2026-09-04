@@ -1726,6 +1726,29 @@ class TinantaDerivationEngine:
                     cands = []
                     for rd in redups:
                         cands.append(rd + endings[(purusha, vacana)])
+                    # Atman liw e-redup + final-cons for a-roots single-cons no-r (cak->ceke, not cacake)
+                    try:
+                        _lv = None
+                        _li = -1
+                        for _i in range(len(clean)-1, -1, -1):
+                            if clean[_i] in SLP1_VOWELS:
+                                _lv = clean[_i]
+                                _li = _i
+                                break
+                        _suf = clean[_li+1:] if _li != -1 else ""
+                        if _lv == "a" and "r" not in _suf and len(_suf) <= 1 and clean and clean[-1] not in SLP1_VOWELS:
+                            _init = ""
+                            for _ch in clean:
+                                if _ch in SLP1_VOWELS:
+                                    break
+                                _init += _ch
+                            _rc0 = _init[0] if _init else clean[0]
+                            _be = _rc0 + "e"
+                            _fc = clean[-1]
+                            for _ee in (endings,):
+                                cands.append(_be + _fc + _ee[(purusha, vacana)])
+                    except Exception:
+                        pass
                     if clean == "daD":
                         alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                         cands.append(alt[(purusha,vacana)])
