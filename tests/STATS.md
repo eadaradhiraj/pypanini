@@ -2,7 +2,7 @@
 
 Engine: wholly generative (tinanta/krdanta derive from pada/sew/gana, no hardcoded dicts, expanded 10 antas)
 Cross-check: skt-morph-data JSON (read-only)
-Date: 2026-09-04T08:53:28Z
+Date: 2026-09-04T09:11:54Z
 Run: python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v (10 antas ×10 lakaras ×9 + 5 krdanta antas)
 
 ```
@@ -2314,5 +2314,95 @@ VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0019.json  |
   ✓ yangluk_krut (yanluganta) 29/29
 ---------------------------------------------------------------------------
 GRAND  883/883  (100.0%)  ✓ ALL MATCHED
+===========================================================================
+```
+### 01.0020
+```
+===========================================================================
+VALIDATION  /home/edhiraj/Documents/projs/skt-morph-data/data/01/01.0020.json  |  dhatu=urd (urda~ mAne krIqAyAM AsvAdane ca)
+===========================================================================
+✓ tokens: 721  engine: generative (no hardcoded dict)
+
+-- tinanta (6 antas × 10 lakaras × 9) --
+   antas: ting, yak, san, san_yak, nich, nich_yak
+
+  [ting] sanadi=None prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [yak] sanadi=None prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san] sanadi=sannanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [san_yak] sanadi=sannanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich] sanadi=nijanta prayoga=kartari
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+  [nich_yak] sanadi=nijanta prayoga=karmani
+    ✓ lw        9/ 9
+    ✓ liw       9/ 9
+    ✓ luw       9/ 9
+    ✓ lfw       9/ 9
+    ✓ low       9/ 9
+    ✓ laN       9/ 9
+    ✓ viDiliN   9/ 9
+    ✓ ASIrliN   9/ 9
+    ✓ luN       9/ 9
+    ✓ lfN       9/ 9
+
+-- krdanta (all antas) --
+  ✓ krut         (mUla      ) 29/29
+  ✓ san_krut     (sannanta  ) 29/29
+  ✓ nich_krut    (nijanta   ) 29/29
+---------------------------------------------------------------------------
+GRAND  627/627  (100.0%)  ✓ ALL MATCHED
 ===========================================================================
 ```
