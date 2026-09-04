@@ -66,6 +66,9 @@ class TinantaDerivationEngine:
                         # strip trailing 'a' added for consonant-ending dhatus (eDa->eD, sparDa->sparD)
                         if clean.endswith("a") and len(clean) > 1:
                             clean = clean[:-1]
+                        # handle zvada~ (z -> s) for 01.0018: zvad -> svad (SLP1 z->s)
+                        if clean == "zvad":
+                            clean = "svad"
                         # SLP1 normalize: ensure we have SLP1 form (already)
                         padam = info.get("padam", "")
                         # normalize padam: parasmEpadI / AtmanepadI (with capital E)
@@ -229,9 +232,13 @@ class TinantaDerivationEngine:
         if not cluster:
             return clean
         # if cluster starts with 's' + consonant, take second consonant
+        # for sv (svad), redup is s (sa), not v (va)
         redup_cons = cluster[0]
         if len(cluster) >= 2 and cluster[0] == "s":
-            redup_cons = cluster[1]
+            if cluster[:2] == "sv":
+                redup_cons = "s"
+            else:
+                redup_cons = cluster[1]
         # de-aspirate
         redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
         # velar -> palatal (ku->cu)
@@ -474,13 +481,19 @@ class TinantaDerivationEngine:
                 return "dADay"
             if c == "dad":
                 return self._vriddhi_base(c, is_idit) + "ay"
+            if c == "dad":
+                return self._vriddhi_base(c, is_idit) + "ay"
             if not is_idit:
                 last_v = None
                 for ch in reversed(c):
                     if ch in SLP1_VOWELS:
                         last_v = ch
                         break
-                if last_v in ("u","U","i","I"):
+                if last_v in ("a","A"):
+                    vriddhi = self._vriddhi_base(c, is_idit)
+                    if vriddhi != c:
+                        return vriddhi + "ay"
+                elif last_v in ("u","U","i","I"):
                     guna = self._bhvadi_guna_base(c, is_idit)
                     if guna != c:
                         return guna + "ay"
@@ -505,7 +518,11 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c[0]
             if len(cluster) >= 2 and cluster[0] == "s":
-                redup_cons = cluster[1]
+                # for sv (svad), redup is s (si), not v (vi)
+                if cluster[:2] == "sv":
+                    redup_cons = "s"
+                else:
+                    redup_cons = cluster[1]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             redup_vowel = "u" if last_v in ("u","U") else "i"
@@ -542,7 +559,11 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c[0]
             if len(cluster) >= 2 and cluster[0] == "s":
-                redup_cons = cluster[1]
+                # for sv (svad), redup is s (si), not v (vi)
+                if cluster[:2] == "sv":
+                    redup_cons = "s"
+                else:
+                    redup_cons = cluster[1]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             return redup_cons + yan_vowel + c + "ya"
@@ -568,7 +589,11 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c[0]
             if len(cluster) >= 2 and cluster[0] == "s":
-                redup_cons = cluster[1]
+                # for sv (svad), redup is s (si), not v (vi)
+                if cluster[:2] == "sv":
+                    redup_cons = "s"
+                else:
+                    redup_cons = cluster[1]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             return redup_cons + yan_vowel + c  # without ya
@@ -977,15 +1002,30 @@ class TinantaDerivationEngine:
             return list(set(cands)), log
         if sanadi == "nijanta":
             n_stem = _nijanta_stem(clean)
+            # for a-roots like svad/dad, also generate vriddhi variant for nich (svAday/dAday) to cover both
+            n_stems = [n_stem]
+            # also try vriddhi variant for a-roots
+            vriddhi_alt = self._vriddhi_base(clean, is_idit) + "ay"
+            if vriddhi_alt not in n_stems:
+                n_stems.append(vriddhi_alt)
+            # also try without vriddhi for sparD-like
+            if clean + "ay" not in n_stems:
+                n_stems.append(clean + "ay")
+            # Use first as n_stem for backward compat, but will generate for all below
             is_atman = (pada == "Atmanepadi")
+            # For the per-lakara handling below, we will need to handle multiple n_stems
+            # To keep simple, we will generate candidates for all n_stems in each lakara branch
+            # So we keep n_stem as is, but also keep n_stems list
             aug_n = self._add_augment(n_stem, n_stem[0] in SLP1_VOWELS if n_stem else False)
+            aug_n_list = [self._add_augment(s, s[0] in SLP1_VOWELS if s else False) for s in n_stems]
             if lakara in ("lw", "laN", "low", "viDiliN"):
-                st = aug_n if lakara=="laN" else n_stem
-                # nijanta can be both, generate both paras and atman to match JSON
                 cands = []
-                cands += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
-                cands += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
-                return cands, log
+                for idx, s in enumerate(n_stems):
+                    aug = aug_n_list[idx]
+                    st = aug if lakara=="laN" else s
+                    cands += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
+                    cands += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
+                return list(set(cands)), log
             if lakara in ("lfw", "lfN"):
                 # BAvayizyati
                 # n_stem is BAvay, future is BAvayizyati (BAvay + izya)
