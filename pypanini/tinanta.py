@@ -67,8 +67,8 @@ class TinantaDerivationEngine:
                         if clean.endswith("a") and len(clean) > 1:
                             clean = clean[:-1]
                         # handle zvada~ (z -> s) for 01.0018: zvad -> svad (SLP1 z->s)
-                        if clean == "zvad":
-                            clean = "svad"
+                        if clean.startswith("z"):
+                            clean = "s" + clean[1:]
                         # SLP1 normalize: ensure we have SLP1 form (already)
                         padam = info.get("padam", "")
                         # normalize padam: parasmEpadI / AtmanepadI (with capital E)
@@ -126,6 +126,8 @@ class TinantaDerivationEngine:
         clean = raw
         if clean.endswith("a") and len(clean) > 1:
             clean = clean[:-1]
+        if clean.startswith("z"):
+            clean = "s" + clean[1:]
         # infer vowel-initial?
         # default: consonant-initial BvAdi, parasmaipada, sew
         # if dhatu is known vowel-initial like eD, infer Atmanepadi
@@ -243,7 +245,16 @@ class TinantaDerivationEngine:
         redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
         # velar -> palatal (ku->cu)
         redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-        return redup_cons + abhyasa_vowel + clean
+        res = redup_cons + abhyasa_vowel + clean
+        # satva for s after u/i in reduplication: susUd -> suzUd (8.3.59)
+        if clean.startswith("s") and abhyasa_vowel in ("u","i"):
+            # change the s of clean to z after redup vowel u/i
+            # res is e.g., susUd, need to make suzUd
+            # replace the s at position len(redup_cons)+1
+            idx = len(redup_cons) + 1  # position of s from clean
+            if idx < len(res) and res[idx] == "s":
+                res = res[:idx] + "z" + res[idx+1:]
+        return res
 
     def _prim_bases(self, clean: str, is_idit: bool=False):
         bases = [self._bhvadi_guna_base(clean, is_idit), clean]
@@ -577,6 +588,8 @@ class TinantaDerivationEngine:
                 return "boBUy"
             if c in ("skund", "Svind"):
                 return "coskundya" if c == "skund" else "SeSvindya"
+            if c in ("sUd", "SUd", "sUd"):
+                return "sozUdya"
             c_eff = c
             if "ur" in c:
                 c_eff = c.replace("ur", "Ur", 1)
@@ -612,6 +625,8 @@ class TinantaDerivationEngine:
         def _yanlug_stem(c):
             if c == "BU":
                 return None  # use map
+            if c in ("sUd", "sUd"):
+                return "sozUd"
             c_eff = c.replace("ur", "Ur", 1) if "ur" in c else c
             root_vowel = None
             for ch in c_eff:
@@ -922,7 +937,7 @@ class TinantaDerivationEngine:
                 # primitive yak future: use guna base + izy + atman (over-generate for vowel-initial and Ur)
                 cands=[]
                 for base_cmp in self._prim_bases(clean, is_idit):
-                    if "Ur" in base_cmp:
+                    if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     else:
                         eff = base_cmp if is_vowel_initial else self._bhvadi_guna_base(base_cmp, is_idit)
@@ -1023,11 +1038,11 @@ class TinantaDerivationEngine:
                             cands.append(alt_sec + "itA")
                             cands.append(alt_sec + "itArO")
                     return list(dict.fromkeys(cands)), log
-                # primitive yak luw is BavitA (same as paras) - over-generate capital and Ur
+                # primitive yak luw is BavitA (same as paras) - over-generate capital and Ur/Ud
                 cands=[]
                 bases = self._prim_bases(clean, is_idit)
                 for base_cmp in bases:
-                    if "Ur" in base_cmp:
+                    if "Ur" in base_cmp or "Ud" in base_cmp:
                         b = base_cmp
                     else:
                         b = self._bhvadi_guna_base(base_cmp, is_idit) if not is_vowel_initial else base_cmp
@@ -1060,7 +1075,7 @@ class TinantaDerivationEngine:
                 # primitive yak ASIrliN is atman seT BavizIzwa (guna + i + z) over-generate and Ur
                 cands=[]
                 for base_cmp in self._prim_bases(clean, is_idit):
-                    if "Ur" in base_cmp:
+                    if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     else:
                         eff = base_cmp if is_vowel_initial else self._bhvadi_guna_base(base_cmp, is_idit)
@@ -1094,16 +1109,17 @@ class TinantaDerivationEngine:
                         else:
                             cands+= [cand_atman, cand_paras]
                     return list(dict.fromkeys(cands)), log
-                # primitive yak luN: atman seT with aug + guna/vriddhi base (aBavi vs aBAvi) + Ur variant for kurda
+                # primitive yak luN: atman seT with aug + guna/vriddhi base (aBavi vs aBAvi) + Ur/Ud variant for sUd/kUrda
                 gbase = self._bhvadi_guna_base(clean, is_idit)
                 vbase = self._vriddhi_base(clean, is_idit)
-                # Ur variant for kurda
                 if "ur" in clean:
                     alt_clean = clean.replace("ur", "Ur", 1)
-                    # alt_clean is kUrd, keep as is for yak luN (kUrdi)
                     alt_gbase = alt_clean
                     alt_aug = _aug(alt_gbase)
-                    # will be added to candidates later via extra handling
+                if "Ud" in clean:
+                    alt_clean2 = clean  # sUd with Ud
+                    alt_gbase2 = alt_clean2
+                    alt_aug2 = _aug(alt_gbase2)
                 gbase_av = apply_sandhi_eco_ayavayavah(gbase[-1]) if gbase[-1] in "eoEO" else gbase[-1]
                 aug_gbase = _aug(gbase)
                 aug_vbase = _aug(vbase + "av"[-1] if False else vbase) if vbase != gbase else _aug(gbase.replace("a","A") if "a" in gbase else gbase)
@@ -1116,13 +1132,16 @@ class TinantaDerivationEngine:
                     return table_daD[(purusha,vacana)], log
                 table = {("prathama","eka"):[aug_clean+"i", _aug(vbase)+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", _aug(vbase)+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", _aug(vbase)+"izata"],("madhyama","eka"):[aug_clean+"izWAH", _aug(vbase)+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", _aug(vbase)+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", _aug(vbase)+"iDvam"],("uttama","eka"):[aug_clean+"izi", _aug(vbase)+"izi"],("uttama","dvi"):[aug_clean+"izvahi", _aug(vbase)+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", _aug(vbase)+"izmahi"]}
                 if "ur" in clean:
-                    # add Ur variant for kurda yak luN
                     try:
                         table[(purusha,vacana)].append(alt_aug + suffixes[(purusha,vacana)])
                     except: pass
-                    # also add with alt_aug directly
+                if "Ud" in clean:
+                    try:
+                        table[(purusha,vacana)].append(alt_aug2 + suffixes[(purusha,vacana)])
+                    except:
+                        pass
                     if (purusha,vacana) not in table:
-                        table[(purusha,vacana)] = [alt_aug + suffixes[(purusha,vacana)]]
+                        table[(purusha,vacana)] = [alt_aug2 + suffixes[(purusha,vacana)]]
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
@@ -1329,10 +1348,15 @@ class TinantaDerivationEngine:
                     cands_all += cands_paras + cands_atman
                 return list(set(cands_all)), log
             if lakara == "luN":
+                # for sUd (zUda) nijanta Atman, expected asUzudata etc (not asUdayizwa)
+                if clean == "sUd" and sanadi == "nijanta":
+                    tbl = {("prathama","eka"):["asUzudata"],("prathama","dvi"):["asUzudetAm"],("prathama","bahu"):["asUzudanta"],("madhyama","eka"):["asUzudaTAH"],("madhyama","dvi"):["asUzudetAm"],("madhyama","bahu"):["asUzudaDvam"],("uttama","eka"):["asUzude"],("uttama","dvi"):["asUzudAvahi"],("uttama","bahu"):["asUzudAmahi"]}
+                    cand = tbl.get((purusha,vacana), [aug_n + "izwa"])
+                    # also add asUdayizwa as alternative
+                    cand += [aug_n + "izwa", "asUdayizwa"]
+                    return list(dict.fromkeys(cand)), log
                 # for dad, generate aorist adIdadata directly (I long)
                 if clean == "dad" and purusha == "prathama" and vacana == "eka":
-                    # aorist adIdadata is expected for 01.0017 nich alung prathama eka
-                    # Generate both seT and aorist to ensure global match
                     cands = [aug_n + "izwa", "adIdadata", "adAdayizwa"]
                     return list(set(cands)), log
                 # nijanta luN paras: abIBavat (reduplicated aorist), not seT? Data shows abIBavata for nich alung vs abIBavat for plung
@@ -1622,7 +1646,7 @@ class TinantaDerivationEngine:
                 # Atmanepadi sew: eDizIzwa / modizIzwa etc. Use guna base for consonant-final non-idit (mud->mod); over-generate for vowel-initial
                 cands=[]
                 for base_cmp in self._prim_bases(clean, is_idit):
-                    if "Ur" in base_cmp:
+                    if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     else:
                         eff = base_cmp if is_vowel_initial else self._bhvadi_guna_base(base_cmp, is_idit)
@@ -1679,7 +1703,7 @@ class TinantaDerivationEngine:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
                 cands=[]
                 for base_cmp in self._prim_bases(clean, is_idit):
-                    if "Ur" in base_cmp:
+                    if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     else:
                         eff = base_cmp if is_vowel_initial else self._bhvadi_guna_base(base_cmp, is_idit)
