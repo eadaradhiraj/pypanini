@@ -1253,6 +1253,16 @@ class TinantaDerivationEngine:
                             alt_sann.append(alt2)
             guna_base = self._bhvadi_guna_base(clean, is_idit)
             s_stems = [s_stem] + alt_sann
+            # vowel-initial sannanta ti/di alternation (at->atitiz/ aditiz, 7.4.??): generate both voiceless/voiced
+            for _s in list(s_stems):
+                if len(_s) >= 3 and _s[0] in SLP1_VOWELS and _s[1:3] == "di":
+                    _ti = _s[0] + "ti" + _s[3:]
+                    if _ti not in s_stems:
+                        s_stems.append(_ti)
+                if len(_s) >= 3 and _s[0] in SLP1_VOWELS and _s[1:3] == "ti":
+                    _di = _s[0] + "di" + _s[3:]
+                    if _di not in s_stems:
+                        s_stems.append(_di)
             if guna_base != clean and clean in s_stem:
                 s_alt = s_stem.replace(clean, guna_base, 1)
                 if s_alt not in s_stems:
@@ -1630,6 +1640,17 @@ class TinantaDerivationEngine:
                     forms.append(ama + "M" + base_end[1:])
                     if (purusha, vacana) == ("madhyama", "bahu"):
                         forms+= [ama + "YcakfQve", ama + "YcakfDve", ama + "McakfDve"]
+                # vowel-initial liw: periphrastic (eD) + reduplicated paras (ata~->Ata) + reduplicated Atman (yak Ate)
+                try:
+                    vrid = self._add_augment(clean, True)
+                    cons_end = {("prathama", "eka"): "a", ("prathama", "dvi"): "atuH", ("prathama", "bahu"): "uH", ("madhyama", "eka"): "iTa", ("madhyama", "dvi"): "aTuH", ("madhyama", "bahu"): "a", ("uttama", "eka"): "a", ("uttama", "dvi"): "iva", ("uttama", "bahu"): "ima"}
+                    vow_end = {("prathama", "eka"): "va", ("prathama", "dvi"): "vatuH", ("prathama", "bahu"): "vuH", ("madhyama", "eka"): "viTa", ("madhyama", "dvi"): "vaTuH", ("madhyama", "bahu"): "va", ("uttama", "eka"): "va", ("uttama", "dvi"): "viva", ("uttama", "bahu"): "vima"}
+                    atm_end = {("prathama", "eka"): "e", ("prathama", "dvi"): "Ate", ("prathama", "bahu"): "ire", ("madhyama", "eka"): "ize", ("madhyama", "dvi"): "ATe", ("madhyama", "bahu"): "iDve", ("uttama", "eka"): "e", ("uttama", "dvi"): "ivahe", ("uttama", "bahu"): "imahe"}
+                    forms.append(vrid + cons_end[(purusha, vacana)])
+                    forms.append(vrid + vow_end[(purusha, vacana)])
+                    forms.append(vrid + atm_end[(purusha, vacana)])
+                except Exception:
+                    pass
                 return list(dict.fromkeys(forms)), log
             else:
                 redup = self._reduplicated_stem(clean)
