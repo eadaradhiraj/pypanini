@@ -580,7 +580,7 @@ class KrdantaEngine:
             return tri_linga(stem)
 
         elif pratyaya == "yat":
-            # Ryat (vriddhi, long) vs yat (guna/short): I~ blocks vriddhi (yatI~->yatya short), else vriddhi for a (Kada~->KAdya long, 3.1.124)
+            # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
             _op = meta.get("op", "")
             if clean in ["dad", "svad"]:
                 stem = vriddhi_base + "ya"
@@ -590,11 +590,14 @@ class KrdantaEngine:
                 stem = clean + "ya"
             else:
                 last_v = None
-                for ch in reversed(clean):
-                    if ch in SLP1_VOWELS:
-                        last_v = ch
+                last_idx = -1
+                for i in range(len(clean)-1, -1, -1):
+                    if clean[i] in SLP1_VOWELS:
+                        last_v = clean[i]
+                        last_idx = i
                         break
-                if last_v in ("a", "A") and ("I~" not in _op):
+                _suf = clean[last_idx+1:] if last_idx != -1 else ""
+                if last_v in ("a", "A") and ("I~" not in _op) and ("r" not in _suf) and len(_suf) <= 1:
                     stem = vriddhi_base + "ya"
                 elif last_v in ("u", "U", "i", "I"):
                     stem = guna_base + "ya"

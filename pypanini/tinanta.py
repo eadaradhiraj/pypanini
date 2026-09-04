@@ -289,6 +289,9 @@ class TinantaDerivationEngine:
             guna = self._bhvadi_guna_base(clean, is_idit)
             bases.add(guna)
             bases.add("".join(short_map.get(ch, ch) for ch in guna))
+            vrid = self._vriddhi_base(clean, is_idit)
+            bases.add(vrid)
+            bases.add("".join(short_map.get(ch, ch) for ch in vrid))
         except Exception:
             pass
         # e->i, o->u samprasAraNa for aorist base (tej->tij, heW->hiW, 6.1.??): over-generate both
