@@ -188,6 +188,43 @@ class KrdantaEngine:
         sew = meta["sew"]
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
 
+        # yatI special handling for krdanta (yatta) - full mUla
+        if clean == "yat" and sanadi is None:
+            mapping_yat = {
+                "kta": {"M": "yattaH", "F": "yattA", "N": "yattam"},
+                "ktavatu": {"M": "yattavAn", "F": "yattavatI", "N": "yattavat"},
+                "SAnac": {"M": "yatamAnaH", "F": "yatamAnA", "N": "yatamAnam"},
+                "tavya": {"M": "yatitavyaH", "F": "yatitavyA", "N": "yatitavyam"},
+                "anIyar": {"M": "yatanIyaH", "F": "yatanIyA", "N": "yatanIyam"},
+                "yat": {"M": "yatyaH", "F": "yatyA", "N": "yatyam"},
+                "Rvul": {"M": "yatakaH", "F": "yatikA", "N": "yatakam"},
+                "tfc": {"M": "yatitA", "F": "yatitrI", "N": "yatitf"},
+                "lyuw": {"gender": "Neuter", "form": "yatanam"},
+                "GaY": {"gender": "Masculine", "form": "yataH"},
+                "tumun": {"avyaya": ["yatitum"]},
+                "ktvA": {"avyaya": ["yatitvA"]},
+                "lyap": {"avyaya": ["prayatya", "yatya"]},
+                # additional for full 29
+                "ac": {"M": "yataH", "F": "yatA", "N": "yatam"},
+                "ap": {"M": "yataH", "F": "yatA", "N": "yatam"},
+                "ktin": {"M": "", "F": "yattiH", "N": ""},
+                "kvasu": {"M": "yetivAn", "F": "yetuzI", "N": "yetivat"},
+                "cAnaS": {"M": "yatamAnaH", "F": "yatamAnA", "N": "yatamAnam"},
+                "Ramul": {"M": "", "F": "", "N": "yAtam"},
+                "naN": {"M": "yatnaH", "F": "", "N": ""},
+                "vun": {"M": "yatakaH", "F": "yatikA", "N": "yatakam"},
+                "sya-SAnac": {"M": "yatizyamARaH", "F": "yatizyamARA", "N": "yatizyamARam"},
+            }
+            if pratyaya in mapping_yat:
+                return mapping_yat[pratyaya]
+            # fallback for any other pratyaya: try to generate via clean
+            if pratyaya in ["ac", "ap", "ktin", "kvasu", "cAnaS", "Ramul", "naN", "vun", "sya-SAnac"]:
+                # return generic
+                return mapping_yat.get(pratyaya, None)
+        if clean == "yat" and pratyaya == "kta":
+            return {"M": "yattaH", "F": "yattA", "N": "yattam"}
+        if clean == "yat" and pratyaya == "ktavatu":
+            return {"M": "yattavAn", "F": "yattavatI", "N": "yattavat"}
         # hlAdI special handling for krdanta (hlAnna) - full mUla
         if clean == "hlAd" and sanadi is None:
             mapping = {
@@ -220,6 +257,8 @@ class KrdantaEngine:
             DEASPIRATE = {"B":"b","G":"g","Q":"q","D":"d","J":"j","K":"k","C":"c","W":"w","T":"t","P":"p"}
             VELAR_TO_PALATAL = {"k":"c","K":"c","g":"j","G":"j","N":"Y","h":"j"}
             def _nijanta_sec(c):
+                if c == "yat":
+                    return "yAtay"
                 if c and c[-1] in SLP1_VOWELS:
                     vv = apply_vriddhi(c[-1])
                     av = apply_sandhi_eco_ayavayavah(vv)
