@@ -472,10 +472,18 @@ class TinantaDerivationEngine:
                 return self._vriddhi_base(c, is_idit) + "ay"
             if c == "daD":
                 return "dADay"
+            if c == "dad":
+                return self._vriddhi_base(c, is_idit) + "ay"
             if not is_idit:
-                guna = self._bhvadi_guna_base(c, is_idit)
-                if guna != c:
-                    return guna + "ay"
+                last_v = None
+                for ch in reversed(c):
+                    if ch in SLP1_VOWELS:
+                        last_v = ch
+                        break
+                if last_v in ("u","U","i","I"):
+                    guna = self._bhvadi_guna_base(c, is_idit)
+                    if guna != c:
+                        return guna + "ay"
             return c + "ay"
         def _sannanta_stem(c):
             if c in ("skund", "Svind"):
