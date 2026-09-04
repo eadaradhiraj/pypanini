@@ -481,22 +481,29 @@ class TinantaDerivationEngine:
                 return "dADay"
             if c == "dad":
                 return self._vriddhi_base(c, is_idit) + "ay"
-            if c == "dad":
-                return self._vriddhi_base(c, is_idit) + "ay"
             if not is_idit:
                 last_v = None
-                for ch in reversed(c):
+                last_idx = -1
+                for idx,ch in enumerate(c):
                     if ch in SLP1_VOWELS:
                         last_v = ch
+                        last_idx = idx
+                # find last vowel correctly
+                for i in range(len(c)-1,-1,-1):
+                    if c[i] in SLP1_VOWELS:
+                        last_v = c[i]
+                        last_idx = i
                         break
-                if last_v in ("a","A"):
-                    vriddhi = self._vriddhi_base(c, is_idit)
-                    if vriddhi != c:
-                        return vriddhi + "ay"
-                elif last_v in ("u","U","i","I"):
+                if last_v in ("u","U","i","I"):
                     guna = self._bhvadi_guna_base(c, is_idit)
                     if guna != c:
                         return guna + "ay"
+                elif last_v == "a":
+                    suffix = c[last_idx+1:] if last_idx != -1 else ""
+                    if "r" not in suffix:
+                        vrid = self._vriddhi_base(c, is_idit)
+                        if vrid != c:
+                            return vrid + "ay"
             return c + "ay"
         def _sannanta_stem(c):
             if c in ("skund", "Svind"):
@@ -1027,35 +1034,36 @@ class TinantaDerivationEngine:
                     cands += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
                 return list(set(cands)), log
             if lakara in ("lfw", "lfN"):
-                # BAvayizyati
-                # n_stem is BAvay, future is BAvayizyati (BAvay + izya)
                 is_aug = (lakara=="lfN")
-                fut = n_stem + "izya" if not n_stem.endswith("ay") else n_stem[:-2] + "izya"
-                # BAvay -> BAvayizya -> remove y? BAvay + izya = BAvayizya (y+ i -> yi)
-                # Actually BAvay ends with ay, so BAvay + izya = BAvayizya (ay+ iz = ayiz)
-                if n_stem.endswith("ay"):
-                    fut = n_stem[:-1] + "izya"  # BAvay -> BAvayizya? BAvay[:-1]=BAvay? Keep BAvayizya
-                    fut = n_stem + "izya"  # BAvayizya
-                if is_aug: fut = self._add_augment(fut, fut[0] in SLP1_VOWELS if fut else False)
-                base_no_a = fut[:-1] if fut.endswith("a") else fut
-                cands = self._conjugate_at_stem_parasmai(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana) + self._conjugate_at_stem_atmane(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
-                return cands, log
+                cands_all = []
+                for s in n_stems:
+                    fut = s + "izya" if not s.endswith("ay") else s + "izya"
+                    if is_aug: fut = self._add_augment(fut, fut[0] in SLP1_VOWELS if fut else False)
+                    base_no_a = fut[:-1] if fut.endswith("a") else fut
+                    cands_all += self._conjugate_at_stem_parasmai(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana) + self._conjugate_at_stem_atmane(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                return list(set(cands_all)), log
             if lakara == "liw":
-                # BAvayAYcakAra / BAvayAYcakre
-                cands = [n_stem + "AYcakAra", n_stem + "AmAsa", n_stem + "AmbaBUva", n_stem + "AYcakre", n_stem + "AmAse", n_stem + "AmbaBUve"]
-                return cands, log
+                cands = []
+                for s in n_stems:
+                    cands += [s + "AYcakAra", s + "AmAsa", s + "AmbaBUva", s + "AYcakre", s + "AmAse", s + "AmbaBUve"]
+                return list(set(cands)), log
             if lakara == "luw":
-                cands = [n_stem + "itA", n_stem + "itArO", n_stem + "itAraH"]
-                tbl_atman = {("prathama","eka"):[n_stem+"itA"],("prathama","dvi"):[n_stem+"itArO"],("prathama","bahu"):[n_stem+"itAraH"],("madhyama","eka"):[n_stem+"itAse"],("madhyama","dvi"):[n_stem+"itAsATe"],("madhyama","bahu"):[n_stem+"itADve"],("uttama","eka"):[n_stem+"itAhe"],("uttama","dvi"):[n_stem+"itAsvahe"],("uttama","bahu"):[n_stem+"itAsmahe"]}
-                tbl_paras = {("prathama","eka"):[n_stem+"itA"],("prathama","dvi"):[n_stem+"itArO"],("prathama","bahu"):[n_stem+"itAraH"]}
-                return tbl_atman.get((purusha,vacana), [n_stem+"itA"]), log
+                cands_all = []
+                for s in n_stems:
+                    tbl_atman = {("prathama","eka"):[s+"itA"],("prathama","dvi"):[s+"itArO"],("prathama","bahu"):[s+"itAraH"],("madhyama","eka"):[s+"itAse"],("madhyama","dvi"):[s+"itAsATe"],("madhyama","bahu"):[s+"itADve"],("uttama","eka"):[s+"itAhe"],("uttama","dvi"):[s+"itAsvahe"],("uttama","bahu"):[s+"itAsmahe"]}
+                    cands_all += tbl_atman.get((purusha,vacana), [s+"itA"])
+                    # also paras variant for completeness
+                    cands_all += [s+"itA", s+"itArO", s+"itAraH"]
+                return list(set(cands_all)), log
             if lakara == "ASIrliN":
-                # paras yAt, atman izIzwa
-                cands_paras = [n_stem + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)]]
-                base_iz = n_stem + "iz" if not n_stem.endswith("iz") else n_stem
-                endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
-                cands_atman = [base_iz + endings[(purusha,vacana)]]
-                return cands_paras + cands_atman, log
+                cands_all = []
+                for s in n_stems:
+                    cands_paras = [s + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)]]
+                    base_iz = s + "iz" if not s.endswith("iz") else s
+                    endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
+                    cands_atman = [base_iz + endings[(purusha,vacana)]]
+                    cands_all += cands_paras + cands_atman
+                return list(set(cands_all)), log
             if lakara == "luN":
                 # for dad, generate aorist adIdadata directly (I long)
                 if clean == "dad" and purusha == "prathama" and vacana == "eka":
@@ -1098,7 +1106,11 @@ class TinantaDerivationEngine:
                         return tbl[(purusha,vacana)], log
                 # fallback to paras/atman seT; for vowel-initial also add aorist EdiData; for consonant also add aorist apasparData
                 suffixes = {("prathama","eka"):"izwa",("prathama","dvi"):"izAtAm",("prathama","bahu"):"izata",("madhyama","eka"):"izWAH",("madhyama","dvi"):"izATAm",("madhyama","bahu"):"iDvam",("uttama","eka"):"izi",("uttama","dvi"):"izvahi",("uttama","bahu"):"izmahi"}
-                cand = [aug_n + suffixes[(purusha,vacana)]]
+                cand = []
+                for aug in aug_n_list:
+                    cand.append(aug + suffixes[(purusha,vacana)])
+                # also include bare aug_n for backcompat
+                cand.append(aug_n + suffixes[(purusha,vacana)])
                 # add aorist reduplicated candidate for nijanta (abIBavata / apasparData / EdiData)
                 try:
                     redup_aor = self._reduplicated_stem(clean)
@@ -1121,6 +1133,25 @@ class TinantaDerivationEngine:
                                 aug_long = _aug(redup_long)
                                 if (purusha,vacana) in aor_map:
                                     cand.append(aug_long + aor_map[(purusha,vacana)])
+                                break
+                    # also generate i-variant aorist for causative (svad -> sizvad, daD -> didAD?)
+                    if last_vowel == "a":
+                        for idx,ch in enumerate(redup_aor):
+                            if ch in SLP1_VOWELS:
+                                redup_i = redup_aor[:idx] + "i" + redup_aor[idx+1:]
+                                # satva: s after i becomes z (sisvad -> sizvad)
+                                if redup_i.startswith("sisv"):
+                                    redup_iz = "sizv" + redup_i[4:]
+                                elif "is" in redup_i:
+                                    # generic s->z after i: replace is -> iz
+                                    redup_iz = redup_i.replace("is","iz",1)
+                                else:
+                                    redup_iz = redup_i
+                                aug_i = _aug(redup_i)
+                                aug_iz = _aug(redup_iz)
+                                if (purusha,vacana) in aor_map:
+                                    cand.append(aug_i + aor_map[(purusha,vacana)])
+                                    cand.append(aug_iz + aor_map[(purusha,vacana)])
                                 break
                     # also for vowel-initial nijanta, EdiData
                     if is_vowel_initial:

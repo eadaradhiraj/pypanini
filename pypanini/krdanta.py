@@ -54,6 +54,8 @@ class KrdantaEngine:
                         clean = raw
                         if clean.endswith("a") and len(clean) > 1:
                             clean = clean[:-1]
+                        if clean == "zvad":
+                            clean = "svad"
                         padam = info.get("padam", "")
                         if "Atman" in padam:
                             pada = "Atmanepadi"
@@ -178,10 +180,26 @@ class KrdantaEngine:
                     return c[:-1] + av + "ay"
                 if c == "daD":
                     return "dADay"
+                if c == "dad":
+                    return self._vriddhi_base(c, is_idit) + "ay"
                 if not is_idit:
-                    guna = self._guna_base(c, is_idit)
-                    if guna != c:
-                        return guna + "ay"
+                    last_v = None
+                    last_idx = -1
+                    for i in range(len(c)-1,-1,-1):
+                        if c[i] in SLP1_VOWELS:
+                            last_v = c[i]
+                            last_idx = i
+                            break
+                    if last_v in ("u","U","i","I"):
+                        guna = self._guna_base(c, is_idit)
+                        if guna != c:
+                            return guna + "ay"
+                    elif last_v == "a":
+                        suffix = c[last_idx+1:] if last_idx != -1 else ""
+                        if "r" not in suffix:
+                            vrid = self._vriddhi_base(c, is_idit)
+                            if vrid != c:
+                                return vrid + "ay"
                 return c + "ay"
             def _sannanta_sec(c):
                 if c in ("skund","Svind"):
@@ -203,7 +221,14 @@ class KrdantaEngine:
                 if len(cluster)>=2 and cluster[0]=="s": redup_cons=cluster[1]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-                redup_vowel = "u" if last_v in ("u","U") else "i"
+                # for sv (svad), redup is s (si) not v (vi) - handle sv cluster
+                # need to check cluster for sv
+                # cluster is already computed, check if c starts with sv
+                if c.startswith("sv"):
+                    redup_vowel = "i"  # si for svad
+                    redup_cons = "s"
+                else:
+                    redup_vowel = "u" if last_v in ("u","U") else "i"
                 return redup_cons + redup_vowel + c + ("z" if is_vowel_final else "iz")
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
@@ -224,7 +249,11 @@ class KrdantaEngine:
                     if ch in SLP1_VOWELS: break
                     cluster+=ch
                 redup_cons = cluster[0] if cluster else c[0]
-                if len(cluster)>=2 and cluster[0]=="s": redup_cons=cluster[1]
+                if len(cluster)>=2 and cluster[0]=="s":
+                    if cluster[:2]=="sv":
+                        redup_cons = "s"
+                    else:
+                        redup_cons = cluster[1]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 return redup_cons + yan_vowel + c + "ya"
@@ -447,10 +476,20 @@ class KrdantaEngine:
             return tri_linga(stem)
 
         elif pratyaya == "yat":
-            if clean == "daD":
+            if clean in ["dad", "svad"]:
+                stem = vriddhi_base + "ya"
+            elif clean == "daD":
                 stem = vriddhi_base + "ya"
             else:
-                stem = guna_base + "ya"
+                last_v = None
+                for ch in reversed(clean):
+                    if ch in SLP1_VOWELS:
+                        last_v = ch
+                        break
+                if last_v in ("u","U","i","I"):
+                    stem = guna_base + "ya"
+                else:
+                    stem = clean + "ya"
             return tri_linga(stem)
 
         elif pratyaya == "Rvul":
