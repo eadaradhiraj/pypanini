@@ -291,6 +291,14 @@ class TinantaDerivationEngine:
             bases.add("".join(short_map.get(ch, ch) for ch in guna))
         except Exception:
             pass
+        # e->i, o->u samprasAraNa for aorist base (tej->tij, heW->hiW, 6.1.??): over-generate both
+        _eo_vars: set = set()
+        for b in list(bases):
+            if "e" in b:
+                _eo_vars.add(b.replace("e", "i", 1))
+            if "o" in b:
+                _eo_vars.add(b.replace("o", "u", 1))
+        bases |= _eo_vars
         # ur/Ur/or alternation (7.4.?? samprasAraNa/guNa): kurda->kUrda, etc. — phonological, not per-dhatu
         _ur_vars: set = set()
         for b in list(bases):
@@ -855,7 +863,11 @@ class TinantaDerivationEngine:
                     base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
                 base_iz = base_no_ya + "i" + apply_satva("i","s") if not base_no_ya.endswith("i") else base_no_ya + apply_satva("i","s")
                 endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
-                return [base_iz + endings[(purusha,vacana)]], log
+                _c = [base_iz + endings[(purusha, vacana)]]
+                # madhyama bahu Atman benedictive IDvam/IQvam both (8.3.?): over-generate Q alongside D
+                if purusha == "madhyama" and vacana == "bahu":
+                    _c += [c.replace("IDvam", "IQvam") for c in _c if "IDvam" in c]
+                return list(dict.fromkeys(_c)), log
             if lakara in ("lfw", "lfN"):
                 if clean == "BU":
                     base_no_ya = ys
@@ -1142,6 +1154,8 @@ class TinantaDerivationEngine:
                             cand1 = base_iz + endings[(purusha,vacana)]
                             cand2 = sec + "yAt"
                             cands+= [cand1, cand2]
+                            if purusha == "madhyama" and vacana == "bahu":
+                                cands += [c.replace("IDvam", "IQvam") for c in [cand1] if "IDvam" in cand1]
                         return list(dict.fromkeys(cands)), log
                     # nijanta yak: over-generate Urday vs orday
                     all_secs = [sec_stem]
@@ -1153,6 +1167,8 @@ class TinantaDerivationEngine:
                         base_iz = sec + "iz" if not sec.endswith("iz") else sec
                         endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
                         cands.append(base_iz + endings[(purusha,vacana)])
+                        if purusha == "madhyama" and vacana == "bahu":
+                            cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                     return list(dict.fromkeys(cands)), log
                 # primitive yak ASIrliN is atman seT BavizIzwa (guna + i + z) over-generate and Ur
                 cands=[]
@@ -1167,6 +1183,8 @@ class TinantaDerivationEngine:
                         base_iz = eff + apply_satva(eff[-1],"s") if eff else eff + apply_satva(eff[-1],"s")
                     endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
                     cands.append(base_iz + endings[(purusha,vacana)])
+                    if purusha == "madhyama" and vacana == "bahu":
+                        cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -1324,6 +1342,8 @@ class TinantaDerivationEngine:
                         base_iz = s + "iz"
                         endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
                         cands.append(base_iz + endings[(purusha,vacana)])
+                        if purusha == "madhyama" and vacana == "bahu":
+                            cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                     return list(dict.fromkeys(cands)), log
                 else:
                     cands=[]
@@ -1437,6 +1457,8 @@ class TinantaDerivationEngine:
                     base_iz = s + "iz" if not s.endswith("iz") else s
                     endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
                     cands_atman = [base_iz + endings[(purusha,vacana)]]
+                    if purusha == "madhyama" and vacana == "bahu":
+                        cands_atman += [c.replace("IDvam", "IQvam") for c in cands_atman if "IDvam" in c]
                     cands_all += cands_paras + cands_atman
                 return list(set(cands_all)), log
             if lakara == "luN":
@@ -1764,6 +1786,8 @@ class TinantaDerivationEngine:
                         ("uttama", "bahu"): "Imahi",
                     }
                     cands.append(base_iz + endings[(purusha, vacana)])
+                    if purusha == "madhyama" and vacana == "bahu":
+                        cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":

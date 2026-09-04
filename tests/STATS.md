@@ -3,8 +3,8 @@
 Engine: wholly generative (tinanta/krdanta from pada/sew/gana/vowel-initial, NO per-dhatu `if clean=="x"`, NO JSON import for generation).
 Cross-check: `skt-morph-data/01/*.json` read-only, any-token match counts as hit.
 Date: 2026-09-04T19:15:11Z
-Run: `python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v` (pilots 01.0001-01.0003 must stay OK) + `PYTHONIOENCODING=utf-8 python tests/sweep_gana.py --all --workers 8 --out sweep_all.csv` (shared engine cache, ~0.1s/dhatu).
-Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save context — see table + `sweep_all.csv` (fid,matched,total,pct,misses, 1166 rows).
+Run: `python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v` (pilots 01.0001-01.0003 must stay OK) + `PYTHONIOENCODING=utf-8 python tests/sweep_gana.py --all --workers 8 --out tests/sweep_all.csv` (shared engine cache, ~0.1s/dhatu).
+Passes: **190/1166 100%**. Fails: 976. Full per-dhatu logs removed to save context — see table + `tests/sweep_all.csv` (fid,matched,total,pct,misses, 1166 rows, query via `grep`, do not dump).
 
 ## How to validate (for next LLM)
 - Single: `PYTHONIOENCODING=utf-8 python tests/test_dhatu.py 01.0038` (verbose, GRAND must be 100%).
