@@ -1097,6 +1097,29 @@ class TinantaDerivationEngine:
                 cands = []
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
+                # yak liw e-redup + final-cons for a-roots single-cons no-r (bad->bede, not babade, 7.4.??)
+                try:
+                    _lv = None
+                    _li = -1
+                    for _i in range(len(clean)-1, -1, -1):
+                        if clean[_i] in SLP1_VOWELS:
+                            _lv = clean[_i]
+                            _li = _i
+                            break
+                    _suf = clean[_li+1:] if _li != -1 else ""
+                    if _lv == "a" and "r" not in _suf and len(_suf) <= 1 and clean and clean[-1] not in SLP1_VOWELS:
+                        _init = ""
+                        for _ch in clean:
+                            if _ch in SLP1_VOWELS:
+                                break
+                            _init += _ch
+                        _rc0 = _init[0] if _init else clean[0]
+                        _be = _rc0 + "e"
+                        _fc = clean[-1]
+                        for _ee in (endings, endings_v, endings_q, endings_vq):
+                            cands.append(_be + _fc + _ee[(purusha, vacana)])
+                except Exception:
+                    pass
                 if clean == "daD":
                     alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                     cands.append(alt[(purusha,vacana)])
@@ -1739,15 +1762,36 @@ class TinantaDerivationEngine:
                         ("uttama", "bahu"): "ima",
                     }
                     cands = [redup + vow_endings[(purusha, vacana)], redup + cons_endings[(purusha, vacana)]]
-                    # guNa variant for eka (Pit): redup_part + guNa_base + endings
+                    # guNa/vriddhi + e-abhyasa + final-cons-only Kit base for a-roots (babAda/bedatuH)
                     try:
                         _guna = self._bhvadi_guna_base(clean, is_idit)
-                        if _guna != clean:
-                            # extract redup part (rc+rv) from redup by stripping clean suffix if present
-                            for _rd in redups:
-                                _rp = _rd[:-len(clean)] if _rd.endswith(clean) and len(clean) else _rd
-                                cands.append(_rp + _guna + vow_endings[(purusha, vacana)])
-                                cands.append(_rp + _guna + cons_endings[(purusha, vacana)])
+                        _vrid = self._vriddhi_base(clean, is_idit)
+                        for _rd in list(redups):
+                            _rp = _rd[:-len(clean)] if _rd.endswith(clean) and len(clean) else _rd
+                            for _base in {_guna, _vrid, clean}:
+                                cands.append(_rp + _base + vow_endings[(purusha, vacana)])
+                                cands.append(_rp + _base + cons_endings[(purusha, vacana)])
+                            if _rp and _rp[-1] == "a":
+                                _rp_e = _rp[:-1] + "e"
+                                for _base in {_guna, _vrid, clean}:
+                                    cands.append(_rp_e + _base + vow_endings[(purusha, vacana)])
+                                    cands.append(_rp_e + _base + cons_endings[(purusha, vacana)])
+                        # Kit (non-Nal: dvi/bahu, madhyama, uttama dvi/bahu) uses final-cons only (bad->be+d+atuH=bedatuH)
+                        _is_nal = (vacana == "eka" and purusha in ("prathama", "uttama"))
+                        if not _is_nal:
+                            _lv = None
+                            for _ch in reversed(clean):
+                                if _ch in SLP1_VOWELS:
+                                    _lv = _ch
+                                    break
+                            if _lv == "a" and clean and clean[-1] not in SLP1_VOWELS:
+                                _fc = clean[-1]
+                                # be + fc + endings (bedatuH/beduH/bediTa)
+                                for _rc in list(redups):
+                                    _rpp = _rc[:-len(clean)] if _rc.endswith(clean) and len(clean) else _rc
+                                    _rpp_e = (_rpp[:-1] + "e") if _rpp.endswith("a") else _rpp
+                                    cands.append(_rpp_e + _fc + vow_endings[(purusha, vacana)])
+                                    cands.append(_rpp_e + _fc + cons_endings[(purusha, vacana)])
                     except Exception:
                         pass
                     return list(set(cands)), log
