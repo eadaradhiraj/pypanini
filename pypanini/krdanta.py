@@ -208,6 +208,9 @@ class KrdantaEngine:
                 return clean[:-1] + "nna"
             return clean[:-1] + "nna"
         # t + ta -> tta (simple concat already gives tta)
+        # w-final + ta -> wwa (kaw->kawwa, 8.2.? general shape, not per-dhatu)
+        if clean[-1:] == "w":
+            return clean + "wa"
         # D/dh etc.: fallback concat (budh+ta->budDta? needs Jastva later; keep concat for now)
         return clean + "ta"
 
