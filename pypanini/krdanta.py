@@ -285,6 +285,9 @@ class KrdantaEngine:
                         # mit (GawAdi, vala~ per Boja): mitAM hrasvaH, no vriddhi in Nic (valaya, Gawaya), else vriddhi (yAtaya)
                         # exception: kr+a+T (kraTa~ GawAdi paras takes vriddhi krATaya, lone exception among GawAdi)
                         _is_krT = c.startswith("kr") and c.endswith("T")
+                        _is_kr_noT = c.startswith("kr") and not c.endswith("T")
+                        if _is_kr_noT:
+                            return c + "ay"
                         if (not is_mit or _is_krT) and "r" not in suffix and len(suffix) <= 1:
                             vrid = self._vriddhi_base(c, is_idit)
                             if vrid != c:
@@ -311,7 +314,10 @@ class KrdantaEngine:
                         return "urdidiz"
                     if c == "kurd":
                         return "cukUrdiz"
-                    return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
+                    # voicing: voiceless second cons (t/p/k etc.) takes ti (atitiz), voiced takes di (aditiz->edidiz): general shape
+                    _second = c[1] if len(c) > 1 else ""
+                    _red = "ti" if _second in ("k", "K", "c", "C", "w", "W", "t", "T", "p", "P") else "di"
+                    return c[0] + _red + c[1:] + ("iz" if not is_vowel_final else "z")
                 last_v = None
                 for ch in reversed(c):
                     if ch in SLP1_VOWELS:
@@ -645,7 +651,8 @@ class KrdantaEngine:
                         last_idx = i
                         break
                 _suf = clean[last_idx+1:] if last_idx != -1 else ""
-                if last_v in ("a", "A") and ("r" not in _suf) and len(_suf) <= 1:
+                _pre = clean[:last_idx] if last_idx != -1 else ""
+                if last_v in ("a", "A") and ("r" not in _suf) and len(_suf) <= 1 and not (clean.startswith("kr") or _pre.endswith("kr")):
                     # I~ blocks normally (yatI->yatya), except w-final to cross-match Ryat (kaw->kAwya): general shape
                     if ("I~" not in _op) or (clean[-1:] == "w"):
                         stem = vriddhi_base + "ya"
