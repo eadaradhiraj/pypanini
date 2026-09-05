@@ -10,10 +10,10 @@
       "status": "active",
       "recurring": true,
       "createdAt": 1788630290024,
-      "updatedAt": 1788630674892,
+      "updatedAt": 1788631065211,
       "expiresAt": 1789235090024,
       "source": "command",
-      "fireCount": 2
+      "fireCount": 3
     }
   ]
 }

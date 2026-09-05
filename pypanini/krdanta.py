@@ -453,7 +453,7 @@ class KrdantaEngine:
                 if pratyaya == "lyap": return {"avyaya": ["pra"+sec_base+"ya", sec_base+"ya"]}
                 if pratyaya == "SAnac":
                     base = sec_base+"yamAna"
-                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v")) and base.endswith("amAna"):
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) and base.endswith("amAna"):
                         base = base[:-5] + "amARa"
                     # use tri-linga to avoid double A
                     m = base+"H"
@@ -462,13 +462,13 @@ class KrdantaEngine:
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "anIyar":
                     _ab = sec_base+"anIya"
-                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v")) and "nIya" in _ab:
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) and "nIya" in _ab:
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
                 if pratyaya == "lyuw":
                     _lb = sec_base+"ana"
-                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v")) and _lb.endswith("ana"):
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) and _lb.endswith("ana"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
@@ -521,12 +521,12 @@ class KrdantaEngine:
                 if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
                 if pratyaya == "anIyar":
                     _ab = base_no_ya+"anIya"
-                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v")) and "nIya" in _ab:
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) and "nIya" in _ab:
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "lyuw":
                     _lb = base_no_ya+"ana"
-                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v")) and _lb.endswith("ana"):
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) and _lb.endswith("ana"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY": return {"gender":"Masculine","form":base_no_ya+"aH"}
@@ -536,7 +536,7 @@ class KrdantaEngine:
                     m = sec + "mAnaH" if sec.endswith("a") else sec + "amAnaH"
                     f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
                     n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
-                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v")):
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")):
                         m = m.replace("mAnaH", "mARaH").replace("amAnaH", "amARaH")
                         f = f.replace("mAnA", "mARA").replace("amAnA", "amARA")
                         n = n.replace("mAnam", "mARam").replace("amAnam", "amARam")
@@ -614,7 +614,7 @@ class KrdantaEngine:
                     stem = clean + "amAna"
             else:
                 stem = clean + "yamAna"
-            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v") and stem.endswith("amAna"):
+            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S") and stem.endswith("amAna"):
                 stem = stem[:-5] + "amARa"
             return tri_linga(stem)
 
@@ -629,7 +629,7 @@ class KrdantaEngine:
         elif pratyaya == "anIyar":
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + "anIya"
-            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v") and "nIya" in stem:
+            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S") and "nIya" in stem:
                 stem = stem.replace("nIya", "RIya")
             return tri_linga(stem)
 
@@ -711,7 +711,7 @@ class KrdantaEngine:
         elif pratyaya == "lyuw":
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + "ana"
-            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v") and stem.endswith("ana"):
+            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S") and stem.endswith("ana"):
                 stem = stem[:-3] + "aRa"
             return {"gender": "Neuter", "form": stem + "m"}
 
