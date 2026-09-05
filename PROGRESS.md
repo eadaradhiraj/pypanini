@@ -1,12 +1,13 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-05T09:40:00Z
-Sweep: 420/1166 100%
+Date: 2026-09-05T10:00:00Z
+Sweep: 424/1166 100%
 
 ## Done
-- Pure generative `single-r` allows `Nic` vriddhi (`tsar->tsAraya`, shape-based, no per-dhatu).
-- `01.0635 875/895→889/895` (+14, `nich_krut` fixed). Re-sweep: `420/1166` held, `nich_krut` 304→270 (-34). Pilots OK. Keeps fewer-misses, no revert.
+- Pure harness fix: keep `"-"` as token (`exp '-'` matches `gen '-'`, no hardcoding, scoring only).
+- `01.0912 889→895/895 100%` (+4 dhatus: `01.0074/01.0879/01.0882/01.0912` with `-`).
+- Re-sweep: `420→424/1166` (+4). `krut` 4539→4527, `yangluk` 33→21. Pilots OK.
 
 ## Next
-1. Batch next (`01.0635 889/895` yat, `01.0584`, `01.0038`, harness `-` scoring).
+1. Batch next (`01.0635 889/895`, `01.0636 889/895`, `01.0038`).
 2. Re-sweep, rebuild STATS, overwrite this, commit & push.

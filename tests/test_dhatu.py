@@ -38,7 +38,9 @@ if not DATA_ROOT.exists():
 def extract_all_text_tokens(obj):
     toks = set()
     if isinstance(obj, str):
-        cleaned = obj.strip().strip("।,;-\n\t")
+        cleaned = obj.strip().strip("।,;\n\t")
+        if cleaned == "-":
+            toks.add("-")
         if cleaned:
             toks.add(cleaned)
             toks.add(cleaned.replace("।", "").strip())
