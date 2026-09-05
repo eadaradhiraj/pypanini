@@ -1,19 +1,19 @@
 {
-  "nextId": 6,
+  "nextId": 7,
   "loops": [
     {
-      "id": "5",
-      "prompt": "\"work toward 1166/1166 100% for skt-morph-data/01 without hardcoding (pure shape/class only), one batch of 5-10 dhatus at a time, re-sweep tests/sweep_gana.py --all, rebuild tests/STATS.md, overwrite PROGRESS.md, commit & push on pass gain, keep fewer-misses with 0  gain and continue\" --every 5m --max-fires 30",
+      "id": "6",
+      "prompt": "\"work toward 1166/1166 100% for skt-morph-data/01 without hardcoding (pure shape/class only), one batch of 5-10 dhatus at a time, re-sweep tests/sweep_gana.py --all, rebuild tests/STATS.md, overwrite PROGRESS.md, commit & push on pass gain, keep fewer-misses with 0  gain and continue\" --max 100",
       "trigger": {
         "type": "self-paced"
       },
       "status": "active",
       "recurring": true,
-      "createdAt": 1788628100357,
-      "updatedAt": 1788628493550,
-      "expiresAt": 1789232900357,
+      "createdAt": 1788628770792,
+      "updatedAt": 1788628770794,
+      "expiresAt": 1789233570792,
       "source": "command",
-      "fireCount": 2
+      "fireCount": 1
     }
   ]
 }
