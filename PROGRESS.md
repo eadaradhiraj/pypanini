@@ -1,11 +1,11 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-05T07:30:00Z
-Sweep: 391/1166 100%
+Date: 2026-09-05T08:00:00Z
+Sweep: 412/1166 100%
 
 ## Done
-- `loT uttama eka ni->Ri` for `r/R+velar-final` (`rAK->rAKARi`, shape-based, single-form no regression): `01.0130 894/895→895/895 100%` (+7 dhatus).
-- Re-sweep: `384→391/1166` (+7). `ting` 2790→2783. Pilots OK.
+- `Natva+loT` extended `velar -> velar+labial` (`r/R+p/P/b/B/m`, shape-based, `sparD` dental no): `01.0169 866/895→895/895 100%` (+21 dhatus).
+- Re-sweep: `391→412/1166` (+21). `krut` 4687→4515, `ting` 2783→2763, `nich_krut` 422→343. Pilots OK.
 
 ## Next
 1. Broad `<97%` bucket (e.g. `01.0038 at~`).
