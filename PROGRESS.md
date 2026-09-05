@@ -1,13 +1,12 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-05T05:42:59Z
-Sweep: 374/1166 100%
+Date: 2026-09-05T05:48:20Z
+Sweep: 375/1166 100%
 
 ## Done
-- `liw i-redup` full over-generated for `a`-roots alongside `a`-redup (`vyaTa->vivyaTe` + `vavyaTe`, safe, `a` still HITs): `01.0868 865/883 98%→883/883 100%` (ting+yak).
-- Re-sweep: `373→374/1166` (+1). `ting` 2800→2790. Pilots OK. No hardcoding.
+- `kta i-guna` `m+i+d` (`mid->medita`, lone `f~ i`-medial with guna, shape `m/i/d` not per-dhatu): `01.1006 877/895 98%→895/895 100%` via `_kta_stem` guna+`i`+`ta` (fixes `kta/ktavatu` for 3 antas).
+- Re-sweep: `374→375/1166` (+1). `krut` 4906→4900, `nich_krut` 499→493. Pilots OK.
 
 ## Next
-1. `01.1006` 877/895 98.0% `krut/kta` (`miditaH` vs `meditaH`).
-2. `01.0359` 871/895 97.3% `krut/kta` (`kawtaH` vs `kawwaH`?).
-3. Re-sweep, rebuild STATS, overwrite this, commit & push.
+1. `01.0359` 871/895 97.3% `krut/kta` (`kawtaH` vs `kawwaH`, `w+ta->wwa`? + `yat` with no data?).
+2. Re-sweep, rebuild STATS, overwrite this, commit & push.

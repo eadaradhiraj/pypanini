@@ -174,6 +174,9 @@ class KrdantaEngine:
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
         needs_i = sew and not is_vowel_final and ("I~" not in op)
         if needs_i:
+            # i-guna for m+i+dental-d (mid->medita, lone f~ i-medial with guna, shape-based not per-dhatu)
+            if len(clean) == 3 and clean[0] == "m" and clean[1] == "i" and clean[-1] == "d":
+                return self._guna_base(clean, False) + "i" + "ta"
             return clean + "i" + "ta"
         # no iT: samyoga
         if not clean:
