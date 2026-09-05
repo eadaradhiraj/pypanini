@@ -75,7 +75,10 @@ class KrdantaEngine:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
                         is_idit = (("i~" in op) or (op.endswith("~") and raw.endswith("i"))) and not no_num_r and ("I~" not in op)
-                        entry = {"clean": clean, "pada": pada, "sew": sew, "is_idit": is_idit, "op": op}
+                        antara = info.get("antargaRaH", "")
+                        _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
+                        is_mit = (antara == "GawAdiH") or ("mit" in _mit_txt)
+                        entry = {"clean": clean, "pada": pada, "sew": sew, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit}
                         self._cache[clean] = entry
                         self._cache[op] = entry
                         self._cache[op.replace("~","").replace("`","").strip()] = entry
@@ -215,6 +218,7 @@ class KrdantaEngine:
         clean = meta["clean"]
         pada = meta["pada"]
         is_idit = meta.get("is_idit", False)
+        is_mit = meta.get("is_mit", False)
         # vowel-initial urd -> Urd for krdanta (dataset uses long U)
         if clean == "urd":
             clean = "Urd"
@@ -270,7 +274,8 @@ class KrdantaEngine:
                             return guna + "ay"
                     elif last_v == "a":
                         suffix = c[last_idx+1:] if last_idx != -1 else ""
-                        if "r" not in suffix and len(suffix) <= 1:
+                        # mit (GawAdi, vala~ per Boja): mitAM hrasvaH, no vriddhi in Nic (valaya, Gawaya), else vriddhi (yAtaya)
+                        if not is_mit and "r" not in suffix and len(suffix) <= 1:
                             vrid = self._vriddhi_base(c, is_idit)
                             if vrid != c:
                                 return vrid + "ay"
