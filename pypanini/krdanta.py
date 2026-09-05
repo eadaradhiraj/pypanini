@@ -288,7 +288,7 @@ class KrdantaEngine:
                         _is_kr_noT = c.startswith("kr") and not c.endswith("T")
                         if _is_kr_noT:
                             return c + "ay"
-                        if (not is_mit or _is_krT) and "r" not in suffix and len(suffix) <= 1:
+                        if (not is_mit or _is_krT) and ("r" not in suffix or suffix == "r") and len(suffix) <= 1:
                             vrid = self._vriddhi_base(c, is_idit)
                             if vrid != c:
                                 return vrid + "ay"
