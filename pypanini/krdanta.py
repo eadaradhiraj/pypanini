@@ -635,9 +635,12 @@ class KrdantaEngine:
 
         elif pratyaya == "yat":
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
-            # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T)
+            # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
             if clean.startswith("kr") and clean[-1:] in ("w", "W", "q", "Q", "t", "T", "d", "D", "n"):
                 return {"M": "-", "F": "-", "N": "-"}
+            if clean.startswith("kr"):
+                stem = clean + "ya"
+                return {"M": stem+"H","F":stem[:-1]+"A" if stem.endswith("a") else stem+"A","N":stem+"m"}
             _op = meta.get("op", "")
             if clean in ["dad", "svad"]:
                 stem = vriddhi_base + "ya"
