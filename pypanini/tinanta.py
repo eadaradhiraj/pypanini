@@ -1833,6 +1833,12 @@ class TinantaDerivationEngine:
                                     cands.append(_rpp_e + _fc + cons_endings[(purusha, vacana)])
                     except Exception:
                         pass
+                    # periphrastic liw Am+AYcakre (Atman, for yak cross-match with sparse ting like kakKa 01.0167): over-generate alongside redup
+                    try:
+                        _peri_par = {("prathama","eka"):"AYcakre",("prathama","dvi"):"AYcakrAte",("prathama","bahu"):"AYcakrire",("madhyama","eka"):"AYcakfze",("madhyama","dvi"):"AYcakrATe",("madhyama","bahu"):"AYcakfQve",("uttama","eka"):"AYcakre",("uttama","dvi"):"AYcakfvahe",("uttama","bahu"):"AYcakfmahe"}
+                        cands.append(clean + _peri_par[(purusha, vacana)])
+                    except Exception:
+                        pass
                     return list(set(cands)), log
 
         elif lakara == "ASIrliN":
