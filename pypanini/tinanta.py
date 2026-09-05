@@ -258,14 +258,18 @@ class TinantaDerivationEngine:
         # velar -> palatal (ku->cu)
         redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
         res = redup_cons + abhyasa_vowel + clean
-        # satva for s after u/i in reduplication: susUd -> suzUd (8.3.59)
+        # satva for s after u/i in reduplication: susUd -> suzUd (8.3.59),
+        # blocked for s+stop cluster (sk->cuskunde, sP->pusPuwe, 7.4.62) and final velar stop k (sek->siseke, sIk->sisIke)
         if clean.startswith("s") and abhyasa_vowel in ("u","i"):
-            # change the s of clean to z after redup vowel u/i
-            # res is e.g., susUd, need to make suzUd
-            # replace the s at position len(redup_cons)+1
-            idx = len(redup_cons) + 1  # position of s from clean
-            if idx < len(res) and res[idx] == "s":
-                res = res[:idx] + "z" + res[idx+1:]
+            _is_s_stop = len(cluster) >= 2 and cluster[0] == "s" and cluster[1] in SLP1_STOPS
+            _is_velar_final = clean and clean[-1] in ("k", "K", "g", "G")
+            if not _is_s_stop and not _is_velar_final:
+                # change the s of clean to z after redup vowel u/i
+                # res is e.g., susUd, need to make suzUd
+                # replace the s at position len(redup_cons)+1
+                idx = len(redup_cons) + 1  # position of s from clean
+                if idx < len(res) and res[idx] == "s":
+                    res = res[:idx] + "z" + res[idx+1:]
         return res
 
     def _nijanta_aorist(self, clean: str, is_idit: bool, purusha: str, vacana: str) -> list:
