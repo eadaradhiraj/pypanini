@@ -488,7 +488,10 @@ class TinantaDerivationEngine:
                 return [stem + "ta"]
             elif purusha == "uttama":
                 prat = "ni" if raw == "mip" else raw[:-1]
-                return [stem[:-1] + "A" + prat]
+                res = stem[:-1] + "A" + prat
+                if raw == "mip" and ("r" in stem_base or "R" in stem_base) and stem_base[-1:] in ("k", "K", "g", "G", "N") and res.endswith("ni"):
+                    res = res[:-2] + "Ri"
+                return [res]
         elif lakara == "viDiliN":
             stem = stem_base + "a"
             if raw == "Ji":
