@@ -1101,6 +1101,18 @@ class TinantaDerivationEngine:
                 cands = []
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
+                # yak liw i-redup full for a-roots (vyaTa->vivyaTe): over-generate (safe)
+                try:
+                    for rd in list(redups):
+                        if rd.endswith(clean) and len(rd) > len(clean):
+                            _rc_len = len(rd) - len(clean) - 1
+                            if _rc_len >= 0:
+                                _rc = rd[:_rc_len] if _rc_len else ""
+                                _i_rd = (_rc + "i" + clean) if _rc else ("i" + clean)
+                                if _i_rd not in redups:
+                                    cands += [_i_rd + endings[(purusha,vacana)], _i_rd + endings_v[(purusha,vacana)], _i_rd + endings_q[(purusha,vacana)], _i_rd + endings_vq[(purusha,vacana)]]
+                except Exception:
+                    pass
                 # yak liw e-redup + final-cons for a-roots single-cons no-r (bad->bede, not babade, 7.4.??)
                 try:
                     _lv = None
@@ -1736,6 +1748,18 @@ class TinantaDerivationEngine:
                     cands = []
                     for rd in redups:
                         cands.append(rd + endings[(purusha, vacana)])
+                    # Atman liw i-redup full for a-roots (vyaTa->vivyaTe alongside vavyaTe): over-generate (safe, a still HITs)
+                    try:
+                        for rd in list(redups):
+                            if rd.endswith(clean) and len(rd) > len(clean):
+                                _rc_len = len(rd) - len(clean) - 1
+                                if _rc_len >= 0:
+                                    _rc = rd[:_rc_len] if _rc_len else ""
+                                    _i_rd = (_rc + "i" + clean) if _rc else ("i" + clean)
+                                    if _i_rd not in redups:
+                                        cands.append(_i_rd + endings[(purusha, vacana)])
+                    except Exception:
+                        pass
                     # Atman liw e-redup + final-cons for a-roots single-cons no-r (cak->ceke, not cacake)
                     try:
                         _lv = None
