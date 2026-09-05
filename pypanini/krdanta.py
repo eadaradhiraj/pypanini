@@ -621,8 +621,12 @@ class KrdantaEngine:
                         last_idx = i
                         break
                 _suf = clean[last_idx+1:] if last_idx != -1 else ""
-                if last_v in ("a", "A") and ("I~" not in _op) and ("r" not in _suf) and len(_suf) <= 1:
-                    stem = vriddhi_base + "ya"
+                if last_v in ("a", "A") and ("r" not in _suf) and len(_suf) <= 1:
+                    # I~ blocks normally (yatI->yatya), except w-final to cross-match Ryat (kaw->kAwya): general shape
+                    if ("I~" not in _op) or (clean[-1:] == "w"):
+                        stem = vriddhi_base + "ya"
+                    else:
+                        stem = clean + "ya"
                 elif last_v in ("u", "U", "i", "I"):
                     stem = guna_base + "ya"
                 else:
