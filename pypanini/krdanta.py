@@ -275,7 +275,9 @@ class KrdantaEngine:
                     elif last_v == "a":
                         suffix = c[last_idx+1:] if last_idx != -1 else ""
                         # mit (GawAdi, vala~ per Boja): mitAM hrasvaH, no vriddhi in Nic (valaya, Gawaya), else vriddhi (yAtaya)
-                        if not is_mit and "r" not in suffix and len(suffix) <= 1:
+                        # exception: kr+a+T (kraTa~ GawAdi paras takes vriddhi krATaya, lone exception among GawAdi)
+                        _is_krT = c.startswith("kr") and c.endswith("T")
+                        if (not is_mit or _is_krT) and "r" not in suffix and len(suffix) <= 1:
                             vrid = self._vriddhi_base(c, is_idit)
                             if vrid != c:
                                 return vrid + "ay"
