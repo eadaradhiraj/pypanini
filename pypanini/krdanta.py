@@ -447,16 +447,24 @@ class KrdantaEngine:
                 if pratyaya == "lyap": return {"avyaya": ["pra"+sec_base+"ya", sec_base+"ya"]}
                 if pratyaya == "SAnac":
                     base = sec_base+"yamAna"
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N")) and base.endswith("amAna"):
+                        base = base[:-5] + "amARa"
                     # use tri-linga to avoid double A
                     m = base+"H"
                     f = base[:-1]+"A" if base.endswith("a") else base+"A"
                     n = base+"m"
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "anIyar":
-                    return {"M": sec_base+"anIyaH","F":sec_base+"anIyA","N":sec_base+"anIyam"}
+                    _ab = sec_base+"anIya"
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N")) and "nIya" in _ab:
+                        _ab = _ab.replace("nIya", "RIya")
+                    return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
                 if pratyaya == "lyuw":
-                    return {"gender":"Neuter","form":sec_base+"anam"}
+                    _lb = sec_base+"ana"
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N")) and _lb.endswith("ana"):
+                        _lb = _lb[:-3] + "aRa"
+                    return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
                     return {"gender":"Masculine","form":sec_base+"aH"}
                 if pratyaya == "Rvul":
@@ -505,8 +513,16 @@ class KrdantaEngine:
                 if pratyaya == "ktavatu": return {"M": base_no_ya+"itavAn","F":base_no_ya+"itavatI","N":base_no_ya+"itavat"}
                 if pratyaya == "tavya": return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
                 if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
-                if pratyaya == "anIyar": return {"M": base_no_ya+"anIyaH","F":base_no_ya+"anIyA","N":base_no_ya+"anIyam"}
-                if pratyaya == "lyuw": return {"gender":"Neuter","form":base_no_ya+"anam"}
+                if pratyaya == "anIyar":
+                    _ab = base_no_ya+"anIya"
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N")) and "nIya" in _ab:
+                        _ab = _ab.replace("nIya", "RIya")
+                    return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
+                if pratyaya == "lyuw":
+                    _lb = base_no_ya+"ana"
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N")) and _lb.endswith("ana"):
+                        _lb = _lb[:-3] + "aRa"
+                    return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY": return {"gender":"Masculine","form":base_no_ya+"aH"}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum", base_no_ya+"itum"]}
                 if pratyaya == "ktvA": return {"avyaya": [base_no_ya+"itvA", sec+"itvA"]}
@@ -514,6 +530,10 @@ class KrdantaEngine:
                     m = sec + "mAnaH" if sec.endswith("a") else sec + "amAnaH"
                     f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
                     n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
+                    if (("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N")):
+                        m = m.replace("mAnaH", "mARaH").replace("amAnaH", "amARaH")
+                        f = f.replace("mAnA", "mARA").replace("amAnA", "amARA")
+                        n = n.replace("mAnam", "mARam").replace("amAnam", "amARam")
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "Rvul":
                     base_no_ya2 = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
@@ -588,6 +608,8 @@ class KrdantaEngine:
                     stem = clean + "amAna"
             else:
                 stem = clean + "yamAna"
+            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N") and stem.endswith("amAna"):
+                stem = stem[:-5] + "amARa"
             return tri_linga(stem)
 
         elif pratyaya == "tavya":
@@ -601,6 +623,8 @@ class KrdantaEngine:
         elif pratyaya == "anIyar":
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + "anIya"
+            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N") and "nIya" in stem:
+                stem = stem.replace("nIya", "RIya")
             return tri_linga(stem)
 
         elif pratyaya == "yat":
@@ -671,6 +695,8 @@ class KrdantaEngine:
         elif pratyaya == "lyuw":
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + "ana"
+            if ("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N") and stem.endswith("ana"):
+                stem = stem[:-3] + "aRa"
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
