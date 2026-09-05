@@ -476,7 +476,16 @@ class KrdantaEngine:
                     base_no_ya = "coskund" if sec in ("coskundya","cAskundya") else "SeSvind" if sec in ("SeSvindya","sASvindya","SoSvindya") else sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                 else:
                     base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
-                if pratyaya == "yat": return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}
+                if pratyaya == "yat":
+                    # y-final yang palatal+Ay -> Iy (cAy->cekIyya, 7.3.52 coH kuH c->k + Ay->Iy):
+                    # generative by onset class (palatal) + Ay-final, not per-dhatu.
+                    if orig_clean.endswith("Ay") and orig_clean and orig_clean[0] in ("c", "C", "j", "J", "S"):
+                        _PAL_TO_VEL = {"c": "k", "C": "K", "j": "g", "J": "G", "S": "k"}
+                        _redup = orig_clean[0] + "e"
+                        _vel = _PAL_TO_VEL.get(orig_clean[0], orig_clean[0])
+                        _base_iy = _redup + _vel + "Iy"
+                        return {"M": _base_iy+"yaH", "F": _base_iy+"yA", "N": _base_iy+"yam"}
+                    return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}
                 if pratyaya == "kta": return {"M": base_no_ya+"itaH","F":base_no_ya+"itA","N":base_no_ya+"itam"}
                 if pratyaya == "ktavatu": return {"M": base_no_ya+"itavAn","F":base_no_ya+"itavatI","N":base_no_ya+"itavat"}
                 if pratyaya == "tavya": return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
