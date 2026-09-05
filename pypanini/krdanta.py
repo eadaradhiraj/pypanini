@@ -66,6 +66,8 @@ class KrdantaEngine:
                             clean = clean[:-1]
                         if clean.startswith("z"):
                             clean = "s" + clean[1:]
+                        if clean.startswith("R"):
+                            clean = "n" + clean[1:]
                         padam = info.get("padam", "")
                         if "Atman" in padam:
                             pada = "Atmanepadi"
