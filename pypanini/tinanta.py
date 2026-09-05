@@ -489,7 +489,7 @@ class TinantaDerivationEngine:
             elif purusha == "uttama":
                 prat = "ni" if raw == "mip" else raw[:-1]
                 res = stem[:-1] + "A" + prat
-                if raw == "mip" and ("r" in stem_base or "R" in stem_base) and stem_base[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m") and res.endswith("ni"):
+                if raw == "mip" and ("r" in stem_base or "R" in stem_base) and stem_base[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "R", "l", "v") and res.endswith("ni"):
                     res = res[:-2] + "Ri"
                 return [res]
         elif lakara == "viDiliN":
