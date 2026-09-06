@@ -1172,6 +1172,17 @@ class TinantaDerivationEngine:
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
+                # idit i-final velar/palatal redup on num-clean (sraki->sasraNke; meta skips num for Y-class)
+                try:
+                    if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                        _rbw = clean[:-1]
+                        _rn = "N" if _rbw and _rbw[-1] in ("k", "K", "g", "G") else ("Y" if _rbw and _rbw[-1] in ("c", "C", "j", "J") else None)
+                        if _rn and len(_rbw) >= 1:
+                            _rnr = self._reduplicated_stem(_rbw[:-1] + _rn + _rbw[-1])
+                            if _rnr not in redups:
+                                redups.append(_rnr)
+                except Exception:
+                    pass
                 if "ur" in clean:
                     alt_c = clean.replace("ur","Ur",1)
                     redup_alt = self._reduplicated_stem(alt_c)
@@ -1842,12 +1853,31 @@ class TinantaDerivationEngine:
                         _anar = "An" + clean
                         forms.append(_anar + cons_end[(purusha, vacana)])
                         forms.append(_anar + atm_end[(purusha, vacana)])
+                    # idit i-final velar/palatal An-redup on num-clean (agi->AnaNga; meta skips num for Y-class)
+                    if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                        _abw = clean[:-1]
+                        _ann = "N" if _abw and _abw[-1] in ("k", "K", "g", "G") else ("Y" if _abw and _abw[-1] in ("c", "C", "j", "J") else None)
+                        if _ann and len(_abw) >= 1:
+                            _an2 = "An" + _abw[:-1] + _ann + _abw[-1]
+                            forms.append(_an2 + cons_end[(purusha, vacana)])
+                            forms.append(_an2 + atm_end[(purusha, vacana)])
                 except Exception:
                     pass
                 return list(dict.fromkeys(forms)), log
             else:
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
+                # idit i-final velar/palatal redup on num-clean (sraki->sasraNke; meta skips num for Y-class)
+                try:
+                    if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                        _rbw = clean[:-1]
+                        _rn = "N" if _rbw and _rbw[-1] in ("k", "K", "g", "G") else ("Y" if _rbw and _rbw[-1] in ("c", "C", "j", "J") else None)
+                        if _rn and len(_rbw) >= 1:
+                            _rnr = self._reduplicated_stem(_rbw[:-1] + _rn + _rbw[-1])
+                            if _rnr not in redups:
+                                redups.append(_rnr)
+                except Exception:
+                    pass
                 if "ur" in clean:
                     alt_c = clean.replace("ur","Ur",1)
                     redup_alt = self._reduplicated_stem(alt_c)
