@@ -1828,6 +1828,17 @@ class TinantaDerivationEngine:
                         ("uttama", "bahu"): "ima",
                     }
                     cands = [redup + vow_endings[(purusha, vacana)], redup + cons_endings[(purusha, vacana)]]
+                    # urv-coda liw o-redup + length (turv->totUrva, gurv->jogUrva; surveyed shape; abhyasa deasp + velar-palatal)
+                    try:
+                        if clean.endswith("urv") and clean[:1] not in SLP1_VOWELS:
+                            _ub = clean[:-3] + "Urv"
+                            _c0 = clean[0]
+                            _da = {"K": "k", "G": "g", "C": "c", "J": "j", "W": "w", "T": "t", "D": "d", "P": "p", "B": "b"}.get(_c0, _c0)
+                            _pa = {"k": "c", "K": "C", "g": "j", "G": "J", "h": "j"}.get(_da, _da)
+                            for _f in dict.fromkeys([_c0, _da, _pa]):
+                                cands.append(_f + "o" + _c0 + _ub[len(_c0):] + cons_endings[(purusha, vacana)])
+                    except Exception:
+                        pass
                     # guNa/vriddhi + e-abhyasa + final-cons-only Kit base for a-roots (babAda/bedatuH)
                     try:
                         _guna = self._bhvadi_guna_base(clean, is_idit)
