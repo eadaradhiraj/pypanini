@@ -660,6 +660,9 @@ class TinantaDerivationEngine:
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:
+                # rv-coda takes vriddhi with no di-infix (urv->Orviz, arv->Arviz; urd keeps its didiz special above)
+                if c.endswith("rv"):
+                    return apply_vriddhi(c[0]) + c[1:] + "iz"
                 return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
             # find last vowel for redup vowel (u for mud)
             last_v = None
