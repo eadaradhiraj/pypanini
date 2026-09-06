@@ -1870,7 +1870,8 @@ class TinantaDerivationEngine:
 
         elif lakara == "ASIrliN":
             if pada == "parasmEpadi":
-                # no guna, base = clean
+                # no guna, base = clean; urv-coda lengthens (turv->tUrvyAt, surveyed shape)
+                base = clean[:-3] + "Urv" if clean.endswith("urv") else clean
                 endings = {
                     ("prathama", "eka"): "yAt", ("prathama", "dvi"): "yAstAm",
                     ("prathama", "bahu"): "yAsuH", ("madhyama", "eka"): "yAH",
@@ -1878,7 +1879,7 @@ class TinantaDerivationEngine:
                     ("uttama", "eka"): "yAsam", ("uttama", "dvi"): "yAsva",
                     ("uttama", "bahu"): "yAsma",
                 }
-                return [clean + endings[(purusha, vacana)]], log
+                return [base + endings[(purusha, vacana)]], log
             else:
                 # Atmanepadi sew: eDizIzwa / modizIzwa etc. Use guna base for consonant-final non-idit (mud->mod); over-generate for vowel-initial
                 cands=[]
