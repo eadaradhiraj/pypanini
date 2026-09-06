@@ -2107,6 +2107,26 @@ class TinantaDerivationEngine:
                             for _base in {_guna, _vrid, clean}:
                                 cands.append(_rp + _base + vow_endings[(purusha, vacana)])
                                 cands.append(_rp + _base + cons_endings[(purusha, vacana)])
+                            # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->sizeDiTa, mirroring yang)
+                            try:
+                                _op0 = (meta.get("op", "") or "").replace("~", "")
+                                if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u"):
+                                    # unmapped clean for redup-strip (ziDa~->ziD)
+                                    _uc = _op0
+                                    if _uc and _uc[-1] in "fFxX" and len(_uc) > 2 and _uc[-2] not in SLP1_VOWELS:
+                                        _uc = _uc[:-1]
+                                    if _uc.endswith("a") and len(_uc) > 1:
+                                        _uc = _uc[:-1]
+                                    _rpz = _rp
+                                    if _uc and _rpz.endswith(_uc) and len(_rpz) > len(_uc):
+                                        _rpz = _rpz[:-len(_uc)]
+                                    for _bb in {_guna, _vrid, clean}:
+                                        if _bb.startswith("s"):
+                                            _zb = "z" + _bb[1:]
+                                            cands.append(_rpz + _zb + vow_endings[(purusha, vacana)])
+                                            cands.append(_rpz + _zb + cons_endings[(purusha, vacana)])
+                            except Exception:
+                                pass
                             if _rp and _rp[-1] == "a":
                                 _rp_e = _rp[:-1] + "e"
                                 for _base in {_guna, _vrid, clean}:

@@ -35,6 +35,8 @@ def validate_one(fid: str):
         jp = resolve_json_path(fid)
         dhatu = resolve_dhatu_slp(jp, fid)
         data = json.load(open(jp, encoding="utf-8"))
+        if data.get("skipped"):
+            return {"fid": fid, "matched": 0, "total": 0, "pct": 0.0, "misses": ["SKIPPED:" + str(data.get("skip_reason", ""))], "secs": 0.0}
         toks = extract_all_text_tokens(data)
         def hit(forms):
             return any(f in toks for f in forms)
@@ -109,8 +111,10 @@ def main():
             flag = "OK " if r["matched"]==r["total"] and r["total"] else "FAIL"
             print(f"{flag} {r['fid']} {r['matched']}/{r['total']} {r['pct']}% ({r['secs']}s) {' | '.join(r['misses'][:3])}", flush=True)
     results.sort(key=lambda r: r["fid"])
-    ok = sum(1 for r in results if r["matched"]==r["total"] and r["total"])
-    print(f"\nDONE passes {ok}/{len(results)}")
+    # skipped sutra-headers (zero data) are unscorable: exclude from denominator (passes already exclude them)
+    scored = [r for r in results if r["total"]]
+    ok = sum(1 for r in scored if r["matched"]==r["total"])
+    print(f"\nDONE passes {ok}/{len(scored)} (raw {ok}/{len(results)}, {len(results)-len(scored)} skipped)")
     # category summary for fails (which anta/lakara breaks most)
     from collections import Counter
     cat = Counter()
