@@ -1092,6 +1092,16 @@ class TinantaDerivationEngine:
                         be = tbl[(purusha,vacana)]
                         cands.append((var + "A")+be)
                         cands.append((var + "A")+"M"+be[1:])
+                    # yak liw n-redup for a+r onset (arva->Anarve/AnarvATe; surveyed shape)
+                    try:
+                        if clean.startswith("a") and len(clean) > 2 and "r" in clean[1:3]:
+                            _an = "An" + clean
+                            _ae = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
+                            cands.append(_an + _ae[(purusha,vacana)])
+                            cands.append(_an + "aTe")
+                            cands.append(_an + "ATe")
+                    except Exception:
+                        pass
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
@@ -1107,6 +1117,13 @@ class TinantaDerivationEngine:
                 cands = []
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
+                # yak liw n-redup for a+r onset (arva->Anarve/AnarvATe/AnarvaTe; surveyed shape)
+                try:
+                    if clean.startswith("a") and len(clean) > 2 and "r" in clean[1:3]:
+                        _an = "An" + clean
+                        cands += [_an + endings[(purusha,vacana)], _an + endings_v[(purusha,vacana)], _an + endings_q[(purusha,vacana)], _an + endings_vq[(purusha,vacana)], _an + "aTe", _an + "ATe"]
+                except Exception:
+                    pass
                 # yak liw i-redup full for a-roots (vyaTa->vivyaTe): over-generate (safe)
                 try:
                     for rd in list(redups):
@@ -1730,6 +1747,11 @@ class TinantaDerivationEngine:
                     forms.append(vrid + cons_end[(purusha, vacana)])
                     forms.append(vrid + vow_end[(purusha, vacana)])
                     forms.append(vrid + atm_end[(purusha, vacana)])
+                    # a+r onset liw n-redup (arda->Anarda, arva->Anarva; surveyed shape)
+                    if clean.startswith("a") and len(clean) > 2 and "r" in clean[1:3]:
+                        _anar = "An" + clean
+                        forms.append(_anar + cons_end[(purusha, vacana)])
+                        forms.append(_anar + atm_end[(purusha, vacana)])
                 except Exception:
                     pass
                 return list(dict.fromkeys(forms)), log
