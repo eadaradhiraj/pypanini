@@ -291,8 +291,12 @@ class KrdantaEngine:
                     return "dADay"
                 if c == "dad":
                     return self._vriddhi_base(c, is_idit) + "ay"
-                # vowel-initial like Urd keep as is (Urday) not ord and internal Ur/Ud (kUrd/sUd)
-                if (c and c[0] in SLP1_VOWELS) or "Ur" in c or "Ud" in c:
+                # Ur/Ud-forms keep plain sec (Urday, kUrd/sUd)
+                if c.startswith(("Ur", "ur", "Ud", "ud")) or "Ur" in c or "Ud" in c:
+                    return c + "ay"
+                # only short-u/i/a + single-C (minus j) fall through to guna/vriddhi below
+                # (uKa->oKay, ata->Atay; long vowels, clusters, j-finals like aja, e/o/D-roots, consonant-initials keep plain)
+                if c and c[0] in SLP1_VOWELS and not (len(c) == 2 and c[0] in ("u", "i", "a") and c[1] not in SLP1_VOWELS and c[1] not in ("j", "J")):
                     return c + "ay"
                 if not is_idit:
                     last_v = None
