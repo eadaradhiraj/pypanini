@@ -1836,7 +1836,8 @@ class TinantaDerivationEngine:
                             _da = {"K": "k", "G": "g", "C": "c", "J": "j", "W": "w", "T": "t", "D": "d", "P": "p", "B": "b"}.get(_c0, _c0)
                             _pa = {"k": "c", "K": "C", "g": "j", "G": "J", "h": "j"}.get(_da, _da)
                             for _f in dict.fromkeys([_c0, _da, _pa]):
-                                cands.append(_f + "o" + _c0 + _ub[len(_c0):] + cons_endings[(purusha, vacana)])
+                                for _v in ("o", "u"):
+                                    cands.append(_f + _v + _c0 + _ub[len(_c0):] + cons_endings[(purusha, vacana)])
                     except Exception:
                         pass
                     # guNa/vriddhi + e-abhyasa + final-cons-only Kit base for a-roots (babAda/bedatuH)
