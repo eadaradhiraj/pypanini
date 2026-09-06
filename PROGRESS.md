@@ -4,9 +4,9 @@ Date: 2026-09-06T00:00:00Z
 Sweep: 506/1166 100%
 
 ## Done
-- Pure generative mUla assimilated-num bases in `_prim_bases` (idit i-final velar->N, palatal->Y: `agi~->aNgati`, `uCi~->uYCati`; pure addition, all existing bases kept; meta-num skip for Y-class retained so sannanta keeps Y).
-- Re-sweep: `506/1166` held, 70 improved (dozens resurrected from 0, e.g. `01.0873 6->123`), 0 worsened. Pilots OK.
+- Pure generative assimilated num completed for Y-class formations: yak variants (`sraki->sraNkyate`), tinanta sannanta alt secs (`sisraNkiz`), krdanta sannanta consonant path (`sisraNkiz`). Meta stays num-free (nich needs it absent); mUla via `_prim_bases` (banked).
+- Re-sweep: `506/1166` held, 71 improved (aki-cluster + Y-class yak/san fire broadly), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next (newly-resurrected partials `01.0088-0102` etc., `01.0038`, `01.0049`).
+1. Batch next (nich `sraNkayati` for aki-cluster?, `01.0038`, `01.0049`).
 2. Re-sweep, rebuild STATS, overwrite this, commit & push.

@@ -980,9 +980,20 @@ class TinantaDerivationEngine:
             else:
                 yak_stem = clean + "y"  # BU -> BUy, eD -> eDy
                 sec_stem = clean
+                # idit i-final velar/palatal takes assimilated num in yak too (sraki->sraNkyate; meta skips num for Y-class)
+                if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                    _ybw = clean[:-1]
+                    _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else None)
+                    if _yn:
+                        _ynbase = _ybw[:-1] + _yn + _ybw[-1] if len(_ybw) >= 1 else _ybw
                 # vowel-initial capital variant for yak (urd -> Urdy)
                 yak_variants = [yak_stem]
                 sec_variants = [sec_stem]
+                if "_ynbase" in locals() and "_yn" in locals() and _yn:
+                    if _ynbase + "y" not in yak_variants:
+                        yak_variants.append(_ynbase + "y")
+                    if _ynbase not in sec_variants:
+                        sec_variants.append(_ynbase)
                 if "ur" in clean:
                     alt = clean.replace("ur", "Ur", 1) + "y"
                     if alt not in yak_variants:
@@ -1380,6 +1391,14 @@ class TinantaDerivationEngine:
                 _vrid_san = apply_vriddhi(clean[0]) + clean[1:] + "iz"
                 if _vrid_san not in [s_stem] + alt_sann:
                     alt_sann.append(_vrid_san)
+            # idit i-final velar/palatal num-variant (sraki->sisraNkiz; meta skips num for Y-class)
+            if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _nbw = clean[:-1]
+                _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                if _nn:
+                    _nsec = _sannanta_stem(_nbw[:-1] + _nn + _nbw[-1] if len(_nbw) >= 1 else _nbw)
+                    if _nsec not in [s_stem] + alt_sann:
+                        alt_sann.append(_nsec)
             guna_base = self._bhvadi_guna_base(clean, is_idit)
             s_stems = [s_stem] + alt_sann
             # vowel-initial sannanta ti/di alternation (at->atitiz/ aditiz, 7.4.??): generate both voiceless/voiced

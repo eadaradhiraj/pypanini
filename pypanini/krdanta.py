@@ -387,7 +387,16 @@ class KrdantaEngine:
                     redup_cons = "s"
                 else:
                     redup_vowel = "u" if last_v in ("u","U") else "i"
-                return redup_cons + redup_vowel + c + ("z" if is_vowel_final else "iz")
+                # idit i-final velar/palatal takes assimilated num (sraki->sisraNkiz; meta skips num for Y-class)
+                _cn = c
+                _csuf = "z" if is_vowel_final else "iz"
+                if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
+                    _nbw = c[:-1]
+                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                    if _nn and len(_nbw) >= 1:
+                        _cn = _nbw[:-1] + _nn + _nbw[-1]
+                        _csuf = "iz"
+                return redup_cons + redup_vowel + _cn + _csuf
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
                 if c in ("sUd", "sUd"):
