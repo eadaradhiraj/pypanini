@@ -634,8 +634,8 @@ class TinantaDerivationEngine:
             # For I long (hlAdI), just strip I without n
             if clean.endswith("I"):
                 clean = base_wo_i
-            elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J"):
-                # ... except velar/palatal-coda idit (agi~->agi not angi: Y-class takes Y-insertion instead of num)
+            elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "R", "p", "P", "b", "B"):
+                # ... except velar/palatal/retroflex/labial-coda idit (agi~->agi not angi: formations assimilate per-formation instead)
                 with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
                 clean = with_n
                 is_vowel_initial = False
@@ -737,7 +737,7 @@ class TinantaDerivationEngine:
             # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkya; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                 _bw = c[:-1]
-                _nn = "N" if _bw and _bw[-1] in ("k", "K", "g", "G") else ("Y" if _bw and _bw[-1] in ("c", "C", "j", "J") else None)
+                _nn = "N" if _bw and _bw[-1] in ("k", "K", "g", "G") else ("Y" if _bw and _bw[-1] in ("c", "C", "j", "J") else ("R" if _bw and _bw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _bw and _bw[-1] in ("p", "P", "b", "B") else None)))
                 if _nn and len(_bw) >= 1:
                     c_eff = _bw[:-1] + _nn + _bw[-1]
             if "ur" in c:
@@ -787,7 +787,7 @@ class TinantaDerivationEngine:
             # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkIti; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                 _bw = c[:-1]
-                _nn = "N" if _bw and _bw[-1] in ("k", "K", "g", "G") else ("Y" if _bw and _bw[-1] in ("c", "C", "j", "J") else None)
+                _nn = "N" if _bw and _bw[-1] in ("k", "K", "g", "G") else ("Y" if _bw and _bw[-1] in ("c", "C", "j", "J") else ("R" if _bw and _bw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _bw and _bw[-1] in ("p", "P", "b", "B") else None)))
                 if _nn and len(_bw) >= 1:
                     c_eff = _bw[:-1] + _nn + _bw[-1]
             root_vowel = None
@@ -993,7 +993,7 @@ class TinantaDerivationEngine:
                 # idit i-final velar/palatal num-variant (sraki->sraNkay; meta skips num for Y-class)
                 if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                     _nbw = clean[:-1]
-                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
                         _nst = _nijanta_stem(_nbw[:-1] + _nn + _nbw[-1])
                         if _nst not in n_stems_all:
@@ -1020,7 +1020,7 @@ class TinantaDerivationEngine:
                 # idit i-final velar/palatal num-variant (sraki->sisraNkiz; meta skips num for Y-class)
                 if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                     _nbw = clean[:-1]
-                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
                         _nsec = _sannanta_stem(_nbw[:-1] + _nn + _nbw[-1])
                         if _nsec not in [s_stem] + alt_s:
@@ -1042,7 +1042,7 @@ class TinantaDerivationEngine:
                 # idit i-final velar/palatal takes assimilated num in yak too (sraki->sraNkyate; meta skips num for Y-class)
                 if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                     _ybw = clean[:-1]
-                    _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else None)
+                    _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else ("R" if _ybw and _ybw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ybw and _ybw[-1] in ("p", "P", "b", "B") else None)))
                     if _yn:
                         _ynbase = _ybw[:-1] + _yn + _ybw[-1] if len(_ybw) >= 1 else _ybw
                 # vowel-initial capital variant for yak (urd -> Urdy)
@@ -1174,7 +1174,7 @@ class TinantaDerivationEngine:
                     # idit i-final velar/palatal yak-periphrastic on numay (agi->aNgayAYcakre)
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                         _ybw = clean[:-1]
-                        _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else None)
+                        _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else ("R" if _ybw and _ybw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ybw and _ybw[-1] in ("p", "P", "b", "B") else None)))
                         if _yn and len(_ybw) >= 1:
                             _ya = _ybw[:-1] + _yn + _ybw[-1] + "ay"
                             if _ya not in all_secs:
@@ -1195,7 +1195,7 @@ class TinantaDerivationEngine:
                     _yav = None
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                         _yavbw = clean[:-1]
-                        _yavn = "N" if _yavbw and _yavbw[-1] in ("k", "K", "g", "G") else ("Y" if _yavbw and _yavbw[-1] in ("c", "C", "j", "J") else None)
+                        _yavn = "N" if _yavbw and _yavbw[-1] in ("k", "K", "g", "G") else ("Y" if _yavbw and _yavbw[-1] in ("c", "C", "j", "J") else ("R" if _yavbw and _yavbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _yavbw and _yavbw[-1] in ("p", "P", "b", "B") else None)))
                         if _yavn and len(_yavbw) >= 1:
                             _yav = _yavbw[:-1] + _yavn + _yavbw[-1] + "ay"
                             if _yav not in vars:
@@ -1236,7 +1236,7 @@ class TinantaDerivationEngine:
                 try:
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                         _rbw = clean[:-1]
-                        _rn = "N" if _rbw and _rbw[-1] in ("k", "K", "g", "G") else ("Y" if _rbw and _rbw[-1] in ("c", "C", "j", "J") else None)
+                        _rn = "N" if _rbw and _rbw[-1] in ("k", "K", "g", "G") else ("Y" if _rbw and _rbw[-1] in ("c", "C", "j", "J") else ("R" if _rbw and _rbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _rbw and _rbw[-1] in ("p", "P", "b", "B") else None)))
                         if _rn and len(_rbw) >= 1:
                             _rnr = self._reduplicated_stem(_rbw[:-1] + _rn + _rbw[-1])
                             if _rnr not in redups:
@@ -1503,7 +1503,7 @@ class TinantaDerivationEngine:
             # idit i-final velar/palatal num-variant (sraki->sisraNkiz; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 _nbw = clean[:-1]
-                _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                 if _nn:
                     _nsec = _sannanta_stem(_nbw[:-1] + _nn + _nbw[-1] if len(_nbw) >= 1 else _nbw)
                     if _nsec not in [s_stem] + alt_sann:
@@ -1635,7 +1635,7 @@ class TinantaDerivationEngine:
             # idit i-final velar/palatal num-variant (sraki->sraNkay; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 _nbw = clean[:-1]
-                _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                 if _nn and len(_nbw) >= 1:
                     _nst = _nijanta_stem(_nbw[:-1] + _nn + _nbw[-1])
                     if _nst not in n_stems:
@@ -1929,7 +1929,7 @@ class TinantaDerivationEngine:
                 # idit i-final velar/palatal num-clean for Atmane periphrastic trio below (igi->iNgAYcakre)
                 if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                     _vbw = clean[:-1]
-                    _vn = "N" if _vbw and _vbw[-1] in ("k", "K", "g", "G") else ("Y" if _vbw and _vbw[-1] in ("c", "C", "j", "J") else None)
+                    _vn = "N" if _vbw and _vbw[-1] in ("k", "K", "g", "G") else ("Y" if _vbw and _vbw[-1] in ("c", "C", "j", "J") else ("R" if _vbw and _vbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _vbw and _vbw[-1] in ("p", "P", "b", "B") else None)))
                     if _vn and len(_vbw) >= 1 and (_vbw[:-1] + _vn + _vbw[-1]) not in vars:
                         vars.append(_vbw[:-1] + _vn + _vbw[-1])
                 forms=[]
@@ -1955,7 +1955,7 @@ class TinantaDerivationEngine:
                 try:
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                         _pbw = clean[:-1]
-                        _pn = "N" if _pbw and _pbw[-1] in ("k", "K", "g", "G") else ("Y" if _pbw and _pbw[-1] in ("c", "C", "j", "J") else None)
+                        _pn = "N" if _pbw and _pbw[-1] in ("k", "K", "g", "G") else ("Y" if _pbw and _pbw[-1] in ("c", "C", "j", "J") else ("R" if _pbw and _pbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _pbw and _pbw[-1] in ("p", "P", "b", "B") else None)))
                         if _pn and len(_pbw) >= 1:
                             _pnc = _pbw[:-1] + _pn + _pbw[-1]
                             for _ax in ("AYcakAra", "AmAsa", "AmbaBUva", "AYcakratuH", "AmAsatuH", "AmbaBUvatuH", "AYcakruH", "AmAsuH", "AmbaBUvuH"):
@@ -1979,7 +1979,7 @@ class TinantaDerivationEngine:
                     # idit i-final velar/palatal An-redup on num-clean (agi->AnaNga; meta skips num for Y-class)
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                         _abw = clean[:-1]
-                        _ann = "N" if _abw and _abw[-1] in ("k", "K", "g", "G") else ("Y" if _abw and _abw[-1] in ("c", "C", "j", "J") else None)
+                        _ann = "N" if _abw and _abw[-1] in ("k", "K", "g", "G") else ("Y" if _abw and _abw[-1] in ("c", "C", "j", "J") else ("R" if _abw and _abw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _abw and _abw[-1] in ("p", "P", "b", "B") else None)))
                         if _ann and len(_abw) >= 1:
                             _an2 = "An" + _abw[:-1] + _ann + _abw[-1]
                             forms.append(_an2 + cons_end[(purusha, vacana)])
@@ -1994,7 +1994,7 @@ class TinantaDerivationEngine:
                 try:
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                         _rbw = clean[:-1]
-                        _rn = "N" if _rbw and _rbw[-1] in ("k", "K", "g", "G") else ("Y" if _rbw and _rbw[-1] in ("c", "C", "j", "J") else None)
+                        _rn = "N" if _rbw and _rbw[-1] in ("k", "K", "g", "G") else ("Y" if _rbw and _rbw[-1] in ("c", "C", "j", "J") else ("R" if _rbw and _rbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _rbw and _rbw[-1] in ("p", "P", "b", "B") else None)))
                         if _rn and len(_rbw) >= 1:
                             _rnr = self._reduplicated_stem(_rbw[:-1] + _rn + _rbw[-1])
                             if _rnr not in redups:
@@ -2180,7 +2180,7 @@ class TinantaDerivationEngine:
                 try:
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                         _abw = clean[:-1]
-                        _an = "N" if _abw and _abw[-1] in ("k", "K", "g", "G") else ("Y" if _abw and _abw[-1] in ("c", "C", "j", "J") else None)
+                        _an = "N" if _abw and _abw[-1] in ("k", "K", "g", "G") else ("Y" if _abw and _abw[-1] in ("c", "C", "j", "J") else ("R" if _abw and _abw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _abw and _abw[-1] in ("p", "P", "b", "B") else None)))
                         if _an and len(_abw) >= 1:
                             _anb = _abw[:-1] + _an + _abw[-1]
                             if _anb not in _asb:
@@ -2286,7 +2286,7 @@ class TinantaDerivationEngine:
                     try:
                         if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                             _nbw = clean[:-1]
-                            _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                            _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                             if _nn and len(_nbw) >= 1:
                                 _aug_N = self._add_augment(_nbw[:-1] + _nn + _nbw[-1], False)
                     except Exception:

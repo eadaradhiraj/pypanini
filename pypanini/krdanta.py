@@ -271,8 +271,8 @@ class KrdantaEngine:
             base_wo_i = clean[:-1]
             if clean.endswith("I"):
                 clean = base_wo_i
-            elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J"):
-                # ... except velar/palatal-coda idit (agi~->agi not angi: Y-class takes Y-insertion instead of num)
+            elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "R", "p", "P", "b", "B"):
+                # ... except velar/palatal/retroflex/labial-coda idit (agi~->agi not angi: formations assimilate per-formation instead)
                 with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
                 clean = with_n
         sew = meta["sew"]
@@ -396,7 +396,7 @@ class KrdantaEngine:
                 _csuf = "z" if is_vowel_final else "iz"
                 if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                     _nbw = c[:-1]
-                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
                         _cn = _nbw[:-1] + _nn + _nbw[-1]
                         _csuf = "iz"
@@ -498,7 +498,7 @@ class KrdantaEngine:
             elif sanadi == "yanluganta" and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 # Y-class (meta skips num): primitive+num, reduplicated if Atmanepadi (sraki->sAsraNkitaH, agi->aNgitaH)
                 _ylbw = clean[:-1]
-                _yln = "N" if _ylbw and _ylbw[-1] in ("k", "K", "g", "G") else ("Y" if _ylbw and _ylbw[-1] in ("c", "C", "j", "J") else None)
+                _yln = "N" if _ylbw and _ylbw[-1] in ("k", "K", "g", "G") else ("Y" if _ylbw and _ylbw[-1] in ("c", "C", "j", "J") else ("R" if _ylbw and _ylbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ylbw and _ylbw[-1] in ("p", "P", "b", "B") else None)))
                 if _yln and len(_ylbw) >= 1:
                     _ylnc = _ylbw[:-1] + _yln + _ylbw[-1]
                     if pada == "Atmanepadi":
