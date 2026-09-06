@@ -342,10 +342,17 @@ class KrdantaEngine:
                     # rv-coda reduplicates (urv->urviviz, arv->arviviz; urd keeps its didiz special above)
                     if c.endswith("rv"):
                         return c[0] + "rvi" + "viz"
-                    # vowel-initial r@1 takes c[:2]+di+c[2:] (arda->ardidiz, urd->urdidiz; at->atitiz keeps c[0]-form below)
-                    if c[0] in ("a", "i", "u") and len(c) > 2 and c[1] in ("r", "R"):
-                        return c[:2] + "di" + c[2:] + ("iz" if not is_vowel_final else "z")
-                    # voicing: voiceless second cons (t/p/k etc.) takes ti (atitiz), voiced takes di (aditiz->edidiz): general shape
+                    # reduplicated Ci-copy stem with velar/h palatalization in redup (subsumes r@1 and voicing below)
+                    # (at->atitiz, arda->ardidiz, arca->arciciz, oKf->ociKiz, arha->arjihiz, urv->urviviz)
+                    _tail = c[1:]
+                    _rp = ""
+                    if _tail[:1] in ("r", "R"):
+                        _rp = _tail[0]
+                        _tail = _tail[1:]
+                    if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
+                        _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_tail[0], _tail[0])
+                        return c[0] + _rp + _pc + "i" + _tail + ("iz" if not is_vowel_final else "z")
+                    # voicing fallback for vowel-second stems (at->atitiz, aditiz->edidiz) and D-roots (eD pilot keeps ediDiz)
                     _second = c[1] if len(c) > 1 else ""
                     _red = "ti" if _second in ("k", "K", "c", "C", "w", "W", "t", "T", "p", "P") else "di"
                     return c[0] + _red + c[1:] + ("iz" if not is_vowel_final else "z")

@@ -660,9 +660,16 @@ class TinantaDerivationEngine:
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:
-                # rv-coda reduplicates (urv->urviviz, arv->arviviz; vriddhi Orviz/Arviz kept as alt below; urd keeps its didiz special above)
-                if c.endswith("rv"):
-                    return c[0] + "rvi" + "viz"
+                # reduplicated Ci-copy stem with velar/h palatalization in redup
+                # (at->atitiz, arda->ardidiz, arca->arciciz, oKf->ociKiz, arha->arjihiz, urv->urviviz)
+                _tail = c[1:]
+                _rp = ""
+                if _tail[:1] in ("r", "R"):
+                    _rp = _tail[0]
+                    _tail = _tail[1:]
+                if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
+                    _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_tail[0], _tail[0])
+                    return c[0] + _rp + _pc + "i" + _tail + ("iz" if not is_vowel_final else "z")
                 return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
             # find last vowel for redup vowel (u for mud)
             last_v = None
@@ -1871,7 +1878,7 @@ class TinantaDerivationEngine:
                             _ub = clean[:-3] + "Urv"
                             _c0 = clean[0]
                             _da = {"K": "k", "G": "g", "C": "c", "J": "j", "W": "w", "T": "t", "D": "d", "P": "p", "B": "b"}.get(_c0, _c0)
-                            _pa = {"k": "c", "K": "C", "g": "j", "G": "J", "h": "j"}.get(_da, _da)
+                            _pa = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_da, _da)
                             for _f in dict.fromkeys([_c0, _da, _pa]):
                                 for _v in ("o", "u"):
                                     cands.append(_f + _v + _c0 + _ub[len(_c0):] + cons_endings[(purusha, vacana)])
