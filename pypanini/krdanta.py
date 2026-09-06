@@ -649,12 +649,13 @@ class KrdantaEngine:
         if pratyaya == "kta":
             # I~ blocks iT for mUla & yanluganta (yatI~->yatta, yAyatta via cross-match); sannanta/nijanta/yananta sec keeps iT
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
-            stem = self._kta_stem(clean, sew, op_for_kta)
+            # sannanta is seT for the kta family (surveyed 1156/1156, zero exceptions)
+            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta)
             return tri_linga(stem)
 
         elif pratyaya == "ktavatu":
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
-            stem = self._kta_stem(clean, sew, op_for_kta)
+            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta)
             b = stem[:-1] if stem.endswith("a") else stem
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
@@ -696,7 +697,7 @@ class KrdantaEngine:
 
         elif pratyaya == "tavya":
             if sanadi == "sannanta":
-                stem = clean + "itavya" if sew else clean + "tavya"
+                stem = clean + "itavya"
                 return tri_linga(stem)
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + ("i" if sew else "") + "tavya"
@@ -778,7 +779,7 @@ class KrdantaEngine:
 
         elif pratyaya == "tfc":
             if sanadi == "sannanta":
-                b = clean + ("i" if sew else "")
+                b = clean + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             b = eff + ("i" if sew else "")
@@ -820,7 +821,7 @@ class KrdantaEngine:
 
         elif pratyaya == "tumun":
             if sanadi == "sannanta":
-                stem = clean + ("i" if sew else "") + "tum"
+                stem = clean + "i" + "tum"
                 return {"avyaya": [stem]}
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + ("i" if sew else "") + "tum"
