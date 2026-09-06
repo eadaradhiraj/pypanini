@@ -483,6 +483,19 @@ class KrdantaEngine:
             if sanadi == "nijanta": sec = _nijanta_sec(clean)
             elif sanadi == "sannanta": sec = _sannanta_sec(clean)
             elif sanadi == "yananta": sec = _yan_sec(clean)
+            elif sanadi == "yanluganta" and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                # Y-class (meta skips num): primitive+num, reduplicated if Atmanepadi (sraki->sAsraNkitaH, agi->aNgitaH)
+                _ylbw = clean[:-1]
+                _yln = "N" if _ylbw and _ylbw[-1] in ("k", "K", "g", "G") else ("Y" if _ylbw and _ylbw[-1] in ("c", "C", "j", "J") else None)
+                if _yln and len(_ylbw) >= 1:
+                    _ylnc = _ylbw[:-1] + _yln + _ylbw[-1]
+                    if pada == "Atmanepadi":
+                        _yys = _yan_sec(_ylnc)
+                        sec = _yys[:-2] if _yys.endswith("ya") else _yys
+                    else:
+                        sec = _ylnc
+                else:
+                    sec = clean
             else: sec = clean
             # save original clean for overrides
             orig_clean = clean
