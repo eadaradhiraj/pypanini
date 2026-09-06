@@ -1140,6 +1140,14 @@ class TinantaDerivationEngine:
                         pass
                     # dedup + Ur variant
                     all_secs = list(dict.fromkeys(all_secs + [s.replace("ur","Ur",1) for s in all_secs if "ur" in s]))
+                    # idit i-final velar/palatal yak-periphrastic on numay (agi->aNgayAYcakre)
+                    if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                        _ybw = clean[:-1]
+                        _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else None)
+                        if _yn and len(_ybw) >= 1:
+                            _ya = _ybw[:-1] + _yn + _ybw[-1] + "ay"
+                            if _ya not in all_secs:
+                                all_secs.append(_ya)
                     cands=[]
                     for sec in all_secs:
                         cands+= [sec + "AYcakre", sec + "AmAse", sec + "AmbaBUve"]
@@ -1152,6 +1160,15 @@ class TinantaDerivationEngine:
                         vars.append(flip[clean[0]]+clean[1:])
                     if clean.startswith("ur"):
                         vars.append("Ur"+clean[2:])
+                    # idit i-final velar/palatal yak-periphrastic on numay (agi->aNgayAYcakre/aNgayAYcakAra)
+                    _yav = None
+                    if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                        _yavbw = clean[:-1]
+                        _yavn = "N" if _yavbw and _yavbw[-1] in ("k", "K", "g", "G") else ("Y" if _yavbw and _yavbw[-1] in ("c", "C", "j", "J") else None)
+                        if _yavn and len(_yavbw) >= 1:
+                            _yav = _yavbw[:-1] + _yavn + _yavbw[-1] + "ay"
+                            if _yav not in vars:
+                                vars.append(_yav)
                     cands=[]
                     for var in vars:
                         ama = var + "A"
@@ -1160,6 +1177,10 @@ class TinantaDerivationEngine:
                         cands.append((var + "A")+be)
                         cands.append((var + "A")+"M"+be[1:])
                     # yak liw n-redup for a+r onset (arva->Anarve/AnarvATe; surveyed shape)
+                    # paras-trio on numay-variant from above (igi->iNgayAYcakAra; prathama-verified shapes)
+                    if _yav:
+                        for _ax in ("AYcakAra", "AmAsa", "AmbaBUva", "AYcakratuH", "AmAsatuH", "AmbaBUvatuH", "AYcakruH", "AmAsuH", "AmbaBUvuH"):
+                            cands.append(_yav + _ax)
                     try:
                         if clean.startswith("a") and len(clean) > 2 and "r" in clean[1:3]:
                             _an = "An" + clean
@@ -1820,6 +1841,12 @@ class TinantaDerivationEngine:
                     vars.append("Ur"+clean[2:])
                 if clean.startswith("Ur"):
                     vars.append("ur"+clean[2:])
+                # idit i-final velar/palatal num-clean for Atmane periphrastic trio below (igi->iNgAYcakre)
+                if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                    _vbw = clean[:-1]
+                    _vn = "N" if _vbw and _vbw[-1] in ("k", "K", "g", "G") else ("Y" if _vbw and _vbw[-1] in ("c", "C", "j", "J") else None)
+                    if _vn and len(_vbw) >= 1 and (_vbw[:-1] + _vn + _vbw[-1]) not in vars:
+                        vars.append(_vbw[:-1] + _vn + _vbw[-1])
                 forms=[]
                 for var in vars:
                     ama = var + "A"
@@ -1839,6 +1866,17 @@ class TinantaDerivationEngine:
                     forms.append(ama + "M" + base_end[1:])
                     if (purusha, vacana) == ("madhyama", "bahu"):
                         forms+= [ama + "YcakfQve", ama + "YcakfDve", ama + "McakfDve"]
+                # idit i-final velar/palatal periphrastic paras-trio on num-clean (igi->iNgAYcakAra; prathama-verified shapes)
+                try:
+                    if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                        _pbw = clean[:-1]
+                        _pn = "N" if _pbw and _pbw[-1] in ("k", "K", "g", "G") else ("Y" if _pbw and _pbw[-1] in ("c", "C", "j", "J") else None)
+                        if _pn and len(_pbw) >= 1:
+                            _pnc = _pbw[:-1] + _pn + _pbw[-1]
+                            for _ax in ("AYcakAra", "AmAsa", "AmbaBUva", "AYcakratuH", "AmAsatuH", "AmbaBUvatuH", "AYcakruH", "AmAsuH", "AmbaBUvuH"):
+                                forms.append(_pnc + _ax)
+                except Exception:
+                    pass
                 # vowel-initial liw: periphrastic (eD) + reduplicated paras (ata~->Ata) + reduplicated Atman (yak Ate)
                 try:
                     vrid = self._add_augment(clean, True)
