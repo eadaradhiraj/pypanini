@@ -719,6 +719,12 @@ class TinantaDerivationEngine:
             if c in ("sUd", "SUd", "sUd"):
                 return "sozUdya"
             c_eff = c
+            # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkya; meta skips num for Y-class)
+            if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
+                _bw = c[:-1]
+                _nn = "N" if _bw and _bw[-1] in ("k", "K", "g", "G") else ("Y" if _bw and _bw[-1] in ("c", "C", "j", "J") else None)
+                if _nn and len(_bw) >= 1:
+                    c_eff = _bw[:-1] + _nn + _bw[-1]
             if "ur" in c:
                 c_eff = c.replace("ur", "Ur", 1)
             root_vowel = None
