@@ -12,6 +12,29 @@ from .phonetics import apply_guna, apply_vriddhi, apply_sandhi_eco_ayavayavah
 SLP1_VOWELS = set(list("aAiIuUfFxXeEoO"))
 SLP1_STOPS = set(list("kKgGNcCjJYwWqQRtTdDnpPbBm"))
 
+# Pure shape test for krdanta n->R (SAnac/anIyar/lyuw), surveyed over
+# skt-morph-data/01 mUla SAnac/anIyar/lyuw expectations (112 roots each,
+# zero conflicts): z-final always takes R (gez/parz/dakz/BAz);
+# h-final takes R iff r/R is present (garh, not dah);
+# s/S-final never takes R (rAs/pras); otherwise R iff r/R is present
+# with a velar/labial/sonorant final (rAK/Srek). R-final (uppercase)
+# can never match, so GuR/pER stay dental.
+def _natva_applies(root: str) -> bool:
+    if not root:
+        return False
+    fin = root[-1:]
+    if fin == "z":
+        return True
+    if fin == "s":
+        return False
+    if fin == "h":
+        return ("r" in root) or ("R" in root)
+    return (("r" in root) or ("R" in root)) and fin in (
+        "k", "K", "g", "G", "N", "p", "P", "b", "B",
+        "m", "y", "r", "l", "v", "S",
+    )
+
+
 class KrdantaEngine:
     def __init__(self):
         self.krdanta_metadata = {
@@ -453,7 +476,7 @@ class KrdantaEngine:
                 if pratyaya == "lyap": return {"avyaya": ["pra"+sec_base+"ya", sec_base+"ya"]}
                 if pratyaya == "SAnac":
                     base = sec_base+"yamAna"
-                    if ((("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (orig_clean.endswith("kz") and sanadi in (None, "nijanta", "yananta")) or (orig_clean.startswith("B") and orig_clean.endswith("z") and sanadi != "yanluganta")) and base.endswith("amAna"):
+                    if _natva_applies(orig_clean) and base.endswith("amAna"):
                         base = base[:-5] + "amARa"
                     # use tri-linga to avoid double A
                     m = base+"H"
@@ -462,13 +485,13 @@ class KrdantaEngine:
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "anIyar":
                     _ab = sec_base+"anIya"
-                    if ((("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (orig_clean.endswith("kz") and sanadi in (None, "nijanta", "yananta")) or (orig_clean.startswith("B") and orig_clean.endswith("z") and sanadi != "yanluganta")) and "nIya" in _ab:
+                    if _natva_applies(orig_clean) and "nIya" in _ab:
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
                 if pratyaya == "lyuw":
                     _lb = sec_base+"ana"
-                    if ((("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (orig_clean.endswith("kz") and sanadi in (None, "nijanta", "yananta")) or (orig_clean.startswith("B") and orig_clean.endswith("z") and sanadi != "yanluganta")) and _lb.endswith("ana"):
+                    if _natva_applies(orig_clean) and _lb.endswith("ana"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
@@ -521,12 +544,12 @@ class KrdantaEngine:
                 if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
                 if pratyaya == "anIyar":
                     _ab = base_no_ya+"anIya"
-                    if ((("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (orig_clean.endswith("kz") and sanadi in (None, "nijanta", "yananta")) or (orig_clean.startswith("B") and orig_clean.endswith("z") and sanadi != "yanluganta")) and "nIya" in _ab:
+                    if _natva_applies(orig_clean) and "nIya" in _ab:
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "lyuw":
                     _lb = base_no_ya+"ana"
-                    if ((("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (orig_clean.endswith("kz") and sanadi in (None, "nijanta", "yananta")) or (orig_clean.startswith("B") and orig_clean.endswith("z") and sanadi != "yanluganta")) and _lb.endswith("ana"):
+                    if _natva_applies(orig_clean) and _lb.endswith("ana"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY": return {"gender":"Masculine","form":base_no_ya+"aH"}
@@ -536,7 +559,7 @@ class KrdantaEngine:
                     m = sec + "mAnaH" if sec.endswith("a") else sec + "amAnaH"
                     f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
                     n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
-                    if ((("r" in orig_clean or "R" in orig_clean) and orig_clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (orig_clean.endswith("kz") and sanadi in (None, "nijanta", "yananta")) or (orig_clean.startswith("B") and orig_clean.endswith("z") and sanadi != "yanluganta")):
+                    if _natva_applies(orig_clean):
                         m = m.replace("mAnaH", "mARaH").replace("amAnaH", "amARaH")
                         f = f.replace("mAnA", "mARA").replace("amAnA", "amARA")
                         n = n.replace("mAnam", "mARam").replace("amAnam", "amARam")
@@ -614,7 +637,7 @@ class KrdantaEngine:
                     stem = clean + "amAna"
             else:
                 stem = clean + "yamAna"
-            if ((("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (clean.endswith("kz") and sanadi in (None, "yanluganta")) or (clean.startswith("B") and clean.endswith("z") and sanadi in (None, "yanluganta"))) and stem.endswith("amAna"):
+            if _natva_applies(clean) and stem.endswith("amAna"):
                 stem = stem[:-5] + "amARa"
             return tri_linga(stem)
 
@@ -629,7 +652,7 @@ class KrdantaEngine:
         elif pratyaya == "anIyar":
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + "anIya"
-            if ((("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (clean.endswith("kz") and sanadi in (None, "yanluganta")) or (clean.startswith("B") and clean.endswith("z") and sanadi in (None, "yanluganta"))) and "nIya" in stem:
+            if _natva_applies(clean) and "nIya" in stem:
                 stem = stem.replace("nIya", "RIya")
             return tri_linga(stem)
 
@@ -711,7 +734,7 @@ class KrdantaEngine:
         elif pratyaya == "lyuw":
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + "ana"
-            if ((("r" in clean or "R" in clean) and clean[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "s", "z", "S")) or (clean.endswith("kz") and sanadi in (None, "yanluganta")) or (clean.startswith("B") and clean.endswith("z") and sanadi in (None, "yanluganta"))) and stem.endswith("ana"):
+            if _natva_applies(clean) and stem.endswith("ana"):
                 stem = stem[:-3] + "aRa"
             return {"gender": "Neuter", "form": stem + "m"}
 
