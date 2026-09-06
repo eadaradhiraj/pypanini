@@ -1,12 +1,12 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-05T12:00:00Z
+Date: 2026-09-06T00:00:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
 Passes: **440/1166 100%**. Fails: 726. See tests/sweep_all.csv (grep).
 
 ## Rules (general, pure generative)
-- Anubandha, redup 7.4.62, yan e/o, kta I~, Nic aorist, krdanta guna, liw Pit/Kit+e+final-cons, yak e+final, luN at/guNa, ASIrliN D/Q, yat vriddhi (kr-onset no-vriddhi krapya, kr+T blocks yat, ts/km/kz-onset blocks yat), yang_krut/yat palatal+Ay->Iy, Nic mit/GawAdi hrasva except kr+T + single-r allows vriddhi, liw satva blocked s+stop/final-k, liw periphrastic Am+AYcakre, liw i-redup, kta i-guna m+i+d, kta w-final w+ta->wwa, yat I~ except w-final, Natva r/R+velar/labial/r-final/sibilant + kz-final mUla+nijanta (R-final uppercase blocks Natva), loT ni->Ri r/R+velar/labial/r-final/sibilant (R-final uppercase blocks Ri), sannanta voicing ti/di, harness keeps "-" as token.
+- Anubandha, redup 7.4.62, yan e/o, kta I~, Nic aorist, krdanta guna, liw Pit/Kit+e+final-cons, yak e+final, luN at/guNa, ASIrliN D/Q, yat vriddhi (kr-onset no-vriddhi krapya, kr+T blocks yat, ts/km/kz-onset blocks yat), yang_krut/yat palatal+Ay->Iy, Nic mit/GawAdi hrasva except kr+T + single-r allows vriddhi, liw satva blocked s+stop/final-k, liw periphrastic Am+AYcakre, liw i-redup, kta i-guna m+i+d, kta w-final w+ta->wwa, yat I~ except w-final, Natva r/R+velar/labial/r-final/sibilant + kz-final mUla+nijanta + B-onset+z-coda all-sanadi-except-yanluganta (R-final uppercase blocks Natva), loT ni->Ri r/R+velar/labial/r-final/sibilant (R-final uppercase blocks Ri), sannanta voicing ti/di, harness keeps "-" as token.
 
 ## Fails (726)
 | anta | n | example |
@@ -14,10 +14,10 @@ Passes: **440/1166 100%**. Fails: 726. See tests/sweep_all.csv (grep).
 | krut | 4262 | 01.0692 krut/SAnac/M:dakzamARaH |
 | ting | 2735 | 01.0049 ting/liw/madhyama/eka:siziDsiDviTa |
 | san_krut | 400 | 01.0038 san_krut/kta/M:aditizitaH |
+| yang_krut | 283 | 01.0048 yang_krut/kta/M:mAmanTitaH |
 | yak | 274 | 01.0038 yak/liw/prathama/eka:atAYcakre |
-| yang_krut | 291 | 01.0048 yang_krut/kta/M:mAmanTitaH |
 | san | 219 | 01.0080 san/lw/prathama/eka:lilokizate |
 | yang | 198 | 01.0048 yang/lw/prathama/eka:mAmanwIti |
-| nich_krut | 193 | 01.0050 nich_krut/kta/M:seDayitaH |
+| nich_krut | 176 | 01.0050 nich_krut/kta/M:seDayitaH |
+| yangluk_krut | 40 | 01.0290 yangluk_krut/kta/M:lolupitaH |
 | nich | 15 | 01.0559 nich/lw/prathama/eka:kzmAyayati |
-| yangluk_krut | 15 | 01.0290 yangluk_krut/kta/M:lolupitaH |

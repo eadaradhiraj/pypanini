@@ -1,21 +1,4 @@
 {
   "nextId": 15,
-  "loops": [
-    {
-      "id": "14",
-      "prompt": "Work toward 1166/1166 100% for skt-morph-data/01 without hardcoding (pure shape/class only, no per-dhatu lists, no JSON import for generation). One batch of 5-10 dhatus at a time using shape (pada/sew/gana/vowel-initial/onset-coda). Re-sweep tests/sweep_gana.py --all --workers 8 --out tests/sweep_all.csv, rebuild tests/STATS.md, overwrite PROGRESS.md, commit & push on pass gain, keep fewer-misses with 0 gain and continue. Current 440/1166 clean.",
-      "trigger": {
-        "type": "cron",
-        "schedule": "*/5 * * * *"
-      },
-      "status": "active",
-      "recurring": true,
-      "createdAt": 1788670171243,
-      "updatedAt": 1788670223566,
-      "expiresAt": 1789274971243,
-      "source": "tool",
-      "maxFires": 30,
-      "fireCount": 1
-    }
-  ]
+  "loops": []
 }
