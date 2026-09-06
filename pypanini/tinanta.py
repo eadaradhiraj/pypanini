@@ -947,6 +947,14 @@ class TinantaDerivationEngine:
                             if alt2 not in n_stems_all:
                                 n_stems_all.append(alt2)
                 sec_stem = n_stem
+                # idit i-final velar/palatal num-variant (sraki->sraNkay; meta skips num for Y-class)
+                if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                    _nbw = clean[:-1]
+                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                    if _nn and len(_nbw) >= 1:
+                        _nst = _nijanta_stem(_nbw[:-1] + _nn + _nbw[-1])
+                        if _nst not in n_stems_all:
+                            n_stems_all.append(_nst)
                 # yak stems list from all n_stems
                 yak_stems_all = [s[:-2] + "y" if s.endswith("ay") else s + "y" for s in n_stems_all]
                 yak_stem = yak_stems_all[0] if yak_stems_all else n_stem + "y"
@@ -966,6 +974,14 @@ class TinantaDerivationEngine:
                         alt2 = altc[:2] + "di" + altc[2:] + "iz"
                         if alt2 not in [s_stem]+alt_s:
                             alt_s.append(alt2)
+                # idit i-final velar/palatal num-variant (sraki->sisraNkiz; meta skips num for Y-class)
+                if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                    _nbw = clean[:-1]
+                    _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                    if _nn and len(_nbw) >= 1:
+                        _nsec = _sannanta_stem(_nbw[:-1] + _nn + _nbw[-1])
+                        if _nsec not in [s_stem] + alt_s:
+                            alt_s.append(_nsec)
                 yak_stem = s_stem + "y"
                 sec_stem = s_stem
                 # keep alts for per-lakara generation
@@ -1523,6 +1539,14 @@ class TinantaDerivationEngine:
                 alt_guna = self._bhvadi_guna_base(alt_c, is_idit) + "ay"
                 if alt_guna not in n_stems:
                     n_stems.append(alt_guna)
+            # idit i-final velar/palatal num-variant (sraki->sraNkay; meta skips num for Y-class)
+            if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _nbw = clean[:-1]
+                _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                if _nn and len(_nbw) >= 1:
+                    _nst = _nijanta_stem(_nbw[:-1] + _nn + _nbw[-1])
+                    if _nst not in n_stems:
+                        n_stems.append(_nst)
             # vowel-initial alternative: Urday for urd
             if is_vowel_initial:
                 flip = {"u":"U","U":"u","i":"I","I":"i"}
