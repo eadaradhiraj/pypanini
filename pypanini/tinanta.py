@@ -1219,7 +1219,14 @@ class TinantaDerivationEngine:
                 if sanadi in ("sannanta","nijanta"):
                     if sanadi=="sannanta" and "sannanta"==sanadi:
                         cands=[]
-                        for sec in [sec_stem] + ([sec_stem.replace("ur","Ur",1)] if "ur" in sec_stem else []):
+                        # include sannanta alt stems (ardidiz for arda, urdidiz for urd), mirroring luN below
+                        _as_secs = [sec_stem]
+                        if "_yak_sann_stems" in locals():
+                            _as_secs += _yak_sann_stems
+                        if "_yak_sann_alts" in locals():
+                            _as_secs += _yak_sann_alts
+                        _as_secs = list(dict.fromkeys(_as_secs + [s.replace("ur","Ur",1) for s in _as_secs if "ur" in s]))
+                        for sec in _as_secs:
                             base_iz = sec + "iz"
                             endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
                             cand1 = base_iz + endings[(purusha,vacana)]
