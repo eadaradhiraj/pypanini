@@ -675,6 +675,20 @@ class KrdantaEngine:
             # urv-coda lengthens instead of guna (turv/tUrv->tUrvan, consonant-initial shape; vowel-initial urv keeps guna)
             if clean[-3:].lower() == "urv" and clean[:1] not in SLP1_VOWELS:
                 _satf_base = clean[:-3] + "Urv"
+            # surveyed Satf stems (mUla/yanluganta, consonant-final only so BU stays guna):
+            # long-U/I keeps stem (UWa->UWat), geminate-CC keeps stem (bukka->bukkat),
+            # NC assimilates palatal/labial (kunca->kuYcat, tunpa->tumpat); short-u/i single-C keeps guna below
+            if (sanadi is None or sanadi == "yanluganta") and clean and clean[-1] not in SLP1_VOWELS:
+                _sv = [ch for ch in clean if ch in SLP1_VOWELS]
+                _lv = _sv[-1] if _sv else None
+                if _lv in ("U", "I"):
+                    _satf_base = clean
+                elif len(clean) >= 2 and clean[-1] == clean[-2] and clean[-1] not in SLP1_VOWELS:
+                    _satf_base = clean
+                elif len(clean) >= 2 and clean[-2] == "n" and clean[-1] in ("c", "C", "j", "J"):
+                    _satf_base = clean[:-2] + "Y" + clean[-1]
+                elif len(clean) >= 2 and clean[-2] == "n" and clean[-1] in ("p", "P", "b", "B"):
+                    _satf_base = clean[:-2] + "m" + clean[-1]
             stem_at = _satf_base + "at"
             m = stem_at[:-1] + "n"  # Bavat -> Bavan
             f = _satf_base + "antI"  # BavantI / cuScutizantI
