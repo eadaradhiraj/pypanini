@@ -271,7 +271,8 @@ class KrdantaEngine:
             base_wo_i = clean[:-1]
             if clean.endswith("I"):
                 clean = base_wo_i
-            elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO":
+            elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J"):
+                # ... except velar/palatal-coda idit (agi~->agi not angi: Y-class takes Y-insertion instead of num)
                 with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
                 clean = with_n
         sew = meta["sew"]
@@ -349,6 +350,14 @@ class KrdantaEngine:
                     if _tail[:1] in ("r", "R"):
                         _rp = _tail[0]
                         _tail = _tail[1:]
+                    # i-final velar/palatal takes Y-insertion (agi->aYjigiz, uKi->uYciKiz, ACi->AYcicCiz: redup-P + root-C both surface)
+                    if is_vowel_final and c[-1:] in ("i", "I") and _tail and _tail[0] in ("k", "K", "g", "G", "c", "C", "j", "J"):
+                        _py = {"k": "c", "K": "c", "g": "j", "G": "j", "C": "c", "J": "j"}.get(_tail[0], _tail[0])
+                        _tb = _tail[:-1] if _tail[-1:] in SLP1_VOWELS else _tail
+                        if _tb:
+                            # aspirate C doubles in redup (ACi->AYcicCiz); others single (agi->aYjigiz)
+                            _mid = _py + "i" + (_py + _tb if _tail[0] == "C" else _tb)
+                            return c[0] + _rp + "Y" + _mid + "iz"
                     if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
                         _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_tail[0], _tail[0])
                         return c[0] + _rp + _pc + "i" + _tail + ("iz" if not is_vowel_final else "z")
