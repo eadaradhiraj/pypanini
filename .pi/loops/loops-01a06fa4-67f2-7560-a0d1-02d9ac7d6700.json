@@ -1,4 +1,19 @@
 {
-  "nextId": 15,
-  "loops": []
+  "nextId": 16,
+  "loops": [
+    {
+      "id": "15",
+      "prompt": "\"<quoted block from LOOP.md>\" --every 15m --max-fires 100",
+      "trigger": {
+        "type": "self-paced"
+      },
+      "status": "active",
+      "recurring": true,
+      "createdAt": 1788673199387,
+      "updatedAt": 1788673199389,
+      "expiresAt": 1789277999387,
+      "source": "command",
+      "fireCount": 1
+    }
+  ]
 }
