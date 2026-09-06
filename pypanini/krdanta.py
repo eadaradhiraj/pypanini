@@ -615,6 +615,9 @@ class KrdantaEngine:
                 return None
             # mUla & yanluganta use guNa (BU->BAvat, cross-match); sannanta/nijanta/yananta sec keeps sec (cuScutiz->cuScutizat)
             _satf_base = guna_base if (sanadi is None or sanadi == "yanluganta") else clean
+            # urv-coda lengthens instead of guna (turv/tUrv->tUrvan, consonant-initial shape; vowel-initial urv keeps guna)
+            if clean[-3:].lower() == "urv" and clean[:1] not in SLP1_VOWELS:
+                _satf_base = clean[:-3] + "Urv"
             stem_at = _satf_base + "at"
             m = stem_at[:-1] + "n"  # Bavat -> Bavan
             f = _satf_base + "antI"  # BavantI / cuScutizantI
