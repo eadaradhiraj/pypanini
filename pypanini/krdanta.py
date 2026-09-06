@@ -339,9 +339,9 @@ class KrdantaEngine:
                         return "urdidiz"
                     if c == "kurd":
                         return "cukUrdiz"
-                    # rv-coda takes vriddhi with no infix (urv->Orviz, arv->Arviz; urd keeps its didiz special above)
+                    # rv-coda reduplicates (urv->urviviz, arv->arviviz; urd keeps its didiz special above)
                     if c.endswith("rv"):
-                        return apply_vriddhi(c[0]) + c[1:] + "iz"
+                        return c[0] + "rvi" + "viz"
                     # voicing: voiceless second cons (t/p/k etc.) takes ti (atitiz), voiced takes di (aditiz->edidiz): general shape
                     _second = c[1] if len(c) > 1 else ""
                     _red = "ti" if _second in ("k", "K", "c", "C", "w", "W", "t", "T", "p", "P") else "di"

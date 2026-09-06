@@ -660,9 +660,9 @@ class TinantaDerivationEngine:
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:
-                # rv-coda takes vriddhi with no di-infix (urv->Orviz, arv->Arviz; urd keeps its didiz special above)
+                # rv-coda reduplicates (urv->urviviz, arv->arviviz; vriddhi Orviz/Arviz kept as alt below; urd keeps its didiz special above)
                 if c.endswith("rv"):
-                    return apply_vriddhi(c[0]) + c[1:] + "iz"
+                    return c[0] + "rvi" + "viz"
                 return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
             # find last vowel for redup vowel (u for mud)
             last_v = None
@@ -1323,6 +1323,11 @@ class TinantaDerivationEngine:
                         alt2 = altc[:2] + "di" + altc[2:] + ("iz" if not altc[-1] in SLP1_VOWELS else "z")
                         if alt2 not in [s_stem]+alt_sann:
                             alt_sann.append(alt2)
+            # vriddhi alt for vowel-initial rv-coda (Orviz/Arviz serve ASIrliN/luN slots; reduplicated stem above serves the rest)
+            if is_vowel_initial and clean.endswith("rv"):
+                _vrid_san = apply_vriddhi(clean[0]) + clean[1:] + "iz"
+                if _vrid_san not in [s_stem] + alt_sann:
+                    alt_sann.append(_vrid_san)
             guna_base = self._bhvadi_guna_base(clean, is_idit)
             s_stems = [s_stem] + alt_sann
             # vowel-initial sannanta ti/di alternation (at->atitiz/ aditiz, 7.4.??): generate both voiceless/voiced
