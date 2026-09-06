@@ -708,7 +708,7 @@ class TinantaDerivationEngine:
                 redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-            redup_vowel = "u" if last_v in ("u","U") else "i"
+            redup_vowel = "u" if last_v in ("u","U","o","O") else "i"
             suffix = "z" if is_vowel_final else "iz"
             return redup_cons + redup_vowel + c + suffix
         def _yan_stem(c):

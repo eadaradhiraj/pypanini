@@ -390,7 +390,7 @@ class KrdantaEngine:
                     redup_vowel = "i"  # si for svad
                     redup_cons = "s"
                 else:
-                    redup_vowel = "u" if last_v in ("u","U") else "i"
+                    redup_vowel = "u" if last_v in ("u","U","o","O") else "i"
                 # idit i-final velar/palatal takes assimilated num (sraki->sisraNkiz; meta skips num for Y-class)
                 _cn = c
                 _csuf = "z" if is_vowel_final else "iz"
