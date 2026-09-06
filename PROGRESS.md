@@ -1,12 +1,12 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-06T00:00:00Z
-Sweep: 531/1166 100%
+Sweep: 533/1166 100%
 
 ## Done
-- Pure generative sannanta kta-family always-iT in krdanta (`sisiDizitaH`; surveyed all san_krut kta tables — iT universal, zero exceptions; matches the code comment claiming sannanta is seT).
-- Re-sweep: `531/1166` held, 9 improved (+13 each), 0 worsened. Pilots OK.
+- Pure generative copy-map `W->w` (`UWa->UwiWiz`, `eWa` fixed; `D` untouched for pilot; aspirates otherwise identity for lack of data).
+- `01.0300` now 100%. Re-sweep: `532->533/1166`, 11 improved, 0 worsened (`san_krut -11`, `san -10`). Pilots OK. (Side note: `01.0651` silently hit 100% in an earlier batch.)
 
 ## Next
-1. Batch next (`01.0049`, krdanta idit-i roots, `01.0038` yat).
+1. Batch next (`01.0049` liw slot, `01.0391` krut/Satf, krdanta idit-i roots).
 2. Re-sweep, rebuild STATS, overwrite this, commit & push.

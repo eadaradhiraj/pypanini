@@ -689,7 +689,7 @@ class TinantaDerivationEngine:
                         _mid = _py + "i" + (_py + _tb if _tail[0] == "C" else _tb)
                         return c[0] + _rp + "Y" + _mid + "iz"
                 if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
-                    _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_tail[0], _tail[0])
+                    _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "W": "w"}.get(_tail[0], _tail[0])
                     return c[0] + _rp + _pc + "i" + _tail + ("iz" if not is_vowel_final else "z")
                 return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
             # find last vowel for redup vowel (u for mud)
@@ -754,7 +754,15 @@ class TinantaDerivationEngine:
                 redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-            return redup_cons + yan_vowel + c_eff + "ya"
+            # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->seziDya; za-roots like zala~ keep s)
+            _ybase = c_eff
+            try:
+                _op0 = (meta.get("op", "") or "").replace("~", "")
+                if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c_eff.startswith("s"):
+                    _ybase = "z" + c_eff[1:]
+            except Exception:
+                pass
+            return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
                 return None  # use map
@@ -790,7 +798,15 @@ class TinantaDerivationEngine:
                 redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-            return redup_cons + yan_vowel + c_eff  # without ya
+            # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (mirroring _yan_stem)
+            _ybase = c_eff
+            try:
+                _op0 = (meta.get("op", "") or "").replace("~", "")
+                if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c_eff.startswith("s"):
+                    _ybase = "z" + c_eff[1:]
+            except Exception:
+                pass
+            return redup_cons + yan_vowel + _ybase  # without ya
 
         # ---------- secondary / yak : generative per lakara (covers all 10 lakaras) ----------
         if clean in ("skund", "Svind") and sanadi == "yanluganta":

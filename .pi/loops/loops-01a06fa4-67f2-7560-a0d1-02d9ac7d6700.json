@@ -1,4 +1,21 @@
 {
-  "nextId": 16,
-  "loops": []
+  "nextId": 17,
+  "loops": [
+    {
+      "id": "16",
+      "prompt": "Work toward 1166/1166 100% for skt-morph-data/01 without hardcoding (pure shape/class only, no per-dhatu lists, no JSON import for generation). One batch of 5-10 dhatus at a time using shape (pada/sew/gana/vowel-initial/onset-coda/sanadi/prayoga). Each iteration: prove shape rules with dataset-wide token surveys (zero conflicts required), implement ONE narrow general rule, run pilots + targeted tests, then re-sweep tests/sweep_gana.py --all --workers 8 --out tests/sweep_all.csv, gate on fid-diff vs HEAD (commit+push on pass gain or fewer-misses with zero worsened; revert on any pass loss or worsened>0), rebuild tests/STATS.md from true sweep numbers, overwrite PROGRESS.md. Never run two sweeps concurrently. Current 531/1166 clean at main.",
+      "trigger": {
+        "type": "cron",
+        "schedule": "*/15 * * * *"
+      },
+      "status": "active",
+      "recurring": true,
+      "createdAt": 1788709935915,
+      "updatedAt": 1788710470795,
+      "expiresAt": 1789314735915,
+      "source": "tool",
+      "maxFires": 100,
+      "fireCount": 1
+    }
+  ]
 }

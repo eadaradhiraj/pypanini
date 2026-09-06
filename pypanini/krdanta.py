@@ -363,7 +363,7 @@ class KrdantaEngine:
                             _mid = _py + "i" + (_py + _tb if _tail[0] == "C" else _tb)
                             return c[0] + _rp + "Y" + _mid + "iz"
                     if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
-                        _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_tail[0], _tail[0])
+                        _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "W": "w"}.get(_tail[0], _tail[0])
                         return c[0] + _rp + _pc + "i" + _tail + ("iz" if not is_vowel_final else "z")
                     # voicing fallback for vowel-second stems (at->atitiz, aditiz->edidiz) and D-roots (eD pilot keeps ediDiz)
                     _second = c[1] if len(c) > 1 else ""
@@ -428,7 +428,15 @@ class KrdantaEngine:
                     redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-                return redup_cons + yan_vowel + c + "ya"
+                # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->seziDya, mirroring tinanta)
+                _ybase = c
+                try:
+                    _op0 = (meta.get("op", "") or "").replace("~", "")
+                    if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c.startswith("s"):
+                        _ybase = "z" + c[1:]
+                except Exception:
+                    pass
+                return redup_cons + yan_vowel + _ybase + "ya"
             if clean == "BU" and sanadi is not None:
                 # hardcoded BU sanadi forms (known 100% for BU)
                 if sanadi == "nijanta":
