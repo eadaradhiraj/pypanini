@@ -4,9 +4,9 @@ Date: 2026-09-06T00:00:00Z
 Sweep: 531/1166 100%
 
 ## Done
-- Pure generative sannanta redup-vowel `o/O->u` in both engines (`loka->lulokizati`; `e`-roots keep `i`; surveyed 20 o-roots, uniform).
-- 23 dhatus to 100% (loka-cluster). Re-sweep: `508->531/1166`, 23 improved, 0 worsened (`san_krut -161`, `san -110`). Pilots OK.
+- Pure generative sannanta devoiced-no-`iz` alt for Du/dx-finals, tinanta only (`vfDu->vivftsati` alongside `vivarDizati`; both variants coexist in data except `mfDu`; pure addition, scoring-safe).
+- Re-sweep: `531/1166` held, 3 improved (`0863/0864` +9, `1014` +90), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next (`01.0050` sizD-cluster, `01.0049`, krdanta idit-i roots).
+1. Batch next (krdanta ziDU `sizitsitaH` needs own analysis — meta `z→s` + satva interplay; `01.0049`; krdanta idit-i roots).
 2. Re-sweep, rebuild STATS, overwrite this, commit & push.

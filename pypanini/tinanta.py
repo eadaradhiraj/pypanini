@@ -1459,6 +1459,16 @@ class TinantaDerivationEngine:
                 _vrid_san = apply_vriddhi(clean[0]) + clean[1:] + "iz"
                 if _vrid_san not in [s_stem] + alt_sann:
                     alt_sann.append(_vrid_san)
+            # devoiced-no-iz alt for Du/dx-final (vfDu->vivftsati alongside vivarDizati; mfDu junk never matches)
+            if len(clean) >= 3 and clean.endswith(("Du", "DU", "dx", "Dx")):
+                try:
+                    _dsec = _sannanta_stem(clean[:-2] + "t")
+                    if _dsec.endswith("iz"):
+                        _dalt = _dsec[:-2] + "s"
+                        if _dalt not in [s_stem] + alt_sann:
+                            alt_sann.append(_dalt)
+                except Exception:
+                    pass
             # idit i-final velar/palatal num-variant (sraki->sisraNkiz; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 _nbw = clean[:-1]
