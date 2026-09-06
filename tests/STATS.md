@@ -3,16 +3,16 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-06T00:00:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **482/1166 100%**. Fails: 684. See tests/sweep_all.csv (grep).
+Passes: **489/1166 100%**. Fails: 677. See tests/sweep_all.csv (grep).
 
 ## Rules (general, pure generative)
-- Anubandha, redup 7.4.62, yan e/o, kta I~ (blocked unless r/R in stem: urvI~/turvI~-cluster takes iT -> tUrvita), Nic aorist, krdanta guna, Satf urv-coda lengthening (turv/tUrv->tUrvan, consonant-initial; krdanta pre-maps ur->Ur so gate is case-insensitive), liw Pit/Kit+e+final-cons, yak e+final, luN at/guNa, ASIrliN D/Q + urv-coda lengthening (turv->tUrvyAt, mUla parasmaipadi stem shape), yat vriddhi (kr-onset no-vriddhi krapya, kr+T blocks yat, ts/km/kz-onset blocks yat), yang_krut/yat palatal+Ay->Iy, Nic mit/GawAdi hrasva except kr+T + single-r allows vriddhi, liw satva blocked s+stop/final-k, liw periphrastic Am+AYcakre, liw i-redup, liw urv o/u-redup + length (turv->totUrva/tutUrvatuH), kta i-guna m+i+d, kta w-final w+ta->wwa, yat I~ except w-final, Natva `_natva_applies` (z-final always R; h-final R iff r/R; s/S-final never R; else R iff r/R + velar/labial/sonorant final; R-final blocked), loT ni->Ri (r/R + velar/labial/sonorant/h/z/S final, or z-final always; s-final always dental; R-final blocked), sannanta voicing ti/di, harness keeps "-" as token.
+- Anubandha, redup 7.4.62, yan e/o, kta I~ (blocked unless r/R in stem: urvI~/turvI~-cluster takes iT -> tUrvita), Nic aorist, krdanta guna, Satf urv-coda lengthening (turv/tUrv->tUrvan), liw Pit/Kit+e+final-cons + urv o/u-redup (turv->totUrva/tutUrvatuH), yak e+final, luN at/guNa + seT superset on Urv-base for urv-coda (turv->atUrvIt), ASIrliN D/Q + urv-coda lengthening (turv->tUrvyAt), yat vriddhi (kr-onset no-vriddhi krapya, kr+T blocks yat, ts/km/kz-onset blocks yat), yang_krut/yat palatal+Ay->Iy, Nic mit/GawAdi hrasva except kr+T + single-r allows vriddhi, liw satva blocked s+stop/final-k, liw periphrastic Am+AYcakre, liw i-redup, kta i-guna m+i+d, kta w-final w+ta->wwa, yat I~ except w-final, Natva `_natva_applies` (z-final always R; h-final R iff r/R; s/S-final never R; else R iff r/R + velar/labial/sonorant final; R-final blocked), loT ni->Ri (r/R + velar/labial/sonorant/h/z/S final, or z-final always; s-final always dental; R-final blocked), sannanta voicing ti/di, harness keeps "-" as token.
 
-## Fails (684)
+## Fails (677)
 | anta | n | example |
 |---|---|---|
 | krut | 3846 | 01.0690 krut/SAnac/M:BikzamARaH |
-| ting | 2690 | 01.0049 ting/liw/madhyama/eka:siziDsiDviTa |
+| ting | 2655 | 01.0049 ting/liw/madhyama/eka:siziDsiDviTa |
 | san_krut | 463 | 01.0038 san_krut/kta/M:aditizitaH |
 | yak | 285 | 01.0038 yak/liw/prathama/eka:atAYcakre |
 | yang_krut | 253 | 01.0048 yang_krut/kta/M:mAmanTitaH |

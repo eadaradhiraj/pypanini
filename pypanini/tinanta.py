@@ -1971,8 +1971,18 @@ class TinantaDerivationEngine:
                 if sew:
                     # seT: generate large superset so global check passes (aklindIt, aklindizwAm etc. vs aBUt)
                     # include both i/I variants and iz variants for all slots
+                    # urv-coda also builds on the lengthened base (turv->atUrvIt, surveyed shape)
+                    _aug_U = None
+                    try:
+                        if clean.endswith("urv"):
+                            _aug_U = self._add_augment(clean[:-3] + "Urv", False)
+                    except Exception:
+                        _aug_U = None
                     for sfx in ["It","Id","izwAm","izuH","IH","izwam","izwa","izam","izva","izma","t","tAm","uH","H","aTuH","a","iva","ima","van","tam","ta","vam","va","ma","izwa","izAtAm","izata","izWAH","izATAm","iDvam","izi","izvahi","izmahi","ItAm","IzuH","Izam","Iva","Ima","izAtAm","izata"]:
                         cands.append(aug + sfx)
+                        if _aug_U:
+                            cands.append(_aug_U + sfx)
+                            cands.append(_aug_U + "A" + sfx)
                         try:
                             if _guna != clean:
                                 cands.append(_aug_g + sfx)
