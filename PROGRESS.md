@@ -4,9 +4,9 @@ Date: 2026-09-06T00:00:00Z
 Sweep: 506/1166 100%
 
 ## Done
-- Pure generative sannanta Y-insertion for i-final velar/palatal (`agi->aYjigiz`, `ACi->AYcicCiz` with aspirate-`C` doubling; num skipped for Y-class idit in both engines; `D`-exclusion + pilots verified first).
-- 11 dhatus resurrected from 0 (~210 each: `0092/0115/0137/0149/0151/0155/0163/0201/0237/0243/1000`). Re-sweep: `506/1166` held, 11 improved, 0 worsened. Pilots OK.
+- Pure generative mUla assimilated-num bases in `_prim_bases` (idit i-final velar->N, palatal->Y: `agi~->aNgati`, `uCi~->uYCati`; pure addition, all existing bases kept; meta-num skip for Y-class retained so sannanta keeps Y).
+- Re-sweep: `506/1166` held, 70 improved (dozens resurrected from 0, e.g. `01.0873 6->123`), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next (Y-class mUla remainders, `~r` num-roots, `01.0038`, `01.0049`).
+1. Batch next (newly-resurrected partials `01.0088-0102` etc., `01.0038`, `01.0049`).
 2. Re-sweep, rebuild STATS, overwrite this, commit & push.

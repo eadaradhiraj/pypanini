@@ -373,6 +373,18 @@ class TinantaDerivationEngine:
             alt_or = clean.replace("ur", "or", 1)
             if alt_or not in bases:
                 bases.append(alt_or)
+        # idit i-final velar/palatal takes assimilated num in mUla (agi~->aNgati, uCi~->uYCati)
+        if is_idit and clean.endswith(("i", "I")):
+            _bw = clean[:-1]
+            _nc = None
+            if _bw and _bw[-1] in ("k", "K", "g", "G"):
+                _nc = "N"
+            elif _bw and _bw[-1] in ("c", "C", "j", "J"):
+                _nc = "Y"
+            if _nc:
+                _nb = _bw[:-1] + _nc + _bw[-1] if len(_bw) >= 1 else _bw + _nc
+                if _nb not in bases:
+                    bases.append(_nb)
         seen=set(); out=[]
         for b in bases:
             if b not in seen:
