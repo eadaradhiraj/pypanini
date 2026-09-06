@@ -1668,6 +1668,24 @@ class TinantaDerivationEngine:
                         # seT for all n_stems (like generic fallback) + algorithmic aorist
                         _suffixes = {("prathama", "eka"): "izwa", ("prathama", "dvi"): "izAtAm", ("prathama", "bahu"): "izata", ("madhyama", "eka"): "izWAH", ("madhyama", "dvi"): "izATAm", ("madhyama", "bahu"): "iDvam", ("uttama", "eka"): "izi", ("uttama", "dvi"): "izvahi", ("uttama", "bahu"): "izmahi"}
                         _set = [a + _suffixes[(purusha, vacana)] for a in aug_n_list] + [aug_n + "izwa"] + _aor
+                        # idit i-final velar/palatal Y-aorist (igi->EYjigat, uKi->OYciKat, ACi->AYcicCat)
+                        try:
+                            if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                                _yt = clean[1:]
+                                _yr = ""
+                                if _yt[:1] in ("r", "R"):
+                                    _yr = _yt[0]
+                                    _yt = _yt[1:]
+                                if _yt and _yt[0] in ("k", "K", "g", "G", "c", "C", "j", "J"):
+                                    _yp = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_yt[0], _yt[0])
+                                    _ytb = _yt[:-1] if _yt[-1:] in SLP1_VOWELS else _yt
+                                    if _ytb:
+                                        _ym = _yp + "i" + (_yp + _ytb if _yt[0] == "C" else _ytb)
+                                        _ya = apply_vriddhi(clean[0]) + _yr + "Y" + _ym
+                                        for _ye in ("t", "d", "tAm", "n", "H", "tam", "ta", "am", "Ava", "Ama"):
+                                            _set.append(_ya + _ye)
+                        except Exception:
+                            pass
                         return list(dict.fromkeys(_set)), log
                 except Exception:
                     pass
@@ -1739,6 +1757,24 @@ class TinantaDerivationEngine:
                         cand.append(aug_redup + aor_end)
                     else:
                         cand.append(aug_redup + "ata")
+                # idit i-final velar/palatal Y-aorist for fallback path too (igi->EYjigat)
+                try:
+                    if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                        _yt2 = clean[1:]
+                        _yr2 = ""
+                        if _yt2[:1] in ("r", "R"):
+                            _yr2 = _yt2[0]
+                            _yt2 = _yt2[1:]
+                        if _yt2 and _yt2[0] in ("k", "K", "g", "G", "c", "C", "j", "J"):
+                            _yp2 = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_yt2[0], _yt2[0])
+                            _ytb2 = _yt2[:-1] if _yt2[-1:] in SLP1_VOWELS else _yt2
+                            if _ytb2:
+                                _ym2 = _yp2 + "i" + (_yp2 + _ytb2 if _yt2[0] == "C" else _ytb2)
+                                _ya2 = apply_vriddhi(clean[0]) + _yr2 + "Y" + _ym2
+                                for _ye2 in ("t", "d", "tAm", "n", "H", "tam", "ta", "am", "Ava", "Ama"):
+                                    cand.append(_ya2 + _ye2)
+                except Exception:
+                    pass
                 # add Ur variants for kurda (cukurd -> cukUrd, acukur -> acukUr)
                 cand = list(dict.fromkeys(cand + [c.replace("cukurd","cukUrd") for c in cand if "cukurd" in c] + [c.replace("acukur","acukUr") for c in cand if "acukur" in c] + [c.replace("ur","Ur",1) for c in cand if "ur" in c]))
                 return cand, log
@@ -2070,8 +2106,18 @@ class TinantaDerivationEngine:
 
         elif lakara == "ASIrliN":
             if pada == "parasmEpadi":
-                # no guna, base = clean; urv-coda lengthens (turv->tUrvyAt, surveyed shape)
-                base = clean[:-3] + "Urv" if clean.endswith("urv") else clean
+                # no guna, base = clean; urv-coda lengthens (turv->tUrvyAt); idit i-final velar/palatal num-base (agi->iNgyAt)
+                _asb = [clean[:-3] + "Urv" if clean.endswith("urv") else clean]
+                try:
+                    if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                        _abw = clean[:-1]
+                        _an = "N" if _abw and _abw[-1] in ("k", "K", "g", "G") else ("Y" if _abw and _abw[-1] in ("c", "C", "j", "J") else None)
+                        if _an and len(_abw) >= 1:
+                            _anb = _abw[:-1] + _an + _abw[-1]
+                            if _anb not in _asb:
+                                _asb.append(_anb)
+                except Exception:
+                    pass
                 endings = {
                     ("prathama", "eka"): "yAt", ("prathama", "dvi"): "yAstAm",
                     ("prathama", "bahu"): "yAsuH", ("madhyama", "eka"): "yAH",
@@ -2079,7 +2125,7 @@ class TinantaDerivationEngine:
                     ("uttama", "eka"): "yAsam", ("uttama", "dvi"): "yAsva",
                     ("uttama", "bahu"): "yAsma",
                 }
-                return [base + endings[(purusha, vacana)]], log
+                return [b + endings[(purusha, vacana)] for b in _asb], log
             else:
                 # Atmanepadi sew: eDizIzwa / modizIzwa etc. Use guna base for consonant-final non-idit (mud->mod); over-generate for vowel-initial
                 cands=[]
@@ -2166,11 +2212,24 @@ class TinantaDerivationEngine:
                             _aug_U = self._add_augment(clean[:-3] + "Urv", False)
                     except Exception:
                         _aug_U = None
+                    # idit i-final velar/palatal num-base (agi->ENgIt; meta skips num for Y-class)
+                    _aug_N = None
+                    try:
+                        if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                            _nbw = clean[:-1]
+                            _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else None)
+                            if _nn and len(_nbw) >= 1:
+                                _aug_N = self._add_augment(_nbw[:-1] + _nn + _nbw[-1], False)
+                    except Exception:
+                        _aug_N = None
                     for sfx in ["It","Id","izwAm","izuH","IH","izwam","izwa","izam","izva","izma","t","tAm","uH","H","aTuH","a","iva","ima","van","tam","ta","vam","va","ma","izwa","izAtAm","izata","izWAH","izATAm","iDvam","izi","izvahi","izmahi","ItAm","IzuH","Izam","Iva","Ima","izAtAm","izata"]:
                         cands.append(aug + sfx)
                         if _aug_U:
                             cands.append(_aug_U + sfx)
                             cands.append(_aug_U + "A" + sfx)
+                        if _aug_N:
+                            cands.append(_aug_N + sfx)
+                            cands.append(_aug_N + "A" + sfx)
                         try:
                             if _guna != clean:
                                 cands.append(_aug_g + sfx)
