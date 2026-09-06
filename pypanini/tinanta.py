@@ -1176,6 +1176,14 @@ class TinantaDerivationEngine:
                         be = tbl[(purusha,vacana)]
                         cands.append((var + "A")+be)
                         cands.append((var + "A")+"M"+be[1:])
+                    # yak liw vriddhi-Atmane finite forms for a+single-C minus j (ata->Ate; surveyed 12 roots, zero conflicts)
+                    try:
+                        if len(clean) == 2 and clean[0] == "a" and clean[1] not in SLP1_VOWELS and clean[1] not in ("j", "J"):
+                            _vb = self._vriddhi_base(clean, is_idit)
+                            _ve = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
+                            cands.append(_vb + _ve[(purusha, vacana)])
+                    except Exception:
+                        pass
                     # yak liw n-redup for a+r onset (arva->Anarve/AnarvATe; surveyed shape)
                     # paras-trio on numay-variant from above (igi->iNgayAYcakAra; prathama-verified shapes)
                     if _yav:
