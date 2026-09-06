@@ -373,7 +373,8 @@ class TinantaDerivationEngine:
             alt_or = clean.replace("ur", "or", 1)
             if alt_or not in bases:
                 bases.append(alt_or)
-        # idit i-final velar/palatal takes assimilated num in mUla (agi~->aNgati, uCi~->uYCati)
+        # idit i-final velar/palatal/retroflex/labial takes assimilated num in mUla
+        # (agi~->aNgati, uCi~->uYCati, luWi~->luRWati, raPi~->ramPati; meta nums dental-n, corrected here)
         if is_idit and clean.endswith(("i", "I")):
             _bw = clean[:-1]
             _nc = None
@@ -381,10 +382,24 @@ class TinantaDerivationEngine:
                 _nc = "N"
             elif _bw and _bw[-1] in ("c", "C", "j", "J"):
                 _nc = "Y"
+            elif _bw and _bw[-1] in ("w", "W", "q", "Q", "R"):
+                _nc = "R"
+            elif _bw and _bw[-1] in ("p", "P", "b", "B"):
+                _nc = "m"
             if _nc:
                 _nb = _bw[:-1] + _nc + _bw[-1] if len(_bw) >= 1 else _bw + _nc
                 if _nb not in bases:
                     bases.append(_nb)
+        # idit meta-mangled dental-num corrected to assimilated (lunW->luRW, anbi->ambi)
+        if is_idit and clean and clean[-1] not in SLP1_VOWELS and len(clean) >= 2 and clean[-2] == "n":
+            if clean[-1] in ("w", "W", "q", "Q", "R"):
+                _cb = clean[:-2] + "R" + clean[-1]
+            elif clean[-1] in ("p", "P", "b", "B"):
+                _cb = clean[:-2] + "m" + clean[-1]
+            else:
+                _cb = None
+            if _cb and _cb not in bases:
+                bases.append(_cb)
         seen=set(); out=[]
         for b in bases:
             if b not in seen:

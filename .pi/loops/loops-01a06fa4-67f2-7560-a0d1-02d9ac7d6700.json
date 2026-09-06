@@ -11,11 +11,11 @@
       "status": "active",
       "recurring": true,
       "createdAt": 1788709935915,
-      "updatedAt": 1788712270804,
+      "updatedAt": 1788713170802,
       "expiresAt": 1789314735915,
       "source": "tool",
       "maxFires": 100,
-      "fireCount": 3
+      "fireCount": 4
     }
   ]
 }
