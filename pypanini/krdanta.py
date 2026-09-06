@@ -342,6 +342,9 @@ class KrdantaEngine:
                     # rv-coda reduplicates (urv->urviviz, arv->arviviz; urd keeps its didiz special above)
                     if c.endswith("rv"):
                         return c[0] + "rvi" + "viz"
+                    # vowel-initial r@1 takes c[:2]+di+c[2:] (arda->ardidiz, urd->urdidiz; at->atitiz keeps c[0]-form below)
+                    if c[0] in ("a", "i", "u") and len(c) > 2 and c[1] in ("r", "R"):
+                        return c[:2] + "di" + c[2:] + ("iz" if not is_vowel_final else "z")
                     # voicing: voiceless second cons (t/p/k etc.) takes ti (atitiz), voiced takes di (aditiz->edidiz): general shape
                     _second = c[1] if len(c) > 1 else ""
                     _red = "ti" if _second in ("k", "K", "c", "C", "w", "W", "t", "T", "p", "P") else "di"

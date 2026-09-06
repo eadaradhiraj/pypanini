@@ -3,21 +3,20 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-06T00:00:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **490/1166 100%**. Fails: 676. See tests/sweep_all.csv (grep).
+Passes: **491/1166 100%**. Fails: 675. See tests/sweep_all.csv (grep).
 
 ## Rules (general, pure generative)
-- Anubandha, redup 7.4.62, yan e/o, kta I~ (blocked unless r/R in stem: urvI~/turvI~-cluster takes iT -> tUrvita), Nic aorist, krdanta guna, Satf urv-coda lengthening (turv/tUrv->tUrvan), liw Pit/Kit+e+final-cons + urv o/u-redup (turv->totUrva/tutUrvatuH) + a+r n-redup (arda->Anarda, mUla + yak vowel-initial branches), yak e+final, yak-ASIrliN sannanta alt stems (ardidiz alongside adirdiz, mirroring luN), luN at/guNa + seT superset on Urv-base for urv-coda (turv->atUrvIt), ASIrliN D/Q + urv-coda lengthening (turv->tUrvyAt), yat vriddhi (kr-onset no-vriddhi krapya, kr+T blocks yat, ts/km/kz-onset blocks yat), yang_krut/yat palatal+Ay->Iy, Nic mit/GawAdi hrasva except kr+T + single-r allows vriddhi, liw satva blocked s+stop/final-k, liw periphrastic Am+AYcakre, liw i-redup, kta i-guna m+i+d, kta w-final w+ta->wwa, yat I~ except w-final, Natva `_natva_applies` (z-final always R; h-final R iff r/R; s/S-final never R; else R iff r/R + velar/labial/sonorant final; R-final blocked), loT ni->Ri (r/R + velar/labial/sonorant/h/z/S final, or z-final always; s-final always dental; R-final blocked), sannanta voicing ti/di, sannanta rv-coda reduplicated stem (urv->urviviz primary, Orviz/Arviz vriddhi alt), harness keeps "-" as token.
+- Anubandha, redup 7.4.62, yan e/o, kta I~ (blocked unless r/R in stem: urvI~/turvI~-cluster takes iT -> tUrvita), Nic aorist, krdanta guna, Satf urv-coda lengthening (turv/tUrv->tUrvan), liw Pit/Kit+e+final-cons + urv o/u-redup (turv->totUrva/tutUrvatuH) + a+r n-redup (arda->Anarda, mUla + yak vowel-initial branches), yak e+final, yak-ASIrliN sannanta alt stems, luN at/guNa + seT superset on Urv-base for urv-coda (turv->atUrvIt), ASIrliN D/Q + urv-coda lengthening (turv->tUrvyAt), yat vriddhi (kr-onset no-vriddhi krapya, kr+T blocks yat, ts/km/kz-onset blocks yat), yang_krut/yat palatal+Ay->Iy, Nic mit/GawAdi hrasva except kr+T + single-r allows vriddhi, liw satva blocked s+stop/final-k, liw periphrastic Am+AYcakre, liw i-redup, kta i-guna m+i+d, kta w-final w+ta->wwa, yat I~ except w-final, Natva `_natva_applies` (z-final always R; h-final R iff r/R; s/S-final never R; else R iff r/R + velar/labial/sonorant final; R-final blocked), loT ni->Ri (r/R + velar/labial/sonorant/h/z/S final, or z-final always; s-final always dental; R-final blocked), sannanta voicing ti/di + vowel-initial r@1 c[:2]+di stem (arda->ardidiz; at->atitiz keeps c[0]-form; urd/rv specials first), sannanta rv-coda reduplicated stem (urv->urviviz primary, Orviz/Arviz vriddhi alt), harness keeps "-" as token.
 
-## Fails (676)
+## Fails (675)
 | anta | n | example |
 |---|---|---|
 | krut | 3846 | 01.0690 krut/SAnac/M:BikzamARaH |
 | ting | 2620 | 01.0049 ting/liw/madhyama/eka:siziDsiDviTa |
-| san_krut | 466 | 01.0038 san_krut/kta/M:aditizitaH |
+| san_krut | 454 | 01.0038 san_krut/kta/M:aditizitaH |
 | yak | 285 | 01.0038 yak/liw/prathama/eka:atAYcakre |
 | yang_krut | 253 | 01.0048 yang_krut/kta/M:mAmanTitaH |
 | san | 247 | 01.0080 san/lw/prathama/eka:lilokizate |
-| san_yak | 5 | 01.0057 san_yak/ASIrliN/prathama/eka:adirdizizIzwa |
 | yang | 198 | 01.0048 yang/lw/prathama/eka:mAmanwIti |
 | nich_krut | 47 | 01.0050 nich_krut/kta/M:seDayitaH |
 | nich | 15 | 01.0559 nich/lw/prathama/eka:kzmAyayati |
