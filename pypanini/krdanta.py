@@ -816,7 +816,7 @@ class KrdantaEngine:
                 _ybw = clean[:-1]
                 _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else ("R" if _ybw and _ybw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ybw and _ybw[-1] in ("p", "P", "b", "B") else None)))
                 if _yn and len(_ybw) >= 1:
-                    _ys = apply_vriddhi(clean[0]) + _ybw[:-1] + _yn + _ybw[-1]
+                    _ys = apply_vriddhi(clean[0]) + _ybw[1:-1] + _yn + _ybw[-1]
                     return {"M": _ys + "ayaH", "F": _ys + "ayA", "N": _ys + "ayam"}
             _op = meta.get("op", "")
             if clean in ["dad", "svad"]:
