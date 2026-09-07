@@ -283,8 +283,36 @@ class TinantaDerivationEngine:
         """
         endings = {("prathama", "eka"): "ata", ("prathama", "dvi"): "etAm", ("prathama", "bahu"): "anta", ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "etAm", ("madhyama", "bahu"): "aDvam", ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi"}
         ending = endings.get((purusha, vacana))
-        if not ending or not clean or clean[0] in SLP1_VOWELS:
+        if not ending or not clean:
             return []
+        if clean[0] in SLP1_VOWELS:
+            # vowel-initial reduplicated aorist for a-initial roots (aRwiwata/ambibata/Acikata/Atitata:
+            # surveyed every a-initial nich fid, suppletive aja sole exception; augment-A + [num] + Ci + stem)
+            if clean[0] != "a" or len(clean) < 2:
+                return []
+            _stem = clean[1:]
+            if _stem[-1:] in ("u", "U"):
+                _stem = _stem[:-1]
+            if not _stem or _stem[0] in SLP1_VOWELS:
+                return []
+            _NUM = {"k": "Y", "K": "Y", "g": "Y", "G": "Y", "c": "Y", "C": "Y", "j": "Y", "J": "Y", "h": "Y", "w": "R", "W": "R", "b": "m", "B": "m", "d": "n", "D": "n", "t": "n"}
+            _res = []
+            # nc-variant with n-lopa + Y-num (ancu->AYcicata shape)
+            if _stem[0] == "n" and len(_stem) > 1 and _stem[1] not in SLP1_VOWELS and _stem[1] != "n":
+                _cc0 = _stem[1:]
+                _rc0 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc0[0], _cc0[0]), DEASPIRATE.get(_cc0[0], _cc0[0]))
+                _res.append("A" + "Y" + _rc0 + "i" + _cc0 + ending)
+            _core = _stem[:-1] if _stem[-1:] in ("i", "I") else _stem
+            if _core:
+                if _core[0] == "r" and len(_core) > 1:
+                    _rp, _cc2 = "r", _core[1:]
+                else:
+                    _rp, _cc2 = "", _core
+                if _cc2 and _cc2[0] not in SLP1_VOWELS:
+                    _num = _NUM.get(_cc2[0], "") if _stem[-1:] in ("i", "I") else ""
+                    _rc2 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc2[0], _cc2[0]), DEASPIRATE.get(_cc2[0], _cc2[0]))
+                    _res.append("A" + _rp + _num + _rc2 + "i" + _cc2 + ending)
+            return _res
         bases: set = set()
         bases.add(clean)
         short_map = {"A": "a", "I": "i", "U": "u"}
@@ -1762,6 +1790,9 @@ class TinantaDerivationEngine:
             if lakara == "luN":
                 # algorithmic Nijanta reduplicated aorist (no per-dhatu tables):
                 # covers svAd/hlAd/hrAd/yat/yut/sUd etc. via redup+base+ending
+                # _early collects the algorithmic-aorist branch; merged with fallback at the end
+                # (never early-return: that dropped fallback-only hits).
+                _early = []
                 try:
                     _aor = self._nijanta_aorist(clean, is_idit, purusha, vacana)
                     if _aor:
@@ -1786,11 +1817,13 @@ class TinantaDerivationEngine:
                                             _set.append(_ya + _ye)
                         except Exception:
                             pass
-                        return list(dict.fromkeys(_set)), log
+                        _early = list(dict.fromkeys(_set))
                 except Exception:
                     pass
                 # generic fallback (vowel-initial + seT + old redup for safety)
                 # algorithmic aorist above already covers dad/skund/daD/BU; keep fallback for safety
+                # NOTE: _early (from _aor branch) merges with fallback below — early-returning here
+                # previously lost fallback-only hits (01.0063/01.0064/01.0262), so always fall through.
                 aug_n2 = _aug(n_stem if not n_stem.endswith("ay") else n_stem[:-2])
                 redup_aor = "abIBav"  # placeholder for generic below
                 cands = []
@@ -1877,7 +1910,7 @@ class TinantaDerivationEngine:
                     pass
                 # add Ur variants for kurda (cukurd -> cukUrd, acukur -> acukUr)
                 cand = list(dict.fromkeys(cand + [c.replace("cukurd","cukUrd") for c in cand if "cukurd" in c] + [c.replace("acukur","acukUr") for c in cand if "acukur" in c] + [c.replace("ur","Ur",1) for c in cand if "ur" in c]))
-                return cand, log
+                return list(dict.fromkeys(_early + cand)), log
             if is_atman:
                 return self._conjugate_at_stem_atmane(n_stem, lakara, purusha, vacana), log
             else:
