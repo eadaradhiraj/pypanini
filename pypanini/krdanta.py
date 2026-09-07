@@ -688,6 +688,12 @@ class KrdantaEngine:
             # urv-coda lengthens instead of guna (turv/tUrv->tUrvan, consonant-initial shape; vowel-initial urv keeps guna)
             if clean[-3:].lower() == "urv" and clean[:1] not in SLP1_VOWELS:
                 _satf_base = clean[:-3] + "Urv"
+            # idit i-final num-clean for Satf too (agi->aNgan; meta skips num for Y-class)
+            if (sanadi is None or sanadi == "yanluganta") and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _qbw = clean[:-1]
+                _qn = "N" if _qbw and _qbw[-1] in ("k", "K", "g", "G") else ("Y" if _qbw and _qbw[-1] in ("c", "C", "j", "J") else ("R" if _qbw and _qbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _qbw and _qbw[-1] in ("p", "P", "b", "B") else None)))
+                if _qn and len(_qbw) >= 1:
+                    _satf_base = _qbw[:-1] + _qn + _qbw[-1]
             # surveyed Satf stems (mUla/yanluganta, consonant-final only so BU stays guna):
             # long-U/I keeps stem (UWa->UWat), geminate-CC keeps stem (bukka->bukkat),
             # NC assimilates palatal/labial (kunca->kuYcat, tunpa->tumpat); short-u/i single-C keeps guna below
@@ -819,6 +825,13 @@ class KrdantaEngine:
             return tri_linga(stem)
 
         elif pratyaya == "Rvul":
+            # idit i-final num-clean (agi->aNgakaH; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _rbw = clean[:-1]
+                _rn = "N" if _rbw and _rbw[-1] in ("k", "K", "g", "G") else ("Y" if _rbw and _rbw[-1] in ("c", "C", "j", "J") else ("R" if _rbw and _rbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _rbw and _rbw[-1] in ("p", "P", "b", "B") else None)))
+                if _rn and len(_rbw) >= 1:
+                    _rst = _rbw[:-1] + _rn + _rbw[-1] + "aka"
+                    return {"M": _rst + "H", "F": _rst[:-3] + "ikA" if _rst.endswith("aka") else _rst + "ikA", "N": _rst + "m"}
             if clean in ["eD"]:
                 stem = clean + "aka"
             elif is_idit:
@@ -878,6 +891,12 @@ class KrdantaEngine:
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
+            # idit i-final num-clean (agi->aNgaH; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _gbw = clean[:-1]
+                _gn = "N" if _gbw and _gbw[-1] in ("k", "K", "g", "G") else ("Y" if _gbw and _gbw[-1] in ("c", "C", "j", "J") else ("R" if _gbw and _gbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _gbw and _gbw[-1] in ("p", "P", "b", "B") else None)))
+                if _gn and len(_gbw) >= 1:
+                    return {"gender": "Masculine", "form": _gbw[:-1] + _gn + _gbw[-1] + "aH"}
             # Handle vowel-initial without guna (Urd -> Urda) and internal Ur
             if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean:
                 stem = clean + "a"
@@ -905,6 +924,12 @@ class KrdantaEngine:
             return {"gender": "Masculine", "form": stem + "H"}
 
         elif pratyaya == "tumun":
+            # idit i-final num-clean (agi->aNgitum; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _tbw = clean[:-1]
+                _tn = "N" if _tbw and _tbw[-1] in ("k", "K", "g", "G") else ("Y" if _tbw and _tbw[-1] in ("c", "C", "j", "J") else ("R" if _tbw and _tbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _tbw and _tbw[-1] in ("p", "P", "b", "B") else None)))
+                if _tn and len(_tbw) >= 1:
+                    return {"avyaya": [_tbw[:-1] + _tn + _tbw[-1] + "itum"]}
             if sanadi == "sannanta":
                 stem = clean + "i" + "tum"
                 return {"avyaya": [stem]}
@@ -913,6 +938,12 @@ class KrdantaEngine:
             return {"avyaya": [stem]}
 
         elif pratyaya == "ktvA":
+            # idit i-final num-clean (agi->aNgitvA; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _kbw = clean[:-1]
+                _kn = "N" if _kbw and _kbw[-1] in ("k", "K", "g", "G") else ("Y" if _kbw and _kbw[-1] in ("c", "C", "j", "J") else ("R" if _kbw and _kbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _kbw and _kbw[-1] in ("p", "P", "b", "B") else None)))
+                if _kn and len(_kbw) >= 1:
+                    return {"avyaya": [_kbw[:-1] + _kn + _kbw[-1] + "itvA"]}
             if needs_i_for_kta():
                 stem = clean + "i" + "tvA"
             else:
@@ -920,6 +951,13 @@ class KrdantaEngine:
             return {"avyaya": [stem]}
 
         elif pratyaya == "lyap":
+            # idit i-final num-clean (agi->aNgya; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _lbw = clean[:-1]
+                _ln = "N" if _lbw and _lbw[-1] in ("k", "K", "g", "G") else ("Y" if _lbw and _lbw[-1] in ("c", "C", "j", "J") else ("R" if _lbw and _lbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _lbw and _lbw[-1] in ("p", "P", "b", "B") else None)))
+                if _ln and len(_lbw) >= 1:
+                    _ly = _lbw[:-1] + _ln + _lbw[-1]
+                    return {"avyaya": ["pra" + _ly + "ya", _ly + "ya"]}
             # for vowel-initial Urd, dataset expects prordya (guna) not prUrdya
             eff = clean
             if clean and clean[0] in SLP1_VOWELS:
