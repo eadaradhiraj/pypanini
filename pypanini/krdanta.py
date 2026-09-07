@@ -626,6 +626,12 @@ class KrdantaEngine:
                         # m-final with pre-m-a: anusvara-M (riraMsamAnaH; smf/junk-safe via pre-m-a)
                         if _mpre_a and _sbb3.endswith("m"):
                             _sbb3 = _sbb3[:-1] + "M"
+                        # B-final short-a/e: C0+i+voiceless (raB->rip; zmiN/guN R-keepers excluded by vowel)
+                        if _oc[-1:] == "B" and _olv in ("a", "e") and _oc[:1] not in SLP1_VOWELS:
+                            _sbb3 = _oc[:1] + "ip"
+                        # d-final: devoice coda, keep rest (had->jihatsamAnaH)
+                        elif _oc[-1:] == "d" and _sbb3.endswith("d"):
+                            _sbb3 = _sbb3[:-1] + "t"
                         # N-final D-reductions: short-eN -> C0+it (meN->mit); E/AN -> A (gAN->jigA, SyEN->SiSyA)
                         if _oc[-1:] == "N" and _olv == "e" and _oc[:1] not in SLP1_VOWELS:
                             _sbb3 = _oc[:1] + "it"
