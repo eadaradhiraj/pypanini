@@ -743,6 +743,14 @@ class KrdantaEngine:
                 _sbb = clean[:-2] if clean.endswith("iz") else (clean[:-1] if clean.endswith("z") else clean)
                 _satf_base = _sbb + ("s" if _sbb[-1:] == "p" else "z")
                 stem_at = _satf_base + "at"
+            # sannanta U+p opAy-base (jugopAyizat; op-U + clean-p; vew/sew-proof)
+            if sanadi == "sannanta" and "U" in (meta.get("op", "") or "") and orig_clean[-1:] == "p":
+                _sbb2 = clean[:-2] if clean.endswith("iz") else (clean[:-1] if clean.endswith("z") else clean)
+                _iu = _sbb2.rfind("u")
+                if _iu >= 2:
+                    _sbb2 = _sbb2[:_iu] + "o" + _sbb2[_iu + 1:]
+                _satf_base = _sbb2 + "Ayiz"
+                stem_at = _satf_base + "at"
             m = stem_at[:-1] + "n"  # Bavat -> Bavan
             f = _satf_base + "antI"  # BavantI / cuScutizantI
             n = stem_at  # Bavat
