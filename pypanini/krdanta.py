@@ -976,6 +976,16 @@ class KrdantaEngine:
                 if v not in variants:
                     variants.append(v)
             pref_m = pref_sam.replace("M", "m")
+            # a-initial consonant-final takes vriddhi base too (ata->prAtya; surveyed: only a-initial has lyap tables)
+            try:
+                if clean[:1] == "a" and clean[-1:] not in SLP1_VOWELS:
+                    _vr = self._vriddhi_base(clean, is_idit)
+                    if _vr and _vr != clean and _vr != eff:
+                        variants.append("pra" + _vr + "ya")
+                        variants.append(_vr + "ya")
+                        variants.append(upasarga + _vr + "ya")
+            except Exception:
+                pass
             return {"avyaya": [pref_pra, pref_m, bare] + variants}
 
         return None
