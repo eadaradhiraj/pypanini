@@ -287,7 +287,10 @@ class KrdantaEngine:
                 clean = base_wo_i
             elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "R", "p", "P", "b", "B"):
                 # ... except velar/palatal/retroflex/labial-coda idit (agi~->agi not angi: formations assimilate per-formation instead)
-                with_n = base_wo_i[:-1] + "n" + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + "n"
+                # v-final idit with r/f onset takes R-num at source so the whole krdanta family inherits
+                # (rivi->riRvitaH/riRvan/riRvyamARaH; surveyed: only rivi/ravi/kfvi match this shape)
+                _nn2 = "R" if (is_idit and base_wo_i[-1:] == "v" and ("r" in clean or "f" in clean)) else "n"
+                with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
                 clean = with_n
         sew = meta["sew"]
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
