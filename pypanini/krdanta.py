@@ -99,11 +99,12 @@ class KrdantaEngine:
                         else:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
+                        sew_raw = info.get("iqAgamayogyatA", "sew").lower().strip()
                         is_idit = (("i~" in op) or (op.endswith("~") and raw.endswith("i"))) and not no_num_r and ("I~" not in op)
                         antara = info.get("antargaRaH", "")
                         _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
                         is_mit = (antara == "GawAdiH") or ("mit" in _mit_txt)
-                        entry = {"clean": clean, "pada": pada, "sew": sew, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit}
+                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit}
                         self._cache[clean] = entry
                         self._cache[op] = entry
                         self._cache[op.replace("~","").replace("`","").strip()] = entry
@@ -737,6 +738,11 @@ class KrdantaEngine:
                 elif len(clean) >= 2 and clean[-2] == "n" and clean[-1] in ("p", "P", "b", "B"):
                     _satf_base = clean[:-2] + "m" + clean[-1]
             stem_at = _satf_base + "at"
+            # sannanta aniT cons-final (not Y): desiderative-s base, no iz (titapsat; SrA/BfY vowel/Y-final keeps iz)
+            if sanadi == "sannanta" and str(meta.get("sew_raw", "sew")).startswith("ani") and orig_clean and (orig_clean[-1] not in SLP1_VOWELS) and orig_clean[-1:] != "Y":
+                _sbb = clean[:-2] if clean.endswith("iz") else (clean[:-1] if clean.endswith("z") else clean)
+                _satf_base = _sbb + ("s" if _sbb[-1:] == "p" else "z")
+                stem_at = _satf_base + "at"
             m = stem_at[:-1] + "n"  # Bavat -> Bavan
             f = _satf_base + "antI"  # BavantI / cuScutizantI
             n = stem_at  # Bavat

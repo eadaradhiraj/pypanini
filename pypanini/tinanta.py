@@ -94,13 +94,14 @@ class TinantaDerivationEngine:
                         else:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
+                        sew_raw = info.get("iqAgamayogyatA", "sew").lower().strip()
                         gana = info.get("gaRaH", "BvAdiH")
                         # idit=num only for lowercase i~ (klidi~->klind, blocks guNa); I~ strips without num, allows guNa (citI~->cit->cet)
                         is_idit = ("i~" in op) and not no_num_r
                         # also fallback: if clean endswith i and op endswith ~ and raw endswith i
                         if not is_idit and not no_num_r and ("I~" not in op) and op.endswith("~") and raw.endswith("i"):
                             is_idit = True
-                        entry = {"clean": clean, "pada": pada, "sew": sew, "gana": gana, "is_idit": is_idit, "op": op}
+                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "gana": gana, "is_idit": is_idit, "op": op}
                         self._dhatu_cache[clean] = entry
                         self._dhatu_cache[op] = entry
                         self._dhatu_cache[op.replace("~","").replace("`","").strip()] = entry
