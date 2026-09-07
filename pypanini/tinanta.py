@@ -1465,6 +1465,22 @@ class TinantaDerivationEngine:
                     table_daD = {("prathama","eka"):[aug_clean+"i", aug_vbase_daD+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", aug_vbase_daD+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", aug_vbase_daD+"izata"],("madhyama","eka"):[aug_clean+"izWAH", aug_vbase_daD+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", aug_vbase_daD+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", aug_vbase_daD+"iDvam"],("uttama","eka"):[aug_clean+"izi", aug_vbase_daD+"izi"],("uttama","dvi"):[aug_clean+"izvahi", aug_vbase_daD+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", aug_vbase_daD+"izmahi"]}
                     return table_daD[(purusha,vacana)], log
                 table = {("prathama","eka"):[aug_clean+"i", _aug(vbase)+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", _aug(vbase)+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", _aug(vbase)+"izata"],("madhyama","eka"):[aug_clean+"izWAH", _aug(vbase)+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", _aug(vbase)+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", _aug(vbase)+"iDvam"],("uttama","eka"):[aug_clean+"izi", _aug(vbase)+"izi"],("uttama","dvi"):[aug_clean+"izvahi", _aug(vbase)+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", _aug(vbase)+"izmahi"]}
+                # Y-class num-variants (aki->ANkayizAtAm; meta skips num for Y-class)
+                if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                    _lw = clean[:-1]
+                    _ln = "N" if _lw and _lw[-1] in ("k", "K", "g", "G") else ("Y" if _lw and _lw[-1] in ("c", "C", "j", "J") else ("R" if _lw and _lw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _lw and _lw[-1] in ("p", "P", "b", "B") else None)))
+                    if _ln and len(_lw) >= 1:
+                        _ynb = apply_vriddhi(_lw[:1]) + _lw[1:-1] + _ln + _lw[-1:] if len(_lw) >= 1 else _lw
+                        _yna = _aug(_ynb)
+                        _yncay = _lw[:-1] + _ln + _lw[-1:] + "ay"
+                        _ynba = _aug(apply_vriddhi(_yncay[:1]) + _yncay[1:])
+                        for _kk, _sfx in suffixes.items():
+                            _cand = _yna + _sfx
+                            if _cand not in table[_kk]:
+                                table[_kk].append(_cand)
+                            _cand2 = _ynba + _sfx
+                            if _cand2 not in table[_kk]:
+                                table[_kk].append(_cand2)
                 if "ur" in clean:
                     try:
                         table[(purusha,vacana)].append(alt_aug + suffixes[(purusha,vacana)])

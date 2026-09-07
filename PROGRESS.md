@@ -4,9 +4,9 @@ Date: 2026-09-06T00:00:00Z
 Sweep: 564/1156 100% (raw 564/1166)
 
 ## Done
-- Pure generative mUla-yat Y-gate single-vowel fix (vowel-initial idit/atmane Y-coda: vriddhi replaces initial vowel, `ANkayaH` not `AaNkayaH`; 3/3 token-verified aki/agi/aGi).
-- Re-sweep: `564/1156` held, 15 improved (+2 M-slots), 0 worsened. Pilots OK.
+- Pure generative tinanta yak-luN Y-class num over-gen (numclean + vriddhi-first + ay-variant appended to passive-aorist table; `ANkayizAtAm` verified; pure appends so zero-risk by construction).
+- Re-sweep: `564/1156` held, 135 improved (+9), 0 worsened. Pilots OK. (Histogram swings = freed sample-cap artifacts; fid-diff clean.)
 
 ## Next
-1. Batch next (yak/luN num for Y-class? zev-R deferred? yat accepted).
+1. Batch next (zev-R/kz-theory deferred? san_krut pool? yat accepted).
 2. Re-sweep, rebuild STATS, overwrite this, commit & push.
