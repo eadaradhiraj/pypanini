@@ -424,6 +424,12 @@ class KrdantaEngine:
                 if c=="BU": return "boBUy"
                 if c in ("sUd", "sUd"):
                     return "sozUdya"
+                # idit i-final fresh numclean (mirror _nijanta_sec/tinanta; sraki->sAsraNkya; mangled ends-cons auto-miss)
+                if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
+                    _ybw = c[:-1]
+                    _ynn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else ("R" if _ybw and _ybw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ybw and _ybw[-1] in ("p", "P", "b", "B") else None)))
+                    if _ynn and len(_ybw) >= 1:
+                        c = _ybw[:-1] + _ynn + _ybw[-1]
                 # guna vowel for reduplication: i->e, u->o, a->A
                 root_vowel = None
                 for ch in c:
