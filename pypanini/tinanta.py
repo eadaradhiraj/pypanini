@@ -2101,6 +2101,14 @@ class TinantaDerivationEngine:
                         ("uttama", "bahu"): "ima",
                     }
                     cands = [redup + vow_endings[(purusha, vacana)], redup + cons_endings[(purusha, vacana)]]
+                    # primary endings for every redup variant (numclean-redup luRW->luluRWa lives in redups list)
+                    try:
+                        for _rr2 in list(redups):
+                            if _rr2 != redup:
+                                cands.append(_rr2 + vow_endings[(purusha, vacana)])
+                                cands.append(_rr2 + cons_endings[(purusha, vacana)])
+                    except Exception:
+                        pass
                     # urv-coda liw o-redup + length (turv->totUrva, gurv->jogUrva; surveyed shape; abhyasa deasp + velar-palatal)
                     try:
                         if clean.endswith("urv") and clean[:1] not in SLP1_VOWELS:
