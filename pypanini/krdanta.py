@@ -196,6 +196,19 @@ class KrdantaEngine:
         - samyoga: c/j->k (Bfj->Bfkta), d->nna (hlAnna) / d->tta after short-a (mad->matta), t->tta (yatta)
         No per-dhatu names. Returns stem ending in 'a' (e.g. yatta, hlAnna).
         """
+        # idit i-final velar/palatal/retroflex/labial takes assimilated num (agi->aNgita; i~ marks idit)
+        if clean.endswith(("i", "I")) and ("i~" in op) and ("I~" not in op):
+            _bw = clean[:-1]
+            if _bw:
+                _nl = _bw[-1]
+                if _nl in ("k", "K", "g", "G"):
+                    clean = _bw[:-1] + "N" + _bw[-1] if len(_bw) >= 1 else _bw
+                elif _nl in ("c", "C", "j", "J"):
+                    clean = _bw[:-1] + "Y" + _bw[-1] if len(_bw) >= 1 else _bw
+                elif _nl in ("w", "W", "q", "Q", "R"):
+                    clean = _bw[:-1] + "R" + _bw[-1] if len(_bw) >= 1 else _bw
+                elif _nl in ("p", "P", "b", "B"):
+                    clean = _bw[:-1] + "m" + _bw[-1] if len(_bw) >= 1 else _bw
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
         # I~ blocks iT (yatI~->yatta, hlAdI~->hlAnna, citI~->citta), except
         # r-containing stems (urvI~/turvI~-cluster -> tUrvita, surveyed shape gate)
