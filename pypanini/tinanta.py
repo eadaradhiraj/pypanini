@@ -790,7 +790,7 @@ class TinantaDerivationEngine:
                         break
                 if _ybase.endswith("N"):
                     _ybase = _ybase[:-1]
-            if root_vowel == "a" and (c.endswith("n") or c.endswith("R")):
+            if (root_vowel == "a" or (len(c) >= 2 and c[-2] == "a")) and (c.endswith("n") or c.endswith("R") or c.endswith("m")):
                 yan_vowel = "aM"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
@@ -837,7 +837,7 @@ class TinantaDerivationEngine:
             except Exception:
                 pass
             # yangluk redup-M for short-a + final dental-n (van->vaMvana; old redup absent everywhere)
-            if root_vowel == "a" and (c.endswith("n") or c.endswith("R")):
+            if (root_vowel == "a" or (len(c) >= 2 and c[-2] == "a")) and (c.endswith("n") or c.endswith("R") or c.endswith("m")):
                 yan_vowel = "aM"
             return redup_cons + yan_vowel + _ybase  # without ya
 
