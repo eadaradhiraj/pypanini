@@ -392,8 +392,9 @@ class KrdantaEngine:
                     _second = c[1] if len(c) > 1 else ""
                     _red = "ti" if _second in ("k", "K", "c", "C", "w", "W", "t", "T", "p", "P") else "di"
                     return c[0] + _red + c[1:] + ("iz" if not is_vowel_final else "z")
+                # sannanta redup vowel follows FIRST vowel (yugi->yuyuN-, camu->cicam-; surveyed)
                 last_v = None
-                for ch in reversed(c):
+                for ch in c:
                     if ch in SLP1_VOWELS:
                         last_v = ch
                         break

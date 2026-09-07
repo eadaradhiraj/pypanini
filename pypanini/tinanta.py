@@ -712,8 +712,9 @@ class TinantaDerivationEngine:
                     return c[0] + _rp + _pc + "i" + _tail + ("iz" if not is_vowel_final else "z")
                 return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
             # find last vowel for redup vowel (u for mud)
+            # sannanta redup vowel follows FIRST vowel (yugi->yuyuN-, camu->cicam-; surveyed)
             last_v = None
-            for ch in reversed(c):
+            for ch in c:
                 if ch in SLP1_VOWELS:
                     last_v = ch
                     break
