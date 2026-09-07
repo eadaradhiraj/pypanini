@@ -371,7 +371,8 @@ class KrdantaEngine:
                     # (at->atitiz, arda->ardidiz, arca->arciciz, oKf->ociKiz, arha->arjihiz, urv->urviviz)
                     _tail = c[1:]
                     _rp = ""
-                    if _tail[:1] in ("r", "R"):
+                    # strip onset-r only if more follows (oR keeps coda-R: oRiRiz, not odiRiz)
+                    if len(_tail) >= 2 and _tail[:1] in ("r", "R"):
                         _rp = _tail[0]
                         _tail = _tail[1:]
                     # i-final velar/palatal takes Y-insertion (agi->aYjigiz, uKi->uYciKiz, ACi->AYcicCiz: redup-P + root-C both surface)
