@@ -614,7 +614,16 @@ class KrdantaEngine:
                 if pratyaya == "lyuw": return {"gender":"Neuter","form":sec+"aRam"}
                 if pratyaya == "anIyar": return {"M": sec+"aRIyaH","F":sec+"aRIyA","N":sec+"aRIyam"}
                 if pratyaya == "yat": return {"M": sec+"yaH","F":sec+"yA","N":sec+"yam"}
-                if pratyaya == "SAnac": return {"M": sec+"amARaH","F":sec+"amARA","N":sec+"amARam"}
+                if pratyaya == "SAnac":
+                    # sannanta aniT cons-D (p/m/B/d/W or N+e/E/A): s-form + dental (titipsamAnaH; R-32 shapes excluded)
+                    _oc = orig_clean or ""
+                    _ovs = [ch for ch in _oc[:-1] if ch in SLP1_VOWELS]
+                    _olv = _ovs[-1] if _ovs else None
+                    if str(meta.get("sew_raw", "sew")).startswith("ani") and (_oc[-1:] in ("p", "m", "B", "d", "W") or (_oc[-1:] == "N" and _olv in ("e", "E", "A"))):
+                        _sbb3 = sec[:-2] if sec.endswith("iz") else sec
+                        _s3 = _sbb3 + "samAna"
+                        return {"M": _s3 + "H", "F": _s3[:-1] + "A" if _s3.endswith("a") else _s3 + "A", "N": _s3 + "m"}
+                    return {"M": sec+"amARaH","F":sec+"amARA","N":sec+"amARam"}
                 if pratyaya == "SAtf" if False else pratyaya == "Satf":
                     # sannanta Satf is like buBUzat etc, use primitive but with sec
                     pass
