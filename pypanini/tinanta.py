@@ -836,6 +836,9 @@ class TinantaDerivationEngine:
                     _ybase = "z" + c_eff[1:]
             except Exception:
                 pass
+            # yangluk redup-M for short-a + final dental-n (van->vaMvana; old redup absent everywhere)
+            if root_vowel == "a" and c.endswith("n"):
+                yan_vowel = "aM"
             return redup_cons + yan_vowel + _ybase  # without ya
 
         # ---------- secondary / yak : generative per lakara (covers all 10 lakaras) ----------

@@ -1,12 +1,12 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-06T00:00:00Z
-Sweep: 540/1156 100% (raw 540/1166)
+Sweep: 547/1156 100% (raw 547/1166)
 
 ## Done
-- Pure generative tinanta yan-stem nasal trio (mirror of krdanta): drop coda-n before stop / drop final-N unless meta-mangled (idit/atmane + op ends-i gate), redup-M for short-a + final-n. Old redup forms miss everywhere / M-forms hit everywhere (van/can/kan verified); vadi-type mangled roots byte-identical.
-- Re-sweep: `540/1156` (+1: 01.0048 manT 100%), 17 improved (+72/+180), 0 worsened. Pilots OK. (01.1103 kuN 0/883 in all committed sweeps — unscorable, neutral.)
+- Pure generative tinanta yanlug redup-M for short-a + final dental-n (van->vaMvana; F2-only; old redup absent / M-forms present in all 4 probed; manT-yangluk untouched).
+- Re-sweep: `547/1156` (+7: 0533/0534/0914/0915/0928/0932/0961 all 100%), 10 improved (+18), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next (yangluk nasal trio? yat accepted).
+1. Batch next (yangluk_krut 6? yat accepted).
 2. Re-sweep, rebuild STATS, overwrite this, commit & push.
