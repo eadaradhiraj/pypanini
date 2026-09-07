@@ -621,6 +621,11 @@ class KrdantaEngine:
                     _olv = _ovs[-1] if _ovs else None
                     if str(meta.get("sew_raw", "sew")).startswith("ani") and (_oc[-1:] in ("p", "m", "B", "d", "W") or (_oc[-1:] == "N" and _olv in ("e", "E", "A"))):
                         _sbb3 = sec[:-2] if sec.endswith("iz") else sec
+                        # N-final D-reductions: short-eN -> C0+it (meN->mit); E/AN -> A (gAN->jigA, SyEN->SiSyA)
+                        if _oc[-1:] == "N" and _olv == "e" and _oc[:1] not in SLP1_VOWELS:
+                            _sbb3 = _oc[:1] + "it"
+                        elif _oc[-1:] == "N" and _olv in ("E", "A") and (_sbb3.endswith("EN") or _sbb3.endswith("AN")):
+                            _sbb3 = _sbb3[:-2] + "A"
                         _s3 = _sbb3 + "samAna"
                         return {"M": _s3 + "H", "F": _s3[:-1] + "A" if _s3.endswith("a") else _s3 + "A", "N": _s3 + "m"}
                     return {"M": sec+"amARaH","F":sec+"amARA","N":sec+"amARam"}
