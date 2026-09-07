@@ -1382,6 +1382,11 @@ class TinantaDerivationEngine:
                         if is_vowel_initial:
                             b = base_cmp
                     cands+=self._conjugate_luw(b + ("i" if sew else ""), "Atmanepadi", purusha, vacana)
+                    # yak-luw also takes plain base (SunDitA, bukkitA, kUjitA alongside guna-forms)
+                    _plain_luw = base_cmp + ("i" if sew else "")
+                    for _pf in self._conjugate_luw(_plain_luw, "Atmanepadi", purusha, vacana):
+                        if _pf not in cands:
+                            cands.append(_pf)
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):

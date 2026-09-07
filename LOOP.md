@@ -3,7 +3,7 @@
 Use with exactly ONE driver (see Loop hygiene). Suggested start:
 
 ```
-/loop stop 14
+/loop stop 16
 /loop "$(cat LOOP.md | sed -n '/^> /s/^> //p' | tr '\n' ' ')" --every 15m --max-fires 100
 ```
 
