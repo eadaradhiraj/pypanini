@@ -705,6 +705,11 @@ class TinantaDerivationEngine:
                         # aspirate C doubles in redup (ACi->AYcicCiz); others single (agi->aYjigiz)
                         _mid = _py + "i" + (_py + _tb if _tail[0] == "C" else _tb)
                         return c[0] + _rp + "Y" + _mid + "iz"
+                # ends-i retroflex/labial takes num-only (no Y): awi->aRwiwiz, aBi->ambiBiz (redup-C lowered, root-C kept)
+                if c[-1:] in ("i", "I") and _tail and _tail[0] in ("w", "W", "q", "Q", "R", "p", "P", "b", "B"):
+                    _rn = "R" if _tail[0] in ("w", "W", "q", "Q", "R") else "m"
+                    _rc = {"W": "w", "Q": "q", "B": "b", "P": "p"}.get(_tail[0], _tail[0])
+                    return c[0] + _rp + _rn + _rc + "i" + _tail[0] + "iz"
                 if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
                     _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "W": "w"}.get(_tail[0], _tail[0])
                     # C1 + dental/retroflex-stop tail reduplicates C2 (andidiz, antitiz; sibilant-tails keep full)
