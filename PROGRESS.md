@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-07T00:00:00Z
-Sweep: 580/1156 100% (raw 580/1166)
+Sweep: 638/1156 100% (raw 638/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -9,9 +9,10 @@ Sweep: 580/1156 100% (raw 580/1166)
 - Krdanta yat-F short-num stem for i-final vowel-initial idit/Atmane roots (aNkyA/aRwyA/ambyA/fYjyA; M/N keep vriddhi cross-match): surveyed all 15 branch fids, zero conflicts. Sweep: 15 improved, 0 worsened. Pilots OK.
 - Krdanta yat vriddhi for a + single non-nasal cons (aqa->Aqya, ata->Atya, aka->Akya; am/nasal-final, clusters, geminates, r-codas, u/i-finals stay short): surveyed 12 fids, zero conflicts. Sweep: 9 improved, 0 worsened. Pilots OK.
 - Tinanta nijanta-luN vowel-initial redup-aorist for a-initial roots (A+[num]+Ci+stem+ata): first attempt reverted (early-return skipped fallback); retry merges fallback. Sweep: 8 improved, 0 worsened. Pilots OK.
-- Tinanta nijanta-luN C-initial num-assimilated ay-less bases + R->n redup (sraki->sraNk, gaqi->gaRq; T->n, R->R append, v->n/R, h->M; i-final idit only): surveyed all 176 i-final-idit C-initial nich fids (long-A hrasva, f->a redup handled by over-gen). Re-sweep: `580/1156` held, 120 improved, 0 worsened. Pilots OK.
+- Tinanta nijanta-luN C-initial num-assimilated ay-less bases + R->n redup (sraki->sraNk, gaqi->gaRq): surveyed 176, additive. Sweep: 120 improved, 0 worsened. Pilots OK.
+- Krdanta yat num-short for i-final idit C-initial roots (sraki->sraNkya, gaqi->gaRqya, bahi->baMhya; R-variant for v iff onset has r/f; is_idit gate excludes I~ fids): surveyed 176 engine-meta fids, zero conflicts (rivi/kfvi/Ridi-class verified safe; Sasi/Guzi/kzi -s/-z finals out of scope, unchanged). Re-sweep: `638/1156` held (+58 perfect incl. 01.0068), 120 improved, 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next (krdanta yat of i-final parasmE num-R short stems, gap-3/4): 01.0068 (gaRqya M/F/N) — survey i-final parasmE roots expecting short yat (gaqi vs Aqya-class already fixed) dataset-wide first.
-2. Then: suppletive aja (avIvayata) / zwaBi-tw / wunadi singletons (likely SKIP — no general shape); ama-Satf leftovers (01.0536).
+1. Batch next (deep-broken yat//D-roots, triage each): 01.0679 rivi (18/895) / 01.0682 kfvi (0/895) / 01.0069 Ridi (157/895) / 01.0716 Sasi (0/883) — diagnose dominant miss family per fid first (likely non-yat), then one shared trait if any.
+2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); ama-Satf leftovers (01.0536).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

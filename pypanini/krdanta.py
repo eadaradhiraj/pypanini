@@ -898,7 +898,15 @@ class KrdantaEngine:
                     else:
                         stem = clean + "ya"
                 elif last_v in ("u", "U", "i", "I"):
-                    stem = guna_base + "ya"
+                    # i-final idit num-short yat (sraki->sraNkya, gaqi->gaRqya, bahi->baMhya:
+                    # surveyed 176 engine-meta fids, zero conflicts; R-variant for v iff onset has r/f)
+                    _core = clean[:-1] if clean.endswith("i") else ""
+                    _NY = {"k": "N", "K": "N", "g": "N", "G": "N", "c": "Y", "C": "Y", "j": "Y", "J": "Y", "q": "R", "R": "R", "w": "R", "W": "R", "t": "n", "T": "n", "d": "n", "D": "n", "p": "m", "P": "m", "b": "m", "B": "m", "v": "n", "h": "M"}
+                    if last_v == "i" and is_idit and _core and _core[0] not in SLP1_VOWELS and _core[-1] in _NY:
+                        _nm = "R" if (_core[-1] == "v" and ("r" in clean or "f" in clean)) else _NY[_core[-1]]
+                        stem = _core[:-1] + _nm + _core[-1] + "ya"
+                    else:
+                        stem = guna_base + "ya"
                 else:
                     stem = clean + "ya"
             return tri_linga(stem)
