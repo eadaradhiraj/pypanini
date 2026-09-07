@@ -464,7 +464,7 @@ class KrdantaEngine:
                     if _ybase.endswith("N"):
                         _ybase = _ybase[:-1]
                 # a-vowel + final dental-n: redup takes short-a + M (van->vaMvanya)
-                if root_vowel == "a" and c.endswith("n"):
+                if root_vowel == "a" and (c.endswith("n") or c.endswith("R")):
                     yan_vowel = "aM"
                 return redup_cons + yan_vowel + _ybase + "ya"
             if clean == "BU" and sanadi is not None:
