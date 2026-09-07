@@ -619,8 +619,13 @@ class KrdantaEngine:
                     _oc = orig_clean or ""
                     _ovs = [ch for ch in _oc[:-1] if ch in SLP1_VOWELS]
                     _olv = _ovs[-1] if _ovs else None
-                    if str(meta.get("sew_raw", "sew")).startswith("ani") and (_oc[-1:] in ("p", "m", "B", "d", "W") or (_oc[-1:] == "N" and _olv in ("e", "E", "A"))):
-                        _sbb3 = sec[:-2] if sec.endswith("iz") else sec
+                    _mi = _oc.rfind("m")
+                    _mpre_a = _mi > 0 and _oc[_mi - 1] == "a"
+                    if str(meta.get("sew_raw", "sew")).startswith("ani") and (_oc[-1:] in ("p", "m", "B", "d", "W") or (_oc[-1:] == "N" and _olv in ("e", "E", "A")) or (_oc[-1:] == "u" and _mpre_a)): 
+                        _sbb3 = sec[:-2] if sec.endswith("iz") else (sec[:-2] if sec.endswith("uz") else sec)
+                        # m-final with pre-m-a: anusvara-M (riraMsamAnaH; smf/junk-safe via pre-m-a)
+                        if _mpre_a and _sbb3.endswith("m"):
+                            _sbb3 = _sbb3[:-1] + "M"
                         # N-final D-reductions: short-eN -> C0+it (meN->mit); E/AN -> A (gAN->jigA, SyEN->SiSyA)
                         if _oc[-1:] == "N" and _olv == "e" and _oc[:1] not in SLP1_VOWELS:
                             _sbb3 = _oc[:1] + "it"
