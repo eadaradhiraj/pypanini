@@ -705,6 +705,10 @@ class TinantaDerivationEngine:
                         return c[0] + _rp + "Y" + _mid + "iz"
                 if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
                     _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "W": "w"}.get(_tail[0], _tail[0])
+                    # C1 + dental/retroflex-stop tail reduplicates C2 (andidiz, antitiz; sibilant-tails keep full)
+                    _tbc = _tail[:-1] if _tail[-1:] in SLP1_VOWELS else _tail
+                    if len(_tbc) == 2 and _tbc[1] in ("t", "T", "d", "D"):
+                        return c[0] + _rp + _pc + _tbc[1:] + "i" + _tbc[1:][-1:] + ("iz" if not is_vowel_final else "z")
                     return c[0] + _rp + _pc + "i" + _tail + ("iz" if not is_vowel_final else "z")
                 return c[0] + "di" + c[1:] + ("iz" if not is_vowel_final else "z")
             # find last vowel for redup vowel (u for mud)
