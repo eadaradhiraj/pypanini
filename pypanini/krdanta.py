@@ -876,7 +876,11 @@ class KrdantaEngine:
             elif clean == "daD":
                 stem = vriddhi_base + "ya"
             elif (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean:
-                stem = clean + "ya"
+                # yat vriddhi for a + single non-nasal cons (aqa->Aqya, ata->Atya: surveyed 12 fids, zero conflicts; am/nasal-final, clusters, geminates, r-codas, u/i-finals stay short)
+                if clean and clean[0] == "a" and len(clean) == 2 and clean[1] not in SLP1_VOWELS | set("NnYm") and "I~" not in _op:
+                    stem = vriddhi_base + "ya"
+                else:
+                    stem = clean + "ya"
             else:
                 last_v = None
                 last_idx = -1
