@@ -777,6 +777,21 @@ class TinantaDerivationEngine:
                     _ybase = "z" + c_eff[1:]
             except Exception:
                 pass
+            # yan nasal trio (mirror krdanta): drop coda-n before stop / drop final-N unless meta-mangled; redup-M for short-a + final-n
+            try:
+                _op1 = (meta.get("op", "") or "").replace("~", "")
+            except Exception:
+                _op1 = ""
+            _mangled = (is_idit or pada == "Atmanepadi") and _op1.endswith(("i", "I"))
+            if not _mangled:
+                for _i, _ch in enumerate(list(_ybase)):
+                    if _ch == "n" and _i + 1 < len(_ybase) and _ybase[_i + 1] in ("T", "d", "D"):
+                        _ybase = _ybase[:_i] + _ybase[_i + 1:]
+                        break
+                if _ybase.endswith("N"):
+                    _ybase = _ybase[:-1]
+            if root_vowel == "a" and c.endswith("n"):
+                yan_vowel = "aM"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
