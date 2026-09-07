@@ -455,6 +455,17 @@ class KrdantaEngine:
                         _ybase = "z" + c[1:]
                 except Exception:
                     pass
+                # yan base: drop coda-n before stop (manT->maTya); drop final retroflex-N (kuN->kUya); non-idit only (idit vand-type keeps num-n)
+                if not is_idit:
+                    for _i, _ch in enumerate(list(_ybase)):
+                        if _ch == "n" and _i + 1 < len(_ybase) and _ybase[_i + 1] in ("T", "d", "D"):
+                            _ybase = _ybase[:_i] + _ybase[_i + 1:]
+                            break
+                    if _ybase.endswith("N"):
+                        _ybase = _ybase[:-1]
+                # a-vowel + final dental-n: redup takes short-a + M (van->vaMvanya)
+                if root_vowel == "a" and c.endswith("n"):
+                    yan_vowel = "aM"
                 return redup_cons + yan_vowel + _ybase + "ya"
             if clean == "BU" and sanadi is not None:
                 # hardcoded BU sanadi forms (known 100% for BU)
