@@ -709,6 +709,16 @@ class KrdantaEngine:
             return {"M": m, "F": f, "N": n}
 
         elif pratyaya == "SAnac":
+            # idit i-final num-clean (agi->aNgamAnaH; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _sbw = clean[:-1]
+                _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
+                if _sn and len(_sbw) >= 1:
+                    _snc = _sbw[:-1] + _sn + _sbw[-1]
+                    _ss = _snc + "amAna"
+                    if _natva_applies(_snc) and _ss.endswith("amAna"):
+                        _ss = _ss[:-5] + "amARa"
+                    return tri_linga(_ss)
             if pada == "Atmanepadi":
                 if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean:
                     stem = clean + "amAna"
@@ -734,11 +744,27 @@ class KrdantaEngine:
             if sanadi == "sannanta":
                 stem = clean + "itavya"
                 return tri_linga(stem)
+            # idit i-final numay (agi->aNgayitavyaH, sraki->sraNkayitavyaH; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _sbw = clean[:-1]
+                _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
+                if _sn and len(_sbw) >= 1:
+                    return tri_linga(_sbw[:-1] + _sn + _sbw[-1] + "ayitavya")
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + ("i" if sew else "") + "tavya"
             return tri_linga(stem)
 
         elif pratyaya == "anIyar":
+            # idit i-final num-clean (agi->aNganIyaH; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _sbw = clean[:-1]
+                _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
+                if _sn and len(_sbw) >= 1:
+                    _snc = _sbw[:-1] + _sn + _sbw[-1]
+                    _sab = _snc + "anIya"
+                    if _natva_applies(_snc) and "nIya" in _sab:
+                        _sab = _sab.replace("nIya", "RIya")
+                    return tri_linga(_sab)
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + "anIya"
             if _natva_applies(clean) and "nIya" in stem:
@@ -756,6 +782,13 @@ class KrdantaEngine:
             if clean.startswith("kr"):
                 stem = clean + "ya"
                 return {"M": stem+"H","F":stem[:-1]+"A" if stem.endswith("a") else stem+"A","N":stem+"m"}
+            # idit i-final vowel-initial vriddhi-num + aya (agi->ANgayaH; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean[:1] in SLP1_VOWELS and clean.endswith(("i", "I")):
+                _ybw = clean[:-1]
+                _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else ("R" if _ybw and _ybw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ybw and _ybw[-1] in ("p", "P", "b", "B") else None)))
+                if _yn and len(_ybw) >= 1:
+                    _ys = apply_vriddhi(clean[0]) + _ybw[:-1] + _yn + _ybw[-1]
+                    return {"M": _ys + "ayaH", "F": _ys + "ayA", "N": _ys + "ayam"}
             _op = meta.get("op", "")
             if clean in ["dad", "svad"]:
                 stem = vriddhi_base + "ya"
@@ -816,11 +849,28 @@ class KrdantaEngine:
             if sanadi == "sannanta":
                 b = clean + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
+            # idit i-final numay (agi->aNgayitA, sraki->sraNkayitA; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _sbw = clean[:-1]
+                _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
+                if _sn and len(_sbw) >= 1:
+                    _snt = _sbw[:-1] + _sn + _sbw[-1] + "ay"
+                    return {"M": _snt + "itA", "F": _snt + "itrI", "N": _snt + "itf"}
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             b = eff + ("i" if sew else "")
             return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
 
         elif pratyaya == "lyuw":
+            # idit i-final num-clean (agi->aNganam, sraki->sraNkaRam; meta skips num for Y-class)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+                _sbw = clean[:-1]
+                _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
+                if _sn and len(_sbw) >= 1:
+                    _snc = _sbw[:-1] + _sn + _sbw[-1]
+                    _slb = _snc + "ana"
+                    if _natva_applies(_snc) and _slb.endswith("ana"):
+                        _slb = _slb[:-3] + "aRa"
+                    return {"gender": "Neuter", "form": _slb + "m"}
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
             stem = eff + "ana"
             if _natva_applies(clean) and stem.endswith("ana"):

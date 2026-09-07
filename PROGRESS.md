@@ -4,9 +4,9 @@ Date: 2026-09-06T00:00:00Z
 Sweep: 539/1156 100% (raw 539/1166)
 
 ## Done
-- Pure generative kta assimilated num inside `_kta_stem` (idit-i + velar/palatal/retroflex/labial via existing `op` param; covers mUla + nich-mstem; sanadi with empty op unaffected).
-- Re-sweep: `539/1156` held, 136 improved (+12 kta/ktavatu each), 0 worsened. Pilots OK (`klidita`, `BU` untouched).
+- Pure generative krdanta mUla idit-i numclean forms: SAnac/anIyar/lyuw on numclean (+Natva on numclean), yat vriddhi+aya (vowel-initial only), tavya/tfc on numay+iT; all mUla-scoped early-returns, non-Y roots byte-identical.
+- Re-sweep: `539/1156` held, 136 improved (+13 each), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next (krdanta SAnac/anIyar/lyuw/yat/tavya/tfc num for idit-i, `01.0038` yat).
+1. Batch next (tumun/ktvA/lyap/Rvul/GaY numclean?, `01.0038` yat accepted).
 2. Re-sweep, rebuild STATS, overwrite this, commit & push.
