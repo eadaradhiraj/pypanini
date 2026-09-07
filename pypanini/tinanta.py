@@ -352,6 +352,17 @@ class TinantaDerivationEngine:
             if b.startswith("s"):
                 expanded.add("z" + b[1:])
         bases = expanded
+        # i-final idit ay-less num-assimilated bases (sraki->sraNk, gaqi->gaRq, kaki->kaNk, bahi->baMh:
+        # surveyed all i-final-idit C-initial nich fids; additive only, never removes)
+        if is_idit and clean and clean[0] not in SLP1_VOWELS and clean.endswith(("i", "I")):
+            _core0 = clean[:-1]
+            if _core0 and _core0[0] not in SLP1_VOWELS:
+                _N2 = {"k": "N", "K": "N", "g": "N", "G": "N", "c": "Y", "C": "Y", "j": "Y", "J": "Y", "q": "R", "R": "R", "w": "R", "W": "R", "t": "n", "T": "n", "d": "n", "D": "n", "p": "m", "P": "m", "b": "m", "B": "m", "v": "n", "h": "M"}
+                _fc = _core0[-1]
+                if _fc in _N2:
+                    bases.add(_core0[:-1] + _N2[_fc] + _fc)
+                if _fc == "v":
+                    bases.add(_core0[:-1] + "R" + _fc)  # zivi/rivi R-variant alongside n
         cluster = ""
         for ch in clean:
             if ch in SLP1_VOWELS:
@@ -369,6 +380,9 @@ class TinantaDerivationEngine:
         orig = DEASPIRATE.get(orig, orig)
         if orig != rc:
             rcs.append(orig)
+        # R->n redup onset for i-final idit (Ridi->aninindata; additive variant only)
+        if rc == "R" and is_idit and clean.endswith(("i", "I")) and "n" not in rcs:
+            rcs.append("n")
         cands: list = []
         for r in rcs:
             for rv in ("a", "A", "i", "I", "u", "U"):
