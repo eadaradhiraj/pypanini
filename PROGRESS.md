@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-07T00:00:00Z
-Sweep: 726/1156 100% (raw 726/1166)
+Date: 2026-09-08T19:42:00Z
+Sweep: 739/1156 100% (raw 739/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -28,8 +28,9 @@ Sweep: 726/1156 100% (raw 726/1166)
 - Tinanta mula-luN sic-aorist t/d-num + vocalic augment (ati->AntIt). Sweep: 12 improved, 0 worsened. Pilots OK.
 - Tinanta liT redup num completion t/d/T->n + h->M (ati->Ananta; survived a bad-revert incident). Sweep: 7 improved, 0 worsened. Pilots OK.
 - Tinanta yak-liT An-redup for a/f-initial (ati->Anante, fja->Anfje, arda->Anarde; idit num via op-recovery; caught an edit eating the next subsection's first line that broke 2 pilots, fixed pre-sweep). Re-sweep: `726/1156` held (+2 perfect: 01.0063/01.0064), 7 improved, 0 worsened. Pilots OK.
+- Krdanta `_natva_applies` base-check on len>2 i-final roots (sraki->srak, 13 new 100% passes: 01.0088, 01.0089, 01.0102, 01.0112, 01.0145, 01.0153, 01.0161, 01.0164, 01.0173, 01.0436, 01.0449, 01.0480, 01.0945; surveyed all 35 i-roots, zero conflicts; sweep: 15 improved, 0 worsened, passes 726->739). Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): Atmane luN num-Y (aci-class) or yang SAnac/anIyar sezev-family (01.0574 gap-7) or kfvi laT o-guna (likely SKIP).
-2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-).
+1. Batch next: initial anubandhas `ādirñiṭuḍavaḥ` (1.3.5) wu/qu/Yi stripping (19 roots: wunadi, qupaca, qulaBa, quvapa, etc.) or `u~` anubandha stripping (67 roots).
+2. Then: yang SAnac/anIyar sezev-family (01.0574 gap-7) or 01.0237/01.0243 gap-1.
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

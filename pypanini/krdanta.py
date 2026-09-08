@@ -22,6 +22,8 @@ SLP1_STOPS = set(list("kKgGNcCjJYwWqQRtTdDnpPbBm"))
 def _natva_applies(root: str) -> bool:
     if not root:
         return False
+    if root.endswith("i") and len(root) > 2:
+        root = root[:-1]
     fin = root[-1:]
     if fin == "z":
         return True
