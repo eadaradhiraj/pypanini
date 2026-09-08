@@ -562,8 +562,9 @@ class TinantaDerivationEngine:
             elif purusha == "uttama":
                 prat = "ni" if raw == "mip" else raw[:-1]
                 res = stem[:-1] + "A" + prat
-                if raw == "mip" and ((("r" in stem_base or "R" in stem_base) and stem_base[-1:] in ("k", "K", "g", "G", "N", "p", "P", "b", "B", "m", "y", "r", "l", "v", "h", "z", "S")) or stem_base.endswith("z")) and res.endswith("ni"):
-                    res = res[:-2] + "Ri"
+                if raw == "mip":
+                    if (("r" in stem_base or "R" in stem_base or "z" in stem_base or "f" in stem_base or "F" in stem_base)) and res.endswith("ni"):
+                        return [res[:-2] + "Ri", res]
                 return [res]
         elif lakara == "viDiliN":
             stem = stem_base + "a"
@@ -2102,8 +2103,9 @@ class TinantaDerivationEngine:
                     forms.append(vrid + cons_end[(purusha, vacana)])
                     forms.append(vrid + vow_end[(purusha, vacana)])
                     forms.append(vrid + atm_end[(purusha, vacana)])
-                    # a+r onset liw n-redup (arda->Anarda, arva->Anarva; surveyed shape)
-                    if clean.startswith("a") and len(clean) > 2 and "r" in clean[1:3]:
+                    # Panini 7.4.70 at AdeH + 7.4.71 tasmAn nuq dvihalaH (An-redup for a-initial dvihal: aww->Anawwe, aqq->Anaqqa, arda->Anarda, akz->Anakza)
+                    _c_rem = [c for c in clean[1:] if c not in SLP1_VOWELS]
+                    if clean.startswith("a") and len(_c_rem) >= 2:
                         _anar = "An" + clean
                         forms.append(_anar + cons_end[(purusha, vacana)])
                         forms.append(_anar + atm_end[(purusha, vacana)])

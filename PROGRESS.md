@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-08T20:33:00Z
-Sweep: 756/1156 100% (raw 756/1166)
+Date: 2026-09-08T20:47:00Z
+Sweep: 760/1156 100% (raw 760/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -32,11 +32,13 @@ Sweep: 756/1156 100% (raw 756/1166)
 - Tinanta vowel-initial velar/palatal Y-aorist de-aspirates palatals and includes thematic and atmanepada endings (ACi->AYcicCata, uCi->OYcicCata; 2 new 100% passes: 01.0237, 01.0243; 2 improved, 0 worsened, passes 739->741). Pilots OK.
 - Generalized Paninian anubandha stripping in `clean_dhatu_op` across both engines and test runner: 1.3.5 ādirñiṭuḍavaḥ (wu/qu/Yi/wuo/quo/o), 1.3.3 halantyam (~z), 1.3.2 upadeśe'janunāsika it (udit u~/U~, A~ on idit/anubandha tails) alongside existing f/F/x/X/~r/I~/a/e~ anubandhas; updated krdanta `_nijanta_sec` for nc/ns codas without surface u. Sweep: 14 new 100% passes: 01.0070 (wunadi~), 01.0425 (wuvepf~), 01.0542 (jamu~), 01.0543 (Jamu~), 01.0685 (DAvu~), 01.0844 (YimidA~), 01.0884 (YitvarA~), 01.0951 (vanu~), 01.0954 (quyAcf~), 01.0957 (wuBrAjf~), 01.0959 (wuBlASf~), 01.0984 (wuvama~), 01.0985 (Bramu~), 01.1001 (wuyAcf~); 88 improved, 0 worsened, passes 741->755. Pilots OK.
 - Krdanta yananta/yanluganta `_natva_applies` stem-level z-trigger with l-coda block (sevf->sezevyamARa; surveyed: avoids breaking kzvelf/zelf/kzala): 01.0574 100% perfect (883/883); sweep: 19 improved, 0 worsened, passes 755->756. Pilots OK.
+- Tinanta loT mip naṭva with r/R/z/f/F triggers (kzev->kzevARi): 01.0649 100% perfect (1057/1057).
+- Krdanta yat ts/km/kz block with Panini 3.1.98 poradupadhAt exception (u-upadhA + pu-coda: kzuB->kzoBya): 01.0854 100% perfect (1045/1045).
+- Panini 7.4.70 at AdeH + 7.4.71 tasmAn nuq dvihalaH: An-reduplication for all a-initial dvihal roots in liw (aww->Anawwe, aqq->Anaqqa, akz->Anakza): 01.0287 100% perfect (627/627), 01.0403 100% perfect (636/636). Sweep: 11 improved, 0 worsened, passes 756->760. Pilots OK.
 
 ## Next
 1. Consonant cluster assimilation for Gaṇa 01:
    - `c/j` before `s/t` (e.g. `tyaj` -> `tyaktA`, `pac` -> `paktA`).
-   - Periphrastic Liṭ for heavy clusters (`01.0287 awwAYcakre`, `01.0403 aqqAYcakre`).
    - NiC Satṛ for Gawādi roots (`kARayan`, `rARayan`, `SrARayan`).
-2. Investigate closest-to-100% failing dhātus (e.g. misses <= 5 in `tests/sweep_all.csv`).
+2. Investigate remaining close-to-100% failures in `tests/sweep_all.csv` (e.g. misses <= 15).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

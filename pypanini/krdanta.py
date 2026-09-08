@@ -934,8 +934,9 @@ class KrdantaEngine:
         elif pratyaya == "yat":
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
             # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
-            # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-, pure generative onset)
-            if clean.startswith(("ts", "km", "kz")):
+            # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-)
+            # except poradupadhAt (Panini 3.1.98: u-upadhA + pu-coda like kzuB->kzoBya)
+            if clean.startswith(("ts", "km", "kz")) and not (clean.endswith(("p", "P", "b", "B", "m")) and "u" in clean):
                 return {"M": "-", "F": "-", "N": "-"}
             if clean.startswith("kr") and clean[-1:] in ("w", "W", "q", "Q", "t", "T", "d", "D", "n"):
                 return {"M": "-", "F": "-", "N": "-"}
