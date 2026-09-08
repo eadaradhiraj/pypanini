@@ -1859,12 +1859,14 @@ class TinantaDerivationEngine:
                                     _yr = _yt[0]
                                     _yt = _yt[1:]
                                 if _yt and _yt[0] in ("k", "K", "g", "G", "c", "C", "j", "J"):
-                                    _yp = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_yt[0], _yt[0])
+                                    _yp = {"k": "c", "K": "c", "g": "j", "G": "j", "c": "c", "C": "c", "j": "j", "J": "j"}.get(_yt[0], _yt[0])
                                     _ytb = _yt[:-1] if _yt[-1:] in SLP1_VOWELS else _yt
                                     if _ytb:
-                                        _ym = _yp + "i" + (_yp + _ytb if _yt[0] == "C" else _ytb)
+                                        _ym = _yp + "i" + ("c" + _ytb if _yt[0] == "C" else _ytb)
                                         _ya = apply_vriddhi(clean[0]) + _yr + "Y" + _ym
-                                        for _ye in ("t", "d", "tAm", "n", "H", "tam", "ta", "am", "Ava", "Ama"):
+                                        for _ye in ("t", "d", "tAm", "n", "H", "tam", "ta", "am", "Ava", "Ama",
+                                                    "at", "ad", "atAm", "an", "aH", "atam", "ata", "am", "Ava", "Ama",
+                                                    "ata", "etAm", "anta", "aTAH", "eTAm", "aDvam", "e", "Avahi", "Amahi"):
                                             _set.append(_ya + _ye)
                         except Exception:
                             pass
@@ -1950,12 +1952,14 @@ class TinantaDerivationEngine:
                             _yr2 = _yt2[0]
                             _yt2 = _yt2[1:]
                         if _yt2 and _yt2[0] in ("k", "K", "g", "G", "c", "C", "j", "J"):
-                            _yp2 = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_yt2[0], _yt2[0])
+                            _yp2 = {"k": "c", "K": "c", "g": "j", "G": "j", "c": "c", "C": "c", "j": "j", "J": "j"}.get(_yt2[0], _yt2[0])
                             _ytb2 = _yt2[:-1] if _yt2[-1:] in SLP1_VOWELS else _yt2
                             if _ytb2:
-                                _ym2 = _yp2 + "i" + (_yp2 + _ytb2 if _yt2[0] == "C" else _ytb2)
+                                _ym2 = _yp2 + "i" + ("c" + _ytb2 if _yt2[0] == "C" else _ytb2)
                                 _ya2 = apply_vriddhi(clean[0]) + _yr2 + "Y" + _ym2
-                                for _ye2 in ("t", "d", "tAm", "n", "H", "tam", "ta", "am", "Ava", "Ama"):
+                                for _ye2 in ("t", "d", "tAm", "n", "H", "tam", "ta", "am", "Ava", "Ama",
+                                             "at", "ad", "atAm", "an", "aH", "atam", "ata", "am", "Ava", "Ama",
+                                             "ata", "etAm", "anta", "aTAH", "eTAm", "aDvam", "e", "Avahi", "Amahi"):
                                     cand.append(_ya2 + _ye2)
                 except Exception:
                     pass

@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-08T19:42:00Z
-Sweep: 739/1156 100% (raw 739/1166)
+Date: 2026-09-08T19:54:00Z
+Sweep: 741/1156 100% (raw 741/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -19,7 +19,7 @@ Sweep: 739/1156 100% (raw 739/1166)
 - Tinanta+krdanta idit dental-num M for s-final (Sasi->SaMs at derive-clean source, both files; surveyed: sole s-final idit in dataset). Sweep: 1 improved (+883 tokens), 0 worsened. Pilots OK.
 - Krdanta mit-denial respected (kamu/ama/camu NOT mit; niC vriddhi Amay-). Sweep: 1 improved, 0 worsened. Pilots OK.
 - Krdanta yat never vriddhi on m-final (dramya/yamya/Camya/ramya/gamya; surveyed all m-final yat). Sweep: 7 improved, 0 worsened. Pilots OK.
-- Krdanta yat vriddhi on first a for e-final C-initial (kaKe->kAKya; surveyed all 18 e-final yat). Sweep: 14 improved, 0 worsened. Pilots OK.
+- Krdanta yat vriddhi on first a for e-final C-initial (kaKe->kAKya; surveyed all e-final yat). Sweep: 14 improved, 0 worsened. Pilots OK.
 - E-anubandha strip at meta source in both files (kaKe~->kaK like f/X/R/z strips; cate te~ excluded). Sweep: 14 improved to perfect, 0 worsened. Pilots OK.
 - Krdanta niC stem num-Y for ncu-final (ancu->aYcay; surveyed all 9 ncu-files). Sweep: 9 improved, 0 worsened. Pilots OK.
 - Krdanta niC stem guna-o for double-u CuCu-roots (kuju->kojay; gate refined after 6 worsened). Sweep: 8 improved, 0 worsened. Pilots OK.
@@ -29,8 +29,9 @@ Sweep: 739/1156 100% (raw 739/1166)
 - Tinanta liT redup num completion t/d/T->n + h->M (ati->Ananta; survived a bad-revert incident). Sweep: 7 improved, 0 worsened. Pilots OK.
 - Tinanta yak-liT An-redup for a/f-initial (ati->Anante, fja->Anfje, arda->Anarde; idit num via op-recovery; caught an edit eating the next subsection's first line that broke 2 pilots, fixed pre-sweep). Re-sweep: `726/1156` held (+2 perfect: 01.0063/01.0064), 7 improved, 0 worsened. Pilots OK.
 - Krdanta `_natva_applies` base-check on len>2 i-final roots (sraki->srak, 13 new 100% passes: 01.0088, 01.0089, 01.0102, 01.0112, 01.0145, 01.0153, 01.0161, 01.0164, 01.0173, 01.0436, 01.0449, 01.0480, 01.0945; surveyed all 35 i-roots, zero conflicts; sweep: 15 improved, 0 worsened, passes 726->739). Pilots OK.
+- Tinanta vowel-initial velar/palatal Y-aorist de-aspirates palatals and includes thematic and atmanepada endings (ACi->AYcicCata, uCi->OYcicCata; 2 new 100% passes: 01.0237, 01.0243; 2 improved, 0 worsened, passes 739->741). Pilots OK.
 
 ## Next
-1. Batch next: initial anubandhas `ādirñiṭuḍavaḥ` (1.3.5) wu/qu/Yi stripping (19 roots: wunadi, qupaca, qulaBa, quvapa, etc.) or `u~` anubandha stripping (67 roots).
-2. Then: yang SAnac/anIyar sezev-family (01.0574 gap-7) or 01.0237/01.0243 gap-1.
+1. Batch next: initial anubandhas `ādirñiṭuḍavaḥ` (1.3.5) wu/qu/Yi stripping (19 roots: wunadi, qupaca, qulaBa, quvapa, etc.) or `u~` anubandha stripping (67 roots) or yaṅanta z-natva (excluding intervening l, 01.0574 gap-7).
+2. Then: liṭ periphrastic aww/aqq (01.0287, 01.0403) and nich_krut Satf kAR/rAR/SrAR (01.0903, 01.0904, 01.0907, 01.0962).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.
