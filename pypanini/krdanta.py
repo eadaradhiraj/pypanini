@@ -37,6 +37,42 @@ def _natva_applies(root: str) -> bool:
     )
 
 
+def clean_dhatu_op(op: str) -> str:
+    """Paninian anubandha stripping: 1.3.5 adirYiwuqavaH, 1.3.3 halantyam, 1.3.2 upadeSe'janunAsika it."""
+    raw = op.replace("~", "").replace("`", "").strip()
+    if "~z" in op and raw.endswith("z") and len(raw) > 1:
+        raw = raw[:-1]
+    if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
+        raw = raw[:-1]
+    no_num_r = ("~r" in op)
+    if no_num_r and raw.endswith("r") and len(raw) > 1:
+        raw = raw[:-1]
+    if (op.endswith("U~") or "U~" in op) and raw.endswith("U") and len(raw) > 1:
+        raw = raw[:-1]
+    if (op.endswith("u~") or "u~" in op) and raw.endswith("u") and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
+        raw = raw[:-1]
+    if no_num_r and raw.endswith("i") and len(raw) > 1:
+        raw = raw[:-1]
+    if ("I~" in op) and raw.endswith("I") and len(raw) > 1:
+        raw = raw[:-1]
+    for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
+        if (op.startswith(_pre + "~") or op.startswith(_pre)) and len(raw) > len(_pre) + 1:
+            raw = raw[len(_pre):]
+            break
+    clean = raw
+    if op.endswith("A~") and clean.endswith("A") and len(clean) > 1:
+        clean = clean[:-1]
+    elif clean.endswith("a") and len(clean) > 1:
+        clean = clean[:-1]
+    if op.endswith("e~") and not op.endswith("te~") and clean.endswith("e") and len(clean) > 1:
+        clean = clean[:-1]
+    if clean.startswith("z"):
+        clean = "s" + clean[1:]
+    if clean.startswith("R"):
+        clean = "n" + clean[1:]
+    return clean
+
+
 class KrdantaEngine:
     def __init__(self):
         self.krdanta_metadata = {
@@ -74,28 +110,8 @@ class KrdantaEngine:
                         op = info.get("OpadeSikasvarUpam", "")
                         if not op:
                             continue
-                        raw = op.replace("~", "").replace("`", "").strip()
-                        if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
-                            raw = raw[:-1]
+                        clean = clean_dhatu_op(op)
                         no_num_r = ("~r" in op)
-                        if no_num_r and raw.endswith("r") and len(raw) > 1:
-                            raw = raw[:-1]
-                        if op.endswith("U~") and raw.endswith("U") and len(raw) > 1:
-                            raw = raw[:-1]
-                        if no_num_r and raw.endswith("i") and len(raw) > 1:
-                            raw = raw[:-1]
-                        if ("I~" in op) and raw.endswith("I") and len(raw) > 1:
-                            raw = raw[:-1]
-                        clean = raw
-                        if clean.endswith("a") and len(clean) > 1:
-                            clean = clean[:-1]
-                        # e-anubandha strip (kaKe~->kaK; cate te~ excluded: short yat + N cross-match)
-                        if op.endswith("e~") and not op.endswith("te~") and clean.endswith("e") and len(clean) > 1:
-                            clean = clean[:-1]
-                        if clean.startswith("z"):
-                            clean = "s" + clean[1:]
-                        if clean.startswith("R"):
-                            clean = "n" + clean[1:]
                         padam = info.get("padam", "")
                         if "Atman" in padam:
                             pada = "Atmanepadi"
@@ -105,7 +121,7 @@ class KrdantaEngine:
                             pada = "parasmEpadi"
                         sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
                         sew_raw = info.get("iqAgamayogyatA", "sew").lower().strip()
-                        is_idit = (("i~" in op) or (op.endswith("~") and raw.endswith("i"))) and not no_num_r and ("I~" not in op)
+                        is_idit = (("i~" in op) or (op.endswith("~") and op.replace("~","").replace("`","").endswith("i"))) and not no_num_r and ("I~" not in op)
                         antara = info.get("antargaRaH", "")
                         _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
                         # mit denial respected: notes stating "mit nAsti" (lowered: "mit nasti"; kamu/ama/camu via na kamyamicamAm) are NOT mit;
@@ -140,17 +156,7 @@ class KrdantaEngine:
                     return self._cache_by_id[k]
         if dhatu in self._cache:
             return self._cache[dhatu]
-        raw = dhatu.replace("~", "").replace("`", "").strip()
-        if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
-            raw = raw[:-1]
-        clean = raw
-        if clean.endswith("a") and len(clean) > 1:
-            clean = clean[:-1]
-        # e-anubandha strip (kaKe~->kaK; cate te~ excluded)
-        if dhatu.endswith("e~") and not dhatu.endswith("te~") and clean.endswith("e") and len(clean) > 1:
-            clean = clean[:-1]
-        if clean.startswith("z"):
-            clean = "s" + clean[1:]
+        clean = clean_dhatu_op(dhatu)
         is_vowel_init = clean[0] in SLP1_VOWELS if clean else False
         pada = "Atmanepadi" if is_vowel_init else "parasmEpadi"
         is_idit = ("i~" in dhatu) or ("I~" in dhatu) or (clean.endswith("i") and "~" in dhatu)
@@ -320,9 +326,10 @@ class KrdantaEngine:
                     _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
                         return _nbw[:-1] + _nn + _nbw[-1] + "ay"
-                # ncu-final niC num-Y stem (ancu->aYcay, gluncu->gluYcay: surveyed all 9 ncu-files, zero conflicts)
-                if c.endswith("ncu"):
-                    return c[:-3] + "Yc" + "ay"
+                # ncu/nc-final niC num-Y stem (ancu->aYcay, anc->aYcay, gluncu->gluYcay: surveyed all 9 ncu-files, zero conflicts)
+                if c.endswith("ncu") or c.endswith("nc"):
+                    _base = c[:-3] if c.endswith("ncu") else c[:-2]
+                    return _base + "Yc" + "ay"
                 # CuCu niC guna-o stem (kuju->kojay, mrucu->mrocay: first-u guna, drop final-u;
                 # surveyed uCu-roots; ncu/f/i/a-first cases handled elsewhere or excluded)
                 # Cizu niC guna-e stem (jizu->jezay: first-i guna, drop final-u; surveyed all 5 izu-roots)
@@ -333,17 +340,17 @@ class KrdantaEngine:
                             _fv = _ch
                             break
                     # first-u must not be the final char (sru/pruzu single-u keeps old output; kuju/mrucu double-u takes guna)
-                    if _fv == "u" and "f" not in c and not c.endswith("ncu") and c.index("u") < len(c) - 1:
+                    if _fv == "u" and "f" not in c and not c.endswith("ncu") and not c.endswith("nc") and c.index("u") < len(c) - 1:
                         _ui = c.index("u")
                         return c[:_ui] + "o" + c[_ui + 1:-1] + "ay"
-                    if _fv == "i" and "f" not in c and not c.endswith("ncu") and c.index("i") < len(c) - 1:
+                    if _fv == "i" and "f" not in c and not c.endswith("ncu") and not c.endswith("nc") and c.index("i") < len(c) - 1:
                         _ii = c.index("i")
                         return c[:_ii] + "e" + c[_ii + 1:-1] + "ay"
-                # mu/su-final niC stem: ns->Ms without vriddhi (Sansu->SaMsay), else first-vowel
+                # mu/su-final or ns-coda niC stem: ns->Ms without vriddhi (Sansu->SaMsay, Sans->SaMsay), else first-vowel
                 # strengthening + drop-u (camu->cAmay, grasu->grAsay, jimu->jemay;
                 # mit roots excluded (jamu genuine mit->short jamay via hrasva, unlike mit-denied camu))
-                if (c.endswith("mu") or c.endswith("su")) and len(c) >= 3 and not meta.get("is_mit", False):
-                    _core2 = c[:-1]
+                if (c.endswith(("mu", "su")) or (c.endswith("s") and "ns" in c)) and len(c) >= 3 and not meta.get("is_mit", False):
+                    _core2 = c[:-1] if c.endswith(("mu", "su")) else c
                     if "ns" in _core2:
                         return _core2.replace("ns", "Ms") + "ay"
                     _fv2 = None
@@ -352,11 +359,11 @@ class KrdantaEngine:
                             _fv2 = _ch
                             break
                     _okmu = c.endswith("mu") and len(_core2) <= 3
-                    if c.endswith("su") or _okmu:
+                    if c.endswith("su") or _okmu or (c.endswith("s") and len(_core2) <= 3):
                         if _fv2 == "a":
                             _fi = _core2.index("a")
                             return _core2[:_fi] + "A" + _core2[_fi + 1:] + "ay"
-                        elif _fv2 == "i" and c.endswith("mu"):
+                        elif _fv2 == "i" and (c.endswith("mu") or c.endswith("m")):
                             _ii = c.index("i")
                             return c[:_ii] + "e" + c[_ii + 1:-1] + "ay"
                 if c and c[-1] in SLP1_VOWELS:

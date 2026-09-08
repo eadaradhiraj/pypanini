@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-08T19:54:00Z
-Sweep: 741/1156 100% (raw 741/1166)
+Date: 2026-09-08T20:25:00Z
+Sweep: 755/1156 100% (raw 755/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -30,8 +30,12 @@ Sweep: 741/1156 100% (raw 741/1166)
 - Tinanta yak-liT An-redup for a/f-initial (ati->Anante, fja->Anfje, arda->Anarde; idit num via op-recovery; caught an edit eating the next subsection's first line that broke 2 pilots, fixed pre-sweep). Re-sweep: `726/1156` held (+2 perfect: 01.0063/01.0064), 7 improved, 0 worsened. Pilots OK.
 - Krdanta `_natva_applies` base-check on len>2 i-final roots (sraki->srak, 13 new 100% passes: 01.0088, 01.0089, 01.0102, 01.0112, 01.0145, 01.0153, 01.0161, 01.0164, 01.0173, 01.0436, 01.0449, 01.0480, 01.0945; surveyed all 35 i-roots, zero conflicts; sweep: 15 improved, 0 worsened, passes 726->739). Pilots OK.
 - Tinanta vowel-initial velar/palatal Y-aorist de-aspirates palatals and includes thematic and atmanepada endings (ACi->AYcicCata, uCi->OYcicCata; 2 new 100% passes: 01.0237, 01.0243; 2 improved, 0 worsened, passes 739->741). Pilots OK.
+- Generalized Paninian anubandha stripping in `clean_dhatu_op` across both engines and test runner: 1.3.5 ādirñiṭuḍavaḥ (wu/qu/Yi/wuo/quo/o), 1.3.3 halantyam (~z), 1.3.2 upadeśe'janunāsika it (udit u~/U~, A~ on idit/anubandha tails) alongside existing f/F/x/X/~r/I~/a/e~ anubandhas; updated krdanta `_nijanta_sec` for nc/ns codas without surface u. Sweep: 14 new 100% passes: 01.0070 (wunadi~), 01.0425 (wuvepf~), 01.0542 (jamu~), 01.0543 (Jamu~), 01.0685 (DAvu~), 01.0844 (YimidA~), 01.0884 (YitvarA~), 01.0951 (vanu~), 01.0954 (quyAcf~), 01.0957 (wuBrAjf~), 01.0959 (wuBlASf~), 01.0984 (wuvama~), 01.0985 (Bramu~), 01.1001 (wuyAcf~); 88 improved, 0 worsened, passes 741->755. Pilots OK.
 
 ## Next
-1. Batch next: initial anubandhas `ādirñiṭuḍavaḥ` (1.3.5) wu/qu/Yi stripping (19 roots: wunadi, qupaca, qulaBa, quvapa, etc.) or `u~` anubandha stripping (67 roots) or yaṅanta z-natva (excluding intervening l, 01.0574 gap-7).
-2. Then: liṭ periphrastic aww/aqq (01.0287, 01.0403) and nich_krut Satf kAR/rAR/SrAR (01.0903, 01.0904, 01.0907, 01.0962).
+1. Fix 01.0574 (`zevf~` -> `sezev-`) Naṭva in `yang_krut` SAnac (`sezevyamARaH`): allow naṭva when `base_no_ya` contains `z` followed by `aṭ` vowels/consonants (`v`), but require `fin != "l"` to avoid breaking `kzvelf`/`zelf`/`kzala`. Will bring 01.0574 to 100% (883/883).
+2. Consonant cluster assimilation for Gaṇa 01:
+   - `c/j` before `s/t` (e.g. `tyaj` -> `tyaktA`, `pac` -> `paktA`).
+   - Periphrastic Liṭ for heavy clusters (`01.0287 awwAYcakre`, `01.0403 aqqAYcakre`).
+   - NiC Satṛ for Gawādi roots (`kARayan`, `rARayan`, `SrARayan`).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

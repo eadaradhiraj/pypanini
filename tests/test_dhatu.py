@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from pypanini import TinantaDerivationEngine, KrdantaEngine
+from pypanini import TinantaDerivationEngine, KrdantaEngine, clean_dhatu_op
 
 # default data root (absolute on dev machine, overridable via env)
 DATA_ROOT = Path(os.getenv("SKT_MORPH_DATA", "/home/edhiraj/Documents/projs/skt-morph-data/data"))
@@ -114,22 +114,12 @@ def resolve_json_path(arg: str) -> Path:
 def resolve_dhatu_slp(json_path: Path, arg: str) -> str:
     """Return SLP1 dhatu string to pass to engine. If arg is SLP1, use it cleaned; else read from JSON."""
     if "." not in arg and "/" not in arg and not Path(arg).exists():
-        # assume SLP1
-        s = arg.replace("~", "").strip()
-        # engine will clean trailing a/f, but we try to return as-is for lookup
-        # if it ends with 'a' and len>1, engine expects without 'a' for consonant roots
-        # keep as provided; engine's _get_meta handles it
-        return s
+        return clean_dhatu_op(arg)
     # read from JSON
     d = json.load(open(json_path, encoding="utf-8"))
     info = {x["name"]: x["value"] for x in d.get("info", [])}
     op = info.get("OpadeSikasvarUpam", "")
-    # mimic engine cleaning
-    raw = op.replace("~", "").replace("`", "").strip()
-    if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in "aAiIuUfFxXeEoO":
-        raw = raw[:-1]
-    clean = raw[:-1] if raw.endswith("a") and len(raw) > 1 else raw
-    return clean
+    return clean_dhatu_op(op)
 
 
 def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:

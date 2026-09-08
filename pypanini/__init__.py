@@ -9,7 +9,7 @@ from .phonetics import (
     apply_satva,
     apply_rutva_visarga,
 )
-from .tinanta import TinantaDerivationEngine
+from .tinanta import TinantaDerivationEngine, clean_dhatu_op
 from .krdanta import KrdantaEngine
 
 __all__ = [
@@ -21,4 +21,5 @@ __all__ = [
     "apply_rutva_visarga",
     "TinantaDerivationEngine",
     "KrdantaEngine",
+    "clean_dhatu_op",
 ]

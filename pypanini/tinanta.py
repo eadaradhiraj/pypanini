@@ -29,6 +29,42 @@ DEASPIRATE = {
 }
 VELAR_TO_PALATAL = {"k": "c", "K": "c", "g": "j", "G": "j", "N": "Y", "h": "j"}
 
+def clean_dhatu_op(op: str) -> str:
+    """Paninian anubandha stripping: 1.3.5 adirYiwuqavaH, 1.3.3 halantyam, 1.3.2 upadeSe'janunAsika it."""
+    raw = op.replace("~", "").replace("`", "").strip()
+    if "~z" in op and raw.endswith("z") and len(raw) > 1:
+        raw = raw[:-1]
+    if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
+        raw = raw[:-1]
+    no_num_r = ("~r" in op)
+    if no_num_r and raw.endswith("r") and len(raw) > 1:
+        raw = raw[:-1]
+    if (op.endswith("U~") or "U~" in op) and raw.endswith("U") and len(raw) > 1:
+        raw = raw[:-1]
+    if (op.endswith("u~") or "u~" in op) and raw.endswith("u") and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
+        raw = raw[:-1]
+    if no_num_r and raw.endswith("i") and len(raw) > 1:
+        raw = raw[:-1]
+    if ("I~" in op) and raw.endswith("I") and len(raw) > 1:
+        raw = raw[:-1]
+    for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
+        if (op.startswith(_pre + "~") or op.startswith(_pre)) and len(raw) > len(_pre) + 1:
+            raw = raw[len(_pre):]
+            break
+    clean = raw
+    if op.endswith("A~") and clean.endswith("A") and len(clean) > 1:
+        clean = clean[:-1]
+    elif clean.endswith("a") and len(clean) > 1:
+        clean = clean[:-1]
+    if op.endswith("e~") and not op.endswith("te~") and clean.endswith("e") and len(clean) > 1:
+        clean = clean[:-1]
+    if clean.startswith("z"):
+        clean = "s" + clean[1:]
+    if clean.startswith("R"):
+        clean = "n" + clean[1:]
+    return clean
+
+
 class TinantaDerivationEngine:
     def __init__(self):
         self.ms = MaheshvaraSutrasSLP1()
@@ -60,37 +96,8 @@ class TinantaDerivationEngine:
                         op = info.get("OpadeSikasvarUpam", "")
                         if not op:
                             continue
-                        raw = op.replace("~", "").replace("`", "").strip()
-                        # strip anubandha f/F/x/X for dhatus like gADf~ -> gAD
-                        if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
-                            raw = raw[:-1]
-                        # Panini anubandha: ~r (e.g. cyuti~r -> cyut, no num 7.1.58 blocked)
+                        clean = clean_dhatu_op(op)
                         no_num_r = ("~r" in op)
-                        if no_num_r and raw.endswith("r") and len(raw) > 1:
-                            raw = raw[:-1]
-                        # U~ anubandha (e.g. ziDU~ -> ziD, gupU~ -> gup); BU has no ~ so kept
-                        if op.endswith("U~") and raw.endswith("U") and len(raw) > 1:
-                            raw = raw[:-1]
-                        # ~r idit strips i without num (cyuti~r -> cyut, not cyunt)
-                        if no_num_r and raw.endswith("i") and len(raw) > 1:
-                            raw = raw[:-1]
-                        # I~ (capital) strips I without num, allows guNa (citI~->cit->cet); i~ (lower) keeps num, blocks guNa
-                        if ("I~" in op) and raw.endswith("I") and len(raw) > 1:
-                            raw = raw[:-1]
-                        clean = raw
-                        # strip trailing 'a' added for consonant-ending dhatus (eDa->eD, sparDa->sparD)
-                        if clean.endswith("a") and len(clean) > 1:
-                            clean = clean[:-1]
-                        # e-anubandha strip (kaKe~->kaK, yoga of f/X/R/z strips; cate te~ excluded: short yat + N cross-match)
-                        if op.endswith("e~") and not op.endswith("te~") and clean.endswith("e") and len(clean) > 1:
-                            clean = clean[:-1]
-                        # handle zvada~ (z -> s) for 01.0018: zvad -> svad (SLP1 z->s)
-                        if clean.startswith("z"):
-                            clean = "s" + clean[1:]
-                        # onset R -> n (Ridi->nindati etc: surveyed all 22 R-initial roots, verb forms never surface R)
-                        if clean.startswith("R"):
-                            clean = "n" + clean[1:]
-                        # SLP1 normalize: ensure we have SLP1 form (already)
                         padam = info.get("padam", "")
                         # normalize padam: parasmEpadI / AtmanepadI (with capital E)
                         if "Atman" in padam:
@@ -105,7 +112,7 @@ class TinantaDerivationEngine:
                         # idit=num only for lowercase i~ (klidi~->klind, blocks guNa); I~ strips without num, allows guNa (citI~->cit->cet)
                         is_idit = ("i~" in op) and not no_num_r
                         # also fallback: if clean endswith i and op endswith ~ and raw endswith i
-                        if not is_idit and not no_num_r and ("I~" not in op) and op.endswith("~") and raw.endswith("i"):
+                        if not is_idit and not no_num_r and ("I~" not in op) and op.endswith("~") and op.replace("~","").replace("`","").endswith("i"):
                             is_idit = True
                         entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "gana": gana, "is_idit": is_idit, "op": op}
                         self._dhatu_cache[clean] = entry
@@ -142,22 +149,7 @@ class TinantaDerivationEngine:
         if dhatu in self._dhatu_cache:
             return self._dhatu_cache[dhatu]
         # fallback inference with anubandha stripping
-        raw = dhatu.replace("~", "").replace("`", "").strip()
-        if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
-            raw = raw[:-1]
-        clean = raw
-        if clean.endswith("a") and len(clean) > 1:
-            clean = clean[:-1]
-        # e-anubandha strip (kaKe~->kaK; cate te~ excluded)
-        if dhatu.endswith("e~") and not dhatu.endswith("te~") and clean.endswith("e") and len(clean) > 1:
-            clean = clean[:-1]
-        if clean.startswith("z"):
-            clean = "s" + clean[1:]
-        if clean.startswith("R"):
-            clean = "n" + clean[1:]
-        # infer vowel-initial?
-        # default: consonant-initial BvAdi, parasmaipada, sew
-        # if dhatu is known vowel-initial like eD, infer Atmanepadi
+        clean = clean_dhatu_op(dhatu)
         is_vowel_init = clean[0] in SLP1_VOWELS if clean else False
         if is_vowel_init:
             pada = "Atmanepadi"
