@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-07T00:00:00Z
-Sweep: 717/1156 100% (raw 717/1166)
+Sweep: 724/1156 100% (raw 724/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -24,9 +24,10 @@ Sweep: 717/1156 100% (raw 717/1166)
 - Krdanta niC stem num-Y for ncu-final (ancu->aYcay; surveyed all 9 ncu-files). Sweep: 9 improved, 0 worsened. Pilots OK.
 - Krdanta niC stem guna-o for double-u CuCu-roots (kuju->kojay; gate refined after 6 worsened). Sweep: 8 improved, 0 worsened. Pilots OK.
 - Krdanta niC stem guna-e for i..u-roots (jizu->jezay + bonus). Sweep: 8 improved, 0 worsened. Pilots OK.
-- Krdanta niC stem mu/su first-vowel strengthening (camu->cAmay, grasu->grAsay, jimu->jemay, Sansu->SaMsay; mu-single-C gate; genuine-mit jamu excluded via is_mit — first cut missed it, cheap test caught 1-token loss, fixed pre-sweep). Re-sweep: `717/1156` held, 10 improved, 0 worsened. Pilots OK.
+- Krdanta niC stem mu/su first-vowel strengthening (camu->cAmay etc; jamu-mit excluded). Sweep: 10 improved, 0 worsened. Pilots OK.
+- Tinanta mula-luN sic-aorist t/d-num + vocalic augment (ati->AntIt, agi->ANgIt; t/d->n map; removed stale is_vowel_initial=False reset so ANg not aaNg). Re-sweep: `724/1156` held (+7 perfect: idi/uKi/iKi/IGi/agi/igi/aci-families), 12 improved, 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): kfvi laT o-guna (kfRvati->kfRoti; likely SKIP, singleton f-ablaut) or tinanta niC stems (mirrors of krdanta fixes? survey tinanta nich forms for ancu/camu-gaps).
+1. Batch next, ONE narrow rule (survey first): ati/adi luN leftovers (618/636: 3 slots still miss — diagnose which) or kfvi laT o-guna (likely SKIP, singleton) or Atmane luN num-Y (aci-class: AYcizwa worked via cross-match, check rest).
 2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

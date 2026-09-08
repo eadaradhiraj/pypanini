@@ -694,7 +694,7 @@ class TinantaDerivationEngine:
                 _nn2 = "M" if base_wo_i[-1:] == "s" else ("R" if (base_wo_i[-1:] == "v" and ("r" in clean or "f" in clean)) else "n")
                 with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
                 clean = with_n
-                is_vowel_initial = False
+                # flag must describe current clean: a-initial num-cleans (ant/and/ind) still take vocalic augment (AntIt)
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
         # helper for sannanta / nijanta / yan stems (generative)
         def _nijanta_stem(c):
@@ -2401,13 +2401,15 @@ class TinantaDerivationEngine:
                     except Exception:
                         _aug_U = None
                     # idit i-final velar/palatal num-base (agi->ENgIt; meta skips num for Y-class)
+                    # + dental t/d->n (ati->AntIt, adi->AndIt); augment merges a-initial (ANg, not aaNg)
                     _aug_N = None
                     try:
                         if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                             _nbw = clean[:-1]
-                            _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
+                            _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else ("n" if _nbw and _nbw[-1] in ("t", "d") else None))))
                             if _nn and len(_nbw) >= 1:
-                                _aug_N = self._add_augment(_nbw[:-1] + _nn + _nbw[-1], False)
+                                _nbase = _nbw[:-1] + _nn + _nbw[-1]
+                                _aug_N = self._add_augment(_nbase, _nbase[0] in SLP1_VOWELS if _nbase else False)
                     except Exception:
                         _aug_N = None
                     for sfx in ["It","Id","izwAm","izuH","IH","izwam","izwa","izam","izva","izma","t","tAm","uH","H","aTuH","a","iva","ima","van","tam","ta","vam","va","ma","izwa","izAtAm","izata","izWAH","izATAm","iDvam","izi","izvahi","izmahi","ItAm","IzuH","Izam","Iva","Ima","izAtAm","izata"]:
