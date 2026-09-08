@@ -1350,6 +1350,10 @@ class TinantaDerivationEngine:
                     redup_alt = self._reduplicated_stem(alt_c)
                     if redup_alt not in redups:
                         redups.append(redup_alt)
+                if redup.startswith(("su", "si")) and clean.startswith("s"):
+                    _uns = redup[:2] + clean
+                    if _uns not in redups:
+                        redups.append(_uns)
                 endings_v = {("prathama","eka"):"ve",("prathama","dvi"):"vAte",("prathama","bahu"):"vire",("madhyama","eka"):"vize",("madhyama","dvi"):"vATe",("madhyama","bahu"):"viDve",("uttama","eka"):"ve",("uttama","dvi"):"vivahe",("uttama","bahu"):"vimahe"}
                 endings = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
                 endings_q = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iQve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
@@ -1357,6 +1361,9 @@ class TinantaDerivationEngine:
                 cands = []
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
+                if clean == "trap":
+                    _be_122 = "tr" + "e" + clean[-1]
+                    cands += [_be_122 + endings[(purusha, vacana)], _be_122 + endings_q[(purusha, vacana)]]
                 # yak liw n-redup for a+r onset (arva->Anarve/AnarvATe/AnarvaTe; surveyed shape)
                 try:
                     if clean.startswith("a") and len(clean) > 2 and "r" in clean[1:3]:
@@ -2209,6 +2216,12 @@ class TinantaDerivationEngine:
                                 cands.append(_be + _fc + _ee[(purusha, vacana)])
                     except Exception:
                         pass
+                    # Panini 6.4.122 tfPalaBajatrapaSca: et-tva + abhyAsa-lopa in liT for trap (trepe, etc.)
+                    if clean == "trap":
+                        _be_122 = "tr" + "e"
+                        _fc_122 = clean[-1]
+                        for _ee in (endings,):
+                            cands.append(_be_122 + _fc_122 + _ee[(purusha, vacana)])
                     if clean == "daD":
                         alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                         cands.append(alt[(purusha,vacana)])

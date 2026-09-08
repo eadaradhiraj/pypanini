@@ -126,10 +126,12 @@ class KrdantaEngine:
                         sew_raw = info.get("iqAgamayogyatA", "sew").lower().strip()
                         is_idit = (("i~" in op) or (op.endswith("~") and op.replace("~","").replace("`","").endswith("i"))) and not no_num_r and ("I~" not in op)
                         antara = info.get("antargaRaH", "")
+                        comm = info.get("DAturUpanandinIwippaRI", "")
                         _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
                         # mit denial respected: notes stating "mit nAsti" (lowered: "mit nasti"; kamu/ama/camu via na kamyamicamAm) are NOT mit;
                         # other niziDyate-notes (Samo/yama conditional denials) stay mit via antara or plain-mit text
-                        is_mit = (antara == "GawAdiH") or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
+                        _is_gawadi = (("GawAdi" in antara) or ("GawAdikAryArTam" in comm)) and ("PaRAdi" not in antara)
+                        is_mit = _is_gawadi or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
                         entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit}
                         self._cache[clean] = entry
                         self._cache[op] = entry
@@ -259,10 +261,12 @@ class KrdantaEngine:
         # Panini 7.2.56 udito vA / 7.2.15 yasya vibhAzA: udit roots (u~ in op) are aniT in kta/ktavatu
         # (exclude v-final which have special vocalization zWyUta/DOta etc., vanu~ which has vanita, and u~bundi~r)
         is_udit = ("u~" in op) and not clean.endswith("v") and clean != "van" and ("ubund" not in clean)
+        # Panini 7.2.16 AditaSca: Adit roots (A~ in op) ending in dental t/d are aniT in kta/ktavatu (SvitA~->Svitta, kzvidA~->kzviRRa)
+        is_adit = ("A~" in op) and clean.endswith(("t", "d"))
 
-        # I~ blocks iT, udit (u~) blocks iT (yatI~->yatta, hlAdI~->hlAnna, mrucu~->mrukta, jizu~->jizwa), except
+        # I~ blocks iT, udit (u~) blocks iT, Adit (A~) blocks iT (yatI~->yatta, hlAdI~->hlAnna, mrucu~->mrukta, jizu~->jizwa, SvitA~->Svitta), except
         # r-containing stems (urvI~/turvI~-cluster -> tUrvita, surveyed shape gate)
-        needs_i = sew and not is_vowel_final and not is_udit and (("I~" not in op) or ("r" in clean) or ("R" in clean))
+        needs_i = sew and not is_vowel_final and not is_udit and not is_adit and (("I~" not in op) or ("r" in clean) or ("R" in clean))
         if needs_i:
             # i-guna for m+i+dental-d (mid->medita, lone f~ i-medial with guna, shape-based not per-dhatu)
             if len(clean) == 3 and clean[0] == "m" and clean[1] == "i" and clean[-1] == "d":
@@ -304,7 +308,10 @@ class KrdantaEngine:
             if prev_v == "a" and len(clean) >= 2 and clean[-2] == "a":
                 # short-a mad -> matta (devoice d->t)
                 return clean[:-1] + "tta"
-            return clean[:-1] + "nna"
+            _res_d = clean[:-1] + "nna"
+            if ("z" in clean or "r" in clean) and not any(c in clean[:-1] for c in ("t", "T", "d")):
+                _res_d = _res_d[:-3] + "RRa"
+            return _res_d
         # t + ta -> tta (simple concat already gives tta)
         # w-final + ta -> wwa (kaw->kawwa, 8.2.? general shape, not per-dhatu)
         if clean[-1:] == "w":
