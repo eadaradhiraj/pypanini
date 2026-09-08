@@ -23,9 +23,10 @@ Sweep: 717/1156 100% (raw 717/1166)
 - E-anubandha strip at meta source in both files (kaKe~->kaK like f/X/R/z strips; cate te~ excluded). Sweep: 14 improved to perfect, 0 worsened. Pilots OK.
 - Krdanta niC stem num-Y for ncu-final (ancu->aYcay; surveyed all 9 ncu-files). Sweep: 9 improved, 0 worsened. Pilots OK.
 - Krdanta niC stem guna-o for double-u CuCu-roots (kuju->kojay; gate refined after 6 worsened). Sweep: 8 improved, 0 worsened. Pilots OK.
-- Krdanta niC stem guna-e for i..u-roots (jizu->jezay + bonus ziDu/ziBu/jimu). Re-sweep: `717/1156` held, 8 improved (+19/+26), 0 worsened. Pilots OK.
+- Krdanta niC stem guna-e for i..u-roots (jizu->jezay + bonus). Sweep: 8 improved, 0 worsened. Pilots OK.
+- Krdanta niC stem mu/su first-vowel strengthening (camu->cAmay, grasu->grAsay, jimu->jemay, Sansu->SaMsay; mu-single-C gate; genuine-mit jamu excluded via is_mit — first cut missed it, cheap test caught 1-token loss, fixed pre-sweep). Re-sweep: `717/1156` held, 10 improved, 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): niC-stem vriddhi-A for asu-roots (grasu->grAsay ×3) or amu first-vowel vriddhi (kAmay ×5, needs stem-vriddhi placement fix) or kfvi laT o-guna (likely SKIP, singleton).
+1. Batch next, ONE narrow rule (survey first): kfvi laT o-guna (kfRvati->kfRoti; likely SKIP, singleton f-ablaut) or tinanta niC stems (mirrors of krdanta fixes? survey tinanta nich forms for ancu/camu-gaps).
 2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

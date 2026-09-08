@@ -337,6 +337,26 @@ class KrdantaEngine:
                     if _fv == "i" and "f" not in c and not c.endswith("ncu") and c.index("i") < len(c) - 1:
                         _ii = c.index("i")
                         return c[:_ii] + "e" + c[_ii + 1:-1] + "ay"
+                # mu/su-final niC stem: ns->Ms without vriddhi (Sansu->SaMsay), else first-vowel
+                # strengthening + drop-u (camu->cAmay, grasu->grAsay, jimu->jemay;
+                # mit roots excluded (jamu genuine mit->short jamay via hrasva, unlike mit-denied camu))
+                if (c.endswith("mu") or c.endswith("su")) and len(c) >= 3 and not meta.get("is_mit", False):
+                    _core2 = c[:-1]
+                    if "ns" in _core2:
+                        return _core2.replace("ns", "Ms") + "ay"
+                    _fv2 = None
+                    for _ch in c:
+                        if _ch in SLP1_VOWELS:
+                            _fv2 = _ch
+                            break
+                    _okmu = c.endswith("mu") and len(_core2) <= 3
+                    if c.endswith("su") or _okmu:
+                        if _fv2 == "a":
+                            _fi = _core2.index("a")
+                            return _core2[:_fi] + "A" + _core2[_fi + 1:] + "ay"
+                        elif _fv2 == "i" and c.endswith("mu"):
+                            _ii = c.index("i")
+                            return c[:_ii] + "e" + c[_ii + 1:-1] + "ay"
                 if c and c[-1] in SLP1_VOWELS:
                     vv = apply_vriddhi(c[-1])
                     av = apply_sandhi_eco_ayavayavah(vv)
