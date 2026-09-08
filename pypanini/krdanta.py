@@ -791,6 +791,21 @@ class KrdantaEngine:
             return {"M": m, "F": f, "N": n}
 
         elif pratyaya == "SAnac":
+            # yanluganta keeps -ya- (SASlaNkyamAna/boBUyamAna: surveyed all yangluk SAnac, -ya- unanimous;
+            # Natva mirrored from yananta block via orig_clean)
+            if sanadi == "yanluganta":
+                _ylb = clean if clean.endswith("ya") else clean + "ya"
+                _m = _ylb + "mAnaH" if _ylb.endswith("a") else _ylb + "amAnaH"
+                _f = _ylb + "mAnA" if _ylb.endswith("a") else _ylb + "amAnA"
+                _n = _ylb + "mAnam" if _ylb.endswith("a") else _ylb + "amAnam"
+                # Natva on the yanlu stem itself (sraNk->R with r+k, SASlaNk dental without r;
+                # preserves old sec-based hits like raNKyamARaH that orig_clean-based Natva lost)
+                _nst = _ylb[:-2] if _ylb.endswith("ya") else _ylb
+                if _natva_applies(_nst):
+                    _m = _m.replace("mAnaH", "mARaH").replace("amAnaH", "amARaH")
+                    _f = _f.replace("mAnA", "mARA").replace("amAnA", "amARA")
+                    _n = _n.replace("mAnam", "mARam").replace("amAnam", "amARam")
+                return {"M": _m, "F": _f, "N": _n}
             # idit i-final num-clean (agi->aNgamAnaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 _sbw = clean[:-1]
