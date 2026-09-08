@@ -271,6 +271,13 @@ class KrdantaEngine:
         # no iT: samyoga
         if not clean:
             return "ta"
+        # Panini 6.4.20 / 6.1.22 / 6.1.28: y-final aniT roots drop y before kit jhalAdi ta
+        if clean.endswith("y") and not needs_i:
+            if clean == "sPAy":
+                return "sPIta"
+            if clean == "pyAy":
+                return "pIna"
+            clean = clean[:-1]
         # coH kuH (8.2.30): c/ch/j/J -> k
         if clean[-1] in ("c", "C", "j", "J"):
             return clean[:-1] + "k" + "ta"

@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-08T21:09:00Z
-Sweep: 779/1156 100% (raw 779/1166)
+Date: 2026-09-08T21:15:00Z
+Sweep: 785/1156 100% (raw 785/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -38,10 +38,13 @@ Sweep: 779/1156 100% (raw 779/1166)
 - Panini 7.2.15 yasya vibhAzA / 7.2.56 udito vA: aniT kta for su~ roots (grasu~->grasta, glasu~->glasta, Sasu~->Sasta); 6.4.24 nasal loss before s (Sansu~->Sasta, sransu~->srasta, Dvansu~->Dvasta, Bransu~->Brasta); 6.4.15/7.2.27 mu~ kta nasal drop & dIrgha (camu~->cAnta, jimu~->jInta, kamu~->kAnta, ramu~->rata). Sweep: 11 improved, 0 worsened, 5 new 100% passes (01.0540, 01.0544, 01.0717, 01.0718, 01.0828), passes 760->765. Pilots OK.
 - Tinanta primitive yak-luN unaugmented clean base over-generation (sPUrj->asPUrji; 01.0268 100% perfect).
 - Panini 7.2.56 udito vA / 7.2.15 yasya vibhAzA complete udit aniT kta with 6.4.24 nasal loss (aniditAM hala upaDAyAH kniti), 8.2.30 coH kuH (c/C/j/J->k: mrucu->mrukta, mlucu->mlukta, kuju->kukta, acu->akta), 8.4.41 zwunA zwuH (z->zwa: jizu->jizwa, mizu->mizwa, Srizu->Srizwa, pruzu->pruzwa), 8.2.40 jhazastaTorDo'DaH (B->bDa, D->dDa: sranB->srabDa, zwuB->stubDa, vfD->vfdDa), 8.2.36 vraSca... (BranS->Brazwa), 6.4.42 janasanakanAM saYjhaloH (Kan->KAta). Sweep: 140 improved, 0 worsened, 14 new 100% passes (01.0222, 01.0223, 01.0224, 01.0225, 01.0226, 01.0227, 01.0268, 01.0793, 01.0795, 01.0798, 01.0799, 01.0800, 01.0801, 01.0999), passes 765->779. Pilots OK.
+- Tinanta liw reduplication abhyāsa strip with satva for s-initial roots (ziDu->sizeDiTa, ziBu->sizeBiTa); Panini 8.2.77 hali ca / rvoścopadhāyā dīrghaḥ lengthening in ASIrliN & luN (hurC->hUrCyAt/ahUrCIt, murC->mUrCyAt/amUrCIt, sPurC->sPUrCyAt/asPUrCIt); Panini 6.4.20 / 6.1.22 / 6.1.28 y-lopa for aniṭ roots before kit jhalādi ta in _kta_stem (UyI->Uta, pUyI->pUta, knUyI->knUta, kzmAya->kzmAta, sPAy->sPIta, pyAy->pIna, SucyI->Sukta). Sweep: 15 improved, 0 worsened, 6 new 100% passes (01.0239, 01.0240, 01.0241, 01.0450, 01.0498, 01.0556), passes 779->785. Pilots OK.
 
 ## Next
-1. Consonant cluster assimilation for Gaṇa 01:
+1. Gawādi roots mittva handling in `krdanta.py`:
+   - Line 132 `("GawAdi" in antara)` for composite antargaRa (`01.0903 kaRa~`, `01.0904 raRa~`, `01.0907 SraRa~`)
+   - NiC Satṛ mittva hrasva check.
+2. Consonant cluster assimilation for Gaṇa 01:
    - `c/j` before `s/t` in tinanta (e.g. `tyaj` -> `tyaktA`, `pac` -> `paktA`).
-   - NiC Satṛ for Gawādi roots (`kARayan`, `rARayan`, `SrARayan`).
-2. Investigate remaining close-to-100% failures in `tests/sweep_all.csv` (e.g. misses <= 15).
-3. Re-sweep, rebuild STATS, overwrite this, commit & push.
+3. Investigate remaining close-to-100% failures in `tests/sweep_all.csv` (e.g. misses <= 15).
+4. Re-sweep, rebuild STATS, overwrite this, commit & push.

@@ -2276,7 +2276,8 @@ class TinantaDerivationEngine:
                         _guna = self._bhvadi_guna_base(clean, is_idit)
                         _vrid = self._vriddhi_base(clean, is_idit)
                         for _rd in list(redups):
-                            _rp = _rd[:-len(clean)] if _rd.endswith(clean) and len(clean) else _rd
+                            _tail_match = _rd.endswith(clean) or (clean.startswith("s") and _rd.endswith("z" + clean[1:]))
+                            _rp = _rd[:-len(clean)] if _tail_match and len(clean) else _rd
                             for _base in {_guna, _vrid, clean}:
                                 cands.append(_rp + _base + vow_endings[(purusha, vacana)])
                                 cands.append(_rp + _base + cons_endings[(purusha, vacana)])
@@ -2333,8 +2334,12 @@ class TinantaDerivationEngine:
 
         elif lakara == "ASIrliN":
             if pada == "parasmEpadi":
-                # no guna, base = clean; urv-coda lengthens (turv->tUrvyAt); idit i-final velar/palatal num-base (agi->iNgyAt)
-                _asb = [clean[:-3] + "Urv" if clean.endswith("urv") else clean]
+                # no guna, base = clean; urv-coda and ur+hal lengthens (turv->tUrvyAt, hurC->hUrCyAt 8.2.77); idit i-final velar/palatal num-base (agi->iNgyAt)
+                _asb = [clean]
+                if clean.endswith("urv"):
+                    _asb.append(clean[:-3] + "Urv")
+                elif "ur" in clean:
+                    _asb.append(clean.replace("ur", "Ur", 1))
                 try:
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                         _abw = clean[:-1]
@@ -2437,6 +2442,8 @@ class TinantaDerivationEngine:
                     try:
                         if clean.endswith("urv"):
                             _aug_U = self._add_augment(clean[:-3] + "Urv", False)
+                        elif "ur" in clean:
+                            _aug_U = self._add_augment(clean.replace("ur", "Ur", 1), False)
                     except Exception:
                         _aug_U = None
                     # idit i-final velar/palatal num-base (agi->ENgIt; meta skips num for Y-class)
