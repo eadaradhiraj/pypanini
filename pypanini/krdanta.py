@@ -131,7 +131,8 @@ class KrdantaEngine:
                         # mit denial respected: notes stating "mit nAsti" (lowered: "mit nasti"; kamu/ama/camu via na kamyamicamAm) are NOT mit;
                         # other niziDyate-notes (Samo/yama conditional denials) stay mit via antara or plain-mit text
                         _is_gawadi = (("GawAdi" in antara) or ("GawAdikAryArTam" in comm)) and ("PaRAdi" not in antara)
-                        is_mit = _is_gawadi or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
+                        _is_sk2354 = (info.get("kOmudIsUtrakramANkaH") == "2354") and ("PaRAdi" not in antara) and (not antara)
+                        is_mit = _is_gawadi or _is_sk2354 or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
                         entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit}
                         self._cache[clean] = entry
                         self._cache[op] = entry
@@ -257,6 +258,9 @@ class KrdantaEngine:
         # Panini 6.4.42 janasanakanAM saYjhaloH: an -> A before jhal (ta) (Kan->KAta, jan->jAta, san->sAta)
         if clean in ("jan", "san", "Kan"):
             return clean[:-2] + "Ata"
+        # Panini 6.4.15 anudAttopadeSa... for kanI~: kAnta
+        if clean == "kan" and "I~" in op:
+            return "kAnta"
 
         # Panini 7.2.56 udito vA / 7.2.15 yasya vibhAzA: udit roots (u~ in op) are aniT in kta/ktavatu
         # (exclude v-final which have special vocalization zWyUta/DOta etc., vanu~ which has vanita, and u~bundi~r)
@@ -547,6 +551,7 @@ class KrdantaEngine:
                 return redup_cons + redup_vowel + _cn + _csuf
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
+                if c == "pyAy": return "pepIyya"
                 if c in ("sUd", "sUd"):
                     return "sozUdya"
                 # idit i-final fresh numclean (mirror _nijanta_sec/tinanta; sraki->sAsraNkya; mangled ends-cons auto-miss)
@@ -782,8 +787,12 @@ class KrdantaEngine:
                         _base_iy = _redup + _vel + "Iy"
                         return {"M": _base_iy+"yaH", "F": _base_iy+"yA", "N": _base_iy+"yam"}
                     return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}
-                if pratyaya == "kta": return {"M": base_no_ya+"itaH","F":base_no_ya+"itA","N":base_no_ya+"itam"}
-                if pratyaya == "ktavatu": return {"M": base_no_ya+"itavAn","F":base_no_ya+"itavatI","N":base_no_ya+"itavat"}
+                _b_kit = base_no_ya
+                # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn in kit kta/ktavatu (caMKnita)
+                if orig_clean == "Kan":
+                    _b_kit = base_no_ya.replace(orig_clean, orig_clean[0] + orig_clean[-1])
+                if pratyaya == "kta": return {"M": _b_kit+"itaH","F":_b_kit+"itA","N":_b_kit+"itam"}
+                if pratyaya == "ktavatu": return {"M": _b_kit+"itavAn","F":_b_kit+"itavatI","N":_b_kit+"itavat"}
                 if pratyaya == "tavya": return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
                 if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
                 if pratyaya == "anIyar":
@@ -1022,8 +1031,8 @@ class KrdantaEngine:
                 _pre = clean[:last_idx] if last_idx != -1 else ""
                 # m-final never takes yat vriddhi (dramya/yamya/Camya/ramya/gamya: surveyed all m-final yat, zero vriddhi)
                 if last_v in ("a", "A") and ("r" not in _suf) and len(_suf) <= 1 and clean[-1:] != "m" and not (clean.startswith("kr") or _pre.endswith("kr")):
-                    # I~ blocks normally (yatI->yatya), except w-final to cross-match Ryat (kaw->kAwya): general shape
-                    if ("I~" not in _op) or (clean[-1:] == "w"):
+                    # I~ blocks normally (yatI->yatya), except w-final to cross-match Ryat (kaw->kAwya) and n-final (kanI~->kAnya per 3.1.124/7.2.116): general shape
+                    if ("I~" not in _op) or (clean[-1:] in ("w", "n")):
                         stem = vriddhi_base + "ya"
                     else:
                         stem = clean + "ya"

@@ -793,6 +793,8 @@ class TinantaDerivationEngine:
                 return "coskundya" if c == "skund" else "SeSvindya"
             if c in ("sUd", "SUd", "sUd"):
                 return "sozUdya"
+            if c == "pyAy":
+                return "pepIyya"
             c_eff = c
             # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkya; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
@@ -1364,6 +1366,20 @@ class TinantaDerivationEngine:
                 if clean == "trap":
                     _be_122 = "tr" + "e" + clean[-1]
                     cands += [_be_122 + endings[(purusha, vacana)], _be_122 + endings_q[(purusha, vacana)]]
+                # Panini 6.1.28 pyAyaH pI in yak liT
+                if clean == "pyAy":
+                    _pipy = {
+                        ("prathama", "eka"): "pipye", ("prathama", "dvi"): "pipyAte", ("prathama", "bahu"): "pipyire",
+                        ("madhyama", "eka"): "pipyize", ("madhyama", "dvi"): "pipyATe", ("madhyama", "bahu"): "pipyiDve",
+                        ("uttama", "eka"): "pipye", ("uttama", "dvi"): "pipyivahe", ("uttama", "bahu"): "pipyimahe",
+                    }
+                    cands += [_pipy[(purusha, vacana)], _pipy[(purusha, vacana)].replace("Dve", "Qve")]
+                # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi in yak liT
+                if clean in ("Kan", "gam", "jan", "han", "Gas"):
+                    _kn_base = clean[0] + clean[-1]
+                    for _rc in list(redups):
+                        _rp = _rc[:-len(clean)] if _rc.endswith(clean) and len(clean) else _rc
+                        cands += [_rp + _kn_base + endings[(purusha, vacana)], _rp + _kn_base + endings_q[(purusha, vacana)]]
                 # yak liw n-redup for a+r onset (arva->Anarve/AnarvATe/AnarvaTe; surveyed shape)
                 try:
                     if clean.startswith("a") and len(clean) > 2 and "r" in clean[1:3]:
@@ -2222,6 +2238,20 @@ class TinantaDerivationEngine:
                         _fc_122 = clean[-1]
                         for _ee in (endings,):
                             cands.append(_be_122 + _fc_122 + _ee[(purusha, vacana)])
+                    # Panini 6.1.28 pyAyaH pI: pyAy -> pI in liT (pipye, pipyAte, pipyire...)
+                    if clean == "pyAy":
+                        _pipy = {
+                            ("prathama", "eka"): "pipye", ("prathama", "dvi"): "pipyAte", ("prathama", "bahu"): "pipyire",
+                            ("madhyama", "eka"): "pipyize", ("madhyama", "dvi"): "pipyATe", ("madhyama", "bahu"): "pipyiDve",
+                            ("uttama", "eka"): "pipye", ("uttama", "dvi"): "pipyivahe", ("uttama", "bahu"): "pipyimahe",
+                        }
+                        cands.append(_pipy[(purusha, vacana)])
+                    # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn (caKne...)
+                    if clean in ("Kan", "gam", "jan", "han", "Gas"):
+                        _kn_base = clean[0] + clean[-1]
+                        for _rc in list(redups):
+                            _rp = _rc[:-len(clean)] if _rc.endswith(clean) and len(clean) else _rc
+                            cands.append(_rp + _kn_base + endings[(purusha, vacana)])
                     if clean == "daD":
                         alt = {("prathama","eka"):"deDe",("prathama","dvi"):"deDAte",("prathama","bahu"):"deDire",("madhyama","eka"):"deDize",("madhyama","dvi"):"deDATe",("madhyama","bahu"):"deDiDve",("uttama","eka"):"deDe",("uttama","dvi"):"deDivahe",("uttama","bahu"):"deDimahe"}
                         cands.append(alt[(purusha,vacana)])
@@ -2335,6 +2365,14 @@ class TinantaDerivationEngine:
                                     _rpp_e = (_rpp[:-1] + "e") if _rpp.endswith("a") else _rpp
                                     cands.append(_rpp_e + _fc + vow_endings[(purusha, vacana)])
                                     cands.append(_rpp_e + _fc + cons_endings[(purusha, vacana)])
+                        # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn in kit/Nit slots (caKnatuH, caKnuH...)
+                        if clean in ("Kan", "gam", "jan", "han", "Gas"):
+                            _kn_base = clean[0] + clean[-1]
+                            for _rd in list(redups):
+                                _tail_match = _rd.endswith(clean) or (clean.startswith("s") and _rd.endswith("z" + clean[1:]))
+                                _rp = _rd[:-len(clean)] if _tail_match and len(clean) else _rd
+                                cands.append(_rp + _kn_base + vow_endings[(purusha, vacana)])
+                                cands.append(_rp + _kn_base + cons_endings[(purusha, vacana)])
                     except Exception:
                         pass
                     # periphrastic liw Am+AYcakre (Atman, for yak cross-match with sparse ting like kakKa 01.0167): over-generate alongside redup
