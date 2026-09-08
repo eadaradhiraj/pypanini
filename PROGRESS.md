@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-07T00:00:00Z
-Sweep: 649/1156 100% (raw 649/1166)
+Sweep: 655/1156 100% (raw 655/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -13,7 +13,8 @@ Sweep: 649/1156 100% (raw 649/1166)
 - Krdanta yat num-short for i-final idit C-initial roots (sraki->sraNkya, gaqi->gaRqya, bahi->baMhya): surveyed 176, zero conflicts. Sweep: 120 improved, 0 worsened. Pilots OK.
 - Tinanta idit dental-num R for v-final r/f-onset roots at derive-clean source (rivi->riRv, kfvi->kfR, ravi->raR): first stab in _prim_bases was dead code — moved to source. Sweep: 3 improved (+1900 tokens), 0 worsened. Pilots OK.
 - Krdanta idit dental-num R for v-final r/f-onset at derive-clean source (rivi->riRvitaH/riRvan/riRvyamARaH): surveyed shape (only rivi/ravi/kfvi). Sweep: 3 improved (+365 tokens), 0 worsened. Pilots OK.
-- Tinanta onset R->n in meta (Ridi->nindati etc, mirrors krdanta z->s/R->n; surveyed all 22 R-roots, verb forms never surface R). Re-sweep: `649/1156` held (+11 perfect), all 22 R-roots improved, 0 worsened. Pilots OK.
+- Tinanta onset R->n in meta (Ridi->nindati etc, mirrors krdanta; surveyed all 22 R-roots): all 22 improved, 0 worsened. Pilots OK.
+- Krdanta lyap R-twins (praRaKya/praRaNKya for all 22 R-roots surveyed; avyaya any-match; mula-clean based so yanluganta cross-matches). Re-sweep: `655/1156` held (+6 perfect: 01.0142/01.0347/01.0552/01.0823/01.0972/01.1012), 6 improved, 0 worsened. Pilots OK.
 
 ## Next
 1. Batch next, ONE micro-rule (survey first): (a) kfvi laT o-guna (kfRvati->kfRoti; survey f-vowel roots); (b) Sasi M-num (SaMsate; survey s-initial Atmane i-roots).

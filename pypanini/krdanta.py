@@ -1041,13 +1041,38 @@ class KrdantaEngine:
             return {"avyaya": [stem]}
 
         elif pratyaya == "lyap":
+            # R-roots keep R onset in lyap (praRaKya/praRaNKya for all 22 R-roots surveyed;
+            # avyaya is any-match so twins are safe; mula-clean based so every sanadi cross-matches)
+            _Rtw = []
+            try:
+                if meta.get("op", "").startswith("R"):
+                    _mc0 = meta.get("clean", "")
+                    if _mc0 and _mc0.startswith("n"):
+                        _rc = _mc0[1:]
+                        if meta.get("is_idit") and _mc0.endswith("i") and _rc.endswith("i"):
+                            _core = _rc[:-1]
+                            _NM = {"k": "N", "K": "N", "g": "N", "G": "N", "c": "Y", "C": "Y", "j": "Y", "J": "Y", "q": "R", "R": "R", "w": "R", "W": "R", "t": "n", "T": "n", "d": "n", "D": "n", "p": "m", "P": "m", "b": "m", "B": "m", "v": "n"}
+                            _fc = _core[-1] if _core else ""
+                            _nm = _NM.get(_fc, "")
+                            if _fc == "v" and ("r" in _mc0 or "f" in _mc0):
+                                _nm = "R"
+                            if _nm and _core and not _core[:-1].endswith(_nm):
+                                _core = _core[:-1] + _nm + _fc
+                            _rc = _core
+                        _rst = "R" + _rc
+                        for _P in (upasarga, upasarga.replace("M", "m"), "pra", ""):
+                            _cand = _P + _rst + "ya"
+                            if _cand not in _Rtw:
+                                _Rtw.append(_cand)
+            except Exception:
+                _Rtw = []
             # idit i-final num-clean (agi->aNgya; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 _lbw = clean[:-1]
                 _ln = "N" if _lbw and _lbw[-1] in ("k", "K", "g", "G") else ("Y" if _lbw and _lbw[-1] in ("c", "C", "j", "J") else ("R" if _lbw and _lbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _lbw and _lbw[-1] in ("p", "P", "b", "B") else None)))
                 if _ln and len(_lbw) >= 1:
                     _ly = _lbw[:-1] + _ln + _lbw[-1]
-                    return {"avyaya": ["pra" + _ly + "ya", _ly + "ya"]}
+                    return {"avyaya": ["pra" + _ly + "ya", _ly + "ya"] + _Rtw}
             # for vowel-initial Urd, dataset expects prordya (guna) not prUrdya
             eff = clean
             if clean and clean[0] in SLP1_VOWELS:
@@ -1076,7 +1101,7 @@ class KrdantaEngine:
                         variants.append(upasarga + _vr + "ya")
             except Exception:
                 pass
-            return {"avyaya": [pref_pra, pref_m, bare] + variants}
+            return {"avyaya": [pref_pra, pref_m, bare] + variants + _Rtw}
 
         return None
 
