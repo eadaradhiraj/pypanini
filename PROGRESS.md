@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-07T00:00:00Z
-Sweep: 724/1156 100% (raw 724/1166)
+Sweep: 726/1156 100% (raw 726/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -25,10 +25,11 @@ Sweep: 724/1156 100% (raw 724/1166)
 - Krdanta niC stem guna-o for double-u CuCu-roots (kuju->kojay; gate refined after 6 worsened). Sweep: 8 improved, 0 worsened. Pilots OK.
 - Krdanta niC stem guna-e for i..u-roots (jizu->jezay + bonus). Sweep: 8 improved, 0 worsened. Pilots OK.
 - Krdanta niC stem mu/su first-vowel strengthening (camu->cAmay etc; jamu-mit excluded). Sweep: 10 improved, 0 worsened. Pilots OK.
-- Tinanta mula-luN sic-aorist t/d-num + vocalic augment (ati->AntIt; removed stale flag reset). Sweep: 12 improved, 0 worsened. Pilots OK.
-- Tinanta liT redup num completion t/d/T->n + h->M (ati->Ananta, ahi->AnaMhe, vahi->vavaMhe; op-recovery for num-rewritten cleans). Mid-iteration incident: a bad revert dropped the `_rbw` assignment, silently killing yak-liT num-redup (700->621 collapse); diagnosed via form-set diff + debug prints, restored, re-swept. Re-sweep: `724/1156` held, 7 improved (ati/adi +9 liT, bahi/mahi/dfhi +9, ahi +9), 0 worsened. Pilots OK.
+- Tinanta mula-luN sic-aorist t/d-num + vocalic augment (ati->AntIt). Sweep: 12 improved, 0 worsened. Pilots OK.
+- Tinanta liT redup num completion t/d/T->n + h->M (ati->Ananta; survived a bad-revert incident). Sweep: 7 improved, 0 worsened. Pilots OK.
+- Tinanta yak-liT An-redup for a/f-initial (ati->Anante, fja->Anfje, arda->Anarde; idit num via op-recovery; caught an edit eating the next subsection's first line that broke 2 pilots, fixed pre-sweep). Re-sweep: `726/1156` held (+2 perfect: 01.0063/01.0064), 7 improved, 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): ati/adi liT leftovers (627/636) or kuTi-type T-liT verification or Atmane luN num-Y (aci-class).
-2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-); kfvi o-guna (likely SKIP).
+1. Batch next, ONE narrow rule (survey first): Atmane luN num-Y (aci-class) or yang SAnac/anIyar sezev-family (01.0574 gap-7) or kfvi laT o-guna (likely SKIP).
+2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

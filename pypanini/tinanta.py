@@ -1314,6 +1314,29 @@ class TinantaDerivationEngine:
                             cands.append(_an + "ATe")
                     except Exception:
                         pass
+                    # yak liw An-redup for a/f-initial (ati->Anante, fja->Anfje, arda->Anarde;
+                    # idit num via op-recovery like mula liT; surveyed: i/u-initial take periphrastic instead)
+                    try:
+                        if clean[:1] in ("a", "f"):
+                            _ybase = None
+                            if is_idit:
+                                try:
+                                    _yoop = (meta.get("op", "") or "").replace("~", "")
+                                    if _yoop.endswith("i"):
+                                        _yb = _yoop[:-1]
+                                        _yn = "N" if _yb and _yb[-1] in ("k", "K", "g", "G") else ("Y" if _yb and _yb[-1] in ("c", "C", "j", "J") else ("R" if _yb and _yb[-1] in ("w", "W", "q", "Q", "R") else ("m" if _yb and _yb[-1] in ("p", "P", "b", "B") else ("n" if _yb and _yb[-1] in ("t", "T", "d") else ("M" if _yb and _yb[-1] == "h" else None)))))
+                                        if _yn and len(_yb) >= 1:
+                                            _ybase = _yb[:-1] + _yn + _yb[-1]
+                                except Exception:
+                                    pass
+                            if _ybase is None and clean and clean[-1] not in SLP1_VOWELS:
+                                # already-stripped stems (fja->fj via meta trailing-a strip, arda->ard)
+                                _ybase = clean
+                            if _ybase:
+                                _ye = {("prathama", "eka"): "e", ("prathama", "dvi"): "Ate", ("prathama", "bahu"): "ire", ("madhyama", "eka"): "ize", ("madhyama", "dvi"): "ATe", ("madhyama", "bahu"): "iDve", ("uttama", "eka"): "e", ("uttama", "dvi"): "ivahe", ("uttama", "bahu"): "imahe"}
+                                cands.append("An" + _ybase + _ye[(purusha, vacana)])
+                    except Exception:
+                        pass
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
