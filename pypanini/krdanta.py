@@ -321,6 +321,18 @@ class KrdantaEngine:
                 # ncu-final niC num-Y stem (ancu->aYcay, gluncu->gluYcay: surveyed all 9 ncu-files, zero conflicts)
                 if c.endswith("ncu"):
                     return c[:-3] + "Yc" + "ay"
+                # CuCu niC guna-o stem (kuju->kojay, mrucu->mrocay: first-u guna, drop final-u;
+                # surveyed uCu-roots; ncu/f/i/a-first cases handled elsewhere or excluded)
+                if c.endswith("u"):
+                    _fv = None
+                    for _ch in c:
+                        if _ch in SLP1_VOWELS:
+                            _fv = _ch
+                            break
+                    # first-u must not be the final char (sru/pruzu single-u keeps old output; kuju/mrucu double-u takes guna)
+                    if _fv == "u" and "f" not in c and not c.endswith("ncu") and c.index("u") < len(c) - 1:
+                        _ui = c.index("u")
+                        return c[:_ui] + "o" + c[_ui + 1:-1] + "ay"
                 if c and c[-1] in SLP1_VOWELS:
                     vv = apply_vriddhi(c[-1])
                     av = apply_sandhi_eco_ayavayavah(vv)
