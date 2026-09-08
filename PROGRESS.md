@@ -22,9 +22,10 @@ Sweep: 717/1156 100% (raw 717/1166)
 - Krdanta yat vriddhi on first a for e-final C-initial (kaKe->kAKya; surveyed all 18 e-final yat). Sweep: 14 improved, 0 worsened. Pilots OK.
 - E-anubandha strip at meta source in both files (kaKe~->kaK like f/X/R/z strips; cate te~ excluded). Sweep: 14 improved to perfect, 0 worsened. Pilots OK.
 - Krdanta niC stem num-Y for ncu-final (ancu->aYcay; surveyed all 9 ncu-files). Sweep: 9 improved, 0 worsened. Pilots OK.
-- Krdanta niC stem guna-o for double-u CuCu-roots (kuju->kojay; first cut hit single-u sru-family, gate caught 6 worsened, refined to first-u-not-final). Re-sweep: `717/1156` held, 8 improved (+26/+19), 0 worsened. Pilots OK.
+- Krdanta niC stem guna-o for double-u CuCu-roots (kuju->kojay; gate refined after 6 worsened). Sweep: 8 improved, 0 worsened. Pilots OK.
+- Krdanta niC stem guna-e for i..u-roots (jizu->jezay + bonus ziDu/ziBu/jimu). Re-sweep: `717/1156` held, 8 improved (+19/+26), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): niC-stem guna-e for izu-roots (jizu->jezay ×5) or asu vriddhi (grAsay ×3) or kamu/camu first-vowel niC vriddhi or kfvi laT o-guna (likely SKIP, singleton).
+1. Batch next, ONE narrow rule (survey first): niC-stem vriddhi-A for asu-roots (grasu->grAsay ×3) or amu first-vowel vriddhi (kAmay ×5, needs stem-vriddhi placement fix) or kfvi laT o-guna (likely SKIP, singleton).
 2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

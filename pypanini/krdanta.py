@@ -323,6 +323,7 @@ class KrdantaEngine:
                     return c[:-3] + "Yc" + "ay"
                 # CuCu niC guna-o stem (kuju->kojay, mrucu->mrocay: first-u guna, drop final-u;
                 # surveyed uCu-roots; ncu/f/i/a-first cases handled elsewhere or excluded)
+                # Cizu niC guna-e stem (jizu->jezay: first-i guna, drop final-u; surveyed all 5 izu-roots)
                 if c.endswith("u"):
                     _fv = None
                     for _ch in c:
@@ -333,6 +334,9 @@ class KrdantaEngine:
                     if _fv == "u" and "f" not in c and not c.endswith("ncu") and c.index("u") < len(c) - 1:
                         _ui = c.index("u")
                         return c[:_ui] + "o" + c[_ui + 1:-1] + "ay"
+                    if _fv == "i" and "f" not in c and not c.endswith("ncu") and c.index("i") < len(c) - 1:
+                        _ii = c.index("i")
+                        return c[:_ii] + "e" + c[_ii + 1:-1] + "ay"
                 if c and c[-1] in SLP1_VOWELS:
                     vv = apply_vriddhi(c[-1])
                     av = apply_sandhi_eco_ayavayavah(vv)
