@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-08T20:47:00Z
-Sweep: 760/1156 100% (raw 760/1166)
+Date: 2026-09-08T20:54:00Z
+Sweep: 765/1156 100% (raw 765/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -35,6 +35,7 @@ Sweep: 760/1156 100% (raw 760/1166)
 - Tinanta loT mip naṭva with r/R/z/f/F triggers (kzev->kzevARi): 01.0649 100% perfect (1057/1057).
 - Krdanta yat ts/km/kz block with Panini 3.1.98 poradupadhAt exception (u-upadhA + pu-coda: kzuB->kzoBya): 01.0854 100% perfect (1045/1045).
 - Panini 7.4.70 at AdeH + 7.4.71 tasmAn nuq dvihalaH: An-reduplication for all a-initial dvihal roots in liw (aww->Anawwe, aqq->Anaqqa, akz->Anakza): 01.0287 100% perfect (627/627), 01.0403 100% perfect (636/636). Sweep: 11 improved, 0 worsened, passes 756->760. Pilots OK.
+- Panini 7.2.15 yasya vibhAzA / 7.2.56 udito vA: aniT kta for su~ roots (grasu~->grasta, glasu~->glasta, Sasu~->Sasta); 6.4.24 nasal loss before s (Sansu~->Sasta, sransu~->srasta, Dvansu~->Dvasta, Bransu~->Brasta); 6.4.15/7.2.27 mu~ kta nasal drop & dIrgha (camu~->cAnta, jimu~->jInta, kamu~->kAnta, ramu~->rata). Sweep: 11 improved, 0 worsened, 5 new 100% passes (01.0540, 01.0544, 01.0717, 01.0718, 01.0828), passes 760->765. Pilots OK.
 
 ## Next
 1. Consonant cluster assimilation for Gaṇa 01:

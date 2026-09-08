@@ -230,6 +230,24 @@ class KrdantaEngine:
                 elif _nl in ("p", "P", "b", "B"):
                     clean = _bw[:-1] + "m" + _bw[-1] if len(_bw) >= 1 else _bw
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
+        # s-final with u~ in op (grasu~, glasu~, Sasu~, Sansu~, sransu~, Dvansu~, Bransu~):
+        # aniT per Panini 7.2.15 yasya vibhAzA / 7.2.56 udito vA;
+        # 6.4.24 aniditAM hala upaDAyAH kniti drops pre-s nasal (Sans->Sasta, srans->srasta)
+        if clean.endswith("s") and ("su~" in op or "ns" in clean):
+            _sc = clean[:-2] + "s" if clean.endswith("ns") else clean
+            return _sc + "ta"
+
+        # mu~ in op (camu~, Camu~, jamu~, Jamu~, jimu~, kramu~, syamu~, Bramu~, kamu~, ramu~):
+        # Panini 6.4.15 anudAttopadeSa... + 7.2.27 kramicamidamyo dIrGaH:
+        if "mu~" in op and clean.endswith("m"):
+            if clean == "ram":
+                return "rata"
+            if clean.endswith("am"):
+                return clean[:-2] + "Anta"
+            if clean.endswith("im"):
+                return clean[:-2] + "Inta"
+            return clean[:-1] + "ta"
+
         # I~ blocks iT (yatI~->yatta, hlAdI~->hlAnna, citI~->citta), except
         # r-containing stems (urvI~/turvI~-cluster -> tUrvita, surveyed shape gate)
         needs_i = sew and not is_vowel_final and (("I~" not in op) or ("r" in clean) or ("R" in clean))
