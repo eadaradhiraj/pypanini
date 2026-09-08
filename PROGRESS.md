@@ -20,9 +20,10 @@ Sweep: 717/1156 100% (raw 717/1166)
 - Krdanta mit-denial respected (kamu/ama/camu NOT mit; niC vriddhi Amay-). Sweep: 1 improved, 0 worsened. Pilots OK.
 - Krdanta yat never vriddhi on m-final (dramya/yamya/Camya/ramya/gamya; surveyed all m-final yat). Sweep: 7 improved, 0 worsened. Pilots OK.
 - Krdanta yat vriddhi on first a for e-final C-initial (kaKe->kAKya; surveyed all 18 e-final yat). Sweep: 14 improved, 0 worsened. Pilots OK.
-- E-anubandha strip at meta source in both files (kaKe~->kaK like f/X/R/z strips; cate te~ excluded to protect short-yat+N cross-match; surveyed all 17 e~-ops, uniform Ce~ shape). Re-sweep: `717/1156` held (+14 perfect: kaKe/rage/lage/cawe/kvaTe/cade-families), 14 improved, 0 worsened. Pilots OK.
+- E-anubandha strip at meta source in both files (kaKe~->kaK like f/X/R/z strips; cate te~ excluded). Sweep: 14 improved to perfect, 0 worsened. Pilots OK.
+- Krdanta niC stem num-Y for ncu-final (ancu->aYcay; surveyed all 9 ncu-files, zero conflicts). Re-sweep: `717/1156` held, 9 improved (+26 each), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): kamu/camu first-vowel niC vriddhi (kAmay-/cAmay-) or kfvi laT o-guna (likely SKIP, singleton) or zwaka/zwage/stA- sibilant cluster.
-2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP).
+1. Batch next, ONE narrow rule (survey first): niC-stem guna-o for CuCu-roots (kuju->kojay ×6) or kamu/camu first-vowel niC vriddhi or kfvi laT o-guna (likely SKIP, singleton).
+2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

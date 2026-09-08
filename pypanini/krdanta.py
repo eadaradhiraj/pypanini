@@ -318,6 +318,9 @@ class KrdantaEngine:
                     _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
                         return _nbw[:-1] + _nn + _nbw[-1] + "ay"
+                # ncu-final niC num-Y stem (ancu->aYcay, gluncu->gluYcay: surveyed all 9 ncu-files, zero conflicts)
+                if c.endswith("ncu"):
+                    return c[:-3] + "Yc" + "ay"
                 if c and c[-1] in SLP1_VOWELS:
                     vv = apply_vriddhi(c[-1])
                     av = apply_sandhi_eco_ayavayavah(vv)
