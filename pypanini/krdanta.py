@@ -103,7 +103,9 @@ class KrdantaEngine:
                         is_idit = (("i~" in op) or (op.endswith("~") and raw.endswith("i"))) and not no_num_r and ("I~" not in op)
                         antara = info.get("antargaRaH", "")
                         _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
-                        is_mit = (antara == "GawAdiH") or ("mit" in _mit_txt)
+                        # mit denial respected: notes stating "mit nAsti" (lowered: "mit nasti"; kamu/ama/camu via na kamyamicamAm) are NOT mit;
+                        # other niziDyate-notes (Samo/yama conditional denials) stay mit via antara or plain-mit text
+                        is_mit = (antara == "GawAdiH") or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
                         entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit}
                         self._cache[clean] = entry
                         self._cache[op] = entry
