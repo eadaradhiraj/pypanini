@@ -29,11 +29,14 @@ def _natva_applies(root: str) -> bool:
         return True
     if fin == "s":
         return False
+    if fin == "l":
+        return False
     if fin == "h":
-        return ("r" in root) or ("R" in root)
-    return (("r" in root) or ("R" in root)) and fin in (
+        return ("r" in root) or ("R" in root) or ("z" in root)
+    has_trigger = ("r" in root) or ("R" in root) or ("z" in root)
+    return has_trigger and fin in (
         "k", "K", "g", "G", "N", "p", "P", "b", "B",
-        "m", "y", "r", "l", "v", "S",
+        "m", "y", "r", "v", "S",
     )
 
 
@@ -645,7 +648,7 @@ class KrdantaEngine:
                 if pratyaya == "lyap": return {"avyaya": ["pra"+sec_base+"ya", sec_base+"ya"]}
                 if pratyaya == "SAnac":
                     base = sec_base+"yamAna"
-                    if _natva_applies(orig_clean) and base.endswith("amAna"):
+                    if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and base.endswith("amAna"):
                         base = base[:-5] + "amARa"
                     # use tri-linga to avoid double A
                     m = base+"H"
@@ -654,13 +657,13 @@ class KrdantaEngine:
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "anIyar":
                     _ab = sec_base+"anIya"
-                    if _natva_applies(orig_clean) and "nIya" in _ab:
+                    if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and "nIya" in _ab:
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
                 if pratyaya == "lyuw":
                     _lb = sec_base+"ana"
-                    if _natva_applies(orig_clean) and _lb.endswith("ana"):
+                    if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and _lb.endswith("ana"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
@@ -738,12 +741,12 @@ class KrdantaEngine:
                 if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
                 if pratyaya == "anIyar":
                     _ab = base_no_ya+"anIya"
-                    if _natva_applies(orig_clean) and "nIya" in _ab:
+                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and "nIya" in _ab:
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "lyuw":
                     _lb = base_no_ya+"ana"
-                    if _natva_applies(orig_clean) and _lb.endswith("ana"):
+                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and _lb.endswith("ana"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY": return {"gender":"Masculine","form":base_no_ya+"aH"}
@@ -753,7 +756,7 @@ class KrdantaEngine:
                     m = sec + "mAnaH" if sec.endswith("a") else sec + "amAnaH"
                     f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
                     n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
-                    if _natva_applies(orig_clean):
+                    if _natva_applies(orig_clean) or _natva_applies(base_no_ya):
                         m = m.replace("mAnaH", "mARaH").replace("amAnaH", "amARaH")
                         f = f.replace("mAnA", "mARA").replace("amAnA", "amARA")
                         n = n.replace("mAnam", "mARam").replace("amAnam", "amARam")
