@@ -915,7 +915,8 @@ class KrdantaEngine:
                         break
                 _suf = clean[last_idx+1:] if last_idx != -1 else ""
                 _pre = clean[:last_idx] if last_idx != -1 else ""
-                if last_v in ("a", "A") and ("r" not in _suf) and len(_suf) <= 1 and not (clean.startswith("kr") or _pre.endswith("kr")):
+                # m-final never takes yat vriddhi (dramya/yamya/Camya/ramya/gamya: surveyed all m-final yat, zero vriddhi)
+                if last_v in ("a", "A") and ("r" not in _suf) and len(_suf) <= 1 and clean[-1:] != "m" and not (clean.startswith("kr") or _pre.endswith("kr")):
                     # I~ blocks normally (yatI->yatya), except w-final to cross-match Ryat (kaw->kAwya): general shape
                     if ("I~" not in _op) or (clean[-1:] == "w"):
                         stem = vriddhi_base + "ya"

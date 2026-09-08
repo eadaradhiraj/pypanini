@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-07T00:00:00Z
-Sweep: 701/1156 100% (raw 701/1166)
+Sweep: 703/1156 100% (raw 703/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -17,9 +17,10 @@ Sweep: 701/1156 100% (raw 701/1166)
 - Krdanta lyap R-twins (praRaKya/praRaNKya for all 22 R-roots surveyed; avyaya any-match): 6 fids perfect, 0 worsened. Pilots OK.
 - Krdanta yanluganta SAnac keeps -ya- with stem-based Natva (SASlaNkyamAna/sAsraNkyamARa): first cut worsened 7, fixed within iteration. Sweep: 67 improved, 0 worsened. Pilots OK.
 - Tinanta+krdanta idit dental-num M for s-final (Sasi->SaMs at derive-clean source, both files; surveyed: sole s-final idit in dataset). Sweep: 1 improved (+883 tokens), 0 worsened. Pilots OK.
-- Krdanta mit-denial respected (kamu/ama/camu notes state "mit nAsti" via na kamyamicamAm: NOT mit, niC vriddhi Amay- applies; Samo/yama conditional denials stay mit; caught substring-case bug: lowered note text needs lowercase "mit nasti" match). Re-sweep: `701/1156` held (+1 perfect: 01.0536 625->636), 1 improved (+11 tokens), 0 worsened. Pilots OK.
+- Krdanta mit-denial respected (kamu/ama/camu NOT mit; niC vriddhi Amay-). Sweep: 1 improved, 0 worsened. Pilots OK.
+- Krdanta yat never vriddhi on m-final (dramya/yamya/Camya/ramya/gamya; surveyed all m-final yat, zero vriddhi). Re-sweep: `703/1156` held (+2 perfect: 01.0537/01.0930), 7 improved (rama/zama/gamx/yama-x2 incl.), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): kfvi laT o-guna (kfRvati->kfRoti; likely SKIP, singleton f-ablaut) or kamu/camu first-vowel niC vriddhi (kAmay-/cAmay- vs engine camAvay-; survey niC-stem vriddhi placement).
-2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP).
+1. Batch next, ONE narrow rule (survey first): e-final yat vriddhi (kaKe->kAKya ×9 fids, M+F miss each) or kamu/camu first-vowel niC vriddhi or kfvi o-guna (likely SKIP, singleton).
+2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); yangluk yat drAmya-class (check if covered by m-rule — drama/yama yangluk hit already).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.
