@@ -209,7 +209,7 @@ class KrdantaEngine:
             return clean[:last_vowel_idx] + vv + clean[last_vowel_idx+1:]
         return clean
 
-    def _kta_stem(self, clean: str, sew: bool, op: str) -> str:
+    def _kta_stem(self, clean: str, sew: bool, op: str, is_idit: bool = False) -> str:
         """Algorithmic kta/ktavatu stem (Panini 7.2.10 iT, 8.2.30 coH kuH, 8.2.42 d->n).
         - I~ blocks iT for kta (yatI~->yatta, hlAdI~->hlAnna, citI~->citta)
         - seT + cons + iT -> clean+i+ta (sparDita); aniT/vew/vowel-final -> clean+ta
@@ -230,10 +230,14 @@ class KrdantaEngine:
                 elif _nl in ("p", "P", "b", "B"):
                     clean = _bw[:-1] + "m" + _bw[-1] if len(_bw) >= 1 else _bw
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
-        # s-final with u~ in op (grasu~, glasu~, Sasu~, Sansu~, sransu~, Dvansu~, Bransu~):
-        # aniT per Panini 7.2.15 yasya vibhAzA / 7.2.56 udito vA;
-        # 6.4.24 aniditAM hala upaDAyAH kniti drops pre-s nasal (Sans->Sasta, srans->srasta)
-        if clean.endswith("s") and ("su~" in op or "ns" in clean):
+
+        # 6.4.24 aniditAM hala upaDAyAH kniti: drop penultimate nasal before consonant (not geminate mm)
+        if not is_idit and len(clean) >= 3 and clean[-2] in ("n", "N", "Y", "R") and clean[-1] not in SLP1_VOWELS:
+            clean = clean[:-2] + clean[-1]
+
+        # s-final with u~ in op or ns in clean (grasu~, glasu~, Sasu~, Sansu~, sransu~, Dvansu~, Bransu~):
+        # aniT per Panini 7.2.15 yasya vibhAzA / 7.2.56 udito vA
+        if clean.endswith("s") and ("su~" in op or "ns" in op or "ns" in clean):
             _sc = clean[:-2] + "s" if clean.endswith("ns") else clean
             return _sc + "ta"
 
@@ -248,9 +252,17 @@ class KrdantaEngine:
                 return clean[:-2] + "Inta"
             return clean[:-1] + "ta"
 
-        # I~ blocks iT (yatI~->yatta, hlAdI~->hlAnna, citI~->citta), except
+        # Panini 6.4.42 janasanakanAM saYjhaloH: an -> A before jhal (ta) (Kan->KAta, jan->jAta, san->sAta)
+        if clean in ("jan", "san", "Kan"):
+            return clean[:-2] + "Ata"
+
+        # Panini 7.2.56 udito vA / 7.2.15 yasya vibhAzA: udit roots (u~ in op) are aniT in kta/ktavatu
+        # (exclude v-final which have special vocalization zWyUta/DOta etc., vanu~ which has vanita, and u~bundi~r)
+        is_udit = ("u~" in op) and not clean.endswith("v") and clean != "van" and ("ubund" not in clean)
+
+        # I~ blocks iT, udit (u~) blocks iT (yatI~->yatta, hlAdI~->hlAnna, mrucu~->mrukta, jizu~->jizwa), except
         # r-containing stems (urvI~/turvI~-cluster -> tUrvita, surveyed shape gate)
-        needs_i = sew and not is_vowel_final and (("I~" not in op) or ("r" in clean) or ("R" in clean))
+        needs_i = sew and not is_vowel_final and not is_udit and (("I~" not in op) or ("r" in clean) or ("R" in clean))
         if needs_i:
             # i-guna for m+i+dental-d (mid->medita, lone f~ i-medial with guna, shape-based not per-dhatu)
             if len(clean) == 3 and clean[0] == "m" and clean[1] == "i" and clean[-1] == "d":
@@ -262,6 +274,18 @@ class KrdantaEngine:
         # coH kuH (8.2.30): c/ch/j/J -> k
         if clean[-1] in ("c", "C", "j", "J"):
             return clean[:-1] + "k" + "ta"
+        # zwuB/sraB (8.2.40 jhazastaTorDo'DaH + 8.4.53 jhalAM jaS jhaSi)
+        if clean.endswith("B"):
+            return clean[:-1] + "bDa"
+        # vfD/SfD/mfD/ziD (8.2.40 jhazastaTorDo'DaH + 8.4.53)
+        if clean.endswith("D"):
+            return clean[:-1] + "dDa"
+        # z-final + ta -> zwa (8.4.41 zwunA zwuH)
+        if clean.endswith("z"):
+            return clean + "wa"
+        # S-final (BranS -> Brazwa per 8.2.36 vraSca...)
+        if clean.endswith("S"):
+            return clean[:-1] + "zwa"
         # d + ta
         if clean[-1] == "d":
             # preceding vowel: long A/I/U or i -> nna, short-a mad -> tta
@@ -272,16 +296,7 @@ class KrdantaEngine:
                     break
             if prev_v == "a" and len(clean) >= 2 and clean[-2] == "a":
                 # short-a mad -> matta (devoice d->t)
-                # check length: mad (3 chars, short) vs hlAd (long)? Use vowel length, not just quality
-                # mad (a) vs hlAd (A): distinguish via prev_v == 'a' and clean has no long?
-                # Actually mad has short-a, hlAd has long-A. So short-a -> tta, else nna.
                 return clean[:-1] + "tta"
-            # default d -> nna (hlAnna, minna, sanna)
-            #t = clean[:-1] + "nna" if prev_v in ("A", "i", "I", "a") else clean[:-1] + "tta"
-            # Simplify: long-A/i -> nna, short-a mad -> tta (above), else nna
-            if prev_v == "a":
-                # zad (a+d) -> sanna (nna) in data, but mad (a+d) -> matta. Distinguish via I~? Both I~? madI~ vs zadx~ (x). Default nna, mad handled above via short check? Keep nna for a+d generally, mad exception already handled? Actually mad also a+d, would give manna, wrong. Need better: mad (m-a-d) vs zad (z-a-d)? Both same shape. Why different? madI~ (I~) vs zadx~ (x~). Possibly x vs I~ matters. For now default nna, mad will be wrong, but mad not in 31 (01.0927). Accept for 31 (yat/hlAd correct).
-                return clean[:-1] + "nna"
             return clean[:-1] + "nna"
         # t + ta -> tta (simple concat already gives tta)
         # w-final + ta -> wwa (kaw->kawwa, 8.2.? general shape, not per-dhatu)
@@ -653,10 +668,10 @@ class KrdantaEngine:
                 sec_base = sec[:-2] if sec.endswith("ay") else sec
                 # kta/ktavatu for Nijanta: use mUla _kta_stem for cross-match safety (Panini exact sec kta needs A-shortening hlAd->hlad vs yat->yAt; mUla yatta/hlAnna always in tokens)
                 if pratyaya == "kta":
-                    _mstem = self._kta_stem(orig_clean, sew, meta.get("op", ""))
+                    _mstem = self._kta_stem(orig_clean, sew, meta.get("op", ""), is_idit=is_idit)
                     return {"M": _mstem+"H", "F": _mstem[:-1]+"A" if _mstem.endswith("a") else _mstem+"A", "N": _mstem+"m"}
                 if pratyaya == "ktavatu":
-                    _mstem = self._kta_stem(orig_clean, sew, meta.get("op", ""))
+                    _mstem = self._kta_stem(orig_clean, sew, meta.get("op", ""), is_idit=is_idit)
                     _b = _mstem[:-1] if _mstem.endswith("a") else _mstem
                     return {"M": _b+"avAn", "F": _b+"avatI", "N": _b+"avat"}
                 if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
@@ -815,12 +830,12 @@ class KrdantaEngine:
             # I~ blocks iT for mUla & yanluganta (yatI~->yatta, yAyatta via cross-match); sannanta/nijanta/yananta sec keeps iT
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
             # sannanta is seT for the kta family (surveyed 1156/1156, zero exceptions)
-            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta)
+            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit)
             return tri_linga(stem)
 
         elif pratyaya == "ktavatu":
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
-            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta)
+            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit)
             b = stem[:-1] if stem.endswith("a") else stem
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
