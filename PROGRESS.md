@@ -25,9 +25,10 @@ Sweep: 724/1156 100% (raw 724/1166)
 - Krdanta niC stem guna-o for double-u CuCu-roots (kuju->kojay; gate refined after 6 worsened). Sweep: 8 improved, 0 worsened. Pilots OK.
 - Krdanta niC stem guna-e for i..u-roots (jizu->jezay + bonus). Sweep: 8 improved, 0 worsened. Pilots OK.
 - Krdanta niC stem mu/su first-vowel strengthening (camu->cAmay etc; jamu-mit excluded). Sweep: 10 improved, 0 worsened. Pilots OK.
-- Tinanta mula-luN sic-aorist t/d-num + vocalic augment (ati->AntIt, agi->ANgIt; t/d->n map; removed stale is_vowel_initial=False reset so ANg not aaNg). Re-sweep: `724/1156` held (+7 perfect: idi/uKi/iKi/IGi/agi/igi/aci-families), 12 improved, 0 worsened. Pilots OK.
+- Tinanta mula-luN sic-aorist t/d-num + vocalic augment (ati->AntIt; removed stale flag reset). Sweep: 12 improved, 0 worsened. Pilots OK.
+- Tinanta liT redup num completion t/d/T->n + h->M (ati->Ananta, ahi->AnaMhe, vahi->vavaMhe; op-recovery for num-rewritten cleans). Mid-iteration incident: a bad revert dropped the `_rbw` assignment, silently killing yak-liT num-redup (700->621 collapse); diagnosed via form-set diff + debug prints, restored, re-swept. Re-sweep: `724/1156` held, 7 improved (ati/adi +9 liT, bahi/mahi/dfhi +9, ahi +9), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): ati/adi luN leftovers (618/636: 3 slots still miss — diagnose which) or kfvi laT o-guna (likely SKIP, singleton) or Atmane luN num-Y (aci-class: AYcizwa worked via cross-match, check rest).
-2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-).
+1. Batch next, ONE narrow rule (survey first): ati/adi liT leftovers (627/636) or kuTi-type T-liT verification or Atmane luN num-Y (aci-class).
+2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zw-origin cluster (stA-); kfvi o-guna (likely SKIP).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.
