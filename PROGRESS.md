@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-07T00:00:00Z
-Sweep: 703/1156 100% (raw 703/1166)
+Sweep: 717/1156 100% (raw 717/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -19,9 +19,10 @@ Sweep: 703/1156 100% (raw 703/1166)
 - Tinanta+krdanta idit dental-num M for s-final (Sasi->SaMs at derive-clean source, both files; surveyed: sole s-final idit in dataset). Sweep: 1 improved (+883 tokens), 0 worsened. Pilots OK.
 - Krdanta mit-denial respected (kamu/ama/camu NOT mit; niC vriddhi Amay-). Sweep: 1 improved, 0 worsened. Pilots OK.
 - Krdanta yat never vriddhi on m-final (dramya/yamya/Camya/ramya/gamya; surveyed all m-final yat). Sweep: 7 improved, 0 worsened. Pilots OK.
-- Krdanta yat vriddhi on first a for e-final C-initial (kaKe->kAKya; surveyed all 18 e-final yat; cate t-final + zw-origin excluded as too thin). Re-sweep: `703/1156` held, 14 improved (+4 each: 7 e-roots + cade/kvaTe/paTe/maTe/cawe/hase etc.), 0 worsened. Pilots OK.
+- Krdanta yat vriddhi on first a for e-final C-initial (kaKe->kAKya; surveyed all 18 e-final yat). Sweep: 14 improved, 0 worsened. Pilots OK.
+- E-anubandha strip at meta source in both files (kaKe~->kaK like f/X/R/z strips; cate te~ excluded to protect short-yat+N cross-match; surveyed all 17 e~-ops, uniform Ce~ shape). Re-sweep: `717/1156` held (+14 perfect: kaKe/rage/lage/cawe/kvaTe/cade-families), 14 improved, 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): e-final tinanta laT (catayati-type fails; engine vs expected across e-roots) or kamu/camu first-vowel niC vriddhi or kfvi o-guna (likely SKIP, singleton).
-2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zwaka/zwage/stA- cluster (needs sibilant-cluster survey).
+1. Batch next, ONE narrow rule (survey first): kamu/camu first-vowel niC vriddhi (kAmay-/cAmay-) or kfvi laT o-guna (likely SKIP, singleton) or zwaka/zwage/stA- sibilant cluster.
+2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

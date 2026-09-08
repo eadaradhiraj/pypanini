@@ -81,6 +81,9 @@ class TinantaDerivationEngine:
                         # strip trailing 'a' added for consonant-ending dhatus (eDa->eD, sparDa->sparD)
                         if clean.endswith("a") and len(clean) > 1:
                             clean = clean[:-1]
+                        # e-anubandha strip (kaKe~->kaK, yoga of f/X/R/z strips; cate te~ excluded: short yat + N cross-match)
+                        if op.endswith("e~") and not op.endswith("te~") and clean.endswith("e") and len(clean) > 1:
+                            clean = clean[:-1]
                         # handle zvada~ (z -> s) for 01.0018: zvad -> svad (SLP1 z->s)
                         if clean.startswith("z"):
                             clean = "s" + clean[1:]
@@ -144,6 +147,9 @@ class TinantaDerivationEngine:
             raw = raw[:-1]
         clean = raw
         if clean.endswith("a") and len(clean) > 1:
+            clean = clean[:-1]
+        # e-anubandha strip (kaKe~->kaK; cate te~ excluded)
+        if dhatu.endswith("e~") and not dhatu.endswith("te~") and clean.endswith("e") and len(clean) > 1:
             clean = clean[:-1]
         if clean.startswith("z"):
             clean = "s" + clean[1:]

@@ -87,6 +87,9 @@ class KrdantaEngine:
                         clean = raw
                         if clean.endswith("a") and len(clean) > 1:
                             clean = clean[:-1]
+                        # e-anubandha strip (kaKe~->kaK; cate te~ excluded: short yat + N cross-match)
+                        if op.endswith("e~") and not op.endswith("te~") and clean.endswith("e") and len(clean) > 1:
+                            clean = clean[:-1]
                         if clean.startswith("z"):
                             clean = "s" + clean[1:]
                         if clean.startswith("R"):
@@ -140,6 +143,9 @@ class KrdantaEngine:
             raw = raw[:-1]
         clean = raw
         if clean.endswith("a") and len(clean) > 1:
+            clean = clean[:-1]
+        # e-anubandha strip (kaKe~->kaK; cate te~ excluded)
+        if dhatu.endswith("e~") and not dhatu.endswith("te~") and clean.endswith("e") and len(clean) > 1:
             clean = clean[:-1]
         if clean.startswith("z"):
             clean = "s" + clean[1:]
