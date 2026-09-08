@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-07T00:00:00Z
-Sweep: 699/1156 100% (raw 699/1166)
+Sweep: 700/1156 100% (raw 700/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -15,9 +15,10 @@ Sweep: 699/1156 100% (raw 699/1166)
 - Krdanta idit dental-num R for v-final r/f-onset at derive-clean source (rivi->riRvitaH/riRvan/riRvyamARaH): surveyed shape (only rivi/ravi/kfvi). Sweep: 3 improved (+365 tokens), 0 worsened. Pilots OK.
 - Tinanta onset R->n in meta (Ridi->nindati etc, mirrors krdanta; surveyed all 22 R-roots): all 22 improved, 0 worsened. Pilots OK.
 - Krdanta lyap R-twins (praRaKya/praRaNKya for all 22 R-roots surveyed; avyaya any-match): 6 fids perfect, 0 worsened. Pilots OK.
-- Krdanta yanluganta SAnac keeps -ya- with stem-based Natva (SASlaNkyamAna/sAsraNkyamARa/boBUyamAna; surveyed: -ya- unanimous over 1074): first cut used orig_clean Natva and worsened 7 sec-Natva hits (raNKyamARaH-class) — caught by gate, fixed within iteration to stem-based Natva. Re-sweep: `699/1156` held (+44 perfect), 67 improved, 0 worsened. Pilots OK.
+- Krdanta yanluganta SAnac keeps -ya- with stem-based Natva (SASlaNkyamAna/sAsraNkyamARa): first cut worsened 7, fixed within iteration. Sweep: 67 improved, 0 worsened. Pilots OK.
+- Tinanta+krdanta idit dental-num M for s-final (Sasi->SaMs at derive-clean source, both files; surveyed: sole s-final idit in dataset). Re-sweep: `700/1156` held (+1 perfect: 01.0716 0->883), 1 improved (+883 tokens), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE micro-rule (survey first): (a) kfvi laT o-guna (kfRvati->kfRoti; survey f-vowel roots); (b) Sasi M-num (SaMsate; survey s-initial Atmane i-roots); (c) yanluganta parasmE krdanta redup (raKi-type rAraNK-; survey which yanluganta lack redup).
+1. Batch next, ONE micro-rule (survey first): (a) kfvi laT o-guna (kfRvati->kfRoti; f-vowel ablaut survey — likely SKIP, singleton); (b) yanluganta parasmE krdanta redup (raKi-type rAraNK-; survey which yanluganta lack redup).
 2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); ama-Satf leftovers (01.0536).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.
