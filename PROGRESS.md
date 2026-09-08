@@ -18,9 +18,10 @@ Sweep: 703/1156 100% (raw 703/1166)
 - Krdanta yanluganta SAnac keeps -ya- with stem-based Natva (SASlaNkyamAna/sAsraNkyamARa): first cut worsened 7, fixed within iteration. Sweep: 67 improved, 0 worsened. Pilots OK.
 - Tinanta+krdanta idit dental-num M for s-final (Sasi->SaMs at derive-clean source, both files; surveyed: sole s-final idit in dataset). Sweep: 1 improved (+883 tokens), 0 worsened. Pilots OK.
 - Krdanta mit-denial respected (kamu/ama/camu NOT mit; niC vriddhi Amay-). Sweep: 1 improved, 0 worsened. Pilots OK.
-- Krdanta yat never vriddhi on m-final (dramya/yamya/Camya/ramya/gamya; surveyed all m-final yat, zero vriddhi). Re-sweep: `703/1156` held (+2 perfect: 01.0537/01.0930), 7 improved (rama/zama/gamx/yama-x2 incl.), 0 worsened. Pilots OK.
+- Krdanta yat never vriddhi on m-final (dramya/yamya/Camya/ramya/gamya; surveyed all m-final yat). Sweep: 7 improved, 0 worsened. Pilots OK.
+- Krdanta yat vriddhi on first a for e-final C-initial (kaKe->kAKya; surveyed all 18 e-final yat; cate t-final + zw-origin excluded as too thin). Re-sweep: `703/1156` held, 14 improved (+4 each: 7 e-roots + cade/kvaTe/paTe/maTe/cawe/hase etc.), 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE narrow rule (survey first): e-final yat vriddhi (kaKe->kAKya ×9 fids, M+F miss each) or kamu/camu first-vowel niC vriddhi or kfvi o-guna (likely SKIP, singleton).
-2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); yangluk yat drAmya-class (check if covered by m-rule — drama/yama yangluk hit already).
+1. Batch next, ONE narrow rule (survey first): e-final tinanta laT (catayati-type fails; engine vs expected across e-roots) or kamu/camu first-vowel niC vriddhi or kfvi o-guna (likely SKIP, singleton).
+2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); zwaka/zwage/stA- cluster (needs sibilant-cluster survey).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

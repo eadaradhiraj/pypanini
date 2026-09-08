@@ -922,6 +922,19 @@ class KrdantaEngine:
                         stem = vriddhi_base + "ya"
                     else:
                         stem = clean + "ya"
+                elif last_v == "e":
+                    # e-final yat vriddhi on first a (kaKe->kAKya; surveyed all e-final yat;
+                    # zw-origin (zwage/zWage/zwaka->stAgya/stAkya) and cate t-final excluded: too thin, left missing)
+                    _ec = clean
+                    _evi = None
+                    for _ei, _ech in enumerate(_ec):
+                        if _ech in SLP1_VOWELS:
+                            _evi = _ei
+                            break
+                    if _evi is not None and _ec[_evi] == "a" and _ec.endswith("e") and not _ec.endswith("te") and not meta.get("op", "").startswith("zw"):
+                        stem = _ec[:_evi] + "A" + _ec[_evi + 1:-1] + "ya"
+                    else:
+                        stem = clean + "ya"
                 elif last_v in ("u", "U", "i", "I"):
                     # i-final idit num-short yat (sraki->sraNkya, gaqi->gaRqya, bahi->baMhya:
                     # surveyed 176 engine-meta fids, zero conflicts; R-variant for v iff onset has r/f)
