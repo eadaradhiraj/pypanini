@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-07T00:00:00Z
-Sweep: 638/1156 100% (raw 638/1166)
+Sweep: 649/1156 100% (raw 649/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -12,9 +12,10 @@ Sweep: 638/1156 100% (raw 638/1166)
 - Tinanta nijanta-luN C-initial num-assimilated ay-less bases + R->n redup (sraki->sraNk, gaqi->gaRq): surveyed 176, additive. Sweep: 120 improved, 0 worsened. Pilots OK.
 - Krdanta yat num-short for i-final idit C-initial roots (sraki->sraNkya, gaqi->gaRqya, bahi->baMhya): surveyed 176, zero conflicts. Sweep: 120 improved, 0 worsened. Pilots OK.
 - Tinanta idit dental-num R for v-final r/f-onset roots at derive-clean source (rivi->riRv, kfvi->kfR, ravi->raR): first stab in _prim_bases was dead code — moved to source. Sweep: 3 improved (+1900 tokens), 0 worsened. Pilots OK.
-- Krdanta idit dental-num R for v-final r/f-onset at derive-clean source (rivi->riRvitaH/riRvan/riRvyamARaH; whole krdanta family inherits; only rivi/ravi/kfvi match shape). Re-sweep: `638/1156` held, 3 improved (+365 tokens: rivi/ravi 737->866, kfvi 490->597), 0 worsened. Pilots OK.
+- Krdanta idit dental-num R for v-final r/f-onset at derive-clean source (rivi->riRvitaH/riRvan/riRvyamARaH): surveyed shape (only rivi/ravi/kfvi). Sweep: 3 improved (+365 tokens), 0 worsened. Pilots OK.
+- Tinanta onset R->n in meta (Ridi->nindati etc, mirrors krdanta z->s/R->n; surveyed all 22 R-roots, verb forms never surface R). Re-sweep: `649/1156` held (+11 perfect), all 22 R-roots improved, 0 worsened. Pilots OK.
 
 ## Next
-1. Batch next, ONE micro-rule (survey first): (a) kfvi laT o-guna (kfRvati->kfRoti; survey f-vowel roots); (b) Ridi onset R->n in tinanta (mirror krdanta meta; survey R-initial roots); (c) Sasi M-num (SaMsate; survey s-initial Atmane i-roots).
+1. Batch next, ONE micro-rule (survey first): (a) kfvi laT o-guna (kfRvati->kfRoti; survey f-vowel roots); (b) Sasi M-num (SaMsate; survey s-initial Atmane i-roots).
 2. Then: suppletive aja (avIvayata) / zwaBi / wunadi singletons (likely SKIP); ama-Satf leftovers (01.0536).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

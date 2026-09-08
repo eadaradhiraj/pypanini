@@ -84,6 +84,9 @@ class TinantaDerivationEngine:
                         # handle zvada~ (z -> s) for 01.0018: zvad -> svad (SLP1 z->s)
                         if clean.startswith("z"):
                             clean = "s" + clean[1:]
+                        # onset R -> n (Ridi->nindati etc: surveyed all 22 R-initial roots, verb forms never surface R)
+                        if clean.startswith("R"):
+                            clean = "n" + clean[1:]
                         # SLP1 normalize: ensure we have SLP1 form (already)
                         padam = info.get("padam", "")
                         # normalize padam: parasmEpadI / AtmanepadI (with capital E)
@@ -144,6 +147,8 @@ class TinantaDerivationEngine:
             clean = clean[:-1]
         if clean.startswith("z"):
             clean = "s" + clean[1:]
+        if clean.startswith("R"):
+            clean = "n" + clean[1:]
         # infer vowel-initial?
         # default: consonant-initial BvAdi, parasmaipada, sew
         # if dhatu is known vowel-initial like eD, infer Atmanepadi
