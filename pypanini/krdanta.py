@@ -139,7 +139,10 @@ class KrdantaEngine:
                         # other niziDyate-notes (Samo/yama conditional denials) stay mit via antara or plain-mit text
                         _is_gawadi = (("GawAdi" in antara) or ("GawAdikAryArTam" in comm)) and ("PaRAdi" not in antara)
                         _is_sk2354 = (info.get("kOmudIsUtrakramANkaH") == "2354") and ("PaRAdi" not in antara) and (not antara)
-                        is_mit = _is_gawadi or _is_sk2354 or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
+                        # amanta (short-a + m final) roots are mit by gaNa-sUtra 1.934 janIjFzknasuraYjo'mantASca
+                        # (kram/ram/syam keep short niC stem); kam/am/cam denied by 1.937 carry "mit nasti" so stay non-mit
+                        _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
+                        is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
                         entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit}
                         self._cache[clean] = entry
                         self._cache[op] = entry

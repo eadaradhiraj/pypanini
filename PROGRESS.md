@@ -1,6 +1,6 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T07:00:00Z
+Date: 2026-09-09T06:38:00Z
 Sweep: 808/1156 100% (raw 808/1166)
 
 ## Done
@@ -47,11 +47,13 @@ Sweep: 808/1156 100% (raw 808/1166)
 - Tinanta nijanta-luN ti-redup keeps zw-onset (zwana->atizwanata; meta maps zw->st for everything else; surveyed zw/zW nich luN; ta/wi-variants deferred). Sweep: 8 improved, 4 new 100% passes (01.0532, 01.0891, 01.0899, 01.0964), 0 worsened. Pilots OK.
 - Krdanta Natva guards: S-final never R + num-R stems block further Natva (rivi->riRvanIya/riRvanam, wuBrASf->BrASamAnaH dental; confusion survey 1601 slots/51 mismatches; zero expected-R S-final or num-R stems). Sweep: 5 improved (01.0679/01.0680/01.0682/01.0958/01.0992), 3 new 100% passes, 0 worsened. Pilots OK.
 - Krdanta sannanta rv-coda lowercased onset (Urv->urviviz, arv unchanged; surveyed all 18 rv-cleans: sole vowel-initial urv (01.0650) wants lowercase san_krut, arv already lowercase, 17 C-initial roots never reach the vowel-initial branch; Urd->urdidiz lowercase precedent). Sweep: 01.0650 100% perfect (604->636), 1 improved, 0 worsened, passes 807->808. Pilots OK.
+- Krdanta amanta-mittva by gaNa-sUtra 1.934 (short-a + m final roots mit: kram/ram/syam keep short niC stem; kam/am/cam denied by 1.937 na kamyamicamAm stay vriddhi; sm non-amanta unaffected; kr-roots already short via kr-noT gate so kramu behavior identical; surveyed all 23 am-cleans + 7 PaRAdi, removed long variants have zero exact-match hits). Sweep: 3 improved (01.0953 551->570, 01.0960 861->887, 01.0989 569->588), 0 worsened, passes held 808. yang_krut capped-miss count rose 120->128 as freed cap slots expose pre-existing yang misses (fid-diff truth: 0 worsened). Pilots OK.
 
 ## Next
-1. Next smallest-gap batch: 01.0677 (Divu? ting lw Dinvati/DinvataH, gap 32) + 01.0960 (nich_krut syAmayan/syAmyamAnaH, gap 34) — identify dhatus, survey shape, one narrow rule.
-2. Consonant cluster assimilation for Gaṇa 01:
+1. Investigated singletons (do NOT per-dhatu hardcode): 01.0677 Divi~ law is nu-parAdi (Dinoti/DinutaH/Dinvanti, sole fid with noti/nutaH/nvanti plat); kramu (01.0545) remaining gap is mUla law (our kramati vs dataset krAmyati-type) + lun — needs a krama-rule survey, not niC.
+2. Next smallest-gap batch: 01.0248/01.0946 (ting lw rebate/Kuqayate-type, gap 63) — identify dhatus, survey shape, one narrow rule.
+3. Consonant cluster assimilation for Gaṇa 01:
    - `c/j` before `s/t` in tinanta (e.g. `tyaj` -> `tyaktA`, `pac` -> `paktA`).
    - `zW` root onset sthAnI (`zW` -> `sT`; `zw` -> `st` DONE, zWivu/zWA retain).
    - nc-lopa in kta (kunca->kucita) + sj-gemination (zasja->sajjita) + hurCA-Na kta (hUrRa): survey each shape separately.
-3. Re-sweep, rebuild STATS, overwrite this, commit & push.
+4. Re-sweep, rebuild STATS, overwrite this, commit & push.
