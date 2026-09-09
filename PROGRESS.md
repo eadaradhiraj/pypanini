@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-08T21:40:00Z
-Sweep: 798/1156 100% (raw 798/1166)
+Date: 2026-09-09T00:00:00Z
+Sweep: 800/1156 100% (raw 800/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -41,10 +41,11 @@ Sweep: 798/1156 100% (raw 798/1166)
 - Tinanta liw reduplication abhyāsa strip with satva for s-initial roots (ziDu->sizeDiTa, ziBu->sizeBiTa); Panini 8.2.77 hali ca / rvoścopadhāyā dīrghaḥ lengthening in ASIrliN & luN (hurC->hUrCyAt/ahUrCIt, murC->mUrCyAt/amUrCIt, sPurC->sPUrCyAt/asPUrCIt); Panini 6.4.20 / 6.1.22 / 6.1.28 y-lopa for aniṭ roots before kit jhalādi ta in _kta_stem (UyI->Uta, pUyI->pUta, knUyI->knUta, kzmAya->kzmAta, sPAy->sPIta, pyAy->pIna, SucyI->Sukta). Sweep: 15 improved, 0 worsened, 6 new 100% passes (01.0239, 01.0240, 01.0241, 01.0450, 01.0498, 01.0556), passes 779->785. Pilots OK.
 - GawAdi roots mittva for composite antargaRa & commentary notes (1.3.67 mitAM hrasvaH: kaRa->kaRayan, raRa->raRayan, SraRa->SrARayan, Dvana->Dvanayan) with PaRAdi vikalpa respect (6.4.93); Panini 7.2.16 AditaSca aniT kta for dental stop codas (SvitA->Svitta, YikzvidA->kzviRRa with 8.4.1 natva); Panini 6.4.122 tfPalaBajatrapaSca et-tva in kartari & karmaRi liT for trap (trepe); primitive yak liT unmutated s-base (no satva) for s-initial roots (sUrkzya->susUrkzye, sUrkza->susUrkze). Sweep: 11 improved, 0 worsened, 9 new 100% passes (01.0434, 01.0586, 01.0758, 01.0843, 01.0846, 01.0903, 01.0904, 01.0907, 01.0962), passes 785->794. Pilots OK.
 - Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi for Kan (01.1020) in kartari & karmaRi liT (caKnatuH, caKnuH, caKne...) and kit yananta kta/ktavatu (caMKnitaH); Panini 6.1.28 pyAyaH pI for o~pyAyI~ (01.0561) in kartari/karmaRi liT (pipye, pipyAte...) and yananta (pepIyya-); Siddhanta Kaumudi 2354 mittva for zama~ (01.0963, samayan, samayamAnaH...); Panini 6.4.15 anudAttopadeSa + 7.2.116/3.1.124 for kanI~ (01.0531) in kta (kAnta) and yat (kAnya). Sweep: 5 improved, 0 worsened, 4 new 100% passes (01.0531, 01.0561, 01.0963, 01.1020), passes 794->798. Pilots OK.
+- Onset zw->st at clean_dhatu_op source in both files (zwana->stanati; zW expressly untouched: zWivu retains zWIvati; surveyed all 13 zw-roots: verb tokens unanimously st-, zw-traces only op/prose/yan-redup/chandrika). Sweep: 13 improved, 0 worsened, 2 new 100% passes (01.0451, 01.0749), passes 798->800. Pilots OK.
 
 ## Next
 1. Consonant cluster assimilation for Gaṇa 01:
    - `c/j` before `s/t` in tinanta (e.g. `tyaj` -> `tyaktA`, `pac` -> `paktA`).
-   - `zw` / `zW` root onset sthAnI (`zw` -> `st`, `zW` -> `sT`) across all 17 zw/zW roots.
+   - `zW` root onset sthAnI (`zW` -> `sT`; `zw` -> `st` DONE this iteration, zWivu/zWA retain).
 2. Investigate remaining close-to-100% failures in `tests/sweep_all.csv` (e.g. 01.0679/01.0680 rivi~/ravi~, 01.0958 wuBrASf~).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.

@@ -69,7 +69,9 @@ def clean_dhatu_op(op: str) -> str:
         clean = clean[:-1]
     if op.endswith("e~") and not op.endswith("te~") and clean.endswith("e") and len(clean) > 1:
         clean = clean[:-1]
-    if clean.startswith("z"):
+    if clean.startswith("zw"):
+        clean = "st" + clean[2:]
+    elif clean.startswith("z"):
         clean = "s" + clean[1:]
     if clean.startswith("R"):
         clean = "n" + clean[1:]
