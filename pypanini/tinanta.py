@@ -202,6 +202,10 @@ class TinantaDerivationEngine:
                 last_vowel = clean[i]
                 break
         if last_vowel_idx != -1 and last_vowel is not None:
+            # Panini 7.3.86 pugantalaghUpadhasya ca: upadhA guNa only applies if upadhA is laghu (single consonant follows)
+            # Panini 1.4.11 saMyoge guru: vowel before a consonant cluster is guru, so no guNa
+            if len(clean) - 1 - last_vowel_idx > 1:
+                return clean
             gv = apply_guna(last_vowel)
             return clean[:last_vowel_idx] + gv + clean[last_vowel_idx+1:]
         return clean
@@ -633,6 +637,66 @@ class TinantaDerivationEngine:
                 final = base_lrt + "a" + prat
             return [apply_rutva_visarga(final)]
         return [stem_base + "a" + raw]
+
+    def _snu_parasmai(self, prefix: str, lakara: str, purusha: str, vacana: str) -> List[str]:
+        # Panini 3.1.87 dhinvi-kfRvyor a ca: class 5 snu parasmaipada
+        strong = prefix + "o"
+        weak = prefix + "u"
+        vowel_stem = prefix + "v"
+        if lakara == "lw":
+            forms = {
+                ("prathama", "eka"): [strong + "ti"],
+                ("prathama", "dvi"): [weak + "taH"],
+                ("prathama", "bahu"): [vowel_stem + "anti"],
+                ("madhyama", "eka"): [strong + "zi"],
+                ("madhyama", "dvi"): [weak + "TaH"],
+                ("madhyama", "bahu"): [weak + "Ta"],
+                ("uttama", "eka"): [strong + "mi"],
+                ("uttama", "dvi"): [weak + "vaH", vowel_stem + "aH"],
+                ("uttama", "bahu"): [weak + "maH", prefix + "maH"],
+            }
+            return forms.get((purusha, vacana), [])
+        elif lakara == "low":
+            forms = {
+                ("prathama", "eka"): [strong + "tu", weak + "tAt"],
+                ("prathama", "dvi"): [weak + "tAm"],
+                ("prathama", "bahu"): [vowel_stem + "antu"],
+                ("madhyama", "eka"): [weak, weak + "hi", weak + "tAt"],
+                ("madhyama", "dvi"): [weak + "tam"],
+                ("madhyama", "bahu"): [weak + "ta"],
+                ("uttama", "eka"): [prefix + "avAni"],
+                ("uttama", "dvi"): [prefix + "avAva"],
+                ("uttama", "bahu"): [prefix + "avAma"],
+            }
+            return forms.get((purusha, vacana), [])
+        elif lakara == "laN":
+            aug = "a"
+            forms = {
+                ("prathama", "eka"): [aug + strong + "t"],
+                ("prathama", "dvi"): [aug + weak + "tAm"],
+                ("prathama", "bahu"): [aug + vowel_stem + "an"],
+                ("madhyama", "eka"): [aug + strong + "H"],
+                ("madhyama", "dvi"): [aug + weak + "tam"],
+                ("madhyama", "bahu"): [aug + weak + "ta"],
+                ("uttama", "eka"): [aug + prefix + "avam"],
+                ("uttama", "dvi"): [aug + weak + "va", aug + vowel_stem + "a"],
+                ("uttama", "bahu"): [aug + weak + "ma", aug + prefix + "ma"],
+            }
+            return forms.get((purusha, vacana), [])
+        elif lakara == "viDiliN":
+            forms = {
+                ("prathama", "eka"): [weak + "yAt"],
+                ("prathama", "dvi"): [weak + "yAtAm"],
+                ("prathama", "bahu"): [weak + "yuH"],
+                ("madhyama", "eka"): [weak + "yAH"],
+                ("madhyama", "dvi"): [weak + "yAtam"],
+                ("madhyama", "bahu"): [weak + "yAta"],
+                ("uttama", "eka"): [weak + "yAm"],
+                ("uttama", "dvi"): [weak + "yAva"],
+                ("uttama", "bahu"): [weak + "yAma"],
+            }
+            return forms.get((purusha, vacana), [])
+        return []
 
     def _assimilate_luw_suffix(self, stem: str, sfx: str) -> str:
         # Connects stem to t-initial suffix (tA, tArO, tAraH, tAsi, etc.) by Paninian sandhi
@@ -2085,6 +2149,10 @@ class TinantaDerivationEngine:
                     cands+=self._conjugate_at_stem_parasmai(base, "lw", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(base, "lw", purusha, vacana)
+            # Panini 3.1.87 dhinvi-kfRvyor a ca
+            if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
+                _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
+                cands += self._snu_parasmai(_px, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "laN":
@@ -2097,6 +2165,10 @@ class TinantaDerivationEngine:
                     cands+=self._conjugate_at_stem_parasmai(aug, "laN", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(aug, "laN", purusha, vacana)
+            # Panini 3.1.87 dhinvi-kfRvyor a ca
+            if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
+                _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
+                cands += self._snu_parasmai(_px, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "low":
@@ -2108,6 +2180,10 @@ class TinantaDerivationEngine:
                     cands+=self._conjugate_at_stem_parasmai(base, "low", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(base, "low", purusha, vacana)
+            # Panini 3.1.87 dhinvi-kfRvyor a ca
+            if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
+                _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
+                cands += self._snu_parasmai(_px, "low", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "viDiliN":
@@ -2119,6 +2195,10 @@ class TinantaDerivationEngine:
                     cands+=self._conjugate_at_stem_parasmai(base, "viDiliN", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(base, "viDiliN", purusha, vacana)
+            # Panini 3.1.87 dhinvi-kfRvyor a ca
+            if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
+                _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
+                cands += self._snu_parasmai(_px, "viDiliN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "luw":
