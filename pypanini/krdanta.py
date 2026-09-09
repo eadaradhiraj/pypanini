@@ -178,6 +178,31 @@ class KrdantaEngine:
         is_idit = ("i~" in dhatu) or ("I~" in dhatu) or (clean.endswith("i") and "~" in dhatu)
         return {"clean": clean, "pada": pada, "sew": True, "is_idit": is_idit, "op": dhatu}
 
+    def _keep_shape(self, clean: str, op: str = "", sew: bool = True) -> bool:
+        # surveyed keep-trait for guNa-choice (krdanta tavya/anIyar/Rvul/tfc/tumun/lyuw/GaY/yat + nijanta-u/i + yak-izya):
+        # consonant-final + sew roots whose last vowel is long-I/U, or short-i/u with geminate-CC coda,
+        # keep the stem (no guNa). Bare vowel-final (BU), Nit-N-final (qIN/pUN/mUN), udit-u~ (kzIvu),
+        # aniW (nIY) keep guNa. Surveyed: all 39 I-roots (except udit/nIY), all 35 U-roots (except BU/N~),
+        # all 21 geminates keep; zero exact-match conflicts for removed guNa variants.
+        if not clean or not sew:
+            return False
+        if clean[-1] in SLP1_VOWELS:
+            return False
+        if clean[-1:] == "N":
+            return False
+        if "u~" in (op or ""):
+            return False
+        _lv = None
+        for _ch in reversed(clean):
+            if _ch in SLP1_VOWELS:
+                _lv = _ch
+                break
+        if _lv in ("I", "U"):
+            return True
+        if _lv in ("i", "u") and len(clean) >= 2 and clean[-1] == clean[-2]:
+            return True
+        return False
+
     def _guna_base(self, clean: str, is_idit: bool = False) -> str:
         if not clean:
             return clean
@@ -458,7 +483,7 @@ class KrdantaEngine:
                             last_idx = i
                             break
                     if last_v in ("u","U","i","I"):
-                        guna = self._guna_base(c, is_idit)
+                        guna = c if self._keep_shape(c, meta.get("op", ""), sew) else self._guna_base(c, is_idit)
                         if guna != c:
                             return guna + "ay"
                     elif last_v == "a":
@@ -853,7 +878,7 @@ class KrdantaEngine:
         def needs_i_for_kta() -> bool:
             return sew and not is_vowel_final
 
-        guna_base = self._guna_base(clean, is_idit)
+        guna_base = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
         vriddhi_base = self._vriddhi_base(clean, is_idit)
 
         # helper to build tri-linga from stem ending in 'a'
@@ -1099,7 +1124,8 @@ class KrdantaEngine:
                         last_v = ch
                         break
                 if last_v in ("u", "U", "i", "I"):
-                    stem = self._guna_base(clean, is_idit) + "aka"
+                    _rk = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
+                    stem = _rk + "aka"
                 elif last_v in ("a", "A", "e", "E", "o", "O"):
                     stem = clean + "aka"
                 else:
@@ -1167,7 +1193,8 @@ class KrdantaEngine:
                         last_v = ch
                         break
                 if last_v in ("u", "U", "i", "I"):
-                    stem = self._guna_base(clean, is_idit) + "a"
+                    _gk = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
+                    stem = _gk + "a"
                 elif last_v in ("a", "A"):
                     stem = clean + "a"
                 elif last_v in ("e","E","o","O"):

@@ -161,6 +161,29 @@ class TinantaDerivationEngine:
         return {"clean": clean, "pada": pada, "sew": True, "gana": "BvAdiH", "is_idit": is_idit, "op": dhatu}
 
     # ---------- phonological helpers ----------
+    def _keep_shape(self, clean: str, op: str = "", sew: bool = True) -> bool:
+        # surveyed keep-trait for yak-izya guNa-choice (mirrors krdanta): consonant-final + sew roots
+        # whose last vowel is long-I/U, or short-i/u with geminate-CC coda, keep the stem (no guNa).
+        # Bare vowel-final (BU), Nit-N-final, udit-u~, aniW keep guNa. Zero-conflict surveyed.
+        if not clean or not sew:
+            return False
+        if clean[-1] in SLP1_VOWELS:
+            return False
+        if clean[-1:] == "N":
+            return False
+        if "u~" in (op or ""):
+            return False
+        _lv = None
+        for _ch in reversed(clean):
+            if _ch in SLP1_VOWELS:
+                _lv = _ch
+                break
+        if _lv in ("I", "U"):
+            return True
+        if _lv in ("i", "u") and len(clean) >= 2 and clean[-1] == clean[-2]:
+            return True
+        return False
+
     def _bhvadi_guna_base(self, clean: str, is_idit: bool = False) -> str:
         if not clean:
             return clean
@@ -1226,8 +1249,10 @@ class TinantaDerivationEngine:
                 for base_cmp in self._prim_bases(clean, is_idit):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
+                    elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
+                        eff = base_cmp
                     else:
-                        eff = base_cmp if is_vowel_initial else self._bhvadi_guna_base(base_cmp, is_idit)
+                        eff = self._bhvadi_guna_base(base_cmp, is_idit)
                     if sew:
                         b = eff + "i" + apply_satva("i","s") + "y"
                     else:
@@ -1528,8 +1553,10 @@ class TinantaDerivationEngine:
                 for base_cmp in self._prim_bases(clean, is_idit):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
+                    elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
+                        eff = base_cmp
                     else:
-                        eff = base_cmp if is_vowel_initial else self._bhvadi_guna_base(base_cmp, is_idit)
+                        eff = self._bhvadi_guna_base(base_cmp, is_idit)
                     if sew:
                         base_iz = eff + "i" + apply_satva("i","s")
                     else:
@@ -2444,8 +2471,10 @@ class TinantaDerivationEngine:
                 for base_cmp in self._prim_bases(clean, is_idit):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
+                    elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
+                        eff = base_cmp
                     else:
-                        eff = base_cmp if is_vowel_initial else self._bhvadi_guna_base(base_cmp, is_idit)
+                        eff = self._bhvadi_guna_base(base_cmp, is_idit)
                     if sew:
                         base_i = eff + "i"
                         sat = apply_satva(base_i[-1], "s")

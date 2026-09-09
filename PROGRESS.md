@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T06:49:00Z
-Sweep: 811/1156 100% (raw 811/1166)
+Date: 2026-09-09T07:11:00Z
+Sweep: 854/1156 100% (raw 854/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -49,10 +49,11 @@ Sweep: 811/1156 100% (raw 811/1166)
 - Krdanta sannanta rv-coda lowercased onset (Urv->urviviz, arv unchanged; surveyed all 18 rv-cleans: sole vowel-initial urv (01.0650) wants lowercase san_krut, arv already lowercase, 17 C-initial roots never reach the vowel-initial branch; Urd->urdidiz lowercase precedent). Sweep: 01.0650 100% perfect (604->636), 1 improved, 0 worsened, passes 807->808. Pilots OK.
 - Krdanta amanta-mittva by gaNa-sUtra 1.934 (short-a + m final roots mit: kram/ram/syam keep short niC stem; kam/am/cam denied by 1.937 na kamyamicamAm stay vriddhi; sm non-amanta unaffected; kr-roots already short via kr-noT gate so kramu behavior identical; surveyed all 23 am-cleans + 7 PaRAdi, removed long variants have zero exact-match hits). Sweep: 3 improved (01.0953 551->570, 01.0960 861->887, 01.0989 569->588), 0 worsened, passes held 808. yang_krut capped-miss count rose 120->128 as freed cap slots expose pre-existing yang misses (fid-diff truth: 0 worsened). Pilots OK.
 - Tinanta Atmanepadi both-padas over-generation in lw/laN/low/viDiliN (mUla + sannanta kartari; nijanta-style precedent: nich already emits both and passes). Survey: dataset-wide only 4/1156 Atmanepadi fids lack alat tables (01.0150 jaBa~/01.0248 rebf~/01.0946 Kuqi~ fully paras-ting, 01.0508 mixed ubhaya); additive any-match so zero conflicts by construction (verified exact-match probes incl. Kuqi~ num-base KuRqasi). Sweep: 3 new 100% passes (01.0150 819->883, 01.0248 820->883, 01.0946 820->883) + bonus slots on 01.0508 (760->762) and 01.0511 (790->792), 0 worsened, passes 808->811. Pilots OK.
+- Long-vowel/geminate keep-shape `_keep_shape` in both engines (krdanta guna_base + Rvul + GaY + nijanta-u/i-sec; tinanta yak-izya lfw/lfN/ASIrliN): consonant-final + sew + last-vowel-I/U or short-i/u-geminate keeps stem; guNa kept for bare vowel-final BU (pilot safe), Nit-N-final qIN/pUN/mUN, udit-u~ kzIvu, aniW nIY. Survey: 39 I-roots + 35 U-roots + 21 geminates for keep-vs-guNa in every target slot, zero conflicts (removed guNa variants have no exact-match hits; a-vowel geminates already no-op via apply_guna('a')='a'). Sweep: 43 new 100% passes, 58 improved, 0 worsened, passes 811->854. san_krut 97->112 / nich_krut 24->28 capped-count rises are freed-cap artifacts (fid-diff truth: 0 worsened). Pilots OK.
 
 ## Next
 1. Investigated singletons (do NOT per-dhatu hardcode): 01.0677 Divi~ law is nu-parAdi (Dinoti/DinutaH/Dinvanti, sole fid with noti/nutaH/nvanti plat); kramu (01.0545) remaining gap is mUla law (our kramati vs dataset krAmyati-type) + lun — needs a krama-rule survey, not niC.
-2. Next smallest-gap batch: 01.0508 pana~ (Aya-vikaraNa law panAyati per note 3.1.28; remaining gap ~121) and/or 01.0254/01.0270-type yak-lfw + krut tavya clusters (gap 83-89) — survey shape first.
+2. Next smallest-gap batch: 01.0960 (gap 8, yang_krut saMsyami- family) and 01.0677-adjacent; then the 83-gap wall (01.0050 ziDU~ luw seDtA + krut seDtavya; 01.0742; 01.1164) — survey shape first.
 3. Consonant cluster assimilation for Gaṇa 01:
    - `c/j` before `s/t` in tinanta (e.g. `tyaj` -> `tyaktA`, `pac` -> `paktA`).
    - `zW` root onset sthAnI (`zW` -> `sT`; `zw` -> `st` DONE, zWivu/zWA retain).
