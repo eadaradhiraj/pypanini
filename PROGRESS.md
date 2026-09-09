@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T11:32:00Z
-Sweep: 890/1156 100% (raw 890/1166)
+Date: 2026-09-09T12:15:00Z
+Sweep: 902/1156 100% (raw 912/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -66,13 +66,12 @@ Sweep: 890/1156 100% (raw 890/1166)
   - Yaṅluganta krdanta: 7.4.82 guṇo yaṅlukoḥ (`yejita`, `vopita`, `vohita`, `vuzita`, `vodita` in kta/ktavatu; `yAyajitvA`, `vAvapitvA`, `vAvahitvA`, `vAvasitvA`, `vAvaditvA` in ktvA; `prayejya`, `pravopya`, `pravohya`, `pravuzya`, `pravodya` in lyap; `yejyamAna`, `vopyamAna`, `vohyamAna`, `vuzyamARa`, `vodyamAna` in SAnac).
 - Consonant cluster assimilation for aniT/vew roots before t (Panini 8.2.30 coH kuH, 8.2.36 vraSca... yaja... zaH, 8.2.40 jhazastaTorDo'DaH, 8.4.55 Kari ca, 8.4.41 zwunA zwuH in luw, tavya, tfc, tumun, ktvA) and before s (Panini 8.2.30/8.3.59 coH kuH + AdeSapratyayayoH, 8.4.55 Kari ca B->ps / d->ts, 7.4.49 saH syArDadhAtuke s->ts, 8.3.24 naS cApadAntasya m->M, 7.2.58 gamaH sye, 8.2.32/8.2.37 dah->Dakz / guh->Gokz / gAh->GAkz / gluh->Glokz, 8.2.36/8.2.41 zaQhoH kaH si z/S->kz with kit ASIrliN dfkz- / tvikz-) across both tinanta and krdanta: 40 improved (+2,237 matched tokens), 0 worsened, 890/1156 passes maintained. Pilots OK.
 
+- Panini 8.4.40 stoH ScunA ScuH + 8.4.53 jhalAM jaS jhaSi (zasja->sajj), 6.1.64 dhAtvAdeH zaH saH + 8.4.41 zW->sT (zWage->sTag, zWala->sTal, zWA->sTA, zWivu retained), 8.4.40/8.4.58 nc->Yc palatal nasal assimilation across clean_dhatu_op and krdanta, and 6.4.24 aniditAM hala upaDAyAH kniti penultimate nasal drop in kit lyap and yan (cokucyate, pracokucya, prakucya): 12 new 100% passes (01.0212, 01.0213, 01.0214, 01.0217, 01.0218, 01.0219, 01.0220, 01.0221, 01.0228, 01.0229, 01.0909, 01.0970), 36 improved, 0 worsened, passes 890->902/1156 (+13,192 matched tokens). Pilots OK.
+
 ## Next
-1. Panini 8.2.36 vraśca-bhrasja-sṛja-mṛja-yaja-rāja-bhrāja-ccha-śaḥ ṣaḥ (sibilant / retroflex assimilations):
-   - sj -> jj in zasja (sajjita), bhrasj.
-   - nc-lopa in anidit roots before kit (kunca -> kucita, lunci -> lucita).
-   - hurCA-Na kta (hUrRa).
-2. Root onset sthAnI / transformations:
-   - zW -> sT (e.g. zWA -> sTA, zWivu -> sTIv/zWIv).
-3. Remaining yajādi lakaras (kartari luṅ aorist etc.).
+1. Remaining yajādi lakaras (kartari luṅ s-aorist with vṛddhi 7.2.1 for yaj, vap, vah, vas: ayAkzIt, avApsIt, avAkzIt, avAtsIt).
+2. Panini 7.3.78 pā-ghrā-dhmā-sthā-mnā... tiṣṭha sārvadhātuka (tizWati/tizWate etc.) and liṭ (tasTO/tasTe) for sTA (01.1077).
+3. Panini 7.3.77 iṣugamiyamāṁ chaḥ sārvadhātuka (gacCati etc.) for gam (01.1137) and yam (01.1139).
 4. Re-sweep, rebuild STATS, overwrite this, commit & push.
+
 

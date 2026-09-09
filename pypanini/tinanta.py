@@ -60,10 +60,16 @@ def clean_dhatu_op(op: str) -> str:
         clean = clean[:-1]
     if clean.startswith("zw"):
         clean = "st" + clean[2:]
+    elif clean.startswith("zW") and not clean.startswith("zWiv"):
+        clean = "sT" + clean[2:]
     elif clean.startswith("z"):
         clean = "s" + clean[1:]
     if clean.startswith("R"):
         clean = "n" + clean[1:]
+    if "sj" in clean:
+        clean = clean.replace("sj", "jj")
+    if "nc" in clean:
+        clean = clean.replace("nc", "Yc")
     return clean
 
 
@@ -1067,7 +1073,7 @@ class TinantaDerivationEngine:
             _mangled = (is_idit or pada == "Atmanepadi") and _op1.endswith(("i", "I"))
             if not _mangled:
                 for _i, _ch in enumerate(list(_ybase)):
-                    if _ch == "n" and _i + 1 < len(_ybase) and _ybase[_i + 1] in ("T", "d", "D"):
+                    if _ch in ("n", "Y", "N", "R") and _i + 1 < len(_ybase) and _ybase[_i + 1] in SLP1_STOPS:
                         _ybase = _ybase[:_i] + _ybase[_i + 1:]
                         break
                 if _ybase.endswith("N"):

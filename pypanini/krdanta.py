@@ -76,10 +76,16 @@ def clean_dhatu_op(op: str) -> str:
         clean = clean[:-1]
     if clean.startswith("zw"):
         clean = "st" + clean[2:]
+    elif clean.startswith("zW") and not clean.startswith("zWiv"):
+        clean = "sT" + clean[2:]
     elif clean.startswith("z"):
         clean = "s" + clean[1:]
     if clean.startswith("R"):
         clean = "n" + clean[1:]
+    if "sj" in clean:
+        clean = clean.replace("sj", "jj")
+    if "nc" in clean:
+        clean = clean.replace("nc", "Yc")
     return clean
 
 
@@ -530,9 +536,9 @@ class KrdantaEngine:
                     _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
                         return _nbw[:-1] + _nn + _nbw[-1] + "ay"
-                # ncu/nc-final niC num-Y stem (ancu->aYcay, anc->aYcay, gluncu->gluYcay: surveyed all 9 ncu-files, zero conflicts)
-                if c.endswith("ncu") or c.endswith("nc"):
-                    _base = c[:-3] if c.endswith("ncu") else c[:-2]
+                # ncu/nc/Yc-final niC num-Y stem (ancu->aYcay, anc->aYcay, aYc->aYcay, gluncu->gluYcay: surveyed all 9 ncu-files, zero conflicts)
+                if c.endswith("ncu") or c.endswith("nc") or c.endswith("Yc") or c.endswith("Ycu"):
+                    _base = c[:-3] if (c.endswith("ncu") or c.endswith("Ycu")) else c[:-2]
                     return _base + "Yc" + "ay"
                 # CuCu niC guna-o stem (kuju->kojay, mrucu->mrocay: first-u guna, drop final-u;
                 # surveyed uCu-roots; ncu/f/i/a-first cases handled elsewhere or excluded)
@@ -544,10 +550,10 @@ class KrdantaEngine:
                             _fv = _ch
                             break
                     # first-u must not be the final char (sru/pruzu single-u keeps old output; kuju/mrucu double-u takes guna)
-                    if _fv == "u" and "f" not in c and not c.endswith("ncu") and not c.endswith("nc") and c.index("u") < len(c) - 1:
+                    if _fv == "u" and "f" not in c and not c.endswith(("ncu", "nc", "Yc", "Ycu")) and c.index("u") < len(c) - 1:
                         _ui = c.index("u")
                         return c[:_ui] + "o" + c[_ui + 1:-1] + "ay"
-                    if _fv == "i" and "f" not in c and not c.endswith("ncu") and not c.endswith("nc") and c.index("i") < len(c) - 1:
+                    if _fv == "i" and "f" not in c and not c.endswith(("ncu", "nc", "Yc", "Ycu")) and c.index("i") < len(c) - 1:
                         _ii = c.index("i")
                         return c[:_ii] + "e" + c[_ii + 1:-1] + "ay"
                 # mu/su-final or ns-coda niC stem: ns->Ms without vriddhi (Sansu->SaMsay, Sans->SaMsay), else first-vowel
@@ -750,7 +756,7 @@ class KrdantaEngine:
                 # yan base: drop coda-n before stop (manT->maTya); drop final retroflex-N (kuN->kUya); non-idit only (idit vand-type keeps num-n)
                 if not is_idit:
                     for _i, _ch in enumerate(list(_ybase)):
-                        if _ch == "n" and _i + 1 < len(_ybase) and _ybase[_i + 1] in ("T", "d", "D"):
+                        if _ch in ("n", "Y", "N", "R") and _i + 1 < len(_ybase) and _ybase[_i + 1] in SLP1_STOPS:
                             _ybase = _ybase[:_i] + _ybase[_i + 1:]
                             break
                     if _ybase.endswith("N"):
@@ -1498,6 +1504,13 @@ class KrdantaEngine:
             for v in [pref_sam, pref_sam.replace("M", "m"), pref_pra, bare, "pra"+base_ya_clean, base_ya_clean]:
                 if v not in variants:
                     variants.append(v)
+            # Panini 6.4.24 aniditAM hala upaDAyAH kniti: kit lyap drops penultimate nasal
+            if not is_idit and len(clean) >= 3 and clean[-2] in ("n", "N", "Y", "R") and clean[-1] not in SLP1_VOWELS:
+                _ly_drop = clean[:-2] + clean[-1]
+                for _pre in ("pra", upasarga, upasarga.replace("M", "m"), ""):
+                    _v = _pre + _ly_drop + "ya"
+                    if _v not in variants:
+                        variants.append(_v)
             pref_m = pref_sam.replace("M", "m")
             # a-initial consonant-final takes vriddhi base too (ata->prAtya; surveyed: only a-initial has lyap tables)
             try:
