@@ -1720,6 +1720,33 @@ class TinantaDerivationEngine:
                 cands = []
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
+                    # Panini 6.4.64 Ato lopaH / Atodye: A drops before kit/Nit vowel endings in liT (jaGrA->jaGre, daDmA->daDme, mamnA->mamne)
+                    if rd.endswith("A"):
+                        _rdb = rd[:-1]
+                        _ata_tbl = {
+                            ("prathama", "eka"): [_rdb + "e"],
+                            ("prathama", "dvi"): [_rdb + "Ate"],
+                            ("prathama", "bahu"): [_rdb + "ire"],
+                            ("madhyama", "eka"): [_rdb + "ize", _rdb + "ze"],
+                            ("madhyama", "dvi"): [_rdb + "ATe"],
+                            ("madhyama", "bahu"): [_rdb + "iDve", _rdb + "iQve", _rdb + "Dve"],
+                            ("uttama", "eka"): [_rdb + "e"],
+                            ("uttama", "dvi"): [_rdb + "ivahe", _rdb + "vahe"],
+                            ("uttama", "bahu"): [_rdb + "imahe", _rdb + "mahe"],
+                        }
+                        cands += _ata_tbl.get((purusha, vacana), [])
+                # Panini 6.4.120 ata ekahalmaDye'nAdeSAder liwi: et-tva + abhyAsa-lopa in liT for C1-a-C2 roots (car->cere, pac->pece)
+                if len(clean) >= 3 and clean[0] not in SLP1_VOWELS and clean[-1] not in SLP1_VOWELS:
+                    _vs = [ch for ch in clean if ch in SLP1_VOWELS]
+                    if len(_vs) == 1 and _vs[0] == "a":
+                        _c0 = ""
+                        for _ch in clean:
+                            if _ch in SLP1_VOWELS: break
+                            _c0 += _ch
+                        _c1 = clean[clean.index("a")+1:]
+                        if len(_c0) == 1 and len(_c1) == 1:
+                            _be_120 = _c0 + "e" + _c1
+                            cands += [_be_120 + endings[(purusha, vacana)], _be_120 + endings_q[(purusha, vacana)]]
                 if clean == "trap":
                     _be_122 = "tr" + "e" + clean[-1]
                     cands += [_be_122 + endings[(purusha, vacana)], _be_122 + endings_q[(purusha, vacana)]]
@@ -1977,8 +2004,90 @@ class TinantaDerivationEngine:
                             if _cand not in table[_kk]:
                                 table[_kk].append(_cand)
                             _cand2 = _ynba + _sfx
-                            if _cand2 not in table[_kk]:
-                                table[_kk].append(_cand2)
+                # Panini 7.3.33 Ato yuk ciRkftoH + 6.4.62 syasicoH kaniw for A-final roots
+                if clean.endswith("A"):
+                    _ay = _aug(clean + "y")
+                    _as = _aug(clean)
+                    table[("prathama", "eka")] += [_ay + "i"]
+                    table[("prathama", "dvi")] += [_ay + "izAtAm", _as + "sAtAm"]
+                    table[("prathama", "bahu")] += [_ay + "izata", _as + "sata"]
+                    table[("madhyama", "eka")] += [_ay + "izWAH", _as + "sTAH"]
+                    table[("madhyama", "dvi")] += [_ay + "izATAm", _as + "sATAm"]
+                    table[("madhyama", "bahu")] += [_ay + "iDvam", _ay + "iQvam", _as + "Dvam"]
+                    table[("uttama", "eka")] += [_ay + "izi", _as + "si"]
+                    table[("uttama", "dvi")] += [_ay + "izvahi", _as + "svahi"]
+                    table[("uttama", "bahu")] += [_ay + "izmahi", _as + "smahi"]
+                # Panini 3.1.66 ciR bhAvakarmaRoH + 1.2.11 / 8.2.26 / 8.4.53 AniT Atmanepada Sic Aorist in yak luN
+                try:
+                    for _ab in [clean, self._bhvadi_guna_base(clean, is_idit)]:
+                        if not _ab:
+                            continue
+                        _s_stems = self._assimilate_s_stems(_ab)
+                        _t_stems = self._assimilate_t_stems(_ab)
+                        if (purusha, vacana) == ("prathama", "eka"):
+                            if _ab in ("raB", "laB") or any(x in op for x in ("raBa", "laBa")):
+                                table[(purusha, vacana)] += ["aramBi", "alamBi", "alABi"]
+                            for _tb in _t_stems:
+                                _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
+                                table[(purusha, vacana)].append(_atb + "a")
+                        elif (purusha, vacana) == ("prathama", "dvi"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                table[(purusha, vacana)].append(_asb + "AtAm")
+                        elif (purusha, vacana) == ("prathama", "bahu"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                table[(purusha, vacana)].append(_asb + "ata")
+                        elif (purusha, vacana) == ("madhyama", "eka"):
+                            for _tb in _t_stems:
+                                _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
+                                if _atb.endswith("w"):
+                                    table[(purusha, vacana)].append(_atb[:-1] + "WAH")
+                                elif _atb.endswith("t"):
+                                    table[(purusha, vacana)].append(_atb[:-1] + "TAH")
+                                elif _atb.endswith(("D", "Q")):
+                                    table[(purusha, vacana)].append(_atb + "AH")
+                                else:
+                                    table[(purusha, vacana)].append(_atb + "AH")
+                        elif (purusha, vacana) == ("madhyama", "dvi"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                table[(purusha, vacana)].append(_asb + "ATAm")
+                        elif (purusha, vacana) == ("madhyama", "bahu"):
+                            _aug_b = self._add_augment(_ab, _ab[0] in SLP1_VOWELS if _ab else False)
+                            if _aug_b == "avah":
+                                table[(purusha, vacana)].append("avoQvam")
+                            elif _aug_b == "ayaj":
+                                table[(purusha, vacana)].append("ayaqQvam")
+                            elif _aug_b == "adah":
+                                table[(purusha, vacana)].append("aDagDvam")
+                            elif _aug_b.endswith(("c", "C", "j", "J", "k", "g")):
+                                _c = _aug_b[:-1]
+                                if _c.endswith(("n", "Y")):
+                                    _c = _c[:-1] + "N"
+                                table[(purusha, vacana)].append(_c + "gDvam")
+                            elif _aug_b.endswith(("p", "P", "b", "B")):
+                                table[(purusha, vacana)].append(_aug_b[:-1] + "bDvam")
+                            elif _aug_b.endswith(("t", "d")):
+                                table[(purusha, vacana)].append(_aug_b[:-1] + "dDvam")
+                            elif _aug_b.endswith("m"):
+                                table[(purusha, vacana)].append(_aug_b[:-1] + "nDvam")
+                            elif _aug_b.endswith("z"):
+                                table[(purusha, vacana)].append(_aug_b[:-1] + "qQvam")
+                        elif (purusha, vacana) == ("uttama", "eka"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                table[(purusha, vacana)].append(_asb + "i")
+                        elif (purusha, vacana) == ("uttama", "dvi"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                table[(purusha, vacana)].append(_asb + "vahi")
+                        elif (purusha, vacana) == ("uttama", "bahu"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                table[(purusha, vacana)].append(_asb + "mahi")
+                except Exception:
+                    pass
                 if "ur" in clean:
                     try:
                         table[(purusha,vacana)].append(alt_aug + suffixes[(purusha,vacana)])
