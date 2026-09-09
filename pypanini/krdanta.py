@@ -494,7 +494,8 @@ class KrdantaEngine:
                         return "cukUrdiz"
                     # rv-coda reduplicates (urv->urviviz, arv->arviviz; urd keeps its didiz special above)
                     if c.endswith("rv"):
-                        return c[0] + "rvi" + "viz"
+                        # lowercased onset (Urv-mapping feeds capital U, but sannanta dataset keeps urviviz/arviviz)
+                        return c[0].lower() + "rvi" + "viz"
                     # reduplicated Ci-copy stem with velar/h palatalization in redup (subsumes r@1 and voicing below)
                     # (at->atitiz, arda->ardidiz, arca->arciciz, oKf->ociKiz, arha->arjihiz, urv->urviviz)
                     _tail = c[1:]

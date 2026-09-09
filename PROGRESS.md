@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T00:00:00Z
-Sweep: 807/1156 100% (raw 807/1166)
+Date: 2026-09-09T07:00:00Z
+Sweep: 808/1156 100% (raw 808/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -46,11 +46,12 @@ Sweep: 807/1156 100% (raw 807/1166)
 - Tinanta prim-bases nc->Yc num variant (kunca->kuYcati, ancu->aYcati; surveyed all 12 nc-cleans in engine meta). Sweep: 12 improved (+72/+99 each), 0 worsened. Pilots OK.
 - Tinanta nijanta-luN ti-redup keeps zw-onset (zwana->atizwanata; meta maps zw->st for everything else; surveyed zw/zW nich luN; ta/wi-variants deferred). Sweep: 8 improved, 4 new 100% passes (01.0532, 01.0891, 01.0899, 01.0964), 0 worsened. Pilots OK.
 - Krdanta Natva guards: S-final never R + num-R stems block further Natva (rivi->riRvanIya/riRvanam, wuBrASf->BrASamAnaH dental; confusion survey 1601 slots/51 mismatches; zero expected-R S-final or num-R stems). Sweep: 5 improved (01.0679/01.0680/01.0682/01.0958/01.0992), 3 new 100% passes, 0 worsened. Pilots OK.
+- Krdanta sannanta rv-coda lowercased onset (Urv->urviviz, arv unchanged; surveyed all 18 rv-cleans: sole vowel-initial urv (01.0650) wants lowercase san_krut, arv already lowercase, 17 C-initial roots never reach the vowel-initial branch; Urd->urdidiz lowercase precedent). Sweep: 01.0650 100% perfect (604->636), 1 improved, 0 worsened, passes 807->808. Pilots OK.
 
 ## Next
-1. Consonant cluster assimilation for Gaṇa 01:
+1. Next smallest-gap batch: 01.0677 (Divu? ting lw Dinvati/DinvataH, gap 32) + 01.0960 (nich_krut syAmayan/syAmyamAnaH, gap 34) — identify dhatus, survey shape, one narrow rule.
+2. Consonant cluster assimilation for Gaṇa 01:
    - `c/j` before `s/t` in tinanta (e.g. `tyaj` -> `tyaktA`, `pac` -> `paktA`).
    - `zW` root onset sthAnI (`zW` -> `sT`; `zw` -> `st` DONE, zWivu/zWA retain).
    - nc-lopa in kta (kunca->kucita) + sj-gemination (zasja->sajjita) + hurCA-Na kta (hUrRa): survey each shape separately.
-2. Investigate remaining close-to-100% failures in `tests/sweep_all.csv` (e.g. 01.0679/01.0680 rivi~/ravi~, 01.0958 wuBrASf~).
 3. Re-sweep, rebuild STATS, overwrite this, commit & push.
