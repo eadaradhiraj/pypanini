@@ -34,7 +34,9 @@ def clean_dhatu_op(op: str) -> str:
     raw = op.replace("~", "").replace("`", "").strip()
     if "~z" in op and raw.endswith("z") and len(raw) > 1:
         raw = raw[:-1]
-    if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
+    if raw.endswith("Y") and len(raw) > 1:
+        raw = raw[:-1]
+    if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS and any(c in SLP1_VOWELS for c in raw[:-1]):
         raw = raw[:-1]
     no_num_r = ("~r" in op)
     if no_num_r and raw.endswith("r") and len(raw) > 1:
@@ -448,6 +450,41 @@ class TinantaDerivationEngine:
             for _kb in ("krAm", "krAmy", "kramy"):
                 if _kb not in bases:
                     bases.append(_kb)
+        # Panini 7.3.77 izu-gami-yamAM CaH
+        if clean == "gam" or op.startswith("gam"):
+            if "gacC" not in bases:
+                bases.append("gacC")
+        if clean == "yam" or op.startswith("yam"):
+            if "yacC" not in bases:
+                bases.append("yacC")
+        # Panini 7.3.78 pA-GrA-DmA-sTA-mnA-dAR-dfSi-Sf-sad-SadAM piba-jiGra-Dama-tizWa-mana-yacCa-paSya-fcCa-DO-SIyadAH
+        if clean == "pA" or op.startswith("pA"):
+            if "pib" not in bases:
+                bases.append("pib")
+        if clean == "GrA" or op.startswith("GrA"):
+            if "jiGr" not in bases:
+                bases.append("jiGr")
+        if clean == "DmA" or op.startswith("DmA"):
+            if "Dam" not in bases:
+                bases.append("Dam")
+        if clean in ("sTA", "zWA") or op.startswith("zWA") or dhatu_id == "01.1077":
+            if "tizW" not in bases:
+                bases.append("tizW")
+        if clean == "mnA" or op.startswith("mnA"):
+            if "man" not in bases:
+                bases.append("man")
+        if clean in ("dAR", "dA") or op.startswith("dAR"):
+            if "yacC" not in bases:
+                bases.append("yacC")
+        if clean in ("dfS", "darS") or op.startswith("dfS"):
+            if "paSy" not in bases:
+                bases.append("paSy")
+        if clean in ("sad", "zad") or op.startswith("zad"):
+            if "sId" not in bases:
+                bases.append("sId")
+        if clean in ("Sad", "Sadx") or op.startswith("Sad"):
+            if "SIy" not in bases:
+                bases.append("SIy")
         if clean and clean[0] in SLP1_VOWELS:
             flip = {"u":"U","U":"u","i":"I","I":"i","a":"A","A":"a","f":"F","F":"f"}
             if clean[0] in flip:
@@ -726,10 +763,10 @@ class TinantaDerivationEngine:
             return [stem[:-2] + "zw"]
         if stem.endswith("D"):
             return [stem[:-1] + "dD"]
-        if stem == "dah":
-            return ["dagD"]
-        if stem == "vah":
-            return ["voQ"]
+        if stem in ("dah", "dAh"):
+            return ["dagD", "dAgD"]
+        if stem in ("vah", "vAh"):
+            return ["voQ", "vAQ"]
         if stem.endswith("h"):
             core = stem[:-1]
             if core.endswith("u"):
@@ -737,14 +774,14 @@ class TinantaDerivationEngine:
             elif core.endswith("i"):
                 core = core[:-1] + "I"
             return [core + "Q"]
-        if stem in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj"):
+        if stem in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj", "rAnj", "rAYj", "sAnj", "sAYj"):
             core = stem[:-1]
             if core.endswith(("n", "Y")):
                 core = core[:-1]
             return [core + "Nkt"]
         if stem.endswith(("c", "C", "j", "J")):
-            if stem == "yaj":
-                return ["yazw"]
+            if stem in ("yaj", "yAj"):
+                return [stem[:-1] + "zw"]
             return [stem[:-1] + "kt"]
         if stem.endswith("B"):
             return [stem[:-1] + "bD"]
@@ -755,12 +792,12 @@ class TinantaDerivationEngine:
         if stem.endswith("m"):
             return [stem[:-1] + "nt"]
         if stem.endswith(("z", "S")):
-            if stem in ("dfS", "darS"):
-                return ["drazw"]
-            if stem in ("kfz", "karz"):
-                return ["krazw", "karzw"]
-            if stem in ("danS", "daMS"):
-                return ["daMzw"]
+            if stem in ("dfS", "darS", "drAS"):
+                return ["drazw", "drAzw"]
+            if stem in ("kfz", "karz", "kArz"):
+                return ["krazw", "karzw", "kArzw"]
+            if stem in ("danS", "daMS", "dAnS", "dAMS"):
+                return ["daMzw", "dAMzw"]
             return [stem[:-1] + "zw"]
         return [stem + "t"]
 
@@ -774,10 +811,10 @@ class TinantaDerivationEngine:
             return ["sy"]
         if base == "gam":
             return ["gamiz"] if not is_kit else ["gaMs"]
-        if base == "vah":
-            return ["vakz"]
-        if base == "dah":
-            return ["Dakz"]
+        if base in ("vah", "vAh"):
+            return ["vakz", "vAkz"]
+        if base in ("dah", "dAh"):
+            return ["Dakz", "DAkz"]
         if base in ("guh", "goh"):
             return ["Gokz"]
         if base == "gAh":
@@ -786,13 +823,13 @@ class TinantaDerivationEngine:
             return ["Garkz"]
         if base in ("gluh", "gloh"):
             return ["Glokz"]
-        if base in ("dfS", "darS"):
-            return ["drakz"] if not is_kit else ["dfkz"]
-        if base in ("kfz", "karz"):
-            return ["krakz", "karkz"]
-        if base in ("danS", "daMS"):
-            return ["daNkz"]
-        if base in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj"):
+        if base in ("dfS", "darS", "drAS"):
+            return ["drakz", "drAkz"] if not is_kit else ["dfkz"]
+        if base in ("kfz", "karz", "kArz"):
+            return ["krakz", "karkz", "kArkz", "krAkz"]
+        if base in ("danS", "daMS", "dAnS", "dAMS"):
+            return ["daNkz", "dANkz"]
+        if base in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj", "rAnj", "rAYj", "sAnj", "sAYj"):
             core = base[:-1]
             if core.endswith(("n", "Y")):
                 core = core[:-1]
@@ -2468,6 +2505,39 @@ class TinantaDerivationEngine:
                 _pv = (purusha, vacana)
                 _ycands = (_atman.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras.get(_pv, [])) + _atman.get(_pv, []) + _paras.get(_pv, [])
                 return list(dict.fromkeys(_ycands)), log
+            # Panini 7.3.34 AtaH for A-ending roots in liw
+            _a_map = {
+                "sTA": "tasT", "zWA": "tasT",
+                "pA": "pap", "GrA": "jaGr", "DmA": "daDm", "mnA": "mamn",
+                "dAR": "dad", "dA": "dad"
+            }
+            if clean in _a_map or op in _a_map:
+                _red = _a_map.get(clean, _a_map.get(op))
+                _pv = (purusha, vacana)
+                _paras_a = {
+                    ("prathama", "eka"): [_red + "O"],
+                    ("prathama", "dvi"): [_red + "atuH"],
+                    ("prathama", "bahu"): [_red + "uH"],
+                    ("madhyama", "eka"): [_red + "iTa", _red + "ATa"],
+                    ("madhyama", "dvi"): [_red + "aTuH"],
+                    ("madhyama", "bahu"): [_red + "a"],
+                    ("uttama", "eka"): [_red + "O"],
+                    ("uttama", "dvi"): [_red + "iva"],
+                    ("uttama", "bahu"): [_red + "ima"],
+                }
+                _atman_a = {
+                    ("prathama", "eka"): [_red + "e"],
+                    ("prathama", "dvi"): [_red + "Ate"],
+                    ("prathama", "bahu"): [_red + "ire"],
+                    ("madhyama", "eka"): [_red + "ize", _red + "se"],
+                    ("madhyama", "dvi"): [_red + "ATe"],
+                    ("madhyama", "bahu"): [_red + "iDve", _red + "iQve"],
+                    ("uttama", "eka"): [_red + "e"],
+                    ("uttama", "dvi"): [_red + "ivahe"],
+                    ("uttama", "bahu"): [_red + "imahe"],
+                }
+                _acands = (_atman_a.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras_a.get(_pv, [])) + _paras_a.get(_pv, []) + _atman_a.get(_pv, [])
+                return list(dict.fromkeys(_acands)), log
             if is_vowel_initial:
                 flip = {"u":"U","U":"u","i":"I","I":"i"}
                 vars = [clean]
@@ -2874,6 +2944,7 @@ class TinantaDerivationEngine:
                 }
                 form = aug + endings[(purusha, vacana)]
                 cands = [form]
+                _guna = self._bhvadi_guna_base(clean, is_idit)
                 # cons-final luN paras at/atAm/an (aScutat, 7.3.??): aug + a + ending alongside aug + ending
                 try:
                     if clean and clean[-1] not in SLP1_VOWELS:
@@ -2883,12 +2954,113 @@ class TinantaDerivationEngine:
                     pass
                 # guNa variant for seT+I (aScotIt, 7.3.84): aug_guNa + It/iz
                 try:
-                    _guna = self._bhvadi_guna_base(clean, is_idit)
                     if _guna != clean:
                         _aug_g = self._add_augment(_guna, _guna[0] in SLP1_VOWELS if _guna else False)
                         cands.append(_aug_g + endings[(purusha, vacana)])
                         if clean and clean[-1] not in SLP1_VOWELS:
                             cands.append(_aug_g + "a" + endings[(purusha, vacana)])
+                except Exception:
+                    pass
+                # 1. aN aorist (Panini 3.1.55 puSAdidyutLditparasmeipadezu / 3.1.53 etc.) for consonant-final roots
+                ang_endings = {
+                    ("prathama", "eka"): ["at", "ad"],
+                    ("prathama", "dvi"): ["atAm"],
+                    ("prathama", "bahu"): ["an"],
+                    ("madhyama", "eka"): ["aH"],
+                    ("madhyama", "dvi"): ["atam"],
+                    ("madhyama", "bahu"): ["ata"],
+                    ("uttama", "eka"): ["am"],
+                    ("uttama", "dvi"): ["Ava"],
+                    ("uttama", "bahu"): ["Ama"],
+                }
+                try:
+                    if clean and clean[-1] not in SLP1_VOWELS:
+                        for _ae in ang_endings[(purusha, vacana)]:
+                            cands.append(aug + _ae)
+                        if clean.endswith("kand"):
+                            _c_skad = clean.replace("kand", "kad")
+                            _aug_skad = self._add_augment(_c_skad, _c_skad[0] in SLP1_VOWELS if _c_skad else False)
+                            for _ae in ang_endings[(purusha, vacana)]:
+                                cands.append(_aug_skad + _ae)
+                        for _as in self._assimilate_s_stems(clean):
+                            _aug_as = self._add_augment(_as, _as[0] in SLP1_VOWELS if _as else False)
+                            for _ae in ang_endings[(purusha, vacana)]:
+                                cands.append(_aug_as + _ae)
+                        if clean in ("kfz", "karz"):
+                            _aug_kfkz = self._add_augment("kfkz", False)
+                            for _ae in ang_endings[(purusha, vacana)]:
+                                cands.append(_aug_kfkz + _ae)
+                        if _guna != clean:
+                            _aug_g = self._add_augment(_guna, _guna[0] in SLP1_VOWELS if _guna else False)
+                            for _ae in ang_endings[(purusha, vacana)]:
+                                cands.append(_aug_g + _ae)
+                except Exception:
+                    pass
+                # 2. Sic aorist (Panini 3.1.44 cleH sic, 7.2.1 aco YRiti, 7.2.3 halo vfdDir halantAsya, 7.3.96 asti-sico'pfkte, 8.2.26 jhalo jhali)
+                try:
+                    _vr_bases = []
+                    if clean:
+                        if clean[-1] in SLP1_VOWELS:
+                            _lv = clean[-1]
+                            _vv = apply_vriddhi(_lv)
+                            _vr_bases.append(clean[:-1] + _vv)
+                        else:
+                            _vr = self._vriddhi_base(clean, is_idit)
+                            _vr_bases.append(_vr)
+                        _vr_bases.append(clean)
+                        if _guna != clean:
+                            _vr_bases.append(_guna)
+                        if clean in ("nam", "yam"):
+                            _vr_bases.append(clean[0] + "aMs")
+
+                    for _vrb in _vr_bases:
+                        _s_stems = self._assimilate_s_stems(_vrb)
+                        _t_stems = self._assimilate_t_stems(_vrb)
+                        if (purusha, vacana) == ("prathama", "eka"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "It", _asb + "Id"])
+                        elif (purusha, vacana) == ("prathama", "dvi"):
+                            for _tb in _t_stems:
+                                _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
+                                cands.append(_atb + "Am")
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "wAm", _asb + "tAm", _asb + "izwAm"])
+                        elif (purusha, vacana) == ("prathama", "bahu"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "uH", _asb + "izuH"])
+                        elif (purusha, vacana) == ("madhyama", "eka"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.append(_asb + "IH")
+                        elif (purusha, vacana) == ("madhyama", "dvi"):
+                            for _tb in _t_stems:
+                                _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
+                                cands.append(_atb + "am")
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "wam", _asb + "tam", _asb + "izwam"])
+                        elif (purusha, vacana) == ("madhyama", "bahu"):
+                            for _tb in _t_stems:
+                                _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
+                                cands.append(_atb + "a")
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "wa", _asb + "ta", _asb + "izwa"])
+                        elif (purusha, vacana) == ("uttama", "eka"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "am", _asb + "izam"])
+                        elif (purusha, vacana) == ("uttama", "dvi"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "va", _asb + "izva"])
+                        elif (purusha, vacana) == ("uttama", "bahu"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "ma", _asb + "izma"])
                 except Exception:
                     pass
                 if sew or is_vew:
@@ -2977,6 +3149,73 @@ class TinantaDerivationEngine:
                         cands+= [aug_clean + "iDvam", aug_clean + "iQvam"]
                     else:
                         cands.append(form)
+                # AniT Atmanepada luN (Panini 1.2.11, 8.2.26, 8.4.53)
+                try:
+                    for _ab in [clean, self._bhvadi_guna_base(clean, is_idit)]:
+                        if not _ab:
+                            continue
+                        _s_stems = self._assimilate_s_stems(_ab)
+                        _t_stems = self._assimilate_t_stems(_ab)
+                        if (purusha, vacana) == ("prathama", "eka"):
+                            for _tb in _t_stems:
+                                _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
+                                cands.append(_atb + "a")
+                        elif (purusha, vacana) == ("prathama", "dvi"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.append(_asb + "AtAm")
+                        elif (purusha, vacana) == ("prathama", "bahu"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.append(_asb + "ata")
+                        elif (purusha, vacana) == ("madhyama", "eka"):
+                            for _tb in _t_stems:
+                                _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
+                                if _atb.endswith("w"):
+                                    cands.append(_atb[:-1] + "WAH")
+                                elif _atb.endswith("t"):
+                                    cands.append(_atb[:-1] + "TAH")
+                                elif _atb.endswith(("D", "Q")):
+                                    cands.append(_atb + "AH")
+                                else:
+                                    cands.append(_atb + "AH")
+                        elif (purusha, vacana) == ("madhyama", "dvi"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.append(_asb + "ATAm")
+                        elif (purusha, vacana) == ("madhyama", "bahu"):
+                            _aug_b = self._add_augment(_ab, _ab[0] in SLP1_VOWELS if _ab else False)
+                            if _aug_b == "avah":
+                                cands.append("avoQvam")
+                            elif _aug_b == "ayaj":
+                                cands.append("ayaqQvam")
+                            elif _aug_b.endswith(("c", "C", "j", "J", "k", "g")):
+                                _c = _aug_b[:-1]
+                                if _c.endswith(("n", "Y")):
+                                    _c = _c[:-1] + "N"
+                                cands.append(_c + "gDvam")
+                            elif _aug_b.endswith(("p", "P", "b", "B")):
+                                cands.append(_aug_b[:-1] + "bDvam")
+                            elif _aug_b.endswith(("t", "d")):
+                                cands.append(_aug_b[:-1] + "dDvam")
+                            elif _aug_b.endswith("m"):
+                                cands.append(_aug_b[:-1] + "nDvam")
+                            elif _aug_b.endswith("z"):
+                                cands.append(_aug_b[:-1] + "qQvam")
+                        elif (purusha, vacana) == ("uttama", "eka"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.append(_asb + "i")
+                        elif (purusha, vacana) == ("uttama", "dvi"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.append(_asb + "vahi")
+                        elif (purusha, vacana) == ("uttama", "bahu"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.append(_asb + "mahi")
+                except Exception:
+                    pass
                 return list(dict.fromkeys(cands)), log
 
         # fallback

@@ -50,7 +50,9 @@ def clean_dhatu_op(op: str) -> str:
     raw = op.replace("~", "").replace("`", "").strip()
     if "~z" in op and raw.endswith("z") and len(raw) > 1:
         raw = raw[:-1]
-    if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS:
+    if raw.endswith("Y") and len(raw) > 1:
+        raw = raw[:-1]
+    if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS and any(c in SLP1_VOWELS for c in raw[:-1]):
         raw = raw[:-1]
     no_num_r = ("~r" in op)
     if no_num_r and raw.endswith("r") and len(raw) > 1:
@@ -432,10 +434,10 @@ class KrdantaEngine:
             return [stem[:-2] + "zw"]
         if stem.endswith("D"):
             return [stem[:-1] + "dD"]
-        if stem == "dah":
-            return ["dagD"]
-        if stem == "vah":
-            return ["voQ"]
+        if stem in ("dah", "dAh"):
+            return ["dagD", "dAgD"]
+        if stem in ("vah", "vAh"):
+            return ["voQ", "vAQ"]
         if stem.endswith("h"):
             core = stem[:-1]
             if core.endswith("u"):
@@ -443,14 +445,14 @@ class KrdantaEngine:
             elif core.endswith("i"):
                 core = core[:-1] + "I"
             return [core + "Q"]
-        if stem in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj"):
+        if stem in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj", "rAnj", "rAYj", "sAnj", "sAYj"):
             core = stem[:-1]
             if core.endswith(("n", "Y")):
                 core = core[:-1]
             return [core + "Nkt"]
         if stem.endswith(("c", "C", "j", "J")):
-            if stem == "yaj":
-                return ["yazw"]
+            if stem in ("yaj", "yAj"):
+                return [stem[:-1] + "zw"]
             return [stem[:-1] + "kt"]
         if stem.endswith("B"):
             return [stem[:-1] + "bD"]
@@ -461,12 +463,12 @@ class KrdantaEngine:
         if stem.endswith("m"):
             return [stem[:-1] + "nt"]
         if stem.endswith(("z", "S")):
-            if stem in ("dfS", "darS"):
-                return ["drazw"]
-            if stem in ("kfz", "karz"):
-                return ["krazw", "karzw"]
-            if stem in ("danS", "daMS"):
-                return ["daMzw"]
+            if stem in ("dfS", "darS", "drAS"):
+                return ["drazw", "drAzw"]
+            if stem in ("kfz", "karz", "kArz"):
+                return ["krazw", "karzw", "kArzw"]
+            if stem in ("danS", "daMS", "dAnS", "dAMS"):
+                return ["daMzw", "dAMzw"]
             return [stem[:-1] + "zw"]
         return [stem + "t"]
 

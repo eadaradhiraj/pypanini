@@ -1,6 +1,6 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T12:15:00Z
+Date: 2026-09-09T12:36:00Z
 Sweep: 902/1156 100% (raw 912/1166)
 
 ## Done
@@ -67,11 +67,14 @@ Sweep: 902/1156 100% (raw 912/1166)
 - Consonant cluster assimilation for aniT/vew roots before t (Panini 8.2.30 coH kuH, 8.2.36 vraSca... yaja... zaH, 8.2.40 jhazastaTorDo'DaH, 8.4.55 Kari ca, 8.4.41 zwunA zwuH in luw, tavya, tfc, tumun, ktvA) and before s (Panini 8.2.30/8.3.59 coH kuH + AdeSapratyayayoH, 8.4.55 Kari ca B->ps / d->ts, 7.4.49 saH syArDadhAtuke s->ts, 8.3.24 naS cApadAntasya m->M, 7.2.58 gamaH sye, 8.2.32/8.2.37 dah->Dakz / guh->Gokz / gAh->GAkz / gluh->Glokz, 8.2.36/8.2.41 zaQhoH kaH si z/S->kz with kit ASIrliN dfkz- / tvikz-) across both tinanta and krdanta: 40 improved (+2,237 matched tokens), 0 worsened, 890/1156 passes maintained. Pilots OK.
 
 - Panini 8.4.40 stoH ScunA ScuH + 8.4.53 jhalAM jaS jhaSi (zasja->sajj), 6.1.64 dhAtvAdeH zaH saH + 8.4.41 zW->sT (zWage->sTag, zWala->sTal, zWA->sTA, zWivu retained), 8.4.40/8.4.58 nc->Yc palatal nasal assimilation across clean_dhatu_op and krdanta, and 6.4.24 aniditAM hala upaDAyAH kniti penultimate nasal drop in kit lyap and yan (cokucyate, pracokucya, prakucya): 12 new 100% passes (01.0212, 01.0213, 01.0214, 01.0217, 01.0218, 01.0219, 01.0220, 01.0221, 01.0228, 01.0229, 01.0909, 01.0970), 36 improved, 0 worsened, passes 890->902/1156 (+13,192 matched tokens). Pilots OK.
+- Panini 3.1.44 cleH sic, 7.2.1 aco YRiti, 7.2.3 halo vfdDir halantasya, 7.3.96 asti-sico'pfkte, 8.2.26 jhalo jhali, 8.4.53 jhalAM jaS jhaSi (AniT Parasmaipada & Atmanepada Sic Aorist: ayAkzIt, avApsIt, avAkzIt, avAtsIt, apAkzIt, atyAkzIt, aDAkzIt, aBAkzIt, aSApsIt, ajEzIt, asmArzIt, aBArzIt, anEzIt, aSrOzIt; ayazwa, apakta, aBakta, avapta, avoQa, aSabDvam, ayaqQvam, aranDvam, asvaNgDvam) + 3.1.55 aN aorist (agamat, asfpat, amikzat, atvikzat, adarSat, askadat); Panini 7.3.77 izu-gami-yamAM CaH & 7.3.78 pA-GrA-DmA-sTA-mnA-dAR-dfSi-Sf-sad-SadAM piba-jiGra-Dama-tizWa-mana-yacCa-paSya-fcCa-DO-SIyadAH sArvaDAtuka kartari suppletions (gam->gacC, yam->yacC, pA->pib, GrA->jiGr, DmA->Dam, sTA->tizW, mnA->man, dAR->yacC, dfS->paSy, sad->sId, Sad->SIy); Panini 7.3.34 AtaH A-ending root liw (tasTO/tasTe, papO/pape, jaGrO/jaGre, daDmO/daDme, mamnO/mamne, dadO/dade); Panini 1.3.3 halantyam ubhayapada -Y anubandha stripping across clean_dhatu_op in both engines (BfY->Bf, hfY->hf, DfY->Df, RIY->nI, SriY->Sri, veY->ve, vyeY->vye, hveY->hve) + monosyllabic f-vowel preservation (smf, dvf, hvf, Dvf): 73 improved (+5,648 matched tokens), 0 worsened, passes 902/1156 100% held (raw 912/1166), ting capped misses dropped by 123 (1151->1028). Pilots OK.
 
 ## Next
-1. Remaining yajādi lakaras (kartari luṅ s-aorist with vṛddhi 7.2.1 for yaj, vap, vah, vas: ayAkzIt, avApsIt, avAkzIt, avAtsIt).
-2. Panini 7.3.78 pā-ghrā-dhmā-sthā-mnā... tiṣṭha sārvadhātuka (tizWati/tizWate etc.) and liṭ (tasTO/tasTe) for sTA (01.1077).
-3. Panini 7.3.77 iṣugamiyamāṁ chaḥ sārvadhātuka (gacCati etc.) for gam (01.1137) and yam (01.1139).
-4. Re-sweep, rebuild STATS, overwrite this, commit & push.
+1. High-yield remaining Aniṭ desiderative (sannanta) gaps:
+   - Sannanta bases for gam (jigamizati / jigAMsati), yam (yiyamizati), nam (ninamizati), yaj (yiyakzati), vah (vivakzati), vas (vivasati).
+2. Sārvadhātuka karmaṇi / yak stems for roots with samprasāraṇa (yaj, vah, vad, etc.) or lengthening.
+3. High-failure krut forms among remaining 254 failing roots (krut capped misses: 1349; e.g., SAnac, kta variants).
+4. Re-sweep, rebuild STATS, commit & push.
+
 
 
