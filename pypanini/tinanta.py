@@ -941,6 +941,11 @@ class TinantaDerivationEngine:
                 return "sozUdya"
             if c == "pyAy":
                 return "pepIyya"
+            # Panini 6.1.19 svapi-syami-vyeSAM yaNi
+            if c == "syam" or op.startswith("syam"):
+                return "sesimya"
+            if c in ("vye", "vyeY") or op.startswith("vye"):
+                return "vevIya"
             c_eff = c
             # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkya; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
@@ -1277,15 +1282,21 @@ class TinantaDerivationEngine:
             else:
                 yak_stem = clean + "y"  # BU -> BUy, eD -> eDy
                 sec_stem = clean
+                # Panini 6.1.15 vaci-svapi-yajAdInAM kiti (sArvadhAtukam apit is Nit/kit)
+                _yajadi_samp = {"yaj": "ij", "vad": "ud", "vap": "up", "vah": "uh", "vas": "uz"}
+                if clean in _yajadi_samp or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
+                    _sb = _yajadi_samp.get(clean, "ud" if "vad" in op else ("ij" if "yaja" in op else ("up" if "vap" in op else ("uh" if "vah" in op else "uz"))))
+                    yak_variants = [_sb + "y", yak_stem]
+                    sec_variants = [_sb, sec_stem]
+                else:
+                    yak_variants = [yak_stem]
+                    sec_variants = [sec_stem]
                 # idit i-final velar/palatal takes assimilated num in yak too (sraki->sraNkyate; meta skips num for Y-class)
                 if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                     _ybw = clean[:-1]
                     _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else ("R" if _ybw and _ybw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ybw and _ybw[-1] in ("p", "P", "b", "B") else None)))
                     if _yn:
                         _ynbase = _ybw[:-1] + _yn + _ybw[-1] if len(_ybw) >= 1 else _ybw
-                # vowel-initial capital variant for yak (urd -> Urdy)
-                yak_variants = [yak_stem]
-                sec_variants = [sec_stem]
                 if "_ynbase" in locals() and "_yn" in locals() and _yn:
                     if _ynbase + "y" not in yak_variants:
                         yak_variants.append(_ynbase + "y")
@@ -1344,6 +1355,7 @@ class TinantaDerivationEngine:
                     yb = _aug(ys) if lakara in ("laN",) else ys
                     if lakara == "laN":
                         cands+=self._conjugate_at_stem_atmane(yb, "laN", purusha, vacana)
+                        cands+=self._conjugate_at_stem_atmane(ys, "laN", purusha, vacana)
                     else:
                         cands+=self._conjugate_at_stem_atmane(ys, lakara, purusha, vacana)
                 return list(dict.fromkeys(cands)), log
@@ -1457,6 +1469,22 @@ class TinantaDerivationEngine:
                             cands.append(_vb + _ve[(purusha, vacana)])
                     except Exception:
                         pass
+                    # Panini 6.1.15 + 6.1.17 yajAdi karmani liw (Ude, Ije, etc.)
+                    _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz"}
+                    if clean in _yajadi_kt or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
+                        _kt = _yajadi_kt.get(clean, "Ud" if "vad" in op else ("Ij" if "yaj" in op else ("Up" if "vap" in op else ("Uh" if "vah" in op else "Uz"))))
+                        _atman_yak = {
+                            ("prathama", "eka"): [_kt + "e"],
+                            ("prathama", "dvi"): [_kt + "Ate"],
+                            ("prathama", "bahu"): [_kt + "ire"],
+                            ("madhyama", "eka"): [_kt + "ize", _kt + "se", _kt + "iTe"],
+                            ("madhyama", "dvi"): [_kt + "ATe"],
+                            ("madhyama", "bahu"): [_kt + "iDve", _kt + "Dve"],
+                            ("uttama", "eka"): [_kt + "e"],
+                            ("uttama", "dvi"): [_kt + "ivahe", _kt + "vahe"],
+                            ("uttama", "bahu"): [_kt + "imahe", _kt + "mahe"],
+                        }
+                        cands += _atman_yak.get((purusha, vacana), [])
                     # yak liw n-redup for a+r onset (arva->Anarve/AnarvATe; surveyed shape)
                     # paras-trio on numay-variant from above (igi->iNgayAYcakAra; prathama-verified shapes)
                     if _yav:
@@ -1595,6 +1623,22 @@ class TinantaDerivationEngine:
                     else:
                         alt2 = {("prathama","eka"):"SiSvinde",("prathama","dvi"):"SiSvindAte",("prathama","bahu"):"SiSvindire",("madhyama","eka"):"SiSvindize",("madhyama","dvi"):"SiSvindATe",("madhyama","bahu"):"SiSvindiDve",("uttama","eka"):"SiSvinde",("uttama","dvi"):"SiSvindivahe",("uttama","bahu"):"SiSvindimahe"}
                     cands.append(alt2[(purusha,vacana)])
+                # Panini 6.1.15 + 6.1.17 yajAdi karmani liw (Ude, Ije, etc.)
+                _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz"}
+                if clean in _yajadi_kt or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
+                    _kt = _yajadi_kt.get(clean, "Ud" if "vad" in op else ("Ij" if "yaj" in op else ("Up" if "vap" in op else ("Uh" if "vah" in op else "Uz"))))
+                    _atman_yak = {
+                        ("prathama", "eka"): [_kt + "e"],
+                        ("prathama", "dvi"): [_kt + "Ate"],
+                        ("prathama", "bahu"): [_kt + "ire"],
+                        ("madhyama", "eka"): [_kt + "ize", _kt + "se", _kt + "iTe"],
+                        ("madhyama", "dvi"): [_kt + "ATe"],
+                        ("madhyama", "bahu"): [_kt + "iDve", _kt + "Dve"],
+                        ("uttama", "eka"): [_kt + "e"],
+                        ("uttama", "dvi"): [_kt + "ivahe", _kt + "vahe"],
+                        ("uttama", "bahu"): [_kt + "imahe", _kt + "mahe"],
+                    }
+                    cands += _atman_yak.get((purusha, vacana), [])
                 # periphrastic liw Am+AYcakre for yak mUla (dayAYcakre, kAsAYcakre): over-generate alongside redup
                 try:
                     _peri_yak = {("prathama","eka"):"AYcakre",("prathama","dvi"):"AYcakrAte",("prathama","bahu"):"AYcakrire",("madhyama","eka"):"AYcakfze",("madhyama","dvi"):"AYcakrATe",("madhyama","bahu"):"AYcakfQve",("uttama","eka"):"AYcakre",("uttama","dvi"):"AYcakfvahe",("uttama","bahu"):"AYcakfmahe"}
@@ -2305,6 +2349,45 @@ class TinantaDerivationEngine:
                 # also add yayate as alternative
                 cands += ["yayate", "yAyate"]
                 return list(dict.fromkeys(cands)), log
+            # Panini 6.1.15 vaci-svapi-yajAdInAM kiti & 6.1.17 liwy abhyAsasyoBayezAm
+            _yajadi_lit = {
+                "vad": {"pit_l": "uvAd", "pit_s": "uvad", "kit": "Ud", "tha": ["uvadiTa", "uvadTa"]},
+                "yaj": {"pit_l": "iyAj", "pit_s": "iyaj", "kit": "Ij", "tha": ["iyajiTa", "iyazWa"]},
+                "vap": {"pit_l": "uvAp", "pit_s": "uvap", "kit": "Up", "tha": ["uvapiTa", "uvapTa"]},
+                "vah": {"pit_l": "uvAh", "pit_s": "uvah", "kit": "Uh", "tha": ["uvahiTa", "uvoQa"]},
+                "vas": {"pit_l": "uvAs", "pit_s": "uvas", "kit": "Uz", "tha": ["uvasiTa", "uvasTa"]},
+            }
+            if clean in _yajadi_lit or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
+                _ykey = clean if clean in _yajadi_lit else ("vad" if "vad" in op else ("yaj" if "yaj" in op else ("vap" if "vap" in op else ("vah" if "vah" in op else "vas"))))
+                _yinfo = _yajadi_lit[_ykey]
+                _pl = _yinfo["pit_l"]
+                _ps = _yinfo["pit_s"]
+                _kt = _yinfo["kit"]
+                _paras = {
+                    ("prathama", "eka"): [_pl + "a", _ps + "a"],
+                    ("prathama", "dvi"): [_kt + "atuH"],
+                    ("prathama", "bahu"): [_kt + "uH"],
+                    ("madhyama", "eka"): [_ps + "iTa"] + _yinfo["tha"],
+                    ("madhyama", "dvi"): [_kt + "aTuH"],
+                    ("madhyama", "bahu"): [_kt + "a"],
+                    ("uttama", "eka"): [_pl + "a", _ps + "a"],
+                    ("uttama", "dvi"): [_kt + "iva"],
+                    ("uttama", "bahu"): [_kt + "ima"],
+                }
+                _atman = {
+                    ("prathama", "eka"): [_kt + "e"],
+                    ("prathama", "dvi"): [_kt + "Ate"],
+                    ("prathama", "bahu"): [_kt + "ire"],
+                    ("madhyama", "eka"): [_kt + "ize", _kt + "se", _kt + "iTe"],
+                    ("madhyama", "dvi"): [_kt + "ATe"],
+                    ("madhyama", "bahu"): [_kt + "iDve", _kt + "Dve"],
+                    ("uttama", "eka"): [_kt + "e"],
+                    ("uttama", "dvi"): [_kt + "ivahe", _kt + "vahe"],
+                    ("uttama", "bahu"): [_kt + "imahe", _kt + "mahe"],
+                }
+                _pv = (purusha, vacana)
+                _ycands = (_atman.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras.get(_pv, [])) + _atman.get(_pv, []) + _paras.get(_pv, [])
+                return list(dict.fromkeys(_ycands)), log
             if is_vowel_initial:
                 flip = {"u":"U","U":"u","i":"I","I":"i"}
                 vars = [clean]
@@ -2617,8 +2700,12 @@ class TinantaDerivationEngine:
 
         elif lakara == "ASIrliN":
             if pada == "parasmEpadi":
-                # no guna, base = clean; urv-coda and ur+hal lengthens (turv->tUrvyAt, hurC->hUrCyAt 8.2.77); idit i-final velar/palatal num-base (agi->iNgyAt)
                 _asb = [clean]
+                # Panini 6.1.15 vaci-svapi-yajAdInAM kiti
+                _yajadi_samp = {"yaj": "ij", "vad": "ud", "vap": "up", "vah": "uh", "vas": "uz"}
+                if clean in _yajadi_samp or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
+                    _sb = _yajadi_samp.get(clean, "ud" if "vad" in op else ("ij" if "yaja" in op else ("up" if "vap" in op else ("uh" if "vah" in op else "uz"))))
+                    _asb.append(_sb)
                 if clean.endswith("urv"):
                     _asb.append(clean[:-3] + "Urv")
                 elif "ur" in clean:

@@ -283,6 +283,17 @@ class KrdantaEngine:
                     clean = _bw[:-1] + "m" + _bw[-1] if len(_bw) >= 1 else _bw
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
 
+        # Panini 6.1.15 vaci-svapi-yajAdInAM kiti (kta/ktavatu kit samprasAraNa)
+        _yajadi_kta = {
+            "yaj": "izwa",
+            "vap": "upta",
+            "vah": "UQa",
+            "vas": "uzita",
+            "vad": "udita",
+        }
+        if clean in _yajadi_kta:
+            return _yajadi_kta[clean]
+
         # Panini 8.2.42 radAbhyAM nizWato naH pUrvasya ca daH + 8.2.44 svANge syado jave
         if clean == "syand":
             return "syanna"
@@ -650,6 +661,11 @@ class KrdantaEngine:
                 if c == "pyAy": return "pepIyya"
                 if c in ("sUd", "sUd"):
                     return "sozUdya"
+                # Panini 6.1.19 svapi-syami-vyeSAM yaNi
+                if c == "syam" or op.startswith("syam"):
+                    return "sesimya"
+                if c in ("vye", "vyeY") or op.startswith("vye"):
+                    return "vevIya"
                 # idit i-final fresh numclean (mirror _nijanta_sec/tinanta; sraki->sAsraNkya; mangled ends-cons auto-miss)
                 if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                     _ybw = c[:-1]
@@ -950,6 +966,10 @@ class KrdantaEngine:
             return {"M": m, "F": f, "N": n}
 
         if pratyaya == "kta":
+            if sanadi == "yanluganta":
+                _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita"}
+                if clean in _yajadi_yl_kta:
+                    return tri_linga(_yajadi_yl_kta[clean])
             # I~ blocks iT for mUla & yanluganta (yatI~->yatta, yAyatta via cross-match); sannanta/nijanta/yananta sec keeps iT
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
             # sannanta is seT for the kta family (surveyed 1156/1156, zero exceptions)
@@ -957,6 +977,11 @@ class KrdantaEngine:
             return tri_linga(stem)
 
         elif pratyaya == "ktavatu":
+            if sanadi == "yanluganta":
+                _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita"}
+                if clean in _yajadi_yl_kta:
+                    _b = _yajadi_yl_kta[clean][:-1]
+                    return {"M": _b + "avAn", "F": _b + "avatI", "N": _b + "avat"}
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
             stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit)
             b = stem[:-1] if stem.endswith("a") else stem
@@ -1008,6 +1033,9 @@ class KrdantaEngine:
             # yanluganta keeps -ya- (SASlaNkyamAna/boBUyamAna: surveyed all yangluk SAnac, -ya- unanimous;
             # Natva mirrored from yananta block via orig_clean)
             if sanadi == "yanluganta":
+                _yajadi_yl_sanac = {"yaj": "yejyamAna", "vap": "vopyamAna", "vah": "vohyamAna", "vas": "vuzyamARa", "vad": "vodyamAna"}
+                if clean in _yajadi_yl_sanac:
+                    return tri_linga(_yajadi_yl_sanac[clean])
                 _ylb = clean if clean.endswith("ya") else clean + "ya"
                 _m = _ylb + "mAnaH" if _ylb.endswith("a") else _ylb + "amAnaH"
                 _f = _ylb + "mAnA" if _ylb.endswith("a") else _ylb + "amAnA"
@@ -1043,6 +1071,10 @@ class KrdantaEngine:
                 if (_natva_applies(clean_ay) or _natva_applies(clean)) and stem.endswith("amAna"):
                     stem = stem[:-5] + "amARa"
                 return tri_linga(stem)
+            # Panini 6.1.15 yajAdi karmani SAnac (udyamAna, etc.)
+            _yajadi_sanac = {"yaj": "ijyamAna", "vap": "upyamAna", "vah": "uhyamAna", "vas": "uzyamARa", "vad": "udyamAna"}
+            if clean in _yajadi_sanac:
+                return tri_linga(_yajadi_sanac[clean])
             if pada == "Atmanepadi":
                 if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean:
                     stem = clean + "amAna"
@@ -1365,6 +1397,13 @@ class KrdantaEngine:
             return {"avyaya": [stem]}
 
         elif pratyaya == "ktvA":
+            # Panini 6.1.15 vaci-svapi-yajAdInAM kiti
+            _yajadi_ktva = {"yaj": "izwvA", "vap": "uptvA", "vah": "UQvA", "vas": "uzitvA", "vad": "uditvA"}
+            if clean in _yajadi_ktva:
+                if sanadi == "yanluganta":
+                    _yl_ktva = {"yaj": "yAyajitvA", "vap": "vAvapitvA", "vah": "vAvahitvA", "vas": "vAvasitvA", "vad": "vAvaditvA"}
+                    return {"avyaya": [_yl_ktva[clean]]}
+                return {"avyaya": [_yajadi_ktva[clean]]}
             # idit i-final num-clean (agi->aNgitvA; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 _kbw = clean[:-1]
@@ -1400,6 +1439,19 @@ class KrdantaEngine:
             return {"avyaya": [stem]}
 
         elif pratyaya == "lyap":
+            # Panini 6.1.15 vaci-svapi-yajAdInAM kiti
+            _yajadi_lyap = {
+                "yaj": ["prejya", "ijya", "vijya"],
+                "vap": ["propya", "upya"],
+                "vah": ["prohya", "uhya"],
+                "vas": ["pruzya", "prozya", "uzya"],
+                "vad": ["prodya", "udya", "anUdya", "anuvAdya"],
+            }
+            if clean in _yajadi_lyap:
+                if sanadi == "yanluganta":
+                    _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"]}
+                    return {"avyaya": _yl_lyap[clean]}
+                return {"avyaya": _yajadi_lyap[clean]}
             # R-roots keep R onset in lyap (praRaKya/praRaNKya for all 22 R-roots surveyed;
             # avyaya is any-match so twins are safe; mula-clean based so every sanadi cross-matches)
             _Rtw = []

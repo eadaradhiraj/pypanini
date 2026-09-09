@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T11:10:00Z
-Sweep: 888/1156 100% (raw 888/1166)
+Date: 2026-09-09T11:32:00Z
+Sweep: 890/1156 100% (raw 890/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -59,11 +59,17 @@ Sweep: 888/1156 100% (raw 888/1166)
 - Panini 7.3.86 pugantalaghUpadhasya ca & 1.4.11 saMyoge guru: strictly gated upadhA guNa in `tinanta._bhvadi_guna_base` and `krdanta._guna_base` to laghu upadhA (coda_len == 1), blocking illegal guNa across consonant clusters (Dukz->DukzizIzwa not Dokz-, SunD->SunDati not SonD-, Sucy->Sucyati not Socy-). Sweep: 19 improved, 0 worsened, 9 new 100% passes (01.0077 SunDa~, 01.0590 Sucya~, 01.0591 cucya~, 01.0686 Dukza~, 01.0687 Dikza~, 01.0689 Sikza~, 01.0690 Bikza~, 01.0747 Rikza~, 01.0766 zUcya~), passes 874->883. Pilots OK.
 
 - Panini 3.1.28-3.1.31 AyAdayaH (Aya, RiN) & sanAdyantAH: Aya on gupU~ (01.0461 -> gopAyati/jugopAyizati), DopU~/DUpa~ (01.0462 -> DUpAyati/duDUpAyizati), pana~ (01.0508 -> panAyate/pipanAyizate), RiN on kamu~ (01.0511 -> kAmayate/cikAmayizate) with 6.4.51 Ri-merging avoiding illegal doubling, 3.1.48 caN aorist (acakamata/acIkamata), and 3.1.22 blocking yaN on anekAc roots; Panini 7.3.76 kramaH parasmaipadezu dIrGa (krAmati/krAmyati) + 3.1.70 optional Syan + 1.2.10 sannanta anusvAra (cikraMs-) for kramu~ (01.0545); test_dhatu non-lw yangluk slot counting fix. Sweep: 5 improved, 0 worsened, 5 new 100% passes (01.0461, 01.0462, 01.0508, 01.0511, 01.0545), passes 883->888. Pilots OK.
+- Panini 6.1.19 svapi-syami-vyeSAM yaNi: samprasāraṇa before yaṅ for `syam` (`01.0960` -> `sesimya-`) and `vye` (`01.1162` -> `vevIya-`) in both `tinanta.py` and `krdanta.py`. Result: `01.0960` (syamu~) reached 100.0% (895/895), `01.1162` advanced from 0 to 79/895 (+79).
+- Panini 6.1.15 vaci-svapi-yajAdInAM kiti, 6.1.17 liwy abhyAsasyoBayezAm, and 7.4.82 guRo yaNlukoH (Yajādi cluster: yaj 01.1157, vap 01.1158, vah 01.1159, vas 01.1160, vad 01.1164):
+  - Tinanta: samprasāraṇa bases in karmaṇi sārvadhātuka yak (`ijy`, `upy`, `uhy`, `uzy`, `udy`), ASIrliN (`ij`, `up`, `uh`, `uz`, `ud`), karmaṇi liṭ (`Ij-`, `Up-`, `Uh-`, `Uz-`, `Ud-`), and kartari liṭ (pit `iyAj-`/`uvAp-`/`uvAh-`/`uvAs-`/`uvAd-` vs kit `Ij-`/`Up-`/`Uh-`/`Uz-`/`Ud-`).
+  - Krdanta: `_kta_stem` samprasāraṇa (`izwa`, `upta`, `UQa`, `uzita`, `udita`), ktavatu, ktvA (`izwvA`, `uptvA`, `UQvA`, `uzitvA`, `uditvA`), lyap (`prejya`, `propya`, `prohya`, `pruzya`, `prodya`), karmaṇi SAnac (`ijyamAna`, `upyamAna`, `uhyamAna`, `uzyamARa`, `udyamAna`).
+  - Yaṅluganta krdanta: 7.4.82 guṇo yaṅlukoḥ (`yejita`, `vopita`, `vohita`, `vuzita`, `vodita` in kta/ktavatu; `yAyajitvA`, `vAvapitvA`, `vAvahitvA`, `vAvasitvA`, `vAvaditvA` in ktvA; `prayejya`, `pravopya`, `pravohya`, `pravuzya`, `pravodya` in lyap; `yejyamAna`, `vopyamAna`, `vohyamAna`, `vuzyamARa`, `vodyamAna` in SAnac).
+  - Results: `01.1164` (vada~) reached 100.0% (895/895). `01.1157` (yaja~) +91 (602/895), `01.1158` (quvapa~) +88 (685/895), `01.1159` (vaha~) +67 (633/895), `01.1160` (vasa~) +88 (634/895). Sweep: 10 improved (+523 total matches), 0 worsened, passes 888 -> 890. Pilots OK.
+
 ## Next
 1. Consonant cluster assimilation for Gaṇa 01:
    - c/j before s/t in tinanta (e.g. tyaj -> tyaktA, pac -> paktA).
+   - Remaining yajādi lakaras (yaja~ 01.1157, quvapa~ 01.1158, vaha~ 01.1159, vasa~ 01.1160 in non-liw/yak).
    - zW root onset sthAnI (zW -> sT; zw -> st DONE, zWivu/zWA retain).
    - nc-lopa in kta (kunca->kucita) + sj-gemination (zasja->sajjita) + hurCA-Na kta (hUrRa).
-2. Root samprasāraṇa cluster in liṭ (Panini 6.1.15 vacisvapiyajādīnāṁ kiti):
-   - vada~ (01.1164 -> Ude / vAda), vapa~ (01.1158), vaha~ (01.1159), vasa~ (01.1160).
-3. Re-sweep, rebuild STATS, overwrite this, commit & push.
+2. Re-sweep, rebuild STATS, overwrite this, commit & push.
