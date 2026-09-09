@@ -334,8 +334,11 @@ class KrdantaEngine:
         # vfD/SfD/mfD/ziD (8.2.40 jhazastaTorDo'DaH + 8.4.53)
         if clean.endswith("D"):
             return clean[:-1] + "dDa"
-        # z-final + ta -> zwa (8.4.41 zwunA zwuH)
+        # z-final + ta -> zwa (8.4.41 zwunA zwuH); kz-cluster + ta -> zwa by 8.2.29 skoH saMyogAdyorante ca
+        # (akz/takz/tvakz vew-aniT -> azwa/tazwa/tvazwa; surveyed: all 27 sew kz-roots take seT kzita, zero conflicts)
         if clean.endswith("z"):
+            if clean.endswith("kz"):
+                return clean[:-2] + "zwa"
             return clean + "wa"
         # S-final (BranS -> Brazwa per 8.2.36 vraSca...)
         if clean.endswith("S"):
@@ -1008,6 +1011,9 @@ class KrdantaEngine:
                 if _sn and len(_sbw) >= 1:
                     return tri_linga(_sbw[:-1] + _sn + _sbw[-1] + "ayitavya")
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
+            # kz-cluster + tavya -> zwa in aniT (vew akz/takz/tvakz -> azwavya; sew keeps kz+itavya via iT above)
+            if not sew and eff.endswith("kz"):
+                return tri_linga(eff[:-2] + "zwavya")
             stem = eff + ("i" if sew else "") + "tavya"
             return tri_linga(stem)
 
@@ -1151,6 +1157,10 @@ class KrdantaEngine:
                     _snt = _sbw[:-1] + _sn + _sbw[-1] + "ay"
                     return {"M": _snt + "itA", "F": _snt + "itrI", "N": _snt + "itf"}
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
+            # kz-cluster + tfc -> zwa in aniT (azwA; sew keeps kz+itA via iT above)
+            if not sew and eff.endswith("kz"):
+                _zb = eff[:-2] + "zwa"
+                return {"M": _zb[:-1] + "A", "F": _zb[:-1] + "rI", "N": _zb[:-1] + "f"}
             b = eff + ("i" if sew else "")
             return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
 
@@ -1216,6 +1226,9 @@ class KrdantaEngine:
                 stem = clean + "i" + "tum"
                 return {"avyaya": [stem]}
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
+            # kz-cluster + tumun -> zwum in aniT (azwum; sew keeps kz+itum via iT above)
+            if not sew and eff.endswith("kz"):
+                return {"avyaya": [eff[:-2] + "zwum"]}
             stem = eff + ("i" if sew else "") + "tum"
             return {"avyaya": [stem]}
 
