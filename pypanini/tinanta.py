@@ -274,13 +274,21 @@ class TinantaDerivationEngine:
         # for vowel-final roots like BU, already handled; for others vowel-final like yatI, strip anubandha handled elsewhere
         # if root is vowel-final (ends with vowel), abhyAsa is 'a' (e.g., BU -> ba) – handled above
         if clean[-1] in SLP1_VOWELS:
-            # vowel-final root (e.g., BU, kF) -> abhyAsa 'a'
-            # but for idit roots transformed to klind etc, they are cons-final, so not here
-            abhyasa_vowel = "a"
-        elif root_vowel in ("i", "I", "f", "F", "e", "E"):
+            # vowel-final root (7.4.59 hrasvaH)
+            if root_vowel in ("i", "I"):
+                abhyasa_vowel = "i"
+            elif root_vowel in ("u", "U"):
+                abhyasa_vowel = "u"
+            elif root_vowel in ("f", "F"):
+                abhyasa_vowel = "a"
+            else:
+                abhyasa_vowel = "a"
+        elif root_vowel in ("i", "I", "e", "E"):
             abhyasa_vowel = "i"
         elif root_vowel in ("u", "U", "o", "O"):
             abhyasa_vowel = "u"
+        elif root_vowel in ("f", "F"):
+            abhyasa_vowel = "a"  # Panini 7.4.66 uraH
         else:
             abhyasa_vowel = "a"
         # extract initial consonant cluster (up to first vowel)
@@ -301,18 +309,18 @@ class TinantaDerivationEngine:
         # velar -> palatal (ku->cu)
         redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
         res = redup_cons + abhyasa_vowel + clean
-        # satva for s after u/i in reduplication: susUd -> suzUd (8.3.59),
-        # blocked for s+stop cluster (sk->cuskunde, sP->pusPuwe, 7.4.62) and final velar stop k (sek->siseke, sIk->sisIke)
-        if clean.startswith("s") and abhyasa_vowel in ("u","i"):
-            _is_s_stop = len(cluster) >= 2 and cluster[0] == "s" and cluster[1] in SLP1_STOPS
-            _is_velar_final = clean and clean[-1] in ("k", "K", "g", "G")
-            if not _is_s_stop and not _is_velar_final:
-                # change the s of clean to z after redup vowel u/i
-                # res is e.g., susUd, need to make suzUd
-                # replace the s at position len(redup_cons)+1
-                idx = len(redup_cons) + 1  # position of s from clean
-                if idx < len(res) and res[idx] == "s":
-                    res = res[:idx] + "z" + res[idx+1:]
+        # satva for s after u/i in reduplication: susUd -> suzUd (8.3.59)
+        # for st-cluster from zw-upadeSa: tustuc -> tuzwuc (8.3.59 + 8.4.41 zwunA zwuH)
+        if clean.startswith("s") and abhyasa_vowel in ("u", "i"):
+            idx = len(redup_cons) + 1  # position of s from clean
+            if clean.startswith("st") and idx + 1 < len(res) and res[idx:idx+2] == "st":
+                res = res[:idx] + "zw" + res[idx+2:]
+            else:
+                _is_s_stop = len(cluster) >= 2 and cluster[0] == "s" and cluster[1] in SLP1_STOPS
+                _is_velar_final = clean and clean[-1] in ("k", "K", "g", "G")
+                if not _is_s_stop and not _is_velar_final:
+                    if idx < len(res) and res[idx] == "s":
+                        res = res[:idx] + "z" + res[idx+1:]
         return res
 
     def _nijanta_aorist(self, clean: str, is_idit: bool, purusha: str, vacana: str) -> list:
@@ -2670,6 +2678,33 @@ class TinantaDerivationEngine:
                 _pv = (purusha, vacana)
                 _ycands = (_atman.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras.get(_pv, [])) + _atman.get(_pv, []) + _paras.get(_pv, [])
                 return list(dict.fromkeys(_ycands)), log
+            # Panini 7.3.57 san-litoH jeH (kuttva j -> g for ji in liw: jigAya, jigyatuH...)
+            if clean == "ji" or op in ("ji", "ji~"):
+                _paras_ji = {
+                    ("prathama", "eka"): ["jigAya", "jigaya"],
+                    ("prathama", "dvi"): ["jigyatuH"],
+                    ("prathama", "bahu"): ["jigyuH"],
+                    ("madhyama", "eka"): ["jigeTa", "jigayiTa"],
+                    ("madhyama", "dvi"): ["jigyaTuH"],
+                    ("madhyama", "bahu"): ["jigya"],
+                    ("uttama", "eka"): ["jigAya", "jigaya"],
+                    ("uttama", "dvi"): ["jigyiva"],
+                    ("uttama", "bahu"): ["jigyima"],
+                }
+                _atman_ji = {
+                    ("prathama", "eka"): ["jigye"],
+                    ("prathama", "dvi"): ["jigyAte"],
+                    ("prathama", "bahu"): ["jigyire"],
+                    ("madhyama", "eka"): ["jigyize", "jigye"],
+                    ("madhyama", "dvi"): ["jigyATe"],
+                    ("madhyama", "bahu"): ["jigyiQve", "jigyiDve"],
+                    ("uttama", "eka"): ["jigye"],
+                    ("uttama", "dvi"): ["jigyivahe"],
+                    ("uttama", "bahu"): ["jigyimahe"],
+                }
+                _pv = (purusha, vacana)
+                _jicands = (_atman_ji.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras_ji.get(_pv, [])) + _paras_ji.get(_pv, []) + _atman_ji.get(_pv, [])
+                return list(dict.fromkeys(_jicands)), log
             # Panini 7.3.34 AtaH for A-ending roots in liw
             _a_map = {
                 "sTA": "tasT", "zWA": "tasT",
@@ -2748,6 +2783,30 @@ class TinantaDerivationEngine:
                                 forms.append(_pnc + _ax)
                 except Exception:
                     pass
+                # Panini 3.1.36 ijAdeS ca gurumato 'nfcCaH (non-gurumat laghu i/u roots uK, iK, iw, uW, uh, uz take reduplication)
+                try:
+                    if clean and clean[0] in ("i", "u") and len(clean) == 2 and clean[1] not in SLP1_VOWELS and not is_idit:
+                        _c0 = clean[0]
+                        _c1 = clean[1]
+                        _guna_vow = "o" if _c0 == "u" else "e"
+                        _long_vow = "U" if _c0 == "u" else "I"
+                        _prefix = "uv" if _c0 == "u" else "iy"
+                        _pit_stem = _prefix + _guna_vow + _c1
+                        _kit_stem = _long_vow + _c1
+                        _par_map = {
+                            ("prathama", "eka"): [_pit_stem + "a"],
+                            ("prathama", "dvi"): [_kit_stem + "atuH"],
+                            ("prathama", "bahu"): [_kit_stem + "uH"],
+                            ("madhyama", "eka"): [_pit_stem + "iTa", _kit_stem + "iTa"],
+                            ("madhyama", "dvi"): [_kit_stem + "aTuH"],
+                            ("madhyama", "bahu"): [_kit_stem + "a"],
+                            ("uttama", "eka"): [_pit_stem + "a"],
+                            ("uttama", "dvi"): [_kit_stem + "iva"],
+                            ("uttama", "bahu"): [_kit_stem + "ima"],
+                        }
+                        forms.extend(_par_map.get((purusha, vacana), []))
+                except Exception:
+                    pass
                 # vowel-initial liw: periphrastic (eD) + reduplicated paras (ata~->Ata) + reduplicated Atman (yak Ate)
                 try:
                     vrid = self._add_augment(clean, True)
@@ -2757,9 +2816,9 @@ class TinantaDerivationEngine:
                     forms.append(vrid + cons_end[(purusha, vacana)])
                     forms.append(vrid + vow_end[(purusha, vacana)])
                     forms.append(vrid + atm_end[(purusha, vacana)])
-                    # Panini 7.4.70 at AdeH + 7.4.71 tasmAn nuq dvihalaH (An-redup for a-initial dvihal: aww->Anawwe, aqq->Anaqqa, arda->Anarda, akz->Anakza)
+                    # Panini 7.4.70 at AdeH + 7.4.71 tasmAn nuq dvihalaH (An-redup for a-initial dvihal: aww->Anawwe, and f-initial: fja->Anfje)
                     _c_rem = [c for c in clean[1:] if c not in SLP1_VOWELS]
-                    if clean.startswith("a") and len(_c_rem) >= 2:
+                    if (clean.startswith("a") and len(_c_rem) >= 2) or clean.startswith("f"):
                         _anar = "An" + clean
                         forms.append(_anar + cons_end[(purusha, vacana)])
                         forms.append(_anar + atm_end[(purusha, vacana)])
@@ -2995,6 +3054,13 @@ class TinantaDerivationEngine:
                                     _rpp_e = (_rpp[:-1] + "e") if _rpp.endswith("a") else _rpp
                                     cands.append(_rpp_e + _fc + vow_endings[(purusha, vacana)])
                                     cands.append(_rpp_e + _fc + cons_endings[(purusha, vacana)])
+                                # Panini 6.4.120 ata ekahalmadhye 'nAdeSAder liti: abhyAsalopa + et-tva
+                                # Root initial consonant (unreduced) + e + final consonant (e.g. Pal -> PelatuH, PeluH)
+                                if clean and clean[0] not in SLP1_VOWELS:
+                                    _init_c = clean[0]
+                                    _et_base = _init_c + "e" + _fc
+                                    cands.append(_et_base + vow_endings[(purusha, vacana)])
+                                    cands.append(_et_base + cons_endings[(purusha, vacana)])
                         # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn in kit/Nit slots (caKnatuH, caKnuH...)
                         if clean in ("Kan", "gam", "jan", "han", "Gas"):
                             _kn_base = clean[0] + clean[-1]
