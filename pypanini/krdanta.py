@@ -343,6 +343,25 @@ class KrdantaEngine:
         # S-final (BranS -> Brazwa per 8.2.36 vraSca...)
         if clean.endswith("S"):
             return clean[:-1] + "zwa"
+        # h-final + ta in aniT (needs_i False here): ho QaH -> Q, stem vowel kept
+        # (gAQa/gfQa/glUQa/gUQa/mIQa/rUQa); daha -> dagDha, vaha -> UQa (samprasAraNa).
+        # sew-h takes seT-iT above (sah->sahita passes via seT-hit); surveyed all 40 h-finals, zero conflicts.
+        if clean.endswith("h"):
+            if clean == "dah":
+                return "dagDa"
+            if clean == "vah":
+                return "UQa"
+            _hs = clean[:-1]
+            _hlv = None
+            for _ch in reversed(_hs):
+                if _ch in SLP1_VOWELS:
+                    _hlv = _ch
+                    break
+            if _hlv == "i":
+                _hs = _hs[:_hs.rfind("i")] + "I" + _hs[_hs.rfind("i") + 1:]
+            elif _hlv == "u":
+                _hs = _hs[:_hs.rfind("u")] + "U" + _hs[_hs.rfind("u") + 1:]
+            return _hs + "Qa"
         # d + ta
         if clean[-1] == "d":
             # preceding vowel: long A/I/U or i -> nna, short-a mad -> tta

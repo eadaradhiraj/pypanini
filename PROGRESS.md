@@ -1,6 +1,6 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T07:35:00Z
+Date: 2026-09-09T07:50:00Z
 Sweep: 865/1156 100% (raw 865/1166)
 
 ## Done
@@ -52,10 +52,11 @@ Sweep: 865/1156 100% (raw 865/1166)
 - Long-vowel/geminate keep-shape `_keep_shape` in both engines (krdanta guna_base + Rvul + GaY + nijanta-u/i-sec; tinanta yak-izya lfw/lfN/ASIrliN): consonant-final + sew + last-vowel-I/U or short-i/u-geminate keeps stem; guNa kept for bare vowel-final BU (pilot safe), Nit-N-final qIN/pUN/mUN, udit-u~ kzIvu, aniW nIY. Survey: 39 I-roots + 35 U-roots + 21 geminates for keep-vs-guNa in every target slot, zero conflicts (removed guNa variants have no exact-match hits; a-vowel geminates already no-op via apply_guna('a')='a'). Sweep: 43 new 100% passes, 58 improved, 0 worsened, passes 811->854. san_krut 97->112 / nich_krut 24->28 capped-count rises are freed-cap artifacts (fid-diff truth: 0 worsened). Pilots OK.
 - Keep-shape extended to tinanta Atmanepadi luN + krdanta SAnac-u/i (same `_keep_shape`, no new survey dimensions: vowel-initial luN Ejizwa-type verified as augment-sandhi not guNa; N~-roots pUN/mUN/qIN keep guNa in both slots; sUd/cUz pass via Ud-gate or new gate identically). Sweep: 11 new 100% passes (01.0078/01.0079/01.0109/01.0111/01.0441/01.0442/01.0443/01.0444/01.0446/01.0557/01.0693, all 871->883) + 01.0558 (737->749), 12 improved, 0 worsened, passes 854->865. nich/nich_krut capped-count rises are freed-cap artifacts. Pilots OK.
 - kz-cluster assimilation 8.2.29 skoH saMyogAdyorante ca in krdanta aniT ta-formations (kta/ktavatu via _kta_stem + tavya + tfc + tumun): vew akz/takz/tvakz -> azwa/azwavya/azwA/azwum; surveyed all 30 kz-finals (27 sew unanimously seT kzita, only 3 vew assimilate). Sweep: 3 improved (01.0742 551->570, 01.0743/01.0744 794->826), 0 worsened, passes held 865. Pilots OK.
+- h-final + ta in aniT kta/ktavatu (ho QaH): Q with i/u dIrgha (gAQa/gfQa/glUQa/gUQa/mIQa/rUQa), dah -> dagDa, vah -> UQa (samprasAraNa); sew-h takes seT-iT above (sah/garh/tuh controls pass). Surveyed all 40 h-finals: sew unanimous hita, aniw (dah/vah/mih/ruh) + vew-h (gAh/gfh/gluh/guh) assimilate, zero conflicts (caught my own dagDha-with-stray-h and short-vowel-no-dIrgha errors in-probe before sweeping). Sweep: 8 improved (+18 each: 01.0736/01.0737/01.0778/01.0995/01.1043/01.1146/01.1147/01.1159), 0 worsened, passes held 865 (capped miss counts static behind per-fid caps; fid-diff truth). Pilots OK.
 
 ## Next
 1. Investigated singletons (do NOT per-dhatu hardcode): 01.0677 Divi~ law is nu-parAdi (Dinoti/DinutaH/Dinvanti, sole fid with noti/nutaH/nvanti plat); kramu (01.0545) remaining gap is mUla law (our kramati vs dataset krAmyati-type) + lun — needs a krama-rule survey, not niC.
-2. Next smallest-gap batch: 01.0960 (gap 8, yang_krut saMsyami- family) and 01.0558 knUyI~ (749/883, nich Y-class knUyay- stem); kz-followups: yanluganta ktvA takztvA->taz... (01.0743/01.0744 yangluk_krut), tinanta luw/lfw kz (takztA/takzsyati, needs vew-seT analysis); then the 83-gap wall (01.0050 ziDU~ luw seDtA + krut seDtavya: D+t->dDh assimilation + vew seT-variants) — survey shape first.
+2. Next smallest-gap batch: 01.0960 (gap 8, yang_krut saMsyami- family) — syam-yaN sesim is a confirmed singleton (all other sy/sv/am-roots normal), SKIP unless a wider yaN-redup rule emerges; 01.0558 knUyI~ (749/883, nich knopay- Uy→op change, singleton among Uy-roots) SKIP; h-followups: tavya/tfc/tumun/luw/lfw h-assimilation (goQavya/gloQavya/gAQavya + seT glohitA/gAhitA) for the 8 h-fids; kzamU~ kta kzAnta (mu~-kta mU~ extension?); then 01.0050 ziDU~ (luw sedDA/seDitA + tavya sedDavya/seDitavya: D+t->dDh + vew seT) — survey shape first.
 3. Consonant cluster assimilation for Gaṇa 01:
    - `c/j` before `s/t` in tinanta (e.g. `tyaj` -> `tyaktA`, `pac` -> `paktA`).
    - `zW` root onset sthAnI (`zW` -> `sT`; `zw` -> `st` DONE, zWivu/zWA retain).
