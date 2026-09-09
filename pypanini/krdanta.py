@@ -985,7 +985,8 @@ class KrdantaEngine:
                             last_v = ch
                             break
                     if last_v in ("u", "U", "i", "I"):
-                        stem = self._guna_base(clean, is_idit) + "amAna"
+                        _sk = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
+                        stem = _sk + "amAna"
                     else:
                         stem = clean + "amAna"
                 else:

@@ -2597,8 +2597,10 @@ class TinantaDerivationEngine:
                 for base_cmp in self._prim_bases(clean, is_idit):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
+                    elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
+                        eff = base_cmp
                     else:
-                        eff = base_cmp if is_vowel_initial else self._bhvadi_guna_base(base_cmp, is_idit)
+                        eff = self._bhvadi_guna_base(base_cmp, is_idit)
                     is_vowel_initial_guna = eff[0] in SLP1_VOWELS if eff else False
                     aug_clean = self._add_augment(eff, is_vowel_initial_guna)
                     suffixes = {
