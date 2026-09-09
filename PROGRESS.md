@@ -1,19 +1,18 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T23:10:00Z
-Sweep: 927/1156 100% (raw 937/1166)
+Date: 2026-09-09T23:40:00Z
+Sweep: 931/1156 100% (raw 941/1166)
 
 ## Done
-- Panini 7.4.66 *uraḥ*: `abhyasa_vowel = "a"` for `f`/`F` roots in `tinanta._reduplicated_stem`, generating correct Pāṇinian reduplication (`vfk` -> `vavfke` not `vivfke`, `Bfj` -> `baBfje`, `Dfj` -> `daDarja`, `Bfz` -> `baBarza`, etc.) across 63+ dhātus.
-- Panini 8.3.59 *ādeśapratyayayoḥ* + 8.4.41 *ṣṭunā ṣṭuḥ*: satva & ṣṭutva on reduplication of `st` clusters from `zw` upadeśa (`zwuc` -> `tuzwuce`, `zwuB` -> `tuzwuBe`, `zwip` -> `tizwipe`, `zwep` -> `tizwepe`).
-- Panini 3.1.36 *ijādeś ca gurumato 'nṛcchaḥ*: non-gurumat laghu `i`/`u` roots (`uK`, `iK`, `iw`, `uW`, `uh`, `uz`) take classical reduplicated liṭ (pit: `uvoKa`, `iyeKa`, `iyewa`, `uvoWa`; kit: `UKatuH`, `IKatuH`).
-- Panini 7.4.70 *at ādeḥ* + 7.4.71 *tasmān nuṭ dvihalaḥ*: An-reduplication for `ṛ`-initial roots in liṭ (`fja` -> `Anfje`, `AnfjAte`, `Anfjire`).
-- Panini 6.4.120 *ata ekahalmadhye 'nādeśāder liti*: kit liṭ et-tva + abhyāsa-lopa in Parasmaipada with root's own unreduced initial consonant `_init_c + "e" + _fc` (`Pal` -> `PelatuH`, `PeluH`, `PeliTa`, etc.).
-- Panini 7.3.57 *san-litoḥ jeḥ*: kuttva `j` -> `g` for root `ji` (`01.0642`, `01.1096`) in liṭ (`jigAya`, `jigaya`, `jigyatuH`, `jigyuH`, `jigeTa`, `jigayiTa`, `jigyaTuH`, `jigya`, `jigyiva`, `jigyima`, `jigye`, etc.).
-- Full Sweep Results: **927/1156 100% passes** (raw 937/1166), 1 new 100% pass (`01.1153 vadI~`), **76 improved roots (+1,013 net tokens)**, **strictly 0 worsened roots**. All 4 Pilot roots (`BU`, `eD`, `sparD`, `sev`) held at 100.0%. Ting misses dropped from 842 to 748 (-94 misses).
-- Kartari Śānac (Panini 3.2.124 / 1.4.100) generative derivation: 445/445 (100.0%) roots matched in dataset. Passive yak+Śānac for Parasmaipada roots (preserving `clean + yamAna` with naṭva `yamARa`, plus 6.1.15 samprasāraṇa `vas` -> `uzyamARa`). Monosyllabic `i`/`I` root protection (`smi` 01.1099, `qI` 01.1123).
+- Panini 7.3.77 *iṣu-gami-yamāṁ chaḥ* & 7.3.78 *pā-ghrā-dhmā-ṣṭhā-mnā-dāṇ-dṛśi-śṛ-ṣad-śadāṁ piba-jighra-dhama-tiṣṭha-mana-yaccha-paśya-ṛccha-dhau-śīyadāḥ*: Sārvadhātuka Śit suppletions for Śatṛ in kartari mUla (`gam` -> `gacCan`, `yam` -> `yacCan`, `pA` -> `piban`, `GrA` -> `jiGran`, `DmA` -> `Daman`, `sTA`/`zWA` -> `tizWan`, `mnA` -> `manan`, `dAR`/`dA` -> `yacCan`, `dfS` -> `paSyan`, `f` -> `fcCan`, `sad`/`zad` -> `sIdan`, `Sru` -> `SfRvan`/`SfRvatI`), 6.4.89 *guher dīrgho 'saṁpṛktasya* (`guh` -> `gUhan`), and 6.4.24 *aniditāṁ hala upadhāyāḥ kṅiti* nasal drop (`sanj` -> `sajan`, `ranj` -> `rajan`, `danS` -> `daSan`).
+- Vārttika on 7.3.77 *yamir uparama eva cha-bhāva-bhāk* (SK 2353): Restricted `yam` -> `yacC` to non-Gaṭādi roots (`meta.get("antara") != "GawAdiH"`), preserving `01.0930 yama~ aparivezaRe` at 100.0% (`yaman`, `yamantI`, `yamat`).
+- Panini 7.1.78 *nābhyastācchaturguṇakṛtamanikartuśca*: Yaṅluk abhyasta Śatṛ without num (`sAsadat`, `sAsadatI`, `sAsadat` on `sad`; `yaMyamat`, `yaMyamatI`, `yaMyamat` on `yam`).
+- Panini 7.3.86 *puganta-laghūpadhasya ca* & 1.4.11 *saṁyoge guru*: In `kr-` onset roots for `yat`, laghūpadha guṇa applied before Ṇyat when vowel is followed by a single consonant (`kruS` -> `kroSyaH`, while cluster-guru `kruYc` stays `kruYcyaH` and `krap` stays `krapyaH`).
+- Full Sweep Results: **931/1156 100% passes** (raw 941/1166), **4 new 100% passes** (`01.0990 zadx~`, `01.0992 kruSa~`, `01.1031 yama~`, `01.1139 yama~`), **16 improved roots (+63 net tokens)**, **strictly 0 worsened roots**. All 4 Pilot roots (`BU`, `eD`, `sparD`, `sev`) held at 100.0%.
+- Panini 7.4.66, 8.3.59, 3.1.36, 7.4.70, 6.4.120, 7.3.57: Generative liṭ reduplication rules (uraḥ, satva/ṣṭutva on st clusters, laghu i/u classical reduplication, ṛ-initial An-reduplication, Parasmaipada kit liṭ et-tva abhyāsalopa, and ji kuttva).
 
 ## Next
-1. Target remaining `ting` misses (748 misses across remaining dhātus: e.g. `luw` periphrastic futures, `lw` class exceptions).
-2. Target `krut` misses (1201 misses: e.g. `Satf` present active participles).
-3. Push passes past 935 toward 950/1156.
+1. Target `krut/tavya` and `krut/anIyar` (508 misses).
+2. Target remaining `ting` misses (748 misses).
+3. Target `yang_krut` (224 misses) and `yang` (148 misses).
+4. Push passes past 940 toward 960/1156.

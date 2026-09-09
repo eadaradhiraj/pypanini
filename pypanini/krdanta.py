@@ -1140,6 +1140,48 @@ class KrdantaEngine:
             if pada == "Atmanepadi" or (clean_ay and sanadi == "yanluganta"):
                 return None
             _satf_base = guna_base if (sanadi is None or sanadi == "yanluganta") else clean
+            # Panini 7.3.77 izu-gami-yamAM CaH & 7.3.78 pA-GrA-DmA-sTA-mnA-dAR-dfSi-Sf-sad-SadAM piba-jiGra-Dama-tizWa-mana-yacCa-paSya-fcCa-DO-SIyadAH
+            # Sarvadhatuka Sit suppletions for Satf in kartari mUla
+            if sanadi is None:
+                if clean in ("gam", "gamx") or op.startswith("gam"):
+                    _satf_base = "gacC"
+                elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
+                    _satf_base = "yacC"
+                elif clean == "pA" or op.startswith("pA"):
+                    _satf_base = "pib"
+                elif clean == "GrA" or op.startswith("GrA"):
+                    _satf_base = "jiGr"
+                elif clean == "DmA" or op.startswith("DmA"):
+                    _satf_base = "Dam"
+                elif clean in ("sTA", "zWA") or op.startswith("zWA") or (dhatu_id and dhatu_id.endswith("1077")):
+                    _satf_base = "tizW"
+                elif clean == "mnA" or op.startswith("mnA"):
+                    _satf_base = "man"
+                elif clean in ("dAR", "dA") or op.startswith("dAR"):
+                    _satf_base = "yacC"
+                elif clean in ("dfS", "darS") or op.startswith("dfS"):
+                    _satf_base = "paSy"
+                elif clean == "f" or op.startswith("f~") or op.startswith("f\\~"):
+                    _satf_base = "fcC"
+                elif clean in ("sad", "zad") or op.startswith("zad"):
+                    _satf_base = "sId"
+                elif clean == "guh" or op.startswith("guh"):
+                    _satf_base = "gUh"
+                elif clean in ("sanj", "saYj") or op.startswith("zaYj") or op.startswith("saYj"):
+                    _satf_base = "saj"
+                elif clean in ("ranj", "raYj") or op.startswith("ranj") or op.startswith("raYj"):
+                    _satf_base = "raj"
+                elif clean in ("danS", "daMS") or op.startswith("daMS"):
+                    _satf_base = "daS"
+                elif clean == "Sru":
+                    return {"M": "SfRvan", "F": "SfRvatI", "N": "SfRvat"}
+            elif sanadi == "yanluganta":
+                if clean in ("sad", "zad") or op.startswith("zad"):
+                    return {"M": "sAsadat", "F": "sAsadatI", "N": "sAsadat"}
+                elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
+                    return {"M": "yaMyamat", "F": "yaMyamatI", "N": "yaMyamat"}
+                elif clean in ("gam", "gamx") or op.startswith("gam"):
+                    _satf_base = "gacC"
             # urv-coda lengthens instead of guna (turv/tUrv->tUrvan, consonant-initial shape; vowel-initial urv keeps guna)
             if clean[-3:].lower() == "urv" and clean[:1] not in SLP1_VOWELS:
                 _satf_base = clean[:-3] + "Urv"
@@ -1342,6 +1384,12 @@ class KrdantaEngine:
             if clean.startswith("kr") and clean[-1:] in ("w", "W", "q", "Q", "t", "T", "d", "D", "n"):
                 return {"M": "-", "F": "-", "N": "-"}
             if clean.startswith("kr"):
+                if "u" in clean and len(clean) >= 2 and clean[-1] not in SLP1_VOWELS:
+                    _u_idx = clean.rfind("u")
+                    _has_cluster = len(clean) - 1 - _u_idx > 1
+                    if not _has_cluster:
+                        stem = guna_base + "ya"
+                        return {"M": stem + "H", "F": stem[:-1] + "A" if stem.endswith("a") else stem + "A", "N": stem + "m"}
                 stem = clean + "ya"
                 return {"M": stem+"H","F":stem[:-1]+"A" if stem.endswith("a") else stem+"A","N":stem+"m"}
             # idit i-final vowel-initial vriddhi-num + aya (agi->ANgayaH; meta skips num for Y-class)
