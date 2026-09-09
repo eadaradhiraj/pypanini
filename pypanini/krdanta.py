@@ -624,6 +624,8 @@ class KrdantaEngine:
                 is_vowel_init = c[0] in SLP1_VOWELS if c else False
                 is_vowel_final = c and c[-1] in SLP1_VOWELS
                 if is_vowel_init:
+                    if c in ("aYc", "anc") or "ancu" in op:
+                        return "aYciciz"
                     # generate both variants: c[0]+di+c[1:] and c[:2]+di+c[2:] for urd
                     # primary is c[0]+di+c[1:] (e.g., ediDiz), but for urd expected urdidiz -> c[:2]+di+c[2:]
                     if c in ("Urd","kUrd","gUrd") and c not in ("skund","Svind"):
@@ -698,16 +700,65 @@ class KrdantaEngine:
                     redup_cons = "s"
                 else:
                     redup_vowel = "u" if last_v in ("u","U","o","O") else "i"
+
                 # idit i-final velar/palatal takes assimilated num (sraki->sisraNkiz; meta skips num for Y-class)
-                _cn = c
-                _csuf = "z" if is_vowel_final else "iz"
                 if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                     _nbw = c[:-1]
                     _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
-                        _cn = _nbw[:-1] + _nn + _nbw[-1]
-                        _csuf = "iz"
-                return redup_cons + redup_vowel + _cn + _csuf
+                        c_stem = _nbw[:-1] + _nn + _nbw[-1]
+                        return redup_cons + redup_vowel + c_stem + "iz"
+
+                if not is_vowel_final:
+                    is_anit_root = str(meta.get("sew_raw", "")).startswith("ani")
+                    if is_anit_root:
+                        # Panini 7.4.54 sani mImAGUrABalaBaSaka-patapadAM ca
+                        if c == "raB" or "raBa" in op:
+                            return "rips"
+                        if c == "laB" or "laBa" in op:
+                            return "lips"
+                        if c == "dah" or "daha" in op:
+                            return "diDakz"
+                        if c in ("sad", "zad") or "zad" in op:
+                            return "sizats"
+                        if c in ("meN", "me") or "meN" in op:
+                            return "mits"
+                        if c in ("deN", "de") or "deN" in op:
+                            return "dits"
+                        if c.endswith(("EN", "AN")):
+                            return redup_cons + redup_vowel + c[:-2] + "As"
+                        if c.endswith("E"):
+                            return redup_cons + redup_vowel + c[:-1] + "As"
+                        coda = c[-1]
+                        stem_body = c[:-1]
+                        if coda in ("c", "j", "S", "z", "h"):
+                            san_coda = "kz"
+                        elif coda in ("p", "b", "B"):
+                            san_coda = "ps"
+                        elif coda in ("d", "s"):
+                            san_coda = "ts"
+                        elif coda == "m":
+                            san_coda = "Ms"
+                        else:
+                            san_coda = coda + "s"
+                        if stem_body.endswith("n") and san_coda.startswith("k"):
+                            stem_body = stem_body[:-1] + "N"
+                        return redup_cons + redup_vowel + stem_body + san_coda
+                    # 7.3.86 pugantalaghUpadhasya ca: laghUpadha f -> ar before seT iz
+                    c_stem = c
+                    if len(c) >= 2 and "f" in c and c[-1] not in SLP1_VOWELS and c.count("f") == 1:
+                        f_idx = c.find("f")
+                        if len(c) - 1 - f_idx == 1:
+                            c_stem = c[:f_idx] + "ar" + c[f_idx+1:]
+                            redup_vowel = "i"
+                    if c_stem.startswith("C"):
+                        c_stem = "c" + c_stem
+                    if c.startswith("dy"):
+                        redup_cons = "d"
+                        redup_vowel = "i"
+                    return redup_cons + redup_vowel + c_stem + "iz"
+
+                return redup_cons + redup_vowel + c + ("z" if is_vowel_final else "iz")
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
                 if c == "pyAy": return "pepIyya"
@@ -895,35 +946,24 @@ class KrdantaEngine:
             if sanadi == "sannanta":
                 if pratyaya == "Rvul": return {"M": sec+"uH","F":sec+"uH","N":sec+"u"}
                 if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
-                if pratyaya == "lyuw": return {"gender":"Neuter","form":sec+"aRam"}
-                if pratyaya == "anIyar": return {"M": sec+"aRIyaH","F":sec+"aRIyA","N":sec+"aRIyam"}
+                _nat = _natva_applies(sec) or _natva_applies(orig_clean)
+                if pratyaya == "lyuw": return {"gender":"Neuter","form":sec+("aRam" if _nat else "anam")}
+                if pratyaya == "anIyar": return {"M": sec+("aRIyaH" if _nat else "anIyaH"),"F":sec+("aRIyA" if _nat else "anIyA"),"N":sec+("aRIyam" if _nat else "anIyam")}
                 if pratyaya == "yat": return {"M": sec+"yaH","F":sec+"yA","N":sec+"yam"}
                 if pratyaya == "SAnac":
-                    # sannanta aniT cons-D (p/m/B/d/W or N+e/E/A): s-form + dental (titipsamAnaH; R-32 shapes excluded)
                     _oc = orig_clean or ""
                     _ovs = [ch for ch in _oc[:-1] if ch in SLP1_VOWELS]
                     _olv = _ovs[-1] if _ovs else None
-                    _mi = _oc.rfind("m")
-                    _mpre_a = _mi > 0 and _oc[_mi - 1] == "a"
-                    if str(meta.get("sew_raw", "sew")).startswith("ani") and (_oc[-1:] in ("p", "m", "B", "d", "W") or (_oc[-1:] == "N" and _olv in ("e", "E", "A")) or (_oc[-1:] == "u" and _mpre_a)): 
-                        _sbb3 = sec[:-2] if sec.endswith("iz") else (sec[:-2] if sec.endswith("uz") else sec)
-                        # m-final with pre-m-a: anusvara-M (riraMsamAnaH; smf/junk-safe via pre-m-a)
-                        if _mpre_a and _sbb3.endswith("m"):
-                            _sbb3 = _sbb3[:-1] + "M"
-                        # B-final short-a/e: C0+i+voiceless (raB->rip; zmiN/guN R-keepers excluded by vowel)
-                        if _oc[-1:] == "B" and _olv in ("a", "e") and _oc[:1] not in SLP1_VOWELS:
-                            _sbb3 = _oc[:1] + "ip"
-                        # d-final: devoice coda, keep rest (had->jihatsamAnaH)
-                        elif _oc[-1:] == "d" and _sbb3.endswith("d"):
-                            _sbb3 = _sbb3[:-1] + "t"
-                        # N-final D-reductions: short-eN -> C0+it (meN->mit); E/AN -> A (gAN->jigA, SyEN->SiSyA)
-                        if _oc[-1:] == "N" and _olv == "e" and _oc[:1] not in SLP1_VOWELS:
-                            _sbb3 = _oc[:1] + "it"
-                        elif _oc[-1:] == "N" and _olv in ("E", "A") and (_sbb3.endswith("EN") or _sbb3.endswith("AN")):
-                            _sbb3 = _sbb3[:-2] + "A"
-                        _s3 = _sbb3 + "samAna"
+                    if _oc[-1:] == "N" and _olv == "e" and _oc[:1] not in SLP1_VOWELS:
+                        _s3 = _oc[:1] + "itsamAna"
                         return {"M": _s3 + "H", "F": _s3[:-1] + "A" if _s3.endswith("a") else _s3 + "A", "N": _s3 + "m"}
-                    return {"M": sec+"amARaH","F":sec+"amARA","N":sec+"amARam"}
+                    elif _oc[-1:] == "N" and _olv in ("E", "A") and (sec.endswith("EN") or sec.endswith("AN") or sec.endswith("ENiz") or sec.endswith("ANiz")):
+                        _sbb = sec[:-2] if sec.endswith("iz") else sec
+                        _s3 = _sbb[:-2] + "AsamAna"
+                        return {"M": _s3 + "H", "F": _s3[:-1] + "A" if _s3.endswith("a") else _s3 + "A", "N": _s3 + "m"}
+                    stem = sec + ("amARa" if _nat else "amAna")
+                    _f = stem[:-1] + "A" if stem.endswith("a") else stem + "A"
+                    return {"M": stem + "H", "F": _f, "N": stem + "m"}
                 if pratyaya == "SAtf" if False else pratyaya == "Satf":
                     # sannanta Satf is like buBUzat etc, use primitive but with sec
                     pass
@@ -1069,10 +1109,8 @@ class KrdantaEngine:
             if (sanadi is None or sanadi == "yanluganta") and clean_ay:
                 _satf_base = clean_ay
             stem_at = _satf_base + "at"
-            # sannanta aniT cons-final (not Y): desiderative-s base, no iz (titapsat; SrA/BfY vowel/Y-final keeps iz)
-            if sanadi == "sannanta" and str(meta.get("sew_raw", "sew")).startswith("ani") and orig_clean and (orig_clean[-1] not in SLP1_VOWELS) and orig_clean[-1:] != "Y":
-                _sbb = clean[:-2] if clean.endswith("iz") else (clean[:-1] if clean.endswith("z") else clean)
-                _satf_base = _sbb + ("s" if _sbb[-1:] == "p" else "z")
+            if sanadi == "sannanta":
+                _satf_base = clean
                 stem_at = _satf_base + "at"
             m = stem_at[:-1] + "n"  # Bavat -> Bavan
             f = _satf_base + "antI"  # BavantI / cuScutizantI

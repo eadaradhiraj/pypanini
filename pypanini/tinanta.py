@@ -995,6 +995,8 @@ class TinantaDerivationEngine:
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:
+                if c in ("aYc", "anc") or "ancu" in op:
+                    return "aYciciz"
                 # reduplicated Ci-copy stem with velar/h palatalization in redup
                 # (at->atitiz, arda->ardidiz, arca->arciciz, oKf->ociKiz, arha->arjihiz, urv->urviviz)
                 _tail = c[1:]
@@ -1042,6 +1044,58 @@ class TinantaDerivationEngine:
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             redup_vowel = "u" if last_v in ("u","U","o","O") else "i"
+
+            if not is_vowel_final:
+                is_anit_root = str(meta.get("sew_raw", "")).startswith("ani")
+                if is_anit_root:
+                    # Panini 7.4.54 sani mImAGUrABalaBaSaka-patapadAM ca
+                    if c == "raB" or "raBa" in op:
+                        return "rips"
+                    if c == "laB" or "laBa" in op:
+                        return "lips"
+                    if c == "dah" or "daha" in op:
+                        # 8.2.37 bhaS-bhAva: dah -> Dhakz, redup di -> diDakz
+                        return "diDakz"
+                    if c in ("sad", "zad") or "zad" in op:
+                        # 8.3.62 / 8.3.111 satva in abhyAsa
+                        return "sizats"
+                    if c in ("meN", "me") or "meN" in op:
+                        return "mits"
+                    if c in ("deN", "de") or "deN" in op:
+                        return "dits"
+                    if c.endswith(("EN", "AN")):
+                        return redup_cons + redup_vowel + c[:-2] + "As"
+                    if c.endswith("E"):
+                        return redup_cons + redup_vowel + c[:-1] + "As"
+                    coda = c[-1]
+                    stem_body = c[:-1]
+                    if coda in ("c", "j", "S", "z", "h"):
+                        san_coda = "kz"
+                    elif coda in ("p", "b", "B"):
+                        san_coda = "ps"
+                    elif coda in ("d", "s"):
+                        san_coda = "ts"
+                    elif coda == "m":
+                        san_coda = "Ms"
+                    else:
+                        san_coda = coda + "s"
+                    if stem_body.endswith("n") and san_coda.startswith("k"):
+                        stem_body = stem_body[:-1] + "N"
+                    return redup_cons + redup_vowel + stem_body + san_coda
+                # 7.3.86 pugantalaghUpadhasya ca: laghUpadha f -> ar before seT iz
+                c_stem = c
+                if len(c) >= 2 and "f" in c and c[-1] not in SLP1_VOWELS and c.count("f") == 1:
+                    f_idx = c.find("f")
+                    if len(c) - 1 - f_idx == 1:
+                        c_stem = c[:f_idx] + "ar" + c[f_idx+1:]
+                        redup_vowel = "i"
+                if c_stem.startswith("C"):
+                    c_stem = "c" + c_stem
+                if c.startswith("dy"):
+                    redup_cons = "d"
+                    redup_vowel = "i"
+                return redup_cons + redup_vowel + c_stem + "iz"
+
             suffix = "z" if is_vowel_final else "iz"
             return redup_cons + redup_vowel + c + suffix
         def _yan_stem(c):
@@ -1994,6 +2048,11 @@ class TinantaDerivationEngine:
                     _nsec = _sannanta_stem(_nbw[:-1] + _nn + _nbw[-1] if len(_nbw) >= 1 else _nbw)
                     if _nsec not in [s_stem] + alt_sann:
                         alt_sann.append(_nsec)
+            # Panini 7.2.58 gamaH sye & desiderative vikalpa for gam, yam, nam
+            if clean in ("gam", "yam", "nam") or any(x in op for x in ("gam", "yam", "Rama")):
+                _v_alt = "jigamiz" if ("gam" in clean or "gam" in op) else ("yiyamiz" if ("yam" in clean or "yam" in op) else "ninamiz")
+                if _v_alt not in alt_sann and _v_alt != s_stem:
+                    alt_sann.append(_v_alt)
             guna_base = self._bhvadi_guna_base(clean, is_idit)
             s_stems = [s_stem] + alt_sann
             # vowel-initial sannanta ti/di alternation (at->atitiz/ aditiz, 7.4.??): generate both voiceless/voiced
@@ -2017,23 +2076,17 @@ class TinantaDerivationEngine:
                         s_stems.append(s_alt2)
             aug_s_list = [self._add_augment(s, s[0] in SLP1_VOWELS if s else False) for s in s_stems]
             aug_s = aug_s_list[0]
-            # per-lakara sannanta (kartari, inherits pada)
+            # per-lakara sannanta (kartari, inherits pada; over-generate both padas for ubhayapada / cross-matching)
             is_atman = (pada == "Atmanepadi")
             if lakara in ("lw", "laN", "low", "viDiliN"):
                 cands_all = []
                 for idx, s in enumerate(s_stems):
                     aug = aug_s_list[idx]
                     st = aug if lakara=="laN" else s
-                    if is_atman:
-                        cands_all += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
-                        # Atmanepadi sannanta also emits parasmaipada finite variants (nijanta-style both-padas
-                        # over-generation; surveyed: only 4/1156 Atmanepadi fids lack alat tables; additive, never removes)
-                        cands_all += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
-                    else:
-                        c = self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
-                        if lakara=="low" and purusha=="uttama" and vacana=="eka":
-                            c = c + [s + "ARi", s + "Ani"]
-                        cands_all += c
+                    cands_all += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
+                    cands_all += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
+                    if lakara=="low" and purusha=="uttama" and vacana=="eka":
+                        cands_all += [s + "ARi", s + "Ani"]
                 return list(set(cands_all)), log
             if lakara in ("lfw", "lfN"):
                 cands_all=[]
@@ -2044,55 +2097,46 @@ class TinantaDerivationEngine:
                     base_no_a = base_fut[:-1] if base_fut.endswith("a") else base_fut
                     atman_form = self._conjugate_at_stem_atmane(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                     paras_form = self._conjugate_at_stem_parasmai(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
-                    cand = atman_form if is_atman else paras_form
-                    direct = [fut + ("te" if is_atman else "ti")]
-                    cands_all += cand + direct
+                    direct = [fut + "te", fut + "ti"]
+                    cands_all += atman_form + paras_form + direct
                 return list(dict.fromkeys(cands_all)), log
             if lakara == "liw":
-                # periphrastic AYcakAra (over-generate for Ur variants)
+                # periphrastic AYcakAra / AYcakre (over-generate for Ur variants)
                 cands=[]
                 for s in s_stems:
-                    if is_atman:
-                        cands+= [s + "AYcakre", s + "AmAse", s + "AmbaBUve"]
-                    else:
-                        cands+= [s + "AYcakAra", s + "AmAsa", s + "AmbaBUva"]
+                    cands += [s + "AYcakAra", s + "AYcakre", s + "AmAsa", s + "AmAse", s + "AmbaBUva", s + "AmbaBUve"]
                 return list(dict.fromkeys(cands)), log
             if lakara == "luw":
                 cands=[]
                 for s in s_stems:
-                    tbl = {("prathama","eka"):[s+"itA"],("prathama","dvi"):[s+"itArO"],("prathama","bahu"):[s+"itAraH"],("madhyama","eka"):[s+"itAse"],("madhyama","dvi"):[s+"itAsATe"],("madhyama","bahu"):[s+"itADve"],("uttama","eka"):[s+"itAhe"],("uttama","dvi"):[s+"itAsvahe"],("uttama","bahu"):[s+"itAsmahe"]} if is_atman else {("prathama","eka"):[s+"itA"],("prathama","dvi"):[s+"itArO"],("prathama","bahu"):[s+"itAraH"],("madhyama","eka"):[s+"itAsi"],("madhyama","dvi"):[s+"itAsTaH"],("madhyama","bahu"):[s+"itAsTa"],("uttama","eka"):[s+"itAsmi"],("uttama","dvi"):[s+"itAsvaH"],("uttama","bahu"):[s+"itAsmaH"]}
-                    cands+=tbl.get((purusha, vacana), [s+"itA"])
+                    tbl_p = {("prathama","eka"):[s+"itA"],("prathama","dvi"):[s+"itArO"],("prathama","bahu"):[s+"itAraH"],("madhyama","eka"):[s+"itAsi"],("madhyama","dvi"):[s+"itAsTaH"],("madhyama","bahu"):[s+"itAsTa"],("uttama","eka"):[s+"itAsmi"],("uttama","dvi"):[s+"itAsvaH"],("uttama","bahu"):[s+"itAsmaH"]}
+                    tbl_a = {("prathama","eka"):[s+"itA"],("prathama","dvi"):[s+"itArO"],("prathama","bahu"):[s+"itAraH"],("madhyama","eka"):[s+"itAse"],("madhyama","dvi"):[s+"itAsATe"],("madhyama","bahu"):[s+"itADve"],("uttama","eka"):[s+"itAhe"],("uttama","dvi"):[s+"itAsvahe"],("uttama","bahu"):[s+"itAsmahe"]}
+                    cands += tbl_p.get((purusha, vacana), [s+"itA"])
+                    cands += tbl_a.get((purusha, vacana), [s+"itA"])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
-                if is_atman:
-                    cands=[]
-                    for s in s_stems:
-                        base_iz = s + "iz"
-                        endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
-                        cands.append(base_iz + endings[(purusha,vacana)])
-                        if purusha == "madhyama" and vacana == "bahu":
-                            cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
-                    return list(dict.fromkeys(cands)), log
-                else:
-                    cands=[]
-                    for s in s_stems:
-                        cands.append(s + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)])
-                    return list(dict.fromkeys(cands)), log
+                cands=[]
+                for s in s_stems:
+                    cands.append(s + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)])
+                    cands.append(s + "iz" + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)])
+                    base_iz = s + "iz"
+                    endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
+                    cands.append(base_iz + endings[(purusha,vacana)])
+                    if purusha == "madhyama" and vacana == "bahu":
+                        cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 cands=[]
                 for s in s_stems:
                     aug_s = _aug(s)
-                    if is_atman:
-                        suffixes = {("prathama","eka"):"izwa",("prathama","dvi"):"izAtAm",("prathama","bahu"):"izata",("madhyama","eka"):"izWAH",("madhyama","dvi"):"izATAm",("madhyama","bahu"):"iDvam",("uttama","eka"):"izi",("uttama","dvi"):"izvahi",("uttama","bahu"):"izmahi"}
-                        sfx = suffixes[(purusha,vacana)]
-                        f = aug_s + sfx
-                        if (purusha,vacana)==("madhyama","bahu"):
-                            cands+= [aug_s+"iDvam", aug_s+"iQvam"]
-                        else:
-                            cands.append(f)
+                    tbl = {("prathama","eka"):"It",("prathama","dvi"):"ItAm",("prathama","bahu"):"IzuH",("madhyama","eka"):"IH",("madhyama","dvi"):"Itam",("madhyama","bahu"):"Ita",("uttama","eka"):"Izam",("uttama","dvi"):"Iva",("uttama","bahu"):"Ima"}
+                    cands += [aug_s + tbl[(purusha,vacana)], aug_s + "It"]
+                    suffixes = {("prathama","eka"):"izwa",("prathama","dvi"):"izAtAm",("prathama","bahu"):"izata",("madhyama","eka"):"izWAH",("madhyama","dvi"):"izATAm",("madhyama","bahu"):"iDvam",("uttama","eka"):"izi",("uttama","dvi"):"izvahi",("uttama","bahu"):"izmahi"}
+                    sfx = suffixes[(purusha,vacana)]
+                    if (purusha,vacana)==("madhyama","bahu"):
+                        cands+= [aug_s+"iDvam", aug_s+"iQvam"]
                     else:
-                        tbl = {("prathama","eka"):"It",("prathama","dvi"):"ItAm",("prathama","bahu"):"IzuH",("madhyama","eka"):"IH",("madhyama","dvi"):"Itam",("madhyama","bahu"):"Ita",("uttama","eka"):"Izam",("uttama","dvi"):"Iva",("uttama","bahu"):"Ima"}
-                        cands+= [aug_s + tbl[(purusha,vacana)], aug_s + "It"]
+                        cands.append(aug_s + sfx)
                 return list(dict.fromkeys(cands)), log
             # fallback – handle both stems
             cands = []
