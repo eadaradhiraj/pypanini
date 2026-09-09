@@ -6,6 +6,7 @@ Supports primitive (mUla) for any BvAdi dhatu; sanAdi with overrides still uses 
 from typing import Dict, Optional
 import json
 import glob
+import re
 from pathlib import Path
 from .phonetics import apply_guna, apply_vriddhi, apply_sandhi_eco_ayavayavah
 
@@ -29,10 +30,14 @@ def _natva_applies(root: str) -> bool:
         return True
     if fin == "s":
         return False
+    if fin == "S":
+        return False  # S-final never takes R (wuBrASf->BrASamAnaH; surveyed: zero expected-R S-final stems)
     if fin == "l":
         return False
     if fin == "h":
         return ("r" in root) or ("R" in root) or ("z" in root)
+    if re.search(r"R[^aAiIuUfFxXeEoOrR]", root):
+        return False  # num-R stems block further Natva (riRv->riRvanIya dental; surveyed: zero expected-R num-R stems)
     has_trigger = ("r" in root) or ("R" in root) or ("z" in root)
     return has_trigger and fin in (
         "k", "K", "g", "G", "N", "p", "P", "b", "B",

@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-09T00:00:00Z
-Sweep: 804/1156 100% (raw 804/1166)
+Sweep: 807/1156 100% (raw 807/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -45,6 +45,7 @@ Sweep: 804/1156 100% (raw 804/1166)
 - Kta Ca-gemination before iT (mleCa->mlecCita; lowercase/i~-num/A~-roots excluded after gate caught 7 then 3 worsened within iteration: lACi-num, hurCA-Na-formation). Sweep: 4 improved (+18 each), 0 worsened. Pilots OK.
 - Tinanta prim-bases nc->Yc num variant (kunca->kuYcati, ancu->aYcati; surveyed all 12 nc-cleans in engine meta). Sweep: 12 improved (+72/+99 each), 0 worsened. Pilots OK.
 - Tinanta nijanta-luN ti-redup keeps zw-onset (zwana->atizwanata; meta maps zw->st for everything else; surveyed zw/zW nich luN; ta/wi-variants deferred). Sweep: 8 improved, 4 new 100% passes (01.0532, 01.0891, 01.0899, 01.0964), 0 worsened. Pilots OK.
+- Krdanta Natva guards: S-final never R + num-R stems block further Natva (rivi->riRvanIya/riRvanam, wuBrASf->BrASamAnaH dental; confusion survey 1601 slots/51 mismatches; zero expected-R S-final or num-R stems). Sweep: 5 improved (01.0679/01.0680/01.0682/01.0958/01.0992), 3 new 100% passes, 0 worsened. Pilots OK.
 
 ## Next
 1. Consonant cluster assimilation for Gaṇa 01:
