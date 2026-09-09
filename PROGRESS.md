@@ -64,12 +64,15 @@ Sweep: 890/1156 100% (raw 890/1166)
   - Tinanta: samprasāraṇa bases in karmaṇi sārvadhātuka yak (`ijy`, `upy`, `uhy`, `uzy`, `udy`), ASIrliN (`ij`, `up`, `uh`, `uz`, `ud`), karmaṇi liṭ (`Ij-`, `Up-`, `Uh-`, `Uz-`, `Ud-`), and kartari liṭ (pit `iyAj-`/`uvAp-`/`uvAh-`/`uvAs-`/`uvAd-` vs kit `Ij-`/`Up-`/`Uh-`/`Uz-`/`Ud-`).
   - Krdanta: `_kta_stem` samprasāraṇa (`izwa`, `upta`, `UQa`, `uzita`, `udita`), ktavatu, ktvA (`izwvA`, `uptvA`, `UQvA`, `uzitvA`, `uditvA`), lyap (`prejya`, `propya`, `prohya`, `pruzya`, `prodya`), karmaṇi SAnac (`ijyamAna`, `upyamAna`, `uhyamAna`, `uzyamARa`, `udyamAna`).
   - Yaṅluganta krdanta: 7.4.82 guṇo yaṅlukoḥ (`yejita`, `vopita`, `vohita`, `vuzita`, `vodita` in kta/ktavatu; `yAyajitvA`, `vAvapitvA`, `vAvahitvA`, `vAvasitvA`, `vAvaditvA` in ktvA; `prayejya`, `pravopya`, `pravohya`, `pravuzya`, `pravodya` in lyap; `yejyamAna`, `vopyamAna`, `vohyamAna`, `vuzyamARa`, `vodyamAna` in SAnac).
-  - Results: `01.1164` (vada~) reached 100.0% (895/895). `01.1157` (yaja~) +91 (602/895), `01.1158` (quvapa~) +88 (685/895), `01.1159` (vaha~) +67 (633/895), `01.1160` (vasa~) +88 (634/895). Sweep: 10 improved (+523 total matches), 0 worsened, passes 888 -> 890. Pilots OK.
+- Consonant cluster assimilation for aniT/vew roots before t (Panini 8.2.30 coH kuH, 8.2.36 vraSca... yaja... zaH, 8.2.40 jhazastaTorDo'DaH, 8.4.55 Kari ca, 8.4.41 zwunA zwuH in luw, tavya, tfc, tumun, ktvA) and before s (Panini 8.2.30/8.3.59 coH kuH + AdeSapratyayayoH, 8.4.55 Kari ca B->ps / d->ts, 7.4.49 saH syArDadhAtuke s->ts, 8.3.24 naS cApadAntasya m->M, 7.2.58 gamaH sye, 8.2.32/8.2.37 dah->Dakz / guh->Gokz / gAh->GAkz / gluh->Glokz, 8.2.36/8.2.41 zaQhoH kaH si z/S->kz with kit ASIrliN dfkz- / tvikz-) across both tinanta and krdanta: 40 improved (+2,237 matched tokens), 0 worsened, 890/1156 passes maintained. Pilots OK.
 
 ## Next
-1. Consonant cluster assimilation for Gaṇa 01:
-   - c/j before s/t in tinanta (e.g. tyaj -> tyaktA, pac -> paktA).
-   - Remaining yajādi lakaras (yaja~ 01.1157, quvapa~ 01.1158, vaha~ 01.1159, vasa~ 01.1160 in non-liw/yak).
-   - zW root onset sthAnI (zW -> sT; zw -> st DONE, zWivu/zWA retain).
-   - nc-lopa in kta (kunca->kucita) + sj-gemination (zasja->sajjita) + hurCA-Na kta (hUrRa).
-2. Re-sweep, rebuild STATS, overwrite this, commit & push.
+1. Panini 8.2.36 vraśca-bhrasja-sṛja-mṛja-yaja-rāja-bhrāja-ccha-śaḥ ṣaḥ (sibilant / retroflex assimilations):
+   - sj -> jj in zasja (sajjita), bhrasj.
+   - nc-lopa in anidit roots before kit (kunca -> kucita, lunci -> lucita).
+   - hurCA-Na kta (hUrRa).
+2. Root onset sthAnI / transformations:
+   - zW -> sT (e.g. zWA -> sTA, zWivu -> sTIv/zWIv).
+3. Remaining yajādi lakaras (kartari luṅ aorist etc.).
+4. Re-sweep, rebuild STATS, overwrite this, commit & push.
+

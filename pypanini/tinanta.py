@@ -714,30 +714,99 @@ class TinantaDerivationEngine:
             return forms.get((purusha, vacana), [])
         return []
 
-    def _assimilate_luw_suffix(self, stem: str, sfx: str) -> str:
-        # Connects stem to t-initial suffix (tA, tArO, tAraH, tAsi, etc.) by Paninian sandhi
+    def _assimilate_t_stems(self, stem: str) -> List[str]:
+        # Connects stem to t-suffix by Paninian sandhi, returning the base including assimilated t/w/D/Q
         if stem.endswith("kz"):
-            return stem[:-2] + "zw" + sfx[1:]
+            return [stem[:-2] + "zw"]
         if stem.endswith("D"):
-            return stem[:-1] + "dD" + sfx[1:]
+            return [stem[:-1] + "dD"]
         if stem == "dah":
-            return "dagD" + sfx[1:]
+            return ["dagD"]
         if stem == "vah":
-            return "voQ" + sfx[1:]
+            return ["voQ"]
         if stem.endswith("h"):
             core = stem[:-1]
             if core.endswith("u"):
                 core = core[:-1] + "U"
             elif core.endswith("i"):
                 core = core[:-1] + "I"
-            return core + "Q" + sfx[1:]
-        if stem.endswith("m"):
-            return stem[:-1] + "n" + sfx
+            return [core + "Q"]
+        if stem in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj"):
+            core = stem[:-1]
+            if core.endswith(("n", "Y")):
+                core = core[:-1]
+            return [core + "Nkt"]
+        if stem.endswith(("c", "C", "j", "J")):
+            if stem == "yaj":
+                return ["yazw"]
+            return [stem[:-1] + "kt"]
+        if stem.endswith("B"):
+            return [stem[:-1] + "bD"]
         if stem.endswith("nd"):
-            return stem[:-1] + sfx
+            return [stem[:-1] + "t"]
         if stem.endswith("d"):
-            return stem[:-1] + "t" + sfx[1:]
-        return stem + sfx
+            return [stem[:-1] + "tt"]
+        if stem.endswith("m"):
+            return [stem[:-1] + "nt"]
+        if stem.endswith(("z", "S")):
+            if stem in ("dfS", "darS"):
+                return ["drazw"]
+            if stem in ("kfz", "karz"):
+                return ["krazw", "karzw"]
+            if stem in ("danS", "daMS"):
+                return ["daMzw"]
+            return [stem[:-1] + "zw"]
+        return [stem + "t"]
+
+    def _assimilate_luw_suffix(self, stem: str, sfx: str) -> List[str]:
+        # Connects stem to t-initial suffix (tA, tArO, tAraH, tAsi, etc.) by Paninian sandhi
+        return [t + sfx[1:] for t in self._assimilate_t_stems(stem)]
+
+    def _assimilate_s_stems(self, base: str, is_kit: bool = False) -> List[str]:
+        # Connects base to s-suffix (sy in lfw/lfN, sIy in ASIrliN) by Paninian sandhi
+        if not base:
+            return ["sy"]
+        if base == "gam":
+            return ["gamiz"] if not is_kit else ["gaMs"]
+        if base == "vah":
+            return ["vakz"]
+        if base == "dah":
+            return ["Dakz"]
+        if base in ("guh", "goh"):
+            return ["Gokz"]
+        if base == "gAh":
+            return ["GAkz"]
+        if base in ("gfh", "garh"):
+            return ["Garkz"]
+        if base in ("gluh", "gloh"):
+            return ["Glokz"]
+        if base in ("dfS", "darS"):
+            return ["drakz"] if not is_kit else ["dfkz"]
+        if base in ("kfz", "karz"):
+            return ["krakz", "karkz"]
+        if base in ("danS", "daMS"):
+            return ["daNkz"]
+        if base in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj"):
+            core = base[:-1]
+            if core.endswith(("n", "Y")):
+                core = core[:-1]
+            return [core + "Nkz"]
+        if base.endswith(("c", "C", "j", "J")):
+            return [base[:-1] + "kz"]
+        if base.endswith("B"):
+            return [base[:-1] + "ps"]
+        if base.endswith("d"):
+            return [base[:-1] + "ts"]
+        if base.endswith("s"):
+            return [base[:-1] + "ts"]
+        if base.endswith("m"):
+            return [base[:-1] + "Ms"]
+        if base.endswith("h"):
+            return [base[:-1] + "kz"]
+        if base.endswith(("z", "S")):
+            return [base[:-1] + "kz"]
+        sat = apply_satva(base[-1], "s")
+        return [base + sat]
 
     def _conjugate_luw(self, luw_stem: str, pada: str, purusha: str, vacana: str) -> List[str]:
         # luw_stem = guna_base + ("i" if sew else "")  e.g., Bavi, eDi
@@ -755,9 +824,9 @@ class TinantaDerivationEngine:
             }
             sfx = tbl[(purusha, vacana)]
             cands = [luw_stem + sfx]
-            asm = self._assimilate_luw_suffix(luw_stem, sfx)
-            if asm != cands[0]:
-                cands.append(asm)
+            for asm in self._assimilate_luw_suffix(luw_stem, sfx):
+                if asm not in cands:
+                    cands.append(asm)
             return cands
         else:
             # parasmaipada luw (BU)
@@ -775,9 +844,9 @@ class TinantaDerivationEngine:
             sfx = tbl_p.get((purusha, vacana))
             if sfx:
                 cands = [luw_stem + sfx]
-                asm = self._assimilate_luw_suffix(luw_stem, sfx)
-                if asm != cands[0]:
-                    cands.append(asm)
+                for asm in self._assimilate_luw_suffix(luw_stem, sfx):
+                    if asm not in cands:
+                        cands.append(asm)
                 return cands
             return [luw_stem + "tA"]
 
@@ -1398,9 +1467,10 @@ class TinantaDerivationEngine:
                         if lakara == "lfN": b = _aug(b)
                         cands+=self._conjugate_at_stem_atmane(b, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                     if not sew or is_vew:
-                        b = eff + "sy"
-                        if lakara == "lfN": b = _aug(b)
-                        cands+=self._conjugate_at_stem_atmane(b, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                        for s_stem in self._assimilate_s_stems(eff):
+                            b = s_stem + "y"
+                            if lakara == "lfN": b = _aug(b)
+                            cands+=self._conjugate_at_stem_atmane(b, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
@@ -1743,10 +1813,12 @@ class TinantaDerivationEngine:
                         if purusha == "madhyama" and vacana == "bahu":
                             cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                     if not sew or is_vew:
-                        base_iz = eff + apply_satva(eff[-1],"s") if eff else eff + apply_satva(eff[-1],"s")
-                        cands.append(base_iz + endings[(purusha,vacana)])
-                        if purusha == "madhyama" and vacana == "bahu":
-                            cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                        for _ab in (eff, base_cmp):
+                            for s_stem in self._assimilate_s_stems(_ab, is_kit=True):
+                                base_iz = s_stem
+                                cands.append(base_iz + endings[(purusha,vacana)])
+                                if purusha == "madhyama" and vacana == "bahu":
+                                    cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -2313,11 +2385,12 @@ class TinantaDerivationEngine:
                     else:
                         cands+=self._conjugate_at_stem_parasmai(core, "lw", purusha, vacana)
                 if not sew or is_vew:
-                    core = base + "sy"
-                    if pada == "Atmanepadi":
-                        cands+=self._conjugate_at_stem_atmane(core, "lw", purusha, vacana)
-                    else:
-                        cands+=self._conjugate_at_stem_parasmai(core, "lw", purusha, vacana)
+                    for s_stem in self._assimilate_s_stems(base):
+                        core = s_stem + "y"
+                        if pada == "Atmanepadi":
+                            cands+=self._conjugate_at_stem_atmane(core, "lw", purusha, vacana)
+                        else:
+                            cands+=self._conjugate_at_stem_parasmai(core, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -2333,12 +2406,13 @@ class TinantaDerivationEngine:
                     else:
                         cands+=self._conjugate_at_stem_parasmai(aug_core, "laN", purusha, vacana)
                 if not sew or is_vew:
-                    core = base + "sy"
-                    aug_core = self._add_augment(core, core[0] in SLP1_VOWELS if core else False)
-                    if pada == "Atmanepadi":
-                        cands+=self._conjugate_at_stem_atmane(aug_core, "laN", purusha, vacana)
-                    else:
-                        cands+=self._conjugate_at_stem_parasmai(aug_core, "laN", purusha, vacana)
+                    for s_stem in self._assimilate_s_stems(base):
+                        core = s_stem + "y"
+                        aug_core = self._add_augment(core, core[0] in SLP1_VOWELS if core else False)
+                        if pada == "Atmanepadi":
+                            cands+=self._conjugate_at_stem_atmane(aug_core, "laN", purusha, vacana)
+                        else:
+                            cands+=self._conjugate_at_stem_parasmai(aug_core, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
@@ -2757,10 +2831,12 @@ class TinantaDerivationEngine:
                         if purusha == "madhyama" and vacana == "bahu":
                             cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                     if not sew or is_vew:
-                        base_iz = eff + apply_satva(eff[-1], "s")
-                        cands.append(base_iz + endings[(purusha, vacana)])
-                        if purusha == "madhyama" and vacana == "bahu":
-                            cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                        for _ab in (eff, base_cmp):
+                            for s_stem in self._assimilate_s_stems(_ab, is_kit=True):
+                                base_iz = s_stem
+                                cands.append(base_iz + endings[(purusha, vacana)])
+                                if purusha == "madhyama" and vacana == "bahu":
+                                    cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":

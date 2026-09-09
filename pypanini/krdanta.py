@@ -420,6 +420,50 @@ class KrdantaEngine:
         # D/dh etc.: fallback concat (budh+ta->budDta? needs Jastva later; keep concat for now)
         return clean + "ta"
 
+    def _assimilate_t_stems(self, stem: str) -> List[str]:
+        # Connects stem to t-suffix by Paninian sandhi, returning the base including assimilated t/w/D/Q
+        if stem.endswith("kz"):
+            return [stem[:-2] + "zw"]
+        if stem.endswith("D"):
+            return [stem[:-1] + "dD"]
+        if stem == "dah":
+            return ["dagD"]
+        if stem == "vah":
+            return ["voQ"]
+        if stem.endswith("h"):
+            core = stem[:-1]
+            if core.endswith("u"):
+                core = core[:-1] + "U"
+            elif core.endswith("i"):
+                core = core[:-1] + "I"
+            return [core + "Q"]
+        if stem in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj"):
+            core = stem[:-1]
+            if core.endswith(("n", "Y")):
+                core = core[:-1]
+            return [core + "Nkt"]
+        if stem.endswith(("c", "C", "j", "J")):
+            if stem == "yaj":
+                return ["yazw"]
+            return [stem[:-1] + "kt"]
+        if stem.endswith("B"):
+            return [stem[:-1] + "bD"]
+        if stem.endswith("nd"):
+            return [stem[:-1] + "t"]
+        if stem.endswith("d"):
+            return [stem[:-1] + "tt"]
+        if stem.endswith("m"):
+            return [stem[:-1] + "nt"]
+        if stem.endswith(("z", "S")):
+            if stem in ("dfS", "darS"):
+                return ["drazw"]
+            if stem in ("kfz", "karz"):
+                return ["krazw", "karzw"]
+            if stem in ("danS", "daMS"):
+                return ["daMzw"]
+            return [stem[:-1] + "zw"]
+        return [stem + "t"]
+
     def derive_krdanta(
         self,
         dhatu: str = "BU",
@@ -1108,30 +1152,10 @@ class KrdantaEngine:
                 if _sn and len(_sbw) >= 1:
                     return tri_linga(_sbw[:-1] + _sn + _sbw[-1] + "ayitavya")
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
-            # kz-cluster + tavya -> zwa in aniT (vew akz/takz/tvakz -> azwavya; sew keeps kz+itavya via iT above)
-            if not sew and eff.endswith("kz"):
-                return tri_linga(eff[:-2] + "zwavya")
-            # D-coda in aniT (8.2.40 jhazastaTorDo'DaH + 8.4.53)
-            if not sew and eff.endswith("D"):
-                return tri_linga(eff[:-1] + "dDavya")
-            # h-final in aniT (8.2.31 ho QaH + 8.2.32 dAderGah)
-            if not sew and eff.endswith("h"):
-                if eff == "dah":
-                    return tri_linga("dagDavya")
-                if eff == "vah":
-                    return tri_linga("voQavya")
-                _core = eff[:-1]
-                if _core.endswith("u"):
-                    _core = _core[:-1] + "U"
-                elif _core.endswith("i"):
-                    _core = _core[:-1] + "I"
-                return tri_linga(_core + "Qavya")
-            # m-final in aniT (8.4.58 anusvArasya yayi parasavarRaH: m + t -> nt)
-            if not sew and eff.endswith("m"):
-                return tri_linga(eff[:-1] + "ntavya")
-            # nd-final in aniT (8.4.54 Jalo Jali: d drops before t -> nt)
-            if not sew and eff.endswith("nd"):
-                return tri_linga(eff[:-1] + "tavya")
+            if not sew or is_vew:
+                for t_stem in self._assimilate_t_stems(eff):
+                    if t_stem != eff + "t" or not sew:
+                        return tri_linga(t_stem + "avya")
             stem = eff + ("i" if sew else "") + "tavya"
             return tri_linga(stem)
 
@@ -1275,35 +1299,10 @@ class KrdantaEngine:
                     _snt = _sbw[:-1] + _sn + _sbw[-1] + "ay"
                     return {"M": _snt + "itA", "F": _snt + "itrI", "N": _snt + "itf"}
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
-            # kz-cluster + tfc -> zwa in aniT (azwA; sew keeps kz+itA via iT above)
-            if not sew and eff.endswith("kz"):
-                _zb = eff[:-2] + "zwa"
-                return {"M": _zb[:-1] + "A", "F": _zb[:-1] + "rI", "N": _zb[:-1] + "f"}
-            # D-coda in aniT
-            if not sew and eff.endswith("D"):
-                _db = eff[:-1] + "dD"
-                return {"M": _db + "A", "F": _db + "rI", "N": _db + "f"}
-            # h-final in aniT
-            if not sew and eff.endswith("h"):
-                if eff == "dah":
-                    return {"M": "dagDA", "F": "dagDrI", "N": "dagDf"}
-                if eff == "vah":
-                    return {"M": "voQA", "F": "voQrI", "N": "voQf"}
-                _core = eff[:-1]
-                if _core.endswith("u"):
-                    _core = _core[:-1] + "U"
-                elif _core.endswith("i"):
-                    _core = _core[:-1] + "I"
-                _qb = _core + "Q"
-                return {"M": _qb + "A", "F": _qb + "rI", "N": _qb + "f"}
-            # m-final in aniT (8.4.58: m + t -> nt)
-            if not sew and eff.endswith("m"):
-                _mb = eff[:-1] + "nt"
-                return {"M": _mb + "A", "F": _mb + "rI", "N": _mb + "f"}
-            # nd-final in aniT (8.4.54: d drops before t -> nt)
-            if not sew and eff.endswith("nd"):
-                _ndb = eff[:-1] + "t"
-                return {"M": _ndb + "A", "F": _ndb + "rI", "N": _ndb + "f"}
+            if not sew or is_vew:
+                for t_stem in self._assimilate_t_stems(eff):
+                    if t_stem != eff + "t" or not sew:
+                        return {"M": t_stem + "A", "F": t_stem + "rI", "N": t_stem + "f"}
             b = eff + ("i" if sew else "")
             return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
 
@@ -1369,30 +1368,10 @@ class KrdantaEngine:
                 stem = clean + "i" + "tum"
                 return {"avyaya": [stem]}
             eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
-            # kz-cluster + tumun -> zwum in aniT (azwum; sew keeps kz+itum via iT above)
-            if not sew and eff.endswith("kz"):
-                return {"avyaya": [eff[:-2] + "zwum"]}
-            # D-coda in aniT
-            if not sew and eff.endswith("D"):
-                return {"avyaya": [eff[:-1] + "dDum"]}
-            # h-final in aniT
-            if not sew and eff.endswith("h"):
-                if eff == "dah":
-                    return {"avyaya": ["dagDum"]}
-                if eff == "vah":
-                    return {"avyaya": ["voQum"]}
-                _core = eff[:-1]
-                if _core.endswith("u"):
-                    _core = _core[:-1] + "U"
-                elif _core.endswith("i"):
-                    _core = _core[:-1] + "I"
-                return {"avyaya": [_core + "Qum"]}
-            # m-final in aniT (8.4.58: m + t -> nt)
-            if not sew and eff.endswith("m"):
-                return {"avyaya": [eff[:-1] + "ntum"]}
-            # nd-final in aniT (8.4.54: d drops before t -> nt)
-            if not sew and eff.endswith("nd"):
-                return {"avyaya": [eff[:-1] + "tum"]}
+            if not sew or is_vew:
+                for t_stem in self._assimilate_t_stems(eff):
+                    if t_stem != eff + "t" or not sew:
+                        return {"avyaya": [t_stem + "um"]}
             stem = eff + ("i" if sew else "") + "tum"
             return {"avyaya": [stem]}
 
@@ -1432,6 +1411,24 @@ class KrdantaEngine:
                     return {"avyaya": [clean[:-2] + "AntvA", clean + "itvA"]}
                 if not sew:
                     return {"avyaya": [clean[:-1] + "tvA", clean + "itvA"] if is_vew else [clean[:-1] + "tvA"]}
+            if not sew or is_vew:
+                if clean in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj"):
+                    core = clean[:-1]
+                    if core.endswith(("n", "Y")):
+                        core = core[:-1]
+                    return {"avyaya": [core + "ktvA", clean + "itvA"] if is_vew else [core + "ktvA"]}
+                if clean.endswith(("c", "C", "j", "J")):
+                    return {"avyaya": [clean[:-1] + "ktvA", clean + "itvA"] if is_vew else [clean[:-1] + "ktvA"]}
+                if clean.endswith("B"):
+                    return {"avyaya": [clean[:-1] + "bDvA", clean + "itvA"] if is_vew else [clean[:-1] + "bDvA"]}
+                if clean.endswith("d"):
+                    return {"avyaya": [clean[:-1] + "ttvA", clean + "itvA"] if is_vew else [clean[:-1] + "ttvA"]}
+                if clean in ("dfS", "darS"):
+                    return {"avyaya": ["dfzwvA", clean + "itvA"] if is_vew else ["dfzwvA"]}
+                if clean in ("danS", "daMS"):
+                    return {"avyaya": ["dazwvA", clean + "itvA"] if is_vew else ["dazwvA"]}
+                if clean.endswith(("z", "S")):
+                    return {"avyaya": [clean[:-1] + "zwvA", clean + "itvA"] if is_vew else [clean[:-1] + "zwvA"]}
             if needs_i_for_kta():
                 stem = clean + "i" + "tvA"
             else:
