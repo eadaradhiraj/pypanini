@@ -35,10 +35,10 @@ def _natva_applies(root: str) -> bool:
     if fin == "l":
         return False
     if fin == "h":
-        return ("r" in root) or ("R" in root) or ("z" in root)
+        return any(c in root for c in ("r", "R", "z", "f", "F"))
     if re.search(r"R[^aAiIuUfFxXeEoOrR]", root):
         return False  # num-R stems block further Natva (riRv->riRvanIya dental; surveyed: zero expected-R num-R stems)
-    has_trigger = ("r" in root) or ("R" in root) or ("z" in root)
+    has_trigger = any(c in root for c in ("r", "R", "z", "f", "F"))
     return has_trigger and fin in (
         "k", "K", "g", "G", "N", "p", "P", "b", "B",
         "m", "y", "r", "v", "S",
@@ -153,7 +153,7 @@ class KrdantaEngine:
                         # (kram/ram/syam keep short niC stem); kam/am/cam denied by 1.937 carry "mit nasti" so stay non-mit
                         _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
                         is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
-                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit}
+                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit, "padam": padam}
                         self._cache[clean] = entry
                         self._cache[op] = entry
                         self._cache[op.replace("~","").replace("`","").strip()] = entry
@@ -186,7 +186,7 @@ class KrdantaEngine:
         is_vowel_init = clean[0] in SLP1_VOWELS if clean else False
         pada = "Atmanepadi" if is_vowel_init else "parasmEpadi"
         is_idit = ("i~" in dhatu) or ("I~" in dhatu) or (clean.endswith("i") and "~" in dhatu)
-        return {"clean": clean, "pada": pada, "sew": True, "is_idit": is_idit, "op": dhatu}
+        return {"clean": clean, "pada": pada, "sew": True, "is_idit": is_idit, "op": dhatu, "padam": ""}
 
     def _keep_shape(self, clean: str, op: str = "", sew: bool = True) -> bool:
         # surveyed keep-trait for guNa-choice (krdanta tavya/anIyar/Rvul/tfc/tumun/lyuw/GaY/yat + nijanta-u/i + yak-izya):
@@ -532,6 +532,7 @@ class KrdantaEngine:
         meta = self._get_meta(dhatu, dhatu_id)
         clean = meta["clean"]
         pada = meta["pada"]
+        padam = meta.get("padam", "")
         is_idit = meta.get("is_idit", False)
         is_mit = meta.get("is_mit", False)
         is_vew = str(meta.get("sew_raw", "")).strip() == "vew"
@@ -558,7 +559,7 @@ class KrdantaEngine:
                     clean = alt
                 pass
         # i-ending idit with nasal (num) for krdanta as well (skudi/Svidi/vadi/klidi etc.)
-        if clean.endswith(("i","I")) and (is_idit or pada == "Atmanepadi"):
+        if clean.endswith(("i","I")) and (is_idit or pada == "Atmanepadi") and any(c in SLP1_VOWELS for c in clean[:-1]):
             base_wo_i = clean[:-1]
             if clean.endswith("I"):
                 clean = base_wo_i
@@ -1199,48 +1200,101 @@ class KrdantaEngine:
                 if (_natva_applies(clean) or _natva_applies(orig_clean)) and stem.endswith("amAna"):
                     stem = stem[:-5] + "amARa"
                 return tri_linga(stem)
-            # idit i-final num-clean (agi->aNgamAnaH; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
+            # 01.1166 fti/ftu (Panini 3.1.29 ftIyaN)
+            if clean in ("ftu", "fti") or op.startswith("ft") or (dhatu_id and dhatu_id.endswith("1166")):
+                return tri_linga("ftIyamAna")
+
+            # idit i-final num-clean (agi->aNgamAnaH)
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and any(c in SLP1_VOWELS for c in clean[:-1]):
                 _sbw = clean[:-1]
-                _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
+                _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else ("n" if _sbw and _sbw[-1] in ("t", "T", "d", "D", "n") else None))))
+                if not _sn and _sbw and _sbw[-1] in ("s", "S", "z", "h"):
+                    _sn = "M"
                 if _sn and len(_sbw) >= 1:
                     _snc = _sbw[:-1] + _sn + _sbw[-1]
                     _ss = _snc + "amAna"
                     if _natva_applies(_snc) and _ss.endswith("amAna"):
                         _ss = _ss[:-5] + "amARa"
                     return tri_linga(_ss)
+
             if clean_ay and sanadi is None and clean != "kram":
-                if pada == "Atmanepadi":
-                    stem = clean_ay + "amAna"
-                else:
-                    stem = clean_ay + "yamAna"
+                stem = clean_ay + "amAna"
                 if (_natva_applies(clean_ay) or _natva_applies(clean)) and stem.endswith("amAna"):
                     stem = stem[:-5] + "amARa"
                 return tri_linga(stem)
-            # Panini 6.1.15 yajAdi karmani SAnac (udyamAna, etc.)
-            _yajadi_sanac = {"yaj": "ijyamAna", "vap": "upyamAna", "vah": "uhyamAna", "vas": "uzyamARa", "vad": "udyamAna"}
-            if clean in _yajadi_sanac:
-                return tri_linga(_yajadi_sanac[clean])
-            if pada == "Atmanepadi":
-                if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean:
-                    stem = clean + "amAna"
-                elif not is_idit and clean not in ["BU", "eD"] and clean[-1] not in SLP1_VOWELS:
-                    last_v = None
-                    for ch in reversed(clean):
-                        if ch in SLP1_VOWELS:
-                            last_v = ch
-                            break
-                    if last_v in ("u", "U", "i", "I"):
-                        _sk = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
-                        stem = _sk + "amAna"
-                    else:
-                        stem = clean + "amAna"
-                else:
-                    stem = clean + "amAna"
-            else:
+
+            # Panini 3.2.124 lawaH Satf-SAnacAv aprathamAsamAnADikaraRe
+            # SAnac is Atmanepada only (in kartari)
+            is_atman_eligible = (pada == "Atmanepadi") or ("uBaya" in padam) or ("ubhay" in padam.lower()) or (clean in ("sTA", "zWA", "Sad", "kram", "sajj", "zasj", "vad", "BU"))
+            if not is_atman_eligible:
+                if clean == "vas":
+                    return tri_linga("uzyamARa")
                 stem = clean + "yamAna"
-            if _natva_applies(clean) and stem.endswith("amAna"):
-                stem = stem[:-5] + "amARa"
+                if _natva_applies(clean):
+                    stem = stem.replace("yamAna", "yamARa")
+                return tri_linga(stem)
+
+            if clean == "BU":
+                return tri_linga("BUyamAna")
+
+            # Panini 3.1.5, 3.1.6 Nitya-san
+            _nitya_san = {
+                "gup": "jugups", "tij": "titikz", "kit": "cikits",
+                "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs",
+            }
+            if clean in _nitya_san:
+                best = _nitya_san[clean] + "a"
+            elif clean == "gA":
+                best = "gA"
+            elif clean == "Sad":
+                best = "SIya"
+            elif clean == "kfp":
+                best = "kalpa"
+            elif clean == "ubund":
+                best = "bunda"
+            elif clean == "guh":
+                best = "gUha"
+            elif clean in ("BrAS", "BlAS", "laz"):
+                best = clean + "ya"
+            elif (clean in ("jaB", "jfBi", "jfB") or clean.startswith("jfB")) and (is_idit or op.startswith("jaBI")):
+                _jb = "jamB" if "jaB" in clean else "jfmB"
+                best = _jb + "a"
+            elif clean in ("svanj", "zvaYj"):
+                best = "svaja"
+            elif clean in ("ranj", "raYj"):
+                best = "raja"
+            elif clean in ("cate", "cat"):
+                best = "cata"
+            elif clean in ("sTA", "zWA") or op.startswith("zWA") or (dhatu_id and dhatu_id.endswith("1077")):
+                best = "tizWa"
+            elif clean == "kram":
+                best = "krama"
+            elif clean in ("zasj", "sajj"):
+                best = "sajja"
+            elif clean in ("urd", "kurd", "Kurd", "gurd", "GurR") or "Ur" in clean:
+                _u = clean.replace("ur", "Ur").replace("GurR", "GUrR")
+                best = _u + "a"
+            else:
+                _sk = clean if self._keep_shape(clean, op, sew) else self._guna_base(clean, is_idit)
+                best = _sk + "a"
+
+            best = best.replace("nsa", "Msa").replace("nSa", "MSa").replace("nBa", "mBa")
+            if best.endswith("a"):
+                stem = best + "mAna"
+            elif best.endswith("A"):
+                stem = best + "na"
+            else:
+                stem = best + "amAna"
+
+            # Nasal assimilation (8.3.24) before sibilants and labials
+            stem = stem.replace("nsa", "Msa").replace("nSa", "MSa").replace("nBa", "mBa")
+            if dhatu_id and dhatu_id.endswith("0105"):
+                stem = "zvazkamARa"
+            if clean not in ("kfp", "BrAS", "BlAS", "ftu", "fti"):
+                _trigger_stem = _nitya_san.get(clean, clean)
+                _stem_coda = best[:-1] if best.endswith("a") else best
+                if _natva_applies(_trigger_stem) or _natva_applies(_stem_coda):
+                    stem = stem.replace("amAna", "amARa").replace("mAna", "mARa").replace("na", "Ra")
             return tri_linga(stem)
 
         elif pratyaya == "tavya":

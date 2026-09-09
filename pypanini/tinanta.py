@@ -936,7 +936,7 @@ class TinantaDerivationEngine:
             return ["ayAti"], []
         is_idit = meta.get("is_idit", False)
         # i/I-ending idit with nasal (num) 7.1.58: klidi~ -> klind, hlAdI~ -> hlAd (strip I without n)
-        if clean.endswith(("i","I")) and (is_idit or pada == "Atmanepadi"):
+        if clean.endswith(("i","I")) and (is_idit or pada == "Atmanepadi") and any(c in SLP1_VOWELS for c in clean[:-1]):
             base_wo_i = clean[:-1]
             # For I long (hlAdI), just strip I without n
             if clean.endswith("I"):
