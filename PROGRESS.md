@@ -43,6 +43,7 @@ Sweep: 800/1156 100% (raw 800/1166)
 - Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi for Kan (01.1020) in kartari & karmaRi liT (caKnatuH, caKnuH, caKne...) and kit yananta kta/ktavatu (caMKnitaH); Panini 6.1.28 pyAyaH pI for o~pyAyI~ (01.0561) in kartari/karmaRi liT (pipye, pipyAte...) and yananta (pepIyya-); Siddhanta Kaumudi 2354 mittva for zama~ (01.0963, samayan, samayamAnaH...); Panini 6.4.15 anudAttopadeSa + 7.2.116/3.1.124 for kanI~ (01.0531) in kta (kAnta) and yat (kAnya). Sweep: 5 improved, 0 worsened, 4 new 100% passes (01.0531, 01.0561, 01.0963, 01.1020), passes 794->798. Pilots OK.
 - Onset zw->st at clean_dhatu_op source in both files (zwana->stanati; zW expressly untouched: zWivu retains zWIvati; surveyed all 13 zw-roots: verb tokens unanimously st-, zw-traces only op/prose/yan-redup/chandrika). Sweep: 13 improved, 0 worsened, 2 new 100% passes (01.0451, 01.0749), passes 798->800. Pilots OK.
 - Kta Ca-gemination before iT (mleCa->mlecCita; lowercase/i~-num/A~-roots excluded after gate caught 7 then 3 worsened within iteration: lACi-num, hurCA-Na-formation). Sweep: 4 improved (+18 each), 0 worsened. Pilots OK.
+- Tinanta prim-bases nc->Yc num variant (kunca->kuYcati, ancu->aYcati; surveyed all 12 nc-cleans in engine meta). Sweep: 12 improved (+72/+99 each), 0 worsened. Pilots OK.
 
 ## Next
 1. Consonant cluster assimilation for Gaṇa 01:

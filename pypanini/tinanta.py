@@ -448,6 +448,11 @@ class TinantaDerivationEngine:
                 _cb = None
             if _cb and _cb not in bases:
                 bases.append(_cb)
+        # nc->Yc num variant for mUla bases (kunca->kuYcati, ancu->aYcati; surveyed all 12 nc-cleans)
+        if "nc" in clean:
+            _yc = clean.replace("nc", "Yc")
+            if _yc not in bases:
+                bases.append(_yc)
         seen=set(); out=[]
         for b in bases:
             if b not in seen:
