@@ -2086,6 +2086,21 @@ class TinantaDerivationEngine:
         elif lakara == "luw":
             cands=[]
             for base in self._prim_bases(clean, is_idit):
+                # h + luw in aniT -> assimilated contact stem via _conjugate_luw + Qt/Dt-fix
+                # (dagDA/gAQ/goQA; vew also emits seT base+i alongside; sew keeps hitA)
+                if not sew and base.endswith("h"):
+                    _hg = self._bhvadi_guna_base(base, is_idit)
+                    if base == "dah":
+                        _hs = "dagD"
+                    elif base == "vah":
+                        _hs = "voQ"
+                    else:
+                        _hs = _hg[:-1] + "Q" if _hg.endswith("h") else _hg
+                    for _pf in self._conjugate_luw(_hs, pada, purusha, vacana):
+                        cands.append(_pf.replace("Qt", "Q").replace("Dt", "D"))
+                    if (meta.get("sew_raw", "sew") == "vew"):
+                        cands+=self._conjugate_luw(base + "i", pada, purusha, vacana)
+                    continue
                 luw_stem = base + ("i" if sew else "")
                 cands+=self._conjugate_luw(luw_stem, pada, purusha, vacana)
             return list(dict.fromkeys(cands)), log

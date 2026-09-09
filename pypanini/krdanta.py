@@ -203,6 +203,16 @@ class KrdantaEngine:
             return True
         return False
 
+    def _h_contact_stem(self, clean: str, eff: str) -> str:
+        # h + ta-contact in aniT (ho QaH): guNa-grade stem with h->Q (gAQ/garQ/gloQ/goQ/meQ/roQ/voQ);
+        # dah -> dagD, vah -> voQ (samprasAraNa). Surveyed: aniw (dah/vah/mih/ruh) + vew-h (gAh/gfh/gluh/guh)
+        # assimilate; all sew h-roots seT (sah/garh/tuh controls), zero conflicts.
+        if clean == "dah":
+            return "dagD"
+        if clean == "vah":
+            return "voQ"
+        return eff[:-1] + "Q" if eff.endswith("h") else eff
+
     def _guna_base(self, clean: str, is_idit: bool = False) -> str:
         if not clean:
             return clean
@@ -1033,6 +1043,9 @@ class KrdantaEngine:
             # kz-cluster + tavya -> zwa in aniT (vew akz/takz/tvakz -> azwavya; sew keeps kz+itavya via iT above)
             if not sew and eff.endswith("kz"):
                 return tri_linga(eff[:-2] + "zwavya")
+            # h + tavya in aniT -> contact stem + avya (goQavya/dagDavya; sew keeps hitavya via iT above)
+            if not sew and eff.endswith("h"):
+                return tri_linga(self._h_contact_stem(clean, eff) + "avya")
             stem = eff + ("i" if sew else "") + "tavya"
             return tri_linga(stem)
 
@@ -1180,6 +1193,10 @@ class KrdantaEngine:
             if not sew and eff.endswith("kz"):
                 _zb = eff[:-2] + "zwa"
                 return {"M": _zb[:-1] + "A", "F": _zb[:-1] + "rI", "N": _zb[:-1] + "f"}
+            # h + tfc in aniT -> contact stem + A/rI/f (goQA/dagDA; sew keeps hitA via iT above)
+            if not sew and eff.endswith("h"):
+                _ts = self._h_contact_stem(clean, eff)
+                return {"M": _ts + "A", "F": _ts + "rI", "N": _ts + "f"}
             b = eff + ("i" if sew else "")
             return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
 
@@ -1248,6 +1265,9 @@ class KrdantaEngine:
             # kz-cluster + tumun -> zwum in aniT (azwum; sew keeps kz+itum via iT above)
             if not sew and eff.endswith("kz"):
                 return {"avyaya": [eff[:-2] + "zwum"]}
+            # h + tumun in aniT -> contact stem + um (goQum/dagDum; sew keeps hitum via iT above)
+            if not sew and eff.endswith("h"):
+                return {"avyaya": [self._h_contact_stem(clean, eff) + "um"]}
             stem = eff + ("i" if sew else "") + "tum"
             return {"avyaya": [stem]}
 
