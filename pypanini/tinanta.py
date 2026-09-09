@@ -1897,6 +1897,16 @@ class TinantaDerivationEngine:
                         _early = list(dict.fromkeys(_set))
                 except Exception:
                     pass
+                # zw/zW niC redup-aorist keeps zw-onset (zwana->atizwanata; meta maps zw->st for the rest;
+                # surveyed: ti-redup + op-faithful stem across zw/zW nich luN; ta/wi-variants deferred)
+                try:
+                    _zwop = (meta.get("op", "") or "").replace("~", "")
+                    if _zwop.startswith("zw") or _zwop.startswith("zW"):
+                        _zwstem = _zwop[:-1] if _zwop[-1] in SLP1_VOWELS and len(_zwop) > 1 else _zwop
+                        _zwe = {("prathama", "eka"): "ata", ("prathama", "dvi"): "etAm", ("prathama", "bahu"): "anta", ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "eTAm", ("madhyama", "bahu"): "aDvam", ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi"}
+                        _early.append("a" + "ti" + _zwstem + _zwe[(purusha, vacana)])
+                except Exception:
+                    pass
                 # generic fallback (vowel-initial + seT + old redup for safety)
                 # algorithmic aorist above already covers dad/skund/daD/BU; keep fallback for safety
                 # NOTE: _early (from _aor branch) merges with fallback below — early-returning here

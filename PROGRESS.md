@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-09T00:00:00Z
-Sweep: 800/1156 100% (raw 800/1166)
+Sweep: 804/1156 100% (raw 804/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -44,6 +44,7 @@ Sweep: 800/1156 100% (raw 800/1166)
 - Onset zw->st at clean_dhatu_op source in both files (zwana->stanati; zW expressly untouched: zWivu retains zWIvati; surveyed all 13 zw-roots: verb tokens unanimously st-, zw-traces only op/prose/yan-redup/chandrika). Sweep: 13 improved, 0 worsened, 2 new 100% passes (01.0451, 01.0749), passes 798->800. Pilots OK.
 - Kta Ca-gemination before iT (mleCa->mlecCita; lowercase/i~-num/A~-roots excluded after gate caught 7 then 3 worsened within iteration: lACi-num, hurCA-Na-formation). Sweep: 4 improved (+18 each), 0 worsened. Pilots OK.
 - Tinanta prim-bases nc->Yc num variant (kunca->kuYcati, ancu->aYcati; surveyed all 12 nc-cleans in engine meta). Sweep: 12 improved (+72/+99 each), 0 worsened. Pilots OK.
+- Tinanta nijanta-luN ti-redup keeps zw-onset (zwana->atizwanata; meta maps zw->st for everything else; surveyed zw/zW nich luN; ta/wi-variants deferred). Sweep: 8 improved, 4 new 100% passes (01.0532, 01.0891, 01.0899, 01.0964), 0 worsened. Pilots OK.
 
 ## Next
 1. Consonant cluster assimilation for Gaṇa 01:
