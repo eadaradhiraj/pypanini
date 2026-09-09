@@ -274,6 +274,10 @@ class KrdantaEngine:
         # r-containing stems (urvI~/turvI~-cluster -> tUrvita, surveyed shape gate)
         needs_i = sew and not is_vowel_final and not is_udit and not is_adit and (("I~" not in op) or ("r" in clean) or ("R" in clean))
         if needs_i:
+            # C-final geminates before iT (mleCa->mlecCita; surveyed: 4 a~-roots;
+            # lowercase stays plain; num-derived C (i~) excluded; A~-roots (hurCA->hUrRa, different formation) excluded)
+            if clean.endswith("C") and "i~" not in op and not op.endswith("A~"):
+                return clean[:-1] + "cCita"
             # i-guna for m+i+dental-d (mid->medita, lone f~ i-medial with guna, shape-based not per-dhatu)
             if len(clean) == 3 and clean[0] == "m" and clean[1] == "i" and clean[-1] == "d":
                 return self._guna_base(clean, False) + "i" + "ta"
