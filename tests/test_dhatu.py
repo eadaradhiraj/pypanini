@@ -206,13 +206,12 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
                         matched += 1
                     else:
                         miss.append((f"{p} {v}", forms[0] if forms else "∅"))
+            # for yangluk only lw matters, suppress noisy others
+            if anta_key in ("yangluk", "yangluk_yak") and code != "lw":
+                total -= loc_tot
+                matched -= loc_mat
+                continue
             if verbose:
-                # for yangluk only lw matters, suppress noisy others
-                if anta_key in ("yangluk", "yangluk_yak") and code != "lw":
-                    # don't print non-lw for yanluk (only present is meaningful)
-                    total -= loc_tot
-                    matched -= loc_mat
-                    continue
                 status = "✓" if loc_mat == loc_tot else "⚠"
                 print(f"    {status} {code:8s} {loc_mat:2d}/{loc_tot:2d}" + ("" if loc_mat == loc_tot else f"  e.g. {miss[0]}"))
 

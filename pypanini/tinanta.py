@@ -424,8 +424,24 @@ class TinantaDerivationEngine:
                     cands.append(aug + ending)
         return list(dict.fromkeys(cands))
 
-    def _prim_bases(self, clean: str, is_idit: bool=False):
+    def _prim_bases(self, clean: str, is_idit: bool=False, op: str="", dhatu_id: str=""):
         bases = [self._bhvadi_guna_base(clean, is_idit), clean]
+        # Panini 3.1.28-3.1.31 Aya / RiN (gup, DUp, pan, kam)
+        if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DU") or dhatu_id == "01.0462"):
+            _ay = "gopAy" if clean == "gup" else "DUpAy"
+            if _ay not in bases:
+                bases.append(_ay)
+        if clean == "pan" or op.startswith("pan") or dhatu_id == "01.0508":
+            if "panAy" not in bases:
+                bases.append("panAy")
+        if clean == "kam" or op.startswith("kam") or dhatu_id == "01.0511":
+            if "kAmay" not in bases:
+                bases.append("kAmay")
+        # Panini 7.3.76 kramaH parasmaipadezu: dIrGa + optional Syan (3.1.70)
+        if clean == "kram" or op.startswith("kram") or dhatu_id == "01.0545":
+            for _kb in ("krAm", "krAmy", "kramy"):
+                if _kb not in bases:
+                    bases.append(_kb)
         if clean and clean[0] in SLP1_VOWELS:
             flip = {"u":"U","U":"u","i":"I","I":"i","a":"A","A":"a","f":"F","F":"f"}
             if clean[0] in flip:
@@ -793,6 +809,14 @@ class TinantaDerivationEngine:
         pada = meta["pada"]
         sew = meta["sew"]
         is_vew = str(meta.get("sew_raw", "")).strip() == "vew"
+        op = meta.get("op", "")
+        clean_ay = None
+        if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DU") or dhatu_id == "01.0462"):
+            clean_ay = "gopAy" if clean == "gup" else "DUpAy"
+        elif clean == "pan" or op.startswith("pan") or dhatu_id == "01.0508":
+            clean_ay = "panAy"
+        elif clean == "kam" or op.startswith("kam") or dhatu_id == "01.0511":
+            clean_ay = "kAmay"
         is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
         if dhatu_id == "01.0030" and clean in ("yat", "yatI") and lakara == "luN" and purusha == "prathama" and vacana == "eka" and prayoga == "karmani" and sanadi is None:
             return ["ayAti"], []
@@ -1176,6 +1200,10 @@ class TinantaDerivationEngine:
                 n_stem = _nijanta_stem(clean)
                 # collect all nijanta variants
                 n_stems_all = [n_stem]
+                if clean_ay:
+                    for _nay in (clean_ay, clean_ay + "ay"):
+                        if _nay not in n_stems_all:
+                            n_stems_all.append(_nay)
                 vriddhi_alt = self._vriddhi_base(clean, is_idit) + "ay"
                 if vriddhi_alt not in n_stems_all:
                     n_stems_all.append(vriddhi_alt)
@@ -1209,6 +1237,14 @@ class TinantaDerivationEngine:
                 s_stem = _sannanta_stem(clean)
                 # also include urdidiz variant for vowel-initial urd
                 alt_s = []
+                if clean_ay:
+                    _gay = _sannanta_stem(clean_ay)
+                    if _gay not in alt_s:
+                        alt_s.append(_gay)
+                if clean == "kram" or op.startswith("kram") or dhatu_id == "01.0545":
+                    for _kb in ("cikraMs", "cikraMsi"):
+                        if _kb not in alt_s:
+                            alt_s.append(_kb)
                 if is_vowel_initial and len(clean) >=2 and clean[1] not in SLP1_VOWELS:
                     alt1 = clean[:2] + "di" + clean[2:] + "iz"
                     if alt1 != s_stem:
@@ -1747,6 +1783,14 @@ class TinantaDerivationEngine:
         if sanadi == "sannanta":
             s_stem = _sannanta_stem(clean)
             alt_sann = []
+            if clean_ay:
+                _gay = _sannanta_stem(clean_ay)
+                if _gay not in alt_sann:
+                    alt_sann.append(_gay)
+            if clean == "kram" or op.startswith("kram") or dhatu_id == "01.0545":
+                for _kb in ("cikraMs", "cikraMsi"):
+                    if _kb not in alt_sann:
+                        alt_sann.append(_kb)
             if "ur" in clean:
                 alt_c = clean.replace("ur", "Ur", 1)
                 try:
@@ -1901,8 +1945,11 @@ class TinantaDerivationEngine:
             return list(set(cands)), log
         if sanadi == "nijanta":
             n_stem = _nijanta_stem(clean)
-            # for a-roots like svad/dad, also generate vriddhi variant for nich (svAday/dAday) to cover both
             n_stems = [n_stem]
+            if clean_ay:
+                for _nay in (clean_ay, clean_ay + "ay"):
+                    if _nay not in n_stems:
+                        n_stems.append(_nay)
             # also try vriddhi variant for a-roots
             vriddhi_alt = self._vriddhi_base(clean, is_idit) + "ay"
             if vriddhi_alt not in n_stems:
@@ -2141,7 +2188,7 @@ class TinantaDerivationEngine:
         # primitive - generative per lakara (over-generate for vowel-initial)
         if lakara == "lw":
             cands=[]
-            for base in self._prim_bases(clean, is_idit):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "lw", purusha, vacana)
                     # Atmanepadi mUla also emits parasmaipada finite variants (additive any-match over-generation;
@@ -2157,7 +2204,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "laN":
             cands=[]
-            for base in self._prim_bases(clean, is_idit):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 aug = self._add_augment(base, base[0] in SLP1_VOWELS if base else False)
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(aug, "laN", purusha, vacana)
@@ -2173,7 +2220,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "low":
             cands=[]
-            for base in self._prim_bases(clean, is_idit):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "low", purusha, vacana)
                     # Atmanepadi mUla also emits parasmaipada finite variants (additive; see lw note)
@@ -2188,7 +2235,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "viDiliN":
             cands=[]
-            for base in self._prim_bases(clean, is_idit):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "viDiliN", purusha, vacana)
                     # Atmanepadi mUla also emits parasmaipada finite variants (additive; see lw note)
@@ -2203,7 +2250,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "luw":
             cands=[]
-            for base in self._prim_bases(clean, is_idit):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 if sew or is_vew:
                     cands+=self._conjugate_luw(base + "i", pada, purusha, vacana)
                 if not sew or is_vew:
@@ -2212,7 +2259,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "lfw":
             cands=[]
-            for base in self._prim_bases(clean, is_idit):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 if sew or is_vew:
                     base_i = base + "i"
                     sat = apply_satva(base_i[-1], "s")
@@ -2231,7 +2278,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "lfN":
             cands=[]
-            for base in self._prim_bases(clean, is_idit):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 if sew or is_vew:
                     base_i = base + "i"
                     sat = apply_satva(base_i[-1], "s")
@@ -2726,7 +2773,16 @@ class TinantaDerivationEngine:
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
                 cands=[]
-                for base_cmp in self._prim_bases(clean, is_idit):
+                if clean == "kam" or op.startswith("kam") or dhatu_id == "01.0511":
+                    _ca_ends = {
+                        ("prathama", "eka"): "ata", ("prathama", "dvi"): "etAm", ("prathama", "bahu"): "anta",
+                        ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "eTAm", ("madhyama", "bahu"): "aDvam",
+                        ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi",
+                    }
+                    _e = _ca_ends.get((purusha, vacana))
+                    if _e:
+                        cands += ["acakam" + _e, "acIkam" + _e]
+                for base_cmp in self._prim_bases(clean, is_idit, op, dhatu_id):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):

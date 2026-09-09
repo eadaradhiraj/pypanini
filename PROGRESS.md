@@ -1,7 +1,7 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-09T10:15:00Z
-Sweep: 883/1156 100% (raw 883/1166)
+Date: 2026-09-09T11:10:00Z
+Sweep: 888/1156 100% (raw 888/1166)
 
 ## Done
 - Pure generative B/d D-devoicing in SAnac: B-final short-a/e -> C0+ip (`ripsamAnaH`; zmiN/guN R-keepers excluded by vowel gate); d-final -> devoice coda keep rest (`jihatsamAnaH`). yaBa/zada neutral (unscored); skandi/Sada bonus hits.
@@ -58,11 +58,12 @@ Sweep: 883/1156 100% (raw 883/1166)
 - Panini 3.1.87 dhinvi-kfRvyor a ca: class 5 snu parasmaipada finite forms in sarvadhatuka kartari (lw/low/laN/viDiliN: Dinoti/kfRoti etc.). Sweep: 2 improved, 0 worsened, 1 new 100% pass (01.0677 Divi~), passes 873->874. Pilots OK.
 - Panini 7.3.86 pugantalaghUpadhasya ca & 1.4.11 saMyoge guru: strictly gated upadhA guNa in `tinanta._bhvadi_guna_base` and `krdanta._guna_base` to laghu upadhA (coda_len == 1), blocking illegal guNa across consonant clusters (Dukz->DukzizIzwa not Dokz-, SunD->SunDati not SonD-, Sucy->Sucyati not Socy-). Sweep: 19 improved, 0 worsened, 9 new 100% passes (01.0077 SunDa~, 01.0590 Sucya~, 01.0591 cucya~, 01.0686 Dukza~, 01.0687 Dikza~, 01.0689 Sikza~, 01.0690 Bikza~, 01.0747 Rikza~, 01.0766 zUcya~), passes 874->883. Pilots OK.
 
+- Panini 3.1.28-3.1.31 AyAdayaH (Aya, RiN) & sanAdyantAH: Aya on gupU~ (01.0461 -> gopAyati/jugopAyizati), DopU~/DUpa~ (01.0462 -> DUpAyati/duDUpAyizati), pana~ (01.0508 -> panAyate/pipanAyizate), RiN on kamu~ (01.0511 -> kAmayate/cikAmayizate) with 6.4.51 Ri-merging avoiding illegal doubling, 3.1.48 caN aorist (acakamata/acIkamata), and 3.1.22 blocking yaN on anekAc roots; Panini 7.3.76 kramaH parasmaipadezu dIrGa (krAmati/krAmyati) + 3.1.70 optional Syan + 1.2.10 sannanta anusvAra (cikraMs-) for kramu~ (01.0545); test_dhatu non-lw yangluk slot counting fix. Sweep: 5 improved, 0 worsened, 5 new 100% passes (01.0461, 01.0462, 01.0508, 01.0511, 01.0545), passes 883->888. Pilots OK.
 ## Next
-1. Panini 3.1.28 guptijkidbhyaH san / 3.1.31 AyAdaya ArdhaDAtuke vA: Aya-pratyaya for gupU~ (01.0461 -> gopAyati), DopU~ (01.0462 -> DopAyati), paRa~ (01.0508 -> panAyate per 3.1.29 panerAyaH).
-2. Panini 3.1.30 kameH RiN: kamu~ (01.0511 -> kAmayate).
-3. Consonant cluster assimilation for Gaṇa 01:
+1. Consonant cluster assimilation for Gaṇa 01:
    - c/j before s/t in tinanta (e.g. tyaj -> tyaktA, pac -> paktA).
    - zW root onset sthAnI (zW -> sT; zw -> st DONE, zWivu/zWA retain).
    - nc-lopa in kta (kunca->kucita) + sj-gemination (zasja->sajjita) + hurCA-Na kta (hUrRa).
-4. Re-sweep, rebuild STATS, overwrite this, commit & push.
+2. Root samprasāraṇa cluster in liṭ (Panini 6.1.15 vacisvapiyajādīnāṁ kiti):
+   - vada~ (01.1164 -> Ude / vAda), vapa~ (01.1158), vaha~ (01.1159), vasa~ (01.1160).
+3. Re-sweep, rebuild STATS, overwrite this, commit & push.
