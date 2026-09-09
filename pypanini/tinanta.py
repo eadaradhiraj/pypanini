@@ -34,8 +34,10 @@ def clean_dhatu_op(op: str) -> str:
     raw = op.replace("~", "").replace("`", "").strip()
     if "~z" in op and raw.endswith("z") and len(raw) > 1:
         raw = raw[:-1]
-    if raw.endswith("Y") and len(raw) > 1:
+    if (raw.endswith("Y") or raw.endswith("N")) and len(raw) > 1:
         raw = raw[:-1]
+    if raw == "dAR":
+        raw = "dA"
     if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS and any(c in SLP1_VOWELS for c in raw[:-1]):
         raw = raw[:-1]
     no_num_r = ("~r" in op)
@@ -941,8 +943,15 @@ class TinantaDerivationEngine:
                 clean = base_wo_i
             elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "R", "p", "P", "b", "B"):
                 # ... except velar/palatal/retroflex/labial-coda idit (agi~->agi not angi: formations assimilate per-formation instead)
-                # s-final idit takes M-num (Sasi->SaMs; surveyed: sole s-final idit in dataset)
-                _nn2 = "M" if base_wo_i[-1:] == "s" else ("R" if (base_wo_i[-1:] == "v" and ("r" in clean or "f" in clean)) else "n")
+                # Panini 8.3.24 naS cApadAntasya jhali: before sibilants and h, num is M; before kz, num is N
+                if base_wo_i.endswith("kz"):
+                    _nn2 = "N"
+                elif base_wo_i[-1:] in ("s", "S", "z", "h"):
+                    _nn2 = "M"
+                elif base_wo_i[-1:] == "v" and ("r" in clean or "f" in clean):
+                    _nn2 = "R"
+                else:
+                    _nn2 = "n"
                 with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
                 clean = with_n
                 # flag must describe current clean: a-initial num-cleans (ant/and/ind) still take vocalic augment (AntIt)
@@ -1045,6 +1054,17 @@ class TinantaDerivationEngine:
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             redup_vowel = "u" if last_v in ("u","U","o","O") else "i"
 
+            # Panini 7.4.54 sani mImAGUrABalaBaSaka-patapadAM ca + 6.1.45 Adeca upadeSe'Siti
+            if c in ("meN", "me") or "meN" in op:
+                return "mits"
+            if c in ("deN", "de") or "deN" in op:
+                return "dits"
+            if c.endswith(("EN", "AN")) or c == "gA" or op.startswith("gAN"):
+                _body = c[:-2] if c.endswith(("EN", "AN")) else (c[:-1] if c.endswith("A") else c)
+                return redup_cons + redup_vowel + _body + "As"
+            if c.endswith("E"):
+                return redup_cons + redup_vowel + c[:-1] + "As"
+
             if not is_vowel_final:
                 is_anit_root = str(meta.get("sew_raw", "")).startswith("ani")
                 if is_anit_root:
@@ -1059,14 +1079,6 @@ class TinantaDerivationEngine:
                     if c in ("sad", "zad") or "zad" in op:
                         # 8.3.62 / 8.3.111 satva in abhyAsa
                         return "sizats"
-                    if c in ("meN", "me") or "meN" in op:
-                        return "mits"
-                    if c in ("deN", "de") or "deN" in op:
-                        return "dits"
-                    if c.endswith(("EN", "AN")):
-                        return redup_cons + redup_vowel + c[:-2] + "As"
-                    if c.endswith("E"):
-                        return redup_cons + redup_vowel + c[:-1] + "As"
                     coda = c[-1]
                     stem_body = c[:-1]
                     if coda in ("c", "j", "S", "z", "h"):
