@@ -1694,6 +1694,9 @@ class TinantaDerivationEngine:
                     st = aug if lakara=="laN" else s
                     if is_atman:
                         cands_all += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
+                        # Atmanepadi sannanta also emits parasmaipada finite variants (nijanta-style both-padas
+                        # over-generation; surveyed: only 4/1156 Atmanepadi fids lack alat tables; additive, never removes)
+                        cands_all += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
                     else:
                         c = self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
                         if lakara=="low" and purusha=="uttama" and vacana=="eka":
@@ -2012,6 +2015,9 @@ class TinantaDerivationEngine:
             for base in self._prim_bases(clean, is_idit):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "lw", purusha, vacana)
+                    # Atmanepadi mUla also emits parasmaipada finite variants (additive any-match over-generation;
+                    # surveyed: 4/1156 Atmanepadi fids carry parasmaipada-only ting tables; never removes hits)
+                    cands+=self._conjugate_at_stem_parasmai(base, "lw", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(base, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
@@ -2022,6 +2028,8 @@ class TinantaDerivationEngine:
                 aug = self._add_augment(base, base[0] in SLP1_VOWELS if base else False)
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(aug, "laN", purusha, vacana)
+                    # Atmanepadi mUla also emits parasmaipada finite variants (additive; see lw note)
+                    cands+=self._conjugate_at_stem_parasmai(aug, "laN", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(aug, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
@@ -2031,6 +2039,8 @@ class TinantaDerivationEngine:
             for base in self._prim_bases(clean, is_idit):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "low", purusha, vacana)
+                    # Atmanepadi mUla also emits parasmaipada finite variants (additive; see lw note)
+                    cands+=self._conjugate_at_stem_parasmai(base, "low", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(base, "low", purusha, vacana)
             return list(dict.fromkeys(cands)), log
@@ -2040,6 +2050,8 @@ class TinantaDerivationEngine:
             for base in self._prim_bases(clean, is_idit):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "viDiliN", purusha, vacana)
+                    # Atmanepadi mUla also emits parasmaipada finite variants (additive; see lw note)
+                    cands+=self._conjugate_at_stem_parasmai(base, "viDiliN", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(base, "viDiliN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
