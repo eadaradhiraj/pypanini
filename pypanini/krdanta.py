@@ -230,6 +230,10 @@ class KrdantaEngine:
                 last_vowel = clean[i]
                 break
         if last_vowel_idx != -1 and last_vowel is not None:
+            # Panini 7.3.86 pugantalaghUpadhasya ca: upadhA guNa only applies if upadhA is laghu (single consonant follows)
+            # Panini 1.4.11 saMyoge guru: vowel before a consonant cluster is guru, so no guNa
+            if len(clean) - 1 - last_vowel_idx > 1:
+                return clean
             gv = apply_guna(last_vowel)
             return clean[:last_vowel_idx] + gv + clean[last_vowel_idx+1:]
         return clean
@@ -279,6 +283,12 @@ class KrdantaEngine:
                     clean = _bw[:-1] + "m" + _bw[-1] if len(_bw) >= 1 else _bw
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
 
+        # Panini 8.2.42 radAbhyAM nizWato naH pUrvasya ca daH + 8.2.44 svANge syado jave
+        if clean == "syand":
+            return "syanna"
+        if clean == "skand":
+            return "skanna"
+
         # 6.4.24 aniditAM hala upaDAyAH kniti: drop penultimate nasal before consonant (not geminate mm)
         if not is_idit and len(clean) >= 3 and clean[-2] in ("n", "N", "Y", "R") and clean[-1] not in SLP1_VOWELS:
             clean = clean[:-2] + clean[-1]
@@ -289,15 +299,20 @@ class KrdantaEngine:
             _sc = clean[:-2] + "s" if clean.endswith("ns") else clean
             return _sc + "ta"
 
-        # mu~ in op (camu~, Camu~, jamu~, Jamu~, jimu~, kramu~, syamu~, Bramu~, kamu~, ramu~):
+        # mu~ or mU~ in op (camu~, Camu~, jamu~, Jamu~, jimu~, kramu~, syamu~, Bramu~, kamu~, ramu~, kzamU~z):
         # Panini 6.4.15 anudAttopadeSa... + 7.2.27 kramicamidamyo dIrGaH:
-        if "mu~" in op and clean.endswith("m"):
+        if ("mu~" in op or "mU~" in op) and clean.endswith("m"):
             if clean == "ram":
                 return "rata"
             if clean.endswith("am"):
                 return clean[:-2] + "Anta"
             if clean.endswith("im"):
                 return clean[:-2] + "Inta"
+            return clean[:-1] + "ta"
+
+        # Panini 6.4.37 anudAttopadeSavanatanotanAdInAmanunAsikalopo jhali kniti:
+        # nasal drops before kit jhalAdi ta for aniT m-finals (gam->gata, nam->nata, yam->yata, ram->rata)
+        if not sew and clean.endswith("m"):
             return clean[:-1] + "ta"
 
         # Panini 6.4.42 janasanakanAM saYjhaloH: an -> A before jhal (ta) (Kan->KAta, jan->jAta, san->sAta)
@@ -407,6 +422,8 @@ class KrdantaEngine:
         pada = meta["pada"]
         is_idit = meta.get("is_idit", False)
         is_mit = meta.get("is_mit", False)
+        is_vew = str(meta.get("sew_raw", "")).strip() == "vew"
+        op = meta.get("op", "")
         # vowel-initial urd -> Urd for krdanta (dataset uses long U)
         if clean == "urd":
             clean = "Urd"
@@ -1043,9 +1060,27 @@ class KrdantaEngine:
             # kz-cluster + tavya -> zwa in aniT (vew akz/takz/tvakz -> azwavya; sew keeps kz+itavya via iT above)
             if not sew and eff.endswith("kz"):
                 return tri_linga(eff[:-2] + "zwavya")
-            # h + tavya in aniT -> contact stem + avya (goQavya/dagDavya; sew keeps hitavya via iT above)
+            # D-coda in aniT (8.2.40 jhazastaTorDo'DaH + 8.4.53)
+            if not sew and eff.endswith("D"):
+                return tri_linga(eff[:-1] + "dDavya")
+            # h-final in aniT (8.2.31 ho QaH + 8.2.32 dAderGah)
             if not sew and eff.endswith("h"):
-                return tri_linga(self._h_contact_stem(clean, eff) + "avya")
+                if eff == "dah":
+                    return tri_linga("dagDavya")
+                if eff == "vah":
+                    return tri_linga("voQavya")
+                _core = eff[:-1]
+                if _core.endswith("u"):
+                    _core = _core[:-1] + "U"
+                elif _core.endswith("i"):
+                    _core = _core[:-1] + "I"
+                return tri_linga(_core + "Qavya")
+            # m-final in aniT (8.4.58 anusvArasya yayi parasavarRaH: m + t -> nt)
+            if not sew and eff.endswith("m"):
+                return tri_linga(eff[:-1] + "ntavya")
+            # nd-final in aniT (8.4.54 Jalo Jali: d drops before t -> nt)
+            if not sew and eff.endswith("nd"):
+                return tri_linga(eff[:-1] + "tavya")
             stem = eff + ("i" if sew else "") + "tavya"
             return tri_linga(stem)
 
@@ -1193,10 +1228,31 @@ class KrdantaEngine:
             if not sew and eff.endswith("kz"):
                 _zb = eff[:-2] + "zwa"
                 return {"M": _zb[:-1] + "A", "F": _zb[:-1] + "rI", "N": _zb[:-1] + "f"}
-            # h + tfc in aniT -> contact stem + A/rI/f (goQA/dagDA; sew keeps hitA via iT above)
+            # D-coda in aniT
+            if not sew and eff.endswith("D"):
+                _db = eff[:-1] + "dD"
+                return {"M": _db + "A", "F": _db + "rI", "N": _db + "f"}
+            # h-final in aniT
             if not sew and eff.endswith("h"):
-                _ts = self._h_contact_stem(clean, eff)
-                return {"M": _ts + "A", "F": _ts + "rI", "N": _ts + "f"}
+                if eff == "dah":
+                    return {"M": "dagDA", "F": "dagDrI", "N": "dagDf"}
+                if eff == "vah":
+                    return {"M": "voQA", "F": "voQrI", "N": "voQf"}
+                _core = eff[:-1]
+                if _core.endswith("u"):
+                    _core = _core[:-1] + "U"
+                elif _core.endswith("i"):
+                    _core = _core[:-1] + "I"
+                _qb = _core + "Q"
+                return {"M": _qb + "A", "F": _qb + "rI", "N": _qb + "f"}
+            # m-final in aniT (8.4.58: m + t -> nt)
+            if not sew and eff.endswith("m"):
+                _mb = eff[:-1] + "nt"
+                return {"M": _mb + "A", "F": _mb + "rI", "N": _mb + "f"}
+            # nd-final in aniT (8.4.54: d drops before t -> nt)
+            if not sew and eff.endswith("nd"):
+                _ndb = eff[:-1] + "t"
+                return {"M": _ndb + "A", "F": _ndb + "rI", "N": _ndb + "f"}
             b = eff + ("i" if sew else "")
             return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
 
@@ -1265,9 +1321,27 @@ class KrdantaEngine:
             # kz-cluster + tumun -> zwum in aniT (azwum; sew keeps kz+itum via iT above)
             if not sew and eff.endswith("kz"):
                 return {"avyaya": [eff[:-2] + "zwum"]}
-            # h + tumun in aniT -> contact stem + um (goQum/dagDum; sew keeps hitum via iT above)
+            # D-coda in aniT
+            if not sew and eff.endswith("D"):
+                return {"avyaya": [eff[:-1] + "dDum"]}
+            # h-final in aniT
             if not sew and eff.endswith("h"):
-                return {"avyaya": [self._h_contact_stem(clean, eff) + "um"]}
+                if eff == "dah":
+                    return {"avyaya": ["dagDum"]}
+                if eff == "vah":
+                    return {"avyaya": ["voQum"]}
+                _core = eff[:-1]
+                if _core.endswith("u"):
+                    _core = _core[:-1] + "U"
+                elif _core.endswith("i"):
+                    _core = _core[:-1] + "I"
+                return {"avyaya": [_core + "Qum"]}
+            # m-final in aniT (8.4.58: m + t -> nt)
+            if not sew and eff.endswith("m"):
+                return {"avyaya": [eff[:-1] + "ntum"]}
+            # nd-final in aniT (8.4.54: d drops before t -> nt)
+            if not sew and eff.endswith("nd"):
+                return {"avyaya": [eff[:-1] + "tum"]}
             stem = eff + ("i" if sew else "") + "tum"
             return {"avyaya": [stem]}
 
@@ -1278,6 +1352,28 @@ class KrdantaEngine:
                 _kn = "N" if _kbw and _kbw[-1] in ("k", "K", "g", "G") else ("Y" if _kbw and _kbw[-1] in ("c", "C", "j", "J") else ("R" if _kbw and _kbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _kbw and _kbw[-1] in ("p", "P", "b", "B") else None)))
                 if _kn and len(_kbw) >= 1:
                     return {"avyaya": [_kbw[:-1] + _kn + _kbw[-1] + "itvA"]}
+            if clean.endswith("kz"):
+                return {"avyaya": [clean[:-2] + "zwvA", clean + "itvA"]}
+            if clean.endswith("D"):
+                return {"avyaya": [clean[:-1] + "dDvA", clean + "itvA"]}
+            if clean.endswith("h"):
+                if clean == "dah":
+                    return {"avyaya": ["dagDvA"]}
+                if clean == "vah":
+                    return {"avyaya": ["UQvA"]}
+                _core = clean[:-1]
+                if _core.endswith("u"):
+                    _core = _core[:-1] + "U"
+                elif _core.endswith("i"):
+                    _core = _core[:-1] + "I"
+                return {"avyaya": [_core + "QvA", clean + "itvA"]}
+            if clean.endswith("nd"):
+                return {"avyaya": [clean[:-1] + "tvA", clean + "itvA"]}
+            if clean.endswith("m"):
+                if "mu~" in op or "mU~" in op:
+                    return {"avyaya": [clean[:-2] + "AntvA", clean + "itvA"]}
+                if not sew:
+                    return {"avyaya": [clean[:-1] + "tvA", clean + "itvA"] if is_vew else [clean[:-1] + "tvA"]}
             if needs_i_for_kta():
                 stem = clean + "i" + "tvA"
             else:
