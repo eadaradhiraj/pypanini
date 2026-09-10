@@ -254,6 +254,9 @@ class TinantaDerivationEngine:
                 return vv + base[1:]
             return "a" + base
         else:
+            if base.startswith("C"):
+                # Panini 6.1.73 che ca: hrasvasya tuk syAt che pare (stoH ScunA ScuH: t -> c)
+                return "ac" + base
             return "a" + base
 
     def _reduplicated_stem(self, clean: str) -> str:
@@ -308,7 +311,9 @@ class TinantaDerivationEngine:
         redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
         # velar -> palatal (ku->cu)
         redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
-        res = redup_cons + abhyasa_vowel + clean
+        # Panini 6.1.73 che ca: hrasvasya tuk syAt che pare (stoH ScunA ScuH: t -> c)
+        tuk = "c" if clean.startswith("C") else ""
+        res = redup_cons + abhyasa_vowel + tuk + clean
         # satva for s after u/i in reduplication: susUd -> suzUd (8.3.59)
         # for st-cluster from zw-upadeSa: tustuc -> tuzwuc (8.3.59 + 8.4.41 zwunA zwuH)
         if clean.startswith("s") and abhyasa_vowel in ("u", "i"):
@@ -437,7 +442,8 @@ class TinantaDerivationEngine:
         for r in rcs:
             for rv in ("a", "A", "i", "I", "u", "U"):
                 for base in bases:
-                    stem = r + rv + base
+                    tuk = "c" if rv in ("a", "i", "u") and base.startswith("C") else ""
+                    stem = r + rv + tuk + base
                     aug = self._add_augment(stem, stem[0] in SLP1_VOWELS if stem else False)
                     cands.append(aug + ending)
         return list(dict.fromkeys(cands))

@@ -974,7 +974,9 @@ class KrdantaEngine:
                 if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum"]}
                 if pratyaya == "ktvA": return {"avyaya": [sec+"itvA"]}
-                if pratyaya == "lyap": return {"avyaya": ["pra"+sec_base+"ya", sec_base+"ya"]}
+                if pratyaya == "lyap":
+                    _pra = "prac" if sec_base.startswith("C") else "pra"
+                    return {"avyaya": [_pra+sec_base+"ya", "pra"+sec_base+"ya", sec_base+"ya", _pra+sec+"ya", "pra"+sec+"ya", sec+"ya"]}
                 if pratyaya == "SAnac":
                     base = sec_base+"yamAna"
                     if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and base.endswith("amAna"):
@@ -1723,10 +1725,10 @@ class KrdantaEngine:
             # also generate alternative with clean for safety
             base_ya_clean = clean + "ya"
             pref_sam = upasarga + base_ya
-            pref_pra = "pra" + base_ya
+            pref_pra = ("prac" if clean.startswith("C") else "pra") + base_ya
             bare = base_ya
             variants = []
-            for v in [pref_sam, pref_sam.replace("M", "m"), pref_pra, bare, "pra"+base_ya_clean, base_ya_clean]:
+            for v in [pref_sam, pref_sam.replace("M", "m"), pref_pra, bare, ("prac" if clean.startswith("C") else "pra") + base_ya_clean, "pra" + base_ya, "pra" + base_ya_clean, base_ya_clean]:
                 if v not in variants:
                     variants.append(v)
             # Panini 6.4.24 aniditAM hala upaDAyAH kniti: kit lyap drops penultimate nasal

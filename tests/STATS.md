@@ -1,11 +1,12 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T03:50:00Z
+Date: 2026-09-10T04:20:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **942/1156 100%** (raw 942/1166). Fails: 214 scored (224 with 10 skipped). Net +1048 matched tokens across 35 improved roots (0 worsened). New 100% passes: `01.0136 uKa~` (451 -> 636), `01.0148 iKa~` (451 -> 636), `01.0357 iwa~` (514 -> 636), `01.0392 uWa~` (451 -> 636), `01.0792 uza~` (514 -> 636), `01.0840 uhi~r` (451 -> 636).
+Passes: **943/1156 100%** (raw 943/1166). Fails: 213 scored (223 with 10 skipped). Net +315 matched tokens across 3 improved roots (0 worsened). New 100% pass: `01.0541 Camu~` (777 -> 895).
 
 ## Rules (general, pure generative)
+- Panini 6.1.73 *chē ca* & 8.4.40 *stoḥ ścunā ścuḥ*: Short vowel augment (`aṭ`) and short reduplication vowel (`abhyāsa` by 7.4.59 *hrasvaḥ*) before `ch` (`C`) take obligatory `tuk` augment (`t` -> `c`), generating `acC-` across all augmented lakāras (laṅ, luṅ, lṛṅ in ting, yak, and nich) and `cacC-` in liṭ (`acCamat`, `acCamyata`, `acCamIt`, `acCamizyat`, `acCAmayat`, `cacCAma`, `cacCama`, `cacCamatuH`, `cacCame`...). Also in `pra` prefix for lyap (`pracCamya`, `pracCamayya`).
 - Panini 6.1.101 *akaḥ savarṇe dīrghaḥ* & 6.1.8 *liṭi dhātor anabhyāsasya*: In Ātmanepada / yak liṭ, short vowel-initial single-consonant roots take dīrgha reduplication (`iw` -> `Iwe`, `uz` -> `Uze`, `uK` -> `UKe`, `iK` -> `IKe`, `uW` -> `UWe`, `uh` -> `Uhe` / `UhiQve`).
 - Panini 6.1.2 *ajāder dvitīyasya* & 7.3.86 *puganta-laghūpadhasya ca*: Laghūpadha vowel-initial roots take initial guṇa alongside second-syllable reduplication across sannanta tinanta (kartari & karmani) and krdanta (`uK` -> `ociKiz`, `iK` -> `eciKiz`, `uW` -> `owiWiz`, `uh` -> `ojihiz`, `iw` -> `ewiwiz`, `uz` -> `oziziz`).
 - Panini 7.3.86 *puganta-laghūpadhasya ca*: Laghūpadha short `ik`-initial roots (`i`, `u`, `ṛ`, `ḷ` followed by single hal: `iw`, `uz`, `uK`, `iK`, `uW`, `uh`, `fj`) take guṇa before non-kit ārdhadhātuka affixes in `krdanta.py` (`tavya`, `anIyar`, `yat`/`Ryat`, `Rvul`, `tfc`, `lyuw`, `GaY`, `tumun`, and seṭ `ktvA` by 1.2.18 *na ktvā seṭ*).
@@ -27,17 +28,16 @@ Passes: **942/1156 100%** (raw 942/1166). Fails: 214 scored (224 with 10 skipped
 - Panini 6.4.120 *ata ekahalmadhye 'nādeśāder liti*: kit liṭ et-tva + abhyāsa-lopa in Parasmaipada with root's own unreduced initial consonant `_init_c + "e" + _fc` (`Pal` -> `PelatuH`, `PeluH`, `PeliTa`, etc.).
 - Panini 7.3.57 *san-litoḥ jeḥ*: kuttva `j` -> `g` for root `ji` (`01.0642`, `01.1096`) in liṭ (`jigAya`, `jigaya`, `jigyatuH`, `jigyuH`, `jigeTa`, `jigayiTa`, `jigyaTuH`, `jigya`, `jigyiva`, `jigyima`, `jigye`, etc.).
 
-## Fails (2563 capped miss entries — lists capped per dhatu, fid-diff is truth)
+## Fails (2556 capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 1102 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
-| ting | 736 | 01.1091 ting/luw/prathama/dvi:savtArO |
-| yang_krut | 218 | 01.0199 yang_krut/kta/M:tostucitaH |
-| yang | 148 | 01.1133 yang/lw/prathama/eka:sesvidyate |
+| krut | 1101 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
+| ting | 726 | 01.1091 ting/luw/prathama/dvi:savtArO |
+| yang_krut | 219 | 01.0199 yang_krut/kta/M:tostucitaH |
+| yang | 153 | 01.1133 yang/lw/prathama/eka:sesvidyate |
 | nich | 141 | 01.1129 nich/lw/prathama/eka:rABayati |
 | nich_krut | 106 | 01.0249 nich_krut/Satf/M:Dfjayan |
 | san_krut | 65 | 01.0588 san_krut/kta/M:IrzizyizitaH |
 | san | 35 | 01.0588 san/lw/prathama/eka:Irdizyizati |
 | san_yak | 5 | 01.0642 san_yak/lw/prathama/eka:jijizyate |
 | yak | 5 | 01.1145 yak/ASIrliN/prathama/eka:krakzIzwa |
-
