@@ -1,9 +1,9 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T16:15:00+05:30
+Date: 2026-09-10T19:05:00+05:30
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **964/1156 100%** (raw 964/1166). Fails: 192 scored (202 with 10 skipped). Net +1589 matched tokens across 7 improved roots (0 worsened). New 100% passes (4): `01.0979 pata~` (668 -> 895/895, 100.0%, +227 tokens), `01.0996 kasa~` (668 -> 895/895, 100.0%, +227 tokens), `01.0216 vañcu~` (668 -> 895/895, 100.0%, +227 tokens), `01.1134 skandir~` (668 -> 895/895, 100.0%, +227 tokens). Adjacent improvements: `01.0857` (46 -> 273/883, +227), `01.0858` (46 -> 273/883, +227), `01.0859` (46 -> 273/883, +227).
+Passes: **967/1156 100%** (raw 967/1166). Fails: 189 scored (199 with 10 skipped). Net +22 matched tokens across 3 improved roots (0 worsened). New 100% passes (3): `01.0423 zwepf~` (876 -> 883/883, 100.0%, +7 tokens), `01.0460 zwuBu~` (876 -> 883/883, 100.0%, +7 tokens), `01.0422 zwipf~` (875 -> 883/883, 100.0%, +8 tokens).
 
 ## Rules (general, pure generative)
 - Panini 7.3.84 *sārvadhātukārdhadhātukayoḥ* & 6.1.78 *eco 'yavāyāvaḥ*: Before consonant-initial ārdhadhātuka affixes (luṭ `-tAs`, lṛṭ `-sya`, lṛṅ `-sya`, āsīrliṅ `-sIyuw`, tavya `-tavya`, tumun `-tum`, tṛc `-tf`), vowel-ending roots (`i`, `I`, `u`, `U`) take guṇa (`e`, `o`) without undergoing *eco 'yavāyāvaḥ* (which applies strictly before vowels, *aci*). Preserves `ne-` stems for `nI` (`netA`, `nezyati`, `nezyate`, `anezyat`, `anezyata`, `nezIzwa`, `netavyaH`, `netum`, `netA`/`netrI`/`netf`).
@@ -53,15 +53,16 @@ Passes: **964/1156 100%** (raw 964/1166). Fails: 192 scored (202 with 10 skipped
 - Panini 7.4.86 *japajabhadahadaśabhañjapaśāṁ ca*: Roots `jap`, `jaB`, `dah`, `daS`, `BaYj`, `paS` take `nuk` augment in the abhyāsa in Yaṅ and Yaṅluk (`yan_vowel = "aM"`), yielding `jaMjapya-` / `jaYjapya-` (`01.0463 japa~`), `daMdahya-` / `dandahya-` (`01.1146 daha~`), `jaMjaBya-` (`01.0453 jaBI~`), and with 6.4.24 penultimate nasal elision `daMdaSya-` (`01.1144 danSa~`).
 - Panini 8.2.32 *dāder dhātor ghaḥ*, 8.2.40 *jhaṣas tathor dho 'dhaḥ*, & 8.4.53 *jhalāṁ jaś jhaśi*: For `d`-initial root `dah` in yaṅluk, consonant-initial endings with `t`/`T` undergo guttural and aspiration sandhi to `gD` (`daMdagDi`, `daMdagDaH`, `daMdagDa`).
 - Panini 7.4.84 *nīg vañcu-sraṁsu-dhvaṁsu-bhraṁsu-kasa-pata-pada-skandām*: Roots `vañc`, `sraṁs`, `dhvaṁs`, `bhraṁs`, `kas`, `pat`, `pad`, `skand` take augment *nīk* in the abhyāsa in Yaṅ and Yaṅluk (`yan_vowel = "anI"`). With Panini 6.4.24 *aniditāṁ hala upadhāyāḥ kṅiti*, penultimate nasals elide before kṅit affixes (`vanIvacya-`, `canIskadya-`, `sanIsrasya-`, `danIDvasya-`, `banIBrasya-`). In Yaṅluk, pit endings (`tip`, `sip`, `mip`) retain penultimate nasals by 1.2.4 *sārvadhātukam apit* (`vanIvaNkti`, `vanIvaYcIti`, `canIskanti`, `canIskandIti`), while apit endings elide them (`vanIvaktaH`, `canIskattaH`, `vanIvacvaH`, `canIskadvaH`). Unlocks 4 roots to 100.0% (`01.0979`, `01.0996`, `01.0216`, `01.1134`) and boosts 3 siblings (`01.0857`, `01.0858`, `01.0859`).
+- Panini 8.4.2 *aṭ-kupvāṅ-num-vyavāye 'pi*: Retroflexion of dental `n` to `ṇ` (*ṇatva*) by 8.4.1 *raṣābhyāṁ no ṇaḥ samānapade* is permitted across vowels, semivowels, kavarga, pavarga, and anusvāra (*aṭ-ku-pu-āṅ-num*), but strictly blocked if any other consonant intervenes (*ṭavargādivyavāye tu na*). In yaṅanta formations of `zw`-upadeśa roots with non-ṣ final consonants (`tezwep-`, `tozwuB-`, `tezwip-`), retroflex `w` intervenes between `z` and suffix `n`, blocking ṇatva and generating dental `n` (`tezwepyamAnaH`, `tezwepanIyaH`, `tezwepanam`, `tozwuByamAnaH`, `tozwuBanIyaH`, `tozwuBanam`, `tezwipyamAnaH`, `tezwipanIyaH`, `tezwipanam`). Unlocks `01.0423 zwepf~`, `01.0460 zwuBu~`, and `01.0422 zwipf~` to 100.0%.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 986 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
-| ting | 706 | 01.1091 ting/ASIrliN/prathama/eka:suyAt |
-| yang_krut | 241 | 01.0422 yang_krut/SAnac/M:tezwipyamARaH |
-| yang | 214 | 01.0422 yang/lw/prathama/eka:tezwipyate |
-| san_krut | 117 | 01.1123 san_krut/kta/M:qiqIzitaH |
-| san | 20 | 01.1123 san/lw/prathama/eka:qiqIzati |
-| yak | 5 | 01.0642 yak/ASIrliN/prathama/eka:jeyAzwa |
-| nich | 1 | 01.0505 nich/lw/prathama/eka:vevayati |
+| krut | 986 | 01.0097 krut/Rvul/M:vArkakaH |
+| ting | 706 | 01.0105 ting/lw/prathama/eka:svazkate |
+| yang_krut | 220 | 01.0097 yang_krut/kta/M:vevfkitaH |
+| yang | 214 | 01.0097 yang/lw/prathama/eka:vevfkyate |
+| san_krut | 117 | 01.0596 san_krut/kta/M:miSmIlizitaH |
+| san | 20 | 01.1075 san/lw/prathama/eka:jiGrAzate |
+| SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
+| yak | 5 | 01.1145 yak/ASIrliN/prathama/eka:krakzIzwa |

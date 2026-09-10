@@ -2648,7 +2648,15 @@ class TinantaDerivationEngine:
                     if _zwop.startswith("zw") or _zwop.startswith("zW"):
                         _zwstem = _zwop[:-1] if _zwop[-1] in SLP1_VOWELS and len(_zwop) > 1 else _zwop
                         _zwe = {("prathama", "eka"): "ata", ("prathama", "dvi"): "etAm", ("prathama", "bahu"): "anta", ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "eTAm", ("madhyama", "bahu"): "aDvam", ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi"}
+                        _zwep = {("prathama", "eka"): ["at", "ad"], ("prathama", "dvi"): ["atAm"], ("prathama", "bahu"): ["an"], ("madhyama", "eka"): ["aH"], ("madhyama", "dvi"): ["atam"], ("madhyama", "bahu"): ["ata"], ("uttama", "eka"): ["am"], ("uttama", "dvi"): ["Ava"], ("uttama", "bahu"): ["Ama"]}
                         _early.append("a" + "ti" + _zwstem + _zwe[(purusha, vacana)])
+                        for _pe in _zwep.get((purusha, vacana), []):
+                            _early.append("a" + "ti" + _zwstem + _pe)
+                        _zwstem_g = _zwstem.replace("i", "e").replace("u", "o")
+                        if _zwstem_g != _zwstem:
+                            _early.append("a" + "ti" + _zwstem_g + _zwe[(purusha, vacana)])
+                            for _pe in _zwep.get((purusha, vacana), []):
+                                _early.append("a" + "ti" + _zwstem_g + _pe)
                 except Exception:
                     pass
                 # generic fallback (vowel-initial + seT + old redup for safety)

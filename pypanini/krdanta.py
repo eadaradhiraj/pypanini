@@ -34,14 +34,26 @@ def _natva_applies(root: str) -> bool:
         return False  # S-final never takes R (wuBrASf->BrASamAnaH; surveyed: zero expected-R S-final stems)
     if fin == "l":
         return False
-    if fin == "h":
-        return any(c in root for c in ("r", "R", "z", "f", "F"))
     if re.search(r"R[^aAiIuUfFxXeEoOrR]", root):
         return False  # num-R stems block further Natva (riRv->riRvanIya dental; surveyed: zero expected-R num-R stems)
-    has_trigger = any(c in root for c in ("r", "R", "z", "f", "F"))
-    return has_trigger and fin in (
+    # Panini 8.4.1 ra-zAbhyAM no RaH samAnapade & 8.4.2 awkupvANnumvyavAye 'pi:
+    # Non-awkupv consonants (cavarga, wavarga, tavarga, sibilants, l) block natva
+    _BLOCKED_NATVA_INTERVENERS = set("cCjJYwWqQRtTdDnSzl")
+    triggers = ("r", "R", "z", "f", "F")
+    last_trig = -1
+    for i, ch in enumerate(root):
+        if ch in triggers:
+            last_trig = i
+    if last_trig == -1:
+        return False
+    interveners = root[last_trig + 1:]
+    if any(ch in _BLOCKED_NATVA_INTERVENERS for ch in interveners):
+        return False
+    if fin == "h":
+        return True
+    return fin in (
         "k", "K", "g", "G", "N", "p", "P", "b", "B",
-        "m", "y", "r", "v", "S",
+        "m", "y", "r", "v",
     )
 
 
