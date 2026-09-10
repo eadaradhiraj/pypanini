@@ -586,6 +586,17 @@ class KrdantaEngine:
             def _nijanta_sec(c):
                 if c == "yat":
                     return "yAtay"
+                # Panini 7.3.36 arti-hrI-vlI-rI-knUyI-kzmAyyAM puN RAu
+                if c in ("knUy", "knU") or op.startswith("knUy"):
+                    return "knopay"
+                if c in ("kzmAy", "kzmA") or op.startswith("kzmAy"):
+                    return "kzmApay"
+                # Panini 6.1.22 / Varttika on 7.3.39 sPAyo vuk
+                if c in ("sPAy", "sPA") or op.startswith("sPAy"):
+                    return "sPAvay"
+                # Panini 6.4.92 mitAM hrasvaH, 1.1.48 eca igGrasvAdeSe
+                if is_mit and "e" in c:
+                    return c.replace("e", "i", 1) + "ay"
                 # idit i-final numclean+ay (agi->aNgay, sraki->sraNkay; meta skips num for Y-class)
                 if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                     _nbw = c[:-1]

@@ -126,7 +126,14 @@ class TinantaDerivationEngine:
                         # also fallback: if clean endswith i and op endswith ~ and raw endswith i
                         if not is_idit and not no_num_r and ("I~" not in op) and op.endswith("~") and op.replace("~","").replace("`","").endswith("i"):
                             is_idit = True
-                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "gana": gana, "is_idit": is_idit, "op": op}
+                        antara = info.get("antargaRaH", "")
+                        comm = info.get("DAturUpanandinIwippaRI", "")
+                        _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
+                        _is_gawadi = (("GawAdi" in antara) or ("GawAdikAryArTam" in comm)) and ("PaRAdi" not in antara)
+                        _is_sk2354 = (info.get("kOmudIsUtrakramANkaH") == "2354") and ("PaRAdi" not in antara) and (not antara)
+                        _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
+                        is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
+                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "gana": gana, "is_idit": is_idit, "op": op, "is_mit": is_mit, "antara": antara}
                         self._dhatu_cache[clean] = entry
                         self._dhatu_cache[op] = entry
                         self._dhatu_cache[op.replace("~","").replace("`","").strip()] = entry
@@ -328,17 +335,24 @@ class TinantaDerivationEngine:
                         res = res[:idx] + "z" + res[idx+1:]
         return res
 
-    def _nijanta_aorist(self, clean: str, is_idit: bool, purusha: str, vacana: str) -> list:
-        """Algorithmic causative (Nijanta) reduplicated aorist, Atmanepada.
-        Panini 3.1.48 (Ric) + 7.4.1ff abhyAsa: a + redup + base + ata/etAm/anta...
+    def _nijanta_aorist(self, clean: str, is_idit: bool, purusha: str, vacana: str, n_stem: str = "") -> list:
+        """Algorithmic causative (Nijanta) reduplicated aorist (CaN).
+        Panini 3.1.48 (Ric + caN) + 7.4.1ff abhyAsa: a + redup + base + endings...
         - redup_cons: de-aspirate + velar->palatal + s+cons (7.4.62), same as _reduplicated_stem
         - redup_vowel: over-generate i/I/u/U (covers si/ji/yI/yu/sU/bI/cu/dI via laghu/guru)
-        - base: clean + hrasva (A->a,I->i,U->u) + guRa + guRa-hrasva + zatva s->z (8.3.59)
+        - base: clean + hrasva (A->a,I->i,U->u,e->i,o->u) + guRa + guRa-hrasva + zatva s->z (8.3.59)
         No per-dhatu names. Returns list (usually 1 exact + over-generated alts).
         """
-        endings = {("prathama", "eka"): "ata", ("prathama", "dvi"): "etAm", ("prathama", "bahu"): "anta", ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "etAm", ("madhyama", "bahu"): "aDvam", ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi"}
-        ending = endings.get((purusha, vacana))
-        if not ending or not clean:
+        endings_atman = {("prathama", "eka"): "ata", ("prathama", "dvi"): "etAm", ("prathama", "bahu"): "anta", ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "etAm", ("madhyama", "bahu"): "aDvam", ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi"}
+        endings_paras = {("prathama", "eka"): "at", ("prathama", "dvi"): "atAm", ("prathama", "bahu"): "an", ("madhyama", "eka"): "aH", ("madhyama", "dvi"): "atam", ("madhyama", "bahu"): "ata", ("uttama", "eka"): "am", ("uttama", "dvi"): "Ava", ("uttama", "bahu"): "Ama"}
+        ending_list = []
+        if (purusha, vacana) in endings_atman:
+            ending_list.append(endings_atman[(purusha, vacana)])
+        if (purusha, vacana) in endings_paras:
+            ending_list.append(endings_paras[(purusha, vacana)])
+            if endings_paras[(purusha, vacana)] == "at":
+                ending_list.append("ad")
+        if not ending_list or not clean:
             return []
         if clean[0] in SLP1_VOWELS:
             # vowel-initial reduplicated aorist for a-initial roots (aRwiwata/ambibata/Acikata/Atitata:
@@ -352,27 +366,33 @@ class TinantaDerivationEngine:
                 return []
             _NUM = {"k": "Y", "K": "Y", "g": "Y", "G": "Y", "c": "Y", "C": "Y", "j": "Y", "J": "Y", "h": "Y", "w": "R", "W": "R", "b": "m", "B": "m", "d": "n", "D": "n", "t": "n"}
             _res = []
-            # nc-variant with n-lopa + Y-num (ancu->AYcicata shape)
-            if _stem[0] == "n" and len(_stem) > 1 and _stem[1] not in SLP1_VOWELS and _stem[1] != "n":
-                _cc0 = _stem[1:]
-                _rc0 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc0[0], _cc0[0]), DEASPIRATE.get(_cc0[0], _cc0[0]))
-                _res.append("A" + "Y" + _rc0 + "i" + _cc0 + ending)
-            _core = _stem[:-1] if _stem[-1:] in ("i", "I") else _stem
-            if _core:
-                if _core[0] == "r" and len(_core) > 1:
-                    _rp, _cc2 = "r", _core[1:]
-                else:
-                    _rp, _cc2 = "", _core
-                if _cc2 and _cc2[0] not in SLP1_VOWELS:
-                    _num = _NUM.get(_cc2[0], "") if _stem[-1:] in ("i", "I") else ""
-                    _rc2 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc2[0], _cc2[0]), DEASPIRATE.get(_cc2[0], _cc2[0]))
-                    _res.append("A" + _rp + _num + _rc2 + "i" + _cc2 + ending)
+            for ending in ending_list:
+                # nc-variant with n-lopa + Y-num (ancu->AYcicata shape)
+                if _stem[0] == "n" and len(_stem) > 1 and _stem[1] not in SLP1_VOWELS and _stem[1] != "n":
+                    _cc0 = _stem[1:]
+                    _rc0 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc0[0], _cc0[0]), DEASPIRATE.get(_cc0[0], _cc0[0]))
+                    _res.append("A" + "Y" + _rc0 + "i" + _cc0 + ending)
+                _core = _stem[:-1] if _stem[-1:] in ("i", "I") else _stem
+                if _core:
+                    if _core[0] == "r" and len(_core) > 1:
+                        _rp, _cc2 = "r", _core[1:]
+                    else:
+                        _rp, _cc2 = "", _core
+                    if _cc2 and _cc2[0] not in SLP1_VOWELS:
+                        _num = _NUM.get(_cc2[0], "") if _stem[-1:] in ("i", "I") else ""
+                        _rc2 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc2[0], _cc2[0]), DEASPIRATE.get(_cc2[0], _cc2[0]))
+                        _res.append("A" + _rp + _num + _rc2 + "i" + _cc2 + ending)
             return _res
         bases: set = set()
         bases.add(clean)
-        short_map = {"A": "a", "I": "i", "U": "u"}
+        short_map = {"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}
         shortened = "".join(short_map.get(ch, ch) for ch in clean)
         bases.add(shortened)
+        if n_stem:
+            sec_b = n_stem[:-2] if n_stem.endswith("ay") else n_stem
+            bases.add(sec_b)
+            sec_short = "".join(short_map.get(ch, ch) for ch in sec_b)
+            bases.add(sec_short)
         try:
             guna = self._bhvadi_guna_base(clean, is_idit)
             bases.add(guna)
@@ -445,7 +465,8 @@ class TinantaDerivationEngine:
                     tuk = "c" if rv in ("a", "i", "u") and base.startswith("C") else ""
                     stem = r + rv + tuk + base
                     aug = self._add_augment(stem, stem[0] in SLP1_VOWELS if stem else False)
-                    cands.append(aug + ending)
+                    for ending in ending_list:
+                        cands.append(aug + ending)
         return list(dict.fromkeys(cands))
 
     def _prim_bases(self, clean: str, is_idit: bool=False, op: str="", dhatu_id: str=""):
@@ -952,6 +973,7 @@ class TinantaDerivationEngine:
         if dhatu_id == "01.0030" and clean in ("yat", "yatI") and lakara == "luN" and purusha == "prathama" and vacana == "eka" and prayoga == "karmani" and sanadi is None:
             return ["ayAti"], []
         is_idit = meta.get("is_idit", False)
+        is_mit = meta.get("is_mit", False)
         # i/I-ending idit with nasal (num) 7.1.58: klidi~ -> klind, hlAdI~ -> hlAd (strip I without n)
         if clean.endswith(("i","I")) and (is_idit or pada == "Atmanepadi") and any(c in SLP1_VOWELS for c in clean[:-1]):
             base_wo_i = clean[:-1]
@@ -977,6 +999,17 @@ class TinantaDerivationEngine:
         def _nijanta_stem(c):
             if c == "yat":
                 return "yAtay"
+            # Panini 7.3.36 arti-hrI-vlI-rI-knUyI-kzmAyyAM puN RAu
+            if c in ("knUy", "knU") or op.startswith("knUy"):
+                return "knopay"
+            if c in ("kzmAy", "kzmA") or op.startswith("kzmAy"):
+                return "kzmApay"
+            # Panini 6.1.22 / Varttika on 7.3.39 sPAyo vuk
+            if c in ("sPAy", "sPA") or op.startswith("sPAy"):
+                return "sPAvay"
+            # Panini 6.4.92 mitAM hrasvaH, 1.1.48 eca igGrasvAdeSe
+            if is_mit and "e" in c:
+                return c.replace("e", "i", 1) + "ay"
             if c and c[-1] in SLP1_VOWELS:
                 return self._vriddhi_base(c, is_idit) + "ay"
             if c == "daD":
@@ -2412,7 +2445,10 @@ class TinantaDerivationEngine:
                 # (never early-return: that dropped fallback-only hits).
                 _early = []
                 try:
-                    _aor = self._nijanta_aorist(clean, is_idit, purusha, vacana)
+                    _aor = []
+                    for _ns in n_stems:
+                        _aor += self._nijanta_aorist(clean, is_idit, purusha, vacana, n_stem=_ns)
+                    _aor = list(dict.fromkeys(_aor))
                     if _aor:
                         # seT for all n_stems (like generic fallback) + algorithmic aorist
                         _suffixes = {("prathama", "eka"): "izwa", ("prathama", "dvi"): "izAtAm", ("prathama", "bahu"): "izata", ("madhyama", "eka"): "izWAH", ("madhyama", "dvi"): "izATAm", ("madhyama", "bahu"): "iDvam", ("uttama", "eka"): "izi", ("uttama", "dvi"): "izvahi", ("uttama", "bahu"): "izmahi"}

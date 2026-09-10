@@ -1,11 +1,15 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T04:20:00Z
+Date: 2026-09-10T04:45:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **943/1156 100%** (raw 943/1166). Fails: 213 scored (223 with 10 skipped). Net +315 matched tokens across 3 improved roots (0 worsened). New 100% pass: `01.0541 Camu~` (777 -> 895).
+Passes: **947/1156 100%** (raw 947/1166). Fails: 209 scored (219 with 10 skipped). Net +532 matched tokens across 6 improved roots (0 worsened). New 100% passes (4): `01.0887 heqa~` (767 -> 895), `01.0558 knUyI~` (749 -> 883), `01.0559 kzmAyI~` (749 -> 883), `01.0560 sPAyI~` (749 -> 883).
 
 ## Rules (general, pure generative)
+- Panini 6.4.92 *mitāṁ hrasvaḥ* & 1.1.48 *eca igghrasvādeśe*: In ṇi (ṇijanta), `mit` roots shorten the vowel. For roots with penultimate `ec` (`e`), `ik` (`i`) is substituted, shortening `heq` -> `hiqay-` across sārvadhātuka and ārdhadhātuka lakāras and kṛdantas (`hiqayati`, `hiqayate`, `hiqyate`, `hiqayitavya`, `hiqitA`, `hiqayan`...).
+- Panini 7.3.36 *arti-hrī-vlī-rī-knūyī-kṣmāyyāṁ puṅ ṇau*: Roots `knUy` (`01.0558`) and `kzmAy` (`01.0559`) take `puk` (`puṅ`) augment before `ṇi`, yielding `knopay-` (by 7.3.86 laghūpadha guṇa) and `kzmApay-` across all tinanta and kṛdanta formations (`knopayati`, `knopayate`, `knopyate`, `kzmApayati`, `kzmApayate`, `kzmApyate`, `knopayitavya`, `kzmApayitavya`...).
+- Panini 6.1.22 *sphāyaḥ spho vā* / Vārttika on 7.3.39 *sphāyo vuk*: Root `sPAy` (`01.0560`) takes `vuk` augment before `ṇi`, generating `sPAvay-` (`sPAvayati`, `sPAvayate`, `sPAvyate`, `sPAvayitavya`, `prasPAvya`...).
+- Panini 7.4.1 *ṇau caṅy upadhāyā hrasvaḥ*, 7.4.61 *śarpūrvāḥ khayaḥ*, 7.4.62 *kuhoś cuḥ*, 7.4.93 *sanval laghuni*, 7.4.94 *dīrgho laghoḥ*: Algorithmic Caṅ Reduplicated Aorist accepts `n_stem` with shortened penultimate vowel in `bases` (`knop` -> `knup`, `kzmAp` -> `kzmap`, `sPAv` -> `sPav`, `hiq` -> `hiq`) and produces both Parasmaipada (`at`, `atAm`, `an`...) and Ātmanepada (`ata`, `etAm`, `anta`...) caṅ aorist forms (`ajIhiqat`, `ajIhiqata`, `acuknupat`, `acuknupata`, `acikzmapat`, `acikzmapata`, `apisPavat`, `apisPavata`).
 - Panini 6.1.73 *chē ca* & 8.4.40 *stoḥ ścunā ścuḥ*: Short vowel augment (`aṭ`) and short reduplication vowel (`abhyāsa` by 7.4.59 *hrasvaḥ*) before `ch` (`C`) take obligatory `tuk` augment (`t` -> `c`), generating `acC-` across all augmented lakāras (laṅ, luṅ, lṛṅ in ting, yak, and nich) and `cacC-` in liṭ (`acCamat`, `acCamyata`, `acCamIt`, `acCamizyat`, `acCAmayat`, `cacCAma`, `cacCama`, `cacCamatuH`, `cacCame`...). Also in `pra` prefix for lyap (`pracCamya`, `pracCamayya`).
 - Panini 6.1.101 *akaḥ savarṇe dīrghaḥ* & 6.1.8 *liṭi dhātor anabhyāsasya*: In Ātmanepada / yak liṭ, short vowel-initial single-consonant roots take dīrgha reduplication (`iw` -> `Iwe`, `uz` -> `Uze`, `uK` -> `UKe`, `iK` -> `IKe`, `uW` -> `UWe`, `uh` -> `Uhe` / `UhiQve`).
 - Panini 6.1.2 *ajāder dvitīyasya* & 7.3.86 *puganta-laghūpadhasya ca*: Laghūpadha vowel-initial roots take initial guṇa alongside second-syllable reduplication across sannanta tinanta (kartari & karmani) and krdanta (`uK` -> `ociKiz`, `iK` -> `eciKiz`, `uW` -> `owiWiz`, `uh` -> `ojihiz`, `iw` -> `ewiwiz`, `uz` -> `oziziz`).
@@ -28,15 +32,15 @@ Passes: **943/1156 100%** (raw 943/1166). Fails: 213 scored (223 with 10 skipped
 - Panini 6.4.120 *ata ekahalmadhye 'nādeśāder liti*: kit liṭ et-tva + abhyāsa-lopa in Parasmaipada with root's own unreduced initial consonant `_init_c + "e" + _fc` (`Pal` -> `PelatuH`, `PeluH`, `PeliTa`, etc.).
 - Panini 7.3.57 *san-litoḥ jeḥ*: kuttva `j` -> `g` for root `ji` (`01.0642`, `01.1096`) in liṭ (`jigAya`, `jigaya`, `jigyatuH`, `jigyuH`, `jigeTa`, `jigayiTa`, `jigyaTuH`, `jigya`, `jigyiva`, `jigyima`, `jigye`, etc.).
 
-## Fails (2556 capped miss entries — lists capped per dhatu, fid-diff is truth)
+## Fails (2508 capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 1101 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
 | ting | 726 | 01.1091 ting/luw/prathama/dvi:savtArO |
 | yang_krut | 219 | 01.0199 yang_krut/kta/M:tostucitaH |
 | yang | 153 | 01.1133 yang/lw/prathama/eka:sesvidyate |
-| nich | 141 | 01.1129 nich/lw/prathama/eka:rABayati |
-| nich_krut | 106 | 01.0249 nich_krut/Satf/M:Dfjayan |
+| nich | 121 | 01.1129 nich/lw/prathama/eka:rABayati |
+| nich_krut | 78 | 01.0249 nich_krut/Satf/M:Dfjayan |
 | san_krut | 65 | 01.0588 san_krut/kta/M:IrzizyizitaH |
 | san | 35 | 01.0588 san/lw/prathama/eka:Irdizyizati |
 | san_yak | 5 | 01.0642 san_yak/lw/prathama/eka:jijizyate |
