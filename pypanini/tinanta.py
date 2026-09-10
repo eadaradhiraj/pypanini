@@ -1002,6 +1002,9 @@ class TinantaDerivationEngine:
         def _nijanta_stem(c):
             if c == "yat":
                 return "yAtay"
+            # Panini 7.1.63 rabher a-Sab-liwoH / 7.1.64 laBeS ca: raB/laB take num before Ri
+            if c in ("raB", "laB") or "raBa" in op or "laBa" in op:
+                return (c[:-1] + "m" + c[-1]) + "ay"
             # Panini 7.3.36 arti-hrI-vlI-rI-knUyI-kzmAyyAM puN RAu
             if c in ("knUy", "knU") or op.startswith("knUy"):
                 return "knopay"
@@ -1489,6 +1492,10 @@ class TinantaDerivationEngine:
                         _nst = _nijanta_stem(_nbw[:-1] + _nn + _nbw[-1])
                         if _nst not in n_stems_all:
                             n_stems_all.append(_nst)
+                if clean in ("raB", "laB") or "raBa" in op or "laBa" in op:
+                    _nst = (clean[:-1] + "m" + clean[-1]) + "ay"
+                    if _nst not in n_stems_all:
+                        n_stems_all.append(_nst)
                 # yak stems list from all n_stems
                 yak_stems_all = [s[:-2] + "y" if s.endswith("ay") else s + "y" for s in n_stems_all]
                 yak_stem = yak_stems_all[0] if yak_stems_all else n_stem + "y"
@@ -2402,6 +2409,10 @@ class TinantaDerivationEngine:
                     _nst = _nijanta_stem(_nbw[:-1] + _nn + _nbw[-1])
                     if _nst not in n_stems:
                         n_stems.append(_nst)
+            if clean in ("raB", "laB") or "raBa" in op or "laBa" in op:
+                _nst = (clean[:-1] + "m" + clean[-1]) + "ay"
+                if _nst not in n_stems:
+                    n_stems.append(_nst)
             # vowel-initial alternative: Urday for urd
             if is_vowel_initial:
                 flip = {"u":"U","U":"u","i":"I","I":"i"}

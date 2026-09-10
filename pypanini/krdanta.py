@@ -586,6 +586,9 @@ class KrdantaEngine:
             def _nijanta_sec(c):
                 if c == "yat":
                     return "yAtay"
+                # Panini 7.1.63 rabher a-Sab-liwoH / 7.1.64 laBeS ca: raB/laB take num before Ri
+                if c in ("raB", "laB") or "raBa" in op or "laBa" in op:
+                    return (c[:-1] + "m" + c[-1]) + "ay"
                 # Panini 7.3.36 arti-hrI-vlI-rI-knUyI-kzmAyyAM puN RAu
                 if c in ("knUy", "knU") or op.startswith("knUy"):
                     return "knopay"
@@ -1399,6 +1402,12 @@ class KrdantaEngine:
                     if _natva_applies(_snc) and "nIya" in _sab:
                         _sab = _sab.replace("nIya", "RIya")
                     return tri_linga(_sab)
+            if (sanadi is None or sanadi == "yanluganta") and (clean in ("raB", "laB") or "raBa" in op or "laBa" in op):
+                _num_c = clean[:-1] + "m" + clean[-1]
+                _sab = _num_c + "anIya"
+                if _natva_applies(_num_c) and "nIya" in _sab:
+                    _sab = _sab.replace("nIya", "RIya")
+                return tri_linga(_sab)
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             stem = eff + "anIya"
             if _natva_applies(clean) and "nIya" in stem:
@@ -1453,8 +1462,9 @@ class KrdantaEngine:
                         break
                 _suf = clean[last_idx+1:] if last_idx != -1 else ""
                 _pre = clean[:last_idx] if last_idx != -1 else ""
-                # m-final never takes yat vriddhi (dramya/yamya/Camya/ramya/gamya: surveyed all m-final yat, zero vriddhi)
-                if last_v in ("a", "A") and ("r" not in _suf) and len(_suf) <= 1 and clean[-1:] != "m" and not (clean.startswith("kr") or _pre.endswith("kr")):
+                # Panini 3.1.98 por adupaDAt: pavarga coda with adupadhA takes yat (no vriddhi)
+                _is_por_adupadha = clean[-1:] in ("b", "B", "P") or (clean[-1:] == "p" and clean not in ("rap", "lap", "vap"))
+                if last_v in ("a", "A") and ("r" not in _suf) and len(_suf) <= 1 and clean[-1:] != "m" and not _is_por_adupadha and not (clean.startswith("kr") or _pre.endswith("kr")):
                     # I~ blocks normally (yatI->yatya), except w-final to cross-match Ryat (kaw->kAwya) and n-final (kanI~->kAnya per 3.1.124/7.2.116): general shape
                     if ("I~" not in _op) or (clean[-1:] in ("w", "n")):
                         stem = vriddhi_base + "ya"
@@ -1495,6 +1505,10 @@ class KrdantaEngine:
                 if _rn and len(_rbw) >= 1:
                     _rst = _rbw[:-1] + _rn + _rbw[-1] + "aka"
                     return {"M": _rst + "H", "F": _rst[:-3] + "ikA" if _rst.endswith("aka") else _rst + "ikA", "N": _rst + "m"}
+            # Panini 7.1.63 rabher a-Sab-liwoH / 7.1.64 laBeS ca: num in Rvul
+            if (sanadi is None or sanadi == "yanluganta") and (clean in ("raB", "laB") or "raBa" in op or "laBa" in op):
+                _rst = clean[:-1] + "m" + clean[-1] + "aka"
+                return {"M": _rst + "H", "F": _rst[:-3] + "ikA", "N": _rst + "m"}
             if clean in ["eD"]:
                 stem = clean + "aka"
             elif is_idit:
@@ -1554,6 +1568,12 @@ class KrdantaEngine:
                     if _natva_applies(_snc) and _slb.endswith("ana"):
                         _slb = _slb[:-3] + "aRa"
                     return {"gender": "Neuter", "form": _slb + "m"}
+            # Panini 7.1.63 rabher a-Sab-liwoH / 7.1.64 laBeS ca: num in lyuw
+            if (sanadi is None or sanadi == "yanluganta") and (clean in ("raB", "laB") or "raBa" in op or "laBa" in op):
+                _nst = clean[:-1] + "m" + clean[-1] + "ana"
+                if _natva_applies(clean[:-1] + "m" + clean[-1]) and _nst.endswith("ana"):
+                    _nst = _nst[:-3] + "aRa"
+                return {"gender": "Neuter", "form": _nst + "m"}
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             stem = eff + "ana"
             if _natva_applies(clean) and stem.endswith("ana"):
@@ -1567,6 +1587,12 @@ class KrdantaEngine:
                 _gn = "N" if _gbw and _gbw[-1] in ("k", "K", "g", "G") else ("Y" if _gbw and _gbw[-1] in ("c", "C", "j", "J") else ("R" if _gbw and _gbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _gbw and _gbw[-1] in ("p", "P", "b", "B") else None)))
                 if _gn and len(_gbw) >= 1:
                     return {"gender": "Masculine", "form": _gbw[:-1] + _gn + _gbw[-1] + "aH"}
+            # Panini 7.1.63 rabher a-Sab-liwoH / 7.1.67 upasargAt khal-GaYoH
+            if (sanadi is None or sanadi == "yanluganta") and (clean in ("raB", "laB") or "raBa" in op or "laBa" in op):
+                if clean == "raB" or "raBa" in op:
+                    return {"gender": "Masculine", "form": "ramBaH"}
+                else:
+                    return {"gender": "Masculine", "form": "lABaH"}
             # Handle vowel-initial without guna (Urd -> Urda) and internal Ur
             if not is_laghu_ik_init and ((clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean):
                 stem = clean + "a"

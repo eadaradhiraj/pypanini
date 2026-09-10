@@ -1,11 +1,14 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T05:05:00Z
+Date: 2026-09-10T05:35:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **948/1156 100%** (raw 948/1166). Fails: 208 scored (218 with 10 skipped). Net +1,637 matched tokens across 28 improved roots (0 worsened). New 100% pass (1): `01.1122 mUN` (735 -> 883/883, 100.0%). Major improvements include `01.1121 pUN` (526 -> 674, +148 tokens) and 26 other roots.
+Passes: **950/1156 100%** (raw 950/1166). Fails: 206 scored (216 with 10 skipped). Net +374 matched tokens across 2 improved roots (0 worsened). New 100% passes (2): `01.1129 rABa~` (695 -> 883/883, 100.0%, +188 tokens), `01.1130 qulaBa~z` (697 -> 883/883, 100.0%, +186 tokens).
 
 ## Rules (general, pure generative)
+- Panini 7.1.63 *rabher a-śab-liṭoḥ* & 7.1.64 *labheś ca*: `raB` and `laB` take `num` augment (`ramB`, `lamB`) everywhere except before `śap` (kartari sārvadhātuka) and `liṭ`. Governs ṇijanta tinanta (`ramBayati`/`ramBayate`, `lamBayati`/`lamBayate`), karmaṇi ṇijanta (`ramByate`, `lamByate`), ṇijanta kṛdanta (`ramBayitA`, `ramBayitavya`...), and primitive kṛdantas (`ramBakaH`/`lamBakaH` in ṇvul, `ramBaRam`/`lamBanam` in lyuṭ, `ramBaRIyaH`/`lamBanIyaH` in anīyar).
+- Panini 7.1.67 *upasargāt khal-ghañoḥ*: For `laB`, `num` augment in khal and ghañ is conditioned on an upasarga (*anupasarge tu na*). Therefore, simplex `laB` without upasarga in ghañ takes no num, undergoing regular vṛddhi by 7.2.116 *ata upadhāyāḥ* to `lABaH`, whereas `raB` takes num by 7.1.63 yielding `ramBaH`.
+- Panini 3.1.98 *por adupadhāt*: Roots ending in pavarga with short `a` upadhā take `yat` affix (without vṛddhi) rather than `ṇyat`, generating `raByaH`/`raByA`/`raByam` and `laByaH`/`laByA`/`laByam`.
 - Panini 6.4.77 *aci śnu-dhātu-bhruvāṁ yvo riyaṅ-uvaṅau*: In Ātmanepada Liṭ and Karmani Liṭ, roots ending in `u`/`U` take `uvaṅ` (`uv`) before vowel-initial endings (`e`, `Ate`, `ire`, `ize`, `ATe`, `iDve`, `e`, `ivahe`, `imahe`), producing `mumuve`, `mumuvAte`, `mumuvire`, `mumuvize`, `mumuvATe`, `mumuvvahe` / `mumuviQve` for `mU` and `pU`.
 - Panini 6.4.48 *ato lopaḥ* & 6.4.49 *yaḥ sya halaḥ*: In ārdhadhātuka affixes for Yaṅanta, *ato lopaḥ* drops final `at` (`a`) leaving `y`. By 6.4.49 *halaḥ*, the `y` is deleted only after consonants (*hal*). Thus, genuine vowel roots (*ac-anta*) retain the `y` of Yaṅanta (`momUy-` -> `momUyitaH`, `momUyitavAn`, `momUyitavyaH`, `momUyanIyaH`, `momUyAYcakre`), whereas consonant roots (*hal-anta*, including idit roots `sraki~` and y-ending roots `vay`, `pay`) delete `y` (`sAsraNkitaH`, `vAvayitaH`, `vAvayAYcakre`).
 - Panini 6.4.92 *mitāṁ hrasvaḥ* & 1.1.48 *eca igghrasvādeśe*: In ṇi (ṇijanta), `mit` roots shorten the vowel. For roots with penultimate `ec` (`e`), `ik` (`i`) is substituted, shortening `heq` -> `hiqay-` across sārvadhātuka and ārdhadhātuka lakāras and kṛdantas (`hiqayati`, `hiqayate`, `hiqyate`, `hiqayitavya`, `hiqitA`, `hiqayan`...).
@@ -37,11 +40,11 @@ Passes: **948/1156 100%** (raw 948/1166). Fails: 208 scored (218 with 10 skipped
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 1101 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
+| krut | 1087 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
 | ting | 711 | 01.1091 ting/luw/prathama/dvi:savtArO |
 | yang_krut | 212 | 01.0199 yang_krut/kta/M:tostucitaH |
 | yang | 153 | 01.1133 yang/lw/prathama/eka:sesvidyate |
-| nich | 121 | 01.1129 nich/lw/prathama/eka:rABayati |
+| nich | 111 | 01.0505 nich/lw/prathama/eka:vevayati |
 | nich_krut | 78 | 01.0249 nich_krut/Satf/M:Dfjayan |
 | san_krut | 65 | 01.0588 san_krut/kta/M:IrzizyizitaH |
 | san | 40 | 01.0588 san/lw/prathama/eka:Irdizyizati |
