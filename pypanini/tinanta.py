@@ -1291,6 +1291,18 @@ class TinantaDerivationEngine:
                 yan_vowel = "aM"
                 if _ybase.endswith("nS"):
                     _ybase = _ybase.replace("nS", "S")
+            # Panini 7.4.84 nIg vaYcu-sraMsu-DvaMsu-BraMsu-kasa-pata-pada-skandAm:
+            # nIk augment (yan_vowel = "anI") in yaN and yaNluk
+            # With 6.4.24 aniditAM hala upaDAyAH kNiti: penultimate nasal elided
+            if (clean in ("pat", "kas", "pad", "vanc", "vaYc", "skand", "srans", "Dvans", "Brans") or
+                (op and any(op.startswith(x) for x in ("patx", "kasa", "pada", "vanc", "skand", "srans", "Dvans", "Brans")))):
+                yan_vowel = "anI"
+                if _ybase.endswith("nc") or _ybase.endswith("Yc"):
+                    _ybase = _ybase[:-2] + "c"
+                elif _ybase.endswith("nd"):
+                    _ybase = _ybase[:-2] + "d"
+                elif _ybase.endswith("ns"):
+                    _ybase = _ybase[:-2] + "s"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
@@ -1353,6 +1365,18 @@ class TinantaDerivationEngine:
                 yan_vowel = "aM"
                 if _ybase.endswith("nS"):
                     _ybase = _ybase.replace("nS", "S")
+            # Panini 7.4.84 nIg vaYcu-sraMsu-DvaMsu-BraMsu-kasa-pata-pada-skandAm:
+            # nIk augment (yan_vowel = "anI") in yaN and yaNluk
+            # With 6.4.24 aniditAM hala upaDAyAH kNiti: penultimate nasal elided
+            if (clean in ("pat", "kas", "pad", "vanc", "vaYc", "skand", "srans", "Dvans", "Brans") or
+                (op and any(op.startswith(x) for x in ("patx", "kasa", "pada", "vanc", "skand", "srans", "Dvans", "Brans")))):
+                yan_vowel = "anI"
+                if _ybase.endswith("nc") or _ybase.endswith("Yc"):
+                    _ybase = _ybase[:-2] + "c"
+                elif _ybase.endswith("nd"):
+                    _ybase = _ybase[:-2] + "d"
+                elif _ybase.endswith("ns"):
+                    _ybase = _ybase[:-2] + "s"
             return redup_cons + yan_vowel + _ybase  # without ya
 
         # ---------- secondary / yak : generative per lakara (covers all 10 lakaras) ----------
@@ -1433,7 +1457,7 @@ class TinantaDerivationEngine:
             # also add yls + Di directly and devoiced/truncated variants
             extra += [yls + "i", yls.replace("D","d") + "i", yls + "aH", yls_dev + "i", yls_trunc + "ti", yls_dev + "ti", yls + "ti", yls_dev + "Iti", yls + "Iti", yls_trunc + "i", yls_trunc_dev + "i", yls_trunc + "aH", yls_trunc_dev + "aH", yls_dev + "aH"]
             # athematic endings before jhal / consonants + karmani yanluganta
-            extra += [yls_dev + "taH", yls_dev + "TaH", yls_dev + "Ta", yls + "vaH", yls + "maH", yls + "Izi", yls + "Imi", yls + "ati"]
+            extra += [yls_dev + "taH", yls_dev + "TaH", yls_dev + "Ta", yls + "vaH", yls + "maH", yls + "Izi", yls + "Imi", yls + "ati", yls_dev + "si", yls + "mi", yls_dev + "mi", yls + "si", yls + "taH"]
             extra += self._conjugate_at_stem_atmane(yls + "y", "lw", purusha, vacana)
             # Panini 8.2.32 dAder DAtor GaH, 8.2.40 Jazas taTor Do 'DaH, 8.4.53 JalAM jaS JaSi for dah:
             if yls.endswith("h") and clean.startswith("d"):
@@ -1442,6 +1466,13 @@ class TinantaDerivationEngine:
             if yls.endswith("nd"):
                 extra.append(yls[:-1] + "t" + "i")  # ceklinti
                 extra.append(yls[:-1] + "t" + "ti")  # ceklintti
+            # 7.4.84 roots in yanluk: pit endings (tip, sip, mip) retain penultimate nasal (1.2.4 sArvaDAtukam apit is Nit, but pit is not Nit)
+            if (clean in ("vanc", "vaYc") or (op and op.startswith("vanc"))):
+                _yls_n = yls[:-1] + "Yc"
+                extra += [_yls_n + "Iti", _yls_n + "Izi", _yls_n + "Imi", _yls_n + "mi", yls[:-1] + "Nkti", yls[:-1] + "Nkzi"]
+            elif (clean == "skand" or (op and op.startswith("skand"))):
+                _yls_n = yls[:-1] + "nd"
+                extra += [_yls_n + "Iti", _yls_n + "Izi", _yls_n + "Imi", _yls_n + "mi", yls[:-1] + "nti", yls[:-1] + "ntti", yls[:-1] + "ntsi"]
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)

@@ -934,6 +934,18 @@ class KrdantaEngine:
                     yan_vowel = "aM"
                     if _ybase.endswith("nS"):
                         _ybase = _ybase.replace("nS", "S")
+                # Panini 7.4.84 nIg vaYcu-sraMsu-DvaMsu-BraMsu-kasa-pata-pada-skandAm:
+                # nIk augment (yan_vowel = "anI") in yaN and yaNluk
+                # With 6.4.24 aniditAM hala upaDAyAH kNiti: penultimate nasal elided
+                if (clean in ("pat", "kas", "pad", "vanc", "vaYc", "skand", "srans", "Dvans", "Brans") or
+                    (op and any(op.startswith(x) for x in ("patx", "kasa", "pada", "vanc", "skand", "srans", "Dvans", "Brans")))):
+                    yan_vowel = "anI"
+                    if _ybase.endswith("nc") or _ybase.endswith("Yc"):
+                        _ybase = _ybase[:-2] + "c"
+                    elif _ybase.endswith("nd"):
+                        _ybase = _ybase[:-2] + "d"
+                    elif _ybase.endswith("ns"):
+                        _ybase = _ybase[:-2] + "s"
                 return redup_cons + yan_vowel + _ybase + "ya"
             if clean == "BU" and sanadi is not None:
                 # hardcoded BU sanadi forms (known 100% for BU)

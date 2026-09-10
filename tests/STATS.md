@@ -1,9 +1,9 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T15:38:00+05:30
+Date: 2026-09-10T16:15:00+05:30
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **960/1156 100%** (raw 960/1166). Fails: 196 scored (206 with 10 skipped). Net +908 matched tokens across 4 improved roots (0 worsened). New 100% passes (2): `01.0463 japa~` (668 -> 895/895, 100.0%, +227 tokens), `01.1146 daha~` (668 -> 895/895, 100.0%, +227 tokens). Adjacent improvements: `01.0453` (104 -> 331/883, +227), `01.1144` (331 -> 558/895, +227).
+Passes: **964/1156 100%** (raw 964/1166). Fails: 192 scored (202 with 10 skipped). Net +1589 matched tokens across 7 improved roots (0 worsened). New 100% passes (4): `01.0979 pata~` (668 -> 895/895, 100.0%, +227 tokens), `01.0996 kasa~` (668 -> 895/895, 100.0%, +227 tokens), `01.0216 vañcu~` (668 -> 895/895, 100.0%, +227 tokens), `01.1134 skandir~` (668 -> 895/895, 100.0%, +227 tokens). Adjacent improvements: `01.0857` (46 -> 273/883, +227), `01.0858` (46 -> 273/883, +227), `01.0859` (46 -> 273/883, +227).
 
 ## Rules (general, pure generative)
 - Panini 7.3.84 *sārvadhātukārdhadhātukayoḥ* & 6.1.78 *eco 'yavāyāvaḥ*: Before consonant-initial ārdhadhātuka affixes (luṭ `-tAs`, lṛṭ `-sya`, lṛṅ `-sya`, āsīrliṅ `-sIyuw`, tavya `-tavya`, tumun `-tum`, tṛc `-tf`), vowel-ending roots (`i`, `I`, `u`, `U`) take guṇa (`e`, `o`) without undergoing *eco 'yavāyāvaḥ* (which applies strictly before vowels, *aci*). Preserves `ne-` stems for `nI` (`netA`, `nezyati`, `nezyate`, `anezyat`, `anezyata`, `nezIzwa`, `netavyaH`, `netum`, `netA`/`netrI`/`netf`).
@@ -52,14 +52,15 @@ Passes: **960/1156 100%** (raw 960/1166). Fails: 196 scored (206 with 10 skipped
 
 - Panini 7.4.86 *japajabhadahadaśabhañjapaśāṁ ca*: Roots `jap`, `jaB`, `dah`, `daS`, `BaYj`, `paS` take `nuk` augment in the abhyāsa in Yaṅ and Yaṅluk (`yan_vowel = "aM"`), yielding `jaMjapya-` / `jaYjapya-` (`01.0463 japa~`), `daMdahya-` / `dandahya-` (`01.1146 daha~`), `jaMjaBya-` (`01.0453 jaBI~`), and with 6.4.24 penultimate nasal elision `daMdaSya-` (`01.1144 danSa~`).
 - Panini 8.2.32 *dāder dhātor ghaḥ*, 8.2.40 *jhaṣas tathor dho 'dhaḥ*, & 8.4.53 *jhalāṁ jaś jhaśi*: For `d`-initial root `dah` in yaṅluk, consonant-initial endings with `t`/`T` undergo guttural and aspiration sandhi to `gD` (`daMdagDi`, `daMdagDaH`, `daMdagDa`).
+- Panini 7.4.84 *nīg vañcu-sraṁsu-dhvaṁsu-bhraṁsu-kasa-pata-pada-skandām*: Roots `vañc`, `sraṁs`, `dhvaṁs`, `bhraṁs`, `kas`, `pat`, `pad`, `skand` take augment *nīk* in the abhyāsa in Yaṅ and Yaṅluk (`yan_vowel = "anI"`). With Panini 6.4.24 *aniditāṁ hala upadhāyāḥ kṅiti*, penultimate nasals elide before kṅit affixes (`vanIvacya-`, `canIskadya-`, `sanIsrasya-`, `danIDvasya-`, `banIBrasya-`). In Yaṅluk, pit endings (`tip`, `sip`, `mip`) retain penultimate nasals by 1.2.4 *sārvadhātukam apit* (`vanIvaNkti`, `vanIvaYcIti`, `canIskanti`, `canIskandIti`), while apit endings elide them (`vanIvaktaH`, `canIskattaH`, `vanIvacvaH`, `canIskadvaH`). Unlocks 4 roots to 100.0% (`01.0979`, `01.0996`, `01.0216`, `01.1134`) and boosts 3 siblings (`01.0857`, `01.0858`, `01.0859`).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 986 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
 | ting | 706 | 01.1091 ting/ASIrliN/prathama/eka:suyAt |
-| yang_krut | 269 | 01.0422 yang_krut/SAnac/M:tezwipyamARaH |
-| yang | 234 | 01.0979 yang/lw/prathama/eka:panIpatyate |
+| yang_krut | 241 | 01.0422 yang_krut/SAnac/M:tezwipyamARaH |
+| yang | 214 | 01.0422 yang/lw/prathama/eka:tezwipyate |
 | san_krut | 117 | 01.1123 san_krut/kta/M:qiqIzitaH |
 | san | 20 | 01.1123 san/lw/prathama/eka:qiqIzati |
 | yak | 5 | 01.0642 yak/ASIrliN/prathama/eka:jeyAzwa |
