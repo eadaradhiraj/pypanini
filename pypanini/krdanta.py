@@ -814,6 +814,11 @@ class KrdantaEngine:
                 if c.endswith("E"):
                     return redup_cons + redup_vowel + c[:-1] + "As"
 
+                # Panini 7.4.79 sany ataH & 7.4.80 pvoH yan-sanoH:
+                # pU (pUN / pUY) takes guna av + iT iz, abhyAsa takes i by 7.4.79 -> pipaviz
+                if c in ("pU", "pUN", "pUY") or op in ("pU", "pUN", "pUY", "pU~", "pUN~", "pUY~") or dhatu_id in ("01.1121", "09.0014"):
+                    return "pipaviz"
+
                 if not is_vowel_final:
                     is_anit_root = str(meta.get("sew_raw", "")).startswith("ani")
                     if is_anit_root:
@@ -1071,9 +1076,9 @@ class KrdantaEngine:
                     pass
                 if pratyaya == "ktvA":
                     if sec.endswith("iz"):
-                        return {"avyaya": [sec+"ya"]}
+                        return {"avyaya": [sec + "itvA", sec + "ya"]}
                     else:
-                        return {"avyaya": [sec+"itvA"]}
+                        return {"avyaya": [sec + "itvA"]}
                 if pratyaya == "lyap":
                     _pra = "prE" if sec.startswith("e") else ("prO" if sec.startswith("o") else ("pre" if sec.startswith("i") else ("pro" if sec.startswith("u") else ("prA" if sec.startswith("a") else "pra"))))
                     _p_form = _pra + sec[1:] + "ya" if sec and sec[0] in SLP1_VOWELS else "pra" + sec + "ya"

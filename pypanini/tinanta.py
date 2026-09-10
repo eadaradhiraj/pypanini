@@ -1152,6 +1152,11 @@ class TinantaDerivationEngine:
             if c.endswith("E"):
                 return redup_cons + redup_vowel + c[:-1] + "As"
 
+            # Panini 7.4.79 sany ataH & 7.4.80 pvoH yan-sanoH:
+            # pU (pUN / pUY) takes guna av + iT iz, abhyAsa takes i by 7.4.79 -> pipaviz
+            if c in ("pU", "pUN", "pUY") or op in ("pU", "pUN", "pUY", "pU~", "pUN~", "pUY~") or dhatu_id in ("01.1121", "09.0014"):
+                return "pipaviz"
+
             if not is_vowel_final:
                 is_anit_root = str(meta.get("sew_raw", "")).startswith("ani")
                 if is_anit_root:

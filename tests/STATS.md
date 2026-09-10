@@ -1,9 +1,9 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T14:20:00+05:30
+Date: 2026-09-10T14:45:00+05:30
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **956/1156 100%** (raw 956/1166). Fails: 200 scored (210 with 10 skipped). Net +4,432 matched tokens across 29 improved roots (0 worsened). New 100% passes (5): `01.0200 fja~` (439 -> 627/627, 100.0%, +188 tokens), `01.0588 Irzya~` (424 -> 636/636, 100.0%, +212 tokens), `01.0637 aBra~` (424 -> 636/636, 100.0%, +212 tokens), `01.0670 ivi~` (424 -> 636/636, 100.0%, +212 tokens), `01.0722 ahi~` (418 -> 627/627, 100.0%, +209 tokens). Major improvements include +133 to +145 tokens each across 24 ṛ-vowel roots in nijanta.
+Passes: **957/1156 100%** (raw 957/1166). Fails: 199 scored (209 with 10 skipped). Net +209 matched tokens across 1 improved root (0 worsened). New 100% pass (1): `01.1121 pUN` (674 -> 883/883, 100.0%, +209 tokens).
 
 ## Rules (general, pure generative)
 - Panini 7.3.84 *sārvadhātukārdhadhātukayoḥ* & 6.1.78 *eco 'yavāyāvaḥ*: Before consonant-initial ārdhadhātuka affixes (luṭ `-tAs`, lṛṭ `-sya`, lṛṅ `-sya`, āsīrliṅ `-sIyuw`, tavya `-tavya`, tumun `-tum`, tṛc `-tf`), vowel-ending roots (`i`, `I`, `u`, `U`) take guṇa (`e`, `o`) without undergoing *eco 'yavāyāvaḥ* (which applies strictly before vowels, *aci*). Preserves `ne-` stems for `nI` (`netA`, `nezyati`, `nezyate`, `anezyat`, `anezyata`, `nezIzwa`, `netavyaH`, `netum`, `netA`/`netrI`/`netf`).
@@ -46,6 +46,7 @@ Passes: **956/1156 100%** (raw 956/1166). Fails: 200 scored (210 with 10 skipped
   - Roots ending in `rzy` (`01.0588 Irzya~`) reduplicate the sibilant/semivowel cluster as `Irzyiyiz-` and `Irzyiziz-`.
   - Laghūpadha ṛ-initial roots take initial guṇa `ar` (7.3.86) + *ajāder dvitīyasya* reduplication `ji` of the following consonant `j` (*na ndrāḥ* 6.1.3 blocks `r`), yielding `arjijiz-` across kartari, karmani (san_yak), and kṛdanta (`01.0200 fja~`).
 - Panini 7.3.86 *pug-anta-laghūpadhasya ca*: Added `f`, `F` to laghūpadha guṇa in ṇijanta across `tinanta.py` and `krdanta.py`, generating `arjay-` for `01.0200 fja~` (`arjayati`, `arjayate`, `arjayitA`, `arjayitavyaH`...) and unlocking +133 to +145 tokens each across 24 ṛ-roots (`01.0097`, `01.0202`, `01.0249`, `01.0255`, `01.0281`, `01.0496`, `01.0737`, `01.0802`-`01.0806`, `01.0834`, `01.0836`, `01.0852`, `01.0862`-`01.0864`, `01.0942`, `01.1014`, `01.1015`, `01.1138`, `01.1143`, `01.1145`).
+- Panini 7.4.79 *sany ataḥ* & 7.4.80 *pvoḥ yan-sanoḥ*: In seṭ roots ending in `ik` (specifically `pUN` / `pUY`), the root vowel takes guṇa `av` before `iz` (7.3.84 + 6.1.78), and short `a` of the abhyāsa becomes short `i` before `san` (7.4.79 *sany ataḥ* & 7.4.80 *pvoḥ yan-sanoḥ*), yielding the sannanta stem `pipaviz-` across all kartari (`san`), karmani (`san_yak`), and participles (`san_krut`).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
@@ -54,7 +55,7 @@ Passes: **956/1156 100%** (raw 956/1166). Fails: 200 scored (210 with 10 skipped
 | ting | 706 | 01.1091 ting/ASIrliN/prathama/eka:suyAt |
 | yang_krut | 290 | 01.0199 yang_krut/kta/M:tostucitaH |
 | yang | 263 | 01.0199 yang/lw/prathama/eka:tostucyate |
-| san_krut | 124 | 01.1121 san_krut/kta/M:pupUzitaH |
-| san | 25 | 01.1121 san/lw/prathama/eka:pupavzati |
+| san_krut | 117 | 01.1123 san_krut/kta/M:qiqIzitaH |
+| san | 20 | 01.1123 san/lw/prathama/eka:qiqIzati |
 | yak | 5 | 01.0642 yak/ASIrliN/prathama/eka:jeyAzwa |
 | nich | 1 | 01.0505 nich/lw/prathama/eka:vevayati |
