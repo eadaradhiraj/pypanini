@@ -1042,7 +1042,7 @@ class TinantaDerivationEngine:
                         last_v = c[i]
                         last_idx = i
                         break
-                if last_v in ("u","U","i","I"):
+                if last_v in ("u","U","i","I","f","F"):
                     guna = self._bhvadi_guna_base(c, is_idit)
                     if guna != c:
                         return guna + "ay"
@@ -1067,6 +1067,8 @@ class TinantaDerivationEngine:
             if is_vowel_init:
                 if c in ("aYc", "anc") or "ancu" in op:
                     return "aYciciz"
+                if c.endswith("rzy"):
+                    return c + "iyiz"
                 # reduplicated Ci-copy stem with velar/h palatalization in redup
                 # (at->atitiz, arda->ardidiz, arca->arciciz, oKf->ociKiz, arha->arjihiz, urv->urviviz)
                 _tail = c[1:]
@@ -1088,8 +1090,32 @@ class TinantaDerivationEngine:
                     _rn = "R" if _tail[0] in ("w", "W", "q", "Q", "R") else "m"
                     _rc = {"W": "w", "Q": "q", "B": "b", "P": "p"}.get(_tail[0], _tail[0])
                     return c[0] + _rp + _rn + _rc + "i" + _tail[0] + "iz"
-                if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
-                    _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "W": "w"}.get(_tail[0], _tail[0])
+                # Panini 6.1.3 na ndrAH saMyogAdayaH: nasal preceding consonant in ajAder dvitIyasya (aMh->aYjihiz, inv->inviviz, and->andidiz)
+                if len(_tail) >= 2 and _tail[0] in ("M", "m", "n") and _tail[1] not in SLP1_VOWELS:
+                    _nasal = _tail[0]
+                    _rest = _tail[1:]
+                    _ct = _rest[0]
+                    _rc = DEASPIRATE.get(_ct, _ct)
+                    _rc = VELAR_TO_PALATAL.get(_rc, _rc)
+                    if _rc in ("c", "C", "j", "J"):
+                        _neff = "Y"
+                    elif _rc in ("k", "K", "g", "G"):
+                        _neff = "N"
+                    elif _rc in ("w", "W", "q", "Q"):
+                        _neff = "R"
+                    elif _rc in ("p", "P", "b", "B", "m"):
+                        _neff = "m"
+                    elif _rc in ("t", "T", "d", "D", "n"):
+                        _neff = "n"
+                    elif _rc in ("y", "r", "l", "v"):
+                        _neff = _nasal
+                    else:
+                        _neff = "M"
+                    return c[0] + _neff + _rc + "i" + _rest + ("iz" if not is_vowel_final else "z")
+                if _tail and _tail[0] not in SLP1_VOWELS:
+                    _ct = _tail[0]
+                    _pc = DEASPIRATE.get(_ct, _ct)
+                    _pc = VELAR_TO_PALATAL.get(_pc, _pc)
                     # C1 + dental/retroflex-stop tail reduplicates C2 (andidiz, antitiz; sibilant-tails keep full)
                     _tbc = _tail[:-1] if _tail[-1:] in SLP1_VOWELS else _tail
                     if len(_tbc) == 2 and _tbc[1] in ("t", "T", "d", "D"):
@@ -1536,10 +1562,10 @@ class TinantaDerivationEngine:
                         _nsec = _sannanta_stem(_nbw[:-1] + _nn + _nbw[-1])
                         if _nsec not in [s_stem] + alt_s:
                             alt_s.append(_nsec)
-                # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (iw->ewiwiz, uz->oziziz, uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz)
-                if is_vowel_initial and len(clean) == 2 and clean[0] in ("i", "u") and clean[1] not in SLP1_VOWELS:
+                # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (iw->ewiwiz, uz->oziziz, uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, fj->arjijiz)
+                if is_vowel_initial and len(clean) == 2 and clean[0] in ("i", "u", "f") and clean[1] not in SLP1_VOWELS:
                     for _st in [s_stem] + list(alt_s):
-                        if _st and _st[0] in ("i", "u"):
+                        if _st and _st[0] in ("i", "u", "f"):
                             _sg = apply_guna(_st[0]) + _st[1:]
                             if _sg not in alt_s:
                                 alt_s.append(_sg)
@@ -2256,6 +2282,10 @@ class TinantaDerivationEngine:
                     if gen not in [s_stem]+alt_sann:
                         alt_sann.append(gen)
                 except: pass
+            if clean.endswith("rzy"):
+                for _zst in (clean + "iyiz", clean + "iziz"):
+                    if _zst not in [s_stem] + alt_sann:
+                        alt_sann.append(_zst)
             # alternative sannanta for vowel-initial urd: urd -> urdidiz etc. (rdid vs dird)
             if is_vowel_initial and len(clean) >= 2:
                 # variant: c[:2] + di + c[2:] + iz  e.g., urd -> urd + di -> urdid
@@ -2319,10 +2349,10 @@ class TinantaDerivationEngine:
                     s_alt2 = alt.replace(clean, guna_base, 1)
                     if s_alt2 not in s_stems:
                         s_stems.append(s_alt2)
-            # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, iw->ewiwiz, uz->oziziz)
-            if is_vowel_initial and len(clean) == 2 and clean[0] in ("i", "u") and clean[1] not in SLP1_VOWELS:
+            # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, iw->ewiwiz, uz->oziziz, fj->arjijiz)
+            if is_vowel_initial and len(clean) == 2 and clean[0] in ("i", "u", "f") and clean[1] not in SLP1_VOWELS:
                 for _st in list(s_stems):
-                    if _st and _st[0] in ("i", "u"):
+                    if _st and _st[0] in ("i", "u", "f"):
                         _sg = apply_guna(_st[0]) + _st[1:]
                         if _sg not in s_stems:
                             s_stems.append(_sg)

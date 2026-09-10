@@ -1,9 +1,9 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T08:30:00Z
+Date: 2026-09-10T14:20:00+05:30
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **951/1156 100%** (raw 951/1166). Fails: 205 scored (215 with 10 skipped). Net +2,241 matched tokens across 59 improved roots (0 worsened). New 100% pass (1): `01.1049 RIY` (798 -> 895/895, 100.0%, +97 tokens). Major improvements include +75 to +95 tokens across 25+ vowel-ending roots (`01.1090`-`01.1114`, `01.0269`, `01.0642`, `01.1096`, `01.1097`, `01.1099`, `01.1102`).
+Passes: **956/1156 100%** (raw 956/1166). Fails: 200 scored (210 with 10 skipped). Net +4,432 matched tokens across 29 improved roots (0 worsened). New 100% passes (5): `01.0200 fja~` (439 -> 627/627, 100.0%, +188 tokens), `01.0588 Irzya~` (424 -> 636/636, 100.0%, +212 tokens), `01.0637 aBra~` (424 -> 636/636, 100.0%, +212 tokens), `01.0670 ivi~` (424 -> 636/636, 100.0%, +212 tokens), `01.0722 ahi~` (418 -> 627/627, 100.0%, +209 tokens). Major improvements include +133 to +145 tokens each across 24 ṛ-vowel roots in nijanta.
 
 ## Rules (general, pure generative)
 - Panini 7.3.84 *sārvadhātukārdhadhātukayoḥ* & 6.1.78 *eco 'yavāyāvaḥ*: Before consonant-initial ārdhadhātuka affixes (luṭ `-tAs`, lṛṭ `-sya`, lṛṅ `-sya`, āsīrliṅ `-sIyuw`, tavya `-tavya`, tumun `-tum`, tṛc `-tf`), vowel-ending roots (`i`, `I`, `u`, `U`) take guṇa (`e`, `o`) without undergoing *eco 'yavāyāvaḥ* (which applies strictly before vowels, *aci*). Preserves `ne-` stems for `nI` (`netA`, `nezyati`, `nezyate`, `anezyat`, `anezyata`, `nezIzwa`, `netavyaH`, `netum`, `netA`/`netrI`/`netf`).
@@ -40,17 +40,21 @@ Passes: **951/1156 100%** (raw 951/1166). Fails: 205 scored (215 with 10 skipped
 - Panini 7.4.70 *at ādeḥ* + 7.4.71 *tasmān nuṭ dvihalaḥ*: An-reduplication for `ṛ`-initial roots in liṭ (`fja` -> `Anfje`, `AnfjAte`, `Anfjire`).
 - Panini 6.4.120 *ata ekahalmadhye 'nādeśāder liti*: kit liṭ et-tva + abhyāsa-lopa in Parasmaipada with root's own unreduced initial consonant `_init_c + "e" + _fc` (`Pal` -> `PelatuH`, `PeluH`, `PeliTa`, etc.).
 - Panini 7.3.57 *san-litoḥ jeḥ*: kuttva `j` -> `g` for root `ji` (`01.0642`, `01.1096`) in liṭ (`jigAya`, `jigaya`, `jigyatuH`, `jigyuH`, `jigeTa`, `jigayiTa`, `jigyaTuH`, `jigya`, `jigyiva`, `jigyima`, `jigye`, etc.).
+- Panini 6.1.2 *ajāder dvitīyasya*, 6.1.3 *na ndrāḥ saṁyogādayaḥ*, 7.4.60 *halādiḥ śeṣaḥ*, 7.4.62 *kuhocuḥ*, 8.4.54 *abhyāse carca*, 8.4.58 *anusvārasya yayi parasavarṇaḥ*, & 7.4.79 *sany ataḥ*: Generative sannanta reduplication for vowel-initial roots:
+  - Nasal-preceded conjuncts (*na ndrāḥ* 6.1.3) retain nasal in the base while the following consonant reduplicates; before palatal `j` (*kuhocuḥ* for `h`), anusvāra assimilates to `Y` (*parasavarṇaḥ* 8.4.58), yielding `aYjihiz-` (`01.0722 ahi~`), `inviviz-` (`01.0670 ivi~`), and `andidiz-` (`01.0064 adi~`).
+  - Aspirate consonants in abhyāsa deaspirate by 8.4.54 *abhyāse carca* (`B` -> `b`), yielding `abiBriz-` (`01.0637 aBra~`).
+  - Roots ending in `rzy` (`01.0588 Irzya~`) reduplicate the sibilant/semivowel cluster as `Irzyiyiz-` and `Irzyiziz-`.
+  - Laghūpadha ṛ-initial roots take initial guṇa `ar` (7.3.86) + *ajāder dvitīyasya* reduplication `ji` of the following consonant `j` (*na ndrāḥ* 6.1.3 blocks `r`), yielding `arjijiz-` across kartari, karmani (san_yak), and kṛdanta (`01.0200 fja~`).
+- Panini 7.3.86 *pug-anta-laghūpadhasya ca*: Added `f`, `F` to laghūpadha guṇa in ṇijanta across `tinanta.py` and `krdanta.py`, generating `arjay-` for `01.0200 fja~` (`arjayati`, `arjayate`, `arjayitA`, `arjayitavyaH`...) and unlocking +133 to +145 tokens each across 24 ṛ-roots (`01.0097`, `01.0202`, `01.0249`, `01.0255`, `01.0281`, `01.0496`, `01.0737`, `01.0802`-`01.0806`, `01.0834`, `01.0836`, `01.0852`, `01.0862`-`01.0864`, `01.0942`, `01.1014`, `01.1015`, `01.1138`, `01.1143`, `01.1145`).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 986 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
 | ting | 706 | 01.1091 ting/ASIrliN/prathama/eka:suyAt |
-| yang_krut | 212 | 01.0199 yang_krut/kta/M:tostucitaH |
-| san_krut | 159 | 01.0588 san_krut/kta/M:IrzizyizitaH |
-| yang | 153 | 01.1133 yang/lw/prathama/eka:sesvidyate |
-| nich | 111 | 01.0505 nich/lw/prathama/eka:vevayati |
-| nich_krut | 78 | 01.0249 nich_krut/Satf/M:Dfjayan |
-| san | 45 | 01.0588 san/lw/prathama/eka:Irdizyizati |
-| san_yak | 5 | 01.0642 san_yak/lw/prathama/eka:jijizyate |
+| yang_krut | 290 | 01.0199 yang_krut/kta/M:tostucitaH |
+| yang | 263 | 01.0199 yang/lw/prathama/eka:tostucyate |
+| san_krut | 124 | 01.1121 san_krut/kta/M:pupUzitaH |
+| san | 25 | 01.1121 san/lw/prathama/eka:pupavzati |
 | yak | 5 | 01.0642 yak/ASIrliN/prathama/eka:jeyAzwa |
+| nich | 1 | 01.0505 nich/lw/prathama/eka:vevayati |

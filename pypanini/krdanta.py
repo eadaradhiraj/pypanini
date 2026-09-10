@@ -657,9 +657,9 @@ class KrdantaEngine:
                 # Ur/Ud-forms keep plain sec (Urday, kUrd/sUd)
                 if c.startswith(("Ur", "ur", "Ud", "ud")) or "Ur" in c or "Ud" in c:
                     return c + "ay"
-                # only short-u/i/a + single-C (minus j) fall through to guna/vriddhi below
-                # (uKa->oKay, ata->Atay; long vowels, clusters, j-finals like aja, e/o/D-roots, consonant-initials keep plain)
-                if c and c[0] in SLP1_VOWELS and not (len(c) == 2 and c[0] in ("u", "i", "a") and c[1] not in SLP1_VOWELS and c[1] not in ("j", "J")):
+                # only short-u/i/a/f + single-C (minus aj) fall through to guna/vriddhi below
+                # (uKa->oKay, ata->Atay, fja->arjay; long vowels, clusters, j-finals like aja, e/o/D-roots, consonant-initials keep plain)
+                if c and c[0] in SLP1_VOWELS and not (len(c) == 2 and c[0] in ("u", "i", "a", "f") and c[1] not in SLP1_VOWELS and not (c[0] == "a" and c[1] in ("j", "J"))):
                     return c + "ay"
                 if not is_idit:
                     last_v = None
@@ -669,7 +669,7 @@ class KrdantaEngine:
                             last_v = c[i]
                             last_idx = i
                             break
-                    if last_v in ("u","U","i","I"):
+                    if last_v in ("u","U","i","I","f","F"):
                         guna = c if self._keep_shape(c, meta.get("op", ""), sew) else self._guna_base(c, is_idit)
                         if guna != c:
                             return guna + "ay"
@@ -694,6 +694,8 @@ class KrdantaEngine:
                 if is_vowel_init:
                     if c in ("aYc", "anc") or "ancu" in op:
                         return "aYciciz"
+                    if c.endswith("rzy"):
+                        return c + "iyiz"
                     # generate both variants: c[0]+di+c[1:] and c[:2]+di+c[2:] for urd
                     # primary is c[0]+di+c[1:] (e.g., ediDiz), but for urd expected urdidiz -> c[:2]+di+c[2:]
                     if c in ("Urd","kUrd","gUrd") and c not in ("skund","Svind"):
@@ -734,8 +736,32 @@ class KrdantaEngine:
                         _rn = "R" if _tail[0] in ("w", "W", "q", "Q", "R") else "m"
                         _rc = {"W": "w", "Q": "q", "B": "b", "P": "p"}.get(_tail[0], _tail[0])
                         return c[0] + _rp + _rn + _rc + "i" + _tail[0] + "iz"
-                    if _tail and _tail[0] not in SLP1_VOWELS and _tail[0] != "D":
-                        _pc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "W": "w"}.get(_tail[0], _tail[0])
+                    # Panini 6.1.3 na ndrAH saMyogAdayaH: nasal preceding consonant in ajAder dvitIyasya (aMh->aYjihiz, inv->inviviz, and->andidiz)
+                    if len(_tail) >= 2 and _tail[0] in ("M", "m", "n") and _tail[1] not in SLP1_VOWELS:
+                        _nasal = _tail[0]
+                        _rest = _tail[1:]
+                        _ct = _rest[0]
+                        _rc = DEASPIRATE.get(_ct, _ct)
+                        _rc = VELAR_TO_PALATAL.get(_rc, _rc)
+                        if _rc in ("c", "C", "j", "J"):
+                            _neff = "Y"
+                        elif _rc in ("k", "K", "g", "G"):
+                            _neff = "N"
+                        elif _rc in ("w", "W", "q", "Q"):
+                            _neff = "R"
+                        elif _rc in ("p", "P", "b", "B", "m"):
+                            _neff = "m"
+                        elif _rc in ("t", "T", "d", "D", "n"):
+                            _neff = "n"
+                        elif _rc in ("y", "r", "l", "v"):
+                            _neff = _nasal
+                        else:
+                            _neff = "M"
+                        return c[0] + _neff + _rc + "i" + _rest + ("iz" if not is_vowel_final else "z")
+                    if _tail and _tail[0] not in SLP1_VOWELS:
+                        _ct = _tail[0]
+                        _pc = DEASPIRATE.get(_ct, _ct)
+                        _pc = VELAR_TO_PALATAL.get(_pc, _pc)
                         # C1 + dental/retroflex-stop tail reduplicates C2 (andidiz, antitiz; sibilant-tails keep full)
                         _tbc = _tail[:-1] if _tail[-1:] in SLP1_VOWELS else _tail
                         if len(_tbc) == 2 and _tbc[1] in ("t", "T", "d", "D"):
@@ -948,8 +974,8 @@ class KrdantaEngine:
                 sec = "kAmay" if clean == "kam" else ((clean_ay + "ay") if (clean_ay and clean != "kram") else _nijanta_sec(clean))
             elif sanadi == "sannanta":
                 sec = _sannanta_sec(clean_ay) if (clean_ay and clean != "kram") else _sannanta_sec(clean)
-                # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (iw->ewiwiz, uz->oziziz, uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz)
-                if len(clean) == 2 and clean[0] in ("i", "u") and clean[1] not in SLP1_VOWELS and sec and sec[0] in ("i", "u"):
+                # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (iw->ewiwiz, uz->oziziz, uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, fj->arjijiz)
+                if len(clean) == 2 and clean[0] in ("i", "u", "f") and clean[1] not in SLP1_VOWELS and sec and sec[0] in ("i", "u", "f"):
                     sec = apply_guna(sec[0]) + sec[1:]
             elif sanadi == "yananta": sec = _yan_sec(clean)
             elif sanadi == "yanluganta" and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
