@@ -1003,7 +1003,7 @@ class KrdantaEngine:
             if sanadi == "sannanta":
                 if pratyaya == "Rvul": return {"M": sec+"uH","F":sec+"uH","N":sec+"u"}
                 if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
-                _nat = _natva_applies(sec) or _natva_applies(orig_clean)
+                _nat = _natva_applies(sec)
                 if pratyaya == "lyuw": return {"gender":"Neuter","form":sec+("aRam" if _nat else "anam")}
                 if pratyaya == "anIyar": return {"M": sec+("aRIyaH" if _nat else "anIyaH"),"F":sec+("aRIyA" if _nat else "anIyA"),"N":sec+("aRIyam" if _nat else "anIyam")}
                 if pratyaya == "yat": return {"M": sec+"yaH","F":sec+"yA","N":sec+"yam"}
@@ -1051,9 +1051,11 @@ class KrdantaEngine:
                         return {"M": _base_iy+"yaH", "F": _base_iy+"yA", "N": _base_iy+"yam"}
                     return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}
                 _b_kit = base_no_ya
-                # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn in kit kta/ktavatu (caMKnita)
-                if orig_clean == "Kan":
+                # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn, gam -> gm, Gas -> ks (8.4.55 khari ca)
+                if orig_clean in ("gam", "Kan", "han", "jan"):
                     _b_kit = base_no_ya.replace(orig_clean, orig_clean[0] + orig_clean[-1])
+                elif orig_clean == "Gas":
+                    _b_kit = base_no_ya.replace(orig_clean, "ks")
                 if pratyaya == "kta": return {"M": _b_kit+"itaH","F":_b_kit+"itA","N":_b_kit+"itam"}
                 if pratyaya == "ktavatu": return {"M": _b_kit+"itavAn","F":_b_kit+"itavatI","N":_b_kit+"itavat"}
                 if pratyaya == "tavya": return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
@@ -1611,6 +1613,9 @@ class KrdantaEngine:
             if clean.endswith("nd"):
                 return {"avyaya": [clean[:-1] + "tvA", clean + "itvA"]}
             if clean.endswith("m"):
+                # Panini 6.4.37 anudAttopadeSa... anunAsikalopa: ram/yam/nam/gam drop m before kit jhal tvA (7.2.56 uditto vA)
+                if clean in ("ram", "yam", "nam", "gam") or clean.endswith(("ram", "yam", "nam", "gam")):
+                    return {"avyaya": [clean[:-1] + "tvA", clean + "itvA"]}
                 if "mu~" in op or "mU~" in op:
                     return {"avyaya": [clean[:-2] + "AntvA", clean + "itvA"]}
                 if not sew:

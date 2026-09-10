@@ -3391,6 +3391,9 @@ class TinantaDerivationEngine:
                             for _tb in _t_stems:
                                 _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
                                 cands.append(_atb + "a")
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                cands.extend([_asb + "ta", _asb + "wa"])
                         elif (purusha, vacana) == ("prathama", "dvi"):
                             for _sb in _s_stems:
                                 _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
