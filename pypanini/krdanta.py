@@ -1139,7 +1139,8 @@ class KrdantaEngine:
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
         elif pratyaya == "Satf":
-            if pada == "Atmanepadi" or (clean_ay and sanadi == "yanluganta"):
+            # Panini 1.3.60 SaqaH SIyateH: Sad takes Atmanepada (SAnac), not Satf in mUla
+            if pada == "Atmanepadi" or (clean_ay and sanadi == "yanluganta") or ((clean in ("Sad", "Sadx") or op.startswith("Sad")) and sanadi is None):
                 return None
             _satf_base = guna_base if (sanadi is None or sanadi == "yanluganta") else clean
             # Panini 7.3.77 izu-gami-yamAM CaH & 7.3.78 pA-GrA-DmA-sTA-mnA-dAR-dfSi-Sf-sad-SadAM piba-jiGra-Dama-tizWa-mana-yacCa-paSya-fcCa-DO-SIyadAH
@@ -1182,6 +1183,9 @@ class KrdantaEngine:
                     return {"M": "sAsadat", "F": "sAsadatI", "N": "sAsadat"}
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
                     return {"M": "yaMyamat", "F": "yaMyamatI", "N": "yaMyamat"}
+                elif clean in ("Sad", "Sadx") or op.startswith("Sad"):
+                    # Panini 7.1.78 nAbhyastAcchaturguRakftamanikartuSca: abhyasta stem SASad takes no num
+                    return {"M": "SASadat", "F": "SASadatI", "N": "SASadat"}
                 elif clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
             # urv-coda lengthens instead of guna (turv/tUrv->tUrvan, consonant-initial shape; vowel-initial urv keeps guna)

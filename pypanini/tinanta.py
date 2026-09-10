@@ -928,10 +928,13 @@ class TinantaDerivationEngine:
             except: pass
         meta = self._get_meta(dhatu, dhatu_id)
         clean = meta["clean"]
+        op = meta.get("op", "")
         pada = meta["pada"]
+        # Panini 1.3.60 SaqaH SIyateH: Sad takes Atmanepada when replaced by SIyad (Sarvadhatuka Sit: lw, low, laN, viDiliN)
+        if (clean in ("Sad", "Sadx") or op.startswith("Sad")) and sanadi is None and prayoga == "kartari" and lakara in ("lw", "low", "laN", "viDiliN"):
+            pada = "Atmanepadi"
         sew = meta["sew"]
         is_vew = str(meta.get("sew_raw", "")).strip() == "vew"
-        op = meta.get("op", "")
         clean_ay = None
         if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DU") or dhatu_id == "01.0462"):
             clean_ay = "gopAy" if clean == "gup" else "DUpAy"
@@ -1778,9 +1781,9 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): "pipye", ("uttama", "dvi"): "pipyivahe", ("uttama", "bahu"): "pipyimahe",
                     }
                     cands += [_pipy[(purusha, vacana)], _pipy[(purusha, vacana)].replace("Dve", "Qve")]
-                # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi in yak liT
+                # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi in yak liT (8.4.55 khari ca: Gas -> ks)
                 if clean in ("Kan", "gam", "jan", "han", "Gas"):
-                    _kn_base = clean[0] + clean[-1]
+                    _kn_base = "ks" if clean == "Gas" else (clean[0] + clean[-1])
                     for _rc in list(redups):
                         _rp = _rc[:-len(clean)] if _rc.endswith(clean) and len(clean) else _rc
                         cands += [_rp + _kn_base + endings[(purusha, vacana)], _rp + _kn_base + endings_q[(purusha, vacana)]]
@@ -2935,9 +2938,9 @@ class TinantaDerivationEngine:
                             ("uttama", "eka"): "pipye", ("uttama", "dvi"): "pipyivahe", ("uttama", "bahu"): "pipyimahe",
                         }
                         cands.append(_pipy[(purusha, vacana)])
-                    # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn (caKne...)
+                    # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn (caKne...), Gas -> ks
                     if clean in ("Kan", "gam", "jan", "han", "Gas"):
-                        _kn_base = clean[0] + clean[-1]
+                        _kn_base = "ks" if clean == "Gas" else (clean[0] + clean[-1])
                         for _rc in list(redups):
                             _rp = _rc[:-len(clean)] if _rc.endswith(clean) and len(clean) else _rc
                             cands.append(_rp + _kn_base + endings[(purusha, vacana)])
@@ -3061,9 +3064,9 @@ class TinantaDerivationEngine:
                                     _et_base = _init_c + "e" + _fc
                                     cands.append(_et_base + vow_endings[(purusha, vacana)])
                                     cands.append(_et_base + cons_endings[(purusha, vacana)])
-                        # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn in kit/Nit slots (caKnatuH, caKnuH...)
+                        # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn in kit/Nit slots (caKnatuH, caKnuH...), Gas -> ks
                         if clean in ("Kan", "gam", "jan", "han", "Gas"):
-                            _kn_base = clean[0] + clean[-1]
+                            _kn_base = "ks" if clean == "Gas" else (clean[0] + clean[-1])
                             for _rd in list(redups):
                                 _tail_match = _rd.endswith(clean) or (clean.startswith("s") and _rd.endswith("z" + clean[1:]))
                                 _rp = _rd[:-len(clean)] if _tail_match and len(clean) else _rd
