@@ -1253,11 +1253,18 @@ class TinantaDerivationEngine:
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->seziDya; za-roots like zala~ keep s)
+            # Panini 8.3.59 AdeSapratyayayoH & 8.4.41 zwunA zwuH:
+            # For roots whose upadeSa starts with zw/zW (zwuc, zwep, zwip, zwuB):
+            # after abhyAsa with iN vowel (e, o), st -> zw and sT -> zW
             _ybase = c_eff
             try:
                 _op0 = (meta.get("op", "") or "").replace("~", "")
                 if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c_eff.startswith("s"):
                     _ybase = "z" + c_eff[1:]
+                elif (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st") and yan_vowel in ("e", "o"):
+                    _ybase = "zw" + _ybase[2:]
+                elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT") and yan_vowel in ("e", "o"):
+                    _ybase = "zW" + _ybase[2:]
             except Exception:
                 pass
             # yan nasal trio (mirror krdanta): drop coda-n before stop / drop final-N unless meta-mangled; redup-M for short-a + final-n
@@ -1312,11 +1319,18 @@ class TinantaDerivationEngine:
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (mirroring _yan_stem)
+            # Panini 8.3.59 AdeSapratyayayoH & 8.4.41 zwunA zwuH:
+            # For roots whose upadeSa starts with zw/zW (zwuc, zwep, zwip, zwuB):
+            # after abhyAsa with iN vowel (e, o), st -> zw and sT -> zW
             _ybase = c_eff
             try:
                 _op0 = (meta.get("op", "") or "").replace("~", "")
                 if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c_eff.startswith("s"):
                     _ybase = "z" + c_eff[1:]
+                elif (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st") and yan_vowel in ("e", "o"):
+                    _ybase = "zw" + _ybase[2:]
+                elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT") and yan_vowel in ("e", "o"):
+                    _ybase = "zW" + _ybase[2:]
             except Exception:
                 pass
             # yangluk redup-M for short-a + final dental-n (van->vaMvana; old redup absent everywhere)
@@ -1382,9 +1396,9 @@ class TinantaDerivationEngine:
                 return yanluk_map[(purusha, vacana)], log
             yls = _yanlug_stem(clean)
             cands = self._conjugate_at_stem_parasmai(yls, "lw", purusha, vacana)
-            # add extra variants for retroflex etc (pAsparDi / pAspardDi) and devoicing (ceklind -> ceklint)
+            # add extra variants for retroflex etc (pAsparDi / pAspardDi) and devoicing (ceklind -> ceklint, tozwuc -> tozwuk by 8.2.30 coH kuH)
             def _devoiced(s: str) -> str:
-                mapping = {"d":"t","D":"T","b":"p","B":"P","g":"k","G":"K","j":"c","J":"C","h":"k","q":"k","Q":"K"}
+                mapping = {"d":"t","D":"T","b":"p","B":"P","g":"k","G":"K","j":"c","J":"C","h":"k","q":"k","Q":"K","c":"k"}
                 if s and s[-1] in mapping:
                     return s[:-1] + mapping[s[-1]]
                 return s
@@ -1401,6 +1415,9 @@ class TinantaDerivationEngine:
                     extra.append(cand)
             # also add yls + Di directly and devoiced/truncated variants
             extra += [yls + "i", yls.replace("D","d") + "i", yls + "aH", yls_dev + "i", yls_trunc + "ti", yls_dev + "ti", yls + "ti", yls_dev + "Iti", yls + "Iti", yls_trunc + "i", yls_trunc_dev + "i", yls_trunc + "aH", yls_trunc_dev + "aH", yls_dev + "aH"]
+            # athematic endings before jhal / consonants + karmani yanluganta
+            extra += [yls_dev + "taH", yls_dev + "TaH", yls_dev + "Ta", yls + "vaH", yls + "maH", yls + "Izi", yls + "Imi", yls + "ati"]
+            extra += self._conjugate_at_stem_atmane(yls + "y", "lw", purusha, vacana)
             # for nd->nt handling also include nt variant explicitly
             if yls.endswith("nd"):
                 extra.append(yls[:-1] + "t" + "i")  # ceklinti

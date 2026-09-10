@@ -1,9 +1,9 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T14:45:00+05:30
+Date: 2026-09-10T15:24:00+05:30
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **957/1156 100%** (raw 957/1166). Fails: 199 scored (209 with 10 skipped). Net +209 matched tokens across 1 improved root (0 worsened). New 100% pass (1): `01.1121 pUN` (674 -> 883/883, 100.0%, +209 tokens).
+Passes: **958/1156 100%** (raw 958/1166). Fails: 198 scored (208 with 10 skipped). Net +923 matched tokens across 6 improved roots (0 worsened). New 100% pass (1): `01.0199 zwuca~` (656 -> 883/883, 100.0%, +227 tokens). Adjacent improvements: `01.0422` (655 -> 875/883, +220), `01.0423` (656 -> 876/883, +220), `01.0460` (656 -> 876/883, +220), `01.0648` (603 -> 621/895, +18), `01.1165` (405 -> 423/895, +18).
 
 ## Rules (general, pure generative)
 - Panini 7.3.84 *sārvadhātukārdhadhātukayoḥ* & 6.1.78 *eco 'yavāyāvaḥ*: Before consonant-initial ārdhadhātuka affixes (luṭ `-tAs`, lṛṭ `-sya`, lṛṅ `-sya`, āsīrliṅ `-sIyuw`, tavya `-tavya`, tumun `-tum`, tṛc `-tf`), vowel-ending roots (`i`, `I`, `u`, `U`) take guṇa (`e`, `o`) without undergoing *eco 'yavāyāvaḥ* (which applies strictly before vowels, *aci*). Preserves `ne-` stems for `nI` (`netA`, `nezyati`, `nezyate`, `anezyat`, `anezyata`, `nezIzwa`, `netavyaH`, `netum`, `netA`/`netrI`/`netf`).
@@ -47,14 +47,16 @@ Passes: **957/1156 100%** (raw 957/1166). Fails: 199 scored (209 with 10 skipped
   - Laghūpadha ṛ-initial roots take initial guṇa `ar` (7.3.86) + *ajāder dvitīyasya* reduplication `ji` of the following consonant `j` (*na ndrāḥ* 6.1.3 blocks `r`), yielding `arjijiz-` across kartari, karmani (san_yak), and kṛdanta (`01.0200 fja~`).
 - Panini 7.3.86 *pug-anta-laghūpadhasya ca*: Added `f`, `F` to laghūpadha guṇa in ṇijanta across `tinanta.py` and `krdanta.py`, generating `arjay-` for `01.0200 fja~` (`arjayati`, `arjayate`, `arjayitA`, `arjayitavyaH`...) and unlocking +133 to +145 tokens each across 24 ṛ-roots (`01.0097`, `01.0202`, `01.0249`, `01.0255`, `01.0281`, `01.0496`, `01.0737`, `01.0802`-`01.0806`, `01.0834`, `01.0836`, `01.0852`, `01.0862`-`01.0864`, `01.0942`, `01.1014`, `01.1015`, `01.1138`, `01.1143`, `01.1145`).
 - Panini 7.4.79 *sany ataḥ* & 7.4.80 *pvoḥ yan-sanoḥ*: In seṭ roots ending in `ik` (specifically `pUN` / `pUY`), the root vowel takes guṇa `av` before `iz` (7.3.84 + 6.1.78), and short `a` of the abhyāsa becomes short `i` before `san` (7.4.79 *sany ataḥ* & 7.4.80 *pvoḥ yan-sanoḥ*), yielding the sannanta stem `pipaviz-` across all kartari (`san`), karmani (`san_yak`), and participles (`san_krut`).
+- Panini 8.3.57 *iṇkoḥ*, 8.3.59 *ādeśapratyayayoḥ*, & 8.4.41 *ṣṭunā ṣṭuḥ*: In Yaṅ/Yaṅluk, when abhyāsa ends in an `iṇ` vowel (`e`, `o`), dental `st`/`sT` clusters of `zw`/`zW`-upadeśa roots undergo ṣatva and ṣṭutva to `zw`/`zW` (`zwuc` -> `tozwucya-`, `zwep` -> `tezwepya-`, `zwip` -> `tezwipya-`, `zwuB` -> `tozwuBya-`), while roots with non-`iṇ` abhyāsa vowels (`A`, `aM` such as `staBi` -> `tAstamBa`, `stan` -> `taMstana`, `stak` -> `tAstaka`) strictly retain dental `st`/`sT`.
+- Panini 7.3.52 *cajoḥ ku ghiṇyatoḥ*, 7.3.59 *na kvādeḥ*, 7.3.60 *aji-vrajyoś ca*, & 8.4.58 *anusvārasya yayi parasavarṇaḥ*: In `GaY` for yaṅanta kṛdantas, root-final `c`/`j` undergo kutva to `k`/`g` (`tozwukaH`), with parasavarṇa assimilation of preceding nasal (`Yk`/`Yg` -> `Nk`/`Ng` as in `SASvaNkaH`, `momuNkaH`, `lAlaNgaH`), while roots beginning with kavarga (`k`, `K`, `g`, `G`, `kz`) are barred from kutva by *na kvādeḥ* (`cAkacaH`, `cokucaH`, `cokujaH`, `jAgarjaH`), and `vraj` is barred by *aji-vrajyoś ca* (`vAvrajaH`).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 986 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
 | ting | 706 | 01.1091 ting/ASIrliN/prathama/eka:suyAt |
-| yang_krut | 290 | 01.0199 yang_krut/kta/M:tostucitaH |
-| yang | 263 | 01.0199 yang/lw/prathama/eka:tostucyate |
+| yang_krut | 283 | 01.0422 yang_krut/SAnac/M:tezwipyamARaH |
+| yang | 244 | 01.0463 yang/lw/prathama/eka:jaYjapyate |
 | san_krut | 117 | 01.1123 san_krut/kta/M:qiqIzitaH |
 | san | 20 | 01.1123 san/lw/prathama/eka:qiqIzati |
 | yak | 5 | 01.0642 yak/ASIrliN/prathama/eka:jeyAzwa |

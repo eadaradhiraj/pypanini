@@ -901,11 +901,18 @@ class KrdantaEngine:
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->seziDya, mirroring tinanta)
+                # Panini 8.3.59 AdeSapratyayayoH & 8.4.41 zwunA zwuH:
+                # For roots whose upadeSa starts with zw/zW (zwuc, zwep, zwip, zwuB):
+                # after abhyAsa with iN vowel (e, o), st -> zw and sT -> zW
                 _ybase = c
                 try:
                     _op0 = (meta.get("op", "") or "").replace("~", "")
                     if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c.startswith("s"):
                         _ybase = "z" + c[1:]
+                    elif (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st") and yan_vowel in ("e", "o"):
+                        _ybase = "zw" + _ybase[2:]
+                    elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT") and yan_vowel in ("e", "o"):
+                        _ybase = "zW" + _ybase[2:]
                 except Exception:
                     pass
                 # yan base: drop coda-n before stop (manT->maTya); drop final retroflex-N (kuN->kUya); non-idit only (idit vand-type keeps num-n)
@@ -1128,7 +1135,28 @@ class KrdantaEngine:
                     if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and _lb.endswith("ana"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
-                if pratyaya == "GaY": return {"gender":"Masculine","form":base_no_ya+"aH"}
+                if pratyaya == "GaY":
+                    # Panini 7.3.52 cajoH ku GinyatoH: c->k, j->g before Gh-it (GaY)
+                    # Panini 7.3.59 na kvAdeH: roots beginning with kavarga (k, K, g, G) do NOT undergo kutva
+                    # Panini 7.3.60 aji-vrajyoS ca: aj, vraj do NOT undergo kutva
+                    _gb = base_no_ya
+                    _dh_onset = orig_clean or clean
+                    for _u in ("a", "A", "i", "I", "u", "U", "f", "F", "e", "E", "o", "O"):
+                        if _u in _dh_onset:
+                            _dh_onset = _dh_onset[:_dh_onset.index(_u)]
+                            break
+                    is_kvadi = any(_dh_onset.startswith(k) for k in ("k", "K", "g", "G"))
+                    is_aj_vraj = (orig_clean in ("aj", "vraj")) or (clean in ("aj", "vraj")) or bool(op and any(op.startswith(x) for x in ("aj", "vraj")))
+                    if _gb and _gb[-1] in ("c", "j") and not is_kvadi and not is_aj_vraj:
+                        rep = "k" if _gb[-1] == "c" else "g"
+                        _gb = _gb[:-1] + rep
+                        # Panini 8.4.58 parasavarRa: Y before k/g -> N
+                        if len(_gb) >= 2 and _gb[-2] == "Y":
+                            _gb = _gb[:-2] + "N" + _gb[-1]
+                        # j/s before g -> d (zasja -> sAsadga)
+                        if len(_gb) >= 2 and _gb[-2] in ("s", "j") and _gb[-1] == "g":
+                            _gb = _gb[:-2] + "d" + _gb[-1]
+                    return {"gender": "Masculine", "form": _gb + "aH"}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum", base_no_ya+"itum"]}
                 if pratyaya == "ktvA": return {"avyaya": [base_no_ya+"itvA", sec+"itvA"]}
                 if pratyaya == "SAnac":
