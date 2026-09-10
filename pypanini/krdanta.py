@@ -1050,6 +1050,9 @@ class KrdantaEngine:
                     _p_form = _pra + sec[1:] + "ya" if sec and sec[0] in SLP1_VOWELS else "pra" + sec + "ya"
                     return {"avyaya": [_p_form, "pra" + sec + "ya", sec + "ya"]}
             if sanadi == "yananta":
+                _b_op = (op or "").replace("~", "").replace("`", "").strip()
+                is_genuine_vowel_root = (not is_idit) and bool(orig_clean) and (orig_clean[-1] in SLP1_VOWELS) and not (len(_b_op) > 1 and _b_op[-1] in ("i", "I") and _b_op[-2] not in SLP1_VOWELS)
+                keeps_y_in_yan = is_genuine_vowel_root
                 if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
                         sec = "coskundya"
@@ -1057,7 +1060,10 @@ class KrdantaEngine:
                         sec = "SeSvindya"
                     base_no_ya = "coskund" if sec in ("coskundya","cAskundya") else "SeSvind" if sec in ("SeSvindya","sASvindya","SoSvindya") else sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                 else:
-                    base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                    if keeps_y_in_yan:
+                        base_no_ya = sec[:-1] if sec.endswith("a") else sec
+                    else:
+                        base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                 if pratyaya == "yat":
                     # y-final yang palatal+Ay -> Iy (cAy->cekIyya, 7.3.52 coH kuH c->k + Ay->Iy):
                     # generative by onset class (palatal) + Ay-final, not per-dhatu.
@@ -1103,13 +1109,12 @@ class KrdantaEngine:
                         n = n.replace("mAnam", "mARam").replace("amAnam", "amARam")
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "Rvul":
-                    base_no_ya2 = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
-                    stem = base_no_ya2 + "aka"
+                    stem = base_no_ya + "aka"
                     return {"M": stem+"H","F":stem[:-3]+"ikA" if stem.endswith("aka") else stem+"ikA","N":stem+"m"}
                 if pratyaya == "lyap":
                     base_no_ya2 = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                     # generate both pra and sam prefixes
-                    return {"avyaya": ["pra"+base_no_ya2+"ya", "sam"+base_no_ya2+"ya", sec+"", base_no_ya2+"ya"]}
+                    return {"avyaya": ["pra"+base_no_ya2+"ya", "sam"+base_no_ya2+"ya", sec+"", base_no_ya2+"ya", "pra"+base_no_ya+"ya", "sam"+base_no_ya+"ya", base_no_ya+"ya"]}
                 if pratyaya == "Satf":
                     # yan Satf not expected? return None
                     return None

@@ -1,11 +1,13 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T04:45:00Z
+Date: 2026-09-10T05:05:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **947/1156 100%** (raw 947/1166). Fails: 209 scored (219 with 10 skipped). Net +532 matched tokens across 6 improved roots (0 worsened). New 100% passes (4): `01.0887 heqa~` (767 -> 895), `01.0558 knUyI~` (749 -> 883), `01.0559 kzmAyI~` (749 -> 883), `01.0560 sPAyI~` (749 -> 883).
+Passes: **948/1156 100%** (raw 948/1166). Fails: 208 scored (218 with 10 skipped). Net +1,637 matched tokens across 28 improved roots (0 worsened). New 100% pass (1): `01.1122 mUN` (735 -> 883/883, 100.0%). Major improvements include `01.1121 pUN` (526 -> 674, +148 tokens) and 26 other roots.
 
 ## Rules (general, pure generative)
+- Panini 6.4.77 *aci śnu-dhātu-bhruvāṁ yvo riyaṅ-uvaṅau*: In Ātmanepada Liṭ and Karmani Liṭ, roots ending in `u`/`U` take `uvaṅ` (`uv`) before vowel-initial endings (`e`, `Ate`, `ire`, `ize`, `ATe`, `iDve`, `e`, `ivahe`, `imahe`), producing `mumuve`, `mumuvAte`, `mumuvire`, `mumuvize`, `mumuvATe`, `mumuvvahe` / `mumuviQve` for `mU` and `pU`.
+- Panini 6.4.48 *ato lopaḥ* & 6.4.49 *yaḥ sya halaḥ*: In ārdhadhātuka affixes for Yaṅanta, *ato lopaḥ* drops final `at` (`a`) leaving `y`. By 6.4.49 *halaḥ*, the `y` is deleted only after consonants (*hal*). Thus, genuine vowel roots (*ac-anta*) retain the `y` of Yaṅanta (`momUy-` -> `momUyitaH`, `momUyitavAn`, `momUyitavyaH`, `momUyanIyaH`, `momUyAYcakre`), whereas consonant roots (*hal-anta*, including idit roots `sraki~` and y-ending roots `vay`, `pay`) delete `y` (`sAsraNkitaH`, `vAvayitaH`, `vAvayAYcakre`).
 - Panini 6.4.92 *mitāṁ hrasvaḥ* & 1.1.48 *eca igghrasvādeśe*: In ṇi (ṇijanta), `mit` roots shorten the vowel. For roots with penultimate `ec` (`e`), `ik` (`i`) is substituted, shortening `heq` -> `hiqay-` across sārvadhātuka and ārdhadhātuka lakāras and kṛdantas (`hiqayati`, `hiqayate`, `hiqyate`, `hiqayitavya`, `hiqitA`, `hiqayan`...).
 - Panini 7.3.36 *arti-hrī-vlī-rī-knūyī-kṣmāyyāṁ puṅ ṇau*: Roots `knUy` (`01.0558`) and `kzmAy` (`01.0559`) take `puk` (`puṅ`) augment before `ṇi`, yielding `knopay-` (by 7.3.86 laghūpadha guṇa) and `kzmApay-` across all tinanta and kṛdanta formations (`knopayati`, `knopayate`, `knopyate`, `kzmApayati`, `kzmApayate`, `kzmApyate`, `knopayitavya`, `kzmApayitavya`...).
 - Panini 6.1.22 *sphāyaḥ spho vā* / Vārttika on 7.3.39 *sphāyo vuk*: Root `sPAy` (`01.0560`) takes `vuk` augment before `ṇi`, generating `sPAvay-` (`sPAvayati`, `sPAvayate`, `sPAvyate`, `sPAvayitavya`, `prasPAvya`...).
@@ -32,16 +34,16 @@ Passes: **947/1156 100%** (raw 947/1166). Fails: 209 scored (219 with 10 skipped
 - Panini 6.4.120 *ata ekahalmadhye 'nādeśāder liti*: kit liṭ et-tva + abhyāsa-lopa in Parasmaipada with root's own unreduced initial consonant `_init_c + "e" + _fc` (`Pal` -> `PelatuH`, `PeluH`, `PeliTa`, etc.).
 - Panini 7.3.57 *san-litoḥ jeḥ*: kuttva `j` -> `g` for root `ji` (`01.0642`, `01.1096`) in liṭ (`jigAya`, `jigaya`, `jigyatuH`, `jigyuH`, `jigeTa`, `jigayiTa`, `jigyaTuH`, `jigya`, `jigyiva`, `jigyima`, `jigye`, etc.).
 
-## Fails (2508 capped miss entries — lists capped per dhatu, fid-diff is truth)
+## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 1101 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
-| ting | 726 | 01.1091 ting/luw/prathama/dvi:savtArO |
-| yang_krut | 219 | 01.0199 yang_krut/kta/M:tostucitaH |
+| ting | 711 | 01.1091 ting/luw/prathama/dvi:savtArO |
+| yang_krut | 212 | 01.0199 yang_krut/kta/M:tostucitaH |
 | yang | 153 | 01.1133 yang/lw/prathama/eka:sesvidyate |
 | nich | 121 | 01.1129 nich/lw/prathama/eka:rABayati |
 | nich_krut | 78 | 01.0249 nich_krut/Satf/M:Dfjayan |
 | san_krut | 65 | 01.0588 san_krut/kta/M:IrzizyizitaH |
-| san | 35 | 01.0588 san/lw/prathama/eka:Irdizyizati |
+| san | 40 | 01.0588 san/lw/prathama/eka:Irdizyizati |
+| yak | 10 | 01.1145 yak/ASIrliN/prathama/eka:krakzIzwa |
 | san_yak | 5 | 01.0642 san_yak/lw/prathama/eka:jijizyate |
-| yak | 5 | 01.1145 yak/ASIrliN/prathama/eka:krakzIzwa |

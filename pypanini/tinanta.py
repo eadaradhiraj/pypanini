@@ -974,6 +974,9 @@ class TinantaDerivationEngine:
             return ["ayAti"], []
         is_idit = meta.get("is_idit", False)
         is_mit = meta.get("is_mit", False)
+        _b_op = (op or "").replace("~", "").replace("`", "").strip()
+        is_genuine_vowel_root = (not is_idit) and bool(clean) and (clean[-1] in SLP1_VOWELS) and not (len(_b_op) > 1 and _b_op[-1] in ("i", "I") and _b_op[-2] not in SLP1_VOWELS)
+        keeps_y_in_yan = is_genuine_vowel_root
         # i/I-ending idit with nasal (num) 7.1.58: klidi~ -> klind, hlAdI~ -> hlAd (strip I without n)
         if clean.endswith(("i","I")) and (is_idit or pada == "Atmanepadi") and any(c in SLP1_VOWELS for c in clean[:-1]):
             base_wo_i = clean[:-1]
@@ -1371,8 +1374,8 @@ class TinantaDerivationEngine:
             if lakara in ("laN", "luN"):
                 ys_aug = self._add_augment(ys, ys[0] in SLP1_VOWELS if ys else False)
                 if lakara == "luN":
-                    if clean == "BU":
-                        base_no_ya = ys
+                    if keeps_y_in_yan:
+                        base_no_ya = ys[:-1] if ys.endswith("a") else ys
                     else:
                         base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
                     aug_base = self._add_augment(base_no_ya, base_no_ya[0] in SLP1_VOWELS if base_no_ya else False)
@@ -1390,18 +1393,43 @@ class TinantaDerivationEngine:
                 return self._conjugate_at_stem_atmane(ys_core, lakara, purusha, vacana), log
             # liw for yan: periphrastic AYcakre (not reduplication)
             if lakara == "liw":
-                if ys.endswith("ya"):
-                    return [ys[:-2] + "AYcakre", ys[:-2] + "AmAse", ys[:-2] + "AmbaBUve"], log
-                return [ys + "AYcakre"], log
+                _tbl = {
+                    ("prathama", "eka"): "Ycakre",
+                    ("prathama", "dvi"): "YcakrAte",
+                    ("prathama", "bahu"): "Ycakrire",
+                    ("madhyama", "eka"): "Ycakfze",
+                    ("madhyama", "dvi"): "YcakrATe",
+                    ("madhyama", "bahu"): "YcakfQve",
+                    ("uttama", "eka"): "Ycakre",
+                    ("uttama", "dvi"): "Ycakfvahe",
+                    ("uttama", "bahu"): "Ycakfmahe",
+                }
+                _be = _tbl.get((purusha, vacana), "Ycakre")
+                _stems = []
+                if keeps_y_in_yan:
+                    _stems.append(ys[:-1] if ys.endswith("a") else ys)
+                else:
+                    if ys.endswith("ya"):
+                        _stems.append(ys[:-2])
+                    elif ys.endswith("y"):
+                        _stems.append(ys[:-1])
+                    else:
+                        _stems.append(ys)
+                _res = []
+                for _st in _stems:
+                    _res += [_st + "A" + _be, _st + "AYcakre", _st + "AmAse", _st + "AmbaBUve"]
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        _res.append(_st + "AYcakfDve")
+                return list(dict.fromkeys(_res)), log
             if lakara == "luw":
-                if clean == "BU":
-                    base_no_ya = ys  # boBUy keeps y
-                    return self._conjugate_luw(base_no_ya + "i" if not ys.endswith("i") else base_no_ya, "Atmanepadi", purusha, vacana), log
+                if keeps_y_in_yan:
+                    base_no_ya = ys[:-1] if ys.endswith("a") else ys
+                    return self._conjugate_luw(base_no_ya + "i" if not base_no_ya.endswith("i") else base_no_ya, "Atmanepadi", purusha, vacana), log
                 base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
                 return self._conjugate_luw(base_no_ya + "i", "Atmanepadi", purusha, vacana), log
             if lakara == "ASIrliN":
-                if clean == "BU":
-                    base_no_ya = ys
+                if keeps_y_in_yan:
+                    base_no_ya = ys[:-1] if ys.endswith("a") else ys
                 else:
                     base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
                 base_iz = base_no_ya + "i" + apply_satva("i","s") if not base_no_ya.endswith("i") else base_no_ya + apply_satva("i","s")
@@ -1412,8 +1440,8 @@ class TinantaDerivationEngine:
                     _c += [c.replace("IDvam", "IQvam") for c in _c if "IDvam" in c]
                 return list(dict.fromkeys(_c)), log
             if lakara in ("lfw", "lfN"):
-                if clean == "BU":
-                    base_no_ya = ys
+                if keeps_y_in_yan:
+                    base_no_ya = ys[:-1] if ys.endswith("a") else ys
                 else:
                     base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
                 core = base_no_ya + "izya"
@@ -1798,6 +1826,10 @@ class TinantaDerivationEngine:
                 cands = []
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
+                    # Panini 6.4.77 aci Snu-DAtu-BruvAM yvo riyaN-uvaNAu: u/U takes uvaN (uv) before vowel endings
+                    if clean.endswith(("u", "U")):
+                        _uv_base = (rd[:-1] if rd.endswith(("u", "U")) else rd) + "uv"
+                        cands += [_uv_base + endings[(purusha, vacana)], _uv_base + endings_q[(purusha, vacana)]]
                     # Panini 6.4.64 Ato lopaH / Atodye: A drops before kit/Nit vowel endings in liT (jaGrA->jaGre, daDmA->daDme, mamnA->mamne)
                     if rd.endswith("A"):
                         _rdb = rd[:-1]
@@ -2954,6 +2986,22 @@ class TinantaDerivationEngine:
                     cands = []
                     for rd in redups:
                         cands.append(rd + endings[(purusha, vacana)])
+                    # Panini 6.4.77 aci Snu-DAtu-BruvAM yvo riyaN-uvaNAu: u/U takes uvaN (uv) before vowel endings
+                    if clean.endswith(("u", "U")):
+                        for rd in list(redups):
+                            _uv_base = (rd[:-1] if rd.endswith(("u", "U")) else rd) + "uv"
+                            cands.append(_uv_base + endings[(purusha, vacana)])
+                            if (purusha, vacana) == ("madhyama", "bahu"):
+                                cands.append(_uv_base + "iQve")
+                    # Panini 6.1.77 iko yaR aci / 6.4.77 riyaN: i/I takes y/iy before vowel endings
+                    if is_genuine_vowel_root and clean.endswith(("i", "I")):
+                        for rd in list(redups):
+                            _base_wo = rd[:-1] if rd.endswith(("i", "I")) else rd
+                            cands.append(_base_wo + "y" + endings[(purusha, vacana)])
+                            cands.append(_base_wo + "iy" + endings[(purusha, vacana)])
+                            if (purusha, vacana) == ("madhyama", "bahu"):
+                                cands.append(_base_wo + "yiQve")
+                                cands.append(_base_wo + "iyiQve")
                     # Atman liw i-redup full for a-roots (vyaTa->vivyaTe alongside vavyaTe): over-generate (safe, a still HITs)
                     try:
                         for rd in list(redups):
