@@ -926,6 +926,14 @@ class KrdantaEngine:
                 # a-vowel + final dental-n: redup takes short-a + M (van->vaMvanya)
                 if (root_vowel == "a" or (len(c) >= 2 and c[-2] == "a")) and (c.endswith("n") or c.endswith("R") or c.endswith("m")):
                     yan_vowel = "aM"
+                # Panini 7.4.86 japajabhadahadaSabhaYjapaSAM ca:
+                if (clean in ("jap", "dah") or 
+                    (clean == "jaB" and (op == "jaBI~" or "1.453" in str(meta.get("kOmudIDAtukramANkaH", "")))) or
+                    (clean in ("daS", "danS") and op.startswith("danS")) or
+                    (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
+                    yan_vowel = "aM"
+                    if _ybase.endswith("nS"):
+                        _ybase = _ybase.replace("nS", "S")
                 return redup_cons + yan_vowel + _ybase + "ya"
             if clean == "BU" and sanadi is not None:
                 # hardcoded BU sanadi forms (known 100% for BU)

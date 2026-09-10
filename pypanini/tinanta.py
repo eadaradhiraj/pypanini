@@ -1282,6 +1282,15 @@ class TinantaDerivationEngine:
                     _ybase = _ybase[:-1]
             if (root_vowel == "a" or (len(c) >= 2 and c[-2] == "a")) and (c.endswith("n") or c.endswith("R") or c.endswith("m")):
                 yan_vowel = "aM"
+            # Panini 7.4.86 japajabhadahadaSabhaYjapaSAM ca:
+            # nuk augment (redup-aM) for jap, jaB, dah, daS, BaYj, paS in yaN
+            if (clean in ("jap", "dah") or 
+                (clean == "jaB" and (op == "jaBI~" or "1.453" in str(meta.get("kOmudIDAtukramANkaH", "")))) or
+                (clean in ("daS", "danS") and op.startswith("danS")) or
+                (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
+                yan_vowel = "aM"
+                if _ybase.endswith("nS"):
+                    _ybase = _ybase.replace("nS", "S")
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
@@ -1336,6 +1345,14 @@ class TinantaDerivationEngine:
             # yangluk redup-M for short-a + final dental-n (van->vaMvana; old redup absent everywhere)
             if (root_vowel == "a" or (len(c) >= 2 and c[-2] == "a")) and (c.endswith("n") or c.endswith("R") or c.endswith("m")):
                 yan_vowel = "aM"
+            # Panini 7.4.86 japajabhadahadaSabhaYjapaSAM ca:
+            if (clean in ("jap", "dah") or 
+                (clean == "jaB" and (op == "jaBI~" or "1.453" in str(meta.get("kOmudIDAtukramANkaH", "")))) or
+                (clean in ("daS", "danS") and op.startswith("danS")) or
+                (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
+                yan_vowel = "aM"
+                if _ybase.endswith("nS"):
+                    _ybase = _ybase.replace("nS", "S")
             return redup_cons + yan_vowel + _ybase  # without ya
 
         # ---------- secondary / yak : generative per lakara (covers all 10 lakaras) ----------
@@ -1418,6 +1435,9 @@ class TinantaDerivationEngine:
             # athematic endings before jhal / consonants + karmani yanluganta
             extra += [yls_dev + "taH", yls_dev + "TaH", yls_dev + "Ta", yls + "vaH", yls + "maH", yls + "Izi", yls + "Imi", yls + "ati"]
             extra += self._conjugate_at_stem_atmane(yls + "y", "lw", purusha, vacana)
+            # Panini 8.2.32 dAder DAtor GaH, 8.2.40 Jazas taTor Do 'DaH, 8.4.53 JalAM jaS JaSi for dah:
+            if yls.endswith("h") and clean.startswith("d"):
+                extra += [yls[:-1] + "gDi", yls[:-1] + "gDaH", yls[:-1] + "gDa"]
             # for nd->nt handling also include nt variant explicitly
             if yls.endswith("nd"):
                 extra.append(yls[:-1] + "t" + "i")  # ceklinti
