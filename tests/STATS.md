@@ -1,11 +1,15 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T05:35:00Z
+Date: 2026-09-10T08:30:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **950/1156 100%** (raw 950/1166). Fails: 206 scored (216 with 10 skipped). Net +374 matched tokens across 2 improved roots (0 worsened). New 100% passes (2): `01.1129 rABa~` (695 -> 883/883, 100.0%, +188 tokens), `01.1130 qulaBa~z` (697 -> 883/883, 100.0%, +186 tokens).
+Passes: **951/1156 100%** (raw 951/1166). Fails: 205 scored (215 with 10 skipped). Net +2,241 matched tokens across 59 improved roots (0 worsened). New 100% pass (1): `01.1049 RIY` (798 -> 895/895, 100.0%, +97 tokens). Major improvements include +75 to +95 tokens across 25+ vowel-ending roots (`01.1090`-`01.1114`, `01.0269`, `01.0642`, `01.1096`, `01.1097`, `01.1099`, `01.1102`).
 
 ## Rules (general, pure generative)
+- Panini 7.3.84 *sārvadhātukārdhadhātukayoḥ* & 6.1.78 *eco 'yavāyāvaḥ*: Before consonant-initial ārdhadhātuka affixes (luṭ `-tAs`, lṛṭ `-sya`, lṛṅ `-sya`, āsīrliṅ `-sIyuw`, tavya `-tavya`, tumun `-tum`, tṛc `-tf`), vowel-ending roots (`i`, `I`, `u`, `U`) take guṇa (`e`, `o`) without undergoing *eco 'yavāyāvaḥ* (which applies strictly before vowels, *aci*). Preserves `ne-` stems for `nI` (`netA`, `nezyati`, `nezyate`, `anezyat`, `anezyata`, `nezIzwa`, `netavyaH`, `netum`, `netA`/`netrI`/`netf`).
+- Panini 3.1.97 *aco yat* & 6.1.79 *vānto yi pratyaye*: Roots ending in a vowel take `yat` with guṇa; *vānto yi pratyaye* prescribes *av* / *āv* only for `o`/`au` before `y`, so `e` does not undergo *ay*, yielding `neyaH`/`neyA`/`neyam` (and similarly `jeya`, `Seya`).
+- Panini 7.2.115 *aco ñṇiti*: Roots ending in a vowel take vṛddhi before ñit and ṇit affixes; in `GaY` (ñit), `nI` undergoes vṛddhi to `nE` + `a` -> `nAyaH`, and `BU` -> `BAvaH`.
+- Panini 6.4.82 *er an-ekāco 'saṁyogapūrvasya*: Reduplicated multi-syllabic `ik` stems not preceded by a conjunct consonant take `yaṇ` (`y`) before vowel-initial kit/ṅit endings in Liṭ, generating kit parasmaipada forms (`ninyatuH`, `ninyuH`, `ninyaTuH`, `ninya`, `ninyiva`, `ninyima`) and all 9 karmani/ātmanepada forms (`ninye`, `ninyAte`, `ninyire`, `ninyize`, `ninyATe`, `ninyiQve`/`ninyiDve`, `ninye`, `ninyivahe`, `ninyimahe`).
 - Panini 7.1.63 *rabher a-śab-liṭoḥ* & 7.1.64 *labheś ca*: `raB` and `laB` take `num` augment (`ramB`, `lamB`) everywhere except before `śap` (kartari sārvadhātuka) and `liṭ`. Governs ṇijanta tinanta (`ramBayati`/`ramBayate`, `lamBayati`/`lamBayate`), karmaṇi ṇijanta (`ramByate`, `lamByate`), ṇijanta kṛdanta (`ramBayitA`, `ramBayitavya`...), and primitive kṛdantas (`ramBakaH`/`lamBakaH` in ṇvul, `ramBaRam`/`lamBanam` in lyuṭ, `ramBaRIyaH`/`lamBanIyaH` in anīyar).
 - Panini 7.1.67 *upasargāt khal-ghañoḥ*: For `laB`, `num` augment in khal and ghañ is conditioned on an upasarga (*anupasarge tu na*). Therefore, simplex `laB` without upasarga in ghañ takes no num, undergoing regular vṛddhi by 7.2.116 *ata upadhāyāḥ* to `lABaH`, whereas `raB` takes num by 7.1.63 yielding `ramBaH`.
 - Panini 3.1.98 *por adupadhāt*: Roots ending in pavarga with short `a` upadhā take `yat` affix (without vṛddhi) rather than `ṇyat`, generating `raByaH`/`raByA`/`raByam` and `laByaH`/`laByA`/`laByam`.
@@ -40,13 +44,13 @@ Passes: **950/1156 100%** (raw 950/1166). Fails: 206 scored (216 with 10 skipped
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 1087 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
-| ting | 711 | 01.1091 ting/luw/prathama/dvi:savtArO |
+| krut | 986 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
+| ting | 706 | 01.1091 ting/ASIrliN/prathama/eka:suyAt |
 | yang_krut | 212 | 01.0199 yang_krut/kta/M:tostucitaH |
+| san_krut | 159 | 01.0588 san_krut/kta/M:IrzizyizitaH |
 | yang | 153 | 01.1133 yang/lw/prathama/eka:sesvidyate |
 | nich | 111 | 01.0505 nich/lw/prathama/eka:vevayati |
 | nich_krut | 78 | 01.0249 nich_krut/Satf/M:Dfjayan |
-| san_krut | 65 | 01.0588 san_krut/kta/M:IrzizyizitaH |
-| san | 40 | 01.0588 san/lw/prathama/eka:Irdizyizati |
-| yak | 10 | 01.1145 yak/ASIrliN/prathama/eka:krakzIzwa |
+| san | 45 | 01.0588 san/lw/prathama/eka:Irdizyizati |
 | san_yak | 5 | 01.0642 san_yak/lw/prathama/eka:jijizyate |
+| yak | 5 | 01.0642 yak/ASIrliN/prathama/eka:jeyAzwa |

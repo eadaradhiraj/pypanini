@@ -471,6 +471,11 @@ class TinantaDerivationEngine:
 
     def _prim_bases(self, clean: str, is_idit: bool=False, op: str="", dhatu_id: str=""):
         bases = [self._bhvadi_guna_base(clean, is_idit), clean]
+        # Panini 7.3.84 sarvadhatukardhadhatukayoH: guna before consonant affixes without eco
+        if clean and clean[-1] in ("i", "I", "u", "U"):
+            _c_guna = clean[:-1] + apply_guna(clean[-1])
+            if _c_guna not in bases:
+                bases.append(_c_guna)
         # Panini 3.1.28-3.1.31 Aya / RiN (gup, DUp, pan, kam)
         if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DU") or dhatu_id == "01.0462"):
             _ay = "gopAy" if clean == "gup" else "DUpAy"
@@ -1661,6 +1666,8 @@ class TinantaDerivationEngine:
                         eff = base_cmp
                     elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
                         eff = base_cmp
+                    elif base_cmp.endswith(("e", "o", "ar", "al")):
+                        eff = base_cmp
                     else:
                         eff = self._bhvadi_guna_base(base_cmp, is_idit)
                     if sew or is_vew:
@@ -1837,6 +1844,16 @@ class TinantaDerivationEngine:
                     if clean.endswith(("u", "U")):
                         _uv_base = (rd[:-1] if rd.endswith(("u", "U")) else rd) + "uv"
                         cands += [_uv_base + endings[(purusha, vacana)], _uv_base + endings_q[(purusha, vacana)]]
+                    # Panini 6.4.82 er an-ekAco 'saMyogapUrvasya: i/I takes y before vowel endings in liT
+                    if clean.endswith(("i", "I")):
+                        _y_base = (rd[:-1] if rd.endswith(("i", "I")) else rd) + "y"
+                        _iy_base = (rd[:-1] if rd.endswith(("i", "I")) else rd) + "iy"
+                        cands += [
+                            _y_base + endings[(purusha, vacana)],
+                            _y_base + endings_q[(purusha, vacana)],
+                            _iy_base + endings[(purusha, vacana)],
+                            _iy_base + endings_q[(purusha, vacana)],
+                        ]
                     # Panini 6.4.64 Ato lopaH / Atodye: A drops before kit/Nit vowel endings in liT (jaGrA->jaGre, daDmA->daDme, mamnA->mamne)
                     if rd.endswith("A"):
                         _rdb = rd[:-1]
@@ -1988,6 +2005,8 @@ class TinantaDerivationEngine:
                 bases = self._prim_bases(clean, is_idit)
                 for base_cmp in bases:
                     if "Ur" in base_cmp or "Ud" in base_cmp:
+                        b = base_cmp
+                    elif base_cmp.endswith(("e", "o", "ar", "al")):
                         b = base_cmp
                     else:
                         b = self._bhvadi_guna_base(base_cmp, is_idit) if not is_vowel_initial else base_cmp
@@ -3140,6 +3159,16 @@ class TinantaDerivationEngine:
                             for _base in {_guna, _vrid, clean}:
                                 cands.append(_rp + _base + vow_endings[(purusha, vacana)])
                                 cands.append(_rp + _base + cons_endings[(purusha, vacana)])
+                            # Panini 6.4.82 er an-ekAco 'saMyogapUrvasya: i/I takes y before vowel kit endings
+                            if clean.endswith(("i", "I")):
+                                _y_rd = (_rd[:-1] if _rd.endswith(("i", "I")) else _rd) + "y"
+                                _iy_rd = (_rd[:-1] if _rd.endswith(("i", "I")) else _rd) + "iy"
+                                cands.append(_y_rd + cons_endings[(purusha, vacana)])
+                                cands.append(_iy_rd + cons_endings[(purusha, vacana)])
+                                # thal (madhyama eka): nineTa, ninayiTa
+                                if (purusha, vacana) == ("madhyama", "eka"):
+                                    cands.append(_rp + clean[:-1] + "eTa")
+                                    cands.append(_rp + clean[:-1] + "ayiTa")
                             # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->sizeDiTa, mirroring yang)
                             try:
                                 _op0 = (meta.get("op", "") or "").replace("~", "")
