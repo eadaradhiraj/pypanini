@@ -3,9 +3,14 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-10T03:50:00Z
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **936/1156 100%** (raw 946/1166). Fails: 220 scored (230 with 10 skipped). Net +43 matched tokens across 2 improved roots (0 worsened). New 100% passes: `01.0812 Gasx~` (881 -> 895), `01.0991 Sadx~` (866 -> 892).
+Passes: **942/1156 100%** (raw 942/1166). Fails: 214 scored (224 with 10 skipped). Net +1048 matched tokens across 35 improved roots (0 worsened). New 100% passes: `01.0136 uKa~` (451 -> 636), `01.0148 iKa~` (451 -> 636), `01.0357 iwa~` (514 -> 636), `01.0392 uWa~` (451 -> 636), `01.0792 uza~` (514 -> 636), `01.0840 uhi~r` (451 -> 636).
 
 ## Rules (general, pure generative)
+- Panini 6.1.101 *akaḥ savarṇe dīrghaḥ* & 6.1.8 *liṭi dhātor anabhyāsasya*: In Ātmanepada / yak liṭ, short vowel-initial single-consonant roots take dīrgha reduplication (`iw` -> `Iwe`, `uz` -> `Uze`, `uK` -> `UKe`, `iK` -> `IKe`, `uW` -> `UWe`, `uh` -> `Uhe` / `UhiQve`).
+- Panini 6.1.2 *ajāder dvitīyasya* & 7.3.86 *puganta-laghūpadhasya ca*: Laghūpadha vowel-initial roots take initial guṇa alongside second-syllable reduplication across sannanta tinanta (kartari & karmani) and krdanta (`uK` -> `ociKiz`, `iK` -> `eciKiz`, `uW` -> `owiWiz`, `uh` -> `ojihiz`, `iw` -> `ewiwiz`, `uz` -> `oziziz`).
+- Panini 7.3.86 *puganta-laghūpadhasya ca*: Laghūpadha short `ik`-initial roots (`i`, `u`, `ṛ`, `ḷ` followed by single hal: `iw`, `uz`, `uK`, `iK`, `uW`, `uh`, `fj`) take guṇa before non-kit ārdhadhātuka affixes in `krdanta.py` (`tavya`, `anIyar`, `yat`/`Ryat`, `Rvul`, `tfc`, `lyuw`, `GaY`, `tumun`, and seṭ `ktvA` by 1.2.18 *na ktvā seṭ*).
+- Panini 7.3.52 *cajoḥ ku ghiṇyatoḥ*: In `GaY`, final `j` becomes velar `g` (`fj` -> `argaH`).
+- Panini 6.1.88 *vṛddhir eci*: In sannanta `lyap`, `pra` + initial guṇa vowel undergoes vṛddhi sandhi (`pra` + `ewiwizya` -> `prEwiwizya`, `pra` + `ozizizya` -> `prOzizizya`).
 - Panini 6.4.98 *gamahanajanakhanaghasāṁ lopaḥ kṅityanaṅi* & 8.4.55 *khari ca*: In kit liṭ and kit yaṅanta (kta/ktavatu), `Gas` drops upadhā `a` to `Gs`, devoiced to `ks` before khar `s` (`jaksatuH`, `jaksuH`, `jaksaTuH`, `jaksa`, `jaksiva`, `jaksima`; yak liṭ `jakse`, `jaksAte`...; yaṅanta `jAksitaH`, `jAksitavAn`).
 - Panini 7.3.78 *śadāṁ śīyadāḥ* & 1.3.60 *śaḍaḥ śīyateḥ*: `Sad` takes `SIyad` before Śit sārvadhātuka affix and is exclusively Ātmanepada in Sārvadhātuka lakāras (`SIyate`, `SIyatAm`, `aSIyata`, `SIyeta`), and takes Śānac (`SIyamAnaH`) rather than Śatṛ in kartari mUla.
 - Panini 7.1.78 *nābhyastācchaturguṇakṛtamanikartuśca*: Yaṅluk abhyasta `SASad` takes no num (`SASadat`, `SASadatI`, `SASadat`).
@@ -22,16 +27,17 @@ Passes: **936/1156 100%** (raw 946/1166). Fails: 220 scored (230 with 10 skipped
 - Panini 6.4.120 *ata ekahalmadhye 'nādeśāder liti*: kit liṭ et-tva + abhyāsa-lopa in Parasmaipada with root's own unreduced initial consonant `_init_c + "e" + _fc` (`Pal` -> `PelatuH`, `PeluH`, `PeliTa`, etc.).
 - Panini 7.3.57 *san-litoḥ jeḥ*: kuttva `j` -> `g` for root `ji` (`01.0642`, `01.1096`) in liṭ (`jigAya`, `jigaya`, `jigyatuH`, `jigyuH`, `jigeTa`, `jigayiTa`, `jigyaTuH`, `jigya`, `jigyiva`, `jigyima`, `jigye`, etc.).
 
-## Fails (2633 capped miss entries — lists capped per dhatu, fid-diff is truth)
+## Fails (2563 capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 1179 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
+| krut | 1102 | 01.1048 krut/SAnac/M:sUrkzyyamARaH |
 | ting | 736 | 01.1091 ting/luw/prathama/dvi:savtArO |
-| yang_krut | 214 | 01.0199 yang_krut/kta/M:tostucitaH |
+| yang_krut | 218 | 01.0199 yang_krut/kta/M:tostucitaH |
 | yang | 148 | 01.1133 yang/lw/prathama/eka:sesvidyate |
 | nich | 141 | 01.1129 nich/lw/prathama/eka:rABayati |
-| nich_krut | 82 | 01.0249 nich_krut/Satf/M:Dfjayan |
-| san_krut | 58 | 01.0588 san_krut/kta/M:IrzizyizitaH |
-| yak | 35 | 01.1145 yak/ASIrliN/prathama/eka:krakzIzwa |
+| nich_krut | 106 | 01.0249 nich_krut/Satf/M:Dfjayan |
+| san_krut | 65 | 01.0588 san_krut/kta/M:IrzizyizitaH |
 | san | 35 | 01.0588 san/lw/prathama/eka:Irdizyizati |
 | san_yak | 5 | 01.0642 san_yak/lw/prathama/eka:jijizyate |
+| yak | 5 | 01.1145 yak/ASIrliN/prathama/eka:krakzIzwa |
+

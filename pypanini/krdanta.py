@@ -934,6 +934,9 @@ class KrdantaEngine:
                 sec = "kAmay" if clean == "kam" else ((clean_ay + "ay") if (clean_ay and clean != "kram") else _nijanta_sec(clean))
             elif sanadi == "sannanta":
                 sec = _sannanta_sec(clean_ay) if (clean_ay and clean != "kram") else _sannanta_sec(clean)
+                # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (iw->ewiwiz, uz->oziziz, uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz)
+                if len(clean) == 2 and clean[0] in ("i", "u") and clean[1] not in SLP1_VOWELS and sec and sec[0] in ("i", "u"):
+                    sec = apply_guna(sec[0]) + sec[1:]
             elif sanadi == "yananta": sec = _yan_sec(clean)
             elif sanadi == "yanluganta" and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 # Y-class (meta skips num): primitive+num, reduplicated if Atmanepadi (sraki->sAsraNkitaH, agi->aNgitaH)
@@ -1030,7 +1033,9 @@ class KrdantaEngine:
                     else:
                         return {"avyaya": [sec+"itvA"]}
                 if pratyaya == "lyap":
-                    return {"avyaya": ["pra"+sec+"ya", sec+"ya"]} if sec.endswith("iz") else {"avyaya": ["pra"+sec+"ya", sec+"ya"]}
+                    _pra = "prE" if sec.startswith("e") else ("prO" if sec.startswith("o") else ("pre" if sec.startswith("i") else ("pro" if sec.startswith("u") else ("prA" if sec.startswith("a") else "pra"))))
+                    _p_form = _pra + sec[1:] + "ya" if sec and sec[0] in SLP1_VOWELS else "pra" + sec + "ya"
+                    return {"avyaya": [_p_form, "pra" + sec + "ya", sec + "ya"]}
             if sanadi == "yananta":
                 if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
@@ -1107,6 +1112,8 @@ class KrdantaEngine:
 
         guna_base = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
         vriddhi_base = self._vriddhi_base(clean, is_idit)
+        # Panini 7.3.86 pugantalaghUpadhasya ca: vowel-initial roots with laghu ik upadhA take guNa
+        is_laghu_ik_init = len(clean) == 2 and clean[0] in ("i", "u", "f", "x") and clean[1] not in SLP1_VOWELS
 
         # helper to build tri-linga from stem ending in 'a'
         def tri_linga(stem_a: str) -> Dict:
@@ -1355,7 +1362,7 @@ class KrdantaEngine:
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
                 if _sn and len(_sbw) >= 1:
                     return tri_linga(_sbw[:-1] + _sn + _sbw[-1] + "ayitavya")
-            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
+            eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
                     if t_stem != eff + "t" or not sew:
@@ -1374,7 +1381,7 @@ class KrdantaEngine:
                     if _natva_applies(_snc) and "nIya" in _sab:
                         _sab = _sab.replace("nIya", "RIya")
                     return tri_linga(_sab)
-            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
+            eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             stem = eff + "anIya"
             if _natva_applies(clean) and "nIya" in stem:
                 stem = stem.replace("nIya", "RIya")
@@ -1408,10 +1415,10 @@ class KrdantaEngine:
                     _ys_short = clean[0] + _ybw[1:-1] + _yn + _ybw[-1]
                     return {"M": _ys + "ayaH", "F": _ys_short + "yA", "N": _ys + "ayam"}
             _op = meta.get("op", "")
-            if clean in ["dad", "svad"]:
+            if clean in ["dad", "svad", "daD"]:
                 stem = vriddhi_base + "ya"
-            elif clean == "daD":
-                stem = vriddhi_base + "ya"
+            elif is_laghu_ik_init:
+                stem = guna_base + "ya"
             elif (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean:
                 # yat vriddhi for a + single non-nasal cons (aqa->Aqya, ata->Atya: surveyed 12 fids, zero conflicts; am/nasal-final, clusters, geminates, r-codas, u/i-finals stay short)
                 if clean and clean[0] == "a" and len(clean) == 2 and clean[1] not in SLP1_VOWELS | set("NnYm") and "I~" not in _op:
@@ -1474,6 +1481,8 @@ class KrdantaEngine:
                 stem = clean + "aka"
             elif is_idit:
                 stem = clean + "aka"
+            elif is_laghu_ik_init:
+                stem = guna_base + "aka"
             elif (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean:
                 stem = clean + "aka"
             else:
@@ -1508,7 +1517,7 @@ class KrdantaEngine:
                 if _sn and len(_sbw) >= 1:
                     _snt = _sbw[:-1] + _sn + _sbw[-1] + "ay"
                     return {"M": _snt + "itA", "F": _snt + "itrI", "N": _snt + "itf"}
-            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
+            eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
                     if t_stem != eff + "t" or not sew:
@@ -1527,7 +1536,7 @@ class KrdantaEngine:
                     if _natva_applies(_snc) and _slb.endswith("ana"):
                         _slb = _slb[:-3] + "aRa"
                     return {"gender": "Neuter", "form": _slb + "m"}
-            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
+            eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             stem = eff + "ana"
             if _natva_applies(clean) and stem.endswith("ana"):
                 stem = stem[:-3] + "aRa"
@@ -1541,7 +1550,7 @@ class KrdantaEngine:
                 if _gn and len(_gbw) >= 1:
                     return {"gender": "Masculine", "form": _gbw[:-1] + _gn + _gbw[-1] + "aH"}
             # Handle vowel-initial without guna (Urd -> Urda) and internal Ur
-            if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean:
+            if not is_laghu_ik_init and ((clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean):
                 stem = clean + "a"
                 return {"gender": "Masculine", "form": stem + "H"}
             # Handle eD (vowel initial e) without vrddhi, and u-roots with guna
@@ -1555,7 +1564,7 @@ class KrdantaEngine:
                     if ch in SLP1_VOWELS:
                         last_v = ch
                         break
-                if last_v in ("u", "U", "i", "I"):
+                if last_v in ("u", "U", "i", "I", "f", "x"):
                     _gk = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
                     stem = _gk + "a"
                 elif last_v in ("a", "A"):
@@ -1565,6 +1574,9 @@ class KrdantaEngine:
                     stem = clean + "a"
                 else:
                     stem = vriddhi_base + "a"
+            # Panini 7.3.52 cajoH ku GinyatoH: j -> g in GaY
+            if stem.endswith("j"):
+                stem = stem[:-1] + "g"
             return {"gender": "Masculine", "form": stem + "H"}
 
         elif pratyaya == "tumun":
@@ -1577,7 +1589,7 @@ class KrdantaEngine:
             if sanadi == "sannanta":
                 stem = clean + "i" + "tum"
                 return {"avyaya": [stem]}
-            eff = clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base
+            eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
                     if t_stem != eff + "t" or not sew:
@@ -1613,7 +1625,10 @@ class KrdantaEngine:
                     _core = _core[:-1] + "U"
                 elif _core.endswith("i"):
                     _core = _core[:-1] + "I"
-                return {"avyaya": [_core + "QvA", clean + "itvA"]}
+                _alts = [_core + "QvA", clean + "itvA"]
+                if is_laghu_ik_init:
+                    _alts.append(guna_base + "itvA")
+                return {"avyaya": _alts}
             if clean.endswith("nd"):
                 return {"avyaya": [clean[:-1] + "tvA", clean + "itvA"]}
             if clean.endswith("m"):
@@ -1644,6 +1659,9 @@ class KrdantaEngine:
                     return {"avyaya": [clean[:-1] + "zwvA", clean + "itvA"] if is_vew else [clean[:-1] + "zwvA"]}
             if needs_i_for_kta():
                 stem = clean + "i" + "tvA"
+                # Panini 1.2.18 na ktvA seT: seT ktvA is na kit, so laghupadha roots take guNa (7.3.86)
+                if is_laghu_ik_init:
+                    return {"avyaya": [guna_base + "itvA", stem]}
             else:
                 stem = clean + "tvA"
             return {"avyaya": [stem]}

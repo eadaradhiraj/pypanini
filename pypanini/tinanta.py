@@ -1457,6 +1457,13 @@ class TinantaDerivationEngine:
                         _nsec = _sannanta_stem(_nbw[:-1] + _nn + _nbw[-1])
                         if _nsec not in [s_stem] + alt_s:
                             alt_s.append(_nsec)
+                # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (iw->ewiwiz, uz->oziziz, uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz)
+                if is_vowel_initial and len(clean) == 2 and clean[0] in ("i", "u") and clean[1] not in SLP1_VOWELS:
+                    for _st in [s_stem] + list(alt_s):
+                        if _st and _st[0] in ("i", "u"):
+                            _sg = apply_guna(_st[0]) + _st[1:]
+                            if _sg not in alt_s:
+                                alt_s.append(_sg)
                 yak_stem = s_stem + "y"
                 sec_stem = s_stem
                 # keep alts for per-lakara generation
@@ -1657,6 +1664,15 @@ class TinantaDerivationEngine:
                             _vb = self._vriddhi_base(clean, is_idit)
                             _ve = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
                             cands.append(_vb + _ve[(purusha, vacana)])
+                    except Exception:
+                        pass
+                    # Panini 6.1.101 akaH savarRe dIrGaH / 6.1.8 liwi: vowel-initial single-C roots reduplicate with dIrgha in Atmanepada/yak (iw->Iwe, uz->Uze, uK->UKe, iK->IKe, uW->UWe, uh->Uhe)
+                    try:
+                        if len(clean) == 2 and clean[0] in ("i", "u", "I", "U") and clean[1] not in SLP1_VOWELS:
+                            _dirgha = ("I" if clean[0] in ("i", "I") else "U") + clean[1:]
+                            _ve = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
+                            cands.append(_dirgha + _ve[(purusha, vacana)])
+                            cands.append(_dirgha + _ve[(purusha, vacana)].replace("Dve", "Qve"))
                     except Exception:
                         pass
                     # Panini 6.1.15 + 6.1.17 yajAdi karmani liw (Ude, Ije, etc.)
@@ -2206,6 +2222,13 @@ class TinantaDerivationEngine:
                     s_alt2 = alt.replace(clean, guna_base, 1)
                     if s_alt2 not in s_stems:
                         s_stems.append(s_alt2)
+            # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, iw->ewiwiz, uz->oziziz)
+            if is_vowel_initial and len(clean) == 2 and clean[0] in ("i", "u") and clean[1] not in SLP1_VOWELS:
+                for _st in list(s_stems):
+                    if _st and _st[0] in ("i", "u"):
+                        _sg = apply_guna(_st[0]) + _st[1:]
+                        if _sg not in s_stems:
+                            s_stems.append(_sg)
             aug_s_list = [self._add_augment(s, s[0] in SLP1_VOWELS if s else False) for s in s_stems]
             aug_s = aug_s_list[0]
             # per-lakara sannanta (kartari, inherits pada; over-generate both padas for ubhayapada / cross-matching)
