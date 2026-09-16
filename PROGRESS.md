@@ -1,40 +1,52 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-16T12:10:00+05:30
-Sweep: **1000/1156 100%** (raw 1000/1166)
+Date: 2026-09-16T13:05:00+05:30
+Sweep: **1011/1156 100%** (87.5%, raw 1011/1166)
 
 ## Done
-- Panini 1.2.18 *na ktvā seṭ*, 7.3.86 *puganta-laghūpadhasya ca*, 1.2.26 *ralo vyupadhād dhalādeḥ saṁś ca*, & 7.2.56 *uditto vā*:
-  - In `krdanta.py` (`pratyaya == "ktvA"`), implemented laghūpadha guṇa for seṭ *ktvā* and optional aniw kit forms for udit roots:
-    - Under 1.2.18 *na ktvā seṭ*, an affix *ktvā* that takes augment *iṭ* is *na kit*.
-    - Bases with a penultimate short *ik* vowel (`i`, `u`, `ṛ`, `ḷ` followed by a single consonant) undergo guṇa by 7.3.86: `varkitvA`, `BarjitvA`, `DarjitvA`, `BarzitvA`, `garjitvA`, `parzitvA`, `varzitvA`, `GarzitvA`, `harzitvA`, `darhitvA`, `barhitvA`, `varhitvA`, `vartitvA`, `tarhitvA`.
-    - Under 7.2.56 *uditto vā*, roots with `u~`/`U~` anubandha optionally omit *iṭ*, yielding kit aniw forms `BfzwvA`, `pfzwvA`, `vfzwvA`, `GfzwvA`, `hfzwvA`, `vfttvA`.
-- Panini 1.3.57 *jñā-śru-smṛ-dṛśāṁ sanaḥ* & 7.4.91 *rīgṛdupadhasya ca*:
-  - In `krdanta.py` (`pratyaya == "Satf"`), roots *jñā*, *śru*, *smṛ*, and *dṛś* in sannanta are strictly Ātmanepada, taking Śānac (`didfkzamARa`) rather than Śatṛ (`None`).
-  - In yaṅluk, *ṛd-upadha* root `dfS` takes *rīk* augment (`arI`) in the abhyāsa, generating `darIdfSan`, `darIdfSatI`, `darIdfSat`.
-- Full Sweep Results: **1000/1156 100% passes** (raw 1000/1166, 10 skipped):
-  - `01.0097 vfka~`: 881 -> **883/883 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0202 BfjI~`: 881 -> **883/883 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0249 Dfja~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0255 Bfzu~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0281 gfja~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0802 pfzu~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0803 vfzu~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0805 Gfzu~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0806 hfzu~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0834 dfha~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0836 bfha~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0852 vfha~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0862 vftu~`: 881 -> **883/883 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.0942 tfha~`: 893 -> **895/895 (100.0%)** (+2 tokens) [NEW 100% PASS]
-  - `01.1143 dfSi~r`: 889 -> **892/892 (100.0%)** (+3 tokens) [NEW 100% PASS]
-  - 6 other roots improved (`01.0496`, `01.0648`, `01.0919`, `01.0923`, `01.1082`, `01.1092`).
-  - `yangluk_krut` misses dropped to **0**!
+- Panini 8.2.41 *ṣaḍhoḥ kaḥ si*:
+  - In `pypanini/tinanta.py` line 870: added unstrengthened `kfkz` to s-stems for `kfz`/`karz`/`kArz` (`kfkzIzwa` in yak Āśīrliṅ). Unlocked `01.1145 kfza~` to 100.0%.
+- Panini 1.3.92 *vṛdbhyaḥ syasanoḥ*:
+  - In `tinanta.py` (`lfw` and `lfN`): roots of *vṛt-ādi* (`vft`, `vfD`, `SfD`, `syand`, `kfp`) optionally take Parasmaipada in *sya* alongside their natural Ātmanepada, allowing both padas in kartari. Unlocked `01.1014 SfDu~` to 100.0%.
+- Panini 7.4.67 *dyutisvāpyoḥ saṁprasāraṇam*:
+  - In `tinanta.py` (`_yan_stem`, `_yanlug_stem`) and `krdanta.py` (`_yan_sec`): `dyut` takes saṁprasāraṇa `i` + guṇa `e` in abhyāsa (`dedyut-`). Unlocked `01.0842 dyuta~` to 100.0%.
+- Panini 8.3.59 *ādeśapratyayayoḥ* & Anubandha Stripping:
+  - Roots with upadeśa initial `z` (`zvida~`, `zfBu~`, etc.) undergo ṣatva after an *iṇ* vowel in the abhyāsa (`sezvid-`, `sarIzfB-`).
+  - `_op0` strips initial anubandhas (`wuo`, `quo`, `wu`, `qu`, `Yi`, `o`) before testing initial `z` and allows `zv` clusters.
+  - Fixed primitive Liṭ madhyama eka (`sizvediTa`) and all Yaṅ/Yaṅluk stems.
+  - Unlocked `01.0845 zvida~`, `01.1133 zvida~`, and `01.0496 sfB (zfBu~)` to 100.0%.
+- Panini 7.4.87 *cara-phaloś ca* & 7.4.88 *ut parasyātaḥ* & 8.2.77 *hali ca*:
+  - In yaṅanta and yaṅluk, `Pal` and `car` take augment `nuṅ` in abhyāsa, and root vowel `a` becomes `u`.
+  - Before consonant `ya`, `cur` is lengthened to `cUr` by 8.2.77 *hali ca* (`caMcUrya-`), whereas before vowel/iṭ affixes where `ya` is elided (`liw`, `luw`, `lfw`, `luN`, `lfN`, `ASIrliN`, and non-ya krdantas), `u` remains short (`caMcur-`, `paMPul-`).
+  - Restricted check strictly to `clean == "car"` (preventing false matching on `carb`, `carv`, `carc`).
+  - Unlocked `01.0594 Pala~`, `01.0608 Pala~`, and `01.0640 cara~` to 100.0%.
+- Panini 6.1.2 *ajāder dvitīyasya*:
+  - For vowel-initial root `aw`, second syllable reduplication produces `awAwya-` in yaṅ and `awew`/`awAw` in yaṅluk. Allowed `sec` in `yang_krut` `ktvA` (`awAwya`). Unlocked `01.0332 awa~` to 100.0%.
+- Panini 6.1.73 *che ca*:
+  - In `_yan_stem`, `_yanlug_stem`, and `krdanta.py` `_yan_sec`: `_ybase` starting with `C` takes `tuk` (`c`) after an abhyāsa vowel that doesn't end in `M` (`cAcCazya-`). Placed after `yan_vowel` determination to prevent false insertion on nasal roots like `Cam`. Unlocked `01.1035 Caz` to 100.0%.
+- Full Sweep Results: **1011/1156 100% passes** (raw 1011/1166, 10 skipped):
+  - `01.0332 awa~`: 668 -> **895/895 (100.0%)** (+227 tokens) [NEW 100% PASS]
+  - `01.0496 sfB (zfBu~)`: 669 -> **895/895 (100.0%)** (+226 tokens) [NEW 100% PASS]
+  - `01.0594 Pala~`: 668 -> **895/895 (100.0%)** (+227 tokens) [NEW 100% PASS]
+  - `01.0608 Pala~`: 668 -> **895/895 (100.0%)** (+227 tokens) [NEW 100% PASS]
+  - `01.0640 cara~`: 668 -> **895/895 (100.0%)** (+227 tokens) [NEW 100% PASS]
+  - `01.0842 dyuta~`: 656 -> **883/883 (100.0%)** (+227 tokens) [NEW 100% PASS]
+  - `01.0845 zvida~`: 656 -> **883/883 (100.0%)** (+227 tokens) [NEW 100% PASS]
+  - `01.1014 SfDu~`: 878 -> **895/895 (100.0%)** (+17 tokens) [NEW 100% PASS]
+  - `01.1035 Caz (Caza~)`: 668 -> **895/895 (100.0%)** (+227 tokens) [NEW 100% PASS]
+  - `01.1133 zvida~`: 667 -> **895/895 (100.0%)** (+228 tokens) [NEW 100% PASS]
+  - `01.1145 kfza~`: 886 -> **895/895 (100.0%)** (+9 tokens) [NEW 100% PASS]
+  - 14 other roots improved (`01.0105`, `01.0504`, `01.0674`, `01.0857`-`01.0859`, `01.1131`, `01.1144`, etc.).
+  - `yak` misses dropped to **0** (cleared!), joining `yangluk_krut` at **0**!
   - **STRICTLY 0 worsened roots** (`worsened == 0`).
   - All 36 Pilot and Milestone roots held strictly at 100.0%.
 
 ## Next
-1. Investigate remaining close roots:
-   - `01.1145 kfza~`: gap=9 (99.0%) failing on yak/ASIrliN (`krakzIzwa`).
-   - `01.1014 SfDu~`: gap=17 (98.1%) failing on ting/lfw.
-2. Advance Gaṇa 01 beyond 1000/1156 towards 1010+!
+1. Target next closest failing roots from `tests/sweep_all.csv`:
+   - `01.0674 sivi~` (gap=228): `sisinva` / `sisinvvatuH` in liṭ.
+   - `01.1102 uN` (gap=239): `uAYcakre` am-anta liṭ / `avizwAm`.
+   - `01.0504 GfRu~` (gap=256): `jarIGfRRyate` in yaṅ / `jarIGfRRitaH`.
+   - `01.0648 kzvinkA~` / `kzvikA~` (gap=271): liṭ reduplication / sandhi.
+   - `01.1131 zvanja~` (gap=336): nasal drop in kartari `svajate`.
+   - `01.1144 danSa~` (gap=337): kartari nasal drop `daSati`.
+2. Advance Gaṇa 01 beyond 1011/1156 towards 1020+/1156!

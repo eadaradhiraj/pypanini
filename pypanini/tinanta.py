@@ -868,7 +868,7 @@ class TinantaDerivationEngine:
         if base in ("dfS", "darS", "drAS"):
             return ["drakz", "drAkz"] if not is_kit else ["dfkz"]
         if base in ("kfz", "karz", "kArz"):
-            return ["krakz", "karkz", "kArkz", "krAkz"]
+            return ["kfkz", "krakz", "karkz", "kArkz", "krAkz"]
         if base in ("danS", "daMS", "dAnS", "dAMS"):
             return ["daNkz", "dANkz"]
         if base in ("ranj", "raYj", "svaYj", "zvaYj", "saYj", "zaYj", "svanj", "rAnj", "rAYj", "sAnj", "sAYj"):
@@ -1216,6 +1216,18 @@ class TinantaDerivationEngine:
                 return "sesimya"
             if c in ("vye", "vyeY") or op.startswith("vye"):
                 return "vevIya"
+            # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
+            if c == "dyut" or (op and op.startswith("dyut")):
+                return "dedyutya"
+            # Panini 7.4.87 car-PaloS ca & 7.4.88 ut parasyAtaH: Pal -> paMPulya
+            if clean == "Pal":
+                return "paMPulya"
+            # Panini 7.4.87 & 7.4.88 & 8.2.77 hali ca: car -> caMcUrya
+            if clean == "car":
+                return "caMcUrya"
+            # Panini 6.1.2 ajAder dvitIyasya: aw -> awAwya
+            if clean == "aw":
+                return "awAwya"
             c_eff = c
             # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkya; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
@@ -1267,12 +1279,17 @@ class TinantaDerivationEngine:
                 _ybase = _ybase.replace("kfp", "kxp")
             try:
                 _op0 = (meta.get("op", "") or "").replace("~", "")
-                if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c_eff.startswith("s"):
-                    _ybase = "z" + c_eff[1:]
-                elif (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st") and yan_vowel in ("e", "o", "arI", "alI"):
-                    _ybase = "zw" + _ybase[2:]
-                elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT") and yan_vowel in ("e", "o", "arI", "alI"):
-                    _ybase = "zW" + _ybase[2:]
+                for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
+                    if _op0.startswith(_pre):
+                        _op0 = _op0[len(_pre):]
+                        break
+                if _op0.startswith("z") and yan_vowel in ("e", "o", "arI", "alI"):
+                    if (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st"):
+                        _ybase = "zw" + _ybase[2:]
+                    elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT"):
+                        _ybase = "zW" + _ybase[2:]
+                    elif c_eff.startswith("s"):
+                        _ybase = "z" + c_eff[1:]
             except Exception:
                 pass
             # yan nasal trio (mirror krdanta): drop coda-n before stop / drop final-N unless meta-mangled; redup-M for short-a + final-n
@@ -1311,12 +1328,27 @@ class TinantaDerivationEngine:
                     _ybase = _ybase[:-2] + "d"
                 elif _ybase.endswith("ns"):
                     _ybase = _ybase[:-2] + "s"
+            # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
+            if _ybase.startswith("C") and not yan_vowel.endswith("M"):
+                _ybase = "c" + _ybase
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
                 return None  # use map
             if c in ("sUd", "sUd"):
                 return "sozUd"
+            # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
+            if c == "dyut" or (op and op.startswith("dyut")):
+                return "dedyut"
+            # Panini 7.4.87 car-PaloS ca & 7.4.88 ut parasyAtaH: Pal -> paMPul
+            if clean == "Pal":
+                return "paMPul"
+            # Panini 7.4.87 & 7.4.88 & 8.2.77 hali ca: car -> caMcUr
+            if clean == "car":
+                return "caMcUr"
+            # Panini 6.1.2 ajAder dvitIyasya: aw -> awew
+            if clean == "aw":
+                return "awew"
             c_eff = c.replace("ur", "Ur", 1) if "ur" in c else c
             # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkIti; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
@@ -1365,12 +1397,17 @@ class TinantaDerivationEngine:
                 _ybase = _ybase.replace("kfp", "kxp")
             try:
                 _op0 = (meta.get("op", "") or "").replace("~", "")
-                if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c_eff.startswith("s"):
-                    _ybase = "z" + c_eff[1:]
-                elif (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st") and yan_vowel in ("e", "o", "arI", "alI"):
-                    _ybase = "zw" + _ybase[2:]
-                elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT") and yan_vowel in ("e", "o", "arI", "alI"):
-                    _ybase = "zW" + _ybase[2:]
+                for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
+                    if _op0.startswith(_pre):
+                        _op0 = _op0[len(_pre):]
+                        break
+                if _op0.startswith("z") and yan_vowel in ("e", "o", "arI", "alI"):
+                    if (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st"):
+                        _ybase = "zw" + _ybase[2:]
+                    elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT"):
+                        _ybase = "zW" + _ybase[2:]
+                    elif c_eff.startswith("s"):
+                        _ybase = "z" + c_eff[1:]
             except Exception:
                 pass
             # yangluk redup-M for short-a + final dental-n (van->vaMvana; old redup absent everywhere)
@@ -1396,6 +1433,9 @@ class TinantaDerivationEngine:
                     _ybase = _ybase[:-2] + "d"
                 elif _ybase.endswith("ns"):
                     _ybase = _ybase[:-2] + "s"
+            # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
+            if _ybase.startswith("C") and not yan_vowel.endswith("M"):
+                _ybase = "c" + _ybase
             return redup_cons + yan_vowel + _ybase  # without ya
 
         # ---------- secondary / yak : generative per lakara (covers all 10 lakaras) ----------
@@ -1492,18 +1532,28 @@ class TinantaDerivationEngine:
             elif (clean == "skand" or (op and op.startswith("skand"))):
                 _yls_n = yls[:-1] + "nd"
                 extra += [_yls_n + "Iti", _yls_n + "Izi", _yls_n + "Imi", _yls_n + "mi", yls[:-1] + "nti", yls[:-1] + "ntti", yls[:-1] + "ntsi"]
+            if yls.endswith("Ur"):
+                _yls_short = yls[:-2] + "ur"
+                extra += [_yls_short + "Iti", _yls_short + "ati", _yls_short + "Izi", _yls_short + "Imi"]
+            if clean == "aw" or (op and op.startswith("aw")):
+                yls2 = "awAw"
+                extra += [yls + "wi", yls + "wwi", yls2 + "taH", yls2 + "TaH", yls2 + "Ta", yls2 + "vaH", yls2 + "maH", yls2 + "waH", yls2 + "WaH", yls2 + "Wa", yls2 + "wwaH", yls2 + "wWaH", yls2 + "wWa"]
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
             # yan is always Atmanepada, all lakaras via Atmanepada with yan stem
             # for laN/luN need augment (lfN handled later with izya)
+            if keeps_y_in_yan:
+                base_no_ya = ys[:-1] if ys.endswith("a") else ys
+            else:
+                base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
+            # Panini 8.2.77 hali ca: lengthening to Ur only applies before consonant (ya).
+            # When ya is elided before vowel/id-agama (i, A), Ur reverts to short ur.
+            if base_no_ya.endswith("Ur"):
+                base_no_ya = base_no_ya[:-2] + "ur"
             if lakara in ("laN", "luN"):
                 ys_aug = self._add_augment(ys, ys[0] in SLP1_VOWELS if ys else False)
                 if lakara == "luN":
-                    if keeps_y_in_yan:
-                        base_no_ya = ys[:-1] if ys.endswith("a") else ys
-                    else:
-                        base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
                     aug_base = self._add_augment(base_no_ya, base_no_ya[0] in SLP1_VOWELS if base_no_ya else False)
                     suffixes = {("prathama","eka"):"izwa",("prathama","dvi"):"izAtAm",("prathama","bahu"):"izata",("madhyama","eka"):"izWAH",("madhyama","dvi"):"izATAm",("madhyama","bahu"):"iDvam",("uttama","eka"):"izi",("uttama","dvi"):"izvahi",("uttama","bahu"):"izmahi"}
                     sfx = suffixes[(purusha, vacana)]
@@ -1531,16 +1581,7 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): "Ycakfmahe",
                 }
                 _be = _tbl.get((purusha, vacana), "Ycakre")
-                _stems = []
-                if keeps_y_in_yan:
-                    _stems.append(ys[:-1] if ys.endswith("a") else ys)
-                else:
-                    if ys.endswith("ya"):
-                        _stems.append(ys[:-2])
-                    elif ys.endswith("y"):
-                        _stems.append(ys[:-1])
-                    else:
-                        _stems.append(ys)
+                _stems = [base_no_ya]
                 _res = []
                 for _st in _stems:
                     _res += [_st + "A" + _be, _st + "AYcakre", _st + "AmAse", _st + "AmbaBUve"]
@@ -1548,16 +1589,8 @@ class TinantaDerivationEngine:
                         _res.append(_st + "AYcakfDve")
                 return list(dict.fromkeys(_res)), log
             if lakara == "luw":
-                if keeps_y_in_yan:
-                    base_no_ya = ys[:-1] if ys.endswith("a") else ys
-                    return self._conjugate_luw(base_no_ya + "i" if not base_no_ya.endswith("i") else base_no_ya, "Atmanepadi", purusha, vacana), log
-                base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
-                return self._conjugate_luw(base_no_ya + "i", "Atmanepadi", purusha, vacana), log
+                return self._conjugate_luw(base_no_ya + "i" if not base_no_ya.endswith("i") else base_no_ya, "Atmanepadi", purusha, vacana), log
             if lakara == "ASIrliN":
-                if keeps_y_in_yan:
-                    base_no_ya = ys[:-1] if ys.endswith("a") else ys
-                else:
-                    base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
                 base_iz = base_no_ya + "i" + apply_satva("i","s") if not base_no_ya.endswith("i") else base_no_ya + apply_satva("i","s")
                 endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
                 _c = [base_iz + endings[(purusha, vacana)]]
@@ -1566,10 +1599,6 @@ class TinantaDerivationEngine:
                     _c += [c.replace("IDvam", "IQvam") for c in _c if "IDvam" in c]
                 return list(dict.fromkeys(_c)), log
             if lakara in ("lfw", "lfN"):
-                if keeps_y_in_yan:
-                    base_no_ya = ys[:-1] if ys.endswith("a") else ys
-                else:
-                    base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
                 core = base_no_ya + "izya"
                 if lakara == "lfN":
                     core = self._add_augment(core, core[0] in SLP1_VOWELS if core else False)
@@ -2851,43 +2880,47 @@ class TinantaDerivationEngine:
 
         elif lakara == "lfw":
             cands=[]
+            # Panini 1.3.92 vrdbhyaH syasanoH: vft, vfD, SfD, syand, kfp optionally take parasmaipada in sya (lfw, lfN)
+            is_vrdbhyah = clean in ("vft", "vfD", "SfD", "syand", "kfp") or (op and any(op.startswith(x) for x in ("vft", "vfD", "SfD", "syand", "kfp")))
             for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 if sew or is_vew:
                     base_i = base + "i"
                     sat = apply_satva(base_i[-1], "s")
                     core = base_i + sat + "y"
-                    if pada == "Atmanepadi":
+                    if pada == "Atmanepadi" or is_vrdbhyah:
                         cands+=self._conjugate_at_stem_atmane(core, "lw", purusha, vacana)
-                    else:
+                    if pada != "Atmanepadi" or is_vrdbhyah:
                         cands+=self._conjugate_at_stem_parasmai(core, "lw", purusha, vacana)
                 if not sew or is_vew:
                     for s_stem in self._assimilate_s_stems(base):
                         core = s_stem + "y"
-                        if pada == "Atmanepadi":
+                        if pada == "Atmanepadi" or is_vrdbhyah:
                             cands+=self._conjugate_at_stem_atmane(core, "lw", purusha, vacana)
-                        else:
+                        if pada != "Atmanepadi" or is_vrdbhyah:
                             cands+=self._conjugate_at_stem_parasmai(core, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
             cands=[]
+            # Panini 1.3.92 vrdbhyaH syasanoH: vft, vfD, SfD, syand, kfp optionally take parasmaipada in sya (lfw, lfN)
+            is_vrdbhyah = clean in ("vft", "vfD", "SfD", "syand", "kfp") or (op and any(op.startswith(x) for x in ("vft", "vfD", "SfD", "syand", "kfp")))
             for base in self._prim_bases(clean, is_idit, op, dhatu_id):
                 if sew or is_vew:
                     base_i = base + "i"
                     sat = apply_satva(base_i[-1], "s")
                     core = base_i + sat + "y"
                     aug_core = self._add_augment(core, core[0] in SLP1_VOWELS if core else False)
-                    if pada == "Atmanepadi":
+                    if pada == "Atmanepadi" or is_vrdbhyah:
                         cands+=self._conjugate_at_stem_atmane(aug_core, "laN", purusha, vacana)
-                    else:
+                    if pada != "Atmanepadi" or is_vrdbhyah:
                         cands+=self._conjugate_at_stem_parasmai(aug_core, "laN", purusha, vacana)
                 if not sew or is_vew:
                     for s_stem in self._assimilate_s_stems(base):
                         core = s_stem + "y"
                         aug_core = self._add_augment(core, core[0] in SLP1_VOWELS if core else False)
-                        if pada == "Atmanepadi":
+                        if pada == "Atmanepadi" or is_vrdbhyah:
                             cands+=self._conjugate_at_stem_atmane(aug_core, "laN", purusha, vacana)
-                        else:
+                        if pada != "Atmanepadi" or is_vrdbhyah:
                             cands+=self._conjugate_at_stem_parasmai(aug_core, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
@@ -3302,7 +3335,11 @@ class TinantaDerivationEngine:
                             # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->sizeDiTa, mirroring yang)
                             try:
                                 _op0 = (meta.get("op", "") or "").replace("~", "")
-                                if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u"):
+                                for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
+                                    if _op0.startswith(_pre):
+                                        _op0 = _op0[len(_pre):]
+                                        break
+                                if len(_op0) > 1 and _op0[0] == "z" and (_op0[1] in ("i", "e", "U", "u") or _op0.startswith("zv")):
                                     # unmapped clean for redup-strip (ziDa~->ziD)
                                     _uc = _op0
                                     if _uc and _uc[-1] in "fFxX" and len(_uc) > 2 and _uc[-2] not in SLP1_VOWELS:

@@ -883,6 +883,18 @@ class KrdantaEngine:
                     return "sesimya"
                 if c in ("vye", "vyeY") or op.startswith("vye"):
                     return "vevIya"
+                # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
+                if c == "dyut" or (op and op.startswith("dyut")):
+                    return "dedyutya"
+                # Panini 7.4.87 car-PaloS ca & 7.4.88 ut parasyAtaH: Pal -> paMPulya
+                if clean == "Pal":
+                    return "paMPulya"
+                # Panini 7.4.87 & 7.4.88 & 8.2.77 hali ca: car -> caMcUrya
+                if clean == "car":
+                    return "caMcUrya"
+                # Panini 6.1.2 ajAder dvitIyasya: aw -> awAwya
+                if clean == "aw":
+                    return "awAwya"
                 # idit i-final fresh numclean (mirror _nijanta_sec/tinanta; sraki->sAsraNkya; mangled ends-cons auto-miss)
                 if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                     _ybw = c[:-1]
@@ -931,12 +943,17 @@ class KrdantaEngine:
                     _ybase = _ybase.replace("kfp", "kxp")
                 try:
                     _op0 = (meta.get("op", "") or "").replace("~", "")
-                    if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c.startswith("s"):
-                        _ybase = "z" + c[1:]
-                    elif (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st") and yan_vowel in ("e", "o", "arI", "alI"):
-                        _ybase = "zw" + _ybase[2:]
-                    elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT") and yan_vowel in ("e", "o", "arI", "alI"):
-                        _ybase = "zW" + _ybase[2:]
+                    for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
+                        if _op0.startswith(_pre):
+                            _op0 = _op0[len(_pre):]
+                            break
+                    if _op0.startswith("z") and yan_vowel in ("e", "o", "arI", "alI"):
+                        if (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st"):
+                            _ybase = "zw" + _ybase[2:]
+                        elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT"):
+                            _ybase = "zW" + _ybase[2:]
+                        elif c.startswith("s"):
+                            _ybase = "z" + c[1:]
                 except Exception:
                     pass
                 # yan base: drop coda-n before stop (manT->maTya); drop final retroflex-N (kuN->kUya); non-idit only (idit vand-type keeps num-n)
@@ -970,6 +987,9 @@ class KrdantaEngine:
                         _ybase = _ybase[:-2] + "d"
                     elif _ybase.endswith("ns"):
                         _ybase = _ybase[:-2] + "s"
+                # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
+                if _ybase.startswith("C") and not yan_vowel.endswith("M"):
+                    _ybase = "c" + _ybase
                 return redup_cons + yan_vowel + _ybase + "ya"
             if clean == "BU" and sanadi is not None:
                 # hardcoded BU sanadi forms (known 100% for BU)
@@ -1149,6 +1169,9 @@ class KrdantaEngine:
                         base_no_ya = sec[:-1] if sec.endswith("a") else sec
                     else:
                         base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                    # Panini 8.2.77 hali ca: lengthening to Ur only applies before consonant.
+                    if base_no_ya.endswith("Ur"):
+                        base_no_ya = base_no_ya[:-2] + "ur"
                 if pratyaya == "yat":
                     # y-final yang palatal+Ay -> Iy (cAy->cekIyya, 7.3.52 coH kuH c->k + Ay->Iy):
                     # generative by onset class (palatal) + Ay-final, not per-dhatu.
@@ -1158,7 +1181,8 @@ class KrdantaEngine:
                         _vel = _PAL_TO_VEL.get(orig_clean[0], orig_clean[0])
                         _base_iy = _redup + _vel + "Iy"
                         return {"M": _base_iy+"yaH", "F": _base_iy+"yA", "N": _base_iy+"yam"}
-                    return {"M": base_no_ya+"yaH","F":base_no_ya+"yA","N":base_no_ya+"yam"}
+                    _yb = (base_no_ya[:-2] + "Ur" if base_no_ya.endswith("ur") else base_no_ya)
+                    return {"M": _yb+"yaH","F":_yb+"yA","N":_yb+"yam"}
                 _b_kit = base_no_ya
                 # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn, gam -> gm, Gas -> ks (8.4.55 khari ca)
                 if orig_clean in ("gam", "Kan", "han", "jan"):
@@ -1202,7 +1226,7 @@ class KrdantaEngine:
                             _gb = _gb[:-2] + "d" + _gb[-1]
                     return {"gender": "Masculine", "form": _gb + "aH"}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum", base_no_ya+"itum"]}
-                if pratyaya == "ktvA": return {"avyaya": [base_no_ya+"itvA", sec+"itvA"]}
+                if pratyaya == "ktvA": return {"avyaya": [base_no_ya+"itvA", sec+"itvA", sec]}
                 if pratyaya == "SAnac":
                     if clean_ay:
                         return None
