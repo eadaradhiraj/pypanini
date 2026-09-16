@@ -12,6 +12,8 @@ from .phonetics import apply_guna, apply_vriddhi, apply_sandhi_eco_ayavayavah
 
 SLP1_VOWELS = set(list("aAiIuUfFxXeEoO"))
 SLP1_STOPS = set(list("kKgGNcCjJYwWqQRtTdDnpPbBm"))
+# Panini 7.4.61 Sar-pUrvAH KayaH: Sar (S, z, s) followed by Kay (unvoiced stops) retains Kay
+SLP1_KHAY = set(list("kKcCwWtTpP"))
 
 # Pure shape test for krdanta n->R (SAnac/anIyar/lyuw), surveyed over
 # skt-morph-data/01 mUla SAnac/anIyar/lyuw expectations (112 roots each,
@@ -731,6 +733,8 @@ class KrdantaEngine:
                         return "urdidiz"
                     if c == "kurd":
                         return "cukUrdiz"
+                    if c == "u":
+                        return "Uziz"
                     # rv-coda reduplicates (urv->urviviz, arv->arviviz; urd keeps its didiz special above)
                     if c.endswith("rv"):
                         # lowercased onset (Urv-mapping feeds capital U, but sannanta dataset keeps urviviz/arviviz)
@@ -803,7 +807,7 @@ class KrdantaEngine:
                     cluster+=ch
                 redup_cons = cluster[0] if cluster else c[0]
                 if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-                    redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
+                    redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 # for sv (svad), redup is s (si) not v (vi) - handle sv cluster
@@ -880,9 +884,14 @@ class KrdantaEngine:
                         redup_vowel = "i"
                     return redup_cons + redup_vowel + c_stem + "iz"
 
+                # Panini 6.4.16 aj-jhan-gAM sani: ajanta dhAtu takes dIrGa before san
+                _c_san = (c[:-1] + "U") if c.endswith("u") else ((c[:-1] + "I") if c.endswith("i") else c)
+                # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
+                if _c_san.startswith("C"):
+                    _c_san = "c" + _c_san
                 # Panini 8.3.57 iRkoH: satva only applies after iN or ku; after a/A, suffix remains dental s
                 _sfx = "s" if c.endswith(("a", "A")) else ("z" if is_vowel_final else "iz")
-                return redup_cons + redup_vowel + c + _sfx
+                return redup_cons + redup_vowel + _c_san + _sfx
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
                 if c == "pyAy": return "pepIyya"
@@ -953,7 +962,7 @@ class KrdantaEngine:
                     cluster+=ch
                 redup_cons = cluster[0] if cluster else c[0]
                 if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-                    redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
+                    redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->seziDya, mirroring tinanta)
@@ -988,9 +997,10 @@ class KrdantaEngine:
                 except Exception:
                     pass
                 # yan base: drop coda-n before stop (manT->maTya); drop final retroflex-N (kuN->kUya); non-idit only (idit vand-type keeps num-n)
+                # Panini 6.4.24 aniditAM hala upaDAyAH kNiti: drop penultimate nasal before any consonant (hal)
                 if not is_idit:
                     for _i, _ch in enumerate(list(_ybase)):
-                        if _ch in ("n", "Y", "N", "R") and _i + 1 < len(_ybase) and _ybase[_i + 1] in SLP1_STOPS:
+                        if _ch in ("n", "Y", "N", "R", "M") and _i + 1 < len(_ybase) and _ybase[_i + 1] not in SLP1_VOWELS:
                             _ybase = _ybase[:_i] + _ybase[_i + 1:]
                             break
                     if _ybase.endswith("N"):
@@ -1017,6 +1027,11 @@ class KrdantaEngine:
                         _ybase = _ybase[:-2] + "d"
                     elif _ybase.endswith("ns"):
                         _ybase = _ybase[:-2] + "s"
+                # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: ajanta dhAtu takes dIrGa before yaN
+                if _ybase.endswith("u"):
+                    _ybase = _ybase[:-1] + "U"
+                elif _ybase.endswith("i"):
+                    _ybase = _ybase[:-1] + "I"
                 # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
                 if _ybase.startswith("C") and not yan_vowel.endswith("M"):
                     _ybase = "c" + _ybase
@@ -1290,8 +1305,8 @@ class KrdantaEngine:
 
         guna_base = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
         vriddhi_base = self._vriddhi_base(clean, is_idit)
-        # Panini 7.3.86 pugantalaghUpadhasya ca: vowel-initial roots with laghu ik upadhA take guNa
-        is_laghu_ik_init = len(clean) == 2 and clean[0] in ("i", "u", "f", "x") and clean[1] not in SLP1_VOWELS
+        # Panini 7.3.84 / 7.3.86: single-vowel ik roots (u, i, f) and laghupadha ik-initial roots take guna
+        is_laghu_ik_init = (len(clean) == 1 and clean in ("i", "u", "f", "x")) or (len(clean) == 2 and clean[0] in ("i", "u", "f", "x") and clean[1] not in SLP1_VOWELS)
 
         # helper to build tri-linga from stem ending in 'a'
         def tri_linga(stem_a: str) -> Dict:
@@ -1402,6 +1417,39 @@ class KrdantaEngine:
                     _rc = VELAR_TO_PALATAL.get(_rc, _rc)
                     _satf_b = _rc + "A" + _c_tgt[:-1]
                     return {"M": _satf_b + "at", "F": _satf_b + "atI", "N": _satf_b + "at"}
+                elif not is_idit and clean and clean[-1] in ("u", "U"):
+                    # Panini 7.4.82 guRo yaNlukoH (abhyAsa takes guNa: o)
+                    # Panini 7.1.78 nAbhyastAc chaturguRakftamanikartuSca (no num)
+                    # Panini 6.4.77 aci Snu-DAtu-BruvAM yvo riyaN-uvaNO (u/U -> uv before vowel)
+                    _cl = ""
+                    for ch in clean:
+                        if ch in SLP1_VOWELS: break
+                        _cl += ch
+                    _rc = _cl[0] if _cl else clean[0]
+                    if len(_cl) >= 2 and _cl[0] in ("s", "S") and _cl[1] in SLP1_STOPS:
+                        _rc = _cl[1]
+                    _rc = DEASPIRATE.get(_rc, _rc)
+                    _rc = VELAR_TO_PALATAL.get(_rc, _rc)
+                    _satf_b = _rc + "o" + clean[:-1] + "uv"
+                    if clean.startswith("s") and not clean.startswith("sr"):
+                        _satf_b = _rc + "ozuv" if clean == "su" else _satf_b
+                    return {"M": _satf_b + "at", "F": _satf_b + "atI", "N": _satf_b + "at"}
+                elif not is_idit and clean and clean[-1] in ("i", "I"):
+                    # Panini 7.4.82 guRo yaNlukoH (abhyAsa takes guNa: e)
+                    # Panini 7.1.78 nAbhyastAc chaturguRakftamanikartuSca (no num)
+                    # Panini 6.4.82 er an-ekAco 'saMyogapUrvasya: yaR (y) if asaMyoga (nenyat), riyaN (iy) if saMyoga (SeSriyat)
+                    _cl = ""
+                    for ch in clean:
+                        if ch in SLP1_VOWELS: break
+                        _cl += ch
+                    _rc = _cl[0] if _cl else clean[0]
+                    if len(_cl) >= 2 and _cl[0] in ("s", "S") and _cl[1] in SLP1_STOPS:
+                        _rc = _cl[1]
+                    _rc = DEASPIRATE.get(_rc, _rc)
+                    _rc = VELAR_TO_PALATAL.get(_rc, _rc)
+                    _glide = "iy" if len(_cl) >= 2 else "y"
+                    _satf_b = _rc + "e" + clean[:-1] + _glide
+                    return {"M": _satf_b + "at", "F": _satf_b + "atI", "N": _satf_b + "at"}
             # urv-coda lengthens instead of guna (turv/tUrv->tUrvan, consonant-initial shape; vowel-initial urv keeps guna)
             if clean[-3:].lower() == "urv" and clean[:1] not in SLP1_VOWELS:
                 _satf_base = clean[:-3] + "Urv"
@@ -1445,7 +1493,24 @@ class KrdantaEngine:
                 _yajadi_yl_sanac = {"yaj": "yejyamAna", "vap": "vopyamAna", "vah": "vohyamAna", "vas": "vuzyamARa", "vad": "vodyamAna"}
                 if clean in _yajadi_yl_sanac:
                     return tri_linga(_yajadi_yl_sanac[clean])
-                _ylb = clean if clean.endswith("ya") else clean + "ya"
+                if (orig_clean and orig_clean.endswith("A")) or clean.endswith("A"):
+                    _c_tgt = orig_clean if (orig_clean and orig_clean.endswith("A")) else clean
+                    _cl = ""
+                    for ch in _c_tgt:
+                        if ch in SLP1_VOWELS: break
+                        _cl += ch
+                    _rc = _cl[0] if _cl else _c_tgt[0]
+                    if len(_cl) >= 2 and _cl[0] in ("s", "S") and _cl[1] in SLP1_STOPS:
+                        _rc = _cl[1]
+                    _rc = DEASPIRATE.get(_rc, _rc)
+                    _rc = VELAR_TO_PALATAL.get(_rc, _rc)
+                    _ylb = _rc + "A" + _c_tgt + "ya"
+                else:
+                    if clean != orig_clean:
+                        _ylb = clean if clean.endswith("ya") else clean + "ya"
+                    else:
+                        _yys = _yan_sec(orig_clean)
+                        _ylb = _yys if _yys else (clean if clean.endswith("ya") else clean + "ya")
                 _m = _ylb + "mAnaH" if _ylb.endswith("a") else _ylb + "amAnaH"
                 _f = _ylb + "mAnA" if _ylb.endswith("a") else _ylb + "amAnA"
                 _n = _ylb + "mAnam" if _ylb.endswith("a") else _ylb + "amAnam"
@@ -1491,8 +1556,16 @@ class KrdantaEngine:
             if not is_atman_eligible:
                 if clean == "vas":
                     return tri_linga("uzyamARa")
-                stem = clean + "yamAna"
-                if _natva_applies(clean):
+                # Panini 7.4.25 akfttsArvaDAtukayor dIrGaH (ajanta aNga takes dIrGa before yak ya)
+                _yk_clean = clean
+                if clean.endswith("u"):
+                    _yk_clean = clean[:-1] + "U"
+                elif clean.endswith("i"):
+                    _yk_clean = clean[:-1] + "I"
+                elif clean.endswith(("f", "F")):
+                    _yk_clean = clean[:-1] + "ri"
+                stem = _yk_clean + "yamAna"
+                if _natva_applies(_yk_clean) or _natva_applies(clean):
                     stem = stem.replace("yamAna", "yamARa")
                 return tri_linga(stem)
 
@@ -1722,8 +1795,11 @@ class KrdantaEngine:
                         last_v = ch
                         break
                 if last_v in ("u", "U", "i", "I"):
-                    _rk = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
-                    stem = _rk + "aka"
+                    if clean.endswith(("u", "U", "i", "I")):
+                        stem = vriddhi_base + "aka"
+                    else:
+                        _rk = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
+                        stem = _rk + "aka"
                 elif last_v in ("a", "A", "e", "E", "o", "O"):
                     # Panini 7.3.33 Ato yuk ciR-kfzoH: A-ending roots take yuk (y) before aka
                     if clean.endswith("A"):
@@ -1884,6 +1960,32 @@ class KrdantaEngine:
                     _yl_ktva = {"yaj": "yAyajitvA", "vap": "vAvapitvA", "vah": "vAvahitvA", "vas": "vAvasitvA", "vad": "vAvaditvA"}
                     return {"avyaya": [_yl_ktva[clean]]}
                 return {"avyaya": [_yajadi_ktva[clean]]}
+            if sanadi == "yanluganta" and ((orig_clean and orig_clean.endswith("A")) or clean.endswith("A")):
+                _c_tgt = orig_clean if (orig_clean and orig_clean.endswith("A")) else clean
+                _cl = ""
+                for ch in _c_tgt:
+                    if ch in SLP1_VOWELS: break
+                    _cl += ch
+                _rc = _cl[0] if _cl else _c_tgt[0]
+                if len(_cl) >= 2 and _cl[0] in ("s", "S") and _cl[1] in SLP1_STOPS:
+                    _rc = _cl[1]
+                _rc = DEASPIRATE.get(_rc, _rc)
+                _rc = VELAR_TO_PALATAL.get(_rc, _rc)
+                return {"avyaya": [_rc + "A" + _c_tgt[:-1] + "itvA"]}
+            # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali & 7.4.40 (A -> I/i before kit halAdi tvA)
+            if sanadi is None:
+                if clean in ("pA", "pA~"):
+                    return {"avyaya": ["pItvA"]}
+                if clean in ("gA", "gAN", "gE"):
+                    return {"avyaya": ["gItvA"]}
+                if clean in ("sTA", "zWA"):
+                    return {"avyaya": ["sTitvA"]}
+                if clean == "SrA":
+                    return {"avyaya": ["SritvA"]}
+                if clean == "jYA":
+                    return {"avyaya": ["jYitvA"]}
+                if clean in ("dA", "dAR", "de"):
+                    return {"avyaya": ["dattvA", "dAtvA"]}
             # idit i-final num-clean (agi->aNgitvA; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                 _kbw = clean[:-1]
@@ -2026,6 +2128,13 @@ class KrdantaEngine:
                 _ly_drop = clean[:-2] + clean[-1]
                 for _pre in ("pra", upasarga, upasarga.replace("M", "m"), ""):
                     _v = _pre + _ly_drop + "ya"
+                    if _v not in variants:
+                        variants.append(_v)
+            # Panini 6.1.71 hrasvasya piti kfti tuk: tuk (t) augment after short vowel before pit kft (lyap)
+            if clean and clean[-1] in ("i", "u", "f", "x"):
+                _tuk_ya = clean + "tya"
+                for _pre in (("prac" if clean.startswith("C") else "pra"), upasarga, upasarga.replace("M", "m"), ""):
+                    _v = _pre + _tuk_ya
                     if _v not in variants:
                         variants.append(_v)
             pref_m = pref_sam.replace("M", "m")

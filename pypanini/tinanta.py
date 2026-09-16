@@ -20,8 +20,10 @@ from .phonetics import (
 )
 
 SLP1_VOWELS = set(list("aAiIuUfFxXeEoO"))
-# stops (sparSa) for s+cons reduplication (7.4.62): s+stop -> stop, s+sonorant -> s
+# stops (sparSa)
 SLP1_STOPS = set(list("kKgGNcCjJYwWqQRtTdDnpPbBm"))
+# Panini 7.4.61 Sar-pUrvAH KayaH: Sar (S, z, s) followed by Kay (unvoiced stops) retains Kay; otherwise first consonant remains
+SLP1_KHAY = set(list("kKcCwWtTpP"))
 # de-aspiration + velar->palatal for reduplication (Panini 7.4.62)
 DEASPIRATE = {
     "B": "b", "G": "g", "Q": "q", "D": "d", "J": "j",
@@ -317,7 +319,7 @@ class TinantaDerivationEngine:
         # sp->p, sk->k, sv->s (v sonorant), Sr->S (r sonorant)
         redup_cons = cluster[0]
         if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-            redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
+            redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
         # de-aspirate
         redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
         # velar -> palatal (ku->cu)
@@ -334,7 +336,7 @@ class TinantaDerivationEngine:
             else:
                 _is_s_stop = len(cluster) >= 2 and cluster[0] == "s" and cluster[1] in SLP1_STOPS
                 _is_velar_final = clean and clean[-1] in ("k", "K", "g", "G")
-                if not _is_s_stop and not _is_velar_final:
+                if not _is_s_stop and not _is_velar_final and not clean.startswith("sr"):
                     if idx < len(res) and res[idx] == "s":
                         res = res[:idx] + "z" + res[idx+1:]
                         # Panini 8.4.1 raṣābhyāṁ no ṇaḥ samānapade & 8.4.2 aṭkupvāṅnumvyavāye 'pi
@@ -368,6 +370,8 @@ class TinantaDerivationEngine:
         if not ending_list or not clean:
             return []
         if clean[0] in SLP1_VOWELS:
+            if clean == "u":
+                return ["Aviv" + ending for ending in ending_list]
             # vowel-initial reduplicated aorist for a-initial roots (aRwiwata/ambibata/Acikata/Atitata:
             # surveyed every a-initial nich fid, suppletive aja sole exception; augment-A + [num] + Ci + stem)
             if clean[0] != "a" or len(clean) < 2:
@@ -458,11 +462,11 @@ class TinantaDerivationEngine:
             return []
         rc = cluster[0]
         if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-            rc = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
+            rc = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
         rc = DEASPIRATE.get(rc, rc)
         rc = VELAR_TO_PALATAL.get(rc, rc)
         rcs = [rc]
-        orig = cluster[1] if (len(cluster) >= 2 and cluster[0] in ("s", "S") and cluster[1] in SLP1_STOPS) else cluster[0]
+        orig = cluster[1] if (len(cluster) >= 2 and cluster[0] in ("s", "S") and cluster[1] in SLP1_KHAY) else cluster[0]
         orig = DEASPIRATE.get(orig, orig)
         if orig != rc:
             rcs.append(orig)
@@ -478,6 +482,11 @@ class TinantaDerivationEngine:
                     aug = self._add_augment(stem, stem[0] in SLP1_VOWELS if stem else False)
                     for ending in ending_list:
                         cands.append(aug + ending)
+                        # Panini 6.4.77 aci Snu-DAtu-BruvAM yvo riyaN-uvaNO: u/U->uv, i/I->iy before vowel ending
+                        if base.endswith(("u", "U")):
+                            cands.append(aug + "v" + ending)
+                        elif base.endswith(("i", "I")):
+                            cands.append(aug + "y" + ending)
         return list(dict.fromkeys(cands))
 
     def _prim_bases(self, clean: str, is_idit: bool=False, op: str="", dhatu_id: str=""):
@@ -614,6 +623,62 @@ class TinantaDerivationEngine:
 
     # ---------- conjugation helpers ----------
     def _conjugate_at_stem_atmane(self, stem_base: str, lakara: str, purusha: str, vacana: str) -> List[str]:
+        if stem_base.endswith("A"):
+            b = stem_base[:-1]
+            if lakara in ["lw", "lfw"]:
+                atmane_lw = {
+                    ("prathama", "eka"): [b + "Ate"],
+                    ("prathama", "dvi"): [b + "Ate"],
+                    ("prathama", "bahu"): [b + "Ate", b + "Ante"],
+                    ("madhyama", "eka"): [b + "Ase"],
+                    ("madhyama", "dvi"): [b + "ATe"],
+                    ("madhyama", "bahu"): [b + "ADve"],
+                    ("uttama", "eka"): [b + "E"],
+                    ("uttama", "dvi"): [b + "Avahe"],
+                    ("uttama", "bahu"): [b + "Amahe"],
+                }
+                return atmane_lw.get((purusha, vacana), [stem_base])
+            elif lakara in ["laN", "lfN"]:
+                atmane_lan = {
+                    ("prathama", "eka"): [b + "Ata"],
+                    ("prathama", "dvi"): [b + "AtAm"],
+                    ("prathama", "bahu"): [b + "Ata", b + "Anta"],
+                    ("madhyama", "eka"): [b + "ATAH"],
+                    ("madhyama", "dvi"): [b + "ATAm"],
+                    ("madhyama", "bahu"): [b + "ADvam"],
+                    ("uttama", "eka"): [b + "e"],
+                    ("uttama", "dvi"): [b + "Avahi"],
+                    ("uttama", "bahu"): [b + "Amahi"],
+                }
+                return atmane_lan.get((purusha, vacana), [stem_base])
+            elif lakara == "low":
+                atmane_lot = {
+                    ("prathama", "eka"): [b + "AtAm"],
+                    ("prathama", "dvi"): [b + "AtAm"],
+                    ("prathama", "bahu"): [b + "AtAm", b + "AntAm"],
+                    ("madhyama", "eka"): [b + "Asva"],
+                    ("madhyama", "dvi"): [b + "ATAm"],
+                    ("madhyama", "bahu"): [b + "ADvam"],
+                    ("uttama", "eka"): [b + "E"],
+                    ("uttama", "dvi"): [b + "AvahE"],
+                    ("uttama", "bahu"): [b + "AmahE"],
+                }
+                return atmane_lot.get((purusha, vacana), [stem_base])
+            elif lakara == "viDiliN":
+                # Panini 6.4.67 er liNi (A -> e)
+                ge = b + "e"
+                atmane_vidhi = {
+                    ("prathama", "eka"): [ge + "ta"],
+                    ("prathama", "dvi"): [ge + "yAtAm"],
+                    ("prathama", "bahu"): [ge + "ran"],
+                    ("madhyama", "eka"): [ge + "TAH"],
+                    ("madhyama", "dvi"): [ge + "yATAm"],
+                    ("madhyama", "bahu"): [ge + "Dvam"],
+                    ("uttama", "eka"): [ge + "ya"],
+                    ("uttama", "dvi"): [ge + "vahi"],
+                    ("uttama", "bahu"): [ge + "mahi"],
+                }
+                return atmane_vidhi.get((purusha, vacana), [stem_base])
         stem = stem_base + "a"
         if lakara in ["lw", "lfw"]:
             atmane_lw = {
@@ -1090,6 +1155,8 @@ class TinantaDerivationEngine:
                 return "urdidiz" if c=="urd" else "Urdidiz"
             if c == "Urd":
                 return "Urdidiz"
+            if c == "u":
+                return "Uziz"
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:
@@ -1164,7 +1231,7 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c[0]
             if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-                redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
+                redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             redup_vowel = "u" if last_v in ("u","U","o","O") else "i"
@@ -1228,9 +1295,14 @@ class TinantaDerivationEngine:
                     redup_vowel = "i"
                 return redup_cons + redup_vowel + c_stem + "iz"
 
+            # Panini 6.4.16 aj-jhan-gAM sani: ajanta dhAtu takes dIrGa before san
+            _c_san = (c[:-1] + "U") if c.endswith("u") else ((c[:-1] + "I") if c.endswith("i") else c)
+            # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
+            if _c_san.startswith("C"):
+                _c_san = "c" + _c_san
             # Panini 8.3.57 iRkoH: satva only applies after iN or ku; after a/A, suffix remains dental s
             suffix = "s" if c.endswith(("a", "A")) else ("z" if is_vowel_final else "iz")
-            return redup_cons + redup_vowel + c + suffix
+            return redup_cons + redup_vowel + _c_san + suffix
         def _yan_stem(c):
             if c == "BU":
                 return "boBUy"
@@ -1308,7 +1380,7 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c_eff[0]
             if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-                redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
+                redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->seziDya; za-roots like zala~ keep s)
@@ -1349,8 +1421,9 @@ class TinantaDerivationEngine:
                 _op1 = ""
             _mangled = (is_idit or pada == "Atmanepadi") and _op1.endswith(("i", "I"))
             if not _mangled:
+                # Panini 6.4.24 aniditAM hala upaDAyAH kNiti: drop penultimate nasal before any consonant (hal)
                 for _i, _ch in enumerate(list(_ybase)):
-                    if _ch in ("n", "Y", "N", "R") and _i + 1 < len(_ybase) and _ybase[_i + 1] in SLP1_STOPS:
+                    if _ch in ("n", "Y", "N", "R", "M") and _i + 1 < len(_ybase) and _ybase[_i + 1] not in SLP1_VOWELS:
                         _ybase = _ybase[:_i] + _ybase[_i + 1:]
                         break
                 if _ybase.endswith("N"):
@@ -1378,6 +1451,11 @@ class TinantaDerivationEngine:
                     _ybase = _ybase[:-2] + "d"
                 elif _ybase.endswith("ns"):
                     _ybase = _ybase[:-2] + "s"
+            # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: ajanta dhAtu takes dIrGa before yaN
+            if _ybase.endswith("u"):
+                _ybase = _ybase[:-1] + "U"
+            elif _ybase.endswith("i"):
+                _ybase = _ybase[:-1] + "I"
             # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
             if _ybase.startswith("C") and not yan_vowel.endswith("M"):
                 _ybase = "c" + _ybase
@@ -1435,7 +1513,7 @@ class TinantaDerivationEngine:
                 cluster += ch
             redup_cons = cluster[0] if cluster else c_eff[0]
             if len(cluster) >= 2 and cluster[0] in ("s", "S"):
-                redup_cons = cluster[1] if cluster[1] in SLP1_STOPS else cluster[0]
+                redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (mirroring _yan_stem)
@@ -1760,17 +1838,30 @@ class TinantaDerivationEngine:
                 yak_stem = ys  # already ya
                 sec_stem = ys
             else:
-                yak_stem = clean + "y"  # BU -> BUy, eD -> eDy
-                sec_stem = clean
+                # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali (A -> I before halAdi kNit affix yak)
+                if clean in ("pA", "sTA", "gA", "mA", "dA", "DA", "hA", "sA"):
+                    yak_stem = clean[:-1] + "Iy"
+                    sec_stem = clean[:-1] + "I"
+                elif clean.endswith("u"):
+                    # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH (u -> U before yak)
+                    yak_stem = clean[:-1] + "Uy"
+                    sec_stem = clean[:-1] + "U"
+                elif clean.endswith("i") and not (is_idit or pada == "Atmanepadi"):
+                    # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH (i -> I before yak)
+                    yak_stem = clean[:-1] + "Iy"
+                    sec_stem = clean[:-1] + "I"
+                else:
+                    yak_stem = clean + "y"  # BU -> BUy, eD -> eDy
+                    sec_stem = clean
                 # Panini 6.1.15 vaci-svapi-yajAdInAM kiti (sArvadhAtukam apit is Nit/kit)
                 _yajadi_samp = {"yaj": "ij", "vad": "ud", "vap": "up", "vah": "uh", "vas": "uz"}
                 if clean in _yajadi_samp or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
                     _sb = _yajadi_samp.get(clean, "ud" if "vad" in op else ("ij" if "yaja" in op else ("up" if "vap" in op else ("uh" if "vah" in op else "uz"))))
-                    yak_variants = [_sb + "y", yak_stem]
-                    sec_variants = [_sb, sec_stem]
+                    yak_variants = [_sb + "y", yak_stem, clean + "y"]
+                    sec_variants = [_sb, sec_stem, clean]
                 else:
-                    yak_variants = [yak_stem]
-                    sec_variants = [sec_stem]
+                    yak_variants = [yak_stem, clean + "y"] if yak_stem != clean + "y" else [yak_stem]
+                    sec_variants = [sec_stem, clean] if sec_stem != clean else [sec_stem]
                 # idit i-final velar/palatal takes assimilated num in yak too (sraki->sraNkyate; meta skips num for Y-class)
                 if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                     _ybw = clean[:-1]
@@ -1959,6 +2050,10 @@ class TinantaDerivationEngine:
                             _ve = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
                             cands.append(_dirgha + _ve[(purusha, vacana)])
                             cands.append(_dirgha + _ve[(purusha, vacana)].replace("Dve", "Qve"))
+                        if clean == "u":
+                            _ve = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
+                            cands.append("Uv" + _ve[(purusha, vacana)])
+                            cands.append("Uv" + _ve[(purusha, vacana)].replace("Dve", "Qve"))
                     except Exception:
                         pass
                     # Panini 6.1.15 + 6.1.17 yajAdi karmani liw (Ude, Ije, etc.)
@@ -2049,6 +2144,14 @@ class TinantaDerivationEngine:
                     if clean.endswith(("u", "U")):
                         _uv_base = (rd[:-1] if rd.endswith(("u", "U")) else rd) + "uv"
                         cands += [_uv_base + endings[(purusha, vacana)], _uv_base + endings_q[(purusha, vacana)]]
+                        # Panini 7.2.13 aniw forms in Atmanepada liw: SuSruze, SuSruQve, SuSruvahe, SuSrumahe
+                        _aniw_tbl_u = {
+                            ("madhyama", "eka"): [rd + "ze", rd + "se"],
+                            ("madhyama", "bahu"): [rd + "Qve", rd + "Dve"],
+                            ("uttama", "dvi"): [rd + "vahe"],
+                            ("uttama", "bahu"): [rd + "mahe"],
+                        }
+                        cands += _aniw_tbl_u.get((purusha, vacana), [])
                     # Panini 6.4.82 er an-ekAco 'saMyogapUrvasya: i/I takes y before vowel endings in liT
                     if clean.endswith(("i", "I")):
                         _y_base = (rd[:-1] if rd.endswith(("i", "I")) else rd) + "y"
@@ -2059,6 +2162,14 @@ class TinantaDerivationEngine:
                             _iy_base + endings[(purusha, vacana)],
                             _iy_base + endings_q[(purusha, vacana)],
                         ]
+                        # Panini 7.2.13 / general aniw forms in Atmanepada liw: sismize, sismiQve, sismivahe, sismimahe
+                        _aniw_tbl_i = {
+                            ("madhyama", "eka"): [rd + "ze", rd + "se"],
+                            ("madhyama", "bahu"): [rd + "Qve", rd + "Dve"],
+                            ("uttama", "dvi"): [rd + "vahe"],
+                            ("uttama", "bahu"): [rd + "mahe"],
+                        }
+                        cands += _aniw_tbl_i.get((purusha, vacana), [])
                     # Panini 6.4.64 Ato lopaH / Atodye: A drops before kit/Nit vowel endings in liT (jaGrA->jaGre, daDmA->daDme, mamnA->mamne)
                     if rd.endswith("A"):
                         _rdb = rd[:-1]
@@ -2440,6 +2551,9 @@ class TinantaDerivationEngine:
                         pass
                     if (purusha,vacana) not in table:
                         table[(purusha,vacana)] = [alt_aug2 + suffixes[(purusha,vacana)]]
+                # Panini 3.1.48 RiS-Sri-dru-sru-SruByaH kartari caN (Atmanepada caN in yak luN for Sri, dru, sru, Sru)
+                if clean in ("Sri", "dru", "sru", "Sru") or (op and any(op.startswith(x) for x in ("Sri", "dru", "sru", "Sru"))):
+                    table[(purusha, vacana)] += self._nijanta_aorist(clean, is_idit, purusha, vacana)
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
@@ -2879,6 +2993,9 @@ class TinantaDerivationEngine:
             if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
                 _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
                 cands += self._snu_parasmai(_px, "lw", purusha, vacana)
+            # Panini 3.1.74 SruvaH Sf ca
+            if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
+                cands += self._snu_parasmai("SfR", "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "laN":
@@ -2895,6 +3012,9 @@ class TinantaDerivationEngine:
             if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
                 _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
                 cands += self._snu_parasmai(_px, "laN", purusha, vacana)
+            # Panini 3.1.74 SruvaH Sf ca
+            if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
+                cands += self._snu_parasmai("SfR", "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "low":
@@ -2910,6 +3030,9 @@ class TinantaDerivationEngine:
             if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
                 _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
                 cands += self._snu_parasmai(_px, "low", purusha, vacana)
+            # Panini 3.1.74 SruvaH Sf ca
+            if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
+                cands += self._snu_parasmai("SfR", "low", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "viDiliN":
@@ -2925,6 +3048,9 @@ class TinantaDerivationEngine:
             if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
                 _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
                 cands += self._snu_parasmai(_px, "viDiliN", purusha, vacana)
+            # Panini 3.1.74 SruvaH Sf ca
+            if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
+                cands += self._snu_parasmai("SfR", "viDiliN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "luw":
@@ -3060,7 +3186,8 @@ class TinantaDerivationEngine:
             _a_map = {
                 "sTA": "tasT", "zWA": "tasT",
                 "pA": "pap", "GrA": "jaGr", "DmA": "daDm", "mnA": "mamn",
-                "dAR": "dad", "dA": "dad"
+                "dAR": "dad", "dA": "dad",
+                "gA": "jag", "gAN": "jag"
             }
             if clean in _a_map or op in _a_map:
                 _red = _a_map.get(clean, _a_map.get(op))
@@ -3089,6 +3216,35 @@ class TinantaDerivationEngine:
                 }
                 _acands = (_atman_a.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras_a.get(_pv, [])) + _paras_a.get(_pv, []) + _atman_a.get(_pv, [])
                 return list(dict.fromkeys(_acands)), log
+            # Panini 3.1.36 ijAdeS ca gurumato 'nfcCaH: single short vowel roots (u) are not gurumat,
+            # so do not take Am; they undergo reduplication: u+u -> U (6.1.101), uvaN (6.4.77) -> Uv-
+            if clean == "u" or op in ("u", "uN"):
+                _red = "Uv"
+                _pv = (purusha, vacana)
+                _atman_u = {
+                    ("prathama", "eka"): ["Uve"],
+                    ("prathama", "dvi"): ["UvAte"],
+                    ("prathama", "bahu"): ["Uvire"],
+                    ("madhyama", "eka"): ["Uvize"],
+                    ("madhyama", "dvi"): ["UvATe"],
+                    ("madhyama", "bahu"): ["UviDve", "UviQve"],
+                    ("uttama", "eka"): ["Uve"],
+                    ("uttama", "dvi"): ["Uvivahe"],
+                    ("uttama", "bahu"): ["Uvimahe"],
+                }
+                _paras_u = {
+                    ("prathama", "eka"): ["Uva"],
+                    ("prathama", "dvi"): ["UvatuH"],
+                    ("prathama", "bahu"): ["UvuH"],
+                    ("madhyama", "eka"): ["UviTa"],
+                    ("madhyama", "dvi"): ["UvaTuH"],
+                    ("madhyama", "bahu"): ["Uva"],
+                    ("uttama", "eka"): ["Uva"],
+                    ("uttama", "dvi"): ["Uviva"],
+                    ("uttama", "bahu"): ["Uvima"],
+                }
+                _cands_u = (_atman_u.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras_u.get(_pv, [])) + _atman_u.get(_pv, []) + _paras_u.get(_pv, [])
+                return list(dict.fromkeys(_cands_u)), log
             if is_vowel_initial:
                 flip = {"u":"U","U":"u","i":"I","I":"i"}
                 vars = [clean]
@@ -3390,6 +3546,21 @@ class TinantaDerivationEngine:
                                 if (purusha, vacana) == ("madhyama", "eka"):
                                     cands.append(_rp + clean[:-1] + "eTa")
                                     cands.append(_rp + clean[:-1] + "ayiTa")
+                            # Panini 6.4.77 aci Snu-DAtu-BruvAM yvo riyan-uvanO: u/U takes uv before vowel kit endings
+                            if clean.endswith(("u", "U")):
+                                _uv_rd = (_rd[:-1] if _rd.endswith(("u", "U")) else _rd) + "uv"
+                                cands.append(_uv_rd + cons_endings[(purusha, vacana)])
+                                # thal (madhyama eka): Panini 7.2.13 kf-sf-Bf-vf-stu-dru-sru-Sruvo lizi + 7.2.61 acastAsvatTalnityam
+                                if (purusha, vacana) == ("madhyama", "eka"):
+                                    cands.append(_rp + clean[:-1] + "oTa")
+                                    cands.append(_rp + clean[:-1] + "aviTa")
+                                # Panini 7.2.13: aniw in liw before vas/mas (uttama dvi/bahu): susruva, susruma
+                                if (purusha, vacana) == ("uttama", "dvi"):
+                                    cands.append(_rd + "va")
+                                    cands.append(_uv_rd + "va")
+                                elif (purusha, vacana) == ("uttama", "bahu"):
+                                    cands.append(_rd + "ma")
+                                    cands.append(_uv_rd + "ma")
                             # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->sizeDiTa, mirroring yang)
                             try:
                                 _op0 = (meta.get("op", "") or "").replace("~", "")
@@ -3463,6 +3634,19 @@ class TinantaDerivationEngine:
         elif lakara == "ASIrliN":
             if pada == "parasmEpadi":
                 _asb = [clean]
+                # Panini 6.4.67 er liNi: ghu-mA-sTA-gA-pA-jahAti-sAM replace A with e before kit ASIrliN yAsuw
+                # (extended to all A-ending roots per classical usage & vArttika GrA-DmAyoS ca)
+                if clean.endswith("A"):
+                    _asb.append(clean[:-1] + "e")
+                elif clean in ("gE", "de", "dE", "do", "De", "so", "me"):
+                    _asb.append(clean[:-1] + "e" if clean.endswith("e") else clean[0] + "e")
+                # Panini 6.4.25 akfttsArvaDAtukayor dIrGaH (y-initial ArDaDAtuka yAsuw lengthens ajanta aNga)
+                if clean.endswith("u"):
+                    _asb.append(clean[:-1] + "U")
+                elif clean.endswith("i"):
+                    _asb.append(clean[:-1] + "I")
+                elif clean.endswith(("f", "F")):
+                    _asb.append(clean[:-1] + "ri")
                 # Panini 6.1.15 vaci-svapi-yajAdInAM kiti
                 _yajadi_samp = {"yaj": "ij", "vad": "ud", "vap": "up", "vah": "uh", "vas": "uz"}
                 if clean in _yajadi_samp or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
@@ -3556,6 +3740,15 @@ class TinantaDerivationEngine:
                 }
                 form = aug + endings[(purusha, vacana)]
                 cands = [form]
+                # Panini 2.4.77 gA-tisTA-go-pA-BUByaH sicaH parasmEpadezu (sic-luk):
+                # Panini 3.4.110 AtaH (jhi -> us): aug[:-1] + uH (apuH, asTuH, aduH, aDuH, aguH)
+                # Panini 6.1.107 ami pUrvaH (mip -> am): aug + m (apAm, asTAm, adAm, aDAm, agAm)
+                if clean.endswith("A") or clean in ("gE", "de", "dE", "do", "De", "so"):
+                    _aug_a = aug if clean.endswith("A") else self._add_augment(clean[0] + "A", False)
+                    if purusha == "prathama" and vacana == "bahu":
+                        cands.append(_aug_a[:-1] + "uH")
+                    elif purusha == "uttama" and vacana == "eka":
+                        cands.append(_aug_a + "m")
                 _guna = self._bhvadi_guna_base(clean, is_idit)
                 # cons-final luN paras at/atAm/an (aScutat, 7.3.??): aug + a + ending alongside aug + ending
                 try:
@@ -3722,6 +3915,9 @@ class TinantaDerivationEngine:
                     cands.append(aug + "I" + ending)
                     if ending in ("tAm","van","tam","ta"):
                         cands.append(aug + "iz" + ending)
+                # Panini 3.1.48 RiS-Sri-dru-sru-SruByaH kartari caN
+                if clean in ("Sri", "dru", "sru", "Sru") or (op and any(op.startswith(x) for x in ("Sri", "dru", "sru", "Sru"))):
+                    cands += self._nijanta_aorist(clean, is_idit, purusha, vacana)
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
@@ -3763,7 +3959,8 @@ class TinantaDerivationEngine:
                         cands.append(form)
                 # AniT Atmanepada luN (Panini 1.2.11, 8.2.26, 8.4.53)
                 try:
-                    for _ab in [clean, self._bhvadi_guna_base(clean, is_idit)]:
+                    _lun_bases = list(dict.fromkeys([clean, self._bhvadi_guna_base(clean, is_idit)] + self._prim_bases(clean, is_idit, op, dhatu_id)))
+                    for _ab in _lun_bases:
                         if not _ab:
                             continue
                         _s_stems = self._assimilate_s_stems(_ab)
@@ -3784,6 +3981,14 @@ class TinantaDerivationEngine:
                                 _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
                                 cands.append(_asb + "ata")
                         elif (purusha, vacana) == ("madhyama", "eka"):
+                            for _sb in _s_stems:
+                                _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
+                                if _asb.endswith("z"):
+                                    cands.append(_asb + "WAH")
+                                elif _asb.endswith("s"):
+                                    cands.append(_asb + "TAH")
+                                else:
+                                    cands.append(_asb + "sTAH")
                             for _tb in _t_stems:
                                 _atb = self._add_augment(_tb, _tb[0] in SLP1_VOWELS if _tb else False)
                                 if _atb.endswith("w"):
@@ -3817,6 +4022,8 @@ class TinantaDerivationEngine:
                                 cands.append(_aug_b[:-1] + "nDvam")
                             elif _aug_b.endswith("z"):
                                 cands.append(_aug_b[:-1] + "qQvam")
+                            elif _aug_b and _aug_b[-1] in SLP1_VOWELS:
+                                cands.extend([_aug_b + "Dvam", _aug_b + "Qvam"])
                         elif (purusha, vacana) == ("uttama", "eka"):
                             for _sb in _s_stems:
                                 _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
