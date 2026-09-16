@@ -74,6 +74,10 @@ def clean_dhatu_op(op: str) -> str:
         clean = clean.replace("sj", "jj")
     if "nc" in clean:
         clean = clean.replace("nc", "Yc")
+    if "nj" in clean:
+        clean = clean.replace("nj", "Yj")
+    if "nS" in clean:
+        clean = clean.replace("nS", "MS")
     return clean
 
 
@@ -333,6 +337,15 @@ class TinantaDerivationEngine:
                 if not _is_s_stop and not _is_velar_final:
                     if idx < len(res) and res[idx] == "s":
                         res = res[:idx] + "z" + res[idx+1:]
+                        # Panini 8.4.1 raṣābhyāṁ no ṇaḥ samānapade & 8.4.2 aṭkupvāṅnumvyavāye 'pi
+                        # dental n following z across aṭkupv becomes retroflex R (sizinv -> siziRv)
+                        for _j in range(idx + 1, len(res)):
+                            if res[_j] == "n":
+                                if _j + 1 < len(res):  # non-padanta
+                                    res = res[:_j] + "R" + res[_j+1:]
+                                break
+                            elif res[_j] not in "aAiIuUfFxXeEoOHyvrkKgGNpPbBmM":
+                                break
         return res
 
     def _nijanta_aorist(self, clean: str, is_idit: bool, purusha: str, vacana: str, n_stem: str = "") -> list:
@@ -422,13 +435,6 @@ class TinantaDerivationEngine:
             if "Ud" in b:
                 _ur_vars.add(b.replace("Ud", "Ud", 1))
         bases |= _ur_vars
-        expanded: set = set(bases)
-        for b in list(bases):
-            if b.startswith("s"):
-                expanded.add("z" + b[1:])
-        bases = expanded
-        # i-final idit ay-less num-assimilated bases (sraki->sraNk, gaqi->gaRq, kaki->kaNk, bahi->baMh:
-        # surveyed all i-final-idit C-initial nich fids; additive only, never removes)
         if is_idit and clean and clean[0] not in SLP1_VOWELS and clean.endswith(("i", "I")):
             _core0 = clean[:-1]
             if _core0 and _core0[0] not in SLP1_VOWELS:
@@ -438,6 +444,11 @@ class TinantaDerivationEngine:
                     bases.add(_core0[:-1] + _N2[_fc] + _fc)
                 if _fc == "v":
                     bases.add(_core0[:-1] + "R" + _fc)  # zivi/rivi R-variant alongside n
+        expanded: set = set(bases)
+        for b in list(bases):
+            if b.startswith("s"):
+                expanded.add("z" + b[1:])
+        bases = expanded
         cluster = ""
         for ch in clean:
             if ch in SLP1_VOWELS:
@@ -527,6 +538,20 @@ class TinantaDerivationEngine:
         if clean in ("Sad", "Sadx") or op.startswith("Sad"):
             if "SIy" not in bases:
                 bases.append("SIy")
+        # Panini 6.4.25 daMSa-svaYja-zvaYjAM Sapi, 6.4.26 raYjeS ca, 6.4.24 aniditAm:
+        # Penultimate nasal elided before Sap: danS->daS, zvanj/svaYj->svaj, saYj->saj, raYj->raj
+        if clean in ("danS", "daMS") or op.startswith("danS"):
+            if "daS" not in bases:
+                bases.append("daS")
+        if clean in ("svaYj", "zvaYj", "svanj", "zvanj") or op.startswith(("svanj", "zvanj", "svaYj", "zvaYj")):
+            if "svaj" not in bases:
+                bases.append("svaj")
+        if clean in ("saYj", "zaYj", "sanj") or op.startswith(("zaYj", "sanj", "saYj", "zanja")):
+            if "saj" not in bases:
+                bases.append("saj")
+        if clean in ("raYj", "ranj") or op.startswith(("raYj", "ranj", "ranja")):
+            if "raj" not in bases:
+                bases.append("raj")
         if clean and clean[0] in SLP1_VOWELS:
             flip = {"u":"U","U":"u","i":"I","I":"i","a":"A","A":"a","f":"F","F":"f"}
             if clean[0] in flip:
@@ -1021,6 +1046,9 @@ class TinantaDerivationEngine:
             # Panini 6.4.92 mitAM hrasvaH, 1.1.48 eca igGrasvAdeSe
             if is_mit and "e" in c:
                 return c.replace("e", "i", 1) + "ay"
+            # Panini 7.3.36 puk augment before Ri for roots ending in A
+            if c and c.endswith("A"):
+                return c + "pay"
             if c and c[-1] in SLP1_VOWELS:
                 return self._vriddhi_base(c, is_idit) + "ay"
             if c == "daD":
@@ -1183,7 +1211,7 @@ class TinantaDerivationEngine:
                         san_coda = "Ms"
                     else:
                         san_coda = coda + "s"
-                    if stem_body.endswith("n") and san_coda.startswith("k"):
+                    if stem_body.endswith(("n", "Y", "M")) and san_coda.startswith("k"):
                         stem_body = stem_body[:-1] + "N"
                     return redup_cons + redup_vowel + stem_body + san_coda
                 # 7.3.86 pugantalaghUpadhasya ca: laghUpadha f -> ar before seT iz
@@ -1200,7 +1228,8 @@ class TinantaDerivationEngine:
                     redup_vowel = "i"
                 return redup_cons + redup_vowel + c_stem + "iz"
 
-            suffix = "z" if is_vowel_final else "iz"
+            # Panini 8.3.57 iRkoH: satva only applies after iN or ku; after a/A, suffix remains dental s
+            suffix = "s" if c.endswith(("a", "A")) else ("z" if is_vowel_final else "iz")
             return redup_cons + redup_vowel + c + suffix
         def _yan_stem(c):
             if c == "BU":
@@ -1216,6 +1245,18 @@ class TinantaDerivationEngine:
                 return "sesimya"
             if c in ("vye", "vyeY") or op.startswith("vye"):
                 return "vevIya"
+            # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali & vArttika GrA-DmayoS ca:
+            # A -> I before halAdi kNiti (yaN), abhyAsa guna e (7.4.82)
+            if c in ("pA", "pA~") or (op and any(op.startswith(x) for x in ("pA", "pA~")) and dhatu_id and "1074" in dhatu_id):
+                return "pepIya"
+            if c == "GrA" or (op and op.startswith("GrA")):
+                return "jeGrIya"
+            if c == "DmA" or (op and op.startswith("DmA")):
+                return "deDmIya"
+            if c in ("sTA", "zWA") or (op and op.startswith("zWA")):
+                return "tezWIya"
+            if c in ("gE", "gA") or (op and op.startswith("gE")):
+                return "jegIya"
             # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
             if c == "dyut" or (op and op.startswith("dyut")):
                 return "dedyutya"
@@ -1290,6 +1331,15 @@ class TinantaDerivationEngine:
                         _ybase = "zW" + _ybase[2:]
                     elif c_eff.startswith("s"):
                         _ybase = "z" + c_eff[1:]
+                    if _ybase.startswith("z"):
+                        # Panini 8.4.1 raṣābhyāṁ no ṇaḥ samānapade & 8.4.2 aṭkupvāṅnumvyavāye 'pi
+                        for _j in range(1, len(_ybase)):
+                            if _ybase[_j] == "n":
+                                if _j + 1 < len(_ybase):
+                                    _ybase = _ybase[:_j] + "R" + _ybase[_j+1:]
+                                break
+                            elif _ybase[_j] not in "aAiIuUfFxXeEoOHyvrkKgGNpPbBmM":
+                                break
             except Exception:
                 pass
             # yan nasal trio (mirror krdanta): drop coda-n before stop / drop final-N unless meta-mangled; redup-M for short-a + final-n
@@ -1305,7 +1355,7 @@ class TinantaDerivationEngine:
                         break
                 if _ybase.endswith("N"):
                     _ybase = _ybase[:-1]
-            if (root_vowel == "a" or (len(c) >= 2 and c[-2] == "a")) and (c.endswith("n") or c.endswith("R") or c.endswith("m")):
+            if (root_vowel in ("a", "f") or (len(c) >= 2 and c[-2] in ("a", "f"))) and (c.endswith(("n", "R", "m")) or c_eff.endswith(("n", "R", "m"))):
                 yan_vowel = "aM"
             # Panini 7.4.86 japajabhadahadaSabhaYjapaSAM ca:
             # nuk augment (redup-aM) for jap, jaB, dah, daS, BaYj, paS in yaN
@@ -1314,8 +1364,8 @@ class TinantaDerivationEngine:
                 (clean in ("daS", "danS") and op.startswith("danS")) or
                 (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
                 yan_vowel = "aM"
-                if _ybase.endswith("nS"):
-                    _ybase = _ybase.replace("nS", "S")
+                if _ybase.endswith(("nS", "MS")):
+                    _ybase = _ybase[:-2] + "S"
             # Panini 7.4.84 nIg vaYcu-sraMsu-DvaMsu-BraMsu-kasa-pata-pada-skandAm:
             # nIk augment (yan_vowel = "anI") in yaN and yaNluk
             # With 6.4.24 aniditAM hala upaDAyAH kNiti: penultimate nasal elided
@@ -1408,10 +1458,18 @@ class TinantaDerivationEngine:
                         _ybase = "zW" + _ybase[2:]
                     elif c_eff.startswith("s"):
                         _ybase = "z" + c_eff[1:]
+                    if _ybase.startswith("z"):
+                        # Panini 8.4.1 raṣābhyāṁ no ṇaḥ samānapade & 8.4.2 aṭkupvāṅnumvyavāye 'pi
+                        for _j in range(1, len(_ybase)):
+                            if _ybase[_j] == "n":
+                                if _j + 1 < len(_ybase):
+                                    _ybase = _ybase[:_j] + "R" + _ybase[_j+1:]
+                                break
+                            elif _ybase[_j] not in "aAiIuUfFxXeEoOHyvrkKgGNpPbBmM":
+                                break
             except Exception:
                 pass
-            # yangluk redup-M for short-a + final dental-n (van->vaMvana; old redup absent everywhere)
-            if (root_vowel == "a" or (len(c) >= 2 and c[-2] == "a")) and (c.endswith("n") or c.endswith("R") or c.endswith("m")):
+            if (root_vowel in ("a", "f") or (len(c) >= 2 and c[-2] in ("a", "f"))) and (c.endswith(("n", "R", "m")) or c_eff.endswith(("n", "R", "m"))):
                 yan_vowel = "aM"
             # Panini 7.4.86 japajabhadahadaSabhaYjapaSAM ca:
             if (clean in ("jap", "dah") or 
@@ -1419,8 +1477,8 @@ class TinantaDerivationEngine:
                 (clean in ("daS", "danS") and op.startswith("danS")) or
                 (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
                 yan_vowel = "aM"
-                if _ybase.endswith("nS"):
-                    _ybase = _ybase.replace("nS", "S")
+                if _ybase.endswith(("nS", "MS")):
+                    _ybase = _ybase[:-2] + "S"
             # Panini 7.4.84 nIg vaYcu-sraMsu-DvaMsu-BraMsu-kasa-pata-pada-skandAm:
             # nIk augment (yan_vowel = "anI") in yaN and yaNluk
             # With 6.4.24 aniditAM hala upaDAyAH kNiti: penultimate nasal elided

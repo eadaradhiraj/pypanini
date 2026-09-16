@@ -1,9 +1,9 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-16T13:05:00+05:30
+Date: 2026-09-16T17:00:00+05:30
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1011/1156 100%** (87.5%, raw 1011/1166). Fails: 145 scored (155 with 10 skipped). Net +25 matched tokens across 25 improved roots (0 worsened). New 100% passes (11): `01.0332 awa~` (668 -> 895/895, 100.0%, +227), `01.0496 sfB (zfBu~)` (669 -> 895/895, 100.0%, +226), `01.0594 Pala~` (668 -> 895/895, 100.0%, +227), `01.0608 Pala~` (668 -> 895/895, 100.0%, +227), `01.0640 cara~` (668 -> 895/895, 100.0%, +227), `01.0842 dyuta~` (656 -> 883/883, 100.0%, +227), `01.0845 zvida~` (656 -> 883/883, 100.0%, +227), `01.1014 SfDu~` (878 -> 895/895, 100.0%, +17), `01.1035 Caz (Caza~)` (668 -> 895/895, 100.0%, +227), `01.1133 zvida~` (667 -> 895/895, 100.0%, +228), `01.1145 kfza~` (886 -> 895/895, 100.0%, +9). Adjacent improvements: 14 other roots. `yak` misses dropped to 0 (cleared!), joining `yangluk_krut` at 0!
+Passes: **1020/1156 100%** (88.2%, raw 1020/1166). Fails: 136 scored (146 with 10 skipped). Net +70 matched tokens across 70 improved roots (0 worsened). New 100% passes (9): `01.0504 GfRi~` (627 -> 883/883, 100.0%, +256), `01.0674 zivi~` (667 -> 895/895, 100.0%, +228), `01.1075 GrA` (454 -> 895/895, 100.0%, +441), `01.1076 DmA` (463 -> 895/895, 100.0%, +432), `01.1078 mnA` (501 -> 895/895, 100.0%, +394), `01.1131 zvanja~` (547 -> 883/883, 100.0%, +336), `01.1142 zaYja~` (451 -> 895/895, 100.0%, +444), `01.1144 danSa~` (558 -> 895/895, 100.0%, +337), `01.1154 raYja~` (541 -> 895/895, 100.0%, +354). Adjacent improvements: 61 other roots.
 
 ## Rules (general, pure generative)
 - Panini 1.2.18 *na ktvā seṭ* & 7.3.86 *puganta-laghūpadhasya ca*: An affix *ktvā* having the augment *iṭ* (*seṭ*) is *na kit* (not kit), causing bases with a laghūpadha *ik* vowel (`i`, `u`, `ṛ`, `ḷ` followed by a single consonant) to take **guṇa** by 7.3.86 (`varkitvA`, `BarjitvA`, `DarjitvA`, `garjitvA`, `darhitvA`, `barhitvA`, `varhitvA`, `tarhitvA`).
@@ -66,16 +66,23 @@ Passes: **1011/1156 100%** (87.5%, raw 1011/1166). Fails: 145 scored (155 with 1
 - Panini 7.4.87 *cara-phaloś ca*, 7.4.88 *ut parasyātaḥ*, & 8.2.77 *hali ca*: In yaṅanta and yaṅluk, `Pal` and `car` take augment `nuṅ` in abhyāsa, and root vowel `a` becomes `u`. Before consonant `ya`, `cur` is lengthened to `cUr` by 8.2.77 *hali ca* (`caMcUrya-`), whereas before vowel/iṭ affixes where `ya` is elided (`liw`, `luw`, `lfw`, `luN`, `lfN`, `ASIrliN`, and non-ya krdantas), `u` remains short (`caMcur-`, `paMPul-`). Restricted check strictly to `clean == "car"`. Unlocks `01.0594 Pala~`, `01.0608 Pala~`, and `01.0640 cara~` to 100.0%.
 - Panini 6.1.2 *ajāder dvitīyasya*: For vowel-initial root `aw`, second syllable reduplication produces `awAwya-` in yaṅ and `awew`/`awAw` in yaṅluk. Allowed `sec` in `yang_krut` `ktvA` (`awAwya`). Unlocks `01.0332 awa~` to 100.0%.
 - Panini 6.1.73 *che ca*: In `_yan_stem`, `_yanlug_stem`, and `krdanta.py` `_yan_sec`: `_ybase` starting with `C` takes `tuk` (`c`) after an abhyāsa vowel that doesn't end in `M` (`cAcCazya-`). Placed after `yan_vowel` determination to prevent false insertion on nasal roots like `Cam`. Unlocks `01.1035 Caz` to 100.0%.
+- Panini 6.4.66 *ghu-mā-sthā-gā-pā-jahāti-sāṁ hali* & Vārttika *ghrā-dhmayoś ca*: In Yaṅanta, roots ending in `A` (`pA`, `GrA`, `DmA`, `sTA`, `gA`, `gE`) replace `A` with `ī` (`I`) before the halādi kṅit affix `yaṅ` (`ya`), with abhyāsa guṇa `e` by Panini 7.4.82 *guṇo yaṅ-lukoḥ*, producing `pepIya-`, `jeGrIya-`, `deDmIya-`, `tezWIya-`, `jegIya-` across all 10 lakāras in kartari/karmani and all yaṅanta kṛdantas (`jeGrIyaRIyaH`, `jeGrIyakaH`, `deDmIyaRIyaH`, `deDmIyakaH`...). Roots not in 6.4.66 like `mnA` retain `A` (`mAmnAya-`). Unlocks `01.1075 GrA` and `01.1076 DmA` to 100.0%.
+- Panini 6.4.24 *aniditāṁ hala upadhāyāḥ kṅiti*, 6.4.25 *daṁśa-svañja-ṣvañjāṁ śapi*, & 6.4.26 *rañjeś ca*: Penultimate nasal is elided before `śap` (`lw`, `low`, `laN`, `viDiliN` in kartari tinanta, and `SAnac` / `cAnaS` in kṛdanta) for `danS` -> `daS` (`daSati`, `daSamAnaH`), `svaYj` / `zvaYj` -> `svaj` (`svajate`, `svajamAnaH`), `saYj` / `zaYj` -> `saj` (`sajati`, `sajamAnaH`), and `raYj` -> `raj` (`rajati`, `rajate`, `rajamAnaH`). In yaṅluk Śatṛ, penultimate nasal drops by 6.4.24, yielding non-num abhyasta forms by 7.1.78 *nābhyastāc chatuḥ*: `daMdaSat`/`dandaSat` (`01.1144`), `sAsvajat` (`01.1131`), `sAsajat` (`01.1142`), `rArajat` (`01.1154`). Unlocks `01.1131 zvanja~`, `01.1142 zaYja~`, `01.1144 danSa~`, and `01.1154 raYja~` to 100.0%.
+- Panini 8.4.58 *anusvārasya yayi parasavarṇaḥ* & 8.3.24 *naś cāpadāntasya jhali*: In sannanta stems before `kz` (`k` $\in yay$), penultimate nasals (`n`, `Y`, `M`) assimilate to velar nasal `N` (`danS` -> `didaNkzati`, `svaYj` -> `sisvaNkzate`, `saYj` -> `sisaNkzati`, `raYj` -> `riraNkzati`/`riraNkzate`). Penultimate nasal elision in `_kta_stem` protects sannanta stems ending in `s` (`ninaMsita`, `riraMsita`, `yiyAMsita`, `jigAMsita`).
+- Panini 6.1.101 *akaḥ savarṇe dīrghaḥ* & 7.3.33 *āto yuk ciṇ-kṛtoḥ*: In kṛdanta, `A`-ending roots take savarṇa dīrgha in `anIyar` (`mnAnIyaH`, `GrARIyaH`, `DmAnIyaH`, `pAnIyaH`, `sTAnIyaH`) and `lyuw` (`mnAnam`, `GrARam`, `DmAnam`, `pAnam`, `sTAnam`). Before vowel-initial kṛt affixes (`Rvul`, `GaY`), `A`-ending roots take augment `yuk` (`y`) by 7.3.33, yielding `mnAyakaH`, `GrAyakaH`, `DmAyakaH`, `pAyakaH`, `sTAyakaH` in `Rvul` and `mnAyaH`, `GrAyaH`, `DmAyaH`, `pAyaH`, `sTAyaH` in `GaY`. In yaṅluk Śatṛ, `A`-ending abhyasta stems drop `A` by 6.4.112 *śnābhyastayor ātaḥ*, taking non-num endings by 7.1.78 (`mAmnat`, `jAGrat`, `dADmat`, `tAsTat`). Unlocks `01.1078 mnA` to 100.0%.
+- Panini 8.4.1 *raṣābhyāṁ no ṇaḥ samānapade* & 8.4.2 *aṭkupvāṅnumvyavāye 'pi*: Root-final vowels belong to `aṭ` and do not block ṇatva across the stem to suffix `n`. Vowel-final roots containing trigger `r`/`z`/`f` undergo ṇatva (`GrA` -> `GrARIyaH`, `GrARam`). When root-initial `s` undergoes ṣatva to `z` in the abhyāsa, internal `n` across intervening vowels/velars/labials undergoes ṇatva to `R` (`zivi~` -> `siziRv-`, `seziRv-`). Unlocks `01.0674 zivi~` to 100.0%.
+- Panini 7.4.85 & 7.4.86 *nuṅ* augment in Yaṅ/Yaṅluk: Nasal-coda roots (`n`, `R`, `m`) with vowel `a` or `ṛ` receive `yan_vowel = "aM"`, correctly preventing false `rīk` insertion on antepenultimate `ṛ` (`GfRi~` -> `jaMGfRRyate` / `jaNGfRRyate`). Unlocks `01.0504 GfRi~` to 100.0%.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 886 | 01.0105 krut/SAnac/M:zvazkamARaH |
-| ting | 700 | 01.0105 ting/lw/prathama/eka:svazkate |
-| san_krut | 115 | 01.0596 san_krut/kta/M:miSmIlizitaH |
-| san | 20 | 01.1075 san/lw/prathama/eka:jiGrAzati |
-| yang_krut | 14 | 01.0504 yang_krut/kta/M:jarIGfRRitaH |
-| yang | 5 | 01.0504 yang/lw/prathama/eka:jarIGfRRyate |
+| krut | 780 | 01.0105 krut/SAnac/M:zvazkamARaH |
+| ting | 670 | 01.0105 ting/lw/prathama/eka:svazkate |
+| san_krut | 156 | 01.0596 san_krut/kta/M:miSmIlizitaH |
+| yang_krut | 7 | 01.0003 yang_krut/kta/M:cecyavitaH |
+| yang | 5 | 01.0003 yang/lw/prathama/eka:cecyavate |
+| san | 5 | 01.0003 san/lw/prathama/eka:cicyavizate |
+| yangluk_krut | 4 | 01.0016 yangluk_krut/kta/M:SezIritaH |
+| nich_krut | 3 | 01.0105 nich_krut/kta/M:zvazkitaH |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 | yak | 0 | (cleared!) |
-| yangluk_krut | 0 | (cleared!) |
