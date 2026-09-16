@@ -895,14 +895,24 @@ class KrdantaEngine:
                     if ch in SLP1_VOWELS:
                         root_vowel = ch
                         break
-                if root_vowel in ("i", "I", "f", "F", "e", "E"):
+                if root_vowel in ("i", "I", "e", "E"):
                     yan_vowel = "e"
                 elif root_vowel in ("u", "U", "o", "O"):
                     yan_vowel = "o"
+                elif root_vowel in ("f", "F"):
+                    # Panini 7.4.91 rIgfdupaDasya ca:
+                    # The abhyAsa of a root with penultimate f (followed by a consonant) takes rIk (arI)
+                    _pos = c.find(root_vowel)
+                    if _pos + 1 < len(c) and any(ch not in SLP1_VOWELS for ch in c[_pos + 1 :]):
+                        yan_vowel = "arI"
+                    else:
+                        yan_vowel = "e"
                 elif root_vowel in ("a", "A"):
                     yan_vowel = "A"
                 else:
                     yan_vowel = "A"
+                if c.startswith("kfp"):
+                    yan_vowel = "alI"
                 cluster=""
                 for ch in c:
                     if ch in SLP1_VOWELS: break
@@ -914,16 +924,18 @@ class KrdantaEngine:
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->seziDya, mirroring tinanta)
                 # Panini 8.3.59 AdeSapratyayayoH & 8.4.41 zwunA zwuH:
-                # For roots whose upadeSa starts with zw/zW (zwuc, zwep, zwip, zwuB):
-                # after abhyAsa with iN vowel (e, o), st -> zw and sT -> zW
+                # For roots whose upadeSa starts with zw/zW (zwuc, zwep, zwip, zwuB, zwfkz):
+                # after abhyAsa with iN vowel (e, o, arI, alI), st -> zw and sT -> zW
                 _ybase = c
+                if c.startswith("kfp"):
+                    _ybase = _ybase.replace("kfp", "kxp")
                 try:
                     _op0 = (meta.get("op", "") or "").replace("~", "")
                     if len(_op0) > 1 and _op0[0] == "z" and _op0[1] in ("i", "e", "U", "u") and c.startswith("s"):
                         _ybase = "z" + c[1:]
-                    elif (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st") and yan_vowel in ("e", "o"):
+                    elif (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st") and yan_vowel in ("e", "o", "arI", "alI"):
                         _ybase = "zw" + _ybase[2:]
-                    elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT") and yan_vowel in ("e", "o"):
+                    elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT") and yan_vowel in ("e", "o", "arI", "alI"):
                         _ybase = "zW" + _ybase[2:]
                 except Exception:
                     pass

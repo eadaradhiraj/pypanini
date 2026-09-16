@@ -1,9 +1,9 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-10T19:05:00+05:30
+Date: 2026-09-16T11:43:00+05:30
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **967/1156 100%** (raw 967/1166). Fails: 189 scored (199 with 10 skipped). Net +22 matched tokens across 3 improved roots (0 worsened). New 100% passes (3): `01.0423 zwepf~` (876 -> 883/883, 100.0%, +7 tokens), `01.0460 zwuBu~` (876 -> 883/883, 100.0%, +7 tokens), `01.0422 zwipf~` (875 -> 883/883, 100.0%, +8 tokens).
+Passes: **975/1156 100%** (raw 975/1166). Fails: 181 scored (191 with 10 skipped). Net +8416 matched tokens across 39 improved roots (0 worsened). New 100% passes (8): `01.0250 Dfji~` (668 -> 895/895, 100.0%, +227), `01.0282 gfji~` (668 -> 895/895, 100.0%, +227), `01.0454 jfBi~` (627 -> 883/883, 100.0%, +256), `01.0682 kfvi~` (668 -> 895/895, 100.0%, +227), `01.0835 dfhi~` (668 -> 895/895, 100.0%, +227), `01.0837 bfhi~` (668 -> 895/895, 100.0%, +227), `01.0877 vfhi~` (668 -> 895/895, 100.0%, +227), `01.0943 tfhi~` (668 -> 895/895, 100.0%, +227). Adjacent improvements: 31 other roots (+1 to +227 tokens each).
 
 ## Rules (general, pure generative)
 - Panini 7.3.84 *sārvadhātukārdhadhātukayoḥ* & 6.1.78 *eco 'yavāyāvaḥ*: Before consonant-initial ārdhadhātuka affixes (luṭ `-tAs`, lṛṭ `-sya`, lṛṅ `-sya`, āsīrliṅ `-sIyuw`, tavya `-tavya`, tumun `-tum`, tṛc `-tf`), vowel-ending roots (`i`, `I`, `u`, `U`) take guṇa (`e`, `o`) without undergoing *eco 'yavāyāvaḥ* (which applies strictly before vowels, *aci*). Preserves `ne-` stems for `nI` (`netA`, `nezyati`, `nezyate`, `anezyat`, `anezyata`, `nezIzwa`, `netavyaH`, `netum`, `netA`/`netrI`/`netf`).
@@ -54,15 +54,17 @@ Passes: **967/1156 100%** (raw 967/1166). Fails: 189 scored (199 with 10 skipped
 - Panini 8.2.32 *dāder dhātor ghaḥ*, 8.2.40 *jhaṣas tathor dho 'dhaḥ*, & 8.4.53 *jhalāṁ jaś jhaśi*: For `d`-initial root `dah` in yaṅluk, consonant-initial endings with `t`/`T` undergo guttural and aspiration sandhi to `gD` (`daMdagDi`, `daMdagDaH`, `daMdagDa`).
 - Panini 7.4.84 *nīg vañcu-sraṁsu-dhvaṁsu-bhraṁsu-kasa-pata-pada-skandām*: Roots `vañc`, `sraṁs`, `dhvaṁs`, `bhraṁs`, `kas`, `pat`, `pad`, `skand` take augment *nīk* in the abhyāsa in Yaṅ and Yaṅluk (`yan_vowel = "anI"`). With Panini 6.4.24 *aniditāṁ hala upadhāyāḥ kṅiti*, penultimate nasals elide before kṅit affixes (`vanIvacya-`, `canIskadya-`, `sanIsrasya-`, `danIDvasya-`, `banIBrasya-`). In Yaṅluk, pit endings (`tip`, `sip`, `mip`) retain penultimate nasals by 1.2.4 *sārvadhātukam apit* (`vanIvaNkti`, `vanIvaYcIti`, `canIskanti`, `canIskandIti`), while apit endings elide them (`vanIvaktaH`, `canIskattaH`, `vanIvacvaH`, `canIskadvaH`). Unlocks 4 roots to 100.0% (`01.0979`, `01.0996`, `01.0216`, `01.1134`) and boosts 3 siblings (`01.0857`, `01.0858`, `01.0859`).
 - Panini 8.4.2 *aṭ-kupvāṅ-num-vyavāye 'pi*: Retroflexion of dental `n` to `ṇ` (*ṇatva*) by 8.4.1 *raṣābhyāṁ no ṇaḥ samānapade* is permitted across vowels, semivowels, kavarga, pavarga, and anusvāra (*aṭ-ku-pu-āṅ-num*), but strictly blocked if any other consonant intervenes (*ṭavargādivyavāye tu na*). In yaṅanta formations of `zw`-upadeśa roots with non-ṣ final consonants (`tezwep-`, `tozwuB-`, `tezwip-`), retroflex `w` intervenes between `z` and suffix `n`, blocking ṇatva and generating dental `n` (`tezwepyamAnaH`, `tezwepanIyaH`, `tezwepanam`, `tozwuByamAnaH`, `tozwuBanIyaH`, `tozwuBanam`, `tezwipyamAnaH`, `tezwipanIyaH`, `tezwipanam`). Unlocks `01.0423 zwepf~`, `01.0460 zwuBu~`, and `01.0422 zwipf~` to 100.0%.
+- Panini 7.4.91 *rīgṛdupadhasya ca* & 8.2.18 *kṛpo ro laḥ*: In Yaṅ and Yaṅluk, the abhyāsa of a root with penultimate short `ṛ` (*ṛd-upadha*, i.e. `ṛ` followed by a consonant) receives the augment *rīk* (`arI`), producing `darIDfYjyate`, `jarIgfYjyate`, `jarIjfmByate`, `carIkfRvyate`, `darIdfMhyate`, `barIbfMhyate`, `varIvfMhyate`, `tarItfMhyate`, `varIvfkyate`, `barIBfjyate`, `varIvftyate`, `darIdfSyate`, etc. For `kfp`, Panini 8.2.18 *kṛpo ro laḥ* transforms the augment to `alI` and base to `kxp` (`calIkxpyate`). With *iṇkoḥ* (8.3.57), abhyāsa ending in `I` conditions ṣatva/ṣṭutva on initial dental clusters (`zwfkz` -> `tarIzwfkzyate`). Combined with Panini 8.4.2 intervener rules, correctly discriminates retroflex participles (`varIvfkyamARaH`, `darIdfMhyamARaH`) from dental participles where non-*aṭkupv* consonants intervene (`darIDfYjyamAnaH`, `jarIgfYjyamAnaH`, `varIvftyamAnaH`). Unlocks 8 roots to 100.0% (`01.0250`, `01.0282`, `01.0454`, `01.0682`, `01.0835`, `01.0837`, `01.0877`, `01.0943`) and advances 31 others.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 986 | 01.0097 krut/Rvul/M:vArkakaH |
 | ting | 706 | 01.0105 ting/lw/prathama/eka:svazkate |
-| yang_krut | 220 | 01.0097 yang_krut/kta/M:vevfkitaH |
-| yang | 214 | 01.0097 yang/lw/prathama/eka:vevfkyate |
 | san_krut | 117 | 01.0596 san_krut/kta/M:miSmIlizitaH |
-| san | 20 | 01.1075 san/lw/prathama/eka:jiGrAzate |
+| yangluk_krut | 98 | 01.0097 yangluk_krut/Rvul/M:vArkakaH |
+| yang_krut | 73 | 01.0332 yang_krut/kta/M:aAawitaH |
+| yang | 49 | 01.0332 yang/lw/prathama/eka:aAawyate |
+| san | 20 | 01.1075 san/lw/prathama/eka:jiGrAzati |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 | yak | 5 | 01.1145 yak/ASIrliN/prathama/eka:krakzIzwa |
