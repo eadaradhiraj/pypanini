@@ -1270,6 +1270,9 @@ class KrdantaEngine:
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
         elif pratyaya == "Satf":
+            # Panini 1.3.57 jYA-Sru-smf-dfSAM sanaH: Atmanepada in sannanta (takes SAnac, not Satf)
+            if sanadi == "sannanta" and (clean in ("jYA", "Sru", "smf", "dfS", "darS") or (op and any(op.startswith(x) for x in ("jYA", "Sru", "smf", "dfS")))):
+                return None
             # Panini 1.3.60 SaqaH SIyateH: Sad takes Atmanepada (SAnac), not Satf in mUla
             if pada == "Atmanepadi" or (clean_ay and sanadi == "yanluganta") or ((clean in ("Sad", "Sadx") or op.startswith("Sad")) and sanadi is None):
                 return None
@@ -1319,6 +1322,9 @@ class KrdantaEngine:
                     return {"M": "SASadat", "F": "SASadatI", "N": "SASadat"}
                 elif clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
+                elif clean in ("dfS", "darS") or (op and op.startswith("dfS")):
+                    # Panini 7.4.91 rIgfdupaDasya ca: abhyasa takes rIk (arI) -> darIdfS
+                    return {"M": "darIdfSan", "F": "darIdfSatI", "N": "darIdfSat"}
             # urv-coda lengthens instead of guna (turv/tUrv->tUrvan, consonant-initial shape; vowel-initial urv keeps guna)
             if clean[-3:].lower() == "urv" and clean[:1] not in SLP1_VOWELS:
                 _satf_base = clean[:-3] + "Urv"
@@ -1797,7 +1803,7 @@ class KrdantaEngine:
                 elif _core.endswith("i"):
                     _core = _core[:-1] + "I"
                 _alts = [_core + "QvA", clean + "itvA"]
-                if is_laghu_ik_init:
+                if is_laghu_ik_init or (guna_base != clean and not is_idit):
                     _alts.append(guna_base + "itvA")
                 return {"avyaya": _alts}
             if clean.endswith("nd"):
@@ -1831,8 +1837,21 @@ class KrdantaEngine:
             if needs_i_for_kta():
                 stem = clean + "i" + "tvA"
                 # Panini 1.2.18 na ktvA seT: seT ktvA is na kit, so laghupadha roots take guNa (7.3.86)
-                if is_laghu_ik_init:
-                    return {"avyaya": [guna_base + "itvA", stem]}
+                if is_laghu_ik_init or (guna_base != clean and not is_idit):
+                    _alts = [guna_base + "itvA", stem]
+                else:
+                    _alts = [stem]
+                # Panini 7.2.56 uditto vA: udit roots optionally omit iT before ktvA
+                if "u~" in op or "U~" in op:
+                    if clean.endswith(("z", "S")):
+                        _alts.append(clean[:-1] + "zwvA")
+                    elif clean.endswith("t"):
+                        _alts.append(clean[:-1] + "ttvA")
+                    elif clean.endswith("D"):
+                        _alts.append(clean[:-1] + "dDvA")
+                    elif clean.endswith("B"):
+                        _alts.append(clean[:-1] + "bDvA")
+                return {"avyaya": _alts}
             else:
                 stem = clean + "tvA"
             return {"avyaya": [stem]}
