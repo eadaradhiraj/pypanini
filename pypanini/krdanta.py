@@ -1637,7 +1637,18 @@ class KrdantaEngine:
                 elif last_v in ("a", "A", "e", "E", "o", "O"):
                     stem = clean + "aka"
                 else:
-                    stem = vriddhi_base + "aka"
+                    # Panini 7.2.115 aco YRiti: vriddhi for vowel-ending roots
+                    if clean.endswith(("f", "F")):
+                        stem = vriddhi_base + "aka"
+                    else:
+                        # Panini 7.3.86 puganta-laghUpadhasya ca & 1.4.11 saMyoge guru:
+                        # Conjoint coda is guru -> blocks guna (vfkzaka); single coda is laghu -> guna ar (varDaka)
+                        _pos = clean.rfind(last_v) if last_v else -1
+                        coda = clean[_pos + 1:] if _pos != -1 else ""
+                        if len(coda) >= 2:
+                            stem = clean + "aka"
+                        else:
+                            stem = self._guna_base(clean, is_idit) + "aka"
             m = stem + "H"
             if stem.endswith("aka"):
                 f = stem[:-3] + "ikA"
