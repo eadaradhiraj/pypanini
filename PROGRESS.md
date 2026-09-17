@@ -1,55 +1,61 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-16T22:30:00+05:30
-Sweep: **1055/1156 100%** (91.3%, raw 1055/1166)
+Date: 2026-09-17T08:56:00+05:30
+Sweep: **1070/1156 100%** (92.6%, raw 1070/1166)
 
 ## Done
-- Panini 7.3.57 *san-liṭor jeḥ*:
-  - In `san` and `liṭ`, root `ji` replaces `j` with kavarga `g`: `jigIz-` in `san`, and liṭ karmani reduplication `jigi-`.
-- Panini 6.1.48 *krīñ-jināṁ ṇau* & 7.3.36 *arti-hrī-vlī-rī-knū-kṣmāyyātāṁ pug ṇau*:
-  - Root `ji` takes ātvam before `ṇi` followed by `puk` augment (`jApay-`), generating correct causative forms across kartari and karmani.
-- Panini 7.2.74 *smi-pūṅ-rañj-vyañcaḥ sani*:
-  - Root `smi` (`zmiN`) takes guṇa with obligatory `iṭ` before `san` (`sismayiz-`).
-- Panini 7.1.100 *ṛta iddhoḥ* & 8.2.77 *hali ca*:
-  - In `_sannanta_stem` and `_sannanta_sec`, ṛ/ṝ-ending roots lengthen to `Ir` before `sa` (`jijIrz-`, `didIrz-`).
-- Panini 7.4.30 *rīṅ ṛtaḥ*:
-  - In `_yan_stem` and `_yan_sec`, ṛ/ṝ-ending roots substitute `rīṅ` (`_ybase[:-1] + "rI"`), generating intensive stems (`jejrIya-`).
-- Panini 7.4.28 *riṅ śayag-liṅkṣu*:
-  - Before `yak`, ṛ/ṝ-ending roots substitute `riṅ` (`clean[:-1] + "riy"`).
-- Panini 7.2.35 *ṛddhanoḥ sye*:
-  - ṛ/ṝ-ending roots take obligatory `iṭ` in `sya` (`lfw`, `lfN`).
-- Panini 6.1.77 *iko yaṇ aci* in Liṭ:
-  - In perfect tense before vowel endings, ṛ/ṝ-ending roots substitute `r` (e.g. `jajratuH`, `jajruH`, and ātmanepada `jajre`, `jajrAte`, `jajrire`).
-- Panini 3.1.97 *ṛhalor ṇyat* & 7.2.115 *aco ñṇiti*:
-  - Roots ending in `ṛ`/`ṝ` take `ṇyat` with vṛddhi `ār` (`clean[:-1] + "Arya"` -> `kAryaH`, `jAryaH`, `sAryaH`, `dAryaH`).
-- Panini 6.4.65 *īdyati* & 6.4.66 *e ca*:
-  - Roots ending in `e`/`ai` (ādeca) before `yat` substitute `e` (`clean[:-1] + "e" + "ya"` -> `geya`, `peya`, `kzeya`).
-- Panini 3.3.56 *er ac*:
-  - Roots ending in short `i` take affix `ac` (with guṇa) instead of `ghañ` (`jayaH`, `kzayaH`, `cayaH`), whereas long `I` roots take `ghañ` with vṛddhi (`nAyaH`).
-- Fixed `is_genuine_vowel_root` definition in `tinanta.py` and `krdanta.py`:
-  - Properly recognizes monosyllabic vowel roots without preceding vowels (`ji`, `kzi`, `jri`, `smi`, etc.), ensuring yaṅanta keep-y-in-yaṅ behavior is correctly activated.
-- Full Sweep Results: **1055/1156 100% passes** (raw 1055/1166, 10 skipped):
-  - `01.0269 kzi`: 760 -> **895/895 (100.0%)** (+135 tokens) [NEW 100% PASS]
-  - `01.0642 ji`: 358 -> **895/895 (100.0%)** (+537 tokens) [NEW 100% PASS]
-  - `01.1046 ri`: 360 -> **895/895 (100.0%)** (+535 tokens) [NEW 100% PASS]
-  - `01.1047 knU`: 360 -> **895/895 (100.0%)** (+535 tokens) [NEW 100% PASS]
-  - `01.1085 df`: 360 -> **895/895 (100.0%)** (+535 tokens) [NEW 100% PASS]
-  - `01.1087 stf`: 360 -> **895/895 (100.0%)** (+535 tokens) [NEW 100% PASS]
-  - `01.1088 stF`: 360 -> **895/895 (100.0%)** (+535 tokens) [NEW 100% PASS]
-  - `01.1096 ji`: 358 -> **895/895 (100.0%)** (+537 tokens) [NEW 100% PASS]
-  - `01.1097 jri`: 766 -> **895/895 (100.0%)** (+129 tokens) [NEW 100% PASS]
-  - `01.1098 jf`: 360 -> **895/895 (100.0%)** (+535 tokens) [NEW 100% PASS]
-  - `01.1099 smi`: 620 -> **883/883 (100.0%)** (+263 tokens) [NEW 100% PASS]
-  - Net matched tokens improved across 49 roots.
+- Panini 7.4.29 *guṇo 'rti-saṁyogādyoḥ* & 7.4.28 *riṅ śayag-liṅkṣu*:
+  - In `ASIrliN` (parasmaipada) and `yak` passive, roots ending in `ṛ` that are *saṁyogādi* (`smf`, `hvf`, `svf`, `Dvf`, `dvf`) and root `ṛ` take GUṆA `ar` (`smaryAt`, `smaryamARaH`, `hvaryAt`, `hvaryamARaH`), whereas single-consonant onset roots take `riṅ` (`BriyAt`, `vriyAt`).
+- Panini 7.1.102 *uda oṣṭhyapūrvāt*:
+  - In `san` (`_sannanta_stem` / `_sannanta_sec`), `ṛ/ṝ` roots preceded by an oṣṭhya (labial) consonant lengthen to `Ur` (not `Ir`), with abhyāsa vowel `u` (`susmUrz-`, `juhvUrz-`, `susvUrz-`, `dudvUrz-`, `duDvUrz-`).
+- Panini 1.2.5 *asaṁyogāl liṭ kit*:
+  - After a conjunct root (*saṁyoga*), `liṭ` is NOT kit; guṇa `ar` + `iṭ` applies in ātmanepada/karmani and parasmaipada dual/plural (`sasmare`, `sasmarAte`, `sasmarTa`, `sasmariDve`, `sasmaruH`).
+- Panini 7.4.30 *yaṅi ca* & 7.4.83 *dīrgho 'kiTaḥ*:
+  - *saṁyogādi* `ṛ`-roots take guṇa `ar` with dīrgha `A` in abhyāsa (`sAsmaryate`, `jAhvaryate`, `sAsvaryate`, `dAdvaryate`, `dADvaryate`).
+- Panini 7.2.75 *kiraś ca pañcabhyaḥ*:
+  - `DfN` takes obligatory `iṭ` in `san`, yielding guṇa `diDariz-`.
+- Panini 8.3.59 *ādeśapratyayayoḥ* & 8.4.41 *ṣṭunā ṣṭuḥ*:
+  - In `san`, root `sTA` undergoes ṣatva and ṣṭutva after *iṇ*-ending abhyāsa `ti`, producing `tizWAs-`.
+- Panini 7.4.54 *sani mīmāghūrabhalaBacakpatapadāṁ ca*:
+  - `ghu` roots (`dA`, `DA`, `deN`, `DeN`) take `i` for vowel without `iṭ`, yielding `dits-` and `Dits-`.
+- Panini 6.4.66 *ghu-mā-sthā-gā-pā-jahāti-sāṁ hali*:
+  - `ghu` roots and `pA` take `A -> I` before halādi kit/ṅit suffixes: `dIyamAna-`, `pIyamAna-`, and in `yaṅ` `dedIya-` (7.4.82 *guṇo yaṅ-lukoḥ*).
+- Panini 7.3.37 *śā-chā-sā-hvā-vyā-veñ-pā-damāṁ yuk*:
+  - `pA` (pāne) takes augment `yuk` (y) instead of `puk` before `ṇi`, yielding `pAyay-`.
+- Panini 7.4.63 *na kavater yaṅi*:
+  - Cutva is prohibited in `yaṅ` and `yaṅluk` for root `ku`/`kU`, retaining guttural `k` in abhyāsa (`kokUyate`, `kokuTa`).
+- Panini 6.1.15 *vaci-svapi-yajādīnāṁ kiti*:
+  - Root `Svi` (*wuoSvi*) takes samprasāraṇa in kit/ṅit environments: `SUyAt` in `ASIrliN`, `SUyamAna` in `yak` (7.4.25), and `praSUya` in `lyap`.
+- Panini 1.2.18 *na ktvā seṭ*:
+  - `Svi` takes seṭ guṇa `SvayitvA` before `ktvā`.
+- Panini 7.4.56 *sa ni pāt*:
+  - `Svi` in `san` yields `SiSvayiz-`.
+- Panini 6.4.92 *mitāṁ hrasvaḥ*:
+  - For Ghaṭādi mit roots ending in `ṛ` (`01.0919 smf ADyAne`), vṛddhi `ār` is replaced by hrasva/guṇa `ar` before `ṇi`, yielding `smarayati` / `smaray-`.
+- Full Sweep Results: **1070/1156 100% passes** (raw 1070/1166, 10 skipped):
+  - `01.0919 smf`: 243 -> **892/892 (100.0%)** (+649 tokens) [NEW 100% PASS]
+  - `01.0987 dvf`: 414 -> **895/895 (100.0%)** (+481 tokens) [NEW 100% PASS]
+  - `01.1045 Bf`: 683 -> **895/895 (100.0%)** (+212 tokens) [NEW 100% PASS]
+  - `01.1074 pA`: 703 -> **895/895 (100.0%)** (+192 tokens) [NEW 100% PASS]
+  - `01.1077 sTA`: 683 -> **895/895 (100.0%)** (+212 tokens) [NEW 100% PASS]
+  - `01.1079 dA`: 642 -> **895/895 (100.0%)** (+253 tokens) [NEW 100% PASS]
+  - `01.1080 hvf`: 414 -> **895/895 (100.0%)** (+481 tokens) [NEW 100% PASS]
+  - `01.1081 svf`: 414 -> **895/895 (100.0%)** (+481 tokens) [NEW 100% PASS]
+  - `01.1082 smf`: 414 -> **892/892 (100.0%)** (+478 tokens) [NEW 100% PASS]
+  - `01.1083 vf`: 683 -> **895/895 (100.0%)** (+212 tokens) [NEW 100% PASS]
+  - `01.1084 hvf`: 414 -> **895/895 (100.0%)** (+481 tokens) [NEW 100% PASS]
+  - `01.1089 Dvf`: 414 -> **895/895 (100.0%)** (+481 tokens) [NEW 100% PASS]
+  - `01.1103 kU`: 653 -> **883/883 (100.0%)** (+230 tokens) [NEW 100% PASS]
+  - `01.1115 Df`: 674 -> **883/883 (100.0%)** (+209 tokens) [NEW 100% PASS]
+  - `01.1165 Svi`: 631 -> **895/895 (100.0%)** (+264 tokens) [NEW 100% PASS]
+  - Net matched tokens improved across 19 roots (+5,004 tokens total).
   - **STRICTLY 0 worsened roots** (`worsened == 0`).
   - All pilot and milestone roots held strictly at 100.0%.
 
 ## Next
 1. Target remaining failing roots:
-   - `01.1074 pA` (703/895, 78.5%): causative / ṇijanta forms.
-   - `01.1077 sTA` (683/895, 76.3%): sannanta / ṇijanta forms.
-   - `01.1079 dA` (642/895, 71.7%): sannanta forms.
-   - `01.1083 vF` (683/895, 76.3%): sannanta forms.
-   - `01.1115 DmA` (674/883, 76.3%): sannanta forms.
-   - `01.1123 gup/tij/kit` (guptijkidbhyaḥ san 3.1.5): desiderative roots.
-2. Advance Gaṇa 01 beyond 1055/1156 towards 1070+/1156!
+   - `01.1124 tF` (646/895, 72.2%): Panini 6.4.122 *tṛphalabhajatratraphāṁ cedyataḥ* (`ter-` in Liṭ) + 7.1.100 / 8.2.77 (`tIrtvA`, `pratIrya`) + intensive `tAtaryate`.
+   - `01.0920 dF` (487/895, 54.4%) & `01.0921 nF` (478/895, 53.4%): ṝ-ending roots in Liṭ and causative.
+   - `01.1065` - `01.1073` (e/ai ādeca diphthong roots in Liṭ): `ge`, `se`, `de`, `De`, `ve`, `veY`.
+   - `01.1123` - `01.1128` (Panini 3.1.5 *gup-tij-kidbhyaḥ san* and 3.1.6 *māna-badha-śān-dānbhyaḥ dīrghaś ca*).
+2. Advance Gaṇa 01 beyond Milestone 1070 towards Milestone 1080+/1156!

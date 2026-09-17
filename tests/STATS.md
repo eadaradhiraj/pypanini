@@ -1,44 +1,51 @@
 # Generative Validation Stats (compact)
 
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
-Date: 2026-09-16T22:30:00+05:30
+Date: 2026-09-17T08:56:00+05:30
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1055/1156 100%** (91.3%, raw 1055/1166). Fails: 101 scored (111 with 10 skipped). Net matched tokens improved across 49 roots (0 worsened).
-New 100% passes (11 roots unlocked in milestone 1050):
-- `01.0269 kzi` (760 -> 895/895, 100.0%, +135)
-- `01.0642 ji` (358 -> 895/895, 100.0%, +537)
-- `01.1046 ri` (360 -> 895/895, 100.0%, +535)
-- `01.1047 knU` (360 -> 895/895, 100.0%, +535)
-- `01.1085 df` (360 -> 895/895, 100.0%, +535)
-- `01.1087 stf` (360 -> 895/895, 100.0%, +535)
-- `01.1088 stF` (360 -> 895/895, 100.0%, +535)
-- `01.1096 ji` (358 -> 895/895, 100.0%, +537)
-- `01.1097 jri` (766 -> 895/895, 100.0%, +129)
-- `01.1098 jf` (360 -> 895/895, 100.0%, +535)
-- `01.1099 smi` (620 -> 883/883, 100.0%, +263)
+Passes: **1070/1156 100%** (92.6%, raw 1070/1166). Fails: 86 scored (96 with 10 skipped). Net matched tokens improved across 19 roots (0 worsened).
+New 100% passes (15 roots unlocked in milestone 1070):
+- `01.0919 smf` (243 -> 892/892, 100.0%, +649)
+- `01.0987 dvf` (414 -> 895/895, 100.0%, +481)
+- `01.1045 Bf` (683 -> 895/895, 100.0%, +212)
+- `01.1074 pA` (703 -> 895/895, 100.0%, +192)
+- `01.1077 sTA` (683 -> 895/895, 100.0%, +212)
+- `01.1079 dA` (642 -> 895/895, 100.0%, +253)
+- `01.1080 hvf` (414 -> 895/895, 100.0%, +481)
+- `01.1081 svf` (414 -> 895/895, 100.0%, +481)
+- `01.1082 smf` (414 -> 892/892, 100.0%, +478)
+- `01.1083 vf` (683 -> 895/895, 100.0%, +212)
+- `01.1084 hvf` (414 -> 895/895, 100.0%, +481)
+- `01.1089 Dvf` (414 -> 895/895, 100.0%, +481)
+- `01.1103 kU` (653 -> 883/883, 100.0%, +230)
+- `01.1115 Df` (674 -> 883/883, 100.0%, +209)
+- `01.1165 Svi` (631 -> 895/895, 100.0%, +264)
 
 ## Rules (general, pure generative)
-- Panini 7.3.57 *san-liṭor jeḥ*: In `san` and `liṭ`, root `ji` replaces its palatal affricate `j` with guttural `g` (`jigIz-`, and liṭ karmani reduplication `jigi-`).
-- Panini 6.1.48 *krīñ-jināṁ ṇau* & 7.3.36 *arti-hrī-vlī-rī-knū-kṣmāyyātāṁ pug ṇau*: Root `ji` takes ātvam before `ṇi` followed by `puk` augment (`jApay-`), yielding correct causative stems across all kartari and karmani derivations.
-- Panini 7.2.74 *smi-pūṅ-rañj-vyañcaḥ sani*: Root `smi` (`zmiN`) takes guṇa with obligatory `iṭ` before `san` (`sismayiz-`).
-- Panini 7.1.100 *ṛta iddhoḥ* & 8.2.77 *hali ca*: In `_sannanta_stem` and `_sannanta_sec`, ṛ/ṝ-ending roots lengthen to `Ir` before `sa` (`jijIrz-`, `didIrz-`).
-- Panini 7.4.30 *rīṅ ṛtaḥ*: In `_yan_stem` and `_yan_sec`, ṛ/ṝ-ending roots substitute `rīṅ` (`_ybase[:-1] + "rI"`), unlocking intensive forms (`jejrIya-`).
-- Panini 7.4.28 *riṅ śayag-liṅkṣu*: Before `yak`, ṛ/ṝ-ending roots substitute `riṅ` (`clean[:-1] + "riy"`).
-- Panini 7.2.35 *ṛddhanoḥ sye*: ṛ/ṝ-ending roots take obligatory `iṭ` in `sya` (`lfw`, `lfN`).
-- Panini 6.1.77 *iko yaṇ aci* in Liṭ: In perfect tense before vowel endings, ṛ/ṝ-ending roots substitute `r` (e.g. `jajratuH`, `jajruH`, and ātmanepada `jajre`, `jajrAte`, `jajrire`).
-- Panini 3.1.97 *ṛhalor ṇyat* & 7.2.115 *aco ñṇiti*: Roots ending in `ṛ`/`ṝ` take `ṇyat` with vṛddhi `ār` (`clean[:-1] + "Arya"` -> `kAryaH`, `jAryaH`, `sAryaH`, `dAryaH`).
-- Panini 6.4.65 *īdyati* & 6.4.66 *e ca*: Roots ending in `e`/`ai` (ādeca) before `yat` substitute `e` (`clean[:-1] + "e" + "ya"` -> `geya`, `peya`, `kzeya`).
-- Panini 3.3.56 *er ac*: Roots ending in short `i` take affix `ac` (with guṇa) instead of `ghañ` (`jayaH`, `kzayaH`, `cayaH`), whereas long `I` roots take `ghañ` with vṛddhi (`nAyaH`).
+- Panini 7.4.29 *guṇo 'rti-saṁyogādyoḥ* & 7.4.28 *riṅ śayag-liṅkṣu*: In `ASIrliN` (parasmaipada) and `yak` passive, roots ending in `ṛ` that are *saṁyogādi* (e.g. `smf`, `hvf`, `svf`, `Dvf`, `dvf`) and root `ṛ` take GUṆA `ar` (`smaryAt`, `smaryamARaH`, `hvaryAt`, `hvaryamARaH`), whereas single-consonant onset roots take `riṅ` (`BriyAt`, `vriyAt`).
+- Panini 7.1.102 *uda oṣṭhyapūrvāt*: In `san` (`_sannanta_stem` / `_sannanta_sec`), `ṛ/ṝ` roots preceded by an oṣṭhya (labial) consonant take `Ur` (not `Ir`), with abhyāsa vowel `u` (`susmUrz-`, `juhvUrz-`, `susvUrz-`, `dudvUrz-`, `duDvUrz-`).
+- Panini 1.2.5 *asaṁyogāl liṭ kit*: After a conjunct root (*saṁyoga*), `liṭ` is NOT kit; guṇa `ar` + `iṭ` applies in ātmanepada/karmani and parasmaipada dual/plural (`sasmare`, `sasmarAte`, `sasmarTa`, `sasmariDve`, `sasmaruH`).
+- Panini 7.4.30 *yaṅi ca* & 7.4.83 *dīrgho 'kiTaḥ*: *saṁyogādi* `ṛ`-roots take guṇa `ar` with dīrgha `A` in abhyāsa (`sAsmaryate`, `jAhvaryate`, `sAsvaryate`, `dAdvaryate`, `dADvaryate`).
+- Panini 7.2.75 *kiraś ca pañcabhyaḥ*: `DfN` takes obligatory `iṭ` in `san`, yielding guṇa `diDariz-`.
+- Panini 8.3.59 *ādeśapratyayayoḥ* & 8.4.41 *ṣṭunā ṣṭuḥ*: In `san`, root `sTA` undergoes ṣatva and ṣṭutva after *iṇ*-ending abhyāsa `ti`, producing `tizWAs-`.
+- Panini 7.4.54 *sani mīmāghūrabhalaBacakpatapadāṁ ca*: `ghu` roots (`dA`, `DA`, `deN`, `DeN`) take `i` for vowel without `iṭ`, yielding `dits-` and `Dits-`.
+- Panini 6.4.66 *ghu-mā-sthā-gā-pā-jahāti-sāṁ hali*: `ghu` roots and `pA` take `A -> I` before halādi kit/ṅit suffixes: `dIyamAna-`, `pIyamAna-`, and in `yaṅ` `dedIya-` (7.4.82 *guṇo yaṅ-lukoḥ*).
+- Panini 7.3.37 *śā-chā-sā-hvā-vyā-veñ-pā-damāṁ yuk*: `pA` (pāne) takes augment `yuk` (y) instead of `puk` before `ṇi`, yielding `pAyay-`.
+- Panini 7.4.63 *na kavater yaṅi*: Cutva is prohibited in `yaṅ` and `yaṅluk` for root `ku`/`kU`, retaining guttural `k` in abhyāsa (`kokUyate`, `kokuTa`).
+- Panini 6.1.15 *vaci-svapi-yajādīnāṁ kiti*: Root `Svi` (*wuoSvi*) takes samprasāraṇa in kit/ṅit environments: `SUyAt` in `ASIrliN`, `SUyamAna` in `yak` (7.4.25), and `praSUya` in `lyap`.
+- Panini 1.2.18 *na ktvā seṭ*: `Svi` takes seṭ guṇa `SvayitvA` before `ktvā`.
+- Panini 7.4.56 *sa ni pāt*: `Svi` in `san` yields `SiSvayiz-`.
+- Panini 6.4.92 *mitāṁ hrasvaḥ*: For Ghaṭādi mit roots ending in `ṛ` (`01.0919 smf ADyAne`), vṛddhi `ār` is replaced by hrasva/guṇa `ar` before `ṇi`, yielding `smarayati` / `smaray-`.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 622 | 01.0105 krut/tavya/M:svazkitavyaH |
-| ting | 465 | 01.0105 ting/lw/prathama/eka:svazkate |
-| san_krut | 70 | 01.0648 san_krut/kta/M:cikzIvizitaH |
-| san | 30 | 01.1045 san/lw/prathama/eka:biBIrzati |
-| yang_krut | 9 | 01.1103 yang_krut/kta/M:cokUyitaH |
-| nich_krut | 6 | 01.0920 nich_krut/Satf/M:dArayan |
-| nich | 5 | 01.1074 nich/lw/prathama/eka:pAayati |
-| yang | 5 | 01.1103 yang/lw/prathama/eka:cokUyate |
+| krut | 578 | 01.0105 krut/tavya/M:svazkitavyaH |
+| ting | 415 | 01.0105 ting/lw/prathama/eka:svazkate |
+| san_krut | 11 | 01.0648 san_krut/kta/M:cikzIvizitaH |
+| nich_krut | 8 | 01.0920 nich_krut/Satf/M:dArayan |
+| nich | 5 | 01.0920 nich/lw/prathama/eka:dFayati |
+| yak | 5 | 01.0921 yak/liw/prathama/eka:nanFe |
+| san | 5 | 01.1123 san/lw/prathama/eka:RiRqizati |
+| yang_krut | 5 | 01.1124 yang_krut/kta/M:tetrIyitaH |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |

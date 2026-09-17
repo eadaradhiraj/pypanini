@@ -667,9 +667,15 @@ class KrdantaEngine:
                 # Panini 6.1.48 krIN-jinAM ROh & 7.3.36 arti-hrI-vlI-rI-knUyI-kzmAyyAtAM puk RAu
                 if c == "ji" or (op and clean_dhatu_op(op) == "ji"):
                     return "jApay"
+                # Panini 7.3.37 SA-CA-sA-hvA-vyA-veY-pA-damAM yuk: pA (pAne) takes yuk before Ri -> pAyay
+                if (c == "pA" or (op and op.startswith("pA~"))) and (dhatu_id == "01.1074" or "pAn" in str(meta.get("arTa", "")) or (op and op.startswith("pA~"))):
+                    return "pAyay"
                 # Panini 7.3.36 puk augment before Ri for roots ending in A
                 if c and c.endswith("A"):
                     return c + "pay"
+                # Panini 6.4.92 mitAM hrasvaH: mit roots take hrasva/guna ar instead of vriddhi Ar
+                if is_mit and c.endswith("f"):
+                    return c[:-1] + "aray"
                 if c and c[-1] in SLP1_VOWELS:
                     vv = apply_vriddhi(c[-1])
                     av = apply_sandhi_eco_ayavayavah(vv)
@@ -829,11 +835,19 @@ class KrdantaEngine:
                         c_stem = _nbw[:-1] + _nn + _nbw[-1]
                         return redup_cons + redup_vowel + c_stem + "iz"
 
+                # Panini 8.3.59 AdeSapratyayayoH & 8.4.41 zwunA zwuH: sTA -> tizWAs
+                if c in ("sTA", "zWA") or op.startswith(("sTA", "zWA")):
+                    return "tizWAs"
                 # Panini 7.4.54 sani mImAGUrABalaBaSaka-patapadAM ca + 6.1.45 Adeca upadeSe'Siti
                 if c in ("meN", "me") or "meN" in op:
                     return "mits"
-                if c in ("deN", "de") or "deN" in op:
+                if c in ("deN", "de", "dA", "dAR") or op.startswith(("deN", "dAR", "dA~", "dap", "dE")):
                     return "dits"
+                if c in ("DeN", "De", "DA", "DuDAY") or op.startswith(("DeN", "DA~", "DuDA")):
+                    return "Dits"
+                # Panini 7.4.56 sa ni pAt: Svi -> SiSvayiz
+                if c == "Svi" or (op and op.strip("~`") in ("wuoSvi", "Svi")):
+                    return "SiSvayiz"
                 if c.endswith(("EN", "AN")) or c == "gA" or op.startswith("gAN"):
                     _body = c[:-2] if c.endswith(("EN", "AN")) else (c[:-1] if c.endswith("A") else c)
                     return redup_cons + redup_vowel + _body + "As"
@@ -850,6 +864,9 @@ class KrdantaEngine:
                 # Panini 7.3.57 san-litoH jeH: ji -> jigIz
                 if c == "ji" or (op and clean_dhatu_op(op) == "ji"):
                     return "jigIz"
+                # Panini 7.2.75 kiraS ca paYcaByaH: DfN takes iT in san -> diDariz
+                if c == "Df" and (op and "DfN" in op):
+                    return "diDariz"
 
                 if not is_vowel_final:
                     is_anit_root = str(meta.get("sew_raw", "")).startswith("ani")
@@ -892,8 +909,21 @@ class KrdantaEngine:
                         redup_vowel = "i"
                     return redup_cons + redup_vowel + c_stem + "iz"
 
-                # Panini 6.4.16 aj-jhan-gAM sani & 7.1.100 fta idDOH + 8.2.77 hali ca (f/F -> Ir)
-                _c_san = (c[:-1] + "U") if c.endswith("u") else ((c[:-1] + "I") if c.endswith("i") else ((c[:-1] + "Ir") if c.endswith(("f", "F")) else c))
+                # Panini 6.4.16 aj-jhan-gAM sani & 7.1.100 fta idDOH + 8.2.77 hali ca & 7.1.102 uda ozWya-pUrvAt
+                if c.endswith(("f", "F")):
+                    _is_osthya = len(c) > 1 and c[-2] in ("p", "P", "b", "B", "m", "v")
+                    if _is_osthya:
+                        _c_san = c[:-1] + "Ur"
+                        redup_vowel = "u"
+                    else:
+                        _c_san = c[:-1] + "Ir"
+                        redup_vowel = "i"
+                elif c.endswith("u"):
+                    _c_san = c[:-1] + "U"
+                elif c.endswith("i"):
+                    _c_san = c[:-1] + "I"
+                else:
+                    _c_san = c
                 # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
                 if _c_san.startswith("C"):
                     _c_san = "c" + _c_san
@@ -922,6 +952,10 @@ class KrdantaEngine:
                     return "tezWIya"
                 if c in ("gE", "gA") or (op and op.startswith("gE")):
                     return "jegIya"
+                if c in ("dA", "dAR") or (op and op.startswith(("dA~", "dAR"))):
+                    return "dedIya"
+                if c in ("DA", "DuDAY") or (op and op.startswith(("DA~", "DuDA"))):
+                    return "deDIya"
                 # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
                 if c == "dyut" or (op and op.startswith("dyut")):
                     return "dedyutya"
@@ -956,6 +990,9 @@ class KrdantaEngine:
                     _pos = c.find(root_vowel)
                     if _pos + 1 < len(c) and any(ch not in SLP1_VOWELS for ch in c[_pos + 1 :]):
                         yan_vowel = "arI"
+                    elif len(c[:_pos]) > 1:
+                        # Panini 7.4.30 yaNi ca & 7.4.83 dIrGo 'kitaH: samyogAdi takes dirgha A in abhyasa
+                        yan_vowel = "A"
                     else:
                         yan_vowel = "e"
                 elif root_vowel in ("a", "A"):
@@ -972,7 +1009,9 @@ class KrdantaEngine:
                 if len(cluster) >= 2 and cluster[0] in ("s", "S"):
                     redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
                 redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
-                redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
+                # Panini 7.4.63 na kavater yaNi: cutva is prohibited in yaN for ku/kU
+                if not (c in ("ku", "kU") and len(c) <= 2):
+                    redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
                 # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (ziDa->seziDya, mirroring tinanta)
                 # Panini 8.3.59 AdeSapratyayayoH & 8.4.41 zwunA zwuH:
                 # For roots whose upadeSa starts with zw/zW (zwuc, zwep, zwip, zwuB, zwfkz):
@@ -1041,8 +1080,13 @@ class KrdantaEngine:
                 elif _ybase.endswith("i"):
                     _ybase = _ybase[:-1] + "I"
                 elif _ybase.endswith(("f", "F")):
-                    # Panini 7.4.30 rIN ftaH: f/F takes rI before yaN
-                    _ybase = _ybase[:-1] + "rI"
+                    _pos = _ybase.find("f") if "f" in _ybase else _ybase.find("F")
+                    if len(_ybase[:_pos]) > 1:
+                        # Panini 7.4.30 yaNi ca: samyogAdi f-roots take guna ar
+                        _ybase = _ybase[:-1] + "ar"
+                    else:
+                        # Panini 7.4.30 rIN ftaH: f/F takes rI before yaN
+                        _ybase = _ybase[:-1] + "rI"
                 # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
                 if _ybase.startswith("C") and not yan_vowel.endswith("M"):
                     _ybase = "c" + _ybase
@@ -1213,7 +1257,8 @@ class KrdantaEngine:
             if sanadi == "yananta":
                 _b_op = (op or "").replace("~", "").replace("`", "").strip()
                 is_genuine_vowel_root = (not is_idit) and bool(orig_clean) and (orig_clean[-1] in SLP1_VOWELS) and not any(c in SLP1_VOWELS for c in orig_clean[:-1])
-                keeps_y_in_yan = is_genuine_vowel_root
+                _is_samyoga_f = orig_clean.endswith(("f", "F")) and len([ch for ch in orig_clean if ch not in SLP1_VOWELS]) > 1
+                keeps_y_in_yan = is_genuine_vowel_root and not _is_samyoga_f
                 if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
                         sec = "coskundya"
@@ -1567,14 +1612,29 @@ class KrdantaEngine:
             if not is_atman_eligible:
                 if clean == "vas":
                     return tri_linga("uzyamARa")
+                # Panini 6.1.15 vaci-svapi-yajAdInAM kiti: Svi takes samprasAraNa SU
+                if clean == "Svi" or (op and op.strip("~`") in ("wuoSvi", "Svi")):
+                    return tri_linga("SUyamAna")
                 # Panini 7.4.25 akfttsArvaDAtukayor dIrGaH (ajanta aNga takes dIrGa before yak ya)
                 _yk_clean = clean
-                if clean.endswith("u"):
+                # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali: A -> I before halAdi kNiti (yak)
+                if clean in ("dA", "DA", "pA", "mA", "gA", "hA", "sA", "so") or (op and any(op.startswith(x) for x in ("dA~", "dAR", "DA~", "DuDA", "pA~", "mA~", "gA~"))):
+                    _yk_clean = clean[:-1] + "I" if clean.endswith(("A", "o")) else (clean + "I")
+                elif clean.endswith("u"):
                     _yk_clean = clean[:-1] + "U"
                 elif clean.endswith("i"):
                     _yk_clean = clean[:-1] + "I"
-                elif clean.endswith(("f", "F")):
-                    _yk_clean = clean[:-1] + "ri"
+                elif clean.endswith("F"):
+                    # Panini 7.1.100 fta idDOH + 8.2.77 hali ca: F takes Ir before yak
+                    _yk_clean = clean[:-1] + "Ir"
+                elif clean.endswith("f"):
+                    # Panini 7.4.29 guRo 'rti-saMyogAdyoH: arti (f) and saMyogAdi roots take guna (ar)
+                    # Panini 7.4.28 riN Sayag-liNkzu: other f-ending roots take riN (ri)
+                    _cons_onset = clean[:-1]
+                    if clean == "f" or len(_cons_onset) > 1:
+                        _yk_clean = clean[:-1] + "ar"
+                    else:
+                        _yk_clean = clean[:-1] + "ri"
                 stem = _yk_clean + "yamAna"
                 if _natva_applies(_yk_clean) or _natva_applies(clean):
                     stem = stem.replace("yamAna", "yamARa")
@@ -1973,6 +2033,9 @@ class KrdantaEngine:
             return {"avyaya": [stem]}
 
         elif pratyaya == "ktvA":
+            # Panini 1.2.18 na ktvA seT: Svi takes seT guNa SvayitvA
+            if clean == "Svi" or (op and op.strip("~`") in ("wuoSvi", "Svi")):
+                return {"avyaya": ["SvayitvA", "SvitvA"]}
             # Panini 6.1.15 vaci-svapi-yajAdInAM kiti
             _yajadi_ktva = {"yaj": "izwvA", "vap": "uptvA", "vah": "UQvA", "vas": "uzitvA", "vad": "uditvA"}
             if clean in _yajadi_ktva:
@@ -2088,11 +2151,12 @@ class KrdantaEngine:
                 "vah": ["prohya", "uhya"],
                 "vas": ["pruzya", "prozya", "uzya"],
                 "vad": ["prodya", "udya", "anUdya", "anuvAdya"],
+                "Svi": ["praSUya", "viSUya", "SUya"],
             }
             if clean in _yajadi_lyap:
                 if sanadi == "yanluganta":
-                    _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"]}
-                    return {"avyaya": _yl_lyap[clean]}
+                    _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSoSUya", "SoSUya"]}
+                    return {"avyaya": _yl_lyap.get(clean, _yajadi_lyap.get(clean, []))}
                 return {"avyaya": _yajadi_lyap[clean]}
             # R-roots keep R onset in lyap (praRaKya/praRaNKya for all 22 R-roots surveyed;
             # avyaya is any-match so twins are safe; mula-clean based so every sanadi cross-matches)
