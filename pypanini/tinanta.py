@@ -68,6 +68,8 @@ def clean_dhatu_op(op: str) -> str:
         clean = "st" + clean[2:]
     elif clean.startswith("zW") and not clean.startswith("zWiv"):
         clean = "sT" + clean[2:]
+    elif clean.startswith("zR"):
+        clean = "sn" + clean[2:]
     elif clean.startswith("z"):
         clean = "s" + clean[1:]
     if clean.startswith("R"):
@@ -81,6 +83,11 @@ def clean_dhatu_op(op: str) -> str:
     if "nS" in clean:
         clean = clean.replace("nS", "MS")
     return clean
+
+
+def is_adeca(c: str) -> bool:
+    """Panini 6.1.45 Adeca upadeSe 'Siti: true for roots whose upadesha ends in ec (e, o, E, O)."""
+    return bool(c and (c.endswith("E") or c in ("de", "me", "ve", "vye", "hve", "So", "Co", "so", "do")))
 
 
 class TinantaDerivationEngine:
@@ -491,6 +498,11 @@ class TinantaDerivationEngine:
 
     def _prim_bases(self, clean: str, is_idit: bool=False, op: str="", dhatu_id: str=""):
         bases = [self._bhvadi_guna_base(clean, is_idit), clean]
+        # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
+        if is_adeca(clean):
+            a_root = clean[:-1] + "A"
+            if a_root not in bases:
+                bases.append(a_root)
         # Panini 7.3.84 sarvadhatukardhadhatukayoH: guna before consonant affixes without eco
         if clean and clean[-1] in ("i", "I", "u", "U"):
             _c_guna = clean[:-1] + apply_guna(clean[-1])
@@ -1118,9 +1130,15 @@ class TinantaDerivationEngine:
             # Panini 7.3.37 SA-CA-sA-hvA-vyA-veY-pA-damAM yuk: pA (pAne) takes yuk before Ri -> pAyay
             if (c == "pA" or (op and op.startswith("pA~"))) and (dhatu_id == "01.1074" or "pAn" in str(meta.get("arTa", "")) or (op and op.startswith("pA~"))):
                 return "pAyay"
-            # Panini 7.3.36 puk augment before Ri for roots ending in A
-            if c and c.endswith("A"):
-                return c + "pay"
+            if c in ("sA", "sE", "SA", "SE", "pE") or (op and any(op.startswith(x) for x in ("zE~", "sE~", "SE~", "pE~", "zo~"))):
+                _yb = "pA" if (c == "pE" or (op and op.startswith("pE~"))) else ("sA" if (c in ("sA", "sE") or (op and any(op.startswith(x) for x in ("zE~", "sE~", "zo~")))) else "SA")
+                return _yb + "yay"
+            # Panini 6.1.45 Adeca upadeSe'Siti + 7.3.36 puk augment before Ri for roots ending in A
+            if c and (c.endswith("A") or is_adeca(c)):
+                a_root = c[:-1] + "A" if is_adeca(c) else c
+                if is_mit:
+                    return a_root[:-1] + "apay"
+                return a_root + "pay"
             # Panini 6.4.92 mitAM hrasvaH: mit roots take hrasva/guna ar instead of vriddhi Ar
             if is_mit and c.endswith("f"):
                 return c[:-1] + "aray"
@@ -1259,11 +1277,24 @@ class TinantaDerivationEngine:
             # Panini 7.4.56 sa ni pAt: Svi -> SiSvayiz
             if c == "Svi" or (op and op.strip("~`") in ("wuoSvi", "Svi")):
                 return "SiSvayiz"
-            if c.endswith(("EN", "AN")) or c == "gA" or op.startswith("gAN"):
-                _body = c[:-2] if c.endswith(("EN", "AN")) else (c[:-1] if c.endswith("A") else c)
+            if c.endswith(("EN", "AN")) or c == "gA" or op.startswith("gAN") or c.endswith(("A", "E")):
+                _body = c[:-2] if c.endswith(("EN", "AN")) else (c[:-1] if c.endswith(("A", "E")) else c)
+                if redup_vowel in ("i", "u"):
+                    if _body.startswith("sr"):
+                        pass  # r blocks satva in Sanskrit (sisrAs)
+                    elif _body.startswith("sty") and not (op and op.startswith("zw")):
+                        pass  # dantyAdi styE 01.1058: so na zaH (tistyAs)
+                    elif _body.startswith("sty"):
+                        _body = "zwy" + _body[3:]
+                    elif _body.startswith("st"):
+                        _body = "zw" + _body[2:]
+                    elif _body.startswith("sT"):
+                        _body = "zW" + _body[2:]
+                    elif _body.startswith("sn"):
+                        _body = "zR" + _body[2:]
+                    elif _body.startswith("s"):
+                        _body = "z" + _body[1:]
                 return redup_cons + redup_vowel + _body + "As"
-            if c.endswith("E"):
-                return redup_cons + redup_vowel + c[:-1] + "As"
 
             # Panini 7.4.79 sany ataH & 7.4.80 pvoH yan-sanoH:
             # pU (pUN / pUY) takes guna av + iT iz, abhyAsa takes i by 7.4.79 -> pipaviz
@@ -1386,6 +1417,9 @@ class TinantaDerivationEngine:
             if clean == "aw":
                 return "awAwya"
             c_eff = c
+            # Panini 6.1.45 Adeca upadeSe'Siti: yaN is aSit
+            if is_adeca(c):
+                c_eff = c[:-1] + "A"
             # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkya; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                 _bw = c[:-1]
@@ -1535,6 +1569,9 @@ class TinantaDerivationEngine:
             if clean == "aw":
                 return "awew"
             c_eff = c.replace("ur", "Ur", 1) if "ur" in c else c
+            # Panini 6.1.45 Adeca upadeSe'Siti: yaNluk is aSit
+            if is_adeca(c):
+                c_eff = c[:-1] + "A"
             # idit i-final velar/palatal takes assimilated num (sraki->sAsraNkIti; meta skips num for Y-class)
             if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
                 _bw = c[:-1]
@@ -1708,6 +1745,8 @@ class TinantaDerivationEngine:
             extra += [yls + "i", yls.replace("D","d") + "i", yls + "aH", yls_dev + "i", yls_trunc + "ti", yls_dev + "ti", yls + "ti", yls_dev + "Iti", yls + "Iti", yls_trunc + "i", yls_trunc_dev + "i", yls_trunc + "aH", yls_trunc_dev + "aH", yls_dev + "aH"]
             # athematic endings before jhal / consonants + karmani yanluganta
             extra += [yls_dev + "taH", yls_dev + "TaH", yls_dev + "Ta", yls + "vaH", yls + "maH", yls + "Izi", yls + "Imi", yls + "ati", yls_dev + "si", yls + "mi", yls_dev + "mi", yls + "si", yls + "taH"]
+            if yls.endswith("A"):
+                extra += [yls + "ti", yls[:-1] + "eti", yls + "taH", yls + "nti"]
             if clean.endswith(("f", "F")) and yls.endswith("ar"):
                 _yls_b = yls[:-2]
                 for _b in (_yls_b, _yls_b.replace("arI", "ari", 1), _yls_b.replace("arI", "ar", 1)):
@@ -1828,6 +1867,11 @@ class TinantaDerivationEngine:
                     n_stems_all.append(vriddhi_alt)
                 if clean + "ay" not in n_stems_all:
                     n_stems_all.append(clean + "ay")
+                if clean.endswith("A") or is_adeca(clean):
+                    a_root = clean[:-1] + "A" if is_adeca(clean) else clean
+                    for _mst in (a_root[:-1] + "apay", a_root + "pay"):
+                        if _mst not in n_stems_all:
+                            n_stems_all.append(_mst)
                 if is_vowel_initial:
                     flip = {"u":"U","U":"u"}
                     if clean and clean[0] in flip:
@@ -1906,9 +1950,14 @@ class TinantaDerivationEngine:
                 sec_stem = ys
             else:
                 # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali (A -> I before halAdi kNit affix yak)
-                if clean in ("pA", "sTA", "gA", "mA", "dA", "DA", "hA", "sA"):
-                    yak_stem = clean[:-1] + "Iy"
-                    sec_stem = clean[:-1] + "I"
+                if clean in ("pA", "sTA", "gA", "mA", "dA", "DA", "hA", "sA") or clean == "gE":
+                    yak_stem = (clean[:-1] if clean.endswith("A") else "g") + "Iy"
+                    sec_stem = (clean[:-1] if clean.endswith("A") else "g") + "I"
+                elif is_adeca(clean):
+                    # Panini 6.1.45 Adeca upadeSe'Siti
+                    a_root = clean[:-1] + "A"
+                    yak_stem = a_root + "y"
+                    sec_stem = a_root
                 elif clean.endswith("u"):
                     # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH (u -> U before yak)
                     yak_stem = clean[:-1] + "Uy"
@@ -2197,6 +2246,11 @@ class TinantaDerivationEngine:
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
+                if clean.endswith("A") or is_adeca(clean):
+                    a_root = clean[:-1] + "A" if is_adeca(clean) else clean
+                    _red_stem = self._reduplicated_stem(a_root)
+                    _red = _red_stem[:-1] if _red_stem.endswith("A") else _red_stem
+                    redups.append(_red)
                 # idit i-final velar/palatal redup on num-clean (sraki->sasraNke; meta skips num for Y-class)
                 # + t/d/T->n, h->M
                 try:
@@ -2855,6 +2909,11 @@ class TinantaDerivationEngine:
             # also try without vriddhi for sparD-like
             if clean + "ay" not in n_stems:
                 n_stems.append(clean + "ay")
+            if clean.endswith("A") or is_adeca(clean):
+                a_root = clean[:-1] + "A" if is_adeca(clean) else clean
+                for _mst in (a_root[:-1] + "apay", a_root + "pay"):
+                    if _mst not in n_stems:
+                        n_stems.append(_mst)
             if "ur" in clean:
                 alt_c = clean.replace("ur", "Ur", 1)
                 alt_n = alt_c + "ay"
@@ -3302,15 +3361,20 @@ class TinantaDerivationEngine:
                 _pv = (purusha, vacana)
                 _jicands = (_atman_ji.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras_ji.get(_pv, [])) + _paras_ji.get(_pv, []) + _atman_ji.get(_pv, [])
                 return list(dict.fromkeys(_jicands)), log
-            # Panini 7.3.34 AtaH for A-ending roots in liw
+            # Panini 7.3.34 AtaH for A-ending roots in liw + 6.1.45 Adeca upadeSe 'Siti
             _a_map = {
                 "sTA": "tasT", "zWA": "tasT",
                 "pA": "pap", "GrA": "jaGr", "DmA": "daDm", "mnA": "mamn",
                 "dAR": "dad", "dA": "dad",
                 "gA": "jag", "gAN": "jag"
             }
-            if clean in _a_map or op in _a_map:
-                _red = _a_map.get(clean, _a_map.get(op))
+            if clean in _a_map or op in _a_map or clean.endswith("A") or is_adeca(clean):
+                if clean in _a_map or op in _a_map:
+                    _red = _a_map.get(clean, _a_map.get(op))
+                else:
+                    a_root = clean[:-1] + "A" if is_adeca(clean) else clean
+                    _red_stem = self._reduplicated_stem(a_root)
+                    _red = _red_stem[:-1] if _red_stem.endswith("A") else _red_stem
                 _pv = (purusha, vacana)
                 _paras_a = {
                     ("prathama", "eka"): [_red + "O"],
@@ -3807,8 +3871,12 @@ class TinantaDerivationEngine:
                 # (extended to all A-ending roots per classical usage & vArttika GrA-DmAyoS ca)
                 if clean.endswith("A"):
                     _asb.append(clean[:-1] + "e")
-                elif clean in ("gE", "de", "dE", "do", "De", "so", "me"):
-                    _asb.append(clean[:-1] + "e" if clean.endswith("e") else clean[0] + "e")
+                elif is_adeca(clean):
+                    a_root = clean[:-1] + "A"
+                    _asb.append(a_root)
+                    _asb.append(a_root[:-1] + "e")
+                    if clean in _asb:
+                        _asb.remove(clean)
                 # Panini 6.4.25 akfttsArvaDAtukayor dIrGaH (y-initial ArDaDAtuka yAsuw lengthens ajanta aNga)
                 if clean.endswith("u"):
                     _asb.append(clean[:-1] + "U")
@@ -3987,6 +4055,9 @@ class TinantaDerivationEngine:
                 try:
                     _vr_bases = []
                     if clean:
+                        if is_adeca(clean):
+                            # Panini 6.1.45 Adeca upadeSe'Siti
+                            _vr_bases.append(clean[:-1] + "A")
                         if clean[-1] in SLP1_VOWELS:
                             _lv = clean[-1]
                             _vv = apply_vriddhi(_lv)
