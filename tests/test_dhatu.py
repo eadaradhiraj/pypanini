@@ -241,7 +241,8 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
             if "M" in item:
                 for g in ["M", "F", "N"]:
                     loc_tot += 1
-                    if check_slot([item[g]]):
+                    cand = item[g] if isinstance(item[g], list) else [item[g]]
+                    if check_slot(cand):
                         loc_mat += 1
             elif "avyaya" in item:
                 loc_tot += 1

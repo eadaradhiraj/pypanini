@@ -1094,16 +1094,22 @@ class TinantaDerivationEngine:
             elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "R", "p", "P", "b", "B"):
                 # ... except velar/palatal/retroflex/labial-coda idit (agi~->agi not angi: formations assimilate per-formation instead)
                 # Panini 8.3.24 naS cApadAntasya jhali: before sibilants and h, num is M; before kz, num is N
+                # kz-cluster: nasal homorganic with k, insert before kz (kAkz->kANkz)
                 if base_wo_i.endswith("kz"):
-                    _nn2 = "N"
+                    with_n = base_wo_i[:-2] + "N" + "kz" if len(base_wo_i) >= 2 else base_wo_i + "N"
+                    clean = with_n
                 elif base_wo_i[-1:] in ("s", "S", "z", "h"):
                     _nn2 = "M"
+                    with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
+                    clean = with_n
                 elif base_wo_i[-1:] == "v" and ("r" in clean or "f" in clean):
                     _nn2 = "R"
+                    with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
+                    clean = with_n
                 else:
                     _nn2 = "n"
-                with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
-                clean = with_n
+                    with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
+                    clean = with_n
                 # flag must describe current clean: a-initial num-cleans (ant/and/ind) still take vocalic augment (AntIt)
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
         # helper for sannanta / nijanta / yan stems (generative)

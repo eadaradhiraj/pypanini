@@ -72,7 +72,8 @@ def validate_one(fid: str):
                 if "M" in item:
                     for g in ["M","F","N"]:
                         total += 1
-                        if item[g] in toks: matched += 1
+                        cand = item[g] if isinstance(item[g], list) else [item[g]]
+                        if hit(cand): matched += 1
                         elif len(misses) < 12: misses.append(f"{kk}/{code}/{g}:{item[g]}")
                 elif "avyaya" in item:
                     total += 1

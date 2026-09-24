@@ -594,16 +594,22 @@ class KrdantaEngine:
                 # v-final idit with r/f onset takes R-num at source so the whole krdanta family inherits
                 # (rivi->riRvitaH/riRvan/riRvyamARaH; surveyed: only rivi/ravi/kfvi match this shape)
                 # Panini 8.3.24 naS cApadAntasya jhali: before sibilants and h, num is M; before kz, num is N
+                # kz-cluster: nasal homorganic with k, insert before kz (kAkz->kANkz)
                 if is_idit and base_wo_i.endswith("kz"):
-                    _nn2 = "N"
+                    with_n = base_wo_i[:-2] + "N" + "kz" if len(base_wo_i) >= 2 else base_wo_i + "N"
+                    clean = with_n
                 elif is_idit and base_wo_i[-1:] in ("s", "S", "z", "h"):
                     _nn2 = "M"
+                    with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
+                    clean = with_n
                 elif is_idit and base_wo_i[-1:] == "v" and ("r" in clean or "f" in clean):
                     _nn2 = "R"
+                    with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
+                    clean = with_n
                 else:
                     _nn2 = "n"
-                with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
-                clean = with_n
+                    with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
+                    clean = with_n
         sew = meta["sew"]
         orig_clean = clean
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
