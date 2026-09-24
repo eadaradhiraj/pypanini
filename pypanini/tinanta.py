@@ -1111,6 +1111,10 @@ class TinantaDerivationEngine:
                     with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
                     clean = with_n
                 # flag must describe current clean: a-initial num-cleans (ant/and/ind) still take vocalic augment (AntIt)
+        # Panini 6.1.73 che ca: hrasva + C takes tuk c, lexicalized to cC stem
+        # (mleC->mlecC, laC->lacC, hrIC->hrIcC, yuC->yucC, uC->ucC); urCA~ (hurC/murC/sPurC) excluded (UrC already, passing)
+        if clean.endswith("C") and "ur" not in clean and "Ur" not in clean:
+            clean = clean[:-1] + "cC"
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
         # helper for sannanta / nijanta / yan stems (generative)
         def _nijanta_stem(c):

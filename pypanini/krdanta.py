@@ -433,7 +433,8 @@ class KrdantaEngine:
         if needs_i:
             # C-final geminates before iT (mleCa->mlecCita; surveyed: 4 a~-roots;
             # lowercase stays plain; num-derived C (i~) excluded; A~-roots (hurCA->hUrRa, different formation) excluded)
-            if clean.endswith("C") and "i~" not in op and not op.endswith("A~"):
+            # idempotent: che-ca source mapping may already yield cC (mlecC->mlecCita, not mleccCita)
+            if clean.endswith("C") and not clean.endswith("cC") and "i~" not in op and not op.endswith("A~"):
                 return clean[:-1] + "cCita"
             # i-guna for m+i+dental-d (mid->medita, lone f~ i-medial with guna, shape-based not per-dhatu)
             if len(clean) == 3 and clean[0] == "m" and clean[1] == "i" and clean[-1] == "d":
@@ -449,6 +450,10 @@ class KrdantaEngine:
             if clean == "pyAy":
                 return "pIna"
             clean = clean[:-1]
+        # cC-cluster + ta -> zwa in aniT (ucC->uzwa; mirrors kz->zwa below by 8.2.29;
+        # surveyed: sole 01 cC-aniT root 01.0244 uCI~, zero conflicts)
+        if clean.endswith("cC") and not needs_i:
+            return clean[:-2] + "zwa"
         # coH kuH (8.2.30): c/ch/j/J -> k
         if clean[-1] in ("c", "C", "j", "J"):
             return clean[:-1] + "k" + "ta"
@@ -610,6 +615,9 @@ class KrdantaEngine:
                     _nn2 = "n"
                     with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
                     clean = with_n
+        # Panini 6.1.73 che ca: hrasva + C takes tuk c, lexicalized to cC stem (mirrors tinanta)
+        if clean.endswith("C") and "ur" not in clean and "Ur" not in clean:
+            clean = clean[:-1] + "cC"
         sew = meta["sew"]
         orig_clean = clean
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
