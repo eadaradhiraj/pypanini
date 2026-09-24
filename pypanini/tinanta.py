@@ -2307,6 +2307,16 @@ class TinantaDerivationEngine:
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
+                # Panini 8.4.58/8.3.23 nasal assimilation in yak-liw redup (tunp->tutumpe, srans->sasraMse;
+                # same 14-root n+labial/s survey as mUla bases, additive)
+                _ylc = clean
+                for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                    if _a in _ylc:
+                        _ylc = _ylc.replace(_a, _b)
+                if _ylc != clean:
+                    _ylr = self._reduplicated_stem(_ylc)
+                    if _ylr not in redups:
+                        redups.append(_ylr)
                 if clean.endswith("A") or is_adeca(clean):
                     a_root = clean[:-1] + "A" if is_adeca(clean) else clean
                     _red_stem = self._reduplicated_stem(a_root)
@@ -3625,6 +3635,16 @@ class TinantaDerivationEngine:
             else:
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
+                # Panini 8.4.58/8.3.23 nasal assimilation in liw redup (tunp->tutumpa, srans->sasraMse;
+                # same 14-root n+labial/s survey as mUla bases, additive)
+                _llc = clean
+                for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                    if _a in _llc:
+                        _llc = _llc.replace(_a, _b)
+                if _llc != clean:
+                    _llr = self._reduplicated_stem(_llc)
+                    if _llr not in redups:
+                        redups.append(_llr)
                 # idit i-final velar/palatal redup on num-clean (sraki->sasraNke; meta skips num for Y-class)
                 # + t/d/T->n, h->M; op-recovery for num-rewritten cleans (vahi->vahn)
                 try:
