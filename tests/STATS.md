@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1106/1156 100%** (95.7%, raw 1106/1166). Fails: 50 scored (60 with 10 skipped). Net matched tokens +8454 across six nasal iterations (0 worsened).
+Passes: **1106/1156 100%** (95.7%, raw 1106/1166). Fails: 50 scored (60 with 10 skipped). Net matched tokens +8664 across seven nasal iterations (0 worsened).
 New 100% passes (5 roots unlocked in milestone 1106):
 - `01.0233 mleCa~` (18 -> 895/895, 100.0%, +877)
 - `01.0234 laCa~` (18 -> 895/895, 100.0%, +877)
@@ -21,13 +21,14 @@ New 100% passes (5 roots unlocked in milestone 1106):
 - krdanta nich-stem nasal (`_nijanta_sec` head: `np/nP/nB->m`, surveyed 10 labial cleans via nich_krut/kta `tumpita/trumpita/tumPita/SramBita/sfmBita` — unanimous `m`, zero conflicts; `ns` excluded, already handled by mu/su-branch). Repairs tavya/tfc/tumun/ktvA/anIyar/yat/Rvul/lyuw; kta (mUla-based) and SAnac (ay-retention) left as own traits. 10 improved (+230 tokens), 0 worsened, passes held 1106. `nich_krut` capped misses back 38->11; `yangluk_krut` rise is freed-cap artifact (fid-diff truth: 0 worsened; top example `01.0458 yangluk_krut/tavya/M:SranBitavyaH` wants `SramB...` — queued next).
 - primitive yak-luN nasal (same 14-root survey; san/nich yak-luN already covered via stem variants, yang untouched): assimilated aug variants (`atumpi/asraMsi/aSaMsi/asramBi`) appended to the yak-luN table. Additive. 14 improved (+126 tokens), 0 worsened, passes held 1106. `yak` capped misses 35->10; newly-surfaced `yangluk` (tinanta, 10) and `yangluk_krut` rise are freed-cap artifacts (fid-diff truth: 0 worsened).
 - yangluk-lw nasal (same 14-root survey, `tinanta.py` yanluganta lw only): assimilated `yls` variants (`totunp->totumpIti/totumpti`, `SranB->SASramBIti/SASrampsi`, `Sans->SASaMsIti/SASaMsti`, `RB->mB`/`R` Natva branch `seziRB->sezimB` included). Additive, `n`-form kept (`01.0857/0858/0859` already pass via loss cross-match). Surveyed yangluk `plat`: 14/14 want `m/M`, 0 `n`-forms, zero conflicts. 11 improved (+198 tokens: `01.0458` 842->860, `01.0459` 764->782, `01.0471/0473/0475/0477/0497/0499/0501` 836->854, `01.0829` 833->851, `01.0861` 842->860), 0 worsened, passes held 1106. Tinanta `yangluk` capped misses 10->0; `yangluk_krut` 54->64 is freed-cap artifact (fid-diff truth: 0 worsened).
+- krdanta yangluk redup + nasal (same 14-root survey, `krdanta.py` yanluganta only, `tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun`; `kta/ktavatu/Satf` want loss — excluded, mirror mUla; `yat` has no true yangluk expected — excluded; `ktvA` loss+redup left for next): `_yanlug_m_base` mirrors tinanta redup then `8.4.58/8.3.23` (`SranB->SASramB`, `tunp->totump`, `Sans->SASaMs`, `srans->sanIsraMs` via final `s->Ms`, `RB->mB` Natva branch included). Surveyed yangluk_krut `tavya`: 14/14 want `m/M` redup, zero conflicts; `kta` 14/14 want loss+redup (`totupita/SASrabDa`). Additive tri-linga/tumun lists (old kept), single-form `lyuw/GaY` replaced (old misses). 14 improved (+210 tokens: `01.0458` 860->875, `01.0459` 782->797, `01.0471/0473/0475/0477/0497/0499/0501` 854->869, `01.0829` 851->866, `01.0857/0858/0859` 860->875, `01.0861` 860->875), 0 worsened, passes held 1106. `yangluk_krut` capped misses 64->44 (remaining `yat`/`ktvA`/`Satf` loss group).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 276 | 01.0105 krut/tavya/M:svazkitavyaH |
 | ting | 205 | 01.0105 ting/lw/prathama/eka:svazkate |
-| yangluk_krut | 64 | 01.0458 yangluk_krut/tavya/M:SranBitavyaH |
+| yangluk_krut | 44 | 01.0458 yangluk_krut/yat/M:SranByaH |
 | san_krut | 12 | 01.0648 san_krut/kta/M:cikzIvizitaH |
 | nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
 | yak | 10 | 01.0921 yak/liw/prathama/eka:nanFe |

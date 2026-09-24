@@ -552,6 +552,124 @@ class KrdantaEngine:
             return [stem[:-1] + "zw"]
         return [stem + "t"]
 
+    def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
+        # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
+        # Restricted to nasal shape (np/nP/nB/ns) — 14-root survey, zero conflicts elsewhere (pilots unaffected).
+        # Returns assimilated redup base (e.g. SranB->SASramB, tunp->totump, Sans->SASaMs, srans->sanIsraMs),
+        # or None if not nasal or no redup (BU).
+        if not clean:
+            return None
+        if "np" not in clean and "nP" not in clean and "nB" not in clean and "ns" not in clean:
+            return None
+        DEASPIRATE = {"B": "b", "G": "g", "Q": "q", "D": "d", "J": "j", "K": "k", "C": "c", "W": "w", "T": "t", "P": "p"}
+        VELAR_TO_PALATAL = {"k": "c", "K": "c", "g": "j", "G": "j", "N": "Y", "h": "j"}
+        c = clean
+        if c == "BU":
+            return None
+        if c in ("sUd", "sUd"):
+            return None
+        if c == "dyut" or (op and op.startswith("dyut")):
+            return None
+        if clean == "Pal":
+            return None
+        if clean == "car":
+            return None
+        if clean == "aw":
+            return None
+        c_eff = c.replace("ur", "Ur", 1) if "ur" in c else c
+        if is_adeca(c):
+            c_eff = c[:-1] + "A"
+        if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")):
+            _bw = c[:-1]
+            _nn = "N" if _bw and _bw[-1] in ("k", "K", "g", "G") else ("Y" if _bw and _bw[-1] in ("c", "C", "j", "J") else ("R" if _bw and _bw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _bw and _bw[-1] in ("p", "P", "b", "B") else None)))
+            if _nn and len(_bw) >= 1:
+                c_eff = _bw[:-1] + _nn + _bw[-1]
+        root_vowel = None
+        for ch in c_eff:
+            if ch in SLP1_VOWELS:
+                root_vowel = ch
+                break
+        if root_vowel in ("i", "I", "e", "E"):
+            yan_vowel = "e"
+        elif root_vowel in ("u", "U", "o", "O"):
+            yan_vowel = "o"
+        elif root_vowel in ("f", "F"):
+            yan_vowel = "arI"
+        elif root_vowel in ("a", "A"):
+            yan_vowel = "A"
+        else:
+            yan_vowel = "A"
+        if c_eff.startswith("kfp"):
+            yan_vowel = "alI"
+        cluster = ""
+        for ch in c_eff:
+            if ch in SLP1_VOWELS:
+                break
+            cluster += ch
+        redup_cons = cluster[0] if cluster else c_eff[0]
+        if len(cluster) >= 2 and cluster[0] in ("s", "S"):
+            redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
+        redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
+        if not (c_eff in ("ku", "kU") and len(clean) <= 2):
+            redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
+        _ybase = (c_eff[:-1] + "ar") if c_eff.endswith(("f", "F")) else c_eff
+        if c_eff.startswith("kfp"):
+            _ybase = _ybase.replace("kfp", "kxp")
+        try:
+            _op0 = (meta.get("op", "") or "").replace("~", "")
+            for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
+                if _op0.startswith(_pre):
+                    _op0 = _op0[len(_pre):]
+                    break
+            if _op0.startswith("z") and yan_vowel in ("e", "o", "arI", "alI"):
+                if (_op0.startswith("zw") or op.startswith("zw")) and _ybase.startswith("st"):
+                    _ybase = "zw" + _ybase[2:]
+                elif (_op0.startswith("zW") or op.startswith("zW")) and _ybase.startswith("sT"):
+                    _ybase = "zW" + _ybase[2:]
+                elif c_eff.startswith("s"):
+                    _ybase = "z" + c_eff[1:]
+                if _ybase.startswith("z"):
+                    for _j in range(1, len(_ybase)):
+                        if _ybase[_j] == "n":
+                            if _j + 1 < len(_ybase):
+                                _ybase = _ybase[:_j] + "R" + _ybase[_j+1:]
+                            break
+                        elif _ybase[_j] not in "aAiIuUfFxXeEoOHyvrkKgGNpPbBmM":
+                            break
+        except Exception:
+            pass
+        if (root_vowel in ("a", "f") or (len(c) >= 2 and c[-2] in ("a", "f"))) and (c.endswith(("n", "R", "m")) or c_eff.endswith(("n", "R", "m"))):
+            yan_vowel = "aM"
+        if (clean in ("jap", "dah") or
+            (clean == "jaB" and (op == "jaBI~" or "1.453" in str(meta.get("kOmudIDAtukramANkaH", "")))) or
+            (clean in ("daS", "danS") and op.startswith("danS")) or
+            (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
+            yan_vowel = "aM"
+            if _ybase.endswith(("nS", "MS")):
+                _ybase = _ybase[:-2] + "S"
+        if (clean in ("pat", "kas", "pad", "vanc", "vaYc", "skand", "srans", "Dvans", "Brans") or
+            (op and any(op.startswith(x) for x in ("patx", "kasa", "pada", "vanc", "skand", "srans", "Dvans", "Brans")))):
+            yan_vowel = "anI"
+            if _ybase.endswith("nc") or _ybase.endswith("Yc"):
+                _ybase = _ybase[:-2] + "c"
+            elif _ybase.endswith("nd"):
+                _ybase = _ybase[:-2] + "d"
+            elif _ybase.endswith("ns"):
+                _ybase = _ybase[:-2] + "s"
+        if _ybase.startswith("C") and not yan_vowel.endswith("M"):
+            _ybase = "c" + _ybase
+        yls = redup_cons + yan_vowel + _ybase
+        # 8.4.58/8.3.23 assimilate yls (n/R->m/M); loss-type (srans, yls has no n) gets final s->Ms
+        yls_m = yls
+        for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms"), ("RP", "mP"), ("RB", "mB"), ("RS", "Ms"), ("Rs", "Ms")):
+            if _a in yls_m:
+                yls_m = yls_m.replace(_a, _b)
+        if yls_m == yls and "ns" in clean and yls.endswith("s"):
+            yls_m = yls[:-1] + "Ms"
+        if yls_m == yls:
+            return None
+        return yls_m
+
     def derive_krdanta(
         self,
         dhatu: str = "BU",
@@ -1420,6 +1538,55 @@ class KrdantaEngine:
             # continue to primitive generative below with clean=sec
             # (no return, let it fall through)
             pass
+
+        # Yangluk redup + nasal for krdanta (Panini 8.4.58/8.3.23, 14-root nasal survey).
+        # Target: tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun (tavya unanimous m/M, kta/ktavatu/Satf want loss — excluded, mirror mUla).
+        # Additive for tri-linga/tumun (old kept, zero worsened); replace for single-form lyuw/GaY (old misses).
+        if sanadi == "yanluganta" and pratyaya in ("tavya", "anIyar", "tfc", "Rvul", "lyuw", "GaY", "tumun"):
+            _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
+            # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
+            if _ylm is None:
+                # fallback: try with current clean (sec) if orig differs
+                try:
+                    _ylm = self._yanlug_m_base(clean, op, meta, is_idit, pada)
+                except Exception:
+                    _ylm = None
+            if _ylm is not None:
+                _ob = clean
+                _nb = _ylm
+                if pratyaya == "tavya":
+                    return {"M": [_ob + "itavyaH", _nb + "itavyaH"], "F": [_ob + "itavyA", _nb + "itavyA"], "N": [_ob + "itavyam", _nb + "itavyam"]}
+                if pratyaya == "anIyar":
+                    _o_nat = _natva_applies(_ob)
+                    _n_nat = _natva_applies(_nb)
+                    _o_s = "aRIyaH" if _o_nat else "anIyaH"
+                    _n_s = "aRIyaH" if _n_nat else "anIyaH"
+                    _o_f = "aRIyA" if _o_nat else "anIyA"
+                    _n_f = "aRIyA" if _n_nat else "anIyA"
+                    _o_n = "aRIyam" if _o_nat else "anIyam"
+                    _n_n = "aRIyam" if _n_nat else "anIyam"
+                    return {"M": [_ob + _o_s, _nb + _n_s], "F": [_ob + _o_f, _nb + _n_f], "N": [_ob + _o_n, _nb + _n_n]}
+                if pratyaya == "tfc":
+                    return {"M": [_ob + "itA", _nb + "itA"], "F": [_ob + "itrI", _nb + "itrI"], "N": [_ob + "itf", _nb + "itf"]}
+                if pratyaya == "Rvul":
+                    def _rv(base):
+                        return {"M": base + "akaH", "F": base + "aka"[:-3] + "ikA" if (base + "aka").endswith("aka") else base + "ikA", "N": base + "akam"}
+                    _o = _rv(_ob)
+                    _n = _rv(_nb)
+                    # fix F: base+aka -> base+ikA (aka->ikA)
+                    _o["F"] = _ob + "ikA"
+                    _n["F"] = _nb + "ikA"
+                    return {"M": [_o["M"], _n["M"]], "F": [_o["F"], _n["F"]], "N": [_o["N"], _n["N"]]}
+                if pratyaya == "lyuw":
+                    _o_nat = _natva_applies(_ob)
+                    _n_nat = _natva_applies(_nb)
+                    _o_form = _ob + ("aRam" if _o_nat else "anam")
+                    _n_form = _nb + ("aRam" if _n_nat else "anam")
+                    return {"gender": "Neuter", "form": _n_form}
+                if pratyaya == "GaY":
+                    return {"gender": "Masculine", "form": _nb + "aH"}
+                if pratyaya == "tumun":
+                    return {"avyaya": [_ob + "itum", _nb + "itum"]}
 
         # primitive generative
         def needs_i_for_kta() -> bool:
