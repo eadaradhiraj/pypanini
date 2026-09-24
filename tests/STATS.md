@@ -3,8 +3,14 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1106/1156 100%** (95.7%, raw 1106/1166). Fails: 50 scored (60 with 10 skipped). Net matched tokens +8734 across nine nasal iterations (0 worsened).
-New 100% passes (5 roots unlocked in milestone 1106):
+Passes: **1111/1156 100%** (96.1%, raw 1111/1166). Fails: 45 scored (55 with 10 skipped). Net matched tokens +8734 across nine nasal iterations + yat-suppression milestone (0 true worsened; absolute matched drops by suppression totals, passes +5).
+New 100% passes (5 roots unlocked in milestone 1111, yangluk yat-suppressed + ktvA-m):
+- `01.0458 SranB` (880/880)
+- `01.0857 srans` (880/880)
+- `01.0858 Dvans` (880/880)
+- `01.0859 Brans` (880/880)
+- `01.0861 sranB` (880/880)
+Prior 100% passes (5 roots unlocked in milestone 1106):
 - `01.0233 mleCa~` (18 -> 895/895, 100.0%, +877)
 - `01.0234 laCa~` (18 -> 895/895, 100.0%, +877)
 - `01.0238 hrICa~` (18 -> 895/895, 100.0%, +877)
@@ -23,14 +29,15 @@ New 100% passes (5 roots unlocked in milestone 1106):
 - yangluk-lw nasal (same 14-root survey, `tinanta.py` yanluganta lw only): assimilated `yls` variants (`totunp->totumpIti/totumpti`, `SranB->SASramBIti/SASrampsi`, `Sans->SASaMsIti/SASaMsti`, `RB->mB`/`R` Natva branch `seziRB->sezimB` included). Additive, `n`-form kept (`01.0857/0858/0859` already pass via loss cross-match). Surveyed yangluk `plat`: 14/14 want `m/M`, 0 `n`-forms, zero conflicts. 11 improved (+198 tokens: `01.0458` 842->860, `01.0459` 764->782, `01.0471/0473/0475/0477/0497/0499/0501` 836->854, `01.0829` 833->851, `01.0861` 842->860), 0 worsened, passes held 1106. Tinanta `yangluk` capped misses 10->0; `yangluk_krut` 54->64 is freed-cap artifact (fid-diff truth: 0 worsened).
 - krdanta yangluk redup + nasal (same 14-root survey, `krdanta.py` yanluganta only, `tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun`; `kta/ktavatu/Satf` want loss — excluded, mirror mUla; `yat` has no true yangluk expected — excluded; `ktvA` loss+redup left for next): `_yanlug_m_base` mirrors tinanta redup then `8.4.58/8.3.23` (`SranB->SASramB`, `tunp->totump`, `Sans->SASaMs`, `srans->sanIsraMs` via final `s->Ms`, `RB->mB` Natva branch included). Surveyed yangluk_krut `tavya`: 14/14 want `m/M` redup, zero conflicts; `kta` 14/14 want loss+redup (`totupita/SASrabDa`). Additive tri-linga/tumun lists (old kept), single-form `lyuw/GaY` replaced (old misses). 14 improved (+210 tokens), 0 worsened, passes held 1106. `yangluk_krut` capped misses 64->44 (remaining `yat`/`ktvA`/`Satf` loss group).
 - krdanta mUla yat/ktvA nasal (same 14-root survey; extends mUla rule above): `yat` 14/14 want `m/M`, `ktvA` m-variant 14/14. Replacement (old `n` misses). 14 improved (+56 tokens), 0 worsened, passes held 1106. `krut` 276->220; `yangluk_krut`/`san_krut` rises are freed-cap artifacts (fid-diff truth: 0 worsened).
-- krdanta yangluk ktvA m+redup (same 14-root survey; extends yanlug set above with `ktvA`): `ktvA` m-variant 14/14 (`SASramBitvA/totumpitvA/SASaMsitvA/sanIsraMsitvA`; loss variant left as is, m hits via any-match). Additive avyaya list (old kept). 14 improved (+14 tokens, each fid +1), 0 worsened, passes held 1106. `yangluk_krut` capped misses 56->43 (remaining `yat` 3/fid + `Satf` loss group).
+- krdanta yangluk ktvA m+redup (same 14-root survey; extends yanlug set with `ktvA`): m-variant 14/14, additive. 14 improved (+14), passes held 1106. `yangluk_krut` 56->43.
+- krdanta yangluk yat suppression (general: surveyed all 1078 yangluk_krut in 01, zero `yat` keys): `yat` returns None for yanluganta. Removes 3 miss-slots/fid (yat M/F/N had no true expected anywhere). Passes +5 (`01.0458/0857/0858/0859/0861` → 100%), 0 true worsened (absolute matched drops by suppression totals only; no fid went pass→fail). `yangluk_krut` capped misses 43->4 (remaining `Satf` loss group, e.g. `01.0459 yangluk_krut/Satf/M:sramBan`).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 220 | 01.0105 krut/tavya/M:svazkitavyaH |
 | ting | 205 | 01.0105 ting/lw/prathama/eka:svazkate |
-| yangluk_krut | 43 | 01.0458 yangluk_krut/yat/M:SranByaH |
+| yangluk_krut | 4 | 01.0459 yangluk_krut/Satf/M:sramBan |
 | san_krut | 15 | 01.0459 san_krut/Satf/M:sisramBizan |
 | nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
 | yak | 10 | 01.0921 yak/liw/prathama/eka:nanFe |

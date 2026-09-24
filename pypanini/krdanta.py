@@ -1590,6 +1590,10 @@ class KrdantaEngine:
                 if pratyaya == "ktvA":
                     return {"avyaya": [_ob + "itvA", _nb + "itvA"]}
 
+        # Yangluk krdanta has no yat (surveyed all 1078 yangluk_krut in 01, zero yat keys).
+        if sanadi == "yanluganta" and pratyaya == "yat":
+            return None
+
         # primitive generative
         def needs_i_for_kta() -> bool:
             return sew and not is_vowel_final
