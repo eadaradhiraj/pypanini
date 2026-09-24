@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1106/1156 100%** (95.7%, raw 1106/1166). Fails: 50 scored (60 with 10 skipped). Net matched tokens +8130 across four nasal iterations (0 worsened).
+Passes: **1106/1156 100%** (95.7%, raw 1106/1166). Fails: 50 scored (60 with 10 skipped). Net matched tokens +8256 across five nasal iterations (0 worsened).
 New 100% passes (5 roots unlocked in milestone 1106):
 - `01.0233 mleCa~` (18 -> 895/895, 100.0%, +877)
 - `01.0234 laCa~` (18 -> 895/895, 100.0%, +877)
@@ -19,17 +19,18 @@ New 100% passes (5 roots unlocked in milestone 1106):
 - liw-redup nasal (same 14-root survey): assimilated `_reduplicated_stem` variants at both liw sites (mUla kartari + yak karmani; `tunp->tutumpa/tutumpe`, `srans->sasraMse`, `Sans->SaSaMsa`, `SranB->SaSramBe`). Additive, yang untouched. 14 improved (+243 tokens), 0 worsened, passes held 1106.
 - krdanta san-stem nasal (same 14-root survey via san_krut/kta bases `tutumpizita/sisraMsizita/SiSramBizita`, zero conflicts): `n->m/M` replacement at `_sannanta_sec` head; downstream `clean = sec` repairs all san_krut pratyayas at once. 14 improved (+308 tokens), 0 worsened, passes held 1106. `san_krut` capped misses 51->12; `nich_krut`/`yangluk_krut` capped-count rises are freed-cap artifacts (fid-diff truth: 0 worsened).
 - krdanta nich-stem nasal (`_nijanta_sec` head: `np/nP/nB->m`, surveyed 10 labial cleans via nich_krut/kta `tumpita/trumpita/tumPita/SramBita/sfmBita` — unanimous `m`, zero conflicts; `ns` excluded, already handled by mu/su-branch). Repairs tavya/tfc/tumun/ktvA/anIyar/yat/Rvul/lyuw; kta (mUla-based) and SAnac (ay-retention) left as own traits. 10 improved (+230 tokens), 0 worsened, passes held 1106. `nich_krut` capped misses back 38->11; `yangluk_krut` rise is freed-cap artifact (fid-diff truth: 0 worsened; top example `01.0458 yangluk_krut/tavya/M:SranBitavyaH` wants `SramB...` — queued next).
+- primitive yak-luN nasal (same 14-root survey; san/nich yak-luN already covered via stem variants, yang untouched): assimilated aug variants (`atumpi/asraMsi/aSaMsi/asramBi`) appended to the yak-luN table. Additive. 14 improved (+126 tokens), 0 worsened, passes held 1106. `yak` capped misses 35->10; newly-surfaced `yangluk` (tinanta, 10) and `yangluk_krut` rise are freed-cap artifacts (fid-diff truth: 0 worsened).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 276 | 01.0105 krut/tavya/M:svazkitavyaH |
 | ting | 205 | 01.0105 ting/lw/prathama/eka:svazkate |
-| yangluk_krut | 39 | 01.0458 yangluk_krut/tavya/M:SranBitavyaH |
-| yak | 35 | 01.0458 yak/luN/prathama/eka:aSranBi |
+| yangluk_krut | 54 | 01.0458 yangluk_krut/tavya/M:SranBitavyaH |
 | san_krut | 12 | 01.0648 san_krut/kta/M:cikzIvizitaH |
 | nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
-| nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
+| yangluk | 10 | 01.0458 yangluk/lw/prathama/eka:SASranBaH |
+| yak | 10 | 01.0921 yak/liw/prathama/eka:nanFe |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 | nich | 5 | 01.0920 nich/lw/prathama/eka:dFayate |
 | san | 5 | 01.1123 san/lw/prathama/eka:qiqayzate |
