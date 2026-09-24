@@ -1598,10 +1598,10 @@ class KrdantaEngine:
         is_laghu_ik_init = (len(clean) == 1 and clean in ("i", "u", "f", "x")) or (len(clean) == 2 and clean[0] in ("i", "u", "f", "x") and clean[1] not in SLP1_VOWELS)
 
         # Panini 8.4.58 parasavarNa / 8.3.23 anusvara: dental n -> m before labials,
-        # M before sibilants in krdanta mUla/san/nich stems (tunp->tumpitavya, sranB->sramBaka,
-        # srans->sraMsanIya, Sans->SaMsana; surveyed all 14 n+labial/s 01 cleans, zero conflicts;
-        # nd expressly excluded; kta/ktavatu/ktvA/lyap/yat keep loss-logic; yang keeps original)
-        if sanadi in (None, "sannanta", "nijanta") and pratyaya in ("Satf", "SAnac", "tavya", "anIyar", "Rvul", "tfc", "lyuw", "GaY", "tumun"):
+        # M before sibilants in krdanta mUla/san/nich stems (tunp->tumpitavya/tumpya/tumpitvA, sranB->sramBaka,
+        # srans->sraMsanIya/sraMsya/sraMsitvA, Sans->SaMsana; surveyed all 14 n+labial/s 01 cleans, zero conflicts;
+        # nd expressly excluded; kta/ktavatu/lyap keep loss-logic (ktvA m-variant hits via any-match, loss left as is); yang keeps original)
+        if sanadi in (None, "sannanta", "nijanta") and pratyaya in ("Satf", "SAnac", "tavya", "anIyar", "Rvul", "tfc", "lyuw", "GaY", "tumun", "yat", "ktvA"):
             _cn = clean
             for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
                 if _a in _cn:
