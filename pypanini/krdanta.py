@@ -1541,8 +1541,8 @@ class KrdantaEngine:
 
         # Yangluk redup + nasal for krdanta (Panini 8.4.58/8.3.23, 14-root nasal survey).
         # Target: tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun (tavya unanimous m/M, kta/ktavatu/Satf want loss — excluded, mirror mUla).
-        # Additive for tri-linga/tumun (old kept, zero worsened); replace for single-form lyuw/GaY (old misses).
-        if sanadi == "yanluganta" and pratyaya in ("tavya", "anIyar", "tfc", "Rvul", "lyuw", "GaY", "tumun"):
+        # Additive for tri-linga/tumun/ktvA (old kept, zero worsened); replace for single-form lyuw/GaY (old misses).
+        if sanadi == "yanluganta" and pratyaya in ("tavya", "anIyar", "tfc", "Rvul", "lyuw", "GaY", "tumun", "ktvA"):
             _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
             # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
             if _ylm is None:
@@ -1587,6 +1587,8 @@ class KrdantaEngine:
                     return {"gender": "Masculine", "form": _nb + "aH"}
                 if pratyaya == "tumun":
                     return {"avyaya": [_ob + "itum", _nb + "itum"]}
+                if pratyaya == "ktvA":
+                    return {"avyaya": [_ob + "itvA", _nb + "itvA"]}
 
         # primitive generative
         def needs_i_for_kta() -> bool:
