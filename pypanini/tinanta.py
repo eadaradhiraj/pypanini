@@ -4005,6 +4005,14 @@ class TinantaDerivationEngine:
         elif lakara == "ASIrliN":
             if pada == "parasmEpadi":
                 _asb = [clean]
+                # Panini 6.4.24 aniditAM hala upaDAyAH (nasal loss before yAt): tunp->tupyAt, Sans->SasyAt;
+                # surveyed 8 parasmai nasal 01 cleans (np/nP/nB/ns), 0 m-forms, zero conflicts; Atmane already has m via _prim_bases below
+                _aloss = clean
+                for _a, _b in (("np", "p"), ("nP", "P"), ("nB", "B"), ("ns", "s")):
+                    if _a in _aloss:
+                        _aloss = _aloss.replace(_a, _b)
+                if _aloss != clean and _aloss not in _asb:
+                    _asb.append(_aloss)
                 # Panini 6.4.67 er liNi: ghu-mA-sTA-gA-pA-jahAti-sAM replace A with e before kit ASIrliN yAsuw
                 # (extended to all A-ending roots per classical usage & vArttika GrA-DmAyoS ca)
                 if clean.endswith("A"):

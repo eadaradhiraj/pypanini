@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1111/1156 100%** (96.1%, raw 1111/1166). Fails: 45 scored (55 with 10 skipped). Net matched tokens +8734 across nine nasal iterations + yat-suppression milestone (0 true worsened; absolute matched drops by suppression totals, passes +5).
+Passes: **1111/1156 100%** (96.1%, raw 1111/1166). Fails: 45 scored (55 with 10 skipped). Net matched tokens +8806 across ten nasal iterations + yat-suppression milestone (0 true worsened).
 New 100% passes (5 roots unlocked in milestone 1111, yangluk yat-suppressed + ktvA-m):
 - `01.0458 SranB` (880/880)
 - `01.0857 srans` (880/880)
@@ -30,6 +30,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - krdanta yangluk redup + nasal (same 14-root survey, `krdanta.py` yanluganta only, `tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun`; `kta/ktavatu/Satf` want loss — excluded, mirror mUla; `yat` has no true yangluk expected — excluded; `ktvA` loss+redup left for next): `_yanlug_m_base` mirrors tinanta redup then `8.4.58/8.3.23` (`SranB->SASramB`, `tunp->totump`, `Sans->SASaMs`, `srans->sanIsraMs` via final `s->Ms`, `RB->mB` Natva branch included). Surveyed yangluk_krut `tavya`: 14/14 want `m/M` redup, zero conflicts; `kta` 14/14 want loss+redup (`totupita/SASrabDa`). Additive tri-linga/tumun lists (old kept), single-form `lyuw/GaY` replaced (old misses). 14 improved (+210 tokens), 0 worsened, passes held 1106. `yangluk_krut` capped misses 64->44 (remaining `yat`/`ktvA`/`Satf` loss group).
 - krdanta mUla yat/ktvA nasal (same 14-root survey; extends mUla rule above): `yat` 14/14 want `m/M`, `ktvA` m-variant 14/14. Replacement (old `n` misses). 14 improved (+56 tokens), 0 worsened, passes held 1106. `krut` 276->220; `yangluk_krut`/`san_krut` rises are freed-cap artifacts (fid-diff truth: 0 worsened).
 - krdanta yangluk ktvA m+redup (same 14-root survey; extends yanlug set with `ktvA`): m-variant 14/14, additive. 14 improved (+14), passes held 1106. `yangluk_krut` 56->43.
+- tinanta parasmai ASIrliN nasal loss (same 14-root survey, `tinanta.py` ASIrliN parasmai only): loss base `np/nP/nB/ns->p/P/B/s` (`tunp->tupyAt`, `Sans->SasyAt`; surveyed 8 parasmai nasal cleans, 0 `m`-forms, zero conflicts; Atmane already has `m` via `_prim_bases`). Additive (n-form kept). 8 improved (+72 tokens), 0 worsened, passes held 1111. Newly-surfaced `luN` misses are freed-cap artifacts (fid-diff truth: 0 worsened) — luN nasal queued next.
 - krdanta yangluk yat suppression (general: surveyed all 1078 yangluk_krut in 01, zero `yat` keys): `yat` returns None for yanluganta. Removes 3 miss-slots/fid (yat M/F/N had no true expected anywhere). Passes +5 (`01.0458/0857/0858/0859/0861` → 100%), 0 true worsened (absolute matched drops by suppression totals only; no fid went pass→fail). `yangluk_krut` capped misses 43->4 (remaining `Satf` loss group, e.g. `01.0459 yangluk_krut/Satf/M:sramBan`).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
