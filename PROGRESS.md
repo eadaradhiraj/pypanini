@@ -4,18 +4,19 @@ Date: 2026-09-24
 Sweep: **1106/1156 100%** (95.7%, raw 1106/1166)
 
 ## Done
-- krdanta san-stem nasal (Panini 8.4.58/8.3.23, same 14-root `n`+labial/s survey via san_krut/kta bases — `tutumpizita/sisraMsizita/SiSramBizita/SiSaMsizita` unanimous `m/M`, zero conflicts):
-  - `krdanta.py`: `n->m/M` replacement at `_sannanta_sec` head; downstream `clean = sec` repairs all san_krut pratyayas (kta/ktavatu/tavya/...) at once.
+- krdanta nich-stem nasal (Panini 8.4.58, `_nijanta_sec` head: `np/nP/nB->m`; surveyed 10 labial cleans via nich_krut/kta — `tumpita/trumpita/tumPita/trumPita/SramBita/sramBita/sfmBita/simBita/SumBita` unanimous `m`, zero conflicts; `ns` excluded, already handled by mu/su-branch; `nd` excluded):
+  - Repairs nich_krut tavya/tfc/tumun/ktvA/anIyar/yat/Rvul/lyuw; kta (mUla-based `tupita` vs `tumpita`) and SAnac (ay-retention `tumpyamAna` vs `tumpayamAna`) left as own traits.
   - Full Sweep Results: passes held **1106/1156** (raw 1106/1166, 10 skipped):
-    - 14 improved, +308 matched tokens, **0 worsened** (fid-diff vs HEAD): `01.0458` 788->810, `01.0459` 710->732, `01.0471/0473/0475/0477/0497/0499/0501` 782->804, `01.0829` 802->824, `01.0857/0858/0859` 829->851, `01.0861` 788->810.
-    - `san_krut` capped misses 51->12; `nich_krut` 11->38 and `yangluk_krut` 12 are freed-cap artifacts (fid-diff truth: 0 worsened; precedent PROGRESS #52/#53). Top newly-surfaced examples are nasal too (`01.0458 nich_krut/SAnac/M:SranByamAnaH` wants `SramByamAnaH`, `01.0829 yangluk_krut/Satf/M:Sansan` wants `SaMsan`) — queued next.
+    - 10 improved, +230 matched tokens, **0 worsened** (fid-diff vs HEAD): `01.0458` 810->833, `01.0459` 732->755, `01.0471/0473/0475/0477/0497/0499/0501` 804->827, `01.0861` 810->833 (`ns`-roots 0829/0857-59 unchanged by design).
+    - `nich_krut` capped misses 38->11; `yangluk_krut` rise is freed-cap artifact (fid-diff truth: 0 worsened; top example `01.0458 yangluk_krut/tavya/M:SranBitavyaH` wants `SramB...` — queued next).
     - All pilots (01.0001/01.0002/01.0003) and past milestones held at 100%.
-- Prior nasal iterations (same batch): stems +7349, liw-redup +243. Combined nasal work: +7900 tokens.
+- Prior nasal iterations (same batch): stems +7349, liw-redup +243, san-stem +308. Combined nasal work: +8130 tokens.
 
 ## Next
 1. Remaining gaps in the nasal batch (one trait per iteration):
-   - krdanta nich-stem nasal (`01.0458 nich_krut/SAnac/M:SranByamAnaH` vs `SramByamAnaH`, `_nijanta_sec` head; survey nich_krut bases for m/M unanimity first).
-   - krdanta yanluk-stem nasal (`01.0829 yangluk_krut/Satf/M:Sansan` vs `SaMsan`).
+   - krdanta yanluk-stem nasal (`01.0458 yangluk_krut/tavya/M:SranBitavyaH` vs `SramB...`, `01.0829 yangluk_krut/Satf/M:Sansan` vs `SaMsan`).
+   - krdanta nijanta kta sec-vs-mUla (`tupita` vs `tumpita`, `srasta` vs `sraMsita`): nijanta kta intentionally uses mUla stem — needs sec-based variant for nasal roots.
+   - nich SAnac ay-retention (`tumpyamAna` vs `tumpayamAna`): check whether general or nasal-specific.
    - ASIrliN nasal loss before `y` (`tunpyAt` vs `tupyAt`, `SansyAt` vs `SasyAt`?) + luN futures.
    - yak-luN with `n` (`asransi` vs `asraMsi`, `aSranBi` vs `aSramBi`): yak-luN augment path uses raw clean.
 2. Then next single-trait batch:

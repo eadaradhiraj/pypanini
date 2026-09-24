@@ -628,6 +628,16 @@ class KrdantaEngine:
             DEASPIRATE = {"B":"b","G":"g","Q":"q","D":"d","J":"j","K":"k","C":"c","W":"w","T":"t","P":"p"}
             VELAR_TO_PALATAL = {"k":"c","K":"c","g":"j","G":"j","N":"Y","h":"j"}
             def _nijanta_sec(c):
+                # Panini 8.4.58 parasavarNa: dental n -> m before labials in niC stem
+                # (tunp->tumpay, sranB->sramBay; surveyed np/nP/nB 01 cleans via nich_krut/kta
+                # tumpita/trumpita/tumPita/SramBita/sfmBita — unanimous m, zero conflicts;
+                # ns already handled below via mu/su-branch, nd excluded)
+                if c:
+                    _cc = c
+                    for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB")):
+                        if _a in _cc:
+                            _cc = _cc.replace(_a, _b)
+                    c = _cc
                 if c == "yat":
                     return "yAtay"
                 # Panini 7.1.63 rabher a-Sab-liwoH / 7.1.64 laBeS ca: raB/laB take num before Ri
