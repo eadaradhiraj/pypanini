@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1106/1156 100%** (95.7%, raw 1106/1166). Fails: 50 scored (60 with 10 skipped). Net matched tokens +7592 across two nasal iterations (0 worsened, 14 + 14 improved).
+Passes: **1106/1156 100%** (95.7%, raw 1106/1166). Fails: 50 scored (60 with 10 skipped). Net matched tokens +7900 across three nasal iterations (0 worsened).
 New 100% passes (5 roots unlocked in milestone 1106):
 - `01.0233 mleCa~` (18 -> 895/895, 100.0%, +877)
 - `01.0234 laCa~` (18 -> 895/895, 100.0%, +877)
@@ -17,14 +17,17 @@ New 100% passes (5 roots unlocked in milestone 1106):
 - AniW `cC + ta -> zwa` (`ucC -> uzwa/uzwavat`, mirrors `kz -> zwa` by 8.2.29; sole 01 cC-aniW root `01.0244`, zero conflicts).
 - Panini 8.4.58 parasavarNa / 8.3.23 anusvara: dental `n -> m` before labials (`np->mp`, `nP->mP`, `nB->mB`), `n -> M` before sibilants (`ns->Ms`) in tinanta (additive `m/M` variants in `_prim_bases`, sannanta/nijanta kartari, yak/san-yak/nich-yak karmani; yang keeps nasal-loss `totupyate`) and krdanta (replacement for `Satf/SAnac/tavya/anIyar/Rvul/tfc/lyuw/GaY/tumun` mUla/san/nich; `kta/ktavatu/ktvA/lyap/yat` keep loss-logic; yang keeps original). Surveyed all 14 `n`+labial/s 01 cleans (2 `np` + 2 `nP` + 6 `nB` + 4 `ns`): `tunp->tumpati`, `sranB->sramBate`, `srans->sraMsate`, `Sans->SaMsati; `nd` (`syand/ubund/skand`) expressly excluded, zero conflicts. 14 improved (+7349 tokens), 0 worsened, passes held 1106.
 - liw-redup nasal (same 14-root survey): assimilated `_reduplicated_stem` variants at both liw sites (mUla kartari + yak karmani; `tunp->tutumpa/tutumpe`, `srans->sasraMse`, `Sans->SaSaMsa`, `SranB->SaSramBe`). Additive, yang untouched. 14 improved (+243 tokens), 0 worsened, passes held 1106.
+- krdanta san-stem nasal (same 14-root survey via san_krut/kta bases `tutumpizita/sisraMsizita/SiSramBizita`, zero conflicts): `n->m/M` replacement at `_sannanta_sec` head; downstream `clean = sec` repairs all san_krut pratyayas at once. 14 improved (+308 tokens), 0 worsened, passes held 1106. `san_krut` capped misses 51->12; `nich_krut`/`yangluk_krut` capped-count rises are freed-cap artifacts (fid-diff truth: 0 worsened).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 276 | 01.0105 krut/tavya/M:svazkitavyaH |
 | ting | 205 | 01.0105 ting/lw/prathama/eka:svazkate |
-| san_krut | 51 | 01.0458 san_krut/kta/M:SiSranBizitaH |
+| nich_krut | 38 | 01.0458 nich_krut/SAnac/M:SranByamAnaH |
 | yak | 35 | 01.0458 yak/luN/prathama/eka:aSranBi |
+| san_krut | 12 | 01.0648 san_krut/kta/M:cikzIvizitaH |
+| yangluk_krut | 12 | 01.0829 yangluk_krut/Satf/M:Sansan |
 | nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 | nich | 5 | 01.0920 nich/lw/prathama/eka:dFayate |

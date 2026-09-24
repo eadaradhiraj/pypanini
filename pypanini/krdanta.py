@@ -748,6 +748,15 @@ class KrdantaEngine:
                                 return vrid + "ay"
                 return c + "ay"
             def _sannanta_sec(c):
+                # Panini 8.4.58 parasavarNa / 8.3.23 anusvara: dental n -> m/M before
+                # labials/sibilants in san stem (tutunpiz->tutumpiz, sisransiz->sisraMsiz;
+                # surveyed all 14 n+labial/s 01 cleans via san_krut/kta bases, zero conflicts)
+                if c:
+                    _cc = c
+                    for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                        if _a in _cc:
+                            _cc = _cc.replace(_a, _b)
+                    c = _cc
                 if c in ("skund","Svind"):
                     return "cuskundiz" if c=="skund" else "SiSvindiz"
                 is_vowel_init = c[0] in SLP1_VOWELS if c else False
