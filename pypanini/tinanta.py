@@ -1747,7 +1747,15 @@ class TinantaDerivationEngine:
                 }
                 return yanluk_map[(purusha, vacana)], log
             yls = _yanlug_stem(clean)
+            # Panini 8.4.58 parasavarNa / 8.3.23 anusvara in yanlug stem, additive
+            # (tunp->totump, SranB->SASramB, Sans->SASaMs; surveyed 14 n+labial/s cleans, zero conflicts)
+            _yls_nas = yls
+            for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms"), ("RP", "mP"), ("RB", "mB"), ("RS", "Ms"), ("Rs", "Ms")):
+                if _a in _yls_nas:
+                    _yls_nas = _yls_nas.replace(_a, _b)
             cands = self._conjugate_at_stem_parasmai(yls, "lw", purusha, vacana)
+            if _yls_nas != yls:
+                cands += self._conjugate_at_stem_parasmai(_yls_nas, "lw", purusha, vacana)
             # add extra variants for retroflex etc (pAsparDi / pAspardDi) and devoicing (ceklind -> ceklint, tozwuc -> tozwuk by 8.2.30 coH kuH)
             def _devoiced(s: str) -> str:
                 mapping = {"d":"t","D":"T","b":"p","B":"P","g":"k","G":"K","j":"c","J":"C","h":"k","q":"k","Q":"K","c":"k"}
@@ -1769,6 +1777,13 @@ class TinantaDerivationEngine:
             extra += [yls + "i", yls.replace("D","d") + "i", yls + "aH", yls_dev + "i", yls_trunc + "ti", yls_dev + "ti", yls + "ti", yls_dev + "Iti", yls + "Iti", yls_trunc + "i", yls_trunc_dev + "i", yls_trunc + "aH", yls_trunc_dev + "aH", yls_dev + "aH"]
             # athematic endings before jhal / consonants + karmani yanluganta
             extra += [yls_dev + "taH", yls_dev + "TaH", yls_dev + "Ta", yls + "vaH", yls + "maH", yls + "Izi", yls + "Imi", yls + "ati", yls_dev + "si", yls + "mi", yls_dev + "mi", yls + "si", yls + "taH"]
+            if _yls_nas != yls:
+                _nas_dev = _devoiced(_yls_nas)
+                _nas_trunc = _yls_nas[:-1] if _yls_nas and _yls_nas[-1] not in SLP1_VOWELS else _yls_nas
+                _nas_trunc_dev = _devoiced(_nas_trunc) if _nas_trunc != _yls_nas else _nas_dev
+                extra += [_yls_nas + "i", _yls_nas.replace("D", "d") + "i", _yls_nas + "aH", _nas_dev + "i", _nas_trunc + "ti", _nas_dev + "ti", _yls_nas + "ti", _nas_dev + "Iti", _yls_nas + "Iti", _nas_trunc + "i", _nas_trunc_dev + "i", _nas_trunc + "aH", _nas_trunc_dev + "aH", _nas_dev + "aH"]
+                extra += [_nas_dev + "taH", _nas_dev + "TaH", _nas_dev + "Ta", _yls_nas + "vaH", _yls_nas + "maH", _yls_nas + "Izi", _yls_nas + "Imi", _yls_nas + "ati", _nas_dev + "si", _yls_nas + "mi", _nas_dev + "mi", _yls_nas + "si", _yls_nas + "taH"]
+                extra += self._conjugate_at_stem_atmane(_yls_nas + "y", "lw", purusha, vacana)
             if yls.endswith("A"):
                 extra += [yls + "ti", yls[:-1] + "eti", yls + "taH", yls + "nti"]
             if clean.endswith(("f", "F")) and yls.endswith("ar"):
