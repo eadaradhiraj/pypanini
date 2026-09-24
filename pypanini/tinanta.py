@@ -627,6 +627,20 @@ class TinantaDerivationEngine:
             _yc = clean.replace("nc", "Yc")
             if _yc not in bases:
                 bases.append(_yc)
+        # Panini 8.4.58 parasavarNa / 8.3.23 anusvara: dental n -> m before labials,
+        # M before sibilants (tunp->tumpati, sranB->sramBate, srans->sraMsate, Sans->SaMsati;
+        # surveyed all 14 n+labial/s 01 cleans: 2 np + 2 nP + 6 nB + 4 ns, zero conflicts;
+        # nd (syand/ubund/skand) expressly excluded)
+        _nas = clean
+        for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+            if _a in _nas:
+                _nas = _nas.replace(_a, _b)
+        if _nas != clean:
+            if _nas not in bases:
+                bases.append(_nas)
+            _nas_g = self._bhvadi_guna_base(_nas, is_idit)
+            if _nas_g not in bases:
+                bases.append(_nas_g)
         seen=set(); out=[]
         for b in bases:
             if b not in seen:
@@ -1905,6 +1919,20 @@ class TinantaDerivationEngine:
                     _nst = (clean[:-1] + "m" + clean[-1]) + "ay"
                     if _nst not in n_stems_all:
                         n_stems_all.append(_nst)
+                # Panini 8.4.58/8.3.23 nasal assimilation in nich-yak stem (same survey, additive)
+                _nkc = clean
+                for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                    if _a in _nkc:
+                        _nkc = _nkc.replace(_a, _b)
+                if _nkc != clean:
+                    try:
+                        _nksec = _nijanta_stem(_nkc)
+                        if _nksec not in n_stems_all:
+                            n_stems_all.append(_nksec)
+                    except Exception:
+                        pass
+                    if _nkc + "ay" not in n_stems_all:
+                        n_stems_all.append(_nkc + "ay")
                 # yak stems list from all n_stems
                 yak_stems_all = [s[:-2] + "y" if s.endswith("ay") else s + "y" for s in n_stems_all]
                 yak_stem = yak_stems_all[0] if yak_stems_all else n_stem + "y"
@@ -1947,6 +1975,18 @@ class TinantaDerivationEngine:
                             _sg = apply_guna(_st[0]) + _st[1:]
                             if _sg not in alt_s:
                                 alt_s.append(_sg)
+                # Panini 8.4.58/8.3.23 nasal assimilation in san-yak stem (same 14-root survey, additive)
+                _skc = clean
+                for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                    if _a in _skc:
+                        _skc = _skc.replace(_a, _b)
+                if _skc != clean:
+                    try:
+                        _sksec = _sannanta_stem(_skc)
+                        if _sksec not in [s_stem] + alt_s:
+                            alt_s.append(_sksec)
+                    except Exception:
+                        pass
                 yak_stem = s_stem + "y"
                 sec_stem = s_stem
                 # keep alts for per-lakara generation
@@ -2035,6 +2075,17 @@ class TinantaDerivationEngine:
                     if clean.startswith("Ur"):
                         yak_variants.append("ur" + clean[2:] + "y")
                         sec_variants.append("ur" + clean[2:])
+                # Panini 8.4.58/8.3.23 nasal assimilation in yak (tunp->tumpyate, srans->sraMsyate;
+                # same 14-root survey, additive)
+                _ykc = clean
+                for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                    if _a in _ykc:
+                        _ykc = _ykc.replace(_a, _b)
+                if _ykc != clean:
+                    if _ykc + "y" not in yak_variants:
+                        yak_variants.append(_ykc + "y")
+                    if _ykc not in sec_variants:
+                        sec_variants.append(_ykc)
                 # deduplicate
                 yak_variants = list(dict.fromkeys(yak_variants))
                 sec_variants = list(dict.fromkeys(sec_variants))
@@ -2805,6 +2856,19 @@ class TinantaDerivationEngine:
                 _v_alt = "jigamiz" if ("gam" in clean or "gam" in op) else ("yiyamiz" if ("yam" in clean or "yam" in op) else "ninamiz")
                 if _v_alt not in alt_sann and _v_alt != s_stem:
                     alt_sann.append(_v_alt)
+            # Panini 8.4.58/8.3.23 nasal assimilation in san stem (tunp->tutumpiz, srans->sisraMsiz;
+            # same 14-root survey as _prim_bases, additive)
+            _snc = clean
+            for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                if _a in _snc:
+                    _snc = _snc.replace(_a, _b)
+            if _snc != clean:
+                try:
+                    _snsec = _sannanta_stem(_snc)
+                    if _snsec not in [s_stem] + alt_sann:
+                        alt_sann.append(_snsec)
+                except Exception:
+                    pass
             guna_base = self._bhvadi_guna_base(clean, is_idit)
             s_stems = [s_stem] + alt_sann
             # vowel-initial sannanta ti/di alternation (at->atitiz/ aditiz, 7.4.??): generate both voiceless/voiced
@@ -2964,6 +3028,22 @@ class TinantaDerivationEngine:
                     alt_u = "U" + clean[1:] + "ay"
                     if alt_u not in n_stems:
                         n_stems.append(alt_u)
+            # Panini 8.4.58/8.3.23 nasal assimilation in niC stem (tunp->tumpay, srans->sraMsay;
+            # same 14-root survey, additive; nich vriddhi fixed separately)
+            _nnc = clean
+            for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                if _a in _nnc:
+                    _nnc = _nnc.replace(_a, _b)
+            if _nnc != clean:
+                try:
+                    _nnsec = _nijanta_stem(_nnc)
+                    if _nnsec not in n_stems:
+                        n_stems.append(_nnsec)
+                except Exception:
+                    pass
+                _nnplain = _nnc + "ay"
+                if _nnplain not in n_stems:
+                    n_stems.append(_nnplain)
             # Use first as n_stem for backward compat, but will generate for all below
             is_atman = (pada == "Atmanepadi")
             # For the per-lakara handling below, we will need to handle multiple n_stems

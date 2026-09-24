@@ -3,7 +3,7 @@ Generative Kṛdanta Engine - no per-dhatu form dictionaries.
 Derives from dhatu properties (sew, pada, vowel-final etc.)
 Supports primitive (mUla) for any BvAdi dhatu; sanAdi with overrides still uses templates.
 """
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 import json
 import glob
 import re
@@ -1411,6 +1411,21 @@ class KrdantaEngine:
         # Panini 7.3.84 / 7.3.86: single-vowel ik roots (u, i, f) and laghupadha ik-initial roots take guna
         is_laghu_ik_init = (len(clean) == 1 and clean in ("i", "u", "f", "x")) or (len(clean) == 2 and clean[0] in ("i", "u", "f", "x") and clean[1] not in SLP1_VOWELS)
 
+        # Panini 8.4.58 parasavarNa / 8.3.23 anusvara: dental n -> m before labials,
+        # M before sibilants in krdanta mUla/san/nich stems (tunp->tumpitavya, sranB->sramBaka,
+        # srans->sraMsanIya, Sans->SaMsana; surveyed all 14 n+labial/s 01 cleans, zero conflicts;
+        # nd expressly excluded; kta/ktavatu/ktvA/lyap/yat keep loss-logic; yang keeps original)
+        if sanadi in (None, "sannanta", "nijanta") and pratyaya in ("Satf", "SAnac", "tavya", "anIyar", "Rvul", "tfc", "lyuw", "GaY", "tumun"):
+            _cn = clean
+            for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                if _a in _cn:
+                    _cn = _cn.replace(_a, _b)
+            if _cn != clean:
+                clean = _cn
+                guna_base = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
+                vriddhi_base = self._vriddhi_base(clean, is_idit)
+                is_laghu_ik_init = (len(clean) == 1 and clean in ("i", "u", "f", "x")) or (len(clean) == 2 and clean[0] in ("i", "u", "f", "x") and clean[1] not in SLP1_VOWELS)
+
         # helper to build tri-linga from stem ending in 'a'
         def tri_linga(stem_a: str) -> Dict:
             # stem_a ends with 'a' e.g., eDita, BavanIya
@@ -1763,7 +1778,7 @@ class KrdantaEngine:
                     _sk = _sk[:-1] + "av"
                 best = _sk + "a"
 
-            best = best.replace("nsa", "Msa").replace("nSa", "MSa").replace("nBa", "mBa")
+            best = best.replace("nsa", "Msa").replace("nSa", "MSa").replace("nBa", "mBa").replace("npa", "mpa").replace("nPa", "mPa")
             if best.endswith("a"):
                 stem = best + "mAna"
             elif best.endswith("A"):
@@ -1772,7 +1787,7 @@ class KrdantaEngine:
                 stem = best + "amAna"
 
             # Nasal assimilation (8.3.24) before sibilants and labials
-            stem = stem.replace("nsa", "Msa").replace("nSa", "MSa").replace("nBa", "mBa")
+            stem = stem.replace("nsa", "Msa").replace("nSa", "MSa").replace("nBa", "mBa").replace("npa", "mpa").replace("nPa", "mPa")
             if dhatu_id and dhatu_id.endswith("0105"):
                 stem = "zvazkamARa"
             if clean not in ("kfp", "BrAS", "BlAS", "ftu", "fti"):
