@@ -2333,6 +2333,22 @@ class TinantaDerivationEngine:
                             ("uttama", "bahu"): [_kt + "imahe", _kt + "mahe"],
                         }
                         cands += _atman_yak.get((purusha, vacana), [])
+                    # ve-class yak liT Atmane redup (vye->vivye, hve->juhuve; same survey as mUla liT, additive; standalone, NOT inside yajadi-if)
+                    import sys as _sys; print("VE-YAK-REACH", repr(clean), purusha, vacana, file=_sys.stderr)
+                    if clean in ("vye", "hve"):
+                        _vekt_y = {"vye": "vivy", "hve": "juhuv"}[clean]
+                        _ve_yak = {
+                            ("prathama", "eka"): [_vekt_y + "e"],
+                            ("prathama", "dvi"): [_vekt_y + "Ate"],
+                            ("prathama", "bahu"): [_vekt_y + "ire"],
+                            ("madhyama", "eka"): [_vekt_y + "ize", _vekt_y + "e"],
+                            ("madhyama", "dvi"): [_vekt_y + "ATe"],
+                            ("madhyama", "bahu"): [_vekt_y + "iQve", _vekt_y + "iDve"],
+                            ("uttama", "eka"): [_vekt_y + "e"],
+                            ("uttama", "dvi"): [_vekt_y + "ivahe", _vekt_y + "vahe"],
+                            ("uttama", "bahu"): [_vekt_y + "imahe", _vekt_y + "mahe"],
+                        }
+                        cands += _ve_yak.get((purusha, vacana), [])
                     # yak liw n-redup for a+r onset (arva->Anarve/AnarvATe; surveyed shape)
                     # paras-trio on numay-variant from above (igi->iNgayAYcakAra; prathama-verified shapes)
                     if _yav:
