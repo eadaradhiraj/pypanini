@@ -3305,6 +3305,19 @@ class TinantaDerivationEngine:
                                     cand.append(_ya2 + _ye2)
                 except Exception:
                     pass
+                # Nitya-san nich-luN caN (3.1.5/3.1.6, seT only; 01.0461 excluded via sew): aug + dIrgha-san-base + ata.
+                try:
+                    if sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+                        _csb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean]
+                        for _ii, _ch in enumerate(_csb):
+                            if _ch in SLP1_VOWELS:
+                                _csb = _csb[:_ii] + {"u": "U", "i": "I"}.get(_ch, _ch) + _csb[_ii+1:]
+                                break
+                        _caor = {("prathama", "eka"): "ata", ("prathama", "dvi"): "atAm", ("prathama", "bahu"): "anta", ("madhyama", "eka"): "aTAH", ("madhyama", "dvi"): "atAm", ("madhyama", "bahu"): "aDvam", ("uttama", "eka"): "e", ("uttama", "dvi"): "Avahi", ("uttama", "bahu"): "Amahi"}
+                        if (purusha, vacana) in _caor:
+                            cand.append("a" + _csb + _caor[(purusha, vacana)])
+                except Exception:
+                    pass
                 # add Ur variants for kurda (cukurd -> cukUrd, acukur -> acukUr)
                 cand = list(dict.fromkeys(cand + [c.replace("cukurd","cukUrd") for c in cand if "cukurd" in c] + [c.replace("acukur","acukUr") for c in cand if "acukur" in c] + [c.replace("ur","Ur",1) for c in cand if "ur" in c]))
                 return list(dict.fromkeys(_early + cand)), log
