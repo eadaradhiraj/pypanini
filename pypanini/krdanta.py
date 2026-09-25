@@ -880,6 +880,9 @@ class KrdantaEngine:
                                 return vrid + "ay"
                 return c + "ay"
             def _sannanta_sec(c):
+                # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew).
+                if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
+                    return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]
                 # Panini 8.4.58 parasavarNa / 8.3.23 anusvara: dental n -> m/M before
                 # labials/sibilants in san stem (tutunpiz->tutumpiz, sisransiz->sisraMsiz;
                 # surveyed all 14 n+labial/s 01 cleans via san_krut/kta bases, zero conflicts)
