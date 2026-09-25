@@ -1205,6 +1205,10 @@ class TinantaDerivationEngine:
                             return vrid + "ay"
             return c + "ay"
         def _sannanta_stem(c):
+            # Panini 3.1.5/3.1.6 nitya-san closed list (bundled s/dIrgha/M/cutva as one san-stem map; ting/yak use separate iz-less base map above).
+            _nitya_san = {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}
+            if c in _nitya_san:
+                return _nitya_san[c]
             if c in ("skund", "Svind"):
                 return "cuskundiz" if c == "skund" else "SiSvindiz"
             # special for urd/Urd -> urdidiz (rdid not dird)
