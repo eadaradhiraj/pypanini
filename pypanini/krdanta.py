@@ -737,6 +737,10 @@ class KrdantaEngine:
         if clean.endswith("C") and "ur" not in clean and "Ur" not in clean:
             clean = clean[:-1] + "cC"
         sew = meta["sew"]
+        # Nitya-san (3.1.5/3.1.6, seT only): krdanta mUla uses san base (consonant-final). Excludes 01.0461 via sew. kta already hits via _nitya_san_kta map (consistent: generic _kta_stem(jugups) also gives jugupsita).
+        if sanadi is None and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+            _nkr = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
+            clean = _nkr[clean]
         orig_clean = clean
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
         if is_adeca(clean) and (sanadi is not None or pratyaya not in ("Satf", "SAnac", "cAnaS", "BAvakarma-SAnac", "sya-Satf", "sya-SAnac", "sya-BAvakarma-SAnac")):
