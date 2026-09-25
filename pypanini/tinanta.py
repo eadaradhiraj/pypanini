@@ -146,7 +146,7 @@ class TinantaDerivationEngine:
                         _is_sk2354 = (info.get("kOmudIsUtrakramANkaH") == "2354") and ("PaRAdi" not in antara) and (not antara)
                         _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
                         is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
-                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "gana": gana, "is_idit": is_idit, "op": op, "is_mit": is_mit, "antara": antara}
+                        entry = {"clean": clean, "pada": pada, "padam": padam, "sew": sew, "sew_raw": sew_raw, "gana": gana, "is_idit": is_idit, "op": op, "is_mit": is_mit, "antara": antara}
                         self._dhatu_cache[clean] = entry
                         self._dhatu_cache[op] = entry
                         self._dhatu_cache[op.replace("~","").replace("`","").strip()] = entry
@@ -1062,6 +1062,7 @@ class TinantaDerivationEngine:
         sanadi: Optional[str] = None,
         dhatu_id: Optional[str] = None,
         json_path: Optional[str] = None,
+        _force_pada: Optional[str] = None,
     ) -> Tuple[List[str], List[str]]:
         log: List[str] = []
         # resolve via id if provided (homonym support: klidi 01.0015 Atman vs 01.0076 paras)
@@ -1078,6 +1079,8 @@ class TinantaDerivationEngine:
         clean = meta["clean"]
         op = meta.get("op", "")
         pada = meta["pada"]
+        if _force_pada:
+            pada = _force_pada
         # Panini 1.3.60 SaqaH SIyateH: Sad takes Atmanepada when replaced by SIyad (Sarvadhatuka Sit: lw, low, laN, viDiliN)
         if (clean in ("Sad", "Sadx") or op.startswith("Sad")) and sanadi is None and prayoga == "kartari" and lakara in ("lw", "low", "laN", "viDiliN"):
             pada = "Atmanepadi"
@@ -1095,6 +1098,12 @@ class TinantaDerivationEngine:
         if sanadi is None and prayoga in ("kartari", "karmani") and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
             _nitya_ting = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
             clean = _nitya_ting[clean]
+        # uBayapadI mUla kartari: generate BOTH padas (additive; f1 == status quo ante).
+        # Fixes Atmane-paradigm JSONs like 01.0459 sranB (sramBate...); paras-JSON uBaya keep hits via f1.
+        if _force_pada is None and sanadi is None and prayoga == "kartari" and "ubaya" in str(meta.get("padam", "")).lower():
+            _f1, _l1 = self.derive(dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path, _force_pada="parasmEpadi")
+            _f2, _l2 = self.derive(dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path, _force_pada="Atmanepadi")
+            return list(dict.fromkeys(_f1 + _f2)), _l1
         is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
         if dhatu_id == "01.0030" and clean in ("yat", "yatI") and lakara == "luN" and purusha == "prathama" and vacana == "eka" and prayoga == "karmani" and sanadi is None:
             return ["ayAti"], []
