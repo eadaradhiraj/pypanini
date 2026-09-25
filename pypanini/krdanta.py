@@ -1593,6 +1593,23 @@ class KrdantaEngine:
         # Yangluk krdanta has no yat (surveyed all 1078 yangluk_krut in 01, zero yat keys).
         if sanadi == "yanluganta" and pratyaya == "yat":
             return None
+        # Yangluk Satf loss+redup (nasal only; e.g. Sans->SASasat, sranB->sAsraBat; Atmane None overridden where nasal hit exists).
+        if sanadi == "yanluganta" and pratyaya == "Satf":
+            try:
+                _ylm2 = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
+                if _ylm2 is None:
+                    try:
+                        _ylm2 = self._yanlug_m_base(clean, op, meta, is_idit, pada)
+                    except Exception:
+                        _ylm2 = None
+                if _ylm2 is not None:
+                    _lb = _ylm2
+                    for _a, _b in (("mB", "B"), ("mp", "p"), ("mP", "P"), ("Ms", "s")):
+                        if _a in _lb:
+                            _lb = _lb.replace(_a, _b)
+                    return {"M": _lb + "at", "F": _lb + "atI", "N": _lb + "at"}
+            except Exception:
+                pass
 
         # primitive generative
         def needs_i_for_kta() -> bool:
