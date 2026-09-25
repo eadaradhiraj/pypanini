@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +9019 across twelve nasal + E-yak + nitya-san-base iterations (0 true worsened).
+Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +9610 across twelve nasal + E-yak + nitya-san iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -45,16 +45,16 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - krdanta yangluk Satf loss+redup (nasal only): 7 improved (+21), +1 pass `01.0829`, `yangluk_krut` cleared.
 - E-yak Iya for 2-letter E-roots (`tinanta.py` yak mUla only): additive `Iy/I` variants (`me->mIyate`, `de->dIyate`; `gE` already had Iya via explicit rule; `jE/kE/pE` etc. keep Aya so zero conflicts; `vye` len-3 excluded for veY-group later). Surveyed all E-final yak in 01: Ayate majority, Iya minority (`gE/me/de/vye`), Uyate samprasaranA minority (`ve/hve`) left untouched. 2 improved (+72 tokens: `01.1116` 795->831, `01.1117` 797->833), 0 worsened, passes held 1119. `yak` capped misses 10->5; newly-surfaced `yang` 5 (`01.1116 yang/liw:mAmAyAYcakre`) is freed-cap artifact (fid-diff truth: 0 worsened).
 - krdanta yangluk yat suppression (general: surveyed all 1078 yangluk_krut in 01, zero `yat` keys): `yat` returns None for yanluganta. Removes 3 miss-slots/fid (yat M/F/N had no true expected anywhere). Passes +5 (`01.0458/0857/0858/0859/0861` → 100%), 0 true worsened (absolute matched drops by suppression totals only; no fid went pass→fail). `yangluk_krut` capped misses 43->4 (remaining `Satf` loss group, e.g. `01.0459 yangluk_krut/Satf/M:sramBan`).
-- nitya-san ting base map, seT-restricted (Panini 3.1.5/3.1.6 closed list of 7; excludes aniT `gupU~ 01.0461` via `sew` after failed-hydrogen lesson): ting kartari uses san base without iz. 7 improved (+39 tokens), 0 worsened, passes held 1119. NOTE: lw Atmane double-a sandhi (`jugupsaate` vs `jugupsate`) queued next.
+- nitya-san ting base map, seT-restricted + consonant-final sandhi fix (7 cleans; `01.0461` excluded): ting kartari uses san base (`jugups/titikz/cikits/mImAMs/bIBats/dIdAMs/SISAMs`; endings supply `a`). 7 improved (+591 tokens: `01.1125-1128` 24->111, `01.1148` 27->108, `01.1149/1150` 30->111), 0 worsened, passes held 1119. `ting` capped misses 165->130; newly-surfaced `yak` 5->40 (`gupyate` etc., yak needs san stem too — queued next) is freed-cap artifact (fid-diff truth: 0 worsened).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 220 | 01.0105 krut/tavya/M:svazkitavyaH |
-| ting | 165 | 01.0105 ting/lw/prathama/eka:svazkate |
+| ting | 130 | 01.0105 ting/lw/prathama/eka:svazkate |
+| yak | 40 | 01.1125 yak/lw/prathama/eka:gupyate |
 | san_krut | 15 | 01.0459 san_krut/Satf/M:sisramBizan |
 | nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
-| yak | 5 | 01.0921 yak/liw/prathama/eka:nanFe |
 | yang | 5 | 01.1116 yang/liw/prathama/eka:mAmAyAYcakre |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 | nich | 5 | 01.0920 nich/lw/prathama/eka:dFayate |
