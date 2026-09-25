@@ -2057,6 +2057,14 @@ class TinantaDerivationEngine:
                 else:
                     yak_variants = [yak_stem, clean + "y"] if yak_stem != clean + "y" else [yak_stem]
                     sec_variants = [sec_stem, clean] if sec_stem != clean else [sec_stem]
+                # E-final 2-letter roots take Iya in yak (mIyate/dIyate/gIyate; surveyed me/de/gE want Iya, jE/kE/pE etc. keep Aya — additive so zero conflicts)
+                if clean.endswith(("e", "E")) and len(clean) == 2:
+                    _iya = clean[:-1] + "Iy"
+                    _iya_sec = clean[:-1] + "I"
+                    if _iya not in yak_variants:
+                        yak_variants.append(_iya)
+                    if _iya_sec not in sec_variants:
+                        sec_variants.append(_iya_sec)
                 # idit i-final velar/palatal takes assimilated num in yak too (sraki->sraNkyate; meta skips num for Y-class)
                 if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                     _ybw = clean[:-1]
