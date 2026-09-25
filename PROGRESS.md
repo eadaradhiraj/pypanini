@@ -4,14 +4,13 @@ Date: 2026-09-24
 Sweep: **1119/1156 100%** (96.8%, raw 1119/1166)
 
 ## Done
-- E-yak Iya for 2-letter E-roots (Panini yak, additive; `vye` excluded for veY-group):
-  - `tinanta.py`: `Iy/I` variants for len-2 E cleans. Surveyed all E-yak: Aya majority, Iya (`gE/me/de`), U samprasaranA (`ve/hve`) untouched. Zero conflicts (Aya kept).
+- nitya-san ting base map, seT-restricted (failed-hydrogen lesson applied: `01.0461 gupU~` excluded via `sew`):
+  - `tinanta.py`: 7-clean base map for ting kartari. Surveyed Panini list.
   - Full Sweep Results: passes held **1119/1156**:
-    - 2 improved, +72 tokens, **0 worsened**: `01.1116` 795->831, `01.1117` 797->833.
-    - `yak` 10->5; newly-surfaced `yang` 5 (freed-cap, 0 worsened).
-    - Pilots held 100%.
-- Prior work: nasal +8908; combined +8980.
+    - 7 improved, +39 tokens, **0 worsened**: `01.1125-1128` 21->24, `01.1148` 18->27, `01.1149/1150` 21->30.
+    - `01.0461` held 883/883. Pilots held.
+- Prior work: +8980; combined +9019.
 
 ## Next
-1. `01.1116` yang liT (`mAmAyAYcakre`?) + `01.1117` liT (`dade` vs `digye`) + `veY/vyeY/hveY` samprasaranA group (E→I/U).
-2. Then `01.0459` uBaya, nich kta/SAnac leftovers, `gup`-cluster, `qIN/tF`, `dF/nF`. Stash split. Advance 1119→1125+.
+1. nitya-san lw Atmane double-a sandhi (`jugupsaate` vs `jugupsate`: a-final base + ate → te).
+2. Then `01.0459` uBaya, `meN/deN` liT, `veY` group, `qIN/tF`, `dF/nF`, gup-satva. Advance 1119→1125+.

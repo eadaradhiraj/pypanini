@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +8980 across twelve nasal + one E-yak iterations (0 true worsened).
+Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +9019 across twelve nasal + E-yak + nitya-san-base iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -45,6 +45,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - krdanta yangluk Satf loss+redup (nasal only): 7 improved (+21), +1 pass `01.0829`, `yangluk_krut` cleared.
 - E-yak Iya for 2-letter E-roots (`tinanta.py` yak mUla only): additive `Iy/I` variants (`me->mIyate`, `de->dIyate`; `gE` already had Iya via explicit rule; `jE/kE/pE` etc. keep Aya so zero conflicts; `vye` len-3 excluded for veY-group later). Surveyed all E-final yak in 01: Ayate majority, Iya minority (`gE/me/de/vye`), Uyate samprasaranA minority (`ve/hve`) left untouched. 2 improved (+72 tokens: `01.1116` 795->831, `01.1117` 797->833), 0 worsened, passes held 1119. `yak` capped misses 10->5; newly-surfaced `yang` 5 (`01.1116 yang/liw:mAmAyAYcakre`) is freed-cap artifact (fid-diff truth: 0 worsened).
 - krdanta yangluk yat suppression (general: surveyed all 1078 yangluk_krut in 01, zero `yat` keys): `yat` returns None for yanluganta. Removes 3 miss-slots/fid (yat M/F/N had no true expected anywhere). Passes +5 (`01.0458/0857/0858/0859/0861` → 100%), 0 true worsened (absolute matched drops by suppression totals only; no fid went pass→fail). `yangluk_krut` capped misses 43->4 (remaining `Satf` loss group, e.g. `01.0459 yangluk_krut/Satf/M:sramBan`).
+- nitya-san ting base map, seT-restricted (Panini 3.1.5/3.1.6 closed list of 7; excludes aniT `gupU~ 01.0461` via `sew` after failed-hydrogen lesson): ting kartari uses san base without iz. 7 improved (+39 tokens), 0 worsened, passes held 1119. NOTE: lw Atmane double-a sandhi (`jugupsaate` vs `jugupsate`) queued next.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
