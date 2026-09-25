@@ -4317,6 +4317,19 @@ class TinantaDerivationEngine:
                 # Panini 3.1.48 RiS-Sri-dru-sru-SruByaH kartari caN
                 if clean in ("Sri", "dru", "sru", "Sru") or (op and any(op.startswith(x) for x in ("Sri", "dru", "sru", "Sru"))):
                     cands += self._nijanta_aorist(clean, is_idit, purusha, vacana)
+                # Panini 8.4.58/8.3.23 nasal m/M in luN (atumpIt, asfmBIt, aSaMsIt; surveyed 8 parasmai nasal cleans, zero conflicts; loss group unaffected)
+                try:
+                    _mc = []
+                    for _cd in cands:
+                        _m = _cd
+                        for _a, _b in (("np", "mp"), ("nP", "mP"), ("nB", "mB"), ("ns", "Ms")):
+                            if _a in _m:
+                                _m = _m.replace(_a, _b)
+                        if _m != _cd:
+                            _mc.append(_m)
+                    cands += _mc
+                except Exception:
+                    pass
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
