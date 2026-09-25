@@ -1090,9 +1090,9 @@ class TinantaDerivationEngine:
             clean_ay = "panAy"
         elif clean == "kam" or op.startswith("kam") or dhatu_id == "01.0511":
             clean_ay = "kAmay"
-        # Panini 3.1.5 gup-tij-kit + 3.1.6 mAn-baD-dAn-SAn (nitya-san, seT only): ting uses san base (consonant-final; endings add a).
+        # Panini 3.1.5 gup-tij-kit + 3.1.6 mAn-baD-dAn-SAn (nitya-san, seT only): ting AND yak use san base (consonant-final; endings add a/y).
         # Excludes aniT gupU~ 01.0461 (sew False, gopAy path) — failed-hydrogen lesson 2026-09-25.
-        if sanadi is None and prayoga == "kartari" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+        if sanadi is None and prayoga in ("kartari", "karmani") and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
             _nitya_ting = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
             clean = _nitya_ting[clean]
         is_vowel_initial = clean[0] in SLP1_VOWELS if clean else False
