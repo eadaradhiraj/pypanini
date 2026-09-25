@@ -1368,6 +1368,9 @@ class KrdantaEngine:
             # (jugupsitaH/jugupsyamAnaH/...; surveyed 7/7 unanimous, zero conflicts). Standalone (after chain).
             if sanadi == "yananta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
                 sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean]
+            # Nitya-san yangluk_krut uses san stem too (jugupsat/jugupsitavyaH/...; surveyed 7/7 unanimous). Standalone (after chain).
+            if sanadi == "yanluganta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+                sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean]
             # save original clean for overrides
             orig_clean = clean
             clean = sec
