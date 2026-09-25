@@ -1137,6 +1137,10 @@ class TinantaDerivationEngine:
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
         # helper for sannanta / nijanta / yan stems (generative)
         def _nijanta_stem(c):
+            # Nitya-san (3.1.5/3.1.6, seT only): nich uses san base (jugupsay/titikzay/...; 01.0461 aniT excluded via sew).
+            if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
+                _nsb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
+                return _nsb[c] + "ay"
             if c == "yat":
                 return "yAtay"
             # Panini 7.1.63 rabher a-Sab-liwoH / 7.1.64 laBeS ca: raB/laB take num before Ri
