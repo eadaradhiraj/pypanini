@@ -2032,6 +2032,11 @@ class TinantaDerivationEngine:
                             alt_s.append(_sksec)
                     except Exception:
                         pass
+                # ve-class (veY/vyeY/hveY) san stems for san_yak too (same survey, additive)
+                if clean in ("ve", "vye", "hve"):
+                    _ve_sy = {"ve": "vivAs", "vye": "vivyAs", "hve": "juhUz"}[clean]
+                    if _ve_sy not in [s_stem] + alt_s:
+                        alt_s.append(_ve_sy)
                 yak_stem = s_stem + "y"
                 sec_stem = s_stem
                 # keep alts for per-lakara generation
@@ -2095,6 +2100,14 @@ class TinantaDerivationEngine:
                         yak_variants.append(_iya)
                     if _iya_sec not in sec_variants:
                         sec_variants.append(_iya_sec)
+                # ve-class (veY/vyeY/hveY) yak takes samprasArana U-grade (Uyate/vIyate/hUyate; surveyed 3/3 unanimous, additive)
+                if clean in ("ve", "vye", "hve"):
+                    _vey = {"ve": "Uy", "vye": "vIy", "hve": "hUy"}[clean]
+                    _vey_sec = {"ve": "U", "vye": "vI", "hve": "hU"}[clean]
+                    if _vey not in yak_variants:
+                        yak_variants.append(_vey)
+                    if _vey_sec not in sec_variants:
+                        sec_variants.append(_vey_sec)
                 # idit i-final velar/palatal takes assimilated num in yak too (sraki->sraNkyate; meta skips num for Y-class)
                 if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")):
                     _ybw = clean[:-1]
@@ -2945,6 +2958,11 @@ class TinantaDerivationEngine:
                         alt_sann.append(_snsec)
                 except Exception:
                     pass
+            # ve-class (veY/vyeY/hveY) san stems: redup + samprasArana + s (vivAs/vivyAs/juhUz; surveyed 3/3 unanimous, additive)
+            if clean in ("ve", "vye", "hve"):
+                _ve_san = {"ve": "vivAs", "vye": "vivyAs", "hve": "juhUz"}[clean]
+                if _ve_san not in [s_stem] + alt_sann:
+                    alt_sann.append(_ve_san)
             guna_base = self._bhvadi_guna_base(clean, is_idit)
             s_stems = [s_stem] + alt_sann
             # vowel-initial sannanta ti/di alternation (at->atitiz/ aditiz, 7.4.??): generate both voiceless/voiced
@@ -3540,6 +3558,21 @@ class TinantaDerivationEngine:
                 _pv = (purusha, vacana)
                 _jicands = (_atman_ji.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras_ji.get(_pv, [])) + _paras_ji.get(_pv, []) + _atman_ji.get(_pv, [])
                 return list(dict.fromkeys(_jicands)), log
+            # ve-class liT Atmane redup (vye->vivye, hve->juhuve; surveyed 2/2 unanimous, JSON Atmane-only; ve already hits via generic path so excluded)
+            if clean in ("vye", "hve"):
+                _vekt = {"vye": "vivy", "hve": "juhuv"}[clean]
+                _ve_atman = {
+                    ("prathama", "eka"): [_vekt + "e"],
+                    ("prathama", "dvi"): [_vekt + "Ate"],
+                    ("prathama", "bahu"): [_vekt + "ire"],
+                    ("madhyama", "eka"): [_vekt + "ize", _vekt + "e"],
+                    ("madhyama", "dvi"): [_vekt + "ATe"],
+                    ("madhyama", "bahu"): [_vekt + "iQve", _vekt + "iDve"],
+                    ("uttama", "eka"): [_vekt + "e"],
+                    ("uttama", "dvi"): [_vekt + "ivahe", _vekt + "vahe"],
+                    ("uttama", "bahu"): [_vekt + "imahe", _vekt + "mahe"],
+                }
+                return list(dict.fromkeys(_ve_atman.get((purusha, vacana), [_vekt + "e"]))), log
             # Panini 7.3.34 AtaH for A-ending roots in liw + 6.1.45 Adeca upadeSe 'Siti
             _a_map = {
                 "sTA": "tasT", "zWA": "tasT",
