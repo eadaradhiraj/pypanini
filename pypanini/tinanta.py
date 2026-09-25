@@ -1412,6 +1412,10 @@ class TinantaDerivationEngine:
             suffix = "s" if c.endswith(("a", "A")) else ("z" if is_vowel_final else "iz")
             return redup_cons + redup_vowel + _c_san + suffix
         def _yan_stem(c):
+            # Nitya-san (3.1.5/3.1.6, seT only): yang uses san base (jugupsya/titikzya/...; 01.0461 aniT excluded via sew).
+            if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
+                _ysb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
+                return _ysb[c] + "ya"
             if c == "BU":
                 return "boBUy"
             if c in ("skund", "Svind"):

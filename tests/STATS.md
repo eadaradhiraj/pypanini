@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +12753 across nasal + E-yak + nitya-san iterations (0 true worsened).
+Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +14013 across nasal + E-yak + nitya-san iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -47,7 +47,8 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - krdanta yangluk yat suppression (general: surveyed all 1078 yangluk_krut in 01, zero `yat` keys): `yat` returns None for yanluganta. Removes 3 miss-slots/fid (yat M/F/N had no true expected anywhere). Passes +5 (`01.0458/0857/0858/0859/0861` → 100%), 0 true worsened (absolute matched drops by suppression totals only; no fid went pass→fail). `yangluk_krut` capped misses 43->4 (remaining `Satf` loss group, e.g. `01.0459 yangluk_krut/Satf/M:sramBan`).
 - nitya-san ting+yak base (7 cleans, seT-only; `01.0461` excluded): ting kartari + yak karmani use san base (consonant-final). 7 improved (+591 ting, +630 yak), passes held 1119.
 - nitya-san san-stem map (7 cleans): s/dIrgha/M/cutva san redup. 7 improved (+1260), passes held 1119. `san` 40->5.
-- nitya-san nich stem (7 cleans, seT-only; `01.0461` excluded via `sew`): nich uses san base (`jugupsay/titikzay/...`). 7 improved (+1253 tokens), 0 worsened, passes held 1119. `nich` capped misses 40->12; newly-surfaced `yang` 5->33 (`jogupyate` etc., yang needs san stem too — queued next) + nich-luN (`ajugupsayizwa`, same queue) are freed-cap artifacts (fid-diff truth: 0 worsened).
+- nitya-san nich stem (7 cleans, seT-only): nich uses san base. 7 improved (+1253), passes held 1119. `nich` 40->12.
+- nitya-san yang stem (7 cleans, seT-only): yang uses san base + ya (`jugupsya/titikzya/...`). 7 improved (+1260 tokens), 0 worsened, passes held 1119. `yang` capped misses 33->5; newly-surfaced `yangluk` 0->28 (`tetii/jogupsi` — yangluk redup of san base, queued next) + nich-luN leftovers are freed-cap artifacts (fid-diff truth: 0 worsened).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
@@ -59,6 +60,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 | nich | 12 | 01.1125 nich/luN/prathama/eka:ajugupsayizwa |
 | san_krut | 15 | 01.0459 san_krut/Satf/M:sisramBizan |
 | nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
-| yang | 33 | 01.1125 yang/lw/prathama/eka:jogupyate |
+| yang | 5 | 01.1116 yang/liw/prathama/eka:mAmAyAYcakre |
+| yangluk | 28 | 01.1125 yangluk/lw/prathama/eka:jogupsi |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 | yang_krut | 5 | 01.1124 yang_krut/kta/M:tetrIyitaH |
