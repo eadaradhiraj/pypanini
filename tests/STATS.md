@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +14013 across nasal + E-yak + nitya-san iterations (0 true worsened).
+Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +14139 across nasal + E-yak + nitya-san iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -48,7 +48,8 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - nitya-san ting+yak base (7 cleans, seT-only; `01.0461` excluded): ting kartari + yak karmani use san base (consonant-final). 7 improved (+591 ting, +630 yak), passes held 1119.
 - nitya-san san-stem map (7 cleans): s/dIrgha/M/cutva san redup. 7 improved (+1260), passes held 1119. `san` 40->5.
 - nitya-san nich stem (7 cleans, seT-only): nich uses san base. 7 improved (+1253), passes held 1119. `nich` 40->12.
-- nitya-san yang stem (7 cleans, seT-only): yang uses san base + ya (`jugupsya/titikzya/...`). 7 improved (+1260 tokens), 0 worsened, passes held 1119. `yang` capped misses 33->5; newly-surfaced `yangluk` 0->28 (`tetii/jogupsi` — yangluk redup of san base, queued next) + nich-luN leftovers are freed-cap artifacts (fid-diff truth: 0 worsened).
+- nitya-san yang stem (7 cleans, seT-only): yang uses san base + ya. 7 improved (+1260), passes held 1119. `yang` 33->5.
+- nitya-san yangluk stem (7 cleans, seT-only): yanlug uses san base (`jugups/titikz/...`). 7 improved (+126 tokens: each +18), 0 worsened, passes held 1119. `yangluk` capped misses 28->0 (cleared from miss list; remaining nich-luN queued next).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
@@ -61,6 +62,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 | san_krut | 15 | 01.0459 san_krut/Satf/M:sisramBizan |
 | nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
 | yang | 5 | 01.1116 yang/liw/prathama/eka:mAmAyAYcakre |
-| yangluk | 28 | 01.1125 yangluk/lw/prathama/eka:jogupsi |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 | yang_krut | 5 | 01.1124 yang_krut/kta/M:tetrIyitaH |

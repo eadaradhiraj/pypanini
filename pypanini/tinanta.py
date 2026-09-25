@@ -1597,6 +1597,10 @@ class TinantaDerivationEngine:
                 return None  # use map
             if c in ("sUd", "sUd"):
                 return "sozUd"
+            # Nitya-san (3.1.5/3.1.6, seT only): yanlug uses san base (jugups/titikz/...; 01.0461 aniT excluded via sew).
+            if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
+                _ylb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
+                return _ylb[c]
             # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
             if c == "dyut" or (op and op.startswith("dyut")):
                 return "dedyut"
