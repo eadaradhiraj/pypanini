@@ -1339,6 +1339,11 @@ class KrdantaEngine:
                     return forms.get(pratyaya)
             if sanadi == "nijanta":
                 sec = "kAmay" if clean == "kam" else ((clean_ay + "ay") if (clean_ay and clean != "kram") else _nijanta_sec(clean))
+                # Nitya-san (3.1.5/3.1.6, seT only; 01.0461 aniT excluded via sew): nich of san stem
+                # (jugupsayamAnaH/jugupsayan/jugupsayitavyaH/jugupsyaH...; surveyed 7/7 unanimous, zero conflicts)
+                _nitya_san_nic = sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn")
+                if _nitya_san_nic:
+                    sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean] + "ay"
             elif sanadi == "sannanta":
                 sec = _sannanta_sec(clean_ay) if (clean_ay and clean != "kram") else _sannanta_sec(clean)
                 # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (iw->ewiwiz, uz->oziziz, uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, fj->arjijiz)
@@ -1385,6 +1390,12 @@ class KrdantaEngine:
                     _pra = "prac" if sec_base.startswith("C") else "pra"
                     return {"avyaya": [_pra+sec_base+"ya", "pra"+sec_base+"ya", sec_base+"ya", _pra+sec+"ya", "pra"+sec+"ya", sec+"ya"]}
                 if pratyaya == "SAnac":
+                    # Nitya-san nich keeps -ay- before amAna (jugupsayamAnaH/titikzayamARaH); generic sec_base gives BAv-style -yamAna
+                    if _nitya_san_nic:
+                        _nb = sec_base + "ayamAna"
+                        if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and _nb.endswith("amAna"):
+                            _nb = _nb[:-5] + "amARa"
+                        return {"M": _nb + "H", "F": _nb[:-1] + "A" if _nb.endswith("a") else _nb + "A", "N": _nb + "m"}
                     base = sec_base+"yamAna"
                     if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and base.endswith("amAna"):
                         base = base[:-5] + "amARa"

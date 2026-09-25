@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +14510 across nasal + E-yak + nitya-san iterations (0 true worsened).
+Passes: **1119/1156 100%** (96.8%, raw 1119/1166). Fails: 37 scored (47 with 10 skipped). Net matched tokens +14680 across nasal + E-yak + nitya-san iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -52,7 +52,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - nitya-san yangluk stem (7 cleans, seT-only): yanlug uses san base. 7 improved (+126), passes held 1119. `yangluk` cleared.
 - nitya-san nich-luN caN (7 cleans, seT-only): aug + dIrgha-san-base + ata (`ajUgupsata/atItikzata/...`). 7 improved (+7 tokens, each +1), 0 worsened, passes held 1119.
 - nitya-san krdanta base (7 cleans, seT-only; `01.0461` excluded via `sew`): krdanta mUla uses san base. 7 improved (+152 tokens), 0 worsened, passes held 1119. `krut` capped misses 220->171 (`san_krut` spike handled next).
-- nitya-san san_krut kta iz-stem (7 cleans, seT-only; `01.0461` excluded via `sew`): `_sannanta_sec` returns san base + iz (`jugupsiz/titikziz/cikitsiz/mImAMsiz/bIBatsiz/dIdAMsiz/SISAMsiz`). 7 improved (+212 tokens), 0 worsened, passes held 1119. `san_krut` 99->15 (spike cleared back to baseline `01.0459 sisramBizan`); newly-surfaced `nich_krut` 11->95 (`gopyamAnaH` etc., SAnac/Satf queued next) is freed-cap artifact (fid-diff truth: 0 worsened).
+- nitya-san nich_krut san stem (7 cleans, seT-only; `01.0461` excluded via `sew`): nijanta `sec` = san base + ay; SAnac keeps -ay- (`jugupsayamAnaH/titikzayamARaH` +natva mirror). tavya/tfc/anIyar/yat/Rvul/Satf automatic via existing overrides. 7 improved (+170 tokens: 4×23 + 3×26), 0 worsened, passes held 1119. `nich_krut` 95->11 (spike cleared back to baseline `01.0920 dArayan`); newly-surfaced `yang_krut` 5->89 (yang-stem kta `jogupitaH` etc., queued next) is freed-cap artifact (fid-diff truth: 0 worsened).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
@@ -63,7 +63,8 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 | san | 5 | 01.1123 san/lw/prathama/eka:RiRqizati |
 | nich | 12 | 01.1125 nich/luN/prathama/eka:ajugupsayizwa |
 | san_krut | 15 | 01.0459 san_krut/Satf/M:sisramBizan |
-| nich_krut | 95 | 01.1125 nich_krut/SAnac/M:gopyamAnaH |
+| nich_krut | 11 | 01.0920 nich_krut/Satf/M:dArayan |
+| yang_krut | 89 | 01.1125 yang_krut/kta/M:jogupitaH |
 | yang | 5 | 01.1116 yang/liw/prathama/eka:mAmAyAYcakre |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 | yang_krut | 5 | 01.1124 yang_krut/kta/M:tetrIyitaH |
