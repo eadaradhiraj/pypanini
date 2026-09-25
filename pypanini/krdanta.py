@@ -1364,6 +1364,10 @@ class KrdantaEngine:
                 else:
                     sec = clean
             else: sec = clean
+            # Nitya-san (3.1.5/3.1.6, seT only; 01.0461 aniT excluded via sew): yang_krut uses san stem
+            # (jugupsitaH/jugupsyamAnaH/...; surveyed 7/7 unanimous, zero conflicts). Standalone (after chain).
+            if sanadi == "yananta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+                sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean]
             # save original clean for overrides
             orig_clean = clean
             clean = sec
@@ -1457,6 +1461,12 @@ class KrdantaEngine:
                     _p_form = _pra + sec[1:] + "ya" if sec and sec[0] in SLP1_VOWELS else "pra" + sec + "ya"
                     return {"avyaya": [_p_form, "pra" + sec + "ya", sec + "ya"]}
             if sanadi == "yananta":
+                # Nitya-san yang_krut SAnac uses san base + ya (jugupsyamAnaH/titikzyamARaH; surveyed 7/7 unanimous)
+                if pratyaya == "SAnac" and sew and orig_clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+                    _ys = sec + "yamAna"
+                    if _natva_applies(sec) and _ys.endswith("amAna"):
+                        _ys = _ys[:-5] + "amARa"
+                    return {"M": _ys + "H", "F": _ys[:-1] + "A" if _ys.endswith("a") else _ys + "A", "N": _ys + "m"}
                 _b_op = (op or "").replace("~", "").replace("`", "").strip()
                 is_genuine_vowel_root = (not is_idit) and bool(orig_clean) and (orig_clean[-1] in SLP1_VOWELS) and not any(c in SLP1_VOWELS for c in orig_clean[:-1])
                 _is_samyoga_f = orig_clean.endswith(("f", "F")) and len([ch for ch in orig_clean if ch not in SLP1_VOWELS]) > 1
