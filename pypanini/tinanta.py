@@ -2016,6 +2016,11 @@ class TinantaDerivationEngine:
             if clean == "aw" or (op and op.startswith("aw")):
                 yls2 = "awAw"
                 extra += [yls + "wi", yls + "wwi", yls2 + "taH", yls2 + "TaH", yls2 + "Ta", yls2 + "vaH", yls2 + "maH", yls2 + "waH", yls2 + "WaH", yls2 + "Wa", yls2 + "wwaH", yls2 + "wWaH", yls2 + "wWa"]
+            # zWiv yangluk uses perfect stems (wezWivIti/tezWivIti, not intensive zezWiv-)
+            if clean == "zWiv":
+                for _ys2 in ("wezWiv", "tezWiv"):
+                    extra += self._conjugate_at_stem_parasmai(_ys2, "lw", purusha, vacana)
+                    extra += [_ys2 + "Iti", _ys2 + "ti", _ys2 + "si", _ys2 + "mi", _ys2 + "vaH", _ys2 + "maH"]
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)

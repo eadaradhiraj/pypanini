@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1148/1156 100%** (99.3%, raw 1148/1166). Fails: 8 scored (18 with 10 skipped). Net matched tokens +29109 across all generative iterations (0 true worsened).
+Passes: **1149/1156 100%** (99.4%, raw 1149/1166). Fails: 7 scored (17 with 10 skipped). Net matched tokens +29127 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -63,6 +63,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - yang present-long for kziv (`cekzIvyate/acekzIvyata`; f~ already long via clean): appended I-grade conjugation at the TRUE yananta fallthrough + laN branch + yang_yak `yak_list`. Caught mid-iteration: first insertion went into DEAD CODE (unreachable fallthrough inside the laN/luN if — laN half worked, lw half silently didn't); stack-trace located the live fallthrough. 1 improved (+72: `01.0648` 761->833), 0 worsened, passes held 1148. Freed-cap: `san_krut` 17->22 (krut-Satf `kzIvan` now visible), `yang` 10->5.
 - yang perfect-short for zWiv, kartari half (`wezWiv`/`tezWiv` + AYcakre/itA/izIzwa/izya/izwa; present keeps `tezWIvya-`): `_yan_perf` stem list consumed by yang liT/luw/ASIrliN/lfw/lfN/luN branches (looped, additive). 1 improved (+108: `01.0641` 763->871), 0 worsened, passes held 1148. Freed-cap: `yangluk` 0->5 (`zezWivmaH`, queued next); `yang` cleared to 0.
 - Caught + fixed mid-iteration: inserted `if` had captured the sec-chain `elif/else` (broke all yananta: pilots + `01.0461` -72); moved override to standalone after chain. Lesson: never insert `if` between `elif` links — append after `else`.
+- yangluk perfect-stems for zWiv (`wezWiv`/`tezWiv` + parasmai lw conjugation + Iti/ti/si/mi; twin covered by same branch): **1 improved (+18: `01.0641` 871->889/889 PASS), 0 worsened, passes +1 → 1149/1156**. `yangluk` cleared to 0. Twin `all_secs` inserts proven redundant (kartari path serves twin) and reverted.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
@@ -70,8 +71,6 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 | krut | 41 | 01.0262 krut/anIyar/M:ajanIyaH |
 | san_krut | 22 | 01.0459 san_krut/Satf/M:sisramBizan |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
-| yangluk | 5 | 01.0641 yangluk/lw/prathama/eka:zezWivmaH |
 | ting | 5 | 01.1050 ting/liw/prathama/eka:daDayva |
 | san | 5 | 01.1086 san/lw/prathama/eka:ardizate |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
-| yang_krut | 5 | 01.1124 yang_krut/kta/M:tetrIyitaH |
