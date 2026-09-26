@@ -800,6 +800,9 @@ class KrdantaEngine:
         if sanadi is None and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
             _nkr = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
             clean = _nkr[clean]
+        # zUrkzya~ krdanta u-grade (sUkzyan/sUkzyitaH/...; sUrkzya~ keeps Ur). Op-initial-shape-gated homonym split (tinanta keeps sUrkzy-).
+        if clean == "sUrkzy" and op.startswith("zUrkzy"):
+            clean = "sUkzy"
         orig_clean = clean
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
         if is_adeca(clean) and (sanadi is not None or pratyaya not in ("Satf", "SAnac", "cAnaS", "BAvakarma-SAnac", "sya-Satf", "sya-SAnac", "sya-BAvakarma-SAnac")):

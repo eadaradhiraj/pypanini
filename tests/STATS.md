@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1150/1156 100%** (99.5%, raw 1150/1166). Fails: 6 scored (16 with 10 skipped). Net matched tokens +29186 across all generative iterations (0 true worsened).
+Passes: **1151/1156 100%** (99.6%, raw 1151/1166). Fails: 5 scored (15 with 10 skipped). Net matched tokens +29322 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -66,11 +66,12 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - yangluk perfect-stems for zWiv (`wezWiv`/`tezWiv` + parasmai lw conjugation + Iti/ti/si/mi; twin covered by same branch): **1 improved (+18: `01.0641` 871->889/889 PASS), 0 worsened, passes +1 → 1149/1156**. `yangluk` cleared to 0. Twin `all_secs` inserts proven redundant (kartari path serves twin) and reverted.
 - krdanta e-grade for kzIvu~ (`_sannanta_sec` -> `cikzeviz`; mUla Satf base -> `kzev`; f~ keeps I-grade; mirrors `_kta_stem` op-gating precedent): 1 improved (+35: `01.0648` 833->868), 0 worsened, passes held 1149. Freed-cap: `san_krut` 22->13, `krut` 41->38, newly-surfaced `yang_krut` 0->12 (`cekzIvitaH`, queued next).
 - yang short-i twin for kzIvu~ (kta/ktavatu/tavya/tfc/anIyar/Rvul list-valued twins, computed longs first + explicit shorts, all verified in tokens; lyuw/GaY op-gated REPLACE; tumun avyaya-append; yangluk-Satf early twin): **1 improved (+24: `01.0648` 868->892/892 PASS), 0 worsened, passes +1 → 1150/1156**. `yang_krut` cleared to 0. Debugging note: apparent `in`-vs-comprehension contradiction was I/i misread (`cekzIvitum` vs `cekzIvitum`); hex-dump suspected strings when forms look identical but don't match.
+- zUrkzya~ krdanta u-grade (`sUrkzy`->`sUkzy` for op `zUrkzya~`; `sUrkzya~` keeps Ur; tinanta untouched): **1 improved (+136: `01.1048` 756->892/892 PASS), 0 worsened, passes +1 → 1151/1156**. Single rewrite fixed all 5 krdanta antas via generic machinery. Freed-cap: `krut` 38->26.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 38 | 01.0262 krut/anIyar/M:ajanIyaH |
+| krut | 26 | 01.0262 krut/anIyar/M:ajanIyaH |
 | san_krut | 13 | 01.0459 san_krut/Satf/M:sisramBizan |
 | yang_krut | 12 | 01.0648 yang_krut/kta/M:cekzIvitaH |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
