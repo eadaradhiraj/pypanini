@@ -4054,6 +4054,10 @@ class TinantaDerivationEngine:
                     cands += [_auo + "t", _auo + "d"]
                 elif (purusha, vacana) == ("madhyama", "eka"):
                     cands += [_auo + "H"]
+            # UrRu laN-eka o-grade bare doublet (OrRot/OrRod — haplology OrR-O-t; sole o-root surveyed;
+            # ru/tu/stu ride the O-block above; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "UrRu" and (purusha, vacana) == ("prathama", "eka"):
+                cands += ["OrRot", "OrRod"]
             # AdAdi-u luk imperfect weak slots: weak-u + endings (ayutAm/ayuvan with v-epenthesis before
             # vowel-endings), 1sg av-grade (ayavam); same family/gating; ru-1sg/vI/o-grades queued separately.
             if meta.get("gana") == "adAdiH" and sanadi is None and clean.endswith("u"):
