@@ -3914,6 +3914,11 @@ class TinantaDerivationEngine:
                 _ic = meta.get("clean")
                 _ilw = {("prathama","eka"):[_ic+"iti"],("prathama","dvi"):[_ic+"itaH"],("prathama","bahu"):([_ic+"anti"] if _ic != "jakz" else ["jakzati"]),("madhyama","eka"):[_ic+"izi"],("madhyama","dvi"):[_ic+"iTaH"],("madhyama","bahu"):[_ic+"iTa"],("uttama","eka"):[_ic+"imi"],("uttama","dvi"):[_ic+"ivaH"],("uttama","bahu"):[_ic+"imaH"]}
                 cands += _ilw.get((purusha, vacana), [])
+            # jAgf f-grade ablaut present (ar-pits jAgarti, f-weak jAgftaH, short bahu jAgrati; sole 02.0067
+            # surveyed; ar+si gives arzi like izi/vakzi; additive; meta-clean gate).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "jAg":
+                _jlw = {("prathama","eka"):["jAgarti"],("prathama","dvi"):["jAgftaH"],("prathama","bahu"):["jAgrati"],("madhyama","eka"):["jAgarzi"],("madhyama","dvi"):["jAgfTaH"],("madhyama","bahu"):["jAgfTa"],("uttama","eka"):["jAgarmi"],("uttama","dvi"):["jAgfvaH"],("uttama","bahu"):["jAgfmaH"]}
+                cands += _jlw.get((purusha, vacana), [])
             # AdAdi luk present, short-a consonant-coda stems: stem + endings with coda-sandhi
             # (atti/hanti/vakti; d->t/_voiceless, n->M/_s, n->0/_t, c->k/_voiceless, s-lopa for as-clean only;
             # Gnanti-type readings queued). Gana-gated + additive.
