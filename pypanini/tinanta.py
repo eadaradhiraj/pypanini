@@ -3892,6 +3892,14 @@ class TinantaDerivationEngine:
             # Panini 3.1.74 SruvaH Sf ca
             if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
                 cands += self._snu_parasmai("SfR", "laN", purusha, vacana)
+            # AdAdi-u luk imperfect: pit-singulars take O-grade (ayOt/ayOd/ayOH; same ablaut family as
+            # lw yOti; gana-gated + additive; ru/tu/stu/UrRu contribute O-variants where attested).
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean.endswith("u"):
+                _auo = self._add_augment(clean[:-1] + "O", False)
+                if (purusha, vacana) == ("prathama", "eka"):
+                    cands += [_auo + "t", _auo + "d"]
+                elif (purusha, vacana) == ("madhyama", "eka"):
+                    cands += [_auo + "H"]
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
@@ -3911,6 +3919,10 @@ class TinantaDerivationEngine:
             # Panini 3.1.74 SruvaH Sf ca
             if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
                 cands += self._snu_parasmai("SfR", "low", purusha, vacana)
+            # AdAdi-u luk imperative: 3sg takes O-grade (yOtu; same ablaut family; gana-gated + additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean.endswith("u"):
+                if (purusha, vacana) == ("prathama", "eka"):
+                    cands += [(clean[:-1] + "O") + "tu"]
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
