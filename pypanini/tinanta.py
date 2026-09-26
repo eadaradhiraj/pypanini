@@ -3857,6 +3857,43 @@ class TinantaDerivationEngine:
                 _uweak = clean
                 _ue = {("prathama","eka"):[_ustrong+"ti"],("prathama","dvi"):[_uweak+"taH"],("prathama","bahu"):[_uweak+"vanti"],("madhyama","eka"):[_ustrong+"zi"],("madhyama","dvi"):[_uweak+"TaH"],("madhyama","bahu"):[_uweak+"Ta"],("uttama","eka"):[_ustrong+"mi"],("uttama","dvi"):[_uweak+"vaH"],("uttama","bahu"):[_uweak+"maH"]}
                 cands += _ue.get((purusha, vacana), [])
+            # AdAdi luk present, short-a consonant-coda stems: stem + endings with coda-sandhi
+            # (atti/hanti/vakti; d->t/_voiceless, n->M/_s, n->0/_t, c->k/_voiceless, s-lopa for as-clean only;
+            # Gnanti-type readings queued). Gana-gated + additive.
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] not in SLP1_VOWELS:
+                _lvA = None
+                for _ch in reversed(clean):
+                    if _ch in SLP1_VOWELS:
+                        _lvA = _ch
+                        break
+                if _lvA == "a":
+                    _pe = {("prathama","eka"):"ti",("prathama","dvi"):"taH",("prathama","bahu"):"anti",("madhyama","eka"):"si",("madhyama","dvi"):"TaH",("madhyama","bahu"):"Ta",("uttama","eka"):"mi",("uttama","dvi"):"vaH",("uttama","bahu"):"maH"}
+                    _ee = _pe.get((purusha, vacana))
+                    if _ee:
+                        _st = clean
+                        _ec = _ee[0]
+                        _voiceless = _ec in ("t", "T", "s")
+                        if clean == "as":
+                            # as- ablaut: strong as- in eka only (asti/asi/asmi), weak s- elsewhere (staH/santi)
+                            _st = "as" if vacana == "eka" else "s"
+                            # as+si degeminates (asi, not assi; sas+si keeps ss: sassi)
+                            if _ee == "si":
+                                cands.append("asi")
+                            else:
+                                cands.append(_st + _ee)
+                        elif clean[-1] == "d" and _voiceless:
+                            _st = clean[:-1] + "t"
+                        elif clean[-1] == "n" and _ec == "s":
+                            _st = clean[:-1] + "M"
+                        elif clean[-1] == "n" and _ee in ("taH", "TaH", "Ta"):
+                            _st = clean[:-1]
+                        elif clean[-1] == "c" and _voiceless:
+                            _st = clean[:-1] + "k"
+                        # ṣatva: si -> zi after velar stop (vakzi; sole vac-shape surveyed, jakza-class rides free)
+                        if _ee == "si" and _st and _st[-1] in ("k", "K", "g", "G"):
+                            cands.append(_st + "zi")
+                        else:
+                            cands.append(_st + _ee)
             for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "lw", purusha, vacana)
