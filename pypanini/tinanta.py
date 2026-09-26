@@ -3975,6 +3975,22 @@ class TinantaDerivationEngine:
                 _auav = self._add_augment(clean[:-1] + "av", False)
                 _weak_laN = {("prathama","dvi"):[_auw+"tAm"],("prathama","bahu"):[_auw+"v"+"an"],("madhyama","dvi"):[_auw+"tam"],("madhyama","bahu"):[_auw+"ta"],("uttama","eka"):[_auav+"am"],("uttama","dvi"):[_auw+"va"],("uttama","bahu"):[_auw+"ma"]}
                 cands += _weak_laN.get((purusha, vacana), [])
+            # AdAdi-i luk imperfect: aug e-grade singulars (avet/aved/aveH; Et/Ed/EH via vriddhi-augment),
+            # aug weak rest (avItAm/aviyan; EtAm/Ayan), aug ay-grade 1sg (avayam/Ayam); sole vI + iR surveyed;
+            # exact-clean gate; gana-gated + additive.
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] in ("i", "I"):
+                _iiew = clean
+                _iiee = (clean[:-1] + "e" if len(clean) > 1 else "e")
+                _iiey = (clean[:-1] + "iy" if len(clean) > 1 else "y")
+                _iiea = (clean[:-1] + "ay" if len(clean) > 1 else "ay")
+                _aie = self._add_augment(_iiee, _iiee[0] in SLP1_VOWELS if _iiee else False)
+                _aiw = self._add_augment(_iiew, _iiew[0] in SLP1_VOWELS if _iiew else False)
+                _aia = self._add_augment(_iiea, _iiea[0] in SLP1_VOWELS if _iiea else False)
+                _ie_laN = {("prathama","eka"):[_aie+"t",_aie+"d"],("prathama","dvi"):[_aiw+"tAm"],("madhyama","eka"):[_aie+"H"],("madhyama","dvi"):[_aiw+"tam"],("madhyama","bahu"):[_aiw+"ta"],("uttama","eka"):[_aia+"am"],("uttama","dvi"):[_aiw+"va"],("uttama","bahu"):[_aiw+"ma"]}
+                cands += _ie_laN.get((purusha, vacana), [])
+                # laN 3pl y-grade is fragmented (aviyan vs Ayan; sole pair) — per-clean table (laN-eka precedent)
+                if (purusha, vacana) == ("prathama", "bahu"):
+                    cands += {"vI": ["aviyan"], "i": ["Ayan"]}.get(clean, [])
             # AdAdi-a luk imperfect: uniform slots via aug-length + helper-stem + endings, plus eka/m.eka
             # per-clean tables (fragmented aug-lengths/shapes; sole-surveyed ad/han/vac/as/sas); G-variants queued.
             if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] not in SLP1_VOWELS:
@@ -4035,6 +4051,16 @@ class TinantaDerivationEngine:
                 _avw = clean[:-1] + "av"
                 _weak_low = {("madhyama","eka"):[clean+"tAt",clean+"tAd",clean+"hi"],("prathama","dvi"):[clean+"tAm"],("prathama","bahu"):[clean+"vantu"],("madhyama","dvi"):[clean+"tam"],("madhyama","bahu"):[clean+"ta"],("uttama","eka"):[_avw+"Ani"],("uttama","dvi"):[_avw+"Ava"],("uttama","bahu"):[_avw+"Ama"]}
                 cands += _weak_low.get((purusha, vacana), [])
+            # AdAdi-i luk imperative: e-grade 3sg (vetu/etu), weak-i + t-endings, y-grade 3pl (viyantu/yantu),
+            # ay-grade 1sg-group (vayAni/ayAni); sole pair vI + iR surveyed (exact-clean gate, idit-i untouched);
+            # gana-gated + additive (Atmane i-roots queued separately).
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] in ("i", "I"):
+                _iew = clean
+                _iee = (clean[:-1] + "e" if len(clean) > 1 else "e")
+                _iey = (clean[:-1] + "iy" if len(clean) > 1 else "y")
+                _iea = (clean[:-1] + "ay" if len(clean) > 1 else "ay")
+                _ie_low = {("madhyama","eka"):[_iew+"tAt",_iew+"tAd",_iew+"hi"],("prathama","eka"):[_iee+"tu"],("prathama","dvi"):[_iew+"tAm"],("prathama","bahu"):[_iey+"antu"],("madhyama","dvi"):[_iew+"tam"],("madhyama","bahu"):[_iew+"ta"],("uttama","eka"):[_iea+"Ani"],("uttama","dvi"):[_iea+"Ava"],("uttama","bahu"):[_iea+"Ama"]}
+                cands += _ie_low.get((purusha, vacana), [])
             # AdAdi-a luk imperative: luk-stem doublets (weak + strong for as-3sg astu) + endings
             # (attAt/adantu...; 2sg Dhi-variants adDi/vagDi/saDi/eDi, jahi skipped); same sandhi family
             # via helper; gana-gated + additive.
@@ -4101,6 +4127,13 @@ class TinantaDerivationEngine:
                 _syf = "saMst" + _sy.get((purusha, vacana), "yAt")
                 if _syf not in cands:
                     cands.append(_syf)
+            # AdAdi-i luk optative: weak-i + yAt-endings (vIyAt/iyAt; same yAt-map family; sole vI + iR;
+            # exact-clean gate; gana-gated + additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] in ("i", "I"):
+                _iy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
+                _iyf = clean + _iy.get((purusha, vacana), "yAt")
+                if _iyf not in cands:
+                    cands.append(_iyf)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
