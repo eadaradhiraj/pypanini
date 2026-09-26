@@ -1969,7 +1969,9 @@ class KrdantaEngine:
         # E-final yuk group ends in E, unaffected). kta/ktavatu use orig_clean (unaffected); every other
         # mUla pratyaya currently misses, so replacement here cannot regress — DA-forms match via the
         # same E-root machinery (tavya DAtavya, tfc DAtA, anIyar DAnIya, GaY/Rvul DAya).
-        if sanadi is None and clean.endswith("ew") and not sew:
+        # NOTE: kta/ktavatu EXCLUDED — they take I-grade via _kta_stem(DIta), which needs the true clean
+        # (routing them through DA yielded DAta, a 5-slot regression vs pre-reassignment DIta).
+        if sanadi is None and clean.endswith("ew") and not sew and pratyaya not in ("kta", "ktavatu"):
             clean = clean[:-2] + "A"
             guna_base = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
             vriddhi_base = self._vriddhi_base(clean, is_idit)
