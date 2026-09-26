@@ -3842,6 +3842,14 @@ class TinantaDerivationEngine:
         # primitive - generative per lakara (over-generate for vowel-initial)
         if lakara == "lw":
             cands=[]
+            # AdAdi luk present, u-stems: pit-singulars take O-grade, rest weak u-grade (yOti/yutaH/yuvanti;
+            # surveyed 02 u-finals incl. ru/tu/stu/UrRu O-variants; vI-grade/o-grade/Aha queued separately).
+            # Gana-gated (BvAdi untouched); additive (BvAdi-loop below still runs, harmless for AdAdi).
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean.endswith("u"):
+                _ustrong = clean[:-1] + "O"
+                _uweak = clean
+                _ue = {("prathama","eka"):[_ustrong+"ti"],("prathama","dvi"):[_uweak+"taH"],("prathama","bahu"):[_uweak+"vanti"],("madhyama","eka"):[_ustrong+"zi"],("madhyama","dvi"):[_uweak+"TaH"],("madhyama","bahu"):[_uweak+"Ta"],("uttama","eka"):[_ustrong+"mi"],("uttama","dvi"):[_uweak+"vaH"],("uttama","bahu"):[_uweak+"maH"]}
+                cands += _ue.get((purusha, vacana), [])
             for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "lw", purusha, vacana)
