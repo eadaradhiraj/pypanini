@@ -4014,6 +4014,11 @@ class TinantaDerivationEngine:
                 _iae = _iate.get((purusha, vacana))
                 if _iae:
                     cands.append(self._adadi_atmane_joint(_hiy, _iae))
+            # SI e/ay/er present (Sete/SayAte/Serate + Seze; sole 02.0026 surveyed — er-grade only in
+            # bahu; ay-grade in Ate/ate/ATe/e; e-grade elsewhere; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
+                _si9 = {("prathama","eka"):["Sete"],("prathama","dvi"):["SayAte"],("prathama","bahu"):["Serate"],("madhyama","eka"):["Seze"],("madhyama","dvi"):["SayATe"],("madhyama","bahu"):["SeDve"],("uttama","eka"):["Saye"],("uttama","dvi"):["Sevahe"],("uttama","bahu"):["Semahe"]}
+                cands += _si9.get((purusha, vacana), [])
             # vid luk present (e-grade-tt vetti + vida- doublets veda/vidantu...; sole 02.0059 surveyed;
             # any-match scoring needs >=1 attested form per slot — mapping by shape; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
@@ -4224,6 +4229,10 @@ class TinantaDerivationEngine:
                     cands.append(self._adadi_atmane_joint(_aughiy, _i3e))
                 if (purusha, vacana) == ("uttama", "eka"):
                     cands += {"dIDI": ["adIDi"], "vevI": ["avevi"]}.get(_hiy3, [])
+            # SI e/ay/er imperfect (aSeta/aSayAtAm/aSerata + ay-u.eka aSayi; sole 02.0026; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
+                _sia = {(("prathama","eka")):["aSeta"],(("prathama","dvi")):["aSayAtAm"],(("prathama","bahu")):["aSerata"],(("madhyama","eka")):["aSeTAH"],(("madhyama","dvi")):["aSayATAm"],(("madhyama","bahu")):["aSeDvam"],(("uttama","eka")):["aSayi"],(("uttama","dvi")):["aSevahi"],(("uttama","bahu")):["aSemahi"]}
+                cands += _sia.get((purusha, vacana), [])
             # Iq/IS quirky imperfect (ww-eka + i-slots + EqQvam m.bahu; surveyed pair; standalone literals).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 _qa = {"Iq": ["Ewwa", "EqAtAm", "Eqata", "EwWAH", "EqATAm", "EqQvam", "Eqi", "Eqvahi", "Eqmahi"], "IS": ["Ezwa", "ESAtAm", "ESata", "EzWAH", "ESATAm", "EqQvam", "ESi", "ESvahi", "ESmahi"]}[meta.get("clean")]
@@ -4349,6 +4358,10 @@ class TinantaDerivationEngine:
                     cands.append(self._adadi_atmane_joint(_hiy2, _iao))
                 if (purusha, vacana) == ("madhyama", "eka"):
                     cands.append(self._adadi_atmane_joint(_hiy2, "sva"))
+            # SI e/ay/er imperative (SetAm/SayAtAm/SeratAm + Sezva; sole 02.0026; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
+                _sio = {("prathama","eka"):["SetAm"],("prathama","dvi"):["SayAtAm"],("prathama","bahu"):["SeratAm"],("madhyama","eka"):["Sezva"],("madhyama","dvi"):["SayATAm"],("madhyama","bahu"):["SeDvam"],("uttama","eka"):["SayE"],("uttama","dvi"):["SayAvahE"],("uttama","bahu"):["SayAmahE"]}
+                cands += _sio.get((purusha, vacana), [])
             # Iq/IS quirky imperative (ww-eka + i-augment izva/iDve; surveyed pair; standalone literals).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 _qo = {"Iq": ["IwwAm", "IqAtAm", "IqatAm", "Iqizva", "IqATAm", "IqiDvam", "IqE", "IqAvahE", "IqAmahE"], "IS": ["IzwAm", "ISAtAm", "ISatAm", "ISizva", "ISATAm", "ISiDvam", "ISE", "ISAvahE", "ISAmahE"]}[meta.get("clean")]
@@ -4486,6 +4499,12 @@ class TinantaDerivationEngine:
                 _i4e = _iavi.get((purusha, vacana))
                 if _i4e:
                     cands.append(self._adadi_atmane_joint(_hiy4, _i4e))
+            # SI ay-optative (SayIta/SayIran; ay-grade throughout viD; sole 02.0026; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
+                _sivi = {(("prathama","eka")):"Ita",(("prathama","dvi")):"IyAtAm",(("prathama","bahu")):"Iran",(("madhyama","eka")):"ITAH",(("madhyama","dvi")):"IyATAm",(("madhyama","bahu")):"IDvam",(("uttama","eka")):"Iya",(("uttama","dvi")):"Ivahi",(("uttama","bahu")):"Imahi"}
+                _sie = _sivi.get((purusha, vacana))
+                if _sie:
+                    cands.append(self._adadi_atmane_joint("Say", _sie))
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
