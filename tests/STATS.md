@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1151/1156 100%** (99.6%, raw 1151/1166). Fails: 5 scored (15 with 10 skipped). Net matched tokens +29534 across all generative iterations (0 true worsened).
+Passes: **1151/1156 100%** (99.6%, raw 1151/1166). Fails: 5 scored (15 with 10 skipped). Net matched tokens +29655 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -68,6 +68,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - yang short-i twin for kzIvu~ (kta/ktavatu/tavya/tfc/anIyar/Rvul list-valued twins, computed longs first + explicit shorts, all verified in tokens; lyuw/GaY op-gated REPLACE; tumun avyaya-append; yangluk-Satf early twin): **1 improved (+24: `01.0648` 868->892/892 PASS), 0 worsened, passes +1 → 1150/1156**. `yang_krut` cleared to 0. Debugging note: apparent `in`-vs-comprehension contradiction was I/i misread (`cekzIvitum` vs `cekzIvitum`); hex-dump suspected strings when forms look identical but don't match.
 - zUrkzya~ krdanta u-grade (`sUrkzy`->`sUkzy` for op `zUrkzya~`; `sUrkzya~` keeps Ur; tinanta untouched): **1 improved (+136: `01.1048` 756->892/892 PASS), 0 worsened, passes +1 → 1151/1156**. Single rewrite fixed all 5 krdanta antas via generic machinery. Freed-cap: `krut` 38->26.
 - single-vocalic-f san stem (`f`->`aririz`; sole 01 f-clean `01.1086`, `u`->`Uziz` parallel above; tinanta `_sannanta_stem` + krdanta `_sannanta_sec`): 1 improved (+212: `01.1086` 306->518), 0 worsened, passes held 1151. Freed-cap: `san_krut` 13->6, `san` 5->0 (cleared), newly-surfaced `nich` 0->5 + `nich_krut` 0->7 (`Arayan/fayati`, queued next).
+- single-vocalic-f nich puk stem (`f`->`arpay`; sole 01 f-clean `01.1086`, `ji`-`jApay` parallel; tinanta `_nijanta_stem` only): 1 improved (+121: `01.1086` 518->639), 0 worsened, passes held 1151. Freed-cap: `nich` 5->0 (cleared), `yang` 0->5 (`ferIyate`, queued); krdanta `nich_krut` still 7 (`Arayan`, same-trait twin queued next).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
@@ -77,5 +78,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 | nich_krut | 7 | 01.1086 nich_krut/Satf/M:Arayan |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
 | ting | 5 | 01.1050 ting/liw/prathama/eka:daDayva |
-| nich | 5 | 01.1086 nich/lw/prathama/eka:fayati |
+| yang | 5 | 01.1086 yang/lw/prathama/eka:ferIyate |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
