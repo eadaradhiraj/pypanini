@@ -338,7 +338,10 @@ class TinantaDerivationEngine:
                 return stem[:-2] + "n" + ending
             return stem + ending
         if stem.endswith("Yj"):
-            if _e0 in ("t", "T", "s"):
+            # satva: se/sva -> ze/zva after the Nk (niNkze/niNkzva; mirrors vakzi; surveyed all Yj alat/alot)
+            if _e0 == "s":
+                return stem[:-2] + "Nk" + "z" + ending[1:]
+            if _e0 in ("t", "T"):
                 return stem[:-2] + "Nk" + ending
             if _e0 == "D":
                 return stem[:-2] + "Ng" + ending

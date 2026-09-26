@@ -2361,17 +2361,22 @@ class KrdantaEngine:
             if clean in ("ftu", "fti") or op.startswith("ft") or (dhatu_id and dhatu_id.endswith("1166")):
                 return tri_linga("ftIyamAna")
 
-            # idit i-final num-clean (agi->aNgamAnaH)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and any(c in SLP1_VOWELS for c in clean[:-1]):
-                _sbw = clean[:-1]
+            # idit i-final num-clean (agi->aNgamAnaH; AdAdi luk takes -Ana: kaMsAnaH/niYjAnaH)
+            # NB: derive-level num may pre-rewrite local clean (kasi->kaMs), so gate on meta-clean fallback.
+            _idc = clean if clean.endswith(("i", "I")) else (meta.get("clean", "") or "")
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and _idc.endswith(("i", "I")) and any(c in SLP1_VOWELS for c in _idc[:-1]):
+                _sbw = _idc[:-1]
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else ("n" if _sbw and _sbw[-1] in ("t", "T", "d", "D", "n") else None))))
                 if not _sn and _sbw and _sbw[-1] in ("s", "S", "z", "h"):
                     _sn = "M"
                 if _sn and len(_sbw) >= 1:
                     _snc = _sbw[:-1] + _sn + _sbw[-1]
-                    _ss = _snc + "amAna"
-                    if _natva_applies(_snc) and _ss.endswith("amAna"):
-                        _ss = _ss[:-5] + "amARa"
+                    # AdAdi luk SAnac takes -Ana (kaMsAnaH/niYjAnaH; BvAdi keeps -amAna (aNgamAnaH);
+                    # gana-gated; surveyed 02 idit-i class, zero conflicts).
+                    _asuf = "Ana" if meta.get("gana") == "adAdiH" else "amAna"
+                    _ss = _snc + _asuf
+                    if _natva_applies(_snc) and _ss.endswith(_asuf):
+                        _ss = _ss[: -len(_asuf)] + ("amARa" if _asuf == "amAna" else "ARa")
                     return tri_linga(_ss)
 
             if clean_ay and sanadi is None and clean != "kram":
