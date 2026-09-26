@@ -958,6 +958,9 @@ class KrdantaEngine:
                 # zWivu~: ti-redup Wev-stem (tizWeviz-, mirrors tinanta).
                 if c == "zWiv":
                     return "tizWeviz"
+                # kzIvu~ san e-grade (cikzevizitaH/cikzevizan/...; f~ keeps I-grade cikzIviz-).
+                if c == "kzIv" and "u~" in op:
+                    return "cikzeviz"
                 # Panini 8.4.58 parasavarNa / 8.3.23 anusvara: dental n -> m/M before
                 # Panini 8.4.58 parasavarNa / 8.3.23 anusvara: dental n -> m/M before
                 # labials/sibilants in san stem (tutunpiz->tutumpiz, sisransiz->sisraMsiz;
@@ -2150,6 +2153,9 @@ class KrdantaEngine:
                     _satf_base = clean[:-2] + "Y" + clean[-1]
                 elif len(clean) >= 2 and clean[-2] == "n" and clean[-1] in ("p", "P", "b", "B"):
                     _satf_base = clean[:-2] + "m" + clean[-1]
+            # kzIvu~ mUla Satf e-grade (kzevan; f~ keeps I-grade kzIvan via the U/I branch above)
+            if sanadi is None and clean == "kzIv" and "u~" in op:
+                _satf_base = "kzev"
             if (sanadi is None or sanadi == "yanluganta") and clean_ay:
                 _satf_base = clean_ay
             stem_at = _satf_base + "at"
