@@ -337,6 +337,11 @@ class TinantaDerivationEngine:
             if _e0 == "D":
                 return stem[:-2] + "n" + ending
             return stem + ending
+        # plain s-coda: s drops before D (ADve/vaDvam; s+s/s+t direct: Asse/AsTAH; surveyed As/vas/kas)
+        if stem.endswith("s") and not stem.endswith("ss"):
+            if _e0 == "D":
+                return stem[:-1] + ending
+            return stem + ending
         if stem.endswith("Yj"):
             # satva: se/sva -> ze/zva after the Nk (niNkze/niNkzva; mirrors vakzi; surveyed all Yj alat/alot)
             if _e0 == "s":
@@ -3945,7 +3950,7 @@ class TinantaDerivationEngine:
                 cands += _jlw.get((purusha, vacana), [])
             # AdAdi idit-i luk Atmane present (kaMste/kaMsse/kanDve, niNkte/niNgDve; surveyed class
             # kasi/Risi/Riji/Siji/piji/pfji/vfji; bare num-stem + endings via joint-helper; additive).
-            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I"):
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and ((is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I")) or meta.get("clean") in ("As", "vas", "kas")):
                 _ate = {("prathama","eka"):"te",("prathama","dvi"):"Ate",("prathama","bahu"):"ate",("madhyama","eka"):"se",("madhyama","dvi"):"ATe",("madhyama","bahu"):"Dve",("uttama","eka"):"e",("uttama","dvi"):"vahe",("uttama","bahu"):"mahe"}
                 _aee = _ate.get((purusha, vacana))
                 if _aee:
@@ -4083,14 +4088,15 @@ class TinantaDerivationEngine:
                 _jlaN = {(("prathama","eka")):["ajAgaH"],(("madhyama","eka")):["ajAgaH"],(("prathama","dvi")):["ajAgftAm"],(("prathama","bahu")):["ajAgaruH"],(("madhyama","dvi")):["ajAgftam"],(("madhyama","bahu")):["ajAgfta"],(("uttama","eka")):["ajAgaram"],(("uttama","dvi")):["ajAgfva"],(("uttama","bahu")):["ajAgfma"]}
                 cands += _jlaN.get((purusha, vacana), [])
             # AdAdi idit-i luk Atmane imperfect (akaMsta/akaMsAtAm/akaMsTAH/akanDvam; aug a- + joint-helper).
-            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I"):
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and ((is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I")) or meta.get("clean") in ("As", "vas", "kas")):
                 _ata = {(("prathama","eka")):"ta",(("prathama","dvi")):"AtAm",(("prathama","bahu")):"ata",(("madhyama","eka")):"TAH",(("madhyama","dvi")):"ATAm",(("madhyama","bahu")):"Dvam",(("uttama","eka")):"i",(("uttama","dvi")):"vahi",(("uttama","bahu")):"mahi"}
                 _aae = _ata.get((purusha, vacana))
                 if _aae:
                     for _ab3 in [clean] + self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                         if not _ab3 or _ab3[-1] in SLP1_VOWELS:
                             continue
-                        cands.append("a" + self._adadi_atmane_joint(_ab3, _aae))
+                        _aug3 = self._add_augment(_ab3, _ab3[0] in SLP1_VOWELS if _ab3 else False)
+                        cands.append(self._adadi_atmane_joint(_aug3, _aae))
             # seW i-class luk imperfect (eka bare+i doublets, meka aH/IH, weak i-slots, bare u-slots;
             # bahu bare-an except jakz u-grade `ajakzuH`; same class gate; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
@@ -4169,7 +4175,7 @@ class TinantaDerivationEngine:
                 _anlow = {("madhyama","eka"):["anitAt","anitAd","anihi"],("prathama","eka"):["anitu"],("prathama","dvi"):["anitAm"],("prathama","bahu"):["anantu"],("madhyama","dvi"):["anitam"],("madhyama","bahu"):["anita"],("uttama","eka"):["anAni"],("uttama","dvi"):["anAva"],("uttama","bahu"):["anAma"]}
                 cands += _anlow.get((purusha, vacana), [])
             # AdAdi idit-i luk Atmane imperative (kaMstAm/kaMssva/kanDvam; same class/helper as lw).
-            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I"):
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and ((is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I")) or meta.get("clean") in ("As", "vas", "kas")):
                 _ato = {("prathama","eka"):"tAm",("prathama","dvi"):"AtAm",("prathama","bahu"):"atAm",("madhyama","dvi"):"ATAm",("madhyama","bahu"):"Dvam",("uttama","eka"):"E",("uttama","dvi"):"AvahE",("uttama","bahu"):"AmahE"}
                 _aoe = _ato.get((purusha, vacana))
                 if _aoe:
@@ -4250,7 +4256,7 @@ class TinantaDerivationEngine:
                 if _jyf not in cands:
                     cands.append(_jyf)
             # AdAdi idit-i luk Atmane optative (kaMsIta/kaMsIran/kaMsIDvam; stem + I-endings via helper).
-            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I"):
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and ((is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I")) or meta.get("clean") in ("As", "vas", "kas")):
                 _avi = {(("prathama","eka")):"Ita",(("prathama","dvi")):"IyAtAm",(("prathama","bahu")):"Iran",(("madhyama","eka")):"ITAH",(("madhyama","dvi")):"IyATAm",(("madhyama","bahu")):"IDvam",(("uttama","eka")):"Iya",(("uttama","dvi")):"Ivahi",(("uttama","bahu")):"Imahi"}
                 _aie = _avi.get((purusha, vacana))
                 if _aie:
