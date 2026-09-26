@@ -2,17 +2,19 @@
 
 Date: 2026-09-26
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **18/76 100%-attested** (raw 18/77, 1 skipped) — token gains, no new passes.
+Sweep-02: **19/76 100%-attested** (raw 19/77, 1 skipped) — +1 pass!
 
-## Done — sasti present-system (+36 tokens, 0 worsened)
-- lw M-twins + low doublet/DHi + laN M-twins + viDiliN t-form for sole 02.0074 (meta-clean gated, additive):
-  - tinanta mUla lw/low/laN/viDiliN branches.
-  - Full Sweep Results: 02 improved **1 root** (0074 0->36/879, mUla present 36/36), **worsened 0** (01 zero-diff).
-- Prior work: 02 at 18/76 passes; combined same passes, token gains continue.
+## Done — AdAdi luk Satf-F atI-twin (+1 pass, +15 tokens, 0 worsened)
+- `atI` kept alongside `antI` for AdAdi mUla + yanluganta Satf-F (gana-gated, additive):
+  - krdanta generic Satf branch (A-doublets, u-singles, san/nich/yan paths untouched; BvAdi untouched).
+  - Full Sweep Results: 02 improved **9 roots** (0073 877->879/879 **pass** + spillovers 0001/0058/0063/0064/0065/0066/0069/0070),
+    **worsened 0** (01 zero-diff vs HEAD).
+- Prior work: 02 at 18/76; combined **19/76**.
 
 ## Next (02 loop)
 1. AdAdi-i low/laN/viDiliN (e-grade core + quirks; Atmane i-roots with Atmane endings).
-2. vI-grade (ru/tu/stu), o-grade (UrRu), hnAv (0077), zRu (0033), duha~ (h-class), rudi~r seT-iT.
-3. AdAdi yang family + krdanta luk grades + residuals (quirks, prefixed-ik, sparse `?`).
-4. Ganas 03–10 to follow.
-- Advance 02: 18/76 → all.
+2. as-Satf base (`satI`; 0060 still missing F) + vid-`vas` (0059) + ik-quirk (0042 `aDiyantI`).
+3. vI-grade (ru/tu/stu), o-grade (UrRu), hnAv (0077), zRu (0033), duha~ (h-class), rudi~r seT-iT.
+4. AdAdi yang family + krdanta luk grades + residuals (quirks, prefixed-ik, sparse `?`).
+5. Ganas 03–10 to follow.
+- Advance 02: 19/76 → all.

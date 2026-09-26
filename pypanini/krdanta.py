@@ -2278,7 +2278,15 @@ class KrdantaEngine:
             else:
                 m = stem_at[:-1] + "n"  # Bavat -> Bavan
                 # AdAdi weak-u F takes atI (yuvatI, like yAtI-pattern; _adAU_satf-gated, BvAdi keeps antI)
-                f = _satf_base + "atI" if _adAU_satf else _satf_base + "antI"  # BavantI / cuScutizantI
+                if _adAU_satf:
+                    f = _satf_base + "atI"
+                elif meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
+                    # AdAdi luk Satf-F takes atI (adatI/sasatI/saMstatI; surveyed all 02 Satf-F: pure atI
+                    # except A-doublets handled above and prefixed-ik quirk queued); antI kept as twin
+                    # (additive; BvAdi untouched, san/nich/yan paths untouched).
+                    f = [_satf_base + "antI", _satf_base + "atI"]
+                else:
+                    f = _satf_base + "antI"  # BavantI / cuScutizantI
             n = stem_at  # Bavat
             return {"M": m, "F": f, "N": n}
 
