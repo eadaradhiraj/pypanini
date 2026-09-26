@@ -3952,6 +3952,32 @@ class TinantaDerivationEngine:
                 _auav = self._add_augment(clean[:-1] + "av", False)
                 _weak_laN = {("prathama","dvi"):[_auw+"tAm"],("prathama","bahu"):[_auw+"v"+"an"],("madhyama","dvi"):[_auw+"tam"],("madhyama","bahu"):[_auw+"ta"],("uttama","eka"):[_auav+"am"],("uttama","dvi"):[_auw+"va"],("uttama","bahu"):[_auw+"ma"]}
                 cands += _weak_laN.get((purusha, vacana), [])
+            # AdAdi-a luk imperfect: uniform slots via aug-length + helper-stem + endings, plus eka/m.eka
+            # per-clean tables (fragmented aug-lengths/shapes; sole-surveyed ad/han/vac/as/sas); G-variants queued.
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] not in SLP1_VOWELS:
+                _lvA5 = None
+                for _ch5 in reversed(clean):
+                    if _ch5 in SLP1_VOWELS:
+                        _lvA5 = _ch5
+                        break
+                if _lvA5 == "a":
+                    _lat = {
+                        "ad": {(("prathama","eka")):["Adat","Adad"],(("madhyama","eka")):["AdaH"]},
+                        "han": {(("prathama","eka")):["ahan"],(("madhyama","eka")):["ahan"]},
+                        "vac": {(("prathama","eka")):["avak","avag"],(("madhyama","eka")):["avak","avag"]},
+                        "as": {(("prathama","eka")):["AsIt","AsId"],(("madhyama","eka")):["AsIH"]},
+                        "sas": {(("prathama","eka")):["asat","asad"],(("madhyama","eka")):["asaH"]},
+                    }
+                    if clean in _lat and (purusha, vacana) in _lat[clean]:
+                        cands += _lat[clean][(purusha, vacana)]
+                    _lend = {("prathama","dvi"):"tAm",("prathama","bahu"):"an",("madhyama","dvi"):"tam",("madhyama","bahu"):"ta",("uttama","eka"):"am",("uttama","dvi"):"va",("uttama","bahu"):"ma"}
+                    if (purusha, vacana) in _lend:
+                        _e5 = _lend[(purusha, vacana)]
+                        _au5 = "A" if (clean == "as" or (clean == "ad" and _e5 in ("tAm", "tam", "ta"))) else "a"
+                        _sb5 = self._adadi_a_luk(clean, _e5, vacana)
+                        if _sb5.startswith("a"):
+                            _sb5 = _sb5[1:]
+                        cands.append(_au5 + _sb5 + _e5)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
