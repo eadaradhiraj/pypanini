@@ -2688,6 +2688,14 @@ class TinantaDerivationEngine:
                 # kzIvf~ keeps long I in yak-liT redup too (cikzIve-series); kzIvu~ keeps short i.
                 if clean in ("kziv", "kzIv") and op.endswith("f~"):
                     redups = ["cikzIv"]
+                # aniW ew-final liT redup daD- (daDe/daDAte yak; sole 01 Dew 01.1050 surveyed; parallels
+                # dEp dad-; sew ew-cleans keep generic redup via sew-gate). Additive, mirrors mUla-liT site.
+                _op_ew_redy = ((op or "").replace("~", "").replace("`", "").strip())
+                if _op_ew_redy.endswith("ew") and not sew:
+                    _ew_onsy = _op_ew_redy[:-2]
+                    _ew_redy = DEASPIRATE.get(_ew_onsy[0], _ew_onsy[0]) + "a" + _ew_onsy if _ew_onsy else None
+                    if _ew_redy and _ew_redy not in redups:
+                        redups.append(_ew_redy)
                 # Panini 8.4.58/8.3.23 nasal assimilation in yak-liw redup (tunp->tutumpe, srans->sasraMse;
                 # same 14-root n+labial/s survey as mUla bases, additive)
                 _ylc = clean
@@ -4197,6 +4205,14 @@ class TinantaDerivationEngine:
                 # Anubandha-disambiguated homonyms (shared clean kzIv); exclusive like cate-fusion above (old generic gave cikzIv).
                 if clean in ("kziv", "kzIv") and op.endswith("f~"):
                     redups = ["cikzIv"]
+                # aniW ew-final liT redup daD- (daDO/daDatuH mUla; sole 01 Dew 01.1050 surveyed; parallels
+                # dEp dad-/glE jagl-; sew ew-cleans keep generic redup via sew-gate). Additive, mirrors yak-liT site.
+                _op_ew_red = ((op or "").replace("~", "").replace("`", "").strip())
+                if _op_ew_red.endswith("ew") and not sew:
+                    _ew_ons = _op_ew_red[:-2]
+                    _ew_red = DEASPIRATE.get(_ew_ons[0], _ew_ons[0]) + "a" + _ew_ons if _ew_ons else None
+                    if _ew_red and _ew_red not in redups:
+                        redups.append(_ew_red)
                 # cate~ liT uses fused cet- (cete/cetAte, not cacat- from cat-).
                 if meta.get("clean") == "cate" or meta.get("op", "").startswith("cate"):
                     redups = ["cet"]

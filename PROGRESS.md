@@ -3,18 +3,17 @@
 Date: 2026-09-26
 Sweep: **1152/1156 100%** (99.7%, raw 1152/1166)
 
-## Done — Dew yangluk dAD-sec (+20 tokens, 0 worsened)
-- yangluk `dAD-` sec for aniW ew (sole 01 `Dew` 01.1050; routes `Dew->DA` through A-final machinery):
-  - krdanta sec-chain: aniW ew → `DA` (`dADitaH/dADitavyaH` via `_get_yanluk_a_base`; `dE->dAd` precedent).
-  - yangluk_krut 9/29 → 29/29 full pass (kta/ktavatu spurious→true, SAnac held, zero rotation).
-  - Full Sweep Results: improved **1** (`01.1050` 837->857/892), **worsened 0**, passes held 1152/1156.
-  - GRAND tokens 1006294/1006711 (+20). Net +30700.
-- Prior work: +30680; combined +30700.
+## Done — Dew perfect daD-redup (+17 tokens, 0 worsened)
+- perfect `daD-` redup for aniW ew (sole 01 `Dew` 01.1050; parallels `dEp→dadO/dade`):
+  - tinanta mUla-liT + yak-liT `redups` lists: additive `daD` variant (de-asp onset + `a` + onset; sew-gated).
+  - Full Sweep Results: improved **1** (`01.1050` 857->874/892: ting liw 8 + yak liw 9), **worsened 0**, passes held 1152/1156.
+  - GRAND tokens 1006311/1006711 (+17). Net +30717.
+- Prior work: +30700; combined +30717.
 
-## Next (01.1050 remainder 35 + 3 blocked)
-1. `01.1050` perfect `daD-` redup (17: ting liw 8 `daDO` + yak liw 9 `daDe`; parallels `dEp→dadO/dade`; survey done, implement next, one trait).
-2. `01.1050` krut remainder (9: Satf/yat/etc.).
-3. `01.1050` ASIrliN `Dey-` (9).
+## Next (01.1050 remainder 18 + 3 blocked)
+1. `01.1050` kta-family routing (5: mUla `DA`-reassignment hijacks `_kta_stem` `DIta→DAta`; exclude kta/ktavatu from reassignment, restore `DIta/DItavat`).
+2. `01.1050` ASIrliN `Dey-` (9: `DeyAt` vs `DayyAt`).
+3. `01.1050` Satf `Day-` (3) + ktvA `DItvA` (1).
 4. `01.1086` capped at 869 (yangluk BLOCKED: suppletive).
 5. `01.0262` aja~ (283/636: suppletive ve-paradigm — BLOCKED; revisit last).
 6. `01.0459` (886/892: JSON-absent Satf — BLOCKED).
