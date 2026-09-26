@@ -3992,6 +3992,21 @@ class TinantaDerivationEngine:
             # Panini 3.1.74 SruvaH Sf ca
             if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
                 cands += self._snu_parasmai("SfR", "viDiliN", purusha, vacana)
+            # AdAdi-a luk optative: luk-stem + yAt-endings (adyAt/hanyAt; same yAt-map family as
+            # yAyAt/yuyAt; gana + a-shape gated (mirrors lw-block condition); additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] not in SLP1_VOWELS:
+                _lvA2 = None
+                for _ch2 in reversed(clean):
+                    if _ch2 in SLP1_VOWELS:
+                        _lvA2 = _ch2
+                        break
+                if _lvA2 == "a":
+                    _yend2 = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
+                    # as- ablaut: weak s- in viDiliN throughout (syAt; mirrors lw weak/outside-eka)
+                    _ystem = "s" if clean == "as" else clean
+                    _yf2 = _ystem + _yend2[(purusha, vacana)]
+                    if _yf2 not in cands:
+                        cands.append(_yf2)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
