@@ -1256,6 +1256,9 @@ class KrdantaEngine:
                     return "tezWIya"
                 if c in ("gE", "gA") or (op and op.startswith("gE")):
                     return "jegIya"
+                # dEp yang is dAdAya (mirrors tinanta _yan_stem generic adeca path; c is post-adeca dA here; sole 01 dEp-op 01.1073, dAR guard 01.1079 unaffected)
+                if c == "dA" and op.startswith("dEp"):
+                    return "dAdAya"
                 if c in ("dA", "dAR") or (op and op.startswith(("dA~", "dAR"))):
                     return "dedIya"
                 if c in ("DA", "DuDAY") or (op and op.startswith(("DA~", "DuDA"))):
