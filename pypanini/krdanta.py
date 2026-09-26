@@ -1712,7 +1712,8 @@ class KrdantaEngine:
                 if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
                 if pratyaya == "anIyar":
                     _ab = base_no_ya+"anIya"
-                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and "nIya" in _ab:
+                    # U-stem yan keeps dental n (cokzRUyanIya; U blocks Natva — not in a-cert; trio surveyed)
+                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and "nIya" in _ab and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "lyuw":
@@ -1720,7 +1721,8 @@ class KrdantaEngine:
                     if orig_clean == "kzIv" and "u~" in op:
                         return {"gender": "Neuter", "form": "cekzivaRam"}
                     _lb = base_no_ya+"ana"
-                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and _lb.endswith("ana"):
+                    # U-stem yan keeps dental n (cokzRUyanam; same U-principle; trio surveyed)
+                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and _lb.endswith("ana") and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
@@ -1756,7 +1758,8 @@ class KrdantaEngine:
                     m = sec + "mAnaH" if sec.endswith("a") else sec + "amAnaH"
                     f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
                     n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
-                    if _natva_applies(orig_clean) or _natva_applies(base_no_ya):
+                    # U-stem yan keeps dental n (cokzRUyamAna; same U-principle; trio surveyed)
+                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
                         m = m.replace("mAnaH", "mARaH").replace("amAnaH", "amARaH")
                         f = f.replace("mAnA", "mARA").replace("amAnA", "amARA")
                         n = n.replace("mAnam", "mARam").replace("amAnam", "amARam")
