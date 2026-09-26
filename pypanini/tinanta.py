@@ -1376,6 +1376,9 @@ class TinantaDerivationEngine:
                 return "Urdidiz"
             if c == "u":
                 return "Uziz"
+            # single vocalic-f san (aririzati; sole 01 f-clean 01.1086, u-parallel above; 7.4.?? arir-allomorph)
+            if c == "f":
+                return "aririz"
             is_vowel_init = c[0] in SLP1_VOWELS if c else False
             is_vowel_final = c and c[-1] in SLP1_VOWELS
             if is_vowel_init:

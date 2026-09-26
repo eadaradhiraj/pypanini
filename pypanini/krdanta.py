@@ -1000,6 +1000,9 @@ class KrdantaEngine:
                         return "cukUrdiz"
                     if c == "u":
                         return "Uziz"
+                    # single vocalic-f san (aririzitaH/aririzan; sole 01 f-clean 01.1086, u-parallel above)
+                    if c == "f":
+                        return "aririz"
                     # rv-coda reduplicates (urv->urviviz, arv->arviviz; urd keeps its didiz special above)
                     if c.endswith("rv"):
                         # lowercased onset (Urv-mapping feeds capital U, but sannanta dataset keeps urviviz/arviviz)
