@@ -184,6 +184,7 @@ class KrdantaEngine:
                         is_idit = (("i~" in op) or (op.endswith("~") and op.replace("~","").replace("`","").endswith("i"))) and not no_num_r and ("I~" not in op)
                         antara = info.get("antargaRaH", "")
                         comm = info.get("DAturUpanandinIwippaRI", "")
+                        gana = info.get("gaRaH", "BvAdiH")
                         _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
                         # mit denial respected: notes stating "mit nAsti" (lowered: "mit nasti"; kamu/ama/camu via na kamyamicamAm) are NOT mit;
                         # other niziDyate-notes (Samo/yama conditional denials) stay mit via antara or plain-mit text
@@ -193,7 +194,7 @@ class KrdantaEngine:
                         # (kram/ram/syam keep short niC stem); kam/am/cam denied by 1.937 carry "mit nasti" so stay non-mit
                         _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
                         is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
-                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit, "padam": padam}
+                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit, "padam": padam, "gana": gana}
                         self._cache[clean] = entry
                         self._cache[op] = entry
                         self._cache[op.replace("~","").replace("`","").strip()] = entry
@@ -313,14 +314,16 @@ class KrdantaEngine:
             return clean[:last_vowel_idx] + vv + clean[last_vowel_idx+1:]
         return clean
 
-    def _kta_stem(self, clean: str, sew: bool, op: str, is_idit: bool = False) -> str:
+    def _kta_stem(self, clean: str, sew: bool, op: str, is_idit: bool = False, gana: str = "BvAdiH") -> str:
         """Algorithmic kta/ktavatu stem (Panini 7.2.10 iT, 8.2.30 coH kuH, 8.2.42 d->n).
         - I~ blocks iT for kta (yatI~->yatta, hlAdI~->hlAnna, citI~->citta)
         - seT + cons + iT -> clean+i+ta (sparDita); aniT/vew/vowel-final -> clean+ta
         - samyoga: c/j->k (Bfj->Bfkta), d->nna (hlAnna) / d->tta after short-a (mad->matta), t->tta (yatta)
         No per-dhatu names. Returns stem ending in 'a' (e.g. yatta, hlAnna).
         """
-        if clean == "SrA" and sew and op.startswith("SrA"):
+        # BvAdi SrA takes Srita; AdAdi SrA (02.0048) takes generic Natva (SrARa) — gaNa-distinguished
+        # (sole SrA-pair 01.0922/02.0048 surveyed; clean/sew/op all identical, only gaNa differs).
+        if clean == "SrA" and op.startswith("SrA") and gana != "adAdiH":
             return "Srita"
         # idit i-final velar/palatal/retroflex/labial takes assimilated num (agi->aNgita; i~ marks idit)
         if clean.endswith(("i", "I")) and ("i~" in op) and ("I~" not in op):
@@ -1540,7 +1543,7 @@ class KrdantaEngine:
                     # jaB remapped to jamB must not inherit the root I~ iT-block
                     # (nijanta jamBitaH, not mUla-style jambDaH).
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
-                    _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit)
+                    _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
                     return {"M": _mstem+"H", "F": _mstem[:-1]+"A" if _mstem.endswith("a") else _mstem+"A", "N": _mstem+"m"}
                 if pratyaya == "ktavatu":
                     # dEp nich ktavatu is dApitavAn (sole 01 dEp-op 01.1073; mirrors kta above);
@@ -1548,7 +1551,7 @@ class KrdantaEngine:
                     if op.startswith("dEp") or (orig_clean.endswith("ew") and not sew):
                         return {"M": sec_base+"itavAn", "F": sec_base+"itavatI", "N": sec_base+"itavat"}
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
-                    _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit)
+                    _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
                     _b = _mstem[:-1] if _mstem.endswith("a") else _mstem
                     return {"M": _b+"avAn", "F": _b+"avatI", "N": _b+"avat"}
                 if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
@@ -2027,7 +2030,7 @@ class KrdantaEngine:
             # I~ blocks iT for mUla & yanluganta (yatI~->yatta, yAyatta via cross-match); sannanta/nijanta/yananta sec keeps iT
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
             # sannanta is seT for the kta family (surveyed 1156/1156, zero exceptions)
-            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit)
+            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
             # yanlug d-final: d+ta gives tta (jAhlAtta) alongside mUla nna (hlAnna);
             # additive so redup-tta hits without losing nna cross-match
             if sanadi == "yanluganta" and clean.endswith("d"):
@@ -2075,7 +2078,7 @@ class KrdantaEngine:
                             "F": [_b + "avatI" for _b in _bb],
                             "N": [_b + "avat" for _b in _bb]}
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
-            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit)
+            stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
             # yanlug d-final ktavatu mirrors kta (jAhlAttavAn alongside jAhlAnnavAn)
             if sanadi == "yanluganta" and clean.endswith("d"):
                 _alt = clean[:-1] + "tta"

@@ -939,10 +939,17 @@ class TinantaDerivationEngine:
             # survey: 02 A-roots want yAyAt-class, BvAdi A-roots reach here only via non-A replacement stems
             # (pib/jiGra...) so untouched; E-root/Dew A-bases keep existing e+t hits too — purely additive).
             if stem_base.endswith("A"):
-                _yend = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}
+                _yend = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
                 _yf = apply_rutva_visarga(stem_base + _yend[(purusha, vacana)])
                 if _yf not in _out:
                     _out.append(_yf)
+            # u-stem optative takes weak-u + yA-class endings (yuyAt; AdAdi u-finals; same yAt-map;
+            # purely additive — BvAdi u-stems keep existing hits).
+            if stem_base.endswith(("u", "U")):
+                _yend_u = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
+                _yfu = apply_rutva_visarga(stem_base + _yend_u[(purusha, vacana)])
+                if _yfu not in _out:
+                    _out.append(_yfu)
             return _out
         elif lakara == "lfw":
             base_lrt = stem_base + "izy"
