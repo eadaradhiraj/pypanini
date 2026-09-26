@@ -4722,6 +4722,10 @@ class TinantaDerivationEngine:
                 _pl = _yinfo["pit_l"]
                 _ps = _yinfo["pit_s"]
                 _kt = _yinfo["kit"]
+                # AdAdi vas keeps vas in liT Atmane too (vavase; sole 02.0013 surveyed — BvAdi vas
+                # keeps samprasAraNa Uz (Uze); gana-gated; parasmaipada half untouched).
+                if _ykey == "vas" and meta.get("gana") == "adAdiH":
+                    _kt = "vavas"
                 _paras = {
                     ("prathama", "eka"): [_pl + "a", _ps + "a"],
                     ("prathama", "dvi"): [_kt + "atuH"],

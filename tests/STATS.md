@@ -190,3 +190,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 61 (f+I~ Atmane pair vfj/pfc (k/g/ar compositional grades + full rest + SAnac; pair-gated; additive/free): 02.0022 + 02.0024 → 873/873 each (+2 passes, 44/76), 0 worsened (01 zero-diff).
 - Iteration 62 (cakAs long-A luk tables (sas-skeleton + ssi + DHi + short-bahu + yAt; sole 02.0069 surveyed; additive): 02.0069 → 626/626 (+1 pass, 45/76), 0 worsened (01 zero-diff).
 - Iteration 63 (AdAdi-vas keeps-vas (anti-samprasAraNa at 7 yajadi sites: kta/ktavatu/tavya/ktvA/lyap mUla + nich vriddhi + yl redup; BvAdi-yajadi guards hold; additive/free): 02.0013 +21 tokens, 0 worsened (01 zero-diff).
+- Iteration 64 (vas liT `vavas` kit-override (Atmane half; BvAdi-Uz holds; additive): 02.0013 → 873/873 (+1 pass, 46/76), 0 worsened (01 zero-diff).
