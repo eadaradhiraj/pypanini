@@ -3977,6 +3977,13 @@ class TinantaDerivationEngine:
             # S/z zw-eka (kazwe/cazwe; S/z+t-endings take zw-stem; surveyed kaS/cakz; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and (purusha, vacana) == ("prathama", "eka"):
                 cands += {"kaS": ["kazwe"], "cakzi": ["cazwe"]}.get(meta.get("clean"), [])
+            # Iq/IS quirky present (ww-eka Iwwe/Izwe + i-augment Iqize/ISiDve; surveyed pair 0009/0010;
+            # standalone literals — S-branch would misfire (Ikze); viD fully direct, tabled next block).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
+                _qi = {"Iq": ["Iwwe", "IqAte", "Iqate", "Iqize", "IqATe", "IqiDve", "Iqe", "Iqvahe", "Iqmahe"], "IS": ["Izwe", "ISAte", "ISate", "ISize", "ISATe", "ISiDve", "ISe", "ISvahe", "ISmahe"]}[meta.get("clean")]
+                _qslots = [("prathama","eka"),("prathama","dvi"),("prathama","bahu"),("madhyama","eka"),("madhyama","dvi"),("madhyama","bahu"),("uttama","eka"),("uttama","dvi"),("uttama","bahu")]
+                if (purusha, vacana) in _qslots:
+                    cands.append(_qi[_qslots.index((purusha, vacana))])
             # AdAdi luk present, short-a consonant-coda stems: stem + endings with coda-sandhi
             # (atti/hanti/vakti; d->t/_voiceless, n->M/_s, n->0/_t, c->k/_voiceless, s-lopa for as-clean only;
             # Gnanti-type readings queued). Gana-gated + additive.
@@ -4121,6 +4128,12 @@ class TinantaDerivationEngine:
                 cands += {"kaS": ["akazwa"], "cakzi": ["acazwa"]}.get(meta.get("clean"), [])
             if meta.get("gana") == "adAdiH" and sanadi is None and (purusha, vacana) == ("madhyama", "eka"):
                 cands += {"kaS": ["akazWAH"], "cakzi": ["acazWAH"]}.get(meta.get("clean"), [])
+            # Iq/IS quirky imperfect (ww-eka + i-slots + EqQvam m.bahu; surveyed pair; standalone literals).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
+                _qa = {"Iq": ["Ewwa", "EqAtAm", "Eqata", "EwWAH", "EqATAm", "EqQvam", "Eqi", "Eqvahi", "Eqmahi"], "IS": ["Ezwa", "ESAtAm", "ESata", "EzWAH", "ESATAm", "EqQvam", "ESi", "ESvahi", "ESmahi"]}[meta.get("clean")]
+                _qaslots = [("prathama","eka"),("prathama","dvi"),("prathama","bahu"),("madhyama","eka"),("madhyama","dvi"),("madhyama","bahu"),("uttama","eka"),("uttama","dvi"),("uttama","bahu")]
+                if (purusha, vacana) in _qaslots:
+                    cands.append(_qa[_qaslots.index((purusha, vacana))])
             # seW i-class luk imperfect (eka bare+i doublets, meka aH/IH, weak i-slots, bare u-slots;
             # bahu bare-an except jakz u-grade `ajakzuH`; same class gate; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
@@ -4215,6 +4228,12 @@ class TinantaDerivationEngine:
             # S/z zw-eka imperative (kazwAm/cazwAm; surveyed kaS/cakz; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and (purusha, vacana) == ("prathama", "eka"):
                 cands += {"kaS": ["kazwAm"], "cakzi": ["cazwAm"]}.get(meta.get("clean"), [])
+            # Iq/IS quirky imperative (ww-eka + i-augment izva/iDve; surveyed pair; standalone literals).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
+                _qo = {"Iq": ["IwwAm", "IqAtAm", "IqatAm", "Iqizva", "IqATAm", "IqiDvam", "IqE", "IqAvahE", "IqAmahE"], "IS": ["IzwAm", "ISAtAm", "ISatAm", "ISizva", "ISATAm", "ISiDvam", "ISE", "ISAvahE", "ISAmahE"]}[meta.get("clean")]
+                _qoslots = [("prathama","eka"),("prathama","dvi"),("prathama","bahu"),("madhyama","eka"),("madhyama","dvi"),("madhyama","bahu"),("uttama","eka"),("uttama","dvi"),("uttama","bahu")]
+                if (purusha, vacana) in _qoslots:
+                    cands.append(_qo[_qoslots.index((purusha, vacana))])
             # jAgf f-grade imperative (ar-3sg jAgartu, short bahu jAgratu, AR-1sg jAgarARi; sole 02.0067).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "jAg":
                 _jlow = {("madhyama","eka"):["jAgftAt","jAgftAd","jAgfhi"],("prathama","eka"):["jAgartu"],("prathama","dvi"):["jAgftAm"],("prathama","bahu"):["jAgratu"],("madhyama","dvi"):["jAgftam"],("madhyama","bahu"):["jAgfta"],("uttama","eka"):["jAgarARi"],("uttama","dvi"):["jAgarAva"],("uttama","bahu"):["jAgarAma"]}
@@ -4291,6 +4310,12 @@ class TinantaDerivationEngine:
                         if not _ab4 or _ab4[-1] in SLP1_VOWELS:
                             continue
                         cands.append(self._adadi_atmane_joint(_ab4, _aie))
+            # Iq/IS direct optative (IqIta...; all junctions direct; surveyed pair; helper reuse).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
+                _qvi = {(("prathama","eka")):"Ita",(("prathama","dvi")):"IyAtAm",(("prathama","bahu")):"Iran",(("madhyama","eka")):"ITAH",(("madhyama","dvi")):"IyATAm",(("madhyama","bahu")):"IDvam",(("uttama","eka")):"Iya",(("uttama","dvi")):"Ivahi",(("uttama","bahu")):"Imahi"}
+                _qie = _qvi.get((purusha, vacana))
+                if _qie:
+                    cands.append(self._adadi_atmane_joint(meta.get("clean"), _qie))
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
