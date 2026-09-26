@@ -2555,7 +2555,10 @@ class KrdantaEngine:
             else:
                 stem = eff + "anIya"
             if _natva_applies(clean) and "nIya" in stem:
-                stem = stem.replace("nIya", "RIya")
+                # R-retaining Ru-finals keep dental n (kzRavanIya/UrRavanIya; sole pair surveyed; the shared
+                # vowel-final-True overfires here — BvAdi untouched via clean-gate, function untouched).
+                if meta.get("clean") not in ("kzRu", "UrRu"):
+                    stem = stem.replace("nIya", "RIya")
             _out = tri_linga(stem)
             # aja~ mUla ve-grade twin (vayanIya- via guna(ve); sole aj-clean 01.0262 surveyed, ~-gated;
             # additive, old ajanIya kept harmlessly).
@@ -2801,7 +2804,7 @@ class KrdantaEngine:
                 stem = eff[:-1] + "Ana"
             else:
                 stem = eff + "ana"
-            if _natva_applies(clean):
+            if _natva_applies(clean) and meta.get("clean") not in ("kzRu", "UrRu"):
                 if stem.endswith("ana"):
                     stem = stem[:-3] + "aRa"
                 elif stem.endswith("Ana"):
