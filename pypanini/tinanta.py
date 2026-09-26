@@ -4044,6 +4044,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "an":
                 _anlaN = {(("prathama","eka")):["Anat","Anad","AnIt","AnId"],(("madhyama","eka")):["AnaH","AnIH"],(("prathama","dvi")):["AnitAm"],(("prathama","bahu")):["Anan"],(("madhyama","dvi")):["Anitam"],(("madhyama","bahu")):["Anita"],(("uttama","eka")):["Anam"],(("uttama","dvi")):["Aniva"],(("uttama","bahu")):["Anima"]}
                 cands += _anlaN.get((purusha, vacana), [])
+            # jAgf f-grade imperfect (bare-aH eka/meka ajAgaH, ar-bahu ajAgaruH, f-weak rest; sole 02.0067).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "jAg":
+                _jlaN = {(("prathama","eka")):["ajAgaH"],(("madhyama","eka")):["ajAgaH"],(("prathama","dvi")):["ajAgftAm"],(("prathama","bahu")):["ajAgaruH"],(("madhyama","dvi")):["ajAgftam"],(("madhyama","bahu")):["ajAgfta"],(("uttama","eka")):["ajAgaram"],(("uttama","dvi")):["ajAgfva"],(("uttama","bahu")):["ajAgfma"]}
+                cands += _jlaN.get((purusha, vacana), [])
             # seW i-class luk imperfect (eka bare+i doublets, meka aH/IH, weak i-slots, bare u-slots;
             # bahu bare-an except jakz u-grade `ajakzuH`; same class gate; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
@@ -4121,6 +4125,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "an":
                 _anlow = {("madhyama","eka"):["anitAt","anitAd","anihi"],("prathama","eka"):["anitu"],("prathama","dvi"):["anitAm"],("prathama","bahu"):["anantu"],("madhyama","dvi"):["anitam"],("madhyama","bahu"):["anita"],("uttama","eka"):["anAni"],("uttama","dvi"):["anAva"],("uttama","bahu"):["anAma"]}
                 cands += _anlow.get((purusha, vacana), [])
+            # jAgf f-grade imperative (ar-3sg jAgartu, short bahu jAgratu, AR-1sg jAgarARi; sole 02.0067).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "jAg":
+                _jlow = {("madhyama","eka"):["jAgftAt","jAgftAd","jAgfhi"],("prathama","eka"):["jAgartu"],("prathama","dvi"):["jAgftAm"],("prathama","bahu"):["jAgratu"],("madhyama","dvi"):["jAgftam"],("madhyama","bahu"):["jAgfta"],("uttama","eka"):["jAgarARi"],("uttama","dvi"):["jAgarAva"],("uttama","bahu"):["jAgarAma"]}
+                cands += _jlow.get((purusha, vacana), [])
             # seW i-class luk imperative (shared X+it skeleton + ihi; bahu bare except jakz short `jakzatu`;
             # 1sg a-grade Ani/Ava/Ama except jakz eka ARi `jakzARi`; same class gate as lw; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
@@ -4178,6 +4186,12 @@ class TinantaDerivationEngine:
                 _iyf = clean + _iy.get((purusha, vacana), "yAt")
                 if _iyf not in cands:
                     cands.append(_iyf)
+            # jAgf f-grade optative (f + yAt throughout; sole 02.0067; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "jAg":
+                _jy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
+                _jyf = "jAgf" + _jy.get((purusha, vacana), "yAt")
+                if _jyf not in cands:
+                    cands.append(_jyf)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
