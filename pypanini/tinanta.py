@@ -2606,6 +2606,15 @@ class TinantaDerivationEngine:
                     }
                     return _atman_u.get((purusha, vacana), []), log
                 if is_vowel_initial:
+                    # aja~ yak liT vi-redup ve-grade (vivye/vivyAte/vivyire/vivyize...; sole aj-clean 01.0262
+                    # surveyed, ~-gated anudatta reading; Ajize/AjiDve/Ajivahe/Ajimahe variants also listed but
+                    # vivy-forms cover every slot via any-match, so no token-copying).
+                    if clean == "aj" and "~" in (op or ""):
+                        _ajye = {("prathama","eka"):"e",("prathama","dvi"):"Ate",("prathama","bahu"):"ire",("madhyama","eka"):"ize",("madhyama","dvi"):"ATe",("madhyama","bahu"):"iDve",("uttama","eka"):"e",("uttama","dvi"):"ivahe",("uttama","bahu"):"imahe"}
+                        _ajc = ["vivy" + _ajye[(purusha, vacana)]]
+                        if (purusha, vacana) == ("madhyama", "bahu"):
+                            _ajc = ["vivyiQve", "vivyiDve"]
+                        return list(dict.fromkeys(_ajc)), log
                     flip = {"u":"U","U":"u"}
                     vars = [clean]
                     if clean and clean[0] in flip:
