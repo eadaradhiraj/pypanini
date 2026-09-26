@@ -3982,6 +3982,11 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vid9 = {("prathama","eka"):["vetti","veda"],("prathama","dvi"):["vittaH","vidatuH"],("prathama","bahu"):["vidanti","viduH"],("madhyama","eka"):["vetsi","vetTa"],("madhyama","dvi"):["vitTaH","vidaTuH"],("madhyama","bahu"):["vitTa","vida"],("uttama","eka"):["vedmi","veda"],("uttama","dvi"):["vidva","vidvaH"],("uttama","bahu"):["vidma","vidmaH"]}
                 cands += _vid9.get((purusha, vacana), [])
+            # rudi~r o-grade seW-i present (roditi/ruditaH/rodizi; sole 02.0062 surveyed — i-class skeleton
+            # with o-grade pits (svapiti precedent for i, roditi for o); weak rud- + iT elsewhere; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "rud":
+                _rud9 = {("prathama","eka"):["roditi"],("prathama","dvi"):["ruditaH"],("prathama","bahu"):["rudanti"],("madhyama","eka"):["rodizi"],("madhyama","dvi"):["rudiTaH"],("madhyama","bahu"):["rudiTa"],("uttama","eka"):["rodimi"],("uttama","dvi"):["rudivaH"],("uttama","bahu"):["rudimaH"]}
+                cands += _rud9.get((purusha, vacana), [])
             # ik adhi+i present (aDyeti/aDItaH/aDiyanti-aDIyanti; sole 02.0042 surveyed — k drops in
             # luk-present only (likAYcakre/ektA keep k elsewhere); e-grade pits + retained rest + ay-1sg
             # pattern like I/i-rule with adhi-sandhi (i+e->ye, i+i->I); bahu yanti/Iyanti doublet; additive).
@@ -4279,6 +4284,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlow = {("prathama","eka"):["vettu","vidANkarotu"],("prathama","dvi"):["vittAm","vidANkurutAm"],("prathama","bahu"):["vidantu","vidANkurvantu"],("madhyama","eka"):["vittAt","vittAd","vidDi","vidANkurutAt","vidANkurutAd","vidANkuru"],("madhyama","dvi"):["vittam","vidANkurutam"],("madhyama","bahu"):["vitta","vidANkuruta"],("uttama","eka"):["vedAni","vidANkaravARi"],("uttama","dvi"):["vedAva","vidANkaravAva"],("uttama","bahu"):["vedAma","vidANkaravAma"]}
                 cands += _vidlow.get((purusha, vacana), [])
+            # rudi~r o-grade seW-i imperative (roditu + weak-i slots + o-grade 1sg rodAni; sole 02.0062).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "rud":
+                _rudlow = {("madhyama","eka"):["ruditAt","ruditAd","rudihi"],("prathama","eka"):["roditu"],("prathama","dvi"):["ruditAm"],("prathama","bahu"):["rudantu"],("madhyama","dvi"):["ruditam"],("madhyama","bahu"):["rudita"],("uttama","eka"):["rodAni"],("uttama","dvi"):["rodAva"],("uttama","bahu"):["rodAma"]}
+                cands += _rudlow.get((purusha, vacana), [])
             # ik adhi+i imperative (aDyetu/aDItAm/aDiyantu + ay-1sg aDyayAni; sole 02.0042; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "ik":
                 _iklow = {("prathama","eka"):["aDyetu"],("prathama","dvi"):["aDItAm"],("prathama","bahu"):["aDiyantu","aDIyantu"],("madhyama","eka"):["aDItAt","aDItAd","aDIhi"],("madhyama","dvi"):["aDItam"],("madhyama","bahu"):["aDIta"],("uttama","eka"):["aDyayAni"],("uttama","dvi"):["aDyayAva"],("uttama","bahu"):["aDyayAma"]}
@@ -4356,6 +4365,10 @@ class TinantaDerivationEngine:
                 _vyf = "vid" + _vy.get((purusha, vacana), "yAt")
                 if _vyf not in cands:
                     cands.append(_vyf)
+            # rudi~r weak-u optative (rud + yAt; o-grade stays in pits only; sole 02.0062; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "rud":
+                _ruy = {("prathama","eka"):["rudyAt","rudyAd"],("prathama","dvi"):["rudyAtAm"],("prathama","bahu"):["rudyuH"],("madhyama","eka"):["rudyAH"],("madhyama","dvi"):["rudyAtAm"],("madhyama","bahu"):["rudyAta"],("uttama","eka"):["rudyAm"],("uttama","dvi"):["rudyAva"],("uttama","bahu"):["rudyAma"]}
+                cands += _ruy.get((purusha, vacana), [])
             # ik adhi+i optative (adhi + IyAt, t/d doublet eka; sole 02.0042; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "ik":
                 _ky = {("prathama","eka"):["aDIyAt","aDIyAd"],("prathama","dvi"):["aDIyAtAm"],("prathama","bahu"):["aDIyuH"],("madhyama","eka"):["aDIyAH"],("madhyama","dvi"):["aDIyAtAm"],("madhyama","bahu"):["aDIyAta"],("uttama","eka"):["aDIyAm"],("uttama","dvi"):["aDIyAva"],("uttama","bahu"):["aDIyAma"]}

@@ -174,3 +174,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 45 (ik adhi+i tables (lw/low/laN/viD with adhi-sandhi + Ayan/Eyan + ay-1sg; k kept outside luk-present per elsewhere-forms; sole-gated; additive): 02.0042 0->36 (+36), 0 worsened (01 zero-diff).
 - Iteration 46 (ik adhi-krdanta (Satf `aDiyat/aDIyat` doublets + antI F + d-twins; yat `aDyeya`; sole-gated free replacements — double data entries don't double-count): 02.0042 36->42 (+6), 0 worsened (01 zero-diff).
 - Iteration 47 (vaS/uS suppletion (pit-vaS vs weak-uS + z/w/q sandhi + uztwAm/uqQi + vaSA-1sg + uS-yAt + uS-Satf; sole 02.0075 surveyed; additive/free): 02.0075 mUla-present-full (+33), 0 worsened (01 zero-diff).
+- Iteration 48 (rudi~r o-grade seW-i (roditi-pits + weak-i + o-1sg + weak-u yAt; sole 02.0062 surveyed; laN already passing skipped; additive): 02.0062 ting-full (+21), 0 worsened (01 zero-diff).
