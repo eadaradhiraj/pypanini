@@ -359,7 +359,9 @@ class KrdantaEngine:
             "yaj": "izwa", "vap": "upta", "vah": "UQa", "vas": "uzita", "vad": "udita",
             "ve": "uta", "vye": "vIta", "hve": "hUta", "Svi": "SUna",
         }
-        if clean in _yajadi_kta:
+        # AdAdi vas (02.0013 vasa~) keeps vas (vasita) — samprasAraNa is BvAdi-only; gana-gated skip so
+        # generic seT-iT path applies (surveyed pair: BvAdi vas→uzita holds per 01 green).
+        if clean in _yajadi_kta and not (clean == "vas" and gana == "adAdiH"):
             return _yajadi_kta[clean]
         if op and any(op.startswith(x) for x in ("veN", "veY", "ve~", "vyeN", "vyeY", "vye~", "hveN", "hveY", "hve~")):
             return "vIta" if "vye" in op else ("hUta" if "hve" in op else "uta")
@@ -2031,6 +2033,9 @@ class KrdantaEngine:
 
         if pratyaya == "kta":
             if sanadi == "yanluganta":
+                # AdAdi vas keeps vas with redup (vAvasita; sole 02.0013 surveyed; old vuzita misses, free).
+                if clean == "vas" and meta.get("gana") == "adAdiH":
+                    return tri_linga("vAvasita")
                 _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita", "ve": "vovita", "hve": "jAhuvita"}
                 if clean in _yajadi_yl_kta:
                     return tri_linga(_yajadi_yl_kta[clean])
@@ -2049,6 +2054,9 @@ class KrdantaEngine:
                             "F": [_t["F"] for _t in _tl],
                             "N": [_t["N"] for _t in _tl]}
             # I~ blocks iT for mUla & yanluganta (yatI~->yatta, yAyatta via cross-match); sannanta/nijanta/yananta sec keeps iT
+            # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
+            if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
+                return tri_linga("vAsita")
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
             # sannanta is seT for the kta family (surveyed 1156/1156, zero exceptions)
             stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
@@ -2081,6 +2089,9 @@ class KrdantaEngine:
 
         elif pratyaya == "ktavatu":
             if sanadi == "yanluganta":
+                # AdAdi vas yl redup (vAvasitavat; sole 02.0013; free).
+                if clean == "vas" and meta.get("gana") == "adAdiH":
+                    return {"M": "vAvasitavAn", "F": "vAvasitavatI", "N": ["vAvasitavat", "vAvasitavad"]}
                 _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita", "ve": "vovita", "hve": "jAhuvita"}
                 if clean in _yajadi_yl_kta:
                     _b = _yajadi_yl_kta[clean][:-1]
@@ -2099,6 +2110,9 @@ class KrdantaEngine:
                             "F": [_b + "avatI" for _b in _bb],
                             "N": [_b + "avat" for _b in _bb]}
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
+            # AdAdi vas nijanta vriddhi ktavatu (vAsitavAn; sole 02.0013; free).
+            if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
+                return {"M": "vAsitavAn", "F": "vAsitavatI", "N": ["vAsitavat", "vAsitavad"]}
             stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
             # yanlug d-final ktavatu mirrors kta (jAhlAttavAn alongside jAhlAnnavAn)
             if sanadi == "yanluganta" and clean.endswith("d"):
@@ -3076,7 +3090,8 @@ class KrdantaEngine:
                 return {"avyaya": ["SvayitvA", "SvitvA"]}
             # Panini 6.1.15 vaci-svapi-yajAdInAM kiti
             _yajadi_ktva = {"yaj": "izwvA", "vap": "uptvA", "vah": "UQvA", "vas": "uzitvA", "vad": "uditvA"}
-            if clean in _yajadi_ktva:
+            # AdAdi vas keeps vas (fall through to generic vasitvA; BvAdi keeps uzitvA).
+            if clean in _yajadi_ktva and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
                 if sanadi == "yanluganta":
                     _yl_ktva = {"yaj": "yAyajitvA", "vap": "vAvapitvA", "vah": "vAvahitvA", "vas": "vAvasitvA", "vad": "vAvaditvA"}
                     return {"avyaya": [_yl_ktva[clean]]}
@@ -3247,7 +3262,10 @@ class KrdantaEngine:
                 "vad": ["prodya", "udya", "anUdya", "anuvAdya"],
                 "Svi": ["praSUya", "viSUya", "SUya"],
             }
-            if clean in _yajadi_lyap:
+            # AdAdi vas yl redup (pravAvasya; sole 02.0013; free).
+            if sanadi == "yanluganta" and clean == "vas" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["pravAvasya"]}
+            if clean in _yajadi_lyap and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
                 if sanadi == "yanluganta":
                     _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSoSUya", "SoSUya"]}
                     return {"avyaya": _yl_lyap.get(clean, _yajadi_lyap.get(clean, []))}
