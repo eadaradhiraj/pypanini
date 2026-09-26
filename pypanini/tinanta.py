@@ -3902,6 +3902,11 @@ class TinantaDerivationEngine:
                 _e9 = _se9.get((purusha, vacana))
                 if _e9:
                     cands += [_ss + _e9, _sst + _e9]
+            # an luk present (aniti/anitaH/ananti/anizi; sole 02.0065 ana~ surveyed — the only AdAdi
+            # a-root taking short-i; han/sas keep bare stems; additive; meta-clean gate like sasti).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "an":
+                _an9 = {("prathama","eka"):["aniti"],("prathama","dvi"):["anitaH"],("prathama","bahu"):["ananti"],("madhyama","eka"):["anizi"],("madhyama","dvi"):["aniTaH"],("madhyama","bahu"):["aniTa"],("uttama","eka"):["animi"],("uttama","dvi"):["anivaH"],("uttama","bahu"):["animaH"]}
+                cands += _an9.get((purusha, vacana), [])
             # AdAdi luk present, short-a consonant-coda stems: stem + endings with coda-sandhi
             # (atti/hanti/vakti; d->t/_voiceless, n->M/_s, n->0/_t, c->k/_voiceless, s-lopa for as-clean only;
             # Gnanti-type readings queued). Gana-gated + additive.
@@ -4022,6 +4027,11 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "sasti":
                 _slat = {(("prathama","eka")):["asan"],(("madhyama","eka")):["asan"],(("prathama","dvi")):["asaMstAm","asaMsttAm"],(("prathama","bahu")):["asaMstan"],(("madhyama","dvi")):["asaMstam","asaMsttam"],(("madhyama","bahu")):["asaMsta","asaMstta"],(("uttama","eka")):["asaMstam"],(("uttama","dvi")):["asaMstva"],(("uttama","bahu")):["asaMstma"]}
                 cands += _slat.get((purusha, vacana), [])
+            # an luk imperfect (bare Anat/Anad + i-grade AnIt/AnId doublets, weak rest, bare u-slots Anam;
+            # sole 02.0065; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "an":
+                _anlaN = {(("prathama","eka")):["Anat","Anad","AnIt","AnId"],(("madhyama","eka")):["AnaH","AnIH"],(("prathama","dvi")):["AnitAm"],(("prathama","bahu")):["Anan"],(("madhyama","dvi")):["Anitam"],(("madhyama","bahu")):["Anita"],(("uttama","eka")):["Anam"],(("uttama","dvi")):["Aniva"],(("uttama","bahu")):["Anima"]}
+                cands += _anlaN.get((purusha, vacana), [])
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
@@ -4087,6 +4097,10 @@ class TinantaDerivationEngine:
                     cands += ["saMs" + _e10, "saMst" + _e10]
                 if (purusha, vacana) == ("madhyama", "eka"):
                     cands += ["sanddDi", "sanDi"]
+            # an luk imperative (anitAt/anitu/anantu/anihi + A-grade 1sg anAni; sole 02.0065; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "an":
+                _anlow = {("madhyama","eka"):["anitAt","anitAd","anihi"],("prathama","eka"):["anitu"],("prathama","dvi"):["anitAm"],("prathama","bahu"):["anantu"],("madhyama","dvi"):["anitam"],("madhyama","bahu"):["anita"],("uttama","eka"):["anAni"],("uttama","dvi"):["anAva"],("uttama","bahu"):["anAma"]}
+                cands += _anlow.get((purusha, vacana), [])
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
