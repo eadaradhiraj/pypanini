@@ -2536,6 +2536,9 @@ class KrdantaEngine:
             # SAsu long-stem SAnac (ASAsAnaH; sole 0012 surveyed; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") == "SAs":
                 return tri_linga("ASAsAna")
+            # u-Atmane uv SAnac (hnuvAna/suvAna; surveyed pair 0077/0025; replacement free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") in ("hnu", "sU"):
+                return tri_linga({"hnu": "hnuvAna", "sU": "suvAna"}[meta.get("clean")])
             if best.endswith("a"):
                 stem = best + "mAna"
             elif best.endswith("A"):

@@ -177,3 +177,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 48 (rudi~r o-grade seW-i (roditi-pits + weak-i + o-1sg + weak-u yAt; sole 02.0062 surveyed; laN already passing skipped; additive): 02.0062 ting-full (+21), 0 worsened (01 zero-diff).
 - Iteration 49 (rud v-less Satf (`rudat` mUla + `rorudat` yl; sole 02.0062 surveyed — whole u-class v-ful; free replacements): 02.0062 → 879/879 (+1 pass, 38/76), 0 worsened (01 zero-diff).
 - Iteration 50 (stu o-liT `tuzwoTa` (sole 02.0038 — ru/tu a-grade; a self-caught mid-chain wipe fixed via ji-pattern early-return): 02.0038 +1 slot, 0 worsened (01 zero-diff).
+- Iteration 51 (u-Atmane pair hnu/sU (uv-epenthesis + u-satva in joint-helper incl. U-shortening `suvAte`; per-root av/uv-1sg; weak-u laN-i; uvI-viD; uvAna SAnac; two self-caught bugs — U-length, vahi-map; additive/free): 02.0077 + 02.0025 → full pass (+2 passes, 40/76), 0 worsened (01 zero-diff).

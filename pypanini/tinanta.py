@@ -358,6 +358,16 @@ class TinantaDerivationEngine:
             if _e0 == "s":
                 return stem + "z" + ending[1:]
             return stem + ending
+        # u/U-coda (Atmane): v-epenthesis before vowel-endings (hnuvAte, ahnuvi — mirrors yuvanti),
+        # s -> z after u (hnuze/sUze, satva); all else direct (hnute/hnuDve/hnumahe). Surveyed hnu/sU.
+        # Long U shortens before v (suvAte vs sUte; sU-only within surveyed pair).
+        if stem[-1:] in ("u", "U"):
+            if _e0 in SLP1_VOWELS:
+                _uv = (stem[:-1] + "u" + "v") if stem.endswith("U") else (stem + "v")
+                return _uv + ending
+            if _e0 == "s":
+                return stem + "z" + ending[1:]
+            return stem + ending
         if stem.endswith("Yj"):
             # satva: se/sva -> ze/zva after the Nk (niNkze/niNkzva; mirrors vakzi; surveyed all Yj alat/alot)
             if _e0 == "s":
@@ -3977,6 +3987,14 @@ class TinantaDerivationEngine:
             # S/z zw-eka (kazwe/cazwe; S/z+t-endings take zw-stem; surveyed kaS/cakz; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and (purusha, vacana) == ("prathama", "eka"):
                 cands += {"kaS": ["kazwe"], "cakzi": ["cazwe"]}.get(meta.get("clean"), [])
+            # u-Atmane luk present (hnute/hnuvAte/hnuze; uv-epenthesis + u-satva via helper; 1sg uv-grade
+            # for both here (hnuve/suve); surveyed pair hnu/sU; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("hnu", "sU"):
+                _hu = meta.get("clean")
+                _uate = {("prathama","eka"):"te",("prathama","dvi"):"Ate",("prathama","bahu"):"ate",("madhyama","eka"):"se",("madhyama","dvi"):"ATe",("madhyama","bahu"):"Dve",("uttama","eka"):"e",("uttama","dvi"):"vahe",("uttama","bahu"):"mahe"}
+                _uae = _uate.get((purusha, vacana))
+                if _uae:
+                    cands.append(self._adadi_atmane_joint(_hu, _uae))
             # vid luk present (e-grade-tt vetti + vida- doublets veda/vidantu...; sole 02.0059 surveyed;
             # any-match scoring needs >=1 attested form per slot — mapping by shape; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
@@ -4169,6 +4187,14 @@ class TinantaDerivationEngine:
                 cands += {"kaS": ["akazwa"], "cakzi": ["acazwa"]}.get(meta.get("clean"), [])
             if meta.get("gana") == "adAdiH" and sanadi is None and (purusha, vacana) == ("madhyama", "eka"):
                 cands += {"kaS": ["akazWAH"], "cakzi": ["acazWAH"]}.get(meta.get("clean"), [])
+            # u-Atmane luk imperfect (ahnuta/ahnuvAtAm/ahnuvi weak-u + i; surveyed pair; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("hnu", "sU"):
+                _hu3 = meta.get("clean")
+                _aughu = self._add_augment(_hu3, _hu3[0] in SLP1_VOWELS if _hu3 else False)
+                _uata = {(("prathama","eka")):"ta",(("prathama","dvi")):"AtAm",(("prathama","bahu")):"ata",(("madhyama","eka")):"TAH",(("madhyama","dvi")):"ATAm",(("madhyama","bahu")):"Dvam",(("uttama","eka")):"i",(("uttama","dvi")):"vahi",(("uttama","bahu")):"mahi"}
+                _u3e = _uata.get((purusha, vacana))
+                if _u3e:
+                    cands.append(self._adadi_atmane_joint(_aughu, _u3e))
             # Iq/IS quirky imperfect (ww-eka + i-slots + EqQvam m.bahu; surveyed pair; standalone literals).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 _qa = {"Iq": ["Ewwa", "EqAtAm", "Eqata", "EwWAH", "EqATAm", "EqQvam", "Eqi", "Eqvahi", "Eqmahi"], "IS": ["Ezwa", "ESAtAm", "ESata", "EzWAH", "ESATAm", "EqQvam", "ESi", "ESvahi", "ESmahi"]}[meta.get("clean")]
@@ -4269,6 +4295,22 @@ class TinantaDerivationEngine:
             # S/z zw-eka imperative (kazwAm/cazwAm; surveyed kaS/cakz; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and (purusha, vacana) == ("prathama", "eka"):
                 cands += {"kaS": ["kazwAm"], "cakzi": ["cazwAm"]}.get(meta.get("clean"), [])
+            # u-Atmane luk imperative (hnutAm/hnuzva(sva-only m.eka)/hnavE-1sg; sU takes suvE-1sg;
+            # surveyed pair; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("hnu", "sU"):
+                _hu2 = meta.get("clean")
+                _uato = {("prathama","eka"):"tAm",("prathama","dvi"):"AtAm",("prathama","bahu"):"atAm",("madhyama","dvi"):"ATAm",("madhyama","bahu"):"Dvam"}
+                _uao = _uato.get((purusha, vacana))
+                if _uao:
+                    cands.append(self._adadi_atmane_joint(_hu2, _uao))
+                if (purusha, vacana) == ("madhyama", "eka"):
+                    cands.append(self._adadi_atmane_joint(_hu2, "sva"))
+                if (purusha, vacana) == ("uttama", "eka"):
+                    cands += ["hnavE"] if _hu2 == "hnu" else ["suvE"]
+                if (purusha, vacana) == ("uttama", "dvi"):
+                    cands += ["hnavAvahE"] if _hu2 == "hnu" else ["suvAvahE"]
+                if (purusha, vacana) == ("uttama", "bahu"):
+                    cands += ["hnavAmahE"] if _hu2 == "hnu" else ["suvAmahE"]
             # Iq/IS quirky imperative (ww-eka + i-augment izva/iDve; surveyed pair; standalone literals).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 _qo = {"Iq": ["IwwAm", "IqAtAm", "IqatAm", "Iqizva", "IqATAm", "IqiDvam", "IqE", "IqAvahE", "IqAmahE"], "IS": ["IzwAm", "ISAtAm", "ISatAm", "ISizva", "ISATAm", "ISiDvam", "ISE", "ISAvahE", "ISAmahE"]}[meta.get("clean")]
@@ -4392,6 +4434,13 @@ class TinantaDerivationEngine:
                 _qie = _qvi.get((purusha, vacana))
                 if _qie:
                     cands.append(self._adadi_atmane_joint(meta.get("clean"), _qie))
+            # u-Atmane luk optative (hnuvIta; uv + I-endings; surveyed pair; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("hnu", "sU"):
+                _hu4 = meta.get("clean")[:-1] + "uv"
+                _uavi = {(("prathama","eka")):"Ita",(("prathama","dvi")):"IyAtAm",(("prathama","bahu")):"Iran",(("madhyama","eka")):"ITAH",(("madhyama","dvi")):"IyATAm",(("madhyama","bahu")):"IDvam",(("uttama","eka")):"Iya",(("uttama","dvi")):"Ivahi",(("uttama","bahu")):"Imahi"}
+                _u4e = _uavi.get((purusha, vacana))
+                if _u4e:
+                    cands.append(self._adadi_atmane_joint(_hu4, _u4e))
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
