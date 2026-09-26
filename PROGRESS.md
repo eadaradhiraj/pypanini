@@ -4,14 +4,14 @@ Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
 Sweep-02: **36/76 100%-attested** (raw 36/77, 1 skipped) — token gains, no new passes.
 
-## Done — jAg kta-family (+19 tokens, 0 worsened)
-- f→ar across kta/ktavatu/tavya/tumun/ktvA/GaY/lyap for sole jAg (free replacements):
-  - krdanta `_kta_stem` + 5 branches.
-  - Full Sweep Results: 02 improved **1 root** (0067 40->59/626), **worsened 0** (01 zero-diff).
+## Done — vid lw (+8 slots, 0 worsened)
+- e-grade-tt + vida- doublet table for sole vid (additive):
+  - tinanta mUla-lw branch.
+  - Full Sweep Results: 02 improved **1 root** (0059 844->852/879, lw 9/9), **worsened 0** (01 zero-diff).
 - Prior work: 02 at 36/76 passes; combined same passes, token gains continue.
 
 ## Next (02 loop)
-1. vid-`vas` (0059 big multi-system) — survey lw doublets + `vidantu/vidANkara` periphrastics.
+1. vid low/laN/viD (luk `vettu/vidantu` + periphrastic `vidANkara` + `vidyAt` yAt).
 2. ik-quirk (0042); vaS (0075); svap GaY `svApaH`?; stu vI (0038); hnAv (0077).
 3. zRu (0033 yang/nich) + duha~ (0004) + rudi~r (0062) + UrRu alit/yak residuals.
 4. cakz perfect/aorist (0007) + SAsu kta-family + yang family + krdanta luk grades.

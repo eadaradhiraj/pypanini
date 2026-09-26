@@ -168,3 +168,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 39 (UrRu laN-eka `OrRot/OrRod` doublet (haplology OrR-O-t; sole o-root; liw-nuva queued separately): 02.0034 +1 slot, 0 worsened (01 zero-diff).
 - Iteration 40 (UrRu nuva-perfect table (ji-pattern parasmaipada early-return; two self-caught placements — unbound cands, mid-chain wipe — fixed; additive/passthrough): 02.0034 +6 (liw 9/9), 0 worsened (01 zero-diff).
 - Iteration 41 (jAg kta-family ar-grade (`jAgarita/tavya/tum/tvA`, `jAgaraH`, `prajAgarya`; `_kta_stem` hook spilled into san/nich; sole-gated free replacements): 02.0067 40->59 (+19), 0 worsened (01 zero-diff).
+- Iteration 42 (vid luk present doublets (e-grade-tt + vida- variants; sole 02.0059 surveyed; shape-mapped; additive): 02.0059 lw 9/9 (+8), 0 worsened (01 zero-diff).

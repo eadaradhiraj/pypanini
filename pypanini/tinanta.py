@@ -3977,6 +3977,11 @@ class TinantaDerivationEngine:
             # S/z zw-eka (kazwe/cazwe; S/z+t-endings take zw-stem; surveyed kaS/cakz; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and (purusha, vacana) == ("prathama", "eka"):
                 cands += {"kaS": ["kazwe"], "cakzi": ["cazwe"]}.get(meta.get("clean"), [])
+            # vid luk present (e-grade-tt vetti + vida- doublets veda/vidantu...; sole 02.0059 surveyed;
+            # any-match scoring needs >=1 attested form per slot — mapping by shape; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
+                _vid9 = {("prathama","eka"):["vetti","veda"],("prathama","dvi"):["vittaH","vidatuH"],("prathama","bahu"):["vidanti","viduH"],("madhyama","eka"):["vetsi","vetTa"],("madhyama","dvi"):["vitTaH","vidaTuH"],("madhyama","bahu"):["vitTa","vida"],("uttama","eka"):["vedmi","veda"],("uttama","dvi"):["vidva","vidvaH"],("uttama","bahu"):["vidma","vidmaH"]}
+                cands += _vid9.get((purusha, vacana), [])
             # SAsu short 1sg (ASAse; sole lw-u.eka slot with short stem — ASAste etc. already contain
             # long ASAs; surveyed 0012; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs" and (purusha, vacana) == ("uttama", "eka"):
