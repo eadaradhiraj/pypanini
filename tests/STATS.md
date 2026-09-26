@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-26
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1152/1156 100%** (99.7%, raw 1152/1166). Fails: 4 scored (14 with 10 skipped). Net matched tokens +30680 across all generative iterations (0 true worsened).
+Passes: **1152/1156 100%** (99.7%, raw 1152/1166). Fails: 4 scored (14 with 10 skipped). Net matched tokens +30700 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -79,6 +79,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - ew-final aniW A-grade `DA-` base (extends nich-puk iteration; sole 01 `Dew` 01.1050): tinanta `_prim_bases` appends adeca-adjacent `DA-` (w-loss + A, op-keyed since clean is remapped to `Day`; new `sew` param threaded through all 13 call sites incl. 2-arg yak sites); krdanta mUla `clean->DA` reassignment after the nasal block (`kta`/`ktavatu` use `orig_clean`, safe). Purely additive tinanta-side (scoring-monotonic, regression impossible by design); krdanta-side safe (all other mUla pratyayas missed). 1 improved (+80: `01.1050` 509->589: ting luT/lRT/lRN 27 + yak luT/lRT/lRN/ASIrliN 36 + krut tavya/tfc/anIyar/GaY/Rvul/SAnac 17), 0 worsened, passes held 1152. Remainder: yak `DIya-` present (45), yang `deDIya-` (180+29), krut `Day-/Dey-` (9), liT `daD-` + ASIrliN `Dey-` (17) — queued one trait at a time.
 - yang `deDIya-` stem + y-retention for aniW ew (sole 01 `Dew` 01.1050): tinanta `_yan_stem` e-redup + I-grade (`deDIya`, de-aspirated reduplicant; joins the `DA/DuDAY/De/Do->deDIya` D-group); `keeps_y_in_yan` extended to aniW ew (single consumer: the yananta branch serving both prayogas); mirrored krdanta `_yan_sec` + krdanta `keeps_y_in_yan`. Survey: sew ew-cleans keep generic `memewya-`, E-group (`dAdAya/jAglAya`) unaffected. 1 improved (+212: `01.1050` 589->801 = yang lw/low/laN/viDiliN 72 + yang_krut kta/ktavatu via sec 8 + yangluk_krut spillover 3 + tinanta y-retention 108 + krdanta y-retention 21), 0 worsened, passes held 1152. Remainder (91): yak `DIya-` present 45, yangluk_krut 20, ting liT/ASIrliN 17, krut 9 — queued one trait at a time.
 - yak `DIya-` present stem for aniW ew (sole 01 `Dew` 01.1050): extends the E-final 2-letter `Iya` rule (`me/de/gE->mIyate/dIyate`) with an op-keyed aniW ew branch (`DIy/DI` appended to `yak_variants`/`sec_variants`). Survey: 17 Iya-yak roots in 01 (all others pass); sew ew-cleans want generic `ewya-` (`mlewyate`), excluded by shape + sew-gate. Purely additive (scoring-monotonic). 1 improved (+36: `01.1050` 801->837: yak lw/low/laN/viDiliN), 0 worsened, passes held 1152. Remainder (55): yangluk_krut 20, perfect `daD-` redup 17, krut 9, ASIrliN `Dey-` 9 — queued one trait at a time.
+- yangluk `dAD-` sec for aniW ew (sole 01 `Dew` 01.1050): sec-chain branch routing `Dew->DA`, flowing through proven A-final yanlug machinery (`_get_yanluk_a_base` `dADitaH/dADitavyaH`, `dE->dAd`/`glE->jAgl` precedent). Survey: sew trio keeps plain stems (`memlewitaH`); kta/ktavatu go spurious-cross-match→true-pass (count neutral); SAnac kept passing (29/29 full pass, no rotation). 1 improved (+20: `01.1050` 837->857: yangluk_krut 9/29->29/29), 0 worsened, passes held 1152. Remainder (35): perfect `daD-` redup 17, krut 9, ASIrliN `Dey-` 9 — queued one trait at a time.
 - BLOCKED (surveyed, no generative rule — recorded, not attempted): `01.1086` yangluk/yangluk_krut (arerIti/arteti/ftItaH/fjayati + rat/rad/riteta — 4+ suppletive stems per slot, no shape derivation); `01.1086` can cap at 869/892.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
@@ -87,7 +88,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 | krut | 17 | 01.0262 krut/anIyar/M:ajanIyaH |
 | san_krut | 3 | 01.0459 san_krut/Satf/M:sisramBizan |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
-| ting | 5 | 01.1050 ting/liw/prathama/eka:daDAyva |
-| yangluk | 5 | 01.1086 yangluk/lw/prathama/eka:farIari |
+| ting | 5 | 01.1050 ting/liw/prathama/eka:daDaya |
+| yangluk | 5 | 01.1086 yangluk/lw/prathama/eka:farIfmaH |
 | yangluk_krut | 5 | 01.1086 yangluk_krut/Satf/M:farrat |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |

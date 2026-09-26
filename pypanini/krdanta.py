@@ -1486,6 +1486,12 @@ class KrdantaEngine:
             # Panini 8.2.18 kfpo ro l: yangluk uses l-redup (carkalp-, not kfp-).
             elif sanadi == "yanluganta" and clean == "kfp":
                 sec = "carkalp"
+            # aniW ew-final yangluk takes the A-final route (Dew->DA, redup-A + onset via _get_yanluk_a_base
+            # dADitaH/dADitavyaH; sole 01 Dew 01.1050 surveyed; sew ew-cleans mlew/mew/rew keep plain stems).
+            # Routes through proven A-final yanlug machinery (dE->dAd, glE->jAgl). SAnac loses its spurious
+            # cross-anta deDIyamAnaH match (3 slots, documented rotation); kta/ktavatu go spurious->true.
+            elif sanadi == "yanluganta" and clean.endswith("ew") and not sew:
+                sec = clean[:-2] + "A"
             elif sanadi == "yanluganta" and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 # Y-class (meta skips num): primitive+num, reduplicated if Atmanepadi (sraki->sAsraNkitaH, agi->aNgitaH)
                 _ylbw = clean[:-1]
