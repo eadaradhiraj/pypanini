@@ -149,3 +149,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 20 (bare-`i` yat e-grade `eya` special (sole 02.0040; vI/SI ride generic e-guna; gana-gated so BvAdi iN untouched): 02.0040 +3, 0 worsened (01 zero-diff).
 - Iteration 21 (sole-`an` luk tables (lw i-forms `aniti/anizi`, low + A-1sg, laN bare/i-doublets; meta-clean gated like sasti; han/sas keep bare; additive): 02.0065 → 626/626 (+1 pass, 21/76), 0 worsened (01 zero-diff).
 - Iteration 22 (seW i-augment luk present for closed class svap/Svas/jakz (shared X+i skeleton + izi; bahu bare except jakz short `jakzati`; sew/bare-shape both fail as discriminators so surveyed set; additive): 3 roots lw 9/9 (+23 tokens), 0 worsened (01 zero-diff).
+- Iteration 23 (seW i-class low/laN: shared X+it skeleton + ihi, eka/i-doublets, bare u-slots; jakz-only bahu `jakzatu/ajakzuH` + ueka `jakzARi`; same class gate; additive): 0064/0066 ting-full (+10 each) + 0063 +9 (+29 tokens), 0 worsened (01 zero-diff).

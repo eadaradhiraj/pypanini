@@ -4039,6 +4039,14 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "an":
                 _anlaN = {(("prathama","eka")):["Anat","Anad","AnIt","AnId"],(("madhyama","eka")):["AnaH","AnIH"],(("prathama","dvi")):["AnitAm"],(("prathama","bahu")):["Anan"],(("madhyama","dvi")):["Anitam"],(("madhyama","bahu")):["Anita"],(("uttama","eka")):["Anam"],(("uttama","dvi")):["Aniva"],(("uttama","bahu")):["Anima"]}
                 cands += _anlaN.get((purusha, vacana), [])
+            # seW i-class luk imperfect (eka bare+i doublets, meka aH/IH, weak i-slots, bare u-slots;
+            # bahu bare-an except jakz u-grade `ajakzuH`; same class gate; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
+                _kc = meta.get("clean")
+                _klaN = {(("prathama","eka")):["a"+_kc+"at","a"+_kc+"ad","a"+_kc+"It","a"+_kc+"Id"],(("madhyama","eka")):["a"+_kc+"aH","a"+_kc+"IH"],(("prathama","dvi")):["a"+_kc+"itAm"],(("madhyama","dvi")):["a"+_kc+"itam"],(("madhyama","bahu")):["a"+_kc+"ita"],(("uttama","eka")):["a"+_kc+"am"],(("uttama","dvi")):["a"+_kc+"iva"],(("uttama","bahu")):["a"+_kc+"ima"]}
+                cands += _klaN.get((purusha, vacana), [])
+                if (purusha, vacana) == ("prathama", "bahu"):
+                    cands += ["ajakzuH"] if _kc == "jakz" else ["a" + _kc + "an"]
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
@@ -4108,6 +4116,16 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "an":
                 _anlow = {("madhyama","eka"):["anitAt","anitAd","anihi"],("prathama","eka"):["anitu"],("prathama","dvi"):["anitAm"],("prathama","bahu"):["anantu"],("madhyama","dvi"):["anitam"],("madhyama","bahu"):["anita"],("uttama","eka"):["anAni"],("uttama","dvi"):["anAva"],("uttama","bahu"):["anAma"]}
                 cands += _anlow.get((purusha, vacana), [])
+            # seW i-class luk imperative (shared X+it skeleton + ihi; bahu bare except jakz short `jakzatu`;
+            # 1sg a-grade Ani/Ava/Ama except jakz eka ARi `jakzARi`; same class gate as lw; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
+                _jc = meta.get("clean")
+                _jlow = {("madhyama","eka"):[_jc+"itAt",_jc+"itAd",_jc+"ihi"],("prathama","eka"):[_jc+"itu"],("prathama","dvi"):[_jc+"itAm"],("madhyama","dvi"):[_jc+"itam"],("madhyama","bahu"):[_jc+"ita"],("uttama","dvi"):[_jc+"Ava"],("uttama","bahu"):[_jc+"Ama"]}
+                cands += _jlow.get((purusha, vacana), [])
+                if (purusha, vacana) == ("prathama", "bahu"):
+                    cands += ["jakzatu"] if _jc == "jakz" else [_jc + "antu"]
+                if (purusha, vacana) == ("uttama", "eka"):
+                    cands += ["jakzARi"] if _jc == "jakz" else [_jc + "Ani"]
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
