@@ -70,6 +70,9 @@ def clean_dhatu_op(op: str) -> str:
         raw = raw[:-1]
     if (raw.endswith("Y") or raw.endswith("N")) and len(raw) > 1:
         raw = raw[:-1]
+    # R-anubandha (mirrors tinanta; sole iR surveyed, all other R-finals retain R).
+    if raw == "iR":
+        raw = "i"
     if raw == "dAR":
         raw = "dA"
     if raw == "dEp":

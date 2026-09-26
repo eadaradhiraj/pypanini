@@ -38,6 +38,10 @@ def clean_dhatu_op(op: str) -> str:
         raw = raw[:-1]
     if (raw.endswith("Y") or raw.endswith("N")) and len(raw) > 1:
         raw = raw[:-1]
+    # R-anubandha (iR->i, parallel to uN->u above): surveyed all R-final cleans 01+02 — iR is the sole
+    # R-dropper (eti, no R anywhere); every other R-final retains R (paRati/raRati/...).
+    if raw == "iR":
+        raw = "i"
     if raw == "dAR":
         raw = "dA"
     if raw == "dEp":
