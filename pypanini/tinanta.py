@@ -298,6 +298,28 @@ class TinantaDerivationEngine:
                 return "ac" + base
             return "a" + base
 
+    def _adadi_a_luk(self, clean: str, ee: str, vacana: str = "eka", strong_eka: bool = True) -> str:
+        """AdAdi short-a luk stem + coda-sandhi for an ending (atti/hanti/vakti; surveyed class:
+        d->t/_voiceless, n->M/_s, n->0/_t-endings-except-ti, c->k/_voiceless, as-ablaut).
+        strong_eka=True: as- keeps strong in eka (lw mode); False: weak everywhere (low mode).
+        Callers handle si-degem (asi) and Dhi-variants separately. Empty-clean safe."""
+        if not clean:
+            return clean
+        if clean == "as":
+            return "as" if (strong_eka and vacana == "eka") else "s"
+        _ec = ee[0] if ee else ""
+        _voiceless = _ec in ("t", "T", "s")
+        if clean[-1] == "d" and _voiceless:
+            return clean[:-1] + "t"
+        if clean[-1] == "n" and _ec == "s":
+            return clean[:-1] + "M"
+        # n-drop before t-endings except -ti/-tu (hanti/hantu keep n; hataH/hatAm/hatam/hata drop it)
+        if clean[-1] == "n" and ee[:1] in ("t", "T") and ee not in ("ti", "tu"):
+            return clean[:-1]
+        if clean[-1] == "c" and _voiceless:
+            return clean[:-1] + "k"
+        return clean
+
     def _reduplicated_stem(self, clean: str) -> str:
         """Simple generative reduplication for consonant-initial BvAdi.
            Handles s+consonant clusters, de-aspiration and abhyAsa vowel."""
@@ -3870,30 +3892,16 @@ class TinantaDerivationEngine:
                     _pe = {("prathama","eka"):"ti",("prathama","dvi"):"taH",("prathama","bahu"):"anti",("madhyama","eka"):"si",("madhyama","dvi"):"TaH",("madhyama","bahu"):"Ta",("uttama","eka"):"mi",("uttama","dvi"):"vaH",("uttama","bahu"):"maH"}
                     _ee = _pe.get((purusha, vacana))
                     if _ee:
-                        _st = clean
-                        _ec = _ee[0]
-                        _voiceless = _ec in ("t", "T", "s")
-                        if clean == "as":
-                            # as- ablaut: strong as- in eka only (asti/asi/asmi), weak s- elsewhere (staH/santi)
-                            _st = "as" if vacana == "eka" else "s"
-                            # as+si degeminates (asi, not assi; sas+si keeps ss: sassi)
-                            if _ee == "si":
-                                cands.append("asi")
+                        # as+si degeminates (asi, not assi; sas+si keeps ss: sassi)
+                        if clean == "as" and _ee == "si":
+                            cands.append("asi")
+                        else:
+                            _st = self._adadi_a_luk(clean, _ee, vacana)
+                            # ṣatva: si -> zi after velar stop (vakzi; sole vac-shape surveyed, jakza-class rides free)
+                            if _ee == "si" and _st and _st[-1] in ("k", "K", "g", "G"):
+                                cands.append(_st + "zi")
                             else:
                                 cands.append(_st + _ee)
-                        elif clean[-1] == "d" and _voiceless:
-                            _st = clean[:-1] + "t"
-                        elif clean[-1] == "n" and _ec == "s":
-                            _st = clean[:-1] + "M"
-                        elif clean[-1] == "n" and _ee in ("taH", "TaH", "Ta"):
-                            _st = clean[:-1]
-                        elif clean[-1] == "c" and _voiceless:
-                            _st = clean[:-1] + "k"
-                        # ṣatva: si -> zi after velar stop (vakzi; sole vac-shape surveyed, jakza-class rides free)
-                        if _ee == "si" and _st and _st[-1] in ("k", "K", "g", "G"):
-                            cands.append(_st + "zi")
-                        else:
-                            cands.append(_st + _ee)
             for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "lw", purusha, vacana)
@@ -3973,6 +3981,24 @@ class TinantaDerivationEngine:
                 _avw = clean[:-1] + "av"
                 _weak_low = {("madhyama","eka"):[clean+"tAt",clean+"tAd",clean+"hi"],("prathama","dvi"):[clean+"tAm"],("prathama","bahu"):[clean+"vantu"],("madhyama","dvi"):[clean+"tam"],("madhyama","bahu"):[clean+"ta"],("uttama","eka"):[_avw+"Ani"],("uttama","dvi"):[_avw+"Ava"],("uttama","bahu"):[_avw+"Ama"]}
                 cands += _weak_low.get((purusha, vacana), [])
+            # AdAdi-a luk imperative: luk-stem doublets (weak + strong for as-3sg astu) + endings
+            # (attAt/adantu...; 2sg Dhi-variants adDi/vagDi/saDi/eDi, jahi skipped); same sandhi family
+            # via helper; gana-gated + additive.
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] not in SLP1_VOWELS:
+                _lvA4 = None
+                for _ch4 in reversed(clean):
+                    if _ch4 in SLP1_VOWELS:
+                        _lvA4 = _ch4
+                        break
+                if _lvA4 == "a":
+                    _lowmap = {("madhyama","eka"):["tAt","tAd"],("prathama","eka"):["tu"],("prathama","dvi"):["tAm"],("prathama","bahu"):["antu"],("madhyama","dvi"):["tam"],("madhyama","bahu"):["ta"],("uttama","eka"):["Ani"],("uttama","dvi"):["Ava"],("uttama","bahu"):["Ama"]}
+                    for _e4 in _lowmap.get((purusha, vacana), []):
+                        for _sq in (False, True):
+                            cands.append(self._adadi_a_luk(clean, _e4, vacana, strong_eka=_sq) + _e4)
+                    if (purusha, vacana) == ("madhyama", "eka"):
+                        _dhi = {"ad": "adDi", "vac": "vagDi", "sas": "saDi", "as": "eDi"}
+                        if clean in _dhi:
+                            cands.append(_dhi[clean])
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
