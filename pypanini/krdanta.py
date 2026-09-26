@@ -835,6 +835,9 @@ class KrdantaEngine:
                 # dEp (mirrors tinanta): vriddhi-A + puk (dApay-).
                 if c == "dEp":
                     return "dApay"
+                # single vocalic-f nich takes puk p (mirrors tinanta; sole 01 f-clean 01.1086)
+                if c == "f":
+                    return "arpay"
                 # Panini 6.1.22 / Varttika on 7.3.39 sPAyo vuk
                 if c in ("sPAy", "sPA") or op.startswith("sPAy"):
                     return "sPAvay"
