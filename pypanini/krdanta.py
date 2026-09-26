@@ -2282,9 +2282,18 @@ class KrdantaEngine:
                 f = _satf_base + "ntI"
                 # A-final Satf feminine tI-twin (yAtI for AdAdi A-finals yA/vA/rA...; additive — yAntI kept;
                 # ay-final stems (Day-/glAy-) never end in A, untouched).
+                # daridrA abhyasta AtaH-lopa (6.4.112 SnAbhyastayor AtaH: daridrA->daridrat; sole A-final
+                # surveyed with short stem; old long forms kept, additive).
+                if sanadi in (None, "yanluganta") and meta.get("clean") == "daridrA":
+                    _dat = _satf_base[:-1] + "at"
+                    return {"M": [m, _dat, _dat[:-1] + "d"], "F": [f, _satf_base + "tI", _dat + "I"], "N": [stem_at, _dat, _dat[:-1] + "d"]}
                 return {"M": m, "F": [f, _satf_base + "tI"], "N": stem_at}
             else:
                 m = stem_at[:-1] + "n"  # Bavat -> Bavan
+                # no-num M twin (jakzat/jakzad; surveyed no-num class jakz/jAg/daridrA/cakAs/SAs — exp M =
+                # base/base-d; all other roots keep num (Svasan/anan); additive; mUla + yanluganta path).
+                if sanadi in (None, "yanluganta") and meta.get("clean") in ("jakz", "jAg", "daridrA", "cakAs", "SAs"):
+                    m = [m, stem_at, stem_at[:-1] + "d"] if stem_at.endswith("t") else [m, stem_at]
                 # AdAdi weak-u F takes atI (yuvatI, like yAtI-pattern; _adAU_satf-gated, BvAdi keeps antI)
                 if _adAU_satf:
                     f = _satf_base + "atI"
