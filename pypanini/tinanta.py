@@ -3191,6 +3191,11 @@ class TinantaDerivationEngine:
                     aug_vbase_daD = _aug(vbase_daD)
                     table_daD = {("prathama","eka"):[aug_clean+"i", aug_vbase_daD+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", aug_vbase_daD+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", aug_vbase_daD+"izata"],("madhyama","eka"):[aug_clean+"izWAH", aug_vbase_daD+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", aug_vbase_daD+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", aug_vbase_daD+"iDvam"],("uttama","eka"):[aug_clean+"izi", aug_vbase_daD+"izi"],("uttama","dvi"):[aug_clean+"izvahi", aug_vbase_daD+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", aug_vbase_daD+"izmahi"]}
                     return table_daD[(purusha,vacana)], log
+                # KyA yak-luN root-aorist + e-grade table (aKyat/aKyetAm/aKyanta...; sole Ky-clean 01+02
+                # surveyed; siblings take iz-aorist; yat/de/f/u-table precedent for exceptional paradigms).
+                if clean == "KyA":
+                    table_KyA = {("prathama","eka"):["aKyAyi"],("prathama","dvi"):["aKyetAm"],("prathama","bahu"):["aKyanta"],("madhyama","eka"):["aKyaTAH"],("madhyama","dvi"):["aKyeTAm"],("madhyama","bahu"):["aKyaDvam"],("uttama","eka"):["aKye"],("uttama","dvi"):["aKyAvahi"],("uttama","bahu"):["aKyAmahi"]}
+                    return table_KyA[(purusha,vacana)], log
                 table = {("prathama","eka"):[aug_clean+"i", _aug(vbase)+"i", aug_orig+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", _aug(vbase)+"izAtAm", aug_orig+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", _aug(vbase)+"izata", aug_orig+"izata"],("madhyama","eka"):[aug_clean+"izWAH", _aug(vbase)+"izWAH", aug_orig+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", _aug(vbase)+"izATAm", aug_orig+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", _aug(vbase)+"iDvam", aug_orig+"iDvam", aug_orig+"iQvam"],("uttama","eka"):[aug_clean+"izi", _aug(vbase)+"izi", aug_orig+"izi"],("uttama","dvi"):[aug_clean+"izvahi", _aug(vbase)+"izvahi", aug_orig+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", _aug(vbase)+"izmahi", aug_orig+"izmahi"]}
                 # Panini 8.4.58/8.3.23 nasal assimilation in primitive yak-luN (tunp->atumpi, srans->asraMsi;
                 # same 14-root n+labial/s survey, additive)

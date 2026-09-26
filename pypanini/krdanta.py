@@ -320,7 +320,7 @@ class KrdantaEngine:
         - samyoga: c/j->k (Bfj->Bfkta), d->nna (hlAnna) / d->tta after short-a (mad->matta), t->tta (yatta)
         No per-dhatu names. Returns stem ending in 'a' (e.g. yatta, hlAnna).
         """
-        if clean == "SrA" and not sew and op.startswith("SrA"):
+        if clean == "SrA" and sew and op.startswith("SrA"):
             return "Srita"
         # idit i-final velar/palatal/retroflex/labial takes assimilated num (agi->aNgita; i~ marks idit)
         if clean.endswith(("i", "I")) and ("i~" in op) and ("I~" not in op):
