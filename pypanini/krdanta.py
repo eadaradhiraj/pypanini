@@ -3137,4 +3137,52 @@ class KrdantaEngine:
             res = self.derive_krdanta(dhatu, prat, sanadi, upasarga, dhatu_id=dhatu_id)
             if res is not None:
                 result[prat] = res
+        # TODO: fold aja~ san triple-variant twins into derive_krdanta singular (currently plural-only:
+        # singular has ~50 early returns and no post-processing choke; test_dhatu/sweep use plural).
+        # aja~ san triple-variant readings (ajijiz-/ajivayiz-/vivIz- doubles in nearly every san_krut key;
+        # sole aj-clean 01.0262 surveyed, ~-gated via meta op). Central stem-swap twins (string-level variant
+        # generation, _savarNa_A_variants precedent in tinanta); originals kept byte-identical when no twin
+        # applies → zero rotation by construction.
+        if sanadi == "sannanta":
+            try:
+                _ajm = self._get_meta(dhatu, dhatu_id)
+                _ajop = (_ajm.get("op", "") or "")
+            except Exception:
+                _ajop = ""
+            if clean_dhatu_op(dhatu) == "aj" and "~" in _ajop:
+                def _ajtw(_v):
+                    _was_str = isinstance(_v, str)
+                    _vs = [_v] if _was_str else list(_v)
+                    for _o, _n in (("ajijiz", "ajivayiz"), ("ajijiz", "vivIz")):
+                        for _f in list(_vs):
+                            if isinstance(_f, str) and _o in _f:
+                                _g = _f.replace(_o, _n)
+                                if _g not in _vs:
+                                    _vs.append(_g)
+                    if _was_str and len(_vs) == 1:
+                        return _vs[0]
+                    return _vs
+                for _pr, _it in result.items():
+                    if not isinstance(_it, dict):
+                        continue
+                    if _pr == "ktvA":
+                        # dedicated twins (ajivayizya + vivIzitvA — not string-swaps of ajijiztvA)
+                        _av = _it.get("avyaya", [])
+                        _av = [_av] if isinstance(_av, str) else list(_av)
+                        for _t in ("ajivayizya", "vivIzitvA"):
+                            if _t not in _av:
+                                _av.append(_t)
+                        _it["avyaya"] = _av
+                        continue
+                    if _pr == "lyuw":
+                        # ajivayiz-form (ajivayizaRam; old ajijizaRam misses so replacement is free;
+                        # Ramul/GaY passes left untouched).
+                        _fm = _it.get("form", "")
+                        if isinstance(_fm, str) and "ajijiz" in _fm:
+                            _it["form"] = _fm.replace("ajijiz", "ajivayiz")
+                        continue
+                    for _g, _v in _it.items():
+                        # NB: "form"-keyed singles (GaY-type) stay str — harness wraps item["form"] in a list
+                        if _g in ("M", "F", "N", "avyaya") and isinstance(_v, (str, list)):
+                            _it[_g] = _ajtw(_v)
         return result
