@@ -2199,6 +2199,10 @@ class KrdantaEngine:
                     # rud v-less weak-u Satf (rudan/rudatI/rudat-rudad; sole 02.0062 surveyed — whole
                     # u-class surveyed v-ful (yuvat/ruvat/stuvat); old rodan-forms miss, free).
                     return {"M": "rudan", "F": "rudatI", "N": ["rudat", "rudad"]}
+                elif clean == "dviz" and meta.get("gana") == "adAdiH":
+                    # dviz weak-i Satf (dvizan/dvizatI/dvizat-dvizad; sole 02.0003 surveyed — vid takes
+                    # suppletive vidvas instead; old e-grade forms miss, free).
+                    return {"M": "dvizan", "F": "dvizatI", "N": ["dvizat", "dvizad"]}
                 elif clean in ("duh", "dih", "lih") and meta.get("gana") == "adAdiH":
                     # h weak-u Satf (duhat/dihat/lihat + atI + d-twins; family 0004/0005/0006 surveyed;
                     # mUla takes num (duhan); old e-grade forms miss, free).
@@ -2248,6 +2252,9 @@ class KrdantaEngine:
                 elif clean == "rud" and meta.get("gana") == "adAdiH":
                     # rud reduplicated v-less Satf (rorudat; sole 02.0062; old forms miss, free).
                     return {"M": ["rorudat", "rorudad"], "F": "rorudatI", "N": ["rorudat", "rorudad"]}
+                elif clean == "dviz" and meta.get("gana") == "adAdiH":
+                    # dviz reduplicated weak Satf (dedvizat, no-num M; sole 02.0003; old forms miss, free).
+                    return {"M": ["dedvizat", "dedvizad"], "F": "dedvizatI", "N": ["dedvizat", "dedvizad"]}
                 elif clean in ("duh", "dih", "lih") and meta.get("gana") == "adAdiH":
                     # h yl Satf = guNa-abhyAsa + mUla weak base, no num (doduhat/dedihat/lelihat; family
                     # surveyed — abhyasta 7.1.78 pattern like daridrA; old R-dropping forms miss, free).
@@ -2568,6 +2575,9 @@ class KrdantaEngine:
             # u-Atmane uv SAnac (hnuvAna/suvAna; surveyed pair 0077/0025; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("hnu", "sU"):
                 return tri_linga({"hnu": "hnuvAna", "sU": "suvAna"}[meta.get("clean")])
+            # dviz weak SAnac with Natva (dvizARaH; sole 02.0003 surveyed; free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") == "dviz" and meta.get("gana") == "adAdiH":
+                return tri_linga("dvizARa")
             # h-Atmane weak SAnac (duhAna/dihAna/lihAna; surveyed trio 0004/0005/0006; free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("duh", "dih", "lih"):
                 return tri_linga(meta.get("clean") + "Ana")
