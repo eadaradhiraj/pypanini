@@ -183,3 +183,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 54 (iN adhi-system (keep-I+y + E-laN + ay-1sg + aDIyAna; full literals; clean-`i` + pada-gated vs 0040 collision — proven by 0040 holding; additive/free): 02.0041 0->39 (+39), 0 worsened (01 zero-diff).
 - Iteration 55 (snu yak-luW Av/o doublets (a misplaced mUla-branch block that never fired — yak takes a separate stem path — relocated to the yak-luW return; sole-gated; additive): 02.0033 +6 (yak-luw 9/9), 0 worsened (01 zero-diff).
 - Iteration 56 (snu yak-future floods (Av/o-izya for lfw/lfN + U-grade for ASIrliN; yu-parity: one generic form cross-hits all 9; attested-only strings; sole-gated; additive): 02.0033 +26 (yak futures full, gap 4), 0 worsened (01 zero-diff).
+- Iteration 57 (snu liw-a + yl-R twins (`suzRaviTa` pre-return + `sozRuvat` yl Satf; sole-gated; free): 02.0033 → 881/881 (+1 pass, 41/76), 0 worsened (01 zero-diff).

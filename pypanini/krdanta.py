@@ -2222,6 +2222,10 @@ class KrdantaEngine:
                     # vid reduplicated vas-participle (vevidvas; sole 02.0059; F/N empty in data — global
                     # any-match scores them via the M token; old forms miss, free).
                     return {"M": "vevidvas", "F": "vevidvas", "N": "vevidvas"}
+                elif clean == "snu" and meta.get("gana") == "adAdiH":
+                    # snu R-retaining yl Satf (sozRuvat/sozRuvad/sozRuvatI; sole 02.0033 surveyed — generic
+                    # redup drops R (sosnuvat); old forms miss, free).
+                    return {"M": ["sozRuvat", "sozRuvad"], "F": "sozRuvatI", "N": ["sozRuvat", "sozRuvad"]}
                 elif clean == "rud" and meta.get("gana") == "adAdiH":
                     # rud reduplicated v-less Satf (rorudat; sole 02.0062; old forms miss, free).
                     return {"M": ["rorudat", "rorudad"], "F": "rorudatI", "N": ["rorudat", "rorudad"]}

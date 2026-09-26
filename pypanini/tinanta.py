@@ -5265,6 +5265,10 @@ class TinantaDerivationEngine:
                         cands.append(clean + _peri_par[(purusha, vacana)])
                     except Exception:
                         pass
+                    # snu a-grade liT m.eka (suzRaviTa; sole 02.0033 surveyed — tu takes tutaviTa via generic
+                    # but R-final redup misses the single-v form; additive before return).
+                    if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "snu" and (purusha, vacana) == ("madhyama", "eka"):
+                        cands.append("suzRaviTa")
                     return list(set(cands)), log
 
         elif lakara == "ASIrliN":
