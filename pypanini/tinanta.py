@@ -1584,6 +1584,9 @@ class TinantaDerivationEngine:
                 return _ysb[c] + "ya"
             if c == "BU":
                 return "boBUy"
+            # single vocalic-f yan (arAryate; sole 01 f-clean 01.1086; rIN-arA allomorph)
+            if c == "f":
+                return "arArya"
             if c in ("skund", "Svind"):
                 return "coskundya" if c == "skund" else "SeSvindya"
             if c in ("sUd", "SUd", "sUd"):

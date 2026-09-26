@@ -1218,6 +1218,9 @@ class KrdantaEngine:
                 return redup_cons + redup_vowel + _c_san + _sfx
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
+                # single vocalic-f yan (mirrors tinanta; sole 01 f-clean 01.1086)
+                if c == "f":
+                    return "arArya"
                 if c == "pyAy": return "pepIyya"
                 if c in ("sUd", "sUd"):
                     return "sozUdya"
