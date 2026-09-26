@@ -383,7 +383,7 @@ class TinantaDerivationEngine:
                                 break
         return res
 
-    def _nijanta_aorist(self, clean: str, is_idit: bool, purusha: str, vacana: str, n_stem: str = "") -> list:
+    def _nijanta_aorist(self, clean: str, is_idit: bool, purusha: str, vacana: str, n_stem: str = "", op: str = "") -> list:
         """Algorithmic causative (Nijanta) reduplicated aorist (CaN).
         Panini 3.1.48 (Ric + caN) + 7.4.1ff abhyAsa: a + redup + base + endings...
         - redup_cons: de-aspirate + velar->palatal + s+cons (7.4.62), same as _reduplicated_stem
@@ -435,6 +435,12 @@ class TinantaDerivationEngine:
             return _res
         bases: set = set()
         bases.add(clean)
+        # zR-onset op-stem caN-base (zRA->zRap; sole 02 zRA-op 02.0047 surveyed; clean normalizes zR->sn
+        # for most machinery but caN wants the original onset, paralleling sec_b ap-carrying; additive).
+        _op0 = ((op or "").replace("~", "").replace("`", "").strip())
+        if _op0.startswith("zR"):
+            _opb = (_op0[:-1] if _op0[-1] in SLP1_VOWELS else _op0) + "ap"
+            bases.add(_opb)
         short_map = {"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}
         shortened = "".join(short_map.get(ch, ch) for ch in clean)
         bases.add(shortened)
@@ -3310,7 +3316,7 @@ class TinantaDerivationEngine:
                         table[(purusha,vacana)] = [alt_aug2 + suffixes[(purusha,vacana)]]
                 # Panini 3.1.48 RiS-Sri-dru-sru-SruByaH kartari caN (Atmanepada caN in yak luN for Sri, dru, sru, Sru)
                 if clean in ("Sri", "dru", "sru", "Sru") or (op and any(op.startswith(x) for x in ("Sri", "dru", "sru", "Sru"))):
-                    table[(purusha, vacana)] += self._nijanta_aorist(clean, is_idit, purusha, vacana)
+                    table[(purusha, vacana)] += self._nijanta_aorist(clean, is_idit, purusha, vacana, op=op)
                 # aja~ yak luN ve-grids (vAy-i/s-aorist avAyi/avAyizAtAm + vez-s-aorist avezAtAm,
                 # suppletive-aniT; sole aj-clean 01.0262 surveyed, ~-gated; Aji-hits already in table, additive).
                 if clean == "aj" and "~" in (op or ""):
@@ -3644,7 +3650,7 @@ class TinantaDerivationEngine:
                 try:
                     _aor = []
                     for _ns in n_stems:
-                        _aor += self._nijanta_aorist(clean, is_idit, purusha, vacana, n_stem=_ns)
+                        _aor += self._nijanta_aorist(clean, is_idit, purusha, vacana, n_stem=_ns, op=op)
                     _aor = list(dict.fromkeys(_aor))
                     if _aor:
                         # seT for all n_stems (like generic fallback) + algorithmic aorist
@@ -4961,7 +4967,7 @@ class TinantaDerivationEngine:
                         cands.append(aug + "iz" + ending)
                 # Panini 3.1.48 RiS-Sri-dru-sru-SruByaH kartari caN
                 if clean in ("Sri", "dru", "sru", "Sru") or (op and any(op.startswith(x) for x in ("Sri", "dru", "sru", "Sru"))):
-                    cands += self._nijanta_aorist(clean, is_idit, purusha, vacana)
+                    cands += self._nijanta_aorist(clean, is_idit, purusha, vacana, op=op)
                 # Panini 8.4.58/8.3.23 nasal m/M in luN (atumpIt, asfmBIt, aSaMsIt; surveyed 8 parasmai nasal cleans, zero conflicts; loss group unaffected)
                 try:
                     _mc = []
