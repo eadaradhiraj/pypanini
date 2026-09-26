@@ -2355,6 +2355,16 @@ class TinantaDerivationEngine:
                         yak_variants.append(_iya)
                     if _iya_sec not in sec_variants:
                         sec_variants.append(_iya_sec)
+                # aniW ew-final takes Iya in yak too (Dew->DIyate; sole 01 Dew 01.1050 surveyed; sew
+                # ew-cleans mlew/mew/rew keep generic ewya- via sew-gate). Additive, mirrors 2-letter rule.
+                _op_ew_iya = ((op or "").replace("~", "").replace("`", "").strip())
+                if _op_ew_iya.endswith("ew") and not sew:
+                    _ew_iya = _op_ew_iya[:-2] + "Iy"
+                    _ew_iya_sec = _op_ew_iya[:-2] + "I"
+                    if _ew_iya not in yak_variants:
+                        yak_variants.append(_ew_iya)
+                    if _ew_iya_sec not in sec_variants:
+                        sec_variants.append(_ew_iya_sec)
                 # ve-class (veY/vyeY/hveY) yak takes samprasArana U-grade (Uyate/vIyate/hUyate; surveyed 3/3 unanimous, additive)
                 if clean in ("ve", "vye", "hve"):
                     _vey = {"ve": "Uy", "vye": "vIy", "hve": "hUy"}[clean]
