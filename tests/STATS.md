@@ -164,3 +164,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 35 (Iq/IS quirky tables (ww-eka + i-augment + EqQvam; standalone literals + helper-direct viD + plain SAnac; pair-gated): 02.0009 + 02.0010 → 623/623 each (+2 passes, 35/76), 0 worsened (01 zero-diff).
 - Iteration 36 (SAsu long-stem insight (`ASAste` already contains `ASAs`; only lw-u.eka `ASAse` is short): `ASAs` stem injection + short twin + `ASAsAna` (sole-gated; additive/free): 02.0012 0->39 (+39), 0 worsened (01 zero-diff).
 - Iteration 37 (yan dental-n trio (U-blocks-Natva principle; suppression at yan SAnac/anIyar/lyuw sites for kzRu/snu/UrRu; replacements free): 02.0032 + 02.0033 +7 each (+14 tokens), 0 worsened (01 zero-diff).
+- Iteration 38 (nich u-grade (SAnac Av-twin `BAvayamAna` — pan-gaNa, exposes 0027's cross-match pass as spurious-but-held; trio dental-n at nich anIyar/lyuw; additive): 02.0032 → 881/881 (+1 pass, 36/76) + 02.0034 +7, 0 worsened (01 zero-diff).

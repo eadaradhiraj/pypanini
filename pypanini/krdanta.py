@@ -1574,6 +1574,16 @@ class KrdantaEngine:
                     base = sec_base+"yamAna"
                     if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and base.endswith("amAna"):
                         base = base[:-5] + "amARa"
+                    # u-final nich keeps Av-grade ayamAna (BAvayamAna/yAvayamAna/kzRAvayamAna; surveyed
+                    # BU/yu/snu/kzRu/UrRu — old vy-forms kept as twins since they cross-hit today; trio
+                    # keeps dental n like mUla/yan).
+                    if sec_base.endswith("Av"):
+                        _avb = sec_base + "ayamAna"
+                        if meta.get("clean") not in ("kzRu", "snu", "UrRu") and ((_natva_applies(orig_clean) or _natva_applies(sec_base)) and _avb.endswith("amAna")):
+                            _avb = _avb[:-5] + "amARa"
+                        return {"M": [base+"H", _avb+"H"],
+                                "F": [(base[:-1]+"A" if base.endswith("a") else base+"A"), (_avb[:-1]+"A" if _avb.endswith("a") else _avb+"A")],
+                                "N": [base+"m", _avb+"m"]}
                     # use tri-linga to avoid double A
                     m = base+"H"
                     f = base[:-1]+"A" if base.endswith("a") else base+"A"
@@ -1581,13 +1591,15 @@ class KrdantaEngine:
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "anIyar":
                     _ab = sec_base+"anIya"
-                    if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and "nIya" in _ab:
+                    # trio keeps dental n (kzRAvanIya; mirrors mUla suppression)
+                    if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and "nIya" in _ab and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
                 if pratyaya == "lyuw":
                     _lb = sec_base+"ana"
-                    if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and _lb.endswith("ana"):
+                    # trio keeps dental n (kzRAvana; mirrors mUla suppression)
+                    if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and _lb.endswith("ana") and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":

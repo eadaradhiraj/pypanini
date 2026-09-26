@@ -2,18 +2,19 @@
 
 Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **35/76 100%-attested** (raw 35/77, 1 skipped) — token gains, no new passes.
+Sweep-02: **36/76 100%-attested** (raw 36/77, 1 skipped) — +1 pass!
 
-## Done — yan dental-n trio (+14 tokens, 0 worsened)
-- Natva suppression at 3 yan sites for kzRu/snu/UrRu (U-principle documented; free replacements):
-  - krdanta yananta SAnac/anIyar/lyuw branches.
-  - Full Sweep Results: 02 improved **2 roots** (0032 867->874; 0033 838->845), **worsened 0** (01 zero-diff).
-- Prior work: 02 at 35/76 passes; combined same passes, token gains continue.
+## Done — nich u-grade (+1 pass, +14 tokens, 0 worsened)
+- SAnac Av-twin (pan-gaNa u-rule) + trio dental-n at nich anIyar/lyuw (additive):
+  - krdanta nijanta branches.
+  - Full Sweep Results: 02 improved **2 roots** (0032 874->881/881 **pass**; 0034 385->392),
+    **worsened 0** (01 zero-diff vs HEAD).
+- Prior work: 02 at 35/76; combined **36/76**.
 
 ## Next (02 loop)
-1. 0032 gap 7 (nich residuals?) — diagnose for pass 36/76.
+1. o-grade UrRu (0034 gap ~495: `UrROti` + yang/nich o-systems) — big family trait.
 2. jAg kta `jAgarita`; vid-`vas`; ik-quirk; vaS; svap GaY `svApaH`?
-3. vI-grade stu (0038 `stavIti`), o-grade UrRu (0034), hnAv (0077), zRu (0033 yang/nich), duha~ (0004), rudi~r (0062).
+3. vI-grade stu (0038 `stavIti`), hnAv (0077), zRu (0033 yang/nich), duha~ (0004), rudi~r (0062).
 4. cakz perfect/aorist (0007) + SAsu kta-family + yang family + krdanta luk grades.
 5. Ganas 03–10 to follow.
-- Advance 02: 35/76 → all.
+- Advance 02: 36/76 → all.
