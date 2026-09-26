@@ -2,18 +2,18 @@
 
 Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **41/76 100%-attested** (raw 41/77, 1 skipped) — token gains, no new passes.
+Sweep-02: **42/76 100%-attested** (raw 42/77, 1 skipped) — +1 pass!
 
-## Done — h-Atmane SAnac (+9 tokens, 0 worsened)
-- Weak-h SAnac trio + removal of unscorable tinanta Atmane blocks (methodology note: ubhaya +
-  parasmaipada-meta ⇒ Atmane tables are tokens-only):
-  - krdanta SAnac tail (tinanta removals net-zero by construction).
-  - Full Sweep Results: 02 improved **3 roots** (0004/0005/0006 +3 each), **worsened 0** (01 zero-diff).
-- Prior work: 02 at 41/76 passes; combined same passes, token gains continue.
+## Done — h-Satf family (+1 pass, +18 tokens, 0 worsened)
+- Weak mUla (+num) + abhyasa yl (no-num) for duh/dih/lih (family-gated; free):
+  - krdanta mUla + yl Satf branches.
+  - Full Sweep Results: 02 improved **3 roots** (0006 879->885/885 **pass**; 0004/0005 +6),
+    **worsened 0** (01 zero-diff vs HEAD).
+- Prior work: 02 at 41/76 passes; combined **42/76**.
 
 ## Next (02 loop)
-1. duha~ futures/aorist (luw/lfw/lfN/luN-1) + yak/san/nich residuals.
-2. UrRu alit/yak + vaS liw/yak/san residuals + 0038 yak/san/nich + 0069/0070 residuals.
+1. 0022/0024 (vfjI~/pfcI~ gap 29) + 0069 (gap 29) + 0013 (gap 30) — diagnose.
+2. UrRu alit/yak + vaS liw/yak/san + 0038 yak/san/nich + 0070 residuals.
 3. cakz perfect/aorist (0007) + SAsu kta-family + yang family + krdanta luk grades.
 4. Ganas 03–10 to follow.
-- Advance 02: 41/76 → all.
+- Advance 02: 42/76 → all.

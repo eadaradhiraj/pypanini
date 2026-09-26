@@ -2185,6 +2185,11 @@ class KrdantaEngine:
                     # rud v-less weak-u Satf (rudan/rudatI/rudat-rudad; sole 02.0062 surveyed — whole
                     # u-class surveyed v-ful (yuvat/ruvat/stuvat); old rodan-forms miss, free).
                     return {"M": "rudan", "F": "rudatI", "N": ["rudat", "rudad"]}
+                elif clean in ("duh", "dih", "lih") and meta.get("gana") == "adAdiH":
+                    # h weak-u Satf (duhat/dihat/lihat + atI + d-twins; family 0004/0005/0006 surveyed;
+                    # mUla takes num (duhan); old e-grade forms miss, free).
+                    _hbase = clean + "at"
+                    return {"M": _hbase[:-1] + "n", "F": _hbase + "I", "N": [_hbase, _hbase[:-1] + "d"]}
                 elif clean == "jAg" and meta.get("gana") == "adAdiH":
                     # jAgf Satf ar-grade base (jAgrat/jAgrad/jAgratI/jAgrantI; sole 02.0067 surveyed; old
                     # jAgat-forms miss everywhere so replacement is free like Svas/aja).
@@ -2229,6 +2234,12 @@ class KrdantaEngine:
                 elif clean == "rud" and meta.get("gana") == "adAdiH":
                     # rud reduplicated v-less Satf (rorudat; sole 02.0062; old forms miss, free).
                     return {"M": ["rorudat", "rorudad"], "F": "rorudatI", "N": ["rorudat", "rorudad"]}
+                elif clean in ("duh", "dih", "lih") and meta.get("gana") == "adAdiH":
+                    # h yl Satf = guNa-abhyAsa + mUla weak base, no num (doduhat/dedihat/lelihat; family
+                    # surveyed — abhyasta 7.1.78 pattern like daridrA; old R-dropping forms miss, free).
+                    _hab = clean[0] + apply_guna(clean[1]) if len(clean) > 1 else clean
+                    _hyb = _hab + clean + "at"
+                    return {"M": [_hyb, _hyb[:-1] + "d"], "F": _hyb + "I", "N": [_hyb, _hyb[:-1] + "d"]}
                 elif (orig_clean and orig_clean.endswith("A")) or clean.endswith("A"):
                     # Panini 7.1.78 nAbhyastAc chaturguRakftamanikartuSca: abhyasta takes no num
                     # Panini 6.4.112 SnAbhyastayor AtaH: abhyasta stem drops A before at of Satf
