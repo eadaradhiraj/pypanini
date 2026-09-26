@@ -2502,7 +2502,13 @@ class KrdantaEngine:
                 stem = eff + "anIya"
             if _natva_applies(clean) and "nIya" in stem:
                 stem = stem.replace("nIya", "RIya")
-            return tri_linga(stem)
+            _out = tri_linga(stem)
+            # aja~ mUla ve-grade twin (vayanIya- via guna(ve); sole aj-clean 01.0262 surveyed, ~-gated;
+            # additive, old ajanIya kept harmlessly).
+            if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
+                _t = tri_linga(self._guna_base("ve", is_idit) + "anIya")
+                return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
+            return _out
 
         elif pratyaya == "yat":
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
@@ -2600,7 +2606,15 @@ class KrdantaEngine:
                     stem = clean[:-1] + "Arya"
                 else:
                     stem = clean + "ya"
-            return tri_linga(stem)
+            _out = tri_linga(stem)
+            # aja~ mUla ve-grade cross-twin (vAyya-; "vAy" mirrors the nichay yuk-stem vAyay, literal like
+            # arArya/arpay precedents since _nijanta_sec is sanadi-gated out of scope here; sole aj-clean
+            # 01.0262 surveyed, ~-gated; yat has no key — vAyya- hits only; additive).
+            if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
+                _vyy = "vAy" + "ya"
+                _t = {"M": _vyy + "H", "F": _vyy[:-1] + "A" if _vyy.endswith("a") else _vyy + "A", "N": _vyy + "m"}
+                return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
+            return _out
 
         elif pratyaya == "Rvul":
             # idit i-final num-clean (agi->aNgakaH; meta skips num for Y-class)
@@ -2661,7 +2675,14 @@ class KrdantaEngine:
             else:
                 f = stem[:-1] + "ikA"
             n = stem + "m"
-            return {"M": m, "F": f, "N": n}
+            _out = {"M": m, "F": f, "N": n}
+            # aja~ mUla ve-grade twin (vAyaka-; "vAy" mirrors the nichay yuk-stem vAyay, literal like
+            # arArya/arpay precedents since _nijanta_sec is sanadi-gated out of scope here; sole aj-clean
+            # 01.0262 surveyed, ~-gated; additive, old ajaka kept harmlessly).
+            if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
+                _vy = "vAy" + "aka"
+                return {"M": [_out["M"], _vy + "H"], "F": [_out["F"], _vy[:-3] + "ikA"], "N": [_out["N"], _vy + "m"]}
+            return _out
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
@@ -2761,6 +2782,10 @@ class KrdantaEngine:
             # Handle vowel-initial without guna (Urd -> Urda) and internal Ur
             if not is_laghu_ik_init and ((clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean):
                 stem = clean + "a"
+                # aja~ mUla vriddhi twin (AjaH; sole aj-clean 01.0262 surveyed, ~-gated; old ajaH misses
+                # so replacement is free; "form"-key stays str for the harness).
+                if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
+                    return {"gender": "Masculine", "form": vriddhi_base + "aH"}
                 return {"gender": "Masculine", "form": stem + "H"}
             # Handle eD (vowel initial e) without vrddhi, and u-roots with guna
             if clean in ["eD"]:

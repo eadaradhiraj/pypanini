@@ -3,7 +3,9 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-26
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1153/1156 100%** (99.7%, raw 1153/1166). Fails: 3 scored (13 with 10 skipped). Net matched tokens +31098 across all generative iterations (0 true worsened).
+Passes: **1154/1156 100%** (99.7%, raw 1154/1166). Fails: 2 scored (12 with 10 skipped). Net matched tokens +31108 across all generative iterations (0 true worsened).
+New 100% passes (1 root unlocked in milestone aja-arc, ve-suppletion series nich→san→yak-liT→yak-sya→yak-luT→yak-luN→san-twins→krut-twins):
+- `01.0262 aja~` (283 -> 636/636)
 New 100% passes (1 root unlocked in milestone Dew-arc, ew-shape series nich→A-base→yang→yak→yangluk→redup→kta-route→ASIrliN→Satf→ktvA):
 - `01.1050 Dew` (118 -> 892/892)
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
@@ -100,8 +102,11 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 17 | 01.0262 krut/anIyar/M:ajanIyaH |
+| krut | 3 | 01.0459 krut/Satf/M:sramBan |
 | san_krut | 3 | 01.0459 san_krut/Satf/M:sisramBizan |
-| yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
 | yangluk_krut | 3 | 01.1086 yangluk_krut/Satf/M:rat |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
+
+## Rules (continued — aja-arc tail)
+- aja~ krut mUla ve-grade twins (sole aj-clean `01.0262`, `~`-gated; all derived, zero literals): anIyar `vayanIya-` via `guna(ve)`, Rvul `vAyaka-` + yat `vAyya-` via nichay yuk-stem, GaY `AjaH` via vriddhi (old `ajaH` missed so replacement free; "form"-key stays str). Additive twins (+ GaY replace). 1 improved (+10: `01.0262` 626->636/636 PASS), 0 worsened, passes +1 → 1154/1156. aja-arc complete (283->636: nich 154 + san 144 + yak-liT 9 + yak-sya 6 + yak-luT 2 + yak-luN 3 + san-twins 25 + krut-twins 10 = +353). Only 2 fails remain, both proven-unreachable (below) — ceiling 1154/1156 (99.83%) on current data.
+- CEILING (proven, not attempted further): `01.0459` Satf (6: exhaustive token search — zero bare Satf-shaped tokens exist; JSON structured Satf absent; only augmented finite forms; no grammatical generation can match) + `01.1086` yangluk_krut Satf `rat/rad` (3: suppletive short stem, no shape derivation from `f`). Full 1156/1166 requires new data (0459) or per-dhatu hardcoding (both, forbidden).
