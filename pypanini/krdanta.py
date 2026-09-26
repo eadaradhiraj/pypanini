@@ -2547,6 +2547,11 @@ class KrdantaEngine:
             return _out
 
         elif pratyaya == "yat":
+            # bare-i yat e-grade (eyaH/eyA/eyam; sole 02.0040 iR surveyed — generic e-guna below handles
+            # vI/SI (veya/Seya) but an earlier laghu-branch gives bare i the ay-grade base (ayya);
+            # gana-gated so BvAdi iN is untouched; additive via early return only for this clean).
+            if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH":
+                return tri_linga("eya")
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
             # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
             # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-)

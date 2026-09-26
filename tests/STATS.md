@@ -146,3 +146,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 17 (`as`-Satf weak stem `san/satI/sat-sad` twins (sole 02.0060; sas/ad/han keep strong; Sru-special precedent; gana-gated + additive): 02.0060 +3, 0 worsened (01 zero-diff).
 - Iteration 18 (AdAdi-i low/laN/viDiliN: e-grade 3sg + weak slots + ay-1sg + aug-patterns + weak-yAt (sole vI + iR surveyed; a self-caught exact-clean gate that missed `vI` corrected to suffix-gate mirroring lw); gana-gated + additive): 02.0043 +22 (ting full) + 02.0040 +17, 0 worsened (01 zero-diff).
 - Iteration 19 (AdAdi i-final Satf y-grade base `viyat/yan` (mirrors lw-bahu; BvAdi `jayan` surveyed as guna-retaining gate-pair); gana-gated, F-atI twin covers feminine): 02.0043 → 881/881 (+1 pass, 20/76) + 02.0040 +3, 0 worsened (01 zero-diff).
+- Iteration 20 (bare-`i` yat e-grade `eya` special (sole 02.0040; vI/SI ride generic e-guna; gana-gated so BvAdi iN untouched): 02.0040 +3, 0 worsened (01 zero-diff).

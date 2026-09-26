@@ -2,17 +2,16 @@
 
 Date: 2026-09-26
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **20/76 100%-attested** (raw 20/77, 1 skipped) — +1 pass!
+Sweep-02: **20/76 100%-attested** (raw 20/77, 1 skipped) — token gains, no new passes.
 
-## Done — AdAdi i-Satf y-grade (+1 pass, +6 tokens, 0 worsened)
-- y-grade base `viyat/yan` for AdAdi i-final mUla Satf (BvAdi-guna gate-pair surveyed; additive):
-  - krdanta generic Satf base block.
-  - Full Sweep Results: 02 improved **2 roots** (0043 878->881/881 **pass**; 0040 209->212),
-    **worsened 0** (01 zero-diff vs HEAD).
-- Prior work: 02 at 19/76; combined **20/76**.
+## Done — bare-i yat e-grade (+3 tokens, 0 worsened)
+- `eyaH/eyA/eyam` special for sole bare-`i` (gana-gated early return; vI/SI generic untouched):
+  - krdanta yat branch.
+  - Full Sweep Results: 02 improved **1 root** (0040 212->215/628), **worsened 0** (01 zero-diff).
+- Prior work: 02 at 20/76 passes; combined same passes, token gains continue.
 
 ## Next (02 loop)
-1. yat e-grade for `i` (0040 `eyaH/eyA/eyam`; scope: yat-grade survey first).
+1. 0040 remainder (liw? luN? san/nich/yak luk systems) — diagnose next smallest anta-gap.
 2. vid-`vas` (0059) + ik-quirk (0042 `aDiyantI`) + jakz-base (0066) + vaS/uSan (0075).
 3. vI-grade (ru/tu/stu `ravIti`), o-grade (UrRu), hnAv (0077), zRu (0033), duha~ (h-class), rudi~r seT-iT.
 4. AdAdi yang family + krdanta luk grades + residuals (quirks, prefixed-ik, sparse `?`).
