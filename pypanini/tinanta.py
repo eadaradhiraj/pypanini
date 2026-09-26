@@ -2554,6 +2554,13 @@ class TinantaDerivationEngine:
                                 b = s_stem + "y"
                                 if lakara == "lfN": b = _aug(b)
                                 cands+=self._conjugate_at_stem_atmane(b, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # aja~ yak sya ve-doublet (vAyizyate seT + vezyate suppletive-aniT; sole aj-clean 01.0262
+                # surveyed, ~-gated; ajizyate-forms already above, additive).
+                if clean == "aj" and "~" in (op or ""):
+                    for _ys in ("vAyizya", "vezya"):
+                        _yb = _aug(_ys) if lakara == "lfN" else _ys
+                        _bc = _yb[:-1] if _yb.endswith("a") else _yb
+                        cands += self._conjugate_at_stem_atmane(_bc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
