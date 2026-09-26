@@ -167,3 +167,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 38 (nich u-grade (SAnac Av-twin `BAvayamAna` — pan-gaNa, exposes 0027's cross-match pass as spurious-but-held; trio dental-n at nich anIyar/lyuw; additive): 02.0032 → 881/881 (+1 pass, 36/76) + 02.0034 +7, 0 worsened (01 zero-diff).
 - Iteration 39 (UrRu laN-eka `OrRot/OrRod` doublet (haplology OrR-O-t; sole o-root; liw-nuva queued separately): 02.0034 +1 slot, 0 worsened (01 zero-diff).
 - Iteration 40 (UrRu nuva-perfect table (ji-pattern parasmaipada early-return; two self-caught placements — unbound cands, mid-chain wipe — fixed; additive/passthrough): 02.0034 +6 (liw 9/9), 0 worsened (01 zero-diff).
+- Iteration 41 (jAg kta-family ar-grade (`jAgarita/tavya/tum/tvA`, `jAgaraH`, `prajAgarya`; `_kta_stem` hook spilled into san/nich; sole-gated free replacements): 02.0067 40->59 (+19), 0 worsened (01 zero-diff).
