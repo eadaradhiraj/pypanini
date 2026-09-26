@@ -2209,6 +2209,11 @@ class TinantaDerivationEngine:
                     _ve_sy = {"ve": "vivAs", "vye": "vivyAs", "hve": "juhUz"}[clean]
                     if _ve_sy not in [s_stem] + alt_s:
                         alt_s.append(_ve_sy)
+                # kzIv/kziv san_yak e-grade (cikzevizyate for u~; f~ keeps I-grade cikzIvizyate — additive, zero conflicts).
+                # NB: 01.0648 rewrites clean kzIv->kziv at top (op kzIvu~), so match both.
+                if clean in ("kzIv", "kziv"):
+                    if "cikzeviz" not in [s_stem] + alt_s:
+                        alt_s.append("cikzeviz")
                 yak_stem = s_stem + "y"
                 sec_stem = s_stem
                 # keep alts for per-lakara generation
