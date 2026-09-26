@@ -1333,6 +1333,10 @@ class TinantaDerivationEngine:
             # Panini 7.3.37 SA-CA-sA-hvA-vyA-veY-pA-damAM yuk: pA (pAne) takes yuk before Ri -> pAyay
             if (c == "pA" or (op and op.startswith("pA~"))) and (dhatu_id == "01.1074" or "pAn" in str(meta.get("arTa", "")) or (op and op.startswith("pA~"))):
                 return "pAyay"
+            # aja~ causative on vA-grade with yuk (vAyayati; sole aj-clean 01.0262 surveyed, ~-gated anudatta
+            # reading; parallels pA->pAyay yuk above; classical aja-suppletion in ardhadhatuka).
+            if clean == "aj" and "~" in (op or ""):
+                return "vAyay"
             if c in ("sA", "sE", "SA", "SE", "pE", "hve", "vye") or (op and any(op.startswith(x) for x in ("zE~", "sE~", "SE~", "pE~", "zo~", "hve", "vye"))):
                 _yb = "pA" if (c == "pE" or (op and op.startswith("pE~"))) else ("sA" if (c in ("sA", "sE") or (op and any(op.startswith(x) for x in ("zE~", "sE~", "zo~")))) else ("hvA" if c=="hve" or (op and op.startswith("hve")) else ("vyA" if c=="vye" or (op and op.startswith("vye")) else "SA")))
                 return _yb + "yay"
@@ -2355,7 +2359,7 @@ class TinantaDerivationEngine:
                 else:
                     yak_variants = [yak_stem, clean + "y"] if yak_stem != clean + "y" else [yak_stem]
                     sec_variants = [sec_stem, clean] if sec_stem != clean else [sec_stem]
-                if clean == "aj" and dhatu_id == "01.0262":
+                if clean == "aj" and "~" in (op or ""):
                     yak_variants.append("vIy")
                     sec_variants.append("vI")
                 # E-final 2-letter roots take Iya in yak (mIyate/dIyate/gIyate; surveyed me/de/gE want Iya, jE/kE/pE etc. keep Aya — additive so zero conflicts)

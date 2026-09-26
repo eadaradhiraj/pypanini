@@ -901,6 +901,9 @@ class KrdantaEngine:
                 # Panini 7.3.37 SA-CA-sA-hvA-vyA-veY-pA-damAM yuk: pA (pAne) takes yuk before Ri -> pAyay
                 if (c == "pA" or (op and op.startswith("pA~"))) and (dhatu_id == "01.1074" or "pAn" in str(meta.get("arTa", "")) or (op and op.startswith("pA~"))):
                     return "pAyay"
+                # aja~ causative on vA-grade with yuk (mirrors tinanta; sole aj-clean 01.0262 surveyed, ~-gated).
+                if c == "aj" and "~" in (op or ""):
+                    return "vAyay"
                 if c in ("hve", "hvA") or orig_clean == "hve": return "hvAyay"
                 if c in ("vye", "vyA") or orig_clean == "vye": return "vyAyay"
                 
