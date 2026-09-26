@@ -2482,6 +2482,9 @@ class KrdantaEngine:
             # 0011/0013/0015; old mAna-forms miss everywhere in-fid so replacement is free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("As", "vas", "kas"):
                 return tri_linga({"As": "AsIna", "vas": "vasAna", "kas": "kasAna"}[meta.get("clean")])
+            # S/z-coda luk SAnac (kaSAna/cakzARa; surveyed pair 0016/0007; replacement free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") in ("kaS", "cakzi"):
+                return tri_linga({"kaS": "kaSAna", "cakzi": "cakzARa"}[meta.get("clean")])
             if best.endswith("a"):
                 stem = best + "mAna"
             elif best.endswith("A"):
