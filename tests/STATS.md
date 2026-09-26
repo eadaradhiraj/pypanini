@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-26
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1152/1156 100%** (99.7%, raw 1152/1166). Fails: 4 scored (14 with 10 skipped). Net matched tokens +30722 across all generative iterations (0 true worsened).
+Passes: **1152/1156 100%** (99.7%, raw 1152/1166). Fails: 4 scored (14 with 10 skipped). Net matched tokens +30731 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -82,6 +82,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - yangluk `dAD-` sec for aniW ew (sole 01 `Dew` 01.1050): sec-chain branch routing `Dew->DA`, flowing through proven A-final yanlug machinery (`_get_yanluk_a_base` `dADitaH/dADitavyaH`, `dE->dAd`/`glE->jAgl` precedent). Survey: sew trio keeps plain stems (`memlewitaH`); kta/ktavatu go spurious-cross-match→true-pass (count neutral); SAnac kept passing (29/29 full pass, no rotation). 1 improved (+20: `01.1050` 837->857: yangluk_krut 9/29->29/29), 0 worsened, passes held 1152. Remainder (35): perfect `daD-` redup 17, krut 9, ASIrliN `Dey-` 9 — queued one trait at a time.
 - perfect `daD-` redup for aniW ew (sole 01 `Dew` 01.1050): additive redup variant (de-asp onset + `a` + onset) at BOTH liT sites — mUla-liT (`daDO/daDatuH`) and yak-liT (`daDe/daDAte`, separate list); parallels `dEp→dadO/dade`. Survey: sew trio keeps generic redup via sew-gate. Purely additive (prior 1/9 preserved). 1 improved (+17: `01.1050` 857->874: ting liw 8 + yak liw 9), 0 worsened, passes held 1152. Note: krut composition rotated under the earlier mUla DA-reassignment — kta/ktavatu take `DAta` (miss) instead of `DIta`; restoring via routing exclusion queued next (+5). Remainder (18): kta-family routing 5, Satf 3, ktvA 1, ASIrliN `Dey-` 9 — queued one trait at a time.
 - kta-family routing exclusion for aniW ew (sole 01 `Dew` 01.1050): the mUla DA-reassignment (A-grade for tavya-family) hijacked `_kta_stem` (`DIta→DAta`); gating the reassignment on `pratyaya not in ("kta","ktavatu")` restores I-grade `DIta/DItavat` (pre-reassignment behavior, re-verified). Sole-root scope, all guards held. 1 improved (+5: `01.1050` 874->879: kta M/N + ktavatu 3), 0 worsened, passes held 1152. Remainder (13): ASIrliN `Dey-` 9, Satf `Day-` 3, ktvA `DItvA` 1 — queued one trait at a time.
+- ASIrliN e-grade for aniW ew (sole 01 `Dew` 01.1050): mUla ASIrliN `_asb` appends w-loss e-grade `De` (`DeyAt/DeyAstAm`, parallels adeca `gle->gleyAt` variants); sew ew-cleans keep generic `mlewyAt` via sew-gate. Purely additive. 1 improved (+9: `01.1050` 879->888: ting ASIrliN full pass, `ting` anta cleared sweep-wide), 0 worsened, passes held 1152. Remainder (4): Satf `Day-` 3, ktvA `DItvA` 1 — queued one trait at a time.
 - BLOCKED (surveyed, no generative rule — recorded, not attempted): `01.1086` yangluk/yangluk_krut (arerIti/arteti/ftItaH/fjayati + rat/rad/riteta — 4+ suppletive stems per slot, no shape derivation); `01.1086` can cap at 869/892.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
@@ -90,7 +91,6 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 | krut | 17 | 01.0262 krut/anIyar/M:ajanIyaH |
 | san_krut | 3 | 01.0459 san_krut/Satf/M:sisramBizan |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
-| ting | 5 | 01.1050 ting/ASIrliN/prathama/eka:DayyAt |
-| yangluk | 5 | 01.1086 yangluk/lw/prathama/eka:fariftaH |
+| yangluk | 5 | 01.1086 yangluk/lw/prathama/eka:farifati |
 | yangluk_krut | 5 | 01.1086 yangluk_krut/Satf/M:farrat |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |

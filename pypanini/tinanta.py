@@ -4582,6 +4582,14 @@ class TinantaDerivationEngine:
                     _asb.append(a_root[:-1] + "e")
                     if clean in _asb:
                         _asb.remove(clean)
+                # aniW ew-final ASIrliN e-grade (Dew->DeyAt via w-loss De-; sole 01 Dew 01.1050 surveyed;
+                # parallels adeca e-variants above; sew ew-cleans mlew/mew/rew keep generic ewya- via sew-gate).
+                # Additive (DayyAt retained as miss, harmless).
+                _op_ew_as = ((op or "").replace("~", "").replace("`", "").strip())
+                if _op_ew_as.endswith("ew") and not sew:
+                    _ew_e = _op_ew_as[:-1]
+                    if _ew_e not in _asb:
+                        _asb.append(_ew_e)
                 # Panini 6.4.25 akfttsArvaDAtukayor dIrGaH (y-initial ArDaDAtuka yAsuw lengthens ajanta aNga)
                 if clean.endswith("u"):
                     _asb.append(clean[:-1] + "U")
