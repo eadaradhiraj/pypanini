@@ -170,3 +170,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 41 (jAg kta-family ar-grade (`jAgarita/tavya/tum/tvA`, `jAgaraH`, `prajAgarya`; `_kta_stem` hook spilled into san/nich; sole-gated free replacements): 02.0067 40->59 (+19), 0 worsened (01 zero-diff).
 - Iteration 42 (vid luk present doublets (e-grade-tt + vida- variants; sole 02.0059 surveyed; shape-mapped; additive): 02.0059 lw 9/9 (+8), 0 worsened (01 zero-diff).
 - Iteration 43 (vid low/laN/viD (luk + `vidANkara` twins, e-weak laN, yAt optative; sole-gated; additive): 02.0059 ting-full (+21), 0 worsened (01 zero-diff).
+- Iteration 44 (vid suppletive vas-participle (`vidvas` mUla + `vevidvas` yl; sole-gated free replacements): 02.0059 → 879/879 (+1 pass, 37/76), 0 worsened (01 zero-diff).

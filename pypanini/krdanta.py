@@ -2172,6 +2172,10 @@ class KrdantaEngine:
                     _satf_base = "daS"
                 elif clean == "Sru":
                     return {"M": "SfRvan", "F": "SfRvatI", "N": "SfRvat"}
+                elif clean == "vid" and meta.get("gana") == "adAdiH":
+                    # vid suppletive vas-participle (vidvas all genders; sole 02.0059 surveyed; the famous
+                    # perfect-participle-as-present; old vedan-forms miss everywhere, free).
+                    return {"M": "vidvas", "F": "vidvas", "N": "vidvas"}
                 elif clean == "jAg" and meta.get("gana") == "adAdiH":
                     # jAgf Satf ar-grade base (jAgrat/jAgrad/jAgratI/jAgrantI; sole 02.0067 surveyed; old
                     # jAgat-forms miss everywhere so replacement is free like Svas/aja).
@@ -2201,6 +2205,10 @@ class KrdantaEngine:
                     return {"M": "sAsvajat", "F": "sAsvajatI", "N": "sAsvajat"}
                 elif clean in ("danS", "daMS", "daS") or (op and any(op.startswith(x) for x in ("danS", "daMS"))):
                     return {"M": "dandaSat", "F": "dandaSatI", "N": "dandaSat"}
+                elif clean == "vid" and meta.get("gana") == "adAdiH":
+                    # vid reduplicated vas-participle (vevidvas; sole 02.0059; F/N empty in data — global
+                    # any-match scores them via the M token; old forms miss, free).
+                    return {"M": "vevidvas", "F": "vevidvas", "N": "vevidvas"}
                 elif (orig_clean and orig_clean.endswith("A")) or clean.endswith("A"):
                     # Panini 7.1.78 nAbhyastAc chaturguRakftamanikartuSca: abhyasta takes no num
                     # Panini 6.4.112 SnAbhyastayor AtaH: abhyasta stem drops A before at of Satf
