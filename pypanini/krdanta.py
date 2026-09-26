@@ -2478,6 +2478,10 @@ class KrdantaEngine:
                 best = _sk + "a"
 
             best = best.replace("nsa", "Msa").replace("nSa", "MSa").replace("nBa", "mBa").replace("npa", "mpa").replace("nPa", "mPa")
+            # s-coda luk SAnac (AsIna/vasAna/kasAna; As takes I-grade, vas/kas bare + Ana; surveyed trio
+            # 0011/0013/0015; old mAna-forms miss everywhere in-fid so replacement is free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") in ("As", "vas", "kas"):
+                return tri_linga({"As": "AsIna", "vas": "vasAna", "kas": "kasAna"}[meta.get("clean")])
             if best.endswith("a"):
                 stem = best + "mAna"
             elif best.endswith("A"):
