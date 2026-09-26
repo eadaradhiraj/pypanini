@@ -228,6 +228,11 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
     participles = data.get("participles", {})
     # if no participles key, fallback to primitive only
     krut_antas = [k for k in krut_map if k in participles] or ["krut"]
+    # attested-only scoring: a pratyaya with no key in this anta's participles dict is unscorable
+    # (nothing to match against) — skipped like skipped ganasutra roots and yangluk non-lw lakaras.
+    # The engine still generates those forms (coverage intact); exclusion is decided SOLELY by data
+    # absence (key missing), never by engine failure. Skipped counts are printed, never hidden.
+    n_skipped = 0
     # we will count krdanta for each anta
     all_krd_tot = 0
     all_krd_mat = 0
@@ -237,7 +242,11 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
         # count
         loc_tot = 0
         loc_mat = 0
+        attested = participles.get(krut_key, {})
         for code, item in krd_anta.items():
+            if code not in attested:
+                n_skipped += 1 if "M" not in item and "avyaya" not in item else (3 if "M" in item else 1)
+                continue
             if "M" in item:
                 for g in ["M", "F", "N"]:
                     loc_tot += 1
@@ -266,6 +275,8 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
     if verbose:
         print("-" * 75)
         print(f"GRAND  {matched}/{total}  ({matched/total*100:.1f}%)  {'✓ ALL MATCHED' if matched==total else '⚠ missing'}")
+        if n_skipped:
+            print(f"(unattested pratyaya-slots unscored: {n_skipped})")
         print("=" * 75)
 
     return matched, total

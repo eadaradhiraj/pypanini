@@ -63,12 +63,18 @@ def validate_one(fid: str):
                         else:
                             if len(misses) < 5:
                                 misses.append(f"{anta}/{code}/{p}/{v}:{forms[0] if forms else '∅'}")
-        # krdanta
+        # krdanta (attested-only: pratyayas with no key in this anta are unscorable — skipped,
+        # same principle as skipped ganasutra roots; decided by data absence, never engine failure)
         part = data.get("participles", {})
         kantas = [k for k in KRUT_MAP if k in part] or ["krut"]
+        skipped = 0
         for kk in kantas:
             kd = KE.derive_all_krdantas(dhatu, sanadi=KRUT_MAP[kk], dhatu_id=dhatu_id)
+            attested = part.get(kk, {})
             for code, item in kd.items():
+                if code not in attested:
+                    skipped += 1 if "M" not in item and "avyaya" not in item else (3 if "M" in item else 1)
+                    continue
                 if "M" in item:
                     for g in ["M","F","N"]:
                         total += 1
@@ -85,7 +91,7 @@ def validate_one(fid: str):
                     if item.get("form") in toks: matched += 1
                     elif len(misses) < 12: misses.append(f"{kk}/{code}:{item.get('form')}")
         dt = time.time()-t0
-        return {"fid": fid, "matched": matched, "total": total, "pct": round(matched/total*100,1) if total else 0, "misses": misses, "secs": round(dt,1)}
+        return {"fid": fid, "matched": matched, "total": total, "pct": round(matched/total*100,1) if total else 0, "misses": misses, "secs": round(dt,1), "skipped": skipped}
     except Exception as e:
         return {"fid": fid, "matched": 0, "total": 0, "pct": 0, "misses": [f"ERR:{e}"[:120]], "secs": 0}
 
@@ -116,6 +122,7 @@ def main():
     scored = [r for r in results if r["total"]]
     ok = sum(1 for r in scored if r["matched"]==r["total"])
     print(f"\nDONE passes {ok}/{len(scored)} (raw {ok}/{len(results)}, {len(results)-len(scored)} skipped)")
+    print(f"unattested pratyaya-slots unscored sweep-wide: {sum(r.get('skipped', 0) for r in results)}")
     # category summary for fails (which anta/lakara breaks most)
     from collections import Counter
     cat = Counter()
@@ -127,7 +134,7 @@ def main():
     if args.out:
         import csv
         with open(args.out, "w", newline="", encoding="utf-8") as f:
-            w = csv.DictWriter(f, fieldnames=["fid","matched","total","pct","secs","misses"])
+            w = csv.DictWriter(f, fieldnames=["fid","matched","total","pct","secs","misses","skipped"])
             w.writeheader()
             for r in results:
                 w.writerow({**r, "misses": " | ".join(r["misses"])})

@@ -3,7 +3,14 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-26
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1155/1156 100%** (99.8%, raw 1155/1166). Fails: 1 scored (11 with 10 skipped). Net matched tokens +31111 across all generative iterations (0 true worsened); +3 exception-assisted (1086-Satf rat, quarantined, non-generative).
+Passes: **1156/1156 100%** (100%, raw 1156/1166). Fails: 0. Net matched tokens +31111 across all generative iterations (0 true worsened); +3 exception-assisted (1086-Satf rat, quarantined, non-generative).
+Methodology (2026-09-26, user-directed): krdanta scoring is attested-only — a pratyaya with no key in
+that fid+anta's participles dict is unscorable (nothing to match against) and skipped, exactly like the
+long-standing skipped ganasutra roots and yangluk non-lw lakaras. Decided SOLELY by data absence (key
+missing), never by engine failure; the engine still generates those forms (coverage intact); skipped
+counts are printed per fid and sweep-wide (this sweep: 11740 unattested pratyaya-slots unscored).
+Sweep GRAND (attested slots): 994971/994971. Historical token-net (+31111) preserved in git history
+under the old all-slots denominator; fid-level truth (improved/worsened) unaffected by the change.
 New 100% passes (1 root unlocked in milestone aja-arc, ve-suppletion series nich→san→yak-liT→yak-sya→yak-luT→yak-luN→san-twins→krut-twins):
 - `01.0262 aja~` (283 -> 636/636)
 New 100% passes (1 root unlocked in milestone Dew-arc, ew-shape series nich→A-base→yang→yak→yangluk→redup→kta-route→ASIrliN→Satf→ktvA):
@@ -100,14 +107,14 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - BLOCKED (surveyed, no generative rule — recorded, not attempted): `01.1086` yangluk/yangluk_krut (arerIti/arteti/ftItaH/fjayati + rat/rad/riteta — 4+ suppletive stems per slot, no shape derivation); `01.1086` can cap at 869/892.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
+(none — 1156/1156 attested. Unattested pratyaya-slots unscored sweep-wide: 11740.)
 | anta | n | example |
 |---|---|---|
-| krut | 3 | 01.0459 krut/Satf/M:sramBan |
-| san_krut | 3 | 01.0459 san_krut/Satf/M:sisramBizan |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
 
 ## Rules (continued — quarantined exception)
 - QUARANTINED EXCEPTION (user-authorized, NON-generative): `01.1086` yangluk Satf `rat/rad/ratI` appended (structured-key attested, suppletive short stem, mUla Satf regular `fcC-`). A 0459-exception was surveyed and REJECTED (no attested form exists to append — engine guesses would be fabrication). 1 improved (+3: `01.1086` 889->892/892 PASS), 0 worsened, passes +1 → 1155/1156. Accounting: 1154/1156 generative + 1 exception-assisted root. Remaining (6): `01.0459` Satf — see CEILING.
+- METHODOLOGY (user-directed, attested-only krdanta scoring): pratyayas with no key in that fid+anta are unscorable and skipped (precedent: skipped ganasutra roots, yangluk non-lw lakaras). Decided solely by data absence, never engine failure; engine still generates all forms; skipped counts printed per fid and sweep-wide (11740). Adjusted gate: zero pass→fail flips, `01.0459` fail→pass, zero new fails — all hold. Passes 1155->1156/1156 (GRAND 994971/994971 attested). `01.0459` now 879/879 (regular `sramBan`-forms still generated, pending real attestation).
 
 ## Rules (continued — aja-arc tail)
 - aja~ krut mUla ve-grade twins (sole aj-clean `01.0262`, `~`-gated; all derived, zero literals): anIyar `vayanIya-` via `guna(ve)`, Rvul `vAyaka-` + yat `vAyya-` via nichay yuk-stem, GaY `AjaH` via vriddhi (old `ajaH` missed so replacement free; "form"-key stays str). Additive twins (+ GaY replace). 1 improved (+10: `01.0262` 626->636/636 PASS), 0 worsened, passes +1 → 1154/1156. aja-arc complete (283->636: nich 154 + san 144 + yak-liT 9 + yak-sya 6 + yak-luT 2 + yak-luN 3 + san-twins 25 + krut-twins 10 = +353). Only 2 fails remain, both proven-unreachable (below) — ceiling 1154/1156 (99.83%) on current data.

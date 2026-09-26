@@ -39,7 +39,7 @@
   DHATU=01.0002 python -m unittest tests.test_dhatu -v
   python -W ignore::ResourceWarning -m unittest tests.test_dhatu -v
   ```
-- **What it checks**: For each `anta` present in JSON (`ting/yak/san/...`), all **10 lakaras × 9 (prathama/madhyama/uttama × eka/dvi/bahu)** via `TinantaDerivationEngine.derive()` + all **5 krdanta antas** (`krut/san_krut/nich_krut/yang_krut`) via `KrdantaEngine.derive_all_krdantas()` — any generated `SLP1` in `extract_all_text_tokens(JSON)` counts as matched. Must be `100%`.
+- **What it checks**: For each `anta` present in JSON (`ting/yak/san/...`), all **10 lakaras × 9 (prathama/madhyama/uttama × eka/dvi/bahu)** via `TinantaDerivationEngine.derive()` + all **5 krdanta antas** (`krut/san_krut/nich_krut/yang_krut/yangluk_krut`) via `KrdantaEngine.derive_all_krdantas()` — any generated `SLP1` in `extract_all_text_tokens(JSON)` counts as matched. Must be `100%`. Krdanta scoring is attested-only: a pratyaya with no key in that fid+anta's participles dict is unscorable and skipped (same principle as skipped ganasutra roots; decided by data absence, never engine failure; engine still generates those forms).
 
 - **Progress — tinanta/krdanta (expanded 10 antas, SLP1-only)**:
   - `tinanta` + `krdanta` **done (100% expanded)**: `14/1166` BvAdi — `01.0001 BU (895/895)`, `01.0002 eD (627/627)`, `01.0003 sparD (883/883)`, `01.0004 gAD (883/883)`, `01.0005 bAD (883/883)`, `01.0006 nAD (883/883)`, `01.0007 nAT (883/883)`, `01.0008 daD (883/883)`, `01.0009 skudi (883/883)`, `01.0010 Svidi (883/883)`, `01.0011 vadi (883/883)`, `01.0012 Badi (883/883)`, `01.0013 madi (883/883)`, `01.0014 spadi (883/883)`
