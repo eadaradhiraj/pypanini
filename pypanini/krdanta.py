@@ -2268,6 +2268,10 @@ class KrdantaEngine:
             _adAU_satf = (sanadi is None and meta.get("gana") == "adAdiH" and clean and clean[-1] in ("u", "U"))
             if _adAU_satf:
                 _satf_base = clean[:-1] + "uv"
+            # AdAdi i-final Satf y-grade base (viyat/viyan; yat/yan for bare i; mirrors lw-bahu y-grade;
+            # gana-gated — BvAdi keeps guna e-grade (jayan/jayantI); F-atI twin below covers feminine).
+            if sanadi is None and meta.get("gana") == "adAdiH" and clean and clean[-1] in ("i", "I"):
+                _satf_base = (clean[:-1] + "iy" if len(clean) > 1 else "y")
             stem_at = _satf_base + "at"
             if sanadi == "sannanta":
                 _satf_base = clean
