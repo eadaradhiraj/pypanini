@@ -3892,6 +3892,16 @@ class TinantaDerivationEngine:
                 _iyb = (clean[:-1] + "iy" if len(clean) > 1 else "y")
                 _ie_map = {("prathama","eka"):[_ie+"ti"],("prathama","dvi"):[_iw+"taH"],("prathama","bahu"):[_iyb+"anti"],("madhyama","eka"):[_ie+"zi"],("madhyama","dvi"):[_iw+"TaH"],("madhyama","bahu"):[_iw+"Ta"],("uttama","eka"):[_ie+"mi"],("uttama","dvi"):[_iw+"vaH"],("uttama","bahu"):[_iw+"maH"]}
                 cands += _ie_map.get((purusha, vacana), [])
+            # sasti-clean M-epenthesis twins (saMs-/saMst- + endings; sole 02.0074 zasti~ surveyed —
+            # z→s normalization makes it sasti-clean; doublet covers t/twin slots, additive).
+            # NB: gate on meta-clean (idit-num rewrites local clean before this branch runs).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "sasti":
+                _ss = clean[:2] + "Ms"
+                _sst = _ss + "t"
+                _se9 = {("prathama","eka"):"ti",("prathama","dvi"):"taH",("prathama","bahu"):"anti",("madhyama","eka"):"si",("madhyama","dvi"):"TaH",("madhyama","bahu"):"Ta",("uttama","eka"):"mi",("uttama","dvi"):"vaH",("uttama","bahu"):"maH"}
+                _e9 = _se9.get((purusha, vacana))
+                if _e9:
+                    cands += [_ss + _e9, _sst + _e9]
             # AdAdi luk present, short-a consonant-coda stems: stem + endings with coda-sandhi
             # (atti/hanti/vakti; d->t/_voiceless, n->M/_s, n->0/_t, c->k/_voiceless, s-lopa for as-clean only;
             # Gnanti-type readings queued). Gana-gated + additive.
@@ -3991,6 +4001,11 @@ class TinantaDerivationEngine:
                         if _sb5.startswith("a"):
                             _sb5 = _sb5[1:]
                         cands.append(_au5 + _sb5 + _e5)
+            # sasti laN: eka/meka bare-san + per-slot M-twins (asaMstAm/asaMsttAm...; sole 02.0074;
+            # M-ful everywhere else (asaMstan/asaMstam...); additive; meta-clean gate).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "sasti":
+                _slat = {(("prathama","eka")):["asan"],(("madhyama","eka")):["asan"],(("prathama","dvi")):["asaMstAm","asaMsttAm"],(("prathama","bahu")):["asaMstan"],(("madhyama","dvi")):["asaMstam","asaMsttam"],(("madhyama","bahu")):["asaMsta","asaMstta"],(("uttama","eka")):["asaMstam"],(("uttama","dvi")):["asaMstva"],(("uttama","bahu")):["asaMstma"]}
+                cands += _slat.get((purusha, vacana), [])
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
@@ -4038,6 +4053,14 @@ class TinantaDerivationEngine:
                         _dhi = {"ad": "adDi", "vac": "vagDi", "sas": "saDi", "as": "eDi"}
                         if clean in _dhi:
                             cands.append(_dhi[clean])
+            # sasti low doublet + DHi (saMs-/saMst- + low-endings; sanddDi/sanDi for 2sg; sole 02.0074;
+            # additive; NB meta-clean gate (idit-num rewrites local clean)).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "sasti":
+                _slow = {("madhyama","eka"):["tAt","tAd"],("prathama","eka"):["tu"],("prathama","dvi"):["tAm"],("prathama","bahu"):["antu"],("madhyama","dvi"):["tam"],("madhyama","bahu"):["ta"],("uttama","eka"):["Ani"],("uttama","dvi"):["Ava"],("uttama","bahu"):["Ama"]}
+                for _e10 in _slow.get((purusha, vacana), []):
+                    cands += ["saMs" + _e10, "saMst" + _e10]
+                if (purusha, vacana) == ("madhyama", "eka"):
+                    cands += ["sanddDi", "sanDi"]
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
@@ -4072,6 +4095,12 @@ class TinantaDerivationEngine:
                     _yf2 = _ystem + _yend2[(purusha, vacana)]
                     if _yf2 not in cands:
                         cands.append(_yf2)
+            # sasti viDiliN t-form (saMstyAt-class; sole 02.0074; additive; meta-clean gate).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "sasti":
+                _sy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
+                _syf = "saMst" + _sy.get((purusha, vacana), "yAt")
+                if _syf not in cands:
+                    cands.append(_syf)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
