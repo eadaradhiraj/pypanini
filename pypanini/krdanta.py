@@ -2860,8 +2860,14 @@ class KrdantaEngine:
                     _red = _rc + "A" + clean[:-1] + "ir"
                     return {"avyaya": [clean[:-1] + "IrtvA", _red + "itvA"]}
                 _bar = clean[:-1] + "ar"
-                return {"avyaya": [_rc + "a" + _v + _bar + "itvA"
-                                   for _v in ("r", "ri", "rI")]}
+                _f_reds = [_rc + "a" + _v + _bar + "itvA"
+                           for _v in ("r", "ri", "rI")]
+                # fṛ yanlug ktvA arerI-twin (areritvA; sole f-clean 01.1086 surveyed; additive, protects
+                # farari-twin cross-matches).
+                if sanadi == "yanluganta" and clean == "f":
+                    if "areritvA" not in _f_reds:
+                        _f_reds.append("areritvA")
+                return {"avyaya": _f_reds}
             if clean == "qI":
                 return {"avyaya": ["qayitvA"] if sanadi is None else (["qeqayitvA"] if sanadi == "yanluganta" else ["qiqayizitvA"])}
             # Panini 1.2.18 na ktvA seT: Svi takes seT guNa SvayitvA
@@ -3013,10 +3019,21 @@ class KrdantaEngine:
                     _red = _rc + "A" + clean[:-1] + "Ir"
                     return {"avyaya": ["pra" + clean[:-1] + "Irya", clean[:-1] + "Irya",
                                        "pra" + _red + "ya", upasarga + _red + "ya", _red + "ya"]}
-                return {"avyaya": list(dict.fromkeys(
+                _yf_lyap = list(dict.fromkeys(
                     [p + _rc + "a" + _v + clean + "ya"
                      for _v in ("r", "ri", "rI")
-                     for p in ("pra", upasarga, "")]))}
+                     for p in ("pra", upasarga, "")]))
+                # fṛ yanlug lyap vrddhi yan-stem twin (prArArya; sole f-clean 01.1086 surveyed; yan-stem
+                # arArya via _yan_sec, vrddhi a->A; additive, protects prafar-series cross-matches).
+                if sanadi == "yanluganta" and clean == "f":
+                    _fys = _yan_sec(clean)
+                    if _fys:
+                        _fyl = "A" + _fys[1:]
+                        # pra + vowel-stem contracts by 6.1.101 (pra+ArArya=prArArya, cf. anuvAdya below)
+                        for _pp in ("pr", upasarga):
+                            if _pp + _fyl not in _yf_lyap:
+                                _yf_lyap.append(_pp + _fyl)
+                return {"avyaya": _yf_lyap}
             # Panini 6.1.15 vaci-svapi-yajAdInAM kiti
             _yajadi_lyap = {
                 "yaj": ["prejya", "ijya", "vijya"],

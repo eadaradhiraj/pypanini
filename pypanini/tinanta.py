@@ -1812,6 +1812,10 @@ class TinantaDerivationEngine:
                 return None  # use map
             if c in ("sUd", "sUd"):
                 return "sozUd"
+            # fṛ yanlug present stem arerI- (arerIti/arerIzi/arerImi; sole 01 f-clean 01.1086 surveyed;
+            # parallels _yan_stem f->arArya; generic farIar- matches nothing in yanlug lw, so replacement is safe).
+            if c == "f":
+                return "arerI"
             # Nitya-san (3.1.5/3.1.6, seT only): yanlug uses san base (jugups/titikz/...; 01.0461 aniT excluded via sew).
             if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                 _ylb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
@@ -2036,6 +2040,13 @@ class TinantaDerivationEngine:
                     ]
                     extra += self._conjugate_at_stem_atmane(_yls_riy, "lw", purusha, vacana)
             extra += self._conjugate_at_stem_atmane(yls + "y", "lw", purusha, vacana)
+            # fṛ yanlug karmani falls back to the yan-stem (arAryate-class; sole f-clean 01.1086 surveyed;
+            # yanlug yls never matches karmani tokens; derived from _yan_stem, not hardcoded).
+            if clean == "f":
+                _yys_f = _yan_stem(clean)
+                if _yys_f:
+                    _yyc_f = _yys_f[:-1] if _yys_f.endswith("a") else _yys_f
+                    extra += self._conjugate_at_stem_atmane(_yyc_f, "lw", purusha, vacana)
             # Panini 8.2.32 dAder DAtor GaH, 8.2.40 Jazas taTor Do 'DaH, 8.4.53 JalAM jaS JaSi for dah:
             if yls.endswith("h") and clean.startswith("d"):
                 extra += [yls[:-1] + "gDi", yls[:-1] + "gDaH", yls[:-1] + "gDa"]
