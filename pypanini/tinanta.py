@@ -2034,16 +2034,23 @@ class TinantaDerivationEngine:
             # When ya is elided before vowel/id-agama (i, A), Ur reverts to short ur.
             if base_no_ya.endswith("Ur"):
                 base_no_ya = base_no_ya[:-2] + "ur"
+            # zWiv yang perfect-system short-i stems (wezWivAYcakre/wezWivitA/...; present-system keeps tezWIvya-).
+            # Surveyed zWiv perfect paradigm (we-/te- redup × i-grade); additive list, consumed per-branch below.
+            _yan_perf = []
+            if clean == "zWiv":
+                _yan_perf = ["wezWiv", "tezWiv"]
             if lakara in ("laN", "luN"):
                 ys_aug = self._add_augment(ys, ys[0] in SLP1_VOWELS if ys else False)
                 if lakara == "luN":
-                    aug_base = self._add_augment(base_no_ya, base_no_ya[0] in SLP1_VOWELS if base_no_ya else False)
                     suffixes = {("prathama","eka"):"izwa",("prathama","dvi"):"izAtAm",("prathama","bahu"):"izata",("madhyama","eka"):"izWAH",("madhyama","dvi"):"izATAm",("madhyama","bahu"):"iDvam",("uttama","eka"):"izi",("uttama","dvi"):"izvahi",("uttama","bahu"):"izmahi"}
                     sfx = suffixes[(purusha, vacana)]
-                    f = aug_base + sfx
-                    if (purusha, vacana)==("madhyama","bahu"):
-                        return [aug_base+"iDvam", aug_base+"iQvam"], log
-                    return [f], log
+                    _lun = []
+                    for _yb in [base_no_ya] + _yan_perf:
+                        _ab = self._add_augment(_yb, _yb[0] in SLP1_VOWELS if _yb else False)
+                        _lun.append(_ab + sfx)
+                        if (purusha, vacana)==("madhyama","bahu"):
+                            _lun.append(_ab + "iQvam")
+                    return list(dict.fromkeys(_lun)), log
                 # strip final a for conjugate (pAsparDya -> pAsparDy)
                 ys_core = ys[:-1] if ys.endswith("a") else ys
                 ys_aug_core = ys_aug[:-1] if ys_aug.endswith("a") else ys_aug
@@ -2071,7 +2078,7 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): "Ycakfmahe",
                 }
                 _be = _tbl.get((purusha, vacana), "Ycakre")
-                _stems = [base_no_ya]
+                _stems = [base_no_ya] + _yan_perf
                 _res = []
                 for _st in _stems:
                     _res += [_st + "A" + _be, _st + "AYcakre", _st + "AmAse", _st + "AmbaBUve"]
@@ -2079,24 +2086,32 @@ class TinantaDerivationEngine:
                         _res.append(_st + "AYcakfDve")
                 return list(dict.fromkeys(_res)), log
             if lakara == "luw":
-                return self._conjugate_luw(base_no_ya + "i" if not base_no_ya.endswith("i") else base_no_ya, "Atmanepadi", purusha, vacana), log
+                _luwc = []
+                for _yb in [base_no_ya] + _yan_perf:
+                    _luwc += self._conjugate_luw(_yb + "i" if not _yb.endswith("i") else _yb, "Atmanepadi", purusha, vacana)
+                return list(dict.fromkeys(_luwc)), log
             if lakara == "ASIrliN":
-                base_iz = base_no_ya + "i" + apply_satva("i","s") if not base_no_ya.endswith("i") else base_no_ya + apply_satva("i","s")
                 endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
-                _c = [base_iz + endings[(purusha, vacana)]]
-                # madhyama bahu Atman benedictive IDvam/IQvam both (8.3.?): over-generate Q alongside D
-                if purusha == "madhyama" and vacana == "bahu":
-                    _c += [c.replace("IDvam", "IQvam") for c in _c if "IDvam" in c]
-                return list(dict.fromkeys(_c)), log
+                _asc = []
+                for _yb in [base_no_ya] + _yan_perf:
+                    _bi = _yb + "i" + apply_satva("i","s") if not _yb.endswith("i") else _yb + apply_satva("i","s")
+                    _asc.append(_bi + endings[(purusha, vacana)])
+                    # madhyama bahu Atman benedictive IDvam/IQvam both (8.3.?): over-generate Q alongside D
+                    if purusha == "madhyama" and vacana == "bahu":
+                        _asc += [c.replace("IDvam", "IQvam") for c in _asc if "IDvam" in c]
+                return list(dict.fromkeys(_asc)), log
             if lakara in ("lfw", "lfN"):
-                core = base_no_ya + "izya"
-                if lakara == "lfN":
-                    core = self._add_augment(core, core[0] in SLP1_VOWELS if core else False)
-                base_core = core[:-1] if core.endswith("a") else core
-                if lakara == "lfw":
-                    return self._conjugate_at_stem_atmane(base_core, "lw", purusha, vacana), log
-                else:
-                    return self._conjugate_at_stem_atmane(base_core, "laN", purusha, vacana), log
+                _lfc = []
+                for _yb in [base_no_ya] + _yan_perf:
+                    _core = _yb + "izya"
+                    if lakara == "lfN":
+                        _core = self._add_augment(_core, _core[0] in SLP1_VOWELS if _core else False)
+                    _bc = _core[:-1] if _core.endswith("a") else _core
+                    if lakara == "lfw":
+                        _lfc += self._conjugate_at_stem_atmane(_bc, "lw", purusha, vacana)
+                    else:
+                        _lfc += self._conjugate_at_stem_atmane(_bc, "laN", purusha, vacana)
+                return list(dict.fromkeys(_lfc)), log
             ys_core = ys[:-1] if ys.endswith("a") else ys
             _ywl = self._conjugate_at_stem_atmane(ys_core, lakara, purusha, vacana)
             # kziv yang present-system I-grade (cekzIvyate for lw/low/viDiliN; f~ already long via clean)
