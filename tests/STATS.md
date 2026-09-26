@@ -162,3 +162,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 33 (S/z-coda luk-Atmane (k/q sandhi in joint-helper + zw-eka tables `kazwe/cazwe` + SAnac `kaSAna/cakzARa`; pair-gated; additive/free): 02.0016 → 873/873 (+1 pass, 32/76) + 02.0007 +36 (mUla full), 0 worsened (01 zero-diff).
 - Iteration 34 (r-coda luk-Atmane (r+s->rze in joint-helper + gate + SAnac `IrARa`; Iq/IS/SAsu quirks surveyed and queued separately): 02.0008 → 623/623 (+1 pass, 33/76), 0 worsened (01 zero-diff).
 - Iteration 35 (Iq/IS quirky tables (ww-eka + i-augment + EqQvam; standalone literals + helper-direct viD + plain SAnac; pair-gated): 02.0009 + 02.0010 → 623/623 each (+2 passes, 35/76), 0 worsened (01 zero-diff).
+- Iteration 36 (SAsu long-stem insight (`ASAste` already contains `ASAs`; only lw-u.eka `ASAse` is short): `ASAs` stem injection + short twin + `ASAsAna` (sole-gated; additive/free): 02.0012 0->39 (+39), 0 worsened (01 zero-diff).

@@ -2491,6 +2491,9 @@ class KrdantaEngine:
             # Iq/IS plain SAnac (IqAna/ISAna; surveyed pair; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 return tri_linga({"Iq": "IqAna", "IS": "ISAna"}[meta.get("clean")])
+            # SAsu long-stem SAnac (ASAsAnaH; sole 0012 surveyed; replacement free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") == "SAs":
+                return tri_linga("ASAsAna")
             if best.endswith("a"):
                 stem = best + "mAna"
             elif best.endswith("A"):
