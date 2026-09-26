@@ -3,15 +3,15 @@
 Date: 2026-09-26
 Sweep: **1156/1156 100%** (100%, raw 1156/1166)
 
-## Done — MILESTONE: 1156/1156 via attested-only scoring
-- Methodology (user-directed): krdanta pratyayas with no key in that fid+anta are unscorable → skipped
-  (precedent: skipped ganasutra roots, yangluk non-lw). Data-absence-decided, engine still generates all
-  forms, skipped counts printed (11740 sweep-wide). Adjusted gate: zero pass→fail flips, 0459 fail→pass.
-- Full Sweep Results: passes **1155->1156/1156** (`01.0459` 886/892 -> 879/879; its regular `sramBan`-forms
-  still generated, pending real attestation), miss-by-anta EMPTY, GRAND 994971/994971 attested.
-- Honest accounting: 1154/1156 fully generative + 1086 exception-assisted + 0459 attested-only = 1156/1156
-  of attested slots. The 6 0459-Satf slots remain generated-but-unverified (no tokens anywhere, both sources).
+## Done — all-gana meta loading (infra, zero behavior change)
+- tinanta + krdanta `_load_cache`: glob `skt-morph-data/{02..10,01}/*.json` (01 last so validated
+  BvAdi entries win clean-collisions; by_id keys never collide). Correct pada/sew/gana engine-wide.
+- Full Sweep Results: fid-diff vs HEAD IDENTICAL (0 improved, 0 worsened), skipped total identical
+  (11740) — passes held 1156/1156. Cache: 4670 cleans / 6540 ids.
+- GRAND 994971/994971 attested. Net unchanged.
 
-## Next (gana-01 complete — direction needed)
-- 01 loop CLOSED at 1156/1156 attested. Remaining options: subanta engine (instructions.MD), gana-02 arc
-  (measured 0/77, needs AdAdi grammar), or halt. Awaiting direction.
+## Next (all-gana 100% per user directive)
+1. Re-measure gana-02 with correct meta (was 0/77 with fallback-inference meta; Atmanepadi/sew now true).
+2. Gana-02 AdAdi loop (vikaraNa luk + ablaut; new grammar systems, surveyed per trait).
+3. Ganas 03–10 to follow (measure first; 10 has 509 roots).
+- Advance 1156/1156 (01) → all-gana coverage.

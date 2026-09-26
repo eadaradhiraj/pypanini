@@ -160,9 +160,10 @@ class KrdantaEngine:
         self._cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True, "is_idit": False, "op": "eD"}
         self._cache_by_id = {}
         try:
-            base = Path("skt-morph-data/01")
-            if base.exists():
-                for jf in glob.glob(str(base / "*.json")):
+            _bases = [Path("skt-morph-data") / _g for _g in ("02", "03", "04", "05", "06", "07", "08", "09", "10", "01")]
+            _jfs = [jf for _b in _bases if _b.exists() for jf in glob.glob(str(_b / "*.json"))]
+            if _jfs:
+                for jf in _jfs:
                     try:
                         d = json.load(open(jf, encoding="utf-8"))
                         info = {x["name"]: x["value"] for x in d.get("info", [])}
