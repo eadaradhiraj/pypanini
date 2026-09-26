@@ -3883,6 +3883,15 @@ class TinantaDerivationEngine:
                 _uweak = clean
                 _ue = {("prathama","eka"):[_ustrong+"ti"],("prathama","dvi"):[_uweak+"taH"],("prathama","bahu"):[_uweak+"vanti"],("madhyama","eka"):[_ustrong+"zi"],("madhyama","dvi"):[_uweak+"TaH"],("madhyama","bahu"):[_uweak+"Ta"],("uttama","eka"):[_ustrong+"mi"],("uttama","dvi"):[_uweak+"vaH"],("uttama","bahu"):[_uweak+"maH"]}
                 cands += _ue.get((purusha, vacana), [])
+            # AdAdi luk present, I/i-stems: pit-singulars e-grade, rest retained length, 3pl y-grade
+            # (veti/vItaH/viyanti; eti/itaH/yanti; sole pair vI + iR surveyed, parasmaipada; Atmane i-roots
+            # queued separately). Gana-gated + additive.
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] in ("i", "I"):
+                _ie = clean[:-1] + "e"
+                _iw = clean
+                _iyb = (clean[:-1] + "iy" if len(clean) > 1 else "y")
+                _ie_map = {("prathama","eka"):[_ie+"ti"],("prathama","dvi"):[_iw+"taH"],("prathama","bahu"):[_iyb+"anti"],("madhyama","eka"):[_ie+"zi"],("madhyama","dvi"):[_iw+"TaH"],("madhyama","bahu"):[_iw+"Ta"],("uttama","eka"):[_ie+"mi"],("uttama","dvi"):[_iw+"vaH"],("uttama","bahu"):[_iw+"maH"]}
+                cands += _ie_map.get((purusha, vacana), [])
             # AdAdi luk present, short-a consonant-coda stems: stem + endings with coda-sandhi
             # (atti/hanti/vakti; d->t/_voiceless, n->M/_s, n->0/_t, c->k/_voiceless, s-lopa for as-clean only;
             # Gnanti-type readings queued). Gana-gated + additive.
