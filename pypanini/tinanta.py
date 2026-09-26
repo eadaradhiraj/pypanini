@@ -368,6 +368,17 @@ class TinantaDerivationEngine:
             if _e0 == "s":
                 return stem + "z" + ending[1:]
             return stem + ending
+        # i/I-coda (Atmane): final-I becomes y before A/a/e/E (dIDyAte/dIDyE — iko yaNaci replacement,
+        # unlike u which keeps + epenthetic v); s -> z after I (dIDIze, kept); direct before consonants
+        # AND I-endings (dIDIte/dIDIta). Surveyed dIDI/vevI.
+        if stem[-1:] in ("i", "I"):
+            if _e0 in ("A", "a", "e", "E"):
+                return stem[:-1] + "y" + ending
+            if _e0 == "s":
+                return stem + "z" + ending[1:]
+            if _e0 in ("i", "I"):
+                return stem + ending[1:]
+            return stem + ending
         if stem.endswith("Yj"):
             # satva: se/sva -> ze/zva after the Nk (niNkze/niNkzva; mirrors vakzi; surveyed all Yj alat/alot)
             if _e0 == "s":
@@ -3995,6 +4006,14 @@ class TinantaDerivationEngine:
                 _uae = _uate.get((purusha, vacana))
                 if _uae:
                     cands.append(self._adadi_atmane_joint(_hu, _uae))
+            # I-Atmane luk present (dIDIte/dIDyAte/dIDIze; y-glide + I-satva via helper; surveyed pair
+            # dIDI/vevI; SI/iN grade differently — queued; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("dIDI", "vevI"):
+                _hiy = meta.get("clean")
+                _iate = {("prathama","eka"):"te",("prathama","dvi"):"Ate",("prathama","bahu"):"ate",("madhyama","eka"):"se",("madhyama","dvi"):"ATe",("madhyama","bahu"):"Dve",("uttama","eka"):"e",("uttama","dvi"):"vahe",("uttama","bahu"):"mahe"}
+                _iae = _iate.get((purusha, vacana))
+                if _iae:
+                    cands.append(self._adadi_atmane_joint(_hiy, _iae))
             # vid luk present (e-grade-tt vetti + vida- doublets veda/vidantu...; sole 02.0059 surveyed;
             # any-match scoring needs >=1 attested form per slot — mapping by shape; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
@@ -4195,6 +4214,16 @@ class TinantaDerivationEngine:
                 _u3e = _uata.get((purusha, vacana))
                 if _u3e:
                     cands.append(self._adadi_atmane_joint(_aughu, _u3e))
+            # I-Atmane luk imperfect (adIDIta/adIDyAtAm/adIDi-short-u.eka; surveyed pair; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("dIDI", "vevI"):
+                _hiy3 = meta.get("clean")
+                _aughiy = self._add_augment(_hiy3, _hiy3[0] in SLP1_VOWELS if _hiy3 else False)
+                _iata = {(("prathama","eka")):"ta",(("prathama","dvi")):"AtAm",(("prathama","bahu")):"ata",(("madhyama","eka")):"TAH",(("madhyama","dvi")):"ATAm",(("madhyama","bahu")):"Dvam",(("uttama","dvi")):"vahi",(("uttama","bahu")):"mahi"}
+                _i3e = _iata.get((purusha, vacana))
+                if _i3e:
+                    cands.append(self._adadi_atmane_joint(_aughiy, _i3e))
+                if (purusha, vacana) == ("uttama", "eka"):
+                    cands += {"dIDI": ["adIDi"], "vevI": ["avevi"]}.get(_hiy3, [])
             # Iq/IS quirky imperfect (ww-eka + i-slots + EqQvam m.bahu; surveyed pair; standalone literals).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 _qa = {"Iq": ["Ewwa", "EqAtAm", "Eqata", "EwWAH", "EqATAm", "EqQvam", "Eqi", "Eqvahi", "Eqmahi"], "IS": ["Ezwa", "ESAtAm", "ESata", "EzWAH", "ESATAm", "EqQvam", "ESi", "ESvahi", "ESmahi"]}[meta.get("clean")]
@@ -4311,6 +4340,15 @@ class TinantaDerivationEngine:
                     cands += ["hnavAvahE"] if _hu2 == "hnu" else ["suvAvahE"]
                 if (purusha, vacana) == ("uttama", "bahu"):
                     cands += ["hnavAmahE"] if _hu2 == "hnu" else ["suvAmahE"]
+            # I-Atmane luk imperative (dIDItAm/dIDIzva(sva-only m.eka)/dIDyE-1sg; surveyed pair; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("dIDI", "vevI"):
+                _hiy2 = meta.get("clean")
+                _iato = {("prathama","eka"):"tAm",("prathama","dvi"):"AtAm",("prathama","bahu"):"atAm",("madhyama","dvi"):"ATAm",("madhyama","bahu"):"Dvam",("uttama","eka"):"E",("uttama","dvi"):"AvahE",("uttama","bahu"):"AmahE"}
+                _iao = _iato.get((purusha, vacana))
+                if _iao:
+                    cands.append(self._adadi_atmane_joint(_hiy2, _iao))
+                if (purusha, vacana) == ("madhyama", "eka"):
+                    cands.append(self._adadi_atmane_joint(_hiy2, "sva"))
             # Iq/IS quirky imperative (ww-eka + i-augment izva/iDve; surveyed pair; standalone literals).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 _qo = {"Iq": ["IwwAm", "IqAtAm", "IqatAm", "Iqizva", "IqATAm", "IqiDvam", "IqE", "IqAvahE", "IqAmahE"], "IS": ["IzwAm", "ISAtAm", "ISatAm", "ISizva", "ISATAm", "ISiDvam", "ISE", "ISAvahE", "ISAmahE"]}[meta.get("clean")]
@@ -4441,6 +4479,13 @@ class TinantaDerivationEngine:
                 _u4e = _uavi.get((purusha, vacana))
                 if _u4e:
                     cands.append(self._adadi_atmane_joint(_hu4, _u4e))
+            # I-Atmane luk optative (dIDIta/dIDIran bare — no glide before I; surveyed pair; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("dIDI", "vevI"):
+                _hiy4 = meta.get("clean")
+                _iavi = {(("prathama","eka")):"Ita",(("prathama","dvi")):"IyAtAm",(("prathama","bahu")):"Iran",(("madhyama","eka")):"ITAH",(("madhyama","dvi")):"IyATAm",(("madhyama","bahu")):"IDvam",(("uttama","eka")):"Iya",(("uttama","dvi")):"Ivahi",(("uttama","bahu")):"Imahi"}
+                _i4e = _iavi.get((purusha, vacana))
+                if _i4e:
+                    cands.append(self._adadi_atmane_joint(_hiy4, _i4e))
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 

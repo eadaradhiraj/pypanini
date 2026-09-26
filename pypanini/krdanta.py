@@ -2539,6 +2539,9 @@ class KrdantaEngine:
             # u-Atmane uv SAnac (hnuvAna/suvAna; surveyed pair 0077/0025; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("hnu", "sU"):
                 return tri_linga({"hnu": "hnuvAna", "sU": "suvAna"}[meta.get("clean")])
+            # I-Atmane y SAnac (dIDyAna/vevyAna; surveyed pair 0071/0072; replacement free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") in ("dIDI", "vevI"):
+                return tri_linga({"dIDI": "dIDyAna", "vevI": "vevyAna"}[meta.get("clean")])
             if best.endswith("a"):
                 stem = best + "mAna"
             elif best.endswith("A"):
