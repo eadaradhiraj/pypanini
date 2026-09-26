@@ -623,6 +623,12 @@ class TinantaDerivationEngine:
         if clean == "De" or op.startswith("Dew"):
             if "Day" not in bases:
                 bases.append("Day")
+        # aja~ yak ve-stems (ve/vAy for luT doublets vetA/vAyitA; sole aj-clean 01.0262 surveyed, ~-gated
+        # anudatta reading; additive — mUla branches keep their hits, extra ve-candidates harmless).
+        if clean == "aj" and "~" in (op or ""):
+            for _ajb in ("ve", "vAy"):
+                if _ajb not in bases:
+                    bases.append(_ajb)
         if clean == "dEp" or op.startswith("dEp"):
             if "dAy" not in bases:
                 bases.append("dAy")
@@ -3036,7 +3042,8 @@ class TinantaDerivationEngine:
                         if not base_cmp.endswith("A"):
                             for _pf in self._conjugate_luw(base_cmp + "i", "Atmanepadi", purusha, vacana):
                                 if _pf not in cands: cands.append(_pf)
-                    if not sew or is_vew:
+                    # aja~ ve-suppletion takes aniT luT (vetA inside sew root; sole aj-clean 01.0262, ~-gated).
+                    if not sew or is_vew or (clean == "aj" and "~" in (op or "")):
                         if not b.endswith("A"):
                             cands+=self._conjugate_luw(b, "Atmanepadi", purusha, vacana)
                         if not base_cmp.endswith("A"):
