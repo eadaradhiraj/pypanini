@@ -2683,6 +2683,10 @@ class TinantaDerivationEngine:
                         _yb = _aug(_ys) if lakara == "lfN" else _ys
                         _bc = _yb[:-1] if _yb.endswith("a") else _yb
                         cands += self._conjugate_at_stem_atmane(_bc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # snu yak-future strong grades (snAvizyate/snozyate; sole 02.0033 surveyed — yu cross-hits
+                # all 9 slots with one generic form; snu needs Av/o twins (both globally attested); additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
+                    cands += ["snAvizyate", "snozyate"]
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
@@ -3249,6 +3253,10 @@ class TinantaDerivationEngine:
                                     cands.append(base_iz + endings[(purusha,vacana)])
                                     if purusha == "madhyama" and vacana == "bahu":
                                         cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                # snu yak-ASIrliN U-grade (snUyeta/snUyeran/snUyeyAtAm; sole 02.0033 surveyed — generic emits
+                # sizya-forms only; additive before return).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
+                    cands += ["snUyeta", "snUyeran", "snUyeyAtAm"]
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
