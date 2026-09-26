@@ -2185,6 +2185,10 @@ class KrdantaEngine:
                     # jAgf Satf ar-grade base (jAgrat/jAgrad/jAgratI/jAgrantI; sole 02.0067 surveyed; old
                     # jAgat-forms miss everywhere so replacement is free like Svas/aja).
                     return {"M": ["jAgrat", "jAgrad"], "F": ["jAgratI", "jAgrantI"], "N": ["jAgrat", "jAgrad"]}
+                elif clean == "vaS" and meta.get("gana") == "adAdiH":
+                    # vaS weak-uS Satf (uSan/uSatI/uSat-uSad; sole 02.0075 surveyed; mirrors as-Satf weak;
+                    # old vaS-forms miss everywhere, free).
+                    return {"M": ["uSan"], "F": ["uSatI"], "N": ["uSat", "uSad"]}
                 elif clean == "as" and meta.get("gana") == "adAdiH":
                     # as-Satf weak stem throughout (san/satI/sat-sad; sole 02.0060 surveyed; sas/ad/han
                     # keep strong sasan/adan; additive twins keep old forms; BvAdi untouched by gana-gate).
