@@ -1294,6 +1294,13 @@ class TinantaDerivationEngine:
             # dEp (sole E-medial puk root surveyed): vriddhi-A + puk (dApay-).
             if c == "dEp":
                 return "dApay"
+            # ew-final aniW (sole 01 Dew 01.1050 surveyed): vriddhi-A + puk like dEp (DApay-);
+            # shape-based (penult e + coda w) + aniW-gated: sew ew-roots (mlewf~/mewf~/rewf~) keep generic ay;
+            # E-final yuk group (pE/sE/SE) ends in E, unaffected.
+            # NB: mUla Day-remap above runs first, so key on op as well (mirrors Dits op-keying below).
+            if (c.endswith("ew") or op.endswith("ew")) and not sew:
+                _eb = c[:-2] if c.endswith("ew") else op[:-2]
+                return _eb + "Apay"
             # single vocalic-f nich takes puk p (arpayate; sole 01 f-clean 01.1086; ji-jApay parallel)
             if c == "f":
                 return "arpay"
@@ -1475,7 +1482,7 @@ class TinantaDerivationEngine:
                 return "SiSriz"
             if c == "dE" or op.startswith("dEp"):
                 return "didAs"
-            if c in ("DeN", "De", "DA", "DuDAY", "Dew") or op.startswith(("DeN", "DA~", "DuDA", "Dew")):
+            if c in ("DeN", "De", "DA", "DuDAY") or (c.endswith("ew") and not sew) or op.startswith(("DeN", "DA~", "DuDA")) or (op.endswith("ew") and not sew):
                 return "Dits"
             # Panini 7.4.56 sa ni pAt: Svi -> SiSvayiz
             if c == "Svi" or (op and op.strip("~`") in ("wuoSvi", "Svi")):

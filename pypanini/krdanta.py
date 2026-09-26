@@ -837,6 +837,10 @@ class KrdantaEngine:
                 # dEp (mirrors tinanta): vriddhi-A + puk (dApay-).
                 if c == "dEp":
                     return "dApay"
+                # ew-final aniW (mirrors tinanta; sole 01 Dew 01.1050 surveyed; sew ew-roots keep generic ay).
+                if (c.endswith("ew") or op.endswith("ew")) and not sew:
+                    _eb = c[:-2] if c.endswith("ew") else op[:-2]
+                    return _eb + "Apay"
                 # single vocalic-f nich takes puk p (mirrors tinanta; sole 01 f-clean 01.1086)
                 if c == "f":
                     return "arpay"
@@ -1121,7 +1125,7 @@ class KrdantaEngine:
                     return "SiSriz"
                 if c == "dE" or op.startswith("dEp"):
                     return "didAs"
-                if c in ("DeN", "De", "DA", "DuDAY", "Dew") or op.startswith(("DeN", "DA~", "DuDA", "Dew")):
+                if c in ("DeN", "De", "DA", "DuDAY") or (c.endswith("ew") and not sew) or op.startswith(("DeN", "DA~", "DuDA")) or (op.endswith("ew") and not sew):
                     return "Dits"
                 # Panini 7.4.56 sa ni pAt: Svi -> SiSvayiz
                 if c == "Svi" or (op and op.strip("~`") in ("wuoSvi", "Svi")):
@@ -1511,18 +1515,20 @@ class KrdantaEngine:
                 sec_base = sec[:-2] if sec.endswith("ay") else sec
                 # kta/ktavatu for Nijanta: use mUla _kta_stem for cross-match safety (Panini exact sec kta needs A-shortening hlAd->hlad vs yat->yAt; mUla yatta/hlAnna always in tokens)
                 if pratyaya == "kta":
-                    # dEp nich kta is dApitaH (sole 01 dEp-op 01.1073; sec dApay + ita, not mUla dAta)
-                    if op.startswith("dEp"):
-                        return {"M": "dApitaH", "F": "dApitA", "N": "dApitam"}
+                    # dEp nich kta is dApitaH (sole 01 dEp-op 01.1073; sec dApay + ita, not mUla dAta);
+                    # ew-final aniW mirrors it (Dew 01.1050 -> DApitaH; sew ew-roots excluded).
+                    if op.startswith("dEp") or (orig_clean.endswith("ew") and not sew):
+                        return {"M": sec_base+"itaH", "F": sec_base+"itA", "N": sec_base+"itam"}
                     # jaB remapped to jamB must not inherit the root I~ iT-block
                     # (nijanta jamBitaH, not mUla-style jambDaH).
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
                     _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit)
                     return {"M": _mstem+"H", "F": _mstem[:-1]+"A" if _mstem.endswith("a") else _mstem+"A", "N": _mstem+"m"}
                 if pratyaya == "ktavatu":
-                    # dEp nich ktavatu is dApitavAn (sole 01 dEp-op 01.1073; mirrors kta above)
-                    if op.startswith("dEp"):
-                        return {"M": "dApitavAn", "F": "dApitavatI", "N": "dApitavat"}
+                    # dEp nich ktavatu is dApitavAn (sole 01 dEp-op 01.1073; mirrors kta above);
+                    # ew-final aniW mirrors it (Dew 01.1050 -> DApitavAn).
+                    if op.startswith("dEp") or (orig_clean.endswith("ew") and not sew):
+                        return {"M": sec_base+"itavAn", "F": sec_base+"itavatI", "N": sec_base+"itavat"}
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
                     _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit)
                     _b = _mstem[:-1] if _mstem.endswith("a") else _mstem
