@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-26
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1152/1156 100%** (99.7%, raw 1152/1166). Fails: 4 scored (14 with 10 skipped). Net matched tokens +30352 across all generative iterations (0 true worsened).
+Passes: **1152/1156 100%** (99.7%, raw 1152/1166). Fails: 4 scored (14 with 10 skipped). Net matched tokens +30432 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -76,6 +76,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - dEp mUla/nich krdanta dA-stems (op-gated; `_kta_stem` dA+dEp->dAta, nich kta/ktavatu dApita, SAnac yak-base skips A->I for dEp; sole 01 dEp-op `01.1073`, guards `01.1079`/`01.1117` held): 1 improved (+15: `01.1073` 848->863), 0 worsened, passes held 1151. Freed-cap: `krut` 26->17, `nich_krut` 3->0 (cleared), `yang_krut` 0->12 (`dedIyitaH`, queued next).
 - dEp yang dAdAya in krdanta (`c=="dA" and op.startswith("dEp")` before the dedIya branch; c is post-adeca dA, mirrors tinanta generic adeca path; sole 01 dEp-op, guard `01.1079` held): **1 improved (+29: `01.1073` 863->892/892 PASS), 0 worsened, passes +1 → 1152/1156**. `yang_krut` cleared to 0.
 - ew-final aniW nich puk + Dits shape-generalization (`Dew` `01.1050`, sole aniW ew-clean in 01): tinanta `_nijanta_stem` + krdanta `_nijanta_sec` take vriddhi-A + puk (`DApay-`, mirrors `dEp->dApay`; op-keyed since tinanta remaps clean to `Day` first); krdanta nijanta `kta`/`ktvA`-family overrides extended via `sec_base` (identical `dEp` output); prior `Dew`-literal `Dits` entries generalized to shape-based `endswith("ew")`. Exhaustive clean-shape survey (4/1166: `Dew` aniW vs `mlewf~/mewf~/rewf~` sew): `sew` partitions exactly — first ungated attempt regressed the 3 sew roots (892->648 each, generic `mleway-/mimewiz-` stems), aniW-gate restored them (892/892) with zero conflicts; E-final yuk group (`pE/sE/SE`, ends `E`) unaffected. 1 improved (+391: `01.1050` 118->509: nich+nich_yak full pass, nich_krut 32/32), 0 worsened, passes held 1152. Remainder is mUla (`Day-` vs `DA-/DI-/Dey-`), yak (`DIya-`), yang (`deDIya-`), krdanta mUla — queued next, one trait at a time.
+- ew-final aniW A-grade `DA-` base (extends nich-puk iteration; sole 01 `Dew` 01.1050): tinanta `_prim_bases` appends adeca-adjacent `DA-` (w-loss + A, op-keyed since clean is remapped to `Day`; new `sew` param threaded through all 13 call sites incl. 2-arg yak sites); krdanta mUla `clean->DA` reassignment after the nasal block (`kta`/`ktavatu` use `orig_clean`, safe). Purely additive tinanta-side (scoring-monotonic, regression impossible by design); krdanta-side safe (all other mUla pratyayas missed). 1 improved (+80: `01.1050` 509->589: ting luT/lRT/lRN 27 + yak luT/lRT/lRN/ASIrliN 36 + krut tavya/tfc/anIyar/GaY/Rvul/SAnac 17), 0 worsened, passes held 1152. Remainder: yak `DIya-` present (45), yang `deDIya-` (180+29), krut `Day-/Dey-` (9), liT `daD-` + ASIrliN `Dey-` (17) — queued one trait at a time.
 - BLOCKED (surveyed, no generative rule — recorded, not attempted): `01.1086` yangluk/yangluk_krut (arerIti/arteti/ftItaH/fjayati + rat/rad/riteta — 4+ suppletive stems per slot, no shape derivation); `01.1086` can cap at 869/892.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
@@ -84,7 +85,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 | krut | 17 | 01.0262 krut/anIyar/M:ajanIyaH |
 | san_krut | 3 | 01.0459 san_krut/Satf/M:sisramBizan |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
-| ting | 5 | 01.1050 ting/liw/prathama/eka:daDayva |
-| yangluk | 5 | 01.1086 yangluk/lw/prathama/eka:faririyate |
+| ting | 5 | 01.1050 ting/liw/prathama/eka:deDAya |
+| yangluk | 5 | 01.1086 yangluk/lw/prathama/eka:farifvaH |
 | yangluk_krut | 5 | 01.1086 yangluk_krut/Satf/M:farrat |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |

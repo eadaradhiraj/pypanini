@@ -1949,6 +1949,16 @@ class KrdantaEngine:
                 vriddhi_base = self._vriddhi_base(clean, is_idit)
                 is_laghu_ik_init = (len(clean) == 1 and clean in ("i", "u", "f", "x")) or (len(clean) == 2 and clean[0] in ("i", "u", "f", "x") and clean[1] not in SLP1_VOWELS)
 
+        # Panini 6.1.45-adjacent A-grade for aniW ew-finals in krdanta mUla (Dew->DA; mirrors tinanta
+        # _prim_bases; sole 01 Dew 01.1050 surveyed; sew ew-cleans mlew/mew/rew excluded via sew-gate,
+        # E-final yuk group ends in E, unaffected). kta/ktavatu use orig_clean (unaffected); every other
+        # mUla pratyaya currently misses, so replacement here cannot regress — DA-forms match via the
+        # same E-root machinery (tavya DAtavya, tfc DAtA, anIyar DAnIya, GaY/Rvul DAya).
+        if sanadi is None and clean.endswith("ew") and not sew:
+            clean = clean[:-2] + "A"
+            guna_base = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
+            vriddhi_base = self._vriddhi_base(clean, is_idit)
+
         # helper to build tri-linga from stem ending in 'a'
         def tri_linga(stem_a: str) -> Dict:
             # stem_a ends with 'a' e.g., eDita, BavanIya

@@ -520,7 +520,7 @@ class TinantaDerivationEngine:
                             cands.append(aug + "y" + ending)
         return list(dict.fromkeys(cands))
 
-    def _prim_bases(self, clean: str, is_idit: bool=False, op: str="", dhatu_id: str=""):
+    def _prim_bases(self, clean: str, is_idit: bool=False, op: str="", dhatu_id: str="", sew: bool=True):
         bases = [self._bhvadi_guna_base(clean, is_idit), clean]
         # Samo~ (mit o->a): Sarvadhatuka uses Sam- + shap-a (Samati, not
         # Samaati); kta keeps SamaTa (handled in _kta_stem).
@@ -531,6 +531,17 @@ class TinantaDerivationEngine:
             a_root = clean[:-1] + "A"
             if a_root not in bases:
                 bases.append(a_root)
+        # Panini 6.1.45-adjacent A-grade for aniW ew-finals (Dew->DA; sole 01 Dew 01.1050 surveyed):
+        # ew-cleans take vriddhi-A + w-loss before consonant affixes (luT/lRT/lRN/tavya), like adeca E->A above.
+        # Shape + sew-gated: sew ew-cleans (mlewf~/mewf~/rewf~ 01.0329/01.0948/01.1002) keep generic stems;
+        # E-final yuk group (pE/sE/SE) ends in E, unaffected. Additive (present Day- retained; any-match scoring).
+        # NB: derive() remaps clean to Day before the lakara loops, so key on op as well.
+        _op_ew = op.replace("~", "").replace("`", "").strip() if op else ""
+        if (clean.endswith("ew") or _op_ew.endswith("ew")) and not sew:
+            _ew_src = clean if clean.endswith("ew") else _op_ew
+            _ew_a = _ew_src[:-2] + "A"
+            if _ew_a not in bases:
+                bases.append(_ew_a)
         # Panini 7.3.84 sarvadhatukardhadhatukayoH: guna before consonant affixes without eco
         if clean and clean[-1] in ("i", "I", "u", "U"):
             _c_guna = clean[:-1] + apply_guna(clean[-1])
@@ -2455,7 +2466,7 @@ class TinantaDerivationEngine:
                     # fallback to generic
                 # primitive yak future: use guna base + izy + atman (over-generate for vowel-initial and Ur)
                 cands=[]
-                for base_cmp in self._prim_bases(clean, is_idit):
+                for base_cmp in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
@@ -2930,7 +2941,7 @@ class TinantaDerivationEngine:
                     return list(dict.fromkeys(cands)), log
                 # primitive yak luw is BavitA (same as paras) - over-generate capital and Ur/Ud
                 cands=[]
-                bases = self._prim_bases(clean, is_idit)
+                bases = self._prim_bases(clean, is_idit, op, dhatu_id, sew)
                 for base_cmp in bases:
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         b = base_cmp
@@ -2999,7 +3010,7 @@ class TinantaDerivationEngine:
                     return list(dict.fromkeys(cands)), log
                 # primitive yak ASIrliN is atman seT BavizIzwa (guna + i + z) over-generate and Ur
                 cands=[]
-                for base_cmp in self._prim_bases(clean, is_idit):
+                for base_cmp in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
@@ -3722,7 +3733,7 @@ class TinantaDerivationEngine:
         # primitive - generative per lakara (over-generate for vowel-initial)
         if lakara == "lw":
             cands=[]
-            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "lw", purusha, vacana)
                     # Atmanepadi mUla also emits parasmaipada finite variants (additive any-match over-generation;
@@ -3742,7 +3753,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "laN":
             cands=[]
-            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 aug = self._add_augment(base, base[0] in SLP1_VOWELS if base else False)
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(aug, "laN", purusha, vacana)
@@ -3762,7 +3773,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "low":
             cands=[]
-            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "low", purusha, vacana)
                     # Atmanepadi mUla also emits parasmaipada finite variants (additive; see lw note)
@@ -3781,7 +3792,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "viDiliN":
             cands=[]
-            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if pada == "Atmanepadi":
                     cands+=self._conjugate_at_stem_atmane(base, "viDiliN", purusha, vacana)
                     # Atmanepadi mUla also emits parasmaipada finite variants (additive; see lw note)
@@ -3800,7 +3811,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "luw":
             cands=[]
-            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if sew or is_vew:
                     _b = base[:-1] + "i" if base.endswith("A") else base + "i"
                     cands+=self._conjugate_luw(_b, pada, purusha, vacana)
@@ -3812,7 +3823,7 @@ class TinantaDerivationEngine:
             cands=[]
             # Panini 1.3.92 vrdbhyaH syasanoH: vft, vfD, SfD, syand, kfp optionally take parasmaipada in sya (lfw, lfN)
             is_vrdbhyah = clean in ("vft", "vfD", "SfD", "syand", "kfp") or (op and any(op.startswith(x) for x in ("vft", "vfD", "SfD", "syand", "kfp")))
-            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if sew or is_vew or clean.endswith(("f", "F")):
                     base_i = base[:-1] + "i" if base.endswith("A") else base + "i"
                     sat = apply_satva(base_i[-1], "s")
@@ -3834,7 +3845,7 @@ class TinantaDerivationEngine:
             cands=[]
             # Panini 1.3.92 vrdbhyaH syasanoH: vft, vfD, SfD, syand, kfp optionally take parasmaipada in sya (lfw, lfN)
             is_vrdbhyah = clean in ("vft", "vfD", "SfD", "syand", "kfp") or (op and any(op.startswith(x) for x in ("vft", "vfD", "SfD", "syand", "kfp")))
-            for base in self._prim_bases(clean, is_idit, op, dhatu_id):
+            for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if sew or is_vew or clean.endswith(("f", "F")):
                     base_i = base[:-1] + "i" if base.endswith("A") else base + "i"
                     sat = apply_satva(base_i[-1], "s")
@@ -4582,7 +4593,7 @@ class TinantaDerivationEngine:
             else:
                 # Atmanepadi sew: eDizIzwa / modizIzwa etc. Use guna base for consonant-final non-idit (mud->mod); over-generate for vowel-initial
                 cands=[]
-                for base_cmp in self._prim_bases(clean, is_idit):
+                for base_cmp in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
@@ -4863,7 +4874,7 @@ class TinantaDerivationEngine:
                     _e = _ca_ends.get((purusha, vacana))
                     if _e:
                         cands += ["acakam" + _e, "acIkam" + _e]
-                for base_cmp in self._prim_bases(clean, is_idit, op, dhatu_id):
+                for base_cmp in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
                     elif is_vowel_initial or self._keep_shape(base_cmp, meta.get("op", ""), sew):
@@ -4891,7 +4902,7 @@ class TinantaDerivationEngine:
                         cands.append(form)
                 # AniT Atmanepada luN (Panini 1.2.11, 8.2.26, 8.4.53)
                 try:
-                    _lun_bases = list(dict.fromkeys([clean, self._bhvadi_guna_base(clean, is_idit)] + self._prim_bases(clean, is_idit, op, dhatu_id)))
+                    _lun_bases = list(dict.fromkeys([clean, self._bhvadi_guna_base(clean, is_idit)] + self._prim_bases(clean, is_idit, op, dhatu_id, sew)))
                     for _ab in _lun_bases:
                         if not _ab:
                             continue
