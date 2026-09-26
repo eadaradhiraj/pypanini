@@ -2240,6 +2240,11 @@ class KrdantaEngine:
                 _satf_base = "kzev"
             if (sanadi is None or sanadi == "yanluganta") and clean_ay:
                 _satf_base = clean_ay
+            # aniW ew-final Satf present stem (Dew->Dayan/DayantI; sole 01 Dew 01.1050 surveyed; mirrors
+            # tinanta Day-base which krdanta lacks; sew ew-cleans keep generic mlewan via sew-gate).
+            _op_ew_satf = ((op or "").replace("~", "").replace("`", "").strip())
+            if sanadi is None and _op_ew_satf.endswith("ew") and not sew:
+                _satf_base = _op_ew_satf[:-2] + "ay"
             stem_at = _satf_base + "at"
             if sanadi == "sannanta":
                 _satf_base = clean
