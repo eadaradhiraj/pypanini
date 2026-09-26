@@ -4032,6 +4032,14 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
                 _si9 = {("prathama","eka"):["Sete"],("prathama","dvi"):["SayAte"],("prathama","bahu"):["Serate"],("madhyama","eka"):["Seze"],("madhyama","dvi"):["SayATe"],("madhyama","bahu"):["SeDve"],("uttama","eka"):["Saye"],("uttama","dvi"):["Sevahe"],("uttama","bahu"):["Semahe"]}
                 cands += _si9.get((purusha, vacana), [])
+            # f+I~ Atmane (k-te/se + g-Dve + ar-1sg + full rest; pair vfj/pfc surveyed — coH-kuH j/c->k,
+            # j/c->g before Dve, f->ar in 1sg; all direct-concat; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("vfj", "pfc"):
+                _fc = meta.get("clean")
+                _fk = _fc[:-1] + "k"
+                _fg = _fc[:-1] + "g"
+                _fj9 = {("prathama","eka"):[_fk+"te"],("prathama","dvi"):[_fc+"Ate"],("prathama","bahu"):[_fc+"ate"],("madhyama","eka"):[_fk+"ze"],("madhyama","dvi"):[_fc+"ATe"],("madhyama","bahu"):[_fg+"Dve"],("uttama","eka"):[_fc+"e"],("uttama","dvi"):[_fc+"vahe"],("uttama","bahu"):[_fc+"mahe"]}
+                cands += _fj9.get((purusha, vacana), [])
             # iN adhi-present (aDIte/aDIyAte/aDIze; sole 02.0041 surveyed — keeps I+y (unlike dIDI
             # replacement); pada-gated vs 0040 iR (parasmaipada); full literals like Iq; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "i":
@@ -4267,6 +4275,13 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
                 _sia = {(("prathama","eka")):["aSeta"],(("prathama","dvi")):["aSayAtAm"],(("prathama","bahu")):["aSerata"],(("madhyama","eka")):["aSeTAH"],(("madhyama","dvi")):["aSayATAm"],(("madhyama","bahu")):["aSeDvam"],(("uttama","eka")):["aSayi"],(("uttama","dvi")):["aSevahi"],(("uttama","bahu")):["aSemahi"]}
                 cands += _sia.get((purusha, vacana), [])
+            # f+I~ Atmane imperfect (a+k-ta/TAH + full rest + weak-i u.eka; pair surveyed; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("vfj", "pfc"):
+                _fc3 = meta.get("clean")
+                _fk3 = _fc3[:-1] + "k"
+                _fg3 = _fc3[:-1] + "g"
+                _fja = {(("prathama","eka")):["a"+_fk3+"ta"],(("prathama","dvi")):["a"+_fc3+"AtAm"],(("prathama","bahu")):["a"+_fc3+"ata"],(("madhyama","eka")):["a"+_fk3+"TAH"],(("madhyama","dvi")):["a"+_fc3+"ATAm"],(("madhyama","bahu")):["a"+_fg3+"Dvam"],(("uttama","eka")):["a"+_fc3+"i"],(("uttama","dvi")):["a"+_fc3+"vahi"],(("uttama","bahu")):["a"+_fc3+"mahi"]}
+                cands += _fja.get((purusha, vacana), [])
             # iN adhi-imperfect (E-grade aDyEta/aDyEyAtAm + E-u.eka aDyEyi; sole 02.0041; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "i":
                 _ina = {(("prathama","eka")):["aDyEta"],(("prathama","dvi")):["aDyEyAtAm"],(("prathama","bahu")):["aDyEyata"],(("madhyama","eka")):["aDyETAH"],(("madhyama","dvi")):["aDyEyATAm"],(("madhyama","bahu")):["aDyEDvam"],(("uttama","eka")):["aDyEyi"],(("uttama","dvi")):["aDyEvahi"],(("uttama","bahu")):["aDyEmahi"]}
@@ -4400,6 +4415,14 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
                 _sio = {("prathama","eka"):["SetAm"],("prathama","dvi"):["SayAtAm"],("prathama","bahu"):["SeratAm"],("madhyama","eka"):["Sezva"],("madhyama","dvi"):["SayATAm"],("madhyama","bahu"):["SeDvam"],("uttama","eka"):["SayE"],("uttama","dvi"):["SayAvahE"],("uttama","bahu"):["SayAmahE"]}
                 cands += _sio.get((purusha, vacana), [])
+            # f+I~ Atmane imperative (k-tAm/zva + g-Dvam + ar-1sg; pair surveyed; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("vfj", "pfc"):
+                _fc2 = meta.get("clean")
+                _fk2 = _fc2[:-1] + "k"
+                _fg2 = _fc2[:-1] + "g"
+                _far2 = _fc2[:-2] + "ar" + _fc2[-1]
+                _fjo = {("prathama","eka"):[_fk2+"tAm"],("prathama","dvi"):[_fc2+"AtAm"],("prathama","bahu"):[_fc2+"atAm"],("madhyama","eka"):[_fk2+"zva"],("madhyama","dvi"):[_fc2+"ATAm"],("madhyama","bahu"):[_fg2+"Dvam"],("uttama","eka"):[_far2+"E"],("uttama","dvi"):[_far2+"AvahE"],("uttama","bahu"):[_far2+"AmahE"]}
+                cands += _fjo.get((purusha, vacana), [])
             # iN adhi-imperative (aDItAm/aDIyAtAm + ay-1sg aDyayE; sole 02.0041; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "i":
                 _ino = {("prathama","eka"):["aDItAm"],("prathama","dvi"):["aDIyAtAm"],("prathama","bahu"):["aDIyatAm"],("madhyama","eka"):["aDIzva"],("madhyama","dvi"):["aDIyATAm"],("madhyama","bahu"):["aDIDvam"],("uttama","eka"):["aDyayE"],("uttama","dvi"):["aDyayAvahE"],("uttama","bahu"):["aDyayAmahE"]}
@@ -4560,6 +4583,13 @@ class TinantaDerivationEngine:
                 _sie = _sivi.get((purusha, vacana))
                 if _sie:
                     cands.append(self._adadi_atmane_joint("Say", _sie))
+            # f+I~ Atmane optative (full + I; pair surveyed; direct-concat; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") in ("vfj", "pfc"):
+                _fc4 = meta.get("clean")
+                _fjvi = {(("prathama","eka")):"Ita",(("prathama","dvi")):"IyAtAm",(("prathama","bahu")):"Iran",(("madhyama","eka")):"ITAH",(("madhyama","dvi")):"IyATAm",(("madhyama","bahu")):"IDvam",(("uttama","eka")):"Iya",(("uttama","dvi")):"Ivahi",(("uttama","bahu")):"Imahi"}
+                _fje = _fjvi.get((purusha, vacana))
+                if _fje:
+                    cands.append(_fc4 + _fje)
             # iN adhi-optative (aDIyIta/aDIyIran; keep+y; sole 02.0041; literals; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "i":
                 _invi = {(("prathama","eka")):["aDIyIta"],(("prathama","dvi")):["aDIyIyAtAm"],(("prathama","bahu")):["aDIyIran"],(("madhyama","eka")):["aDIyITAH"],(("madhyama","dvi")):["aDIyIyATAm"],(("madhyama","bahu")):["aDIyIDvam"],(("uttama","eka")):["aDIyIya"],(("uttama","dvi")):["aDIyIvahi"],(("uttama","bahu")):["aDIyImahi"]}

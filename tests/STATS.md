@@ -187,3 +187,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 58 (h-class parasmaipada present (guNa-pits + weak + gD/Q/k sandhi + Dhi + h-yAt; family duh/dih/lih surveyed incl. dih D-onset; BvAdi-gated; additive): 3 roots +66 tokens (0004/0005/0006 present-full), 0 worsened (01 zero-diff).
 - Iteration 59 (h-Atmane weak SAnac (duhAna/dihAna/lihAna; a 4-block tinanta Atmane attempt removed after proving ubhaya-roots are parasmaipada-meta hence Atmane tables unscorable — SAnac retained): 3 roots +9 tokens, 0 worsened (01 zero-diff).
 - Iteration 60 (h-Satf family (weak mUla +num + abhyAsa-yl no-num `doduhat`; family duh/dih/lih surveyed; free replacements): 02.0006 → 885/885 (+1 pass, 42/76) + 0004/0005 +6 each, 0 worsened (01 zero-diff).
+- Iteration 61 (f+I~ Atmane pair vfj/pfc (k/g/ar compositional grades + full rest + SAnac; pair-gated; additive/free): 02.0022 + 02.0024 → 873/873 each (+2 passes, 44/76), 0 worsened (01 zero-diff).

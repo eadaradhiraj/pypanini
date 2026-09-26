@@ -2563,6 +2563,9 @@ class KrdantaEngine:
             # SI ay SAnac (SayAnaH; sole 02.0026 surveyed; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
                 return tri_linga("SayAna")
+            # f+I~ full-stem SAnac (vfjAna/pfcAna; surveyed pair 0022/0024; replacement free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") in ("vfj", "pfc"):
+                return tri_linga(meta.get("clean") + "Ana")
             # iN adhi SAnac (aDIyAnaH; sole 02.0041 surveyed; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and meta.get("pada") == "Atmanepadi":
                 return tri_linga("aDIyAna")
