@@ -1121,7 +1121,7 @@ class KrdantaEngine:
                     return "SiSriz"
                 if c == "dE" or op.startswith("dEp"):
                     return "didAs"
-                if c in ("DeN", "De", "DA", "DuDAY") or op.startswith(("DeN", "DA~", "DuDA")):
+                if c in ("DeN", "De", "DA", "DuDAY", "Dew") or op.startswith(("DeN", "DA~", "DuDA", "Dew")):
                     return "Dits"
                 # Panini 7.4.56 sa ni pAt: Svi -> SiSvayiz
                 if c == "Svi" or (op and op.strip("~`") in ("wuoSvi", "Svi")):
