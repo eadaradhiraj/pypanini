@@ -2181,6 +2181,10 @@ class KrdantaEngine:
                     # old ekan-forms miss everywhere, free).
                     return {"M": ["aDiyan", "aDIyan"], "F": ["aDiyantI", "aDIyantI"],
                             "N": ["aDiyat", "aDiyad", "aDIyat", "aDIyad"]}
+                elif clean == "rud" and meta.get("gana") == "adAdiH":
+                    # rud v-less weak-u Satf (rudan/rudatI/rudat-rudad; sole 02.0062 surveyed — whole
+                    # u-class surveyed v-ful (yuvat/ruvat/stuvat); old rodan-forms miss, free).
+                    return {"M": "rudan", "F": "rudatI", "N": ["rudat", "rudad"]}
                 elif clean == "jAg" and meta.get("gana") == "adAdiH":
                     # jAgf Satf ar-grade base (jAgrat/jAgrad/jAgratI/jAgrantI; sole 02.0067 surveyed; old
                     # jAgat-forms miss everywhere so replacement is free like Svas/aja).
@@ -2218,6 +2222,9 @@ class KrdantaEngine:
                     # vid reduplicated vas-participle (vevidvas; sole 02.0059; F/N empty in data — global
                     # any-match scores them via the M token; old forms miss, free).
                     return {"M": "vevidvas", "F": "vevidvas", "N": "vevidvas"}
+                elif clean == "rud" and meta.get("gana") == "adAdiH":
+                    # rud reduplicated v-less Satf (rorudat; sole 02.0062; old forms miss, free).
+                    return {"M": ["rorudat", "rorudad"], "F": "rorudatI", "N": ["rorudat", "rorudad"]}
                 elif (orig_clean and orig_clean.endswith("A")) or clean.endswith("A"):
                     # Panini 7.1.78 nAbhyastAc chaturguRakftamanikartuSca: abhyasta takes no num
                     # Panini 6.4.112 SnAbhyastayor AtaH: abhyasta stem drops A before at of Satf
