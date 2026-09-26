@@ -160,3 +160,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 31 (s-coda luk-Atmane extension (gate +As/vas/kas; s-D branch `ADve`; a self-caught hardcoded-a augment `aAsta` fixed via `_add_augment`; additive): 3 roots mUla-full (+74 tokens), 0 worsened (01 zero-diff).
 - Iteration 32 (s-coda SAnac `AsIna/vasAna/kasAna` replacement (trio-gated; old mAna-forms unattested in-fid so free): 02.0011 → 623/623 (+1 pass, 31/76) + 0013/0015 +3 each, 0 worsened (01 zero-diff).
 - Iteration 33 (S/z-coda luk-Atmane (k/q sandhi in joint-helper + zw-eka tables `kazwe/cazwe` + SAnac `kaSAna/cakzARa`; pair-gated; additive/free): 02.0016 → 873/873 (+1 pass, 32/76) + 02.0007 +36 (mUla full), 0 worsened (01 zero-diff).
+- Iteration 34 (r-coda luk-Atmane (r+s->rze in joint-helper + gate + SAnac `IrARa`; Iq/IS/SAsu quirks surveyed and queued separately): 02.0008 → 623/623 (+1 pass, 33/76), 0 worsened (01 zero-diff).

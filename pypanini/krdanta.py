@@ -2485,6 +2485,9 @@ class KrdantaEngine:
             # S/z-coda luk SAnac (kaSAna/cakzARa; surveyed pair 0016/0007; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("kaS", "cakzi"):
                 return tri_linga({"kaS": "kaSAna", "cakzi": "cakzARa"}[meta.get("clean")])
+            # Ir SAnac Natva (IrARaH; sole 0008 surveyed; replacement free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") == "Ir":
+                return tri_linga("IrARa")
             if best.endswith("a"):
                 stem = best + "mAna"
             elif best.endswith("A"):
