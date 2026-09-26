@@ -3907,6 +3907,13 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "an":
                 _an9 = {("prathama","eka"):["aniti"],("prathama","dvi"):["anitaH"],("prathama","bahu"):["ananti"],("madhyama","eka"):["anizi"],("madhyama","dvi"):["aniTaH"],("madhyama","bahu"):["aniTa"],("uttama","eka"):["animi"],("uttama","dvi"):["anivaH"],("uttama","bahu"):["animaH"]}
                 cands += _an9.get((purusha, vacana), [])
+            # seW i-augment luk present (svapiti/Svasiti/jakziti; closed class svap/Svas/jakz surveyed —
+            # as/sas/vaS/han/ad/vac keep bare (sew does not discriminate); an has its own tables above;
+            # bahu bare (svapanti) except jakz short (jakzati); i+si gives izi like anizi; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
+                _ic = meta.get("clean")
+                _ilw = {("prathama","eka"):[_ic+"iti"],("prathama","dvi"):[_ic+"itaH"],("prathama","bahu"):([_ic+"anti"] if _ic != "jakz" else ["jakzati"]),("madhyama","eka"):[_ic+"izi"],("madhyama","dvi"):[_ic+"iTaH"],("madhyama","bahu"):[_ic+"iTa"],("uttama","eka"):[_ic+"imi"],("uttama","dvi"):[_ic+"ivaH"],("uttama","bahu"):[_ic+"imaH"]}
+                cands += _ilw.get((purusha, vacana), [])
             # AdAdi luk present, short-a consonant-coda stems: stem + endings with coda-sandhi
             # (atti/hanti/vakti; d->t/_voiceless, n->M/_s, n->0/_t, c->k/_voiceless, s-lopa for as-clean only;
             # Gnanti-type readings queued). Gana-gated + additive.
