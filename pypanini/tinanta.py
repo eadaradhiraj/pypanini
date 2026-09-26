@@ -4485,6 +4485,13 @@ class TinantaDerivationEngine:
                 _pv = (purusha, vacana)
                 _jicands = (_atman_ji.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras_ji.get(_pv, [])) + _paras_ji.get(_pv, []) + _atman_ji.get(_pv, [])
                 return list(dict.fromkeys(_jicands)), log
+            # UrRu nuva-perfect (UrRunAva/UrRunuvatuH...; sole o-root surveyed — regular u-roots reduplicate
+            # (yuyAva/rurAva); m.bahu bare uva, u.eka triple uva/ava/Ava, m.eka aviTa/uviTa; parasmaipada
+            # early-return like ji (Atmane/karmani falls through untouched); table covers all 9 slots.
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "UrRu":
+                _nuv = {("prathama","eka"):["UrRunAva"],("prathama","dvi"):["UrRunuvatuH"],("prathama","bahu"):["UrRunuvuH"],("madhyama","eka"):["UrRunaviTa","UrRunuviTa"],("madhyama","dvi"):["UrRunuvaTuH"],("madhyama","bahu"):["UrRunuva"],("uttama","eka"):["UrRunava","UrRunAva"],("uttama","dvi"):["UrRunuviva"],("uttama","bahu"):["UrRunuvima"]}
+                if not (pada == "Atmanepadi" or prayoga == "karmani"):
+                    return list(dict.fromkeys(_nuv.get((purusha, vacana), []))), log
             # ve-class liT Atmane redup (vye->vivye, hve->juhuve; surveyed 2/2 unanimous, JSON Atmane-only; ve already hits via generic path so excluded)
             if clean in ("vye", "hve"):
                 _vekt = {"vye": "vivy", "hve": "juhuv"}[clean]
