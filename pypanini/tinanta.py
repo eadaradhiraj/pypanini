@@ -135,7 +135,7 @@ class TinantaDerivationEngine:
                         no_num_r = ("~r" in op)
                         padam = info.get("padam", "")
                         # normalize padam: parasmEpadI / AtmanepadI (with capital E)
-                        if "Atman" in padam or Path(jf).stem == "01.0459":
+                        if "Atman" in padam:
                             pada = "Atmanepadi"
                         elif "parasm" in padam.lower():
                             pada = "parasmEpadi"
@@ -2589,6 +2589,9 @@ class TinantaDerivationEngine:
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
+                # kzIvf~ keeps long I in yak-liT redup too (cikzIve-series); kzIvu~ keeps short i.
+                if clean in ("kziv", "kzIv") and op.endswith("f~"):
+                    redups = ["cikzIv"]
                 # Panini 8.4.58/8.3.23 nasal assimilation in yak-liw redup (tunp->tutumpe, srans->sasraMse;
                 # same 14-root n+labial/s survey as mUla bases, additive)
                 _ylc = clean
@@ -4094,6 +4097,10 @@ class TinantaDerivationEngine:
             else:
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
+                # kzIvf~ keeps long I in liT redup (cikzIve); kzIvu~ takes short i (cikzive).
+                # Anubandha-disambiguated homonyms (shared clean kzIv); exclusive like cate-fusion above (old generic gave cikzIv).
+                if clean in ("kziv", "kzIv") and op.endswith("f~"):
+                    redups = ["cikzIv"]
                 # cate~ liT uses fused cet- (cete/cetAte, not cacat- from cat-).
                 if meta.get("clean") == "cate" or meta.get("op", "").startswith("cate"):
                     redups = ["cet"]

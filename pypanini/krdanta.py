@@ -172,7 +172,7 @@ class KrdantaEngine:
                         clean = clean_dhatu_op(op)
                         no_num_r = ("~r" in op)
                         padam = info.get("padam", "")
-                        if "Atman" in padam or Path(jf).stem == "01.0459":
+                        if "Atman" in padam:
                             pada = "Atmanepadi"
                         elif "parasm" in padam.lower():
                             pada = "parasmEpadi"
