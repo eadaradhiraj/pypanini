@@ -3165,6 +3165,11 @@ class TinantaDerivationEngine:
                         if not base_cmp.endswith("A"):
                             for _pf in self._conjugate_luw(base_cmp, "Atmanepadi", purusha, vacana):
                                 if _pf not in cands: cands.append(_pf)
+                # snu yak-luW Av/o doublets (snAvitAse/snotAse...; sole 02.0033 surveyed — generic emits
+                # av-grade only; additive before return; karmani-only since this is the yak path).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
+                    _snuluw = {("prathama","eka"):["snAvitA","snotA"],("prathama","dvi"):["snAvitArO","snotArO"],("prathama","bahu"):["snAvitAraH","snotAraH"],("madhyama","eka"):["snAvitAse","snotAse"],("madhyama","dvi"):["snAvitAsATe","snotAsATe"],("madhyama","bahu"):["snAvitADve","snotADve"],("uttama","eka"):["snAvitAhe","snotAhe"],("uttama","dvi"):["snAvitAsvahe","snotAsvahe"],("uttama","bahu"):["snAvitAsmahe","snotAsmahe"]}
+                    cands += _snuluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
