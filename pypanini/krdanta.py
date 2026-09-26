@@ -2545,6 +2545,9 @@ class KrdantaEngine:
             # SI ay SAnac (SayAnaH; sole 02.0026 surveyed; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
                 return tri_linga("SayAna")
+            # iN adhi SAnac (aDIyAnaH; sole 02.0041 surveyed; replacement free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and meta.get("pada") == "Atmanepadi":
+                return tri_linga("aDIyAna")
             if best.endswith("a"):
                 stem = best + "mAna"
             elif best.endswith("A"):

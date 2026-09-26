@@ -4019,6 +4019,11 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
                 _si9 = {("prathama","eka"):["Sete"],("prathama","dvi"):["SayAte"],("prathama","bahu"):["Serate"],("madhyama","eka"):["Seze"],("madhyama","dvi"):["SayATe"],("madhyama","bahu"):["SeDve"],("uttama","eka"):["Saye"],("uttama","dvi"):["Sevahe"],("uttama","bahu"):["Semahe"]}
                 cands += _si9.get((purusha, vacana), [])
+            # iN adhi-present (aDIte/aDIyAte/aDIze; sole 02.0041 surveyed — keeps I+y (unlike dIDI
+            # replacement); pada-gated vs 0040 iR (parasmaipada); full literals like Iq; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "i":
+                _in9 = {("prathama","eka"):["aDIte"],("prathama","dvi"):["aDIyAte"],("prathama","bahu"):["aDIyate"],("madhyama","eka"):["aDIze"],("madhyama","dvi"):["aDIyATe"],("madhyama","bahu"):["aDIDve"],("uttama","eka"):["aDIye"],("uttama","dvi"):["aDIvahe"],("uttama","bahu"):["aDImahe"]}
+                cands += _in9.get((purusha, vacana), [])
             # vid luk present (e-grade-tt vetti + vida- doublets veda/vidantu...; sole 02.0059 surveyed;
             # any-match scoring needs >=1 attested form per slot — mapping by shape; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
@@ -4233,6 +4238,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
                 _sia = {(("prathama","eka")):["aSeta"],(("prathama","dvi")):["aSayAtAm"],(("prathama","bahu")):["aSerata"],(("madhyama","eka")):["aSeTAH"],(("madhyama","dvi")):["aSayATAm"],(("madhyama","bahu")):["aSeDvam"],(("uttama","eka")):["aSayi"],(("uttama","dvi")):["aSevahi"],(("uttama","bahu")):["aSemahi"]}
                 cands += _sia.get((purusha, vacana), [])
+            # iN adhi-imperfect (E-grade aDyEta/aDyEyAtAm + E-u.eka aDyEyi; sole 02.0041; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "i":
+                _ina = {(("prathama","eka")):["aDyEta"],(("prathama","dvi")):["aDyEyAtAm"],(("prathama","bahu")):["aDyEyata"],(("madhyama","eka")):["aDyETAH"],(("madhyama","dvi")):["aDyEyATAm"],(("madhyama","bahu")):["aDyEDvam"],(("uttama","eka")):["aDyEyi"],(("uttama","dvi")):["aDyEvahi"],(("uttama","bahu")):["aDyEmahi"]}
+                cands += _ina.get((purusha, vacana), [])
             # Iq/IS quirky imperfect (ww-eka + i-slots + EqQvam m.bahu; surveyed pair; standalone literals).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 _qa = {"Iq": ["Ewwa", "EqAtAm", "Eqata", "EwWAH", "EqATAm", "EqQvam", "Eqi", "Eqvahi", "Eqmahi"], "IS": ["Ezwa", "ESAtAm", "ESata", "EzWAH", "ESATAm", "EqQvam", "ESi", "ESvahi", "ESmahi"]}[meta.get("clean")]
@@ -4362,6 +4371,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "SI":
                 _sio = {("prathama","eka"):["SetAm"],("prathama","dvi"):["SayAtAm"],("prathama","bahu"):["SeratAm"],("madhyama","eka"):["Sezva"],("madhyama","dvi"):["SayATAm"],("madhyama","bahu"):["SeDvam"],("uttama","eka"):["SayE"],("uttama","dvi"):["SayAvahE"],("uttama","bahu"):["SayAmahE"]}
                 cands += _sio.get((purusha, vacana), [])
+            # iN adhi-imperative (aDItAm/aDIyAtAm + ay-1sg aDyayE; sole 02.0041; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "i":
+                _ino = {("prathama","eka"):["aDItAm"],("prathama","dvi"):["aDIyAtAm"],("prathama","bahu"):["aDIyatAm"],("madhyama","eka"):["aDIzva"],("madhyama","dvi"):["aDIyATAm"],("madhyama","bahu"):["aDIDvam"],("uttama","eka"):["aDyayE"],("uttama","dvi"):["aDyayAvahE"],("uttama","bahu"):["aDyayAmahE"]}
+                cands += _ino.get((purusha, vacana), [])
             # Iq/IS quirky imperative (ww-eka + i-augment izva/iDve; surveyed pair; standalone literals).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("Iq", "IS"):
                 _qo = {"Iq": ["IwwAm", "IqAtAm", "IqatAm", "Iqizva", "IqATAm", "IqiDvam", "IqE", "IqAvahE", "IqAmahE"], "IS": ["IzwAm", "ISAtAm", "ISatAm", "ISizva", "ISATAm", "ISiDvam", "ISE", "ISAvahE", "ISAmahE"]}[meta.get("clean")]
@@ -4505,6 +4518,10 @@ class TinantaDerivationEngine:
                 _sie = _sivi.get((purusha, vacana))
                 if _sie:
                     cands.append(self._adadi_atmane_joint("Say", _sie))
+            # iN adhi-optative (aDIyIta/aDIyIran; keep+y; sole 02.0041; literals; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and meta.get("clean") == "i":
+                _invi = {(("prathama","eka")):["aDIyIta"],(("prathama","dvi")):["aDIyIyAtAm"],(("prathama","bahu")):["aDIyIran"],(("madhyama","eka")):["aDIyITAH"],(("madhyama","dvi")):["aDIyIyATAm"],(("madhyama","bahu")):["aDIyIDvam"],(("uttama","eka")):["aDIyIya"],(("uttama","dvi")):["aDIyIvahi"],(("uttama","bahu")):["aDIyImahi"]}
+                cands += _invi.get((purusha, vacana), [])
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
