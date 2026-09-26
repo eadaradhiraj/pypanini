@@ -2357,6 +2357,12 @@ class TinantaDerivationEngine:
                 else:
                     yak_list = yak_variants if "yak_variants" in locals() else [yak_stem]
                 yak_list = list(dict.fromkeys(yak_list))
+                # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: yak dIrgha for iv/Iv-final mUla
+                # (sWiv->sWIvyate, kzIvu~->kzIvyate; surveyed 01 iv/Iv set, additive, deduped)
+                if sanadi is None and len(clean) >= 2 and clean[-1] == "v" and clean[-2] in ("i", "I"):
+                    _dIv = clean[:-2] + "Iv" + "y"
+                    if _dIv not in yak_list:
+                        yak_list.append(_dIv)
                 cands=[]
                 for ys in yak_list:
                     yb = _aug(ys) if lakara in ("laN",) else ys
