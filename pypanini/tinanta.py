@@ -4126,6 +4126,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "jAg":
                 _jlaN = {(("prathama","eka")):["ajAgaH"],(("madhyama","eka")):["ajAgaH"],(("prathama","dvi")):["ajAgftAm"],(("prathama","bahu")):["ajAgaruH"],(("madhyama","dvi")):["ajAgftam"],(("madhyama","bahu")):["ajAgfta"],(("uttama","eka")):["ajAgaram"],(("uttama","dvi")):["ajAgfva"],(("uttama","bahu")):["ajAgfma"]}
                 cands += _jlaN.get((purusha, vacana), [])
+            # vid luk imperfect (e-grade avet + weak avit- + bare aviduH/avedam; sole 02.0059; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
+                _vidlaN = {(("prathama","eka")):["avet","aved"],(("madhyama","eka")):["aveH","avet","aved"],(("prathama","dvi")):["avittAm"],(("prathama","bahu")):["aviduH"],(("madhyama","dvi")):["avittam"],(("madhyama","bahu")):["avitta"],(("uttama","eka")):["avedam"],(("uttama","dvi")):["avidva"],(("uttama","bahu")):["avidma"]}
+                cands += _vidlaN.get((purusha, vacana), [])
             # AdAdi idit-i luk Atmane imperfect (akaMsta/akaMsAtAm/akaMsTAH/akanDvam; aug a- + joint-helper).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and ((is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I")) or meta.get("clean") in ("As", "vas", "kas", "kaS", "cakzi", "Ir", "SAs")):
                 _ata = {(("prathama","eka")):"ta",(("prathama","dvi")):"AtAm",(("prathama","bahu")):"ata",(("madhyama","eka")):"TAH",(("madhyama","dvi")):"ATAm",(("madhyama","bahu")):"Dvam",(("uttama","eka")):"i",(("uttama","dvi")):"vahi",(("uttama","bahu")):"mahi"}
@@ -4251,6 +4255,11 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "jAg":
                 _jlow = {("madhyama","eka"):["jAgftAt","jAgftAd","jAgfhi"],("prathama","eka"):["jAgartu"],("prathama","dvi"):["jAgftAm"],("prathama","bahu"):["jAgratu"],("madhyama","dvi"):["jAgftam"],("madhyama","bahu"):["jAgfta"],("uttama","eka"):["jAgarARi"],("uttama","dvi"):["jAgarAva"],("uttama","bahu"):["jAgarAma"]}
                 cands += _jlow.get((purusha, vacana), [])
+            # vid luk imperative (luk vettu/vidantu/vidDi + periphrastic vidANkara twins; sole 02.0059;
+            # any-match needs >=1 attested form per slot — mapping by shape; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
+                _vidlow = {("prathama","eka"):["vettu","vidANkarotu"],("prathama","dvi"):["vittAm","vidANkurutAm"],("prathama","bahu"):["vidantu","vidANkurvantu"],("madhyama","eka"):["vittAt","vittAd","vidDi","vidANkurutAt","vidANkurutAd","vidANkuru"],("madhyama","dvi"):["vittam","vidANkurutam"],("madhyama","bahu"):["vitta","vidANkuruta"],("uttama","eka"):["vedAni","vidANkaravARi"],("uttama","dvi"):["vedAva","vidANkaravAva"],("uttama","bahu"):["vedAma","vidANkaravAma"]}
+                cands += _vidlow.get((purusha, vacana), [])
             # seW i-class luk imperative (shared X+it skeleton + ihi; bahu bare except jakz short `jakzatu`;
             # 1sg a-grade Ani/Ava/Ama except jakz eka ARi `jakzARi`; same class gate as lw; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
@@ -4314,6 +4323,12 @@ class TinantaDerivationEngine:
                 _jyf = "jAgf" + _jy.get((purusha, vacana), "yAt")
                 if _jyf not in cands:
                     cands.append(_jyf)
+            # vid luk optative (vid + yAt, same map family; sole i-vowel consonant root surveyed; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
+                _vy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
+                _vyf = "vid" + _vy.get((purusha, vacana), "yAt")
+                if _vyf not in cands:
+                    cands.append(_vyf)
             # AdAdi idit-i luk Atmane optative (kaMsIta/kaMsIran/kaMsIDvam; stem + I-endings via helper).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and ((is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I")) or meta.get("clean") in ("As", "vas", "kas", "kaS", "cakzi", "Ir", "SAs")):
                 _avi = {(("prathama","eka")):"Ita",(("prathama","dvi")):"IyAtAm",(("prathama","bahu")):"Iran",(("madhyama","eka")):"ITAH",(("madhyama","dvi")):"IyATAm",(("madhyama","bahu")):"IDvam",(("uttama","eka")):"Iya",(("uttama","dvi")):"Ivahi",(("uttama","bahu")):"Imahi"}
