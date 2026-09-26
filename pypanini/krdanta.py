@@ -2256,6 +2256,11 @@ class KrdantaEngine:
             _op_ew_satf = ((op or "").replace("~", "").replace("`", "").strip())
             if sanadi is None and _op_ew_satf.endswith("ew") and not sew:
                 _satf_base = _op_ew_satf[:-2] + "ay"
+            # AdAdi weak-u Satf base (yuv- for yuvat/yuvan; gana-gated; BvAdi keeps guna a-stem (Bavan);
+            # v-epenthesis before the vowel-affix mirrors lw yuvanti; U normalizes to u (brU->bruv-)).
+            _adAU_satf = (sanadi is None and meta.get("gana") == "adAdiH" and clean and clean[-1] in ("u", "U"))
+            if _adAU_satf:
+                _satf_base = clean[:-1] + "uv"
             stem_at = _satf_base + "at"
             if sanadi == "sannanta":
                 _satf_base = clean
@@ -2269,7 +2274,8 @@ class KrdantaEngine:
                 return {"M": m, "F": [f, _satf_base + "tI"], "N": stem_at}
             else:
                 m = stem_at[:-1] + "n"  # Bavat -> Bavan
-                f = _satf_base + "antI"  # BavantI / cuScutizantI
+                # AdAdi weak-u F takes atI (yuvatI, like yAtI-pattern; _adAU_satf-gated, BvAdi keeps antI)
+                f = _satf_base + "atI" if _adAU_satf else _satf_base + "antI"  # BavantI / cuScutizantI
             n = stem_at  # Bavat
             return {"M": m, "F": f, "N": n}
 
