@@ -2864,7 +2864,12 @@ class KrdantaEngine:
                     _gk = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
                     stem = _gk + "a"
                 elif last_v in ("a", "A"):
-                    stem = clean + "a"
+                    # Svas GaY vriddhi (SvAsaH; sole 02.0064 surveyed; old SvasaH misses everywhere in the
+                    # fid so replacement is free like aja; BvAdi nadaH cross-hits so generic untouched).
+                    if sanadi in (None, "yanluganta") and meta.get("clean") == "Svas":
+                        stem = "SvAsa"
+                    else:
+                        stem = clean + "a"
                 elif last_v in ("e","E","o","O"):
                     # for eD, keep as is
                     stem = clean + "a"
