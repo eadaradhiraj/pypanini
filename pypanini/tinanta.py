@@ -3300,6 +3300,13 @@ class TinantaDerivationEngine:
                 # Panini 3.1.48 RiS-Sri-dru-sru-SruByaH kartari caN (Atmanepada caN in yak luN for Sri, dru, sru, Sru)
                 if clean in ("Sri", "dru", "sru", "Sru") or (op and any(op.startswith(x) for x in ("Sri", "dru", "sru", "Sru"))):
                     table[(purusha, vacana)] += self._nijanta_aorist(clean, is_idit, purusha, vacana)
+                # aja~ yak luN ve-grids (vAy-i/s-aorist avAyi/avAyizAtAm + vez-s-aorist avezAtAm,
+                # suppletive-aniT; sole aj-clean 01.0262 surveyed, ~-gated; Aji-hits already in table, additive).
+                if clean == "aj" and "~" in (op or ""):
+                    _sfx = suffixes[(purusha, vacana)]
+                    _ajvay_lun = ["avAyi"] if (purusha, vacana) == ("prathama", "eka") else ["avAy" + _sfx]
+                    _vez_sfx = _sfx[2:] if _sfx.startswith("iz") else _sfx
+                    table[(purusha, vacana)] += _ajvay_lun + ["avez" + _vez_sfx]
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log

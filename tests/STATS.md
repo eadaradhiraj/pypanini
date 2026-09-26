@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-26
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1153/1156 100%** (99.7%, raw 1153/1166). Fails: 3 scored (13 with 10 skipped). Net matched tokens +31070 across all generative iterations (0 true worsened).
+Passes: **1153/1156 100%** (99.7%, raw 1153/1166). Fails: 3 scored (13 with 10 skipped). Net matched tokens +31073 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone Dew-arc, ew-shape series nich→A-base→yang→yak→yangluk→redup→kta-route→ASIrliN→Satf→ktvA):
 - `01.1050 Dew` (118 -> 892/892)
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
@@ -93,6 +93,7 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - aja~ yak liT `vivy-` redup table (sole aj-clean `01.0262`, `~`-gated; `Ajize`-variants also listed but `vivy`-forms cover every slot, no token-copying; yat/de/f/u-table precedent). 1 improved (+9: `01.0262` 581->590: yak liw full pass), 0 worsened, passes held 1153. Remainder (46): yak luT/lRT/luN/lRN ve-variants 11, san_krut 25, krut 10 — queued one trait at a time.
 - aja~ yak sya ve-doublet (sole aj-clean `01.0262`, `~`-gated): `vAyizyate` (seT) + `vezyate` (suppletive-aniT inside sew root) appended in yak-lfw/lfN block (ajizyate-forms already generated, additive). 1 improved (+6: `01.0262` 590->596: yak lfw/lfN), 0 worsened, passes held 1153. Remainder (40): yak luT doublet 2 + luN 3, san_krut 25, krut 10 — queued one trait at a time.
 - aja~ yak luT doublet (sole aj-clean `01.0262`, `~`-gated): `_prim_bases` appends `ve/vAy` (seT path yields `vAyitA`) + aja-gated aniT extension in yak-luW (`vetA`); additive over passing `ajitA`-forms. 1 improved (+2: `01.0262` 596->598: yak luw), 0 worsened, passes held 1153. `krut` capped-count 10->12 is freed-cap artifact (fid-diff truth: 0 worsened). Remainder (38): yak luN 3, san_krut 25, krut 10 — queued one trait at a time.
+- aja~ yak luN ve-grids (sole aj-clean `01.0262`, `~`-gated): `vAy`-i/s-aorist + `vez`-s-aorist appended to luN table (`avAyi/avAyizAtAm/avezAtAm`; `Aji`-hits already generated, additive; `daD`-table precedent). 1 improved (+3: `01.0262` 598->601: yak luN full pass), 0 worsened, passes held 1153. Remainder (35): san_krut ve-variants 25, krut mUla ve-grades 10 — queued one trait at a time.
 - BLOCKED (surveyed, no generative rule — recorded, not attempted): `01.1086` yangluk/yangluk_krut (arerIti/arteti/ftItaH/fjayati + rat/rad/riteta — 4+ suppletive stems per slot, no shape derivation); `01.1086` can cap at 869/892.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
