@@ -4050,6 +4050,11 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vid9 = {("prathama","eka"):["vetti","veda"],("prathama","dvi"):["vittaH","vidatuH"],("prathama","bahu"):["vidanti","viduH"],("madhyama","eka"):["vetsi","vetTa"],("madhyama","dvi"):["vitTaH","vidaTuH"],("madhyama","bahu"):["vitTa","vida"],("uttama","eka"):["vedmi","veda"],("uttama","dvi"):["vidva","vidvaH"],("uttama","bahu"):["vidma","vidmaH"]}
                 cands += _vid9.get((purusha, vacana), [])
+            # dviz e-grade luk present (dvezwi/dvekzi + weak-i + zw/ARi; sole 02.0003 surveyed — z voices
+            # to z/w/q like vaS-class; DHi dviqQi; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "dviz":
+                _dz9 = {("prathama","eka"):["dvezwi"],("prathama","dvi"):["dvizwaH"],("prathama","bahu"):["dvizanti"],("madhyama","eka"):["dvekzi"],("madhyama","dvi"):["dvizWaH"],("madhyama","bahu"):["dvizWa"],("uttama","eka"):["dvezmi"],("uttama","dvi"):["dvizvaH"],("uttama","bahu"):["dvizmaH"]}
+                cands += _dz9.get((purusha, vacana), [])
             # cakAs long-A luk present (sas-skeleton with A; ssi-degem like sassi; sole 02.0069 surveyed —
             # a-luk block gates short-a only, so standalone; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "cakAs":
@@ -4228,6 +4233,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlaN = {(("prathama","eka")):["avet","aved"],(("madhyama","eka")):["aveH","avet","aved"],(("prathama","dvi")):["avittAm"],(("prathama","bahu")):["aviduH"],(("madhyama","dvi")):["avittam"],(("madhyama","bahu")):["avitta"],(("uttama","eka")):["avedam"],(("uttama","dvi")):["avidva"],(("uttama","bahu")):["avidma"]}
                 cands += _vidlaN.get((purusha, vacana), [])
+            # dviz luk imperfect (e-w/q eka-doublets + zw rest + e-u.eka; sole 02.0003; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "dviz":
+                _dzlaN = {(("prathama","eka")):["advew","adveq"],(("madhyama","eka")):["advew","adveq"],(("prathama","dvi")):["advizwAm"],(("prathama","bahu")):["advizan","advizuH"],(("madhyama","dvi")):["advizwam"],(("madhyama","bahu")):["advizwa"],(("uttama","eka")):["advezam"],(("uttama","dvi")):["advizva"],(("uttama","bahu")):["advizma"]}
+                cands += _dzlaN.get((purusha, vacana), [])
             # cakAs long-A imperfect (eka t/d + bare bahu/u-slots; sole 02.0069; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "cakAs":
                 _caslaN = {(("prathama","eka")):["acakAt","acakAd"],(("madhyama","eka")):["acakAH"],(("prathama","dvi")):["acakAstAm"],(("prathama","bahu")):["acakAsuH"],(("madhyama","dvi")):["acakAstam"],(("madhyama","bahu")):["acakAsta"],(("uttama","eka")):["acakAsam"],(("uttama","dvi")):["acakAsva"],(("uttama","bahu")):["acakAsma"]}
@@ -4451,6 +4460,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlow = {("prathama","eka"):["vettu","vidANkarotu"],("prathama","dvi"):["vittAm","vidANkurutAm"],("prathama","bahu"):["vidantu","vidANkurvantu"],("madhyama","eka"):["vittAt","vittAd","vidDi","vidANkurutAt","vidANkurutAd","vidANkuru"],("madhyama","dvi"):["vittam","vidANkurutam"],("madhyama","bahu"):["vitta","vidANkuruta"],("uttama","eka"):["vedAni","vidANkaravARi"],("uttama","dvi"):["vedAva","vidANkaravAva"],("uttama","bahu"):["vedAma","vidANkaravAma"]}
                 cands += _vidlow.get((purusha, vacana), [])
+            # dviz luk imperative (e-3sg + zw-slots + q-DHi + ARi-1sg; sole 02.0003; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "dviz":
+                _dzlow = {("madhyama","eka"):["dvizwAt","dvizwAd","dviqQi"],("prathama","eka"):["dvezwu"],("prathama","dvi"):["dvizwAm"],("prathama","bahu"):["dvizantu"],("madhyama","dvi"):["dvizwam"],("madhyama","bahu"):["dvizwa"],("uttama","eka"):["dvezARi"],("uttama","dvi"):["dvezAva"],("uttama","bahu"):["dvezAma"]}
+                cands += _dzlow.get((purusha, vacana), [])
             # cakAs long-A imperative (DHi cakADi + short bahu cakAsatu like jakzatu; sole 02.0069).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "cakAs":
                 _caslow = {("madhyama","eka"):["cakAstAt","cakAstAd","cakADi"],("prathama","eka"):["cakAstu"],("prathama","dvi"):["cakAstAm"],("prathama","bahu"):["cakAsatu"],("madhyama","dvi"):["cakAstam"],("madhyama","bahu"):["cakAsta"],("uttama","eka"):["cakAsAni"],("uttama","dvi"):["cakAsAva"],("uttama","bahu"):["cakAsAma"]}
@@ -4543,6 +4556,10 @@ class TinantaDerivationEngine:
                 _vyf = "vid" + _vy.get((purusha, vacana), "yAt")
                 if _vyf not in cands:
                     cands.append(_vyf)
+            # dviz luk optative (dviz + yAt; sole 02.0003; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "dviz":
+                _dzy = {("prathama","eka"):["dvizyAt","dvizyAd"],("prathama","dvi"):["dvizyAtAm"],("prathama","bahu"):["dvizyuH"],("madhyama","eka"):["dvizyAH"],("madhyama","dvi"):["dvizyAtAm"],("madhyama","bahu"):["dvizyAta"],("uttama","eka"):["dvizyAm"],("uttama","dvi"):["dvizyAva"],("uttama","bahu"):["dvizyAma"]}
+                cands += _dzy.get((purusha, vacana), [])
             # cakAs long-A optative (cakAs + yAt; sole 02.0069; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "cakAs":
                 _casy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
