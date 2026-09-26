@@ -367,6 +367,8 @@ class KrdantaEngine:
         if clean == "sUrkzy" and op.startswith("z"): return "sUkzyita"
         if clean == "Dew": return "DIta"
         if clean == "dEp": return "dAta"
+        # dE is post-strip dEp (sole 01 dEp-op 01.1073; clean_dhatu_op strips dEp->dE, mUla clean is post-adeca dA)
+        if clean == "dA" and op.startswith("dEp"): return "dAta"
         if clean == "qI": return "qiyita"
         # Samo~ (mit o->a): kta stem SamaTa (retroflex T).
         if clean == "Sama": return "SamaTa"
@@ -1506,12 +1508,18 @@ class KrdantaEngine:
                 sec_base = sec[:-2] if sec.endswith("ay") else sec
                 # kta/ktavatu for Nijanta: use mUla _kta_stem for cross-match safety (Panini exact sec kta needs A-shortening hlAd->hlad vs yat->yAt; mUla yatta/hlAnna always in tokens)
                 if pratyaya == "kta":
+                    # dEp nich kta is dApitaH (sole 01 dEp-op 01.1073; sec dApay + ita, not mUla dAta)
+                    if op.startswith("dEp"):
+                        return {"M": "dApitaH", "F": "dApitA", "N": "dApitam"}
                     # jaB remapped to jamB must not inherit the root I~ iT-block
                     # (nijanta jamBitaH, not mUla-style jambDaH).
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
                     _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit)
                     return {"M": _mstem+"H", "F": _mstem[:-1]+"A" if _mstem.endswith("a") else _mstem+"A", "N": _mstem+"m"}
                 if pratyaya == "ktavatu":
+                    # dEp nich ktavatu is dApitavAn (sole 01 dEp-op 01.1073; mirrors kta above)
+                    if op.startswith("dEp"):
+                        return {"M": "dApitavAn", "F": "dApitavatI", "N": "dApitavat"}
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
                     _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit)
                     _b = _mstem[:-1] if _mstem.endswith("a") else _mstem
@@ -2294,7 +2302,8 @@ class KrdantaEngine:
                 if is_adeca(_yk_clean):
                     _yk_clean = _yk_clean[:-1] + "A"
                 # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali: A -> I before halAdi kNiti (yak)
-                if _yk_clean in ("dA", "DA", "mA", "gA", "hA", "so") or (_yk_clean == "pA" and (dhatu_id == "01.1074" or (op and op.startswith("pA~")))) or (op and any(op.startswith(x) for x in ("dA~", "dAR", "DA~", "DuDA", "pA~", "mA~", "gA~", "zo"))):
+                # dEp-op keeps dAya (dAyamAnaH; sole 01 dEp-op 01.1073, dAR/deN guards unaffected)
+                if _yk_clean in ("dA", "DA", "mA", "gA", "hA", "so") and not (op and op.startswith("dEp")) or (_yk_clean == "pA" and (dhatu_id == "01.1074" or (op and op.startswith("pA~")))) or (op and any(op.startswith(x) for x in ("dA~", "dAR", "DA~", "DuDA", "pA~", "mA~", "gA~", "zo"))):
                     _yk_clean = _yk_clean[:-1] + "I" if _yk_clean.endswith(("A", "o")) else (_yk_clean + "I")
                 elif clean.endswith("u"):
                     _yk_clean = clean[:-1] + "U"

@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1151/1156 100%** (99.6%, raw 1151/1166). Fails: 5 scored (15 with 10 skipped). Net matched tokens +29917 across all generative iterations (0 true worsened).
+Passes: **1151/1156 100%** (99.6%, raw 1151/1166). Fails: 5 scored (15 with 10 skipped). Net matched tokens +29932 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -73,14 +73,15 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - single-vocalic-f yan stem (`f`->`arArya`; sole 01 f-clean `01.1086`; tinanta `_yan_stem` + krdanta `_yan_sec`): 1 improved (+81: `01.1086` 657->738), 0 worsened, passes held 1151. Yang lw fixed (`arAryate`); remainder is ya-drop in perfect/kta (queued next).
 - single-vocalic-f yan ya-drop (`keeps_y_in_yan` excludes `f`; tinanta + krdanta; sole 01 f-clean drops y, all other genuine-vowel yan stems untouched): 1 improved (+131: `01.1086` 738->869), 0 worsened, passes held 1151. Freed-cap: `yang` 5->0 + `yang_krut` 7->0 (both cleared), newly-surfaced `yangluk` 0->5 + `yangluk_krut` 0->5 (`farifmaH`, queued next).
 - dEp sannanta didAs-stem in krdanta (`c=="dA" and op.startswith("dEp")` before the deN branch; c is post-adeca dA here, mirrors tinanta `_sannanta_stem` dE->didAs; sole 01 dEp-op `01.1073` surveyed, guards `01.1079`/`01.1117` held): 1 improved (+32: `01.1073` 816->848, all san_krut incl. SAnac via cross-match `didAsamAnaH`), 0 worsened, passes held 1151. Freed-cap: `san_krut` 6->3 (only `01.0459` JSON-absent left), `nich_krut` 0->3 (`01.1073` nich kta `dattaH`, queued next).
+- dEp mUla/nich krdanta dA-stems (op-gated; `_kta_stem` dA+dEp->dAta, nich kta/ktavatu dApita, SAnac yak-base skips A->I for dEp; sole 01 dEp-op `01.1073`, guards `01.1079`/`01.1117` held): 1 improved (+15: `01.1073` 848->863), 0 worsened, passes held 1151. Freed-cap: `krut` 26->17, `nich_krut` 3->0 (cleared), `yang_krut` 0->12 (`dedIyitaH`, queued next).
 - BLOCKED (surveyed, no generative rule — recorded, not attempted): `01.1086` yangluk/yangluk_krut (arerIti/arteti/ftItaH/fjayati + rat/rad/riteta — 4+ suppletive stems per slot, no shape derivation); `01.1086` can cap at 869/892.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
-| krut | 26 | 01.0262 krut/anIyar/M:ajanIyaH |
+| krut | 17 | 01.0262 krut/anIyar/M:ajanIyaH |
+| yang_krut | 12 | 01.1073 yang_krut/kta/M:dedIyitaH |
 | san_krut | 3 | 01.0459 san_krut/Satf/M:sisramBizan |
-| nich_krut | 3 | 01.1073 nich_krut/kta/M:dattaH |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
 | ting | 5 | 01.1050 ting/liw/prathama/eka:daDayva |
 | yangluk | 5 | 01.1086 yangluk/lw/prathama/eka:farifmaH |
