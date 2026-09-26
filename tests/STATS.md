@@ -176,3 +176,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 47 (vaS/uS suppletion (pit-vaS vs weak-uS + z/w/q sandhi + uztwAm/uqQi + vaSA-1sg + uS-yAt + uS-Satf; sole 02.0075 surveyed; additive/free): 02.0075 mUla-present-full (+33), 0 worsened (01 zero-diff).
 - Iteration 48 (rudi~r o-grade seW-i (roditi-pits + weak-i + o-1sg + weak-u yAt; sole 02.0062 surveyed; laN already passing skipped; additive): 02.0062 ting-full (+21), 0 worsened (01 zero-diff).
 - Iteration 49 (rud v-less Satf (`rudat` mUla + `rorudat` yl; sole 02.0062 surveyed — whole u-class v-ful; free replacements): 02.0062 → 879/879 (+1 pass, 38/76), 0 worsened (01 zero-diff).
+- Iteration 50 (stu o-liT `tuzwoTa` (sole 02.0038 — ru/tu a-grade; a self-caught mid-chain wipe fixed via ji-pattern early-return): 02.0038 +1 slot, 0 worsened (01 zero-diff).

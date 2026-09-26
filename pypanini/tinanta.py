@@ -4560,6 +4560,11 @@ class TinantaDerivationEngine:
                 _nuv = {("prathama","eka"):["UrRunAva"],("prathama","dvi"):["UrRunuvatuH"],("prathama","bahu"):["UrRunuvuH"],("madhyama","eka"):["UrRunaviTa","UrRunuviTa"],("madhyama","dvi"):["UrRunuvaTuH"],("madhyama","bahu"):["UrRunuva"],("uttama","eka"):["UrRunava","UrRunAva"],("uttama","dvi"):["UrRunuviva"],("uttama","bahu"):["UrRunuvima"]}
                 if not (pada == "Atmanepadi" or prayoga == "karmani"):
                     return list(dict.fromkeys(_nuv.get((purusha, vacana), []))), log
+            # stu o-grade liT m.eka (tuzwoTa; sole 02.0038 surveyed — ru/tu take a-grade ruraviTa/tutaviTa;
+            # mid-chain appends get wiped by later generic assigns, so pada-split early-return like nuva/ji).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "stu" and (purusha, vacana) == ("madhyama", "eka") and lakara == "liw":
+                if not (pada == "Atmanepadi" or prayoga == "karmani"):
+                    return ["tuzwoTa"], log
             # ve-class liT Atmane redup (vye->vivye, hve->juhuve; surveyed 2/2 unanimous, JSON Atmane-only; ve already hits via generic path so excluded)
             if clean in ("vye", "hve"):
                 _vekt = {"vye": "vivy", "hve": "juhuv"}[clean]
