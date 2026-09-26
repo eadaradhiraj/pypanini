@@ -1108,6 +1108,9 @@ class KrdantaEngine:
                 # Panini 7.4.54 sani mImAGUrABalaBaSaka-patapadAM ca + 6.1.45 Adeca upadeSe'Siti
                 if c in ("meN", "me") or "meN" in op:
                     return "mits"
+                # dEp sannanta didAs-stem (mirrors tinanta _sannanta_stem dE->didAs; c is post-adeca dA here; sole 01 dEp-op 01.1073 surveyed, zero conflicts)
+                if c == "dA" and op.startswith("dEp"):
+                    return "didAs"
                 if c in ("deN", "de", "dA", "dAR") or (op.startswith(("deN", "dAR", "dA~", "dap")) and "dEp" not in op):
                     return "dits"
                 if c == "jYA" and dhatu_id == "01.0923":
