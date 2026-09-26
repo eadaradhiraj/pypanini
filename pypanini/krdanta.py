@@ -403,7 +403,11 @@ class KrdantaEngine:
         if base_a:
             if base_a == "sRA": return "snAta"
             if sew: return base_a[:-1] + "ita"
-            if any(base_a.startswith(x) for x in ("gl", "ml", "dy", "dr", "Dr", "Sr", "sr", "Sy", "py", "tr", "v")):
+            # o~vE takes na (vAnaH; sole vE-clean needing na surveyed — vA-root takes ta below, veY/vyeY
+            # never reach here via yajadi/yuk early returns)
+            if base_a == "vA" and (clean == "vE" or (op and op.startswith("o~vE"))):
+                return "vAna"
+            if any(base_a.startswith(x) for x in ("gl", "ml", "dy", "dr", "Dr", "Sr", "sr", "Sy", "py", "tr", "pr")):
                 res = base_a + "na"
                 if any(c in base_a for c in ("r", "R")):
                     res = base_a + "Ra"
