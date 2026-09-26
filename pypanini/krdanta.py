@@ -2898,6 +2898,11 @@ class KrdantaEngine:
                     return {"avyaya": ["pItvA"]}
                 if clean in ("gA", "gAN", "gE"):
                     return {"avyaya": ["gItvA"]}
+                # aniW ew-final ktvA I-grade (Dew->DItvA; sole 01 Dew 01.1050 surveyed; parallels gE->gItvA;
+                # sew ew-cleans keep generic ewitvA via sew-gate).
+                _op_ew_ktva = ((op or "").replace("~", "").replace("`", "").strip())
+                if _op_ew_ktva.endswith("ew") and not sew:
+                    return {"avyaya": [_op_ew_ktva[:-2] + "ItvA"]}
                 if clean in ("sTA", "zWA"):
                     return {"avyaya": ["sTitvA"]}
                 if clean == "jYA":
