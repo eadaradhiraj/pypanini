@@ -172,3 +172,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 43 (vid low/laN/viD (luk + `vidANkara` twins, e-weak laN, yAt optative; sole-gated; additive): 02.0059 ting-full (+21), 0 worsened (01 zero-diff).
 - Iteration 44 (vid suppletive vas-participle (`vidvas` mUla + `vevidvas` yl; sole-gated free replacements): 02.0059 → 879/879 (+1 pass, 37/76), 0 worsened (01 zero-diff).
 - Iteration 45 (ik adhi+i tables (lw/low/laN/viD with adhi-sandhi + Ayan/Eyan + ay-1sg; k kept outside luk-present per elsewhere-forms; sole-gated; additive): 02.0042 0->36 (+36), 0 worsened (01 zero-diff).
+- Iteration 46 (ik adhi-krdanta (Satf `aDiyat/aDIyat` doublets + antI F + d-twins; yat `aDyeya`; sole-gated free replacements — double data entries don't double-count): 02.0042 36->42 (+6), 0 worsened (01 zero-diff).

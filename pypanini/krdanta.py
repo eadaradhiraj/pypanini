@@ -2176,6 +2176,11 @@ class KrdantaEngine:
                     # vid suppletive vas-participle (vidvas all genders; sole 02.0059 surveyed; the famous
                     # perfect-participle-as-present; old vedan-forms miss everywhere, free).
                     return {"M": "vidvas", "F": "vidvas", "N": "vidvas"}
+                elif clean == "ik" and meta.get("gana") == "adAdiH":
+                    # ik adhi-Satf doublets (aDiyat/aDIyat bases + antI F + d-twin N; sole 02.0042 surveyed;
+                    # old ekan-forms miss everywhere, free).
+                    return {"M": ["aDiyan", "aDIyan"], "F": ["aDiyantI", "aDIyantI"],
+                            "N": ["aDiyat", "aDiyad", "aDIyat", "aDIyad"]}
                 elif clean == "jAg" and meta.get("gana") == "adAdiH":
                     # jAgf Satf ar-grade base (jAgrat/jAgrad/jAgratI/jAgrantI; sole 02.0067 surveyed; old
                     # jAgat-forms miss everywhere so replacement is free like Svas/aja).
@@ -2618,6 +2623,9 @@ class KrdantaEngine:
             # gana-gated so BvAdi iN is untouched; additive via early return only for this clean).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH":
                 return tri_linga("eya")
+            # ik adhi-yat (aDyeyaH; sole 02.0042 surveyed; old ekya-forms miss, free).
+            if sanadi is None and clean == "ik" and meta.get("gana") == "adAdiH":
+                return tri_linga("aDyeya")
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
             # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
             # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-)
