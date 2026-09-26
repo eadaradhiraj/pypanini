@@ -928,7 +928,16 @@ class TinantaDerivationEngine:
                 final = _se + "ey" + prat
             else:
                 final = _se + "e" + prat
-            return [apply_rutva_visarga(final)]
+            _out = [apply_rutva_visarga(final)]
+            # A-stem optative keeps A with yA-class endings (yAyAt; AdAdi A-finals yA/vA/rA/BA... — sole-shape
+            # survey: 02 A-roots want yAyAt-class, BvAdi A-roots reach here only via non-A replacement stems
+            # (pib/jiGra...) so untouched; E-root/Dew A-bases keep existing e+t hits too — purely additive).
+            if stem_base.endswith("A"):
+                _yend = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}
+                _yf = apply_rutva_visarga(stem_base + _yend[(purusha, vacana)])
+                if _yf not in _out:
+                    _out.append(_yf)
+            return _out
         elif lakara == "lfw":
             base_lrt = stem_base + "izy"
             if prat.startswith("J"):

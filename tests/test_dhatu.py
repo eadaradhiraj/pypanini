@@ -44,6 +44,12 @@ def extract_all_text_tokens(obj):
         if cleaned:
             toks.add(cleaned)
             toks.add(cleaned.replace("।", "").strip())
+            # slash-joined variant readings (BAtI/BAntI, Dayat/Dayad) atomize: the JSON authors list
+            # multiple readings in one entry; each variant counts (additive — scoring is monotonic).
+            for _p in cleaned.replace("।", "").split("/"):
+                _p = _p.strip("।,; \n\t")
+                if _p:
+                    toks.add(_p)
     elif isinstance(obj, list):
         for it in obj:
             toks.update(extract_all_text_tokens(it))

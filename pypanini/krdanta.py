@@ -2257,6 +2257,9 @@ class KrdantaEngine:
                 stem_at = _satf_base + "t"
                 m = _satf_base + "n"
                 f = _satf_base + "ntI"
+                # A-final Satf feminine tI-twin (yAtI for AdAdi A-finals yA/vA/rA...; additive — yAntI kept;
+                # ay-final stems (Day-/glAy-) never end in A, untouched).
+                return {"M": m, "F": [f, _satf_base + "tI"], "N": stem_at}
             else:
                 m = stem_at[:-1] + "n"  # Bavat -> Bavan
                 f = _satf_base + "antI"  # BavantI / cuScutizantI

@@ -100,14 +100,19 @@ def main():
     ap.add_argument("--from", dest="fro", default="01.0001")
     ap.add_argument("--to", dest="to", default="01.0100")
     ap.add_argument("--all", action="store_true")
+    ap.add_argument("--gana", default="01", help="gaNa directory under DATA_ROOT (01..10); --all sweeps it wholly")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--out", default="")
     args = ap.parse_args()
     if args.all:
-        fids = [f"01.{i:04d}" for i in range(1, 1167)]
+        _gf = sorted(glob.glob(str(DATA_ROOT / args.gana / "*.json")))
+        fids = [Path(_j).stem for _j in _gf] or [f"{args.gana}.{i:04d}" for i in range(1, 1167)]
+        if not args.out:
+            args.out = f"tests/sweep_{args.gana}.csv"
     else:
         a = int(args.fro.split(".")[1]); b = int(args.to.split(".")[1])
-        fids = [f"01.{i:04d}" for i in range(a, b+1)]
+        g = args.fro.split(".")[0]
+        fids = [f"{g}.{i:04d}" for i in range(a, b+1)]
     print(f"sweep {len(fids)} dhatus, workers={args.workers} (shared engine cache, no reload)", flush=True)
     results = []
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
