@@ -3900,6 +3900,13 @@ class TinantaDerivationEngine:
                     cands += [_auo + "t", _auo + "d"]
                 elif (purusha, vacana) == ("madhyama", "eka"):
                     cands += [_auo + "H"]
+            # AdAdi-u luk imperfect weak slots: weak-u + endings (ayutAm/ayuvan with v-epenthesis before
+            # vowel-endings), 1sg av-grade (ayavam); same family/gating; ru-1sg/vI/o-grades queued separately.
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean.endswith("u"):
+                _auw = self._add_augment(clean, clean[0] in SLP1_VOWELS if clean else False)
+                _auav = self._add_augment(clean[:-1] + "av", False)
+                _weak_laN = {("prathama","dvi"):[_auw+"tAm"],("prathama","bahu"):[_auw+"v"+"an"],("madhyama","dvi"):[_auw+"tam"],("madhyama","bahu"):[_auw+"ta"],("uttama","eka"):[_auav+"am"],("uttama","dvi"):[_auw+"va"],("uttama","bahu"):[_auw+"ma"]}
+                cands += _weak_laN.get((purusha, vacana), [])
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
@@ -3923,6 +3930,12 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and clean.endswith("u"):
                 if (purusha, vacana) == ("prathama", "eka"):
                     cands += [(clean[:-1] + "O") + "tu"]
+            # AdAdi-u luk imperative weak slots: weak-u + endings (yutAt/yuvantu/yuhi), 1sg-group av-grade
+            # (yavAni/yavAva/yavAma); same family/gating; ru-1sg/vI-grades queued separately.
+            if meta.get("gana") == "adAdiH" and sanadi is None and clean.endswith("u"):
+                _avw = clean[:-1] + "av"
+                _weak_low = {("madhyama","eka"):[clean+"tAt",clean+"tAd",clean+"hi"],("prathama","dvi"):[clean+"tAm"],("prathama","bahu"):[clean+"vantu"],("madhyama","dvi"):[clean+"tam"],("madhyama","bahu"):[clean+"ta"],("uttama","eka"):[_avw+"Ani"],("uttama","dvi"):[_avw+"Ava"],("uttama","bahu"):[_avw+"Ama"]}
+                cands += _weak_low.get((purusha, vacana), [])
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
