@@ -2295,6 +2295,12 @@ class TinantaDerivationEngine:
                     _ve_sy = {"ve": "vivAs", "vye": "vivyAs", "hve": "juhUz"}[clean]
                     if _ve_sy not in [s_stem] + alt_s:
                         alt_s.append(_ve_sy)
+                # aja~ non-present san stems (ajivayiz- for liT/luT/lRT, vivIz- for laN/ASIrliN/luN/lRN;
+                # sole aj-clean 01.0262 surveyed, ~-gated; present keeps ajijiz-).
+                if clean == "aj" and "~" in (op or ""):
+                    for _ajs in ("ajivayiz", "vivIz"):
+                        if _ajs not in [s_stem] + alt_s:
+                            alt_s.append(_ajs)
                 # kzIv/kziv san_yak e-grade (cikzevizyate for u~; f~ keeps I-grade cikzIvizyate — additive, zero conflicts).
                 # NB: 01.0648 rewrites clean kzIv->kziv at top (op kzIvu~), so match both.
                 if clean in ("kzIv", "kziv"):
@@ -3360,6 +3366,11 @@ class TinantaDerivationEngine:
                 _ve_san = {"ve": "vivAs", "vye": "vivyAs", "hve": "juhUz"}[clean]
                 if _ve_san not in [s_stem] + alt_sann:
                     alt_sann.append(_ve_san)
+            # aja~ non-present san stems (mirrors karmani setup; sole aj-clean 01.0262 surveyed, ~-gated).
+            if clean == "aj" and "~" in (op or ""):
+                for _ajs in ("ajivayiz", "vivIz"):
+                    if _ajs not in [s_stem] + alt_sann:
+                        alt_sann.append(_ajs)
             guna_base = self._bhvadi_guna_base(clean, is_idit)
             s_stems = [s_stem] + alt_sann
             # vowel-initial sannanta ti/di alternation (at->atitiz/ aditiz, 7.4.??): generate both voiceless/voiced
