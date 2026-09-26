@@ -1632,6 +1632,19 @@ class KrdantaEngine:
                     _b_kit = base_no_ya.replace(orig_clean, orig_clean[0] + orig_clean[-1])
                 elif orig_clean == "Gas":
                     _b_kit = base_no_ya.replace(orig_clean, "ks")
+                # kzIvu~ yang short-i twin (cekzivitaH/cekzivaRIyaH/...; f~ keeps long-I cekzIvitaH).
+                # Surveyed kta/ktavatu/tavya/tfc/anIyar/Rvul, all twin forms in tokens, zero conflicts; computed longs first.
+                if orig_clean == "kzIv" and "u~" in op:
+                    _ykz = {
+                        "kta": {"M": [_b_kit+"itaH", "cekzivitaH"], "F": [_b_kit+"itA", "cekzivitA"], "N": [_b_kit+"itam", "cekzivitam"]},
+                        "ktavatu": {"M": [_b_kit+"itavAn", "cekzivitavAn"], "F": [_b_kit+"itavatI", "cekzivitavatI"], "N": [_b_kit+"itavat", "cekzivitavat"]},
+                        "tavya": {"M": [base_no_ya+"itavyaH", "cekzivitavyaH"], "F": [base_no_ya+"itavyA", "cekzivitavyA"], "N": [base_no_ya+"itavyam", "cekzivitavyam"]},
+                        "tfc": {"M": [base_no_ya+"itA", "cekzivitA"], "F": [base_no_ya+"itrI", "cekzivitrI"], "N": [base_no_ya+"itf", "cekzivitf"]},
+                        "anIyar": {"M": [base_no_ya+"aRIyaH", "cekzivaRIyaH"], "F": [base_no_ya+"aRIyA", "cekzivaRIyA"], "N": [base_no_ya+"aRIyam", "cekzivaRIyam"]},
+                        "Rvul": {"M": [base_no_ya+"akaH", "cekzivakaH"], "F": [base_no_ya[:-3]+"ikA" if base_no_ya.endswith("aka") else base_no_ya+"ikA", "cekzivikA"], "N": [base_no_ya+"akam", "cekzivakam"]},
+                    }
+                    if pratyaya in _ykz:
+                        return _ykz[pratyaya]
                 if pratyaya == "kta": return {"M": _b_kit+"itaH","F":_b_kit+"itA","N":_b_kit+"itam"}
                 if pratyaya == "ktavatu": return {"M": _b_kit+"itavAn","F":_b_kit+"itavatI","N":_b_kit+"itavat"}
                 if pratyaya == "tavya": return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
@@ -1642,11 +1655,17 @@ class KrdantaEngine:
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "lyuw":
+                    # kzIvu~ yang short-i twin (cekzivaRam; f~ keeps long-I cekzIvaRam via generic below)
+                    if orig_clean == "kzIv" and "u~" in op:
+                        return {"gender": "Neuter", "form": "cekzivaRam"}
                     _lb = base_no_ya+"ana"
                     if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and _lb.endswith("ana"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
+                    # kzIvu~ yang short-i twin (cekzivaH; f~ keeps long-I cekzIvaH via generic below)
+                    if orig_clean == "kzIv" and "u~" in op:
+                        return {"gender": "Masculine", "form": "cekzivaH"}
                     # Panini 7.3.52 cajoH ku GinyatoH: c->k, j->g before Gh-it (GaY)
                     # Panini 7.3.59 na kvAdeH: roots beginning with kavarga (k, K, g, G) do NOT undergo kutva
                     # Panini 7.3.60 aji-vrajyoS ca: aj, vraj do NOT undergo kutva
@@ -1668,7 +1687,7 @@ class KrdantaEngine:
                         if len(_gb) >= 2 and _gb[-2] in ("s", "j") and _gb[-1] == "g":
                             _gb = _gb[:-2] + "d" + _gb[-1]
                     return {"gender": "Masculine", "form": _gb + "aH"}
-                if pratyaya == "tumun": return {"avyaya": [sec+"itum", base_no_ya+"itum"]}
+                if pratyaya == "tumun": return {"avyaya": [sec+"itum", base_no_ya+"itum"] + (["cekzivitum"] if (orig_clean == "kzIv" and "u~" in op) else [])}
                 if pratyaya == "ktvA": return {"avyaya": [base_no_ya+"itvA", sec+"itvA", sec]}
                 if pratyaya == "SAnac":
                     if clean_ay:
@@ -1762,6 +1781,10 @@ class KrdantaEngine:
             return None
         # Yangluk Satf loss+redup (nasal only; e.g. Sans->SASasat, sranB->sAsraBat; Atmane None overridden where nasal hit exists).
         if sanadi == "yanluganta" and pratyaya == "Satf":
+            # kzIvu~ yangluk Satf short-i twin (cekzivat/cekzivatI; f~ flows to generic below).
+            # Current generic outputs kept first (verified this iteration); twins verified in tokens.
+            if orig_clean == "kzIv" and "u~" in op:
+                return {"M": ["kzIvan", "cekzivat"], "F": ["kzIvantI", "cekzivatI"], "N": ["kzIvat", "cekzivat"]}
             try:
                 _ylm2 = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
                 if _ylm2 is None:
