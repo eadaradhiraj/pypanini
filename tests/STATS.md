@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1151/1156 100%** (99.6%, raw 1151/1166). Fails: 5 scored (15 with 10 skipped). Net matched tokens +29754 across all generative iterations (0 true worsened).
+Passes: **1151/1156 100%** (99.6%, raw 1151/1166). Fails: 5 scored (15 with 10 skipped). Net matched tokens +29885 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -70,15 +70,16 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - single-vocalic-f san stem (`f`->`aririz`; sole 01 f-clean `01.1086`, `u`->`Uziz` parallel above; tinanta `_sannanta_stem` + krdanta `_sannanta_sec`): 1 improved (+212: `01.1086` 306->518), 0 worsened, passes held 1151. Freed-cap: `san_krut` 13->6, `san` 5->0 (cleared), newly-surfaced `nich` 0->5 + `nich_krut` 0->7 (`Arayan/fayati`, queued next).
 - single-vocalic-f nich puk stem (`f`->`arpay`; sole 01 f-clean `01.1086`, `ji`-`jApay` parallel; tinanta `_nijanta_stem` only): 1 improved (+121: `01.1086` 518->639), 0 worsened, passes held 1151. Freed-cap: `nich` 5->0 (cleared), `yang` 0->5 (`ferIyate`, queued); krdanta `nich_krut` still 7 (`Arayan`, same-trait twin queued next).
 - krdanta nich twin for single-vocalic-f (`f`->`arpay` in `_nijanta_sec`, mirrors tinanta; sole 01 f-clean): 1 improved (+18: `01.1086` 639->657), 0 worsened, passes held 1151. Freed-cap: `nich_krut` 7->0 (cleared), `yang_krut` 0->7 (`ferIyitaH`, queued next).
-- single-vocalic-f yan stem (`f`->`arArya`; sole 01 f-clean `01.1086`; tinanta `_yan_stem` + krdanta `_yan_sec`): 1 improved (+81: `01.1086` 657->738), 0 worsened, passes held 1151. Yang lw fixed (`arAryate`); remainder is ya-drop in perfect/kta (`arAryAYcakre`->`arArAYcakre`, `arAryitaH`->`arAritaH`, queued next).
+- single-vocalic-f yan stem (`f`->`arArya`; sole 01 f-clean `01.1086`; tinanta `_yan_stem` + krdanta `_yan_sec`): 1 improved (+81: `01.1086` 657->738), 0 worsened, passes held 1151. Yang lw fixed (`arAryate`); remainder is ya-drop in perfect/kta (queued next).
+- single-vocalic-f yan ya-drop (`keeps_y_in_yan` excludes `f`; tinanta + krdanta; sole 01 f-clean drops y, all other genuine-vowel yan stems untouched): 1 improved (+131: `01.1086` 738->869), 0 worsened, passes held 1151. Freed-cap: `yang` 5->0 + `yang_krut` 7->0 (both cleared), newly-surfaced `yangluk` 0->5 + `yangluk_krut` 0->5 (`farifmaH`, queued next).
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 26 | 01.0262 krut/anIyar/M:ajanIyaH |
 | san_krut | 6 | 01.0459 san_krut/Satf/M:sisramBizan |
-| yang_krut | 7 | 01.1086 yang_krut/kta/M:arAryitaH |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
 | ting | 5 | 01.1050 ting/liw/prathama/eka:daDayva |
-| yang | 5 | 01.1086 yang/liw/prathama/eka:arAryAYcakre |
+| yangluk | 5 | 01.1086 yangluk/lw/prathama/eka:farifmaH |
+| yangluk_krut | 5 | 01.1086 yangluk_krut/Satf/M:farrat |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |

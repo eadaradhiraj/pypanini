@@ -1243,7 +1243,7 @@ class TinantaDerivationEngine:
         _b_op = (op or "").replace("~", "").replace("`", "").strip()
         is_genuine_vowel_root = (not is_idit) and bool(clean) and (clean[-1] in SLP1_VOWELS) and not any(c in SLP1_VOWELS for c in clean[:-1])
         _is_samyoga_f = clean.endswith(("f", "F")) and len([ch for ch in clean if ch not in SLP1_VOWELS]) > 1
-        keeps_y_in_yan = is_genuine_vowel_root and not _is_samyoga_f and not clean.endswith("F")
+        keeps_y_in_yan = is_genuine_vowel_root and not _is_samyoga_f and not clean.endswith("F") and clean != "f"
         # i/I-ending idit with nasal (num) 7.1.58: klidi~ -> klind, hlAdI~ -> hlAd (strip I without n)
         if clean.endswith(("i","I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI") and (is_idit or pada == "Atmanepadi") and any(c in SLP1_VOWELS for c in clean[:-1]):
             base_wo_i = clean[:-1]

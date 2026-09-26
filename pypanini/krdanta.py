@@ -1600,7 +1600,7 @@ class KrdantaEngine:
                 _b_op = (op or "").replace("~", "").replace("`", "").strip()
                 is_genuine_vowel_root = (not is_idit) and bool(orig_clean) and (orig_clean[-1] in SLP1_VOWELS) and not any(c in SLP1_VOWELS for c in orig_clean[:-1])
                 _is_samyoga_f = orig_clean.endswith(("f", "F")) and len([ch for ch in orig_clean if ch not in SLP1_VOWELS]) > 1
-                keeps_y_in_yan = is_genuine_vowel_root and not _is_samyoga_f and not orig_clean.endswith("F")
+                keeps_y_in_yan = is_genuine_vowel_root and not _is_samyoga_f and not orig_clean.endswith("F") and orig_clean != "f"
                 if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
                         sec = "coskundya"
