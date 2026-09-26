@@ -2543,6 +2543,9 @@ class KrdantaEngine:
             # u-Atmane uv SAnac (hnuvAna/suvAna; surveyed pair 0077/0025; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("hnu", "sU"):
                 return tri_linga({"hnu": "hnuvAna", "sU": "suvAna"}[meta.get("clean")])
+            # h-Atmane weak SAnac (duhAna/dihAna/lihAna; surveyed trio 0004/0005/0006; free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") in ("duh", "dih", "lih"):
+                return tri_linga(meta.get("clean") + "Ana")
             # I-Atmane y SAnac (dIDyAna/vevyAna; surveyed pair 0071/0072; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("dIDI", "vevI"):
                 return tri_linga({"dIDI": "dIDyAna", "vevI": "vevyAna"}[meta.get("clean")])

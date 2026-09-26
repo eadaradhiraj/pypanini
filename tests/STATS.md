@@ -185,3 +185,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 56 (snu yak-future floods (Av/o-izya for lfw/lfN + U-grade for ASIrliN; yu-parity: one generic form cross-hits all 9; attested-only strings; sole-gated; additive): 02.0033 +26 (yak futures full, gap 4), 0 worsened (01 zero-diff).
 - Iteration 57 (snu liw-a + yl-R twins (`suzRaviTa` pre-return + `sozRuvat` yl Satf; sole-gated; free): 02.0033 → 881/881 (+1 pass, 41/76), 0 worsened (01 zero-diff).
 - Iteration 58 (h-class parasmaipada present (guNa-pits + weak + gD/Q/k sandhi + Dhi + h-yAt; family duh/dih/lih surveyed incl. dih D-onset; BvAdi-gated; additive): 3 roots +66 tokens (0004/0005/0006 present-full), 0 worsened (01 zero-diff).
+- Iteration 59 (h-Atmane weak SAnac (duhAna/dihAna/lihAna; a 4-block tinanta Atmane attempt removed after proving ubhaya-roots are parasmaipada-meta hence Atmane tables unscorable — SAnac retained): 3 roots +9 tokens, 0 worsened (01 zero-diff).
