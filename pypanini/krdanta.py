@@ -2154,6 +2154,10 @@ class KrdantaEngine:
                     _satf_base = "daS"
                 elif clean == "Sru":
                     return {"M": "SfRvan", "F": "SfRvatI", "N": "SfRvat"}
+                elif clean == "as" and meta.get("gana") == "adAdiH":
+                    # as-Satf weak stem throughout (san/satI/sat-sad; sole 02.0060 surveyed; sas/ad/han
+                    # keep strong sasan/adan; additive twins keep old forms; BvAdi untouched by gana-gate).
+                    return {"M": ["asan", "san"], "F": ["asantI", "asatI", "satI"], "N": ["asat", "sat", "sad"]}
             elif sanadi == "yanluganta":
                 if clean in ("sad", "zad") or op.startswith("zad"):
                     return {"M": "sAsadat", "F": "sAsadatI", "N": "sAsadat"}
