@@ -1255,6 +1255,12 @@ class TinantaDerivationEngine:
         is_genuine_vowel_root = (not is_idit) and bool(clean) and (clean[-1] in SLP1_VOWELS) and not any(c in SLP1_VOWELS for c in clean[:-1])
         _is_samyoga_f = clean.endswith(("f", "F")) and len([ch for ch in clean if ch not in SLP1_VOWELS]) > 1
         keeps_y_in_yan = is_genuine_vowel_root and not _is_samyoga_f and not clean.endswith("F") and clean != "f"
+        # aniW ew-final yan keeps stem-y like genuine vowel roots (deDIya->deDIyitA, not deDIitA;
+        # sole 01 Dew 01.1050 surveyed; sew ew-cleans mlew/mew/rew keep y-drop via sew-gate).
+        # Sole consumer is the yananta branch below (yan is always Atmanepada, both prayogas).
+        _op_ew_keep = ((op or "").replace("~", "").replace("`", "").strip().endswith("ew"))
+        if _op_ew_keep and not sew:
+            keeps_y_in_yan = True
         # i/I-ending idit with nasal (num) 7.1.58: klidi~ -> klind, hlAdI~ -> hlAd (strip I without n)
         if clean.endswith(("i","I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI") and (is_idit or pada == "Atmanepadi") and any(c in SLP1_VOWELS for c in clean[:-1]):
             base_wo_i = clean[:-1]
@@ -1644,6 +1650,13 @@ class TinantaDerivationEngine:
                 return "dedIya"
             if c in ("DA", "DuDAY", "De", "Do"):
                 return "deDIya"
+            # aniW ew-final yan (Dew->deDIya; sole 01 Dew 01.1050 surveyed): e-redup + I-grade, same
+            # family as the D-group above. Shape + sew-gated: sew ew-cleans (mlewf~/mewf~/rewf~) keep
+            # generic e-redup + ew (memewya-); E-final group (dAdAya/jAglAya) ends in E/Ep, unaffected.
+            # NB: derive() remaps clean to Day before the sanadi branches, so key on op as well.
+            if (c.endswith("ew") or op.endswith("ew")) and not sew:
+                _yc = c if c.endswith("ew") else op
+                return DEASPIRATE.get(_yc[0], _yc[0]) + "e" + _yc[0] + "Iya"
             # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
             if c == "dyut" or (op and op.startswith("dyut")):
                 return "dedyutya"

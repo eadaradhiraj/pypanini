@@ -1267,6 +1267,10 @@ class KrdantaEngine:
                     return "dedIya"
                 if c in ("DA", "DuDAY") or (op and op.startswith(("DA~", "DuDA"))):
                     return "deDIya"
+                # aniW ew-final yan (mirrors tinanta; sole 01 Dew 01.1050 surveyed, sew ew-cleans excluded).
+                if (c.endswith("ew") or (op and op.endswith("ew"))) and not sew:
+                    _yc = c if c.endswith("ew") else op
+                    return DEASPIRATE.get(_yc[0], _yc[0]) + "e" + _yc[0] + "Iya"
                 # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
                 if c == "dyut" or (op and op.startswith("dyut")):
                     return "dedyutya"
@@ -1621,6 +1625,11 @@ class KrdantaEngine:
                 is_genuine_vowel_root = (not is_idit) and bool(orig_clean) and (orig_clean[-1] in SLP1_VOWELS) and not any(c in SLP1_VOWELS for c in orig_clean[:-1])
                 _is_samyoga_f = orig_clean.endswith(("f", "F")) and len([ch for ch in orig_clean if ch not in SLP1_VOWELS]) > 1
                 keeps_y_in_yan = is_genuine_vowel_root and not _is_samyoga_f and not orig_clean.endswith("F") and orig_clean != "f"
+                # aniW ew-final yan keeps stem-y (mirrors tinanta keeps_y; sole 01 Dew 01.1050 surveyed;
+                # sew ew-cleans mlew/mew/rew keep y-drop via sew-gate).
+                _op_ew_keep = ((op or "").replace("~", "").replace("`", "").strip().endswith("ew"))
+                if _op_ew_keep and not sew:
+                    keeps_y_in_yan = True
                 if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
                         sec = "coskundya"
