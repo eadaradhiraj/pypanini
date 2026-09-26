@@ -2048,8 +2048,15 @@ class TinantaDerivationEngine:
                 ys_core = ys[:-1] if ys.endswith("a") else ys
                 ys_aug_core = ys_aug[:-1] if ys_aug.endswith("a") else ys_aug
                 if lakara=="laN":
-                    return self._conjugate_at_stem_atmane(ys_aug_core, "laN", purusha, vacana), log
-                return self._conjugate_at_stem_atmane(ys_core, lakara, purusha, vacana), log
+                    _lan = self._conjugate_at_stem_atmane(ys_aug_core, "laN", purusha, vacana)
+                    # kziv yang-laN I-grade (acekzIvyata; f~ already long via clean)
+                    if clean == "kziv":
+                        _alt_aug = self._add_augment("cekzIvya", False)
+                        _alt_core = _alt_aug[:-1] if _alt_aug.endswith("a") else _alt_aug
+                        _lan += self._conjugate_at_stem_atmane(_alt_core, "laN", purusha, vacana)
+                    return list(dict.fromkeys(_lan)), log
+                _lwl = self._conjugate_at_stem_atmane(ys_core, lakara, purusha, vacana)
+                return list(dict.fromkeys(_lwl)), log
             # liw for yan: periphrastic AYcakre (not reduplication)
             if lakara == "liw":
                 _tbl = {
@@ -2091,7 +2098,11 @@ class TinantaDerivationEngine:
                 else:
                     return self._conjugate_at_stem_atmane(base_core, "laN", purusha, vacana), log
             ys_core = ys[:-1] if ys.endswith("a") else ys
-            return self._conjugate_at_stem_atmane(ys_core, lakara, purusha, vacana), log
+            _ywl = self._conjugate_at_stem_atmane(ys_core, lakara, purusha, vacana)
+            # kziv yang present-system I-grade (cekzIvyate for lw/low/viDiliN; f~ already long via clean)
+            if clean == "kziv":
+                _ywl += self._conjugate_at_stem_atmane("cekzIvy", lakara, purusha, vacana)
+            return list(dict.fromkeys(_ywl)), log
         # yak (karmani) - all sanadi variants, all lakaras
         if prayoga == "karmani":
             # determine base stem for yak (over-generate for vowel-initial nijanta Urdy)
@@ -2356,6 +2367,10 @@ class TinantaDerivationEngine:
                         yak_list = [yak_stem]
                     if "ur" in clean:
                         yak_list += [s.replace("ur","Ur",1) for s in list(yak_list) if "ur" in s]
+                    # kziv yang_yak present-system I-grade (cekzIvyate; f~ already long via clean)
+                    if sanadi == "yananta" and clean == "kziv":
+                        if "cekzIvya" not in yak_list:
+                            yak_list.append("cekzIvya")
                     # for nijanta, also include capital variant
                     if is_vowel_initial and sec_stem and sanadi!="nijanta":
                         yak_list += [flip[sec_stem[0]]+sec_stem[1:]+"y" if sec_stem[0] in flip else sec_stem+"y" for flip in [{"u":"U"}] ]

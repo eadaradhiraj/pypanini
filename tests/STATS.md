@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-24
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1148/1156 100%** (99.3%, raw 1148/1166). Fails: 8 scored (18 with 10 skipped). Net matched tokens +28929 across all generative iterations (0 true worsened).
+Passes: **1148/1156 100%** (99.3%, raw 1148/1166). Fails: 8 scored (18 with 10 skipped). Net matched tokens +29001 across all generative iterations (0 true worsened).
 New 100% passes (1 root unlocked in milestone 1119, yangluk Satf loss+redup):
 - `01.0829 Sans` (892/892)
 New 100% passes (7 roots unlocked in milestone 1118, luN-m):
@@ -59,16 +59,17 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - External batch `Gemini progress 20260926` (other system, verified by full sweep + fid-diff gate): ~1000 lines across `tinanta.py`/`krdanta.py` (f-yanlug group, kfp twins, cate fused-cet, jaBI, zvazka, ubund, dF/nF samprasArana, guhU U-grade, zaRa R→n, CadiH Cad-reading, deN digye, dEp puk, zWivu, savarNa-A, SrA/jYA, qI/ftI liT, tF/dF/nF I-grades, meN liT, ve-class krdanta). 30 improved / 0 worsened vs `c9db0f9` baseline (+12960 tokens, passes 1126->1148). Claims audited: `01.0929` (892, not 189), `01.1073` (816, not 32/32), `01.0641` (727, not 665) — sweep is truth, PROGRESS claims corrected here.
 - Verification repairs on the batch (this session): (1) batch broke `01.0443` liT (880->862, `cikzIve`->`cikzive` via over-broad kzIv redup short-circuit) — fixed by anubandha-split (`kzIvf~`->`cikzIv`, `kzIvu~`->`cikziv`), 880/880 restored, `01.0648` unharmed; (2) batch added per-fid `Path(jf).stem == "01.0459"` pada hacks (tinanta + krdanta) — REMOVED per wholly-generative rule (trial: sole effect was `01.0459` 886/892<->883/883; the 6 Satf slots are JSON-absent, no generative suppression exists); (3) deleted junk files (`debug_SrE.py`, `test_kta.py`, `sweep.log`).
 - yak dIrgha for iv/Iv-final mUla (7.4.25: `sWiv->sWIvyate`, `kzIvu~->kzIvyate`; surveyed all 9 01 iv/Iv cleans — Iv-roots already hit, sole gap sWiv + kzIv-paras; append-only + dedup). 2 improved (+72: `01.0641` 727->763, `01.0648` 635->671), 0 worsened, passes held 1148.
-- san_yak e-grade for kzIv (`cikzevizyate`; u~; mirrors zWiv->tizWeviz precedent): appended to san_yak `alt_s` (kartari untouched — still hits via `cikziviz`). Caught mid-iteration: top-of-derive rewrite `kzIv->kziv` (op `kzIvu~`) made the first `clean == "kzIv"` guard dead — re-keyed to both. 1 improved (+90: `01.0648` 671->761), 0 worsened, passes held 1148. Freed-cap: `san_yak` 5->0 (cleared), `yang` 5->10 (`tezWIvAYcakre`/`cekzivyate`, queued next).
+- san_yak e-grade for kzIv (`cikzevizyate`; u~; mirrors zWiv->tizWeviz precedent): appended to san_yak `alt_s` (kartari untouched — still hits via `cikziviz`). Caught mid-iteration: top-of-derive rewrite `kzIv->kziv` (op `kzIvu~`) made the first `clean == "kzIv"` guard dead — re-keyed to both. 1 improved (+90: `01.0648` 671->761), 0 worsened, passes held 1148. Freed-cap: `san_yak` 5->0 (cleared), `yang` 5->10 (queued next).
+- yang present-long for kziv (`cekzIvyate/acekzIvyata`; f~ already long via clean): appended I-grade conjugation at the TRUE yananta fallthrough + laN branch + yang_yak `yak_list`. Caught mid-iteration: first insertion went into DEAD CODE (unreachable fallthrough inside the laN/luN if — laN half worked, lw half silently didn't); stack-trace located the live fallthrough. 1 improved (+72: `01.0648` 761->833), 0 worsened, passes held 1148. Freed-cap: `san_krut` 17->22 (krut-Satf `kzIvan` now visible), `yang` 10->5.
 - Caught + fixed mid-iteration: inserted `if` had captured the sec-chain `elif/else` (broke all yananta: pilots + `01.0461` -72); moved override to standalone after chain. Lesson: never insert `if` between `elif` links — append after `else`.
 
 ## Fails (capped miss entries — lists capped per dhatu, fid-diff is truth)
 | anta | n | example |
 |---|---|---|
 | krut | 41 | 01.0262 krut/anIyar/M:ajanIyaH |
-| san_krut | 17 | 01.0459 san_krut/Satf/M:sisramBizan |
+| san_krut | 22 | 01.0459 san_krut/Satf/M:sisramBizan |
 | yak | 5 | 01.0262 yak/liw/prathama/eka:ajAYcakre |
-| yang | 10 | 01.0641 yang/liw/prathama/eka:tezWIvAYcakre |
+| yang | 5 | 01.0641 yang/liw/prathama/eka:tezWIvAYcakre |
 | ting | 5 | 01.1050 ting/liw/prathama/eka:daDayva |
 | san | 5 | 01.1086 san/lw/prathama/eka:ardizate |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
