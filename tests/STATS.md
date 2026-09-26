@@ -3,7 +3,7 @@
 Engine: wholly generative (NO per-dhatu, NO JSON import, pure shape/class).
 Date: 2026-09-26
 Run: unittest pilots + sweep_gana.py --all --workers 8 --out tests/sweep_all.csv.
-Passes: **1154/1156 100%** (99.7%, raw 1154/1166). Fails: 2 scored (12 with 10 skipped). Net matched tokens +31108 across all generative iterations (0 true worsened).
+Passes: **1155/1156 100%** (99.8%, raw 1155/1166). Fails: 1 scored (11 with 10 skipped). Net matched tokens +31111 across all generative iterations (0 true worsened); +3 exception-assisted (1086-Satf rat, quarantined, non-generative).
 New 100% passes (1 root unlocked in milestone aja-arc, ve-suppletion series nich→san→yak-liT→yak-sya→yak-luT→yak-luN→san-twins→krut-twins):
 - `01.0262 aja~` (283 -> 636/636)
 New 100% passes (1 root unlocked in milestone Dew-arc, ew-shape series nich→A-base→yang→yak→yangluk→redup→kta-route→ASIrliN→Satf→ktvA):
@@ -104,8 +104,10 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 |---|---|---|
 | krut | 3 | 01.0459 krut/Satf/M:sramBan |
 | san_krut | 3 | 01.0459 san_krut/Satf/M:sisramBizan |
-| yangluk_krut | 3 | 01.1086 yangluk_krut/Satf/M:rat |
 | SKIPPED:ganasutra | 10 | 01.0933 SKIPPED:ganasutra |
+
+## Rules (continued — quarantined exception)
+- QUARANTINED EXCEPTION (user-authorized, NON-generative): `01.1086` yangluk Satf `rat/rad/ratI` appended (structured-key attested, suppletive short stem, mUla Satf regular `fcC-`). A 0459-exception was surveyed and REJECTED (no attested form exists to append — engine guesses would be fabrication). 1 improved (+3: `01.1086` 889->892/892 PASS), 0 worsened, passes +1 → 1155/1156. Accounting: 1154/1156 generative + 1 exception-assisted root. Remaining (6): `01.0459` Satf — see CEILING.
 
 ## Rules (continued — aja-arc tail)
 - aja~ krut mUla ve-grade twins (sole aj-clean `01.0262`, `~`-gated; all derived, zero literals): anIyar `vayanIya-` via `guna(ve)`, Rvul `vAyaka-` + yat `vAyya-` via nichay yuk-stem, GaY `AjaH` via vriddhi (old `ajaH` missed so replacement free; "form"-key stays str). Additive twins (+ GaY replace). 1 improved (+10: `01.0262` 626->636/636 PASS), 0 worsened, passes +1 → 1154/1156. aja-arc complete (283->636: nich 154 + san 144 + yak-liT 9 + yak-sya 6 + yak-luT 2 + yak-luN 3 + san-twins 25 + krut-twins 10 = +353). Only 2 fails remain, both proven-unreachable (below) — ceiling 1154/1156 (99.83%) on current data.

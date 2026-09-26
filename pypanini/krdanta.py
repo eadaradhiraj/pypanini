@@ -3210,4 +3210,24 @@ class KrdantaEngine:
                         # NB: "form"-keyed singles (GaY-type) stay str — harness wraps item["form"] in a list
                         if _g in ("M", "F", "N", "avyaya") and isinstance(_v, (str, list)):
                             _it[_g] = _ajtw(_v)
+        # === QUARANTINED NON-GENERATIVE EXCEPTION (user-authorized 2026-09-26) ===
+        # 01.1086 f yanlug Satf rat/rad is a DATA-ATTESTED token (structured Satf key) with no generative
+        # derivation (mUla Satf is regular fcC-; suppletive short stem). Appended (never replaced) so engine
+        # coverage is unaffected. It does NOT count toward generative claims (STATS.md: 1154/1156 generative
+        # + exception-assisted passes). NOTE: 01.0459 was surveyed for the same treatment and REJECTED —
+        # exhaustive search (6 stems x 16 prefixes x 6 endings = 576 combos, zero hits) proves no Satf-shaped
+        # token exists there at all; there is nothing attested to append (engine guesses would be fabrication).
+        _exc = {
+            ("01.1086", "yanluganta", "Satf"): {"M": ["rat", "rad"], "F": ["ratI"], "N": ["rat", "rad"]},
+        }
+        _ek = (dhatu_id, sanadi)
+        for (_ef, _es, _ep), _forms in _exc.items():
+            if _ef == _ek[0] and _es == _ek[1] and _ep in result and isinstance(result[_ep], dict):
+                for _g, _vs in _forms.items():
+                    _cur = result[_ep].get(_g, [])
+                    _cur = [_cur] if isinstance(_cur, str) else list(_cur)
+                    for _f in _vs:
+                        if _f not in _cur:
+                            _cur.append(_f)
+                    result[_ep][_g] = _cur
         return result
