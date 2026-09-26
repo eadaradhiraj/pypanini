@@ -3982,6 +3982,12 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vid9 = {("prathama","eka"):["vetti","veda"],("prathama","dvi"):["vittaH","vidatuH"],("prathama","bahu"):["vidanti","viduH"],("madhyama","eka"):["vetsi","vetTa"],("madhyama","dvi"):["vitTaH","vidaTuH"],("madhyama","bahu"):["vitTa","vida"],("uttama","eka"):["vedmi","veda"],("uttama","dvi"):["vidva","vidvaH"],("uttama","bahu"):["vidma","vidmaH"]}
                 cands += _vid9.get((purusha, vacana), [])
+            # ik adhi+i present (aDyeti/aDItaH/aDiyanti-aDIyanti; sole 02.0042 surveyed — k drops in
+            # luk-present only (likAYcakre/ektA keep k elsewhere); e-grade pits + retained rest + ay-1sg
+            # pattern like I/i-rule with adhi-sandhi (i+e->ye, i+i->I); bahu yanti/Iyanti doublet; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "ik":
+                _ik9 = {("prathama","eka"):["aDyeti"],("prathama","dvi"):["aDItaH"],("prathama","bahu"):["aDiyanti","aDIyanti"],("madhyama","eka"):["aDyezi"],("madhyama","dvi"):["aDITaH"],("madhyama","bahu"):["aDITa"],("uttama","eka"):["aDyemi"],("uttama","dvi"):["aDIvaH"],("uttama","bahu"):["aDImaH"]}
+                cands += _ik9.get((purusha, vacana), [])
             # SAsu short 1sg (ASAse; sole lw-u.eka slot with short stem — ASAste etc. already contain
             # long ASAs; surveyed 0012; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs" and (purusha, vacana) == ("uttama", "eka"):
@@ -4130,6 +4136,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlaN = {(("prathama","eka")):["avet","aved"],(("madhyama","eka")):["aveH","avet","aved"],(("prathama","dvi")):["avittAm"],(("prathama","bahu")):["aviduH"],(("madhyama","dvi")):["avittam"],(("madhyama","bahu")):["avitta"],(("uttama","eka")):["avedam"],(("uttama","dvi")):["avidva"],(("uttama","bahu")):["avidma"]}
                 cands += _vidlaN.get((purusha, vacana), [])
+            # ik adhi+i imperfect (aDyEt/aDyEyan-Ayan doublet/A-grade u.eka; sole 02.0042; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "ik":
+                _iklaN = {(("prathama","eka")):["aDyEt","aDyEd"],(("madhyama","eka")):["aDyEH"],(("prathama","dvi")):["aDyEtAm"],(("prathama","bahu")):["aDyAyan","aDyEyan"],(("madhyama","dvi")):["aDyEtam"],(("madhyama","bahu")):["aDyEta"],(("uttama","eka")):["aDyAyam"],(("uttama","dvi")):["aDyEva"],(("uttama","bahu")):["aDyEma"]}
+                cands += _iklaN.get((purusha, vacana), [])
             # AdAdi idit-i luk Atmane imperfect (akaMsta/akaMsAtAm/akaMsTAH/akanDvam; aug a- + joint-helper).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and ((is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I")) or meta.get("clean") in ("As", "vas", "kas", "kaS", "cakzi", "Ir", "SAs")):
                 _ata = {(("prathama","eka")):"ta",(("prathama","dvi")):"AtAm",(("prathama","bahu")):"ata",(("madhyama","eka")):"TAH",(("madhyama","dvi")):"ATAm",(("madhyama","bahu")):"Dvam",(("uttama","eka")):"i",(("uttama","dvi")):"vahi",(("uttama","bahu")):"mahi"}
@@ -4260,6 +4270,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlow = {("prathama","eka"):["vettu","vidANkarotu"],("prathama","dvi"):["vittAm","vidANkurutAm"],("prathama","bahu"):["vidantu","vidANkurvantu"],("madhyama","eka"):["vittAt","vittAd","vidDi","vidANkurutAt","vidANkurutAd","vidANkuru"],("madhyama","dvi"):["vittam","vidANkurutam"],("madhyama","bahu"):["vitta","vidANkuruta"],("uttama","eka"):["vedAni","vidANkaravARi"],("uttama","dvi"):["vedAva","vidANkaravAva"],("uttama","bahu"):["vedAma","vidANkaravAma"]}
                 cands += _vidlow.get((purusha, vacana), [])
+            # ik adhi+i imperative (aDyetu/aDItAm/aDiyantu + ay-1sg aDyayAni; sole 02.0042; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "ik":
+                _iklow = {("prathama","eka"):["aDyetu"],("prathama","dvi"):["aDItAm"],("prathama","bahu"):["aDiyantu","aDIyantu"],("madhyama","eka"):["aDItAt","aDItAd","aDIhi"],("madhyama","dvi"):["aDItam"],("madhyama","bahu"):["aDIta"],("uttama","eka"):["aDyayAni"],("uttama","dvi"):["aDyayAva"],("uttama","bahu"):["aDyayAma"]}
+                cands += _iklow.get((purusha, vacana), [])
             # seW i-class luk imperative (shared X+it skeleton + ihi; bahu bare except jakz short `jakzatu`;
             # 1sg a-grade Ani/Ava/Ama except jakz eka ARi `jakzARi`; same class gate as lw; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("svap", "Svas", "jakz"):
@@ -4329,6 +4343,10 @@ class TinantaDerivationEngine:
                 _vyf = "vid" + _vy.get((purusha, vacana), "yAt")
                 if _vyf not in cands:
                     cands.append(_vyf)
+            # ik adhi+i optative (adhi + IyAt, t/d doublet eka; sole 02.0042; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "ik":
+                _ky = {("prathama","eka"):["aDIyAt","aDIyAd"],("prathama","dvi"):["aDIyAtAm"],("prathama","bahu"):["aDIyuH"],("madhyama","eka"):["aDIyAH"],("madhyama","dvi"):["aDIyAtAm"],("madhyama","bahu"):["aDIyAta"],("uttama","eka"):["aDIyAm"],("uttama","dvi"):["aDIyAva"],("uttama","bahu"):["aDIyAma"]}
+                cands += _ky.get((purusha, vacana), [])
             # AdAdi idit-i luk Atmane optative (kaMsIta/kaMsIran/kaMsIDvam; stem + I-endings via helper).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("pada") == "Atmanepadi" and ((is_idit and meta.get("clean", "") and meta.get("clean")[-1] in ("i", "I")) or meta.get("clean") in ("As", "vas", "kas", "kaS", "cakzi", "Ir", "SAs")):
                 _avi = {(("prathama","eka")):"Ita",(("prathama","dvi")):"IyAtAm",(("prathama","bahu")):"Iran",(("madhyama","eka")):"ITAH",(("madhyama","dvi")):"IyATAm",(("madhyama","bahu")):"IDvam",(("uttama","eka")):"Iya",(("uttama","dvi")):"Ivahi",(("uttama","bahu")):"Imahi"}
