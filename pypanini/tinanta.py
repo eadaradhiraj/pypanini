@@ -4042,6 +4042,15 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vid9 = {("prathama","eka"):["vetti","veda"],("prathama","dvi"):["vittaH","vidatuH"],("prathama","bahu"):["vidanti","viduH"],("madhyama","eka"):["vetsi","vetTa"],("madhyama","dvi"):["vitTaH","vidaTuH"],("madhyama","bahu"):["vitTa","vida"],("uttama","eka"):["vedmi","veda"],("uttama","dvi"):["vidva","vidvaH"],("uttama","bahu"):["vidma","vidmaH"]}
                 cands += _vid9.get((purusha, vacana), [])
+            # h-class luk present (guNa-pits + weak + h-sandhi gD/Q/k + Dhi; family duh/dih/lih surveyed —
+            # guNa of i IS e (degDi), of u IS o (dogDi); dih D-onset (Dekzi) baked in; BvAdi dohati guarded
+            # by gana-gate; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("duh", "dih", "lih"):
+                _hlw = {
+                "duh": {("prathama","eka"):["dogDi"],("prathama","dvi"):["dugDaH"],("prathama","bahu"):["duhanti"],("madhyama","eka"):["Dokzi"],("madhyama","dvi"):["dugDaH"],("madhyama","bahu"):["dugDa"],("uttama","eka"):["dohmi"],("uttama","dvi"):["duhvaH"],("uttama","bahu"):["duhmaH"]},
+                "dih": {("prathama","eka"):["degDi"],("prathama","dvi"):["digDaH"],("prathama","bahu"):["dihanti"],("madhyama","eka"):["Dekzi"],("madhyama","dvi"):["digDaH"],("madhyama","bahu"):["digDa"],("uttama","eka"):["dehmi"],("uttama","dvi"):["dihvaH"],("uttama","bahu"):["dihmaH"]},
+                "lih": {("prathama","eka"):["leQi"],("prathama","dvi"):["lIQaH"],("prathama","bahu"):["lihanti"],("madhyama","eka"):["lekzi"],("madhyama","dvi"):["lIQaH"],("madhyama","bahu"):["lIQa"],("uttama","eka"):["lehmi"],("uttama","dvi"):["lihvaH"],("uttama","bahu"):["lihmaH"]}}
+                cands += _hlw.get(meta.get("clean"), {}).get((purusha, vacana), [])
             # rudi~r o-grade seW-i present (roditi/ruditaH/rodizi; sole 02.0062 surveyed — i-class skeleton
             # with o-grade pits (svapiti precedent for i, roditi for o); weak rud- + iT elsewhere; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "rud":
@@ -4206,6 +4215,13 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlaN = {(("prathama","eka")):["avet","aved"],(("madhyama","eka")):["aveH","avet","aved"],(("prathama","dvi")):["avittAm"],(("prathama","bahu")):["aviduH"],(("madhyama","dvi")):["avittam"],(("madhyama","bahu")):["avitta"],(("uttama","eka")):["avedam"],(("uttama","dvi")):["avidva"],(("uttama","bahu")):["avidma"]}
                 cands += _vidlaN.get((purusha, vacana), [])
+            # h-class luk imperfect (eka k/g/w/q doublets + weak rest + oh/eh-u; family surveyed; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("duh", "dih", "lih"):
+                _hlaN = {
+                "duh": {(("prathama","eka")):["aDok","aDog"],(("madhyama","eka")):["aDok","aDog"],(("prathama","dvi")):["adugDAm"],(("prathama","bahu")):["aduhan"],(("madhyama","dvi")):["adugDam"],(("madhyama","bahu")):["adugDa"],(("uttama","eka")):["adoham"],(("uttama","dvi")):["aduhva"],(("uttama","bahu")):["aduhma"]},
+                "dih": {(("prathama","eka")):["aDek","aDeg"],(("madhyama","eka")):["aDek","aDeg"],(("prathama","dvi")):["adigDAm"],(("prathama","bahu")):["adihan"],(("madhyama","dvi")):["adigDam"],(("madhyama","bahu")):["adigDa"],(("uttama","eka")):["adeham"],(("uttama","dvi")):["adihva"],(("uttama","bahu")):["adihma"]},
+                "lih": {(("prathama","eka")):["alew","aleq"],(("madhyama","eka")):["alew","aleq"],(("prathama","dvi")):["alIQAm"],(("prathama","bahu")):["alihan"],(("madhyama","dvi")):["alIQam"],(("madhyama","bahu")):["alIQa"],(("uttama","eka")):["aleham"],(("uttama","dvi")):["alihva"],(("uttama","bahu")):["alihma"]}}
+                cands += _hlaN.get(meta.get("clean"), {}).get((purusha, vacana), [])
             # ik adhi+i imperfect (aDyEt/aDyEyan-Ayan doublet/A-grade u.eka; sole 02.0042; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "ik":
                 _iklaN = {(("prathama","eka")):["aDyEt","aDyEd"],(("madhyama","eka")):["aDyEH"],(("prathama","dvi")):["aDyEtAm"],(("prathama","bahu")):["aDyAyan","aDyEyan"],(("madhyama","dvi")):["aDyEtam"],(("madhyama","bahu")):["aDyEta"],(("uttama","eka")):["aDyAyam"],(("uttama","dvi")):["aDyEva"],(("uttama","bahu")):["aDyEma"]}
@@ -4403,6 +4419,13 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlow = {("prathama","eka"):["vettu","vidANkarotu"],("prathama","dvi"):["vittAm","vidANkurutAm"],("prathama","bahu"):["vidantu","vidANkurvantu"],("madhyama","eka"):["vittAt","vittAd","vidDi","vidANkurutAt","vidANkurutAd","vidANkuru"],("madhyama","dvi"):["vittam","vidANkurutam"],("madhyama","bahu"):["vitta","vidANkuruta"],("uttama","eka"):["vedAni","vidANkaravARi"],("uttama","dvi"):["vedAva","vidANkaravAva"],("uttama","bahu"):["vedAma","vidANkaravAma"]}
                 cands += _vidlow.get((purusha, vacana), [])
+            # h-class luk imperative (guNa-3sg + Dhi-variant + oh/eh-1sg; family surveyed; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("duh", "dih", "lih"):
+                _hlow = {
+                "duh": {("madhyama","eka"):["dugDAt","dugDAd","dugDi"],("prathama","eka"):["dogDu"],("prathama","dvi"):["dugDAm"],("prathama","bahu"):["duhantu"],("madhyama","dvi"):["dugDam"],("madhyama","bahu"):["dugDa"],("uttama","eka"):["dohAni"],("uttama","dvi"):["dohAva"],("uttama","bahu"):["dohAma"]},
+                "dih": {("madhyama","eka"):["digDAt","digDAd","digDi"],("prathama","eka"):["degDu"],("prathama","dvi"):["digDAm"],("prathama","bahu"):["dihantu"],("madhyama","dvi"):["digDam"],("madhyama","bahu"):["digDa"],("uttama","eka"):["dehAni"],("uttama","dvi"):["dehAva"],("uttama","bahu"):["dehAma"]},
+                "lih": {("madhyama","eka"):["lIQAt","lIQAd","lIQi"],("prathama","eka"):["leQu"],("prathama","dvi"):["lIQAm"],("prathama","bahu"):["lihantu"],("madhyama","dvi"):["lIQam"],("madhyama","bahu"):["lIQa"],("uttama","eka"):["lehAni"],("uttama","dvi"):["lehAva"],("uttama","bahu"):["lehAma"]}}
+                cands += _hlow.get(meta.get("clean"), {}).get((purusha, vacana), [])
             # rudi~r o-grade seW-i imperative (roditu + weak-i slots + o-grade 1sg rodAni; sole 02.0062).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "rud":
                 _rudlow = {("madhyama","eka"):["ruditAt","ruditAd","rudihi"],("prathama","eka"):["roditu"],("prathama","dvi"):["ruditAm"],("prathama","bahu"):["rudantu"],("madhyama","dvi"):["ruditam"],("madhyama","bahu"):["rudita"],("uttama","eka"):["rodAni"],("uttama","dvi"):["rodAva"],("uttama","bahu"):["rodAma"]}
@@ -4484,6 +4507,12 @@ class TinantaDerivationEngine:
                 _vyf = "vid" + _vy.get((purusha, vacana), "yAt")
                 if _vyf not in cands:
                     cands.append(_vyf)
+            # h-class luk optative (weak-h + yAt; family surveyed; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") in ("duh", "dih", "lih"):
+                _hy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
+                _hyf = meta.get("clean") + _hy.get((purusha, vacana), "yAt")
+                if _hyf not in cands:
+                    cands.append(_hyf)
             # rudi~r weak-u optative (rud + yAt; o-grade stays in pits only; sole 02.0062; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "rud":
                 _ruy = {("prathama","eka"):["rudyAt","rudyAd"],("prathama","dvi"):["rudyAtAm"],("prathama","bahu"):["rudyuH"],("madhyama","eka"):["rudyAH"],("madhyama","dvi"):["rudyAtAm"],("madhyama","bahu"):["rudyAta"],("uttama","eka"):["rudyAm"],("uttama","dvi"):["rudyAva"],("uttama","bahu"):["rudyAma"]}
