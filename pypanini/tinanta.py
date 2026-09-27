@@ -1550,6 +1550,9 @@ class TinantaDerivationEngine:
         def _sannanta_stem(c):
             if c == "qI": return "qiqayiz"
             if c == "ftIy": return "iyftIyiz"
+            # SI san ay-grade (SiSayizate; sole 02.0026 surveyed — meta-clean gate).
+            if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
+                return "SiSayiz"
             # duh/dih san D-infix (duDukzati/diDikzati; BvAdi duh keeps duduhiz-, lih keeps
             # lilikz-; surveyed quartet + BvAdi; shape+gana-gated).
             if c in ("duh", "dih") and meta.get("gana") == "adAdiH":
@@ -2725,6 +2728,10 @@ class TinantaDerivationEngine:
                     for _vy4 in ("aDIy", "aDyEy"):
                         if _vy4 not in yak_list:
                             yak_list.append(_vy4)
+                # SI yak ay-grade stem (Sayyate; sole 02.0026 surveyed — no SI elsewhere; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "SI":
+                    if "Sayy" not in yak_list:
+                        yak_list.append("Sayy")
                 # daridrA yak stem (daridry-; sole 02.0068 surveyed; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "daridrA":
                     if "daridry" not in yak_list:

@@ -276,4 +276,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 147 (UrRu mUla v-glide set (uv/av/Av grades; yu/ru datalessness surveyed; sole-gated; free): 02.0034 +18 slots, 0 worsened (01 zero-diff).
 - Iteration 148 (UrRu yan keeps_y mirror (UrRonUyita; tinanta exception mirrored in krdanta; sole-gated): 02.0034 yang_krut (+21 tokens), 0 worsened (01 zero-diff).
 - Iteration 149 (UrRu yl on-grades set + av finals (Satf/tavya/anIyar/Rvul/tfc/tumun + lyuw/GaY/tumun; includes a harness-method probe correction over capped-sample misses; sole-gated; note: family bundle, one gate — combined fid-diff clean): 02.0034 → 887/887 (+1 pass, 65/76), 0 worsened (01 zero-diff).
+- Iteration 150 (SI ay-grades (Sayy yak + SiSayiz san ×2 builders; sole SI surveyed; additive): 02.0026 yak+san (+245 tokens), 0 worsened (01 zero-diff).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).

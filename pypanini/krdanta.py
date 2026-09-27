@@ -991,6 +991,9 @@ class KrdantaEngine:
                 # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew).
                 if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                     return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]
+                # SI san ay-grade (mirrors tinanta; same sole guard).
+                if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
+                    return "SiSayiz"
                 # duh/dih san D-infix (mirrors tinanta; same quartet guards; shape+gana-gated).
                 if c in ("duh", "dih") and meta.get("gana") == "adAdiH":
                     return "duDukz" if c == "duh" else "diDikz"

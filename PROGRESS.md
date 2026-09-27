@@ -2,15 +2,16 @@
 
 Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **65/76 100%-attested** (raw 65/77, 1 skipped) — +1 pass!
+Sweep-02: **65/76 100%-attested** (raw 65/77, 1 skipped) — token gains.
 
-## Done — UrRu yl (+1 pass, +20 slots, 0 worsened)
-- on-grades set + av finals for sole UrRu yl (free):
-  - krdanta yl Satf/tavya/anIyar/Rvul/tfc/tumun/lyuw/GaY + mUla tumun/lyuw branches.
-  - Full Sweep Results: 02 improved **1 root** (0034 867->887/887 **pass**), **worsened 0** (01 zero-diff).
-- Prior work: 02 at 64/76; combined **65/76**.
+## Done — SI ay (+245 tokens, 0 worsened)
+- `Sayy` yak + `SiSayiz` san builders for sole SI (additive):
+  - tinanta yak_list + san builders; krdanta san sec.
+  - Full Sweep Results: 02 improved **1 root** (0026 360->605/875), **worsened 0** (01 zero-diff).
+- Prior work: 02 at 65/76 passes; combined same passes, token gains continue.
 
 ## Next (02 loop)
-1. 0026 (zUN? gap 515) + 0002 han + 0067/0060/0042 + 0007 cakz + 0039/0012/0074.
-2. Ganas 03–10 to follow.
+1. 0026 nich_yak (Sayy-) + yang (SASayy-) + krdanta (gap 270).
+2. 0002 han + 0067/0060/0042 + 0007 cakz + 0039/0012/0074.
+3. Ganas 03–10 to follow.
 - Advance 02: 65/76 → all (excl. ceilings).
