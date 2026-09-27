@@ -249,3 +249,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 120 (mfjU san A-grade (mimArjiz ×2 builders; mimfkz twin covers same slots via any-match; sole-gated): 02.0061 san-full (+209 tokens), 0 worsened (01 zero-diff).
 - Iteration 121 (mfjU nich krdanta (mArjay sec + mArjita kta/ktavatu; sole-gated; tinanta already over-generates A so untouched): 02.0061 nich_krut 31/31 (+31 tokens), 0 worsened (01 zero-diff).
 - Iteration 122 (mfjU mUla krdanta set (mfzwa/mfzwavat/mfjan/mArzwavya/mArjanIya/mArjaka/mArzwA/tumun-ktvA twins; sole-gated; Satf mUla-gated since yl differs; free): 02.0061 +23 slots, 0 worsened (01 zero-diff).
+- Iteration 123 (mfjU yl redup set (kta/ktavatu/Satf/tavya/anIyar/Rvul/tfc/tumun/ktvA mar-grades) + lyuw/GaY determinism fix (single-form nondeterministic pick replaced by attested A-grade; note: family bundle, one gate — combined fid-diff clean): 02.0061 → 879/879 (+1 pass, 63/76), 0 worsened (01 zero-diff).

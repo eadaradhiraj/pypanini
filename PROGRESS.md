@@ -2,16 +2,15 @@
 
 Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **62/76 100%-attested** (raw 62/77, 1 skipped) — token gains, no new passes.
+Sweep-02: **63/76 100%-attested** (raw 63/77, 1 skipped) — +1 pass!
 
-## Done — mfjU mUla krdanta (+23 slots, 0 worsened)
-- 9-special set (zw/j grades, Satf mUla-gated) for sole mfjU (free):
-  - krdanta kta/ktavatu/Satf/tavya/anIyar/Rvul/tfc/tumun/ktvA branches.
-  - Full Sweep Results: 02 improved **1 root** (0061 829->852/879), **worsened 0** (01 zero-diff).
-- Prior work: 02 at 62/76 passes; combined same passes, token gains continue.
+## Done — mfjU yl set (+1 pass, +27 slots, 0 worsened)
+- yl redup krdanta (mar-grades) + lyuw/GaY deterministic A-grade for sole mfjU:
+  - krdanta yl kta/ktavatu/Satf/tavya/anIyar/Rvul/tfc/tumun/ktvA + lyuw/GaY branches.
+  - Full Sweep Results: 02 improved **1 root** (0061 852->879/879 **pass**), **worsened 0** (01 zero-diff).
+- Prior work: 02 at 62/76; combined **63/76**.
 
 ## Next (02 loop)
-1. 0061 yl krdanta (marmfjat- family gap 25 → pass?).
-2. cakz (0007) + UrRu leftovers + 0040.
-3. Ganas 03–10 to follow.
-- Advance 02: 62/76 → all.
+1. cakz (0007) + UrRu leftovers (0034) + 0040 + SAsu + 0002/0042.
+2. Ganas 03–10 to follow.
+- Advance 02: 63/76 → all.
