@@ -2983,6 +2983,10 @@ class TinantaDerivationEngine:
                     if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                         _injy = {("prathama","eka"):["aDijage"],("prathama","dvi"):["aDijagAte"],("prathama","bahu"):["aDijagire"],("madhyama","eka"):["aDijagize"],("madhyama","dvi"):["aDijagATe"],("madhyama","bahu"):["aDijagiDve"],("uttama","eka"):["aDijage"],("uttama","dvi"):["aDijagivahe"],("uttama","bahu"):["aDijagimahe"]}
                         cands += _injy.get((purusha, vacana), [])
+                    # iR yak-liT Iy-grade (Iye/IyAte...; sole 02.0040 surveyed — op-gated vs iN; additive).
+                    if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iR"):
+                        _iry = {("prathama","eka"):["Iye"],("prathama","dvi"):["IyAte"],("prathama","bahu"):["Iyire"],("madhyama","eka"):["Iyize"],("madhyama","dvi"):["IyATe"],("madhyama","bahu"):["IyiQve","IyiDve"],("uttama","eka"):["Iye"],("uttama","dvi"):["Iyivahe"],("uttama","bahu"):["Iyimahe"]}
+                        cands += _iry.get((purusha, vacana), [])
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
@@ -5887,6 +5891,10 @@ class TinantaDerivationEngine:
                             cands.append(_aug_g + "a" + endings[(purusha, vacana)])
                 except Exception:
                     pass
+                # iR luN gA-aorist (agAt/agAd...aguH; sole 02.0040 surveyed — op-gated vs iN; additive).
+                if clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
+                    _irg = {("prathama","eka"):["agAt","agAd"],("prathama","dvi"):["agAtAm"],("prathama","bahu"):["aguH"],("madhyama","eka"):["agAH"],("madhyama","dvi"):["agAtam"],("madhyama","bahu"):["agAta"],("uttama","eka"):["agAm"],("uttama","dvi"):["agAva"],("uttama","bahu"):["agAma"]}
+                    cands += _irg.get((purusha, vacana), [])
                 # 1. aN aorist (Panini 3.1.55 puSAdidyutLditparasmeipadezu / 3.1.53 etc.) for consonant-final roots
                 ang_endings = {
                     ("prathama", "eka"): ["at", "ad"],
