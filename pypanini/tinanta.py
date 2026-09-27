@@ -2852,6 +2852,11 @@ class TinantaDerivationEngine:
                                 cands.append("An" + _ybase + _ye[(purusha, vacana)])
                     except Exception:
                         pass
+                    # UrRu yak-liw luk-Atmane (UrRunuve...; sole 02.0034 surveyed — this return site traced
+                    # empirically since vowel-initial UrRu exits before later blocks; additive).
+                    if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "UrRu":
+                        _unuv = {("prathama","eka"):["UrRunuve"],("prathama","dvi"):["UrRunuvAte"],("prathama","bahu"):["UrRunuvire"],("madhyama","eka"):["UrRunuvize"],("madhyama","dvi"):["UrRunuvATe"],("madhyama","bahu"):["UrRunuviQve","UrRunuviDve"],("uttama","eka"):["UrRunuve"],("uttama","dvi"):["UrRunuvivahe"],("uttama","bahu"):["UrRunuvimahe"]}
+                        cands += _unuv.get((purusha, vacana), [])
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
