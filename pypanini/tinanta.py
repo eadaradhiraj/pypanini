@@ -558,6 +558,10 @@ class TinantaDerivationEngine:
             if "o" in b:
                 _eo_vars.add(b.replace("o", "u", 1))
         bases |= _eo_vars
+        # svap CaN samprasAraNa base (sUzupat; sole 02.0063 surveyed — no BvAdi svap exists;
+        # zatva expansion + U-redup below yield sUzup; additive).
+        if clean == "svap":
+            bases.add("sup")
         # ur/Ur/or alternation (7.4.?? samprasAraNa/guNa): kurda->kUrda, etc. — phonological, not per-dhatu
         _ur_vars: set = set()
         for b in list(bases):
