@@ -4843,6 +4843,11 @@ class TinantaDerivationEngine:
                 _dcore = "Dokzy" if clean == "duh" else "Dekzy"
                 cands+=self._conjugate_at_stem_parasmai(_dcore, "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_dcore, "lw", purusha, vacana)
+            # mfjU lfw sya twins (mArkzy/mArjizy parasmai; sole 02.0061 surveyed — no BvAdi mfj;
+            # additive; yak covered separately).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
+                for _mcore in ("mArkzy", "mArjizy"):
+                    cands+=self._conjugate_at_stem_parasmai(_mcore, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -4873,6 +4878,11 @@ class TinantaDerivationEngine:
                 _daug = self._add_augment(_dcore0, _dcore0[0] in SLP1_VOWELS if _dcore0 else False)
                 cands+=self._conjugate_at_stem_parasmai(_daug, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_daug, "laN", purusha, vacana)
+            # mfjU lfN sya twins (augmented parasmai mirrors; sole-gated; additive).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
+                for _mcore0 in ("mArkzy", "mArjizy"):
+                    _maug = self._add_augment(_mcore0, _mcore0[0] in SLP1_VOWELS if _mcore0 else False)
+                    cands+=self._conjugate_at_stem_parasmai(_maug, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":

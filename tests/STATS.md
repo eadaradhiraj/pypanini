@@ -244,3 +244,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 115 (svap yl redup kta pair + ktvA pair (sAsupita/sAsvapitvA + mUla suptvA; sole-gated; free; note: two traits, one gate — combined fid-diff clean): 02.0063 → 882/882 (+1 pass, 62/76), 0 worsened (01 zero-diff).
 - Iteration 116 (mfjU mUla present ablaut+zw tables (lw/low/laN/viD; sole-gated; additive): 02.0061 mUla-present (+33 tokens), 0 worsened (01 zero-diff).
 - Iteration 117 (mfjU lut jit/zw twins ×2 paths (mUla + yak, snu-doublet pattern; sole-gated; additive): 02.0061 +18, 0 worsened (01 zero-diff).
+- Iteration 118 (mfjU mUla futures sya twins (mArkzy/mArjizy lfw + augmented lfN parasmai; sole-gated; additive; yak next): 02.0061 +18, 0 worsened (01 zero-diff).
