@@ -2736,6 +2736,9 @@ class KrdantaEngine:
             # jAgf ar-grade iT (jAgaritavya; sole 02.0067 surveyed; old jAgitavya unattested, free).
             if sanadi is None and clean == "jAg":
                 return tri_linga("jAgaritavya")
+            # duh/dih gD tavya (dogDavya/degDavya; BvAdi dohitavya + lih leQavya guards; free).
+            if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                return tri_linga("dogDavya" if clean == "duh" else "degDavya")
             if sanadi == "sannanta":
                 stem = clean + "itavya"
                 return tri_linga(stem)
@@ -2999,6 +3002,10 @@ class KrdantaEngine:
             # daridrA weak tfc (daridritA; sole 02.0068 surveyed; old A-forms miss, free).
             if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
                 return {"M": "daridritA", "F": "daridritrI", "N": "daridritf"}
+            # duh/dih gD tfc (dogDA/dogDrI; same guards; free).
+            if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                _dg = "dogD" if clean == "duh" else "degD"
+                return {"M": _dg + "A", "F": _dg + "rI", "N": _dg + "f"}
             if sanadi == "sannanta":
                 b = clean + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
@@ -3157,6 +3164,9 @@ class KrdantaEngine:
             # jAgf ar-grade iT (jAgaritum; sole 02.0067; free).
             if sanadi is None and clean == "jAg":
                 return {"avyaya": ["jAgaritum"]}
+            # duh/dih gD tumun (dogDum/degDum; same guards; free).
+            if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["dogDum" if clean == "duh" else "degDum"]}
             # idit i-final num-clean (agi->aNgitum; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _tbw = clean[:-1]
@@ -3198,6 +3208,9 @@ class KrdantaEngine:
             # ad suppletive ktvA (jagDvA + jagdD twin; sole 02.0001 surveyed; old misses, free).
             if sanadi is None and clean == "ad" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["jagDvA", "jagdDvA"]}
+            # duh/dih gD ktvA (dugDvA/digDvA; same guards; free).
+            if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["dugDvA" if clean == "duh" else "digDvA"]}
             # mA short-i ktvA (mitvA; 02.0057 surveyed — 03/04 take mItvA, so gana-gated; free).
             if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["mitvA"]}
