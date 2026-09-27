@@ -1519,6 +1519,10 @@ class TinantaDerivationEngine:
             # lilikz-; surveyed quartet + BvAdi; shape+gana-gated).
             if c in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 return "duDukz" if c == "duh" else "diDikz"
+            # vevI/dIDI san (vivayizate/didyizate; AdAdi N-pair 0072/0071 surveyed — no BvAdi
+            # vevI/dIDI with san exists; meta-clean gate — local clean may be san-rewritten).
+            if meta.get("clean") in ("vevI", "dIDI") and meta.get("gana") == "adAdiH":
+                return "vivayiz" if meta.get("clean") == "vevI" else "didyiz"
             # ad san suppletion (jiGatsati; sole 02.0001 surveyed — no BvAdi ad exists; gana-gated).
             if c == "ad" and meta.get("gana") == "adAdiH":
                 return "jiGats"

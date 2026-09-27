@@ -228,3 +228,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 99 (duh/dih nich h-kept twins (dohita/dehita kta + ktavatu; 02 pair + BvAdi unanimity; old kept as cross-hit; additive so monotonic): 02.0004/0005 +6 each, 0 worsened (01 zero-diff).
 - Iteration 100 (h-final yl redup kta pair (doduhita/dedihita/lelihita + ktavatu; BvAdi doduhita unanimity — pan-gaNa h-shape; free): 02.0004/0005 +6 each, 0 worsened (01 zero-diff).
 - Iteration 101 (h-final yl redup-guna family (tavya/tfc/tumun/ktvA dodoh-/dedeh-/leleh-; trio + BvAdi unanimity; free): 02.0004/0005 → 885/885 (+2 passes, 58/76), 0 worsened (01 zero-diff).
+- Iteration 102 (vevI/dIDI san (vivayiz/didyiz ×2 builders; AdAdi N-pair surveyed, no BvAdi counterparts; a self-caught local-clean rewrite fixed via meta-clean gate; additive): 02.0072 +209, 02.0071 +209, 0 worsened (01 zero-diff).
