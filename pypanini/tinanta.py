@@ -1515,6 +1515,10 @@ class TinantaDerivationEngine:
         def _sannanta_stem(c):
             if c == "qI": return "qiqayiz"
             if c == "ftIy": return "iyftIyiz"
+            # duh/dih san D-infix (duDukzati/diDikzati; BvAdi duh keeps duduhiz-, lih keeps
+            # lilikz-; surveyed quartet + BvAdi; shape+gana-gated).
+            if c in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                return "duDukz" if c == "duh" else "diDikz"
             # ad san suppletion (jiGatsati; sole 02.0001 surveyed — no BvAdi ad exists; gana-gated).
             if c == "ad" and meta.get("gana") == "adAdiH":
                 return "jiGats"
