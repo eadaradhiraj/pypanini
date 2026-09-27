@@ -1578,6 +1578,9 @@ class KrdantaEngine:
                     # mA nijanta (mApita; surveyed 02/03/04 unanimity; pan-gaNa shape-gated; manual triple).
                     if meta.get("clean") == "mA":
                         return {"M": "mApitaH", "F": "mApitA", "N": "mApitam"}
+                    # pA nijanta (pAlita; BvAdi/04 pAyita minimal pair surveyed; gana-gated; manual).
+                    if meta.get("clean") == "pA" and meta.get("gana") == "adAdiH":
+                        return {"M": "pAlitaH", "F": "pAlitA", "N": "pAlitam"}
                     # SAs nijanta plain (SAsita; sole 02.0070 surveyed; manual triple — tri_linga defined later).
                     if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
                         return {"M": "SAsitaH", "F": "SAsitA", "N": "SAsitam"}
@@ -1619,6 +1622,9 @@ class KrdantaEngine:
                     # mA nijanta (mApitavAn; surveyed 02/03/04 unanimity; pan-gaNa shape-gated; free).
                     if meta.get("clean") == "mA":
                         return {"M": "mApitavAn", "F": "mApitavatI", "N": ["mApitavat", "mApitavad"]}
+                    # pA nijanta (pAlitavAn; same minimal pair; gana-gated; free).
+                    if meta.get("clean") == "pA" and meta.get("gana") == "adAdiH":
+                        return {"M": "pAlitavAn", "F": "pAlitavatI", "N": ["pAlitavat", "pAlitavad"]}
                     # vaS nijanta vriddhi (vASitavAn; sole 02.0075 surveyed; old misses, free).
                     if meta.get("clean") == "vaS" and meta.get("gana") == "adAdiH":
                         return {"M": "vASitavAn", "F": "vASitavatI", "N": ["vASitavat", "vASitavad"]}
@@ -2151,6 +2157,9 @@ class KrdantaEngine:
             # quartet + BvAdi; shape+gana-gated; free).
             if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 return tri_linga("dugDa" if clean == "duh" else "digDa")
+            # pA A-kept kta (pAta; BvAdi/04 pIta minimal pair surveyed; gana-gated; free).
+            if sanadi is None and clean == "pA" and meta.get("gana") == "adAdiH":
+                return tri_linga("pAta")
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
@@ -2265,6 +2274,9 @@ class KrdantaEngine:
             if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 _dgv = "dugDav" if clean == "duh" else "digDav"
                 return {"M": _dgv + "An", "F": _dgv + "atI", "N": [_dgv + "at", _dgv + "ad"]}
+            # pA A-kept ktavatu (pAtavAn; same minimal pair; free).
+            if sanadi is None and clean == "pA" and meta.get("gana") == "adAdiH":
+                return {"M": "pAtavAn", "F": "pAtavatI", "N": ["pAtavat", "pAtavad"]}
             # vaS weak-uS ktavatu twin (uSitavAn; sole 02.0075 surveyed — old kept as cross-hit; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}
@@ -2284,6 +2296,10 @@ class KrdantaEngine:
             # Panini 7.3.77 izu-gami-yamAM CaH & 7.3.78 pA-GrA-DmA-sTA-mnA-dAR-dfSi-Sf-sad-SadAM piba-jiGra-Dama-tizWa-mana-yacCa-paSya-fcCa-DO-SIyadAH
             # Sarvadhatuka Sit suppletions for Satf in kartari mUla
             if sanadi is None:
+                # pA v-less Satf (pAn/pAtI; AdAdi 02.0051 vs BvAdi piban 01.1074 minimal pair;
+                # gana-gated early return before piba-suppletion; free).
+                if clean == "pA" and meta.get("gana") == "adAdiH":
+                    return {"M": "pAn", "F": ["pAtI", "pAntI"], "N": ["pAt", "pAd"]}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
