@@ -1250,6 +1250,9 @@ class KrdantaEngine:
                 return redup_cons + redup_vowel + _c_san + _sfx
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
+                # SAs intensive (SeSizya; mirrors tinanta; sole 02.0070 surveyed — gana-gated).
+                if c == "SAs" and meta.get("gana") == "adAdiH":
+                    return "SeSizya"
                 # single vocalic-f yan (mirrors tinanta; sole 01 f-clean 01.1086)
                 if c == "f":
                     return "arArya"
@@ -1554,6 +1557,9 @@ class KrdantaEngine:
                     # ew-final aniW mirrors it (Dew 01.1050 -> DApitaH; sew ew-roots excluded).
                     if op.startswith("dEp") or (orig_clean.endswith("ew") and not sew):
                         return {"M": sec_base+"itaH", "F": sec_base+"itA", "N": sec_base+"itam"}
+                    # SAs nijanta plain (SAsita; sole 02.0070 surveyed; manual triple — tri_linga defined later).
+                    if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
+                        return {"M": "SAsitaH", "F": "SAsitA", "N": "SAsitam"}
                     # jaB remapped to jamB must not inherit the root I~ iT-block
                     # (nijanta jamBitaH, not mUla-style jambDaH).
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
@@ -1578,6 +1584,9 @@ class KrdantaEngine:
                     # meta-clean gate — local clean may be nijanta-rewritten).
                     if meta.get("clean") == "vac" and meta.get("gana") == "adAdiH":
                         return {"M": "vAcitavAn", "F": "vAcitavatI", "N": ["vAcitavat", "vAcitavad"]}
+                    # SAs nijanta plain (SAsita; sole 02.0070 surveyed; A-stem + iT, no samprasAraNa; free).
+                    if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
+                        return {"M": "SAsitavAn", "F": "SAsitavatI", "N": ["SAsitavat", "SAsitavad"]}
                     # vaS nijanta vriddhi (vASitavAn; sole 02.0075 surveyed; old misses, free).
                     if meta.get("clean") == "vaS" and meta.get("gana") == "adAdiH":
                         return {"M": "vASitavAn", "F": "vASitavatI", "N": ["vASitavat", "vASitavad"]}
@@ -2062,6 +2071,9 @@ class KrdantaEngine:
                 # AdAdi vaS yl o-grade (voSita; sole 02.0075 surveyed; old misses, free).
                 if clean == "vaS" and meta.get("gana") == "adAdiH":
                     return tri_linga("voSita")
+                # AdAdi SAs yl iz-redup (SASizwa; sole 02.0070 surveyed; old misses, free).
+                if clean == "SAs" and meta.get("gana") == "adAdiH":
+                    return tri_linga("SASizwa")
                 _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita", "ve": "vovita", "hve": "jAhuvita"}
                 if clean in _yajadi_yl_kta:
                     return tri_linga(_yajadi_yl_kta[clean])
@@ -2083,6 +2095,9 @@ class KrdantaEngine:
             # vaS weak-uS kta twin (uSitaH; sole 02.0075 surveyed — old vaSita F cross-hits, kept; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitaH", "uSitaH"], "F": ["vaSitA", "uSitA"], "N": ["vaSitam", "uSitam"]}
+            # SAs iz-grade kta (SizwaH; sole 02.0070 surveyed; old A-forms miss, free).
+            if sanadi is None and clean == "SAs" and meta.get("gana") == "adAdiH":
+                return tri_linga("Sizwa")
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
@@ -2124,6 +2139,9 @@ class KrdantaEngine:
                 # AdAdi vaS yl o-grade (voSitavat; sole 02.0075 surveyed; old misses, free).
                 if clean == "vaS" and meta.get("gana") == "adAdiH":
                     return {"M": "voSitavAn", "F": "voSitavatI", "N": ["voSitavat", "voSitavad"]}
+                # AdAdi SAs yl iz-redup (SASizwavat; sole 02.0070 surveyed; old misses, free).
+                if clean == "SAs" and meta.get("gana") == "adAdiH":
+                    return {"M": "SASizwavAn", "F": "SASizwavatI", "N": ["SASizwavat", "SASizwavad"]}
                 # AdAdi vac yl redup (vocitavat; sole 02.0058; free).
                 if clean == "vac" and meta.get("gana") == "adAdiH":
                     return {"M": "vocitavAn", "F": "vocitavatI", "N": ["vocitavat", "vocitavad"]}
@@ -2177,6 +2195,9 @@ class KrdantaEngine:
             # cross-match; old vaktavAn misses in-fid, free).
             if sanadi is None and clean == "vac" and meta.get("gana") == "adAdiH":
                 return {"M": "uktavAn", "F": "uktavatI", "N": ["uktavat", "uktavad"]}
+            # SAs iz-grade ktavatu (SizwavAn; sole 02.0070 surveyed; old misses, free).
+            if sanadi is None and clean == "SAs" and meta.get("gana") == "adAdiH":
+                return {"M": "SizwavAn", "F": "SizwavatI", "N": ["Sizwavat", "Sizwavad"]}
             # vaS weak-uS ktavatu twin (uSitavAn; sole 02.0075 surveyed — old kept as cross-hit; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}

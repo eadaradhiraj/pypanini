@@ -211,3 +211,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 82 (stu uv-SAnac + zw-yl-Satf (`stuvAna`, `tozwuvat`; sole-scored/gated; free): 02.0038 → 884/884 (+1 pass, 51/76), 0 worsened (01 zero-diff).
 - Iteration 83 (nIk exclusion for AdAdi-kas × 3 builders (`_yan_stem` + `_yanlug_stem` + krdanta `_yan_sec`; BvAdi-nI surveyed as guard): 02.0015 → 873/873 (+1 pass, 52/76), 0 worsened (01 zero-diff).
 - Iteration 84 (daridrA ablaut + weak krdanta (mUla tables + yak stem + ASIrliN/tavya/anIyar/yat/tfc/GaY/tumun/ktvA/lyap weak specials; sole-gated): 02.0068 → 629/629 (+1 pass, 53/76), 0 worsened (01 zero-diff).
+- Iteration 85 (SAs full root (SeSizya yan stem ×2 builders + Sizwa mUla + SAsita nich + SASizwa/yl + SeSiz-yan krdanta via sec; no BvAdi SAs exists; sole-gated): 02.0070 → 879/879 (+1 pass, 54/76), 0 worsened (01 zero-diff).

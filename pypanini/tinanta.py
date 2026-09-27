@@ -1942,6 +1942,9 @@ class TinantaDerivationEngine:
             # everywhere per 40-root survey (no BvAdi han exists); gana-gated).
             if c == "han" and meta.get("gana") == "adAdiH":
                 _ybase = "Gan"
+            # SAs intensive (SeSizyate; sole 02.0070 surveyed — e-redup + izya stem; gana-gated).
+            if c == "SAs" and meta.get("gana") == "adAdiH":
+                return "SeSizya"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
