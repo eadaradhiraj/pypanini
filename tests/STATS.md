@@ -220,3 +220,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 91 (duh/dih lfw Dkzy cores (Dokzy/Dekzy both padas for global match; same quartet guards; additive): 02.0004/0005 +9 each, 0 worsened (01 zero-diff).
 - Iteration 92 (duh/dih lfN Dkzy (augmented mirrors lfw; same guards; additive; yak-count wobble is capped-sample noise — fid-diff clean): 02.0004/0005 +9 each, 0 worsened (01 zero-diff).
 - Iteration 93 (duh/dih luN aN-aorist Dukz/Dikz (aDukzat; BvAdi hat + lih likz surveyed guards; additive): 02.0004/0005 luN 9/9 (+1 each), 0 worsened (01 zero-diff).
+- Iteration 94 (duh/dih yak future Dkzy (Dokzyate/aDokzyata; same quartet guards; shared-stem covers lfw + lfN; additive): 02.0004/0005 +18 each, 0 worsened (01 zero-diff).

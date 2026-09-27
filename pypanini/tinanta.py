@@ -2722,6 +2722,13 @@ class TinantaDerivationEngine:
                                 b = s_stem + "y"
                                 if lakara == "lfN": b = _aug(b)
                                 cands+=self._conjugate_at_stem_atmane(b, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # AdAdi duh/dih yak future Dkzy (Dokzyate/aDokzyata; BvAdi hizy + lih kzy surveyed
+                # guards; shape+gana-gated; additive; covers lfw + lfN via shared stem).
+                if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                    _ydcore = "Dokzy" if clean == "duh" else "Dekzy"
+                    if lakara == "lfN":
+                        _ydcore = _aug(_ydcore)
+                    cands+=self._conjugate_at_stem_atmane(_ydcore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
                 # aja~ yak sya ve-doublet (vAyizyate seT + vezyate suppletive-aniT; sole aj-clean 01.0262
                 # surveyed, ~-gated; ajizyate-forms already above, additive).
                 if clean == "aj" and "~" in (op or ""):
