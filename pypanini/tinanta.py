@@ -4865,6 +4865,9 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
                 _mjluw = {("prathama","eka"):["mArjitA","mArzwA"],("prathama","dvi"):["mArjitArO","mArzwArO"],("prathama","bahu"):["mArjitAraH","mArzwAraH"],("madhyama","eka"):["mArjitAsi","mArzwAsi"],("madhyama","dvi"):["mArjitAsTaH","mArzwAsTaH"],("madhyama","bahu"):["mArjitAsTa","mArzwAsTa"],("uttama","eka"):["mArjitAsmi","mArzwAsmi"],("uttama","dvi"):["mArjitAsvaH","mArzwAsvaH"],("uttama","bahu"):["mArjitAsmaH","mArzwAsmaH"]}
                 cands += _mjluw.get((purusha, vacana), [])
+            # iN lut e-grade stem (aDyetA; sole 02.0041 surveyed — op-gated vs iR; additive).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                cands += self._conjugate_luw("aDye", pada, purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
