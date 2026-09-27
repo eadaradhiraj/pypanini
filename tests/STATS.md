@@ -294,4 +294,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 165 (han yak vaD- (vaDy stem + vaDizIzwa table; sole-gated; note: two traits, one gate — combined fid-diff clean): 02.0002 +18, 0 worsened (01 zero-diff).
 - Iteration 166 (han yak-luN GAn-grade (aj-pattern; sole-gated; additive): 02.0002 yak-luN 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 167 (han yan krdanta (jaMGan sec + Gan-syncope + SAnac -ya-; sole-gated; note: family bundle, one gate — combined fid-diff clean): 02.0002 yang_krut 29/29 (+29), 0 worsened (01 zero-diff).
+- Iteration 168 (han mUla n-loss set (hata/Gnat/vaDya/hatvA/prahatya; sole-gated; free): 02.0002 +13 slots, 0 worsened (01 zero-diff).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).

@@ -2278,6 +2278,9 @@ class KrdantaEngine:
             # mfjU zero-zw kta (mfzwa; sole 02.0061 surveyed — no BvAdi mfj exists; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return tri_linga("mfzwa")
+            # han n-loss kta (hata; sole 02.0002 surveyed — old hanta- misses in-fid; free).
+            if sanadi is None and clean == "han" and meta.get("gana") == "adAdiH":
+                return tri_linga("hata")
             # SI ay kta (Sayita; sole 02.0026 surveyed — no SI elsewhere; free).
             if sanadi is None and clean == "SI" and meta.get("gana") == "adAdiH":
                 return tri_linga("Sayita")
@@ -2416,6 +2419,9 @@ class KrdantaEngine:
             # mfjU zero-zw ktavatu (sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"M": "mfzwavAn", "F": "mfzwavatI", "N": ["mfzwavat", "mfzwavad"]}
+            # han n-loss ktavatu (sole-gated; free).
+            if sanadi is None and clean == "han" and meta.get("gana") == "adAdiH":
+                return {"M": "hatavAn", "F": "hatavatI", "N": ["hatavat", "hatavad"]}
             # SI ay ktavatu (Sayitavat; sole-gated; free).
             if sanadi is None and clean == "SI" and meta.get("gana") == "adAdiH":
                 return {"M": "SayitavAn", "F": "SayitavatI", "N": ["Sayitavat", "Sayitavad"]}
@@ -2503,6 +2509,9 @@ class KrdantaEngine:
                     # mfjU zero-j Satf (mfjan/mfjatI; sole 02.0061 surveyed; mUla takes num like duh;
                     # yl takes marmfjat- (own branch below); old marj-forms miss, free).
                     return {"M": "mfjan", "F": "mfjatI", "N": ["mfjat", "mfjad"]}
+                elif clean == "han" and meta.get("gana") == "adAdiH" and sanadi is None:
+                    # han G-Satf (Gnan/GnatI; sole 02.0002 surveyed; mUla takes num; free).
+                    return {"M": "Gnan", "F": "GnatI", "N": ["Gnat", "Gnad"]}
                 elif clean == "jAg" and meta.get("gana") == "adAdiH":
                     # jAgf Satf ar-grade base (jAgrat/jAgrad/jAgratI/jAgrantI; sole 02.0067 surveyed; old
                     # jAgat-forms miss everywhere so replacement is free like Svas/aja).
@@ -3064,6 +3073,9 @@ class KrdantaEngine:
             # iN aD- yat (aDyeya; sole 02.0041 surveyed — op-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return tri_linga("aDyeya")
+            # han vaD-yat (vaDya; sole 02.0002 surveyed; free).
+            if sanadi is None and clean == "han" and meta.get("gana") == "adAdiH":
+                return tri_linga("vaDya")
             # daridrA weak yat (daridryaH; sole 02.0068 surveyed; old e-grade misses, free).
             if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
                 return tri_linga("daridrya")
@@ -3539,6 +3551,9 @@ class KrdantaEngine:
             # SI ay ktvA (SayitvA; sole-gated; free).
             if sanadi is None and clean == "SI" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["SayitvA"]}
+            # han n-loss ktvA (hatvA; sole-gated; free).
+            if sanadi is None and clean == "han" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["hatvA"]}
             # svap samprasAraNa ktvA (suptvA; sole-gated; free).
             if sanadi is None and clean == "svap" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["suptvA"]}
@@ -3806,6 +3821,9 @@ class KrdantaEngine:
             # SI ay lyap (praSayya; sole 02.0026 surveyed; free).
             if clean == "SI" and meta.get("gana") == "adAdiH" and sanadi is None:
                 return {"avyaya": ["praSayya"]}
+            # han n-loss lyap (prahatya; sole 02.0002 surveyed; free).
+            if clean == "han" and meta.get("gana") == "adAdiH" and sanadi is None:
+                return {"avyaya": ["prahatya"]}
             if clean in _yajadi_lyap and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
                 if sanadi == "yanluganta":
                     _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSoSUya", "SoSUya"]}
