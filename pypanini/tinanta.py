@@ -3172,6 +3172,11 @@ class TinantaDerivationEngine:
                 try:
                     _peri_yak = {("prathama","eka"):"AYcakre",("prathama","dvi"):"AYcakrAte",("prathama","bahu"):"AYcakrire",("madhyama","eka"):"AYcakfze",("madhyama","dvi"):"AYcakrATe",("madhyama","bahu"):"AYcakfQve",("uttama","eka"):"AYcakre",("uttama","dvi"):"AYcakfvahe",("uttama","bahu"):"AYcakfmahe"}
                     cands.append(clean + _peri_yak[(purusha, vacana)])
+                    # vevI/dIDI yak peri-base +y (mirrors mUla; same pair guards; additive; one
+                    # AYcakre-form per slot suffices via any-match).
+                    if sanadi is None and meta.get("clean") in ("vevI", "dIDI") and meta.get("gana") == "adAdiH":
+                        _yyb = "vevy" if meta.get("clean") == "vevI" else "dIDy"
+                        cands.append(_yyb + _peri_yak[(purusha, vacana)])
                 except Exception:
                     pass
                 # vaS yak-liT samprasAraNa (USe/USAte...; sole 02.0075 surveyed; additive before return).
@@ -5318,6 +5323,11 @@ class TinantaDerivationEngine:
                     try:
                         _peri_at = {("prathama","eka"):"AYcakre",("prathama","dvi"):"AYcakrAte",("prathama","bahu"):"AYcakrire",("madhyama","eka"):"AYcakfze",("madhyama","dvi"):"AYcakrATe",("madhyama","bahu"):"AYcakfQve",("uttama","eka"):"AYcakre",("uttama","dvi"):"AYcakfvahe",("uttama","bahu"):"AYcakfmahe"}
                         cands.append(clean + _peri_at[(purusha, vacana)])
+                        # vevI/dIDI peri-base +y (vevyAYcakre/dIDyAYcakre; AdAdi N-pair 0072/0071
+                        # surveyed — no BvAdi counterparts; pair+gana-gated; additive).
+                        if meta.get("clean") in ("vevI", "dIDI") and meta.get("gana") == "adAdiH":
+                            _yb = "vevy" if meta.get("clean") == "vevI" else "dIDy"
+                            cands.append(_yb + _peri_at[(purusha, vacana)])
                     except Exception:
                         pass
                     return cands, log

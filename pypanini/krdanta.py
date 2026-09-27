@@ -2575,8 +2575,9 @@ class KrdantaEngine:
 
             # idit i-final num-clean (agi->aNgamAnaH; AdAdi luk takes -Ana: kaMsAnaH/niYjAnaH)
             # NB: derive-level num may pre-rewrite local clean (kasi->kaMs), so gate on meta-clean fallback.
+            # dIDI/vevI excluded (dInDAna is wrong; the y-SAnac special below is correct; pair-gated).
             _idc = clean if clean.endswith(("i", "I")) else (meta.get("clean", "") or "")
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and _idc.endswith(("i", "I")) and any(c in SLP1_VOWELS for c in _idc[:-1]):
+            if sanadi is None and (is_idit or pada == "Atmanepadi") and _idc.endswith(("i", "I")) and any(c in SLP1_VOWELS for c in _idc[:-1]) and meta.get("clean") not in ("dIDI", "vevI"):
                 _sbw = _idc[:-1]
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else ("n" if _sbw and _sbw[-1] in ("t", "T", "d", "D", "n") else None))))
                 if not _sn and _sbw and _sbw[-1] in ("s", "S", "z", "h"):
