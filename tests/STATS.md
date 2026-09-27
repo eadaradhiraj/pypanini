@@ -298,5 +298,6 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 169 (han yl G-family set (kta/ktavatu/Satf/ktvA/lyap; sole-gated; free): 02.0002 +10 slots, 0 worsened (01 zero-diff).
 - Iteration 170 (jAgar prim-base (sole jAg; shared-base flips lut/futures/yak; additive): 02.0067 +63 tokens, 0 worsened (01 zero-diff).
 - Iteration 171 (jAg yak + ASIrliN ar-stems (jAgary injection + jAgar _asb; sole-gated): 02.0067 +45 tokens, 0 worsened (01 zero-diff).
+- Iteration 172 (jAg ar-peri liT (jAgarAYcakre at peri site; sole-gated; additive): 02.0067 liw 9/9 (+9), 0 worsened (01 zero-diff).
 - Ceiling 0002-mUla-lfN (user halt-at-ceiling principle for dataless blocks: alrung key absent; 9 slots; 0002 capped at 873/882).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).

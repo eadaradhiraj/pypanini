@@ -5807,6 +5807,9 @@ class TinantaDerivationEngine:
                     try:
                         _peri_par = {("prathama","eka"):"AYcakre",("prathama","dvi"):"AYcakrAte",("prathama","bahu"):"AYcakrire",("madhyama","eka"):"AYcakfze",("madhyama","dvi"):"AYcakrATe",("madhyama","bahu"):"AYcakfQve",("uttama","eka"):"AYcakre",("uttama","dvi"):"AYcakfvahe",("uttama","bahu"):"AYcakfmahe"}
                         cands.append(clean + _peri_par[(purusha, vacana)])
+                        # jAg ar-peri (jAgarAYcakre; sole 02.0067 surveyed; additive).
+                        if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "jAg":
+                            cands.append("jAgar" + _peri_par[(purusha, vacana)])
                     except Exception:
                         pass
                     # snu a-grade liT m.eka (suzRaviTa; sole 02.0033 surveyed — tu takes tutaviTa via generic
