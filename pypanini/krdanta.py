@@ -865,6 +865,9 @@ class KrdantaEngine:
                 # iR nich gam-suppletion (mirrors tinanta/BvAdi gam; op-gated).
                 if c == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                     return "gamay"
+                # han nich GAta-stem (mirrors tinanta; same sole guard).
+                if c == "han" and meta.get("gana") == "adAdiH":
+                    return "GAtay"
                 # ew-final aniW (mirrors tinanta; sole 01 Dew 01.1050 surveyed; sew ew-roots keep generic ay).
                 if (c.endswith("ew") or op.endswith("ew")) and not sew:
                     _eb = c[:-2] if c.endswith("ew") else op[:-2]
@@ -1632,6 +1635,9 @@ class KrdantaEngine:
                     # iR nijanta gam-suppletion (gamita; sole 02.0040 surveyed — op-gated; manual triple).
                     if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                         return {"M": "gamitaH", "F": "gamitA", "N": "gamitam"}
+                    # han nijanta (GAtita; sole 02.0002 surveyed; manual triple).
+                    if meta.get("clean") == "han" and meta.get("gana") == "adAdiH":
+                        return {"M": "GAtitaH", "F": "GAtitA", "N": "GAtitam"}
                     # mfjU nijanta (mArjita; sole 02.0061 surveyed; manual triple).
                     if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
                         return {"M": "mArjitaH", "F": "mArjitA", "N": "mArjitam"}
@@ -1688,6 +1694,9 @@ class KrdantaEngine:
                     # iR nijanta gam-suppletion (gamitavAn; sole-gated; free).
                     if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                         return {"M": "gamitavAn", "F": "gamitavatI", "N": ["gamitavat", "gamitavad"]}
+                    # han nijanta (GAtitavAn; sole-gated; free).
+                    if meta.get("clean") == "han" and meta.get("gana") == "adAdiH":
+                        return {"M": "GAtitavAn", "F": "GAtitavatI", "N": ["GAtitavat", "GAtitavad"]}
                     # mfjU nijanta (mArjitavAn; sole-gated; free).
                     if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
                         return {"M": "mArjitavAn", "F": "mArjitavatI", "N": ["mArjitavat", "mArjitavad"]}

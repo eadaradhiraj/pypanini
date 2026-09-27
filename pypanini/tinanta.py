@@ -1480,6 +1480,9 @@ class TinantaDerivationEngine:
             # iR nich gam-suppletion (gamayati; sole 02.0040 surveyed — op-gated; mirrors BvAdi gam).
             if c == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                 return "gamay"
+            # han nich GAta-stem (GAtayati; sole 02.0002 surveyed — no BvAdi han exists).
+            if c == "han" and meta.get("gana") == "adAdiH":
+                return "GAtay"
             # ew-final aniW (sole 01 Dew 01.1050 surveyed): vriddhi-A + puk like dEp (DApay-);
             # shape-based (penult e + coda w) + aniW-gated: sew ew-roots (mlewf~/mewf~/rewf~) keep generic ay;
             # E-final yuk group (pE/sE/SE) ends in E, unaffected.
