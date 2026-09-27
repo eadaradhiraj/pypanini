@@ -2509,6 +2509,9 @@ class KrdantaEngine:
                     _hab = clean[0] + apply_guna(clean[1]) if len(clean) > 1 else clean
                     _hyb = _hab + clean + "at"
                     return {"M": [_hyb, _hyb[:-1] + "d"], "F": _hyb + "I", "N": [_hyb, _hyb[:-1] + "d"]}
+                elif clean == "UrRu" and meta.get("gana") == "adAdiH":
+                    # UrRu yl on-Satf (UrRonuvat; sole 02.0034 surveyed; free).
+                    return {"M": ["UrRonuvat", "UrRonuvad"], "F": "UrRonuvatI", "N": ["UrRonuvat", "UrRonuvad"]}
                 elif clean == "mfj" and meta.get("gana") == "adAdiH":
                     # mfjU yl redup Satf (mar- M + mari-/marI- F/N; sole 02.0061 surveyed; free).
                     return {"M": ["marmfjat", "marmfjad", "marimfjan", "marImfjan"], "F": ["marimfjatI", "marImfjatI"], "N": ["marimfjat", "marimfjad", "marImfjat", "marImfjad"]}
@@ -2905,6 +2908,9 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
                 _ylt = {"duh": "dodohitavya", "dih": "dedehitavya", "lih": "lelehitavya"}[clean]
                 return tri_linga(_ylt)
+            # UrRu yl on-tavya (UrRonavitavya; sole-gated; free).
+            if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return tri_linga("UrRonavitavya")
             # mfjU yl redup tavya (mar-/mari-/marI- × zw/jit; sole-gated; free).
             if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
                 _ylm = ["marmArzwavya", "marmArjitavya", "marimArzwavya", "marimArjitavya", "marImArzwavya", "marImArjitavya"]
@@ -2954,6 +2960,9 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
                 _yla = ["marmArjanIya", "marimArjanIya", "marImArjanIya"]
                 return {"M": [_s + "H" for _s in _yla], "F": [_s[:-1] + "A" for _s in _yla], "N": [_s + "m" for _s in _yla]}
+            # UrRu yl on-anIyar (UrRonavanIya; sole-gated; free).
+            if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return tri_linga("UrRonavanIya")
             # idit i-final num-clean (agi->aNganIyaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3125,6 +3134,9 @@ class KrdantaEngine:
             # mfjU yl redup Rvul (sole-gated; free).
             if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"M": ["marmArjakaH", "marimArjakaH", "marImArjakaH"], "F": ["marmArjikA", "marimArjikA", "marImArjikA"], "N": ["marmArjakam", "marimArjakam", "marImArjakam"]}
+            # UrRu yl on-Rvul (UrRonAvaka; sole-gated; free).
+            if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return {"M": "UrRonAvakaH", "F": "UrRonAvikA", "N": "UrRonAvakam"}
             # idit i-final num-clean (agi->aNgakaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _rbw = clean[:-1]
@@ -3231,6 +3243,9 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
                 _ylmf = ["marmArzwA", "marmArjitA", "marimArzwA", "marimArjitA", "marImArzwA", "marImArjitA"]
                 return {"M": _ylmf, "F": [_s[:-1] + "rI" for _s in _ylmf], "N": [_s[:-1] + "f" if _s.endswith("A") else _s + "f" for _s in _ylmf]}
+            # UrRu yl on-tfc (UrRonavitA; sole-gated; free).
+            if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return {"M": "UrRonavitA", "F": "UrRonavitrI", "N": "UrRonavitf"}
             # idit i-final numay (agi->aNgayitA, sraki->sraNkayitA; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3257,6 +3272,10 @@ class KrdantaEngine:
             if clean == "mfj" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _lyu = "mArjanam" if sanadi is None else "marmArjanam"
                 return {"gender": "Neuter", "form": _lyu}
+            # UrRu av lyuw (UrRavanam mUla + UrRonavanam yl; sole-gated; free).
+            if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
+                _ulyu = "UrRavanam" if sanadi is None else "UrRonavanam"
+                return {"gender": "Neuter", "form": _ulyu}
             # iN aD- lyuw (aDyayanam; sole 02.0041 surveyed — op-gated; free).
             if clean == "i" and meta.get("gana") == "adAdiH" and sanadi is None and op.startswith("iN"):
                 return {"gender": "Neuter", "form": "aDyayanam"}
@@ -3302,6 +3321,9 @@ class KrdantaEngine:
             if clean == "mfj" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _gy = "mArgaH" if sanadi is None else "marmArgaH"
                 return {"gender": "Masculine", "form": _gy}
+            # UrRu Av GaY (UrRonAvaH yl only; mUla GaY unscored; sole-gated; free).
+            if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi == "yanluganta":
+                return {"gender": "Masculine", "form": "UrRonAvaH"}
             # iN aD- GaY (aDyAyaH; sole 02.0041 surveyed — op-gated; free).
             if clean == "i" and meta.get("gana") == "adAdiH" and sanadi is None and op.startswith("iN"):
                 return {"gender": "Masculine", "form": "aDyAyaH"}
@@ -3397,6 +3419,9 @@ class KrdantaEngine:
             # mfjU A-zw tumun twins (mArzwum/mArjitum; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["mArzwum", "mArjitum"]}
+            # UrRu av tumun (UrRuvitum; av-twin shares slot via any-match; sole-gated; free).
+            if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["UrRuvitum"]}
             # iN aD- tumun (aDyetum; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"avyaya": ["aDyetum"]}
@@ -3419,6 +3444,9 @@ class KrdantaEngine:
             # mfjU yl redup tumun (6 variants; sole-gated; free).
             if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["marmArzwum", "marmArjitum", "marimArzwum", "marimArjitum", "marImArzwum", "marImArjitum"]}
+            # UrRu yl on-tumun (UrRonavitum; sole-gated; free).
+            if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["UrRonavitum"]}
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 return {"avyaya": [clean[:-1] + apply_guna(clean[-1]) + "tum"]}
             # guhU~ vew: aniT oQ (goQum) + seT Uhit (gUhitum); yangluk jo-.
