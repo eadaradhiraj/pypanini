@@ -194,3 +194,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 65 (dviz e-grade tables (z/w/q sandhi + ARi-1sg + yAt; sole 02.0003 surveyed; additive): 02.0003 ting-full (+22), 0 worsened (01 zero-diff).
 - Iteration 66 (dviz weak krdanta (mUla weak-i Satf/SAnac-ARa + redup-yl `dedvizat`; sole-gated free replacements): 02.0003 → 885/885 (+1 pass, 47/76), 0 worsened (01 zero-diff).
 - Iteration 67 (SAs A-grade tables (A-pits + iz-weak + w-variants + DHi + yAt; sole 02.0070 surveyed; additive): 02.0070 mUla-full (+29 tokens), 0 worsened (01 zero-diff).
+- Iteration 68 (vac yak-samprasAraNa (`Uc` liT + `ucy/Ocy` stems for lw/low/laN/viD; sole 02.0058, no BvAdi vac; a self-caught `vad`-line deletion regressed 01.1164 to exception — restored, gates exist for exactly this): 02.0058 +45 tokens, 0 worsened (01 zero-diff).

@@ -2590,6 +2590,12 @@ class TinantaDerivationEngine:
                 else:
                     yak_list = yak_variants if "yak_variants" in locals() else [yak_stem]
                 yak_list = list(dict.fromkeys(yak_list))
+                # vac yak samprasAraNa stems (ucy present/imperative/optative + Ocy imperfect; sole 02.0058
+                # surveyed — no BvAdi vac exists; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vac":
+                    for _vy2 in ("ucy", "Ocy"):
+                        if _vy2 not in yak_list:
+                            yak_list.append(_vy2)
                 # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: yak dIrgha for iv/Iv-final mUla
                 # (sWiv->sWIvyate, kzIvu~->kzIvyate; surveyed 01 iv/Iv set, additive, deduped)
                 if sanadi is None and len(clean) >= 2 and clean[-1] == "v" and clean[-2] in ("i", "I"):
@@ -2792,7 +2798,8 @@ class TinantaDerivationEngine:
                     except Exception:
                         pass
                     # Panini 6.1.15 + 6.1.17 yajAdi karmani liw (Ude, Ije, etc.)
-                    _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz"}
+                    # vac takes samprasAraNa Uc too (Uce; sole 02.0058 surveyed — no BvAdi vac exists).
+                    _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz", "vac": "Uc"}
                     if clean in _yajadi_kt or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
                         _kt = _yajadi_kt.get(clean, "Ud" if "vad" in op else ("Ij" if "yaj" in op else ("Up" if "vap" in op else ("Uh" if "vah" in op else "Uz"))))
                         _atman_yak = {
@@ -3085,7 +3092,8 @@ class TinantaDerivationEngine:
                         alt2 = {("prathama","eka"):"SiSvinde",("prathama","dvi"):"SiSvindAte",("prathama","bahu"):"SiSvindire",("madhyama","eka"):"SiSvindize",("madhyama","dvi"):"SiSvindATe",("madhyama","bahu"):"SiSvindiDve",("uttama","eka"):"SiSvinde",("uttama","dvi"):"SiSvindivahe",("uttama","bahu"):"SiSvindimahe"}
                     cands.append(alt2[(purusha,vacana)])
                 # Panini 6.1.15 + 6.1.17 yajAdi karmani liw (Ude, Ije, etc.)
-                _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz"}
+                # vac takes samprasAraNa Uc too (Uce; sole 02.0058 surveyed — no BvAdi vac exists).
+                _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz", "vac": "Uc"}
                 if clean in _yajadi_kt or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
                     _kt = _yajadi_kt.get(clean, "Ud" if "vad" in op else ("Ij" if "yaj" in op else ("Up" if "vap" in op else ("Uh" if "vah" in op else "Uz"))))
                     _atman_yak = {
