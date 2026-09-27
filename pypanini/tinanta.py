@@ -1510,6 +1510,10 @@ class TinantaDerivationEngine:
             # ad san suppletion (jiGatsati; sole 02.0001 surveyed — no BvAdi ad exists; gana-gated).
             if c == "ad" and meta.get("gana") == "adAdiH":
                 return "jiGats"
+            # mA san (mitsati; surveyed mA unanimity 02/03/04 incl. 01-absent; mI excluded — 04.0032 takes
+            # mimIz; shape-gated, no gana-gate needed).
+            if c == "mA":
+                return "mits"
             # stu san-redup takes zw (tuzwUzati, like kaS eka kazwe; sole 02.0038 surveyed — op-gated so
             # BvAdi wustu~ keeps regular tustU- even if data appears; additive via early return).
             if c == "stu" and op.startswith("zw"):

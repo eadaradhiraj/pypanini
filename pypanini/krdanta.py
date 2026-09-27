@@ -982,6 +982,9 @@ class KrdantaEngine:
                 # ad san suppletion (jiGats-; mirrors tinanta; sole 02.0001 surveyed — gana-gated).
                 if c == "ad" and meta.get("gana") == "adAdiH":
                     return "jiGats"
+                # mA san (mits-; mirrors tinanta; mA unanimity surveyed; mI excluded per 04.0032).
+                if c == "mA":
+                    return "mits"
                 # stu zw-redup (tuzwUz-; mirrors tinanta; sole 02.0038 surveyed — op-gated so BvAdi
                 # wustu~ keeps regular even if data appears).
                 if c == "stu" and op.startswith("zw"):
