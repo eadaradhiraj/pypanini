@@ -5434,6 +5434,10 @@ class TinantaDerivationEngine:
                 # vac samprasAraNa (ucyAt; sole 02.0058 surveyed — no BvAdi vac exists; additive stem).
                 if clean == "vac" and meta.get("gana") == "adAdiH":
                     _asb.append("uc")
+                # vaS weak-uS (uSyAt; sole 02.0075 surveyed — sas/Svas/ad keep strong; no BvAdi vaS
+                # exists; gana-gated additive stem).
+                if clean == "vaS" and meta.get("gana") == "adAdiH":
+                    _asb.append("uS")
                 if clean in ("zWiv", "kziv"):
                     _asb.append(clean[:-2] + "I" + "v")
                 # Panini 6.4.24 aniditAM hala upaDAyAH (nasal loss before yAt): tunp->tupyAt, Sans->SasyAt;
