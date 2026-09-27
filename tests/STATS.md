@@ -256,3 +256,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 127 (iN mUla system (lw/low/laN/viD tables ride neutrally + liw aDijag- ×2 paths; a dead 3116 yak placement removed after settrace proved the 2961 return; op-gated; note: bundle, one gate — combined fid-diff clean): 02.0041 +18 liw, 0 worsened (01 zero-diff).
 - Iteration 128 (iN lut e-grade stem (aDye- via _conjugate_luw; sole-gated; additive): 02.0041 lut 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 129 (iN z-futures (aDyezy lfw + aDyezIzwa ASIrliN × mUla/yak paths; op-gated; yak lfN queued): 02.0041 +36, 0 worsened (01 zero-diff).
+- Iteration 130 (iN lfN E-grade (aDyEzy × mUla/yak + augment-identity; a self-caught lfw-augment bug fixed before verify; op-gated): 02.0041 +18, 0 worsened (01 zero-diff).

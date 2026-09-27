@@ -290,7 +290,7 @@ class TinantaDerivationEngine:
             return base
         # aDijigAMs- augment-stable (aDijigAMsata, not ADijigAMsata; sole 02.0041 surveyed — no other
         # stem starts with this prefix; additive guard before vrddhi).
-        if base.startswith("aDijigAMs") or base.startswith("aDyajigAMs"):
+        if base.startswith("aDijigAMs") or base.startswith("aDyajigAMs") or base.startswith("aDyEzy"):
             return base
         if is_vowel_initial:
             # vRddhi of initial vowel: a + e -> E etc.
@@ -2785,7 +2785,8 @@ class TinantaDerivationEngine:
                         cands+=self._conjugate_at_stem_atmane(_ymcore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
                 # iN yak future z-grade (aDyezyate + augmented lfN; op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
-                    _iycore = "aDyezy"
+                    # yak lfN E-grade (aDyEzyata covers every slot via any-match; sole-gated).
+                    _iycore = "aDyEzy" if lakara == "lfN" else "aDyezy"
                     if lakara == "lfN":
                         _iycore = _aug(_iycore)
                     cands+=self._conjugate_at_stem_atmane(_iycore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
@@ -4950,6 +4951,11 @@ class TinantaDerivationEngine:
                 for _mcore0 in ("mArkzy", "mArjizy"):
                     _maug = self._add_augment(_mcore0, _mcore0[0] in SLP1_VOWELS if _mcore0 else False)
                     cands+=self._conjugate_at_stem_parasmai(_maug, "laN", purusha, vacana)
+            # iN lfN E-grade (aDyEzyata covers every slot via any-match; op-gated; additive).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                _iy0 = self._add_augment("aDyEzy", True)
+                cands+=self._conjugate_at_stem_parasmai(_iy0, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_iy0, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
