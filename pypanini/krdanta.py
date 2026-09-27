@@ -1573,6 +1573,9 @@ class KrdantaEngine:
                     # meta-clean gate — local clean may be nijanta-rewritten).
                     if meta.get("clean") == "vac" and meta.get("gana") == "adAdiH":
                         return {"M": "vAcitavAn", "F": "vAcitavatI", "N": ["vAcitavat", "vAcitavad"]}
+                    # vaS nijanta vriddhi (vASitavAn; sole 02.0075 surveyed; old misses, free).
+                    if meta.get("clean") == "vaS" and meta.get("gana") == "adAdiH":
+                        return {"M": "vASitavAn", "F": "vASitavatI", "N": ["vASitavat", "vASitavad"]}
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
                     _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
                     _b = _mstem[:-1] if _mstem.endswith("a") else _mstem
@@ -2051,6 +2054,9 @@ class KrdantaEngine:
                 # AdAdi vas keeps vas with redup (vAvasita; sole 02.0013 surveyed; old vuzita misses, free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
                     return tri_linga("vAvasita")
+                # AdAdi vaS yl o-grade (voSita; sole 02.0075 surveyed; old misses, free).
+                if clean == "vaS" and meta.get("gana") == "adAdiH":
+                    return tri_linga("voSita")
                 _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita", "ve": "vovita", "hve": "jAhuvita"}
                 if clean in _yajadi_yl_kta:
                     return tri_linga(_yajadi_yl_kta[clean])
@@ -2069,6 +2075,9 @@ class KrdantaEngine:
                             "F": [_t["F"] for _t in _tl],
                             "N": [_t["N"] for _t in _tl]}
             # I~ blocks iT for mUla & yanluganta (yatI~->yatta, yAyatta via cross-match); sannanta/nijanta/yananta sec keeps iT
+            # vaS weak-uS kta twin (uSitaH; sole 02.0075 surveyed — old vaSita F cross-hits, kept; additive).
+            if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
+                return {"M": ["vaSitaH", "uSitaH"], "F": ["vaSitA", "uSitA"], "N": ["vaSitam", "uSitam"]}
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
@@ -2107,6 +2116,9 @@ class KrdantaEngine:
                 # AdAdi vas yl redup (vAvasitavat; sole 02.0013; free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
                     return {"M": "vAvasitavAn", "F": "vAvasitavatI", "N": ["vAvasitavat", "vAvasitavad"]}
+                # AdAdi vaS yl o-grade (voSitavat; sole 02.0075 surveyed; old misses, free).
+                if clean == "vaS" and meta.get("gana") == "adAdiH":
+                    return {"M": "voSitavAn", "F": "voSitavatI", "N": ["voSitavat", "voSitavad"]}
                 # AdAdi vac yl redup (vocitavat; sole 02.0058; free).
                 if clean == "vac" and meta.get("gana") == "adAdiH":
                     return {"M": "vocitavAn", "F": "vocitavatI", "N": ["vocitavat", "vocitavad"]}
@@ -2160,6 +2172,9 @@ class KrdantaEngine:
             # cross-match; old vaktavAn misses in-fid, free).
             if sanadi is None and clean == "vac" and meta.get("gana") == "adAdiH":
                 return {"M": "uktavAn", "F": "uktavatI", "N": ["uktavat", "uktavad"]}
+            # vaS weak-uS ktavatu twin (uSitavAn; sole 02.0075 surveyed — old kept as cross-hit; additive).
+            if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
+                return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}
             b = stem[:-1] if stem.endswith("a") else stem
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
@@ -2274,6 +2289,9 @@ class KrdantaEngine:
                 elif clean == "rud" and meta.get("gana") == "adAdiH":
                     # rud reduplicated v-less Satf (rorudat; sole 02.0062; old forms miss, free).
                     return {"M": ["rorudat", "rorudad"], "F": "rorudatI", "N": ["rorudat", "rorudad"]}
+                elif clean == "vaS" and meta.get("gana") == "adAdiH":
+                    # vaS yl o-grade Satf (voSat, no-num M; sole 02.0075 surveyed; old misses, free).
+                    return {"M": ["voSat", "voSad"], "F": "voSatI", "N": ["voSat", "voSad"]}
                 elif clean == "dviz" and meta.get("gana") == "adAdiH":
                     # dviz reduplicated weak Satf (dedvizat, no-num M; sole 02.0003; old forms miss, free).
                     return {"M": ["dedvizat", "dedvizad"], "F": "dedvizatI", "N": ["dedvizat", "dedvizad"]}
@@ -3303,12 +3321,18 @@ class KrdantaEngine:
             # AdAdi vas yl redup (pravAvasya; sole 02.0013; free).
             if sanadi == "yanluganta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["pravAvasya"]}
+            # AdAdi vaS yl o-grade lyap (pravoSya; sole 02.0075 surveyed; old misses, free).
+            if sanadi == "yanluganta" and clean == "vaS" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["pravoSya"]}
             # AdAdi vac samprasAraNa lyap (procya mUla + pravocya yl; sole 02.0058; free).
             if clean == "vac" and meta.get("gana") == "adAdiH":
                 if sanadi == "yanluganta":
                     return {"avyaya": ["pravocya"]}
                 if sanadi is None:
                     return {"avyaya": ["procya"]}
+            # AdAdi vaS o-grade lyap (proSya mUla; sole 02.0075 surveyed; old misses, free).
+            if clean == "vaS" and meta.get("gana") == "adAdiH" and sanadi is None:
+                return {"avyaya": ["proSya"]}
             if clean in _yajadi_lyap and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
                 if sanadi == "yanluganta":
                     _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSoSUya", "SoSUya"]}

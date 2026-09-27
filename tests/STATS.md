@@ -206,3 +206,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 77 (yan cutva in krdanta `_yan_sec` + tinanta `_yanlug_stem` (same gana-gate × 2 builders): 02.0037 → 881/881 (+1 pass, 49/76), 0 worsened (01 zero-diff).
 - Iteration 78 (vaS yak samprasAraNa (`uSy/OSy` injection + `US` liT table; sole-gated; additive): 02.0075 yak-full (+45 tokens), 0 worsened (01 zero-diff).
 - Iteration 79 (vaS ASIrliN weak stem (`_asb` +`uS`, mirroring aj→vI precedent; sas/Svas keep strong; sole-gated): 02.0075 ASIrliN 9/9 (+9), 0 worsened (01 zero-diff).
+- Iteration 80 (vaS weak/o krdanta set (uSita/uktvA/proSya mUla + vASitavat nich + voSita/voSat/pravoSya yl; kta twinned; free rest; sole-gated): 02.0075 → 879/879 (+1 pass, 50/76), 0 worsened (01 zero-diff).
