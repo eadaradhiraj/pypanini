@@ -233,3 +233,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 104 (pA nich l-augment (pAlay ×2 builders; AdAdi 02.0051 vs BvAdi pAyay 01.1074 minimal gana-pair; gana-gated): 02.0051 nich (+152 tokens), 0 worsened (01 zero-diff).
 - Iteration 105 (pA yang gate mirror (pepIya gated to 1074/pA~ like krdanta; AdAdi falls to generic pApAya; same minimal pair): 02.0051 yang (+180 tokens), 0 worsened (01 zero-diff).
 - Iteration 106 (pA krdanta set (pAta/pAtavat + pAn-Satf + pAlita nich; BvAdi/04 pIta-piban-pAyita pairs; a self-caught yl-chain misplacement reverted to mUla early return; free): 02.0051 → 882/882 (+1 pass, 61/76), 0 worsened (01 zero-diff).
+- Iteration 107 (svap yak samprasAraNa (supy injection + suzup liT; Panini 6.1.15 svapi; sole-gated; additive): 02.0063 yak-full (+45 tokens), 0 worsened (01 zero-diff).

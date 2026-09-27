@@ -2646,6 +2646,11 @@ class TinantaDerivationEngine:
                     for _vy3 in ("uSy", "OSy"):
                         if _vy3 not in yak_list:
                             yak_list.append(_vy3)
+                # svap yak samprasAraNa stem (supy throughout incl. imperfect; Panini 6.1.15 svapi;
+                # sole 02.0063 surveyed — no BvAdi svap yak exists; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "svap":
+                    if "supy" not in yak_list:
+                        yak_list.append("supy")
                 # daridrA yak stem (daridry-; sole 02.0068 surveyed; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "daridrA":
                     if "daridry" not in yak_list:
@@ -3189,6 +3194,10 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vaS":
                     _use = {("prathama","eka"):["USe"],("prathama","dvi"):["USAte"],("prathama","bahu"):["USire"],("madhyama","eka"):["USize"],("madhyama","dvi"):["USATe"],("madhyama","bahu"):["USiDve"],("uttama","eka"):["USe"],("uttama","dvi"):["USivahe"],("uttama","bahu"):["USimahe"]}
                     cands += _use.get((purusha, vacana), [])
+                # svap yak-liT redup-satva (suzupe...; sole 02.0063 surveyed; additive before return).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "svap":
+                    _szp = {("prathama","eka"):["suzupe"],("prathama","dvi"):["suzupAte"],("prathama","bahu"):["suzupire"],("madhyama","eka"):["suzupize"],("madhyama","dvi"):["suzupATe"],("madhyama","bahu"):["suzupiDve"],("uttama","eka"):["suzupe"],("uttama","dvi"):["suzupivahe"],("uttama","bahu"):["suzupimahe"]}
+                    cands += _szp.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
