@@ -5550,6 +5550,9 @@ class TinantaDerivationEngine:
                 # daridrA weak (daridryAt; sole 02.0068 surveyed — A-final excluded from a-rule; additive).
                 if clean == "daridrA" and meta.get("gana") == "adAdiH":
                     _asb.append("daridr")
+                # svap samprasAraNa (supyAt; sole 02.0063 surveyed — no BvAdi svap exists; additive).
+                if clean == "svap" and meta.get("gana") == "adAdiH":
+                    _asb.append("sup")
                 # vaS weak-uS (uSyAt; sole 02.0075 surveyed — sas/Svas/ad keep strong; no BvAdi vaS
                 # exists; gana-gated additive stem).
                 if clean == "vaS" and meta.get("gana") == "adAdiH":
