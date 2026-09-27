@@ -997,6 +997,9 @@ class KrdantaEngine:
                 # SI san ay-grade (mirrors tinanta; same sole guard).
                 if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
                     return "SiSayiz"
+                # jAg san Ir-grade (mirrors tinanta; same sole guard).
+                if meta.get("clean") == "jAg" and meta.get("gana") == "adAdiH":
+                    return "jijAgIrz"
                 # duh/dih san D-infix (mirrors tinanta; same quartet guards; shape+gana-gated).
                 if c in ("duh", "dih") and meta.get("gana") == "adAdiH":
                     return "duDukz" if c == "duh" else "diDikz"

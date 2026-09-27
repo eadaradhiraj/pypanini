@@ -1563,6 +1563,9 @@ class TinantaDerivationEngine:
             # SI san ay-grade (SiSayizate; sole 02.0026 surveyed — meta-clean gate).
             if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
                 return "SiSayiz"
+            # jAg san Ir-grade (jijAgIrzati; sole 02.0067 surveyed — meta-clean gate).
+            if meta.get("clean") == "jAg" and meta.get("gana") == "adAdiH":
+                return "jijAgIrz"
             # duh/dih san D-infix (duDukzati/diDikzati; BvAdi duh keeps duduhiz-, lih keeps
             # lilikz-; surveyed quartet + BvAdi; shape+gana-gated).
             if c in ("duh", "dih") and meta.get("gana") == "adAdiH":
