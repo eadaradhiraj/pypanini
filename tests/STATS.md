@@ -240,3 +240,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 111 (svap yang intensive (sozupya ×2 builders; sole-gated; additive; SAs guard holds): 02.0063 yang (+84 tokens), 0 worsened (01 zero-diff).
 - Iteration 112 (svap nich-CaN samprasAraNa base (sup → sUzup via zatva + U-redup; sole-gated; additive; a redundant mUla-sic twin self-reverted after the fid proved ting already green): 02.0063 nich-luN 9/9 (+1), 0 worsened (01 zero-diff).
 - Iteration 113 (svap samprasAraNa kta pair (supta/suptavat; sole-gated; free): 02.0063 +5 slots, 0 worsened (01 zero-diff).
+- Iteration 114 (svap nich vriddhi ktavatu (svApitavAn; sole-gated; free; nich-kta left on mUla cross-match): 02.0063 +3 slots, 0 worsened (01 zero-diff).

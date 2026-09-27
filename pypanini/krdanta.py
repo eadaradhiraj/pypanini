@@ -1645,6 +1645,9 @@ class KrdantaEngine:
                         _ht = "dohita" if meta.get("clean") == "duh" else "dehita"
                         _hb = _ht[:-1] if _ht.endswith("a") else _ht
                         return {"M": [_b+"avAn", _hb+"avAn"], "F": [_b+"avatI", _hb+"avatI"], "N": [_b+"avat", _hb+"avat"]}
+                    # svap nich vriddhi (svApitavAn; sole 02.0063 surveyed — no BvAdi svap exists; free).
+                    if meta.get("clean") == "svap" and meta.get("gana") == "adAdiH":
+                        return {"M": "svApitavAn", "F": "svApitavatI", "N": ["svApitavat", "svApitavad"]}
                     return {"M": _b+"avAn", "F": _b+"avatI", "N": _b+"avat"}
                 if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
                 if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
