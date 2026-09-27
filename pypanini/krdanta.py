@@ -991,6 +991,9 @@ class KrdantaEngine:
                 # svap san (mirrors tinanta; same sole guard).
                 if meta.get("clean") == "svap" and meta.get("gana") == "adAdiH":
                     return "suzups"
+                # mfjU san (mirrors tinanta; same sole guard).
+                if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
+                    return "mimArjiz"
                 # ad san suppletion (jiGats-; mirrors tinanta; sole 02.0001 surveyed — gana-gated).
                 if c == "ad" and meta.get("gana") == "adAdiH":
                     return "jiGats"

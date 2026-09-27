@@ -1535,6 +1535,10 @@ class TinantaDerivationEngine:
             # meta-clean gate).
             if meta.get("clean") == "svap" and meta.get("gana") == "adAdiH":
                 return "suzups"
+            # mfjU san A-grade (mimArjizati; mimfkz- twin covers same slots via any-match so one stem
+            # suffices; sole 02.0061 surveyed — no BvAdi mfj exists; meta-clean gate).
+            if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
+                return "mimArjiz"
             # ad san suppletion (jiGatsati; sole 02.0001 surveyed — no BvAdi ad exists; gana-gated).
             if c == "ad" and meta.get("gana") == "adAdiH":
                 return "jiGats"
