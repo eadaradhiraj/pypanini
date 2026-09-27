@@ -3453,6 +3453,10 @@ class TinantaDerivationEngine:
                             cands+= [aug_sec+"iDvam", aug_sec+"iQvam", aug_sec+"Izwa"]
                         else:
                             cands+= [cand_atman, cand_paras]
+                    # iN nich_yak luN sic (aDyApizi-grades; sole 02.0041 surveyed — op-gated; additive).
+                    if sanadi == "nijanta" and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                        _iynl = {("prathama","eka"):["aDyApizi"],("prathama","dvi"):["aDyApizAtAm"],("prathama","bahu"):["aDyApizata"],("madhyama","eka"):["aDyApizWAH"],("madhyama","dvi"):["aDyApizATAm"],("madhyama","bahu"):["aDyApiQvam"],("uttama","eka"):["aDyApizi"],("uttama","dvi"):["aDyApizvahi"],("uttama","bahu"):["aDyApizmahi"]}
+                        cands += _iynl.get((purusha, vacana), [])
                     return list(dict.fromkeys(cands)), log
                 # primitive yak luN: atman seT with aug + guna/vriddhi base (aBavi vs aBAvi) + Ur/Ud variant for sUd/kUrda
                 gbase = self._bhvadi_guna_base(clean, is_idit)

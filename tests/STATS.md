@@ -263,3 +263,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 134 (iN yak stems (aDIy + aDyEy imperfect, ucy/Ocy pattern; op-gated; additive): 02.0041 yak-present (+36 tokens), 0 worsened (01 zero-diff).
 - Iteration 135 (iN nich yA-stem (aDyApay ×2 builders + augment-identity guard; op-gated; note: two traits, one gate — combined fid-diff clean): 02.0041 +188 tokens, 0 worsened (01 zero-diff).
 - Iteration 136 (aDyApay CaN twins (early return in _nijanta_aorist; sole-gated): 02.0041 +1 slot, 0 worsened (01 zero-diff).
+- Iteration 137 (iN nich_yak luN sic table (aDyApizi-grades; op-gated; additive): 02.0041 +9 slots, 0 worsened (01 zero-diff).
