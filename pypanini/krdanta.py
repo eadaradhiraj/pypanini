@@ -2828,6 +2828,9 @@ class KrdantaEngine:
             # misses in-fid, free; BvAdi untouched).
             if sanadi is None and meta.get("clean") == "stu" and meta.get("gana") == "adAdiH":
                 return tri_linga("stuvAna")
+            # UrRu uv SAnac (UrRuvAna; sole 02.0034 surveyed — yu/ru take no SAnac data; free).
+            if sanadi is None and meta.get("clean") == "UrRu" and meta.get("gana") == "adAdiH":
+                return tri_linga("UrRuvAna")
             # dviz weak SAnac with Natva (dvizARaH; sole 02.0003 surveyed; free; BvAdi untouched).
             if sanadi is None and meta.get("clean") == "dviz" and meta.get("gana") == "adAdiH":
                 return tri_linga("dvizARa")
@@ -2879,6 +2882,9 @@ class KrdantaEngine:
             # duh/dih gD tavya (dogDavya/degDavya; BvAdi dohitavya + lih leQavya guards; free).
             if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 return tri_linga("dogDavya" if clean == "duh" else "degDavya")
+            # UrRu uv tavya (UrRuvitavya; av-twin shares slots via any-match; sole-gated; free).
+            if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return tri_linga("UrRuvitavya")
             # mfjU A-zw tavya (mArzwavya; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return tri_linga("mArzwavya")
@@ -2935,6 +2941,9 @@ class KrdantaEngine:
             # mfjU A-j anIyar (mArjanIya; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return tri_linga("mArjanIya")
+            # UrRu av anIyar (UrRavanIya; sole-gated; free).
+            if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return tri_linga("UrRavanIya")
             # iN aD- anIyar (aDyayanIya; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return tri_linga("aDyayanIya")
@@ -2992,6 +3001,9 @@ class KrdantaEngine:
             # daridrA weak yat (daridryaH; sole 02.0068 surveyed; old e-grade misses, free).
             if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
                 return tri_linga("daridrya")
+            # UrRu av yat (UrRavya; sole-gated; free).
+            if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return tri_linga("UrRavya")
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
             # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
             # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-)
@@ -3101,6 +3113,9 @@ class KrdantaEngine:
             # mfjU A-j Rvul (mArjaka; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"M": "mArjakaH", "F": "mArjikA", "N": "mArjakam"}
+            # UrRu Av Rvul (UrRAvaka; sole-gated; free).
+            if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return {"M": "UrRAvakaH", "F": "UrRAvikA", "N": "UrRAvakam"}
             # iN aD- Rvul (aDyAyaka; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDyAyakaH", "F": "aDyAyikA", "N": "aDyAyakam"}
@@ -3187,6 +3202,9 @@ class KrdantaEngine:
             # mfjU A-zw tfc (mArzwA; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"M": "mArzwA", "F": "mArzwrI", "N": "mArzwf"}
+            # UrRu uv tfc (UrRuvitA; sole-gated; free).
+            if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
+                return {"M": "UrRuvitA", "F": "UrRuvitrI", "N": "UrRuvitf"}
             # iN aD- tfc (aDyetA; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDyetA", "F": "aDyetrI", "N": "aDyetf"}
