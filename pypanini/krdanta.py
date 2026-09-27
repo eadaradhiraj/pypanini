@@ -1000,6 +1000,9 @@ class KrdantaEngine:
                 # iR san gam-suppletion for krdanta (jigAMsita; ting takes jigamiz- above; op-gated).
                 if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                     return "jigAMs"
+                # iN san gam-suppletion for krdanta (aDijigAMsita; op-gated).
+                if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
+                    return "aDijigAMs"
                 # ad san suppletion (jiGats-; mirrors tinanta; sole 02.0001 surveyed — gana-gated).
                 if c == "ad" and meta.get("gana") == "adAdiH":
                     return "jiGats"
