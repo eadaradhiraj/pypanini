@@ -2,16 +2,16 @@
 
 Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **48/76 100%-attested** (raw 48/77, 1 skipped) — token gains, no new passes.
+Sweep-02: **49/76 100%-attested** (raw 49/77, 1 skipped) — +1 pass!
 
-## Done — han-yan Gh (+180 tokens, 0 worsened)
-- `_ybase Gan` for sole han (BvAdi-h survey; gana-gated; shared stem):
-  - tinanta `_yan_stem`.
-  - Full Sweep Results: 02 improved **1 root** (0002 143->323/882), **worsened 0** (01 zero-diff).
-- Prior work: 02 at 48/76 passes; combined same passes, token gains continue.
+## Done — yan cutva ×2 builders (+1 pass, +47 tokens, 0 worsened)
+- Same gana-gate in krdanta `_yan_sec` + tinanta `_yanlug_stem`:
+  - Shared yan stem builders.
+  - Full Sweep Results: 02 improved **1 root** (0037 834->881/881 **pass**), **worsened 0** (01 zero-diff).
+- Prior work: 02 at 48/76; combined **49/76**.
 
 ## Next (02 loop)
-1. yangluk paradigm + yang_krut per root (0037/0002 residuals).
-2. cakz perfect/aorist (0007) + SAsu kta-family + UrRu leftovers + 0038/0015/0070 residuals.
+1. 0002 residuals (yangluk + krdanta-yang? gap ~559?) + 0015/0070/0038 residuals.
+2. cakz perfect/aorist (0007) + SAsu kta-family + UrRu leftovers + vaS san/nich.
 3. Ganas 03–10 to follow.
-- Advance 02: 48/76 → all.
+- Advance 02: 49/76 → all.

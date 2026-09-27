@@ -203,3 +203,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 74 (nich-kta vriddhi twin, pan-gaNa short-a (a self-caught `tri_linga` forward-reference fixed via manual triple; old kept as cross-hit; additive so monotonic): 3 roots +7 tokens, 0 worsened (01 zero-diff).
 - Iteration 75 (yan cutva gana-gate (7.4.63 exemption holds only BvAdi `kokUyate`; AdAdi takes `cokUyate` — surveyed pair, BvAdi-guard is the point; one line): 02.0037 +180 tokens, 0 worsened (01 zero-diff).
 - Iteration 76 (han-yan Gh stem (`jaMGan`; sole 02.0002 surveyed — 40-root BvAdi survey keeps h; gana-gated; all yang lakaras share `_yan_stem`): 02.0002 +180 tokens, 0 worsened (01 zero-diff).
+- Iteration 77 (yan cutva in krdanta `_yan_sec` + tinanta `_yanlug_stem` (same gana-gate × 2 builders): 02.0037 → 881/881 (+1 pass, 49/76), 0 worsened (01 zero-diff).
