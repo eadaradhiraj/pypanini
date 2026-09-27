@@ -5405,6 +5405,9 @@ class TinantaDerivationEngine:
                 _asb = [clean]
                 if clean == "aj" or op.startswith("aja"):
                     _asb.append("vI")
+                # vac samprasAraNa (ucyAt; sole 02.0058 surveyed — no BvAdi vac exists; additive stem).
+                if clean == "vac" and meta.get("gana") == "adAdiH":
+                    _asb.append("uc")
                 if clean in ("zWiv", "kziv"):
                     _asb.append(clean[:-2] + "I" + "v")
                 # Panini 6.4.24 aniditAM hala upaDAyAH (nasal loss before yAt): tunp->tupyAt, Sans->SasyAt;
@@ -5518,6 +5521,10 @@ class TinantaDerivationEngine:
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":
+            # vac o-grade root-aorist (avocat/avocad/avocaH; sole 02.0058 surveyed — generic gives s-aorist;
+            # kartari eka-only return (slots currently miss); yak/others fall through).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vac" and prayoga == "kartari" and (purusha, vacana) in (("prathama", "eka"), ("madhyama", "eka")):
+                return (["avocat", "avocad"] if purusha == "prathama" else ["avocaH"]), log
             # yatI yak special handling (karmani)
             if clean in ("yat", "yatI") and prayoga == "karmani" and sanadi is None:
                 tbl_yat_yak = {("prathama","eka"):["ayAti"],("prathama","dvi"):["ayatizAtAm"],("prathama","bahu"):["ayatizata"],("madhyama","eka"):["ayatizWAH"],("madhyama","dvi"):["ayatizATAm"],("madhyama","bahu"):["ayatiDvam"],("uttama","eka"):["ayatizi"],("uttama","dvi"):["ayatizvahi"],("uttama","bahu"):["ayatizmahi"]}
