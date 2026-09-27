@@ -65,6 +65,10 @@ def clean_dhatu_op(op: str) -> str:
         if (op.startswith(_pre + "~") or op.startswith(_pre)) and len(raw) > len(_pre) + 1:
             raw = raw[len(_pre):]
             break
+    # qukfY (08.0010): qu- it (1.3.5 AdirYi...) + kf + Y-it; the length guard above
+    # spares 3-char raws, leaving quk — strip qu- explicitly (sole quk-clean surveyed all ganas).
+    if raw == "quk" and op.startswith("qukf"):
+        raw = "kf"
     # Initial u~ anubandha (sole case u~bundi~r 01.1017 -> bund; 1.3.5 AdirYi...).
     if op.startswith("u~") and raw.startswith("u") and len(raw) > 2:
         raw = raw[1:]
@@ -398,6 +402,20 @@ class TinantaDerivationEngine:
                 return stem[:-2] + "Ng" + ending
             return stem + ending
         return stem + ending
+
+    def _tanadi_stems(self, clean: str) -> Tuple[List[str], List[str], List[str]]:
+        """tanAdi o/u vikaraNa stems (u-pratyaya, SArvadhAtuka o/kit-u ablaut):
+        strongs (o-grade + guNa doublet), weaks (u-grade + guNa doublet),
+        vidhi-paras stems (weaks, except open-f takes bare ur-grade: kuryAt).
+        Surveyed all 10 tanAdi cleans: alternating pairs kziR/kzeR + fR/arR,
+        tfR/tarR, GfR/GarR (doublets everywhere, dedup singles elsewhere);
+        open-f kf takes ur-weak (kuru/kurvanti, never *karu/*kfu; sole open-f kf)."""
+        guna = self._bhvadi_guna_base(clean, False)
+        if clean.endswith("f"):
+            return ([guna + "o"], [clean[:-1] + "uru"], [clean[:-1] + "ur"])
+        strongs = list(dict.fromkeys([clean + "o", guna + "o"]))
+        weaks = list(dict.fromkeys([clean + "u", guna + "u"]))
+        return (strongs, weaks, weaks)
 
     def _reduplicated_stem(self, clean: str) -> str:
         """Simple generative reduplication for consonant-initial BvAdi.
@@ -4326,6 +4344,34 @@ class TinantaDerivationEngine:
                 _uweak = clean
                 _ue = {("prathama","eka"):[_ustrong+"ti"],("prathama","dvi"):[_uweak+"taH"],("prathama","bahu"):[_uweak+"vanti"],("madhyama","eka"):[_ustrong+"zi"],("madhyama","dvi"):[_uweak+"TaH"],("madhyama","bahu"):[_uweak+"Ta"],("uttama","eka"):[_ustrong+"mi"],("uttama","dvi"):[_uweak+"vaH"],("uttama","bahu"):[_uweak+"maH"]}
                 cands += _ue.get((purusha, vacana), [])
+            # tanAdi o/u present (tanoti/tanutaH/tanvanti, karoti/kurvanti; u-vikaraNa with
+            # o-pit/kit-u ablaut): strongs take pit-eka (o+ti/si/mi), weaks take rest
+            # (u+taH/anti with u→v before vowels); uttama-du/pl twin u-kept/u-dropped
+            # (tanuvaH/tanvaH, tanumaH/tanmaH); Atmane mirrors (tanute/tanvAte/tanute...,
+            # u+se→uze, u+e→ve). Surveyed all 10 tanAdi cleans incl. guNa-doublets
+            # (kziRo/kzeRo, fRo/arRo) + ur-weak kf. Gana-gated (01/02 untouched); additive.
+            if meta.get("gana") == "tanAdiH" and sanadi is None:
+                _t8s, _t8w, _t8v = self._tanadi_stems(clean)
+                _t8p = {("prathama","eka"):[s+"ti" for s in _t8s],
+                        ("prathama","dvi"):[w+"taH" for w in _t8w],
+                        ("prathama","bahu"):[w[:-1]+"vanti" for w in _t8w],
+                        ("madhyama","eka"):[s+"zi" for s in _t8s],
+                        ("madhyama","dvi"):[w+"TaH" for w in _t8w],
+                        ("madhyama","bahu"):[w+"Ta" for w in _t8w],
+                        ("uttama","eka"):[s+"mi" for s in _t8s],
+                        ("uttama","dvi"):[x for w in _t8w for x in (w[:-1]+"vaH", w+"vaH")],
+                        ("uttama","bahu"):[x for w in _t8w for x in (w[:-1]+"maH", w+"maH")]}
+                cands += _t8p.get((purusha, vacana), [])
+                _t8a = {("prathama","eka"):[w+"te" for w in _t8w],
+                        ("prathama","dvi"):[w[:-1]+"vAte" for w in _t8w],
+                        ("prathama","bahu"):[w[:-1]+"vate" for w in _t8w],
+                        ("madhyama","eka"):[w+"ze" for w in _t8w],
+                        ("madhyama","dvi"):[w[:-1]+"vATe" for w in _t8w],
+                        ("madhyama","bahu"):[w+"Dve" for w in _t8w],
+                        ("uttama","eka"):[w[:-1]+"ve" for w in _t8w],
+                        ("uttama","dvi"):[x for w in _t8w for x in (w[:-1]+"vahe", w+"vahe")],
+                        ("uttama","bahu"):[x for w in _t8w for x in (w[:-1]+"mahe", w+"mahe")]}
+                cands += _t8a.get((purusha, vacana), [])
             # AdAdi luk present, I/i-stems: pit-singulars e-grade, rest retained length, 3pl y-grade
             # (veti/vItaH/viyanti; eti/itaH/yanti; sole pair vI + iR surveyed, parasmaipada; Atmane i-roots
             # queued separately). Gana-gated + additive.
@@ -4562,6 +4608,33 @@ class TinantaDerivationEngine:
                 _auav = self._add_augment(clean[:-1] + "av", False)
                 _weak_laN = {("prathama","dvi"):[_auw+"tAm"],("prathama","bahu"):[_auw+"v"+"an"],("madhyama","dvi"):[_auw+"tam"],("madhyama","bahu"):[_auw+"ta"],("uttama","eka"):[_auav+"am"],("uttama","dvi"):[_auw+"va"],("uttama","bahu"):[_auw+"ma"]}
                 cands += _weak_laN.get((purusha, vacana), [])
+            # tanAdi o/u imperfect (atanot/atanutAm/atanvan; aug(o-stem) via a/A-prefix,
+            # aug(weak) via helper (ArRu-grade kept); uttama-du/pl twin u-kept/u-dropped;
+            # Atmane mirrors (atanuta/atanvAtAm/atanvi...). Same stems/survey as lw; additive.
+            if meta.get("gana") == "tanAdiH" and sanadi is None:
+                _t8s, _t8w, _t8v = self._tanadi_stems(clean)
+                _t8as = [("A"+s[1:] if s.startswith("a") else "a"+s) for s in _t8s]
+                _t8aw = [self._add_augment(w, w[0] in SLP1_VOWELS if w else False) for w in _t8w]
+                _t8lp = {("prathama","eka"):[x for s in _t8as for x in (s+"t", s+"d")],
+                         ("prathama","dvi"):[w+"tAm" for w in _t8aw],
+                         ("prathama","bahu"):[w[:-1]+"van" for w in _t8aw],
+                         ("madhyama","eka"):[s+"H" for s in _t8as],
+                         ("madhyama","dvi"):[w+"tam" for w in _t8aw],
+                         ("madhyama","bahu"):[w+"ta" for w in _t8aw],
+                         ("uttama","eka"):[s[:-1]+"avam" for s in _t8as],
+                         ("uttama","dvi"):[x for w in _t8aw for x in (w+"va", w[:-1]+"va")],
+                         ("uttama","bahu"):[x for w in _t8aw for x in (w+"ma", w[:-1]+"ma")]}
+                cands += _t8lp.get((purusha, vacana), [])
+                _t8la = {("prathama","eka"):[w+"ta" for w in _t8aw],
+                         ("prathama","dvi"):[w[:-1]+"vAtAm" for w in _t8aw],
+                         ("prathama","bahu"):[w[:-1]+"vata" for w in _t8aw],
+                         ("madhyama","eka"):[w+"TAH" for w in _t8aw],
+                         ("madhyama","dvi"):[w[:-1]+"vATAm" for w in _t8aw],
+                         ("madhyama","bahu"):[w+"Dvam" for w in _t8aw],
+                         ("uttama","eka"):[w[:-1]+"vi" for w in _t8aw],
+                         ("uttama","dvi"):[x for w in _t8aw for x in (w+"vahi", w[:-1]+"vahi")],
+                         ("uttama","bahu"):[x for w in _t8aw for x in (w+"mahi", w[:-1]+"mahi")]}
+                cands += _t8la.get((purusha, vacana), [])
             # AdAdi-i luk imperfect: aug e-grade singulars (avet/aved/aveH; Et/Ed/EH via vriddhi-augment),
             # aug weak rest (avItAm/aviyan; EtAm/Ayan), aug ay-grade 1sg (avayam/Ayam); sole vI + iR surveyed;
             # exact-clean gate; gana-gated + additive.
@@ -4755,6 +4828,38 @@ class TinantaDerivationEngine:
                 _avw = clean[:-1] + "av"
                 _weak_low = {("madhyama","eka"):[clean+"tAt",clean+"tAd",clean+"hi"],("prathama","dvi"):[clean+"tAm"],("prathama","bahu"):[clean+"vantu"],("madhyama","dvi"):[clean+"tam"],("madhyama","bahu"):[clean+"ta"],("uttama","eka"):[_avw+"Ani"],("uttama","dvi"):[_avw+"Ava"],("uttama","bahu"):[_avw+"Ama"]}
                 cands += _weak_low.get((purusha, vacana), [])
+            # tanAdi o/u imperative (tanotu/tanutAt/tanutAd/tanu, karotu/kurutAt...;
+            # 1sg-group av-grade (tanavAni/tanavAva/tanavAma); lot-1sg Ani-n takes R
+            # iff stem has real r without R (karavARi; R-anubandha kzaR/kziR/fR-family
+            # + r-less stems keep n: kzaRavAni/arRavAni/tanavAni — surveyed all 10);
+            # Atmane mirrors (tanutAm/tanuzva/tanavE...). Same stems/survey as lw; additive.
+            if meta.get("gana") == "tanAdiH" and sanadi is None:
+                _t8s, _t8w, _t8v = self._tanadi_stems(clean)
+                _t8o = {("prathama","eka"):[s+"tu" for s in _t8s],
+                        ("prathama","dvi"):[w+"tAm" for w in _t8w],
+                        ("prathama","bahu"):[w[:-1]+"vantu" for w in _t8w],
+                        ("madhyama","eka"):[x for w in _t8w for x in (w+"tAt", w+"tAd", w)],
+                        ("madhyama","dvi"):[w+"tam" for w in _t8w],
+                        ("madhyama","bahu"):[w+"ta" for w in _t8w],
+                        ("uttama","dvi"):[s[:-1]+"avAva" for s in _t8s],
+                        ("uttama","bahu"):[s[:-1]+"avAma" for s in _t8s]}
+                cands += _t8o.get((purusha, vacana), [])
+                if (purusha, vacana) == ("uttama", "eka"):
+                    for s in _t8s:
+                        _t8av = s[:-1] + "avAni"
+                        if "r" in s and "R" not in s:
+                            _t8av = s[:-1] + "avARi"
+                        cands.append(_t8av)
+                _t8oa = {("prathama","eka"):[w+"tAm" for w in _t8w],
+                         ("prathama","dvi"):[w[:-1]+"vAtAm" for w in _t8w],
+                         ("prathama","bahu"):[w[:-1]+"vatAm" for w in _t8w],
+                         ("madhyama","eka"):[w+"zva" for w in _t8w],
+                         ("madhyama","dvi"):[w[:-1]+"vATAm" for w in _t8w],
+                         ("madhyama","bahu"):[w+"Dvam" for w in _t8w],
+                         ("uttama","eka"):[s[:-1]+"avE" for s in _t8s],
+                         ("uttama","dvi"):[s[:-1]+"avAvahE" for s in _t8s],
+                         ("uttama","bahu"):[s[:-1]+"avAmahE" for s in _t8s]}
+                cands += _t8oa.get((purusha, vacana), [])
             # AdAdi-i luk imperative: e-grade 3sg (vetu/etu), weak-i + t-endings, y-grade 3pl (viyantu/yantu),
             # ay-grade 1sg-group (vayAni/ayAni); sole pair vI + iR surveyed (exact-clean gate, idit-i untouched);
             # gana-gated + additive (Atmane i-roots queued separately).
@@ -4977,6 +5082,23 @@ class TinantaDerivationEngine:
                 _jyf = "jAgf" + _jy.get((purusha, vacana), "yAt")
                 if _jyf not in cands:
                     cands.append(_jyf)
+            # tanAdi o/u optative (tanuyAt/kuryAt; paras takes weak-u + yA-grades with
+            # yAt/yAd 3sg doublet, open-f kf takes bare ur-grade (kuryAt, samprasAraNa
+            # f→ur before y, never *kuruyAt); Atmane takes weak-u + v + I-grades
+            # (tanvIta/kurvIta). Same stems/survey as lw; gana-gated; additive.
+            if meta.get("gana") == "tanAdiH" and sanadi is None:
+                _t8s, _t8w, _t8v = self._tanadi_stems(clean)
+                _t8yp = {("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
+                if (purusha, vacana) == ("prathama", "eka"):
+                    for _t8ys in _t8v:
+                        cands += [_t8ys + "yAt", _t8ys + "yAd"]
+                elif (purusha, vacana) in _t8yp:
+                    for _t8ys in _t8v:
+                        cands.append(_t8ys + _t8yp[(purusha, vacana)])
+                _t8ya = {("prathama","eka"):"Ita",("prathama","dvi"):"IyAtAm",("prathama","bahu"):"Iran",("madhyama","eka"):"ITAH",("madhyama","dvi"):"IyATAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
+                if (purusha, vacana) in _t8ya:
+                    for _t8yw in _t8w:
+                        cands.append(_t8yw[:-1] + "v" + _t8ya[(purusha, vacana)])
             # vid luk optative (vid + yAt, same map family; sole i-vowel consonant root surveyed; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}

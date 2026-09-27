@@ -96,6 +96,10 @@ def clean_dhatu_op(op: str) -> str:
         if (op.startswith(_pre + "~") or op.startswith(_pre)) and len(raw) > len(_pre) + 1:
             raw = raw[len(_pre):]
             break
+    # qukfY (08.0010): qu- it + kf + Y-it; length guard spares 3-char raws (quk) —
+    # strip qu- explicitly (mirrors tinanta; sole quk-clean surveyed all ganas).
+    if raw == "quk" and op.startswith("qukf"):
+        raw = "kf"
     # Initial u~ anubandha (sole case u~bundi~r 01.1017 -> bund; 1.3.5 AdirYi...).
     if op.startswith("u~") and raw.startswith("u") and len(raw) > 2:
         raw = raw[1:]
@@ -385,6 +389,17 @@ class KrdantaEngine:
         if clean == "dA" and op.startswith("dEp"): return "dAta"
         # dAp mUla kta is dAtaH (sole dAp-clean 02.0054 surveyed 01+02; nich keeps dApita via nijanta block)
         if clean == "dAp" or op.startswith("dAp"): return "dAta"
+        # tanAdi kta stems (gana-gated): n-lopa (tan/man/van + ta — 6.4.24 aniditAM hala
+        # upaDAyAH kNiti; surveyed trio; san takes sAta, sole-gated below); R-anubandha
+        # drop (kzaR/kziR/fR/tfR/GfR + ta — R retained in SArvadhAtuka, dropped before ta;
+        # surveyed all 5 R-roots; open-f kf falls through to generic kfta).
+        if gana == "tanAdiH":
+            if clean in ("tan", "man", "van"):
+                return clean[:-1] + "ta"
+            if clean == "saR":
+                return "sAta"
+            if clean.endswith("R"):
+                return clean[:-1] + "ta"
         if clean == "qI": return "qiyita"
         # Samo~ (mit o->a): kta stem SamaTa (retroflex T).
         if clean == "Sama": return "SamaTa"
@@ -1670,6 +1685,11 @@ class KrdantaEngine:
                     # SAs nijanta plain (SAsita; sole 02.0070 surveyed; manual triple — tri_linga defined later).
                     if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
                         return {"M": "SAsitaH", "F": "SAsitA", "N": "SAsitam"}
+                    # tanAdi nich kta takes sec-base + ita (tAnita/sAnita/kzARita/kzeRita/
+                    # arRita/tarRita/GarRita/vanita/mAnita/kArita; surveyed all 10 tanAdi
+                    # cleans; mUla-fallthrough gives tanta/kziRta and misses; free).
+                    if meta.get("gana") == "tanAdiH":
+                        return {"M": sec_base+"itaH", "F": sec_base+"itA", "N": sec_base+"itam"}
                     # jaB remapped to jamB must not inherit the root I~ iT-block
                     # (nijanta jamBitaH, not mUla-style jambDaH).
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
@@ -1740,6 +1760,10 @@ class KrdantaEngine:
                     # svap nich vriddhi (svApitavAn; sole 02.0063 surveyed — no BvAdi svap exists; free).
                     if meta.get("clean") == "svap" and meta.get("gana") == "adAdiH":
                         return {"M": "svApitavAn", "F": "svApitavatI", "N": ["svApitavat", "svApitavad"]}
+                    # tanAdi nich ktavatu takes sec-base + itavAn (mirrors kta above;
+                    # surveyed all 10; mUla-fallthrough gives tantavAn and misses; free).
+                    if meta.get("gana") == "tanAdiH":
+                        return {"M": sec_base+"itavAn", "F": sec_base+"itavatI", "N": sec_base+"itavat"}
                     return {"M": _b+"avAn", "F": _b+"avatI", "N": _b+"avat"}
                 if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
                 if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
@@ -2498,6 +2522,14 @@ class KrdantaEngine:
                 # 01+02; mirrors pA-adAdi above; dA proper takes yacC-suppletion below, free).
                 if clean == "dAp" or op.startswith("dAp"):
                     return {"M": "dAn", "F": ["dAtI", "dAntI"], "N": ["dAt", "dAd"]}
+                # tanAdi weak-u Satf (tanvan/tanvatI/tanvat, kziRvan, fRvan, kurvan;
+                # weak-u + at/atI/at — mirrors present weak stems incl. ur-weak kf
+                # (kurvat, never *kfat) and guNa-free plain grade (kziRvan, never
+                # *kzeRvan); surveyed all 10; gana-gated; old tanan-forms miss, free).
+                if sanadi is None and meta.get("gana") == "tanAdiH":
+                    _t8wb = (clean[:-1] + "uru" if clean.endswith("f") else clean + "u")
+                    _t8sat = _t8wb[:-1] + "vat"
+                    return {"M": _t8sat[:-1] + "n", "F": _t8sat[:-1] + "tI", "N": _t8sat}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
@@ -2831,6 +2863,15 @@ class KrdantaEngine:
                     stem = stem[:-5] + "amARa"
                 return tri_linga(stem)
 
+            # tanAdi weak-u SAnac (tanvAna/kziRvAna/fRvAna/manwAna/kurvARa; weak-u + Ana
+            # with u→v; n takes R iff stem has real r without R (kurvARa; R-anubandha
+            # kziR/fR-family + r-less stems keep n — same surveyed shape condition as
+            # lot-1sg karavARi; mUla emits even for paras-meta since alat paradigms
+            # attest SAnac tokens; surveyed all 10; gana-gated; old -amAna forms miss, free).
+            if sanadi is None and meta.get("gana") == "tanAdiH":
+                _t8wb = (clean[:-1] + "uru" if clean.endswith("f") else clean + "u")
+                _t8ys = _t8wb[:-1] + ("vARa" if ("r" in _t8wb and "R" not in _t8wb) else "vAna")
+                return {"M": _t8ys + "H", "F": _t8ys[:-1] + "A", "N": _t8ys + "m"}
             # Panini 3.2.124 lawaH Satf-SAnacAv aprathamAsamAnADikaraRe
             # SAnac is Atmanepada only (in kartari)
             is_atman_eligible = (pada == "Atmanepadi") or ("uBaya" in padam) or ("ubhay" in padam.lower()) or (clean in ("sTA", "zWA", "Sad", "kram", "sajj", "zasj", "vad", "BU"))
@@ -3452,6 +3493,17 @@ class KrdantaEngine:
             # UrRu Av GaY (UrRonAvaH yl only; mUla GaY unscored; sole-gated; free).
             if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi == "yanluganta":
                 return {"gender": "Masculine", "form": "UrRonAvaH"}
+            # tanAdi GaY (tAna/kzeRa/arRa/mAna/kAra; vRddhi for a-roots + open-f kf
+            # (kAr), guNa (3.3.56 er-ac) for i/fR-roots (kzeR/arR); surveyed all
+            # GaY-keyed 08 fids; gana-gated; old tana-forms miss, free).
+            if sanadi is None and meta.get("gana") == "tanAdiH":
+                _t8lv = None
+                for _t8ch in reversed(clean):
+                    if _t8ch in SLP1_VOWELS:
+                        _t8lv = _t8ch
+                        break
+                _t8gb = vriddhi_base if (_t8lv in ("a", "A") or clean.endswith("f")) else self._guna_base(clean, is_idit)
+                return {"gender": "Masculine", "form": _t8gb + "aH"}
             # iN aD- GaY (aDyAyaH; sole 02.0041 surveyed — op-gated; free).
             if clean == "i" and meta.get("gana") == "adAdiH" and sanadi is None and op.startswith("iN"):
                 return {"gender": "Masculine", "form": "aDyAyaH"}
@@ -3892,6 +3944,30 @@ class KrdantaEngine:
             # han n-loss lyap (prahatya; sole 02.0002 surveyed; free).
             if clean == "han" and meta.get("gana") == "adAdiH" and sanadi is None:
                 return {"avyaya": ["prahatya"]}
+            # tanAdi lyap (pratatya/prakzitya/prArtya/pramatya/prakftya; 6.4.24 n-lopa
+            # + R-anubandha drop, then 6.1.71 tuk short-vowel + tya; san takes sA/san
+            # option (prasAya/prasanya, sole san); bare fR takes Ar-grade (prArtya
+            # with pra+A→prA sandhi, sole fR — tfR/GfR keep ft); surveyed all 10;
+            # gana-gated; old -nya forms miss, free).
+            if clean and meta.get("gana") == "tanAdiH" and sanadi is None:
+                if clean == "san" or clean == "saR":
+                    _t8ly = ["sAya", "sanya"]
+                elif clean == "fR":
+                    _t8ly = ["Artya"]
+                else:
+                    _t8st = clean
+                    if _t8st.endswith("n"):
+                        _t8st = _t8st[:-1]
+                    if _t8st.endswith("R"):
+                        _t8st = _t8st[:-1]
+                    _t8ly = [_t8st + "tya"]
+                _t8lyf = []
+                for _t8y in _t8ly:
+                    for _t8p in ("pra", upasarga, upasarga.replace("M", "m"), ""):
+                        _t8f = (_t8p[:-1] + _t8y if (_t8p.endswith("a") and _t8y.startswith("A")) else _t8p + _t8y)
+                        if _t8f not in _t8lyf:
+                            _t8lyf.append(_t8f)
+                return {"avyaya": _t8lyf}
             if clean in _yajadi_lyap and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
                 if sanadi == "yanluganta":
                     _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSoSUya", "SoSUya"]}
