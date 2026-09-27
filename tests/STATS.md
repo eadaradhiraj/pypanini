@@ -285,4 +285,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 156 (han bahu Gna-twins (Gnanti/Gnantu/aGnan across lw/low/laN; sole-gated; slot-gated): 02.0002 +3 slots, 0 worsened (01 zero-diff).
 - Iteration 157 (han liT jaG- (mUla table + yak dict ×2 sites, vac pattern; sole-gated): 02.0002 liw +18, 0 worsened (01 zero-diff).
 - Iteration 158 (han izy-futures (hanizy mUla + GAnizy/hanizy yak twins; sole-gated): 02.0002 lfw +18, 0 worsened (01 zero-diff).
+- Iteration 159 (han san GAMs-suppletion (jiGAMs ×2 builders; sole-gated): 02.0002 san (+209 tokens), 0 worsened (01 zero-diff).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).

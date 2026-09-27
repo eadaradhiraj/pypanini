@@ -4,14 +4,14 @@ Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
 Sweep-02: **66/76 100%-attested** (raw 66/77, 1 skipped) — token gains.
 
-## Done — izy futures (+18 slots, 0 worsened)
-- hanizy- mUla + GAnizy-/hanizy- yak twins (sole-gated):
-  - tinanta lfw mUla + yak branches.
-  - Full Sweep Results: 02 improved **1 root** (0002 344->362/882), **worsened 0** (01 zero-diff).
+## Done — han san (+209 tokens, 0 worsened)
+- `jiGAMs` in both san builders for sole han (additive):
+  - tinanta `_sannanta_stem`; krdanta `_sannanta_sec`.
+  - Full Sweep Results: 02 improved **1 root** (0002 362->571/882), **worsened 0** (01 zero-diff).
 - Prior work: 02 at 66/76 passes; combined same passes, token gains continue.
 
 ## Next (02 loop)
-1. 0002 san (jiGAMs-?) + yangluk (jaMGan done) + krdanta (gap ~520).
+1. 0002 mUla ASIrliN/luN/lfN + yak + nich (GAnay-?) + san_yak? + krdanta.
 2. 0067/0060/0042 + 0007 cakz + 0039/0012/0074.
 3. Ganas 03–10 to follow.
 - Advance 02: 66/76 → all (excl. ceilings).

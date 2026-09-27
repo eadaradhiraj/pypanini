@@ -1576,6 +1576,9 @@ class TinantaDerivationEngine:
             # iR san gam-suppletion (jigamizati; sole 02.0040 surveyed — op-gated vs iN 0041 below).
             if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                 return "jigamiz"
+            # han san GAMs-suppletion (jiGAMsati; sole 02.0002 surveyed — no BvAdi han exists).
+            if meta.get("clean") == "han" and meta.get("gana") == "adAdiH":
+                return "jiGAMs"
             # UrRu san (UrRunuvizati; mari- grade covers every slot via any-match (navi/Uz twins share
             # slots); sole 02.0034 surveyed — meta-clean gate).
             if meta.get("clean") == "UrRu" and meta.get("gana") == "adAdiH":
