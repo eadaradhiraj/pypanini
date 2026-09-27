@@ -6087,6 +6087,9 @@ class TinantaDerivationEngine:
                     for _vrb in _vr_bases:
                         _s_stems = self._assimilate_s_stems(_vrb)
                         _t_stems = self._assimilate_t_stems(_vrb)
+                        # jAg sic-less stem (ajAgarIt alongside ajAgarsIt; sole 02.0067 surveyed; additive).
+                        if clean == "jAg" and meta.get("gana") == "adAdiH" and "jAgar" not in _s_stems:
+                            _s_stems = _s_stems + ["jAgar"]
                         if (purusha, vacana) == ("prathama", "eka"):
                             for _sb in _s_stems:
                                 _asb = self._add_augment(_sb, _sb[0] in SLP1_VOWELS if _sb else False)
