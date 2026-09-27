@@ -2105,6 +2105,11 @@ class KrdantaEngine:
                 # AdAdi SAs yl iz-redup (SASizwa; sole 02.0070 surveyed; old misses, free).
                 if clean == "SAs" and meta.get("gana") == "adAdiH":
                     return tri_linga("SASizwa")
+                # h-final yl redup kta (doduhita/dedihita/lelihita; BvAdi duh doduhita unanimity surveyed
+                # — pan-gaNa h-shape; old mUla-style misses (AdAdi) or cross-hits (BvAdi/lih), free).
+                if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
+                    _ylh = {"duh": "doduhita", "dih": "dedihita", "lih": "lelihita"}[clean]
+                    return tri_linga(_ylh)
                 _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita", "ve": "vovita", "hve": "jAhuvita"}
                 if clean in _yajadi_yl_kta:
                     return tri_linga(_yajadi_yl_kta[clean])
@@ -2184,6 +2189,10 @@ class KrdantaEngine:
                 # AdAdi SAs yl iz-redup (SASizwavat; sole 02.0070 surveyed; old misses, free).
                 if clean == "SAs" and meta.get("gana") == "adAdiH":
                     return {"M": "SASizwavAn", "F": "SASizwavatI", "N": ["SASizwavat", "SASizwavad"]}
+                # h-final yl redup ktavatu (mirrors kta; same unanimity; free).
+                if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
+                    _ylhv = {"duh": "doduhitav", "dih": "dedihitav", "lih": "lelihitav"}[clean]
+                    return {"M": _ylhv + "An", "F": _ylhv + "atI", "N": [_ylhv + "at", _ylhv + "ad"]}
                 # AdAdi vac yl redup (vocitavat; sole 02.0058; free).
                 if clean == "vac" and meta.get("gana") == "adAdiH":
                     return {"M": "vocitavAn", "F": "vocitavatI", "N": ["vocitavat", "vocitavad"]}
