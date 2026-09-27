@@ -288,6 +288,10 @@ class TinantaDerivationEngine:
     def _add_augment(self, base: str, is_vowel_initial: bool) -> str:
         if not base:
             return base
+        # aDijigAMs- augment-stable (aDijigAMsata, not ADijigAMsata; sole 02.0041 surveyed — no other
+        # stem starts with this prefix; additive guard before vrddhi).
+        if base.startswith("aDijigAMs") or base.startswith("aDyajigAMs"):
+            return base
         if is_vowel_initial:
             # vRddhi of initial vowel: a + e -> E etc.
             first = base[0]
@@ -2430,6 +2434,10 @@ class TinantaDerivationEngine:
                 _nij_secs = n_stems_all
             elif sanadi == "sannanta":
                 s_stem = _sannanta_stem(clean)
+                # iN san laN/luN/lfN ya-grade for karmani path too (mirrors mUla-site override below;
+                # same sole-gated survey).
+                if lakara in ("laN", "luN", "lfN") and meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
+                    s_stem = "aDyajigAMs"
                 # also include urdidiz variant for vowel-initial urd
                 alt_s = []
                 if clean_ay:
@@ -3579,6 +3587,10 @@ class TinantaDerivationEngine:
         if sanadi == "sannanta":
             s_stem = _sannanta_stem(clean)
             alt_sann = []
+            # iN san laN/luN/lfN ya-grade (aDyajigAMsata; sole 02.0041 surveyed — other lakaras keep
+            # aDi-; op-gated).
+            if lakara in ("laN", "luN", "lfN") and meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
+                s_stem = "aDyajigAMs"
             if clean_ay:
                 _gay = _sannanta_stem(clean_ay)
                 if _gay not in alt_sann:
