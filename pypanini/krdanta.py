@@ -102,6 +102,8 @@ def clean_dhatu_op(op: str) -> str:
     # CadiH (01.0925): mUlaDAtuH is Cad ('ikStipO DAtunirdeeSe' reading).
     if op.startswith("CadiH") and raw in ("CadiH", "Cadi"):
         raw = "Cad"
+    if op == "cakziN" and raw == "cakzi":
+        raw = "cakz"
     clean = raw
     if op.endswith("A~") and clean.endswith("A") and len(clean) > 1:
         clean = clean[:-1]
@@ -724,6 +726,9 @@ class KrdantaEngine:
         dhatu_id: Optional[str] = None,
     ) -> Optional[Dict]:
         meta = self._get_meta(dhatu, dhatu_id)
+        if meta.get("op") == "cakziN" and sanadi is None:
+            meta["sew"] = False
+            meta["sew_raw"] = "aniw"
         clean = meta["clean"]
         pada = meta["pada"]
         padam = meta.get("padam", "")
@@ -758,22 +763,23 @@ class KrdantaEngine:
             if clean.endswith("I"):
                 clean = base_wo_i
             elif base_wo_i and base_wo_i[-1] not in "aAiIuUfFxXeEoO" and base_wo_i[-1] not in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "R", "p", "P", "b", "B"):
-                # ... except velar/palatal/retroflex/labial-coda idit (agi~->agi not angi: formations assimilate per-formation instead)
-                # v-final idit with r/f onset takes R-num at source so the whole krdanta family inherits
-                # (rivi->riRvitaH/riRvan/riRvyamARaH; surveyed: only rivi/ravi/kfvi match this shape)
-                # Panini 8.3.24 naS cApadAntasya jhali: before sibilants and h, num is M; before kz, num is N
-                # kz-cluster: nasal homorganic with k, insert before kz (kAkz->kANkz)
-                if is_idit and base_wo_i.endswith("kz"):
-                    with_n = base_wo_i[:-2] + "N" + "kz" if len(base_wo_i) >= 2 else base_wo_i + "N"
-                    clean = with_n
-                elif is_idit and base_wo_i[-1:] in ("s", "S", "z", "h"):
-                    _nn2 = "M"
-                    with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
-                    clean = with_n
-                elif is_idit and base_wo_i[-1:] == "v" and ("r" in clean or "f" in clean):
-                    _nn2 = "R"
-                    with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
-                    clean = with_n
+                if is_idit:
+                    _sv = [i for i, ch in enumerate(base_wo_i) if ch in "aAiIuUfFxXeEoO"]
+                    if _sv:
+                        _lv_idx = _sv[-1]
+                        _pre = base_wo_i[:_lv_idx+1]
+                        _post = base_wo_i[_lv_idx+1:]
+                        _next_c = _post[0] if _post else ""
+                        if _next_c in ("k", "K", "g", "G"): _nn2 = "N"
+                        elif _next_c in ("c", "C", "j", "J"): _nn2 = "Y"
+                        elif _next_c in ("w", "W", "q", "Q", "R"): _nn2 = "R"
+                        elif _next_c in ("p", "P", "b", "B"): _nn2 = "m"
+                        elif _next_c in ("s", "S", "z", "h"): _nn2 = "M"
+                        elif _next_c == "v" and ("r" in base_wo_i or "f" in base_wo_i): _nn2 = "R"
+                        else: _nn2 = "n"
+                        clean = _pre + _nn2 + _post
+                    else:
+                        clean = base_wo_i
                 else:
                     _nn2 = "n"
                     with_n = base_wo_i[:-1] + _nn2 + base_wo_i[-1] if len(base_wo_i) >= 1 else base_wo_i + _nn2
@@ -994,6 +1000,8 @@ class KrdantaEngine:
                                 return vrid + "ay"
                 return c + "ay"
             def _sannanta_sec(c):
+                if meta.get("op") == "cakziN" and meta.get("gana") == "adAdiH":
+                    return "cicakz"
                 # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew).
                 if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                     return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]
@@ -2894,8 +2902,8 @@ class KrdantaEngine:
             if sanadi is None and meta.get("clean") in ("As", "vas", "kas"):
                 return tri_linga({"As": "AsIna", "vas": "vasAna", "kas": "kasAna"}[meta.get("clean")])
             # S/z-coda luk SAnac (kaSAna/cakzARa; surveyed pair 0016/0007; replacement free; BvAdi untouched).
-            if sanadi is None and meta.get("clean") in ("kaS", "cakzi"):
-                return tri_linga({"kaS": "kaSAna", "cakzi": "cakzARa"}[meta.get("clean")])
+            if sanadi is None and meta.get("clean") in ("kaS", "cakz"):
+                return tri_linga({"kaS": "kaSAna", "cakz": "cakzARa"}[meta.get("clean")])
             # Ir SAnac Natva (IrARaH; sole 0008 surveyed; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") == "Ir":
                 return tri_linga("IrARa")
@@ -3358,6 +3366,9 @@ class KrdantaEngine:
             return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
 
         elif pratyaya == "lyuw":
+            # jAgf ar-grade lyuw (jAgaraRam mUla; sole 02.0067 surveyed; free).
+            if clean == "jAg" and meta.get("gana") == "adAdiH" and sanadi is None:
+                return {"gender": "Neuter", "form": "jAgaraRam"}
             # mfjU A-grade lyuw (mArjanam mUla + marmArjanam yl; sole 02.0061 surveyed; free).
             if clean == "mfj" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _lyu = "mArjanam" if sanadi is None else "marmArjanam"
