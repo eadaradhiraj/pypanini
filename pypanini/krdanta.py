@@ -2190,6 +2190,9 @@ class KrdantaEngine:
             # svap samprasAraNa kta (supta; sole 02.0063 surveyed — no BvAdi svap exists; free).
             if sanadi is None and clean == "svap" and meta.get("gana") == "adAdiH":
                 return tri_linga("supta")
+            # mfjU zero-zw kta (mfzwa; sole 02.0061 surveyed — no BvAdi mfj exists; free).
+            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+                return tri_linga("mfzwa")
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
@@ -2313,6 +2316,9 @@ class KrdantaEngine:
             # svap samprasAraNa ktavatu (suptavAn; sole-gated; free).
             if sanadi is None and clean == "svap" and meta.get("gana") == "adAdiH":
                 return {"M": "suptavAn", "F": "suptavatI", "N": ["suptavat", "suptavad"]}
+            # mfjU zero-zw ktavatu (sole-gated; free).
+            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+                return {"M": "mfzwavAn", "F": "mfzwavatI", "N": ["mfzwavat", "mfzwavad"]}
             # vaS weak-uS ktavatu twin (uSitavAn; sole 02.0075 surveyed — old kept as cross-hit; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}
@@ -2390,6 +2396,10 @@ class KrdantaEngine:
                     # mUla takes num (duhan); old e-grade forms miss, free).
                     _hbase = clean + "at"
                     return {"M": _hbase[:-1] + "n", "F": _hbase + "I", "N": [_hbase, _hbase[:-1] + "d"]}
+                elif clean == "mfj" and meta.get("gana") == "adAdiH" and sanadi is None:
+                    # mfjU zero-j Satf (mfjan/mfjatI; sole 02.0061 surveyed; mUla takes num like duh;
+                    # yl takes marmfjat- so mUla-gated; old marj-forms miss, free).
+                    return {"M": "mfjan", "F": "mfjatI", "N": ["mfjat", "mfjad"]}
                 elif clean == "jAg" and meta.get("gana") == "adAdiH":
                     # jAgf Satf ar-grade base (jAgrat/jAgrad/jAgratI/jAgrantI; sole 02.0067 surveyed; old
                     # jAgat-forms miss everywhere so replacement is free like Svas/aja).
@@ -2817,6 +2827,9 @@ class KrdantaEngine:
             # duh/dih gD tavya (dogDavya/degDavya; BvAdi dohitavya + lih leQavya guards; free).
             if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 return tri_linga("dogDavya" if clean == "duh" else "degDavya")
+            # mfjU A-zw tavya (mArzwavya; sole-gated; free).
+            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+                return tri_linga("mArzwavya")
             if sanadi == "sannanta":
                 stem = clean + "itavya"
                 return tri_linga(stem)
@@ -2860,6 +2873,9 @@ class KrdantaEngine:
             # old A-forms miss, free).
             if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
                 return tri_linga("daridraRIya")
+            # mfjU A-j anIyar (mArjanIya; sole-gated; free).
+            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+                return tri_linga("mArjanIya")
             # idit i-final num-clean (agi->aNganIyaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3012,6 +3028,9 @@ class KrdantaEngine:
             return _out
 
         elif pratyaya == "Rvul":
+            # mfjU A-j Rvul (mArjaka; sole-gated; free).
+            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+                return {"M": "mArjakaH", "F": "mArjikA", "N": "mArjakam"}
             # idit i-final num-clean (agi->aNgakaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _rbw = clean[:-1]
@@ -3089,6 +3108,9 @@ class KrdantaEngine:
             if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 _dg = "dogD" if clean == "duh" else "degD"
                 return {"M": _dg + "A", "F": _dg + "rI", "N": _dg + "f"}
+            # mfjU A-zw tfc (mArzwA; sole-gated; free).
+            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+                return {"M": "mArzwA", "F": "mArzwrI", "N": "mArzwf"}
             if sanadi == "sannanta":
                 b = clean + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
@@ -3254,6 +3276,9 @@ class KrdantaEngine:
             # duh/dih gD tumun (dogDum/degDum; same guards; free).
             if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["dogDum" if clean == "duh" else "degDum"]}
+            # mfjU A-zw tumun twins (mArzwum/mArjitum; sole-gated; free).
+            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["mArzwum", "mArjitum"]}
             # idit i-final num-clean (agi->aNgitum; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _tbw = clean[:-1]
@@ -3302,6 +3327,9 @@ class KrdantaEngine:
             # duh/dih gD ktvA (dugDvA/digDvA; same guards; free).
             if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["dugDvA" if clean == "duh" else "digDvA"]}
+            # mfjU zw/j ktvA twins (mfzwvA/mArjitvA; sole-gated; free).
+            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["mfzwvA", "mArjitvA"]}
             # svap samprasAraNa ktvA (suptvA; sole-gated; free).
             if sanadi is None and clean == "svap" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["suptvA"]}
