@@ -2680,6 +2680,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "svap":
                     if "supy" not in yak_list:
                         yak_list.append("supy")
+                # iN yak stems (aDIy present/imperative/optative + aDyEy imperfect; sole 02.0041 surveyed
+                # — op-gated vs iR; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                    for _vy4 in ("aDIy", "aDyEy"):
+                        if _vy4 not in yak_list:
+                            yak_list.append(_vy4)
                 # daridrA yak stem (daridry-; sole 02.0068 surveyed; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "daridrA":
                     if "daridry" not in yak_list:
