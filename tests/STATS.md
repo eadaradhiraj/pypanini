@@ -201,3 +201,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 72 (UrRu yak-liw nuv-table (a dead 3116-placement removed after settrace proved the 2855 return for vowel-initial stems; sole-gated; additive): 02.0034 +9 (yak-liw 9/9), 0 worsened (01 zero-diff).
 - Iteration 73 (vaS mUla-liT samprasAraNa redup (uvASa/USatuH...; kartari-gated return like vac; sole-gated): 02.0075 liw 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 74 (nich-kta vriddhi twin, pan-gaNa short-a (a self-caught `tri_linga` forward-reference fixed via manual triple; old kept as cross-hit; additive so monotonic): 3 roots +7 tokens, 0 worsened (01 zero-diff).
+- Iteration 75 (yan cutva gana-gate (7.4.63 exemption holds only BvAdi `kokUyate`; AdAdi takes `cokUyate` — surveyed pair, BvAdi-guard is the point; one line): 02.0037 +180 tokens, 0 worsened (01 zero-diff).
