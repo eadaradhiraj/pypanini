@@ -4725,6 +4725,11 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vac" and prayoga == "kartari":
                 _vact = {("prathama","eka"):["uvAca"],("prathama","dvi"):["UcatuH"],("prathama","bahu"):["UcuH"],("madhyama","eka"):["uvakTa","uvaciTa"],("madhyama","dvi"):["UcaTuH"],("madhyama","bahu"):["Uca"],("uttama","eka"):["uvaca","uvAca"],("uttama","dvi"):["Uciva"],("uttama","bahu"):["Ucima"]}
                 return list(dict.fromkeys(_vact.get((purusha, vacana), []))), log
+            # vaS mUla-liT samprasAraNa redup (uvASa/USatuH...; sole 02.0075 surveyed; kartari-only return
+            # like vac; mUla currently 0/9 so free).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vaS" and prayoga == "kartari":
+                _vast = {("prathama","eka"):["uvASa"],("prathama","dvi"):["USatuH"],("prathama","bahu"):["USuH"],("madhyama","eka"):["uvaSiTa"],("madhyama","dvi"):["USaTuH"],("madhyama","bahu"):["USa"],("uttama","eka"):["uvaSa","uvASa"],("uttama","dvi"):["USiva"],("uttama","bahu"):["USima"]}
+                return list(dict.fromkeys(_vast.get((purusha, vacana), []))), log
             # ajervyaghaJapoH (aj -> vi in liw)
             if clean == "aj" or op.startswith("aja"):
                 _vi_par = {

@@ -199,3 +199,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 70 (vac mUla-liT samprasAraNa redup (uvAca/UcatuH...; kartari-gated return, yak untouched; sole-gated): 02.0058 liw 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 71 (vac ASIrliN `uc`-stem + o-aorist eka-twins (a self-caught viDiliN/ASIrliN branch confusion fixed via `_asb` precedent; sole-gated): 02.0058 → 879/879 (+1 pass, 48/76), 0 worsened (01 zero-diff).
 - Iteration 72 (UrRu yak-liw nuv-table (a dead 3116-placement removed after settrace proved the 2855 return for vowel-initial stems; sole-gated; additive): 02.0034 +9 (yak-liw 9/9), 0 worsened (01 zero-diff).
+- Iteration 73 (vaS mUla-liT samprasAraNa redup (uvASa/USatuH...; kartari-gated return like vac; sole-gated): 02.0075 liw 9/9 (+9), 0 worsened (01 zero-diff).
