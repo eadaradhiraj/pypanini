@@ -1793,7 +1793,9 @@ class TinantaDerivationEngine:
             # A -> I before halAdi kNiti (yaN), abhyAsa guna e (7.4.82)
             if c in ("mA", "me"):
                 return "memIya"
-            if c in ("pA", "pA~") or (op and any(op.startswith(x) for x in ("pA", "pA~")) and dhatu_id and "1074" in dhatu_id):
+            # pA yang: BvAdi pepIyate (01.1074, op pA~) vs AdAdi pApAyate (02.0051, op pA) — minimal
+            # gana-pair; pepIya gated to 1074/pA~ like krdanta _yan_sec (AdAdi falls to generic pApAya).
+            if (c in ("pA", "pA~") or (op and any(op.startswith(x) for x in ("pA", "pA~")))) and (dhatu_id and "1074" in dhatu_id or (op and op.startswith("pA~"))):
                 return "pepIya"
             if c == "GrA" or (op and op.startswith("GrA")):
                 return "jeGrIya"
