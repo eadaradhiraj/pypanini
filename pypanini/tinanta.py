@@ -4849,6 +4849,11 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vaS" and prayoga == "kartari":
                 _vast = {("prathama","eka"):["uvASa"],("prathama","dvi"):["USatuH"],("prathama","bahu"):["USuH"],("madhyama","eka"):["uvaSiTa"],("madhyama","dvi"):["USaTuH"],("madhyama","bahu"):["USa"],("uttama","eka"):["uvaSa","uvASa"],("uttama","dvi"):["USiva"],("uttama","bahu"):["USima"]}
                 return list(dict.fromkeys(_vast.get((purusha, vacana), []))), log
+            # svap mUla-liT samprasAraNa+zatva redup (suzvApa/suzupatuH...; sole 02.0063 surveyed —
+            # no BvAdi svap exists; kartari-only return like vac/vaS; free).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "svap" and prayoga == "kartari":
+                _svt = {("prathama","eka"):["suzvApa"],("prathama","dvi"):["suzupatuH"],("prathama","bahu"):["suzupuH"],("madhyama","eka"):["suzvapiTa","suzvapTa"],("madhyama","dvi"):["suzupaTuH"],("madhyama","bahu"):["suzupa"],("uttama","eka"):["suzvapa","suzvApa"],("uttama","dvi"):["suzupiva"],("uttama","bahu"):["suzupima"]}
+                return list(dict.fromkeys(_svt.get((purusha, vacana), []))), log
             # ajervyaghaJapoH (aj -> vi in liw)
             if clean == "aj" or op.startswith("aja"):
                 _vi_par = {
