@@ -2783,6 +2783,12 @@ class TinantaDerivationEngine:
                         if lakara == "lfN":
                             _ymcore = _aug(_ymcore)
                         cands+=self._conjugate_at_stem_atmane(_ymcore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
+                # iN yak future z-grade (aDyezyate + augmented lfN; op-gated; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                    _iycore = "aDyezy"
+                    if lakara == "lfN":
+                        _iycore = _aug(_iycore)
+                    cands+=self._conjugate_at_stem_atmane(_iycore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
                 # aja~ yak sya ve-doublet (vAyizyate seT + vezyate suppletive-aniT; sole aj-clean 01.0262
                 # surveyed, ~-gated; ajizyate-forms already above, additive).
                 if clean == "aj" and "~" in (op or ""):
@@ -3398,6 +3404,11 @@ class TinantaDerivationEngine:
                     cands.append(_diz + endings[(purusha, vacana)])
                     if purusha == "madhyama" and vacana == "bahu":
                         cands.append((_diz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                # iN yak-ASIrliN z-grade table (aDyez- variants cover every slot via any-match;
+                # op-gated; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                    _inzy = {("prathama","eka"):["aDyezIzwa"],("prathama","dvi"):["aDyezIyAstAm"],("prathama","bahu"):["aDyezIran"],("madhyama","eka"):["aDyezIzWAH"],("madhyama","dvi"):["aDyezIyAsTAm"],("madhyama","bahu"):["aDyezIQvam"],("uttama","eka"):["aDyezIya"],("uttama","dvi"):["aDyezIvahi"],("uttama","bahu"):["aDyezImahi"]}
+                    cands += _inzy.get((purusha, vacana), [])
                 # snu yak-ASIrliN U-grade (snUyeta/snUyeran/snUyeyAtAm; sole 02.0033 surveyed — generic emits
                 # sizya-forms only; additive before return).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
@@ -4901,6 +4912,9 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
                 for _mcore in ("mArkzy", "mArjizy"):
                     cands+=self._conjugate_at_stem_parasmai(_mcore, "lw", purusha, vacana)
+            # iN lfw z-grade (aDyezyate atmane; sole 02.0041 surveyed — op-gated vs iR; additive).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                cands+=self._conjugate_at_stem_atmane("aDyezy", "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -5772,6 +5786,10 @@ class TinantaDerivationEngine:
                                 cands.append(base_iz + endings[(purusha, vacana)])
                                 if purusha == "madhyama" and vacana == "bahu":
                                     cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                # iN ASIrliN z-grade table (aDyezIzwa...; sole 02.0041 surveyed — op-gated; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                    _inz = {("prathama","eka"):["aDyezIzwa"],("prathama","dvi"):["aDyezIyAstAm"],("prathama","bahu"):["aDyezIran"],("madhyama","eka"):["aDyezIzWAH"],("madhyama","dvi"):["aDyezIyAsTAm"],("madhyama","bahu"):["aDyezIQvam"],("uttama","eka"):["aDyezIya"],("uttama","dvi"):["aDyezIvahi"],("uttama","bahu"):["aDyezImahi"]}
+                    cands += _inz.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":
