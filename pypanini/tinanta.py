@@ -498,6 +498,11 @@ class TinantaDerivationEngine:
                 ending_list.append("ad")
         if not ending_list or not clean:
             return []
+        # gamay-stem CaN (ajIgamat twins; BvAdi gam 01.1137 + AdAdi iR 02.0040 surveyed identical —
+        # pan-gaNa gam-stem; n_stem-gated).
+        if n_stem == "gamay":
+            _gcan = {("prathama","eka"):["ajIgamat","ajIgamad"],("prathama","dvi"):["ajIgamatAm"],("prathama","bahu"):["ajIgaman"],("madhyama","eka"):["ajIgamaH"],("madhyama","dvi"):["ajIgamatam"],("madhyama","bahu"):["ajIgamata"],("uttama","eka"):["ajIgamam"],("uttama","dvi"):["ajIgamAva"],("uttama","bahu"):["ajIgamAma"]}
+            return list(dict.fromkeys(_gcan.get((purusha, vacana), [])))
         # aDyApay CaN twins (aDyajIgap-/aDyApip-; sole 02.0041 surveyed — no BvAdi i-nich exists).
         if n_stem == "aDyApay":
             _can = {("prathama","eka"):["aDyajIgapat","aDyajIgapad","aDyApipat","aDyApipad"],("prathama","dvi"):["aDyajIgapatAm","aDyApipatAm"],("prathama","bahu"):["aDyajIgapan","aDyApipan"],("madhyama","eka"):["aDyajIgapaH","aDyApipaH"],("madhyama","dvi"):["aDyajIgapatam","aDyApipatam"],("madhyama","bahu"):["aDyajIgapata","aDyApipata"],("uttama","eka"):["aDyajIgapam","aDyApipam"],("uttama","dvi"):["aDyajIgapAva","aDyApipAva"],("uttama","bahu"):["aDyajIgapAma","aDyApipAma"]}
@@ -1460,6 +1465,9 @@ class TinantaDerivationEngine:
             # iN nich yA-stem (aDyApayati; sole 02.0041 surveyed — op-gated vs iR; no BvAdi i-nich).
             if c == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return "aDyApay"
+            # iR nich gam-suppletion (gamayati; sole 02.0040 surveyed — op-gated; mirrors BvAdi gam).
+            if c == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
+                return "gamay"
             # ew-final aniW (sole 01 Dew 01.1050 surveyed): vriddhi-A + puk like dEp (DApay-);
             # shape-based (penult e + coda w) + aniW-gated: sew ew-roots (mlewf~/mewf~/rewf~) keep generic ay;
             # E-final yuk group (pE/sE/SE) ends in E, unaffected.
