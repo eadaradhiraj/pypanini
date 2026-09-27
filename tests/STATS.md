@@ -301,5 +301,6 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 172 (jAg ar-peri liT (jAgarAYcakre at peri site; sole-gated; additive): 02.0067 liw 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 173 (jAg sic-less stem (jAgar alongside jAgars- in sic loops; sole-gated): 02.0067 luN 9/9 (+8), 0 worsened (01 zero-diff).
 - Iteration 174 (jAg san Ir-grade (jijAgIrz ×2 builders; sole-gated): 02.0067 san (+209 tokens), 0 worsened (01 zero-diff).
+- Iteration 175 (jAg nich ar-stem (jAgaray ×2 builders; sole-gated): 02.0067 nich (+205 tokens), 0 worsened (01 zero-diff).
 - Ceiling 0002-mUla-lfN (user halt-at-ceiling principle for dataless blocks: alrung key absent; 9 slots; 0002 capped at 873/882).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).

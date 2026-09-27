@@ -1486,6 +1486,9 @@ class TinantaDerivationEngine:
             # han nich GAta-stem (GAtayati; sole 02.0002 surveyed — no BvAdi han exists).
             if c == "han" and meta.get("gana") == "adAdiH":
                 return "GAtay"
+            # jAg nich ar-stem (jAgarayati; sole 02.0067 surveyed — no BvAdi jAg exists).
+            if c == "jAg" and meta.get("gana") == "adAdiH":
+                return "jAgaray"
             # ew-final aniW (sole 01 Dew 01.1050 surveyed): vriddhi-A + puk like dEp (DApay-);
             # shape-based (penult e + coda w) + aniW-gated: sew ew-roots (mlewf~/mewf~/rewf~) keep generic ay;
             # E-final yuk group (pE/sE/SE) ends in E, unaffected.

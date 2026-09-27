@@ -868,6 +868,9 @@ class KrdantaEngine:
                 # han nich GAta-stem (mirrors tinanta; same sole guard).
                 if c == "han" and meta.get("gana") == "adAdiH":
                     return "GAtay"
+                # jAg nich ar-stem (mirrors tinanta; same sole guard).
+                if c == "jAg" and meta.get("gana") == "adAdiH":
+                    return "jAgaray"
                 # ew-final aniW (mirrors tinanta; sole 01 Dew 01.1050 surveyed; sew ew-roots keep generic ay).
                 if (c.endswith("ew") or op.endswith("ew")) and not sew:
                     _eb = c[:-2] if c.endswith("ew") else op[:-2]
