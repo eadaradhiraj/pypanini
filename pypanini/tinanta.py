@@ -2755,6 +2755,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "SI":
                     if "Sayy" not in yak_list:
                         yak_list.append("Sayy")
+                # han yak vaD-stem (vaDyeta optative; sole 02.0002 surveyed; additive — lw/low/laN keep
+                # passing via existing stems).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han":
+                    if "vaDy" not in yak_list:
+                        yak_list.append("vaDy")
                 # daridrA yak stem (daridry-; sole 02.0068 surveyed; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "daridrA":
                     if "daridry" not in yak_list:
@@ -3500,6 +3505,10 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     _inzy = {("prathama","eka"):["aDyezIzwa"],("prathama","dvi"):["aDyezIyAstAm"],("prathama","bahu"):["aDyezIran"],("madhyama","eka"):["aDyezIzWAH"],("madhyama","dvi"):["aDyezIyAsTAm"],("madhyama","bahu"):["aDyezIQvam"],("uttama","eka"):["aDyezIya"],("uttama","dvi"):["aDyezIvahi"],("uttama","bahu"):["aDyezImahi"]}
                     cands += _inzy.get((purusha, vacana), [])
+                # han yak-ASIrliN vaD-table (vaDizIzwa; sole 02.0002 surveyed; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han":
+                    _hnz = {("prathama","eka"):["vaDizIzwa"],("prathama","dvi"):["vaDizIyAstAm"],("prathama","bahu"):["vaDizIran"],("madhyama","eka"):["vaDizIzWAH"],("madhyama","dvi"):["vaDizIyAsTAm"],("madhyama","bahu"):["vaDizIDvam"],("uttama","eka"):["vaDizIya"],("uttama","dvi"):["vaDizIvahi"],("uttama","bahu"):["vaDizImahi"]}
+                    cands += _hnz.get((purusha, vacana), [])
                 # snu yak-ASIrliN U-grade (snUyeta/snUyeran/snUyeyAtAm; sole 02.0033 surveyed — generic emits
                 # sizya-forms only; additive before return).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
