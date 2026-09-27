@@ -1800,6 +1800,9 @@ class KrdantaEngine:
                 _op_ew_keep = ((op or "").replace("~", "").replace("`", "").strip().endswith("ew"))
                 if _op_ew_keep and not sew:
                     keeps_y_in_yan = True
+                # UrRu yan keeps stem-y too (UrRonUyita; mirrors tinanta keeps_y exception; sole 02.0034).
+                if meta.get("clean") == "UrRu" and meta.get("gana") == "adAdiH":
+                    keeps_y_in_yan = True
                 if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
                         sec = "coskundya"

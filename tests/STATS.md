@@ -274,4 +274,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 145 (UrRu yanlug twins (o/u kartari + yan-stem karmani at traced return; a non-firing stem-conjugation attempt reverted for literal tables; sole-gated): 02.0034 +18, 0 worsened (01 zero-diff).
 - Iteration 146 (UrRu 1-slot pair (OrRuTAH laN-twin + OrRInavat CaN-twin; sole-gated): 02.0034 +2 slots, 0 worsened (01 zero-diff).
 - Iteration 147 (UrRu mUla v-glide set (uv/av/Av grades; yu/ru datalessness surveyed; sole-gated; free): 02.0034 +18 slots, 0 worsened (01 zero-diff).
+- Iteration 148 (UrRu yan keeps_y mirror (UrRonUyita; tinanta exception mirrored in krdanta; sole-gated): 02.0034 yang_krut (+21 tokens), 0 worsened (01 zero-diff).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).
