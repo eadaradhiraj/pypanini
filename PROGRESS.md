@@ -1,16 +1,17 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-09-27
-Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, gate 0/0, GRAND 994971 reproduced.
-Sweep-02: **70/76** (raw 70/77, 1 skipped) — refreshed (cakz 02.0007 passes).
+Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, fid-diff gate 0/0.
+Sweep-02: **70/76** (raw 70/77, 1 skipped) — held; 02.0054 improved 299→862 matched.
 
-## Done — external-batch verification + repair
-- Reviewed f661651 (Muse, jAg krdanta ×3, gana-gated, clean) + ba3d6d7 (gemini cakz + 24 junk files, deleted).
-- Repaired gemini pada-gating regression (sannanta-kartari 5 blocks restored to over-generate-both; 10 01 fids fixed, 1146→1156).
-- Full sweeps: 01 1156/1156, 02 70/76 (02.0007 cakz fixed by gemini work, kept).
+## Done — dAp mUla dA-stem (iteration 178)
+- Sole dAp-clean 02.0054 surveyed 01+02 (svap 02.0063 keeps p, zero conflicts).
+- Tinanta: mUla dA-base, dadA redup + dad liT-map, dAdAya yang, didAs san, keeps-y, dA sic-aorist.
+- Krdanta: dAta kta, weak-A dAn Satf (dA proper takes yacC), dA-rewrite excl kta/ktavatu/Satf/SAnac.
+- Gates: unit tests OK; 01 fid-diff 0/0 (1156/1156); 02 improved +563, 0 worsened.
 
 ## Next (02 loop)
-1. 0060/0042 liT + 0054 + 0039 + 0012 + 0040 (san_yak ceiling).
-2. cakz follow-ups; hardcoded "02.0055" fid in KyA/kSA block to revisit.
-3. Ganas 03–10 to follow.
-- Advance 02: 70/76 → all (excl. ceilings).
+1. 0054 remainder: yangluk_krut dAdita-forms + luN-parasmaipada dA augment gaps.
+2. 0060/0042 liT + 0039 + 0012 + 0040 (san_yak ceiling).
+3. cakz follow-ups; hardcoded "02.0055" fid in KyA/kSA block to revisit.
+4. Ganas 03–10 to follow.

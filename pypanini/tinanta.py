@@ -414,6 +414,9 @@ class TinantaDerivationEngine:
         # Panini 8.2.18 kfpo ro l: liT redup uses x-stem (cakxp-, not cakfp-).
         if clean == "kfp":
             return "cakxp"
+        # dAp liT redup uses dA-stem (dadO; sole dAp-clean 02.0054 surveyed 01+02)
+        if clean == "dAp":
+            return "dadA"
         # find root vowel (first vowel in clean)
         root_vowel = None
         for ch in clean:
@@ -761,6 +764,10 @@ class TinantaDerivationEngine:
         if clean == "dEp" or op.startswith("dEp"):
             if "dAy" not in bases:
                 bases.append("dAy")
+        # dAp mUla uses dA-stem (dAti/adAt/dAtu; sole dAp-clean 02.0054 surveyed 01+02, svap keeps p; additive)
+        if clean == "dAp" or op.startswith("dAp"):
+            if "dA" not in bases:
+                bases.append("dA")
         # Panini 6.4.25 daMSa-svaYja-zvaYjAM Sapi, 6.4.26 raYjeS ca, 6.4.24 aniditAm:
         # Penultimate nasal elided before Sap: danS->daS, zvanj/svaYj->svaj, saYj->saj, raYj->raj
         if clean in ("danS", "daMS") or op.startswith("danS"):
@@ -1432,6 +1439,9 @@ class TinantaDerivationEngine:
         # genuine-vowel test; sole-gated OR).
         if clean == "UrRu" and meta.get("gana") == "adAdiH":
             keeps_y_in_yan = True
+        # dAp yang keeps stem-y (dAdAyate/dAdAyAYcakre; sole dAp-clean 02.0054 surveyed 01+02).
+        if clean == "dAp" or op.startswith("dAp"):
+            keeps_y_in_yan = True
         # SI yang drops stem-y outside present (SASayAYcakre; sole 02.0026 surveyed — genuine-vowel
         # test wrongly keeps y; sole-gated exclusion; present uses full ys so untouched).
         if clean == "SI" and meta.get("gana") == "adAdiH":
@@ -1746,6 +1756,9 @@ class TinantaDerivationEngine:
                 return "SiSriz"
             if c == "dE" or op.startswith("dEp"):
                 return "didAs"
+            # dAp san is didAs- too (didAsati; sole dAp-clean 02.0054 surveyed 01+02; same dA-family as dEp)
+            if c == "dAp" or op.startswith("dAp"):
+                return "didAs"
             if c in ("DeN", "De", "DA", "DuDAY") or (c.endswith("ew") and not sew) or op.startswith(("DeN", "DA~", "DuDA")) or (op.endswith("ew") and not sew):
                 return "Dits"
             # Panini 7.4.56 sa ni pAt: Svi -> SiSvayiz
@@ -1897,6 +1910,9 @@ class TinantaDerivationEngine:
                 return "jegIya"
             if c in ("dA", "dAR", "de", "do"):
                 return "dedIya"
+            # dAp yang is dAdAya (sole dAp-clean 02.0054 surveyed 01+02; dA-reduplication, p lost like mUla)
+            if c == "dAp" or op.startswith("dAp"):
+                return "dAdAya"
             if c in ("DA", "DuDAY", "De", "Do"):
                 return "deDIya"
             # aniW ew-final yan (Dew->deDIya; sole 01 Dew 01.1050 surveyed): e-redup + I-grade, same
@@ -5329,7 +5345,7 @@ class TinantaDerivationEngine:
             _a_map = {
                 "sTA": "tasT", "zWA": "tasT",
                 "pA": "pap", "GrA": "jaGr", "DmA": "daDm", "mnA": "mamn",
-                "dAR": "dad", "dA": "dad",
+                "dAR": "dad", "dA": "dad", "dAp": "dad",
                 "gA": "jag", "gAN": "jag"
             }
             if clean in _a_map or op in _a_map or clean.endswith("A") or is_adeca(clean):
@@ -6249,6 +6265,11 @@ class TinantaDerivationEngine:
                         except Exception:
                             pass
                         # also with devoiced last? aug already includes base, sfx handles
+                    # dAp sic-aorist uses dA-stem (adAsIt/adAsId/adAsizwAm/...; sole dAp-clean 02.0054 surveyed 01+02; additive)
+                    if clean == "dAp" or op.startswith("dAp"):
+                        _aug_dA = self._add_augment("dA", False)
+                        for _dsfx in ["sIt","sId","sizwAm","sizuH","sIH","sizwam","sizwa","sizam","sizva","sizma"]:
+                            cands.append(_aug_dA + _dsfx)
                     # per-slot specific i variant as before
                     suffix_map = {"t":"It","tAm":"ItAm","van":"uH","H":"IH","tam":"Itam","ta":"Ita","vam":"Izam","va":"Iva","ma":"Ima"}
                     ending = endings[(purusha, vacana)]

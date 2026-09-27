@@ -383,6 +383,8 @@ class KrdantaEngine:
         if clean == "dEp": return "dAta"
         # dE is post-strip dEp (sole 01 dEp-op 01.1073; clean_dhatu_op strips dEp->dE, mUla clean is post-adeca dA)
         if clean == "dA" and op.startswith("dEp"): return "dAta"
+        # dAp mUla kta is dAtaH (sole dAp-clean 02.0054 surveyed 01+02; nich keeps dApita via nijanta block)
+        if clean == "dAp" or op.startswith("dAp"): return "dAta"
         if clean == "qI": return "qiyita"
         # Samo~ (mit o->a): kta stem SamaTa (retroflex T).
         if clean == "Sama": return "SamaTa"
@@ -1202,6 +1204,9 @@ class KrdantaEngine:
                 # dEp sannanta didAs-stem (mirrors tinanta _sannanta_stem dE->didAs; c is post-adeca dA here; sole 01 dEp-op 01.1073 surveyed, zero conflicts)
                 if c == "dA" and op.startswith("dEp"):
                     return "didAs"
+                # dAp san is didAs- too (mirrors tinanta; sole dAp-clean 02.0054 surveyed 01+02)
+                if c == "dAp" or op.startswith("dAp"):
+                    return "didAs"
                 if c in ("deN", "de", "dA", "dAR") or (op.startswith(("deN", "dAR", "dA~", "dap")) and "dEp" not in op):
                     return "dits"
                 if c == "jYA" and dhatu_id == "01.0923":
@@ -1366,6 +1371,9 @@ class KrdantaEngine:
                     return "jegIya"
                 # dEp yang is dAdAya (mirrors tinanta _yan_stem generic adeca path; c is post-adeca dA here; sole 01 dEp-op 01.1073, dAR guard 01.1079 unaffected)
                 if c == "dA" and op.startswith("dEp"):
+                    return "dAdAya"
+                # dAp yang is dAdAya (mirrors tinanta; sole dAp-clean 02.0054 surveyed 01+02)
+                if c == "dAp" or op.startswith("dAp"):
                     return "dAdAya"
                 if c in ("dA", "dAR") or (op and op.startswith(("dA~", "dAR"))):
                     return "dedIya"
@@ -1849,6 +1857,9 @@ class KrdantaEngine:
                 # UrRu yan keeps stem-y too (UrRonUyita; mirrors tinanta keeps_y exception; sole 02.0034).
                 if meta.get("clean") == "UrRu" and meta.get("gana") == "adAdiH":
                     keeps_y_in_yan = True
+                # dAp yan keeps stem-y (dAdAyita; sole dAp-clean 02.0054 surveyed 01+02).
+                if orig_clean == "dAp" or op.startswith("dAp"):
+                    keeps_y_in_yan = True
                 # SI yan drops stem-y outside present (SASayita; mirrors tinanta keeps_y exclusion;
                 # sole 02.0026).
                 if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
@@ -2202,6 +2213,18 @@ class KrdantaEngine:
             guna_base = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
             vriddhi_base = self._vriddhi_base(clean, is_idit)
 
+        # dAp mUla uses dA-stem (dAtavya/dAtA/dAtum/dAtvA/dAnIya/deya/dAyaka/...;
+        # sole dAp-clean 02.0054 surveyed 01+02; inherits proven 01.1079 dA machinery).
+        # Excluded: kta/ktavatu keep dAta-forms via _kta_stem override (dA proper takes
+        # datta-suppletion, absent from dAp tokens); Satf keeps weak-A dAn (dA proper takes
+        # yacC-suppletion); SAnac keeps dAp-form (dIyamAnaH absent from dAp tokens).
+        if sanadi is None and clean == "dAp" and pratyaya not in ("kta", "ktavatu", "Satf", "SAnac"):
+            clean = "dA"
+            is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
+            guna_base = clean if self._keep_shape(clean, meta.get("op", ""), sew) else self._guna_base(clean, is_idit)
+            vriddhi_base = self._vriddhi_base(clean, is_idit)
+            is_laghu_ik_init = (len(clean) == 1 and clean in ("i", "u", "f", "x")) or (len(clean) == 2 and clean[0] in ("i", "u", "f", "x") and clean[1] not in SLP1_VOWELS)
+
         # helper to build tri-linga from stem ending in 'a'
         def tri_linga(stem_a: str) -> Dict:
             # stem_a ends with 'a' e.g., eDita, BavanIya
@@ -2471,6 +2494,10 @@ class KrdantaEngine:
                 # gana-gated early return before piba-suppletion; free).
                 if clean == "pA" and meta.get("gana") == "adAdiH":
                     return {"M": "pAn", "F": ["pAtI", "pAntI"], "N": ["pAt", "pAd"]}
+                # dAp weak-A Satf (dAn/dAtI-dAntI/dAt-dAd; sole dAp-clean 02.0054 surveyed
+                # 01+02; mirrors pA-adAdi above; dA proper takes yacC-suppletion below, free).
+                if clean == "dAp" or op.startswith("dAp"):
+                    return {"M": "dAn", "F": ["dAtI", "dAntI"], "N": ["dAt", "dAd"]}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
