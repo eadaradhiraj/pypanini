@@ -2169,6 +2169,9 @@ class KrdantaEngine:
             # pA A-kept kta (pAta; BvAdi/04 pIta minimal pair surveyed; gana-gated; free).
             if sanadi is None and clean == "pA" and meta.get("gana") == "adAdiH":
                 return tri_linga("pAta")
+            # svap samprasAraNa kta (supta; sole 02.0063 surveyed — no BvAdi svap exists; free).
+            if sanadi is None and clean == "svap" and meta.get("gana") == "adAdiH":
+                return tri_linga("supta")
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
@@ -2286,6 +2289,9 @@ class KrdantaEngine:
             # pA A-kept ktavatu (pAtavAn; same minimal pair; free).
             if sanadi is None and clean == "pA" and meta.get("gana") == "adAdiH":
                 return {"M": "pAtavAn", "F": "pAtavatI", "N": ["pAtavat", "pAtavad"]}
+            # svap samprasAraNa ktavatu (suptavAn; sole-gated; free).
+            if sanadi is None and clean == "svap" and meta.get("gana") == "adAdiH":
+                return {"M": "suptavAn", "F": "suptavatI", "N": ["suptavat", "suptavad"]}
             # vaS weak-uS ktavatu twin (uSitavAn; sole 02.0075 surveyed — old kept as cross-hit; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}
