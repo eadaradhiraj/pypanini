@@ -2969,7 +2969,8 @@ class TinantaDerivationEngine:
                         pass
                     # Panini 6.1.15 + 6.1.17 yajAdi karmani liw (Ude, Ije, etc.)
                     # vac takes samprasAraNa Uc too (Uce; sole 02.0058 surveyed — no BvAdi vac exists).
-                    _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz", "vac": "Uc"}
+                    # han takes jaGn (jaGne; sole 02.0002 surveyed — no BvAdi han exists).
+                    _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz", "vac": "Uc", "han": "jaGn"}
                     if clean in _yajadi_kt or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
                         _kt = _yajadi_kt.get(clean, "Ud" if "vad" in op else ("Ij" if "yaj" in op else ("Up" if "vap" in op else ("Uh" if "vah" in op else "Uz"))))
                         _atman_yak = {
@@ -3277,7 +3278,8 @@ class TinantaDerivationEngine:
                     cands.append(alt2[(purusha,vacana)])
                 # Panini 6.1.15 + 6.1.17 yajAdi karmani liw (Ude, Ije, etc.)
                 # vac takes samprasAraNa Uc too (Uce; sole 02.0058 surveyed — no BvAdi vac exists).
-                _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz", "vac": "Uc"}
+                # han takes jaGn (jaGne; sole 02.0002 surveyed — no BvAdi han exists).
+                _yajadi_kt = {"vad": "Ud", "yaj": "Ij", "vap": "Up", "vah": "Uh", "vas": "Uz", "vac": "Uc", "han": "jaGn"}
                 if clean in _yajadi_kt or op in ("yaja~", "vada~", "quvapa~", "vaha~", "vasa~"):
                     _kt = _yajadi_kt.get(clean, "Ud" if "vad" in op else ("Ij" if "yaj" in op else ("Up" if "vap" in op else ("Uh" if "vah" in op else "Uz"))))
                     _atman_yak = {
@@ -5070,6 +5072,11 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "svap" and prayoga == "kartari":
                 _svt = {("prathama","eka"):["suzvApa"],("prathama","dvi"):["suzupatuH"],("prathama","bahu"):["suzupuH"],("madhyama","eka"):["suzvapiTa","suzvapTa"],("madhyama","dvi"):["suzupaTuH"],("madhyama","bahu"):["suzupa"],("uttama","eka"):["suzvapa","suzvApa"],("uttama","dvi"):["suzupiva"],("uttama","bahu"):["suzupima"]}
                 return list(dict.fromkeys(_svt.get((purusha, vacana), []))), log
+            # han mUla-liT jaG-redup (jaGAna/jaGnatuH...; sole 02.0002 surveyed — no BvAdi han exists;
+            # kartari-only return; free).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han" and prayoga == "kartari":
+                _hnt = {("prathama","eka"):["jaGAna"],("prathama","dvi"):["jaGnatuH"],("prathama","bahu"):["jaGnuH"],("madhyama","eka"):["jaGaniTa","jaGanTa"],("madhyama","dvi"):["jaGnaTuH"],("madhyama","bahu"):["jaGna"],("uttama","eka"):["jaGana","jaGAna"],("uttama","dvi"):["jaGniva"],("uttama","bahu"):["jaGnima"]}
+                return list(dict.fromkeys(_hnt.get((purusha, vacana), []))), log
             # iN mUla-liT aDi-jag redup (aDijage/aDijagAte...; sole 02.0041 surveyed — op-gated vs iR;
             # kartari-only return (yak alit identical, passes via global match); free).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN") and prayoga == "kartari":
