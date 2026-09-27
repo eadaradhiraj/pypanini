@@ -1560,6 +1560,9 @@ class KrdantaEngine:
                     # ew-final aniW mirrors it (Dew 01.1050 -> DApitaH; sew ew-roots excluded).
                     if op.startswith("dEp") or (orig_clean.endswith("ew") and not sew):
                         return {"M": sec_base+"itaH", "F": sec_base+"itA", "N": sec_base+"itam"}
+                    # ad nijanta (Adita; sole 02.0001 surveyed; manual triple — tri_linga defined later).
+                    if meta.get("clean") == "ad" and meta.get("gana") == "adAdiH":
+                        return {"M": "AditaH", "F": "AditA", "N": "Aditam"}
                     # SAs nijanta plain (SAsita; sole 02.0070 surveyed; manual triple — tri_linga defined later).
                     if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
                         return {"M": "SAsitaH", "F": "SAsitA", "N": "SAsitam"}
@@ -1590,6 +1593,9 @@ class KrdantaEngine:
                     # SAs nijanta plain (SAsita; sole 02.0070 surveyed; A-stem + iT, no samprasAraNa; free).
                     if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
                         return {"M": "SAsitavAn", "F": "SAsitavatI", "N": ["SAsitavat", "SAsitavad"]}
+                    # ad nijanta (AditavAn; sole 02.0001 surveyed; old misses, free).
+                    if meta.get("clean") == "ad" and meta.get("gana") == "adAdiH":
+                        return {"M": "AditavAn", "F": "AditavatI", "N": ["Aditavat", "Aditavad"]}
                     # vaS nijanta vriddhi (vASitavAn; sole 02.0075 surveyed; old misses, free).
                     if meta.get("clean") == "vaS" and meta.get("gana") == "adAdiH":
                         return {"M": "vASitavAn", "F": "vASitavatI", "N": ["vASitavat", "vASitavad"]}
@@ -2101,6 +2107,10 @@ class KrdantaEngine:
             # SAs iz-grade kta (SizwaH; sole 02.0070 surveyed; old A-forms miss, free).
             if sanadi is None and clean == "SAs" and meta.get("gana") == "adAdiH":
                 return tri_linga("Sizwa")
+            # ad suppletive kta (jagDaH + jagdDaH twin; sole 02.0001 surveyed — both bases attested;
+            # old annaH misses, free).
+            if sanadi is None and clean == "ad" and meta.get("gana") == "adAdiH":
+                return {"M": ["jagDaH", "jagdDaH"], "F": ["jagDA", "jagdDA"], "N": ["jagDam", "jagdDam"]}
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
@@ -2201,6 +2211,9 @@ class KrdantaEngine:
             # SAs iz-grade ktavatu (SizwavAn; sole 02.0070 surveyed; old misses, free).
             if sanadi is None and clean == "SAs" and meta.get("gana") == "adAdiH":
                 return {"M": "SizwavAn", "F": "SizwavatI", "N": ["Sizwavat", "Sizwavad"]}
+            # ad suppletive ktavatu (jagDavAn + jagdDa twin; sole 02.0001 surveyed; old misses, free).
+            if sanadi is None and clean == "ad" and meta.get("gana") == "adAdiH":
+                return {"M": ["jagDavAn", "jagdDavAn"], "F": ["jagDavatI", "jagdDavatI"], "N": ["jagDavat", "jagdDavat", "jagDavad", "jagdDavad"]}
             # vaS weak-uS ktavatu twin (uSitavAn; sole 02.0075 surveyed — old kept as cross-hit; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}
@@ -3156,6 +3169,9 @@ class KrdantaEngine:
             # jAgf ar-grade iT (jAgaritvA; sole 02.0067; free).
             if sanadi is None and clean == "jAg":
                 return {"avyaya": ["jAgaritvA"]}
+            # ad suppletive ktvA (jagDvA + jagdD twin; sole 02.0001 surveyed; old misses, free).
+            if sanadi is None and clean == "ad" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["jagDvA", "jagdDvA"]}
             # Panini 8.2.18 kfpo ro l, yangluk: seT carkalpitvA + aniT carkxptvA.
             if sanadi == "yanluganta" and sec == "carkalp":
                 return {"avyaya": ["carkalpitvA", "carkxptvA"]}

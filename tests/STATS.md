@@ -213,3 +213,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 84 (daridrA ablaut + weak krdanta (mUla tables + yak stem + ASIrliN/tavya/anIyar/yat/tfc/GaY/tumun/ktvA/lyap weak specials; sole-gated): 02.0068 → 629/629 (+1 pass, 53/76), 0 worsened (01 zero-diff).
 - Iteration 85 (SAs full root (SeSizya yan stem ×2 builders + Sizwa mUla + SAsita nich + SASizwa/yl + SeSiz-yan krdanta via sec; no BvAdi SAs exists; sole-gated): 02.0070 → 879/879 (+1 pass, 54/76), 0 worsened (01 zero-diff).
 - Iteration 86 (ad san suppletion (jiGats ×2 san builders; sole 02.0001 surveyed — no BvAdi ad exists; gana-gated): 02.0001 san-full (+209 tokens), 0 worsened (01 zero-diff).
+- Iteration 87 (ad suppletive kta family (jagDa/jagdDa twins + Adita nich + jagDvA ktvA; sole 02.0001 surveyed; free): 02.0001 → 626/626 (+1 pass, 55/76), 0 worsened (01 zero-diff).
