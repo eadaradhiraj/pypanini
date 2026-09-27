@@ -2243,6 +2243,9 @@ class KrdantaEngine:
             # mfjU zero-zw kta (mfzwa; sole 02.0061 surveyed — no BvAdi mfj exists; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return tri_linga("mfzwa")
+            # SI ay kta (Sayita; sole 02.0026 surveyed — no SI elsewhere; free).
+            if sanadi is None and clean == "SI" and meta.get("gana") == "adAdiH":
+                return tri_linga("Sayita")
             # iN aD- kta (aDIta; sole 02.0041 surveyed — op-gated vs iR eta-forms; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return tri_linga("aDIta")
@@ -2375,6 +2378,9 @@ class KrdantaEngine:
             # mfjU zero-zw ktavatu (sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"M": "mfzwavAn", "F": "mfzwavatI", "N": ["mfzwavat", "mfzwavad"]}
+            # SI ay ktavatu (Sayitavat; sole-gated; free).
+            if sanadi is None and clean == "SI" and meta.get("gana") == "adAdiH":
+                return {"M": "SayitavAn", "F": "SayitavatI", "N": ["Sayitavat", "Sayitavad"]}
             # iN aD- ktavatu (sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDItavAn", "F": "aDItavatI", "N": ["aDItavat", "aDItavad"]}

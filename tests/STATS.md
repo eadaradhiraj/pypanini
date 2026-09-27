@@ -279,4 +279,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 150 (SI ay-grades (Sayy yak + SiSayiz san ×2 builders; sole SI surveyed; additive): 02.0026 yak+san (+245 tokens), 0 worsened (01 zero-diff).
 - Iteration 151 (SI nich_yak + yang redup + keeps_y exclusion (Sayy/SASayya/SASay split present/non-present; sole-gated; note: family bundle, one gate — combined fid-diff clean): 02.0026 +222 tokens, 0 worsened (01 zero-diff).
 - Iteration 152 (SI yan keeps_y exclusion mirror (SASayita krdanta; mirrors tinanta; sole-gated): 02.0026 yang_krut (+23 tokens), 0 worsened (01 zero-diff).
+- Iteration 153 (SI ay kta pair (Sayita/Sayitavat; a tfc-branch misplacement self-caught and relocated; sole-gated; free): 02.0026 +6 slots, 0 worsened (01 zero-diff).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).
