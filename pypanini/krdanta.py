@@ -1589,6 +1589,11 @@ class KrdantaEngine:
                     if _mvw and _mvw[-1] == "a":
                         _vt = self._vriddhi_base(_mclean, is_idit) + "ita"
                         return {"M": [_md["M"], _vt+"H"], "F": [_md["F"], _vt[:-1]+"A"], "N": [_md["N"], _vt+"m"]}
+                    # duh/dih nich h-kept twin (dohita/dehita; 02 pair + BvAdi dohit unanimity surveyed;
+                    # old kept — it cross-hits today (BvAdi duhitaH, 0006 lIQaH); additive so monotonic).
+                    if _mclean in ("duh", "dih"):
+                        _ht = "dohita" if _mclean == "duh" else "dehita"
+                        return {"M": [_md["M"], _ht+"H"], "F": [_md["F"], _ht[:-1]+"A"], "N": [_md["N"], _ht+"m"]}
                     return _md
                 if pratyaya == "ktavatu":
                     # dEp nich ktavatu is dApitavAn (sole 01 dEp-op 01.1073; mirrors kta above);
@@ -1614,6 +1619,11 @@ class KrdantaEngine:
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
                     _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
                     _b = _mstem[:-1] if _mstem.endswith("a") else _mstem
+                    # duh/dih nich h-kept twin (mirrors kta; same unanimity; additive so monotonic).
+                    if meta.get("clean") in ("duh", "dih"):
+                        _ht = "dohita" if meta.get("clean") == "duh" else "dehita"
+                        _hb = _ht[:-1] if _ht.endswith("a") else _ht
+                        return {"M": [_b+"avAn", _hb+"avAn"], "F": [_b+"avatI", _hb+"avatI"], "N": [_b+"avat", _hb+"avat"]}
                     return {"M": _b+"avAn", "F": _b+"avatI", "N": _b+"avat"}
                 if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
                 if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
