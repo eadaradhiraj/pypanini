@@ -1558,6 +1558,10 @@ class KrdantaEngine:
                     # ew-final aniW mirrors it (Dew 01.1050 -> DApitavAn).
                     if op.startswith("dEp") or (orig_clean.endswith("ew") and not sew):
                         return {"M": sec_base+"itavAn", "F": sec_base+"itavatI", "N": sec_base+"itavat"}
+                    # vac nijanta vriddhi (vAcitavAn; sole 02.0058 surveyed; nich kta left on cross-match;
+                    # meta-clean gate — local clean may be nijanta-rewritten).
+                    if meta.get("clean") == "vac" and meta.get("gana") == "adAdiH":
+                        return {"M": "vAcitavAn", "F": "vAcitavatI", "N": ["vAcitavat", "vAcitavad"]}
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
                     _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
                     _b = _mstem[:-1] if _mstem.endswith("a") else _mstem
@@ -2092,6 +2096,9 @@ class KrdantaEngine:
                 # AdAdi vas yl redup (vAvasitavat; sole 02.0013; free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
                     return {"M": "vAvasitavAn", "F": "vAvasitavatI", "N": ["vAvasitavat", "vAvasitavad"]}
+                # AdAdi vac yl redup (vocitavat; sole 02.0058; free).
+                if clean == "vac" and meta.get("gana") == "adAdiH":
+                    return {"M": "vocitavAn", "F": "vocitavatI", "N": ["vocitavat", "vocitavad"]}
                 _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita", "ve": "vovita", "hve": "jAhuvita"}
                 if clean in _yajadi_yl_kta:
                     _b = _yajadi_yl_kta[clean][:-1]
@@ -2138,6 +2145,10 @@ class KrdantaEngine:
                     _ab = _red[:-1] if _red.endswith("a") else _red
                     b = stem[:-1] if stem.endswith("a") else stem
                     return {"M": [b + "avAn", _ab + "avAn"], "F": [b + "avatI", _ab + "avatI"], "N": [b + "avat", _ab + "avat"]}
+            # vac samprasAraNa ktavatu (uktavAn; sole 02.0058 surveyed — kta stem vakta kept for its
+            # cross-match; old vaktavAn misses in-fid, free).
+            if sanadi is None and clean == "vac" and meta.get("gana") == "adAdiH":
+                return {"M": "uktavAn", "F": "uktavatI", "N": ["uktavat", "uktavad"]}
             b = stem[:-1] if stem.endswith("a") else stem
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
@@ -3100,6 +3111,12 @@ class KrdantaEngine:
                 return {"avyaya": ["SvayitvA", "SvitvA"]}
             # Panini 6.1.15 vaci-svapi-yajAdInAM kiti
             _yajadi_ktva = {"yaj": "izwvA", "vap": "uptvA", "vah": "UQvA", "vas": "uzitvA", "vad": "uditvA"}
+            # AdAdi vac samprasAraNa (uktvA mUla + vAvacitvA yl; sole 02.0058; free).
+            if clean == "vac" and meta.get("gana") == "adAdiH":
+                if sanadi == "yanluganta":
+                    return {"avyaya": ["vAvacitvA"]}
+                if sanadi is None:
+                    return {"avyaya": ["uktvA"]}
             # AdAdi vas keeps vas (fall through to generic vasitvA; BvAdi keeps uzitvA).
             if clean in _yajadi_ktva and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
                 if sanadi == "yanluganta":
@@ -3275,6 +3292,12 @@ class KrdantaEngine:
             # AdAdi vas yl redup (pravAvasya; sole 02.0013; free).
             if sanadi == "yanluganta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["pravAvasya"]}
+            # AdAdi vac samprasAraNa lyap (procya mUla + pravocya yl; sole 02.0058; free).
+            if clean == "vac" and meta.get("gana") == "adAdiH":
+                if sanadi == "yanluganta":
+                    return {"avyaya": ["pravocya"]}
+                if sanadi is None:
+                    return {"avyaya": ["procya"]}
             if clean in _yajadi_lyap and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
                 if sanadi == "yanluganta":
                     _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSoSUya", "SoSUya"]}
