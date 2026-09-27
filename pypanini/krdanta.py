@@ -1809,6 +1809,10 @@ class KrdantaEngine:
                 # UrRu yan keeps stem-y too (UrRonUyita; mirrors tinanta keeps_y exception; sole 02.0034).
                 if meta.get("clean") == "UrRu" and meta.get("gana") == "adAdiH":
                     keeps_y_in_yan = True
+                # SI yan drops stem-y outside present (SASayita; mirrors tinanta keeps_y exclusion;
+                # sole 02.0026).
+                if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
+                    keeps_y_in_yan = False
                 if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
                         sec = "coskundya"
