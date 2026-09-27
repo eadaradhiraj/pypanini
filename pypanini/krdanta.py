@@ -1552,7 +1552,17 @@ class KrdantaEngine:
                     # (nijanta jamBitaH, not mUla-style jambDaH).
                     _mop = "" if meta.get("clean") == "jaB" else meta.get("op", "")
                     _mstem = self._kta_stem(orig_clean, sew, _mop, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
-                    return {"M": _mstem+"H", "F": _mstem[:-1]+"A" if _mstem.endswith("a") else _mstem+"A", "N": _mstem+"m"}
+                    _md = {"M": _mstem+"H", "F": _mstem[:-1]+"A" if _mstem.endswith("a") else _mstem+"A", "N": _mstem+"m"}
+                    # vriddhi twin for short-a (dAdita/vASita/SvAsita/sAsita/svApita; surveyed pan-gaNa
+                    # short-a unanimity incl. BvAdi dad/kak (20+ roots, zero conflicts); dEp/ew/jaB/nitya-san
+                    # return above; old kept — it cross-hits today (e.g. daditaH); additive so monotonic.
+                    # (triple built manually — tri_linga is defined later in this function.)
+                    _mclean = meta.get("clean", "") or ""
+                    _mvw = [c for c in _mclean if c in SLP1_VOWELS]
+                    if _mvw and _mvw[-1] == "a":
+                        _vt = self._vriddhi_base(_mclean, is_idit) + "ita"
+                        return {"M": [_md["M"], _vt+"H"], "F": [_md["F"], _vt[:-1]+"A"], "N": [_md["N"], _vt+"m"]}
+                    return _md
                 if pratyaya == "ktavatu":
                     # dEp nich ktavatu is dApitavAn (sole 01 dEp-op 01.1073; mirrors kta above);
                     # ew-final aniW mirrors it (Dew 01.1050 -> DApitavAn).
