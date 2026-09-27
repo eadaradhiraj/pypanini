@@ -237,3 +237,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 108 (svap mUla-liT samprasAraNa+zatva redup (suzvApa/suzupatuH...; no BvAdi svap; kartari-gated like vac/vaS; free): 02.0063 liw 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 109 (svap ASIrliN sup-stem (`_asb` +`sup`, mirroring vac-uc/vaS-uS precedent; sole-gated): 02.0063 ASIrliN 9/9 (+7), 0 worsened (01 zero-diff).
 - Iteration 110 (svap san samprasAraNa+zatva (suzups ×2 builders; sole-gated; additive): 02.0063 san-full (+209 tokens), 0 worsened (01 zero-diff).
+- Iteration 111 (svap yang intensive (sozupya ×2 builders; sole-gated; additive; SAs guard holds): 02.0063 yang (+84 tokens), 0 worsened (01 zero-diff).

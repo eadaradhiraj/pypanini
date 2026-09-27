@@ -1978,6 +1978,9 @@ class TinantaDerivationEngine:
             # SAs intensive (SeSizyate; sole 02.0070 surveyed — e-redup + izya stem; gana-gated).
             if c == "SAs" and meta.get("gana") == "adAdiH":
                 return "SeSizya"
+            # svap intensive (sozupyate; sole 02.0063 surveyed — o-redup + zupya stem; gana-gated).
+            if c == "svap" and meta.get("gana") == "adAdiH":
+                return "sozupya"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":

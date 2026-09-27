@@ -1271,6 +1271,12 @@ class KrdantaEngine:
                 # SAs intensive (SeSizya; mirrors tinanta; sole 02.0070 surveyed — gana-gated).
                 if c == "SAs" and meta.get("gana") == "adAdiH":
                     return "SeSizya"
+                # svap intensive (sozupya; mirrors tinanta; sole 02.0063 surveyed — gana-gated).
+                if c == "svap" and meta.get("gana") == "adAdiH":
+                    return "sozupya"
+                # SAs intensive (SeSizya; mirrors tinanta; sole 02.0070 surveyed — gana-gated).
+                if c == "SAs" and meta.get("gana") == "adAdiH":
+                    return "SeSizya"
                 # single vocalic-f yan (mirrors tinanta; sole 01 f-clean 01.1086)
                 if c == "f":
                     return "arArya"
