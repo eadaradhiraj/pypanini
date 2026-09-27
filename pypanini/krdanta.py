@@ -2134,6 +2134,9 @@ class KrdantaEngine:
                 if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
                     _ylh = {"duh": "doduhita", "dih": "dedihita", "lih": "lelihita"}[clean]
                     return tri_linga(_ylh)
+                # svap yl redup kta (sAsupita; sole 02.0063 surveyed — no BvAdi svap exists; free).
+                if sanadi == "yanluganta" and clean == "svap" and meta.get("gana") == "adAdiH":
+                    return tri_linga("sAsupita")
                 _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita", "ve": "vovita", "hve": "jAhuvita"}
                 if clean in _yajadi_yl_kta:
                     return tri_linga(_yajadi_yl_kta[clean])
@@ -2223,6 +2226,9 @@ class KrdantaEngine:
                 if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
                     _ylhv = {"duh": "doduhitav", "dih": "dedihitav", "lih": "lelihitav"}[clean]
                     return {"M": _ylhv + "An", "F": _ylhv + "atI", "N": [_ylhv + "at", _ylhv + "ad"]}
+                # svap yl redup ktavatu (mirrors kta; sole-gated; free).
+                if sanadi == "yanluganta" and clean == "svap" and meta.get("gana") == "adAdiH":
+                    return {"M": "sAsupitavAn", "F": "sAsupitavatI", "N": ["sAsupitavat", "sAsupitavad"]}
                 # AdAdi vac yl redup (vocitavat; sole 02.0058; free).
                 if clean == "vac" and meta.get("gana") == "adAdiH":
                     return {"M": "vocitavAn", "F": "vocitavatI", "N": ["vocitavat", "vocitavad"]}
@@ -3284,6 +3290,9 @@ class KrdantaEngine:
             # duh/dih gD ktvA (dugDvA/digDvA; same guards; free).
             if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["dugDvA" if clean == "duh" else "digDvA"]}
+            # svap samprasAraNa ktvA (suptvA; sole-gated; free).
+            if sanadi is None and clean == "svap" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["suptvA"]}
             # mA short-i ktvA (mitvA; 02.0057 surveyed — 03/04 take mItvA, so gana-gated; free).
             if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["mitvA"]}
@@ -3294,6 +3303,9 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
                 _ylv = {"duh": "dodohitvA", "dih": "dedehitvA", "lih": "lelehitvA"}[clean]
                 return {"avyaya": [_ylv]}
+            # svap yl redup ktvA (sAsvapitvA; sole-gated; free).
+            if sanadi == "yanluganta" and clean == "svap" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["sAsvapitvA"]}
             if clean.endswith("F") and sanadi is None:
                 return {"avyaya": [clean[:-1] + "IrtvA"]}
             # Panini 8.2.18 kfpo ro l: udit-aniT kxptvA + seT kalpitvA (vew gets both).
