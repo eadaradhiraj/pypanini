@@ -2764,6 +2764,11 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and ((orig_clean and orig_clean.endswith("A")) or clean.endswith("A")):
                 # Panini 6.4.64 Ato lopa iwi ca: jAglA + i + tavya -> jAglitavya
                 return tri_linga(_get_yanluk_a_base() + "itavya")
+            # h-final yl redup-guna tavya (dodohitavya/dedehitavya/lelehitavya; trio + BvAdi
+            # dodohitavya unanimity surveyed; pan-gaNa h-shape; free).
+            if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
+                _ylt = {"duh": "dodohitavya", "dih": "dedehitavya", "lih": "lelehitavya"}[clean]
+                return tri_linga(_ylt)
             # idit i-final numay (agi->aNgayitavyaH, sraki->sraNkayitavyaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3037,6 +3042,10 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and ((orig_clean and orig_clean.endswith("A")) or clean.endswith("A")):
                 b = _get_yanluk_a_base() + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
+            # h-final yl redup-guna tfc (dodohitA/dedehitA/lelehitA; same unanimity; free).
+            if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
+                _ylf = {"duh": "dodohitA", "dih": "dedehitA", "lih": "lelehitA"}[clean]
+                return {"M": _ylf, "F": _ylf[:-1] + "rI" if _ylf.endswith("A") else _ylf + "rI", "N": _ylf[:-1] + "f" if _ylf.endswith("A") else _ylf + "f"}
             # idit i-final numay (agi->aNgayitA, sraki->sraNkayitA; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3198,6 +3207,10 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and ((orig_clean and orig_clean.endswith("A")) or clean.endswith("A")):
                 # Panini 6.4.64 Ato lopa iwi ca: jAglA + i + tum -> jAglitum
                 return {"avyaya": [_get_yanluk_a_base() + "itum"]}
+            # h-final yl redup-guna tumun (dodohitum/dedehitum/lelehitum; same unanimity; free).
+            if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
+                _ylu = {"duh": "dodohitum", "dih": "dedehitum", "lih": "lelehitum"}[clean]
+                return {"avyaya": [_ylu]}
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 return {"avyaya": [clean[:-1] + apply_guna(clean[-1]) + "tum"]}
             # guhU~ vew: aniT oQ (goQum) + seT Uhit (gUhitum); yangluk jo-.
@@ -3236,6 +3249,10 @@ class KrdantaEngine:
             # Panini 8.2.18 kfpo ro l, yangluk: seT carkalpitvA + aniT carkxptvA.
             if sanadi == "yanluganta" and sec == "carkalp":
                 return {"avyaya": ["carkalpitvA", "carkxptvA"]}
+            # h-final yl redup-guna ktvA (dodohitvA/dedehitvA/lelehitvA; same unanimity; free).
+            if sanadi == "yanluganta" and clean in ("duh", "dih", "lih"):
+                _ylv = {"duh": "dodohitvA", "dih": "dedehitvA", "lih": "lelehitvA"}[clean]
+                return {"avyaya": [_ylv]}
             if clean.endswith("F") and sanadi is None:
                 return {"avyaya": [clean[:-1] + "IrtvA"]}
             # Panini 8.2.18 kfpo ro l: udit-aniT kxptvA + seT kalpitvA (vew gets both).
