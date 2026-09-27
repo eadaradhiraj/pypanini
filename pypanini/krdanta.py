@@ -1301,6 +1301,9 @@ class KrdantaEngine:
                 # UrRu intensive (UrRonUya; mirrors tinanta; sole 02.0034 surveyed — gana-gated).
                 if c == "UrRu" and meta.get("gana") == "adAdiH":
                     return "UrRonUya"
+                # SI intensive (SASayya; mirrors tinanta; sole 02.0026 surveyed — gana-gated).
+                if c == "SI" and meta.get("gana") == "adAdiH":
+                    return "SASayya"
                 # SAs intensive (SeSizya; mirrors tinanta; sole 02.0070 surveyed — gana-gated).
                 if c == "SAs" and meta.get("gana") == "adAdiH":
                     return "SeSizya"

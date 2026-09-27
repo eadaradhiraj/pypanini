@@ -1410,6 +1410,10 @@ class TinantaDerivationEngine:
         # genuine-vowel test; sole-gated OR).
         if clean == "UrRu" and meta.get("gana") == "adAdiH":
             keeps_y_in_yan = True
+        # SI yang drops stem-y outside present (SASayAYcakre; sole 02.0026 surveyed — genuine-vowel
+        # test wrongly keeps y; sole-gated exclusion; present uses full ys so untouched).
+        if clean == "SI" and meta.get("gana") == "adAdiH":
+            keeps_y_in_yan = False
         # aniW ew-final yan keeps stem-y like genuine vowel roots (deDIya->deDIyitA, not deDIitA;
         # sole 01 Dew 01.1050 surveyed; sew ew-cleans mlew/mew/rew keep y-drop via sew-gate).
         # Sole consumer is the yananta branch below (yan is always Atmanepada, both prayogas).
@@ -2032,6 +2036,9 @@ class TinantaDerivationEngine:
             # UrRu intensive (UrRonUyate; sole 02.0034 surveyed — onU-stem; gana-gated).
             if c == "UrRu" and meta.get("gana") == "adAdiH":
                 return "UrRonUya"
+            # SI intensive (SASayyate; sole 02.0026 surveyed — SA-redup + Sayya; gana-gated).
+            if c == "SI" and meta.get("gana") == "adAdiH":
+                return "SASayya"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
@@ -2471,6 +2478,9 @@ class TinantaDerivationEngine:
                         n_stems_all.append(_nkc + "ay")
                 # yak stems list from all n_stems
                 yak_stems_all = [s[:-2] + "y" if s.endswith("ay") else s + "y" for s in n_stems_all]
+                # SI nich_yak ay-grade (Sayyate; sole 02.0026 surveyed — nich_yak takes yak stem).
+                if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH" and "Sayy" not in yak_stems_all:
+                    yak_stems_all.append("Sayy")
                 yak_stem = yak_stems_all[0] if yak_stems_all else n_stem + "y"
                 _nij_yak_stems = yak_stems_all
                 _nij_secs = n_stems_all
