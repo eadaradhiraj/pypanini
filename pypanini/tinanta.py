@@ -3319,6 +3319,9 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
                     _mjyluw = {("prathama","eka"):["mArjitA","mArzwA"],("prathama","dvi"):["mArjitArO","mArzwArO"],("prathama","bahu"):["mArjitAraH","mArzwAraH"],("madhyama","eka"):["mArjitAse","mArzwAse"],("madhyama","dvi"):["mArjitAsATe","mArzwAsATe"],("madhyama","bahu"):["mArjitADve","mArzwADve"],("uttama","eka"):["mArjitAhe","mArzwAhe"],("uttama","dvi"):["mArjitAsvahe","mArzwAsvahe"],("uttama","bahu"):["mArjitAsmahe","mArzwAsmahe"]}
                     cands += _mjyluw.get((purusha, vacana), [])
+                # iN yak-lut e-grade stem (aDyetA covers every slot via any-match; op-gated; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                    cands += self._conjugate_luw("aDye", "Atmanepadi", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
