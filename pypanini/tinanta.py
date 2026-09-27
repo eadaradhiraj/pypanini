@@ -2958,6 +2958,11 @@ class TinantaDerivationEngine:
                     if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "UrRu":
                         _unuv = {("prathama","eka"):["UrRunuve"],("prathama","dvi"):["UrRunuvAte"],("prathama","bahu"):["UrRunuvire"],("madhyama","eka"):["UrRunuvize"],("madhyama","dvi"):["UrRunuvATe"],("madhyama","bahu"):["UrRunuviQve","UrRunuviDve"],("uttama","eka"):["UrRunuve"],("uttama","dvi"):["UrRunuvivahe"],("uttama","bahu"):["UrRunuvimahe"]}
                         cands += _unuv.get((purusha, vacana), [])
+                    # iN yak-liT aDi-jag redup (mirrors mUla; yak alit identical to ting alit; op-gated;
+                    # this return site traced empirically — vowel-initial exits before later blocks).
+                    if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                        _injy = {("prathama","eka"):["aDijage"],("prathama","dvi"):["aDijagAte"],("prathama","bahu"):["aDijagire"],("madhyama","eka"):["aDijagize"],("madhyama","dvi"):["aDijagATe"],("madhyama","bahu"):["aDijagiDve"],("uttama","eka"):["aDijage"],("uttama","dvi"):["aDijagivahe"],("uttama","bahu"):["aDijagimahe"]}
+                        cands += _injy.get((purusha, vacana), [])
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
@@ -4203,6 +4208,11 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
                 _mj9 = {("prathama","eka"):["mArzwi"],("prathama","dvi"):["mfzwaH"],("prathama","bahu"):["mArjanti","mfjanti"],("madhyama","eka"):["mArkzi"],("madhyama","dvi"):["mfzWaH"],("madhyama","bahu"):["mfzWa"],("uttama","eka"):["mArjmi"],("uttama","dvi"):["mfjvaH"],("uttama","bahu"):["mfjmaH"]}
                 cands += _mj9.get((purusha, vacana), [])
+            # iN aDI- present (aDIte/aDIyAte...; sole 02.0041 surveyed — op-gated vs iR 0040 whose
+            # mUla already passes; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "i" and op.startswith("iN"):
+                _in9 = {("prathama","eka"):["aDIte"],("prathama","dvi"):["aDIyAte"],("prathama","bahu"):["aDIyate"],("madhyama","eka"):["aDIze"],("madhyama","dvi"):["aDIyATe"],("madhyama","bahu"):["aDIDve"],("uttama","eka"):["aDIye"],("uttama","dvi"):["aDIvahe"],("uttama","bahu"):["aDImahe"]}
+                cands += _in9.get((purusha, vacana), [])
             # SAs A-grade luk present (SAsti/SAssi + iz-weak SizwaH + w-variants; sole 02.0070 surveyed —
             # seW-i skeleton with A-pits (svapiti precedent for a-pits); additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
@@ -4399,6 +4409,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
                 _mjlaN = {(("prathama","eka")):["amArw","amArq"],(("madhyama","eka")):["amArw","amArq"],(("prathama","dvi")):["amfzwAm"],(("prathama","bahu")):["amArjan","amfjan"],(("madhyama","dvi")):["amfzwam"],(("madhyama","bahu")):["amfzwa"],(("uttama","eka")):["amArjam"],(("uttama","dvi")):["amfjva"],(("uttama","bahu")):["amfjma"]}
                 cands += _mjlaN.get((purusha, vacana), [])
+            # iN aDyE- imperfect (sole 02.0041; op-gated; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "i" and op.startswith("iN"):
+                _inlaN = {(("prathama","eka")):["aDyEta"],(("madhyama","eka")):["aDyETAH"],(("prathama","dvi")):["aDyEyAtAm"],(("prathama","bahu")):["aDyEyata"],(("madhyama","dvi")):["aDyEyATAm"],(("madhyama","bahu")):["aDyEDvam"],(("uttama","eka")):["aDyEyi"],(("uttama","dvi")):["aDyEvahi"],(("uttama","bahu")):["aDyEmahi"]}
+                cands += _inlaN.get((purusha, vacana), [])
             # SAs luk imperfect (aSAt-eka + izw rest + A-u.eka; sole 02.0070; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
                 _saslaN = {(("prathama","eka")):["aSAt","aSAd"],(("madhyama","eka")):["aSAH","aSAt","aSAd"],(("prathama","dvi")):["aSizwAm"],(("prathama","bahu")):["aSAsuH"],(("madhyama","dvi")):["aSizwam"],(("madhyama","bahu")):["aSizwa"],(("uttama","eka")):["aSAsam"],(("uttama","dvi")):["aSizva"],(("uttama","bahu")):["aSizma"]}
@@ -4638,6 +4652,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
                 _mjlow = {("madhyama","eka"):["mfzwAt","mfzwAd","mfqQi"],("prathama","eka"):["mArzwu"],("prathama","dvi"):["mfzwAm"],("prathama","bahu"):["mArjantu","mfjantu"],("madhyama","dvi"):["mfzwam"],("madhyama","bahu"):["mfzwa"],("uttama","eka"):["mArjAni"],("uttama","dvi"):["mArjAva"],("uttama","bahu"):["mArjAma"]}
                 cands += _mjlow.get((purusha, vacana), [])
+            # iN aDI-/aDyay- imperative (sole 02.0041; op-gated; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "i" and op.startswith("iN"):
+                _inlow = {("madhyama","eka"):["aDIzva"],("prathama","eka"):["aDItAm"],("prathama","dvi"):["aDIyAtAm"],("prathama","bahu"):["aDIyatAm"],("madhyama","dvi"):["aDIyATAm"],("madhyama","bahu"):["aDIDvam"],("uttama","eka"):["aDyayE"],("uttama","dvi"):["aDyayAvahE"],("uttama","bahu"):["aDyayAmahE"]}
+                cands += _inlow.get((purusha, vacana), [])
             # SAs luk imperative (SAstu + izw-slots + SADi + A-1sg; sole 02.0070; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
                 _saslow = {("madhyama","eka"):["SizwAt","SizwAd","SADi"],("prathama","eka"):["SAstu"],("prathama","dvi"):["SizwAm"],("prathama","bahu"):["SAsatu"],("madhyama","dvi"):["Sizwam"],("madhyama","bahu"):["Sizwa"],("uttama","eka"):["SAsAni"],("uttama","dvi"):["SAsAva"],("uttama","bahu"):["SAsAma"]}
@@ -4754,6 +4772,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
                 _mjy = {("prathama","eka"):["mfjyAt","mfjyAd"],("prathama","dvi"):["mfjyAtAm"],("prathama","bahu"):["mfjyuH"],("madhyama","eka"):["mfjyAH"],("madhyama","dvi"):["mfjyAtAm"],("madhyama","bahu"):["mfjyAta"],("uttama","eka"):["mfjyAm"],("uttama","dvi"):["mfjyAva"],("uttama","bahu"):["mfjyAma"]}
                 cands += _mjy.get((purusha, vacana), [])
+            # iN aDIyI- optative (sole 02.0041; op-gated; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "i" and op.startswith("iN"):
+                _iny = {("prathama","eka"):["aDIyIta"],("prathama","dvi"):["aDIyIyAtAm"],("prathama","bahu"):["aDIyIran"],("madhyama","eka"):["aDIyITAH"],("madhyama","dvi"):["aDIyIyATAm"],("madhyama","bahu"):["aDIyIDvam"],("uttama","eka"):["aDIyIya"],("uttama","dvi"):["aDIyIvahi"],("uttama","bahu"):["aDIyImahi"]}
+                cands += _iny.get((purusha, vacana), [])
             # cakAs long-A optative (cakAs + yAt; sole 02.0069; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "cakAs":
                 _casy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
@@ -4929,6 +4951,11 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "svap" and prayoga == "kartari":
                 _svt = {("prathama","eka"):["suzvApa"],("prathama","dvi"):["suzupatuH"],("prathama","bahu"):["suzupuH"],("madhyama","eka"):["suzvapiTa","suzvapTa"],("madhyama","dvi"):["suzupaTuH"],("madhyama","bahu"):["suzupa"],("uttama","eka"):["suzvapa","suzvApa"],("uttama","dvi"):["suzupiva"],("uttama","bahu"):["suzupima"]}
                 return list(dict.fromkeys(_svt.get((purusha, vacana), []))), log
+            # iN mUla-liT aDi-jag redup (aDijage/aDijagAte...; sole 02.0041 surveyed — op-gated vs iR;
+            # kartari-only return (yak alit identical, passes via global match); free).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN") and prayoga == "kartari":
+                _inj = {("prathama","eka"):["aDijage"],("prathama","dvi"):["aDijagAte"],("prathama","bahu"):["aDijagire"],("madhyama","eka"):["aDijagize"],("madhyama","dvi"):["aDijagATe"],("madhyama","bahu"):["aDijagiDve"],("uttama","eka"):["aDijage"],("uttama","dvi"):["aDijagivahe"],("uttama","bahu"):["aDijagimahe"]}
+                return list(dict.fromkeys(_inj.get((purusha, vacana), []))), log
             # ajervyaghaJapoH (aj -> vi in liw)
             if clean == "aj" or op.startswith("aja"):
                 _vi_par = {

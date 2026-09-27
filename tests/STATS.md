@@ -253,3 +253,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 124 (iR san gam-suppletion (jigamiz ting + jigAMs krdanta ×2 builders; op-gated vs iN; no BvAdi i-san exists): 02.0040 san-kartari (+133 tokens), 0 worsened (01 zero-diff).
 - Iteration 125 (iN san gam-suppletion with aDi- (aDijigAMs ×2 builders; op-gated; san laN/luN augment queued): 02.0041 san (+167 tokens), 0 worsened (01 zero-diff).
 - Iteration 126 (iN san ya-grade (aDyajigAMs- in laN/luN/lfN ×2 stem sites + augment-identity guard; sole-gated; kartari +13, karmani +22): 02.0041 +41 tokens, 0 worsened (01 zero-diff).
+- Iteration 127 (iN mUla system (lw/low/laN/viD tables ride neutrally + liw aDijag- ×2 paths; a dead 3116 yak placement removed after settrace proved the 2961 return; op-gated; note: bundle, one gate — combined fid-diff clean): 02.0041 +18 liw, 0 worsened (01 zero-diff).
