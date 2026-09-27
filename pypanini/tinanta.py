@@ -1507,6 +1507,10 @@ class TinantaDerivationEngine:
         def _sannanta_stem(c):
             if c == "qI": return "qiqayiz"
             if c == "ftIy": return "iyftIyiz"
+            # stu san-redup takes zw (tuzwUzati, like kaS eka kazwe; sole 02.0038 surveyed — op-gated so
+            # BvAdi wustu~ keeps regular tustU- even if data appears; additive via early return).
+            if c == "stu" and op.startswith("zw"):
+                return "tuzwUz"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"

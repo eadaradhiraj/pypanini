@@ -979,6 +979,10 @@ class KrdantaEngine:
                 # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew).
                 if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                     return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]
+                # stu zw-redup (tuzwUz-; mirrors tinanta; sole 02.0038 surveyed — op-gated so BvAdi
+                # wustu~ keeps regular even if data appears).
+                if c == "stu" and op.startswith("zw"):
+                    return "tuzwUz"
                 # guhU~: aspirated Gukz-stem (juGukzita, mirrors tinanta).
                 if c == "guh":
                     return "juGukz"
@@ -2289,6 +2293,10 @@ class KrdantaEngine:
                 elif clean == "rud" and meta.get("gana") == "adAdiH":
                     # rud reduplicated v-less Satf (rorudat; sole 02.0062; old forms miss, free).
                     return {"M": ["rorudat", "rorudad"], "F": "rorudatI", "N": ["rorudat", "rorudad"]}
+                elif clean == "stu" and meta.get("gana") == "adAdiH":
+                    # stu yl zw-redup Satf (tozwuvat, no-num M; sole 02.0038 surveyed — same zw-sandhi as
+                    # san-redup tuzwUz; old R-dropping forms miss, free).
+                    return {"M": ["tozwuvat", "tozwuvad"], "F": "tozwuvatI", "N": ["tozwuvat", "tozwuvad"]}
                 elif clean == "vaS" and meta.get("gana") == "adAdiH":
                     # vaS yl o-grade Satf (voSat, no-num M; sole 02.0075 surveyed; old misses, free).
                     return {"M": ["voSat", "voSad"], "F": "voSatI", "N": ["voSat", "voSad"]}
@@ -2615,6 +2623,10 @@ class KrdantaEngine:
             # u-Atmane uv SAnac (hnuvAna/suvAna; surveyed pair 0077/0025; replacement free; BvAdi untouched).
             if sanadi is None and meta.get("clean") in ("hnu", "sU"):
                 return tri_linga({"hnu": "hnuvAna", "sU": "suvAna"}[meta.get("clean")])
+            # stu uv SAnac (stuvAnaH; sole 02.0038 surveyed — only u-root with SAnac data; old av-form
+            # misses in-fid, free; BvAdi untouched).
+            if sanadi is None and meta.get("clean") == "stu" and meta.get("gana") == "adAdiH":
+                return tri_linga("stuvAna")
             # dviz weak SAnac with Natva (dvizARaH; sole 02.0003 surveyed; free; BvAdi untouched).
             if sanadi is None and meta.get("clean") == "dviz" and meta.get("gana") == "adAdiH":
                 return tri_linga("dvizARa")
