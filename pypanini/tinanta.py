@@ -498,6 +498,10 @@ class TinantaDerivationEngine:
                 ending_list.append("ad")
         if not ending_list or not clean:
             return []
+        # aDyApay CaN twins (aDyajIgap-/aDyApip-; sole 02.0041 surveyed — no BvAdi i-nich exists).
+        if n_stem == "aDyApay":
+            _can = {("prathama","eka"):["aDyajIgapat","aDyajIgapad","aDyApipat","aDyApipad"],("prathama","dvi"):["aDyajIgapatAm","aDyApipatAm"],("prathama","bahu"):["aDyajIgapan","aDyApipan"],("madhyama","eka"):["aDyajIgapaH","aDyApipaH"],("madhyama","dvi"):["aDyajIgapatam","aDyApipatam"],("madhyama","bahu"):["aDyajIgapata","aDyApipata"],("uttama","eka"):["aDyajIgapam","aDyApipam"],("uttama","dvi"):["aDyajIgapAva","aDyApipAva"],("uttama","bahu"):["aDyajIgapAma","aDyApipAma"]}
+            return list(dict.fromkeys(_can.get((purusha, vacana), [])))
         if clean[0] in SLP1_VOWELS:
             if clean == "u":
                 return ["Aviv" + ending for ending in ending_list]
