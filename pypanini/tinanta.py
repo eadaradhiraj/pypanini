@@ -498,6 +498,10 @@ class TinantaDerivationEngine:
                 ending_list.append("ad")
         if not ending_list or not clean:
             return []
+        # UrRu nich CaN peka twin (OrRInavat/OrRInavad; sole 02.0034 surveyed — slot-gated; additive
+        # via early return of this slot only... actually exclusive return; other slots fall through).
+        if clean == "UrRu" and (purusha, vacana) == ("prathama", "eka"):
+            return ["OrRInavat", "OrRInavad"]
         # gamay-stem CaN (ajIgamat twins; BvAdi gam 01.1137 + AdAdi iR 02.0040 surveyed identical —
         # pan-gaNa gam-stem; n_stem-gated).
         if n_stem == "gamay":
@@ -4389,6 +4393,9 @@ class TinantaDerivationEngine:
                     cands+=self._conjugate_at_stem_parasmai(aug, "laN", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(aug, "laN", purusha, vacana)
+            # UrRu mUla-laN u-T twin (OrRuTAH madhyama-eka; sole 02.0034 surveyed; slot-gated; additive).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "UrRu" and (purusha, vacana) == ("madhyama", "eka"):
+                cands += ["OrRuTAH"]
             # Panini 3.1.87 dhinvi-kfRvyor a ca
             if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
                 _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
