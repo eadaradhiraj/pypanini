@@ -5706,6 +5706,13 @@ class TinantaDerivationEngine:
                             _aug_g = self._add_augment(_guna, _guna[0] in SLP1_VOWELS if _guna else False)
                             for _ae in ang_endings[(purusha, vacana)]:
                                 cands.append(_aug_g + _ae)
+                        # AdAdi duh/dih aN-aorist Dukz/Dikz (aDukzat; BvAdi duh keeps hat, lih keeps
+                        # likz via clean-gate; surveyed quartet; additive).
+                        if clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                            _das = "Dukz" if clean == "duh" else "Dikz"
+                            _aug_das = self._add_augment(_das, _das[0] in SLP1_VOWELS if _das else False)
+                            for _ae in ang_endings[(purusha, vacana)]:
+                                cands.append(_aug_das + _ae)
                 except Exception:
                     pass
                 # 2. Sic aorist (Panini 3.1.44 cleH sic, 7.2.1 aco YRiti, 7.2.3 halo vfdDir halantAsya, 7.3.96 asti-sico'pfkte, 8.2.26 jhalo jhali)
