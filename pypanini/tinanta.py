@@ -1527,6 +1527,10 @@ class TinantaDerivationEngine:
             # vevI/dIDI with san exists; meta-clean gate — local clean may be san-rewritten).
             if meta.get("clean") in ("vevI", "dIDI") and meta.get("gana") == "adAdiH":
                 return "vivayiz" if meta.get("clean") == "vevI" else "didyiz"
+            # svap san samprasAraNa+zatva (suzupsati; sole 02.0063 surveyed — no BvAdi svap exists;
+            # meta-clean gate).
+            if meta.get("clean") == "svap" and meta.get("gana") == "adAdiH":
+                return "suzups"
             # ad san suppletion (jiGatsati; sole 02.0001 surveyed — no BvAdi ad exists; gana-gated).
             if c == "ad" and meta.get("gana") == "adAdiH":
                 return "jiGats"

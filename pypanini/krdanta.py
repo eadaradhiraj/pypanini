@@ -988,6 +988,9 @@ class KrdantaEngine:
                 # vevI/dIDI san (mirrors tinanta; same pair guards; meta-clean gate).
                 if meta.get("clean") in ("vevI", "dIDI") and meta.get("gana") == "adAdiH":
                     return "vivayiz" if meta.get("clean") == "vevI" else "didyiz"
+                # svap san (mirrors tinanta; same sole guard).
+                if meta.get("clean") == "svap" and meta.get("gana") == "adAdiH":
+                    return "suzups"
                 # ad san suppletion (jiGats-; mirrors tinanta; sole 02.0001 surveyed — gana-gated).
                 if c == "ad" and meta.get("gana") == "adAdiH":
                     return "jiGats"
