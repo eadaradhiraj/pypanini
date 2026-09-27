@@ -1298,6 +1298,10 @@ class KrdantaEngine:
                 return redup_cons + redup_vowel + _c_san + _sfx
             def _yan_sec(c):
                 if c=="BU": return "boBUy"
+                # han yan G-stem (jaMGan-; sole 02.0002 surveyed — BvAdi keeps h; kta-family syncope
+                # handled at kta/ktavatu below; gana-gated).
+                if c == "han" and meta.get("gana") == "adAdiH":
+                    return "jaMGan"
                 # SAs intensive (SeSizya; mirrors tinanta; sole 02.0070 surveyed — gana-gated).
                 if c == "SAs" and meta.get("gana") == "adAdiH":
                     return "SeSizya"
@@ -1876,6 +1880,9 @@ class KrdantaEngine:
                 # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn, gam -> gm, Gas -> ks (8.4.55 khari ca)
                 if orig_clean in ("gam", "Kan", "han", "jan"):
                     _b_kit = base_no_ya.replace(orig_clean, orig_clean[0] + orig_clean[-1])
+                # han yan G-grade syncope too (jaMGan -> jaMGn for kta/ktavatu; sole 02.0002 surveyed).
+                if meta.get("clean") == "han" and meta.get("gana") == "adAdiH":
+                    _b_kit = _b_kit.replace("Gan", "Gn")
                 elif orig_clean == "Gas":
                     _b_kit = base_no_ya.replace(orig_clean, "ks")
                 # kzIvu~ yang short-i twin (cekzivitaH/cekzivaRIyaH/...; f~ keeps long-I cekzIvitaH).
@@ -1940,6 +1947,9 @@ class KrdantaEngine:
                 if pratyaya == "SAnac":
                     if clean_ay:
                         return None
+                    # han yan SAnac keeps -ya- (jaMGanyamAna; sole 02.0002 surveyed; free).
+                    if meta.get("clean") == "han" and meta.get("gana") == "adAdiH":
+                        return {"M": "jaMGanyamAnaH", "F": "jaMGanyamAnA", "N": "jaMGanyamAnam"}
                     m = sec + "mAnaH" if sec.endswith("a") else sec + "amAnaH"
                     f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
                     n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
