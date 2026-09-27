@@ -242,3 +242,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 113 (svap samprasAraNa kta pair (supta/suptavat; sole-gated; free): 02.0063 +5 slots, 0 worsened (01 zero-diff).
 - Iteration 114 (svap nich vriddhi ktavatu (svApitavAn; sole-gated; free; nich-kta left on mUla cross-match): 02.0063 +3 slots, 0 worsened (01 zero-diff).
 - Iteration 115 (svap yl redup kta pair + ktvA pair (sAsupita/sAsvapitvA + mUla suptvA; sole-gated; free; note: two traits, one gate — combined fid-diff clean): 02.0063 → 882/882 (+1 pass, 62/76), 0 worsened (01 zero-diff).
+- Iteration 116 (mfjU mUla present ablaut+zw tables (lw/low/laN/viD; sole-gated; additive): 02.0061 mUla-present (+33 tokens), 0 worsened (01 zero-diff).

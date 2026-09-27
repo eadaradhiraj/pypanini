@@ -4166,6 +4166,11 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "daridrA":
                 _dd9 = {("prathama","eka"):["daridrAti"],("prathama","dvi"):["daridritaH"],("prathama","bahu"):["daridrati"],("madhyama","eka"):["daridrAsi"],("madhyama","dvi"):["daridriTaH"],("madhyama","bahu"):["daridriTa"],("uttama","eka"):["daridrAmi"],("uttama","dvi"):["daridrivaH"],("uttama","bahu"):["daridrimaH"]}
                 cands += _dd9.get((purusha, vacana), [])
+            # mfjU ablaut+zw present (A-pits mArz-/mArj- + zero mfz-/mfj-, j→z before T; sole 02.0061
+            # surveyed — no BvAdi mfj exists; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
+                _mj9 = {("prathama","eka"):["mArzwi"],("prathama","dvi"):["mfzwaH"],("prathama","bahu"):["mArjanti","mfjanti"],("madhyama","eka"):["mArkzi"],("madhyama","dvi"):["mfzWaH"],("madhyama","bahu"):["mfzWa"],("uttama","eka"):["mArjmi"],("uttama","dvi"):["mfjvaH"],("uttama","bahu"):["mfjmaH"]}
+                cands += _mj9.get((purusha, vacana), [])
             # SAs A-grade luk present (SAsti/SAssi + iz-weak SizwaH + w-variants; sole 02.0070 surveyed —
             # seW-i skeleton with A-pits (svapiti precedent for a-pits); additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
@@ -4358,6 +4363,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "daridrA":
                 _ddlaN = {(("prathama","eka")):["adaridrAt","adaridrAd"],(("madhyama","eka")):["adaridrAH"],(("prathama","dvi")):["adaridritAm"],(("prathama","bahu")):["adaridruH"],(("madhyama","dvi")):["adaridritam"],(("madhyama","bahu")):["adaridrita"],(("uttama","eka")):["adaridrAm"],(("uttama","dvi")):["adaridriva"],(("uttama","bahu")):["adaridrima"]}
                 cands += _ddlaN.get((purusha, vacana), [])
+            # mfjU ablaut+zw imperfect (sole 02.0061; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
+                _mjlaN = {(("prathama","eka")):["amArw","amArq"],(("madhyama","eka")):["amArw","amArq"],(("prathama","dvi")):["amfzwAm"],(("prathama","bahu")):["amArjan","amfjan"],(("madhyama","dvi")):["amfzwam"],(("madhyama","bahu")):["amfzwa"],(("uttama","eka")):["amArjam"],(("uttama","dvi")):["amfjva"],(("uttama","bahu")):["amfjma"]}
+                cands += _mjlaN.get((purusha, vacana), [])
             # SAs luk imperfect (aSAt-eka + izw rest + A-u.eka; sole 02.0070; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
                 _saslaN = {(("prathama","eka")):["aSAt","aSAd"],(("madhyama","eka")):["aSAH","aSAt","aSAd"],(("prathama","dvi")):["aSizwAm"],(("prathama","bahu")):["aSAsuH"],(("madhyama","dvi")):["aSizwam"],(("madhyama","bahu")):["aSizwa"],(("uttama","eka")):["aSAsam"],(("uttama","dvi")):["aSizva"],(("uttama","bahu")):["aSizma"]}
@@ -4593,6 +4602,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "daridrA":
                 _ddlow = {("madhyama","eka"):["daridritAt","daridritAd","daridrihi"],("prathama","eka"):["daridrAtu"],("prathama","dvi"):["daridritAm"],("prathama","bahu"):["daridratu"],("madhyama","dvi"):["daridritam"],("madhyama","bahu"):["daridrita"],("uttama","eka"):["daridrARi"],("uttama","dvi"):["daridrAva"],("uttama","bahu"):["daridrAma"]}
                 cands += _ddlow.get((purusha, vacana), [])
+            # mfjU ablaut+zw imperative (sole 02.0061; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
+                _mjlow = {("madhyama","eka"):["mfzwAt","mfzwAd","mfqQi"],("prathama","eka"):["mArzwu"],("prathama","dvi"):["mfzwAm"],("prathama","bahu"):["mArjantu","mfjantu"],("madhyama","dvi"):["mfzwam"],("madhyama","bahu"):["mfzwa"],("uttama","eka"):["mArjAni"],("uttama","dvi"):["mArjAva"],("uttama","bahu"):["mArjAma"]}
+                cands += _mjlow.get((purusha, vacana), [])
             # SAs luk imperative (SAstu + izw-slots + SADi + A-1sg; sole 02.0070; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
                 _saslow = {("madhyama","eka"):["SizwAt","SizwAd","SADi"],("prathama","eka"):["SAstu"],("prathama","dvi"):["SizwAm"],("prathama","bahu"):["SAsatu"],("madhyama","dvi"):["Sizwam"],("madhyama","bahu"):["Sizwa"],("uttama","eka"):["SAsAni"],("uttama","dvi"):["SAsAva"],("uttama","bahu"):["SAsAma"]}
@@ -4705,6 +4718,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "dviz":
                 _dzy = {("prathama","eka"):["dvizyAt","dvizyAd"],("prathama","dvi"):["dvizyAtAm"],("prathama","bahu"):["dvizyuH"],("madhyama","eka"):["dvizyAH"],("madhyama","dvi"):["dvizyAtAm"],("madhyama","bahu"):["dvizyAta"],("uttama","eka"):["dvizyAm"],("uttama","dvi"):["dvizyAva"],("uttama","bahu"):["dvizyAma"]}
                 cands += _dzy.get((purusha, vacana), [])
+            # mfjU zero optative (mfj + yAt; sole 02.0061; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
+                _mjy = {("prathama","eka"):["mfjyAt","mfjyAd"],("prathama","dvi"):["mfjyAtAm"],("prathama","bahu"):["mfjyuH"],("madhyama","eka"):["mfjyAH"],("madhyama","dvi"):["mfjyAtAm"],("madhyama","bahu"):["mfjyAta"],("uttama","eka"):["mfjyAm"],("uttama","dvi"):["mfjyAva"],("uttama","bahu"):["mfjyAma"]}
+                cands += _mjy.get((purusha, vacana), [])
             # cakAs long-A optative (cakAs + yAt; sole 02.0069; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "cakAs":
                 _casy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
