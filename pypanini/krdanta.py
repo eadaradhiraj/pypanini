@@ -979,6 +979,9 @@ class KrdantaEngine:
                 # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew).
                 if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                     return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]
+                # ad san suppletion (jiGats-; mirrors tinanta; sole 02.0001 surveyed — gana-gated).
+                if c == "ad" and meta.get("gana") == "adAdiH":
+                    return "jiGats"
                 # stu zw-redup (tuzwUz-; mirrors tinanta; sole 02.0038 surveyed — op-gated so BvAdi
                 # wustu~ keeps regular even if data appears).
                 if c == "stu" and op.startswith("zw"):

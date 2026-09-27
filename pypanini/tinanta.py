@@ -1507,6 +1507,9 @@ class TinantaDerivationEngine:
         def _sannanta_stem(c):
             if c == "qI": return "qiqayiz"
             if c == "ftIy": return "iyftIyiz"
+            # ad san suppletion (jiGatsati; sole 02.0001 surveyed — no BvAdi ad exists; gana-gated).
+            if c == "ad" and meta.get("gana") == "adAdiH":
+                return "jiGats"
             # stu san-redup takes zw (tuzwUzati, like kaS eka kazwe; sole 02.0038 surveyed — op-gated so
             # BvAdi wustu~ keeps regular tustU- even if data appears; additive via early return).
             if c == "stu" and op.startswith("zw"):
