@@ -1566,6 +1566,9 @@ class KrdantaEngine:
                     # ad nijanta (Adita; sole 02.0001 surveyed; manual triple — tri_linga defined later).
                     if meta.get("clean") == "ad" and meta.get("gana") == "adAdiH":
                         return {"M": "AditaH", "F": "AditA", "N": "Aditam"}
+                    # mA nijanta (mApita; surveyed 02/03/04 unanimity; pan-gaNa shape-gated; manual triple).
+                    if meta.get("clean") == "mA":
+                        return {"M": "mApitaH", "F": "mApitA", "N": "mApitam"}
                     # SAs nijanta plain (SAsita; sole 02.0070 surveyed; manual triple — tri_linga defined later).
                     if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
                         return {"M": "SAsitaH", "F": "SAsitA", "N": "SAsitam"}
@@ -1599,6 +1602,9 @@ class KrdantaEngine:
                     # ad nijanta (AditavAn; sole 02.0001 surveyed; old misses, free).
                     if meta.get("clean") == "ad" and meta.get("gana") == "adAdiH":
                         return {"M": "AditavAn", "F": "AditavatI", "N": ["Aditavat", "Aditavad"]}
+                    # mA nijanta (mApitavAn; surveyed 02/03/04 unanimity; pan-gaNa shape-gated; free).
+                    if meta.get("clean") == "mA":
+                        return {"M": "mApitavAn", "F": "mApitavatI", "N": ["mApitavat", "mApitavad"]}
                     # vaS nijanta vriddhi (vASitavAn; sole 02.0075 surveyed; old misses, free).
                     if meta.get("clean") == "vaS" and meta.get("gana") == "adAdiH":
                         return {"M": "vASitavAn", "F": "vASitavatI", "N": ["vASitavat", "vASitavad"]}
@@ -2114,6 +2120,9 @@ class KrdantaEngine:
             # old annaH misses, free).
             if sanadi is None and clean == "ad" and meta.get("gana") == "adAdiH":
                 return {"M": ["jagDaH", "jagdDaH"], "F": ["jagDA", "jagdDA"], "N": ["jagDam", "jagdDam"]}
+            # mA short-i kta (mitaH; 02.0057 surveyed — 03/04 mAN take mIta, so gana-gated; free).
+            if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
+                return tri_linga("mita")
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
@@ -2217,6 +2226,9 @@ class KrdantaEngine:
             # ad suppletive ktavatu (jagDavAn + jagdDa twin; sole 02.0001 surveyed; old misses, free).
             if sanadi is None and clean == "ad" and meta.get("gana") == "adAdiH":
                 return {"M": ["jagDavAn", "jagdDavAn"], "F": ["jagDavatI", "jagdDavatI"], "N": ["jagDavat", "jagdDavat", "jagDavad", "jagdDavad"]}
+            # mA short-i ktavatu (mitavAn; 02.0057 surveyed — gana-gated like kta; free).
+            if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
+                return {"M": "mitavAn", "F": "mitavatI", "N": ["mitavat", "mitavad"]}
             # vaS weak-uS ktavatu twin (uSitavAn; sole 02.0075 surveyed — old kept as cross-hit; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}
@@ -3175,6 +3187,9 @@ class KrdantaEngine:
             # ad suppletive ktvA (jagDvA + jagdD twin; sole 02.0001 surveyed; old misses, free).
             if sanadi is None and clean == "ad" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["jagDvA", "jagdDvA"]}
+            # mA short-i ktvA (mitvA; 02.0057 surveyed — 03/04 take mItvA, so gana-gated; free).
+            if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["mitvA"]}
             # Panini 8.2.18 kfpo ro l, yangluk: seT carkalpitvA + aniT carkxptvA.
             if sanadi == "yanluganta" and sec == "carkalp":
                 return {"avyaya": ["carkalpitvA", "carkxptvA"]}
