@@ -2,15 +2,16 @@
 
 Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **66/76 100%-attested** (raw 66/77, 1 skipped) — token gains; 0040/0002 at ceilings.
+Sweep-02: **66/76 100%-attested** (raw 66/77, 1 skipped) — token gains.
 
-## Done — yl G-family (+10 slots, 0 worsened)
-- jaMGn-/jaNGn- set for sole han yl (free):
-  - krdanta yl kta/ktavatu/Satf/ktvA/lyap branches.
-  - Full Sweep Results: 02 improved **1 root** (0002 863->873/882), **worsened 0** (01 zero-diff).
-- Ceiling: 0002 mUla-lfN (9 dataless slots, alrung absent) — halt per dataless principle.
+## Done — jAgar base (+63 tokens, 0 worsened)
+- `jAgar` in `_prim_bases` for sole jAg (additive shared stem):
+  - tinanta primitive bases.
+  - Full Sweep Results: 02 improved **1 root** (0067 59->122/626), **worsened 0** (01 zero-diff).
+- Prior work: 02 at 66/76 passes; combined same passes, token gains continue.
 
 ## Next (02 loop)
-1. 0067 (jAg?) + 0060 (as?) + 0042 (ik?) + 0054 + 0007 cakz + 0039/0012/0074.
-2. Ganas 03–10 to follow.
+1. 0067 liw-peri (jAgarAYcakre) + mUla ASIrliN/luN + yak + san/nich.
+2. 0060/0042 + 0007 cakz + 0039/0012/0074.
+3. Ganas 03–10 to follow.
 - Advance 02: 66/76 → all (excl. ceilings).

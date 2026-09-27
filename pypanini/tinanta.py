@@ -647,6 +647,9 @@ class TinantaDerivationEngine:
         # Samaati); kta keeps SamaTa (handled in _kta_stem).
         if clean == "Sama" and "Sam" not in bases:
             bases.append("Sam")
+        # jAgf ar-grade (jAgar- for lut/peri/yak; sole 02.0067 surveyed — no BvAdi jAg exists).
+        if clean == "jAg":
+            bases.append("jAgar")
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
         if is_adeca(clean):
             a_root = clean[:-1] + "A"
