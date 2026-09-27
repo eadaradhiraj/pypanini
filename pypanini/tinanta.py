@@ -2293,6 +2293,15 @@ class TinantaDerivationEngine:
                 for _ys2 in ("wezWiv", "tezWiv"):
                     extra += self._conjugate_at_stem_parasmai(_ys2, "lw", purusha, vacana)
                     extra += [_ys2 + "Iti", _ys2 + "ti", _ys2 + "si", _ys2 + "mi", _ys2 + "vaH", _ys2 + "maH"]
+            # UrRu yanlug o/u-grade twins (kartari) + yan-stem Atmane (karmani UrRonUyate);
+            # sole 02.0034 surveyed; prayoga-gated; additive.
+            if clean == "UrRu" and meta.get("gana") == "adAdiH":
+                if prayoga == "karmani":
+                    _yluy = {("prathama","eka"):["UrRonUyate"],("prathama","dvi"):["UrRonUyete"],("prathama","bahu"):["UrRonUyante"],("madhyama","eka"):["UrRonUyase"],("madhyama","dvi"):["UrRonUyeTe"],("madhyama","bahu"):["UrRonUyaDve"],("uttama","eka"):["UrRonUye"],("uttama","dvi"):["UrRonUyAvahe"],("uttama","bahu"):["UrRonUyAmahe"]}
+                    extra += _yluy.get((purusha, vacana), [])
+                else:
+                    _yluo = {("prathama","eka"):["UrRonavIti","UrRonoti","UrRonOti"],("prathama","dvi"):["UrRonutaH"],("prathama","bahu"):["UrRonuvati"],("madhyama","eka"):["UrRonavIzi","UrRonozi","UrRonOzi"],("madhyama","dvi"):["UrRonuTaH"],("madhyama","bahu"):["UrRonuTa"],("uttama","eka"):["UrRonavImi","UrRonomi","UrRonOmi"],("uttama","dvi"):["UrRonuvaH"],("uttama","bahu"):["UrRonumaH"]}
+                    extra += _yluo.get((purusha, vacana), [])
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)

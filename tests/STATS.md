@@ -271,4 +271,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 142 (iR nich gam-suppletion (gamay ×2 + gamita kta/ktavatu + pan-gaNa CaN ajIgamat; op-gated; note: family bundle, one gate — combined fid-diff clean): 02.0040 +180 tokens, 0 worsened (01 zero-diff).
 - Iteration 143 (UrRu san (UrRunuviz ×2 builders; mari-grade via any-match; sole-gated): 02.0034 san (+212 tokens), 0 worsened (01 zero-diff).
 - Iteration 144 (UrRu yang (UrRonUya ×2 builders + keeps_y exception; yu-guard holds; note: two traits, one gate — combined fid-diff clean): 02.0034 +188 tokens, 0 worsened (01 zero-diff).
+- Iteration 145 (UrRu yanlug twins (o/u kartari + yan-stem karmani at traced return; a non-firing stem-conjugation attempt reverted for literal tables; sole-gated): 02.0034 +18, 0 worsened (01 zero-diff).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).
