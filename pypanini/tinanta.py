@@ -3279,6 +3279,10 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
                     _snuluw = {("prathama","eka"):["snAvitA","snotA"],("prathama","dvi"):["snAvitArO","snotArO"],("prathama","bahu"):["snAvitAraH","snotAraH"],("madhyama","eka"):["snAvitAse","snotAse"],("madhyama","dvi"):["snAvitAsATe","snotAsATe"],("madhyama","bahu"):["snAvitADve","snotADve"],("uttama","eka"):["snAvitAhe","snotAhe"],("uttama","dvi"):["snAvitAsvahe","snotAsvahe"],("uttama","bahu"):["snAvitAsmahe","snotAsmahe"]}
                     cands += _snuluw.get((purusha, vacana), [])
+                # mfjU yak-lut jit/zw twins (mirrors mUla; sole-gated; additive; karmani-only).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
+                    _mjyluw = {("prathama","eka"):["mArjitA","mArzwA"],("prathama","dvi"):["mArjitArO","mArzwArO"],("prathama","bahu"):["mArjitAraH","mArzwAraH"],("madhyama","eka"):["mArjitAse","mArzwAse"],("madhyama","dvi"):["mArjitAsATe","mArzwAsATe"],("madhyama","bahu"):["mArjitADve","mArzwADve"],("uttama","eka"):["mArjitAhe","mArzwAhe"],("uttama","dvi"):["mArjitAsvahe","mArzwAsvahe"],("uttama","bahu"):["mArjitAsmahe","mArzwAsmahe"]}
+                    cands += _mjyluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -4806,6 +4810,11 @@ class TinantaDerivationEngine:
                     cands+=self._conjugate_luw(_b, pada, purusha, vacana, _gd)
                 if not sew or is_vew:
                     cands+=self._conjugate_luw(base, pada, purusha, vacana, _gd)
+            # mfjU lut jit/zw twins (mArjitA/mArzwA; sole 02.0061 surveyed — no BvAdi mfj exists;
+            # additive).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
+                _mjluw = {("prathama","eka"):["mArjitA","mArzwA"],("prathama","dvi"):["mArjitArO","mArzwArO"],("prathama","bahu"):["mArjitAraH","mArzwAraH"],("madhyama","eka"):["mArjitAsi","mArzwAsi"],("madhyama","dvi"):["mArjitAsTaH","mArzwAsTaH"],("madhyama","bahu"):["mArjitAsTa","mArzwAsTa"],("uttama","eka"):["mArjitAsmi","mArzwAsmi"],("uttama","dvi"):["mArjitAsvaH","mArzwAsvaH"],("uttama","bahu"):["mArjitAsmaH","mArzwAsmaH"]}
+                cands += _mjluw.get((purusha, vacana), [])
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
