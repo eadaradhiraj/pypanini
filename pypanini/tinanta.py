@@ -6179,6 +6179,10 @@ class TinantaDerivationEngine:
                     cands += _mc
                 except Exception:
                     pass
+                # han sic-less vaD table (avaDIt...; sole 02.0002 surveyed — sic -s- absent; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han":
+                    _hnlun = {("prathama","eka"):["avaDIt","avaDId"],("prathama","dvi"):["avaDizwAm"],("prathama","bahu"):["avaDizuH"],("madhyama","eka"):["avaDIH"],("madhyama","dvi"):["avaDizwam"],("madhyama","bahu"):["avaDizwa"],("uttama","eka"):["avaDizam"],("uttama","dvi"):["avaDizva"],("uttama","bahu"):["avaDizma"]}
+                    cands += _hnlun.get((purusha, vacana), [])
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
