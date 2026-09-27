@@ -3350,6 +3350,10 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "svap":
                     _szp = {("prathama","eka"):["suzupe"],("prathama","dvi"):["suzupAte"],("prathama","bahu"):["suzupire"],("madhyama","eka"):["suzupize"],("madhyama","dvi"):["suzupATe"],("madhyama","bahu"):["suzupiDve"],("uttama","eka"):["suzupe"],("uttama","dvi"):["suzupivahe"],("uttama","bahu"):["suzupimahe"]}
                     cands += _szp.get((purusha, vacana), [])
+                # jAg yak-liT a-redup (jajAgare...; sole 02.0067 surveyed; additive before return).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "jAg":
+                    _jgy = {("prathama","eka"):["jajAgare"],("prathama","dvi"):["jajAgarAte"],("prathama","bahu"):["jajAgarire"],("madhyama","eka"):["jajAgarize"],("madhyama","dvi"):["jajAgarATe"],("madhyama","bahu"):["jajAgariDve","jajAgariQve"],("uttama","eka"):["jajAgare"],("uttama","dvi"):["jajAgarivahe"],("uttama","bahu"):["jajAgarimahe"]}
+                    cands += _jgy.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
