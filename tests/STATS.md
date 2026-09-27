@@ -247,3 +247,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 118 (mfjU mUla futures sya twins (mArkzy/mArjizy lfw + augmented lfN parasmai; sole-gated; additive; yak next): 02.0061 +18, 0 worsened (01 zero-diff).
 - Iteration 119 (mfjU yak futures sya twins (shared-stem covers lfw + lfN atmane, Dkzy pattern; sole-gated; additive): 02.0061 +18, 0 worsened (01 zero-diff).
 - Iteration 120 (mfjU san A-grade (mimArjiz ×2 builders; mimfkz twin covers same slots via any-match; sole-gated): 02.0061 san-full (+209 tokens), 0 worsened (01 zero-diff).
+- Iteration 121 (mfjU nich krdanta (mArjay sec + mArjita kta/ktavatu; sole-gated; tinanta already over-generates A so untouched): 02.0061 nich_krut 31/31 (+31 tokens), 0 worsened (01 zero-diff).

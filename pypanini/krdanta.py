@@ -853,6 +853,9 @@ class KrdantaEngine:
                 # dEp (mirrors tinanta): vriddhi-A + puk (dApay-).
                 if c == "dEp":
                     return "dApay"
+                # mfjU nich A-grade (mArjay-; sole 02.0061 surveyed — no BvAdi mfj exists).
+                if c == "mfj" and meta.get("gana") == "adAdiH":
+                    return "mArjay"
                 # pA nich l-augment (mirrors tinanta; same minimal gana-pair; gana-gated).
                 if c == "pA" and meta.get("gana") == "adAdiH":
                     return "pAlay"
@@ -1593,6 +1596,9 @@ class KrdantaEngine:
                     # pA nijanta (pAlita; BvAdi/04 pAyita minimal pair surveyed; gana-gated; manual).
                     if meta.get("clean") == "pA" and meta.get("gana") == "adAdiH":
                         return {"M": "pAlitaH", "F": "pAlitA", "N": "pAlitam"}
+                    # mfjU nijanta (mArjita; sole 02.0061 surveyed; manual triple).
+                    if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
+                        return {"M": "mArjitaH", "F": "mArjitA", "N": "mArjitam"}
                     # SAs nijanta plain (SAsita; sole 02.0070 surveyed; manual triple — tri_linga defined later).
                     if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
                         return {"M": "SAsitaH", "F": "SAsitA", "N": "SAsitam"}
@@ -1637,6 +1643,9 @@ class KrdantaEngine:
                     # pA nijanta (pAlitavAn; same minimal pair; gana-gated; free).
                     if meta.get("clean") == "pA" and meta.get("gana") == "adAdiH":
                         return {"M": "pAlitavAn", "F": "pAlitavatI", "N": ["pAlitavat", "pAlitavad"]}
+                    # mfjU nijanta (mArjitavAn; sole-gated; free).
+                    if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
+                        return {"M": "mArjitavAn", "F": "mArjitavatI", "N": ["mArjitavat", "mArjitavad"]}
                     # vaS nijanta vriddhi (vASitavAn; sole 02.0075 surveyed; old misses, free).
                     if meta.get("clean") == "vaS" and meta.get("gana") == "adAdiH":
                         return {"M": "vASitavAn", "F": "vASitavatI", "N": ["vASitavat", "vASitavad"]}
