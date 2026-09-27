@@ -2759,6 +2759,12 @@ class TinantaDerivationEngine:
                     if lakara == "lfN":
                         _ydcore = _aug(_ydcore)
                     cands+=self._conjugate_at_stem_atmane(_ydcore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
+                # mfjU yak future sya twins (mArkzyate/mArjizyate + augmented lfN; sole-gated; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
+                    for _ymcore in ("mArkzy", "mArjizy"):
+                        if lakara == "lfN":
+                            _ymcore = _aug(_ymcore)
+                        cands+=self._conjugate_at_stem_atmane(_ymcore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
                 # aja~ yak sya ve-doublet (vAyizyate seT + vezyate suppletive-aniT; sole aj-clean 01.0262
                 # surveyed, ~-gated; ajizyate-forms already above, additive).
                 if clean == "aj" and "~" in (op or ""):
