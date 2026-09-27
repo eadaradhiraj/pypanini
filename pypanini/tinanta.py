@@ -3319,6 +3319,13 @@ class TinantaDerivationEngine:
                                     cands.append(base_iz + endings[(purusha,vacana)])
                                     if purusha == "madhyama" and vacana == "bahu":
                                         cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                # AdAdi duh/dih yak-ASIrliN Dukz (DukzIzwa; BvAdi h + lih k surveyed guards;
+                # shape+gana-gated; additive with IQvam twin like generic).
+                if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                    _diz = "Dukz" if clean == "duh" else "Dikz"
+                    cands.append(_diz + endings[(purusha, vacana)])
+                    if purusha == "madhyama" and vacana == "bahu":
+                        cands.append((_diz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                 # snu yak-ASIrliN U-grade (snUyeta/snUyeran/snUyeyAtAm; sole 02.0033 surveyed — generic emits
                 # sizya-forms only; additive before return).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
