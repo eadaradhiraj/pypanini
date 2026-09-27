@@ -2234,6 +2234,9 @@ class KrdantaEngine:
                 # mfjU yl redup kta (mar-/mari-/marI- + mfzwa; sole 02.0061 surveyed; free).
                 if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
                     return {"M": ["marmfzwaH", "marimfzwaH", "marImfzwaH"], "F": ["marmfzwA", "marimfzwA", "marImfzwA"], "N": ["marmfzwam", "marimfzwam", "marImfzwam"]}
+                # han yl G-syncope kta (jaMGnita; NG-twin shares slots via any-match; sole-gated; free).
+                if sanadi == "yanluganta" and clean == "han" and meta.get("gana") == "adAdiH":
+                    return {"M": ["jaMGnitaH", "jaNGnitaH"], "F": ["jaMGnitA", "jaNGnitA"], "N": ["jaMGnitam", "jaNGnitam"]}
                 _yajadi_yl_kta = {"yaj": "yejita", "vap": "vopita", "vah": "vohita", "vas": "vuzita", "vad": "vodita", "ve": "vovita", "hve": "jAhuvita"}
                 if clean in _yajadi_yl_kta:
                     return tri_linga(_yajadi_yl_kta[clean])
@@ -2344,6 +2347,9 @@ class KrdantaEngine:
                 # mfjU yl redup ktavatu (sole-gated; free).
                 if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
                     return {"M": ["marmfzwavAn", "marimfzwavAn", "marImfzwavAn"], "F": ["marmfzwavatI", "marimfzwavatI", "marImfzwavatI"], "N": ["marmfzwavat", "marimfzwavat", "marImfzwavat", "marmfzwavad", "marimfzwavad", "marImfzwavad"]}
+                # han yl G-syncope ktavatu (mirrors kta; sole-gated; free).
+                if sanadi == "yanluganta" and clean == "han" and meta.get("gana") == "adAdiH":
+                    return {"M": ["jaMGnitavAn", "jaNGnitavAn"], "F": ["jaMGnitavatI", "jaNGnitavatI"], "N": ["jaMGnitavat", "jaNGnitavat", "jaMGnitavad", "jaNGnitavad"]}
                 # AdAdi vac yl redup (vocitavat; sole 02.0058; free).
                 if clean == "vac" and meta.get("gana") == "adAdiH":
                     return {"M": "vocitavAn", "F": "vocitavatI", "N": ["vocitavat", "vocitavad"]}
@@ -2572,6 +2578,9 @@ class KrdantaEngine:
                     _hab = clean[0] + apply_guna(clean[1]) if len(clean) > 1 else clean
                     _hyb = _hab + clean + "at"
                     return {"M": [_hyb, _hyb[:-1] + "d"], "F": _hyb + "I", "N": [_hyb, _hyb[:-1] + "d"]}
+                elif clean == "han" and meta.get("gana") == "adAdiH":
+                    # han yl G-Satf (jaMGnat/jaNGnat twins + jaNGnan num-M; sole 02.0002 surveyed; free).
+                    return {"M": ["jaMGnat", "jaNGnat", "jaMGnad", "jaNGnad", "jaNGnan"], "F": ["jaNGnatI"], "N": ["jaNGnat", "jaNGnad"]}
                 elif clean == "UrRu" and meta.get("gana") == "adAdiH":
                     # UrRu yl on-Satf (UrRonuvat; sole 02.0034 surveyed; free).
                     return {"M": ["UrRonuvat", "UrRonuvad"], "F": "UrRonuvatI", "N": ["UrRonuvat", "UrRonuvad"]}
@@ -3573,6 +3582,9 @@ class KrdantaEngine:
             # svap yl redup ktvA (sAsvapitvA; sole-gated; free).
             if sanadi == "yanluganta" and clean == "svap" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["sAsvapitvA"]}
+            # han yl G ktvA (jaMGanitvA/jaNGanitvA twins; sole-gated; free).
+            if sanadi == "yanluganta" and clean == "han" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["jaMGanitvA", "jaNGanitvA"]}
             # SI yl e-redup ktvA (SeSayitvA; sole-gated; free).
             if sanadi == "yanluganta" and clean == "SI" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["SeSayitvA"]}
@@ -3803,6 +3815,9 @@ class KrdantaEngine:
             # SI yl e-redup lyap (praSeSayya; sole 02.0026 surveyed; free).
             if sanadi == "yanluganta" and clean == "SI" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["praSeSayya"]}
+            # han yl G lyap (prajaMGaya/prajaNGaya twins; sole-gated; free).
+            if sanadi == "yanluganta" and clean == "han" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["prajaMGaya", "prajaNGaya"]}
             # AdAdi vac samprasAraNa lyap (procya mUla + pravocya yl; sole 02.0058; free).
             if clean == "vac" and meta.get("gana") == "adAdiH":
                 if sanadi == "yanluganta":
