@@ -282,4 +282,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 153 (SI ay kta pair (Sayita/Sayitavat; a tfc-branch misplacement self-caught and relocated; sole-gated; free): 02.0026 +6 slots, 0 worsened (01 zero-diff).
 - Iteration 154 (SI nich krdanta (SAyita kta/ktavatu + SAyayamAna SAnac; iN-nich pattern; sole-gated): 02.0026 nich_krut (+9 slots), 0 worsened (01 zero-diff).
 - Iteration 155 (SI finals set (mUla ktvA/lyap + yl kta/ktavatu/ktvA/lyap Se-grades; sole-gated; free): 02.0026 → 875/875 (+1 pass, 66/76), 0 worsened (01 zero-diff).
+- Iteration 156 (han bahu Gna-twins (Gnanti/Gnantu/aGnan across lw/low/laN; sole-gated; slot-gated): 02.0002 +3 slots, 0 worsened (01 zero-diff).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).

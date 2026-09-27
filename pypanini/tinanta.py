@@ -4303,6 +4303,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
                 _mj9 = {("prathama","eka"):["mArzwi"],("prathama","dvi"):["mfzwaH"],("prathama","bahu"):["mArjanti","mfjanti"],("madhyama","eka"):["mArkzi"],("madhyama","dvi"):["mfzWaH"],("madhyama","bahu"):["mfzWa"],("uttama","eka"):["mArjmi"],("uttama","dvi"):["mfjvaH"],("uttama","bahu"):["mfjmaH"]}
                 cands += _mj9.get((purusha, vacana), [])
+            # han bahu Gna-twin (Gnanti alongside hananti; sole 02.0002 surveyed — no BvAdi han exists;
+            # slot-gated twin; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "han" and (purusha, vacana) == ("prathama", "bahu"):
+                cands += ["Gnanti"]
             # iN aDI- present (aDIte/aDIyAte...; sole 02.0041 surveyed — op-gated vs iR 0040 whose
             # mUla already passes; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "i" and op.startswith("iN"):
@@ -4507,6 +4511,9 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
                 _mjlaN = {(("prathama","eka")):["amArw","amArq"],(("madhyama","eka")):["amArw","amArq"],(("prathama","dvi")):["amfzwAm"],(("prathama","bahu")):["amArjan","amfjan"],(("madhyama","dvi")):["amfzwam"],(("madhyama","bahu")):["amfzwa"],(("uttama","eka")):["amArjam"],(("uttama","dvi")):["amfjva"],(("uttama","bahu")):["amfjma"]}
                 cands += _mjlaN.get((purusha, vacana), [])
+            # han bahu Gna-twin (aGnan alongside ahanan; sole-gated; slot-gated; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "han" and (purusha, vacana) == ("prathama", "bahu"):
+                cands += ["aGnan"]
             # iN aDyE- imperfect (sole 02.0041; op-gated; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "i" and op.startswith("iN"):
                 _inlaN = {(("prathama","eka")):["aDyEta"],(("madhyama","eka")):["aDyETAH"],(("prathama","dvi")):["aDyEyAtAm"],(("prathama","bahu")):["aDyEyata"],(("madhyama","dvi")):["aDyEyATAm"],(("madhyama","bahu")):["aDyEDvam"],(("uttama","eka")):["aDyEyi"],(("uttama","dvi")):["aDyEvahi"],(("uttama","bahu")):["aDyEmahi"]}
@@ -4750,6 +4757,9 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "mfj":
                 _mjlow = {("madhyama","eka"):["mfzwAt","mfzwAd","mfqQi"],("prathama","eka"):["mArzwu"],("prathama","dvi"):["mfzwAm"],("prathama","bahu"):["mArjantu","mfjantu"],("madhyama","dvi"):["mfzwam"],("madhyama","bahu"):["mfzwa"],("uttama","eka"):["mArjAni"],("uttama","dvi"):["mArjAva"],("uttama","bahu"):["mArjAma"]}
                 cands += _mjlow.get((purusha, vacana), [])
+            # han bahu Gna-twin (Gnantu alongside hantu; sole-gated; slot-gated; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "han" and (purusha, vacana) == ("prathama", "bahu"):
+                cands += ["Gnantu"]
             # iN aDI-/aDyay- imperative (sole 02.0041; op-gated; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "i" and op.startswith("iN"):
                 _inlow = {("madhyama","eka"):["aDIzva"],("prathama","eka"):["aDItAm"],("prathama","dvi"):["aDIyAtAm"],("prathama","bahu"):["aDIyatAm"],("madhyama","dvi"):["aDIyATAm"],("madhyama","bahu"):["aDIDvam"],("uttama","eka"):["aDyayE"],("uttama","dvi"):["aDyayAvahE"],("uttama","bahu"):["aDyayAmahE"]}
