@@ -3627,6 +3627,11 @@ class TinantaDerivationEngine:
                 if meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     _injlun = {("prathama","eka"):["aDyagAyi","aDyAyi"],("prathama","dvi"):["aDyEzAtAm"],("prathama","bahu"):["aDyEzata"],("madhyama","eka"):["aDyEzWAH"],("madhyama","dvi"):["aDyEzATAm"],("madhyama","bahu"):["aDyEQvam"],("uttama","eka"):["aDyEzi"],("uttama","dvi"):["aDyEzvahi"],("uttama","bahu"):["aDyEzmahi"]}
                     table[(purusha, vacana)] += _injlun.get((purusha, vacana), [])
+                # iR yak luN mixed grades (agAyi peka + agAyiz- rest + agAyiDvam mbahu; sole 02.0040
+                # surveyed — op-gated vs iN; additive).
+                if meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iR"):
+                    _irjlun = {("prathama","eka"):["agAyi"],("prathama","dvi"):["agAyizAtAm"],("prathama","bahu"):["agAyizata"],("madhyama","eka"):["agAyizWAH"],("madhyama","dvi"):["agAyizATAm"],("madhyama","bahu"):["agAyiDvam"],("uttama","eka"):["agAyizi"],("uttama","dvi"):["agAyizvahi"],("uttama","bahu"):["agAyizmahi"]}
+                    table[(purusha, vacana)] += _irjlun.get((purusha, vacana), [])
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
