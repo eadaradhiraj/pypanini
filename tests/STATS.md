@@ -259,3 +259,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 130 (iN lfN E-grade (aDyEzy × mUla/yak + augment-identity; a self-caught lfw-augment bug fixed before verify; op-gated): 02.0041 +18, 0 worsened (01 zero-diff).
 - Iteration 131 (iN yak-lut e-grade stem (aDye- via _conjugate_luw; op-gated; additive): 02.0041 yak-lut 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 132 (iN mUla-luN Ez-grade table (traced Atmane return; op-gated; additive): 02.0041 luN 9/9 (+9), 0 worsened (01 zero-diff).
+- Iteration 133 (iN yak-luN mixed grades (aj-precedent pattern; op-gated; additive): 02.0041 yak-luN 9/9 (+9), 0 worsened (01 zero-diff).

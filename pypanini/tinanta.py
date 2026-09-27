@@ -3601,6 +3601,11 @@ class TinantaDerivationEngine:
                     _ajvay_lun = ["avAyi"] if (purusha, vacana) == ("prathama", "eka") else ["avAy" + _sfx]
                     _vez_sfx = _sfx[2:] if _sfx.startswith("iz") else _sfx
                     table[(purusha, vacana)] += _ajvay_lun + ["avez" + _vez_sfx]
+                # iN yak luN mixed grades (aDyAyi- peka + aDyEz- rest; sole 02.0041 surveyed — op-gated;
+                # additive).
+                if meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                    _injlun = {("prathama","eka"):["aDyagAyi","aDyAyi"],("prathama","dvi"):["aDyEzAtAm"],("prathama","bahu"):["aDyEzata"],("madhyama","eka"):["aDyEzWAH"],("madhyama","dvi"):["aDyEzATAm"],("madhyama","bahu"):["aDyEQvam"],("uttama","eka"):["aDyEzi"],("uttama","dvi"):["aDyEzvahi"],("uttama","bahu"):["aDyEzmahi"]}
+                    table[(purusha, vacana)] += _injlun.get((purusha, vacana), [])
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
