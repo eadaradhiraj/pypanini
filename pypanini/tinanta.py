@@ -4758,6 +4758,12 @@ class TinantaDerivationEngine:
                             cands+=self._conjugate_at_stem_atmane(core, "lw", purusha, vacana)
                         if pada != "Atmanepadi" or is_vrdbhyah:
                             cands+=self._conjugate_at_stem_parasmai(core, "lw", purusha, vacana)
+            # AdAdi duh/dih lfw Dkzy (Dokzy/Dekzy both padas for global match; BvAdi duh keeps
+            # hizy, lih keeps kzy via clean-gate; surveyed quartet; additive).
+            if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                _dcore = "Dokzy" if clean == "duh" else "Dekzy"
+                cands+=self._conjugate_at_stem_parasmai(_dcore, "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_dcore, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
