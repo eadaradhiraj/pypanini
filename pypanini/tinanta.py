@@ -4788,6 +4788,12 @@ class TinantaDerivationEngine:
                             cands+=self._conjugate_at_stem_atmane(aug_core, "laN", purusha, vacana)
                         if pada != "Atmanepadi" or is_vrdbhyah:
                             cands+=self._conjugate_at_stem_parasmai(aug_core, "laN", purusha, vacana)
+            # AdAdi duh/dih lfN Dkzy (mirrors lfw; augmented both padas; same guards; additive).
+            if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                _dcore0 = "Dokzy" if clean == "duh" else "Dekzy"
+                _daug = self._add_augment(_dcore0, _dcore0[0] in SLP1_VOWELS if _dcore0 else False)
+                cands+=self._conjugate_at_stem_parasmai(_daug, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_daug, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":

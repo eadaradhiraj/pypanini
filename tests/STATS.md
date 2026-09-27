@@ -218,3 +218,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 89 (mA kta family (mita mUla gana-gated vs 03/04 mIta + mApita nich pan-gaNa + mitvA; surveyed split; free): 02.0057 → 882/882 (+1 pass, 56/76), 0 worsened (01 zero-diff).
 - Iteration 90 (duh/dih lut gD thread (dogDA/degDA mUla + yak; BvAdi duh dohitA + lih QA surveyed as guards; shape+gana-gated, additive): 02.0004/0005 +18 each, 0 worsened (01 zero-diff).
 - Iteration 91 (duh/dih lfw Dkzy cores (Dokzy/Dekzy both padas for global match; same quartet guards; additive): 02.0004/0005 +9 each, 0 worsened (01 zero-diff).
+- Iteration 92 (duh/dih lfN Dkzy (augmented mirrors lfw; same guards; additive; yak-count wobble is capped-sample noise — fid-diff clean): 02.0004/0005 +9 each, 0 worsened (01 zero-diff).
