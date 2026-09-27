@@ -3028,6 +3028,9 @@ class KrdantaEngine:
             # mfjU A-j anIyar (mArjanIya; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return tri_linga("mArjanIya")
+            # jAg ar-Natva anIyar (jAgaraRIya; sole 02.0067 surveyed; free).
+            if sanadi is None and clean == "jAg" and meta.get("gana") == "adAdiH":
+                return tri_linga("jAgaraRIya")
             # UrRu av anIyar (UrRavanIya; sole-gated; free).
             if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return tri_linga("UrRavanIya")
@@ -3206,6 +3209,9 @@ class KrdantaEngine:
             # mfjU A-j Rvul (mArjaka; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"M": "mArjakaH", "F": "mArjikA", "N": "mArjakam"}
+            # jAg ar-Rvul (jAgaraka; sole-gated; free).
+            if sanadi is None and clean == "jAg" and meta.get("gana") == "adAdiH":
+                return {"M": "jAgarakaH", "F": "jAgarikA", "N": "jAgarakam"}
             # UrRu Av Rvul (UrRAvaka; sole-gated; free).
             if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return {"M": "UrRAvakaH", "F": "UrRAvikA", "N": "UrRAvakam"}
@@ -3298,6 +3304,9 @@ class KrdantaEngine:
             # mfjU A-zw tfc (mArzwA; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return {"M": "mArzwA", "F": "mArzwrI", "N": "mArzwf"}
+            # jAg ar-tfc (jAgaritA; sole-gated; free).
+            if sanadi is None and clean == "jAg" and meta.get("gana") == "adAdiH":
+                return {"M": "jAgaritA", "F": "jAgaritrI", "N": "jAgaritf"}
             # UrRu uv tfc (UrRuvitA; sole-gated; free).
             if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return {"M": "UrRuvitA", "F": "UrRuvitrI", "N": "UrRuvitf"}
