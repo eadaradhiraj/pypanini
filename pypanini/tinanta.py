@@ -4715,6 +4715,11 @@ class TinantaDerivationEngine:
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
+            # vac mUla-liT samprasAraNa redup (uvAca/UcatuH...; sole 02.0058 surveyed — no BvAdi vac;
+            # kartari-only return (yak has its own Uc-table already); mUla currently 0/9 so free).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vac" and prayoga == "kartari":
+                _vact = {("prathama","eka"):["uvAca"],("prathama","dvi"):["UcatuH"],("prathama","bahu"):["UcuH"],("madhyama","eka"):["uvakTa","uvaciTa"],("madhyama","dvi"):["UcaTuH"],("madhyama","bahu"):["Uca"],("uttama","eka"):["uvaca","uvAca"],("uttama","dvi"):["Uciva"],("uttama","bahu"):["Ucima"]}
+                return list(dict.fromkeys(_vact.get((purusha, vacana), []))), log
             # ajervyaghaJapoH (aj -> vi in liw)
             if clean == "aj" or op.startswith("aja"):
                 _vi_par = {
