@@ -230,3 +230,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 101 (h-final yl redup-guna family (tavya/tfc/tumun/ktvA dodoh-/dedeh-/leleh-; trio + BvAdi unanimity; free): 02.0004/0005 → 885/885 (+2 passes, 58/76), 0 worsened (01 zero-diff).
 - Iteration 102 (vevI/dIDI san (vivayiz/didyiz ×2 builders; AdAdi N-pair surveyed, no BvAdi counterparts; a self-caught local-clean rewrite fixed via meta-clean gate; additive): 02.0072 +209, 02.0071 +209, 0 worsened (01 zero-diff).
 - Iteration 103 (vevI/dIDI liw peri-base +y ×2 paths + SAnac num-exclusion (a settrace-proved dead special revived by excluding the pair from the idit-num branch; same pair guards): 02.0072/0071 → pass (+2 passes, 60/76), 0 worsened (01 zero-diff).
+- Iteration 104 (pA nich l-augment (pAlay ×2 builders; AdAdi 02.0051 vs BvAdi pAyay 01.1074 minimal gana-pair; gana-gated): 02.0051 nich (+152 tokens), 0 worsened (01 zero-diff).

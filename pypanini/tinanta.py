@@ -1441,6 +1441,10 @@ class TinantaDerivationEngine:
             # dEp (sole E-medial puk root surveyed): vriddhi-A + puk (dApay-).
             if c == "dEp":
                 return "dApay"
+            # pA nich l-augment (pAlayati; AdAdi 02.0051 vs BvAdi pAyayati 01.1074 minimal gana-pair
+            # surveyed; gana-gated).
+            if c == "pA" and meta.get("gana") == "adAdiH":
+                return "pAlay"
             # ew-final aniW (sole 01 Dew 01.1050 surveyed): vriddhi-A + puk like dEp (DApay-);
             # shape-based (penult e + coda w) + aniW-gated: sew ew-roots (mlewf~/mewf~/rewf~) keep generic ay;
             # E-final yuk group (pE/sE/SE) ends in E, unaffected.
