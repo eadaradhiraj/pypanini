@@ -2845,6 +2845,10 @@ class TinantaDerivationEngine:
                         if lakara == "lfN":
                             _ymcore = _aug(_ymcore)
                         cands+=self._conjugate_at_stem_atmane(_ymcore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
+                # han yak future izya twins (GAnizyate/hanizyate; sole 02.0002 surveyed; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han" and lakara == "lfw":
+                    for _yhcore in ("GAnizy", "hanizy"):
+                        cands+=self._conjugate_at_stem_atmane(_yhcore, "lw", purusha, vacana)
                 # iN yak future z-grade (aDyezyate + augmented lfN; op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     # yak lfN E-grade (aDyEzyata covers every slot via any-match; sole-gated).
@@ -5011,6 +5015,9 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
                 for _mcore in ("mArkzy", "mArjizy"):
                     cands+=self._conjugate_at_stem_parasmai(_mcore, "lw", purusha, vacana)
+            # han lfw izya (hanizyati parasmai; sole 02.0002 surveyed — no BvAdi han; additive).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han":
+                cands+=self._conjugate_at_stem_parasmai("hanizy", "lw", purusha, vacana)
             # iN lfw z-grade (aDyezyate atmane; sole 02.0041 surveyed — op-gated vs iR; additive).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                 cands+=self._conjugate_at_stem_atmane("aDyezy", "lw", purusha, vacana)
