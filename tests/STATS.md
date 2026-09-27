@@ -288,4 +288,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 159 (han san GAMs-suppletion (jiGAMs ×2 builders; sole-gated): 02.0002 san (+209 tokens), 0 worsened (01 zero-diff).
 - Iteration 160 (han nich GAta-stem (GAtay ×2 + GAtita kta/ktavatu; sole-gated): 02.0002 nich (+183 tokens), 0 worsened (01 zero-diff).
 - Iteration 161 (han yanlug G-stems (jaMGan primary + jaNGan twin; sole-gated): 02.0002 yangluk-lw (+18), 0 worsened (01 zero-diff).
+- Iteration 162 (han vaD-stem ASIrliN (a self-caught vaDh/vaD retroflexion fix via probe; sole-gated): 02.0002 ASIrliN 9/9 (+7), 0 worsened (01 zero-diff).
 - Ceiling 0040-san_yak (user-directed halt: 76 dataless karmani slots, parasmaipada-only root; no fabrication; 0040 capped at 552/628).
