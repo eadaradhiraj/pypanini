@@ -1909,8 +1909,9 @@ class TinantaDerivationEngine:
             # Panini 7.4.84 nIg vaYcu-sraMsu-DvaMsu-BraMsu-kasa-pata-pada-skandAm:
             # nIk augment (yan_vowel = "anI") in yaN and yaNluk
             # With 6.4.24 aniditAM hala upaDAyAH kNiti: penultimate nasal elided
-            if (clean in ("pat", "kas", "pad", "vanc", "vaYc", "skand", "srans", "Dvans", "Brans") or
-                (op and any(op.startswith(x) for x in ("patx", "kasa", "pada", "vanc", "skand", "srans", "Dvans", "Brans")))):
+            # AdAdi kas takes A-redup instead (02.0015 cAkas-/cAkasI- vs 01.0996 canIkas- — surveyed pair).
+            if ((clean in ("pat", "kas", "pad", "vanc", "vaYc", "skand", "srans", "Dvans", "Brans") and not (clean == "kas" and meta.get("gana") == "adAdiH")) or
+                (op and any(op.startswith(x) for x in ("patx", "kasa", "pada", "vanc", "skand", "srans", "Dvans", "Brans")) and not (meta.get("gana") == "adAdiH" and meta.get("clean") == "kas"))):
                 yan_vowel = "anI"
                 if _ybase.endswith("nc") or _ybase.endswith("Yc"):
                     _ybase = _ybase[:-2] + "c"
@@ -2053,8 +2054,9 @@ class TinantaDerivationEngine:
             # Panini 7.4.84 nIg vaYcu-sraMsu-DvaMsu-BraMsu-kasa-pata-pada-skandAm:
             # nIk augment (yan_vowel = "anI") in yaN and yaNluk
             # With 6.4.24 aniditAM hala upaDAyAH kNiti: penultimate nasal elided
-            if (clean in ("pat", "kas", "pad", "vanc", "vaYc", "skand", "srans", "Dvans", "Brans") or
-                (op and any(op.startswith(x) for x in ("patx", "kasa", "pada", "vanc", "skand", "srans", "Dvans", "Brans")))):
+            # AdAdi kas takes A-redup instead (02.0015 cAkas-/cAkasI- vs 01.0996 canIkas- — surveyed pair).
+            if ((clean in ("pat", "kas", "pad", "vanc", "vaYc", "skand", "srans", "Dvans", "Brans") and not (clean == "kas" and meta.get("gana") == "adAdiH")) or
+                (op and any(op.startswith(x) for x in ("patx", "kasa", "pada", "vanc", "skand", "srans", "Dvans", "Brans")) and not (meta.get("gana") == "adAdiH" and meta.get("clean") == "kas"))):
                 yan_vowel = "anI"
                 if _ybase.endswith("nc") or _ybase.endswith("Yc"):
                     _ybase = _ybase[:-2] + "c"
