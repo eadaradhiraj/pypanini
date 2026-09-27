@@ -5004,6 +5004,11 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN") and prayoga == "kartari":
                 _inj = {("prathama","eka"):["aDijage"],("prathama","dvi"):["aDijagAte"],("prathama","bahu"):["aDijagire"],("madhyama","eka"):["aDijagize"],("madhyama","dvi"):["aDijagATe"],("madhyama","bahu"):["aDijagiDve"],("uttama","eka"):["aDijage"],("uttama","dvi"):["aDijagivahe"],("uttama","bahu"):["aDijagimahe"]}
                 return list(dict.fromkeys(_inj.get((purusha, vacana), []))), log
+            # iR mUla-liT iyAya-redup (iyAya/IyatuH...; sole 02.0040 surveyed — op-gated vs iN;
+            # kartari-only return like vac; free).
+            if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iR") and prayoga == "kartari":
+                _irj = {("prathama","eka"):["iyAya"],("prathama","dvi"):["IyatuH"],("prathama","bahu"):["IyuH"],("madhyama","eka"):["iyayiTa","iyeTa"],("madhyama","dvi"):["IyaTuH"],("madhyama","bahu"):["Iya"],("uttama","eka"):["iyaya","iyAya"],("uttama","dvi"):["Iyiva"],("uttama","bahu"):["Iyima"]}
+                return list(dict.fromkeys(_irj.get((purusha, vacana), []))), log
             # ajervyaghaJapoH (aj -> vi in liw)
             if clean == "aj" or op.startswith("aja"):
                 _vi_par = {
