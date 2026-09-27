@@ -1402,6 +1402,10 @@ class TinantaDerivationEngine:
         is_genuine_vowel_root = (not is_idit) and bool(clean) and (clean[-1] in SLP1_VOWELS) and not any(c in SLP1_VOWELS for c in clean[:-1])
         _is_samyoga_f = clean.endswith(("f", "F")) and len([ch for ch in clean if ch not in SLP1_VOWELS]) > 1
         keeps_y_in_yan = is_genuine_vowel_root and not _is_samyoga_f and not clean.endswith("F") and clean != "f"
+        # UrRu yang keeps stem-y too (UrRonUyAYcakre; sole 02.0034 surveyed — internal vowels fail the
+        # genuine-vowel test; sole-gated OR).
+        if clean == "UrRu" and meta.get("gana") == "adAdiH":
+            keeps_y_in_yan = True
         # aniW ew-final yan keeps stem-y like genuine vowel roots (deDIya->deDIyitA, not deDIitA;
         # sole 01 Dew 01.1050 surveyed; sew ew-cleans mlew/mew/rew keep y-drop via sew-gate).
         # Sole consumer is the yananta branch below (yan is always Atmanepada, both prayogas).
@@ -2018,6 +2022,9 @@ class TinantaDerivationEngine:
             # svap intensive (sozupyate; sole 02.0063 surveyed — o-redup + zupya stem; gana-gated).
             if c == "svap" and meta.get("gana") == "adAdiH":
                 return "sozupya"
+            # UrRu intensive (UrRonUyate; sole 02.0034 surveyed — onU-stem; gana-gated).
+            if c == "UrRu" and meta.get("gana") == "adAdiH":
+                return "UrRonUya"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
