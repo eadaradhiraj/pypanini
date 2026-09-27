@@ -2602,6 +2602,12 @@ class TinantaDerivationEngine:
                     for _vy2 in ("ucy", "Ocy"):
                         if _vy2 not in yak_list:
                             yak_list.append(_vy2)
+                # vaS yak samprasAraNa stems (uSy + OSy imperfect; sole 02.0075 surveyed — BvAdi vas is
+                # s-final, distinct clean; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vaS":
+                    for _vy3 in ("uSy", "OSy"):
+                        if _vy3 not in yak_list:
+                            yak_list.append(_vy3)
                 # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: yak dIrgha for iv/Iv-final mUla
                 # (sWiv->sWIvyate, kzIvu~->kzIvyate; surveyed 01 iv/Iv set, additive, deduped)
                 if sanadi is None and len(clean) >= 2 and clean[-1] == "v" and clean[-2] in ("i", "I"):
@@ -3125,6 +3131,10 @@ class TinantaDerivationEngine:
                     cands.append(clean + _peri_yak[(purusha, vacana)])
                 except Exception:
                     pass
+                # vaS yak-liT samprasAraNa (USe/USAte...; sole 02.0075 surveyed; additive before return).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vaS":
+                    _use = {("prathama","eka"):["USe"],("prathama","dvi"):["USAte"],("prathama","bahu"):["USire"],("madhyama","eka"):["USize"],("madhyama","dvi"):["USATe"],("madhyama","bahu"):["USiDve"],("uttama","eka"):["USe"],("uttama","dvi"):["USivahe"],("uttama","bahu"):["USimahe"]}
+                    cands += _use.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
