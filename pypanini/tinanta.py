@@ -1118,7 +1118,7 @@ class TinantaDerivationEngine:
             return forms.get((purusha, vacana), [])
         return []
 
-    def _assimilate_t_stems(self, stem: str) -> List[str]:
+    def _assimilate_t_stems(self, stem: str, adadi_gd: bool = False) -> List[str]:
         # Connects stem to t-suffix by Paninian sandhi, returning the base including assimilated t/w/D/Q
         if stem.endswith("kz"):
             return [stem[:-2] + "zw"]
@@ -1126,6 +1126,14 @@ class TinantaDerivationEngine:
             return [stem[:-1] + "dD"]
         if stem in ("dah", "dAh"):
             return ["dagD", "dAgD"]
+        # AdAdi duh/dih lut gD (dogDA/degDA; BvAdi duh keeps hitA via gate=False, lih keeps QA via
+        # clean-gate at caller; surveyed quartet; default preserves old behavior).
+        if adadi_gd and stem in ("duh", "doh"):
+            return ["dogD"]
+        if adadi_gd and stem in ("dih", "deh"):
+            return ["degD"]
+        # AdAdi duh/dih lut takes gD (dogDA/degDA; BvAdi duh keeps hitA, lih keeps QA;
+        # surveyed quartet; shape+gana-gated via caller thread — default preserves old behavior).
         if stem in ("vah", "vAh"):
             return ["voQ", "vAQ"]
         if stem.endswith("h"):
@@ -1162,9 +1170,9 @@ class TinantaDerivationEngine:
             return [stem[:-1] + "zw"]
         return [stem + "t"]
 
-    def _assimilate_luw_suffix(self, stem: str, sfx: str) -> List[str]:
+    def _assimilate_luw_suffix(self, stem: str, sfx: str, adadi_gd: bool = False) -> List[str]:
         # Connects stem to t-initial suffix (tA, tArO, tAraH, tAsi, etc.) by Paninian sandhi
-        return [t + sfx[1:] for t in self._assimilate_t_stems(stem)]
+        return [t + sfx[1:] for t in self._assimilate_t_stems(stem, adadi_gd)]
 
     def _assimilate_s_stems(self, base: str, is_kit: bool = False) -> List[str]:
         # Connects base to s-suffix (sy in lfw/lfN, sIy in ASIrliN) by Paninian sandhi
@@ -1212,7 +1220,7 @@ class TinantaDerivationEngine:
         sat = apply_satva(base[-1], "s")
         return [base + sat]
 
-    def _conjugate_luw(self, luw_stem: str, pada: str, purusha: str, vacana: str) -> List[str]:
+    def _conjugate_luw(self, luw_stem: str, pada: str, purusha: str, vacana: str, adadi_gd: bool = False) -> List[str]:
         # luw_stem = guna_base + ("i" if sew else "")  e.g., Bavi, eDi
         if pada == "Atmanepadi":
             tbl = {
@@ -1228,7 +1236,7 @@ class TinantaDerivationEngine:
             }
             sfx = tbl[(purusha, vacana)]
             cands = [luw_stem + sfx]
-            for asm in self._assimilate_luw_suffix(luw_stem, sfx):
+            for asm in self._assimilate_luw_suffix(luw_stem, sfx, adadi_gd):
                 if asm not in cands:
                     cands.append(asm)
             return cands
@@ -1248,7 +1256,7 @@ class TinantaDerivationEngine:
             sfx = tbl_p.get((purusha, vacana))
             if sfx:
                 cands = [luw_stem + sfx]
-                for asm in self._assimilate_luw_suffix(luw_stem, sfx):
+                for asm in self._assimilate_luw_suffix(luw_stem, sfx, adadi_gd):
                     if asm not in cands:
                         cands.append(asm)
                 return cands
@@ -3185,6 +3193,8 @@ class TinantaDerivationEngine:
                 # primitive yak luw is BavitA (same as paras) - over-generate capital and Ur/Ud
                 cands=[]
                 bases = self._prim_bases(clean, is_idit, op, dhatu_id, sew)
+                # AdAdi duh/dih yak-lut gD (mirrors mUla-lut thread; surveyed quartet; additive).
+                _gd_yak = (clean in ("duh", "dih") and meta.get("gana") == "adAdiH")
                 for base_cmp in bases:
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         b = base_cmp
@@ -3214,9 +3224,9 @@ class TinantaDerivationEngine:
                     # aja~ ve-suppletion takes aniT luT (vetA inside sew root; sole aj-clean 01.0262, ~-gated).
                     if not sew or is_vew or (clean == "aj" and "~" in (op or "")):
                         if not b.endswith("A"):
-                            cands+=self._conjugate_luw(b, "Atmanepadi", purusha, vacana)
+                            cands+=self._conjugate_luw(b, "Atmanepadi", purusha, vacana, _gd_yak)
                         if not base_cmp.endswith("A"):
-                            for _pf in self._conjugate_luw(base_cmp, "Atmanepadi", purusha, vacana):
+                            for _pf in self._conjugate_luw(base_cmp, "Atmanepadi", purusha, vacana, _gd_yak):
                                 if _pf not in cands: cands.append(_pf)
                 # snu yak-luW Av/o doublets (snAvitAse/snotAse...; sole 02.0033 surveyed — generic emits
                 # av-grade only; additive before return; karmani-only since this is the yak path).
@@ -4717,12 +4727,15 @@ class TinantaDerivationEngine:
 
         elif lakara == "luw":
             cands=[]
+            # AdAdi duh/dih lut gD (dogDA/degDA; BvAdi duh keeps hitA, lih keeps QA;
+            # surveyed quartet; shape+gana-gated thread, additive).
+            _gd = (clean in ("duh", "dih") and meta.get("gana") == "adAdiH")
             for base in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                 if sew or is_vew:
                     _b = base[:-1] + "i" if base.endswith("A") else base + "i"
-                    cands+=self._conjugate_luw(_b, pada, purusha, vacana)
+                    cands+=self._conjugate_luw(_b, pada, purusha, vacana, _gd)
                 if not sew or is_vew:
-                    cands+=self._conjugate_luw(base, pada, purusha, vacana)
+                    cands+=self._conjugate_luw(base, pada, purusha, vacana, _gd)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":

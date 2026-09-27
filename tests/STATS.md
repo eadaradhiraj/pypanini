@@ -216,3 +216,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 87 (ad suppletive kta family (jagDa/jagdDa twins + Adita nich + jagDvA ktvA; sole 02.0001 surveyed; free): 02.0001 → 626/626 (+1 pass, 55/76), 0 worsened (01 zero-diff).
 - Iteration 88 (mA san (mits ×2 builders; mA unanimity 02/03/04 surveyed; mI excluded per 04.0032 mimIz; shape-gated): 02.0057 san-full (+209 tokens), 0 worsened (01 zero-diff).
 - Iteration 89 (mA kta family (mita mUla gana-gated vs 03/04 mIta + mApita nich pan-gaNa + mitvA; surveyed split; free): 02.0057 → 882/882 (+1 pass, 56/76), 0 worsened (01 zero-diff).
+- Iteration 90 (duh/dih lut gD thread (dogDA/degDA mUla + yak; BvAdi duh dohitA + lih QA surveyed as guards; shape+gana-gated, additive): 02.0004/0005 +18 each, 0 worsened (01 zero-diff).
