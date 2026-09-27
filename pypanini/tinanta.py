@@ -2763,6 +2763,10 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han":
                     if "vaDy" not in yak_list:
                         yak_list.append("vaDy")
+                # jAg yak ar-stem (jAgaryate; sole 02.0067 surveyed; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "jAg":
+                    if "jAgary" not in yak_list:
+                        yak_list.append("jAgary")
                 # daridrA yak stem (daridry-; sole 02.0068 surveyed; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "daridrA":
                     if "daridry" not in yak_list:
@@ -5826,6 +5830,9 @@ class TinantaDerivationEngine:
                 # vaD distinct from yajadi vad by retroflexion).
                 if clean == "han" and meta.get("gana") == "adAdiH":
                     _asb.append("vaD")
+                # jAg ar-stem (jAgaryAt; sole 02.0067 surveyed; additive).
+                if clean == "jAg" and meta.get("gana") == "adAdiH":
+                    _asb.append("jAgar")
                 # svap samprasAraNa (supyAt; sole 02.0063 surveyed — no BvAdi svap exists; additive).
                 if clean == "svap" and meta.get("gana") == "adAdiH":
                     _asb.append("sup")
