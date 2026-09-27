@@ -1006,6 +1006,9 @@ class KrdantaEngine:
                 # iR san gam-suppletion for krdanta (jigAMsita; ting takes jigamiz- above; op-gated).
                 if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                     return "jigAMs"
+                # UrRu san (mirrors tinanta; same sole guard — mari-grade via any-match).
+                if meta.get("clean") == "UrRu" and meta.get("gana") == "adAdiH":
+                    return "UrRunuviz"
                 # iN san gam-suppletion for krdanta (aDijigAMsita; op-gated).
                 if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                     return "aDijigAMs"
