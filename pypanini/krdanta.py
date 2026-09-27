@@ -859,6 +859,9 @@ class KrdantaEngine:
                 # pA nich l-augment (mirrors tinanta; same minimal gana-pair; gana-gated).
                 if c == "pA" and meta.get("gana") == "adAdiH":
                     return "pAlay"
+                # iN nich yA-stem (mirrors tinanta; same sole-gated survey).
+                if c == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
+                    return "aDyApay"
                 # ew-final aniW (mirrors tinanta; sole 01 Dew 01.1050 surveyed; sew ew-roots keep generic ay).
                 if (c.endswith("ew") or op.endswith("ew")) and not sew:
                     _eb = c[:-2] if c.endswith("ew") else op[:-2]

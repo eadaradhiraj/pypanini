@@ -290,7 +290,7 @@ class TinantaDerivationEngine:
             return base
         # aDijigAMs- augment-stable (aDijigAMsata, not ADijigAMsata; sole 02.0041 surveyed — no other
         # stem starts with this prefix; additive guard before vrddhi).
-        if base.startswith("aDijigAMs") or base.startswith("aDyajigAMs") or base.startswith("aDyEzy"):
+        if base.startswith("aDijigAMs") or base.startswith("aDyajigAMs") or base.startswith("aDyEzy") or base.startswith("aDyApay"):
             return base
         if is_vowel_initial:
             # vRddhi of initial vowel: a + e -> E etc.
@@ -1453,6 +1453,9 @@ class TinantaDerivationEngine:
             # surveyed; gana-gated).
             if c == "pA" and meta.get("gana") == "adAdiH":
                 return "pAlay"
+            # iN nich yA-stem (aDyApayati; sole 02.0041 surveyed — op-gated vs iR; no BvAdi i-nich).
+            if c == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
+                return "aDyApay"
             # ew-final aniW (sole 01 Dew 01.1050 surveyed): vriddhi-A + puk like dEp (DApay-);
             # shape-based (penult e + coda w) + aniW-gated: sew ew-roots (mlewf~/mewf~/rewf~) keep generic ay;
             # E-final yuk group (pE/sE/SE) ends in E, unaffected.

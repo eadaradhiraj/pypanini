@@ -261,3 +261,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 132 (iN mUla-luN Ez-grade table (traced Atmane return; op-gated; additive): 02.0041 luN 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 133 (iN yak-luN mixed grades (aj-precedent pattern; op-gated; additive): 02.0041 yak-luN 9/9 (+9), 0 worsened (01 zero-diff).
 - Iteration 134 (iN yak stems (aDIy + aDyEy imperfect, ucy/Ocy pattern; op-gated; additive): 02.0041 yak-present (+36 tokens), 0 worsened (01 zero-diff).
+- Iteration 135 (iN nich yA-stem (aDyApay ×2 builders + augment-identity guard; op-gated; note: two traits, one gate — combined fid-diff clean): 02.0041 +188 tokens, 0 worsened (01 zero-diff).
