@@ -997,6 +997,9 @@ class KrdantaEngine:
                 # mfjU san (mirrors tinanta; same sole guard).
                 if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
                     return "mimArjiz"
+                # iR san gam-suppletion for krdanta (jigAMsita; ting takes jigamiz- above; op-gated).
+                if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
+                    return "jigAMs"
                 # ad san suppletion (jiGats-; mirrors tinanta; sole 02.0001 surveyed — gana-gated).
                 if c == "ad" and meta.get("gana") == "adAdiH":
                     return "jiGats"

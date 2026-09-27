@@ -1539,6 +1539,9 @@ class TinantaDerivationEngine:
             # suffices; sole 02.0061 surveyed — no BvAdi mfj exists; meta-clean gate).
             if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
                 return "mimArjiz"
+            # iR san gam-suppletion (jigamizati; sole 02.0040 surveyed — op-gated vs iN 0041 below).
+            if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
+                return "jigamiz"
             # ad san suppletion (jiGatsati; sole 02.0001 surveyed — no BvAdi ad exists; gana-gated).
             if c == "ad" and meta.get("gana") == "adAdiH":
                 return "jiGats"
