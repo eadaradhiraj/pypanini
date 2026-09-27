@@ -1623,6 +1623,9 @@ class KrdantaEngine:
                     # iN nijanta (aDyApita; sole 02.0041 surveyed — op-gated; manual triple).
                     if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                         return {"M": "aDyApitaH", "F": "aDyApitA", "N": "aDyApitam"}
+                    # SI nijanta (SAyita; sole 02.0026 surveyed; manual triple).
+                    if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
+                        return {"M": "SAyitaH", "F": "SAyitA", "N": "SAyitam"}
                     # iR nijanta gam-suppletion (gamita; sole 02.0040 surveyed — op-gated; manual triple).
                     if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                         return {"M": "gamitaH", "F": "gamitA", "N": "gamitam"}
@@ -1676,6 +1679,9 @@ class KrdantaEngine:
                     # iN nijanta (aDyApitavAn; sole-gated; free).
                     if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                         return {"M": "aDyApitavAn", "F": "aDyApitavatI", "N": ["aDyApitavat", "aDyApitavad"]}
+                    # SI nijanta (SAyitavAn; sole-gated; free).
+                    if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
+                        return {"M": "SAyitavAn", "F": "SAyitavatI", "N": ["SAyitavat", "SAyitavad"]}
                     # iR nijanta gam-suppletion (gamitavAn; sole-gated; free).
                     if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                         return {"M": "gamitavAn", "F": "gamitavatI", "N": ["gamitavat", "gamitavad"]}
@@ -1715,6 +1721,10 @@ class KrdantaEngine:
                     if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                         _ib = sec_base + "ayamAna"
                         return {"M": _ib + "H", "F": _ib[:-1] + "A" if _ib.endswith("a") else _ib + "A", "N": _ib + "m"}
+                    # SI nich keeps -ay- too (SAyayamAna; sole 02.0026 surveyed).
+                    if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
+                        _isb = sec_base + "ayamAna"
+                        return {"M": _isb + "H", "F": _isb[:-1] + "A" if _isb.endswith("a") else _isb + "A", "N": _isb + "m"}
                     base = sec_base+"yamAna"
                     if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and base.endswith("amAna"):
                         base = base[:-5] + "amARa"
