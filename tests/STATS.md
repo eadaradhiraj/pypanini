@@ -223,3 +223,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 94 (duh/dih yak future Dkzy (Dokzyate/aDokzyata; same quartet guards; shared-stem covers lfw + lfN; additive): 02.0004/0005 +18 each, 0 worsened (01 zero-diff).
 - Iteration 95 (duh/dih yak-ASIrliN Dukz (DukzIzwa + IQvam twin; same guards; additive): 02.0004/0005 +9 each, 0 worsened (01 zero-diff).
 - Iteration 96 (duh/dih san D-infix (duDukz/diDikz ×2 san builders; BvAdi duduhiz- + lih lilikz surveyed guards; shape+gana-gated): 02.0004/0005 san-full (+212 each), 0 worsened (01 zero-diff).
+- Iteration 97 (duh/dih gD kta pair (dugDa/digDa + ktavatu; BvAdi duhita + lih lIQa guards; free): 02.0004/0005 +6 each, 0 worsened (01 zero-diff).

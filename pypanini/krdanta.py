@@ -2126,6 +2126,10 @@ class KrdantaEngine:
             # mA short-i kta (mitaH; 02.0057 surveyed — 03/04 mAN take mIta, so gana-gated; free).
             if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
                 return tri_linga("mita")
+            # duh/dih gD kta (dugDa/digDa; BvAdi duh keeps duhita, lih keeps lIQa; surveyed
+            # quartet + BvAdi; shape+gana-gated; free).
+            if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                return tri_linga("dugDa" if clean == "duh" else "digDa")
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
@@ -2232,6 +2236,10 @@ class KrdantaEngine:
             # mA short-i ktavatu (mitavAn; 02.0057 surveyed — gana-gated like kta; free).
             if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
                 return {"M": "mitavAn", "F": "mitavatI", "N": ["mitavat", "mitavad"]}
+            # duh/dih gD ktavatu (dugDavAn/digDavAn; same quartet + BvAdi guards; free).
+            if sanadi is None and clean in ("duh", "dih") and meta.get("gana") == "adAdiH":
+                _dgv = "dugDav" if clean == "duh" else "digDav"
+                return {"M": _dgv + "An", "F": _dgv + "atI", "N": [_dgv + "at", _dgv + "ad"]}
             # vaS weak-uS ktavatu twin (uSitavAn; sole 02.0075 surveyed — old kept as cross-hit; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}
