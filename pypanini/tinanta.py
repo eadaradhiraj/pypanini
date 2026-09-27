@@ -6166,6 +6166,10 @@ class TinantaDerivationEngine:
                                 cands.append(_asb + "mahi")
                 except Exception:
                     pass
+                # iN mUla-luN Ez-grade table (aDyEzwa...; sole 02.0041 surveyed — op-gated; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
+                    _inlun = {("prathama","eka"):["aDyEzwa"],("prathama","dvi"):["aDyEzAtAm"],("prathama","bahu"):["aDyEzata"],("madhyama","eka"):["aDyEzWAH"],("madhyama","dvi"):["aDyEzATAm"],("madhyama","bahu"):["aDyEQvam"],("uttama","eka"):["aDyEzi"],("uttama","dvi"):["aDyEzvahi"],("uttama","bahu"):["aDyEzmahi"]}
+                    cands += _inlun.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
 
         # fallback

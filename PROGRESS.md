@@ -4,14 +4,14 @@ Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
 Sweep-02: **63/76 100%-attested** (raw 63/77, 1 skipped) — token gains, no new passes.
 
-## Done — iN yak-lut (+9 slots, 0 worsened)
-- `aDye` stem via `_conjugate_luw` in yak-luw block (op-gated):
-  - tinanta yak luw path.
-  - Full Sweep Results: 02 improved **1 root** (0041 328->337/623), **worsened 0** (01 zero-diff).
+## Done — iN luN (+9 slots, 0 worsened)
+- Ez-grade table at traced Atmane luN return (op-gated):
+  - tinanta luN branch.
+  - Full Sweep Results: 02 improved **1 root** (0041 337->346/623), **worsened 0** (01 zero-diff).
 - Prior work: 02 at 63/76 passes; combined same passes, token gains continue.
 
 ## Next (02 loop)
-1. 0041 mUla/yak luN (aDyEz-/aDyAyi-) + nich + krdanta.
+1. 0041 yak luN (aDyAyi- peka + aDyEz-) + nich + krdanta.
 2. 0040 mUla liw/luN + yak + nich + san_yak policy.
 3. cakz (0007) + UrRu + 0067/0060/0042.
 4. Ganas 03–10 to follow.
