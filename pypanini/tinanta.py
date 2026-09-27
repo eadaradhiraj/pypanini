@@ -2614,6 +2614,10 @@ class TinantaDerivationEngine:
                     for _vy3 in ("uSy", "OSy"):
                         if _vy3 not in yak_list:
                             yak_list.append(_vy3)
+                # daridrA yak stem (daridry-; sole 02.0068 surveyed; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "daridrA":
+                    if "daridry" not in yak_list:
+                        yak_list.append("daridry")
                 # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: yak dIrgha for iv/Iv-final mUla
                 # (sWiv->sWIvyate, kzIvu~->kzIvyate; surveyed 01 iv/Iv set, additive, deduped)
                 if sanadi is None and len(clean) >= 2 and clean[-1] == "v" and clean[-2] in ("i", "I"):
@@ -4085,6 +4089,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vid9 = {("prathama","eka"):["vetti","veda"],("prathama","dvi"):["vittaH","vidatuH"],("prathama","bahu"):["vidanti","viduH"],("madhyama","eka"):["vetsi","vetTa"],("madhyama","dvi"):["vitTaH","vidaTuH"],("madhyama","bahu"):["vitTa","vida"],("uttama","eka"):["vedmi","veda"],("uttama","dvi"):["vidva","vidvaH"],("uttama","bahu"):["vidma","vidmaH"]}
                 cands += _vid9.get((purusha, vacana), [])
+            # daridrA ablaut present (A-pits + a-weak + i-T-slots; sole 02.0068 surveyed; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "daridrA":
+                _dd9 = {("prathama","eka"):["daridrAti"],("prathama","dvi"):["daridritaH"],("prathama","bahu"):["daridrati"],("madhyama","eka"):["daridrAsi"],("madhyama","dvi"):["daridriTaH"],("madhyama","bahu"):["daridriTa"],("uttama","eka"):["daridrAmi"],("uttama","dvi"):["daridrivaH"],("uttama","bahu"):["daridrimaH"]}
+                cands += _dd9.get((purusha, vacana), [])
             # SAs A-grade luk present (SAsti/SAssi + iz-weak SizwaH + w-variants; sole 02.0070 surveyed —
             # seW-i skeleton with A-pits (svapiti precedent for a-pits); additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
@@ -4273,6 +4281,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlaN = {(("prathama","eka")):["avet","aved"],(("madhyama","eka")):["aveH","avet","aved"],(("prathama","dvi")):["avittAm"],(("prathama","bahu")):["aviduH"],(("madhyama","dvi")):["avittam"],(("madhyama","bahu")):["avitta"],(("uttama","eka")):["avedam"],(("uttama","dvi")):["avidva"],(("uttama","bahu")):["avidma"]}
                 cands += _vidlaN.get((purusha, vacana), [])
+            # daridrA ablaut imperfect (A-eka + i-weak + a-1sg + bare-uH; sole 02.0068; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "daridrA":
+                _ddlaN = {(("prathama","eka")):["adaridrAt","adaridrAd"],(("madhyama","eka")):["adaridrAH"],(("prathama","dvi")):["adaridritAm"],(("prathama","bahu")):["adaridruH"],(("madhyama","dvi")):["adaridritam"],(("madhyama","bahu")):["adaridrita"],(("uttama","eka")):["adaridrAm"],(("uttama","dvi")):["adaridriva"],(("uttama","bahu")):["adaridrima"]}
+                cands += _ddlaN.get((purusha, vacana), [])
             # SAs luk imperfect (aSAt-eka + izw rest + A-u.eka; sole 02.0070; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
                 _saslaN = {(("prathama","eka")):["aSAt","aSAd"],(("madhyama","eka")):["aSAH","aSAt","aSAd"],(("prathama","dvi")):["aSizwAm"],(("prathama","bahu")):["aSAsuH"],(("madhyama","dvi")):["aSizwam"],(("madhyama","bahu")):["aSizwa"],(("uttama","eka")):["aSAsam"],(("uttama","dvi")):["aSizva"],(("uttama","bahu")):["aSizma"]}
@@ -4504,6 +4516,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vidlow = {("prathama","eka"):["vettu","vidANkarotu"],("prathama","dvi"):["vittAm","vidANkurutAm"],("prathama","bahu"):["vidantu","vidANkurvantu"],("madhyama","eka"):["vittAt","vittAd","vidDi","vidANkurutAt","vidANkurutAd","vidANkuru"],("madhyama","dvi"):["vittam","vidANkurutam"],("madhyama","bahu"):["vitta","vidANkuruta"],("uttama","eka"):["vedAni","vidANkaravARi"],("uttama","dvi"):["vedAva","vidANkaravAva"],("uttama","bahu"):["vedAma","vidANkaravAma"]}
                 cands += _vidlow.get((purusha, vacana), [])
+            # daridrA ablaut imperative (A-3sg + i-weak + A-1sg; sole 02.0068; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "daridrA":
+                _ddlow = {("madhyama","eka"):["daridritAt","daridritAd","daridrihi"],("prathama","eka"):["daridrAtu"],("prathama","dvi"):["daridritAm"],("prathama","bahu"):["daridratu"],("madhyama","dvi"):["daridritam"],("madhyama","bahu"):["daridrita"],("uttama","eka"):["daridrARi"],("uttama","dvi"):["daridrAva"],("uttama","bahu"):["daridrAma"]}
+                cands += _ddlow.get((purusha, vacana), [])
             # SAs luk imperative (SAstu + izw-slots + SADi + A-1sg; sole 02.0070; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
                 _saslow = {("madhyama","eka"):["SizwAt","SizwAd","SADi"],("prathama","eka"):["SAstu"],("prathama","dvi"):["SizwAm"],("prathama","bahu"):["SAsatu"],("madhyama","dvi"):["Sizwam"],("madhyama","bahu"):["Sizwa"],("uttama","eka"):["SAsAni"],("uttama","dvi"):["SAsAva"],("uttama","bahu"):["SAsAma"]}
@@ -4604,6 +4620,10 @@ class TinantaDerivationEngine:
                 _vyf = "vid" + _vy.get((purusha, vacana), "yAt")
                 if _vyf not in cands:
                     cands.append(_vyf)
+            # daridrA ablaut optative (daridr + iyAt; sole 02.0068; additive).
+            if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "daridrA":
+                _ddy = {("prathama","eka"):["daridriyAt","daridriyAd"],("prathama","dvi"):["daridriyAtAm"],("prathama","bahu"):["daridriyuH"],("madhyama","eka"):["daridriyAH"],("madhyama","dvi"):["daridriyAtAm"],("madhyama","bahu"):["daridriyAta"],("uttama","eka"):["daridriyAm"],("uttama","dvi"):["daridriyAva"],("uttama","bahu"):["daridriyAma"]}
+                cands += _ddy.get((purusha, vacana), [])
             # SAs luk optative (Siz + yAt; sole 02.0070; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "SAs":
                 _sasy = {("prathama","eka"):["SizyAt","SizyAd"],("prathama","dvi"):["SizyAtAm"],("prathama","bahu"):["SizyuH"],("madhyama","eka"):["SizyAH"],("madhyama","dvi"):["SizyAtAm"],("madhyama","bahu"):["SizyAta"],("uttama","eka"):["SizyAm"],("uttama","dvi"):["SizyAva"],("uttama","bahu"):["SizyAma"]}
@@ -5440,6 +5460,9 @@ class TinantaDerivationEngine:
                 # vac samprasAraNa (ucyAt; sole 02.0058 surveyed — no BvAdi vac exists; additive stem).
                 if clean == "vac" and meta.get("gana") == "adAdiH":
                     _asb.append("uc")
+                # daridrA weak (daridryAt; sole 02.0068 surveyed — A-final excluded from a-rule; additive).
+                if clean == "daridrA" and meta.get("gana") == "adAdiH":
+                    _asb.append("daridr")
                 # vaS weak-uS (uSyAt; sole 02.0075 surveyed — sas/Svas/ad keep strong; no BvAdi vaS
                 # exists; gana-gated additive stem).
                 if clean == "vaS" and meta.get("gana") == "adAdiH":

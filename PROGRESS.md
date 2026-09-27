@@ -2,16 +2,16 @@
 
 Date: 2026-09-27
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, zero diff.
-Sweep-02: **52/76 100%-attested** (raw 52/77, 1 skipped) — +1 pass!
+Sweep-02: **53/76 100%-attested** (raw 53/77, 1 skipped) — +1 pass!
 
-## Done — nIk exclusion (+1 pass, +227 tokens, 0 worsened)
-- AdAdi-kas exclusion at 3 nIk sites (BvAdi-nI guards hold):
-  - tinanta `_yan_stem` + `_yanlug_stem`; krdanta `_yan_sec`.
-  - Full Sweep Results: 02 improved **1 root** (0015 646->873/873 **pass**), **worsened 0** (01 zero-diff).
-- Prior work: 02 at 51/76; combined **52/76**.
+## Done — daridrA full root (+1 pass, +86 tokens, 0 worsened)
+- Ablaut tables + yak stem + 9 weak krdanta specials for sole daridrA:
+  - tinanta mUla + yak branches; krdanta branches.
+  - Full Sweep Results: 02 improved **1 root** (0068 543->629/629 **pass**), **worsened 0** (01 zero-diff).
+- Prior work: 02 at 52/76; combined **53/76**.
 
 ## Next (02 loop)
-1. 0070 (SAs yak/san/nich gap ~102) + 0004/0005 (h-futures?) + 0068 daridrA (gap 86).
-2. cakz perfect/aorist (0007) + SAsu kta-family + UrRu leftovers + 0042/0040 residuals.
+1. 0070 (SAs yak/san/nich gap ~102) + 0004/0005 + 0013/0015 residuals + 0042/0040.
+2. cakz perfect/aorist (0007) + SAsu kta-family + UrRu leftovers.
 3. Ganas 03–10 to follow.
-- Advance 02: 52/76 → all.
+- Advance 02: 53/76 → all.

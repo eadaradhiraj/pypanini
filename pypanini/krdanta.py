@@ -2667,6 +2667,9 @@ class KrdantaEngine:
         elif pratyaya == "tavya":
             if clean == "SrA" and dhatu_id == "01.0922":
                 return tri_linga("Sritavya")
+            # daridrA weak (daridritavya; sole 02.0068 surveyed; old A-forms miss, free).
+            if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
+                return tri_linga("daridritavya")
             # jAgf ar-grade iT (jAgaritavya; sole 02.0067 surveyed; old jAgitavya unattested, free).
             if sanadi is None and clean == "jAg":
                 return tri_linga("jAgaritavya")
@@ -2704,6 +2707,10 @@ class KrdantaEngine:
             return tri_linga(stem)
 
         elif pratyaya == "anIyar":
+            # daridrA weak-a RIya (daridraRIya; sole 02.0068 surveyed — suffixal R, not Natva-blocked;
+            # old A-forms miss, free).
+            if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
+                return tri_linga("daridraRIya")
             # idit i-final num-clean (agi->aNganIyaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -2747,6 +2754,9 @@ class KrdantaEngine:
             # ik adhi-yat (aDyeyaH; sole 02.0042 surveyed; old ekya-forms miss, free).
             if sanadi is None and clean == "ik" and meta.get("gana") == "adAdiH":
                 return tri_linga("aDyeya")
+            # daridrA weak yat (daridryaH; sole 02.0068 surveyed; old e-grade misses, free).
+            if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
+                return tri_linga("daridrya")
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
             # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
             # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-)
@@ -2923,6 +2933,9 @@ class KrdantaEngine:
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
                 return {"M": "SritA", "F": "SritrI", "N": "Sritf"}
+            # daridrA weak tfc (daridritA; sole 02.0068 surveyed; old A-forms miss, free).
+            if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
+                return {"M": "daridritA", "F": "daridritrI", "N": "daridritf"}
             if sanadi == "sannanta":
                 b = clean + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
@@ -2992,6 +3005,9 @@ class KrdantaEngine:
             # jAgf ar-grade (jAgaraH; sole 02.0067 surveyed; old jAgaH unattested, free).
             if sanadi is None and clean == "jAg":
                 return {"gender": "Masculine", "form": "jAgaraH"}
+            # daridrA weak GaY (daridraH; sole 02.0068 surveyed; old A-form misses, free).
+            if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
+                return {"gender": "Masculine", "form": "daridraH"}
             # F-roots: mUla has no GaY key (structural miss); yangluk takes
             # A-redup + Ara (dF->dAdAra, nF->nAnAra).
             if clean.endswith("F"):
@@ -3072,6 +3088,9 @@ class KrdantaEngine:
         elif pratyaya == "tumun":
             if clean == "SrA" and dhatu_id == "01.0922":
                 return {"avyaya": ["Sritum"]}
+            # daridrA weak (daridritum; sole 02.0068 surveyed; old A-form misses, free).
+            if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["daridritum"]}
             # jAgf ar-grade iT (jAgaritum; sole 02.0067; free).
             if sanadi is None and clean == "jAg":
                 return {"avyaya": ["jAgaritum"]}
@@ -3107,6 +3126,9 @@ class KrdantaEngine:
         elif pratyaya == "ktvA":
             if clean == "SrA" and dhatu_id == "01.0922":
                 return {"avyaya": ["SritvA"]}
+            # daridrA weak (daridritvA; sole 02.0068 surveyed; old A-form misses, free).
+            if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
+                return {"avyaya": ["daridritvA"]}
             # jAgf ar-grade iT (jAgaritvA; sole 02.0067; free).
             if sanadi is None and clean == "jAg":
                 return {"avyaya": ["jAgaritvA"]}
@@ -3343,6 +3365,9 @@ class KrdantaEngine:
                     return {"avyaya": ["pravocya"]}
                 if sanadi is None:
                     return {"avyaya": ["procya"]}
+            # daridrA weak lyap (pradaridrya; sole 02.0068 surveyed; old A-forms miss, free).
+            if clean == "daridrA" and meta.get("gana") == "adAdiH" and sanadi is None:
+                return {"avyaya": ["pradaridrya"]}
             # AdAdi vaS o-grade lyap (proSya mUla; sole 02.0075 surveyed; old misses, free).
             if clean == "vaS" and meta.get("gana") == "adAdiH" and sanadi is None:
                 return {"avyaya": ["proSya"]}
