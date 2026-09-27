@@ -1933,6 +1933,10 @@ class TinantaDerivationEngine:
             # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
             if _ybase.startswith("C") and not yan_vowel.endswith("M"):
                 _ybase = "c" + _ybase
+            # han intensive takes Gh (jaMGanyate = ja+M+Gan+ya; sole 02.0002 surveyed — BvAdi keeps h
+            # everywhere per 40-root survey (no BvAdi han exists); gana-gated).
+            if c == "han" and meta.get("gana") == "adAdiH":
+                _ybase = "Gan"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
             if c == "BU":
