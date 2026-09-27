@@ -3915,8 +3915,8 @@ class TinantaDerivationEngine:
                 for idx, s in enumerate(s_stems):
                     aug = aug_s_list[idx]
                     st = aug if lakara=="laN" else s
-                    if pada in ("Atmanepadi", "ubhayapadi"): cands_all += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
-                    if pada in ("parasmEpadi", "ubhayapadi"): cands_all += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
+                    cands_all += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
+                    cands_all += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
                     if lakara=="low" and purusha=="uttama" and vacana=="eka":
                         cands_all += [s + "ARi", s + "Ani"]
                 return list(set(cands_all)), log
@@ -3927,42 +3927,35 @@ class TinantaDerivationEngine:
                     is_aug = (lakara=="lfN")
                     base_fut = _aug(fut) if is_aug else fut
                     base_no_a = base_fut[:-1] if base_fut.endswith("a") else base_fut
-                    if pada in ("Atmanepadi", "ubhayapadi"):
-                        cands_all += self._conjugate_at_stem_atmane(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
-                    if pada in ("parasmEpadi", "ubhayapadi"):
-                        cands_all += self._conjugate_at_stem_parasmai(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
-                    # direct = [fut + "te", fut + "ti"]  # removed blind direct addition
+                    atman_form = self._conjugate_at_stem_atmane(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                    paras_form = self._conjugate_at_stem_parasmai(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                    direct = [fut + "te", fut + "ti"]
+                    cands_all += atman_form + paras_form + direct
                 return list(dict.fromkeys(cands_all)), log
             if lakara == "liw":
+                # periphrastic AYcakAra / AYcakre (over-generate for Ur variants)
                 cands=[]
                 for s in s_stems:
-                    if pada in ("parasmEpadi", "ubhayapadi"):
-                        cands += [s + "AYcakAra", s + "AmAsa", s + "AmbaBUva"]
-                    if pada in ("Atmanepadi", "ubhayapadi"):
-                        cands += [s + "AYcakre", s + "AmAse", s + "AmbaBUve"]
+                    cands += [s + "AYcakAra", s + "AYcakre", s + "AmAsa", s + "AmAse", s + "AmbaBUva", s + "AmbaBUve"]
                 return list(dict.fromkeys(cands)), log
             if lakara == "luw":
                 cands=[]
                 for s in s_stems:
                     tbl_p = {("prathama","eka"):[s+"itA"],("prathama","dvi"):[s+"itArO"],("prathama","bahu"):[s+"itAraH"],("madhyama","eka"):[s+"itAsi"],("madhyama","dvi"):[s+"itAsTaH"],("madhyama","bahu"):[s+"itAsTa"],("uttama","eka"):[s+"itAsmi"],("uttama","dvi"):[s+"itAsvaH"],("uttama","bahu"):[s+"itAsmaH"]}
                     tbl_a = {("prathama","eka"):[s+"itA"],("prathama","dvi"):[s+"itArO"],("prathama","bahu"):[s+"itAraH"],("madhyama","eka"):[s+"itAse"],("madhyama","dvi"):[s+"itAsATe"],("madhyama","bahu"):[s+"itADve"],("uttama","eka"):[s+"itAhe"],("uttama","dvi"):[s+"itAsvahe"],("uttama","bahu"):[s+"itAsmahe"]}
-                    if pada in ("parasmEpadi", "ubhayapadi"):
-                        cands += tbl_p.get((purusha, vacana), [s+"itA"])
-                    if pada in ("Atmanepadi", "ubhayapadi"):
-                        cands += tbl_a.get((purusha, vacana), [s+"itA"])
+                    cands += tbl_p.get((purusha, vacana), [s+"itA"])
+                    cands += tbl_a.get((purusha, vacana), [s+"itA"])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 cands=[]
                 for s in s_stems:
-                    if pada in ("parasmEpadi", "ubhayapadi"):
-                        cands.append(s + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)])
-                        cands.append(s + "iz" + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)])
-                    if pada in ("Atmanepadi", "ubhayapadi"):
-                        base_iz = s + "iz"
-                        endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
-                        cands.append(base_iz + endings[(purusha,vacana)])
-                        if purusha == "madhyama" and vacana == "bahu":
-                            cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                    cands.append(s + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)])
+                    cands.append(s + "iz" + {("prathama","eka"):"yAt",("prathama","dvi"):"yAstAm",("prathama","bahu"):"yAsuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAstam",("madhyama","bahu"):"yAsta",("uttama","eka"):"yAsam",("uttama","dvi"):"yAsva",("uttama","bahu"):"yAsma"}[(purusha,vacana)])
+                    base_iz = s + "iz"
+                    endings = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
+                    cands.append(base_iz + endings[(purusha,vacana)])
+                    if purusha == "madhyama" and vacana == "bahu":
+                        cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 cands=[]
