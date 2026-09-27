@@ -3711,6 +3711,11 @@ class TinantaDerivationEngine:
                 if meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iR"):
                     _irjlun = {("prathama","eka"):["agAyi"],("prathama","dvi"):["agAyizAtAm"],("prathama","bahu"):["agAyizata"],("madhyama","eka"):["agAyizWAH"],("madhyama","dvi"):["agAyizATAm"],("madhyama","bahu"):["agAyiDvam"],("uttama","eka"):["agAyizi"],("uttama","dvi"):["agAyizvahi"],("uttama","bahu"):["agAyizmahi"]}
                     table[(purusha, vacana)] += _irjlun.get((purusha, vacana), [])
+                # han yak luN GAn-grade (aGAni/aGAniz-; vaD/has twins share slots via any-match;
+                # sole 02.0002 surveyed; additive).
+                if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han":
+                    _hnlun = {("prathama","eka"):["aGAni"],("prathama","dvi"):["aGAnizAtAm"],("prathama","bahu"):["aGAnizata"],("madhyama","eka"):["aGAnizWAH"],("madhyama","dvi"):["aGAnizATAm"],("madhyama","bahu"):["aGAniDvam"],("uttama","eka"):["aGAnizi"],("uttama","dvi"):["aGAnizvahi"],("uttama","bahu"):["aGAnizmahi"]}
+                    table[(purusha, vacana)] += _hnlun.get((purusha, vacana), [])
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
