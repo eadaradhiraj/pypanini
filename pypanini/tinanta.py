@@ -2071,6 +2071,10 @@ class TinantaDerivationEngine:
             # Panini 6.1.2 ajAder dvitIyasya: aw -> awew
             if clean == "aw":
                 return "awew"
+            # han yanlug G-stem (jaMGanIti; sole 02.0002 surveyed — BvAdi keeps h; gana-gated;
+            # NG-twin added at caller).
+            if c == "han" and meta.get("gana") == "adAdiH":
+                return "jaMGan"
             c_eff = c.replace("ur", "Ur", 1) if "ur" in c else c
             # Panini 6.1.45 Adeca upadeSe'Siti: yaNluk is aSit
             if is_adeca(c):
@@ -2238,6 +2242,9 @@ class TinantaDerivationEngine:
             cands = self._conjugate_at_stem_parasmai(yls, "lw", purusha, vacana)
             if _yls_nas != yls:
                 cands += self._conjugate_at_stem_parasmai(_yls_nas, "lw", purusha, vacana)
+            # han yanlug NG-twin (jaNGanIti; mirrors primary; sole-gated).
+            if clean == "han" and meta.get("gana") == "adAdiH":
+                cands += self._conjugate_at_stem_parasmai("jaNGan", "lw", purusha, vacana)
             # add extra variants for retroflex etc (pAsparDi / pAspardDi) and devoicing (ceklind -> ceklint, tozwuc -> tozwuk by 8.2.30 coH kuH)
             def _devoiced(s: str) -> str:
                 mapping = {"d":"t","D":"T","b":"p","B":"P","g":"k","G":"K","j":"c","J":"C","h":"k","q":"k","Q":"K","c":"k"}
