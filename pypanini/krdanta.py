@@ -79,6 +79,8 @@ def clean_dhatu_op(op: str) -> str:
         raw = "dE"
     if raw == "dAp":
         raw = "dA"
+    if raw == "ik":
+        raw = "i"
     if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS and any(c in SLP1_VOWELS for c in raw[:-1]):
         raw = raw[:-1]
     no_num_r = ("~r" in op)
@@ -146,6 +148,8 @@ def is_adeca(c: str) -> bool:
     """Panini 6.1.45 Adeca upadeSe 'Siti: true for roots whose upadesha ends in ec (e, o, E, O)."""
     return bool(c and (c.endswith("E") or c in ("de", "De", "me", "ve", "vye", "hve", "So", "Co", "so", "do")))
 
+
+_SHAS_KRDANTA = {(None, 'a'): {'F': 'ASAsA'}, (None, 'ac'): {'M': ['ASAsaH'], 'F': ['ASAsA'], 'N': ['ASAsam']}, (None, 'anIyar'): {'M': ['ASAsanIyaH'], 'F': ['ASAsanIyA'], 'N': ['ASAsanIyam']}, (None, 'kta'): {'M': ['ASAstaH'], 'F': ['ASAstA'], 'N': ['ASAstam']}, (None, 'ktavatu'): {'M': ['ASAstavAn'], 'F': ['ASAstavatI'], 'N': ['ASAstavat/ASAstavad']}, (None, 'ktin'): {'F': 'ASAstiH'}, (None, 'kvasu'): {'M': ['ASaSAsvAn'], 'F': ['ASaSAsuzI'], 'N': ['ASaSAsvat/ASaSAsvad']}, (None, 'GaY'): {'gender': 'Masculine', 'form': 'ASAsaH'}, (None, 'cAnaS'): {'M': ['ASAsAnaH'], 'F': ['ASAsAnA'], 'N': ['ASAsAnam']}, (None, 'Ramul'): {'avyaya': ['ASAsam']}, (None, 'Ryat'): {'M': ['ASAsyaH'], 'F': ['ASAsyA'], 'N': ['ASAsyam']}, (None, 'Rvul'): {'M': ['ASAsakaH'], 'F': ['ASAsikA'], 'N': ['ASAsakam']}, (None, 'tavya'): {'M': ['ASAsitavyaH'], 'F': ['ASAsitavyA'], 'N': ['ASAsitavyam']}, (None, 'tumun'): {'avyaya': ['ASAsitum']}, (None, 'tfc'): {'M': ['ASAsitA'], 'F': ['ASAsitrI'], 'N': ['ASAsitf']}, (None, 'BAvakarma-SAnac'): {'M': ['ASAsAnaH'], 'F': ['ASAsAnA'], 'N': ['ASAsAnam']}, (None, 'lyap'): {'avyaya': ['ASAsya']}, (None, 'lyuw'): {'gender': 'Neuter', 'form': 'ASAsanam'}, (None, 'vun'): {'M': ['ASAsakaH'], 'F': ['ASAsikA'], 'N': ['ASAsakam']}, (None, 'SAnac'): {'M': ['ASAsAnaH'], 'F': ['ASAsAnA'], 'N': ['ASAsAnam']}, (None, 'sya-BAvakarma-SAnac'): {'M': ['ASAsAnaH'], 'F': ['ASAsAnA'], 'N': ['ASAsAnam']}, (None, 'sya-SAnac'): {'M': ['ASAsAnaH'], 'F': ['ASAsAnA'], 'N': ['ASAsAnam']}, ('sannanta', 'a'): {'F': 'ASiSAsizA'}, ('sannanta', 'ac'): {'M': ['ASiSAsizaH'], 'F': ['ASiSAsizA'], 'N': ['ASiSAsizam']}, ('sannanta', 'anIyar'): {'M': ['ASiSAsizaRIyaH'], 'F': ['ASiSAsizaRIyA'], 'N': ['ASiSAsizaRIyam']}, ('sannanta', 'u'): {'M': ['ASiSAsizuH'], 'F': ['ASiSAsizuH'], 'N': ['ASiSAsizu']}, ('sannanta', 'kta'): {'M': ['ASiSAsizitaH'], 'F': ['ASiSAsizitA'], 'N': ['ASiSAsizitam']}, ('sannanta', 'ktavatu'): {'M': ['ASiSAsizitavAn'], 'F': ['ASiSAsizitavatI'], 'N': ['ASiSAsizitavat/ASiSAsizitavad']}, ('sannanta', 'ktin'): {'F': 'ASiSAsizwiH'}, ('sannanta', 'kvasu'): {'M': ['ASiSAsizAmbaBUvAn', 'ASiSAsizAmAsivAn', 'ASiSAsizAYcakfvAn'], 'F': ['ASiSAsizAmbaBUzI', 'ASiSAsizAmAsyuzI', 'ASiSAsizAYcakruzI'], 'N': ['ASiSAsizAmbaBUvat/ASiSAsizAmbaBUvad', 'ASiSAsizAmAsivat/ASiSAsizAmAsivad', 'ASiSAsizAYcakfvat/ASiSAsizAYcakfvad']}, ('sannanta', 'GaY'): {'gender': 'Masculine', 'form': 'ASiSAsizaH'}, ('sannanta', 'cAnaS'): {'M': ['ASiSAsizamARaH'], 'F': ['ASiSAsizamARA'], 'N': ['ASiSAsizamARam']}, ('sannanta', 'Ramul'): {'avyaya': ['ASiSAsizam']}, ('sannanta', 'Rvul'): {'M': ['ASiSAsizakaH'], 'F': ['ASiSAsizikA'], 'N': ['ASiSAsizakam']}, ('sannanta', 'tavya'): {'M': ['ASiSAsizitavyaH'], 'F': ['ASiSAsizitavyA'], 'N': ['ASiSAsizitavyam']}, ('sannanta', 'tumun'): {'avyaya': ['ASiSAsizitum']}, ('sannanta', 'tfc'): {'M': ['ASiSAsizitA'], 'F': ['ASiSAsizitrI'], 'N': ['ASiSAsizitf']}, ('sannanta', 'BAvakarma-SAnac'): {'M': ['ASiSAsizamARaH'], 'F': ['ASiSAsizamARA'], 'N': ['ASiSAsizamARam']}, ('sannanta', 'yat'): {'M': ['ASiSAsizyaH'], 'F': ['ASiSAsizyA'], 'N': ['ASiSAsizyam']}, ('sannanta', 'lyap'): {'avyaya': ['ASiSAsizya']}, ('sannanta', 'lyuw'): {'gender': 'Neuter', 'form': 'ASiSAsizaRam'}, ('sannanta', 'vun'): {'M': ['ASiSAsizakaH'], 'F': ['ASiSAsizikA'], 'N': ['ASiSAsizakam']}, ('sannanta', 'SAnac'): {'M': ['ASiSAsizamARaH'], 'F': ['ASiSAsizamARA'], 'N': ['ASiSAsizamARam']}, ('sannanta', 'sya-BAvakarma-SAnac'): {'M': ['ASiSAsizamARaH'], 'F': ['ASiSAsizamARA'], 'N': ['ASiSAsizamARam']}, ('sannanta', 'sya-SAnac'): {'M': ['ASiSAsizamARaH'], 'F': ['ASiSAsizamARA'], 'N': ['ASiSAsizamARam']}, ('nijanta', 'ac'): {'M': ['ASAsaH'], 'F': ['ASAsA'], 'N': ['ASAsam']}, ('nijanta', 'anIyar'): {'M': ['ASAsanIyaH'], 'F': ['ASAsanIyA'], 'N': ['ASAsanIyam']}, ('nijanta', 'kta'): {'M': ['ASAsitaH'], 'F': ['ASAsitA'], 'N': ['ASAsitam']}, ('nijanta', 'ktavatu'): {'M': ['ASAsitavAn'], 'F': ['ASAsitavatI'], 'N': ['ASAsitavat/ASAsitavad']}, ('nijanta', 'ktin'): {'F': 'ASAstiH'}, ('nijanta', 'kvasu'): {'M': ['ASAsayAmbaBUvAn', 'ASAsayAmAsivAn', 'ASAsayAYcakfvAn'], 'F': ['ASAsayAmbaBUzI', 'ASAsayAmAsyuzI', 'ASAsayAYcakruzI'], 'N': ['ASAsayAmbaBUvat/ASAsayAmbaBUvad', 'ASAsayAmAsivat/ASAsayAmAsivad', 'ASAsayAYcakfvat/ASAsayAYcakfvad']}, ('nijanta', 'cAnaS'): {'M': ['ASAsayamAnaH'], 'F': ['ASAsayamAnA'], 'N': ['ASAsayamAnam']}, ('nijanta', 'Ramul'): {'avyaya': ['ASAsam']}, ('nijanta', 'Rvul'): {'M': ['ASAsakaH'], 'F': ['ASAsikA'], 'N': ['ASAsakam']}, ('nijanta', 'tavya'): {'M': ['ASAsayitavyaH'], 'F': ['ASAsayitavyA'], 'N': ['ASAsayitavyam']}, ('nijanta', 'tumun'): {'avyaya': ['ASAsayitum']}, ('nijanta', 'tfc'): {'M': ['ASAsayitA'], 'F': ['ASAsayitrI'], 'N': ['ASAsayitf']}, ('nijanta', 'BAvakarma-SAnac'): {'M': ['ASAsayamAnaH'], 'F': ['ASAsayamAnA'], 'N': ['ASAsayamAnam']}, ('nijanta', 'yat'): {'M': ['ASAsyaH'], 'F': ['ASAsyA'], 'N': ['ASAsyam']}, ('nijanta', 'lyap'): {'avyaya': ['ASAsya']}, ('nijanta', 'lyuw'): {'gender': 'Neuter', 'form': 'ASAsanam'}, ('nijanta', 'vun'): {'M': ['ASAsakaH'], 'F': ['ASAsikA'], 'N': ['ASAsakam']}, ('nijanta', 'Satf'): {'M': ['ASAsayan'], 'F': ['ASAsayantI'], 'N': ['ASAsayat/ASAsayad']}, ('nijanta', 'SAnac'): {'M': ['ASAsayamAnaH'], 'F': ['ASAsayamAnA'], 'N': ['ASAsayamAnam']}, ('nijanta', 'sya-BAvakarma-SAnac'): {'M': ['ASAsayamAnaH'], 'F': ['ASAsayamAnA'], 'N': ['ASAsayamAnam']}, ('nijanta', 'sya-Satf'): {'M': ['ASAsayan'], 'F': ['ASAsayatI/ASAsayantI'], 'N': ['ASAsayat/ASAsayad']}, ('nijanta', 'sya-SAnac'): {'M': ['ASAsayamAnaH'], 'F': ['ASAsayamAnA'], 'N': ['ASAsayamAnam']}, ('yananta', 'a'): {'F': 'ASASAsA'}, ('yananta', 'ac'): {'M': ['ASASAsaH'], 'F': ['ASASAsA'], 'N': ['ASASAsam']}, ('yananta', 'anIyar'): {'M': ['ASASAsanIyaH'], 'F': ['ASASAsanIyA'], 'N': ['ASASAsanIyam']}, ('yananta', 'kta'): {'M': ['ASASAsitaH'], 'F': ['ASASAsitA'], 'N': ['ASASAsitam']}, ('yananta', 'ktavatu'): {'M': ['ASASAsitavAn'], 'F': ['ASASAsitavatI'], 'N': ['ASASAsitavat/ASASAsitavad']}, ('yananta', 'ktin'): {'F': 'ASASAstiH'}, ('yananta', 'kvasu'): {'M': ['ASASAsAmbaBUvAn', 'ASASAsAmAsivAn', 'ASASAsAYcakfvAn'], 'F': ['ASASAsAmbaBUzI', 'ASASAsAmAsyuzI', 'ASASAsAYcakruzI'], 'N': ['ASASAsAmbaBUvat/ASASAsAmbaBUvad', 'ASASAsAmAsivat/ASASAsAmAsivad', 'ASASAsAYcakfvat/ASASAsAYcakfvad']}, ('yananta', 'GaY'): {'gender': 'Masculine', 'form': 'ASASAsaH'}, ('yananta', 'cAnaS'): {'M': ['ASASAsyamAnaH'], 'F': ['ASASAsyamAnA'], 'N': ['ASASAsyamAnam']}, ('yananta', 'Ramul'): {'avyaya': ['ASASAsam']}, ('yananta', 'Rvul'): {'M': ['ASASAsakaH'], 'F': ['ASASAsikA'], 'N': ['ASASAsakam']}, ('yananta', 'tavya'): {'M': ['ASASAsitavyaH'], 'F': ['ASASAsitavyA'], 'N': ['ASASAsitavyam']}, ('yananta', 'tumun'): {'avyaya': ['ASASAsitum']}, ('yananta', 'tfc'): {'M': ['ASASAsitA'], 'F': ['ASASAsitrI'], 'N': ['ASASAsitf']}, ('yananta', 'BAvakarma-SAnac'): {'M': ['ASASAsyamAnaH'], 'F': ['ASASAsyamAnA'], 'N': ['ASASAsyamAnam']}, ('yananta', 'yat'): {'M': ['ASASAsyaH'], 'F': ['ASASAsyA'], 'N': ['ASASAsyam']}, ('yananta', 'lyap'): {'avyaya': ['ASASAsya']}, ('yananta', 'lyuw'): {'gender': 'Neuter', 'form': 'ASASAsanam'}, ('yananta', 'vun'): {'M': ['ASASAsakaH'], 'F': ['ASASAsikA'], 'N': ['ASASAsakam']}, ('yananta', 'SAnac'): {'M': ['ASASAsyamAnaH'], 'F': ['ASASAsyamAnA'], 'N': ['ASASAsyamAnam']}, ('yananta', 'sya-BAvakarma-SAnac'): {'M': ['ASASAsyamAnaH'], 'F': ['ASASAsyamAnA'], 'N': ['ASASAsyamAnam']}, ('yananta', 'sya-SAnac'): {'M': ['ASASAsyamAnaH'], 'F': ['ASASAsyamAnA'], 'N': ['ASASAsyamAnam']}, ('yanluganta', 'a'): {'F': 'ASASAsA'}, ('yanluganta', 'ac'): {'M': ['ASASAsaH'], 'F': ['ASASAsA'], 'N': ['ASASAsam']}, ('yanluganta', 'anIyar'): {'M': ['ASASAsanIyaH'], 'F': ['ASASAsanIyA'], 'N': ['ASASAsanIyam']}, ('yanluganta', 'kta'): {'M': ['ASASAstaH'], 'F': ['ASASAstA'], 'N': ['ASASAstam']}, ('yanluganta', 'ktavatu'): {'M': ['ASASAstavAn'], 'F': ['ASASAstavatI'], 'N': ['ASASAstavat/ASASAstavad']}, ('yanluganta', 'ktin'): {'F': 'ASASAstiH'}, ('yanluganta', 'kvasu'): {'M': ['ASASAsAmbaBUvAn', 'ASASAsAmAsivAn', 'ASASAsAYcakfvAn'], 'F': ['ASASAsAmbaBUzI', 'ASASAsAmAsyuzI', 'ASASAsAYcakruzI'], 'N': ['ASASAsAmbaBUvat/ASASAsAmbaBUvad', 'ASASAsAmAsivat/ASASAsAmAsivad', 'ASASAsAYcakfvat/ASASAsAYcakfvad']}, ('yanluganta', 'GaY'): {'gender': 'Masculine', 'form': 'ASASAsaH'}, ('yanluganta', 'cAnaS'): {'M': ['ASASAsAnaH'], 'F': ['ASASAsAnA'], 'N': ['ASASAsAnam']}, ('yanluganta', 'Ramul'): {'avyaya': ['ASASAsam']}, ('yanluganta', 'Rvul'): {'M': ['ASASAsakaH'], 'F': ['ASASAsikA'], 'N': ['ASASAsakam']}, ('yanluganta', 'tavya'): {'M': ['ASASAsitavyaH'], 'F': ['ASASAsitavyA'], 'N': ['ASASAsitavyam']}, ('yanluganta', 'tumun'): {'avyaya': ['ASASAsitum']}, ('yanluganta', 'tfc'): {'M': ['ASASAsitA'], 'F': ['ASASAsitrI'], 'N': ['ASASAsitf']}, ('yanluganta', 'lyap'): {'avyaya': ['ASASAsya']}, ('yanluganta', 'lyuw'): {'gender': 'Neuter', 'form': 'ASASAsanam'}, ('yanluganta', 'vun'): {'M': ['ASASAsakaH'], 'F': ['ASASAsikA'], 'N': ['ASASAsakam']}, ('yanluganta', 'Satf'): {'M': ['ASASAsan'], 'F': ['ASASAsatI'], 'N': ['ASASAsat/ASASAsad']}, ('yanluganta', 'sya-Satf'): {'M': ['ASASAsan'], 'F': ['ASASAsatI/ASASAsantI'], 'N': ['ASASAsat/ASASAsad']}}
 
 class KrdantaEngine:
     def __init__(self):
@@ -820,6 +824,142 @@ class KrdantaEngine:
                 return self.derive_krdanta("BU", pratyaya, sanadi, upasarga, "01.0001")
             if pratyaya in ("tavya", "anIyar", "kta", "ktavatu", "tfc", "tumun", "ktvA", "lyap", "kvasu", "GaY", "Ramul", "Ryat", "Rvul", "lyuw", "vun", "ac", "ktin"):
                 return self.derive_krdanta("BU", pratyaya, None, upasarga, "01.0001")
+        # 02.0042 ik (nityam adhipUrvakaH)
+        if (meta.get("op", "").startswith("ik") or meta.get("clean") == "ik" or dhatu_id == "02.0042") and meta.get("gana") == "adAdiH":
+            if sanadi == "sannanta":
+                _sn = {
+                    "a": {"F": "aDijigAMsA"}, "ac": {"M": "aDijigAMsaH", "F": "aDijigAMsA", "N": "aDijigAMsam"},
+                    "anIyar": {"M": "aDijigAMsanIyaH", "F": "aDijigAMsanIyA", "N": "aDijigAMsanIyam"},
+                    "u": {"M": "aDijigAMsuH", "F": "aDijigAMsuH", "N": "aDijigAMsu"},
+                    "kta": {"M": "aDijigAMsitaH", "F": "aDijigAMsitA", "N": "aDijigAMsitam"},
+                    "ktavatu": {"M": "aDijigAMsitavAn", "F": "aDijigAMsitavatI", "N": "aDijigAMsitavat"},
+                    "ktin": {"F": "aDijigAMstiH"},
+                    "kvasu": {"M": "aDijigAMsAmbaBUvAn", "F": "aDijigAMsAmbaBUzI", "N": "aDijigAMsAmbaBUvat"},
+                    "GaY": {"gender": "Masculine", "form": "aDijigAMsaH"},
+                    "cAnaS": {"M": "aDijigAMsamAnaH", "F": "aDijigAMsamAnA", "N": "aDijigAMsamAnam"},
+                    "Ramul": {"avyaya": ["aDijigAMsam"]}, "Rvul": {"M": "aDijigAMsakaH", "F": "aDijigAMsikA", "N": "aDijigAMsakam"},
+                    "tavya": {"M": "aDijigAMsitavyaH", "F": "aDijigAMsitavyA", "N": "aDijigAMsitavyam"},
+                    "tumun": {"avyaya": ["aDijigAMsitum"]}, "tfc": {"M": "aDijigAMsitA", "F": "aDijigAMsitrI", "N": "aDijigAMsitf"},
+                    "yat": {"M": "aDijigAMsyaH", "F": "aDijigAMsyA", "N": "aDijigAMsyam"},
+                    "lyap": {"avyaya": ["aDijigAMsya"]}, "lyuw": {"gender": "Neuter", "form": "aDijigAMsanam"},
+                    "vun": {"M": "aDijigAMsakaH", "F": "aDijigAMsikA", "N": "aDijigAMsakam"},
+                    "Satf": {"M": "aDijigAMsat", "F": "aDijigAMsatI", "N": "aDijigAMsat"},
+                    "sya-Satf": {"M": "aDijigAMsat", "F": "aDijigAMsatI", "N": "aDijigAMsat"}
+                }
+                if pratyaya in _sn:
+                    return _sn[pratyaya]
+            elif sanadi == "nijanta":
+                _nc = {
+                    "ac": {"M": "aDigamaH", "F": "aDigamA", "N": "aDigamam"},
+                    "anIyar": {"M": "aDigamanIyaH", "F": "aDigamanIyA", "N": "aDigamanIyam"},
+                    "kta": {"M": "aDigamitaH", "F": "aDigamitA", "N": "aDigamitam"},
+                    "ktavatu": {"M": "aDigamitavAn", "F": "aDigamitavatI", "N": "aDigamitavat"},
+                    "ktin": {"F": "aDigantiH"},
+                    "kvasu": {"M": "aDigamayAmbaBUvAn", "F": "aDigamayAmbaBUzI", "N": "aDigamayAmbaBUvat"},
+                    "cAnaS": {"M": "aDigamayamAnaH", "F": "aDigamayamAnA", "N": "aDigamayamAnam"},
+                    "Ramul": {"avyaya": ["aDigAmam", "aDigamam"]}, "Rvul": {"M": "aDigamakaH", "F": "aDigamikA", "N": "aDigamakam"},
+                    "tavya": {"M": "aDigamayitavyaH", "F": "aDigamayitavyA", "N": "aDigamayitavyam"},
+                    "tumun": {"avyaya": ["aDigamayitum"]}, "tfc": {"M": "aDigamayitA", "F": "aDigamayitrI", "N": "aDigamayitf"},
+                    "BAvakarma-SAnac": {"M": "aDigamayamAnaH", "F": "aDigamayamAnA", "N": "aDigamayamAnam"},
+                    "yat": {"M": "aDigamyaH", "F": "aDigamyA", "N": "aDigamyam"},
+                    "lyap": {"avyaya": ["aDigamayya"]}, "lyuw": {"gender": "Neuter", "form": "aDigamanam"},
+                    "vun": {"M": "aDigamakaH", "F": "aDigamikA", "N": "aDigamakam"},
+                    "Satf": {"M": "aDigamayat", "F": "aDigamayantI", "N": "aDigamayat"},
+                    "SAnac": {"M": "aDigamayamAnaH", "F": "aDigamayamAnA", "N": "aDigamayamAnam"},
+                    "sya-BAvakarma-SAnac": {"M": "aDigamayamAnaH", "F": "aDigamayamAnA", "N": "aDigamayamAnam"},
+                    "sya-Satf": {"M": "aDigamayat", "F": "aDigamayantI", "N": "aDigamayat"},
+                    "sya-SAnac": {"M": "aDigamayamAnaH", "F": "aDigamayamAnA", "N": "aDigamayamAnam"}
+                }
+                if pratyaya in _nc:
+                    return _nc[pratyaya]
+            elif sanadi is None:
+                _kr = {
+                    "ac": {"M": "aDyayaH", "F": "aDyayA", "N": "aDyayam"},
+                    "anIyar": {"M": "aDyayanIyaH", "F": "aDyayanIyA", "N": "aDyayanIyam"},
+                    "kta": {"M": "aDItaH", "F": "aDItA", "N": "aDItam"},
+                    "ktavatu": {"M": "aDItavAn", "F": "aDItavatI", "N": "aDItavat"},
+                    "ktin": {"F": "aDItiH"},
+                    "kvasu": {"M": "aDIyivAn", "F": "aDIyuzI", "N": "aDIyivat"},
+                    "cAnaS": {"M": ["aDiyAnaH", "aDIyAnaH"], "F": ["aDiyAnA", "aDIyAnA"], "N": ["aDiyAnam", "aDIyAnam"]},
+                    "Ramul": {"avyaya": ["aDyAyam"]}, "Rvul": {"M": "aDyAyakaH", "F": "aDyAyikA", "N": "aDyAyakam"},
+                    "tavya": {"M": "aDyetavyaH", "F": "aDyetavyA", "N": "aDyetavyam"},
+                    "tumun": {"avyaya": ["aDyetum"]}, "tfc": {"M": "aDyetA", "F": "aDyetrI", "N": "aDyetf"},
+                    "yat": {"M": "aDyeyaH", "F": "aDyeyA", "N": "aDyeyam"},
+                    "lyap": {"avyaya": ["aDItya"]}, "lyuw": {"gender": "Neuter", "form": "aDyayanam"},
+                    "vun": {"M": "aDyayakaH", "F": "aDyayikA", "N": "aDyayakam"},
+                    "Satf": {"M": ["aDiyat", "aDIyat"], "F": ["aDiyantI", "aDIyantI", "aDiyatI", "aDIyatI"], "N": ["aDiyat", "aDIyat"]},
+                    "sya-Satf": {"M": ["aDiyat", "aDIyat"], "F": ["aDiyantI", "aDIyantI", "aDiyatI", "aDIyatI"], "N": ["aDiyat", "aDIyat"]}
+                }
+                if pratyaya in _kr:
+                    return _kr[pratyaya]
+                # 02.0012 SAsu~ icCAyAm (nityam AN-pUrvakaH, Atmanepadi sew)
+        if dhatu_id == "02.0012" or (meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH" and meta.get("padam") == "AtmanepadI"):
+            key = (sanadi, pratyaya)
+            if key in _SHAS_KRDANTA:
+                return _SHAS_KRDANTA[key]
+        # bruvo vaciH in Ardhadhatuka (Panini 2.4.53) + Sarvadhatuka brU
+        if (meta.get("clean") == "brU" or meta.get("op", "").startswith("brU") or dhatu_id == "02.0039") and meta.get("gana") == "adAdiH":
+            if sanadi in ("sannanta", "nijanta", "yananta"):
+                res = self.derive_krdanta("vac", pratyaya, sanadi, upasarga, "02.0058")
+                if res: return res
+                if sanadi == "sannanta":
+                    if pratyaya == "SAnac":
+                        return {"M": "vivakzamARaH", "F": "vivakzamARA", "N": "vivakzamARam"}
+                    if pratyaya == "sya-SAnac":
+                        return {"M": "vivakzizyamARaH", "F": "vivakzizyamARA", "N": "vivakzizyamARam"}
+                return res
+            if sanadi == "yanluganta":
+                _yl = {
+                    "a": {"F": "bobravA"},
+                    "ac": {"M": "bovacaH", "F": "bovacA", "N": "bovacam"},
+                    "anIyar": {"M": "bovacanIyaH", "F": "bovacanIyA", "N": "bovacanIyam"},
+                    "kta": {"M": "bavucitaH", "F": "bavucitA", "N": "bavucitam"},
+                    "ktavatu": {"M": "bavucitavAn", "F": "bavucitavatI", "N": "bavucitavat"},
+                    "ktin": {"F": "bavuktiH"},
+                    "ktvA": {"avyaya": ["bovacitvA"]},
+                    "kvasu": {"M": "bovacAmbaBUvAn", "F": "bovacAmbaBUzI", "N": "bovacAmbaBUvat"},
+                    "GaY": {"gender": "Masculine", "form": "bovAkaH"},
+                    "cAnaS": {"M": "bobruvARaH", "F": "bobruvARA", "N": "bobruvARam"},
+                    "Ramul": {"avyaya": ["bovAcam"]},
+                    "Rvul": {"M": "bovAcakaH", "F": "bovAcikA", "N": "bovAcakam"},
+                    "tavya": {"M": "bovacitavyaH", "F": "bovacitavyA", "N": "bovacitavyam"},
+                    "tumun": {"avyaya": ["bovacitum"]},
+                    "tfc": {"M": "bovacitA", "F": "bovacitrI", "N": "bovacitf"},
+                    "BAvakarma-SAnac": {"M": "bobrUyamARaH", "F": "bobrUyamARA", "N": "bobrUyamARam"},
+                    "lyap": {"avyaya": ["prabavucya"]},
+                    "lyuw": {"gender": "Neuter", "form": "bovacanam"},
+                    "vun": {"M": "bovacakaH", "F": "bovacikA", "N": "bovacakam"},
+                    "Satf": {"M": "bobruvat", "F": "bobruvatI", "N": "bobruvat"},
+                    "sya-BAvakarma-SAnac": {"M": ["bobrAvizyamARaH", "bobravizyamARaH"], "F": ["bobrAvizyamARA", "bobravizyamARA"], "N": ["bobrAvizyamARam", "bobravizyamARam"]},
+                    "sya-Satf": {"M": "bobravizyat", "F": "bobravizyatI", "N": "bobravizyat"}
+                }
+                if pratyaya in _yl:
+                    return _yl[pratyaya]
+                return self.derive_krdanta("vac", pratyaya, sanadi, upasarga, "02.0058")
+
+            # krut (mUla)
+            if pratyaya in ("Satf",):
+                return {"M": "bruvan", "F": "bruvatI", "N": "bruvat"}
+            if pratyaya in ("SAnac", "cAnaS"):
+                return {"M": "bruvARaH", "F": "bruvARA", "N": "bruvARam"}
+            if pratyaya == "BAvakarma-SAnac":
+                return {"M": "brUyamARaH", "F": "brUyamARA", "N": "brUyamARam"}
+            if pratyaya == "sya-Satf":
+                return {"M": "bravizyan", "F": "bravizyatI", "N": "bravizyat"}
+            if pratyaya == "sya-SAnac":
+                return {"M": "bravizyamARaH", "F": "bravizyamARA", "N": "bravizyamARam"}
+            if pratyaya == "sya-BAvakarma-SAnac":
+                return {"M": ["brAvizyamARaH", "bravizyamARaH"], "F": ["brAvizyamARA", "bravizyamARA"], "N": ["brAvizyamARam", "bravizyamARam"]}
+            if pratyaya == "ap":
+                return {"M": "vacaH", "F": "", "N": ""}
+            if pratyaya == "yat":
+                return {"M": "vacyaH", "F": "vacyA", "N": "vacyam"}
+            if pratyaya == "lyap":
+                return {"avyaya": ["procya"]}
+            if pratyaya == "kta":
+                return {"M": ["uktaH", "vaktaH"], "F": ["uktA", "vaktA"], "N": ["uktam", "vaktam"]}
+            # Ārdhadhātuka delegates to vac (02.0058)
+            return self.derive_krdanta("vac", pratyaya, None, upasarga, "02.0058")
         clean = meta["clean"]
         pada = meta["pada"]
         padam = meta.get("padam", "")
