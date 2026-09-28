@@ -4149,6 +4149,17 @@ class TinantaDerivationEngine:
                     cands.append("Ba" + _r7e[(purusha, vacana)])
                     if (purusha, vacana) == ("madhyama", "bahu"):
                         cands.append("BaNkzIQvam")
+                # svAdi yak-benedictive trio (rAtsIz-/sAtsIz- + fkzayizIz-/fkzAyizIz-
+                # twins; 05.0018/0019/0038 surveyed — D→t + Iz-endings, ma.bahu
+                # takes IQvam twins (generic convention); old DsIz-forms miss
+                # everywhere; additive, svAdiH-gated).
+                if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") in ("rAD", "sAD", "fkzi"):
+                    _s5ase = {"rAD": ["rAts"], "sAD": ["sAts"], "fkzi": ["fkzayiz", "fkzAyiz"]}[meta.get("clean")]
+                    _s5ae = {("prathama","eka"):"Izwa",("prathama","dvi"):"IyAstAm",("prathama","bahu"):"Iran",("madhyama","eka"):"IzWAH",("madhyama","dvi"):"IyAsTAm",("madhyama","bahu"):"IDvam",("uttama","eka"):"Iya",("uttama","dvi"):"Ivahi",("uttama","bahu"):"Imahi"}
+                    for _s5ac in _s5ase:
+                        cands.append(_s5ac + _s5ae[(purusha, vacana)])
+                        if (purusha, vacana) == ("madhyama", "bahu"):
+                            cands.append(_s5ac + "IQvam")
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):

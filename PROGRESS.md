@@ -6,16 +6,16 @@ Sweep-02: **76/76** (raw 76/77, 1 skipped) — untouched by construction.
 Sweep-03: **26/26** — untouched by construction.
 Sweep-07: **25/25** — untouched by construction.
 Sweep-08: **10/10** — untouched by construction.
-Sweep-05: **35/38** (holds passes; +54 matched, 3 improved, 0 worsened).
+Sweep-05: **35/38** (holds passes; +27 matched, 3 improved, 0 worsened).
 Landscape: 04 2/163, 06 22/174, 09 0/71, 10 145/509.
 
-## Done — 05 yak futures (iteration 211)
-- yak lfw+lfN shared-core trio (additive, tinanta.py). Gates: probes
-  54/54 + guards green; fid-diff 3/0.
+## Done — 05 yak-benedictive (iteration 212)
+- yak-ASIrliN trio (additive, tinanta.py). Gates: probes + guards green;
+  fid-diff 3/0.
 
 ## Next
-1. 05 loop: yak-ASIrliN trio (rAtsIz/sAtsIz/fkzayizIz+fkzAyizIz) →
-   ting-lfN trio (arAtsy/asAtsy/Arkzayizy+ArkzAyizy) → yak-luw fkzi
-   twins (fkzayitA/fkzAyitA) → 05 38/38 → gana 09.
+1. 05 loop: ting-lfN trio (arAtsy/asAtsy/Arkzayizy+ArkzAyizy + laN
+   endings; site traced at tinanta 6354) → yak-luw fkzi twins
+   (fkzayitA/fkzAyitA) → 05 38/38 → gana 09.
 2. Then 09 (71) → 04 (163) → 06 (174) → 10 (509) per small-first order.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
