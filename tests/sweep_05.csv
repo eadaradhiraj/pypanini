@@ -1,39 +1,39 @@
 fid,matched,total,pct,secs,misses,skipped
-05.0001,887,887,100.0,0.3,,5
-05.0002,884,887,99.7,0.6,yangluk_krut/Satf/M:sesyat | yangluk_krut/Satf/F:sesyatI | yangluk_krut/Satf/N:sesyat,5
-05.0003,887,887,100.0,0.4,,5
-05.0004,834,887,94.0,0.6,ting/liw/prathama/dvi:mamatuH | ting/liw/prathama/bahu:mamuH | ting/liw/madhyama/dvi:mamaTuH | ting/liw/madhyama/bahu:mama | ting/liw/uttama/dvi:mamiva | krut/lyuw:mayanam | krut/tumun:metum | krut/lyap:pramiya | nich_krut/Satf/M:mAyayan | nich_krut/Satf/F:mAyayantI | nich_krut/Satf/N:mAyayat | nich_krut/SAnac/M:mAyyamAnaH,5
-05.0005,888,888,100.0,0.8,,4
-05.0006,885,885,100.0,0.6,,7
-05.0007,885,885,100.0,0.8,,7
-05.0008,884,884,100.0,0.3,,8
+05.0001,887,887,100.0,0.2,,5
+05.0002,887,887,100.0,0.5,,5
+05.0003,887,887,100.0,0.2,,5
+05.0004,834,887,94.0,0.3,ting/liw/prathama/dvi:mamatuH | ting/liw/prathama/bahu:mamuH | ting/liw/madhyama/dvi:mamaTuH | ting/liw/madhyama/bahu:mama | ting/liw/uttama/dvi:mamiva | krut/lyuw:mayanam | krut/tumun:metum | krut/lyap:pramiya | nich_krut/Satf/M:mAyayan | nich_krut/Satf/F:mAyayantI | nich_krut/Satf/N:mAyayat | nich_krut/SAnac/M:mAyyamAnaH,5
+05.0005,888,888,100.0,0.7,,4
+05.0006,885,885,100.0,0.7,,7
+05.0007,885,885,100.0,0.7,,7
+05.0008,884,884,100.0,0.6,,8
 05.0009,887,887,100.0,0.7,,5
-05.0010,821,881,93.2,0.7,krut/SAnac/M:DUpAyamAnaH | krut/SAnac/F:DUpAyamAnA | krut/SAnac/N:DUpAyamAnam | san_krut/kta/M:duDUpAyizitaH | san_krut/kta/F:duDUpAyizitA | san_krut/kta/N:duDUpAyizitam | san_krut/ktavatu/M:duDUpAyizitavAn | san_krut/ktavatu/F:duDUpAyizitavatI | san_krut/ktavatu/N:duDUpAyizitavat | san_krut/Satf/M:duDUpAyizan | san_krut/Satf/F:duDUpAyizantI | san_krut/Satf/N:duDUpAyizat,2
-05.0011,881,881,100.0,0.8,,11
-05.0012,840,881,95.3,0.9,yak/liw/prathama/eka:jihie | yak/liw/prathama/dvi:jihiAte | yak/liw/prathama/bahu:jihiire | yak/liw/madhyama/eka:jihiize | yak/liw/madhyama/dvi:jihiATe | yang_krut/kta/M:jehIyitaH | yang_krut/kta/F:jehIyitA | yang_krut/kta/N:jehIyitam | yang_krut/ktavatu/M:jehIyitavAn | yang_krut/ktavatu/F:jehIyitavatI | yang_krut/ktavatu/N:jehIyitavat | yang_krut/SAnac/M:jehIyamAnaH,11
-05.0013,879,879,100.0,0.8,,13
-05.0014,879,879,100.0,0.9,,13
-05.0015,879,879,100.0,0.7,,10
+05.0010,824,884,93.2,0.6,krut/SAnac/M:DUpAyamAnaH | krut/SAnac/F:DUpAyamAnA | krut/SAnac/N:DUpAyamAnam | san_krut/kta/M:duDUpAyizitaH | san_krut/kta/F:duDUpAyizitA | san_krut/kta/N:duDUpAyizitam | san_krut/ktavatu/M:duDUpAyizitavAn | san_krut/ktavatu/F:duDUpAyizitavatI | san_krut/ktavatu/N:duDUpAyizitavat | san_krut/Satf/M:duDUpAyizan | san_krut/Satf/F:duDUpAyizantI | san_krut/Satf/N:duDUpAyizat,2
+05.0011,881,881,100.0,0.6,,11
+05.0012,843,881,95.7,0.6,yak/liw/prathama/eka:jihie | yak/liw/prathama/dvi:jihiAte | yak/liw/prathama/bahu:jihiire | yak/liw/madhyama/eka:jihiize | yak/liw/madhyama/dvi:jihiATe | yang_krut/kta/M:jehIyitaH | yang_krut/kta/F:jehIyitA | yang_krut/kta/N:jehIyitam | yang_krut/ktavatu/M:jehIyitavAn | yang_krut/ktavatu/F:jehIyitavatI | yang_krut/ktavatu/N:jehIyitavat | yang_krut/SAnac/M:jehIyamAnaH,11
+05.0013,879,879,100.0,0.4,,13
+05.0014,879,879,100.0,0.6,,13
+05.0015,879,879,100.0,0.5,,10
 05.0016,616,626,98.4,0.5,yak/liw/prathama/eka:ApAYcakre | yak/liw/prathama/dvi:ApAYcakrAte | yak/liw/prathama/bahu:ApAYcakrire | yak/liw/madhyama/eka:ApAYcakfze | yak/liw/madhyama/dvi:ApAYcakrATe | san_krut/ktvA:IpsitvA,10
-05.0017,879,882,99.7,0.6,yangluk_krut/Satf/M:Sakan | yangluk_krut/Satf/F:SakantI | yangluk_krut/Satf/N:Sakat,10
-05.0018,810,879,92.2,0.7,ting/liw/prathama/dvi:rarADvatuH | ting/liw/prathama/bahu:rarADvuH | ting/liw/madhyama/eka:rarADviTa | ting/liw/madhyama/dvi:rarADvaTuH | ting/liw/uttama/dvi:rerADiva | yangluk_krut/Satf/M:rADan | yangluk_krut/Satf/F:rADantI | yangluk_krut/Satf/N:rADat,13
-05.0019,825,879,93.9,0.6,ting/lfw/prathama/eka:sADsyati | ting/lfw/prathama/dvi:sADsyataH | ting/lfw/prathama/bahu:sADsyanti | ting/lfw/madhyama/eka:sADsyasi | ting/lfw/madhyama/dvi:sADsyaTaH | yangluk_krut/Satf/M:sADan | yangluk_krut/Satf/F:sADantI | yangluk_krut/Satf/N:sADat,13
-05.0020,820,873,93.9,0.6,ting/liw/prathama/dvi:aSAYcakrAte | ting/liw/prathama/bahu:aSAYcakrire | ting/liw/madhyama/eka:aSAYcakfze | ting/liw/madhyama/dvi:aSAYcakrATe | ting/liw/uttama/dvi:aSAYcakfvahe | yang_krut/kta/M:aAaSitaH | yang_krut/kta/F:aAaSitA | yang_krut/kta/N:aAaSitam | yang_krut/ktavatu/M:aAaSitavAn | yang_krut/ktavatu/F:aAaSitavatI | yang_krut/ktavatu/N:aAaSitavat | yang_krut/SAnac/M:aAaSyamAnaH,7
-05.0021,873,873,100.0,0.5,,7
-05.0022,876,879,99.7,0.6,yangluk_krut/Satf/M:tekan | yangluk_krut/Satf/F:tekantI | yangluk_krut/Satf/N:tekat,13
-05.0023,876,879,99.7,0.6,yangluk_krut/Satf/M:tegan | yangluk_krut/Satf/F:tegantI | yangluk_krut/Satf/N:tegat,13
-05.0024,876,879,99.7,0.4,yangluk_krut/Satf/M:saGan | yangluk_krut/Satf/F:saGantI | yangluk_krut/Satf/N:saGat,13
-05.0025,876,879,99.7,0.6,yangluk_krut/Satf/M:Darzan | yangluk_krut/Satf/F:DarzantI | yangluk_krut/Satf/N:Darzat,13
+05.0017,882,882,100.0,0.6,,10
+05.0018,813,879,92.5,0.5,ting/liw/prathama/dvi:rerADvatuH | ting/liw/prathama/bahu:rerADvuH | ting/liw/madhyama/eka:rarADiTa | ting/liw/madhyama/dvi:rarADaTuH | ting/liw/uttama/dvi:rarADiva,13
+05.0019,828,879,94.2,0.5,ting/lfw/prathama/eka:sADsyati | ting/lfw/prathama/dvi:sADsyataH | ting/lfw/prathama/bahu:sADsyanti | ting/lfw/madhyama/eka:sADsyasi | ting/lfw/madhyama/dvi:sADsyaTaH,13
+05.0020,823,876,93.9,0.5,ting/liw/prathama/dvi:aSAYcakrAte | ting/liw/prathama/bahu:aSAYcakrire | ting/liw/madhyama/eka:aSAYcakfze | ting/liw/madhyama/dvi:aSAYcakrATe | ting/liw/uttama/dvi:aSAYcakfvahe | yang_krut/kta/M:aAaSitaH | yang_krut/kta/F:aAaSitA | yang_krut/kta/N:aAaSitam | yang_krut/ktavatu/M:aAaSitavAn | yang_krut/ktavatu/F:aAaSitavatI | yang_krut/ktavatu/N:aAaSitavat | yang_krut/SAnac/M:aAaSyamAnaH,7
+05.0021,876,876,100.0,0.4,,7
+05.0022,879,879,100.0,0.5,,13
+05.0023,879,879,100.0,0.4,,13
+05.0024,879,879,100.0,0.5,,13
+05.0025,878,879,99.9,0.4,yangluk_krut/Satf/F:['darDfzatI'],13
 05.0026,879,879,100.0,0.5,,13
-05.0027,626,626,100.0,0.4,,10
-05.0028,876,879,99.7,0.5,yangluk_krut/Satf/M:tarpan | yangluk_krut/Satf/F:tarpantI | yangluk_krut/Satf/N:tarpat,13
-05.0029,626,626,100.0,0.6,,10
-05.0030,876,879,99.7,0.5,yangluk_krut/Satf/M:daGan | yangluk_krut/Satf/F:daGantI | yangluk_krut/Satf/N:daGat,13
-05.0031,876,879,99.7,0.6,yangluk_krut/Satf/M:caman | yangluk_krut/Satf/F:camantI | yangluk_krut/Satf/N:camat,13
+05.0027,626,626,100.0,0.6,,10
+05.0028,878,879,99.9,0.5,yangluk_krut/Satf/F:['tartfpatI'],13
+05.0029,626,626,100.0,0.5,,10
+05.0030,879,879,100.0,0.5,,13
+05.0031,878,879,99.9,0.5,yangluk_krut/Satf/F:['caMcamatI'],13
 05.0032,881,881,100.0,0.5,,11
 05.0033,881,881,100.0,0.5,,11
-05.0034,618,628,98.4,0.5,yak/liw/prathama/eka:cicirie | yak/liw/prathama/dvi:ciciriAte | yak/liw/prathama/bahu:ciciriire | yak/liw/madhyama/eka:ciciriize | yak/liw/madhyama/dvi:ciciriATe | krut/ktvA:ciritvA,8
+05.0034,618,628,98.4,0.6,yak/liw/prathama/eka:cicirie | yak/liw/prathama/dvi:ciciriAte | yak/liw/prathama/bahu:ciciriire | yak/liw/madhyama/eka:ciciriize | yak/liw/madhyama/dvi:ciciriATe | krut/ktvA:ciritvA,8
 05.0035,618,628,98.4,0.5,yak/liw/prathama/eka:jijirie | yak/liw/prathama/dvi:jijiriAte | yak/liw/prathama/bahu:jijiriire | yak/liw/madhyama/eka:jijiriize | yak/liw/madhyama/dvi:jijiriATe | krut/ktvA:jiritvA,8
-05.0036,876,879,99.7,0.5,yangluk_krut/Satf/M:dASan | yangluk_krut/Satf/F:dASantI | yangluk_krut/Satf/N:dASat,13
-05.0037,879,879,100.0,0.4,,13
+05.0036,879,879,100.0,0.6,,13
+05.0037,879,879,100.0,0.5,,13
 05.0038,540,628,86.0,0.3,ting/luw/prathama/eka:fkzaytA | ting/luw/prathama/dvi:fkzaytArO | ting/luw/prathama/bahu:fkzaytAraH | ting/luw/madhyama/eka:fkzaytAsi | ting/luw/madhyama/dvi:fkzaytAsTaH | krut/yat/M:fkziyaH | krut/yat/F:fkziyA | krut/yat/N:fkziyam | krut/lyuw:fkziaRam | krut/tumun:fkzetum | krut/ktvA:fkzitvA | krut/lyap:prafkzayya,8

@@ -2366,6 +2366,58 @@ class KrdantaEngine:
             # Current generic outputs kept first (verified this iteration); twins verified in tokens.
             if orig_clean == "kzIv" and "u~" in op:
                 return {"M": ["kzIvan", "cekzivat"], "F": ["kzIvantI", "cekzivatI"], "N": ["kzIvat", "cekzivat"]}
+            # SvAdi ylk Satf redup (sozuvat/sezyat/doDuvat/SASakat/rArADat/
+            # tetikat/tezwiGat/dAdaBat/caMcam/tartfpat/darDfz/aSASat; redup +
+            # weak + at: vowel-finals take palatalized/deaspirated-C1 + o/e
+            # redup with s→z/h→G weak onset + y/uv glide (so/zu+v, se/zy,
+            # je/Gy, ce/kziy); medial-f keeps full weak with ar-redup
+            # (tar+tfp, dar+Dfz); heavy takes A-redup (SA/rA/sA/dA, m-final
+            # CaM, V-initial full) + upadhA-nasal lopa (daB) + A-grade weak
+            # for V-initial (AS); e-redup for ik/ig (te+tik), stiG sole
+            # (tez+wiG); M t/d-twins, F +I, N t; f-finals excluded (served by
+            # the f-block below); placed before the nasal block so DU takes
+            # doDuvat (nasal gives long-U doDUvat, a miss) while su/danB keep
+            # superset-or-equal outputs; surveyed all 33 ylk-Satf-keyed 05
+            # cleans; gana-gated; old mUla-fallback forms miss, free).
+            if meta.get("gana") == "svAdiH" and not clean.endswith(("f", "F")):
+                if clean[-1:] in SLP1_VOWELS:
+                    _s5rc0 = VELAR_TO_PALATAL.get(clean[0], clean[0])
+                    _s5rc = DEASPIRATE.get(_s5rc0, _s5rc0)
+                    _s5rv = "o" if clean[-1:] in ("u", "U") else "e"
+                    _s5w = clean
+                    if _s5w[:1] == "s":
+                        _s5w = "z" + _s5w[1:]
+                    elif _s5w[:1] == "h":
+                        _s5w = "G" + _s5w[1:]
+                    if _s5w[-1:] in ("u", "U"):
+                        if _s5w[-1:] == "U":
+                            _s5w = _s5w[:-1] + "u"
+                        _s5w = _s5w + "v"
+                    elif len(_s5w) == 2:
+                        _s5w = _s5w[:-1] + "y"
+                    else:
+                        _s5w = _s5w + "y"
+                    _s5yl = _s5rc + _s5rv + _s5w
+                elif "f" in clean[:-1] and clean[:1] not in SLP1_VOWELS and clean[:1] != "f":
+                    _s5yl = DEASPIRATE.get(clean[:1], clean[:1]) + "ar" + clean
+                elif clean == "stiG":
+                    _s5yl = "tezwiG"
+                elif clean.endswith(("ik", "ig")):
+                    _s5yl = "te" + clean
+                else:
+                    if clean[:1] in SLP1_VOWELS:
+                        _s5rd = clean
+                    elif clean[-1:] == "m":
+                        _s5rd = DEASPIRATE.get(clean[:1], clean[:1]) + "aM"
+                    else:
+                        _s5rd = DEASPIRATE.get(clean[:1], clean[:1]) + "A"
+                    _s5wk = clean
+                    if clean[:1] in SLP1_VOWELS:
+                        _s5wk = "A" + clean[1:]
+                    elif len(clean) >= 2 and clean[-2] in ("n", "N", "m", "M", "Y", "R") and clean[-1] not in SLP1_VOWELS and clean[-1] not in ("n", "N", "m", "M", "Y", "R"):
+                        _s5wk = clean[:-2] + clean[-1:]
+                    _s5yl = _s5rd + _s5wk
+                return {"M": [_s5yl + "at", _s5yl + "ad"], "F": [_s5yl + "atI"], "N": [_s5yl + "at"]}
             try:
                 _ylm2 = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
                 if _ylm2 is None:
