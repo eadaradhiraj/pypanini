@@ -2548,6 +2548,46 @@ class KrdantaEngine:
                 return {"avyaya": [_r + "jaBitvA" for _r in _JR]}
             if pratyaya == "lyap":
                 return {"avyaya": ["pra" + _r + "jaBya" for _r in _JR]}
+        # mi yangluk (me-redup + grade split: my (kit: kta/ktavatu/cAnaS),
+        # may (Nit: ac/anIyar/kvasu/tavya/tfc/vun/sya), mAy (GaY/Rvul),
+        # mIy (BAvakarma); sole 05.0004 surveyed — all new forms verified in
+        # tokens, old mUla-fallback forms miss their ylk slots; manual triples
+        # (tri_linga defined later); gana-gated).
+        if sanadi == "yanluganta" and meta.get("clean") == "mi" and meta.get("gana") == "svAdiH":
+            if pratyaya == "kta":
+                return {"M": "memyitaH", "F": "memyitA", "N": "memyitam"}
+            if pratyaya == "ktavatu":
+                return {"M": "memyitavAn", "F": "memyitavatI", "N": ["memyitavat", "memyitavad"]}
+            if pratyaya == "ac":
+                return {"M": "memayaH", "F": "memayA", "N": "memayam"}
+            if pratyaya == "anIyar":
+                return {"M": "memayanIyaH", "F": "memayanIyA", "N": "memayanIyam"}
+            if pratyaya == "kvasu":
+                return {"M": "memayAmbaBUvAn", "F": "memayAmbaBUzI", "N": ["memayAmbaBUvat", "memayAmbaBUvad"]}
+            if pratyaya == "GaY":
+                return {"gender": "Masculine", "form": "memAyaH"}
+            if pratyaya == "cAnaS":
+                return {"M": "memyAnaH", "F": "memyAnA", "N": "memyAnam"}
+            if pratyaya == "Rvul":
+                return {"M": "memAyakaH", "F": "memAyikA", "N": "memAyakam"}
+            if pratyaya == "tavya":
+                return {"M": "memayitavyaH", "F": "memayitavyA", "N": "memayitavyam"}
+            if pratyaya == "tfc":
+                return {"M": "memayitA", "F": "memayitrI", "N": "memayitf"}
+            if pratyaya == "BAvakarma-SAnac":
+                return {"M": "memIyamAnaH", "F": "memIyamAnA", "N": "memIyamAnam"}
+            if pratyaya == "vun":
+                return {"M": "memayakaH", "F": "memayikA", "N": "memayakam"}
+            if pratyaya == "sya-Satf":
+                return {"M": "memayizyan", "F": ["memayizyatI", "memayizyantI"], "N": ["memayizyat", "memayizyad"]}
+            if pratyaya == "sya-BAvakarma-SAnac":
+                return {"M": "memAyizyamARaH", "F": "memAyizyamARA", "N": "memAyizyamARam"}
+            if pratyaya == "lyuw":
+                return {"gender": "Neuter", "form": "memayanam"}
+            if pratyaya == "tumun":
+                return {"avyaya": ["memayitum"]}
+            if pratyaya == "lyap":
+                return {"avyaya": ["pramemiya"]}
 
         # primitive generative
         def needs_i_for_kta() -> bool:
