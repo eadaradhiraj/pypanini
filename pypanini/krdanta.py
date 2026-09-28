@@ -1611,6 +1611,12 @@ class KrdantaEngine:
                 # svap intensive (sozupya; mirrors tinanta; sole 02.0063 surveyed — gana-gated).
                 if c == "svap" and meta.get("gana") == "adAdiH":
                     return "sozupya"
+                # hi/aS intensives (jeGIya/aSASya; mirrors tinanta _yan_stem;
+                # same pair + gana gate; sec feeds all yang_krut; old
+                # jehIy/aAaS-forms miss everywhere, free).
+                if meta.get("gana") == "svAdiH":
+                    if c == "hi": return "jeGIya"
+                    if c == "aS": return "aSASya"
                 # UrRu intensive (UrRonUya; mirrors tinanta; sole 02.0034 surveyed — gana-gated).
                 if c == "UrRu" and meta.get("gana") == "adAdiH":
                     return "UrRonUya"
