@@ -367,6 +367,11 @@ class KrdantaEngine:
         # Iry + ita; old rita-forms miss, free).
         if clean.endswith("iri") and gana == "svAdiH":
             return clean[:-3] + "Iryita"
+        # Dfz zw kta (Dfzwa; sole z-final mUla in 05 surveyed — z + ta → zwa;
+        # exact-clean gate (san sec stems like susUz/cikIrz end in z and must
+        # keep ita); old Dfzita misses, free).
+        if clean == "Dfz" and gana == "svAdiH":
+            return clean + "wa"
         # idit i-final velar/palatal/retroflex/labial takes assimilated num (agi->aNgita; i~ marks idit)
         if clean.endswith(("i", "I")) and ("i~" in op) and ("I~" not in op):
             _bw = clean[:-1]
@@ -2964,11 +2969,16 @@ class KrdantaEngine:
                         if _s5s[_s5i] in ("r", "R", "z", "f", "F"):
                             _s5last = _s5i
                     if _s5last != -1 and all(ch in SLP1_VOWELS for ch in _s5s[_s5last + 1:-2]):
-                        _s5x = _s5s[:-2] + "R"
-                    elif len(clean) == 2 and clean[0] not in SLP1_VOWELS and clean[1] in SLP1_VOWELS:
-                        _s5x = _s5s[:-1]
+                        _s5rk = _s5s[:-2] + "R"
                     else:
-                        _s5x = _s5s
+                        _s5rk = _s5s[:-2] + "n"
+                    # u drops iff root ends in a vowel or f (sun/kfR/ciriR/fkziR),
+                    # kept after any other consonant (Apnu/DfzRu/daBnu/tiknu);
+                    # surveyed all 36 keyed 05 cleans, unanimous.
+                    if clean[-1:] in SLP1_VOWELS or clean[-1:] == "f":
+                        _s5x = _s5rk
+                    else:
+                        _s5x = _s5rk + "u"
                     _s5p = _s5x + "vat"
                     return {"M": _s5p[:-1] + "n", "F": _s5p + "I", "N": [_s5p, _s5p[:-1] + "d"]}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
@@ -3341,11 +3351,14 @@ class KrdantaEngine:
                     if _s5s[_s5i] in ("r", "R", "z", "f", "F"):
                         _s5last = _s5i
                 if _s5last != -1 and all(ch in SLP1_VOWELS for ch in _s5s[_s5last + 1:-2]):
-                    _s5x = _s5s[:-2] + "R"
-                elif len(clean) == 2 and clean[0] not in SLP1_VOWELS and clean[1] in SLP1_VOWELS:
-                    _s5x = _s5s[:-1]
+                    _s5rk = _s5s[:-2] + "R"
                 else:
-                    _s5x = _s5s
+                    _s5rk = _s5s[:-2] + "n"
+                # Same u-drop as Satf (vowel/f-final drop, other consonants keep).
+                if clean[-1:] in SLP1_VOWELS or clean[-1:] == "f":
+                    _s5x = _s5rk
+                else:
+                    _s5x = _s5rk + "u"
                 _s5ys = _s5x + "vAna"
                 return {"M": _s5ys + "H", "F": _s5ys[:-1] + "A", "N": _s5ys + "m"}
             # Panini 3.2.124 lawaH Satf-SAnacAv aprathamAsamAnADikaraRe
