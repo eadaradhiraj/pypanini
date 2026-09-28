@@ -6225,6 +6225,14 @@ class TinantaDerivationEngine:
                 cands+=self._conjugate_at_stem_atmane(_r7fw, "lw", purusha, vacana)
                 if meta.get("clean") == "BaYj" and prayoga == "karmani":
                     cands+=self._conjugate_at_stem_atmane("BaYjizya", "lw", purusha, vacana)
+            # svAdi sya-futures (rAtsyati/sAtsyati via D→t + A-grade; fkzayizyati
+            # via aya + iT + satva-z; trio 05.0018/0019/0038 surveyed; old
+            # Dsya/zya-forms miss everywhere; both padas for global match
+            # (duh precedent); additive, svAdiH-gated).
+            if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") in ("rAD", "sAD", "fkzi"):
+                _s5fw = {"rAD": "rAtsy", "sAD": "sAtsy", "fkzi": "fkzayizy"}[meta.get("clean")]
+                cands+=self._conjugate_at_stem_parasmai(_s5fw, "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_s5fw, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
