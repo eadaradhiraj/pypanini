@@ -2672,6 +2672,42 @@ class KrdantaEngine:
             n = stem_a + "m"
             return {"M": m, "F": f, "N": n}
 
+        def _kryadi_nastem(c):
+            # kryAdi nA-vikaraNa stem (mirrors tinanta _kryadi_stem; same
+            # special stems + lopa + F-grades + strict Natva + length rule;
+            # feeds kryAdi krdanta (Satf/SAnac/...); gana-gated by callers).
+            _mc = meta.get("clean", "") or c
+            if _mc == "jyA": _r = "ji"
+            elif _mc == "jYA": _r = "jA"
+            elif _mc == "Kav": _r = "KO"
+            elif _mc == "grah": _r = "gfh"
+            elif _mc == "SF" and op.startswith("SFY"): _r = "SIr"
+            elif _mc == "svF": _r = "svUr"
+            elif _mc == "kzIz": _r = "kzI"
+            elif _mc.endswith("F"): _r = _mc[:-1] + "f"
+            else: _r = c
+            if len(_r) >= 2 and _r[-2] in ("n", "N", "m", "M", "Y", "R") and _r[-1] not in SLP1_VOWELS and _r[-1] not in ("n", "N", "m", "M", "Y", "R"):
+                _r = _r[:-2] + _r[-1:]
+            _ya = (_mc == "Kac")
+            _last = -1
+            for _i, _ch in enumerate(_mc):
+                if _ch in ("r", "R", "z", "f", "F"):
+                    _last = _i
+            if _ya:
+                stem = _r + "Y"
+            elif _last != -1 and all(ch in SLP1_VOWELS or ch in ("q", "h") for ch in _mc[_last + 1:]):
+                stem = _r + "R"
+            elif _mc.endswith("W"):
+                stem = _r + "R"
+            else:
+                stem = _r + "n"
+            if stem[-2:] in ("In", "Un", "IR", "UR"):
+                _ons = _r[:-1]
+                _keep = any(ch in ("N", "Y", "R", "n", "m", "M") for ch in _ons) or (len(_ons) >= 2 and _ons[1] in ("r", "z"))
+                if not _keep:
+                    stem = stem[:-2] + stem[-2].lower() + stem[-1]
+            return stem
+
         def _get_yanluk_a_base() -> str:
             _c_tgt = orig_clean if (orig_clean and orig_clean.endswith("A")) else clean
             _cl = ""
@@ -3130,6 +3166,25 @@ class KrdantaEngine:
                         _s5x = _s5rk + "u"
                     _s5p = _s5x + "vat"
                     return {"M": _s5p[:-1] + "n", "F": _s5p + "I", "N": [_s5p, _s5p[:-1] + "d"]}
+                # kryAdi nu-Satf (krIRan/mInan/skunvan/staBnuvan/yunan/baDnat/
+                # mfqRan/KacYat; PREFIX = mUla nA-stem (mirror helper) with
+                # overrides: s+stop onsets (sku/stanB-family) take +uv (cons) /
+                # +v (vowel), upadhA-nasal lopa-5 take lopa + nat, jyA/jYA strip
+                # mUla -A (jin/jAn), Kac takes Y; then standard at-inflection
+                # (M t→n, F +I, N t/d-twins, cf svAdi); surveyed all 70 keyed
+                # 09 cleans; gana-gated; old A-grade forms miss, free).
+                if sanadi is None and meta.get("gana") == "kryAdiH":
+                    _k9mc = meta.get("clean", "") or clean
+                    _k9pre = _kryadi_nastem(clean)
+                    if _k9mc in ("sku", "stanB", "stunB", "skanB", "skunB"):
+                        _k9pre = _k9pre + ("v" if _k9pre[-2:-1] in SLP1_VOWELS else "uv")
+                    elif _k9mc in ("banD", "SranT", "manT", "granT", "kunT"):
+                        _k9lc = clean[:-2] + clean[-1:]
+                        _k9pre = _k9lc + "n"
+                    elif _k9mc == "Kac":
+                        _k9pre = "KacY"
+                    _k9sp = _k9pre + "at"
+                    return {"M": _k9sp[:-1] + "n", "F": _k9sp + "I", "N": [_k9sp, _k9sp[:-1] + "d"]}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
