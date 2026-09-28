@@ -3568,6 +3568,10 @@ class KrdantaEngine:
             # seT it; old e-grade forms miss, free).
             if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
                 return tri_linga("fkzayitavya")
+            # mi mA-tavya (mAtavya; sole 05.0004 surveyed — mUla takes mA-grade;
+            # old e-grade forms miss, free).
+            if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
+                return tri_linga("mAtavya")
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 return tri_linga(clean[:-1] + apply_guna(clean[-1]) + "tavya")
             # guhU~ vew: aniT oQ (goQavya) + seT Uhit (gUhitavya); yangluk
@@ -3629,6 +3633,9 @@ class KrdantaEngine:
             # fkzi aya-anIyar (fkzayaRIya; sole 05.0038 surveyed; old forms miss, free).
             if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
                 return tri_linga("fkzayaRIya")
+            # mi mA-anIyar (mAnIya; sole 05.0004 surveyed; old forms miss, free).
+            if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
+                return tri_linga("mAnIya")
             # idit i-final num-clean (agi->aNganIyaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3901,6 +3908,9 @@ class KrdantaEngine:
             # fkzi aya-tfc (fkzayitA; sole 05.0038 surveyed; old forms miss, free).
             if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
                 return {"M": "fkzayitA", "F": "fkzayitrI", "N": "fkzayitf"}
+            # mi mA-tfc (mAtA; sole 05.0004 surveyed; old forms miss, free).
+            if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
+                return {"M": "mAtA", "F": "mAtrI", "N": "mAtf"}
             # iN aD- tfc (aDyetA; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDyetA", "F": "aDyetrI", "N": "aDyetf"}
