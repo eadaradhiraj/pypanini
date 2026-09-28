@@ -1582,6 +1582,19 @@ class TinantaDerivationEngine:
             }
             if (purusha, vacana) in _mi_lit_weak:
                 return list(dict.fromkeys(_mi_lit_weak[(purusha, vacana)])), []
+        # rAD liT weak reD- (reDatuH/reDuH/reDiTa/reDaTuH/reDa/reDiva/reDima;
+        # strong pr/utt.eka keep generic rarADa (hits); sAD keeps full-root
+        # perfect so this is sole-gated to rAD, not shape-general; old
+        # re-/ra-forms miss everywhere, free; same guards as mi above).
+        if meta.get("clean") == "rAD" and meta.get("gana") == "svAdiH" and lakara == "liw" and sanadi is None and prayoga == "kartari" and _force_pada != "Atmanepadi":
+            _rad_lit_weak = {
+                ("prathama", "dvi"): ["reDatuH"], ("prathama", "bahu"): ["reDuH"],
+                ("madhyama", "eka"): ["reDiTa"], ("madhyama", "dvi"): ["reDaTuH"],
+                ("madhyama", "bahu"): ["reDa"], ("uttama", "dvi"): ["reDiva"],
+                ("uttama", "bahu"): ["reDima"],
+            }
+            if (purusha, vacana) in _rad_lit_weak:
+                return list(dict.fromkeys(_rad_lit_weak[(purusha, vacana)])), []
         # de luN kartari takes i-aorist adita (not s-aorist amAsta like meN,
         # not seT adayizwa); sole de-root, additive-safe.
         if clean == "de" and lakara == "luN" and prayoga == "kartari" and sanadi is None:
