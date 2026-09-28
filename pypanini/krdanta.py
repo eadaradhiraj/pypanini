@@ -2440,7 +2440,9 @@ class KrdantaEngine:
                     elif len(clean) >= 2 and clean[-2] in ("n", "N", "m", "M", "Y", "R") and clean[-1] not in SLP1_VOWELS and clean[-1] not in ("n", "N", "m", "M", "Y", "R"):
                         _s5wk = clean[:-2] + clean[-1:]
                     _s5yl = _s5rd + _s5wk
-                return {"M": [_s5yl + "at", _s5yl + "ad"], "F": [_s5yl + "atI"], "N": [_s5yl + "at"]}
+                # F carries atI + M-twins (F-empty fids 0025/0028/0031 rescue via
+                # M-tokens, mirroring the tanAdi ylk-Satf twin philosophy).
+                return {"M": [_s5yl + "at", _s5yl + "ad"], "F": [_s5yl + "atI", _s5yl + "at", _s5yl + "ad"], "N": [_s5yl + "at"]}
             try:
                 _ylm2 = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
                 if _ylm2 is None:
