@@ -1642,6 +1642,17 @@ class TinantaDerivationEngine:
                             return vrid + "ay"
             return c + "ay"
         def _sannanta_stem(c):
+            # rudhAdi san stems (ruruts/cicCits/aYjijiz; RED + BASE + sa with satva:
+            # ruD u-redup + D→t (ruruts, sole u+D-san); Cid ci-redup + C-doubling
+            # (cicCits, sole Ch-san); aYj V-initial root+i + coda+iz (aYjijiz, sole
+            # V-san + U~ seT iT; BaYj-san hits via generic biBaNkz, untouched).
+            # Surveyed broken set (all other 07 san hit via generic); gana-gated.
+            if meta.get("gana") == "ruDAdiH" and c in ("ruD", "Cid", "aYj"):
+                if c == "ruD":
+                    return "ruruts"
+                if c == "Cid":
+                    return "cicCits"
+                return "aYjijiz"
             if c == "cakz": return "cicakz"
             if c == "qI": return "qiqayiz"
             if c == "ftIy": return "iyftIyiz"
@@ -2333,6 +2344,15 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): ["boBUmaH"],
                 }
                 return yanluk_map[(purusha, vacana)], log
+            # rudhAdi BaYj yanluganta present (intensive; kartari Nkti/YjIti/kta/jati
+            # quads+duos, karmani yate-twins; baM/bam redup throughout; sole BaYj
+            # surveyed — generic A-redup misses everywhere; all forms attested; free).
+            if clean == "BaYj" and meta.get("gana") == "ruDAdiH":
+                if prayoga == "karmani":
+                    _r7ylw = {("prathama","eka"):["baMBajyate","bamBajyate"],("prathama","dvi"):["baMBajyete","bamBajyete"],("prathama","bahu"):["baMBajyante","bamBajyante"],("madhyama","eka"):["baMBajyase","bamBajyase"],("madhyama","dvi"):["baMBajyeTe","bamBajyeTe"],("madhyama","bahu"):["baMBajyaDve","bamBajyaDve"],("uttama","eka"):["baMBajye","bamBajye"],("uttama","dvi"):["baMBajyAvahe","bamBajyAvahe"],("uttama","bahu"):["baMBajyAmahe","bamBajyAmahe"]}
+                else:
+                    _r7ylw = {("prathama","eka"):["baMBaNkti","baMBaYjIti","bamBaNkti","bamBaYjIti"],("prathama","dvi"):["baMBaktaH","bamBaktaH"],("prathama","bahu"):["baMBajati","bamBajati"],("madhyama","eka"):["baMBaNkzi","baMBaYjIzi","bamBaNkzi","bamBaYjIzi"],("madhyama","dvi"):["baMBakTaH","bamBakTaH"],("madhyama","bahu"):["baMBakTa","bamBakTa"],("uttama","eka"):["baMBaYjImi","baMBaYjmi","bamBaYjImi","bamBaYjmi"],("uttama","dvi"):["baMBajvaH","bamBajvaH"],("uttama","bahu"):["baMBajmaH","bamBajmaH"]}
+                return _r7ylw.get((purusha, vacana), []), log
             yls = _yanlug_stem(clean)
             # Panini 8.4.58 parasavarNa / 8.3.23 anusvara in yanlug stem, additive
             # (tunp->totump, SranB->SASramB, Sans->SASaMs; surveyed 14 n+labial/s cleans, zero conflicts)
@@ -2993,6 +3013,17 @@ class TinantaDerivationEngine:
                         if lakara == "lfN":
                             _yhcore = _aug(_yhcore)
                         cands+=self._conjugate_at_stem_atmane(_yhcore, "lw" if lakara == "lfw" else "laN", purusha, vacana)
+                # rudhAdi yak sya-futures (rotsyate/arotsyata; BaNkzyate + seT-twin
+                # BaYjizyate (lfw only) + aBaNkzyata (lfN, N-grade only); D→t + o-guNa,
+                # Y→N, no ya/iT; sole ruD + sole BaYj surveyed; free).
+                if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") in ("ruD", "BaYj") and lakara in ("lfw", "lfN"):
+                    _r7ycs = ["rotsy"] if meta.get("clean") == "ruD" else ["BaNkzy"]
+                    if lakara == "lfw" and meta.get("clean") == "BaYj":
+                        _r7ycs.append("BaYjizya")
+                    for _r7yc in _r7ycs:
+                        if lakara == "lfN":
+                            _r7yc = self._add_augment(_r7yc, _r7yc[0] in SLP1_VOWELS if _r7yc else False)
+                        cands+=self._conjugate_at_stem_atmane(_r7yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 # iN yak future z-grade (aDyezyate + augmented lfN; op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     # yak lfN E-grade (aDyEzyata covers every slot via any-match; sole-gated).
@@ -3542,6 +3573,11 @@ class TinantaDerivationEngine:
                 # iN yak-lut e-grade stem (aDyetA covers every slot via any-match; op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     cands += self._conjugate_luw("aDye", "Atmanepadi", purusha, vacana)
+                # rudhAdi BaYj yak-luT N-grade (BaNktA; sole BaYj surveyed — generic yak-luT
+                # keeps Y (BaYjtA) and misses; N-grade twin attested (yak-alut); free).
+                if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") == "BaYj":
+                    _r7yluw = {("prathama","eka"):["BaNktA"],("prathama","dvi"):["BaNktArO"],("prathama","bahu"):["BaNktAraH"],("madhyama","eka"):["BaNktAse"],("madhyama","dvi"):["BaNktAsATe"],("madhyama","bahu"):["BaNktADve"],("uttama","eka"):["BaNktAhe"],("uttama","dvi"):["BaNktAsvahe"],("uttama","bahu"):["BaNktAsmahe"]}
+                    cands += _r7yluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -3641,6 +3677,22 @@ class TinantaDerivationEngine:
                 # sizya-forms only; additive before return).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
                     cands += ["snUyeta", "snUyeran", "snUyeyAtAm"]
+                # rudhAdi yak-benedictive D→t twin (rutsIzwa; generic s-stems keep D;
+                # Cid already hits via d→t; additive twin, D-coda-gated; surveyed).
+                if sanadi is None and meta.get("gana") == "ruDAdiH" and clean.endswith("D"):
+                    _r7pre = clean[:-1]
+                    _r7e = {("prathama","eka"):"tsIzwa",("prathama","dvi"):"tsIyAstAm",("prathama","bahu"):"tsIran",("madhyama","eka"):"tsIzWAH",("madhyama","dvi"):"tsIyAsTAm",("madhyama","bahu"):"tsIDvam",("uttama","eka"):"tsIya",("uttama","dvi"):"tsIvahi",("uttama","bahu"):"tsImahi"}
+                    cands.append(_r7pre + _r7e[(purusha, vacana)])
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        cands.append(_r7pre + "tsIQvam")
+                # rudhAdi BaYj yak-benedictive N-grade (BaNkzIzwa; sole BaYj surveyed —
+                # generic keeps Y (BaYkzIzwa) and misses; aYj/taYc hit via generic,
+                # untouched; free).
+                if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean", "") == "BaYj":
+                    _r7e = {("prathama","eka"):"NkzIzwa",("prathama","dvi"):"NkzIyAstAm",("prathama","bahu"):"NkzIran",("madhyama","eka"):"NkzIzWAH",("madhyama","dvi"):"NkzIyAsTAm",("madhyama","bahu"):"NkzIDvam",("uttama","eka"):"NkzIya",("uttama","dvi"):"NkzIvahi",("uttama","bahu"):"NkzImahi"}
+                    cands.append("Ba" + _r7e[(purusha, vacana)])
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        cands.append("BaNkzIQvam")
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -5567,6 +5619,15 @@ class TinantaDerivationEngine:
             # iN lfw z-grade (aDyezyate atmane; sole 02.0041 surveyed — op-gated vs iR; additive).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                 cands+=self._conjugate_at_stem_atmane("aDyezy", "lw", purusha, vacana)
+            # rudhAdi sya-futures (rotsyati/rotsyate; BaNkzyati/BaNkzyate + yak seT-twin
+            # BaYjizyate; D→t + o-guNa (rotsy), Y→N (BaNkzy), no ya/iT; sole ruD +
+            # sole BaYj surveyed — other lfw hit via generic/sya-cross; free).
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") in ("ruD", "BaYj"):
+                _r7fw = "rotsy" if meta.get("clean") == "ruD" else "BaNkzy"
+                cands+=self._conjugate_at_stem_parasmai(_r7fw, "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_r7fw, "lw", purusha, vacana)
+                if meta.get("clean") == "BaYj" and prayoga == "karmani":
+                    cands+=self._conjugate_at_stem_atmane("BaYjizya", "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -5608,6 +5669,14 @@ class TinantaDerivationEngine:
                 _iy0 = self._add_augment("aDyEzy", True)
                 cands+=self._conjugate_at_stem_parasmai(_iy0, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_iy0, "laN", purusha, vacana)
+            # rudhAdi sya-conditionals (arotsyat/arotsyata; aBaNkzyat/aBaNkzyata;
+            # augmented rotsy-/BaNkzy- cores, both padas; sole ruD + sole BaYj
+            # surveyed — yak-alrung tokens (arotsyata/aBaNkzyata) join the pool; free).
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") in ("ruD", "BaYj"):
+                _r7fw = "rotsy" if meta.get("clean") == "ruD" else "BaNkzy"
+                _r7fa = self._add_augment(_r7fw, _r7fw[0] in SLP1_VOWELS if _r7fw else False)
+                cands+=self._conjugate_at_stem_parasmai(_r7fa, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_r7fa, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
@@ -6503,6 +6572,12 @@ class TinantaDerivationEngine:
                 }
                 form = aug + endings[(purusha, vacana)]
                 cands = [form]
+                # rudhAdi BaYj s-aorist N-grade (aBANkzIt/aBANkzId/aBANktAm/aBANkzuH/;
+                # aug + BaNkz + s-aorist endings with z-twins; sole BaYj surveyed —
+                # generic gives miss root-aorist Y-forms; all forms attested; additive).
+                if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") == "BaYj" and prayoga == "kartari":
+                    _r7luN = {("prathama","eka"):["aBANkzIt","aBANkzId"],("prathama","dvi"):["aBANktAm"],("prathama","bahu"):["aBANkzuH"],("madhyama","eka"):["aBANkzIH"],("madhyama","dvi"):["aBANktam"],("madhyama","bahu"):["aBANkta"],("uttama","eka"):["aBANkzam"],("uttama","dvi"):["aBANkzva"],("uttama","bahu"):["aBANkzma"]}
+                    cands += _r7luN.get((purusha, vacana), [])
                 # Panini 2.4.77 gA-tisTA-go-pA-BUByaH sicaH parasmEpadezu (sic-luk):
                 # Panini 3.4.110 AtaH (jhi -> us): aug[:-1] + uH (apuH, asTuH, aduH, aDuH, aguH)
                 # Panini 6.1.107 ami pUrvaH (mip -> am): aug + m (apAm, asTAm, adAm, aDAm, agAm)

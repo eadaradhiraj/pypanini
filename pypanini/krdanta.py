@@ -1081,6 +1081,14 @@ class KrdantaEngine:
             def _sannanta_sec(c):
                 if meta.get("op") == "cakziN" and meta.get("gana") == "adAdiH":
                     return "cicakz"
+                # rudhAdi san stems (mirrors tinanta _sannanta_stem; same 3-clean
+                # broken set + gana gate; sec feeds san_krut kta/Satf/tavya/...).
+                if meta.get("gana") == "ruDAdiH" and c in ("ruD", "Cid", "aYj"):
+                    if c == "ruD":
+                        return "ruruts"
+                    if c == "Cid":
+                        return "cicCits"
+                    return "aYjijiz"
                 # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew).
                 if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                     return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]

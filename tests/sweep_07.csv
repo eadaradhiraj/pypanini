@@ -1,26 +1,26 @@
 fid,matched,total,pct,secs,misses,skipped
-07.0001,628,885,71.0,0.8,ting/lfw/prathama/eka:roDsyati | ting/lfw/prathama/dvi:roDsyataH | ting/lfw/prathama/bahu:roDsyanti | ting/lfw/madhyama/eka:roDsyasi | ting/lfw/madhyama/dvi:roDsyaTaH | san_krut/kta/M:ruruDsitaH | san_krut/kta/F:ruruDsitA | san_krut/kta/N:ruruDsitam | san_krut/ktavatu/M:ruruDsitavAn | san_krut/ktavatu/F:ruruDsitavatI | san_krut/ktavatu/N:ruruDsitavat | san_krut/Satf/M:ruruDsan,7
-07.0002,885,885,100.0,0.3,,7
-07.0003,673,885,76.0,0.2,san/lw/prathama/eka:ciCitsate | san/lw/prathama/dvi:ciCitsataH | san/lw/prathama/bahu:ciCitsanti | san/lw/madhyama/eka:ciCitsasi | san/lw/madhyama/dvi:ciCitseTe | san_krut/kta/M:ciCitsitaH | san_krut/kta/F:ciCitsitA | san_krut/kta/N:ciCitsitam | san_krut/ktavatu/M:ciCitsitavAn | san_krut/ktavatu/F:ciCitsitavatI | san_krut/ktavatu/N:ciCitsitavat | san_krut/Satf/M:ciCitsan,7
-07.0004,885,885,100.0,0.5,,7
-07.0005,885,885,100.0,0.3,,7
-07.0006,885,885,100.0,0.7,,7
-07.0007,885,885,100.0,0.6,,7
-07.0008,885,885,100.0,0.4,,7
+07.0001,885,885,100.0,0.2,,7
+07.0002,885,885,100.0,0.5,,7
+07.0003,885,885,100.0,0.6,,7
+07.0004,885,885,100.0,0.3,,7
+07.0005,885,885,100.0,0.5,,7
+07.0006,885,885,100.0,0.3,,7
+07.0007,885,885,100.0,0.8,,7
+07.0008,885,885,100.0,0.5,,7
 07.0009,885,885,100.0,0.8,,7
-07.0010,879,879,100.0,0.6,,13
+07.0010,879,879,100.0,0.8,,13
 07.0011,623,623,100.0,0.8,,4
-07.0012,876,876,100.0,0.8,,7
-07.0013,876,876,100.0,0.7,,7
-07.0014,879,879,100.0,0.5,,13
+07.0012,876,876,100.0,0.6,,7
+07.0013,876,876,100.0,0.5,,7
+07.0014,879,879,100.0,0.7,,13
 07.0015,879,879,100.0,0.6,,13
-07.0016,801,879,91.1,0.6,ting/lfw/prathama/eka:BaYkzyati | ting/lfw/prathama/dvi:BaYkzyataH | ting/lfw/prathama/bahu:BaYkzyanti | ting/lfw/madhyama/eka:BaYkzyasi | ting/lfw/madhyama/dvi:BaYkzyaTaH,13
+07.0016,879,879,100.0,0.6,,13
 07.0017,885,885,100.0,0.5,,7
-07.0018,879,879,100.0,0.5,,13
+07.0018,879,879,100.0,0.6,,13
 07.0019,879,879,100.0,0.5,,13
-07.0020,625,626,99.8,0.4,nich/luN/prathama/eka:Ondayizwa,10
-07.0021,417,626,66.6,0.5,san/lw/prathama/eka:aYiYjizati | san/lw/prathama/dvi:aYiYjizete | san/lw/prathama/bahu:aYdijizanti | san/lw/madhyama/eka:aYdijizase | san/lw/madhyama/dvi:aYiYjizaTaH | san_krut/kta/M:aYiYjizitaH | san_krut/kta/F:aYiYjizitA | san_krut/kta/N:aYiYjizitam | san_krut/ktavatu/M:aYiYjizitavAn | san_krut/ktavatu/F:aYiYjizitavatI | san_krut/ktavatu/N:aYiYjizitavat | san_krut/Satf/M:aYiYjizan,10
+07.0020,625,626,99.8,0.6,nich/luN/prathama/eka:Ondayizwa,10
+07.0021,626,626,100.0,0.3,,10
 07.0022,879,879,100.0,0.5,,13
-07.0023,879,879,100.0,0.5,,13
+07.0023,879,879,100.0,0.3,,13
 07.0024,879,879,100.0,0.6,,13
-07.0025,879,879,100.0,0.5,,13
+07.0025,879,879,100.0,0.4,,13
