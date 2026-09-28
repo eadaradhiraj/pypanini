@@ -4314,6 +4314,10 @@ class KrdantaEngine:
             # SI ay ktvA (SayitvA; sole-gated; free).
             if sanadi is None and clean == "SI" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["SayitvA"]}
+            # ciri/jiri ay ktvA (cirayitvA/jirayitvA; pair 05.0034/0035 surveyed —
+            # aya-grade + itvA; old ritvA-forms miss everywhere, free).
+            if sanadi is None and clean in ("ciri", "jiri") and meta.get("gana") == "svAdiH":
+                return {"avyaya": ["cirayitvA" if clean == "ciri" else "jirayitvA"]}
             # han n-loss ktvA (hatvA; sole-gated; free).
             if sanadi is None and clean == "han" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["hatvA"]}
