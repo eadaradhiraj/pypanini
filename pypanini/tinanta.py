@@ -3880,6 +3880,24 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "hi":
                     _jgy5 = {("prathama","eka"):["jiGye"],("prathama","dvi"):["jiGyAte"],("prathama","bahu"):["jiGyire"],("madhyama","eka"):["jiGyize"],("madhyama","dvi"):["jiGyATe"],("madhyama","bahu"):["jiGyiDve","jiGyiQve"],("uttama","eka"):["jiGye"],("uttama","dvi"):["jiGyivahe"],("uttama","bahu"):["jiGyimahe"]}
                     cands += _jgy5.get((purusha, vacana), [])
+                # ciri/jiri yak-liT ciray/jiray-peri (cirayAYcakre/cirayAmAse/
+                # cirayAmbaBUve triplets per slot; pair 05.0034/0035 surveyed —
+                # aya-base + AYcakr/AmAs/AmbaBU auxiliaries; old ciciri-forms
+                # and ciri-peri miss everywhere; additive, svAdiH-gated).
+                if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") in ("ciri", "jiri"):
+                    _cjy5 = "ciray" if meta.get("clean") == "ciri" else "jiray"
+                    _cjy5_aux = {
+                        ("prathama", "eka"): ["AYcakre", "AmAse", "AmbaBUve"],
+                        ("prathama", "dvi"): ["AYcakrAte", "AmAsAte", "AmbaBUvAte"],
+                        ("prathama", "bahu"): ["AYcakrire", "AmAsire", "AmbaBUvire"],
+                        ("madhyama", "eka"): ["AYcakfze", "AmAsize", "AmbaBUvize"],
+                        ("madhyama", "dvi"): ["AYcakrATe", "AmAsATe", "AmbaBUvATe"],
+                        ("madhyama", "bahu"): ["AYcakfQve", "AmAsiDve", "AmbaBUviQve"],
+                        ("uttama", "eka"): ["AYcakre", "AmAhe", "AmbaBUve"],
+                        ("uttama", "dvi"): ["AYcakfvahe", "AmAsivahe", "AmbaBUvivahe"],
+                        ("uttama", "bahu"): ["AYcakfmahe", "AmAsimahe", "AmbaBUvimahe"],
+                    }
+                    cands += [_cjy5 + _ax for _ax in _cjy5_aux.get((purusha, vacana), [])]
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
