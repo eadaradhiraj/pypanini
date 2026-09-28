@@ -814,6 +814,12 @@ class KrdantaEngine:
         if meta.get("op") == "cakziN" and sanadi is None:
             meta["sew"] = False
             meta["sew_raw"] = "aniw"
+        # aster bhUH in Ardhadhatuka (Panini 2.4.52)
+        if meta.get("gana") == "adAdiH" and meta.get("clean") == "as":
+            if sanadi in ("sannanta", "nijanta", "yananta", "yanluganta"):
+                return self.derive_krdanta("BU", pratyaya, sanadi, upasarga, "01.0001")
+            if pratyaya in ("tavya", "anIyar", "kta", "ktavatu", "tfc", "tumun", "ktvA", "lyap", "kvasu", "GaY", "Ramul", "Ryat", "Rvul", "lyuw", "vun", "ac", "ktin"):
+                return self.derive_krdanta("BU", pratyaya, None, upasarga, "01.0001")
         clean = meta["clean"]
         pada = meta["pada"]
         padam = meta.get("padam", "")

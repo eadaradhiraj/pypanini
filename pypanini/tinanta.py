@@ -1535,6 +1535,9 @@ class TinantaDerivationEngine:
             _ksa_a = [c.replace("Ky", "kS") for c in _kya_a]
             cands = _cakz_cands + _kya_p + _kya_a + _ksa_p + _ksa_a
             return list(dict.fromkeys(cands)), []
+        # aster bhUH in Ardhadhatuka (Panini 2.4.52)
+        if meta.get("gana") == "adAdiH" and clean == "as" and (sanadi is not None or prayoga == "karmani" or lakara in ("liw", "luw", "lfw", "lfN", "ASIrliN", "luN")):
+            return self.derive("BU", lakara, purusha, vacana, prayoga, sanadi, "01.0001", None, _force_pada=_force_pada)
         is_idit = meta.get("is_idit", False)
         is_mit = meta.get("is_mit", False)
         _b_op = (op or "").replace("~", "").replace("`", "").strip()
