@@ -3,21 +3,21 @@
 Date: 2026-09-28
 Sweep-01: **1156/1156 100%** (raw 1156/1166) — held, fid-diff gate 0/0.
 Sweep-02: **70/76** (raw 70/77, 1 skipped) — held, scores unchanged.
-Sweep-08: **9/10** — held (0005 at 631/632 single nich-luN slot).
-Sweep-07: **0/25** — held, all 25 improved (present done; krdanta next).
+Sweep-08: **9/10** — held, fid-diff 0/0 (0005 nich-luN single slot).
+Sweep-07: **20/25** — 0/25 → 20/25 (20 pass-ups, 5 improved, 0 worsened).
 Landscape: 03 0/26, 04 2/161, 05 0/38, 06 22/174, 09 0/71, 10 145/492.
 
-## Done — rudhAdi Snam present (iteration 181)
-- Short-na infix throughout; infix-n R iff preB has r/f/z; contact N/Y/M/R.
-- Root-nasal merge (und/inD/aYj/taYc/BaYj); coda sandhi twins d/D/T; k/j unified.
-- tfh ne-grade (eka-slots + lot/lang pr/m.eka, sole); lot-Ani-n R iff coda z.
-- Full slot tables lw/low/laN/viDiliN, both padas; surveyed all 25 cleans.
-- Gates: unit tests OK; 01 0/0; 02 scores unchanged; 07 improved-only.
+## Done — rudhAdi krdanta + BaYj-yang/luw (iteration 182)
+- mUla kta gna (o~ {BaYj,vij}) + RRa (fd {Cfd,tfd}); Satf weak+an/atI/at; SAnac weak+Ana.
+- tavya/tfc/tumun Y→N + veT-duals (aYj/taYc) + vij-weak + BaYj-ktvA twins.
+- nich kta/ktavatu sec_base (all 25 verified); ylk e/o/ar/aM/A-redup + kta/ktavatu/Satf
+  (ta-7-set, Cid-double, mUla-twins) + tavya/tfc/tumun/ktvA ({BaYj,taYc,vij} duals).
+- BaYj-yang aM (7.4.86, tinanta+krdanta); BaYj-luw seT+N twins; GaY untouched (green).
+- Gates: unit tests OK; 01 0/0; 02 unchanged; 08 0/0; 07 improved-only.
 
 ## Next
-1. Iter182: rudhAdi krdanta (kta rudDa/Binna/rikta/Sizwa/tfhita/hiMsita, Satf atI,
-   SAnac Ana, GaY guNa/weak-split, lyap, nich sec-base, ylk e-redup).
-2. Iter183: ruD san-Atmane + yak-futures + Cid/aYj-san + BaYj-luw + nich-luN bits.
-3. Gana loop: 03 (juhoti dvitva) → 05 (svAdi nu) → 09 (kryAdi nA) → 04 (divAdi ya)
+1. Iter183: 0001 san-Atmane (rurutsate) + yak/lfw/lfN futures + 0003/0021 san
+   + 0016 san/lfw + (0020/0005 nich-luN SKIP — nijanta-aorist trait).
+2. Gana loop: 03 (juhoti dvitva) → 05 (svAdi nu) → 09 (kryAdi nA) → 04 (divAdi ya)
    → 06 (tudAdi a) → 10 (curAdi aya) → finish 02.
-4. cakz follow-ups; hardcoded "02.0055" fid in KyA/kSA block to revisit.
+3. cakz follow-ups; hardcoded "02.0055" fid in KyA/kSA block to revisit.

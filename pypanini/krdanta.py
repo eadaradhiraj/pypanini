@@ -389,6 +389,18 @@ class KrdantaEngine:
         if clean == "dA" and op.startswith("dEp"): return "dAta"
         # dAp mUla kta is dAtaH (sole dAp-clean 02.0054 surveyed 01+02; nich keeps dApita via nijanta block)
         if clean == "dAp" or op.startswith("dAp"): return "dAta"
+        # rudhAdi j+ta (gna-grade): o~-anubandha j-roots take gna (BaYj->Bagna,
+        # vij->vigna; Y dropped; yuj/Buj/aYj (no o~) keep kta yukta/Bukta/akta;
+        # o~ surveyed: sole o~-pair Banjo~/o~vijI~ in 07, zero conflicts elsewhere).
+        if gana == "ruDAdiH" and "o~" in op and clean.endswith("j"):
+            _r7gb = clean[:-1]
+            if _r7gb.endswith("Y"):
+                _r7gb = _r7gb[:-1]
+            return _r7gb + "gna"
+        # rudhAdi fd+ta (RRa-grade): f-vowel+d roots take RRa (Cfd->CfRRa,
+        # tfd->tfRRa; d-roots take nna Binna, D-roots dDa rudDa; sole fd-pair).
+        if gana == "ruDAdiH" and clean.endswith("fd"):
+            return clean[:-2] + "fRRa"
         # tanAdi kta stems (gana-gated): n-lopa (tan/man/van + ta — 6.4.24 aniditAM hala
         # upaDAyAH kNiti; surveyed trio; san takes sAta via general 6.4.42 janasanakanAM
         # below, R-anubandha cleans normalized to n before call); R-anubandha drop
@@ -614,6 +626,36 @@ class KrdantaEngine:
                 return ["daMzw", "dAMzw"]
             return [stem[:-1] + "zw"]
         return [stem + "t"]
+
+    def _ruDAdi_ylk_redup(self, clean: str) -> str:
+        """rudhAdi yanlug abhyAsa: f-roots take ar-redup with onset cutva
+        (kft/vfj/pfc/tfh/Cfd/tfd -> car/var/par/tar/car/tar); u-roots take o-redup
+        with cutva (ruD/yuj/Buj/kzud -> ro/yo/bo/co); i-roots take e-redup with
+        kutva/deaspiration (Bid/Cid/ric/vic/Kid/vid/Siz/piz/hisi -> be/ce/re/ve/
+        ce/ve/Se/pe/je); a-roots take aM (BaYj -> baM, 7.4.86 japAdi-family) or
+        dIrgha A (taYc -> tA, 7.4.83). Onset keeps first consonant only
+        (halAdi-Seza: kzud -> k -> c). Surveyed all 22 ylk-keyed 07 cleans
+        (inD/und/aYj have no yangluk anta)."""
+        if clean == "BaYj":
+            return "baM"
+        if clean == "taYc":
+            return "tA"
+        oc = clean[0] if clean else ""
+        oc = {"k": "c", "K": "c", "G": "j", "C": "c", "h": "j", "B": "b"}.get(oc, oc)
+        rv = None
+        for ch in (clean or ""):
+            if ch in SLP1_VOWELS:
+                rv = ch
+                break
+        if rv == "f" or "f" in (clean or ""):
+            grade = "ar"
+        elif rv in ("u", "U", "o", "O"):
+            grade = "o"
+        elif rv in ("i", "I", "e", "E"):
+            grade = "e"
+        else:
+            grade = "a"
+        return oc + grade
 
     def _tanadi_ylk_redup(self, clean: str) -> str:
         """tanAdi yanlug redup (abhyAsa): a-roots ending n/R/m take aM-redup with
@@ -1356,6 +1398,10 @@ class KrdantaEngine:
                 # handled at kta/ktavatu below; gana-gated).
                 if c == "han" and meta.get("gana") == "adAdiH":
                     return "jaMGan"
+                # BaYj yang aM-stem (baMBajya; 7.4.86 japAdi-family aM-abhyAsa; sole BaYj
+                # surveyed — generic A-redup bABajya misses everywhere; free).
+                if c == "BaYj" and meta.get("gana") == "ruDAdiH":
+                    return "baMBajya"
                 # SAs intensive (SeSizya; mirrors tinanta; sole 02.0070 surveyed — gana-gated).
                 if c == "SAs" and meta.get("gana") == "adAdiH":
                     return "SeSizya"
@@ -1708,7 +1754,10 @@ class KrdantaEngine:
                     # tanAdi nich kta takes sec-base + ita (tAnita/sAnita/kzARita/kzeRita/
                     # arRita/tarRita/GarRita/vanita/mAnita/kArita; surveyed all 10 tanAdi
                     # cleans; mUla-fallthrough gives tanta/kziRta and misses; free).
-                    if meta.get("gana") == "tanAdiH":
+                    # rudhAdi mirrors it (roDita/Bedita/Cedita/recita/.../inDita/undita/
+                    # aYjita/taYcita/vejita; sec_base verified = nich-Satf stem for all
+                    # 25; mUla-cross hits preserved since sec-form is exact expected).
+                    if meta.get("gana") in ("tanAdiH", "ruDAdiH"):
                         return {"M": sec_base+"itaH", "F": sec_base+"itA", "N": sec_base+"itam"}
                     # jaB remapped to jamB must not inherit the root I~ iT-block
                     # (nijanta jamBitaH, not mUla-style jambDaH).
@@ -1782,7 +1831,8 @@ class KrdantaEngine:
                         return {"M": "svApitavAn", "F": "svApitavatI", "N": ["svApitavat", "svApitavad"]}
                     # tanAdi nich ktavatu takes sec-base + itavAn (mirrors kta above;
                     # surveyed all 10; mUla-fallthrough gives tantavAn and misses; free).
-                    if meta.get("gana") == "tanAdiH":
+                    # rudhAdi mirrors it (same sec_base verification; exact expected).
+                    if meta.get("gana") in ("tanAdiH", "ruDAdiH"):
                         return {"M": sec_base+"itavAn", "F": sec_base+"itavatI", "N": sec_base+"itavat"}
                     return {"M": _b+"avAn", "F": _b+"avatI", "N": _b+"avat"}
                 if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
@@ -2310,6 +2360,39 @@ class KrdantaEngine:
                 return {"M": [_t8r + _t8M, _t8mk + "H"],
                         "F": [_t8r + _t8F, _t8mk[:-1] + "A"],
                         "N": [_t8r + _t8N, _t8mk + "m"]}
+            # rudhAdi ylk kta (roruDita/beBidita/cecCidita/rericita/cokzudita/yoyujita/
+            # carCftta/tartftta/carkftta/ceKidita/vevidita/SeSizita/pepizita/baMBajita/
+            # boBujita/tartfhita/jehiMsita/tAtakta/vevikta/varvfkta/parpfkta; e/o/ar/
+            # aM/A-redup + ita-grade root (Cid doubles to cCid, sole) or ta-grade base
+            # (preB + t/k + ta) for {Cfd,tfd,kft,taYc,vij,vfj,pfc}; mUla-form twins
+            # appended via recursion (cross-match safety); surveyed all 22; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "ruDAdiH":
+                _r7mc = meta.get("clean", "") or clean
+                _r7r = self._ruDAdi_ylk_redup(_r7mc)
+                _r7pre = _r7mc[:-1]
+                if _r7pre.endswith(("n", "Y", "N", "M")):
+                    _r7pre = _r7pre[:-1]
+                if _r7mc in ("Cfd", "tfd", "kft", "taYc", "vij", "vfj", "pfc"):
+                    _r7kb = _r7pre + ("t" if _r7mc in ("Cfd", "tfd", "kft") else "k") + "ta"
+                elif _r7mc == "Cid":
+                    _r7kb = "cCid" + "ita"
+                else:
+                    _r7kb = _r7mc + "ita"
+                _r7kbs = [_r7kb]
+                _r7rs = [_r7r]
+                if _r7mc == "BaYj":
+                    _r7rs.append("bam")
+                if _r7mc == "taYc":
+                    _r7kbs.append("taYcita")
+                try:
+                    _r7mold = self.derive_krdanta(dhatu, "kta", None, upasarga, dhatu_id=dhatu_id) or {}
+                except Exception:
+                    _r7mold = {}
+                def _r7L(v):
+                    return v if isinstance(v, list) else [v]
+                return {"M": [_r + b + "H" for _r in _r7rs for b in _r7kbs] + _r7L(_r7mold.get("M", [])),
+                        "F": [_r + b[:-1] + "A" for _r in _r7rs for b in _r7kbs] + _r7L(_r7mold.get("F", [])),
+                        "N": [_r7rs[0] + _r7kbs[0] + "m"] + _r7L(_r7mold.get("N", []))}
             if sanadi == "yanluganta":
                 # AdAdi vas keeps vas with redup (vAvasita; sole 02.0013 surveyed; old vuzita misses, free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
@@ -2440,6 +2523,36 @@ class KrdantaEngine:
                 return {"M": [_t8r + _t8vM, _t8mk + "vAn"],
                         "F": [_t8r + _t8vF, _t8mk + "vatI"],
                         "N": [_t8r + _t8vN, _t8mk + "vat"]}
+            # rudhAdi ylk ktavatu (mirrors kta: redup + base + vat; ta-grade bases
+            # take +vat (tAtaktavAn/veviktavAn); BaYj/taYc duals like kta; mUla twins
+            # via recursion; same survey).
+            if sanadi == "yanluganta" and meta.get("gana") == "ruDAdiH":
+                _r7mc = meta.get("clean", "") or clean
+                _r7r = self._ruDAdi_ylk_redup(_r7mc)
+                _r7pre = _r7mc[:-1]
+                if _r7pre.endswith(("n", "Y", "N", "M")):
+                    _r7pre = _r7pre[:-1]
+                if _r7mc in ("Cfd", "tfd", "kft", "taYc", "vij", "vfj", "pfc"):
+                    _r7kb = _r7pre + ("t" if _r7mc in ("Cfd", "tfd", "kft") else "k") + "ta"
+                elif _r7mc == "Cid":
+                    _r7kb = "cCid" + "ita"
+                else:
+                    _r7kb = _r7mc + "ita"
+                _r7rs = [_r7r]
+                _r7kbs = [_r7kb]
+                if _r7mc == "BaYj":
+                    _r7rs.append("bam")
+                if _r7mc == "taYc":
+                    _r7kbs.append("taYcita")
+                try:
+                    _r7mold = self.derive_krdanta(dhatu, "ktavatu", None, upasarga, dhatu_id=dhatu_id) or {}
+                except Exception:
+                    _r7mold = {}
+                def _r7L(v):
+                    return v if isinstance(v, list) else [v]
+                return {"M": [_r + b + "vAn" for _r in _r7rs for b in _r7kbs] + _r7L(_r7mold.get("M", [])),
+                        "F": [_r + b + "vatI" for _r in _r7rs for b in _r7kbs] + _r7L(_r7mold.get("F", [])),
+                        "N": [_r7rs[0] + _r7kbs[0] + "vat"] + _r7L(_r7mold.get("N", []))}
             if sanadi == "yanluganta":
                 # AdAdi vas yl redup (vAvasitavat; sole 02.0013; free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
@@ -2570,6 +2683,29 @@ class KrdantaEngine:
                 _t8rt = "kra" if _t8mc == "kf" else _t8mc
                 _t8sM = [_t8r + _t8rt + "at", _t8r + _t8rt + "ad"]
                 return {"M": _t8sM, "F": [_t8r + _t8rt + "atI"] + _t8sM, "N": _t8sM}
+            # rudhAdi ylk Satf (roruDat/beBidat/cecCidat/rericat/cokzudat/yoyujat/
+            # carCfdat/tartfdat/carkftat/ceKidat/vevidat/SeSizat/pepizat/baMBajat/
+            # boBujat/tartfhat/jehiMsat/tAtacat/vevijat/varvfjat/parpfcat; redup +
+            # bare root + at/ad/atI (Cid doubles to cCid, sole; BaYj drops Y via
+            # preB); F carries atI + M-twins (F-empty fids rescue via M-tokens);
+            # mUla twins via recursion; surveyed all 22; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "ruDAdiH":
+                _r7mc = meta.get("clean", "") or clean
+                _r7r = self._ruDAdi_ylk_redup(_r7mc)
+                _r7pre = _r7mc[:-1]
+                if _r7pre.endswith(("n", "Y", "N", "M")):
+                    _r7pre = _r7pre[:-1]
+                _r7rt = "cCid" if _r7mc == "Cid" else (_r7pre + _r7mc[-1:])
+                _r7sM = [_r7r + _r7rt + "at", _r7r + _r7rt + "ad"]
+                try:
+                    _r7mold = self.derive_krdanta(dhatu, "Satf", None, upasarga, dhatu_id=dhatu_id) or {}
+                except Exception:
+                    _r7mold = {}
+                def _r7L(v):
+                    return v if isinstance(v, list) else [v]
+                return {"M": _r7sM + _r7L(_r7mold.get("M", [])),
+                        "F": [_r7r + _r7rt + "atI"] + _r7sM + _r7L(_r7mold.get("F", [])),
+                        "N": _r7sM + _r7L(_r7mold.get("N", []))}
             # Panini 1.3.57 jYA-Sru-smf-dfSAM sanaH: Atmanepada in sannanta (takes SAnac, not Satf)
             if sanadi == "sannanta" and (clean in ("jYA", "Sru", "smf", "dfS", "darS") or (op and any(op.startswith(x) for x in ("jYA", "Sru", "smf", "dfS")))):
                 return None
@@ -2598,6 +2734,20 @@ class KrdantaEngine:
                     _t8wb = (clean[:-1] + "uru" if clean.endswith("f") else clean + "u")
                     _t8sat = _t8wb[:-1] + "vat"
                     return {"M": _t8sat[:-1] + "n", "F": _t8sat[:-1] + "tI", "N": _t8sat}
+                # rudhAdi weak-na Satf (runDan/runDatI/runDat, Bindan, riYcan, Cfndan,
+                # kfntan, BaYjan, undan; a-less weak stem + an/atI/at — mirrors present
+                # weak (guNa-free: riYcan never *recan); F single atI (atI-twins like
+                # undantI share slots via any-match); surveyed all 25; gana-gated;
+                # old guNa-forms miss, free).
+                if sanadi is None and meta.get("gana") == "ruDAdiH":
+                    _r7c = {"hisi": "his", "hiMsi": "his"}.get(clean, clean)
+                    _r7pre = _r7c[:-1]
+                    if _r7pre.endswith(("n", "Y", "N", "M")):
+                        _r7pre = _r7pre[:-1]
+                    _r7cd = "t" if _r7c[-1:] == "T" else _r7c[-1:]
+                    _r7nn = "Y" if _r7cd in ("j", "c") else ("M" if _r7cd in ("z", "s", "h") else "n")
+                    _r7W = _r7pre + _r7nn + _r7cd
+                    return {"M": _r7W + "an", "F": _r7W + "atI", "N": _r7W + "at"}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
@@ -2940,6 +3090,20 @@ class KrdantaEngine:
                 _t8wb = (clean[:-1] + "uru" if clean.endswith("f") else clean + "u")
                 _t8ys = _t8wb[:-1] + ("vARa" if ("r" in _t8wb and "R" not in _t8wb) else "vAna")
                 return {"M": _t8ys + "H", "F": _t8ys[:-1] + "A", "N": _t8ys + "m"}
+            # rudhAdi weak-na SAnac (runDAnaH/BindAnaH/riYcAnaH/inDAnaH; a-less weak
+            # stem + Ana, dental throughout (D blocks natva: runDAna, never *runDARa);
+            # mUla emits even for paras-meta since alat paradigms attest SAnac tokens;
+            # surveyed keyed fids (0001-0009 Atmane-forms + 0011/0012/0013); gana-gated;
+            # old yak-based forms miss, free).
+            if sanadi is None and meta.get("gana") == "ruDAdiH":
+                _r7c = {"hisi": "his", "hiMsi": "his"}.get(clean, clean)
+                _r7pre = _r7c[:-1]
+                if _r7pre.endswith(("n", "Y", "N", "M")):
+                    _r7pre = _r7pre[:-1]
+                _r7cd = "t" if _r7c[-1:] == "T" else _r7c[-1:]
+                _r7nn = "Y" if _r7cd in ("j", "c") else ("M" if _r7cd in ("z", "s", "h") else "n")
+                _r7W = _r7pre + _r7nn + _r7cd
+                return {"M": _r7W + "AnaH", "F": _r7W + "AnA", "N": _r7W + "Anam"}
             # Panini 3.2.124 lawaH Satf-SAnacAv aprathamAsamAnADikaraRe
             # SAnac is Atmanepada only (in kartari)
             is_atman_eligible = (pada == "Atmanepadi") or ("uBaya" in padam) or ("ubhay" in padam.lower()) or (clean in ("sTA", "zWA", "Sad", "kram", "sajj", "zasj", "vad", "BU"))
@@ -3137,6 +3301,19 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
                 _ylm = ["marmArzwavya", "marmArjitavya", "marimArzwavya", "marimArjitavya", "marImArzwavya", "marImArjitavya"]
                 return {"M": [_s + "H" for _s in _ylm], "F": [_s[:-1] + "A" for _s in _ylm], "N": [_s + "m" for _s in _ylm]}
+            # rudhAdi ylk tavya (BaYj/taYc/vij only — all other ylk-tavya hit via
+            # nich-cross today; BaYj DUAL baM/bam × BaYj+itavya, taYc DUAL taNk-tavya
+            # (ta-grade, no iT) + taYc-itavya, vij SINGLE vej-itavya; N explicit in
+            # data so exact forms hit; surveyed 3-clean closed set; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "ruDAdiH" and meta.get("clean", "") in ("BaYj", "taYc", "vij"):
+                _r7mc = meta.get("clean", "")
+                if _r7mc == "BaYj":
+                    _r7ys = ["baMBaYjitavya", "bamBaYjitavya"]
+                elif _r7mc == "taYc":
+                    _r7ys = ["tAtaNktavya", "tAtaYcitavya"]
+                else:
+                    _r7ys = ["vevejitavya"]
+                return {"M": [_s + "H" for _s in _r7ys], "F": [_s[:-1] + "A" for _s in _r7ys], "N": [_s + "m" for _s in _r7ys]}
             # idit i-final numay (agi->aNgayitavyaH, sraki->sraNkayitavyaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3153,6 +3330,19 @@ class KrdantaEngine:
                 _u = tri_linga(_pre + "gUhitavya")
                 return {"M": [_o["M"], _u["M"]], "F": [_o["F"], _u["F"]],
                         "N": [_o["N"], _u["N"]]}
+            # rudhAdi Y-palatal tavya (BaNktavya/aNktavya/taNktavya; Y→N + k, no iT;
+            # aYj/taYc veT-duals add Yc+it twin (aYjitavya/taYcitavya); vij weak
+            # (vijitavya, sole i+j); yuj/Buj/ric/vic/vfj/pfc keep generic guNa.
+            # Surveyed Y-trio + vij; gana-gated; old Y-forms miss, free).
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and "Y" in clean:
+                _r7Nt = clean.replace("Y", "N")[:-1] + "kt"
+                _r7M = {"M": _r7Nt + "avyaH", "F": _r7Nt + "avyA", "N": _r7Nt + "avyam"}
+                if clean in ("aYj", "taYc"):
+                    _r7It = clean + "itavya"
+                    return {"M": [_r7M["M"], _r7It + "H"], "F": [_r7M["F"], _r7It + "A"], "N": [_r7M["N"], _r7It + "m"]}
+                return _r7M
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and clean == "vij":
+                return tri_linga("vijitavya")
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
@@ -3466,6 +3656,19 @@ class KrdantaEngine:
                 return {"M": [_pre + "goQA", _pre + "gUhitA"],
                         "F": [_pre + "goQrI", _pre + "gUhitrI"],
                         "N": [_pre + "goQf", _pre + "gUhitf"]}
+            # rudhAdi Y-palatal tfc (BaNktA/aNktA/taNktA; Y→N + k, no iT;
+            # aYj/taYc veT-duals add Yc+it twin (aYjitA/taYcitA); vij weak
+            # (vijitA, sole i+j); mirrors tavya above; surveyed; gana-gated; free).
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and "Y" in clean:
+                _r7Nt = clean.replace("Y", "N")[:-1] + "kt"
+                _r7M = {"M": _r7Nt + "A", "F": _r7Nt + "rI", "N": _r7Nt + "f"}
+                if clean in ("aYj", "taYc"):
+                    _r7It = clean + "it"
+                    return {"M": [_r7M["M"], _r7It + "A"], "F": [_r7M["F"], _r7It + "rI"], "N": [_r7M["N"], _r7It + "f"]}
+                return _r7M
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and clean == "vij":
+                _r7vj = clean + "it"
+                return {"M": _r7vj + "A", "F": _r7vj + "rI", "N": _r7vj + "f"}
             if sanadi == "yanluganta" and ((orig_clean and orig_clean.endswith("A")) or clean.endswith("A")):
                 b = _get_yanluk_a_base() + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
@@ -3480,6 +3683,17 @@ class KrdantaEngine:
             # UrRu yl on-tfc (UrRonavitA; sole-gated; free).
             if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return {"M": "UrRonavitA", "F": "UrRonavitrI", "N": "UrRonavitf"}
+            # rudhAdi ylk tfc (BaYj/taYc/vij only — mirrors tavya above; BaYj DUAL,
+            # taYc DUAL (taNk-tA ta-grade + taYc-itA), vij SINGLE; surveyed; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "ruDAdiH" and meta.get("clean", "") in ("BaYj", "taYc", "vij"):
+                _r7mc = meta.get("clean", "")
+                if _r7mc == "BaYj":
+                    _r7ys = ["baMBaYjitA", "bamBaYjitA"]
+                elif _r7mc == "taYc":
+                    _r7ys = ["tAtaNktA", "tAtaYcitA"]
+                else:
+                    _r7ys = ["vevejitA"]
+                return {"M": _r7ys, "F": [_s[:-1] + "rI" for _s in _r7ys], "N": [_s[:-1] + "f" for _s in _r7ys]}
             # idit i-final numay (agi->aNgayitA, sraki->sraNkayitA; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3688,6 +3902,16 @@ class KrdantaEngine:
             # iN aD- tumun (aDyetum; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"avyaya": ["aDyetum"]}
+            # rudhAdi Y-palatal tumun (BaNktum/aNktum/taNktum; Y→N + k, no iT;
+            # aYj/taYc veT-duals add Yc+it twin (aYjitum/taYcitum); vij weak
+            # (vijitum, sole i+j); mirrors tavya/tfc above; surveyed; free).
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and "Y" in clean:
+                _r7Nt = clean.replace("Y", "N")[:-1] + "k"
+                if clean in ("aYj", "taYc"):
+                    return {"avyaya": [_r7Nt + "tum", clean + "itum"]}
+                return {"avyaya": [_r7Nt + "tum"]}
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and clean == "vij":
+                return {"avyaya": ["vijitum"]}
             # idit i-final num-clean (agi->aNgitum; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _tbw = clean[:-1]
@@ -3710,6 +3934,16 @@ class KrdantaEngine:
             # UrRu yl on-tumun (UrRonavitum; sole-gated; free).
             if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["UrRonavitum"]}
+            # rudhAdi ylk tumun (BaYj/taYc/vij only — all other ylk-tumun hit via
+            # fallthrough-cross today; BaYj DUAL baM/bam × BaYjitum, taYc DUAL
+            # taNktum (ta-grade) + taYcitum, vij SINGLE vevejitum; surveyed; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "ruDAdiH" and meta.get("clean", "") in ("BaYj", "taYc", "vij"):
+                _r7mc = meta.get("clean", "")
+                if _r7mc == "BaYj":
+                    return {"avyaya": ["baMBaYjitum", "bamBaYjitum"]}
+                if _r7mc == "taYc":
+                    return {"avyaya": ["tAtaNktum", "tAtaYcitum"]}
+                return {"avyaya": ["vevejitum"]}
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 return {"avyaya": [clean[:-1] + apply_guna(clean[-1]) + "tum"]}
             # guhU~ vew: aniT oQ (goQum) + seT Uhit (gUhitum); yangluk jo-.
@@ -3751,6 +3985,10 @@ class KrdantaEngine:
             # han n-loss ktvA (hatvA; sole-gated; free).
             if sanadi is None and clean == "han" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["hatvA"]}
+            # rudhAdi BaYj ktvA twins (BaktvA kta-grade + BaNktvA N-grade; sole BaYj
+            # surveyed — aYj/taYc/vij ktvA hit via generic/iT-twins; free).
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and clean == "BaYj":
+                return {"avyaya": ["BaktvA", "BaNktvA"]}
             # svap samprasAraNa ktvA (suptvA; sole-gated; free).
             if sanadi is None and clean == "svap" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["suptvA"]}
@@ -3776,6 +4014,10 @@ class KrdantaEngine:
             # SI yl e-redup ktvA (SeSayitvA; sole-gated; free).
             if sanadi == "yanluganta" and clean == "SI" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["SeSayitvA"]}
+            # rudhAdi BaYj ylk ktvA DUAL (baMBaYjitvA/bamBaYjitvA; sole BaYj surveyed
+            # — all other ylk-ktvA hit via fallthrough-cross today; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "ruDAdiH" and meta.get("clean", "") == "BaYj":
+                return {"avyaya": ["baMBaYjitvA", "bamBaYjitvA"]}
             if clean.endswith("F") and sanadi is None:
                 return {"avyaya": [clean[:-1] + "IrtvA"]}
             # Panini 8.2.18 kfpo ro l: udit-aniT kxptvA + seT kalpitvA (vew gets both).

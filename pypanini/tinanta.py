@@ -1921,6 +1921,10 @@ class TinantaDerivationEngine:
                 return _ysb[c] + "ya"
             if c == "BU":
                 return "boBUy"
+            # BaYj yang aM-stem (baMBajyate; 7.4.86 japAdi-family aM-abhyAsa; sole BaYj
+            # surveyed — generic A-redup bABajya misses everywhere; mirrors krdanta).
+            if c == "BaYj" and meta.get("gana") == "ruDAdiH":
+                return "baMBajya"
             # single vocalic-f yan (arAryate; sole 01 f-clean 01.1086; rIN-arA allomorph)
             if c == "f":
                 return "arArya"
@@ -5518,6 +5522,11 @@ class TinantaDerivationEngine:
             # iN lut e-grade stem (aDyetA; sole 02.0041 surveyed — op-gated vs iR; additive).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                 cands += self._conjugate_luw("aDye", pada, purusha, vacana)
+            # rudhAdi BaYj lut twins (BaYjitA seT + BaNktA N-grade aniT; sole BaYj
+            # surveyed — generic aniT gives miss Y-forms; both twins attested; free).
+            if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") == "BaYj":
+                cands += self._conjugate_luw("BaYji", pada, purusha, vacana)
+                cands += self._conjugate_luw("BaNk", pada, purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
