@@ -3327,6 +3327,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "daridrA":
                     if "daridry" not in yak_list:
                         yak_list.append("daridry")
+                # grah yak samprasAraNa stem (gfhyate; sole 09.0071 surveyed —
+                # old grahyate misses everywhere; additive, kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "grah":
+                    if "gfhy" not in yak_list:
+                        yak_list.append("gfhy")
                 # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: yak dIrgha for iv/Iv-final mUla
                 # (sWiv->sWIvyate, kzIvu~->kzIvyate; surveyed 01 iv/Iv set, additive, deduped)
                 if sanadi is None and len(clean) >= 2 and clean[-1] == "v" and clean[-2] in ("i", "I"):
@@ -3993,6 +3998,61 @@ class TinantaDerivationEngine:
                     _rsy5 = "reD" if meta.get("clean") == "rAD" else "sasAD"
                     _rsy5_tab = {("prathama","eka"):[_rsy5+"e"],("prathama","dvi"):[_rsy5+"Ate"],("prathama","bahu"):[_rsy5+"ire"],("madhyama","eka"):[_rsy5+"ize"],("madhyama","dvi"):[_rsy5+"ATe"],("madhyama","bahu"):[_rsy5+"iDve"],("uttama","eka"):[_rsy5+"e"],("uttama","dvi"):[_rsy5+"ivahe"],("uttama","bahu"):[_rsy5+"imahe"]}
                     cands += _rsy5_tab.get((purusha, vacana), [])
+                # kryAdi yak-liT redup perfect (cikriye/cuskuve/cakare/jagfhe;
+                # redup C1(+palatal/cutva, s+stop takes stop, SF takes s) + a/i/u
+                # + weak (i→y/u→v glides iff single-onset, s→z, f→ar, grah→gfh)
+                # + standard Atmane lit endings with ma.bahu Qve/Dve twins;
+                # shape-gated (vowel/f/F-final + grah; consonant-finals keep
+                # generic cross-hits); surveyed all 17 ubhaya cleans; additive,
+                # kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and (clean[-1:] in SLP1_VOWELS or clean[-1:] in ("f", "F") or clean == "grah"):
+                    _k9mc = meta.get("clean", "") or clean
+                    if _k9mc == "grah":
+                        _k9rr, _k9rv, _k9wv = "ja", "", "gfh"
+                        _k9fin = ""
+                    else:
+                        _k9fin = clean[-1:]
+                        _k9rv = "i" if _k9fin in ("i", "I") else ("u" if _k9fin in ("u", "U") else "a")
+                        _k9on = ""
+                        for _ch in clean:
+                            if _ch in SLP1_VOWELS:
+                                break
+                            _k9on += _ch
+                        if len(_k9on) >= 2 and _k9on[:2] not in ("kn", "dr") and _k9on[0] in ("s", "S") and _k9on[1] not in SLP1_VOWELS:
+                            _k9rc = _k9on[1]
+                        else:
+                            _k9rc = _k9on[:1]
+                        if _k9mc == "SF":
+                            _k9rc = "s"
+                        elif _k9rc == "s":
+                            _k9rc = "S"
+                        # NB: module VELAR_TO_PALATAL/DEASPIRATE are shadowed by
+                        # function-locals (None) on the sanadi-None path, so use
+                        # literals here (same content as module maps).
+                        _k9pal = {"k":"c","K":"c","g":"j","G":"j","N":"Y","h":"j"}.get(_k9rc, _k9rc)
+                        _k9rr = {"B":"b","G":"g","Q":"q","D":"d","J":"j","K":"k","C":"c","W":"w","T":"t","P":"p"}.get(_k9pal, _k9pal)
+                        if _k9fin in ("f", "F"):
+                            _k9wv = clean[:-1] + "ar"
+                        elif _k9fin in ("i", "I"):
+                            if len(clean) == 2:
+                                _k9wv = ("z" if clean[:1] == "s" else clean[:-1]) + "y"
+                            else:
+                                _k9wv = clean[:-1] + "iy"
+                        else:
+                            _k9wv = _k9on + "uv"
+                    # f/F-roots take a-grade lit endings on the ar-weak (cakare, no y;
+                    # SF adds zero-grade Sr-twins + ma.bahu quad).
+                    if _k9fin in ("f", "F") and _k9mc != "grah":
+                        _k9fa = {("prathama","eka"):["e"],("prathama","dvi"):["Ate"],("prathama","bahu"):["ire"],("madhyama","eka"):["ize"],("madhyama","dvi"):["ATe"],("madhyama","bahu"):["iQve","iDve"],("uttama","eka"):["e"],("uttama","dvi"):["ivahe"],("uttama","bahu"):["imahe"]}
+                        _k9abase = _k9rr + "a" + _k9wv
+                        for _suf in _k9fa.get((purusha, vacana), []):
+                            cands.append(_k9abase + _suf)
+                            if _k9mc == "SF":
+                                cands.append("Sr" + _suf)
+                    else:
+                        _k9yb = _k9rr + _k9rv + _k9wv
+                        _k9yl = {("prathama","eka"):[_k9yb+"e"],("prathama","dvi"):[_k9yb+"Ate"],("prathama","bahu"):[_k9yb+"ire"],("madhyama","eka"):[_k9yb+"ize"],("madhyama","dvi"):[_k9yb+"ATe"],("madhyama","bahu"):[_k9yb+"iDve",_k9yb+"iQve"],("uttama","eka"):[_k9yb+"e"],("uttama","dvi"):[_k9yb+"ivahe"],("uttama","bahu"):[_k9yb+"imahe"]}
+                        cands += _k9yl.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
