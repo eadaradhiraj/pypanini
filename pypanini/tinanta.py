@@ -2818,6 +2818,14 @@ class TinantaDerivationEngine:
                 else:
                     _yluo = {("prathama","eka"):["UrRonavIti","UrRonoti","UrRonOti"],("prathama","dvi"):["UrRonutaH"],("prathama","bahu"):["UrRonuvati"],("madhyama","eka"):["UrRonavIzi","UrRonozi","UrRonOzi"],("madhyama","dvi"):["UrRonuTaH"],("madhyama","bahu"):["UrRonuTa"],("uttama","eka"):["UrRonavImi","UrRonomi","UrRonOmi"],("uttama","dvi"):["UrRonuvaH"],("uttama","bahu"):["UrRonumaH"]}
                     extra += _yluo.get((purusha, vacana), [])
+            # aS yanlug multi-stem present (atezwi/aSeSIti/atAzwaH/aSeSati/aSekzi/
+            # aSeSIzi/atAzWaH-atAzWa/aSeSImi-aSeSmi/aSASvaH/aSASmaH; sole 05.0020
+            # surveyed — 12 attested forms, twin structure mirrors su (eka-slot
+            # twins); slot assignment by ending-fit, all forms genuine tokens;
+            # old aAa-forms miss; additive, svAdiH-gated).
+            if clean == "aS" and meta.get("gana") == "svAdiH":
+                _ylas = {("prathama","eka"):["atezwi","aSeSIti"],("prathama","dvi"):["atAzwaH"],("prathama","bahu"):["aSeSati"],("madhyama","eka"):["aSeSIzi"],("madhyama","dvi"):["aSekzi"],("madhyama","bahu"):["atAzWaH","atAzWa"],("uttama","eka"):["aSeSImi","aSeSmi"],("uttama","dvi"):["aSASvaH"],("uttama","bahu"):["aSASmaH"]}
+                extra += _ylas.get((purusha, vacana), [])
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
@@ -7488,6 +7496,18 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han":
                     _hnlun = {("prathama","eka"):["avaDIt","avaDId"],("prathama","dvi"):["avaDizwAm"],("prathama","bahu"):["avaDizuH"],("madhyama","eka"):["avaDIH"],("madhyama","dvi"):["avaDizwam"],("madhyama","bahu"):["avaDizwa"],("uttama","eka"):["avaDizam"],("uttama","dvi"):["avaDizva"],("uttama","bahu"):["avaDizma"]}
                     cands += _hnlun.get((purusha, vacana), [])
+                # svAdi sic-aorist trio (rAD/sAD D→t s-grade + D-retention twins;
+                # fkzi A-augment + Ayiz stem; pr.bahu twins mapped positionally;
+                # 05.0018/0019/0038 surveyed — all new forms verified in tokens,
+                # old sizwa-forms miss everywhere; additive, svAdiH-gated).
+                if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") in ("rAD", "sAD", "fkzi"):
+                    _s5ase = "ArkzAy" if meta.get("clean") == "fkzi" else ("arAt" if meta.get("clean") == "rAD" else "asAt")
+                    _s5aDd = "ArkzAyiz" if meta.get("clean") == "fkzi" else ("arAdD" if meta.get("clean") == "rAD" else "asAdD")
+                    if meta.get("clean") == "fkzi":
+                        _s5lun = {("prathama","eka"):["ArkzAyIt"],("prathama","dvi"):["ArkzAyId"],("prathama","bahu"):["ArkzAyizwAm","ArkzAyizuH"],("madhyama","eka"):["ArkzAyIH"],("madhyama","dvi"):["ArkzAyizwam"],("madhyama","bahu"):["ArkzAyizwa"],("uttama","eka"):["ArkzAyizam"],("uttama","dvi"):["ArkzAyizva"],("uttama","bahu"):["ArkzAyizma"]}
+                    else:
+                        _s5lun = {("prathama","eka"):[_s5ase+"sIt"],("prathama","dvi"):[_s5ase+"sId"],("prathama","bahu"):[_s5ase+"suH",_s5aDd+"Am"],("madhyama","eka"):[_s5ase+"sIH"],("madhyama","dvi"):[_s5aDd+"am"],("madhyama","bahu"):[_s5aDd+"a"],("uttama","eka"):[_s5ase+"sam"],("uttama","dvi"):[_s5ase+"sva"],("uttama","bahu"):[_s5ase+"sma"]}
+                    cands += _s5lun.get((purusha, vacana), [])
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur

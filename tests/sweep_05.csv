@@ -1,39 +1,39 @@
 fid,matched,total,pct,secs,misses,skipped
-05.0001,887,887,100.0,0.3,,5
+05.0001,887,887,100.0,0.2,,5
 05.0002,887,887,100.0,0.6,,5
-05.0003,887,887,100.0,0.4,,5
-05.0004,887,887,100.0,0.2,,5
-05.0005,888,888,100.0,0.5,,4
-05.0006,885,885,100.0,0.3,,7
-05.0007,885,885,100.0,0.5,,7
+05.0003,887,887,100.0,0.7,,5
+05.0004,887,887,100.0,0.7,,5
+05.0005,888,888,100.0,0.6,,4
+05.0006,885,885,100.0,0.2,,7
+05.0007,885,885,100.0,0.4,,7
 05.0008,884,884,100.0,0.7,,8
-05.0009,887,887,100.0,0.6,,5
-05.0010,887,887,100.0,0.8,,5
-05.0011,881,881,100.0,0.8,,11
+05.0009,887,887,100.0,0.9,,5
+05.0010,887,887,100.0,0.6,,5
+05.0011,881,881,100.0,0.6,,11
 05.0012,881,881,100.0,0.6,,11
-05.0013,879,879,100.0,0.7,,13
+05.0013,879,879,100.0,0.3,,13
 05.0014,879,879,100.0,0.6,,13
 05.0015,879,879,100.0,0.4,,10
-05.0016,626,626,100.0,0.5,,10
+05.0016,626,626,100.0,0.4,,10
 05.0017,882,882,100.0,0.5,,10
-05.0018,828,879,94.2,0.5,ting/luN/prathama/eka:arADsat | ting/luN/prathama/bahu:arADsan | ting/luN/madhyama/eka:arADaH | ting/luN/uttama/eka:arADsam | ting/luN/uttama/dvi:arADsva,13
-05.0019,837,879,95.2,0.5,ting/luN/prathama/eka:asADt | ting/luN/prathama/bahu:asADsan | ting/luN/madhyama/eka:asADH | ting/luN/uttama/eka:asADsam | ting/luN/uttama/dvi:asADsAva,13
-05.0020,858,876,97.9,0.5,yangluk/lw/prathama/eka:aAaSaH | yangluk/lw/prathama/dvi:aAaSTaH | yangluk/lw/prathama/bahu:aAaSyante | yangluk/lw/madhyama/eka:aAaSTaH | yangluk/lw/madhyama/dvi:aAaSyeTe,7
-05.0021,876,876,100.0,0.5,,7
-05.0022,879,879,100.0,0.5,,13
+05.0018,834,879,94.9,0.5,ting/lfN/prathama/eka:arADsyat | ting/lfN/prathama/dvi:arADsyatAm | ting/lfN/prathama/bahu:arADsyan | ting/lfN/madhyama/eka:arADsyaH | ting/lfN/madhyama/dvi:arADsyatam,13
+05.0019,843,879,95.9,0.5,ting/lfN/prathama/eka:asADsyat | ting/lfN/prathama/dvi:asADsyatAm | ting/lfN/prathama/bahu:asADsyan | ting/lfN/madhyama/eka:asADsyaH | ting/lfN/madhyama/dvi:asADsyatam,13
+05.0020,876,876,100.0,0.6,,7
+05.0021,876,876,100.0,0.4,,7
+05.0022,879,879,100.0,0.4,,13
 05.0023,879,879,100.0,0.5,,13
-05.0024,879,879,100.0,0.4,,13
+05.0024,879,879,100.0,0.5,,13
 05.0025,878,879,99.9,0.5,yangluk_krut/Satf/F:['darDfzatI'],13
 05.0026,879,879,100.0,0.5,,13
-05.0027,626,626,100.0,0.3,,10
-05.0028,878,879,99.9,0.5,yangluk_krut/Satf/F:['tartfpatI'],13
+05.0027,626,626,100.0,0.5,,10
+05.0028,878,879,99.9,0.3,yangluk_krut/Satf/F:['tartfpatI'],13
 05.0029,626,626,100.0,0.4,,10
-05.0030,879,879,100.0,0.3,,13
+05.0030,879,879,100.0,0.4,,13
 05.0031,878,879,99.9,0.4,yangluk_krut/Satf/F:['caMcamatI'],13
 05.0032,881,881,100.0,0.4,,11
-05.0033,881,881,100.0,0.5,,11
-05.0034,628,628,100.0,0.3,,8
-05.0035,628,628,100.0,0.5,,8
-05.0036,879,879,100.0,0.3,,13
+05.0033,881,881,100.0,0.4,,11
+05.0034,628,628,100.0,0.4,,8
+05.0035,628,628,100.0,0.3,,8
+05.0036,879,879,100.0,0.4,,13
 05.0037,879,879,100.0,0.3,,13
-05.0038,565,628,90.0,0.4,ting/luN/prathama/eka:ArkzEzId | ting/luN/prathama/dvi:ArkzizwAm | ting/luN/prathama/bahu:ArkzizuH | ting/luN/madhyama/eka:ArkzayH | ting/luN/madhyama/dvi:Arkzaytam,8
+05.0038,574,628,91.4,0.4,ting/lfN/prathama/eka:Arkzayzyat | ting/lfN/prathama/dvi:ArkzayzyatAm | ting/lfN/prathama/bahu:Arkzayzyan | ting/lfN/madhyama/eka:ArkzayzyaH | ting/lfN/madhyama/dvi:Arkzayzyatam,8
