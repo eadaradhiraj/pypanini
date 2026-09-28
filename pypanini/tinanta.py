@@ -3602,6 +3602,24 @@ class TinantaDerivationEngine:
                     if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "Ap":
                         _ape5 = {("prathama","eka"):["Ape"],("prathama","dvi"):["ApAte"],("prathama","bahu"):["Apire"],("madhyama","eka"):["Apize"],("madhyama","dvi"):["ApATe"],("madhyama","bahu"):["ApiDve"],("uttama","eka"):["Ape"],("uttama","dvi"):["Apivahe"],("uttama","bahu"):["Apimahe"]}
                         cands += _ape5.get((purusha, vacana), [])
+                    # fkzi yak-liT fkzay-peri (fkzayAYcakre/fkzayAmAse/fkzayAmbaBUve
+                    # triplets per slot; sole 05.0038 surveyed — old fkzi-peri
+                    # forms miss everywhere; this return site traced empirically
+                    # since f-initial fkzi exits before later blocks; additive,
+                    # svAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "fkzi":
+                        _fky5_aux = {
+                            ("prathama", "eka"): ["AYcakre", "AmAse", "AmbaBUve"],
+                            ("prathama", "dvi"): ["AYcakrAte", "AmAsAte", "AmbaBUvAte"],
+                            ("prathama", "bahu"): ["AYcakrire", "AmAsire", "AmbaBUvire"],
+                            ("madhyama", "eka"): ["AYcakfze", "AmAsize", "AmbaBUvize"],
+                            ("madhyama", "dvi"): ["AYcakrATe", "AmAsATe", "AmbaBUvATe"],
+                            ("madhyama", "bahu"): ["AYcakfQve", "AmAsiDve", "AmbaBUviQve"],
+                            ("uttama", "eka"): ["AYcakre", "AmAhe", "AmbaBUve"],
+                            ("uttama", "dvi"): ["AYcakfvahe", "AmAsivahe", "AmbaBUvivahe"],
+                            ("uttama", "bahu"): ["AYcakfmahe", "AmAsimahe", "AmbaBUvimahe"],
+                        }
+                        cands += ["fkzay" + _ax for _ax in _fky5_aux.get((purusha, vacana), [])]
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
@@ -3912,6 +3930,15 @@ class TinantaDerivationEngine:
                         ("uttama", "bahu"): ["AYcakfmahe", "AmAsimahe", "AmbaBUvimahe"],
                     }
                     cands += [_cjy5 + _ax for _ax in _cjy5_aux.get((purusha, vacana), [])]
+                # rAD/sAD/fkzi yak-liT karmani (reD-e/sasAD-e/fkzay-peri triplets;
+                # trio 05.0018/0019/0038 surveyed — rAD takes reD- weak, sAD keeps
+                # full-root sasAD-, fkzi takes fkzay-peri like ciri; old redup/
+                # peri-forms miss (sAD eka sasADe already hits, kept); additive,
+                # svAdiH-gated).
+                if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") in ("rAD", "sAD"):
+                    _rsy5 = "reD" if meta.get("clean") == "rAD" else "sasAD"
+                    _rsy5_tab = {("prathama","eka"):[_rsy5+"e"],("prathama","dvi"):[_rsy5+"Ate"],("prathama","bahu"):[_rsy5+"ire"],("madhyama","eka"):[_rsy5+"ize"],("madhyama","dvi"):[_rsy5+"ATe"],("madhyama","bahu"):[_rsy5+"iDve"],("uttama","eka"):[_rsy5+"e"],("uttama","dvi"):[_rsy5+"ivahe"],("uttama","bahu"):[_rsy5+"imahe"]}
+                    cands += _rsy5_tab.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
