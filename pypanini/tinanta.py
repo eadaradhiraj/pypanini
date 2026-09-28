@@ -1570,6 +1570,18 @@ class TinantaDerivationEngine:
                 "uttama": {"eka": ["digye"], "dvi": ["digyivahe"], "bahu": ["digyimahe"]},
             }
             return list(dict.fromkeys(_de_lit[purusha][vacana])), []
+        # mi liT weak mimy- (mimyatuH/mimyuH/mimyaTuH/mimya/mimyiva/mimyima;
+        # strong slots keep generic mA-perfect (mamO/mamATa/mamiTa, all hit);
+        # sole 05.0004 surveyed (meta-clean gate); old ma-forms miss
+        # everywhere, free; Atmane recursion untouched (Alit null, unscored)).
+        if (meta.get("clean") == "mi" or dhatu_id == "05.0004") and meta.get("gana") == "svAdiH" and lakara == "liw" and sanadi is None and prayoga == "kartari" and _force_pada != "Atmanepadi":
+            _mi_lit_weak = {
+                ("prathama", "dvi"): ["mimyatuH"], ("prathama", "bahu"): ["mimyuH"],
+                ("madhyama", "dvi"): ["mimyaTuH"], ("madhyama", "bahu"): ["mimya"],
+                ("uttama", "dvi"): ["mimyiva"], ("uttama", "bahu"): ["mimyima"],
+            }
+            if (purusha, vacana) in _mi_lit_weak:
+                return list(dict.fromkeys(_mi_lit_weak[(purusha, vacana)])), []
         # de luN kartari takes i-aorist adita (not s-aorist amAsta like meN,
         # not seT adayizwa); sole de-root, additive-safe.
         if clean == "de" and lakara == "luN" and prayoga == "kartari" and sanadi is None:
