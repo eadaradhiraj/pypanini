@@ -417,6 +417,41 @@ class TinantaDerivationEngine:
         weaks = list(dict.fromkeys([clean + "u", guna + "u"]))
         return (strongs, weaks, weaks)
 
+    def _ruDana_pieces(self, clean: str) -> tuple:
+        """rudhAdi Snam stem pieces: (preB, codaT, cls, Rtrig, neRoot).
+        preB = onset+vowel with trailing root/numb-nasal stripped (und/inD/aYj/taYc/
+        BaYj root-n/Y merges into the infix-n: unatti/anakti/Banakti vs undanti/
+        aYjanti; idit-num M stripped too: hisi~ num-clean hiMs -> hi); hisi~ strips
+        idit-i to his. codaT = coda with T voiced to t (kft behaves dental
+        everywhere: kfRatti/kfntaH); cls keeps raw class (D/d/T/k/z/s/h, j/c -> k).
+        Infix-n takes R iff preB contains r/f/z (ruD/ric/kzud/tfh/kft/vfj/pfc/Cfd/
+        tfd; S/h/vowel roots keep dental n). ne-grade sole tfh.
+        Surveyed all 25 ruDAdi cleans, zero conflicts."""
+        c = "his" if clean == "hisi" else clean
+        if clean == "hiMs":
+            c = "his"
+        coda = c[-1]
+        pre = c[:-1]
+        preB = pre[:-1] if pre.endswith(("n", "Y", "N", "M")) else pre
+        cls = "k" if coda in ("j", "c") else coda
+        if cls == "t":
+            cls = "d"
+        Rtrig = ("r" in preB) or ("f" in preB) or ("z" in preB)
+        return (preB, "t" if coda == "T" else coda, cls, Rtrig, clean == "tfh")
+
+    def _ruDana_nasal(self, fol: str) -> str:
+        """rudhAdi weak contact nasal by following sound: N before velars, Y before
+        palatals, M before sibilants/h, R before Q (h→Q), dental n elsewhere."""
+        if fol in ("k", "K", "g", "G"):
+            return "N"
+        if fol in ("c", "C", "j", "J"):
+            return "Y"
+        if fol in ("s", "S", "z", "h"):
+            return "M"
+        if fol == "Q":
+            return "R"
+        return "n"
+
     def _reduplicated_stem(self, clean: str) -> str:
         """Simple generative reduplication for consonant-initial BvAdi.
            Handles s+consonant clusters, de-aspiration and abhyAsa vowel."""
@@ -4372,6 +4407,62 @@ class TinantaDerivationEngine:
                         ("uttama","dvi"):[x for w in _t8w for x in (w[:-1]+"vahe", w+"vahe")],
                         ("uttama","bahu"):[x for w in _t8w for x in (w[:-1]+"mahe", w+"mahe")]}
                 cands += _t8a.get((purusha, vacana), [])
+            # rudhAdi Snam present (ruRadDi/Binatti/riRakti/Sinazwi/tfReQi/hinasti;
+            # short-na infix throughout (no nA-grade); infix-n takes R iff preB has
+            # r/f; contact nasal N/Y/M/R in weak; coda sandhi per class; d/D/T twins
+            # (ttaH/anti, tTaH/TaH, tTa/Ta); k/s/h/hisi twin-free; tfh ne-grade in
+            # eka-slots (sole); Atmane tables D/d-only (sole Atmane-meta cleans).
+            # Gana-gated (01/02/08 untouched); additive.
+            if meta.get("gana") == "ruDAdiH" and sanadi is None:
+                _r7pre, _r7coda, _r7cls, _r7R, _r7ne = self._ruDana_pieces(clean)
+                _r7Ns = "R" if _r7R else "n"
+                _r7V = "e" if _r7ne else "a"
+                _r7eka = {"D": "dDi", "d": "tti", "T": "tti", "k": "kti", "z": "zwi", "s": "sti", "h": "Qi"}
+                _r7mek = {"D": "tsi", "d": "tsi", "T": "tsi", "k": "kzi", "z": "kzi", "s": "ssi", "h": "kzi"}
+                if pada != "Atmanepadi":
+                    _r7p = {("prathama", "eka"): [_r7pre + _r7Ns + _r7V + _r7eka[_r7cls]],
+                            ("prathama", "dvi"): [_r7pre + {"D": "ndDaH", "d": "ntaH", "T": "ntaH", "k": "NktaH", "z": "MzwaH", "s": "MstaH", "h": "RQaH"}[_r7cls]],
+                            ("madhyama", "eka"): [_r7pre + _r7Ns + _r7V + _r7mek[_r7cls]],
+                            ("uttama", "eka"): [_r7pre + _r7Ns + _r7V + _r7coda + "mi"]}
+                    cands += _r7p.get((purusha, vacana), [])
+                    _r7W = _r7pre + self._ruDana_nasal(_r7coda) + _r7coda
+                    _r7WkT = _r7pre + {"D": "ndDaH", "d": "ntTaH", "T": "ntTaH", "k": "NkTaH", "z": "MzWaH", "s": "MsTaH", "h": "RQaH"}[_r7cls]
+                    _r7WkT0 = _r7pre + {"D": "ndDa", "d": "ntTa", "T": "ntTa", "k": "NkTa", "z": "MzWa", "s": "MsTa", "h": "RQa"}[_r7cls]
+                    if (purusha, vacana) == ("prathama", "bahu"):
+                        cands.append(_r7W + "anti")
+                        if _r7cls in ("d", "D", "T"):
+                            cands.append(_r7pre + "n" + ("ttaH" if _r7cls != "D" else "DaH"))
+                    if (purusha, vacana) == ("madhyama", "dvi"):
+                        cands.append(_r7WkT)
+                        if _r7cls in ("d", "D", "T"):
+                            cands.append(_r7pre + "n" + "TaH")
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        cands.append(_r7WkT0)
+                        if _r7cls in ("d", "D", "T"):
+                            cands.append(_r7pre + "n" + "Ta")
+                    if (purusha, vacana) == ("uttama", "dvi"):
+                        cands.append(_r7W + "vaH")
+                    if (purusha, vacana) == ("uttama", "bahu"):
+                        cands.append(_r7W + "maH")
+                if pada == "Atmanepadi" and _r7cls in ("D", "d"):
+                    _r7W = _r7pre + self._ruDana_nasal(_r7coda) + _r7coda
+                    _r7Wt = _r7pre + {"D": "ndD", "d": "nt"}[_r7cls]
+                    _r7Ws = _r7pre + {"D": "nt", "d": "nt"}[_r7cls]
+                    _r7a = {("prathama", "eka"): [_r7Wt + "e"],
+                            ("prathama", "dvi"): [_r7pre + ("ntte" if _r7cls == "d" else "nDe")],
+                            ("madhyama", "eka"): [_r7Ws + "se"],
+                            ("madhyama", "dvi"): [_r7W + "ATe"],
+                            ("uttama", "eka"): [_r7W + "e"],
+                            ("uttama", "dvi"): [_r7W + "vahe"],
+                            ("uttama", "bahu"): [_r7W + "mahe"]}
+                    cands += _r7a.get((purusha, vacana), [])
+                    if (purusha, vacana) == ("prathama", "bahu"):
+                        cands += [_r7W + "Ate", _r7W + "ate"]
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        if _r7cls == "D":
+                            cands += [_r7pre + "ndDve", _r7pre + "nDve"]
+                        else:
+                            cands += [_r7W + "Dve", _r7pre + self._ruDana_nasal(_r7coda) + "Dve"]
             # AdAdi luk present, I/i-stems: pit-singulars e-grade, rest retained length, 3pl y-grade
             # (veti/vItaH/viyanti; eti/itaH/yanti; sole pair vI + iR surveyed, parasmaipada; Atmane i-roots
             # queued separately). Gana-gated + additive.
@@ -4635,6 +4726,119 @@ class TinantaDerivationEngine:
                          ("uttama","dvi"):[x for w in _t8aw for x in (w+"vahi", w[:-1]+"vahi")],
                          ("uttama","bahu"):[x for w in _t8aw for x in (w+"mahi", w[:-1]+"mahi")]}
                 cands += _t8la.get((purusha, vacana), [])
+            # rudhAdi Snam imperfect (aBinat/ariRak/aSinaw/atfRew/ahinat/Onat;
+            # pr/m.eka twin tables per coda ({t,d}/{k,g}/{w,q}, m.eka H for d/D/T/
+            # hisi/und); pr.dvi {tAm,ttAm} d/D/T; m.dvi quad {t,d,tam,ttam} d/D/T;
+            # m.bahu {ta,tta} d/D/T (+hisi {stam,sta} sole); u.eka coda+am (d {dam,
+            # Dam} twins, D {Dam}, T {tam}, k {cam}, s {zam}, h {ham}, s-hisi {sam});
+            # u.dvi/bahu va/ma; pr.bahu an. tfh ne-grade in pr/m.eka (sole).
+            # Atmane D/d: augW + eka-twins/dvi-AtAm/bahu-ata/m.eka-TAH/m.dvi-ATAm/
+            # m.bahu-Dvam-twins/i/vahi/mahi. Gana-gated; additive.
+            if meta.get("gana") == "ruDAdiH" and sanadi is None:
+                _r7pre, _r7coda, _r7cls, _r7R, _r7ne = self._ruDana_pieces(clean)
+                _r7Ns = "R" if _r7R else "n"
+                if _r7pre[:1] in SLP1_VOWELS:
+                    _r7ap = ("A" if _r7pre[:1] == "a" else "O") + _r7pre[1:]
+                else:
+                    _r7ap = "a" + _r7pre
+                _r7V = "e" if (_r7ne and (purusha, vacana) in (("prathama", "eka"), ("madhyama", "eka"))) else "a"
+                _r7augNA = _r7ap + _r7Ns + _r7V
+                _r7ekaT = {"d": ["t", "d"], "D": ["t", "d"], "T": ["t", "d"], "k": ["k", "g"], "z": ["w", "q"], "s": ["t", "d"], "h": ["w", "q"]}[_r7cls if _r7cls != "s" or clean != "hisi" else "d"]
+                if pada != "Atmanepadi":
+                    if (purusha, vacana) == ("prathama", "eka"):
+                        cands += [_r7augNA + x for x in _r7ekaT]
+                    if (purusha, vacana) == ("madhyama", "eka"):
+                        if _r7cls == "k":
+                            cands += [_r7augNA + "k", _r7augNA + "g"]
+                        elif _r7cls in ("z", "h"):
+                            cands += [_r7augNA + "w", _r7augNA + "q"]
+                        else:
+                            cands.append(_r7augNA + "H")
+                    if (purusha, vacana) == ("prathama", "dvi"):
+                        _r7Ng, _r7pds = {"d": ("n", ["tAm", "ttAm"]), "D": ("n", ["dDAm", "DAm"]), "T": ("n", ["tAm", "ttAm"]), "k": ("N", ["ktAm"]), "z": ("M", ["zwAm"]), "s": ("M", ["stAm"]), "h": ("R", ["QAm"])}[_r7cls]
+                        _r7augWn = self._add_augment(_r7pre + _r7Ng, _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                        cands += [_r7augWn + x for x in _r7pds]
+                    if (purusha, vacana) == ("prathama", "bahu"):
+                        _r7Wn = _r7pre + self._ruDana_nasal(_r7coda)
+                        _r7augWn = self._add_augment(_r7Wn, _r7Wn[:1] in SLP1_VOWELS if _r7Wn else False)
+                        cands.append(_r7augWn + _r7coda + "an")
+                    if (purusha, vacana) == ("madhyama", "dvi"):
+                        if _r7cls in ("d", "D", "T"):
+                            _r7augWn = self._add_augment(_r7pre + "n", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            if _r7cls == "D":
+                                cands += [_r7augNA + "t", _r7augNA + "d", _r7augWn[:-1] + "dDam", _r7augWn + "am"]
+                            else:
+                                cands += [_r7augNA + "t", _r7augNA + "d", _r7augWn + "tam", _r7augWn + "ttam"]
+                        elif clean == "hisi":
+                            _r7augWn = self._add_augment(_r7pre + "n", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            cands += [_r7augWn + "t", _r7augWn + "d"]
+                        else:
+                            _r7Ng, _r7md = {"k": ("N", "ktam"), "z": ("M", "zwam"), "s": ("M", "stam"), "h": ("R", "Qam")}[_r7cls]
+                            _r7augWn = self._add_augment(_r7pre + _r7Ng, _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            cands.append(_r7augWn + _r7md)
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        if _r7cls in ("d", "D", "T"):
+                            _r7augWn = self._add_augment(_r7pre + "n", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            _r7bd = {"d": ["ta", "tta"], "D": ["dDa", "Da"], "T": ["ta", "tta"]}[_r7cls]
+                            cands += [_r7augWn + x for x in _r7bd]
+                        elif clean == "hisi":
+                            _r7augWn = self._add_augment(_r7pre + "n", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            cands += [_r7augWn + "stam", _r7augWn + "sta"]
+                        else:
+                            _r7Ng, _r7mb = {"k": ("N", "kta"), "z": ("M", "zwa"), "s": ("M", "sta"), "h": ("R", "Qa")}[_r7cls]
+                            _r7augWn = self._add_augment(_r7pre + _r7Ng, _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            cands.append(_r7augWn + _r7mb)
+                    if (purusha, vacana) == ("uttama", "eka"):
+                        if _r7cls == "d" and _r7coda == "t":
+                            cands.append(_r7augNA + "tam")
+                        elif _r7cls == "d":
+                            cands += [_r7augNA + "dam", _r7augNA + "Dam"]
+                        elif _r7cls == "D":
+                            cands.append(_r7augNA + "Dam")
+                        elif _r7cls == "k":
+                            cands.append(_r7augNA + _r7coda + "am")
+                        elif _r7cls == "z":
+                            cands.append(_r7augNA + "zam")
+                        elif _r7cls == "h":
+                            cands.append(_r7augNA + "ham")
+                        elif _r7cls == "s":
+                            cands.append(_r7augNA + "sam")
+                    if (purusha, vacana) in (("uttama", "dvi"), ("uttama", "bahu")):
+                        _r7W = _r7pre + self._ruDana_nasal(_r7coda) + _r7coda
+                        _r7augW = self._add_augment(_r7W, _r7W[:1] in SLP1_VOWELS if _r7W else False)
+                        cands.append(_r7augW + ("va" if vacana == "dvi" else "ma"))
+                if pada == "Atmanepadi" and _r7cls in ("D", "d"):
+                    _r7W = _r7pre + self._ruDana_nasal(_r7coda) + _r7coda
+                    _r7augW = self._add_augment(_r7W, _r7W[:1] in SLP1_VOWELS if _r7W else False)
+                    _r7augWn0 = self._add_augment(_r7pre + "n", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                    if (purusha, vacana) == ("prathama", "eka"):
+                        if _r7cls == "D":
+                            _r7augWt = self._add_augment(_r7pre + "ndD", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            cands += [_r7augWt + "a", _r7augWn0 + "Da"]
+                        else:
+                            _r7augWt = self._add_augment(_r7pre + "nt", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            cands += [_r7augWt + "a", _r7augWt + "ta"]
+                    if (purusha, vacana) == ("prathama", "dvi"):
+                        cands.append(_r7augW + "AtAm")
+                    if (purusha, vacana) == ("prathama", "bahu"):
+                        cands.append(_r7augW + "ata")
+                    if (purusha, vacana) == ("madhyama", "eka"):
+                        if _r7cls == "D":
+                            _r7augWt = self._add_augment(_r7pre + "ndD", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            cands += [_r7augWt + "AH", _r7augWn0 + "DAH"]
+                        else:
+                            _r7augWt = self._add_augment(_r7pre + "nt", _r7pre[:1] in SLP1_VOWELS if _r7pre else False)
+                            cands += [_r7augWt + "TAH", _r7augWn0 + "TAH"]
+                    if (purusha, vacana) == ("madhyama", "dvi"):
+                        cands.append(_r7augW + "ATAm")
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        cands += [_r7augW + "Dvam", self._add_augment(_r7pre + "n", _r7pre[:1] in SLP1_VOWELS) + "Dvam"]
+                    if (purusha, vacana) == ("uttama", "eka"):
+                        cands.append(_r7augW + "i")
+                    if (purusha, vacana) == ("uttama", "dvi"):
+                        cands.append(_r7augW + "vahi")
+                    if (purusha, vacana) == ("uttama", "bahu"):
+                        cands.append(_r7augW + "mahi")
             # AdAdi-i luk imperfect: aug e-grade singulars (avet/aved/aveH; Et/Ed/EH via vriddhi-augment),
             # aug weak rest (avItAm/aviyan; EtAm/Ayan), aug ay-grade 1sg (avayam/Ayam); sole vI + iR surveyed;
             # exact-clean gate; gana-gated + additive.
@@ -4828,6 +5032,85 @@ class TinantaDerivationEngine:
                 _avw = clean[:-1] + "av"
                 _weak_low = {("madhyama","eka"):[clean+"tAt",clean+"tAd",clean+"hi"],("prathama","dvi"):[clean+"tAm"],("prathama","bahu"):[clean+"vantu"],("madhyama","dvi"):[clean+"tam"],("madhyama","bahu"):[clean+"ta"],("uttama","eka"):[_avw+"Ani"],("uttama","dvi"):[_avw+"Ava"],("uttama","bahu"):[_avw+"Ama"]}
                 cands += _weak_low.get((purusha, vacana), [])
+            # rudhAdi Snam imperative (Binattu/riRaktu/ruRadDu/Sinazwu/tfReQu/hinastu;
+            # m.eka + m.dvi-tAt quads {tAt,tAd,ttAt,ttAd} for d/D/T, pairs for k/s/h;
+            # pr.dvi {tAm,ttAm} d/D/T; hi-twins {dDi,Di}/{gDi}/{qQi,Qi}/{Qi}/{nDi};
+            # u-group a-full (Ani with Ani-n R iff coda z (SinazARi/pinazARi),
+            # coda+Ava/Ama; T voices to t: kfRatAni). tfh ne-grade in pr.eka only
+            # (sole). Atmane tables D/d-only (sole Atmane-meta cleans).
+            # Gana-gated (01/02/08 untouched); additive.
+            if meta.get("gana") == "ruDAdiH" and sanadi is None:
+                _r7pre, _r7coda, _r7cls, _r7R, _r7ne = self._ruDana_pieces(clean)
+                _r7Ns = "R" if _r7R else "n"
+                _r7W = _r7pre + self._ruDana_nasal(_r7coda) + _r7coda
+                _r7V = "e" if (_r7ne and (purusha, vacana) == ("prathama", "eka")) else "a"
+                _r7S = _r7pre + _r7Ns + _r7V
+                _r7tu = {"D": "dDu", "d": "ttu", "T": "ttu", "k": "ktu", "z": "zwu", "s": "stu", "h": "Qu"}
+                if pada != "Atmanepadi":
+                    if (purusha, vacana) == ("prathama", "eka"):
+                        cands.append(_r7S + _r7tu[_r7cls])
+                    _r7tAt = {"D": ["ndDAt", "nDAt"], "d": ["ntAt", "nttAt"], "T": ["ntAt", "nttAt"], "k": ["NktAt"], "z": ["MzwAt"], "s": ["MstAt"], "h": ["RQAt"]}[_r7cls]
+                    _r7tAd = {"D": ["ndDAd", "nDAd"], "d": ["ntAd", "nttAd"], "T": ["ntAd", "nttAd"], "k": ["NktAd"], "z": ["MzwAd"], "s": ["MstAd"], "h": ["RQAd"]}[_r7cls]
+                    if (purusha, vacana) == ("madhyama", "eka"):
+                        cands += [_r7pre + x for x in _r7tAt + _r7tAd]
+                        if _r7cls in ("d", "D", "T"):
+                            _r7Wh = _r7pre + "n" + ({"d": "d", "D": "d", "T": "d"}[_r7cls])
+                            cands += [_r7Wh + "Di", _r7pre + "nDi"]
+                        elif _r7cls == "k":
+                            cands.append(_r7pre + "NgDi")
+                        elif _r7cls == "z":
+                            cands += [_r7pre + "RqQi", _r7pre + "RQi"]
+                        elif _r7cls == "h":
+                            cands.append(_r7pre + "RQi")
+                        elif _r7cls == "s":
+                            cands.append(_r7pre + "nDi")
+                    if (purusha, vacana) == ("prathama", "dvi"):
+                        _r7dvi = {"D": ["ndDAm", "nDAm"], "d": ["ntAm", "nttAm"], "T": ["ntAm", "nttAm"], "k": ["NktAm"], "z": ["MzwAm"], "s": ["MstAm"], "h": ["RQAm"]}
+                        cands += [_r7pre + x for x in _r7dvi[_r7cls]]
+                    if (purusha, vacana) == ("prathama", "bahu"):
+                        cands.append(_r7W + "antu")
+                    if (purusha, vacana) == ("madhyama", "dvi"):
+                        cands += [_r7pre + x for x in _r7tAt + _r7tAd]
+                        if _r7cls in ("d", "D", "T"):
+                            _r7Wt = {"d": ["ntam", "nttam"], "D": ["ndDam", "nDam"], "T": ["ntam", "nttam"]}[_r7cls]
+                        else:
+                            _r7Wt = [{"k": "Nktam", "z": "Mzwam", "s": "Mstam", "h": "RQam"}[_r7cls]]
+                        cands += [_r7pre + x for x in _r7Wt]
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        if _r7cls in ("d", "D", "T"):
+                            _r7Wb = {"d": ["ntta", "nta"], "D": ["ndDa", "nDa"], "T": ["ntta", "nta"]}[_r7cls]
+                        else:
+                            _r7Wb = [{"k": "Nkta", "z": "Mzwa", "s": "Msta", "h": "RQa"}[_r7cls]]
+                        cands += [_r7pre + x for x in _r7Wb]
+                    if (purusha, vacana) == ("uttama", "eka"):
+                        cands.append(_r7S + _r7coda + ("ARi" if _r7coda == "z" else "Ani"))
+                    if (purusha, vacana) == ("uttama", "dvi"):
+                        cands.append(_r7S + _r7coda + "Ava")
+                    if (purusha, vacana) == ("uttama", "bahu"):
+                        cands.append(_r7S + _r7coda + "Ama")
+                if pada == "Atmanepadi" and _r7cls in ("D", "d"):
+                    _r7W = _r7pre + self._ruDana_nasal(_r7coda) + _r7coda
+                    if (purusha, vacana) == ("prathama", "eka"):
+                        cands.append(_r7pre + ("ndDAm" if _r7cls == "D" else "ntAm"))
+                    if (purusha, vacana) == ("prathama", "dvi"):
+                        cands += [_r7pre + "nttAm"] if _r7cls == "d" else [_r7pre + "nDAm", _r7W + "AtAm"]
+                    if (purusha, vacana) == ("prathama", "bahu"):
+                        cands += [_r7W + "AtAm", _r7W + "atAm"] if _r7cls == "d" else [_r7W + "atAm"]
+                    if (purusha, vacana) == ("madhyama", "eka"):
+                        cands.append(_r7pre + "ntsva")
+                    if (purusha, vacana) == ("madhyama", "dvi"):
+                        cands.append(_r7W + "ATAm")
+                    if (purusha, vacana) == ("madhyama", "bahu"):
+                        if _r7cls == "D":
+                            cands += [_r7pre + "ndDvam", _r7pre + "nDvam"]
+                        else:
+                            cands += [_r7W + "Dvam", _r7pre + "nDvam"]
+                    if (purusha, vacana) == ("uttama", "eka"):
+                        cands.append(_r7S + _r7coda + "E")
+                    if (purusha, vacana) == ("uttama", "dvi"):
+                        cands.append(_r7S + _r7coda + "AvahE")
+                    if (purusha, vacana) == ("uttama", "bahu"):
+                        cands.append(_r7S + _r7coda + "AmahE")
             # tanAdi o/u imperative (tanotu/tanutAt/tanutAd/tanu, karotu/kurutAt...;
             # 1sg-group av-grade (tanavAni/tanavAva/tanavAma); lot-1sg Ani-n takes R
             # iff stem has real r without R (karavARi; R-anubandha kzaR/kziR/fR-family
@@ -5082,6 +5365,24 @@ class TinantaDerivationEngine:
                 _jyf = "jAgf" + _jy.get((purusha, vacana), "yAt")
                 if _jyf not in cands:
                     cands.append(_jyf)
+            # rudhAdi Snam optative (runDyAt/BindyAt/riYcyAt/SiMzyAt/tfMhyAt/hiMsyAt;
+            # a-less weak stem + yAt-grades, coda kept (T voices to t: kfntyAt),
+            # eka {yAt,yAd} twins; Atmane a-less + v + I-grades (runDIta/BindIta).
+            # D/d Atmane tables cover sole Atmane-meta cleans (paras-meta k/j/d
+            # avidhi hits via pool, no k/j Atmane generation). Gana-gated; additive.
+            if meta.get("gana") == "ruDAdiH" and sanadi is None:
+                _r7pre, _r7coda, _r7cls, _r7R, _r7ne = self._ruDana_pieces(clean)
+                _r7W = _r7pre + self._ruDana_nasal(_r7coda) + _r7coda
+                _r7yp = {("prathama", "dvi"): "yAtAm", ("prathama", "bahu"): "yuH", ("madhyama", "eka"): "yAH", ("madhyama", "dvi"): "yAtAm", ("madhyama", "bahu"): "yAta", ("uttama", "eka"): "yAm", ("uttama", "dvi"): "yAva", ("uttama", "bahu"): "yAma"}
+                if pada != "Atmanepadi":
+                    if (purusha, vacana) == ("prathama", "eka"):
+                        cands += [_r7W + "yAt", _r7W + "yAd"]
+                    elif (purusha, vacana) in _r7yp:
+                        cands.append(_r7W + _r7yp[(purusha, vacana)])
+                if pada == "Atmanepadi" and _r7cls in ("D", "d"):
+                    _r7ya = {("prathama", "eka"): "Ita", ("prathama", "dvi"): "IyAtAm", ("prathama", "bahu"): "Iran", ("madhyama", "eka"): "ITAH", ("madhyama", "dvi"): "IyATAm", ("madhyama", "bahu"): "IDvam", ("uttama", "eka"): "Iya", ("uttama", "dvi"): "Ivahi", ("uttama", "bahu"): "Imahi"}
+                    if (purusha, vacana) in _r7ya:
+                        cands.append(_r7W + _r7ya[(purusha, vacana)])
             # tanAdi o/u optative (tanuyAt/kuryAt; paras takes weak-u + yA-grades with
             # yAt/yAd 3sg doublet, open-f kf takes bare ur-grade (kuryAt, samprasAraNa
             # f→ur before y, never *kuruyAt); Atmane takes weak-u + v + I-grades
