@@ -2354,6 +2354,261 @@ class KrdantaEngine:
             # (no return, let it fall through)
             pass
 
+        # kryAdi yangluk redup (cekriyita/coskuvita/tAstabDa/doDUta/SASirita/
+        # cAkirita/jAjyita/reryita/bAbaDita/varvrita/dADrasta/cekliSita/aSeSita;
+        # redup R1+gradeV (i→e, u→o, a/A→A (aS→a), e→e; f-in-clean→ar (mar/var);
+        # palatal k/K/g, deasp B/D/J, s+stop→stop (sv→s)); kta weak+ita (nB
+        # lopa+Da, banD-group lopa, DU/Dras/vf aniT, aS SeS, grah gfh, si zy,
+        # mI my, F ir/ur, u/i vowel-final glide else full); Satf weak+at + t/d
+        # twins (same grades, nB lopa+at, DU Duv, vf vrat, aS SAS); tavya
+        # TWEAK+itavya (ay/av/ar/full/o/klezw/Do-aniT/tuB-full); anIyar
+        # AWEAK+anIya (DU Dav, kliS kleS, aS SAS, jyA/jYA keep A; local Natva:
+        # R iff last r/R/z/f/F-trigger followed only by vowels/y/v/h/B + suffix
+        # a); GaY GWEAK+aH (M-only; Aya/Ava/Ara/kAca/o-grades); ktvA TWEAK+itvA
+        # (DU/Dras/nB aniT, kliS full); Rvul GWEAK+kaH (F gb+ikA); tfc
+        # TWEAK+itA (DU Do+tA, kliS klezw+A); Satf i/I-augment twins for closed
+        # trio {vf,mfd,mfq} (aug-M -an, rest standard). Surveyed all 69 ylk-keyed cleans;
+        # gana-gated; old mUla-fallback forms miss their ylk slots, free).
+        if sanadi == "yanluganta" and meta.get("gana") == "kryAdiH":
+            _k9mc = meta.get("clean", "") or clean
+            _k9on = ""
+            for _ch in clean:
+                if _ch in SLP1_VOWELS:
+                    break
+                _k9on += _ch
+            _k9lv = None
+            for _ch in reversed(clean):
+                if _ch in SLP1_VOWELS:
+                    _k9lv = _ch
+                    break
+            # --- redup ---
+            if "f" in _k9mc and "F" not in _k9mc:
+                _k9rd = _k9mc[:_k9mc.index("f")] + "ar"
+            elif _k9mc == "aS":
+                _k9rd = "a"
+            else:
+                if len(_k9on) >= 2 and _k9on[0] == "s" and _k9on[1] not in SLP1_VOWELS and _k9on[1] not in ("y", "r", "l", "v"):
+                    _k9rc0 = _k9on[1]
+                else:
+                    _k9rc0 = _k9on[:1]
+                _k9rc = {"k": "c", "K": "c", "g": "j", "G": "j", "N": "Y", "h": "j"}.get(_k9rc0, _k9rc0)
+                if _k9rc in ("B", "D", "J"):
+                    _k9rc = {"B": "b", "D": "d", "J": "j"}[_k9rc]
+                if _k9lv in ("u", "U"):
+                    _k9gv = "o"
+                elif _k9lv in ("i", "I", "e", "E"):
+                    _k9gv = "e"
+                else:
+                    _k9gv = "A"
+                _k9rd = _k9rc + _k9gv
+            # --- TWEAK (tavya/tfc/ktvA weak) ---
+            if _k9mc in ("guD", "kuz", "kzuB", "pruz", "pluz", "puz", "muz", "tuB"):
+                _k9tw = {"guD": "goD", "kuz": "koz", "kzuB": "kzoB", "pruz": "proz", "pluz": "ploz", "puz": "poz", "muz": "moz", "tuB": "toB"}[_k9mc]
+            elif _k9mc in ("stanB", "stunB", "skanB", "skunB"):
+                _k9tw = clean[:-2] + "mB"
+            elif _k9mc in ("naB", "Kac", "Kav", "heW", "Dras", "grah", "banD", "SranT", "manT", "granT", "kunT"):
+                _k9tw = clean
+            elif _k9mc == "kliS":
+                _k9tw = "klezw"
+            elif _k9mc == "DU":
+                _k9tw = "Do"
+            elif _k9mc == "vf":
+                _k9tw = "var"
+            elif _k9mc == "aS":
+                _k9tw = "SeS"
+            elif _k9mc == "viz":
+                _k9tw = "vez"
+            elif _k9mc == "si":
+                _k9tw = "zay"
+            elif _k9mc == "jyA":
+                _k9tw = "jy"
+            elif _k9mc == "jYA":
+                _k9tw = "jY"
+            elif _k9mc == "mfd":
+                _k9tw = "mard"
+            elif _k9mc == "mfq":
+                _k9tw = "marq"
+            elif _k9lv in ("i", "I"):
+                _k9tw = _k9on + "ay"
+            elif _k9lv in ("u", "U"):
+                _k9tw = _k9on + "av"
+            elif _k9lv in ("f", "F"):
+                _k9tw = _k9on + "ar"
+            else:
+                _k9tw = clean
+            # --- kta weak ---
+            _k9nB = _k9mc in ("stanB", "stunB", "skanB", "skunB")
+            _k9lop5 = _k9mc in ("banD", "SranT", "manT", "granT", "kunT")
+            if _k9nB:
+                _k9kb = clean[:-2] + "bDa"
+            elif _k9mc in ("DU", "Dras", "vf"):
+                _k9kb = {"DU": "DUta", "Dras": "Drasta", "vf": "vrita"}[_k9mc]
+            elif _k9mc == "aS":
+                _k9kb = "SeSita"
+            elif _k9mc == "grah":
+                _k9kb = "gfhita"
+            elif _k9mc == "si":
+                _k9kb = "zyita"
+            elif _k9mc == "kzIz":
+                _k9kb = "kziyita"
+            elif _k9mc == "mI":
+                _k9kb = "myita"
+            elif _k9mc == "jyA":
+                _k9kb = "jyita"
+            elif _k9mc == "jYA":
+                _k9kb = "jYita"
+            elif _k9lop5:
+                _k9kb = (clean[:-2] + clean[-1:]) + "ita"
+            elif _k9mc in ("mfd", "mfq"):
+                _k9kb = clean + "ita"
+            elif _k9lv in ("i", "I") and clean[-1:] in SLP1_VOWELS:
+                _k9kb = _k9on + ("iyita" if len(_k9on) >= 2 else "yita")
+            elif _k9lv in ("u", "U") and clean[-1:] in SLP1_VOWELS:
+                _k9kb = _k9on + "uvita"
+            elif _k9lv in ("f", "F"):
+                _k9fo = _k9on
+                _k9kb = _k9fo + ("urita" if any(ch in ("p", "P", "b", "B", "m", "M", "v") for ch in _k9fo) else "irita")
+            else:
+                _k9kb = clean + "ita"
+            # --- Satf weak ---
+            if _k9nB:
+                _k9sb = (clean[:-2] + clean[-1:]) + "at"
+            elif _k9mc == "DU":
+                _k9sb = "Duvat"
+            elif _k9mc == "Dras":
+                _k9sb = "Drasat"
+            elif _k9mc == "vf":
+                _k9sb = "vrat"
+            elif _k9mc == "aS":
+                _k9sb = "SASat"
+            elif _k9mc == "grah":
+                _k9sb = "gfhat"
+            elif _k9mc == "si":
+                _k9sb = "zyat"
+            elif _k9mc == "kzIz":
+                _k9sb = "kziyat"
+            elif _k9mc == "mI":
+                _k9sb = "myat"
+            elif _k9mc == "jyA":
+                _k9sb = "jyat"
+            elif _k9mc == "jYA":
+                _k9sb = "jYat"
+            elif _k9lop5:
+                _k9sb = (clean[:-2] + clean[-1:]) + "at"
+            elif _k9mc in ("mfd", "mfq"):
+                _k9sb = clean + "at"
+            elif _k9lv in ("i", "I") and clean[-1:] in SLP1_VOWELS:
+                _k9sb = _k9on + ("iyat" if len(_k9on) >= 2 else "yat")
+            elif _k9lv in ("u", "U") and clean[-1:] in SLP1_VOWELS:
+                _k9sb = _k9on + "uvat"
+            elif _k9lv in ("f", "F"):
+                _k9so = _k9on
+                _k9sb = _k9so + ("urat" if any(ch in ("p", "P", "b", "B", "m", "M", "v") for ch in _k9so) else "irat")
+            else:
+                _k9sb = clean + "at"
+            # --- GaY/Rvul weak ---
+            if _k9mc == "si":
+                _k9gb = "zAya"
+            elif _k9mc == "kzIz":
+                _k9gb = "kzAya"
+            elif _k9lv in ("i", "I") and clean[-1:] in SLP1_VOWELS and _k9mc not in ("jyA", "jYA"):
+                _k9gb = _k9on + "Aya"
+            elif _k9lv in ("u", "U") and clean[-1:] in SLP1_VOWELS:
+                _k9gb = _k9on + "Ava"
+            elif _k9mc in ("kliS", "viz"):
+                _k9gb = {"kliS": "kleSa", "viz": "veza"}[_k9mc]
+            elif _k9mc == "heW":
+                _k9gb = "heWa"
+            elif _k9mc == "jyA":
+                _k9gb = "jyAya"
+            elif _k9mc == "jYA":
+                _k9gb = "jYAya"
+            elif _k9mc == "aS":
+                _k9gb = "SASa"
+            elif _k9mc == "vf":
+                _k9gb = "vAra"
+            elif _k9mc == "mfd":
+                _k9gb = "marda"
+            elif _k9mc == "mfq":
+                _k9gb = "marqa"
+            elif _k9mc in ("naB", "Dras"):
+                _k9gb = {"naB": "nABa", "Dras": "DrAsa"}[_k9mc]
+            elif _k9mc in ("Kac", "Kav", "grah"):
+                _k9gb = {"Kac": "KAca", "Kav": "KAva", "grah": "grAha"}[_k9mc]
+            elif _k9mc in ("guD", "kuz", "kzuB", "tuB", "pruz", "pluz", "puz", "muz"):
+                _k9gb = {"guD": "goDa", "kuz": "koza", "kzuB": "kzoBa", "tuB": "toBa", "pruz": "proza", "pluz": "ploza", "puz": "poza", "muz": "moza"}[_k9mc]
+            elif _k9lv in ("f", "F"):
+                _k9gb = _k9on + "Ara"
+            elif _k9nB:
+                _k9gb = clean[:-2] + "mBa"
+            else:
+                _k9gb = clean + "a"
+            # --- anIyar weak + Natva ---
+            # jyA/jYA keep tavya weak (jy/jY) but take long-A suffix (jyAnIya).
+            _k9aw = _k9tw
+            if _k9mc == "DU":
+                _k9aw = "Dav"
+            elif _k9mc == "kliS":
+                _k9aw = "kleS"
+            elif _k9mc == "aS":
+                _k9aw = "SAS"
+            _k9li = -1
+            for _i, _ch in enumerate(_k9aw):
+                if _ch in ("r", "R", "z", "f", "F"):
+                    _k9li = _i
+            _k9nat = _k9li != -1 and all(ch in SLP1_VOWELS or ch in ("y", "v", "h", "B") for ch in (_k9aw[_k9li + 1:] + "a"))
+            if pratyaya == "kta":
+                return {"M": _k9rd + _k9kb + "H", "F": _k9rd + _k9kb[:-1] + "A", "N": _k9rd + _k9kb + "m"}
+            if pratyaya == "ktavatu":
+                return {"M": _k9rd + _k9kb + "vAn", "F": _k9rd + _k9kb + "vatI", "N": [_k9rd + _k9kb + "vat", _k9rd + _k9kb + "vad"]}
+            if pratyaya == "Satf":
+                _k9Mt = [_k9rd + _k9sb, _k9rd + _k9sb[:-1] + "d"]
+                _k9Ft = _k9rd + _k9sb + "I"
+                _k9Nt = [_k9rd + _k9sb, _k9rd + _k9sb[:-1] + "d"]
+                # vf/mfd/mfq take i/I-augment redup twins (varivrat/varIvrat +
+                # marimfdat/marImfdat; aug-M takes -an, F +I, N t/d; entries
+                # 2-5 surveyed; additive, plain forms kept).
+                if _k9mc in ("vf", "mfd", "mfq"):
+                    _k9Ft = [_k9Ft]
+                    for _aug in ("i", "I"):
+                        _st = _k9rd + _aug + _k9sb
+                        _k9Mt.append(_st[:-1] + "n")
+                        _k9Ft.append(_st + "I")
+                        _k9Nt += [_st, _st[:-1] + "d"]
+                return {"M": _k9Mt, "F": _k9Ft, "N": _k9Nt}
+            if pratyaya == "tavya":
+                if _k9mc == "DU":
+                    return {"M": _k9rd + _k9tw + "tavyaH", "F": _k9rd + _k9tw + "tavyA", "N": _k9rd + _k9tw + "tavyam"}
+                if _k9mc == "kliS":
+                    return {"M": _k9rd + _k9tw + "avyaH", "F": _k9rd + _k9tw + "avyA", "N": _k9rd + _k9tw + "avyam"}
+                return {"M": _k9rd + _k9tw + "itavyaH", "F": _k9rd + _k9tw + "itavyA", "N": _k9rd + _k9tw + "itavyam"}
+            if pratyaya == "anIyar":
+                _k9ns = "aRIya" if _k9nat else "anIya"
+                if _k9mc in ("jyA", "jYA"):
+                    _k9ns = "AnIya"
+                return {"M": _k9rd + _k9aw + _k9ns + "H", "F": _k9rd + _k9aw + _k9ns[:-1] + "A", "N": _k9rd + _k9aw + _k9ns + "m"}
+            if pratyaya == "GaY":
+                return {"gender": "Masculine", "form": _k9rd + _k9gb + "H"}
+            if pratyaya == "ktvA":
+                if _k9mc == "DU":
+                    _k9kv = "DUtvA"
+                elif _k9mc == "Dras":
+                    _k9kv = "DrastvA"
+                elif _k9nB:
+                    _k9kv = (clean[:-2] + "bDvA")
+                elif _k9mc == "kliS":
+                    _k9kv = "kleSitvA"
+                else:
+                    _k9kv = _k9tw + "itvA"
+                return {"avyaya": [_k9rd + _k9kv]}
+            if pratyaya == "Rvul":
+                return {"M": _k9rd + _k9gb + "kaH", "F": _k9rd + _k9gb[:-1] + "ikA", "N": _k9rd + _k9gb + "kam"}
+            if pratyaya == "tfc":
+                if _k9mc == "DU":
+                    return {"M": _k9rd + _k9tw + "tA", "F": _k9rd + _k9tw + "trI", "N": _k9rd + _k9tw + "tf"}
+                if _k9mc == "kliS":
+                    return {"M": _k9rd + _k9tw + "A", "F": _k9rd + _k9tw + "rI", "N": _k9rd + _k9tw + "f"}
+                return {"M": _k9rd + _k9tw + "itA", "F": _k9rd + _k9tw + "itrI", "N": _k9rd + _k9tw + "itf"}
         # Yangluk redup + nasal for krdanta (Panini 8.4.58/8.3.23, 14-root nasal survey).
         # Target: tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun (tavya unanimous m/M, kta/ktavatu/Satf want loss — excluded, mirror mUla).
         # Additive for tri-linga/tumun/ktvA (old kept, zero worsened); replace for single-form lyuw/GaY (old misses).
