@@ -621,12 +621,13 @@ class TinantaDerivationEngine:
         if clean[0] in SLP1_VOWELS:
             if clean == "u":
                 return ["Aviv" + ending for ending in ending_list]
-            # vowel-initial reduplicated aorist for a-initial roots (aRwiwata/ambibata/Acikata/Atitata:
-            # surveyed every a-initial nich fid, suppletive aja sole exception; augment-A + [num] + Ci + stem)
-            if clean[0] != "a" or len(clean) < 2:
+            # vowel-initial reduplicated aorist for ajAdi roots (ajAder dvitIyasya 6.1.2)
+            if len(clean) < 2:
                 return []
+            _v = clean[0]
+            _v_aug = {'a': 'A', 'A': 'A', 'i': 'E', 'I': 'E', 'e': 'E', 'u': 'O', 'U': 'O', 'o': 'O', 'f': 'Ar', 'F': 'Ar'}.get(_v, 'A')
             _stem = clean[1:]
-            if _stem[-1:] in ("u", "U"):
+            if _stem[-1:] in ("u", "U") and len(_stem) > 1:
                 _stem = _stem[:-1]
             if not _stem or _stem[0] in SLP1_VOWELS:
                 return []
@@ -637,17 +638,21 @@ class TinantaDerivationEngine:
                 if _stem[0] == "n" and len(_stem) > 1 and _stem[1] not in SLP1_VOWELS and _stem[1] != "n":
                     _cc0 = _stem[1:]
                     _rc0 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc0[0], _cc0[0]), DEASPIRATE.get(_cc0[0], _cc0[0]))
-                    _res.append("A" + "Y" + _rc0 + "i" + _cc0 + ending)
-                _core = _stem[:-1] if _stem[-1:] in ("i", "I") else _stem
+                    _res.append(_v_aug + "Y" + _rc0 + "i" + _cc0 + ending)
+                _core = _stem[:-1] if _stem[-1:] in ("i", "I") and len(_stem) > 1 else _stem
                 if _core:
                     if _core[0] == "r" and len(_core) > 1:
                         _rp, _cc2 = "r", _core[1:]
+                    elif _core[0] in ("n", "m", "Y", "R", "N") and len(_core) > 1 and _core[1] not in SLP1_VOWELS:
+                        _rp, _cc2 = _core[0], _core[1:]
                     else:
                         _rp, _cc2 = "", _core
                     if _cc2 and _cc2[0] not in SLP1_VOWELS:
-                        _num = _NUM.get(_cc2[0], "") if _stem[-1:] in ("i", "I") else ""
+                        _num = _NUM.get(_cc2[0], "") if _stem[-1:] in ("i", "I") and len(_stem) > 1 else ""
                         _rc2 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc2[0], _cc2[0]), DEASPIRATE.get(_cc2[0], _cc2[0]))
-                        _res.append("A" + _rp + _num + _rc2 + "i" + _cc2 + ending)
+                        _res.append(_v_aug + _rp + _num + _rc2 + "i" + _cc2 + ending)
+                        if _rp:
+                            _res.append(_v_aug + _num + _rc2 + "i" + _cc2 + ending)
             return _res
         bases: set = set()
         bases.add(clean)
