@@ -1721,6 +1721,152 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): ["lilyima"],
                 }
                 return list(dict.fromkeys(_k9lit.get((purusha, vacana), []))), []
+            # kryAdi mUla liT F-group (cakAra/cakaratuH + utt.eka a/A twins;
+            # syncope Sra/pra/dra twins for closed-trio {SF,pF,dF} (16-form);
+            # redup palatal/deasp (ca/ja/da/ba, s+stop takes stop); weak keeps
+            # case (JAr/DAr/BAr); vf-0045 dataless, excluded (generic kept);
+            # surveyed; exclusive return, meta-clean gate).
+            if _k9mc in ("kF", "stF", "vF", "BF", "mF", "jF", "JF", "DF", "nF", "gF", "svF", "SF", "pF", "dF"):
+                _k9on = ""
+                for _ch in clean:
+                    if _ch in SLP1_VOWELS:
+                        break
+                    _k9on += _ch
+                if len(_k9on) >= 2 and _k9on[0] == "s" and _k9on[1] not in SLP1_VOWELS and _k9on[1] not in ("y", "r", "l", "v"):
+                    _k9rc0 = _k9on[1]
+                else:
+                    _k9rc0 = _k9on[:1]
+                _k9rc = {"k": "c", "K": "c", "g": "j", "G": "j", "N": "Y", "h": "j"}.get(_k9rc0, _k9rc0)
+                if _k9rc in ("B", "D", "J"):
+                    _k9rc = {"B": "b", "D": "d", "J": "j"}[_k9rc]
+                _k9R = _k9rc + "a"
+                _k9W = clean[:-1] + "ar"
+                _k9WA = clean[:-1] + "Ar"
+                _k9syn = _k9mc in ("SF", "pF", "dF")
+                _k9sn = _k9W[0] + "ra" if _k9syn else None
+                _k9sn0 = _k9W[0] + "r" if _k9syn else None
+                _k9lit = {
+                    ("prathama", "eka"): [_k9R + _k9WA + "a"],
+                    ("prathama", "dvi"): [_k9R + _k9W + "atuH"] + ([_k9R + _k9sn + "tuH"] if _k9syn else []),
+                    ("prathama", "bahu"): [_k9R + _k9W + "uH"] + ([_k9R + _k9sn0 + "uH"] if _k9syn else []),
+                    ("madhyama", "eka"): [_k9R + _k9W + "iTa"],
+                    ("madhyama", "dvi"): [_k9R + _k9W + "aTuH"] + ([_k9R + _k9sn + "TuH"] if _k9syn else []),
+                    ("madhyama", "bahu"): [_k9R + _k9W + "a"] + ([_k9R + _k9sn] if _k9syn else []),
+                    ("uttama", "eka"): [_k9R + _k9W + "a", _k9R + _k9WA + "a"],
+                    ("uttama", "dvi"): [_k9R + _k9W + "iva"] + ([_k9R + _k9sn0 + "iva"] if _k9syn else []),
+                    ("uttama", "bahu"): [_k9R + _k9W + "ima"] + ([_k9R + _k9sn0 + "ima"] if _k9syn else []),
+                }
+                return list(dict.fromkeys(_k9lit.get((purusha, vacana), []))), []
+            # kryAdi mUla liT u-group (yuyAva/yuyaviTa-yuyoTa/yuyava-yuyAva +
+            # uv-weak; ma.eka oTa-twin for closed-trio {yu,DU,sku}; redup pal/
+            # deasp (cukn/duD); surveyed all 7; exclusive return, meta-clean
+            # gate).
+            if _k9mc in ("yu", "knU", "drU", "pU", "lU", "DU", "sku"):
+                _k9on = ""
+                for _ch in clean:
+                    if _ch in SLP1_VOWELS:
+                        break
+                    _k9on += _ch
+                if len(_k9on) >= 2 and _k9on[0] == "s" and _k9on[1] not in SLP1_VOWELS:
+                    _k9rc0 = _k9on[1]
+                else:
+                    _k9rc0 = _k9on[:1]
+                _k9rc = {"k": "c", "K": "c", "g": "j", "G": "j", "N": "Y", "h": "j"}.get(_k9rc0, _k9rc0)
+                if _k9rc == "D":
+                    _k9rc = "d"
+                _k9R = _k9rc + "u"
+                _k9W = _k9on + "uv"
+                _k9oTa = _k9mc in ("yu", "DU", "sku")
+                _k9lit = {
+                    ("prathama", "eka"): [_k9R + _k9on + "Ava"],
+                    ("prathama", "dvi"): [_k9R + _k9W + "atuH"],
+                    ("prathama", "bahu"): [_k9R + _k9W + "uH"],
+                    ("madhyama", "eka"): [_k9R + _k9on + "aviTa"] + ([_k9R + _k9on + "oTa"] if _k9oTa else []),
+                    ("madhyama", "dvi"): [_k9R + _k9W + "aTuH"],
+                    ("madhyama", "bahu"): [_k9R + _k9W + "a"],
+                    ("uttama", "eka"): [_k9R + _k9on + "ava", _k9R + _k9on + "Ava"],
+                    ("uttama", "dvi"): [_k9R + _k9W + "iva"],
+                    ("uttama", "bahu"): [_k9R + _k9W + "ima"],
+                }
+                return list(dict.fromkeys(_k9lit.get((purusha, vacana), []))), []
+            # kryAdi mUla liT consonant group (redup C1+a (s+stop takes stop,
+            # palatal k/g/j, deasp B/D/J); full-root weak; strong grades by root
+            # vowel (a/o/e/A); anomalies: naB e-weak, Dras A-shortening, grah
+            # gfh-weak + grah-ma.eka, kliS zwA/Sva-twins, iz i/I alternation,
+            # banD pr.eka twin, SranT/granT reT-syncope twins (r-onset + nT),
+            # utt.eka a/A twins iff A-grade + redup; ma.eka always single iTa.
+            # Surveyed; exclusive return, meta-clean gate).
+            if _k9mc in ("banD", "manT", "SranT", "granT", "kunT", "mfd", "mfq", "stanB", "stunB", "skanB", "skunB", "guD", "kuz", "kzuB", "naB", "tuB", "kliS", "aS", "Dras", "iz", "viz", "pruz", "pluz", "puz", "muz", "Kac", "Kav", "heW", "grah"):
+                _k9on = ""
+                for _ch in clean:
+                    if _ch in SLP1_VOWELS:
+                        break
+                    _k9on += _ch
+                if len(_k9on) >= 2 and _k9on[0] == "s" and _k9on[1] not in SLP1_VOWELS and _k9on[1] not in ("y", "r", "l", "v"):
+                    _k9rc0 = _k9on[1]
+                else:
+                    _k9rc0 = _k9on[:1]
+                _k9rc = {"k": "c", "K": "c", "g": "j", "G": "j", "N": "Y", "h": "j"}.get(_k9rc0, _k9rc0)
+                if _k9rc in ("B", "D", "J"):
+                    _k9rc = {"B": "b", "D": "d", "J": "j"}[_k9rc]
+                _k9rvow = None
+                for _ch in reversed(clean):
+                    if _ch in SLP1_VOWELS:
+                        _k9rvow = "u" if _ch in ("u", "U") else ("i" if _ch in ("i", "I", "e", "E") else "a")
+                        break
+                if _k9rvow is None:
+                    _k9rvow = "a"
+                if _k9mc == "aS":
+                    _k9R = ""
+                else:
+                    _k9R = _k9rc + _k9rvow
+                _k9W = {"naB": "neB", "grah": "gfh", "aS": "AS"}.get(_k9mc, clean)
+                if _k9mc in ("stanB", "stunB", "skanB", "skunB"):
+                    _k9W = clean[:-2] + "mB"
+                _k9S = {"naB": "nAB", "Dras": "DrAs", "aS": "AS", "Kac": "KAc", "Kav": "KAv", "grah": "grAh", "guD": "goD", "kuz": "koz", "kzuB": "kzoB", "tuB": "toB", "pruz": "proz", "pluz": "ploz", "puz": "poz", "muz": "moz", "kliS": "kleS", "iz": "yez", "viz": "vez", "heW": "heW", "mfd": "mard", "mfq": "marq"}.get(_k9mc, _k9W)
+                _k9syn = (_k9mc in ("SranT", "granT"))
+                _k9sn = clean[:1] + "reT" if _k9syn else None
+                _k9sn0 = clean[:1] + "r" if _k9syn else None
+                _k9E = _k9R + _k9S + "a"
+                if "A" in _k9S and _k9R != "":
+                    _k9U1a = _k9E[:_k9E.rfind("A")] + "a" + _k9E[_k9E.rfind("A") + 1:]
+                    _k9U1 = [_k9U1a, _k9E]
+                else:
+                    _k9U1 = [_k9E]
+                # ma.eka takes the strong grade except A-roots (weak instead).
+                _k9M = _k9W if "A" in _k9S else _k9S
+                # naB weak slots drop the redup (neBatuH); syncope twins are
+                # bare too (SreTatuH).
+                _k9bare = (_k9mc == "naB")
+                _k9rw = "" if _k9bare else _k9R
+                _k9lit = {
+                    ("prathama", "eka"): [_k9E] + ([_k9R + "bandDa"] if _k9mc == "banD" else []),
+                    ("prathama", "dvi"): [_k9rw + _k9W + "atuH"] + ([_k9sn + "atuH"] if _k9syn else []),
+                    ("prathama", "bahu"): [_k9rw + _k9W + "uH"] + ([_k9sn + "uH"] if _k9syn else []),
+                    ("madhyama", "eka"): [_k9rw + _k9M + "iTa"] + ([_k9R + "grah" + "iTa"] if _k9mc == "grah" else []),
+                    ("madhyama", "dvi"): [_k9rw + _k9W + "aTuH"] + ([_k9sn + "aTuH"] if _k9syn else []),
+                    ("madhyama", "bahu"): [_k9rw + _k9W + "a"] + ([_k9sn + "a"] if _k9syn else []),
+                    ("uttama", "eka"): _k9U1,
+                    ("uttama", "dvi"): [_k9rw + _k9W + "iva"] + ([_k9sn + "iva"] if _k9syn else []),
+                    ("uttama", "bahu"): [_k9rw + _k9W + "ima"] + ([_k9sn + "ima"] if _k9syn else []),
+                }
+                if _k9mc == "kliS":
+                    _k9lit[("madhyama", "dvi")] = [_k9R + _k9W + "aTuH", _k9R + "klezWa"]
+                    _k9lit[("uttama", "dvi")] = [_k9R + _k9W + "iva", _k9R + "kliSva"]
+                    _k9lit[("uttama", "bahu")] = [_k9R + _k9W + "ima", _k9R + "kliSma"]
+                if _k9mc == "iz":
+                    _k9lit = {
+                        ("prathama", "eka"): ["iyeza"],
+                        ("prathama", "dvi"): ["IzatuH"],
+                        ("prathama", "bahu"): ["IzuH"],
+                        ("madhyama", "eka"): ["iyeziTa"],
+                        ("madhyama", "dvi"): ["IzaTuH"],
+                        ("madhyama", "bahu"): ["Iza"],
+                        ("uttama", "eka"): ["iyeza"],
+                        ("uttama", "dvi"): ["Iziva"],
+                        ("uttama", "bahu"): ["Izima"],
+                    }
+                return list(dict.fromkeys(_k9lit.get((purusha, vacana), []))), []
         # de luN kartari takes i-aorist adita (not s-aorist amAsta like meN,
         # not seT adayizwa); sole de-root, additive-safe.
         if clean == "de" and lakara == "luN" and prayoga == "kartari" and sanadi is None:
@@ -4086,7 +4232,7 @@ class TinantaDerivationEngine:
                             if _ch in SLP1_VOWELS:
                                 break
                             _k9on += _ch
-                        if len(_k9on) >= 2 and _k9on[:2] not in ("kn", "dr") and _k9on[0] in ("s", "S") and _k9on[1] not in SLP1_VOWELS:
+                        if len(_k9on) >= 2 and _k9on[:2] not in ("kn", "dr") and _k9on[0] in ("s", "S") and _k9on[1] not in SLP1_VOWELS and _k9on[1] not in ("y", "r", "l", "v"):
                             _k9rc = _k9on[1]
                         else:
                             _k9rc = _k9on[:1]

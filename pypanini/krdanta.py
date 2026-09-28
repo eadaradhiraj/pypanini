@@ -359,6 +359,31 @@ class KrdantaEngine:
         # jAgf f→ar before iT (jAgarita; sole 02.0067 surveyed; present keeps f/jAgar, kta takes ar-grade).
         if clean == "jAg":
             return "jAgarita"
+        # kryAdi kta grades (F→Ir/Ur + na (Ra iff Natva), DU/lU/jyA/kzIz na,
+        # pF sole ta-exception, grah gfhIta; kliS seT-twin handled at the kta
+        # branch (klizwa cross-hits); surveyed gap set (rest hit via generic);
+        # gana-gated).
+        if gana == "kryAdiH":
+            if clean in ("DU", "lU"):
+                return clean + "na"
+            if clean == "jyA":
+                return "jIna"
+            if clean == "kzIz":
+                return "kzIRa"
+            if clean == "grah":
+                return "gfhIta"
+            if clean.endswith(("f", "F")):
+                # Atmane-vf (vfN-op, sole 09.0045) keeps bare vfta via generic
+                # below — skip the Ir/Ur-na machinery (it broke a hit).
+                if clean == "vf" and op.startswith("vfN"):
+                    pass
+                else:
+                    _k9o = clean[:-1]
+                    _k9g = "Ur" if any(ch in ("p", "P", "b", "B", "m", "M", "v") for ch in _k9o) else "Ir"
+                    if clean == "pF":
+                        return "pUrta"
+                    _k9b = _k9o + _k9g
+                    return _k9b + ("Ra" if _natva_applies(_k9b) else "na")
         # fkzi aya/iy kta (fkziyita; sole 05.0038 surveyed — mUla takes aya-grade
         # + seT it elsewhere, kta takes iy + ita; old fkzita misses, free).
         if clean == "fkzi" and gana == "svAdiH":
@@ -2761,6 +2786,10 @@ class KrdantaEngine:
             # vaS weak-uS kta twin (uSitaH; sole 02.0075 surveyed — old vaSita F cross-hits, kept; additive).
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitaH", "uSitaH"], "F": ["vaSitA", "uSitA"], "N": ["vaSitam", "uSitam"]}
+            # kliS seT-twin (kliSitaH + klizwaH; sole 09.0058 surveyed, vew takes
+            # iT here — both twin-sets verified in tokens; additive, gana-gated).
+            if sanadi is None and clean == "kliS" and meta.get("gana") == "kryAdiH":
+                return {"M": ["kliSitaH", "klizwaH"], "F": ["kliSitA", "klizwA"], "N": ["kliSitam", "klizwam"]}
             # SAs iz-grade kta (SizwaH; sole 02.0070 surveyed; old A-forms miss, free).
             if sanadi is None and clean == "SAs" and meta.get("gana") == "adAdiH":
                 return tri_linga("Sizwa")
@@ -2958,6 +2987,9 @@ class KrdantaEngine:
             # ad suppletive ktavatu (jagDavAn + jagdDa twin; sole 02.0001 surveyed; old misses, free).
             if sanadi is None and clean == "ad" and meta.get("gana") == "adAdiH":
                 return {"M": ["jagDavAn", "jagdDavAn"], "F": ["jagDavatI", "jagdDavatI"], "N": ["jagDavat", "jagdDavat", "jagDavad", "jagdDavad"]}
+            # kliS seT-twin ktavatu (mirrors kta; both verified in tokens; additive).
+            if sanadi is None and clean == "kliS" and meta.get("gana") == "kryAdiH":
+                return {"M": ["kliSitavAn", "klizwavAn"], "F": ["kliSitavatI", "klizwavatI"], "N": ["kliSitavat", "klizwavat", "kliSitavad", "klizwavad"]}
             # mA short-i ktavatu (mitavAn; 02.0057 surveyed — gana-gated like kta; free).
             if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
                 return {"M": "mitavAn", "F": "mitavatI", "N": ["mitavat", "mitavad"]}
