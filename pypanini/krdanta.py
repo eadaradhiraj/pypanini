@@ -2926,6 +2926,31 @@ class KrdantaEngine:
                     _r7nn = "Y" if _r7cd in ("j", "c") else ("M" if _r7cd in ("z", "s", "h") else "n")
                     _r7W = _r7pre + _r7nn + _r7cd
                     return {"M": _r7W + "an", "F": _r7W + "atI", "N": _r7W + "at"}
+                # SvAdi nu-Satf (sunvan/sunvatI/sunvat, kziRvan, stfRvat, Apnuvan,
+                # daBnuvan, riRvan, tfpnuvan; stem = root + ("n"/"nu"/"R") + "vat":
+                # 6.4.24 root-nasal lopa (danB→daB, sole instance), strict Natva
+                # (R iff only SLP1-vowels stand between the last r/R/z/f trigger
+                # and nu's n — tfp/fD/rAD stay dental, f-final/ri/kzi/ciri/Dfz
+                # take R), u kept only for consonant-final polysyllabic stems
+                # (Apnu vs sun/stfR); M t→n, F +I, N t/d-twins (standard
+                # at-inflection); surveyed all 36 keyed 05 cleans; gana-gated;
+                # old A-grade forms miss, free).
+                if sanadi is None and meta.get("gana") == "svAdiH":
+                    _s5s = clean + "nu"
+                    if len(clean) >= 2 and clean[-2] in ("n", "N", "m", "M", "Y", "R") and clean[-1] not in SLP1_VOWELS and clean[-1] not in ("n", "N", "m", "M", "Y", "R"):
+                        _s5s = clean[:-2] + clean[-1:] + "nu"
+                    _s5last = -1
+                    for _s5i in range(len(_s5s) - 2):
+                        if _s5s[_s5i] in ("r", "R", "z", "f", "F"):
+                            _s5last = _s5i
+                    if _s5last != -1 and all(ch in SLP1_VOWELS for ch in _s5s[_s5last + 1:-2]):
+                        _s5x = _s5s[:-2] + "R"
+                    elif len(clean) == 2 and clean[0] not in SLP1_VOWELS and clean[1] in SLP1_VOWELS:
+                        _s5x = _s5s[:-1]
+                    else:
+                        _s5x = _s5s
+                    _s5p = _s5x + "vat"
+                    return {"M": _s5p[:-1] + "n", "F": _s5p + "I", "N": [_s5p, _s5p[:-1] + "d"]}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
