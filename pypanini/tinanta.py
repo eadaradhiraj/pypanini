@@ -4034,6 +4034,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") == "BaYj":
                     _r7yluw = {("prathama","eka"):["BaNktA"],("prathama","dvi"):["BaNktArO"],("prathama","bahu"):["BaNktAraH"],("madhyama","eka"):["BaNktAse"],("madhyama","dvi"):["BaNktAsATe"],("madhyama","bahu"):["BaNktADve"],("uttama","eka"):["BaNktAhe"],("uttama","dvi"):["BaNktAsvahe"],("uttama","bahu"):["BaNktAsmahe"]}
                     cands += _r7yluw.get((purusha, vacana), [])
+                # fkzi yak-luT aya/Aya twins (fkzayitA/fkzAyitA + Atmane endings;
+                # sole 05.0038 surveyed — old ytA-forms miss everywhere; additive,
+                # karmani-only, svAdiH-gated).
+                if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "fkzi":
+                    _fkyuw = {("prathama","eka"):["fkzayitA","fkzAyitA"],("prathama","dvi"):["fkzayitArO","fkzAyitArO"],("prathama","bahu"):["fkzayitAraH","fkzAyitAraH"],("madhyama","eka"):["fkzayitAse","fkzAyitAse"],("madhyama","dvi"):["fkzayitAsATe","fkzAyitAsATe"],("madhyama","bahu"):["fkzayitADve","fkzAyitADve"],("uttama","eka"):["fkzayitAhe","fkzAyitAhe"],("uttama","dvi"):["fkzayitAsvahe","fkzAyitAsvahe"],("uttama","bahu"):["fkzayitAsmahe","fkzAyitAsmahe"]}
+                    cands += _fkyuw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -6351,6 +6357,15 @@ class TinantaDerivationEngine:
                 _r7fa = self._add_augment(_r7fw, _r7fw[0] in SLP1_VOWELS if _r7fw else False)
                 cands+=self._conjugate_at_stem_parasmai(_r7fa, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_r7fa, "laN", purusha, vacana)
+            # svAdi sya-conditionals (arAtsyata/asAtsyata/Arkzayizyata (+ArkzAyizy
+            # twin); trio 05.0018/0019/0038 surveyed — D→t + explicit augments
+            # (fkzi A + rkz-metathesis, not _add_augment); Atmane twins hit yak-
+            # alrung tokens (ruDAdi precedent); additive, svAdiH-gated).
+            if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") in ("rAD", "sAD", "fkzi"):
+                _s5fcs = {"rAD": ["arAtsy"], "sAD": ["asAtsy"], "fkzi": ["Arkzayizy", "ArkzAyizy"]}[meta.get("clean")]
+                for _s5fc in _s5fcs:
+                    cands+=self._conjugate_at_stem_parasmai(_s5fc, "laN", purusha, vacana)
+                    cands+=self._conjugate_at_stem_atmane(_s5fc, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
