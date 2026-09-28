@@ -1653,6 +1653,74 @@ class TinantaDerivationEngine:
                 ("uttama", "bahu"): ["AnaSimahe", "AnaSmahe"],
             }
             return list(dict.fromkeys(_as_lit.get((purusha, vacana), []))), []
+        # kryAdi mUla liT i-group (Aya-system 11: cikrAya/cikrayiTa-cikreTa/
+        # cikraya-cikrAya + iy-weak; O-trio mI/jyA/jYA: mamO/mamATa-mamiTa +
+        # mimy-weak; lI sole 15-table (lalO/lilAya, ma.eka quad, utt.eka triple
+        # + lily-weak); uniform glide rules (single-onset y-drop, s→z iff
+        # single-s, C1 palatal/cutva); surveyed; exclusive returns (attested
+        # forms hit by definition; old forms miss); meta-clean gates.
+        if meta.get("gana") == "kryAdiH" and lakara == "liw" and sanadi is None and prayoga == "kartari" and _force_pada != "Atmanepadi":
+            _k9mc = meta.get("clean", "") or clean
+            _k9aya = {"krI", "prI", "SrI", "si", "rI", "vlI", "blI", "plI", "vrI", "BrI", "kzIz"}
+            _k9o3 = {"mI": (("ma", "mi"), "my", "m"), "jyA": (("ji", "ji"), "jy", "jy"), "jYA": (("ja", "ja"), "jY", "jY")}
+            if _k9mc in _k9aya:
+                _k9on = ""
+                for _ch in clean:
+                    if _ch in SLP1_VOWELS:
+                        break
+                    _k9on += _ch
+                _k9c1 = _k9on[:1]
+                if _k9c1 == "s":
+                    _k9rc = "S" if len(clean) > 2 else "s"
+                else:
+                    _k9rc = {"k": "c", "K": "c", "g": "j", "G": "j", "N": "Y", "h": "j"}.get(_k9c1, _k9c1)
+                    if _k9rc == "B":
+                        _k9rc = "b"
+                _k9R = _k9rc + "i"
+                _k9ON = "z" if _k9on == "s" else _k9on
+                _k9W = _k9ON + ("y" if len(clean) == 2 else "iy")
+                _k9W2 = _k9ON
+                _k9lit = {
+                    ("prathama", "eka"): [_k9R + _k9W2 + "Aya"],
+                    ("prathama", "dvi"): [_k9R + _k9W + "atuH"],
+                    ("prathama", "bahu"): [_k9R + _k9W + "uH"],
+                    ("madhyama", "eka"): [_k9R + _k9W2 + "ayiTa", _k9R + _k9W2 + "eTa"],
+                    ("madhyama", "dvi"): [_k9R + _k9W + "aTuH"],
+                    ("madhyama", "bahu"): [_k9R + _k9W + "a"],
+                    ("uttama", "eka"): [_k9R + _k9W2 + "aya", _k9R + _k9W2 + "Aya"],
+                    ("uttama", "dvi"): [_k9R + _k9W + "iva"],
+                    ("uttama", "bahu"): [_k9R + _k9W + "ima"],
+                }
+                return list(dict.fromkeys(_k9lit.get((purusha, vacana), []))), []
+            if _k9mc in _k9o3:
+                _k9Rsp, _k9W, _k9ON = _k9o3[_k9mc]
+                _k9Rs, _k9Rw = _k9Rsp
+                _k9W2 = _k9W[:-1] if len(clean) == 2 else _k9W
+                _k9lit = {
+                    ("prathama", "eka"): [_k9Rs + _k9ON + "O"],
+                    ("prathama", "dvi"): [_k9Rw + _k9W + "atuH"],
+                    ("prathama", "bahu"): [_k9Rw + _k9W + "uH"],
+                    ("madhyama", "eka"): [_k9Rs + _k9ON + "ATa", _k9Rs + _k9W2 + "iTa"],
+                    ("madhyama", "dvi"): [_k9Rw + _k9W + "aTuH"],
+                    ("madhyama", "bahu"): [_k9Rw + _k9W + "a"],
+                    ("uttama", "eka"): [_k9Rs + _k9ON + "O"],
+                    ("uttama", "dvi"): [_k9Rw + _k9W + "iva"],
+                    ("uttama", "bahu"): [_k9Rw + _k9W + "ima"],
+                }
+                return list(dict.fromkeys(_k9lit.get((purusha, vacana), []))), []
+            if _k9mc == "lI":
+                _k9lit = {
+                    ("prathama", "eka"): ["lalO", "lilAya"],
+                    ("prathama", "dvi"): ["lilyatuH"],
+                    ("prathama", "bahu"): ["lilyuH"],
+                    ("madhyama", "eka"): ["lalATa", "laliTa", "lilayiTa", "lileTa"],
+                    ("madhyama", "dvi"): ["lilyaTuH"],
+                    ("madhyama", "bahu"): ["lilya"],
+                    ("uttama", "eka"): ["lalO", "lilaya", "lilAya"],
+                    ("uttama", "dvi"): ["lilyiva"],
+                    ("uttama", "bahu"): ["lilyima"],
+                }
+                return list(dict.fromkeys(_k9lit.get((purusha, vacana), []))), []
         # de luN kartari takes i-aorist adita (not s-aorist amAsta like meN,
         # not seT adayizwa); sole de-root, additive-safe.
         if clean == "de" and lakara == "luN" and prayoga == "kartari" and sanadi is None:
