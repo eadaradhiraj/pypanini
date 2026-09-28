@@ -2127,7 +2127,7 @@ class KrdantaEngine:
                     # sannanta Satf is like buBUzat etc, use primitive but with sec
                     pass
                 if pratyaya == "ktvA":
-                    if sec.endswith("iz"):
+                    if sec.endswith("iz") or (sec == "Ips" and meta.get("gana") == "svAdiH"):
                         return {"avyaya": [sec + "itvA", sec + "ya"]}
                     else:
                         return {"avyaya": [sec + "itvA"]}
