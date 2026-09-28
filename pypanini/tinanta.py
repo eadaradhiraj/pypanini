@@ -1595,6 +1595,23 @@ class TinantaDerivationEngine:
             }
             if (purusha, vacana) in _rad_lit_weak:
                 return list(dict.fromkeys(_rad_lit_weak[(purusha, vacana)])), []
+        # aS liT AnaS-e Atmane (AnaSe/AnaSAte/AnaSire/Anakze-AnaSize/AnaSATe/
+        # AnaqQve-AnaSiDve/AnaSivahe-AnaSvahe/AnaSimahe-AnaSmahe; sole 05.0020
+        # surveyed — aS is Atmane-only so no paras disturbance; serves both
+        # ting and yak liw (same alit shared); old AYcakr-forms miss
+        # everywhere, free).
+        if meta.get("clean") == "aS" and meta.get("gana") == "svAdiH" and lakara == "liw" and sanadi is None:
+            _as_lit = {
+                ("prathama", "eka"): ["AnaSe"], ("prathama", "dvi"): ["AnaSAte"],
+                ("prathama", "bahu"): ["AnaSire"],
+                ("madhyama", "eka"): ["Anakze", "AnaSize"],
+                ("madhyama", "dvi"): ["AnaSATe"],
+                ("madhyama", "bahu"): ["AnaqQve", "AnaSiDve"],
+                ("uttama", "eka"): ["AnaSe"],
+                ("uttama", "dvi"): ["AnaSivahe", "AnaSvahe"],
+                ("uttama", "bahu"): ["AnaSimahe", "AnaSmahe"],
+            }
+            return list(dict.fromkeys(_as_lit.get((purusha, vacana), []))), []
         # de luN kartari takes i-aorist adita (not s-aorist amAsta like meN,
         # not seT adayizwa); sole de-root, additive-safe.
         if clean == "de" and lakara == "luN" and prayoga == "kartari" and sanadi is None:
