@@ -1124,6 +1124,12 @@ class KrdantaEngine:
                 # mfjU nich A-grade (mArjay-; sole 02.0061 surveyed — no BvAdi mfj exists).
                 if c == "mfj" and meta.get("gana") == "adAdiH":
                     return "mArjay"
+                # mi nich mA-grade (mApay-; mirrors tinanta _nijanta_stem; sole
+                # 05.0004 surveyed, meta-clean + gana-gated; sec feeds all
+                # nich_krut, downstream grade machinery splits mAp-/mApay-
+                # exactly as for BvAdi BAvay-).
+                if c == "mi" and meta.get("gana") == "svAdiH":
+                    return "mApay"
                 # pA nich l-augment (mirrors tinanta; same minimal gana-pair; gana-gated).
                 if c == "pA" and meta.get("gana") == "adAdiH":
                     return "pAlay"
@@ -1960,6 +1966,10 @@ class KrdantaEngine:
                     # SAs nijanta plain (SAsita; sole 02.0070 surveyed; manual triple — tri_linga defined later).
                     if meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH":
                         return {"M": "SAsitaH", "F": "SAsitA", "N": "SAsitam"}
+                    # mi nijanta mAp-grade (mApita; sole 05.0004 surveyed — sec mApay,
+                    # kta takes mAp-grade + ita like BAvita; manual triple).
+                    if meta.get("clean") == "mi" and meta.get("gana") == "svAdiH":
+                        return {"M": "mApitaH", "F": "mApitA", "N": "mApitam"}
                     # tanAdi nich kta takes sec-base + ita (tAnita/sAnita/kzARita/kzeRita/
                     # arRita/tarRita/GarRita/vanita/mAnita/kArita; surveyed all 10 tanAdi
                     # cleans; mUla-fallthrough gives tanta/kziRta and misses; free).
@@ -2005,6 +2015,9 @@ class KrdantaEngine:
                         return {"M": "AditavAn", "F": "AditavatI", "N": ["Aditavat", "Aditavad"]}
                     # mA nijanta (mApitavAn; surveyed 02/03/04 unanimity; pan-gaNa shape-gated; free).
                     if meta.get("clean") == "mA":
+                        return {"M": "mApitavAn", "F": "mApitavatI", "N": ["mApitavat", "mApitavad"]}
+                    # mi nijanta mAp-grade (mApitavAn; sole 05.0004 surveyed; free).
+                    if meta.get("clean") == "mi" and meta.get("gana") == "svAdiH":
                         return {"M": "mApitavAn", "F": "mApitavatI", "N": ["mApitavat", "mApitavad"]}
                     # pA nijanta (pAlitavAn; same minimal pair; gana-gated; free).
                     if meta.get("clean") == "pA" and meta.get("gana") == "adAdiH":
@@ -2066,6 +2079,10 @@ class KrdantaEngine:
                     if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
                         _isb = sec_base + "ayamAna"
                         return {"M": _isb + "H", "F": _isb[:-1] + "A" if _isb.endswith("a") else _isb + "A", "N": _isb + "m"}
+                    # mi nich keeps -ay- (mApayamAna; sole 05.0004 surveyed — manual
+                    # triple, tri_linga defined later).
+                    if meta.get("clean") == "mi" and meta.get("gana") == "svAdiH":
+                        return {"M": "mApayamAnaH", "F": "mApayamAnA", "N": "mApayamAnam"}
                     base = sec_base+"yamAna"
                     if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and base.endswith("amAna"):
                         base = base[:-5] + "amARa"
@@ -4064,6 +4081,9 @@ class KrdantaEngine:
             if clean == "mfj" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _lyu = "mArjanam" if sanadi is None else "marmArjanam"
                 return {"gender": "Neuter", "form": _lyu}
+            # mi mA-lyuw (mAnam; sole 05.0004 surveyed; old e-forms miss, free).
+            if clean == "mi" and meta.get("gana") == "svAdiH" and sanadi is None:
+                return {"gender": "Neuter", "form": "mAnam"}
             # UrRu av lyuw (UrRavanam mUla + UrRonavanam yl; sole-gated; free).
             if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _ulyu = "UrRavanam" if sanadi is None else "UrRonavanam"
@@ -4246,6 +4266,9 @@ class KrdantaEngine:
             # iN aD- tumun (aDyetum; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"avyaya": ["aDyetum"]}
+            # mi mA-tumun (mAtum; sole 05.0004 surveyed; old e-forms miss, free).
+            if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
+                return {"avyaya": ["mAtum"]}
             # fkzi aya-tumun (fkzayitum; sole 05.0038 surveyed; old e-forms miss, free).
             if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
                 return {"avyaya": ["fkzayitum"]}
@@ -4572,6 +4595,10 @@ class KrdantaEngine:
             # all generic aya-twins miss everywhere, free).
             if clean == "fkzi" and meta.get("gana") == "svAdiH" and sanadi is None:
                 return {"avyaya": ["prArkzitya"]}
+            # mi mA-lyap (pramAya; sole 05.0004 surveyed — old iya-twins miss
+            # everywhere, free).
+            if clean == "mi" and meta.get("gana") == "svAdiH" and sanadi is None:
+                return {"avyaya": ["pramAya"]}
             # F-final yanlug redup (tF->pratAtIrya; additive with Irya cross-match).
             # f-final (short): keep f, a-redup r/ri/rI (smf->prasarsmfya).
             if clean.endswith(("f", "F")) and sanadi == "yanluganta":

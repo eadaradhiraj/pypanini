@@ -3880,6 +3880,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "hi":
                     _jgy5 = {("prathama","eka"):["jiGye"],("prathama","dvi"):["jiGyAte"],("prathama","bahu"):["jiGyire"],("madhyama","eka"):["jiGyize"],("madhyama","dvi"):["jiGyATe"],("madhyama","bahu"):["jiGyiDve","jiGyiQve"],("uttama","eka"):["jiGye"],("uttama","dvi"):["jiGyivahe"],("uttama","bahu"):["jiGyimahe"]}
                     cands += _jgy5.get((purusha, vacana), [])
+                # mi yak-liT mimy- (mimye/mimyAte/mimyire...; sole 05.0004 surveyed —
+                # same mimy stem as mUla perfect + Atmane lit endings; old mamA-forms
+                # miss everywhere; additive before return, svAdiH-gated).
+                if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "mi":
+                    _mmy5 = {("prathama","eka"):["mimye"],("prathama","dvi"):["mimyAte"],("prathama","bahu"):["mimyire"],("madhyama","eka"):["mimyize"],("madhyama","dvi"):["mimyATe"],("madhyama","bahu"):["mimyiDve","mimyiQve"],("uttama","eka"):["mimye"],("uttama","dvi"):["mimyivahe"],("uttama","bahu"):["mimyimahe"]}
+                    cands += _mmy5.get((purusha, vacana), [])
                 # ciri/jiri yak-liT ciray/jiray-peri (cirayAYcakre/cirayAmAse/
                 # cirayAmbaBUve triplets per slot; pair 05.0034/0035 surveyed —
                 # aya-base + AYcakr/AmAs/AmbaBU auxiliaries; old ciciri-forms
