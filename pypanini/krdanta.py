@@ -363,6 +363,10 @@ class KrdantaEngine:
         # + seT it elsewhere, kta takes iy + ita; old fkzita misses, free).
         if clean == "fkzi" and gana == "svAdiH":
             return "fkziyita"
+        # ciri/jiri Iry kta (cIryita/jIryita; -iri pair surveyed — kta takes
+        # Iry + ita; old rita-forms miss, free).
+        if clean.endswith("iri") and gana == "svAdiH":
+            return clean[:-3] + "Iryita"
         # idit i-final velar/palatal/retroflex/labial takes assimilated num (agi->aNgita; i~ marks idit)
         if clean.endswith(("i", "I")) and ("i~" in op) and ("I~" not in op):
             _bw = clean[:-1]
