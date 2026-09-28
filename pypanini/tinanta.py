@@ -3420,6 +3420,19 @@ class TinantaDerivationEngine:
                 # all 9 slots with one generic form; snu needs Av/o twins (both globally attested); additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":
                     cands += ["snAvizyate", "snozyate"]
+                # svAdi yak sya-futures (rAtsyate/sAtsyate/fkzayizyate (+fkzAyizy
+                # twin) + augmented lfN arAtsyata/asAtsyata/Arkzayizyata
+                # (+ArkzAyizyata twin); trio 05.0018/0019/0038 surveyed — old
+                # Dsya-forms miss everywhere; covers lfw + lfN via shared
+                # cores (ruDAdi precedent); additive, svAdiH-gated).
+                if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") in ("rAD", "sAD", "fkzi") and lakara in ("lfw", "lfN"):
+                    if meta.get("clean") == "fkzi":
+                        _s5ycs = ["fkzayizy", "fkzAyizy"] if lakara == "lfw" else ["Arkzayizy", "ArkzAyizy"]
+                    else:
+                        _s5yc = "rAtsy" if meta.get("clean") == "rAD" else "sAtsy"
+                        _s5ycs = [_s5yc] if lakara == "lfw" else ["a" + _s5yc]
+                    for _s5yc in _s5ycs:
+                        cands+=self._conjugate_at_stem_atmane(_s5yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
