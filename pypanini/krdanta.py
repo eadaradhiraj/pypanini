@@ -100,6 +100,10 @@ def clean_dhatu_op(op: str) -> str:
     # strip qu- explicitly (mirrors tinanta; sole quk-clean surveyed all ganas).
     if raw == "quk" and op.startswith("qukf"):
         raw = "kf"
+    # quBfY (03.0006): qu- it + Bf + Y-it; same gap (quB); strip qu- explicitly
+    # (mirrors tinanta; sole quB-clean surveyed all ganas; Bf patterns with pf).
+    if raw == "quB" and op.startswith("quBf"):
+        raw = "Bf"
     # Initial u~ anubandha (sole case u~bundi~r 01.1017 -> bund; 1.3.5 AdirYi...).
     if op.startswith("u~") and raw.startswith("u") and len(raw) > 2:
         raw = raw[1:]

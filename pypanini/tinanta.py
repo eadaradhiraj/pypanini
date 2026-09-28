@@ -69,6 +69,10 @@ def clean_dhatu_op(op: str) -> str:
     # spares 3-char raws, leaving quk — strip qu- explicitly (sole quk-clean surveyed all ganas).
     if raw == "quk" and op.startswith("qukf"):
         raw = "kf"
+    # quBfY (03.0006): qu- it + Bf + Y-it; same length-guard gap (quB); strip qu-
+    # explicitly (sole quB-clean surveyed all ganas; Bf patterns with pf (ar/f/r)).
+    if raw == "quB" and op.startswith("quBf"):
+        raw = "Bf"
     # Initial u~ anubandha (sole case u~bundi~r 01.1017 -> bund; 1.3.5 AdirYi...).
     if op.startswith("u~") and raw.startswith("u") and len(raw) > 2:
         raw = raw[1:]
@@ -416,6 +420,48 @@ class TinantaDerivationEngine:
         strongs = list(dict.fromkeys([clean + "o", guna + "o"]))
         weaks = list(dict.fromkeys([clean + "u", guna + "u"]))
         return (strongs, weaks, weaks)
+
+    def _juhoti_redup(self, clean: str, op: str = "") -> str:
+        """juhoti abhyAsa (onset + vowel): cutva/deaspiration of onset (h/k/K/G/C/B/
+        D/g→j/c/j/c/c/b/d/j; Panini 7.4.62 kuhoS cuH family); hrasva (I→i);
+        bare-A trio gA/mA/hA takes i (jigAti/mimIte, vs A-coda hAk/dA/DA taking a);
+        i~r/x~ trio nij/vij/viz takes e (nenekti); f/F-roots split labial-onset
+        (pF/pf/Bf → pi/bi) vs rest (Gf/hf/sf → ja/sa, vowel-initial f → iy);
+        u/a/i take root vowel. Surveyed all 26 juhotyAdi cleans, zero conflicts."""
+        oc = ""
+        for ch in clean:
+            if ch in SLP1_VOWELS:
+                break
+            oc += ch
+        if not oc:
+            return "iy"
+        rc = {"h": "j", "k": "c", "K": "c", "G": "j", "C": "c", "B": "b", "D": "d", "g": "j"}.get(oc[0], oc[0])
+        if clean in ("gA", "mA", "hA"):
+            return rc + "i"
+        if clean in ("nij", "vij", "viz"):
+            return rc + "e"
+        if "f" in clean or "F" in clean:
+            if oc in ("p", "B"):
+                return rc + "i"
+            return rc + "a"
+        for ch in clean:
+            if ch in SLP1_VOWELS:
+                return rc + {"I": "i", "U": "u", "A": "a"}.get(ch, ch)
+        return rc + "a"
+
+    def _juhoti_class(self, clean: str) -> str:
+        """juhoti present-table class (grades/endings vary by class; surveyed)."""
+        if clean in ("nij", "vij"):
+            return "ij"
+        if clean in ("pf", "Bf", "Gf", "hf", "sf", "f"):
+            return "f"
+        if clean in ("mA", "hA"):
+            return "mA"
+        if clean in ("dA", "DA"):
+            return "dA"
+        return {"hu": "hu", "BI": "BI", "ki": "ki", "hrI": "hrI", "viz": "viz",
+                "kit": "kit", "Diz": "Diz", "pF": "pF", "hAk": "hAk", "tur": "tur",
+                "Dan": "Dan", "jan": "jan", "gA": "gA", "Bas": "Bas"}.get(clean, "")
 
     def _ruDana_pieces(self, clean: str) -> tuple:
         """rudhAdi Snam stem pieces: (preB, codaT, cls, Rtrig, neRoot).
@@ -4463,6 +4509,75 @@ class TinantaDerivationEngine:
                         ("uttama","dvi"):[x for w in _t8w for x in (w[:-1]+"vahe", w+"vahe")],
                         ("uttama","bahu"):[x for w in _t8w for x in (w[:-1]+"mahe", w+"mahe")]}
                 cands += _t8a.get((purusha, vacana), [])
+            # juhoti dvitva present (juhoti/biBeti/nenekti/dadAti/jigAti; redup via
+            # helper (cutva/hrasva/bare-A/i~r/f-split); per-class grade tables (18
+            # classes); dA/DA abhyAsa-lopa in t-slots (dattaH); BI i/I-twins;
+            # jan A/Y-grades + vidhi-twins; Atmane tables for mA/Bf/dA/ij/viz
+            # (sole Atmane-meta + ubhaya cleans). Gana-gated; additive.
+            if meta.get("gana") == "juhotyAdiH" and sanadi is None:
+                _jR = self._juhoti_redup(clean, op)
+                _jcls = self._juhoti_class(clean)
+                _jon = clean[0] if clean[:1] not in SLP1_VOWELS else ""
+                _jco = clean[-1:]
+                if pada != "Atmanepadi":
+                    _jP = {
+                        "hu": {"pe": ["oti"], "pd": ["utaH"], "pb": ["vati"], "me": ["ozi"], "md": ["uTaH"], "mb": ["uTa"], "ue": ["omi"], "ud": ["uvaH"], "ub": ["umaH"]},
+                        "BI": {"pe": ["eti"], "pd": ["itaH"], "pb": ["ItaH", "yati"], "me": ["ezi"], "md": ["iTaH", "ITaH"], "mb": ["iTa", "ITa"], "ue": ["emi"], "ud": ["ivaH", "IvaH"], "ub": ["imaH", "ImaH"]},
+                        "ki": {"pe": ["eti"], "pd": ["itaH"], "pb": ["yati"], "me": ["ezi"], "md": ["iTaH"], "mb": ["iTa"], "ue": ["emi"], "ud": ["ivaH"], "ub": ["imaH"]},
+                        "hrI": {"pe": ["reti"], "pd": ["rItaH"], "pb": ["riyati"], "me": ["rezi"], "md": ["rITaH"], "mb": ["rITa"], "ue": ["remi"], "ud": ["rIvaH"], "ub": ["rImaH"]},
+                        "ij": {"pe": ["ekti"], "pd": ["iktaH"], "pb": ["ijati"], "me": ["ekzi"], "md": ["ikTaH"], "mb": ["ikTa"], "ue": ["ejmi"], "ud": ["ijvaH"], "ub": ["ijmaH"]},
+                        "viz": {"pe": ["ezwi"], "pd": ["izwaH"], "pb": ["izati"], "me": ["ekzi"], "md": ["izWaH"], "mb": ["izWa"], "ue": ["ezmi"], "ud": ["izvaH"], "ub": ["izmaH"]},
+                        "kit": {"pe": ["etti"], "pd": ["ittaH"], "pb": ["itati"], "me": ["etsi"], "md": ["itTaH"], "mb": ["itTa"], "ue": ["etmi"], "ud": ["itvaH"], "ub": ["itmaH"]},
+                        "Diz": {"pe": ["ezwi"], "pd": ["izwaH"], "pb": ["izati"], "me": ["ekzi"], "md": ["izWaH"], "mb": ["izWa"], "ue": ["ezmi"], "ud": ["izvaH"], "ub": ["izmaH"]},
+                        "pF": {"pe": ["arti"], "pd": ["UrtaH"], "pb": ["urati"], "me": ["arzi"], "md": ["UrTaH"], "mb": ["UrTa"], "ue": ["armi"], "ud": ["UrvaH"], "ub": ["UrmaH"]},
+                        "f": {"pe": ["arti"], "pd": ["ftaH"], "pb": ["rati"], "me": ["arzi"], "md": ["fTaH"], "mb": ["fTa"], "ue": ["armi"], "ud": ["fvaH"], "ub": ["fmaH"]},
+                        "hAk": {"pe": ["Ati"], "pd": ["itaH"], "pb": ["ItaH", "ati"], "me": ["Asi"], "md": ["iTaH", "ITaH"], "mb": ["iTa", "ITa"], "ue": ["Ami"], "ud": ["ivaH", "IvaH"], "ub": ["imaH", "ImaH"]},
+                        "tur": {"pe": ["orti"], "pd": ["UrtaH"], "pb": ["urati"], "me": ["orzi"], "md": ["UrTaH"], "mb": ["UrTa"], "ue": ["ormi"], "ud": ["UrvaH"], "ub": ["UrmaH"]},
+                        "Dan": {"pe": ["anti"], "pd": ["antaH"], "pb": ["anati"], "me": ["aMsi"], "md": ["anTaH"], "mb": ["anTa"], "ue": ["anmi"], "ud": ["anvaH"], "ub": ["anmaH"]},
+                        "jan": {"pe": ["anti"], "pd": ["AtaH"], "pb": ["Yati"], "me": ["aMsi"], "md": ["ATaH"], "mb": ["ATa"], "ue": ["anmi"], "ud": ["anvaH"], "ub": ["anmaH"]},
+                        "gA": {"pe": ["Ati"], "pd": ["ItaH"], "pb": ["ati"], "me": ["Asi"], "md": ["ITaH"], "mb": ["ITa"], "ue": ["Ami"], "ud": ["IvaH"], "ub": ["ImaH"]},
+                        "Bas": {"pe": ["Basti"], "pd": ["bDaH"], "pb": ["psati"], "me": ["Bassi"], "md": ["bDaH"], "mb": ["bDa"], "ue": ["Basmi"], "ud": ["psvaH"], "ub": ["psmaH"]},
+                    }
+                    _jk = {"prathama": "p", "madhyama": "m", "uttama": "u"}[(purusha)] + {"eka": "e", "dvi": "d", "bahu": "b"}[(vacana)]
+                    if _jcls == "dA":
+                        _jC = _jon
+                        if (purusha, vacana) == ("prathama", "eka"):
+                            cands.append(_jR + _jC + "Ati")
+                        elif (purusha, vacana) in (("prathama", "dvi"), ("madhyama", "dvi"), ("madhyama", "bahu")):
+                            _jdt = {"prathama": "ttaH", "madhyama": "tTaH"}
+                            _jdb = {"prathama": "ttaH", "madhyama": "tTa"}
+                            cands.append(_jC + "a" + (_jdt[purusha] if vacana == "dvi" else _jdb[purusha]))
+                        elif (purusha, vacana) == ("prathama", "bahu"):
+                            cands.append(_jR + _jC + "ati")
+                        elif (purusha, vacana) == ("madhyama", "eka"):
+                            cands.append(_jR + _jC + "Asi")
+                        elif (purusha, vacana) == ("uttama", "eka"):
+                            cands.append(_jR + _jC + "Ami")
+                        elif (purusha, vacana) == ("uttama", "dvi"):
+                            cands.append(_jR + _jC + "vaH")
+                        elif (purusha, vacana) == ("uttama", "bahu"):
+                            cands.append(_jR + _jC + "maH")
+                    elif _jcls == "Bas":
+                        cands += [_jR + x for x in _jP["Bas"].get(_jk, [])]
+                    elif _jcls in _jP:
+                        cands += [_jR + _jon + x for x in _jP[_jcls].get(_jk, [])]
+                if pada == "Atmanepadi" and _jcls in ("mA", "Bf", "dA", "ij", "viz"):
+                    _jA = {
+                        "mA": {"pe": ["Ite"], "pd": ["Ate"], "pb": ["ate"], "me": ["Ize"], "md": ["ATe"], "mb": ["IDve"], "ue": ["e"], "ud": ["Ivahe"], "ub": ["Imahe"]},
+                        "Bf": {"pe": ["fte"], "pd": ["rAte"], "pb": ["rate"], "me": ["fze"], "md": ["rATe"], "mb": ["fDve"], "ue": ["re"], "ud": ["fvahe"], "ub": ["fmahe"]},
+                        "dA": {"pd": ["Ate"], "pb": ["ate"], "md": ["ATe"], "ue": ["e"], "ud": ["vahe"], "ub": ["mahe"]},
+                        "ij": {"pe": ["kte"], "pd": ["jAte"], "pb": ["jate"], "me": ["kze"], "md": ["jATe"], "mb": ["gDve"], "ue": ["je"], "ud": ["jvahe"], "ub": ["jmahe"]},
+                        "viz": {"pd": ["zAte"], "pb": ["zate"], "md": ["zATe"], "mb": ["qQve"], "ud": ["zvahe"], "ub": ["zmahe"]},
+                    }
+                    _jk = {"prathama": "p", "madhyama": "m", "uttama": "u"}[(purusha)] + {"eka": "e", "dvi": "d", "bahu": "b"}[(vacana)]
+                    if _jcls == "dA" and (purusha, vacana) in (("prathama", "eka"), ("madhyama", "eka")):
+                        cands.append(_jon + ("atte" if vacana == "eka" and purusha == "prathama" else "atse"))
+                    elif _jcls == "dA" and (purusha, vacana) == ("madhyama", "bahu"):
+                        cands.append((_jR + "dDve") if _jon == "d" else (_jon + "adDve"))
+                    elif _jcls == "viz" and (purusha, vacana) in (("prathama", "eka"), ("uttama", "eka")):
+                        cands.append(_jR + _jon + ("izwe" if vacana == "eka" else "ize"))
+                    else:
+                        cands += [_jR + _jon + x for x in _jA[_jcls].get(_jk, [])]
             # rudhAdi Snam present (ruRadDi/Binatti/riRakti/Sinazwi/tfReQi/hinasti;
             # short-na infix throughout (no nA-grade); infix-n takes R iff preB has
             # r/f; contact nasal N/Y/M/R in weak; coda sandhi per class; d/D/T twins
