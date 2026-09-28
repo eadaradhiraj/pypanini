@@ -3757,6 +3757,9 @@ class KrdantaEngine:
             # UrRu av yat (UrRavya; sole-gated; free).
             if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return tri_linga("UrRavya")
+            # fkzi e-yat (fkzeya; sole 05.0038 surveyed; old iy-forms miss, free).
+            if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
+                return tri_linga("fkzeya")
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
             # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
             # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-)
@@ -4059,6 +4062,9 @@ class KrdantaEngine:
             if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _ulyu = "UrRavanam" if sanadi is None else "UrRonavanam"
                 return {"gender": "Neuter", "form": _ulyu}
+            # fkzi aya-lyuw (fkzayaRam; sole 05.0038 surveyed; old i-forms miss, free).
+            if clean == "fkzi" and meta.get("gana") == "svAdiH" and sanadi is None:
+                return {"gender": "Neuter", "form": "fkzayaRam"}
             # iN aD- lyuw (aDyayanam; sole 02.0041 surveyed — op-gated; free).
             if clean == "i" and meta.get("gana") == "adAdiH" and sanadi is None and op.startswith("iN"):
                 return {"gender": "Neuter", "form": "aDyayanam"}
@@ -4234,6 +4240,9 @@ class KrdantaEngine:
             # iN aD- tumun (aDyetum; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"avyaya": ["aDyetum"]}
+            # fkzi aya-tumun (fkzayitum; sole 05.0038 surveyed; old e-forms miss, free).
+            if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
+                return {"avyaya": ["fkzayitum"]}
             # rudhAdi Y-palatal tumun (BaNktum/aNktum/taNktum; Y→N + k, no iT;
             # aYj/taYc veT-duals add Yc+it twin (aYjitum/taYcitum); vij weak
             # (vijitum, sole i+j); mirrors tavya/tfc above; surveyed; free).
@@ -4318,6 +4327,9 @@ class KrdantaEngine:
             # aya-grade + itvA; old ritvA-forms miss everywhere, free).
             if sanadi is None and clean in ("ciri", "jiri") and meta.get("gana") == "svAdiH":
                 return {"avyaya": ["cirayitvA" if clean == "ciri" else "jirayitvA"]}
+            # fkzi aya-ktvA (fkzayitvA; sole 05.0038 surveyed; old i-forms miss, free).
+            if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
+                return {"avyaya": ["fkzayitvA"]}
             # han n-loss ktvA (hatvA; sole-gated; free).
             if sanadi is None and clean == "han" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["hatvA"]}
@@ -4550,6 +4562,10 @@ class KrdantaEngine:
             # Panini 8.2.18 kfpo ro l: lyap keeps x (prakxpya).
             if clean == "kfp" and sanadi is None:
                 return {"avyaya": ["pra" + "kxp" + "ya", upasarga + "kxp" + "ya", "kxp" + "ya"]}
+            # fkzi Ar-lyap (prArkzitya; sole 05.0038 surveyed — pra + Arkzi + tya;
+            # all generic aya-twins miss everywhere, free).
+            if clean == "fkzi" and meta.get("gana") == "svAdiH" and sanadi is None:
+                return {"avyaya": ["prArkzitya"]}
             # F-final yanlug redup (tF->pratAtIrya; additive with Irya cross-match).
             # f-final (short): keep f, a-redup r/ri/rI (smf->prasarsmfya).
             if clean.endswith(("f", "F")) and sanadi == "yanluganta":
