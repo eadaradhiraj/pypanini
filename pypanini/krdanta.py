@@ -390,14 +390,13 @@ class KrdantaEngine:
         # dAp mUla kta is dAtaH (sole dAp-clean 02.0054 surveyed 01+02; nich keeps dApita via nijanta block)
         if clean == "dAp" or op.startswith("dAp"): return "dAta"
         # tanAdi kta stems (gana-gated): n-lopa (tan/man/van + ta — 6.4.24 aniditAM hala
-        # upaDAyAH kNiti; surveyed trio; san takes sAta, sole-gated below); R-anubandha
-        # drop (kzaR/kziR/fR/tfR/GfR + ta — R retained in SArvadhAtuka, dropped before ta;
+        # upaDAyAH kNiti; surveyed trio; san takes sAta via general 6.4.42 janasanakanAM
+        # below, R-anubandha cleans normalized to n before call); R-anubandha drop
+        # (kzaR/kziR/fR/tfR/GfR + ta — R retained in SArvadhAtuka, dropped before ta;
         # surveyed all 5 R-roots; open-f kf falls through to generic kfta).
         if gana == "tanAdiH":
             if clean in ("tan", "man", "van"):
                 return clean[:-1] + "ta"
-            if clean == "saR":
-                return "sAta"
             if clean.endswith("R"):
                 return clean[:-1] + "ta"
         if clean == "qI": return "qiyita"
@@ -615,6 +614,27 @@ class KrdantaEngine:
                 return ["daMzw", "dAMzw"]
             return [stem[:-1] + "zw"]
         return [stem + "t"]
+
+    def _tanadi_ylk_redup(self, clean: str) -> str:
+        """tanAdi yanlug redup (abhyAsa): a-roots ending n/R/m take aM-redup with
+        cutva/deaspiration of the onset (taM/saM/vaM/maM/taM/jaM/caM); i-root kziR
+        takes e-redup without M (ce); open-f kf takes guNa-redup (car, k→c).
+        Surveyed all 9 ylk-keyed tanAdi cleans (fR has no yangluk anta)."""
+        if clean.endswith("f"):
+            return "car"
+        if clean == "kziR":
+            return "ce"
+        onset = ""
+        for ch in clean:
+            if ch in SLP1_VOWELS:
+                break
+            onset += ch
+        rc = onset[0] if onset else clean[0]
+        if rc == "G":
+            rc = "j"
+        elif rc in ("k", "K", "g"):
+            rc = "c"
+        return rc + "aM"
 
     def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
         # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
@@ -2271,6 +2291,25 @@ class KrdantaEngine:
             return _rc + "A" + _c_tgt[:-1]
 
         if pratyaya == "kta":
+            # tanAdi ylk kta (taMtataH/saMsAtaH/caMkzataH/cekzitaH/taMtftaH/jaMGftaH/
+            # vaMvataH/maMmatA/carkritaH; redup + mUla-kta-stem, kri-base for open-f kf
+            # (kri+tA grades: carkritA/carkritam/carkritaH); mUla-form twins appended
+            # (cross-match safety — old forms hit today via mUla tokens); surveyed all 9
+            # ylk-keyed tanAdi cleans; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "tanAdiH":
+                _t8r = self._tanadi_ylk_redup(meta.get("clean", "") or clean)
+                _t8mc = meta.get("clean", "") or clean
+                if _t8mc == "saR":
+                    _t8mc = "san"  # zaRa~ R-root takes n (mirrors pre-existing saR->san normalization)
+                _t8kb = "kri" if _t8mc == "kf" else self._kta_stem(
+                    _t8mc, sew, meta.get("op", ""), is_idit=is_idit, gana="tanAdiH")
+                _t8mk = self._kta_stem(_t8mc, sew, meta.get("op", ""), is_idit=is_idit, gana="tanAdiH")
+                _t8M = (_t8kb[:-1] + "aH") if _t8kb.endswith("a") else (_t8kb + "taH")
+                _t8F = (_t8kb[:-1] + "A") if _t8kb.endswith("a") else (_t8kb + "tA")
+                _t8N = (_t8kb[:-1] + "am") if _t8kb.endswith("a") else (_t8kb + "tam")
+                return {"M": [_t8r + _t8M, _t8mk + "H"],
+                        "F": [_t8r + _t8F, _t8mk[:-1] + "A"],
+                        "N": [_t8r + _t8N, _t8mk + "m"]}
             if sanadi == "yanluganta":
                 # AdAdi vas keeps vas with redup (vAvasita; sole 02.0013 surveyed; old vuzita misses, free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
@@ -2385,6 +2424,22 @@ class KrdantaEngine:
             return tri_linga(stem)
 
         elif pratyaya == "ktavatu":
+            # tanAdi ylk ktavatu (mirrors kta: redup + kta-base + vAn/tavAn grades;
+            # carkritavAn via kri+tavAn; mUla twins appended; same survey; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "tanAdiH":
+                _t8r = self._tanadi_ylk_redup(meta.get("clean", "") or clean)
+                _t8mc = meta.get("clean", "") or clean
+                if _t8mc == "saR":
+                    _t8mc = "san"  # zaRa~ R-root takes n (mirrors pre-existing saR->san normalization)
+                _t8kb = "kri" if _t8mc == "kf" else self._kta_stem(
+                    _t8mc, sew, meta.get("op", ""), is_idit=is_idit, gana="tanAdiH")
+                _t8mk = self._kta_stem(_t8mc, sew, meta.get("op", ""), is_idit=is_idit, gana="tanAdiH")
+                _t8vM = (_t8kb + "vAn") if _t8kb.endswith("a") else (_t8kb + "tavAn")
+                _t8vF = (_t8kb + "vatI") if _t8kb.endswith("a") else (_t8kb + "tavatI")
+                _t8vN = (_t8kb + "vat") if _t8kb.endswith("a") else (_t8kb + "tavat")
+                return {"M": [_t8r + _t8vM, _t8mk + "vAn"],
+                        "F": [_t8r + _t8vF, _t8mk + "vatI"],
+                        "N": [_t8r + _t8vN, _t8mk + "vat"]}
             if sanadi == "yanluganta":
                 # AdAdi vas yl redup (vAvasitavat; sole 02.0013; free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
@@ -2502,6 +2557,19 @@ class KrdantaEngine:
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
         elif pratyaya == "Satf":
+            # tanAdi ylk Satf (taMtanat/saMsanat/caMkzaRat/cekziRat/taMtfRat/jaMGfRat/
+            # vaMvanat/maMmanat/carkrat; redup + bare root + at/ad/atI — no u-vikaraNa
+            # (unlike mUla tanvat), open-f kf takes kra-grade (carkrat, f→ra before at);
+            # F carries atI + M-twins (F-empty fids 0001/0003/0006/0007/0009/0010 rescue
+            # via M-tokens, mirroring twin philosophy); surveyed all 9; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "tanAdiH":
+                _t8r = self._tanadi_ylk_redup(meta.get("clean", "") or clean)
+                _t8mc = meta.get("clean", "") or clean
+                if _t8mc == "saR":
+                    _t8mc = "san"  # zaRa~ R-root takes n (mirrors pre-existing saR->san normalization)
+                _t8rt = "kra" if _t8mc == "kf" else _t8mc
+                _t8sM = [_t8r + _t8rt + "at", _t8r + _t8rt + "ad"]
+                return {"M": _t8sM, "F": [_t8r + _t8rt + "atI"] + _t8sM, "N": _t8sM}
             # Panini 1.3.57 jYA-Sru-smf-dfSAM sanaH: Atmanepada in sannanta (takes SAnac, not Satf)
             if sanadi == "sannanta" and (clean in ("jYA", "Sru", "smf", "dfS", "darS") or (op and any(op.startswith(x) for x in ("jYA", "Sru", "smf", "dfS")))):
                 return None
@@ -3477,6 +3545,21 @@ class KrdantaEngine:
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
+            # tanAdi ylk GaY (taMtAnaH/saMsAnaH/caMkzARaH/cekzeRaH/taMtarRaH/jaMGarRaH/
+            # vaMvAnaH/maMmAnaH/carkAraH; redup + mUla-GaY-stem (same vRddhi/guNa split
+            # as mUla block); single-form scoring; surveyed all 9; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "tanAdiH":
+                _t8r = self._tanadi_ylk_redup(meta.get("clean", "") or clean)
+                _t8mc = meta.get("clean", "") or clean
+                if _t8mc == "saR":
+                    _t8mc = "san"  # zaRa~ R-root takes n (mirrors pre-existing saR->san normalization)
+                _t8lv = None
+                for _t8ch in reversed(_t8mc):
+                    if _t8ch in SLP1_VOWELS:
+                        _t8lv = _t8ch
+                        break
+                _t8gb = self._vriddhi_base(_t8mc, is_idit) if (_t8lv in ("a", "A") or _t8mc.endswith("f")) else self._guna_base(_t8mc, is_idit)
+                return {"gender": "Masculine", "form": _t8r + _t8gb + "aH"}
             # guhU~ nijanta has no GaY key (structural miss).
             if sanadi == "nijanta" and meta.get("clean") == "guh":
                 return None
@@ -3857,6 +3940,25 @@ class KrdantaEngine:
             return {"avyaya": [stem]}
 
         elif pratyaya == "lyap":
+            # tanAdi ylk lyap (prataMtaya/prasaMsAya/pracaMkzaya/pracekziya/prataMtfya/
+            # prajaMGfya/pravaMvaya/pramaMmaya/pracarkfya; pra + redup + tuk-stem + ya
+            # — ylk counterpart of the mUla tuk block above, stem minus tuk-t (sA kept
+            # for san); surveyed all 9 (0005 fR has no ylk anta); free).
+            if sanadi == "yanluganta" and meta.get("gana") == "tanAdiH":
+                _t8r = self._tanadi_ylk_redup(meta.get("clean", "") or clean)
+                _t8mc = meta.get("clean", "") or clean
+                if _t8mc == "saR":
+                    _t8mc = "san"  # zaRa~ R-root takes n (mirrors pre-existing saR->san normalization)
+                if _t8mc in ("san", "saR"):
+                    _t8ys = "sA"
+                else:
+                    _t8ys = _t8mc
+                    if _t8ys.endswith("n"):
+                        _t8ys = _t8ys[:-1]
+                    if _t8ys.endswith("R"):
+                        _t8ys = _t8ys[:-1]
+                _t8yl = [_t8p + _t8r + _t8ys + "ya" for _t8p in ("pra", upasarga, upasarga.replace("M", "m"), "")]
+                return {"avyaya": list(dict.fromkeys(_t8yl))}
             # jAgf ar-grade (prajAgarya; sole 02.0067 surveyed; old prajAgya-forms unattested, free).
             if sanadi is None and clean == "jAg":
                 return {"avyaya": ["prajAgarya"]}

@@ -1,11 +1,11 @@
 fid,matched,total,pct,secs,misses,skipped
-08.0001,880,885,99.4,0.3,yangluk_krut/Satf/M:tanan | yangluk_krut/Satf/F:tanantI | yangluk_krut/Satf/N:tanat | yangluk_krut/GaY:tanaH | yangluk_krut/lyap:pratanya,7
-08.0002,882,885,99.7,0.4,yangluk_krut/Satf/M:sanan | yangluk_krut/Satf/F:sanantI | yangluk_krut/Satf/N:sanat,7
-08.0003,881,885,99.5,0.6,yangluk_krut/Satf/M:kzaRan | yangluk_krut/Satf/F:kzaRantI | yangluk_krut/Satf/N:kzaRat | yangluk_krut/lyap:prakzaRya,7
-08.0004,881,885,99.5,0.5,yangluk_krut/Satf/M:kzeRan | yangluk_krut/Satf/F:kzeRantI | yangluk_krut/Satf/N:kzeRat | yangluk_krut/lyap:prakziRya,7
-08.0005,631,632,99.8,0.5,nich/luN/prathama/eka:ArRayizwa,4
-08.0006,882,885,99.7,0.5,yangluk_krut/Satf/M:tarRan | yangluk_krut/Satf/F:tarRantI | yangluk_krut/Satf/N:tarRat,7
-08.0007,882,885,99.7,0.3,yangluk_krut/Satf/M:GarRan | yangluk_krut/Satf/F:GarRantI | yangluk_krut/Satf/N:GarRat,7
-08.0008,873,873,100.0,0.3,,7
-08.0009,872,873,99.9,0.5,yangluk_krut/lyap:pramanya,7
-08.0010,885,885,100.0,0.6,,7
+08.0001,885,885,100.0,0.8,,7
+08.0002,885,885,100.0,0.1,,7
+08.0003,885,885,100.0,0.4,,7
+08.0004,885,885,100.0,0.2,,7
+08.0005,631,632,99.8,0.4,nich/luN/prathama/eka:ArRayizwa,4
+08.0006,885,885,100.0,0.4,,7
+08.0007,885,885,100.0,0.3,,7
+08.0008,876,876,100.0,0.3,,7
+08.0009,876,876,100.0,0.6,,7
+08.0010,885,885,100.0,0.7,,7
