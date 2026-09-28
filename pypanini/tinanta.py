@@ -4966,7 +4966,75 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): [_s5wc + "mahe", _s5wv[:-1] + "mahe"] if _s5v else [_s5wc + "mahe"],
                 }
                 cands += _s5a.get((purusha, vacana), [])
-            # juhoti dvitva present (juhoti/biBeti/nenekti/dadAti/jigAti; redup via
+            # kryAdi nA present (krIRAti/krIRItaH/krIRanti, mInAti, staBnAti/
+            # staBnoti, jinAti/jAnAti, KacYAti, KOnAti, gfhRAti; root + nA/nI/n
+            # with strict Natva on pre-mutation clean (interveners vowels or q,
+            # W-final takes R); o/u/zero grade twins for closed-5
+            # {sku,stanB,stunB,skanB,skunB}; Atmane Ite/Ate/ate. Surveyed all 71
+            # kryAdi cleans (mfq-R vs kzuB-N pins the q-allowance; grah triggers
+            # on pre-samprasAraNa r); gana-gated; additive).
+            if meta.get("gana") == "kryAdiH" and sanadi is None:
+                _k9mc = meta.get("clean", "") or clean
+                if _k9mc == "jyA": _k9r = "ji"
+                elif _k9mc == "jYA": _k9r = "jA"
+                elif _k9mc == "Kav": _k9r = "KO"
+                elif _k9mc == "grah": _k9r = "gfh"
+                elif _k9mc == "SF" and op.startswith("SFY"): _k9r = "SIr"
+                elif _k9mc == "svF": _k9r = "svUr"
+                elif _k9mc == "kzIz": _k9r = "kzI"
+                elif _k9mc.endswith("F"): _k9r = _k9mc[:-1] + "f"
+                else: _k9r = clean
+                # upadhA-nasal lopa (stanB→staB, banD→baD, manT→maT; same shape
+                # as svAdi danB→daB; naB/tuB/kzuB keep (vowel upadhA)).
+                if len(_k9r) >= 2 and _k9r[-2] in ("n", "N", "m", "M", "Y", "R") and _k9r[-1] not in SLP1_VOWELS and _k9r[-1] not in ("n", "N", "m", "M", "Y", "R"):
+                    _k9r = _k9r[:-2] + _k9r[-1:]
+                _k9ya = (_k9mc == "Kac")
+                _k9last = -1
+                for _k9i, _k9ch in enumerate(_k9mc):
+                    if _k9ch in ("r", "R", "z", "f", "F"):
+                        _k9last = _k9i
+                if _k9ya:
+                    _k9stem = _k9r + "Y"
+                elif _k9last != -1 and all(ch in SLP1_VOWELS or ch in ("q", "h") for ch in _k9mc[_k9last + 1:]):
+                    _k9stem = _k9r + "R"
+                elif _k9mc.endswith("W"):
+                    _k9stem = _k9r + "R"
+                else:
+                    _k9stem = _k9r + "n"
+                # Length: long I/U shorten unless the onset carries a nasal
+                # (mInA/knUnA) or a second-consonant r/z (krIRA/drURA/kzIRA);
+                # i.e. riR/linA/punA/vlinA shorten; surveyed all I/U-finals,
+                # unanimous (kzI pins z; vlI/blI/plI pin l-shortening).
+                if _k9stem[-2:] in ("In", "Un", "IR", "UR"):
+                    _k9ons = _k9r[:-1]
+                    _k9keep = any(ch in ("N", "Y", "R", "n", "m", "M") for ch in _k9ons) or (len(_k9ons) >= 2 and _k9ons[1] in ("r", "z"))
+                    if not _k9keep:
+                        _k9stem = _k9stem[:-2] + _k9stem[-2].lower() + _k9stem[-1]
+                _k9o = _k9mc in ("sku", "stanB", "stunB", "skanB", "skunB")
+                _k9p = {
+                    ("prathama", "eka"): [_k9stem + "Ati"] + ([_k9stem + "oti"] if _k9o else []),
+                    ("prathama", "dvi"): [_k9stem + "ItaH"] + ([_k9stem + "utaH"] if _k9o else []),
+                    ("prathama", "bahu"): [_k9stem + "anti"] + ([_k9stem + "vanti"] if _k9o else []),
+                    ("madhyama", "eka"): [_k9stem + "Asi"] + ([_k9stem + "ozi"] if _k9o else []),
+                    ("madhyama", "dvi"): [_k9stem + "ITaH"] + ([_k9stem + "uTaH"] if _k9o else []),
+                    ("madhyama", "bahu"): [_k9stem + "ITa"] + ([_k9stem + "uTa"] if _k9o else []),
+                    ("uttama", "eka"): [_k9stem + "Ami"] + ([_k9stem + "omi"] if _k9o else []),
+                    ("uttama", "dvi"): [_k9stem + "IvaH"] + ([_k9stem + "uvaH", _k9stem + "vaH"] if _k9o else []),
+                    ("uttama", "bahu"): [_k9stem + "ImaH"] + ([_k9stem + "umaH", _k9stem + "maH"] if _k9o else []),
+                }
+                cands += _k9p.get((purusha, vacana), [])
+                _k9a = {
+                    ("prathama", "eka"): [_k9stem + "Ite"] + ([_k9stem + "ute"] if _k9o else []),
+                    ("prathama", "dvi"): [_k9stem + "Ate"] + ([_k9stem + "vAte"] if _k9o else []),
+                    ("prathama", "bahu"): [_k9stem + "ate"] + ([_k9stem + "vate"] if _k9o else []),
+                    ("madhyama", "eka"): [_k9stem + "Ize"] + ([_k9stem + "uze"] if _k9o else []),
+                    ("madhyama", "dvi"): [_k9stem + "ATe"] + ([_k9stem + "vATe"] if _k9o else []),
+                    ("madhyama", "bahu"): [_k9stem + "IDve"] + ([_k9stem + "uDve"] if _k9o else []),
+                    ("uttama", "eka"): [_k9stem + "e"] + ([_k9stem + "ve"] if _k9o else []),
+                    ("uttama", "dvi"): [_k9stem + "Ivahe"] + ([_k9stem + "uvahe", _k9stem + "vahe"] if _k9o else []),
+                    ("uttama", "bahu"): [_k9stem + "Imahe"] + ([_k9stem + "umahe", _k9stem + "mahe"] if _k9o else []),
+                }
+                cands += _k9a.get((purusha, vacana), [])
             # helper (cutva/hrasva/bare-A/i~r/f-split); per-class grade tables (18
             # classes); dA/DA abhyAsa-lopa in t-slots (dattaH); BI i/I-twins;
             # jan A/Y-grades + vidhi-twins; Atmane tables for mA/Bf/dA/ij/viz
