@@ -3866,6 +3866,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "jAg":
                     _jgy = {("prathama","eka"):["jajAgare"],("prathama","dvi"):["jajAgarAte"],("prathama","bahu"):["jajAgarire"],("madhyama","eka"):["jajAgarize"],("madhyama","dvi"):["jajAgarATe"],("madhyama","bahu"):["jajAgariDve","jajAgariQve"],("uttama","eka"):["jajAgare"],("uttama","dvi"):["jajAgarivahe"],("uttama","bahu"):["jajAgarimahe"]}
                     cands += _jgy.get((purusha, vacana), [])
+                # hi yak-liT jiGy- (jiGye/jiGyAte/jiGyire...; sole 05.0012 surveyed —
+                # h→G redup + Atmane lit endings; old jihi-forms miss everywhere;
+                # additive before return, svAdiH-gated).
+                if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "hi":
+                    _jgy5 = {("prathama","eka"):["jiGye"],("prathama","dvi"):["jiGyAte"],("prathama","bahu"):["jiGyire"],("madhyama","eka"):["jiGyize"],("madhyama","dvi"):["jiGyATe"],("madhyama","bahu"):["jiGyiDve","jiGyiQve"],("uttama","eka"):["jiGye"],("uttama","dvi"):["jiGyivahe"],("uttama","bahu"):["jiGyimahe"]}
+                    cands += _jgy5.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):

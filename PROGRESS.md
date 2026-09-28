@@ -6,16 +6,16 @@ Sweep-02: **76/76** (raw 76/77, 1 skipped) — untouched by construction.
 Sweep-03: **26/26** — untouched by construction.
 Sweep-07: **25/25** — untouched by construction.
 Sweep-08: **10/10** — untouched by construction.
-Sweep-05: **26/38** (holds passes; +6 matched, 1 improved, 0 worsened).
+Sweep-05: **26/38** (holds passes; +9 matched, 1 improved, 0 worsened).
 Landscape: 04 2/163, 06 22/174, 09 0/71, 10 145/509.
 
-## Done — 05 aS perfect (iteration 195)
-- aS liw AnaS-e Atmane table (sole 05.0020, serves ting+yak). Gates:
-  probes + guards green; fid-diff 1/0.
+## Done — 05 hi yak-perfect (iteration 196)
+- hi yak-liw jiGy- table (additive, tinanta.py yak-liw cands, sole-gated).
+  Gates: probes 9/9 + guards green; fid-diff 1/0.
 
 ## Next
-1. 05 loop: yak-liw tables — hi jiGy- (sole 05.0012), Ap AYcakr peri
-   (05.0016), ciri/ciciri- (05.0034/0035) — survey each; then lfw/luw
-   futures (sADsyati/rADsyati/fkzaytA) → yang_krut (14) + nich_krut (4).
+1. 05 loop: Ap yak-liw Ape-table (sole 05.0016, 9 slots, surveyed) →
+   ciri/jiri yak-liw ciray-peri (pair) → lfw/luw futures → yang_krut (19)
+   + nich_krut (4) residuals.
 2. Then 09 (71) → 04 (163) → 06 (174) → 10 (509) per small-first order.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
