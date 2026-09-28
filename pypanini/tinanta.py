@@ -46,6 +46,8 @@ def clean_dhatu_op(op: str) -> str:
         raw = "dA"
     if raw == "dEp":
         raw = "dE"
+    if raw == "dAp":
+        raw = "dA"
     if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS and any(c in SLP1_VOWELS for c in raw[:-1]):
         raw = raw[:-1]
     no_num_r = ("~r" in op)
@@ -1863,17 +1865,13 @@ class TinantaDerivationEngine:
             # Panini 7.4.54 sani mImAGUrABalaBaSaka-patapadAM ca + 6.1.45 Adeca upadeSe'Siti
             if c in ("meN", "me") or "meN" in op:
                 return "mits"
-            if c in ("deN", "de", "dA", "dAR") or (op.startswith(("deN", "dAR", "dA~", "dap")) and "dEp" not in op):
-                return "dits"
-            if c == "jYA" and dhatu_id == "01.0923":
-                return "jijYiz"
-            if c == "SrA" and dhatu_id == "01.0922":
-                return "SiSriz"
             if c == "dE" or op.startswith("dEp"):
                 return "didAs"
             # dAp san is didAs- too (didAsati; sole dAp-clean 02.0054 surveyed 01+02; same dA-family as dEp)
             if c == "dAp" or op.startswith("dAp"):
                 return "didAs"
+            if c in ("deN", "de", "dA", "dAR") or (op.startswith(("deN", "dAR", "dA~", "dap")) and "dEp" not in op and "dAp" not in op):
+                return "dits"
             if c in ("DeN", "De", "DA", "DuDAY") or (c.endswith("ew") and not sew) or op.startswith(("DeN", "DA~", "DuDA")) or (op.endswith("ew") and not sew):
                 return "Dits"
             # Panini 7.4.56 sa ni pAt: Svi -> SiSvayiz
@@ -2027,11 +2025,11 @@ class TinantaDerivationEngine:
                 return "tezWIya"
             if c in ("gE", "gA") or (op and op.startswith("gE")):
                 return "jegIya"
-            if c in ("dA", "dAR", "de", "do"):
-                return "dedIya"
             # dAp yang is dAdAya (sole dAp-clean 02.0054 surveyed 01+02; dA-reduplication, p lost like mUla)
             if c == "dAp" or op.startswith("dAp"):
                 return "dAdAya"
+            if c in ("dA", "dAR", "de", "do"):
+                return "dedIya"
             if c in ("DA", "DuDAY", "De", "Do"):
                 return "deDIya"
             # aniW ew-final yan (Dew->deDIya; sole 01 Dew 01.1050 surveyed): e-redup + I-grade, same

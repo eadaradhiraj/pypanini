@@ -77,6 +77,8 @@ def clean_dhatu_op(op: str) -> str:
         raw = "dA"
     if raw == "dEp":
         raw = "dE"
+    if raw == "dAp":
+        raw = "dA"
     if raw and raw[-1] in "fFxX" and len(raw) > 2 and raw[-2] not in SLP1_VOWELS and any(c in SLP1_VOWELS for c in raw[:-1]):
         raw = raw[:-1]
     no_num_r = ("~r" in op)
