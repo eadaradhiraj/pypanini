@@ -2708,6 +2708,20 @@ class KrdantaEngine:
                     stem = stem[:-2] + stem[-2].lower() + stem[-1]
             return stem
 
+        def _kryadi_satf_pre():
+            # kryAdi Satf/SAnac shared PREFIX (mUla nA-stem + overrides);
+            # single source for both pratyayas (SAnac = prefix + Ana).
+            _k9mc = meta.get("clean", "") or clean
+            _k9pre = _kryadi_nastem(clean)
+            if _k9mc in ("sku", "stanB", "stunB", "skanB", "skunB"):
+                _k9pre = _k9pre + ("v" if _k9pre[-2:-1] in SLP1_VOWELS else "uv")
+            elif _k9mc in ("banD", "SranT", "manT", "granT", "kunT"):
+                _k9lc = clean[:-2] + clean[-1:]
+                _k9pre = _k9lc + "n"
+            elif _k9mc == "Kac":
+                _k9pre = "KacY"
+            return _k9pre
+
         def _get_yanluk_a_base() -> str:
             _c_tgt = orig_clean if (orig_clean and orig_clean.endswith("A")) else clean
             _cl = ""
@@ -3167,23 +3181,11 @@ class KrdantaEngine:
                     _s5p = _s5x + "vat"
                     return {"M": _s5p[:-1] + "n", "F": _s5p + "I", "N": [_s5p, _s5p[:-1] + "d"]}
                 # kryAdi nu-Satf (krIRan/mInan/skunvan/staBnuvan/yunan/baDnat/
-                # mfqRan/KacYat; PREFIX = mUla nA-stem (mirror helper) with
-                # overrides: s+stop onsets (sku/stanB-family) take +uv (cons) /
-                # +v (vowel), upadhA-nasal lopa-5 take lopa + nat, jyA/jYA strip
-                # mUla -A (jin/jAn), Kac takes Y; then standard at-inflection
+                # mfqRan/KacYat; shared PREFIX helper + standard at-inflection
                 # (M t→n, F +I, N t/d-twins, cf svAdi); surveyed all 70 keyed
                 # 09 cleans; gana-gated; old A-grade forms miss, free).
                 if sanadi is None and meta.get("gana") == "kryAdiH":
-                    _k9mc = meta.get("clean", "") or clean
-                    _k9pre = _kryadi_nastem(clean)
-                    if _k9mc in ("sku", "stanB", "stunB", "skanB", "skunB"):
-                        _k9pre = _k9pre + ("v" if _k9pre[-2:-1] in SLP1_VOWELS else "uv")
-                    elif _k9mc in ("banD", "SranT", "manT", "granT", "kunT"):
-                        _k9lc = clean[:-2] + clean[-1:]
-                        _k9pre = _k9lc + "n"
-                    elif _k9mc == "Kac":
-                        _k9pre = "KacY"
-                    _k9sp = _k9pre + "at"
+                    _k9sp = _kryadi_satf_pre() + "at"
                     return {"M": _k9sp[:-1] + "n", "F": _k9sp + "I", "N": [_k9sp, _k9sp[:-1] + "d"]}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
@@ -3565,6 +3567,13 @@ class KrdantaEngine:
                     _s5x = _s5rk + "u"
                 _s5ys = _s5x + "vAna"
                 return {"M": _s5ys + "H", "F": _s5ys[:-1] + "A", "N": _s5ys + "m"}
+            # kryAdi nu-SAnac (krIRAna/mInAna/skunvAna; shared Satf PREFIX +
+            # Ana with standard Ana-inflection (M +H/F +A/N +m, cf svAdi);
+            # surveyed all 19 SAnac-keyed 09 cleans; gana-gated; old yak-based
+            # forms miss, free).
+            if sanadi is None and meta.get("gana") == "kryAdiH":
+                _k9ys = _kryadi_satf_pre() + "Ana"
+                return {"M": _k9ys + "H", "F": _k9ys[:-1] + "A", "N": _k9ys + "m"}
             # Panini 3.2.124 lawaH Satf-SAnacAv aprathamAsamAnADikaraRe
             # SAnac is Atmanepada only (in kartari)
             is_atman_eligible = (pada == "Atmanepadi") or ("uBaya" in padam) or ("ubhay" in padam.lower()) or (clean in ("sTA", "zWA", "Sad", "kram", "sajj", "zasj", "vad", "BU"))
