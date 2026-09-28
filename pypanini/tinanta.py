@@ -439,6 +439,29 @@ class TinantaDerivationEngine:
         weaks = list(dict.fromkeys([clean + "u", guna + "u"]))
         return (strongs, weaks, weaks)
 
+    def _svadi_stems(self, clean: str) -> Tuple[str, bool, str, str, str, str]:
+        """SvAdi Snu vikaraNa stems (Panini 3.1.73 svAdibhyaH SnuH):
+        returns (base, is_vowel, strong, weak_c, weak_v, nav).
+        base: 'daB' for danB (6.4.24 aniditAM hala upaDAyAH kNiTi); else clean.
+        is_natva: stf, kf, vf, pf, spf, smf, Dfz, ri, kzi, ciri, jiri, df, fkzi.
+        is_vowel: base[-1] in SLP1_VOWELS.
+        strong: base + 'Ro'/'no'.
+        weak_c: base + 'Ru'/'nu'.
+        weak_v: base + ('Rv'/'nv') if is_vowel else base + ('Ru'/'nu') + 'v'.
+        nav: 'Rav' if is_natva else 'nav'.
+        """
+        base = "daB" if clean == "danB" else clean
+        _natva_roots = {"stf", "kf", "vf", "pf", "spf", "smf", "Dfz", "ri", "kzi", "ciri", "jiri", "df", "fkzi"}
+        is_natva = clean in _natva_roots
+        is_vowel = base[-1] in SLP1_VOWELS if base else False
+        nu = "Ru" if is_natva else "nu"
+        no = "Ro" if is_natva else "no"
+        nav = "Rav" if is_natva else "nav"
+        strong = base + no
+        weak_c = base + nu
+        weak_v = (base + ("Rv" if is_natva else "nv")) if is_vowel else (base + nu + "v")
+        return (base, is_vowel, strong, weak_c, weak_v, nav)
+
     def _juhoti_redup(self, clean: str, op: str = "") -> str:
         """juhoti abhyAsa (onset + vowel): cutva/deaspiration of onset (h/k/K/G/C/B/
         D/g→j/c/j/c/c/b/d/j; Panini 7.4.62 kuhoS cuH family); hrasva (I→i);
@@ -802,7 +825,7 @@ class TinantaDerivationEngine:
             if _c_guna not in bases:
                 bases.append(_c_guna)
         # Panini 3.1.28-3.1.31 Aya / RiN (gup, DUp, pan, kam)
-        if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DU") or dhatu_id == "01.0462"):
+        if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DUp") or dhatu_id == "01.0462"):
             _ay = "gopAy" if clean == "gup" else "DUpAy"
             if _ay not in bases:
                 bases.append(_ay)
@@ -812,6 +835,15 @@ class TinantaDerivationEngine:
         if clean == "kam" or op.startswith("kam") or dhatu_id == "01.0511":
             if "kAmay" not in bases:
                 bases.append("kAmay")
+        if clean in ("ciri", "ciray") or dhatu_id == "05.0034":
+            if "ciray" not in bases:
+                bases.append("ciray")
+        if clean in ("jiri", "jiray") or dhatu_id == "05.0035":
+            if "jiray" not in bases:
+                bases.append("jiray")
+        if clean in ("fkzi", "fkzay") or dhatu_id == "05.0038":
+            if "fkzay" not in bases:
+                bases.append("fkzay")
         # Panini 7.3.76 kramaH parasmaipadezu: dIrGa + optional Syan (3.1.70)
         if clean == "kram" or op.startswith("kram") or dhatu_id == "01.0545":
             for _kb in ("krAm", "krAmy", "kramy"):
@@ -1457,12 +1489,18 @@ class TinantaDerivationEngine:
         sew = meta["sew"]
         is_vew = str(meta.get("sew_raw", "")).strip() == "vew"
         clean_ay = None
-        if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DU") or dhatu_id == "01.0462"):
+        if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DUp") or dhatu_id == "01.0462"):
             clean_ay = "gopAy" if clean == "gup" else "DUpAy"
         elif clean == "pan" or op.startswith("pan") or dhatu_id == "01.0508":
             clean_ay = "panAy"
         elif clean == "kam" or op.startswith("kam") or dhatu_id == "01.0511":
             clean_ay = "kAmay"
+        elif clean in ("ciri", "ciray") or dhatu_id == "05.0034":
+            clean_ay = "ciray"
+        elif clean in ("jiri", "jiray") or dhatu_id == "05.0035":
+            clean_ay = "jiray"
+        elif clean in ("fkzi", "fkzay") or dhatu_id == "05.0038":
+            clean_ay = "fkzay"
         # Panini 3.1.5 gup-tij-kit + 3.1.6 mAn-baD-dAn-SAn (nitya-san, seT only): ting AND yak use san base (consonant-final; endings add a/y).
         # Excludes aniT gupU~ 01.0461 (sew False, gopAy path) — failed-hydrogen lesson 2026-09-25.
         if sanadi is None and prayoga in ("kartari", "karmani") and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
@@ -1509,6 +1547,9 @@ class TinantaDerivationEngine:
             clean = "Sri"
         if op.startswith("z") and clean in ("svazk", "sWiv"):
             clean = "z" + clean[1:]
+        # Panini 6.1.50 minAti-minoti-dIdINtvAm lyapi ca: qumiY (05.0004) takes mA in ArdhadhAtuka
+        if (clean == "mi" or dhatu_id == "05.0004") and meta.get("gana") == "svAdiH" and lakara not in ("lw", "low", "laN", "viDiliN") and sanadi is None:
+            clean = "mA"
         # uBayapadI mUla kartari: generate BOTH padas (additive; f1 == status quo ante).
         # Fixes Atmane-paradigm JSONs like 01.0459 sranB (sramBate...); paras-JSON uBaya keep hits via f1.
         if _force_pada is None and sanadi is None and prayoga == "kartari" and "ubaya" in str(meta.get("padam", "")).lower():
@@ -1809,6 +1850,8 @@ class TinantaDerivationEngine:
         def _aug(s): return self._add_augment(s, s[0] in SLP1_VOWELS if s else False)
         # helper for sannanta / nijanta / yan stems (generative)
         def _nijanta_stem(c):
+            if c == "mi" and meta.get("gana") == "svAdiH":
+                return "mApay"
             # Nitya-san (3.1.5/3.1.6, seT only): nich uses san base (jugupsay/titikzay/...; 01.0461 aniT excluded via sew).
             if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                 _nsb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
@@ -1914,6 +1957,16 @@ class TinantaDerivationEngine:
                             return vrid + "ay"
             return c + "ay"
         def _sannanta_stem(c):
+            if meta.get("gana") == "svAdiH":
+                if c == "Ap": return "Ips"
+                if c == "Sak": return "Sikz"
+                if c in ("rAD", "sAD"): return "rits" if c == "rAD" else "sisAts"
+                if c == "hi": return "jiGIz"
+                if c == "mi": return "mits"
+                if c == "aS": return "aSiSiz"
+                if c in ("ciri", "ciray"): return "cicirayiz"
+                if c in ("jiri", "jiray"): return "jijirayiz"
+                if c in ("fkzi", "fkzay"): return "fcikzayiz"
             # rudhAdi san stems (ruruts/cicCits/aYjijiz; RED + BASE + sa with satva:
             # ruD u-redup + D→t (ruruts, sole u+D-san); Cid ci-redup + C-doubling
             # (cicCits, sole Ch-san); aYj V-initial root+i + coda+iz (aYjijiz, sole
@@ -2194,6 +2247,9 @@ class TinantaDerivationEngine:
             suffix = "s" if c.endswith(("a", "A")) else ("z" if is_vowel_final else "iz")
             return redup_cons + redup_vowel + _c_san + suffix
         def _yan_stem(c):
+            if meta.get("gana") == "svAdiH":
+                if c == "hi": return "jeGIya"
+                if c == "aS": return "aSASya"
             # Nitya-san (3.1.5/3.1.6, seT only): yang uses san base (jugupsya/titikzya/...; 01.0461 aniT excluded via sew).
             if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                 _ysb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
@@ -2427,6 +2483,8 @@ class TinantaDerivationEngine:
                 return "SASayya"
             return redup_cons + yan_vowel + _ybase + "ya"
         def _yanlug_stem(c):
+            if c == "hi" and meta.get("gana") == "svAdiH":
+                return "jeG"
             if c == "BU":
                 return None  # use map
             if c in ("sUd", "sUd"):
@@ -4733,6 +4791,36 @@ class TinantaDerivationEngine:
                         ("uttama","dvi"):[x for w in _t8w for x in (w[:-1]+"vahe", w+"vahe")],
                         ("uttama","bahu"):[x for w in _t8w for x in (w[:-1]+"mahe", w+"mahe")]}
                 cands += _t8a.get((purusha, vacana), [])
+            # SvAdi Snu present (Panini 3.1.73 svAdibhyaH SnuH, sunoti/sunutaH/sunvanti,
+            # Apnoti/ApnutaH/Apnuvanti; strong o-pit/weak u-grade, u->v/uv before vowels;
+            # uttama-du/pl optional u-drop for vowel-finals; Atmane mirrors sunute/sunvAte...).
+            # Surveyed all 38 svAdi cleans; gana-gated; additive.
+            if meta.get("gana") == "svAdiH" and sanadi is None:
+                _s5b, _s5v, _s5s, _s5wc, _s5wv, _s5nav = self._svadi_stems(clean)
+                _s5p = {
+                    ("prathama", "eka"): [_s5s + "ti"],
+                    ("prathama", "dvi"): [_s5wc + "taH"],
+                    ("prathama", "bahu"): [_s5wv + "anti"],
+                    ("madhyama", "eka"): [_s5s + "zi"],
+                    ("madhyama", "dvi"): [_s5wc + "TaH"],
+                    ("madhyama", "bahu"): [_s5wc + "Ta"],
+                    ("uttama", "eka"): [_s5s + "mi"],
+                    ("uttama", "dvi"): [_s5wc + "vaH", _s5wv + "aH"] if _s5v else [_s5wc + "vaH"],
+                    ("uttama", "bahu"): [_s5wc + "maH", _s5wv[:-1] + "maH"] if _s5v else [_s5wc + "maH"],
+                }
+                cands += _s5p.get((purusha, vacana), [])
+                _s5a = {
+                    ("prathama", "eka"): [_s5wc + "te"],
+                    ("prathama", "dvi"): [_s5wv + "Ate"],
+                    ("prathama", "bahu"): [_s5wv + "ate"],
+                    ("madhyama", "eka"): [_s5wc + "ze"],
+                    ("madhyama", "dvi"): [_s5wv + "ATe"],
+                    ("madhyama", "bahu"): [_s5wc + "Dve"],
+                    ("uttama", "eka"): [_s5wv + "e"],
+                    ("uttama", "dvi"): [_s5wc + "vahe", _s5wv + "ahe"] if _s5v else [_s5wc + "vahe"],
+                    ("uttama", "bahu"): [_s5wc + "mahe", _s5wv[:-1] + "mahe"] if _s5v else [_s5wc + "mahe"],
+                }
+                cands += _s5a.get((purusha, vacana), [])
             # juhoti dvitva present (juhoti/biBeti/nenekti/dadAti/jigAti; redup via
             # helper (cutva/hrasva/bare-A/i~r/f-split); per-class grade tables (18
             # classes); dA/DA abhyAsa-lopa in t-slots (dattaH); BI i/I-twins;
@@ -5121,6 +5209,50 @@ class TinantaDerivationEngine:
                          ("uttama","dvi"):[x for w in _t8aw for x in (w+"vahi", w[:-1]+"vahi")],
                          ("uttama","bahu"):[x for w in _t8aw for x in (w+"mahi", w[:-1]+"mahi")]}
                 cands += _t8la.get((purusha, vacana), [])
+            # SvAdi Snu imperfect (Panini 3.1.73, asunot/asunutAm/asunvan,
+            # Apnot/ApnutAm/Apnuvan; augment a/A/Ar, strong o/weak u, u->v/uv before vowels;
+            # Atmane asunuta/asunvAtAm/asunvata...). Surveyed all 38; gana-gated; additive.
+            if meta.get("gana") == "svAdiH" and sanadi is None:
+                _s5b, _s5v, _s5s, _s5wc, _s5wv, _s5nav = self._svadi_stems(clean)
+                if _s5b.startswith("A"):
+                    _abase = _s5b
+                elif _s5b.startswith("a"):
+                    _abase = "A" + _s5b[1:]
+                elif _s5b.startswith("f"):
+                    _abase = "Ar" + _s5b[1:]
+                else:
+                    _abase = "a" + _s5b
+                _is_natva = clean in {"stf", "kf", "vf", "pf", "spf", "smf", "Dfz", "ri", "kzi", "ciri", "jiri", "df", "fkzi"}
+                _nu = "Ru" if _is_natva else "nu"
+                _no = "Ro" if _is_natva else "no"
+                _astrong = _abase + _no
+                _aweak_c = _abase + _nu
+                _aweak_v = (_abase + ("Rv" if _is_natva else "nv")) if _s5v else (_abase + _nu + "v")
+                _anav = _abase + _s5nav
+                _s5lp = {
+                    ("prathama", "eka"): [_astrong + "t", _astrong + "d"],
+                    ("prathama", "dvi"): [_aweak_c + "tAm"],
+                    ("prathama", "bahu"): [_aweak_v + "an"],
+                    ("madhyama", "eka"): [_astrong + "H"],
+                    ("madhyama", "dvi"): [_aweak_c + "tam"],
+                    ("madhyama", "bahu"): [_aweak_c + "ta"],
+                    ("uttama", "eka"): [_anav + "am"],
+                    ("uttama", "dvi"): [_aweak_c + "va", _aweak_v + "a"] if _s5v else [_aweak_c + "va"],
+                    ("uttama", "bahu"): [_aweak_c + "ma", _aweak_v[:-1] + "ma"] if _s5v else [_aweak_c + "ma"],
+                }
+                cands += _s5lp.get((purusha, vacana), [])
+                _s5la = {
+                    ("prathama", "eka"): [_aweak_c + "ta"],
+                    ("prathama", "dvi"): [_aweak_v + "AtAm"],
+                    ("prathama", "bahu"): [_aweak_v + "ata"],
+                    ("madhyama", "eka"): [_aweak_c + "TAH"],
+                    ("madhyama", "dvi"): [_aweak_v + "ATAm"],
+                    ("madhyama", "bahu"): [_aweak_c + "Dvam"],
+                    ("uttama", "eka"): [_aweak_v + "i"],
+                    ("uttama", "dvi"): [_aweak_c + "vahi", _aweak_v + "ahi"] if _s5v else [_aweak_c + "vahi"],
+                    ("uttama", "bahu"): [_aweak_c + "mahi", _aweak_v[:-1] + "mahi"] if _s5v else [_aweak_c + "mahi"],
+                }
+                cands += _s5la.get((purusha, vacana), [])
             # rudhAdi Snam imperfect (aBinat/ariRak/aSinaw/atfRew/ahinat/Onat;
             # pr/m.eka twin tables per coda ({t,d}/{k,g}/{w,q}, m.eka H for d/D/T/
             # hisi/und); pr.dvi {tAm,ttAm} d/D/T; m.dvi quad {t,d,tam,ttam} d/D/T;
@@ -5538,6 +5670,37 @@ class TinantaDerivationEngine:
                          ("uttama","dvi"):[s[:-1]+"avAvahE" for s in _t8s],
                          ("uttama","bahu"):[s[:-1]+"avAmahE" for s in _t8s]}
                 cands += _t8oa.get((purusha, vacana), [])
+            # SvAdi Snu imperative (Panini 3.1.73, sunotu/sunutAt/sunu,
+            # Apnotu/ApnutAt/Apnuhi; 1sg-group av-grade sunavAni/ApnavAni;
+            # 2sg hi dropped after vowel root (6.4.106 uto vA), kept after cons root;
+            # Atmane sunutAm/sunuzva/sunavE...). Surveyed all 38; gana-gated; additive.
+            if meta.get("gana") == "svAdiH" and sanadi is None:
+                _s5b, _s5v, _s5s, _s5wc, _s5wv, _s5nav = self._svadi_stems(clean)
+                _s5lo_m_eka = [_s5wc, _s5wc + "tAt", _s5wc + "tAd"] if _s5v else [_s5wc + "hi", _s5wc + "tAt", _s5wc + "tAd"]
+                _s5o = {
+                    ("prathama", "eka"): [_s5s + "tu", _s5wc + "tAt", _s5wc + "tAd"],
+                    ("prathama", "dvi"): [_s5wc + "tAm"],
+                    ("prathama", "bahu"): [_s5wv + "antu"],
+                    ("madhyama", "eka"): _s5lo_m_eka,
+                    ("madhyama", "dvi"): [_s5wc + "tam"],
+                    ("madhyama", "bahu"): [_s5wc + "ta"],
+                    ("uttama", "eka"): [_s5b + _s5nav + "Ani"],
+                    ("uttama", "dvi"): [_s5b + _s5nav + "Ava"],
+                    ("uttama", "bahu"): [_s5b + _s5nav + "Ama"],
+                }
+                cands += _s5o.get((purusha, vacana), [])
+                _s5oa = {
+                    ("prathama", "eka"): [_s5wc + "tAm"],
+                    ("prathama", "dvi"): [_s5wv + "AtAm"],
+                    ("prathama", "bahu"): [_s5wv + "atAm"],
+                    ("madhyama", "eka"): [_s5wc + "zva"],
+                    ("madhyama", "dvi"): [_s5wv + "ATAm"],
+                    ("madhyama", "bahu"): [_s5wc + "Dvam"],
+                    ("uttama", "eka"): [_s5b + _s5nav + "E"],
+                    ("uttama", "dvi"): [_s5b + _s5nav + "AvahE"],
+                    ("uttama", "bahu"): [_s5b + _s5nav + "AmahE"],
+                }
+                cands += _s5oa.get((purusha, vacana), [])
             # AdAdi-i luk imperative: e-grade 3sg (vetu/etu), weak-i + t-endings, y-grade 3pl (viyantu/yantu),
             # ay-grade 1sg-group (vayAni/ayAni); sole pair vI + iR surveyed (exact-clean gate, idit-i untouched);
             # gana-gated + additive (Atmane i-roots queued separately).
@@ -5795,6 +5958,27 @@ class TinantaDerivationEngine:
                 if (purusha, vacana) in _t8ya:
                     for _t8yw in _t8w:
                         cands.append(_t8yw[:-1] + "v" + _t8ya[(purusha, vacana)])
+            # SvAdi Snu optative (Panini 3.1.73, sunuyAt/sunuyAd, ApnuyAt/ApnuyAd;
+            # paras takes weak-u + yA-grades; Atmane sunvIta/aSnuvIta weak-v + I-grades).
+            # Surveyed all 38 svAdi cleans; gana-gated; additive.
+            if meta.get("gana") == "svAdiH" and sanadi is None:
+                _s5b, _s5v, _s5s, _s5wc, _s5wv, _s5nav = self._svadi_stems(clean)
+                _s5yp = {
+                    ("prathama", "dvi"): "yAtAm", ("prathama", "bahu"): "yuH",
+                    ("madhyama", "eka"): "yAH", ("madhyama", "dvi"): "yAtAm", ("madhyama", "bahu"): "yAta",
+                    ("uttama", "eka"): "yAm", ("uttama", "dvi"): "yAva", ("uttama", "bahu"): "yAma"
+                }
+                if (purusha, vacana) == ("prathama", "eka"):
+                    cands += [_s5wc + "yAt", _s5wc + "yAd"]
+                elif (purusha, vacana) in _s5yp:
+                    cands.append(_s5wc + _s5yp[(purusha, vacana)])
+                _s5ya = {
+                    ("prathama", "eka"): "Ita", ("prathama", "dvi"): "IyAtAm", ("prathama", "bahu"): "Iran",
+                    ("madhyama", "eka"): "ITAH", ("madhyama", "dvi"): "IyATAm", ("madhyama", "bahu"): "IDvam",
+                    ("uttama", "eka"): "Iya", ("uttama", "dvi"): "Ivahi", ("uttama", "bahu"): "Imahi"
+                }
+                if (purusha, vacana) in _s5ya:
+                    cands.append(_s5wv + _s5ya[(purusha, vacana)])
             # vid luk optative (vid + yAt, same map family; sole i-vowel consonant root surveyed; additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "vid":
                 _vy = {("prathama","eka"):"yAt",("prathama","dvi"):"yAtAm",("prathama","bahu"):"yuH",("madhyama","eka"):"yAH",("madhyama","dvi"):"yAtAm",("madhyama","bahu"):"yAta",("uttama","eka"):"yAm",("uttama","dvi"):"yAva",("uttama","bahu"):"yAma"}
@@ -6019,6 +6203,73 @@ class TinantaDerivationEngine:
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
+            # hi (05.0012) liw kutva (Panini 7.3.56 ho hanter Jinnezu / hinvatyoS ca: jiGAya, jiGye)
+            if sanadi is None and clean == "hi" and meta.get("gana") == "svAdiH":
+                _hit = {
+                    ("prathama", "eka"): ["jiGAya", "jiGaya"],
+                    ("prathama", "dvi"): ["jiGyatuH"],
+                    ("prathama", "bahu"): ["jiGyuH"],
+                    ("madhyama", "eka"): ["jiGayiTa", "jiGeTa"],
+                    ("madhyama", "dvi"): ["jiGyaTuH"],
+                    ("madhyama", "bahu"): ["jiGya"],
+                    ("uttama", "eka"): ["jiGaya", "jiGAya"],
+                    ("uttama", "dvi"): ["jiGyiva"],
+                    ("uttama", "bahu"): ["jiGyima"],
+                }
+                _hita = {
+                    ("prathama", "eka"): ["jiGye"],
+                    ("prathama", "dvi"): ["jiGyAte"],
+                    ("prathama", "bahu"): ["jiGyire"],
+                    ("madhyama", "eka"): ["jiGyize"],
+                    ("madhyama", "dvi"): ["jiGyATe"],
+                    ("madhyama", "bahu"): ["jiGyiDve", "jiGyiQve"],
+                    ("uttama", "eka"): ["jiGye"],
+                    ("uttama", "dvi"): ["jiGyivahe"],
+                    ("uttama", "bahu"): ["jiGyimahe"],
+                }
+                cands = _hita.get((purusha, vacana), []) if prayoga == "karmani" else _hit.get((purusha, vacana), [])
+                return list(dict.fromkeys(cands)), log
+            # Ap (05.0016) karmani liw Ape/ApAte/Apire
+            if sanadi is None and clean == "Ap" and meta.get("gana") == "svAdiH" and prayoga == "karmani":
+                _apa = {
+                    ("prathama", "eka"): ["Ape"],
+                    ("prathama", "dvi"): ["ApAte"],
+                    ("prathama", "bahu"): ["Apire"],
+                    ("madhyama", "eka"): ["Apize"],
+                    ("madhyama", "dvi"): ["ApATe"],
+                    ("madhyama", "bahu"): ["ApiDve"],
+                    ("uttama", "eka"): ["Ape"],
+                    ("uttama", "dvi"): ["Apivahe"],
+                    ("uttama", "bahu"): ["Apimahe"],
+                }
+                return list(dict.fromkeys(_apa.get((purusha, vacana), []))), log
+            # ciri, jiri, fkzi (05.0034, 05.0035, 05.0038) periphrastic liw (3.1.35-36 anekActvAt)
+            if sanadi is None and clean in ("ciri", "jiri", "fkzi") and meta.get("gana") == "svAdiH":
+                _base = {"ciri": "ciray", "jiri": "jiray", "fkzi": "fkzay"}[clean]
+                _c_par = {
+                    ("prathama", "eka"): [_base + "AYcakAra", _base + "AmAsa", _base + "AmbaBUva", _base + "AYcakara"],
+                    ("prathama", "dvi"): [_base + "AYcakratuH", _base + "AmAsatuH", _base + "AmbaBUvatuH"],
+                    ("prathama", "bahu"): [_base + "AYcakruH", _base + "AmAsuH", _base + "AmbaBUvuH"],
+                    ("madhyama", "eka"): [_base + "AYcakarTa", _base + "AmAsiTa", _base + "AmbaBUviTa"],
+                    ("madhyama", "dvi"): [_base + "AYcakraTuH", _base + "AmAsaTuH", _base + "AmbaBUvaTuH"],
+                    ("madhyama", "bahu"): [_base + "AYcakra", _base + "AmAsa", _base + "AmbaBUva"],
+                    ("uttama", "eka"): [_base + "AYcakAra", _base + "AYcakara", _base + "AmAsa", _base + "AmbaBUva"],
+                    ("uttama", "dvi"): [_base + "AYcakfva", _base + "AmAsiva", _base + "AmbaBUviva"],
+                    ("uttama", "bahu"): [_base + "AYcakfma", _base + "AmAsima", _base + "AmbaBUvima"],
+                }
+                _c_atm = {
+                    ("prathama", "eka"): [_base + "AYcakre", _base + "AmAse", _base + "AmbaBUve"],
+                    ("prathama", "dvi"): [_base + "AYcakrAte", _base + "AmAsAte", _base + "AmbaBUvAte"],
+                    ("prathama", "bahu"): [_base + "AYcakrire", _base + "AmAsire", _base + "AmbaBUvire"],
+                    ("madhyama", "eka"): [_base + "AYcakfze", _base + "AmAsize", _base + "AmbaBUvize"],
+                    ("madhyama", "dvi"): [_base + "AYcakrATe", _base + "AmAsATe", _base + "AmbaBUvATe"],
+                    ("madhyama", "bahu"): [_base + "AYcakfDve", _base + "AYcakfQve", _base + "AmAsiDve", _base + "AmbaBUviDve"],
+                    ("uttama", "eka"): [_base + "AYcakre", _base + "AmAse", _base + "AmbaBUve"],
+                    ("uttama", "dvi"): [_base + "AYcakfvahe", _base + "AmAsivahe", _base + "AmbaBUvivahe"],
+                    ("uttama", "bahu"): [_base + "AYcakfmahe", _base + "AmAsimahe", _base + "AmbaBUvimahe"],
+                }
+                cands = _c_atm.get((purusha, vacana), []) if prayoga == "karmani" else _c_par.get((purusha, vacana), [])
+                return list(dict.fromkeys(cands)), log
             # vac mUla-liT samprasAraNa redup (uvAca/UcatuH...; sole 02.0058 surveyed — no BvAdi vac;
             # kartari-only return (yak has its own Uc-table already); mUla currently 0/9 so free).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "vac" and prayoga == "kartari":
