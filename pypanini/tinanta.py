@@ -3586,6 +3586,14 @@ class TinantaDerivationEngine:
                     if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iR"):
                         _iry = {("prathama","eka"):["Iye"],("prathama","dvi"):["IyAte"],("prathama","bahu"):["Iyire"],("madhyama","eka"):["Iyize"],("madhyama","dvi"):["IyATe"],("madhyama","bahu"):["IyiQve","IyiDve"],("uttama","eka"):["Iye"],("uttama","dvi"):["Iyivahe"],("uttama","bahu"):["Iyimahe"]}
                         cands += _iry.get((purusha, vacana), [])
+                    # Ap yak-liT Ap+e (Ape/ApAte/Apire...; sole 05.0016 surveyed —
+                    # no redup, Ap + Atmane lit endings; old peri-forms miss
+                    # everywhere; this return site traced empirically since
+                    # vowel-initial Ap exits before later blocks; additive,
+                    # svAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "Ap":
+                        _ape5 = {("prathama","eka"):["Ape"],("prathama","dvi"):["ApAte"],("prathama","bahu"):["Apire"],("madhyama","eka"):["Apize"],("madhyama","dvi"):["ApATe"],("madhyama","bahu"):["ApiDve"],("uttama","eka"):["Ape"],("uttama","dvi"):["Apivahe"],("uttama","bahu"):["Apimahe"]}
+                        cands += _ape5.get((purusha, vacana), [])
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
