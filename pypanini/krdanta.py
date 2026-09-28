@@ -359,6 +359,10 @@ class KrdantaEngine:
         # jAgf f→ar before iT (jAgarita; sole 02.0067 surveyed; present keeps f/jAgar, kta takes ar-grade).
         if clean == "jAg":
             return "jAgarita"
+        # fkzi aya/iy kta (fkziyita; sole 05.0038 surveyed — mUla takes aya-grade
+        # + seT it elsewhere, kta takes iy + ita; old fkzita misses, free).
+        if clean == "fkzi" and gana == "svAdiH":
+            return "fkziyita"
         # idit i-final velar/palatal/retroflex/labial takes assimilated num (agi->aNgita; i~ marks idit)
         if clean.endswith(("i", "I")) and ("i~" in op) and ("I~" not in op):
             _bw = clean[:-1]
@@ -3556,6 +3560,10 @@ class KrdantaEngine:
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
                 if _sn and len(_sbw) >= 1:
                     return tri_linga(_sbw[:-1] + _sn + _sbw[-1] + "ayitavya")
+            # fkzi aya-tavya (fkzayitavya; sole 05.0038 surveyed — mUla aya-grade +
+            # seT it; old e-grade forms miss, free).
+            if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
+                return tri_linga("fkzayitavya")
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 return tri_linga(clean[:-1] + apply_guna(clean[-1]) + "tavya")
             # guhU~ vew: aniT oQ (goQavya) + seT Uhit (gUhitavya); yangluk
@@ -3614,6 +3622,9 @@ class KrdantaEngine:
             # UrRu yl on-anIyar (UrRonavanIya; sole-gated; free).
             if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return tri_linga("UrRonavanIya")
+            # fkzi aya-anIyar (fkzayaRIya; sole 05.0038 surveyed; old forms miss, free).
+            if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
+                return tri_linga("fkzayaRIya")
             # idit i-final num-clean (agi->aNganIyaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -3794,6 +3805,9 @@ class KrdantaEngine:
             # UrRu yl on-Rvul (UrRonAvaka; sole-gated; free).
             if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return {"M": "UrRonAvakaH", "F": "UrRonAvikA", "N": "UrRonAvakam"}
+            # fkzi A-Rvul (fkzAyaka; sole 05.0038 surveyed; old forms miss, free).
+            if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
+                return {"M": "fkzAyakaH", "F": "fkzAyikA", "N": "fkzAyakam"}
             # idit i-final num-clean (agi->aNgakaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _rbw = clean[:-1]
@@ -3880,6 +3894,9 @@ class KrdantaEngine:
             # UrRu uv tfc (UrRuvitA; sole-gated; free).
             if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return {"M": "UrRuvitA", "F": "UrRuvitrI", "N": "UrRuvitf"}
+            # fkzi aya-tfc (fkzayitA; sole 05.0038 surveyed; old forms miss, free).
+            if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
+                return {"M": "fkzayitA", "F": "fkzayitrI", "N": "fkzayitf"}
             # iN aD- tfc (aDyetA; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDyetA", "F": "aDyetrI", "N": "aDyetf"}
