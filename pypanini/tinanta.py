@@ -6176,6 +6176,10 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") == "BaYj":
                 cands += self._conjugate_luw("BaYji", pada, purusha, vacana)
                 cands += self._conjugate_luw("BaNk", pada, purusha, vacana)
+            # fkzi lut aya-grade (fkzayitA; sole 05.0038 surveyed — old ytA-forms
+            # miss everywhere; additive, svAdiH-gated).
+            if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "fkzi":
+                cands += self._conjugate_luw("fkzayi", pada, purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
