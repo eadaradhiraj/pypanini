@@ -2690,6 +2690,8 @@ class TinantaDerivationEngine:
                 # same sole-gated survey).
                 if lakara in ("laN", "luN", "lfN") and meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                     s_stem = "aDyajigAMs"
+                if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
+                    s_stem = "jigAMs"
                 # also include urdidiz variant for vowel-initial urd
                 alt_s = []
                 if clean_ay:
