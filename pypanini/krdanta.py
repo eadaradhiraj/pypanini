@@ -999,7 +999,7 @@ class KrdantaEngine:
         is_vew = str(meta.get("sew_raw", "")).strip() == "vew"
         op = meta.get("op", "")
         clean_ay = None
-        if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DU") or dhatu_id == "01.0462"):
+        if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DUp") or dhatu_id == "01.0462"):
             clean_ay = "gopAy" if clean == "gup" else "DUpAy"
         elif clean == "pan" or op.startswith("pan") or dhatu_id == "01.0508":
             clean_ay = "panAy"
