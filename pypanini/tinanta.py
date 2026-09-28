@@ -6692,6 +6692,12 @@ class TinantaDerivationEngine:
             # miss everywhere; additive, svAdiH-gated).
             if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "fkzi":
                 cands += self._conjugate_luw("fkzayi", pada, purusha, vacana)
+            # kryAdi luw A-stems (mAtA for mI; kzetA for kzIz (z-drop + e-grade);
+            # grahItA for grah (I-grade); sole-trio surveyed, attested 9/9 each;
+            # additive, kryAdiH-gated).
+            if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") in ("mI", "kzIz", "grah"):
+                _k9luw = {"mI": "mA", "kzIz": "kzet", "grah": "grahI"}[meta.get("clean")]
+                cands += self._conjugate_luw(_k9luw, pada, purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
@@ -6749,6 +6755,12 @@ class TinantaDerivationEngine:
                 _s5fw = {"rAD": "rAtsy", "sAD": "sAtsy", "fkzi": "fkzayizy"}[meta.get("clean")]
                 cands+=self._conjugate_at_stem_parasmai(_s5fw, "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_s5fw, "lw", purusha, vacana)
+            # kryAdi banD sya-future (Bantsyati; n kept, D→t; sole 09.0044 surveyed,
+            # attested 9/9 plrut; both padas for global match (duh precedent);
+            # additive, kryAdiH-gated).
+            if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "banD":
+                cands+=self._conjugate_at_stem_parasmai("Bantsy", "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane("Bantsy", "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
