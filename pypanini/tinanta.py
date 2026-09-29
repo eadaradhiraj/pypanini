@@ -4178,6 +4178,15 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): ["jajYe"], ("uttama", "dvi"): ["jajYivahe"], ("uttama", "bahu"): ["jajYimahe"],
                     }
                     return _atman_jan.get((purusha, vacana), []), log
+                # divAdi vAvft yak liT vAvart-peri triple (sole 04.0056 surveyed —
+                # old vavAvfte-forms miss everywhere; exclusive return, divAdiH-gated).
+                if clean == "vAvft" and meta.get("gana") == "divAdiH":
+                    _atman_vAv = {
+                        ("prathama", "eka"): ["vAvartAYcakre", "vAvartAmAse", "vAvartAmbaBUve"], ("prathama", "dvi"): ["vAvartAYcakrAte", "vAvartAmAsAte", "vAvartAmbaBUvAte"], ("prathama", "bahu"): ["vAvartAYcakrire", "vAvartAmAsire", "vAvartAmbaBUvire"],
+                        ("madhyama", "eka"): ["vAvartAYcakfze", "vAvartAmAsize", "vAvartAmbaBUvize"], ("madhyama", "dvi"): ["vAvartAYcakrATe", "vAvartAmAsATe", "vAvartAmbaBUvATe"], ("madhyama", "bahu"): ["vAvartAYcakfQve", "vAvartAmAsiDve", "vAvartAmbaBUviQve"],
+                        ("uttama", "eka"): ["vAvartAYcakre", "vAvartAmAhe", "vAvartAmbaBUve"], ("uttama", "dvi"): ["vAvartAYcakfvahe", "vAvartAmAsivahe", "vAvartAmbaBUvivahe"], ("uttama", "bahu"): ["vAvartAYcakfmahe", "vAvartAmAsimahe", "vAvartAmbaBUvimahe"],
+                    }
+                    return _atman_vAv.get((purusha, vacana), []), log
                 if is_vowel_initial:
                     # aja~ yak liT vi-redup ve-grade (vivye/vivyAte/vivyire/vivyize...; sole aj-clean 01.0262
                     # surveyed, ~-gated anudatta reading; Ajize/AjiDve/Ajivahe/Ajimahe variants also listed but
