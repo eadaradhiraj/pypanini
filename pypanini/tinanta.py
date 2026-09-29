@@ -7581,6 +7581,12 @@ class TinantaDerivationEngine:
                 _d4fz = "jarizy" if meta.get("clean") == "jFz" else "Jarizy"
                 cands+=self._conjugate_at_stem_parasmai(_d4fz, "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_d4fz, "lw", purusha, vacana)
+            # divAdi ISuc/nah sya-futures (Socizyati/natsyati; pair 04.0061/0062 surveyed —
+            # nah D-drops (natsy-); old miss everywhere; both padas; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("ISuc", "nah"):
+                _d4sn = "Socizy" if meta.get("clean") == "ISuc" else "natsy"
+                cands+=self._conjugate_at_stem_parasmai(_d4sn, "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_d4sn, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -7678,6 +7684,12 @@ class TinantaDerivationEngine:
                 for _d4fc in _d4fx:
                     cands+=self._conjugate_at_stem_parasmai(_d4fc, "laN", purusha, vacana)
                     cands+=self._conjugate_at_stem_atmane(_d4fc, "laN", purusha, vacana)
+            # divAdi ISuc/nah sya-conditionals (aSocizy-/anatsy-; pair 04.0061/0062
+            # surveyed; old miss; augmented both padas; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("ISuc", "nah"):
+                _d4sc = "aSocizy" if meta.get("clean") == "ISuc" else "anatsy"
+                cands+=self._conjugate_at_stem_parasmai(_d4sc, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_d4sc, "laN", purusha, vacana)
             # divAdi gup go-grade conditional (agopizyat; sole 04.0147 surveyed — old
             # miss; augmented both padas; additive, divAdiH-gated).
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
