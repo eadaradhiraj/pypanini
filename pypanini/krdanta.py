@@ -980,6 +980,35 @@ class KrdantaEngine:
                         "N": [_s + "yam" for _s in _F3]}
             if pratyaya == "GaY":
                 return {"gender": "Masculine", "form": "arirIzaH"}
+        # kryAdi banD san paradigm (biBants- stem; sole 09.0044 surveyed —
+        # old bibanDs-forms absent from all tokens).
+        if sanadi == "sannanta" and meta.get("clean") == "banD" and meta.get("gana") == "kryAdiH":
+            if pratyaya == "GaY":
+                return {"gender": "Masculine", "form": "biBantsaH"}
+            if pratyaya == "Rvul":
+                return {"M": "biBantsakaH", "F": "biBantsikA", "N": "biBantsakam"}
+            if pratyaya == "Satf":
+                return {"M": "biBantsan", "F": "biBantsantI", "N": ["biBantsat", "biBantsad"]}
+            if pratyaya == "anIyar":
+                return {"M": "biBantsanIyaH", "F": "biBantsanIyA", "N": "biBantsanIyam"}
+            if pratyaya == "kta":
+                return {"M": "biBantsitaH", "F": "biBantsitA", "N": "biBantsitam"}
+            if pratyaya == "ktavatu":
+                return {"M": "biBantsitavAn", "F": "biBantsitavatI", "N": ["biBantsitavat", "biBantsitavad"]}
+            if pratyaya == "ktvA":
+                return {"avyaya": ["biBantsitvA"]}
+            if pratyaya == "lyap":
+                return {"avyaya": ["prabiBantsya"]}
+            if pratyaya == "lyuw":
+                return {"gender": "Neuter", "form": "biBantsanam"}
+            if pratyaya == "tavya":
+                return {"M": "biBantsitavyaH", "F": "biBantsitavyA", "N": "biBantsitavyam"}
+            if pratyaya == "tfc":
+                return {"M": "biBantsitA", "F": "biBantsitrI", "N": "biBantsitf"}
+            if pratyaya == "tumun":
+                return {"avyaya": ["biBantsitum"]}
+            if pratyaya == "yat":
+                return {"M": "biBantsyaH", "F": "biBantsyA", "N": "biBantsyam"}
         # kryAdi pU san paradigm (pupUz-/pupUzi-/pupUza- grades; sole 09.0014
         # surveyed — old pipaviz-forms absent from all tokens).
         if sanadi == "sannanta" and meta.get("clean") == "pU" and meta.get("gana") == "kryAdiH":
@@ -4941,6 +4970,10 @@ class KrdantaEngine:
             # mA short-i ktvA (mitvA; 02.0057 surveyed — 03/04 take mItvA, so gana-gated; free).
             if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["mitvA"]}
+            # kryAdi banD dDa-ktvA (badDvA; sole 09.0044 surveyed — old
+            # bandDvA/banDitvA miss; free).
+            if sanadi is None and clean == "banD" and meta.get("gana") == "kryAdiH":
+                return {"avyaya": ["badDvA"]}
             # Panini 8.2.18 kfpo ro l, yangluk: seT carkalpitvA + aniT carkxptvA.
             if sanadi == "yanluganta" and sec == "carkalp":
                 return {"avyaya": ["carkalpitvA", "carkxptvA"]}

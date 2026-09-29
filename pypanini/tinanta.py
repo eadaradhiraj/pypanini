@@ -1973,6 +1973,17 @@ class TinantaDerivationEngine:
                 "uttama": {"eka": ["amAsizam"], "dvi": ["amAsizva"], "bahu": ["amAsizma"]},
             }
             return list(dict.fromkeys(_mI_lun[purusha][vacana])), []
+        # kryAdi banD luN kartari (aBAntsIt/aBAntsId + bAndDAm/bAnDAm twins +
+        # BAntsuH/sIH + bAndDam/bAnDam + bAndDa/bAnDa twins + BAntsam/sva/sma;
+        # sole 09.0044 surveyed — old abanDsIt-forms miss (shared abAndDAm
+        # kept in-table); exclusive return, clean gate).
+        if clean == "banD" and lakara == "luN" and prayoga == "kartari" and sanadi is None and meta.get("gana") == "kryAdiH":
+            _bD_lun = {
+                "prathama": {"eka": ["aBAntsIt", "aBAntsId"], "dvi": ["abAndDAm", "abAnDAm"], "bahu": ["aBAntsuH"]},
+                "madhyama": {"eka": ["aBAntsIH"], "dvi": ["abAndDam", "abAnDam"], "bahu": ["abAndDa", "abAnDa"]},
+                "uttama": {"eka": ["aBAntsam"], "dvi": ["aBAntsva"], "bahu": ["aBAntsma"]},
+            }
+            return list(dict.fromkeys(_bD_lun[purusha][vacana])), []
         # cakziN -> KyA/kSA in Ardhadhatuka (Panini 2.4.54/55)
         if meta.get("op") == "cakziN" and lakara in ("liw", "luw", "lfw", "lfN", "ASIrliN", "luN") and sanadi is None and not _cakz_bypass:
             _cakz_cands = []
@@ -2429,6 +2440,10 @@ class TinantaDerivationEngine:
             # BvAdi wustu~ keeps regular tustU- even if data appears; additive via early return).
             if c == "stu" and op.startswith("zw"):
                 return "tuzwUz"
+            # kryAdi banD san stem (biBants-; n kept, D→t; sole 09.0044 surveyed —
+            # old bibanDs- misses everywhere; kryAdiH-gated).
+            if c == "banD" and meta.get("gana") == "kryAdiH":
+                return "biBants"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
@@ -3837,6 +3852,12 @@ class TinantaDerivationEngine:
                         _s5ycs = [_s5yc] if lakara == "lfw" else ["a" + _s5yc]
                     for _s5yc in _s5ycs:
                         cands+=self._conjugate_at_stem_atmane(_s5yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # kryAdi banD yak sya-futures (Bantsyate + augmented lfN aBantsyata;
+                # sole 09.0044 surveyed — old banDsyate-forms miss; additive,
+                # kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "banD" and lakara in ("lfw", "lfN"):
+                    _k9yc = self._add_augment("Bantsy", False) if lakara == "lfN" else "Bantsy"
+                    cands+=self._conjugate_at_stem_atmane(_k9yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
@@ -4625,6 +4646,11 @@ class TinantaDerivationEngine:
                         cands.append(_s5ac + _s5ae[(purusha, vacana)])
                         if (purusha, vacana) == ("madhyama", "bahu"):
                             cands.append(_s5ac + "IQvam")
+                # kryAdi banD yak-benedictive (BantsIzwa; sole 09.0044 surveyed —
+                # old banDsIzwa misses; additive, kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "banD":
+                    _k9be = {("prathama","eka"):"BantsIzwa",("prathama","dvi"):"BantsIyAstAm",("prathama","bahu"):"BantsIran",("madhyama","eka"):"BantsIzWAH",("madhyama","dvi"):"BantsIyAsTAm",("madhyama","bahu"):"BantsIDvam",("uttama","eka"):"BantsIya",("uttama","dvi"):"BantsIvahi",("uttama","bahu"):"BantsImahi"}
+                    cands.append(_k9be[(purusha, vacana)])
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -6978,6 +7004,12 @@ class TinantaDerivationEngine:
                 _k9ga = self._add_augment("grahIzy", False)
                 cands+=self._conjugate_at_stem_parasmai(_k9ga, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_k9ga, "laN", purusha, vacana)
+            # kryAdi banD lfN (aBantsyat; sole 09.0044 surveyed — old abanDsyat
+            # misses; both padas for global match; additive, kryAdiH-gated).
+            if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "banD":
+                _k9ba = self._add_augment("Bantsy", False)
+                cands+=self._conjugate_at_stem_parasmai(_k9ba, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_k9ba, "laN", purusha, vacana)
             # iN lfN E-grade (aDyEzyata covers every slot via any-match; op-gated; additive).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                 _iy0 = self._add_augment("aDyEzy", True)
@@ -7939,6 +7971,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     _inz = {("prathama","eka"):["aDyezIzwa"],("prathama","dvi"):["aDyezIyAstAm"],("prathama","bahu"):["aDyezIran"],("madhyama","eka"):["aDyezIzWAH"],("madhyama","dvi"):["aDyezIyAsTAm"],("madhyama","bahu"):["aDyezIQvam"],("uttama","eka"):["aDyezIya"],("uttama","dvi"):["aDyezIvahi"],("uttama","bahu"):["aDyezImahi"]}
                     cands += _inz.get((purusha, vacana), [])
+                # kryAdi banD yak benedictive table (BantsIzwa; sole 09.0044 surveyed —
+                # old banDsIzwa misses; additive, kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "banD":
+                    _k9bz = {("prathama","eka"):["BantsIzwa"],("prathama","dvi"):["BantsIyAstAm"],("prathama","bahu"):["BantsIran"],("madhyama","eka"):["BantsIzWAH"],("madhyama","dvi"):["BantsIyAsTAm"],("madhyama","bahu"):["BantsIDvam"],("uttama","eka"):["BantsIya"],("uttama","dvi"):["BantsIvahi"],("uttama","bahu"):["BantsImahi"]}
+                    cands += _k9bz.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":
