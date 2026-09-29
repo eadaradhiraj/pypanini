@@ -1447,6 +1447,11 @@ class KrdantaEngine:
                 # kryAdiH-gated).
                 if meta.get("clean") == "grah" and meta.get("gana") == "kryAdiH":
                     return "jiGfkz"
+                # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
+                # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
+                # kryAdiH-gated).
+                if meta.get("clean") == "mI" and meta.get("gana") == "kryAdiH":
+                    return "mits"
                 # iR san gam-suppletion for krdanta (jigAMsita; ting takes jigamiz- above; op-gated).
                 if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                     return "jigAMs"
@@ -2776,6 +2781,14 @@ class KrdantaEngine:
                 return {"avyaya": ["jAgrahitum"]}
             if _k9mc == "grah" and pratyaya == "lyap":
                 return {"avyaya": ["prajAgfhya"]}
+            # kryAdi mI ylk memay-grades (tumun memayitum, lyap pramemIya, lyuw
+            # memayanam; sole 09.0004 surveyed — old metum/mIya/mayanam miss; free).
+            if _k9mc == "mI" and pratyaya == "tumun":
+                return {"avyaya": ["memayitum"]}
+            if _k9mc == "mI" and pratyaya == "lyap":
+                return {"avyaya": ["pramemIya"]}
+            if _k9mc == "mI" and pratyaya == "lyuw":
+                return {"gender": "Neuter", "form": "memayanam"}
         # Yangluk redup + nasal for krdanta (Panini 8.4.58/8.3.23, 14-root nasal survey).
         # Target: tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun (tavya unanimous m/M, kta/ktavatu/Satf want loss — excluded, mirror mUla).
         # Additive for tri-linga/tumun/ktvA (old kept, zero worsened); replace for single-form lyuw/GaY (old misses).
@@ -4707,6 +4720,10 @@ class KrdantaEngine:
             # mi mA-lyuw (mAnam; sole 05.0004 surveyed; old e-forms miss, free).
             if clean == "mi" and meta.get("gana") == "svAdiH" and sanadi is None:
                 return {"gender": "Neuter", "form": "mAnam"}
+            # kryAdi mI mA-lyuw (mAnam; sole 09.0004 surveyed; old mayanam
+            # misses, free).
+            if clean == "mI" and meta.get("gana") == "kryAdiH" and sanadi is None:
+                return {"gender": "Neuter", "form": "mAnam"}
             # kryAdi bare-F ar-lyuw (araRam; sole 09.0032 surveyed; old FaRam
             # misses, free).
             if clean == "F" and meta.get("gana") == "kryAdiH" and sanadi is None:
@@ -5273,6 +5290,10 @@ class KrdantaEngine:
             # mi mA-lyap (pramAya; sole 05.0004 surveyed — old iya-twins miss
             # everywhere, free).
             if clean == "mi" and meta.get("gana") == "svAdiH" and sanadi is None:
+                return {"avyaya": ["pramAya"]}
+            # kryAdi mI mA-lyap (pramAya; sole 09.0004 surveyed — old mIya-twins
+            # miss; free).
+            if clean == "mI" and meta.get("gana") == "kryAdiH" and sanadi is None:
                 return {"avyaya": ["pramAya"]}
             # kryAdi grah fh-lyap (pragfhya; sole 09.0071 surveyed — old pragrahya
             # misses; free).
