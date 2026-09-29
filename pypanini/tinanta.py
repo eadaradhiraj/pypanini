@@ -3751,6 +3751,11 @@ class TinantaDerivationEngine:
                 elif clean == "so" and meta.get("gana") == "divAdiH":
                     yak_stem = "sIy"
                     sec_stem = "sI"
+                # divAdi ISuc yak samprasAraNa (Sucyate; sole 04.0061 surveyed — old
+                # ISucyate-forms miss; divAdiH-gated).
+                elif clean == "ISuc" and meta.get("gana") == "divAdiH":
+                    yak_stem = "Sucy"
+                    sec_stem = "Suc"
                 elif is_adeca(clean):
                     # Panini 6.1.45 Adeca upadeSe'Siti
                     a_root = clean[:-1] + "A"
@@ -4169,6 +4174,11 @@ class TinantaDerivationEngine:
                     for _d4dyc in ("dAyizy", "dAsy"):
                         _d4dycc = self._add_augment(_d4dyc, False) if lakara == "lfN" else _d4dyc
                         cands+=self._conjugate_at_stem_atmane(_d4dycc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # divAdi ISuc yak sya-future (Socizyate + augmented lfN; sole 04.0061
+                # surveyed — old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc" and lakara in ("lfw", "lfN"):
+                    _d4syc = self._add_augment("Socizy", False) if lakara == "lfN" else "Socizy"
+                    cands+=self._conjugate_at_stem_atmane(_d4syc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
