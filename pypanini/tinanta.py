@@ -7433,6 +7433,10 @@ class TinantaDerivationEngine:
                 else:
                     for _d4lw in (["jari", "jarI"] if meta.get("clean") == "jFz" else ["Soci"]):
                         cands += self._conjugate_luw(_d4lw, pada, purusha, vacana)
+            # divAdi gup go-grade luw (gopitA; sole 04.0147 surveyed — Nitya
+            # jugups-rewrite poisons mUla; old miss; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                cands += self._conjugate_luw("gopi", pada, purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
@@ -7511,6 +7515,12 @@ class TinantaDerivationEngine:
                 _d4fw = {"rAD": "rAtsy", "vyaD": "vyatsy", "kruD": "krotsy", "kzuD": "kzotsy", "SuD": "Sotsy", "siD": "setsy"}[meta.get("clean")]
                 cands+=self._conjugate_at_stem_parasmai(_d4fw, "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_d4fw, "lw", purusha, vacana)
+            # divAdi gup go-grade sya-future (gopizyati; sole 04.0147 surveyed —
+            # Nitya jugups-rewrite poisons mUla here too; old miss; both padas for
+            # global match; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                cands+=self._conjugate_at_stem_parasmai("gopizy", "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane("gopizy", "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -7600,6 +7610,12 @@ class TinantaDerivationEngine:
                 _d4fc = {"rAD": "arAtsy", "vyaD": "avyatsy", "kruD": "akrotsy", "kzuD": "akzotsy", "SuD": "aSotsy", "siD": "asetsy"}[meta.get("clean")]
                 cands+=self._conjugate_at_stem_parasmai(_d4fc, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_d4fc, "laN", purusha, vacana)
+            # divAdi gup go-grade conditional (agopizyat; sole 04.0147 surveyed — old
+            # miss; augmented both padas; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                _d4gc = self._add_augment("gopizy", False)
+                cands+=self._conjugate_at_stem_parasmai(_d4gc, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_d4gc, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
