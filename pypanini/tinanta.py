@@ -2434,6 +2434,11 @@ class TinantaDerivationEngine:
             # Panini 7.4.54 sani mImAGUrABalaBaSaka-patapadAM ca + 6.1.45 Adeca upadeSe'Siti
             if c in ("meN", "me") or "meN" in op:
                 return "mits"
+            # SrA/jYA san iz-stems (SiSrizati/jijYizati; A-final S/j-onset + r/Y-medial
+            # shape class — surveyed all 35 A/E-final BvAdi cleans: sole iz-pair,
+            # SrE keeps As (op-gate excludes krdanta-style SrE→SrA remaps); BvAdiH-gated).
+            if c in ("SrA", "jYA") and op.startswith(("SrA", "jYA")) and meta.get("gana") == "BvAdiH":
+                return "SiSriz" if c == "SrA" else "jijYiz"
             if c == "dE" or op.startswith("dEp"):
                 return "didAs"
             # dAp san is didAs- too (didAsati; sole dAp-clean 02.0054 surveyed 01+02; same dA-family as dEp)
@@ -6692,11 +6697,12 @@ class TinantaDerivationEngine:
             # miss everywhere; additive, svAdiH-gated).
             if sanadi is None and meta.get("gana") == "svAdiH" and meta.get("clean") == "fkzi":
                 cands += self._conjugate_luw("fkzayi", pada, purusha, vacana)
-            # kryAdi luw A-stems (mAtA for mI; kzetA for kzIz (z-drop + e-grade);
+            # kryAdi luw A-stems (mAtA for mI; kzetA for kzIz (z-drop + e-grade,
+            # stem kze — _conjugate_luw supplies -tA; kzet double-t gave kzeztA);
             # grahItA for grah (I-grade); sole-trio surveyed, attested 9/9 each;
             # additive, kryAdiH-gated).
             if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") in ("mI", "kzIz", "grah"):
-                _k9luw = {"mI": "mA", "kzIz": "kzet", "grah": "grahI"}[meta.get("clean")]
+                _k9luw = {"mI": "mA", "kzIz": "kze", "grah": "grahI"}[meta.get("clean")]
                 cands += self._conjugate_luw(_k9luw, pada, purusha, vacana)
             return list(dict.fromkeys(cands)), log
 

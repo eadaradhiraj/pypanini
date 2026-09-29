@@ -1,23 +1,23 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-28
-Sweep-01: **1156/1156 100%** — held.
-Sweep-02: **76/76** — held.
-Sweep-03: **26/26** — held.
-Sweep-05: **38/38 100%** — held.
-Sweep-07: **25/25** — held.
-Sweep-08: **10/10** — held.
-Sweep-09: **46/71** (was 22/71; +145 matched, 42 improved, 0 worsened).
-Landscape: 04 2/163, 06 22/174, 10 145/509.
+Date: 2026-09-29
+Sweep-all: **1156/1156 100%** (raw 1156/1166, 10 skipped; GRAND 994971/994971 attested) — held, fid-diff gate 0/0.
+Sweep-02: **77/77 100%** — complete (other session).
+Sweep-03: **26/26 100%** — complete (other session).
+Sweep-05: **38/38 100%** — complete (other session, GEN-05).
+Sweep-07: **25/25 100%** — complete (other session).
+Sweep-08: **10/10 100%** — complete (other session).
+Sweep-09: **46/71** — held passes, +35 matched, 4 improved / 0 worsened (this iteration).
+Sweep-04: 4/163, Sweep-06: 22/174, Sweep-10: 162/509 (per-gana csvs predate this iteration; untouched by construction — this iteration's code is BvAdiH/kryAdiH-gated).
 
-## Done — 09 ylk redup (iteration 226)
-- kryAdi yangluk block: kta/ktavatu/Satf(+aug-twins)/tavya/anIyar/
-  GaY/ktvA/Rvul/tfc (krdanta.py). Gates: 621/621 ylk probes + guards
-  green; 09 fid-diff gate 42 improved / 0 worsened (ylk_krut misses
-  71→0 sweep-wide).
+## Done — repair + gate HEAD (iterations 227-228)
+- KryAdi luw A-stems (mAtA/kzetA/grahItA) + banD Bantsyati future (HEAD code, ungated): gated via sweep_09 (+35, 4 improved, 0 worsened). Fixed kzetA stem (kze, not kzet) by probe.
+- SrA/jYA san-iz repair: commit 8dd6aa6 had dropped load-bearing SiSriz/jijYiz stems (-360 in 01.0922/0923, hidden by stale sweep_all.csv). Restored as surveyed shape class (c + op + BvAdiH, both engines; per-fid dhatu_id removed). 01.1067 SrE exclusion proven live (op-gate required: krdanta remaps SrE→SrA).
+- Gates: pilots 5/5; 01.0922/0923/1067 100%; full sweep 1156/1156, miss-by-anta {}; GRAND 994971/994971 reproduced exactly.
+- Lesson recorded in STATS: re-sweep after every code commit before pushing; never trust csv newer-code-than-csv.
 
 ## Next
-1. 09 loop: luw/luN residuals (grah blockers) → san/nich/yang →
-   mUla krut tavya/Rvul/tfc/anIyar grades → 09 done.
-2. Then 04 (163) → 06 (174) → 10 (509).
-3. Cross-gana guards (01 + all-100% ganas) before every commit.
+1. Gana-09 loop: luN/san/nich/yang residuals + krut mUla grades (tavya/Rvul/tfc/anIyar) — 25 fids remain.
+2. Gana loop: 04 (divAdi ya) → 06 (tudAdi a) → 10 (curAdi aya) (02/03/05/07/08 done).
+3. Cross-gana traits: nijanta-aorist gaps, mUla-aorist gaps.
+4. cakz follow-ups; hardcoded "02.0055" fid in KyA/kSA block to revisit.

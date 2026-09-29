@@ -1520,10 +1520,11 @@ class KrdantaEngine:
                     return "didAs"
                 if c in ("deN", "de", "dA", "dAR") or (op.startswith(("deN", "dAR", "dA~", "dap")) and "dEp" not in op):
                     return "dits"
-                if c == "jYA" and dhatu_id == "01.0923":
-                    return "jijYiz"
-                if c == "SrA" and dhatu_id == "01.0922":
-                    return "SiSriz"
+                # SrA/jYA san iz-stems (mirrors tinanta shape class; surveyed all 35 A/E-final
+                # BvAdi cleans: sole iz-pair; op-gate excludes SrE→SrA remaps (01.1067 keeps
+                # SiSrAs-); BvAdiH-gated, behavior-identical).
+                if c in ("SrA", "jYA") and op.startswith(("SrA", "jYA")) and meta.get("gana") == "BvAdiH":
+                    return "jijYiz" if c == "jYA" else "SiSriz"
                 if c == "dE" or op.startswith("dEp"):
                     return "didAs"
                 if c in ("DeN", "De", "DA", "DuDAY") or (c.endswith("ew") and not sew) or op.startswith(("DeN", "DA~", "DuDA")) or (op.endswith("ew") and not sew):
