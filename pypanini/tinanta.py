@@ -4142,6 +4142,13 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup" and lakara in ("lfw", "lfN"):
                     _d4gyc = self._add_augment("gopizy", False) if lakara == "lfN" else "gopizy"
                     cands+=self._conjugate_at_stem_atmane(_d4gyc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # divAdi uD yak sya-futures (Botsyate + augmented lfN; trio 04.0068-0070
+                # surveyed — B kept capital, u→o, D→t; old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("buD", "yuD", "ruD") and lakara in ("lfw", "lfN"):
+                    _d4uc = {"buD": "Botsy", "yuD": "yotsy", "ruD": "rotsy"}[meta.get("clean")]
+                    if lakara == "lfN":
+                        _d4uc = self._add_augment(_d4uc, False)
+                    cands+=self._conjugate_at_stem_atmane(_d4uc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":

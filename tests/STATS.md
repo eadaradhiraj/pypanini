@@ -471,3 +471,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 324 (divAdi gup yak go-grade sya-future (gopizyate + augmented lfN; sole 04.0147 surveyed; old miss; probes ALL-HIT): 04 holds 127/161 (+18 matched, 1 improved), 0 worsened (guards green).
 - Iteration 325 (divAdi gup yak remainder (liw jugup-table + luw gopitA-table + ASIrliN gopizIzwa-table + luN agopi-table; sole 04.0147 surveyed; old miss; 36-slot probes ALL-HIT): 04 holds 127/161 (+36 matched, 1 improved), 0 worsened (guards green).
 - Iteration 326 (divAdi gup yanlug (jogupIti/jogopti kartari table + jogupyate karmani; sole 04.0147 surveyed; old miss; 18-slot probes ALL-HIT; 0147 full pass 871->889): 04 127/161->128/161 (+18 matched, 1 improved), 0 worsened (guards green).
+- Iteration 327 (divAdi uD yak sya-futures (Botsy/yotsy/rotsy + augmented lfN; trio 04.0068-0070 surveyed; old miss; probes ALL-HIT): 04 holds 128/161 (+54 matched, 3 improved), 0 worsened (guards green).
