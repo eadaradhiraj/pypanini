@@ -6972,6 +6972,12 @@ class TinantaDerivationEngine:
                 _k9fa = self._add_augment("kzezy", False)
                 cands+=self._conjugate_at_stem_parasmai(_k9fa, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_k9fa, "laN", purusha, vacana)
+            # kryAdi grah lfN (agrahIzyat; sole 09.0071 surveyed — old agrahizyat
+            # misses; both padas for global match; additive, kryAdiH-gated).
+            if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "grah":
+                _k9ga = self._add_augment("grahIzy", False)
+                cands+=self._conjugate_at_stem_parasmai(_k9ga, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_k9ga, "laN", purusha, vacana)
             # iN lfN E-grade (aDyEzyata covers every slot via any-match; op-gated; additive).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                 _iy0 = self._add_augment("aDyEzy", True)

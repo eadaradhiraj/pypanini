@@ -4135,6 +4135,10 @@ class KrdantaEngine:
             # misses everywhere; free).
             if sanadi is None and clean == "mI" and meta.get("gana") == "kryAdiH":
                 return tri_linga("mAtavya")
+            # kryAdi grah I-tavya (grahItavya; sole 09.0071 surveyed — old
+            # grahitavya misses everywhere; free).
+            if sanadi is None and clean == "grah" and meta.get("gana") == "kryAdiH":
+                return tri_linga("grahItavya")
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 return tri_linga(clean[:-1] + apply_guna(clean[-1]) + "tavya")
             # guhU~ vew: aniT oQ (goQavya) + seT Uhit (gUhitavya); yangluk
@@ -4512,6 +4516,10 @@ class KrdantaEngine:
             # free).
             if sanadi is None and clean == "mI" and meta.get("gana") == "kryAdiH":
                 return {"M": "mAtA", "F": "mAtrI", "N": "mAtf"}
+            # kryAdi grah I-tfc (grahItA; sole 09.0071 surveyed; old grahitA
+            # misses, free).
+            if sanadi is None and clean == "grah" and meta.get("gana") == "kryAdiH":
+                return {"M": "grahItA", "F": "grahItrI", "N": "grahItf"}
             # iN aD- tfc (aDyetA; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDyetA", "F": "aDyetrI", "N": "aDyetf"}
@@ -4795,6 +4803,10 @@ class KrdantaEngine:
             # misses, free).
             if sanadi is None and clean == "mI" and meta.get("gana") == "kryAdiH":
                 return {"avyaya": ["mAtum"]}
+            # kryAdi grah I-tumun (grahItum; sole 09.0071 surveyed; old grahitum
+            # misses, free).
+            if sanadi is None and clean == "grah" and meta.get("gana") == "kryAdiH":
+                return {"avyaya": ["grahItum"]}
             # fkzi aya-tumun (fkzayitum; sole 05.0038 surveyed; old e-forms miss, free).
             if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
                 return {"avyaya": ["fkzayitum"]}
