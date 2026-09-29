@@ -397,3 +397,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 264 (divAdi lyuw residuals (jaraRam/JaraRam, dAnam, ayanam, Socanam, ranDanam, gopanam; soles surveyed; old miss; 161/161 probes): 04 holds 107/161 (+7 matched, 7 improved), 0 worsened (guards green).
 - Iteration 265 (divAdi Rvul residuals (jAraka/JAraka, Ayaka, Socaka, ranDaka, gopaka; soles surveyed; old miss; 161/161 probes): 04 holds 107/161 (+18 matched, 6 improved), 0 worsened (guards green).
 - Iteration 266 (divAdi mUla ktavatu residuals (sitavAn, ditavAn, puz triple, frozen kfSa; soles surveyed; old miss; 161/161 probes): 04 holds 107/161 (+12 matched, 4 improved), 0 worsened (guards green).
+- Iteration 267 (divAdi tumun residuals (naSitum, gopitum (meta-clean gate for jugups-rewrite); soles surveyed; old miss; 161/161 probes): 04 holds 107/161 (+2 matched, 2 improved), 0 worsened (guards green).

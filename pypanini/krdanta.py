@@ -5422,6 +5422,12 @@ class KrdantaEngine:
                 return {"avyaya": ["pozwum", "pozitum"]}
             if sanadi is None and meta.get("gana") == "divAdiH" and clean == "svid":
                 return {"avyaya": ["svettum", "sveditum"]}
+            # divAdi tumun residuals (naSitum, gopitum; soles surveyed; old miss;
+            # free).
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "naS":
+                return {"avyaya": ["naSitum"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                return {"avyaya": ["gopitum"]}
             # kryAdi bare-F ar-tumun (arItum; sole 09.0032 surveyed; old Fitum
             # misses, free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
