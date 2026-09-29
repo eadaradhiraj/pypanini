@@ -2518,6 +2518,10 @@ class TinantaDerivationEngine:
             # miss everywhere; divAdiH-gated).
             if c in ("buD", "yuD", "ruD") and meta.get("gana") == "divAdiH":
                 return {"buD": "buButs", "yuD": "yuyuts", "ruD": "ruruts"}[c]
+            # divAdi ISuc san stem (SuSuciz-; samprasAraNa Suc; sole 04.0061 surveyed —
+            # old ISiSuciz-forms miss everywhere; divAdiH-gated).
+            if c == "ISuc" and meta.get("gana") == "divAdiH":
+                return "SuSuciz"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"

@@ -1570,6 +1570,10 @@ class KrdantaEngine:
                 # old forms miss everywhere; sec feeds san_krut; divAdiH-gated).
                 if meta.get("clean") in ("buD", "yuD", "ruD") and meta.get("gana") == "divAdiH":
                     return {"buD": "buButs", "yuD": "yuyuts", "ruD": "ruruts"}[meta.get("clean")]
+                # divAdi ISuc san sec (mirrors tinanta; sole 04.0061 surveyed —
+                # old forms miss everywhere; sec feeds san_krut; divAdiH-gated).
+                if meta.get("clean") == "ISuc" and meta.get("gana") == "divAdiH":
+                    return "SuSuciz"
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).
