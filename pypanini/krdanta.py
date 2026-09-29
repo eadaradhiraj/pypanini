@@ -2913,6 +2913,80 @@ class KrdantaEngine:
         # Yangluk krdanta has no yat (surveyed all 1078 yangluk_krut in 01, zero yat keys).
         if sanadi == "yanluganta" and pratyaya == "yat":
             return None
+        # divAdi ylk Satf (dedivat/tezWivat/sozRusat/sAsnasat + t/d-twins, F carries
+        # atI + M-twins; redup e/o/A (+C1ar for f-roots, palatal k/g/h, D→d,
+        # s+stop takes stop, panI/maM/jaM/So specials); weak = bare root with
+        # s→z iff s+(n+)i/u, st→op-onset, n→R after trigger, F→ir, glides
+        # (dy/qy/Dy/my/ry/ly/py/vriy/priy), m-drop, o-drop (s/cC), jan-jY,
+        # ISuc-Suc, vyaD-viD, raYj-raj, BraMS-BraS; surveyed ylk-keyed 04 cleans;
+        # free).
+        if sanadi == "yanluganta" and meta.get("gana") == "divAdiH":
+            _d4mc = meta.get("clean", "") or clean
+            _d4on = ""
+            for _ch in clean:
+                if _ch in SLP1_VOWELS:
+                    break
+                _d4on += _ch
+            _d4lv = None
+            for _ch in reversed(clean):
+                if _ch in SLP1_VOWELS:
+                    _d4lv = _ch
+                    break
+            _d4sp = {"pad": "panI", "man": "maM", "jan": "jaM", "ISuc": "So"}.get(_d4mc)
+            if _d4sp is not None:
+                _d4rd = _d4sp
+            else:
+                if len(_d4on) >= 2 and _d4on[0] in ("s", "S", "z") and _d4on[1] in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "t", "T", "d", "D", "p", "P", "b", "B"):
+                    _d4rc0 = _d4on[1]
+                else:
+                    _d4rc0 = _d4on[:1]
+                _d4rc = {"k": "c", "K": "c", "C": "c", "g": "j", "G": "j", "h": "j", "W": "t"}.get(_d4rc0, _d4rc0)
+                if _d4rc in ("B", "D", "J"):
+                    _d4rc = {"B": "b", "D": "d", "J": "j"}[_d4rc]
+                if _d4lv in ("u", "U"):
+                    _d4gv = "o"
+                elif _d4lv in ("i", "I", "e", "E"):
+                    _d4gv = "e"
+                elif _d4lv == "o":
+                    _d4gv = "A"
+                elif _d4lv == "f":
+                    _d4gv = "ar"
+                else:
+                    _d4gv = "A"
+                _d4rd = _d4rc + _d4gv
+                # am/an-final takes num-M redup (SaM/taM/maM; as/us-roots exempt)
+                if _d4mc.endswith(("am", "an")):
+                    _d4rd = _d4rc + "aM"
+            _d4wsp = {"jan": "jY", "ISuc": "Suc", "vyaD": "viD", "raYj": "raj", "BraMS": "BraS", "mA": "m", "So": "S", "Co": "cC", "so": "s", "do": "d", "jFz": "jir", "JFz": "Jir", "dI": "dy", "qI": "qy", "DI": "Dy", "mI": "my", "rI": "ry", "lI": "ly", "pI": "py", "vrI": "vriy", "prI": "priy", "sU": "zuv", "dU": "duv", "mid": "med", "sWiv": "zWiv"}
+            if _d4mc in _d4wsp:
+                _d4w = _d4wsp[_d4mc]
+            else:
+                _d4w = _d4mc
+                if _d4on[:1] in ("s", "S") and len(_d4on) >= 2 and _d4on[1] in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "t", "T", "d", "D", "p", "P", "b", "B"):
+                    _opon = ""
+                    for _ch in op:
+                        if _ch in SLP1_VOWELS:
+                            break
+                        _opon += _ch
+                    if _opon[:1] in ("s", "z", "S") and len(_opon) >= 2:
+                        _d4w = _opon + _d4mc[len(_d4on):]
+                    else:
+                        _d4w = _d4on + _d4mc[len(_d4on):]
+                elif _d4on[:1] == "s":
+                    _rst = _d4mc[1:]
+                    while _rst[:1] in ("n", "v"):
+                        _rst = _rst[1:]
+                    if _rst[:1] in ("i", "u", "I", "U"):
+                        _d4w = "z" + _d4mc[1:]
+                _d4nw = ""
+                for _i, _ch in enumerate(_d4w):
+                    if _ch == "n" and _i > 0 and _d4w[_i - 1] in ("r", "R", "z", "f", "F"):
+                        _d4nw += "R"
+                    else:
+                        _d4nw += _ch
+                _d4w = _d4nw
+            _d4M = [_d4rd + _d4w + "at", _d4rd + _d4w + "ad"]
+            return {"M": _d4M, "F": [_d4rd + _d4w + "atI"] + _d4M, "N": _d4M}
         # Yangluk Satf loss+redup (nasal only; e.g. Sans->SASasat, sranB->sAsraBat; Atmane None overridden where nasal hit exists).
         if sanadi == "yanluganta" and pratyaya == "Satf":
             # kzIvu~ yangluk Satf short-i twin (cekzivat/cekzivatI; f~ flows to generic below).
@@ -3700,6 +3774,44 @@ class KrdantaEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH":
                     _k9sp = _kryadi_satf_pre() + "at"
                     return {"M": _k9sp[:-1] + "n", "F": _k9sp + "I", "N": [_k9sp, _k9sp[:-1] + "d"]}
+                # divAdi ya-Satf (dIvyan/dIvyantI + t/d-twins; no-ya quartet
+                # {yas,tras,Bram,klam} takes ya-grades here (trasyan); am-A,
+                # v-i-I, jFz/JFz-Ir, o-drop, mid/ISuc/vyaD/raYj specials + gup
+                # jugups-victim mirror tinanta _divadi_stem; surveyed all 163
+                # divAdi cleans; gana-gated; free).
+                if sanadi is None and meta.get("gana") == "divAdiH":
+                    _d4mc = meta.get("clean", "") or clean
+                    if clean == "jugups":
+                        _d4yp = "gupya"
+                    elif _d4mc in ("div", "siv", "sriv", "sWiv"):
+                        _d4yp = {"div": "d", "siv": "s", "sriv": "sr", "sWiv": "zW"}[_d4mc] + "Ivya"
+                    elif _d4mc in ("yas", "tras"):
+                        _d4yp = _d4mc + "ya"
+                    elif _d4mc == "Bram":
+                        _d4yp = "BrAmya"
+                    elif _d4mc == "klam":
+                        _d4yp = "klAmya"
+                    elif _d4mc == "mad":
+                        _d4yp = "mAdya"
+                    elif _d4mc == "BraMS":
+                        _d4yp = "BraSya"
+                    elif _d4mc in ("Sam", "tam", "dam", "Sram") or (_d4mc == "kzam" and not op.endswith("~z")):
+                        _d4yp = clean[:-2] + "Amya"
+                    elif _d4mc in ("jFz", "JFz"):
+                        _d4yp = _d4mc[:1] + "Irya"
+                    elif _d4mc in ("So", "Co", "so", "do"):
+                        _d4yp = _d4mc[:-1] + "ya"
+                    elif _d4mc == "mid":
+                        _d4yp = "medya"
+                    elif _d4mc == "ISuc":
+                        _d4yp = "Sucya"
+                    elif _d4mc == "vyaD":
+                        _d4yp = "viDya"
+                    elif _d4mc == "raYj":
+                        _d4yp = "rajya"
+                    else:
+                        _d4yp = clean + "ya"
+                    return {"M": _d4yp + "n", "F": _d4yp + "ntI", "N": [_d4yp + "t", _d4yp + "d"]}
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
@@ -4004,6 +4116,25 @@ class KrdantaEngine:
                 if (_natva_applies(clean) or _natva_applies(orig_clean)) and stem.endswith("amAna"):
                     stem = stem[:-5] + "amARa"
                 return tri_linga(stem)
+            # divAdi ya-SAnac (sUyamAna/dIyamAna/rIyamARa; clean + yamAna with
+            # n→R iff last r/z/f/F-trigger followed only by vowels/y/v/h/m;
+            # jan/ISuc/raYj mirror present grades (jAy-/Suc-/rajy-); surveyed
+            # keyed 04 Atmane cleans; gana-gated; free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                if _d4mc == "jan":
+                    return {"M": "jAyamAnaH", "F": "jAyamAnA", "N": "jAyamAnam"}
+                if _d4mc == "ISuc":
+                    _d4mc = "Suc"
+                if _d4mc == "raYj":
+                    _d4mc = "raj"
+                _d4li = -1
+                for _i, _ch in enumerate(_d4mc):
+                    if _ch in ("r", "z", "f", "F"):
+                        _d4li = _i
+                _d4R = _d4li != -1 and all(ch in SLP1_VOWELS or ch in ("y", "v", "h", "m") for ch in (_d4mc[_d4li + 1:] + "ya"))
+                _d4ys = _d4mc + ("yamARa" if _d4R else "yamAna")
+                return {"M": _d4ys + "H", "F": _d4ys[:-1] + "A", "N": _d4ys + "m"}
             # 01.1166 fti/ftu (Panini 3.1.29 ftIyaN)
             if clean in ("ftu", "fti") or op.startswith("ft") or (dhatu_id and dhatu_id.endswith("1166")):
                 return tri_linga("ftIyamAna")
