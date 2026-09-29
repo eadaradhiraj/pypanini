@@ -4127,6 +4127,10 @@ class KrdantaEngine:
             # Fitavya misses everywhere; free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
                 return tri_linga("arItavya")
+            # kryAdi kzIz et-tavya (kzetavya; sole 09.0042 surveyed — old
+            # kzezwavya misses everywhere; free).
+            if sanadi is None and clean == "kzIz" and meta.get("gana") == "kryAdiH":
+                return tri_linga("kzetavya")
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 return tri_linga(clean[:-1] + apply_guna(clean[-1]) + "tavya")
             # guhU~ vew: aniT oQ (goQavya) + seT Uhit (gUhitavya); yangluk
@@ -4195,6 +4199,10 @@ class KrdantaEngine:
             # FaRIya misses, free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
                 return tri_linga("araRIya")
+            # kryAdi kzIz ay-anIyar (kzayaRIya; sole 09.0042 surveyed; old
+            # kzezaRIya misses, free).
+            if sanadi is None and clean == "kzIz" and meta.get("gana") == "kryAdiH":
+                return tri_linga("kzayaRIya")
             # idit i-final num-clean (agi->aNganIyaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
@@ -4388,6 +4396,10 @@ class KrdantaEngine:
             # misses, free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
                 return {"M": "ArakaH", "F": "ArikA", "N": "Arakam"}
+            # kryAdi kzIz A-Rvul (kzAyaka; sole 09.0042 surveyed; old kzezaka
+            # misses, free).
+            if sanadi is None and clean == "kzIz" and meta.get("gana") == "kryAdiH":
+                return {"M": "kzAyakaH", "F": "kzAyikA", "N": "kzAyakam"}
             # idit i-final num-clean (agi->aNgakaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _rbw = clean[:-1]
@@ -4484,6 +4496,10 @@ class KrdantaEngine:
             # misses, free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
                 return {"M": "arItA", "F": "arItrI", "N": "arItf"}
+            # kryAdi kzIz et-tfc (kzetA; sole 09.0042 surveyed; old kzezwA
+            # misses, free).
+            if sanadi is None and clean == "kzIz" and meta.get("gana") == "kryAdiH":
+                return {"M": "kzetA", "F": "kzetrI", "N": "kzetf"}
             # iN aD- tfc (aDyetA; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDyetA", "F": "aDyetrI", "N": "aDyetf"}
@@ -4759,6 +4775,10 @@ class KrdantaEngine:
             # misses, free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
                 return {"avyaya": ["arItum"]}
+            # kryAdi kzIz et-tumun (kzetum; sole 09.0042 surveyed; old kzezwum
+            # misses, free).
+            if sanadi is None and clean == "kzIz" and meta.get("gana") == "kryAdiH":
+                return {"avyaya": ["kzetum"]}
             # fkzi aya-tumun (fkzayitum; sole 05.0038 surveyed; old e-forms miss, free).
             if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
                 return {"avyaya": ["fkzayitum"]}

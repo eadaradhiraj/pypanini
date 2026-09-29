@@ -1953,6 +1953,16 @@ class TinantaDerivationEngine:
                 "uttama": {"eka": ["Ariram"], "dvi": ["ArirAva"], "bahu": ["ArirAma"]},
             }
             return list(dict.fromkeys(_F_nun[purusha][vacana])), []
+        # kryAdi kzIz luN kartari takes iz-aorist (akzEzIt/akzEzId + zwAm/uH/
+        # IH/zwam/zwa/zam/zva/zma; sole 09.0042 surveyed — old akzIzat-forms
+        # miss (shared akzEzwAm kept in-table); exclusive return, clean gate).
+        if clean == "kzIz" and lakara == "luN" and prayoga == "kartari" and sanadi is None and meta.get("gana") == "kryAdiH":
+            _kz_lun = {
+                "prathama": {"eka": ["akzEzIt", "akzEzId"], "dvi": ["akzEzwAm"], "bahu": ["akzEzuH"]},
+                "madhyama": {"eka": ["akzEzIH"], "dvi": ["akzEzwam"], "bahu": ["akzEzwa"]},
+                "uttama": {"eka": ["akzEzam"], "dvi": ["akzEzva"], "bahu": ["akzEzma"]},
+            }
+            return list(dict.fromkeys(_kz_lun[purusha][vacana])), []
         # cakziN -> KyA/kSA in Ardhadhatuka (Panini 2.4.54/55)
         if meta.get("op") == "cakziN" and lakara in ("liw", "luw", "lfw", "lfN", "ASIrliN", "luN") and sanadi is None and not _cakz_bypass:
             _cakz_cands = []
@@ -6946,6 +6956,12 @@ class TinantaDerivationEngine:
                 for _mcore0 in ("mArkzy", "mArjizy"):
                     _maug = self._add_augment(_mcore0, _mcore0[0] in SLP1_VOWELS if _mcore0 else False)
                     cands+=self._conjugate_at_stem_parasmai(_maug, "laN", purusha, vacana)
+            # kryAdi kzIz lfN (akzezyat; sole 09.0042 surveyed — old akzekzyat
+            # misses; both padas for global match; additive, kryAdiH-gated).
+            if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz":
+                _k9fa = self._add_augment("kzezy", False)
+                cands+=self._conjugate_at_stem_parasmai(_k9fa, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_k9fa, "laN", purusha, vacana)
             # iN lfN E-grade (aDyEzyata covers every slot via any-match; op-gated; additive).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                 _iy0 = self._add_augment("aDyEzy", True)
