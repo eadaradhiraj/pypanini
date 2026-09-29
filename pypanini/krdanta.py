@@ -2702,7 +2702,9 @@ class KrdantaEngine:
                         return {"gender": "Neuter", "form": "cekzivaRam"}
                     _lb = base_no_ya+"ana"
                     # U-stem yan keeps dental n (cokzRUyanam; same U-principle; trio surveyed)
-                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and _lb.endswith("ana") and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
+                    # Ruh/rih stems too (sozRuhanam/sezRihanam; R+u/i+h blocks R;
+                    # pair 04.0096/0097 surveyed — old R-forms miss).
+                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and _lb.endswith("ana") and meta.get("clean") not in ("kzRu", "snu", "UrRu", "snuh", "snih"):
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
