@@ -7661,6 +7661,14 @@ class TinantaDerivationEngine:
                 # exists; gana-gated additive stem).
                 if clean == "vaS" and meta.get("gana") == "adAdiH":
                     _asb.append("uS")
+                # kzIz benedictive z-drop I-grade (kzIyAt; sole 09.0042 surveyed; additive,
+                # kryAdiH-gated).
+                if clean == "kzIz" and meta.get("gana") == "kryAdiH":
+                    _asb.append("kzI")
+                # grah benedictive samprasArana (gfhyAt; gfh-grade per kta gfhIta iter223;
+                # sole 09.0071 surveyed; additive, kryAdiH-gated).
+                if clean == "grah" and meta.get("gana") == "kryAdiH":
+                    _asb.append("gfh")
                 if clean in ("zWiv", "kziv"):
                     _asb.append(clean[:-2] + "I" + "v")
                 # Panini 6.4.24 aniditAM hala upaDAyAH (nasal loss before yAt): tunp->tupyAt, Sans->SasyAt;
