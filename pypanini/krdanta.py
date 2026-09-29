@@ -5801,6 +5801,32 @@ class KrdantaEngine:
             # misses; free).
             if clean == "grah" and meta.get("gana") == "kryAdiH" and sanadi is None:
                 return {"avyaya": ["pragfhya"]}
+            # divAdi lyap residuals (pradIvya/prasIvya/prasrIvya, prajIrya/praJIrya,
+            # pradAya, preya, praSucya, pramatya, praviDya, pravasya, pragupya;
+            # soles surveyed; old miss everywhere; free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                if _d4mc in ("div", "siv", "sriv"):
+                    _d4ly = {"div": "pradIvya", "siv": "prasIvya", "sriv": "prasrIvya"}[_d4mc]
+                    return {"avyaya": [_d4ly]}
+                if _d4mc == "jFz":
+                    return {"avyaya": ["prajIrya"]}
+                if _d4mc == "JFz":
+                    return {"avyaya": ["praJIrya"]}
+                if _d4mc == "dI":
+                    return {"avyaya": ["pradAya"]}
+                if _d4mc == "I":
+                    return {"avyaya": ["preya"]}
+                if _d4mc == "ISuc":
+                    return {"avyaya": ["praSucya"]}
+                if _d4mc == "man":
+                    return {"avyaya": ["pramatya"]}
+                if _d4mc == "vyaD":
+                    return {"avyaya": ["praviDya"]}
+                if _d4mc == "vas":
+                    return {"avyaya": ["pravasya"]}
+                if _d4mc == "gup":
+                    return {"avyaya": ["pragupya"]}
             # F-final yanlug redup (tF->pratAtIrya; additive with Irya cross-match).
             # f-final (short): keep f, a-redup r/ri/rI (smf->prasarsmfya).
             if clean.endswith(("f", "F")) and sanadi == "yanluganta":
