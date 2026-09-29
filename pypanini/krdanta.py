@@ -5003,6 +5003,14 @@ class KrdantaEngine:
             # free).
             if sanadi is None and clean == "jyA" and meta.get("gana") == "kryAdiH":
                 return {"avyaya": ["jItvA"]}
+            # kryAdi jF ar-ktvA twins (jarItvA/jaritvA; sole 09.0027 surveyed —
+            # old jIrtvA misses; free).
+            if sanadi is None and clean == "jF" and meta.get("gana") == "kryAdiH":
+                return {"avyaya": ["jarItvA", "jaritvA"]}
+            # kryAdi jYA full-ktvA (jYAtvA; sole 09.0043 surveyed — old jYitvA
+            # misses; free).
+            if sanadi is None and clean == "jYA" and meta.get("gana") == "kryAdiH":
+                return {"avyaya": ["jYAtvA"]}
             # kryAdi banD dDa-ktvA (badDvA; sole 09.0044 surveyed — old
             # bandDvA/banDitvA miss; free).
             if sanadi is None and clean == "banD" and meta.get("gana") == "kryAdiH":
