@@ -2580,6 +2580,14 @@ class TinantaDerivationEngine:
                 return "johUya"
             if c == "tF" or op.startswith("tF"):
                 return "tetIrya"
+            # labial-F intensive o-redup + Ur-grade (popUryate/vovUryate/boBUryate/
+            # momUryate/sosvUryate; surveyed all 18 F-final 09 cleans: labial onsets
+            # {p,v,B,m,sv} take o+Ur, other 12 (S/st/k/d/j/J/D/n/g/bare-F) keep e+Ir
+            # via generic below; gF-yang jegilyate quirk excluded (not o+Ur);
+            # kryAdiH-gated, mirrors krdanta _yan_sec).
+            if meta.get("gana") == "kryAdiH" and c.endswith("F") and c[:-1] in ("p", "v", "B", "m", "sv"):
+                _fon = c[:-1]
+                return DEASPIRATE.get(_fon[0], _fon[0]) + "o" + _fon + "Urya"
             # zWivu~: te-redup WI-grade (tezWIvya-, cf. SAnac zWIvyamAna).
             # we-variant (wezWIvya-) also attested but any-match needs one.
             if c == "zWiv":
@@ -3424,6 +3432,13 @@ class TinantaDerivationEngine:
                         yak_variants.append(_ew_iya)
                     if _ew_iya_sec not in sec_variants:
                         sec_variants.append(_ew_iya_sec)
+                # labial-F yak U-grade (pUryate/vUryate/BUryate/mUryate/svUryate; same
+                # 18-clean survey as yang; additive twins, kryAdiH-gated).
+                if clean.endswith("F") and meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
+                    if clean[:-1] + "Ury" not in yak_variants:
+                        yak_variants.append(clean[:-1] + "Ury")
+                    if clean[:-1] + "Ur" not in sec_variants:
+                        sec_variants.append(clean[:-1] + "Ur")
                 # ve-class (veY/vyeY/hveY) yak takes samprasArana U-grade (Uyate/vIyate/hUyate; surveyed 3/3 unanimous, additive)
                 if clean in ("ve", "vye", "hve"):
                     _vey = {"ve": "Uy", "vye": "vIy", "hve": "hUy"}[clean]
@@ -7674,6 +7689,10 @@ class TinantaDerivationEngine:
                 elif clean.endswith("F"):
                     # Panini 7.1.100 fta idDOH + 8.2.77 hali ca: F takes Ir before yAsuw
                     _asb.append(clean[:-1] + "Ir")
+                    # labial-F benedictive U-grade (pUryAt/vUryAt/BUryAt/mUryAt/svUryAt;
+                    # same 18-clean survey; additive twin, kryAdiH-gated).
+                    if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
+                        _asb.append(clean[:-1] + "Ur")
                 elif clean.endswith("f"):
                     # Panini 7.4.29 guRo 'rti-saMyogAdyoH: arti (f) and saMyogAdi roots take guna (ar)
                     # Panini 7.4.28 riN Sayag-liNkzu: other f-ending roots take riN (ri)

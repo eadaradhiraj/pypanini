@@ -1673,6 +1673,12 @@ class KrdantaEngine:
                     return "johUya"
                 if c == "tF" or op.startswith("tF"):
                     return "tetIrya"
+                # labial-F intensive o-redup + Ur-grade (mirrors tinanta _yan_stem;
+                # same 18-clean survey + onset set; sec feeds all yang_krut;
+                # kryAdiH-gated).
+                if meta.get("gana") == "kryAdiH" and c.endswith("F") and c[:-1] in ("p", "v", "B", "m", "sv"):
+                    _fon = c[:-1]
+                    return DEASPIRATE.get(_fon[0], _fon[0]) + "o" + _fon + "Urya"
                 # zWivu~: te-redup iv-grade for krdanta yang (tezWivita;
                 # tinanta takes WI tezWIvya, handled there).
                 if c == "zWiv":
@@ -4790,7 +4796,11 @@ class KrdantaEngine:
             if sanadi == "yanluganta" and meta.get("gana") == "ruDAdiH" and meta.get("clean", "") == "BaYj":
                 return {"avyaya": ["baMBaYjitvA", "bamBaYjitvA"]}
             if clean.endswith("F") and sanadi is None:
-                return {"avyaya": [clean[:-1] + "IrtvA"]}
+                _k9ktva = [clean[:-1] + "IrtvA"]
+                # labial-F ktvA U-twin (pUrtvA/...; same 18-clean survey; additive, kryAdiH-gated).
+                if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
+                    _k9ktva.append(clean[:-1] + "UrtvA")
+                return {"avyaya": _k9ktva}
             # Panini 8.2.18 kfpo ro l: udit-aniT kxptvA + seT kalpitvA (vew gets both).
             if clean == "kfp" and sanadi is None:
                 if is_vew or not sew:
@@ -4981,7 +4991,11 @@ class KrdantaEngine:
                     [p + b + "ya" for b in ("carkxp", "carikxp")
                      for p in ("pra", upasarga, "")]))}
             if clean.endswith("F") and sanadi is None:
-                return {"avyaya": ["pra" + clean[:-1] + "Irya", "pra" + clean[:-1] + "Iryya", upasarga + clean[:-1] + "Irya", clean[:-1] + "Irya"]}
+                _k9lyap = ["pra" + clean[:-1] + "Irya", "pra" + clean[:-1] + "Iryya", upasarga + clean[:-1] + "Irya", clean[:-1] + "Irya"]
+                # labial-F lyap U-twins (prapUrya/...; same survey; additive, kryAdiH-gated).
+                if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
+                    _k9lyap += ["pra" + clean[:-1] + "Urya", upasarga + clean[:-1] + "Urya", clean[:-1] + "Urya"]
+                return {"avyaya": _k9lyap}
             # Panini 8.2.18 kfpo ro l: lyap keeps x (prakxpya).
             if clean == "kfp" and sanadi is None:
                 return {"avyaya": ["pra" + "kxp" + "ya", upasarga + "kxp" + "ya", "kxp" + "ya"]}
@@ -5008,8 +5022,13 @@ class KrdantaEngine:
                 _rc = VELAR_TO_PALATAL.get(_rc, _rc)
                 if clean.endswith("F"):
                     _red = _rc + "A" + clean[:-1] + "Ir"
-                    return {"avyaya": ["pra" + clean[:-1] + "Irya", clean[:-1] + "Irya",
-                                       "pra" + _red + "ya", upasarga + _red + "ya", _red + "ya"]}
+                    _k9yl = ["pra" + clean[:-1] + "Irya", clean[:-1] + "Irya",
+                                       "pra" + _red + "ya", upasarga + _red + "ya", _red + "ya"]
+                    # labial-F ylk-lyap A-redup-U twin (prapApUrya/...; same survey; additive, kryAdiH-gated).
+                    if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
+                        _redU = _rc + "A" + clean[:-1] + "Ur"
+                        _k9yl += ["pra" + _redU + "ya", upasarga + _redU + "ya", _redU + "ya"]
+                    return {"avyaya": _k9yl}
                 _yf_lyap = list(dict.fromkeys(
                     [p + _rc + "a" + _v + clean + "ya"
                      for _v in ("r", "ri", "rI")
