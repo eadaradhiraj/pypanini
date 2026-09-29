@@ -1967,11 +1967,12 @@ class KrdantaEngine:
                 if meta.get("gana") == "kryAdiH" and c.endswith("F") and c[:-1] in ("p", "v", "B", "m", "sv"):
                     _fon = c[:-1]
                     return DEASPIRATE.get(_fon[0], _fon[0]) + "o" + _fon + "Urya"
-                # kryAdi stF intensive e-redup + ir-grade (testirya; sole 09.0017
-                # surveyed — old tAstirya-forms miss everywhere; mirrors tinanta
-                # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
+                # kryAdi stF intensive e-redup + Ir-grade (testIrya; sole 09.0017
+                # surveyed — present testIrya- + perfect testir- flow via generic
+                # conversion (dF dedIrya precedent); mirrors tinanta _yan_stem;
+                # sec feeds yang_krut; kryAdiH-gated).
                 if meta.get("gana") == "kryAdiH" and c == "stF":
-                    return "testirya"
+                    return "testIrya"
                 # kryAdi jyA intensive e-redup + Iy-grade (jejIya; sole 09.0034
                 # surveyed — old jAjya-forms miss everywhere; mirrors tinanta
                 # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
