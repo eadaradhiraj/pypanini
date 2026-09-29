@@ -7936,6 +7936,12 @@ class TinantaDerivationEngine:
                             forms.append(_an2 + atm_end[(purusha, vacana)])
                 except Exception:
                     pass
+                # divAdi bare-I Atmane liT ay-peri triple (ayAYcakre/ayAmAsa/ayAmbaBUva;
+                # sole 04.0038 surveyed — vowel-initial liT returns via this block,
+                # old IAYcakre-forms miss everywhere; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "I":
+                    _d4ay = {("prathama","eka"):["ayAYcakre","ayAmAsa","ayAmbaBUva"],("prathama","dvi"):["ayAYcakrAte","ayAmAsAte","ayAmbaBUvAte"],("prathama","bahu"):["ayAYcakrire","ayAmAsire","ayAmbaBUvire"],("madhyama","eka"):["ayAYcakfze","ayAmAsize","ayAmbaBUvize"],("madhyama","dvi"):["ayAYcakrATe","ayAmAsATe","ayAmbaBUvATe"],("madhyama","bahu"):["ayAYcakfQve","ayAmAsiDve","ayAmbaBUviDve"],("uttama","eka"):["ayAYcakre","ayAmAsa","ayAmbaBUva"],("uttama","dvi"):["ayAYcakfvahe","ayAmAsivahe","ayAmbaBUvivahe"],("uttama","bahu"):["ayAYcakfmahe","ayAmAsimahe","ayAmbaBUvimahe"]}
+                    forms += _d4ay.get((purusha, vacana), [])
                 return list(dict.fromkeys(forms)), log
             else:
                 redup = self._reduplicated_stem(clean)
@@ -8120,6 +8126,11 @@ class TinantaDerivationEngine:
                         if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "vf":
                             _k9vf = {("madhyama","eka"):["vavfze"],("madhyama","bahu"):["vavfQve"],("uttama","dvi"):["vavfvahe"],("uttama","bahu"):["vavfmahe"]}
                             cands += _k9vf.get((purusha, vacana), [])
+                        # divAdi dI Atmane liT didIy-redup (sole 04.0029 surveyed —
+                        # old didIe-forms miss everywhere; additive, divAdiH-gated).
+                        if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "dI":
+                            _d4di = {("prathama","eka"):["didIye"],("prathama","dvi"):["didIyAte"],("prathama","bahu"):["didIyire"],("madhyama","eka"):["didIyize"],("madhyama","dvi"):["didIyATe"],("madhyama","bahu"):["didIyiQve"],("uttama","eka"):["didIye"],("uttama","dvi"):["didIyivahe"],("uttama","bahu"):["didIyimahe"]}
+                            cands += _d4di.get((purusha, vacana), [])
                     except Exception:
                         pass
                     return cands, log
