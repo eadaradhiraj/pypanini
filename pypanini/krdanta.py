@@ -5518,6 +5518,38 @@ class KrdantaEngine:
             # graQvA/grahitvA miss; free).
             if sanadi is None and clean == "grah" and meta.get("gana") == "kryAdiH":
                 return {"avyaya": ["gfhItvA"]}
+            # divAdi ktvA residuals (jarItvA/jaritA-twins, JIrtvA, sitvA, ditvA,
+            # SucitvA/SocitvA, nadDvA, matvA, sfzwvA, vidDvA, vastvA/vasitvA,
+            # puz/svid triples (cover split fids via any-match), gupitvA/gopitvA;
+            # soles surveyed; old miss everywhere; free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                if _d4mc == "jFz":
+                    return {"avyaya": ["jarItvA", "jaritvA"]}
+                if _d4mc == "JFz":
+                    return {"avyaya": ["JIrtvA"]}
+                if _d4mc == "so":
+                    return {"avyaya": ["sitvA"]}
+                if _d4mc == "do":
+                    return {"avyaya": ["ditvA"]}
+                if _d4mc == "ISuc":
+                    return {"avyaya": ["SucitvA", "SocitvA"]}
+                if _d4mc == "nah":
+                    return {"avyaya": ["nadDvA"]}
+                if _d4mc == "man":
+                    return {"avyaya": ["matvA"]}
+                if _d4mc == "sfj":
+                    return {"avyaya": ["sfzwvA"]}
+                if _d4mc == "vyaD":
+                    return {"avyaya": ["vidDvA"]}
+                if _d4mc == "vas":
+                    return {"avyaya": ["vastvA", "vasitvA"]}
+                if _d4mc == "puz":
+                    return {"avyaya": ["puzwvA", "puzitvA", "pozitvA"]}
+                if _d4mc == "svid":
+                    return {"avyaya": ["svittvA", "sviditvA", "sveditvA"]}
+                if _d4mc == "gup":
+                    return {"avyaya": ["gupitvA", "gopitvA"]}
             # Panini 8.2.18 kfpo ro l, yangluk: seT carkalpitvA + aniT carkxptvA.
             if sanadi == "yanluganta" and sec == "carkalp":
                 return {"avyaya": ["carkalpitvA", "carkxptvA"]}
