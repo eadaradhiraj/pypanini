@@ -8159,6 +8159,11 @@ class TinantaDerivationEngine:
                         pass
                     return cands, log
                 else:
+                    # divAdi vyaD mUla liT mixed paradigm (vivyADa/viviD- twins; sole 04.0078
+                    # surveyed — old vevyaD-forms miss everywhere; exclusive return, divAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vyaD":
+                        _d4vy = {("prathama","eka"):["vivyADa"],("prathama","dvi"):["viviDatuH"],("prathama","bahu"):["viviDuH"],("madhyama","eka"):["vivyadDa","vivyaDiTa"],("madhyama","dvi"):["viviDaTuH"],("madhyama","bahu"):["viviDa"],("uttama","eka"):["vivyaDa","vivyADa"],("uttama","dvi"):["viviDiva"],("uttama","bahu"):["viviDima"]}
+                        return list(dict.fromkeys(_d4vy.get((purusha, vacana), []))), log
                     # divAdi Fz mUla liT (jajar-/jer- twins for jFz (17 forms), jaJar-
                     # only for JFz (10 forms); pair 04.0025/0026 surveyed — old
                     # jejarz-forms miss everywhere; exclusive return, divAdiH-gated).
