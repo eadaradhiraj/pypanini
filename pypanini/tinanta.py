@@ -8321,6 +8321,14 @@ class TinantaDerivationEngine:
                             cands.append("suzRosiTa")
                         elif _d4mc == "stim":
                             cands.append("tizwemiTa" if op.startswith("zw") else "tistemiTa")
+                    # divAdi h-root liT m.eka o/e-grade gDa (suzRogDa/sizRegDa; pair
+                    # 04.0096/0097 surveyed — h->gD + Da-ending; old miss; additive).
+                    if meta.get("gana") == "divAdiH" and sanadi is None and (purusha, vacana) == ("madhyama", "eka"):
+                        _d4mc = meta.get("clean", "") or clean
+                        if _d4mc == "snuh":
+                            cands.append("suzRogDa")
+                        elif _d4mc == "snih":
+                            cands.append("sizRegDa")
                     return list(set(cands)), log
 
         elif lakara == "ASIrliN":
