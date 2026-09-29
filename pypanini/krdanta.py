@@ -1587,6 +1587,10 @@ class KrdantaEngine:
                 # old forms miss; sec feeds san_krut; divAdiH-gated).
                 if meta.get("clean") == "vyaD" and meta.get("gana") == "divAdiH":
                     return "vivyats"
+                # divAdi pad/man yak-only san sec (mirrors tinanta; pair 04.0065/0073
+                # surveyed — old forms miss; sec feeds san_krut; divAdiH-gated).
+                if meta.get("clean") in ("pad", "man") and meta.get("gana") == "divAdiH":
+                    return "pits" if meta.get("clean") == "pad" else "mimaMs"
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).

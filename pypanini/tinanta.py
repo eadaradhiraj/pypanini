@@ -2534,6 +2534,11 @@ class TinantaDerivationEngine:
             # old vivyaDs-forms miss everywhere; divAdiH-gated).
             if c == "vyaD" and meta.get("gana") == "divAdiH":
                 return "vivyats"
+            # divAdi pad/man yak-only san stems (pits/mimaMs; pair 04.0065/0073 surveyed —
+            # kartari plat null (ceiling, yak + san_krut scored); old pipats-/mimans-forms
+            # miss everywhere; divAdiH-gated).
+            if c in ("pad", "man") and meta.get("gana") == "divAdiH":
+                return "pits" if c == "pad" else "mimaMs"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
