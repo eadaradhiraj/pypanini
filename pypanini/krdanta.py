@@ -2716,6 +2716,11 @@ class KrdantaEngine:
                     # han yan SAnac keeps -ya- (jaMGanyamAna; sole 02.0002 surveyed; free).
                     if meta.get("clean") == "han" and meta.get("gana") == "adAdiH":
                         return {"M": "jaMGanyamAnaH", "F": "jaMGanyamAnA", "N": "jaMGanyamAnam"}
+                    # divAdi v-final-i yang SAnac I-grade (dedIvya-; trio 04.0001-0003
+                    # surveyed — old dedivya-forms miss; R split follows standard
+                    # natva below (div n, siv/sriv R); divAdiH-gated).
+                    if sanadi == "yananta" and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
+                        sec = {"div": "dedIvya", "siv": "sezIvya", "sriv": "sesrIvya"}[(meta.get("clean", "") or clean)]
                     m = sec + "mAnaH" if sec.endswith("a") else sec + "amAnaH"
                     f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
                     n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
