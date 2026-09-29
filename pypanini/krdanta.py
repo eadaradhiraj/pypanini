@@ -5093,6 +5093,10 @@ class KrdantaEngine:
                 return {"M": ["pozwA", "pozitA"], "F": ["pozwrI", "pozitrI"], "N": ["pozwf", "pozitf"]}
             if sanadi is None and meta.get("gana") == "divAdiH" and clean == "svid":
                 return {"M": ["svettA", "sveditA"], "F": ["svettrI", "sveditrI"], "N": ["svettf", "sveditf"]}
+            # divAdi naS tfc twins (naSitA/naMzwA; sole 04.0091 surveyed — old
+            # nazwtA misses; free).
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "naS":
+                return {"M": ["naSitA", "naMzwA"], "F": ["naSitrI", "naMzwrI"], "N": ["naSitf", "naMzwf"]}
             # divAdi gup o-tfc (gopitA; meta-clean gate for jugups-rewrite; sole
             # 04.0147 surveyed; old jugupsitA misses; free).
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
