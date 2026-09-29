@@ -6040,6 +6040,41 @@ class TinantaDerivationEngine:
                 _auav = self._add_augment(clean[:-1] + "av", False)
                 _weak_laN = {("prathama","dvi"):[_auw+"tAm"],("prathama","bahu"):[_auw+"v"+"an"],("madhyama","dvi"):[_auw+"tam"],("madhyama","bahu"):[_auw+"ta"],("uttama","eka"):[_auav+"am"],("uttama","dvi"):[_auw+"va"],("uttama","bahu"):[_auw+"ma"]}
                 cands += _weak_laN.get((purusha, vacana), [])
+            # divAdi ya-imperfect (adIvyat/adIvyad + Atmane -yata; augment + ya-stem,
+            # pr.eka t/d twins, pr.bahu/u Burton drop stem-a; no-ya quartet
+            # {yas,tras,Bram,klam} takes bare+ya twins; surveyed all 163 divAdi
+            # cleans; gana-gated; additive).
+            if meta.get("gana") == "divAdiH" and sanadi is None:
+                _d4ya = self._divadi_stem(clean, meta, op)
+                _d4ls = [_d4ya]
+                if (meta.get("clean", "") or clean) in ("yas", "tras", "Bram", "klam"):
+                    _d4ls.append(clean + "ya" if (meta.get("clean", "") or clean) != "klam" else "klAmya")
+                for _ls in _d4ls:
+                    _ly = _ls[:-1] if _ls.endswith("a") else _ls
+                    _la = self._add_augment(_ls, _ls[0] in SLP1_VOWELS if _ls else False)
+                    _lay = self._add_augment(_ly, _ly[0] in SLP1_VOWELS if _ly else False)
+                    cands += {
+                        ("prathama", "eka"): [_la + "t", _la + "d"],
+                        ("prathama", "dvi"): [_la + "tAm"],
+                        ("prathama", "bahu"): [_lay + "an"],
+                        ("madhyama", "eka"): [_la + "H"],
+                        ("madhyama", "dvi"): [_la + "tam"],
+                        ("madhyama", "bahu"): [_la + "ta"],
+                        ("uttama", "eka"): [_lay + "am"],
+                        ("uttama", "dvi"): [_lay + "Ava"],
+                        ("uttama", "bahu"): [_lay + "Ama"],
+                    }.get((purusha, vacana), [])
+                    cands += {
+                        ("prathama", "eka"): [_la + "ta"],
+                        ("prathama", "dvi"): [_lay + "etAm"],
+                        ("prathama", "bahu"): [_lay + "anta"],
+                        ("madhyama", "eka"): [_la + "TAH"],
+                        ("madhyama", "dvi"): [_lay + "eTAm"],
+                        ("madhyama", "bahu"): [_lay + "aDvam"],
+                        ("uttama", "eka"): [_lay + "e"],
+                        ("uttama", "dvi"): [_lay + "Avahi"],
+                        ("uttama", "bahu"): [_lay + "Amahi"],
+                    }.get((purusha, vacana), [])
             # tanAdi o/u imperfect (atanot/atanutAm/atanvan; aug(o-stem) via a/A-prefix,
             # aug(weak) via helper (ArRu-grade kept); uttama-du/pl twin u-kept/u-dropped;
             # Atmane mirrors (atanuta/atanvAtAm/atanvi...). Same stems/survey as lw; additive.
@@ -6891,6 +6926,39 @@ class TinantaDerivationEngine:
                 _jyf = "jAgf" + _jy.get((purusha, vacana), "yAt")
                 if _jyf not in cands:
                     cands.append(_jyf)
+            # divAdi ya-optative (dIvyet/dIvyed + Atmane -yeta; ya-stem + et-grades,
+            # pr.eka et/ed twins; no-ya quartet {yas,tras,Bram,klam} takes bare+ya
+            # twins; surveyed all 163 divAdi cleans; gana-gated; additive).
+            if meta.get("gana") == "divAdiH" and sanadi is None:
+                _d4ya = self._divadi_stem(clean, meta, op)
+                _d4y = _d4ya[:-1] if _d4ya.endswith("a") else _d4ya
+                _d4vs = [_d4ya]
+                if (meta.get("clean", "") or clean) in ("yas", "tras", "Bram", "klam"):
+                    _d4vs.append(clean + "ya" if (meta.get("clean", "") or clean) != "klam" else "klAmya")
+                for _vs in _d4vs:
+                    _vy = _vs[:-1] if _vs.endswith("a") else _vs
+                    cands += {
+                        ("prathama", "eka"): [_vy + "et", _vy + "ed"],
+                        ("prathama", "dvi"): [_vy + "etAm"],
+                        ("prathama", "bahu"): [_vy + "eyuH"],
+                        ("madhyama", "eka"): [_vy + "eH"],
+                        ("madhyama", "dvi"): [_vy + "etam"],
+                        ("madhyama", "bahu"): [_vy + "eta"],
+                        ("uttama", "eka"): [_vy + "eyam"],
+                        ("uttama", "dvi"): [_vy + "eva"],
+                        ("uttama", "bahu"): [_vy + "ema"],
+                    }.get((purusha, vacana), [])
+                    cands += {
+                        ("prathama", "eka"): [_vy + "eta"],
+                        ("prathama", "dvi"): [_vy + "eyAtAm"],
+                        ("prathama", "bahu"): [_vy + "eran"],
+                        ("madhyama", "eka"): [_vy + "eTAH"],
+                        ("madhyama", "dvi"): [_vy + "eyATAm"],
+                        ("madhyama", "bahu"): [_vy + "eDvam"],
+                        ("uttama", "eka"): [_vy + "eya"],
+                        ("uttama", "dvi"): [_vy + "evahi"],
+                        ("uttama", "bahu"): [_vy + "emahi"],
+                    }.get((purusha, vacana), [])
             # rudhAdi Snam optative (runDyAt/BindyAt/riYcyAt/SiMzyAt/tfMhyAt/hiMsyAt;
             # a-less weak stem + yAt-grades, coda kept (T voices to t: kfntyAt),
             # eka {yAt,yAd} twins; Atmane a-less + v + I-grades (runDIta/BindIta).
