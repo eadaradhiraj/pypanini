@@ -4028,6 +4028,13 @@ class TinantaDerivationEngine:
                     for _k9yc in ("mAsy", "mAyizy"):
                         _k9ycc = self._add_augment(_k9yc, False) if lakara == "lfN" else _k9yc
                         cands+=self._conjugate_at_stem_atmane(_k9ycc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # kryAdi kzIz yak sya-futures (kzAyizyate/kzezyate + augmented lfN
+                # twins; sole 09.0042 surveyed — old kzIzyate-forms miss; additive,
+                # kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz" and lakara in ("lfw", "lfN"):
+                    for _k9yc in ("kzAyizy", "kzezy"):
+                        _k9ycc = self._add_augment(_k9yc, False) if lakara == "lfN" else _k9yc
+                        cands+=self._conjugate_at_stem_atmane(_k9ycc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
