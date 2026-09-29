@@ -4128,6 +4128,11 @@ class TinantaDerivationEngine:
                     if lakara == "lfN":
                         _d4yc = self._add_augment(_d4yc, False)
                     cands+=self._conjugate_at_stem_atmane(_d4yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # divAdi gup yak go-grade sya-future (gopizyate + augmented lfN; sole
+                # 04.0147 surveyed — old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup" and lakara in ("lfw", "lfN"):
+                    _d4gyc = self._add_augment("gopizy", False) if lakara == "lfN" else "gopizy"
+                    cands+=self._conjugate_at_stem_atmane(_d4gyc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":

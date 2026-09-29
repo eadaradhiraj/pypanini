@@ -468,3 +468,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 321 (divAdi gup go-grade futures (luw gopi-core + lfw gopizy + lfN agopizy; sole 04.0147 surveyed; arm-placement catch; old miss; probes ALL-HIT): 04 holds 127/161 (+27 matched, 1 improved), 0 worsened (guards green).
 - Iteration 322 (divAdi gup benedictive + root-aorist (gup-stem for -yAt endings (off-by-one-y catch) + agupat-table; sole 04.0147 surveyed; old miss; 18-slot probes ALL-HIT): 04 holds 127/161 (+18 matched, 1 improved), 0 worsened (guards green).
 - Iteration 323 (divAdi gup yak present-system (gupy- pre-ghu/adeca; sole 04.0147 surveyed; double-a catch; old miss; probes ALL-HIT): 04 holds 127/161 (+36 matched, 1 improved), 0 worsened (guards green).
+- Iteration 324 (divAdi gup yak go-grade sya-future (gopizyate + augmented lfN; sole 04.0147 surveyed; old miss; probes ALL-HIT): 04 holds 127/161 (+18 matched, 1 improved), 0 worsened (guards green).
