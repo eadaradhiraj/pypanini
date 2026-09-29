@@ -474,3 +474,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 327 (divAdi uD yak sya-futures (Botsy/yotsy/rotsy + augmented lfN; trio 04.0068-0070 surveyed; old miss; probes ALL-HIT): 04 holds 128/161 (+54 matched, 3 improved), 0 worsened (guards green).
 - Iteration 328 (divAdi Fz futures+conditionals (jarizy/Jarizy mUla+yak lfw, Jari luw core, i/I lfN twins; pair 04.0025/0026 surveyed; yak-section catch; old miss; probes ALL-HIT): 04 holds 128/161 (+81 matched, 2 improved), 0 worsened (guards green).
 - Iteration 329 (divAdi ISuc/nah sya-futures + conditionals (Socizy/natsy cores + augmented twins; pair 04.0061/0062 surveyed; old miss; probes ALL-HIT): 04 holds 128/161 (+36 matched, 2 improved), 0 worsened (guards green).
+- Iteration 330 (divAdi dI yak sya-twins (dAyizy/dAsy + augmented lfN; sole 04.0029 surveyed; probe-literal bug caught by guards; old miss; probes ALL-HIT): 04 holds 128/161 (+18 matched, 1 improved), 0 worsened (guards green).
