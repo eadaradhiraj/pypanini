@@ -2025,6 +2025,11 @@ class KrdantaEngine:
                         _uron += _ch
                     _urc = {"g": "j", "G": "j", "D": "d"}.get(_uron[:1], _uron[:1])
                     return _urc + "o" + c + "ya"
+                # divAdi Fz yang e-redup + Ir-grade (jejIrya/jeJIrya; pair 04.0025/0026
+                # surveyed — present jejIryate; perfect/kta flow via generic Irya->ir;
+                # mirrors tinanta _yan_stem; sec feeds yang_krut; divAdiH-gated).
+                if meta.get("gana") == "divAdiH" and c in ("jFz", "JFz"):
+                    return "jejIrya" if c == "jFz" else "jeJIrya"
                 # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali & vArttika GrA-DmayoS ca:
                 # A -> I before halAdi kNiti (yaN), abhyAsa guna e (7.4.82)
                 if c in ("mA", "me"):

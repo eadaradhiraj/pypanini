@@ -2882,6 +2882,12 @@ class TinantaDerivationEngine:
                     _uron += _ch
                 _urc = {"g": "j", "G": "j", "D": "d"}.get(_uron[:1], _uron[:1])
                 return _urc + "o" + c + "ya"
+            # divAdi Fz yang e-redup + Ir-grade (jejIrya/jeJIrya; pair 04.0025/0026 surveyed —
+            # present jejIryate vs old jejirya; perfect jejirAYcakre flows via generic
+            # Irya->ir conversion (stF testIrya precedent); mirrors krdanta _yan_sec;
+            # divAdiH-gated).
+            if meta.get("gana") == "divAdiH" and c in ("jFz", "JFz"):
+                return "jejIrya" if c == "jFz" else "jeJIrya"
             if c == "ve":
                 return "vAvAya"
             # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali & vArttika GrA-DmayoS ca:
