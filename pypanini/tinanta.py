@@ -6793,6 +6793,51 @@ class TinantaDerivationEngine:
                     cands += ["jakzatu"] if _jc == "jakz" else [_jc + "antu"]
                 if (purusha, vacana) == ("uttama", "eka"):
                     cands += ["jakzARi"] if _jc == "jakz" else [_jc + "Ani"]
+            # divAdi ya-imperative (dIvyatu/dIvyantu + Atmane -yatAm; ya-stem + tin,
+            # pr.bahu/u Burton drop stem-a; u.eka Ani→ARi iff last r/R/z/f/F-trigger
+            # followed only by vowels/y/v/h/m; no-ya quartet {yas,tras,Bram,klam}
+            # takes bare+ya twins; surveyed all 163 divAdi cleans; gana-gated; additive).
+            if meta.get("gana") == "divAdiH" and sanadi is None:
+                _d4ya = self._divadi_stem(clean, meta, op)
+                _d4y = _d4ya[:-1] if _d4ya.endswith("a") else _d4ya
+                _d4ss = [_d4ya]
+                if (meta.get("clean", "") or clean) in ("yas", "tras", "Bram", "klam"):
+                    _d4ss.append(clean + "ya" if not (meta.get("clean", "") or clean) == "klam" else "klAmya")
+                _d4li = -1
+                for _i, _ch in enumerate(_d4ya):
+                    if _ch in ("r", "R", "z", "f", "F"):
+                        _d4li = _i
+                _d4R = _d4li != -1 and all(ch in SLP1_VOWELS or ch in ("y", "v", "h", "m") for ch in (_d4ya[_d4li + 1:] + "a"))
+                for _st in _d4ss:
+                    _sy = _st[:-1] if _st.endswith("a") else _st
+                    _sli = -1
+                    for _i, _ch in enumerate(_st):
+                        if _ch in ("r", "R", "z", "f", "F"):
+                            _sli = _i
+                    _sR = _sli != -1 and all(ch in SLP1_VOWELS or ch in ("y", "v", "h", "m") for ch in (_st[_sli + 1:] + "a"))
+                    _su1 = _sy + ("ARi" if _sR else "Ani")
+                    cands += {
+                        ("prathama", "eka"): [_st + "tu", _st + "tAt", _st + "tAd"],
+                        ("prathama", "dvi"): [_st + "tAm"],
+                        ("prathama", "bahu"): [_sy + "antu"],
+                        ("madhyama", "eka"): [_st],
+                        ("madhyama", "dvi"): [_st + "tAt", _st + "tAd"],
+                        ("madhyama", "bahu"): [_st + "tam", _st + "ta"],
+                        ("uttama", "eka"): [_su1],
+                        ("uttama", "dvi"): [_sy + "Ava"],
+                        ("uttama", "bahu"): [_sy + "Ama"],
+                    }.get((purusha, vacana), [])
+                    cands += {
+                        ("prathama", "eka"): [_st + "tAm"],
+                        ("prathama", "dvi"): [_sy + "etAm"],
+                        ("prathama", "bahu"): [_st + "ntAm"],
+                        ("madhyama", "eka"): [_st + "sva"],
+                        ("madhyama", "dvi"): [_sy + "eTAm"],
+                        ("madhyama", "bahu"): [_st + "Dvam"],
+                        ("uttama", "eka"): [_sy + "E"],
+                        ("uttama", "dvi"): [_sy + "AvahE"],
+                        ("uttama", "bahu"): [_sy + "AmahE"],
+                    }.get((purusha, vacana), [])
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
