@@ -3724,6 +3724,11 @@ class TinantaDerivationEngine:
                 if clean in ("pA", "sTA", "gA", "mA", "dA", "DA", "hA", "sA") or clean == "gE":
                     yak_stem = (clean[:-1] if clean.endswith("A") else "g") + "Iy"
                     sec_stem = (clean[:-1] if clean.endswith("A") else "g") + "I"
+                # divAdi so yak I-grade (sIyate; sole 04.0042 surveyed — old soyate/
+                # sAyate miss; must precede adeca branch below; divAdiH-gated).
+                elif clean == "so" and meta.get("gana") == "divAdiH":
+                    yak_stem = "sIy"
+                    sec_stem = "sI"
                 elif is_adeca(clean):
                     # Panini 6.1.45 Adeca upadeSe'Siti
                     a_root = clean[:-1] + "A"
