@@ -2310,6 +2310,11 @@ class TinantaDerivationEngine:
         def _nijanta_stem(c):
             if c == "mi" and meta.get("gana") == "svAdiH":
                 return "mApay"
+            # divAdi nich causative grades (jaray/JAray/dApay/repay/SAyay/CAyay/
+            # sAyay/Socay/ranDay/gopay; 10 fids surveyed — old -ayay-forms miss
+            # everywhere; must precede Nitya-san map below (gup); divAdiH-gated).
+            if c in ("jFz", "JFz", "dI", "rI", "So", "Co", "so", "ISuc", "raD", "gup") and meta.get("gana") == "divAdiH":
+                return {"jFz": "jaray", "JFz": "JAray", "dI": "dApay", "rI": "repay", "So": "SAyay", "Co": "CAyay", "so": "sAyay", "ISuc": "Socay", "raD": "ranDay", "gup": "gopay"}[c]
             # Nitya-san (3.1.5/3.1.6, seT only): nich uses san base (jugupsay/titikzay/...; 01.0461 aniT excluded via sew).
             if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                 _nsb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}

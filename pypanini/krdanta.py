@@ -462,11 +462,12 @@ class KrdantaEngine:
         is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
 
         # Panini 3.1.5 gup-tij-kidbhyaH san + 3.1.6 mAna-baDa-SAn-dAnByo dIrGaSca
+        # (divAdi gup excluded — nich takes gopita via sec path, sole 04.0147 surveyed).
         _nitya_san_kta = {
             "gup": "jugupsita", "tij": "titikzita", "kit": "cikitsita",
             "mAn": "mImAMsita", "baD": "bIBatsita", "dAn": "dIdAMsita", "SAn": "SISAMsita",
         }
-        if clean in _nitya_san_kta:
+        if clean in _nitya_san_kta and not (clean == "gup" and gana == "divAdiH"):
             return _nitya_san_kta[clean]
 
         # Panini 6.1.15 vaci-svapi-yajAdInAM kiti (kta/ktavatu kit samprasAraNa)
@@ -1341,6 +1342,12 @@ class KrdantaEngine:
                 # kryAdiH-gated).
                 if c == "kzIz" and meta.get("gana") == "kryAdiH":
                     return "kzAyaya"
+                # divAdi nich causative grades (mirrors tinanta; 10 fids surveyed —
+                # old forms miss everywhere; sec feeds nich_krut; local clean may be
+                # adeca-rewritten (so->sA) or san-rewritten (gup->jugups), so key on
+                # meta clean; divAdiH-gated).
+                if meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz", "dI", "rI", "So", "Co", "so", "ISuc", "raD", "gup"):
+                    return {"jFz": "jaray", "JFz": "JAray", "dI": "dApay", "rI": "repay", "So": "SAyay", "Co": "CAyay", "so": "sAyay", "ISuc": "Socay", "raD": "ranDay", "gup": "gopay"}[meta.get("clean")]
                 if c in ("knUy", "knU") or op.startswith("knUy"):
                     return "knopay"
                 if c in ("kzmAy", "kzmA") or op.startswith("kzmAy"):
@@ -2238,8 +2245,9 @@ class KrdantaEngine:
                 if meta.get("clean") in ("fti", "ftI"):
                     sec = _nijanta_sec("ftIy")
                 # Nitya-san (3.1.5/3.1.6, seT only; 01.0461 aniT excluded via sew): nich of san stem
-                # (jugupsayamAnaH/jugupsayan/jugupsayitavyaH/jugupsyaH...; surveyed 7/7 unanimous, zero conflicts)
-                _nitya_san_nic = sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn")
+                # (jugupsayamAnaH/jugupsayan/jugupsayitavyaH/jugupsyaH...; surveyed 7/7 unanimous, zero conflicts;
+                # divAdi gup excluded — takes gopay via _nijanta_sec above, sole 04.0147 surveyed).
+                _nitya_san_nic = sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (clean == "gup" and meta.get("gana") == "divAdiH")
                 if _nitya_san_nic:
                     sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean] + "ay"
             elif sanadi == "sannanta":
