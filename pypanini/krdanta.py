@@ -1552,6 +1552,11 @@ class KrdantaEngine:
                 # kryAdiH-gated).
                 if meta.get("clean") == "kzIz" and meta.get("gana") == "kryAdiH":
                     return "cikzIz"
+                # divAdi o-root san stems (mirrors tinanta; soles 04.0040-0043
+                # surveyed — old forms miss everywhere; sec feeds san_krut;
+                # divAdiH-gated).
+                if meta.get("clean") in ("So", "Co", "so", "do") and meta.get("gana") == "divAdiH":
+                    return {"So": "SiSAs", "Co": "cicCAs", "so": "sizAs", "do": "dits"}[meta.get("clean")]
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).
