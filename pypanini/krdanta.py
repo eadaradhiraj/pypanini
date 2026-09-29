@@ -1595,6 +1595,17 @@ class KrdantaEngine:
                 # old forms miss; sec feeds san_krut; divAdiH-gated).
                 if meta.get("clean") in ("kruD", "kzuD", "SuD", "siD") and meta.get("gana") == "divAdiH":
                     return {"kruD": "cukruts", "kzuD": "cukzuts", "SuD": "SuSuts", "siD": "sizits"}[meta.get("clean")]
+                # divAdi last san sec (mirrors tinanta; soles surveyed — old miss;
+                # sec feeds san_krut; divAdiH-gated).
+                if meta.get("gana") == "divAdiH":
+                    if meta.get("clean") == "svid":
+                        return "sisvidiz" if op.startswith("Yizvid") else "sizvits"
+                    if meta.get("clean") == "puz":
+                        return "pupuziz"
+                    if meta.get("clean") == "gup":
+                        return "jugupiz"
+                    if meta.get("clean") == "I":
+                        return "Iziz"
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).

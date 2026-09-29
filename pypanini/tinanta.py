@@ -2543,6 +2543,18 @@ class TinantaDerivationEngine:
             # 04.0086-0089 surveyed — old cukruDs-forms miss everywhere; divAdiH-gated).
             if c in ("kruD", "kzuD", "SuD", "siD") and meta.get("gana") == "divAdiH":
                 return {"kruD": "cukruts", "kzuD": "cukzuts", "SuD": "SuSuts", "siD": "sizits"}[c]
+            # divAdi last san stems (sizvits/sisvidiz split by op, pupuziz, jugupiz,
+            # Iziz (I yak-only, kartari plat null); soles surveyed — old miss
+            # everywhere; divAdiH-gated).
+            if meta.get("gana") == "divAdiH":
+                if c == "svid":
+                    return "sisvidiz" if op.startswith("Yizvid") else "sizvits"
+                if c == "puz":
+                    return "pupuziz"
+                if c == "gup" or meta.get("clean") == "gup":
+                    return "jugupiz"
+                if c == "I":
+                    return "Iziz"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
