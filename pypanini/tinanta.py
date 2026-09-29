@@ -4773,6 +4773,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean", "") == "stunB":
                     _k9stum = {("prathama","eka"):["tustumBe"],("prathama","dvi"):["tustumBAte"],("prathama","bahu"):["tustumBire"],("madhyama","eka"):["tustumBize"],("madhyama","dvi"):["tustumBATe"],("madhyama","bahu"):["tustumBiDve"],("uttama","eka"):["tustumBe"],("uttama","dvi"):["tustumBivahe"],("uttama","bahu"):["tustumBimahe"]}
                     cands += _k9stum.get((purusha, vacana), [])
+                # divAdi gup yak-liT jugup-redup (sole 04.0147 surveyed — old jujugupse
+                # misses everywhere; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean", "") == "gup":
+                    _d4gup = {("prathama","eka"):["jugupe"],("prathama","dvi"):["jugupAte"],("prathama","bahu"):["jugupire"],("madhyama","eka"):["jugupize"],("madhyama","dvi"):["jugupATe"],("madhyama","bahu"):["jugupiDve"],("uttama","eka"):["jugupe"],("uttama","dvi"):["jugupivahe"],("uttama","bahu"):["jugupimahe"]}
+                    cands += _d4gup.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -4886,6 +4891,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "sfj":
                     _d4sluw = {("prathama","eka"):["srazwA"],("prathama","dvi"):["srazwArO"],("prathama","bahu"):["srazwAraH"],("madhyama","eka"):["srazwAse"],("madhyama","dvi"):["srazwAsATe"],("madhyama","bahu"):["srazwADve"],("uttama","eka"):["srazwAhe"],("uttama","dvi"):["srazwAsvahe"],("uttama","bahu"):["srazwAsmahe"]}
                     cands += _d4sluw.get((purusha, vacana), [])
+                # divAdi gup yak-luT o-grade (gopitA; sole 04.0147 surveyed — old
+                # jugupsitA misses; additive, karmani-only, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                    _d4gluw = {("prathama","eka"):["gopitA"],("prathama","dvi"):["gopitArO"],("prathama","bahu"):["gopitAraH"],("madhyama","eka"):["gopitAse"],("madhyama","dvi"):["gopitAsATe"],("madhyama","bahu"):["gopitADve"],("uttama","eka"):["gopitAhe"],("uttama","dvi"):["gopitAsvahe"],("uttama","bahu"):["gopitAsmahe"]}
+                    cands += _d4gluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -5034,6 +5044,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "mI":
                     _k9me = {("prathama","eka"):["mAsIzwa","mAyizIzwa"],("prathama","dvi"):["mAsIyAstAm","mAyizIyAstAm"],("prathama","bahu"):["mAsIran","mAyizIran"],("madhyama","eka"):["mAsIzWAH","mAyizIzWAH"],("madhyama","dvi"):["mAsIyAsTAm","mAyizIyAsTAm"],("madhyama","bahu"):["mAsIDvam","mAyizIDvam"],("uttama","eka"):["mAsIya","mAyizIya"],("uttama","dvi"):["mAsIvahi","mAyizIvahi"],("uttama","bahu"):["mAsImahi","mAyizImahi"]}
                     cands += _k9me[(purusha, vacana)]
+                # divAdi gup yak-benedictive o-grade (gopizIzwa; sole 04.0147 surveyed —
+                # old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                    _d4gbe = {("prathama","eka"):["gopizIzwa"],("prathama","dvi"):["gopizIyAstAm"],("prathama","bahu"):["gopizIran"],("madhyama","eka"):["gopizIzWAH"],("madhyama","dvi"):["gopizIyAsTAm"],("madhyama","bahu"):["gopizIDvam"],("uttama","eka"):["gopizIya"],("uttama","dvi"):["gopizIvahi"],("uttama","bahu"):["gopizImahi"]}
+                    cands += _d4gbe[(purusha, vacana)]
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -5089,6 +5104,11 @@ class TinantaDerivationEngine:
                 if clean == "KyA":
                     table_KyA = {("prathama","eka"):["aKyAyi"],("prathama","dvi"):["aKyetAm"],("prathama","bahu"):["aKyanta"],("madhyama","eka"):["aKyaTAH"],("madhyama","dvi"):["aKyeTAm"],("madhyama","bahu"):["aKyaDvam"],("uttama","eka"):["aKye"],("uttama","dvi"):["aKyAvahi"],("uttama","bahu"):["aKyAmahi"]}
                     return table_KyA[(purusha,vacana)], log
+                # divAdi gup yak luN o-grade (agopi + agopiz-; sole 04.0147 surveyed —
+                # old ajugupsi-forms miss; exclusive return like KyA above, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                    table_d4g = {("prathama","eka"):["agopi"],("prathama","dvi"):["agopizAtAm"],("prathama","bahu"):["agopizata"],("madhyama","eka"):["agopizWAH"],("madhyama","dvi"):["agopizATAm"],("madhyama","bahu"):["agopiDvam"],("uttama","eka"):["agopizi"],("uttama","dvi"):["agopizvahi"],("uttama","bahu"):["agopizmahi"]}
+                    return table_d4g[(purusha,vacana)], log
                 table = {("prathama","eka"):[aug_clean+"i", _aug(vbase)+"i", aug_orig+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", _aug(vbase)+"izAtAm", aug_orig+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", _aug(vbase)+"izata", aug_orig+"izata"],("madhyama","eka"):[aug_clean+"izWAH", _aug(vbase)+"izWAH", aug_orig+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", _aug(vbase)+"izATAm", aug_orig+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", _aug(vbase)+"iDvam", aug_orig+"iDvam", aug_orig+"iQvam"],("uttama","eka"):[aug_clean+"izi", _aug(vbase)+"izi", aug_orig+"izi"],("uttama","dvi"):[aug_clean+"izvahi", _aug(vbase)+"izvahi", aug_orig+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", _aug(vbase)+"izmahi", aug_orig+"izmahi"]}
                 # Panini 8.4.58/8.3.23 nasal assimilation in primitive yak-luN (tunp->atumpi, srans->asraMsi;
                 # same 14-root n+labial/s survey, additive)
