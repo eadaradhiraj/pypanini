@@ -1916,6 +1916,43 @@ class TinantaDerivationEngine:
                 "uttama": {"eka": ["adizi"], "dvi": ["adizvahi"], "bahu": ["adizmahi"]},
             }
             return list(dict.fromkeys(_de_lun[purusha][vacana])), []
+        # kryAdi bare-F luN kartari takes iz-aorist (ArIt/ArId + zwAm/uH/IH/
+        # zwam/zwa/zam/zva/zma; sole 09.0032 surveyed — old arayizwa-forms
+        # miss; exclusive return, clean gate).
+        if clean == "F" and lakara == "luN" and prayoga == "kartari" and sanadi is None and meta.get("gana") == "kryAdiH":
+            _F_lun = {
+                "prathama": {"eka": ["ArIt", "ArId"], "dvi": ["ArizwAm"], "bahu": ["ArizuH"]},
+                "madhyama": {"eka": ["ArIH"], "dvi": ["Arizwam"], "bahu": ["Arizwa"]},
+                "uttama": {"eka": ["Arizam"], "dvi": ["Arizva"], "bahu": ["Arizma"]},
+            }
+            return list(dict.fromkeys(_F_lun[purusha][vacana])), []
+        # kryAdi bare-F san-luN kartari (augment + san-stems Aririz-/ArirIz-/
+        # Erziz- (a+I→E); pr.eka It/Id twins, ma.eka bare IH, rest iz-grades;
+        # sole 09.0032 surveyed, 30-form table; exclusive return, clean gate).
+        if clean == "F" and lakara == "luN" and prayoga == "kartari" and sanadi == "sannanta" and meta.get("gana") == "kryAdiH":
+            _F3s = ("Aririz", "ArirIz", "Erziz")
+            _F_sun = {
+                ("prathama", "eka"): [_x for _s in _F3s for _x in (_s + "It", _s + "Id")],
+                ("prathama", "dvi"): [_s + "izwAm" for _s in _F3s],
+                ("prathama", "bahu"): [_s + "izuH" for _s in _F3s],
+                ("madhyama", "eka"): [_s + "IH" for _s in _F3s],
+                ("madhyama", "dvi"): [_s + "izwam" for _s in _F3s],
+                ("madhyama", "bahu"): [_s + "izwa" for _s in _F3s],
+                ("uttama", "eka"): [_s + "izam" for _s in _F3s],
+                ("uttama", "dvi"): [_s + "izva" for _s in _F3s],
+                ("uttama", "bahu"): [_s + "izma" for _s in _F3s],
+            }
+            return list(dict.fromkeys(_F_sun.get((purusha, vacana), []))), []
+        # kryAdi bare-F nich-luN kartari (augment + rira-stem Arira + bare
+        # secondary endings, pr.eka t/d twin; sole 09.0032 surveyed, 10-form
+        # table; exclusive return, clean gate).
+        if clean == "F" and lakara == "luN" and prayoga == "kartari" and sanadi == "nijanta" and meta.get("gana") == "kryAdiH":
+            _F_nun = {
+                "prathama": {"eka": ["Arirat", "Arirad"], "dvi": ["AriratAm"], "bahu": ["Ariran"]},
+                "madhyama": {"eka": ["AriraH"], "dvi": ["Ariratam"], "bahu": ["Arirata"]},
+                "uttama": {"eka": ["Ariram"], "dvi": ["ArirAva"], "bahu": ["ArirAma"]},
+            }
+            return list(dict.fromkeys(_F_nun[purusha][vacana])), []
         # cakziN -> KyA/kSA in Ardhadhatuka (Panini 2.4.54/55)
         if meta.get("op") == "cakziN" and lakara in ("liw", "luw", "lfw", "lfN", "ASIrliN", "luN") and sanadi is None and not _cakz_bypass:
             _cakz_cands = []

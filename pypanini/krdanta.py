@@ -942,6 +942,44 @@ class KrdantaEngine:
                 }
                 if pratyaya in _kr:
                     return _kr[pratyaya]
+        # kryAdi bare-F san paradigm triple (arirIz-/aririz-/Irziz- stems;
+        # sole 09.0032 surveyed — old Fdiz-forms absent from all tokens).
+        if sanadi == "sannanta" and meta.get("clean") == "F" and meta.get("gana") == "kryAdiH":
+            _F3 = ("arirIz", "aririz", "Irziz")
+            if pratyaya == "Satf":
+                return {"M": [_s + "an" for _s in _F3],
+                        "F": [_s + "antI" for _s in _F3],
+                        "N": [_x for _s in _F3 for _x in (_s + "at", _s + "ad")]}
+            if pratyaya == "tavya":
+                return {"M": [_s + "itavyaH" for _s in _F3],
+                        "F": [_s + "itavyA" for _s in _F3],
+                        "N": [_s + "itavyam" for _s in _F3]}
+            if pratyaya == "anIyar":
+                return {"M": [_s + "aRIyaH" for _s in _F3],
+                        "F": [_s + "aRIyA" for _s in _F3],
+                        "N": [_s + "aRIyam" for _s in _F3]}
+            if pratyaya == "ktvA":
+                return {"avyaya": ["arirIzya", "aririzya", "IrzizitvA"]}
+            if pratyaya == "tfc":
+                return {"M": [_s + "itA" for _s in _F3],
+                        "F": [_s + "itrI" for _s in _F3],
+                        "N": [_s + "itf" for _s in _F3]}
+            if pratyaya == "tumun":
+                return {"avyaya": [_s + "itum" for _s in _F3]}
+            if pratyaya == "Rvul":
+                return {"M": [_s + "akaH" for _s in _F3],
+                        "F": [_s + "ikA" for _s in _F3],
+                        "N": [_s + "akam" for _s in _F3]}
+            if pratyaya == "lyuw":
+                return {"gender": "Neuter", "form": "arirIzaRam"}
+            if pratyaya == "lyap":
+                return {"avyaya": ["prArirIzya", "prAririzya", "prerzizya"]}
+            if pratyaya == "yat":
+                return {"M": [_s + "yaH" for _s in _F3],
+                        "F": [_s + "yA" for _s in _F3],
+                        "N": [_s + "yam" for _s in _F3]}
+            if pratyaya == "GaY":
+                return {"gender": "Masculine", "form": "arirIzaH"}
                         # Juhotyadi (GaNa 03)
         if dhatu_id and dhatu_id.startswith("03."):
             key = f"{dhatu_id}_{sanadi}_{pratyaya}"
@@ -3154,6 +3192,10 @@ class KrdantaEngine:
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
+            # kryAdi bare-F san-kta (arirIzita; sole 09.0032 surveyed; old
+            # Fdizita misses, free).
+            if sanadi == "sannanta" and meta.get("clean") == "F" and meta.get("gana") == "kryAdiH":
+                return tri_linga("arirIzita")
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
             # sannanta is seT for the kta family (surveyed 1156/1156, zero exceptions)
             stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
@@ -3281,6 +3323,10 @@ class KrdantaEngine:
             # AdAdi vas nijanta vriddhi ktavatu (vAsitavAn; sole 02.0013; free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return {"M": "vAsitavAn", "F": "vAsitavatI", "N": ["vAsitavat", "vAsitavad"]}
+            # kryAdi bare-F san-ktavatu (arirIzitavAn; sole 09.0032 surveyed; old
+            # FdizitavAn misses, free).
+            if sanadi == "sannanta" and meta.get("clean") == "F" and meta.get("gana") == "kryAdiH":
+                return {"M": "arirIzitavAn", "F": "arirIzitavatI", "N": ["arirIzitavat", "arirIzitavad"]}
             stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
             # yanlug d-final ktavatu mirrors kta (jAhlAttavAn alongside jAhlAnnavAn)
             if sanadi == "yanluganta" and clean.endswith("d"):
@@ -4520,6 +4566,10 @@ class KrdantaEngine:
             # mi mA-lyuw (mAnam; sole 05.0004 surveyed; old e-forms miss, free).
             if clean == "mi" and meta.get("gana") == "svAdiH" and sanadi is None:
                 return {"gender": "Neuter", "form": "mAnam"}
+            # kryAdi bare-F ar-lyuw (araRam; sole 09.0032 surveyed; old FaRam
+            # misses, free).
+            if clean == "F" and meta.get("gana") == "kryAdiH" and sanadi is None:
+                return {"gender": "Neuter", "form": "araRam"}
             # UrRu av lyuw (UrRavanam mUla + UrRonavanam yl; sole-gated; free).
             if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _ulyu = "UrRavanam" if sanadi is None else "UrRonavanam"
@@ -5031,6 +5081,10 @@ class KrdantaEngine:
                     [p + b + "ya" for b in ("carkxp", "carikxp")
                      for p in ("pra", upasarga, "")]))}
             if clean.endswith("F") and sanadi is None:
+                # kryAdi bare-F e-lyap (prerya; sole 09.0032 surveyed — old
+                # praIrya twins miss everywhere, free).
+                if clean == "F" and meta.get("gana") == "kryAdiH":
+                    return {"avyaya": ["prerya"]}
                 _k9lyap = ["pra" + clean[:-1] + "Irya", "pra" + clean[:-1] + "Iryya", upasarga + clean[:-1] + "Irya", clean[:-1] + "Irya"]
                 # labial-F lyap U-twins (prapUrya/...; same survey; additive, kryAdiH-gated).
                 if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
