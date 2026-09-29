@@ -4842,6 +4842,16 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "mI":
                     _k9mluw = {("prathama","eka"):["mAtA","mAyitA"],("prathama","dvi"):["mAtArO","mAyitArO"],("prathama","bahu"):["mAtAraH","mAyitAraH"],("madhyama","eka"):["mAtAse","mAyitAse"],("madhyama","dvi"):["mAtAsATe","mAyitAsATe"],("madhyama","bahu"):["mAtADve","mAyitADve"],("uttama","eka"):["mAtAhe","mAyitAhe"],("uttama","dvi"):["mAtAsvahe","mAyitAsvahe"],("uttama","bahu"):["mAtAsmahe","mAyitAsmahe"]}
                     cands += _k9mluw.get((purusha, vacana), [])
+                # divAdi dI yak-luT dA/dAyi twins (sole 04.0029 surveyed — old miss;
+                # additive, karmani-only, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "dI":
+                    _d4dluw = {("prathama","eka"):["dAtA","dAyitA"],("prathama","dvi"):["dAtArO","dAyitArO"],("prathama","bahu"):["dAtAraH","dAyitAraH"],("madhyama","eka"):["dAtAse","dAyitAse"],("madhyama","dvi"):["dAtAsATe","dAyitAsATe"],("madhyama","bahu"):["dAtADve","dAyitADve"],("uttama","eka"):["dAtAhe","dAyitAhe"],("uttama","dvi"):["dAtAsvahe","dAyitAsvahe"],("uttama","bahu"):["dAtAsmahe","dAyitAsmahe"]}
+                    cands += _d4dluw.get((purusha, vacana), [])
+                # divAdi sfj yak-luT zw-grade (srazwA; sole 04.0075 surveyed — old miss;
+                # additive, karmani-only, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "sfj":
+                    _d4sluw = {("prathama","eka"):["srazwA"],("prathama","dvi"):["srazwArO"],("prathama","bahu"):["srazwAraH"],("madhyama","eka"):["srazwAse"],("madhyama","dvi"):["srazwAsATe"],("madhyama","bahu"):["srazwADve"],("uttama","eka"):["srazwAhe"],("uttama","dvi"):["srazwAsvahe"],("uttama","bahu"):["srazwAsmahe"]}
+                    cands += _d4sluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
