@@ -5309,6 +5309,16 @@ class KrdantaEngine:
             # iN aD- GaY (aDyAyaH; sole 02.0041 surveyed — op-gated; free).
             if clean == "i" and meta.get("gana") == "adAdiH" and sanadi is None and op.startswith("iN"):
                 return {"gender": "Masculine", "form": "aDyAyaH"}
+            # divAdi GaY residuals (SokaH, ranDaH, gopaH (meta-clean gate for
+            # jugups-rewrite); soles surveyed; old miss everywhere; free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                if _d4mc == "ISuc":
+                    return {"gender": "Masculine", "form": "SokaH"}
+                if _d4mc == "raD":
+                    return {"gender": "Masculine", "form": "ranDaH"}
+                if _d4mc == "gup":
+                    return {"gender": "Masculine", "form": "gopaH"}
             # F-roots: mUla has no GaY key (structural miss); yangluk takes
             # A-redup + Ara (dF->dAdAra, nF->nAnAra).
             if clean.endswith("F"):
