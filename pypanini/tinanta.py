@@ -884,6 +884,15 @@ class TinantaDerivationEngine:
         # jAgf ar-grade (jAgar- for lut/peri/yak; sole 02.0067 surveyed — no BvAdi jAg exists).
         if clean == "jAg":
             bases.append("jAgar")
+        # tudAdi num-insertion (lumpati/vindati/limpati/siYcati/muYcati/piMSati/
+        # Kindati/kfntati/uYCati; 9-clean surveyed set — miz/sur/tup/mil plain
+        # contrasts prove lexical conditioning so explicit set, not shape-general;
+        # dhatu_id 06-prefix disambiguates cross-gana homonyms (01 uCi/piS, 02 vid,
+        # 04 Kid/vid/lup, 07 kft/Kid/vid, 10 vid/muc — 20-clean survey); additive.
+        if clean in ("lup", "vid", "lip", "sic", "muc", "piS", "Kid", "kft", "uCi") and str(dhatu_id or "").startswith("06."):
+            _num = {"lup": "lump", "vid": "vind", "lip": "limp", "sic": "siYc", "muc": "muYc", "piS": "piMS", "Kid": "Kind", "kft": "kfnt", "uCi": "uYC"}[clean]
+            if _num not in bases:
+                bases.append(_num)
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
         if is_adeca(clean):
             a_root = clean[:-1] + "A"
