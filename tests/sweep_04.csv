@@ -1,164 +1,164 @@
 fid,matched,total,pct,secs,misses,skipped
-04.0001,799,889,89.9,0.2,san_yak/lw/prathama/eka:didivizyate | san_yak/lw/prathama/dvi:didivizyete | san_yak/lw/prathama/bahu:didivizyante | san_yak/lw/madhyama/eka:didivizyase | san_yak/lw/madhyama/dvi:didivizyeTe,13
+04.0001,799,889,89.9,0.4,san_yak/lw/prathama/eka:didivizyate | san_yak/lw/prathama/dvi:didivizyete | san_yak/lw/prathama/bahu:didivizyante | san_yak/lw/madhyama/eka:didivizyase | san_yak/lw/madhyama/dvi:didivizyeTe,13
 04.0002,799,889,89.9,0.3,san_yak/lw/prathama/eka:sisivizyate | san_yak/lw/prathama/dvi:sisivizyete | san_yak/lw/prathama/bahu:sisivizyante | san_yak/lw/madhyama/eka:sisivizyase | san_yak/lw/madhyama/dvi:sisivizyeTe,13
-04.0003,799,889,89.9,0.6,san_yak/lw/prathama/eka:sisrivizyate | san_yak/lw/prathama/dvi:sisrivizyete | san_yak/lw/prathama/bahu:sisrivizyante | san_yak/lw/madhyama/eka:sisrivizyase | san_yak/lw/madhyama/dvi:sisrivizyeTe,13
-04.0004,889,889,100.0,0.6,,13
+04.0003,799,889,89.9,0.2,san_yak/lw/prathama/eka:sisrivizyate | san_yak/lw/prathama/dvi:sisrivizyete | san_yak/lw/prathama/bahu:sisrivizyante | san_yak/lw/madhyama/eka:sisrivizyase | san_yak/lw/madhyama/dvi:sisrivizyeTe,13
+04.0004,889,889,100.0,0.1,,13
 04.0005,889,889,100.0,0.3,,13
 04.0006,889,889,100.0,0.5,,13
 04.0007,889,889,100.0,0.5,,13
 04.0008,889,889,100.0,0.5,,13
-04.0009,889,889,100.0,0.5,,13
-04.0010,889,889,100.0,0.8,,13
+04.0009,889,889,100.0,0.6,,13
+04.0010,889,889,100.0,0.5,,13
 04.0011,889,889,100.0,0.8,,13
-04.0012,889,889,100.0,0.6,,13
-04.0013,889,889,100.0,0.9,,13
-04.0014,889,889,100.0,0.4,,13
-04.0015,889,889,100.0,0.8,,13
-04.0016,889,889,100.0,0.4,,13
-04.0017,889,889,100.0,0.7,,13
-04.0018,889,889,100.0,0.9,,13
-04.0019,889,889,100.0,0.6,,13
-04.0020,889,889,100.0,0.7,,13
-04.0021,889,889,100.0,0.6,,13
-04.0022,626,626,100.0,0.7,,10
-04.0023,889,889,100.0,0.6,,13
-04.0024,889,889,100.0,0.5,,13
-04.0025,744,888,83.8,0.8,ting/lfw/prathama/eka:jarzizyati | ting/lfw/prathama/dvi:jarzizyataH | ting/lfw/prathama/bahu:jarzizyanti | ting/lfw/madhyama/eka:jarzizyasi | ting/lfw/madhyama/dvi:jarzizyaTaH,14
-04.0026,735,888,82.8,1.0,ting/luw/prathama/eka:JarzitA | ting/luw/prathama/dvi:JarzitArO | ting/luw/prathama/bahu:JarzitAraH | ting/luw/madhyama/eka:JarzitAsi | ting/luw/madhyama/dvi:JarzitAsTaH,14
-04.0027,888,888,100.0,1.0,,5
-04.0028,888,888,100.0,0.6,,5
-04.0029,808,888,91.0,0.7,ting/luw/prathama/eka:daytA | ting/luw/prathama/dvi:daytArO | ting/luw/prathama/bahu:daytAraH | ting/luw/madhyama/eka:daytAse | ting/luw/madhyama/dvi:daytAsATe,5
-04.0030,888,888,100.0,0.3,,5
-04.0031,888,888,100.0,0.6,,5
-04.0032,888,888,100.0,0.2,,5
-04.0033,888,888,100.0,0.6,,5
-04.0034,888,888,100.0,0.7,,5
-04.0035,888,888,100.0,0.7,,5
-04.0036,888,888,100.0,0.8,,5
+04.0012,889,889,100.0,0.7,,13
+04.0013,889,889,100.0,0.7,,13
+04.0014,889,889,100.0,0.6,,13
+04.0015,889,889,100.0,0.6,,13
+04.0016,889,889,100.0,0.7,,13
+04.0017,889,889,100.0,0.6,,13
+04.0018,889,889,100.0,0.7,,13
+04.0019,889,889,100.0,0.3,,13
+04.0020,889,889,100.0,0.5,,13
+04.0021,889,889,100.0,0.3,,13
+04.0022,626,626,100.0,0.4,,10
+04.0023,889,889,100.0,0.4,,13
+04.0024,889,889,100.0,0.3,,13
+04.0025,744,888,83.8,0.4,ting/lfw/prathama/eka:jarzizyati | ting/lfw/prathama/dvi:jarzizyataH | ting/lfw/prathama/bahu:jarzizyanti | ting/lfw/madhyama/eka:jarzizyasi | ting/lfw/madhyama/dvi:jarzizyaTaH,14
+04.0026,735,888,82.8,0.7,ting/luw/prathama/eka:JarzitA | ting/luw/prathama/dvi:JarzitArO | ting/luw/prathama/bahu:JarzitAraH | ting/luw/madhyama/eka:JarzitAsi | ting/luw/madhyama/dvi:JarzitAsTaH,14
+04.0027,888,888,100.0,0.4,,5
+04.0028,888,888,100.0,0.4,,5
+04.0029,808,888,91.0,0.5,ting/luw/prathama/eka:daytA | ting/luw/prathama/dvi:daytArO | ting/luw/prathama/bahu:daytAraH | ting/luw/madhyama/eka:daytAse | ting/luw/madhyama/dvi:daytAsATe,5
+04.0030,888,888,100.0,0.4,,5
+04.0031,888,888,100.0,0.5,,5
+04.0032,888,888,100.0,0.5,,5
+04.0033,888,888,100.0,0.5,,5
+04.0034,888,888,100.0,0.6,,5
+04.0035,888,888,100.0,0.5,,5
+04.0036,888,888,100.0,0.6,,5
 04.0037,889,889,100.0,0.7,,4
-04.0038,624,625,99.8,0.7,nich/luN/prathama/eka:Ayayizwa,2
-04.0039,888,888,100.0,0.7,,5
-04.0040,892,892,100.0,0.7,,10
+04.0038,624,625,99.8,0.4,nich/luN/prathama/eka:Ayayizwa,2
+04.0039,888,888,100.0,0.5,,5
+04.0040,892,892,100.0,0.6,,10
 04.0041,883,892,99.0,0.8,yak/luN/prathama/eka:acCavi | yak/luN/prathama/dvi:acCavizAtAm | yak/luN/prathama/bahu:acCavizata | yak/luN/madhyama/eka:acCavizWAH | yak/luN/madhyama/dvi:acCavizATAm,10
-04.0042,883,892,99.0,0.8,yak/luN/prathama/eka:asavi | yak/luN/prathama/dvi:asavizAtAm | yak/luN/prathama/bahu:asavizata | yak/luN/madhyama/eka:asavizWAH | yak/luN/madhyama/dvi:asavizATAm,10
-04.0043,847,892,95.0,0.6,yak/lw/prathama/eka:dAyate | yak/lw/prathama/dvi:dAyete | yak/lw/prathama/bahu:dAyante | yak/lw/madhyama/eka:dAyase | yak/lw/madhyama/dvi:dAyeTe,10
-04.0044,878,886,99.1,0.8,ting/liw/prathama/eka:jajane | ting/liw/prathama/dvi:jajanAte | ting/liw/prathama/bahu:jajanire | ting/liw/madhyama/dvi:jajanATe | ting/liw/madhyama/bahu:jajaniDve,7
-04.0045,886,886,100.0,0.8,,7
-04.0046,886,886,100.0,0.7,,7
-04.0047,886,886,100.0,0.8,,7
-04.0048,886,886,100.0,0.7,,7
-04.0049,886,886,100.0,0.7,,7
-04.0050,886,886,100.0,0.7,,7
-04.0051,886,886,100.0,0.6,,7
-04.0052,886,886,100.0,0.5,,7
-04.0053,886,886,100.0,0.6,,7
-04.0054,889,889,100.0,0.5,,4
-04.0055,886,886,100.0,0.5,,7
-04.0056,614,623,98.6,0.4,ting/liw/prathama/eka:vavAvfte | ting/liw/prathama/dvi:vavAvftAte | ting/liw/prathama/bahu:vavAvftire | ting/liw/madhyama/eka:vavAvftize | ting/liw/madhyama/dvi:vavAvftATe,4
-04.0057,886,886,100.0,0.5,,7
-04.0058,886,886,100.0,0.6,,7
+04.0042,883,892,99.0,0.7,yak/luN/prathama/eka:asavi | yak/luN/prathama/dvi:asavizAtAm | yak/luN/prathama/bahu:asavizata | yak/luN/madhyama/eka:asavizWAH | yak/luN/madhyama/dvi:asavizATAm,10
+04.0043,847,892,95.0,0.5,yak/lw/prathama/eka:dAyate | yak/lw/prathama/dvi:dAyete | yak/lw/prathama/bahu:dAyante | yak/lw/madhyama/eka:dAyase | yak/lw/madhyama/dvi:dAyeTe,10
+04.0044,878,886,99.1,0.6,ting/liw/prathama/eka:jajane | ting/liw/prathama/dvi:jajanAte | ting/liw/prathama/bahu:jajanire | ting/liw/madhyama/dvi:jajanATe | ting/liw/madhyama/bahu:jajaniDve,7
+04.0045,886,886,100.0,0.7,,7
+04.0046,886,886,100.0,0.6,,7
+04.0047,886,886,100.0,0.4,,7
+04.0048,886,886,100.0,0.6,,7
+04.0049,886,886,100.0,0.6,,7
+04.0050,886,886,100.0,0.4,,7
+04.0051,886,886,100.0,0.4,,7
+04.0052,886,886,100.0,0.3,,7
+04.0053,886,886,100.0,0.3,,7
+04.0054,889,889,100.0,0.4,,4
+04.0055,886,886,100.0,0.4,,7
+04.0056,614,623,98.6,0.3,ting/liw/prathama/eka:vavAvfte | ting/liw/prathama/dvi:vavAvftAte | ting/liw/prathama/bahu:vavAvftire | ting/liw/madhyama/eka:vavAvftize | ting/liw/madhyama/dvi:vavAvftATe,4
+04.0057,886,886,100.0,0.4,,7
+04.0058,886,886,100.0,0.5,,7
 04.0059,886,886,100.0,0.6,,7
 04.0060,895,895,100.0,0.6,,7
-04.0061,751,895,83.9,0.6,ting/lfw/prathama/eka:ISocizyati | ting/lfw/prathama/dvi:ISocizyataH | ting/lfw/prathama/bahu:ISocizyanti | ting/lfw/madhyama/eka:ISocizyasi | ting/lfw/madhyama/dvi:ISocizyaTaH,7
-04.0062,831,895,92.8,0.7,ting/lfw/prathama/eka:nakzyati | ting/lfw/prathama/dvi:nakzyataH | ting/lfw/prathama/bahu:nakzyanti | ting/lfw/madhyama/eka:nakzyasi | ting/lfw/madhyama/dvi:nakzyaTaH,7
-04.0063,895,895,100.0,0.8,,7
-04.0064,898,898,100.0,0.8,,4
-04.0065,885,886,99.9,1.0,ting/luN/prathama/eka:apadizwa,7
-04.0066,886,886,100.0,0.9,,7
-04.0067,886,886,100.0,0.9,,7
-04.0068,829,883,93.9,0.9,ting/lfw/prathama/eka:boDsyate | ting/lfw/prathama/dvi:boDsyete | ting/lfw/prathama/bahu:boDsyante | ting/lfw/madhyama/eka:boDsyase | ting/lfw/madhyama/dvi:boDsyeTe,10
-04.0069,829,883,93.9,0.9,ting/lfw/prathama/eka:yoDsyate | ting/lfw/prathama/dvi:yoDsyete | ting/lfw/prathama/bahu:yoDsyante | ting/lfw/madhyama/eka:yoDsyase | ting/lfw/madhyama/dvi:yoDsyeTe,10
-04.0070,832,886,93.9,0.8,ting/lfw/prathama/eka:roDsyate | ting/lfw/prathama/dvi:roDsyete | ting/lfw/prathama/bahu:roDsyante | ting/lfw/madhyama/eka:roDsyase | ting/lfw/madhyama/dvi:roDsyeTe,7
-04.0071,623,623,100.0,0.8,,4
-04.0072,623,623,100.0,0.8,,4
-04.0073,885,886,99.9,0.6,ting/luN/madhyama/bahu:amaniDvam,7
-04.0074,886,886,100.0,0.6,,7
-04.0075,840,886,94.8,0.8,ting/luw/prathama/eka:sarjtA | ting/luw/prathama/dvi:sarjtArO | ting/luw/prathama/bahu:sarjtAraH | ting/luw/madhyama/eka:sarjtAse | ting/luw/madhyama/dvi:sarjtAsATe,7
-04.0076,885,886,99.9,0.7,ting/luN/prathama/eka:aleSizwa,7
+04.0061,751,895,83.9,0.7,ting/lfw/prathama/eka:ISocizyati | ting/lfw/prathama/dvi:ISocizyataH | ting/lfw/prathama/bahu:ISocizyanti | ting/lfw/madhyama/eka:ISocizyasi | ting/lfw/madhyama/dvi:ISocizyaTaH,7
+04.0062,831,895,92.8,0.6,ting/lfw/prathama/eka:nakzyati | ting/lfw/prathama/dvi:nakzyataH | ting/lfw/prathama/bahu:nakzyanti | ting/lfw/madhyama/eka:nakzyasi | ting/lfw/madhyama/dvi:nakzyaTaH,7
+04.0063,895,895,100.0,0.6,,7
+04.0064,898,898,100.0,0.6,,4
+04.0065,885,886,99.9,0.9,ting/luN/prathama/eka:apadizwa,7
+04.0066,886,886,100.0,0.5,,7
+04.0067,886,886,100.0,0.6,,7
+04.0068,829,883,93.9,0.8,ting/lfw/prathama/eka:boDsyate | ting/lfw/prathama/dvi:boDsyete | ting/lfw/prathama/bahu:boDsyante | ting/lfw/madhyama/eka:boDsyase | ting/lfw/madhyama/dvi:boDsyeTe,10
+04.0069,829,883,93.9,0.5,ting/lfw/prathama/eka:yoDsyate | ting/lfw/prathama/dvi:yoDsyete | ting/lfw/prathama/bahu:yoDsyante | ting/lfw/madhyama/eka:yoDsyase | ting/lfw/madhyama/dvi:yoDsyeTe,10
+04.0070,832,886,93.9,0.7,ting/lfw/prathama/eka:roDsyate | ting/lfw/prathama/dvi:roDsyete | ting/lfw/prathama/bahu:roDsyante | ting/lfw/madhyama/eka:roDsyase | ting/lfw/madhyama/dvi:roDsyeTe,7
+04.0071,623,623,100.0,0.6,,4
+04.0072,623,623,100.0,0.6,,4
+04.0073,885,886,99.9,0.7,ting/luN/madhyama/bahu:amaniDvam,7
+04.0074,886,886,100.0,0.7,,7
+04.0075,840,886,94.8,0.6,ting/luw/prathama/eka:sarjtA | ting/luw/prathama/dvi:sarjtArO | ting/luw/prathama/bahu:sarjtAraH | ting/luw/madhyama/eka:sarjtAse | ting/luw/madhyama/dvi:sarjtAsATe,7
+04.0076,885,886,99.9,0.4,ting/luN/prathama/eka:aleSizwa,7
 04.0077,880,889,99.0,0.7,yak/ASIrliN/prathama/eka:rADsIzwa | yak/ASIrliN/prathama/dvi:rADsIyAstAm | yak/ASIrliN/prathama/bahu:rADsIran | yak/ASIrliN/madhyama/eka:rADsIzWAH | yak/ASIrliN/madhyama/dvi:rADsIyAsTAm,13
-04.0078,817,889,91.9,0.8,yak/lw/prathama/eka:vyaDyate | yak/lw/prathama/dvi:vyaDyete | yak/lw/prathama/bahu:vyaDyante | yak/lw/madhyama/eka:vyaDyase | yak/lw/madhyama/dvi:vyaDyeTe,13
+04.0078,817,889,91.9,0.6,yak/lw/prathama/eka:vyaDyate | yak/lw/prathama/dvi:vyaDyete | yak/lw/prathama/bahu:vyaDyante | yak/lw/madhyama/eka:vyaDyase | yak/lw/madhyama/dvi:vyaDyeTe,13
 04.0079,889,889,100.0,0.7,,13
-04.0080,889,889,100.0,0.8,,13
-04.0081,889,889,100.0,0.8,,13
-04.0082,889,889,100.0,0.8,,13
-04.0083,889,889,100.0,0.7,,13
-04.0084,895,895,100.0,0.7,,7
-04.0085,889,889,100.0,0.8,,13
-04.0086,880,889,99.0,0.7,yak/ASIrliN/prathama/eka:kroDsIzwa | yak/ASIrliN/prathama/dvi:kroDsIyAstAm | yak/ASIrliN/prathama/bahu:kroDsIran | yak/ASIrliN/madhyama/eka:kroDsIzWAH | yak/ASIrliN/madhyama/dvi:kroDsIyAsTAm,13
-04.0087,880,889,99.0,0.6,yak/ASIrliN/prathama/eka:kzoDsIzwa | yak/ASIrliN/prathama/dvi:kzoDsIyAstAm | yak/ASIrliN/prathama/bahu:kzoDsIran | yak/ASIrliN/madhyama/eka:kzoDsIzWAH | yak/ASIrliN/madhyama/dvi:kzoDsIyAsTAm,13
-04.0088,880,889,99.0,0.7,yak/ASIrliN/prathama/eka:SoDsIzwa | yak/ASIrliN/prathama/dvi:SoDsIyAstAm | yak/ASIrliN/prathama/bahu:SoDsIran | yak/ASIrliN/madhyama/eka:SoDsIzWAH | yak/ASIrliN/madhyama/dvi:SoDsIyAsTAm,13
-04.0089,880,889,99.0,0.6,yak/ASIrliN/prathama/eka:seDsIzwa | yak/ASIrliN/prathama/dvi:seDsIyAstAm | yak/ASIrliN/prathama/bahu:seDsIran | yak/ASIrliN/madhyama/eka:seDsIzWAH | yak/ASIrliN/madhyama/dvi:seDsIyAsTAm,13
-04.0090,879,889,98.9,0.6,yak/liw/prathama/eka:raraDe | yak/liw/prathama/dvi:raraDAte | yak/liw/prathama/bahu:raraDire | yak/liw/madhyama/eka:raraDize | yak/liw/madhyama/dvi:raraDATe,13
+04.0080,889,889,100.0,0.6,,13
+04.0081,889,889,100.0,0.6,,13
+04.0082,889,889,100.0,0.6,,13
+04.0083,889,889,100.0,0.6,,13
+04.0084,895,895,100.0,0.6,,7
+04.0085,889,889,100.0,0.3,,13
+04.0086,880,889,99.0,0.6,yak/ASIrliN/prathama/eka:kroDsIzwa | yak/ASIrliN/prathama/dvi:kroDsIyAstAm | yak/ASIrliN/prathama/bahu:kroDsIran | yak/ASIrliN/madhyama/eka:kroDsIzWAH | yak/ASIrliN/madhyama/dvi:kroDsIyAsTAm,13
+04.0087,880,889,99.0,0.5,yak/ASIrliN/prathama/eka:kzoDsIzwa | yak/ASIrliN/prathama/dvi:kzoDsIyAstAm | yak/ASIrliN/prathama/bahu:kzoDsIran | yak/ASIrliN/madhyama/eka:kzoDsIzWAH | yak/ASIrliN/madhyama/dvi:kzoDsIyAsTAm,13
+04.0088,880,889,99.0,0.4,yak/ASIrliN/prathama/eka:SoDsIzwa | yak/ASIrliN/prathama/dvi:SoDsIyAstAm | yak/ASIrliN/prathama/bahu:SoDsIran | yak/ASIrliN/madhyama/eka:SoDsIzWAH | yak/ASIrliN/madhyama/dvi:SoDsIyAsTAm,13
+04.0089,880,889,99.0,0.5,yak/ASIrliN/prathama/eka:seDsIzwa | yak/ASIrliN/prathama/dvi:seDsIyAstAm | yak/ASIrliN/prathama/bahu:seDsIran | yak/ASIrliN/madhyama/eka:seDsIzWAH | yak/ASIrliN/madhyama/dvi:seDsIyAsTAm,13
+04.0090,879,889,98.9,0.5,yak/liw/prathama/eka:raraDe | yak/liw/prathama/dvi:raraDAte | yak/liw/prathama/bahu:raraDire | yak/liw/madhyama/eka:raraDize | yak/liw/madhyama/dvi:raraDATe,13
 04.0091,886,886,100.0,0.7,,16
-04.0092,889,889,100.0,0.7,,13
-04.0093,889,889,100.0,0.8,,13
-04.0094,889,889,100.0,1.3,,13
-04.0095,889,889,100.0,0.7,,13
-04.0096,889,889,100.0,1.8,,13
-04.0097,889,889,100.0,3.8,,13
-04.0098,892,892,100.0,3.8,,10
-04.0099,892,892,100.0,3.7,,10
+04.0092,889,889,100.0,0.5,,13
+04.0093,889,889,100.0,0.4,,13
+04.0094,889,889,100.0,0.5,,13
+04.0095,889,889,100.0,0.8,,13
+04.0096,889,889,100.0,1.1,,13
+04.0097,889,889,100.0,3.4,,13
+04.0098,892,892,100.0,3.2,,10
+04.0099,892,892,100.0,3.3,,10
 04.0100,892,892,100.0,0.1,,10
 04.0101,892,892,100.0,0.1,,10
-04.0102,892,892,100.0,0.2,,10
+04.0102,892,892,100.0,0.3,,10
 04.0103,892,892,100.0,0.2,,10
 04.0104,892,892,100.0,0.2,,10
 04.0105,892,892,100.0,0.2,,10
-04.0106,626,626,100.0,0.6,,10
-04.0107,889,889,100.0,0.1,,13
+04.0106,626,626,100.0,0.2,,10
+04.0107,889,889,100.0,0.3,,13
 04.0108,889,889,100.0,0.2,,13
-04.0109,889,889,100.0,0.2,,13
-04.0110,889,889,100.0,0.3,,13
-04.0111,889,889,100.0,0.2,,13
-04.0112,889,889,100.0,0.3,,13
+04.0109,889,889,100.0,0.3,,13
+04.0110,889,889,100.0,0.4,,13
+04.0111,889,889,100.0,0.1,,13
+04.0112,889,889,100.0,0.2,,13
 04.0113,889,889,100.0,0.2,,13
-04.0114,889,889,100.0,0.2,,13
-04.0115,889,889,100.0,0.2,,13
-04.0116,889,889,100.0,0.2,,13
-04.0117,889,889,100.0,0.4,,13
-04.0118,889,889,100.0,0.4,,13
-04.0119,889,889,100.0,0.2,,13
+04.0114,889,889,100.0,0.3,,13
+04.0115,889,889,100.0,0.1,,13
+04.0116,889,889,100.0,0.1,,13
+04.0117,889,889,100.0,0.2,,13
+04.0118,889,889,100.0,0.2,,13
+04.0119,889,889,100.0,0.3,,13
 04.0120,889,889,100.0,0.2,,13
 04.0121,826,889,92.9,0.2,ting/luw/prathama/eka:poztA | ting/luw/prathama/dvi:poztArO | ting/luw/prathama/bahu:poztAraH | ting/luw/madhyama/eka:poztAsi | ting/luw/madhyama/dvi:poztAsTaH,13
-04.0122,889,889,100.0,0.3,,13
-04.0123,889,889,100.0,0.2,,13
+04.0122,889,889,100.0,0.2,,13
+04.0123,889,889,100.0,0.3,,13
 04.0124,889,889,100.0,0.2,,13
 04.0125,889,889,100.0,0.2,,13
-04.0126,889,889,100.0,0.2,,13
-04.0127,826,889,92.9,0.3,ting/luw/prathama/eka:svedtA | ting/luw/prathama/dvi:svedtArO | ting/luw/prathama/bahu:svedtAraH | ting/luw/madhyama/eka:svedtAsi | ting/luw/madhyama/dvi:svedtAsTaH,13
+04.0126,889,889,100.0,0.3,,13
+04.0127,826,889,92.9,0.1,ting/luw/prathama/eka:svedtA | ting/luw/prathama/dvi:svedtArO | ting/luw/prathama/bahu:svedtAraH | ting/luw/madhyama/eka:svedtAsi | ting/luw/madhyama/dvi:svedtAsTaH,13
 04.0128,892,892,100.0,0.2,,10
 04.0129,889,889,100.0,0.3,,13
 04.0130,889,889,100.0,0.2,,13
-04.0131,889,889,100.0,0.2,,13
-04.0132,892,892,100.0,0.2,,10
+04.0131,889,889,100.0,0.3,,13
+04.0132,892,892,100.0,0.1,,10
 04.0133,889,889,100.0,0.3,,13
-04.0134,889,889,100.0,0.1,,13
-04.0135,626,626,100.0,0.3,,10
-04.0136,889,889,100.0,0.2,,13
-04.0137,872,889,98.1,0.2,ting/liw/prathama/eka:tizwimstemva | ting/liw/prathama/dvi:tizwimstEmvatuH | ting/liw/prathama/bahu:tizwimvuH | ting/liw/madhyama/dvi:tizwimstEmvaTuH | ting/liw/madhyama/bahu:tizwimstemva,13
-04.0138,889,889,100.0,0.2,,13
-04.0139,889,889,100.0,0.3,,13
-04.0140,889,889,100.0,0.3,,13
-04.0141,889,889,100.0,0.2,,13
-04.0142,889,889,100.0,0.4,,13
-04.0143,889,889,100.0,0.2,,13
-04.0144,889,889,100.0,0.3,,13
-04.0145,889,889,100.0,0.3,,13
+04.0134,889,889,100.0,0.4,,13
+04.0135,626,626,100.0,0.1,,10
+04.0136,889,889,100.0,0.3,,13
+04.0137,872,889,98.1,0.1,ting/liw/prathama/eka:tizwimstimva | ting/liw/prathama/dvi:tizwimstEmvatuH | ting/liw/prathama/bahu:tizwimuH | ting/liw/madhyama/dvi:tizwimvaTuH | ting/liw/madhyama/bahu:tizwimstimva,13
+04.0138,889,889,100.0,0.1,,13
+04.0139,889,889,100.0,0.4,,13
+04.0140,889,889,100.0,0.2,,13
+04.0141,889,889,100.0,0.1,,13
+04.0142,889,889,100.0,0.3,,13
+04.0143,889,889,100.0,0.3,,13
+04.0144,889,889,100.0,0.2,,13
+04.0145,889,889,100.0,0.2,,13
 04.0146,889,889,100.0,0.2,,13
-04.0147,871,889,98.0,0.1,yangluk/lw/prathama/eka:jugupsi | yangluk/lw/prathama/dvi:jugupssi | yangluk/lw/prathama/bahu:jugupssi | yangluk/lw/madhyama/eka:jugupssi | yangluk/lw/madhyama/dvi:jugupssi,13
-04.0148,889,889,100.0,0.3,,13
-04.0149,889,889,100.0,0.1,,13
-04.0150,889,889,100.0,0.4,,13
-04.0151,888,889,99.9,0.1,ting/liw/madhyama/eka:tuzwupstOpviTa,13
-04.0152,888,889,99.9,0.2,nich/luN/prathama/eka:astopayizwa,13
+04.0147,889,889,100.0,0.2,,13
+04.0148,889,889,100.0,0.2,,13
+04.0149,889,889,100.0,0.2,,13
+04.0150,889,889,100.0,0.2,,13
+04.0151,888,889,99.9,0.2,ting/liw/madhyama/eka:tuzwupstOpviTa,13
+04.0152,888,889,99.9,0.3,nich/luN/prathama/eka:astopayizwa,13
 04.0153,889,889,100.0,0.2,,13
-04.0154,889,889,100.0,0.2,,13
-04.0155,892,892,100.0,0.3,,10
-04.0156,889,889,100.0,0.3,,13
-04.0157,889,889,100.0,0.2,,13
+04.0154,889,889,100.0,0.3,,13
+04.0155,892,892,100.0,0.2,,10
+04.0156,889,889,100.0,0.2,,13
+04.0157,889,889,100.0,0.3,,13
 04.0158,889,889,100.0,0.2,,13
 04.0159,889,889,100.0,0.2,,13
-04.0160,626,626,100.0,0.2,,10
+04.0160,626,626,100.0,0.1,,10
 04.0161,889,889,100.0,0.1,,13
 04.0162,0,0,0.0,0.0,SKIPPED:ganasutra,
 04.0163,0,0,0.0,0.0,SKIPPED:ganasutra,

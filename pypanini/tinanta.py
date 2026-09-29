@@ -3413,6 +3413,15 @@ class TinantaDerivationEngine:
             if clean == "aS" and meta.get("gana") == "kryAdiH" and prayoga == "karmani" and lakara == "lw":
                 _ylay = {("prathama","eka"):["aSASyate"],("prathama","dvi"):["aSASyete"],("prathama","bahu"):["aSASyante"],("madhyama","eka"):["aSASyase"],("madhyama","dvi"):["aSASyeTe"],("madhyama","bahu"):["aSASyaDve"],("uttama","eka"):["aSASye"],("uttama","dvi"):["aSASyAvahe"],("uttama","bahu"):["aSASyAmahe"]}
                 extra += _ylay.get((purusha, vacana), [])
+            # divAdi gup yanlug (jogupIti/jogopti kartari + jogupyate karmani; sole
+            # 04.0147 surveyed — Nitya jugups-rewrite poisons yanlug; old miss
+            # everywhere; additive, divAdiH-gated).
+            if clean == "gup" and meta.get("gana") == "divAdiH" and lakara == "lw":
+                if prayoga == "karmani":
+                    extra += self._conjugate_at_stem_atmane("jogupy", "lw", purusha, vacana)
+                else:
+                    _yld4g = {("prathama","eka"):["jogupIti","jogopti"],("prathama","dvi"):["joguptaH"],("prathama","bahu"):["jogupati"],("madhyama","eka"):["jogupIzi","jogopsi"],("madhyama","dvi"):["jogupTaH"],("madhyama","bahu"):["jogupTa"],("uttama","eka"):["jogupImi","jogopmi"],("uttama","dvi"):["jogupvaH"],("uttama","bahu"):["jogupmaH"]}
+                    extra += _yld4g.get((purusha, vacana), [])
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
