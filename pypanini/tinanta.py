@@ -7456,6 +7456,13 @@ class TinantaDerivationEngine:
                 _k9fw = {"mI": "mAsy", "kzIz": "kzezy", "grah": "grahIzy"}[meta.get("clean")]
                 cands+=self._conjugate_at_stem_parasmai(_k9fw, "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_k9fw, "lw", purusha, vacana)
+            # divAdi D-final sya-futures (rAtsyati/vyatsyati/krotsyati; D→t + guNa;
+            # 6 fids 04.0077/0078/0086-0089 surveyed — old Dsy-forms miss everywhere;
+            # both padas for global match (banD precedent); additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("rAD", "vyaD", "kruD", "kzuD", "SuD", "siD"):
+                _d4fw = {"rAD": "rAtsy", "vyaD": "vyatsy", "kruD": "krotsy", "kzuD": "kzotsy", "SuD": "Sotsy", "siD": "setsy"}[meta.get("clean")]
+                cands+=self._conjugate_at_stem_parasmai(_d4fw, "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_d4fw, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -7538,6 +7545,13 @@ class TinantaDerivationEngine:
                 for _s5fc in _s5fcs:
                     cands+=self._conjugate_at_stem_parasmai(_s5fc, "laN", purusha, vacana)
                     cands+=self._conjugate_at_stem_atmane(_s5fc, "laN", purusha, vacana)
+            # divAdi D-final sya-conditionals (arAtsyat/akrotsyat; same 6 fids as lfw
+            # above (rAD/vyaD/kruD/kzuD/SuD/siD); D→t + guNa; augmented both padas;
+            # additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("rAD", "vyaD", "kruD", "kzuD", "SuD", "siD"):
+                _d4fc = {"rAD": "arAtsy", "vyaD": "avyatsy", "kruD": "akrotsy", "kzuD": "akzotsy", "SuD": "aSotsy", "siD": "asetsy"}[meta.get("clean")]
+                cands+=self._conjugate_at_stem_parasmai(_d4fc, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_d4fc, "laN", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
