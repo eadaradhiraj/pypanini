@@ -466,3 +466,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Ceiling logged (no code): 04.0038 ting-luN-pr.eka (plung null — Atmanepadi fid, mUla aorist dataless; I yak-luN Ay-/E-twins verified 0/9 miss, nothing to implement). User rule: halt, no fabrication.
 - Iteration 320 (divAdi gup mUla liT jugop-grade (sole 04.0147 surveyed; Nitya-rewrite poisons mUla; old miss; 9-slot probes ALL-HIT): 04 holds 127/161 (+9 matched, 1 improved), 0 worsened (guards green).
 - Iteration 321 (divAdi gup go-grade futures (luw gopi-core + lfw gopizy + lfN agopizy; sole 04.0147 surveyed; arm-placement catch; old miss; probes ALL-HIT): 04 holds 127/161 (+27 matched, 1 improved), 0 worsened (guards green).
+- Iteration 322 (divAdi gup benedictive + root-aorist (gup-stem for -yAt endings (off-by-one-y catch) + agupat-table; sole 04.0147 surveyed; old miss; 18-slot probes ALL-HIT): 04 holds 127/161 (+18 matched, 1 improved), 0 worsened (guards green).

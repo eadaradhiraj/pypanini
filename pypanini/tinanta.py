@@ -8513,6 +8513,10 @@ class TinantaDerivationEngine:
                 # kryAdiH-gated).
                 if clean == "jyA" and meta.get("gana") == "kryAdiH":
                     _asb.append("jI")
+                # divAdi gup benedictive plain-grade (gupyAt; sole 04.0147 surveyed — old
+                # miss; endings supply -yAt so stem is gup; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                    _asb.append("gup")
                 # divAdi benedictive I-grades (dIvyAt/sIvyAt/srIvyAt/viDyAt; v-i trio +
                 # vyaD 04.0001-0003/0078 surveyed — old i-grade miss; additive, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("div", "siv", "sriv", "vyaD"):
@@ -8937,6 +8941,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vyaD":
                     _d4vyl = {("prathama","eka"):["avyAtsIt","avyAtsId"],("prathama","dvi"):["avyAdDAm"],("prathama","bahu"):["avyAtsuH"],("madhyama","eka"):["avyAtsIH"],("madhyama","dvi"):["avyAdDam"],("madhyama","bahu"):["avyAdDa"],("uttama","eka"):["avyAtsam"],("uttama","dvi"):["avyAtsva"],("uttama","bahu"):["avyAtsma"]}
                     cands += _d4vyl.get((purusha, vacana), [])
+                # divAdi gup root-aorist (agupat/agupad, no s; sole 04.0147 surveyed —
+                # old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                    _d4gu = {("prathama","eka"):["agupat","agupad"],("prathama","dvi"):["agupatAm"],("prathama","bahu"):["agupan"],("madhyama","eka"):["agupaH"],("madhyama","dvi"):["agupatam"],("madhyama","bahu"):["agupata"],("uttama","eka"):["agupam"],("uttama","dvi"):["agupAva"],("uttama","bahu"):["agupAma"]}
+                    cands += _d4gu.get((purusha, vacana), [])
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
