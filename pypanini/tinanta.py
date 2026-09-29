@@ -2317,6 +2317,11 @@ class TinantaDerivationEngine:
             # n_stems list so monotonic).
             if c in ("krI", "mI", "lI", "rI", "vlI") and meta.get("gana") == "kryAdiH":
                 return {"krI": "krApay", "mI": "mApay", "lI": "lApay", "rI": "repay", "vlI": "vlepay"}[c]
+            # kryAdi kzIz nich Aya-stem (kzAyaya- for krdanta sec; tinanta takes
+            # kzAyay- (conjugation supplies -ati); sole 09.0042 surveyed — old
+            # kzezay- misses everywhere; kryAdiH-gated).
+            if c == "kzIz" and meta.get("gana") == "kryAdiH":
+                return "kzAyay"
             # Panini 7.3.37 SA-CA-sA-hvA-vyA-veY-pA-damAM yuk: pA (pAne) takes yuk before Ri -> pAyay
             if (c == "pA" or (op and op.startswith("pA~"))) and (dhatu_id == "01.1074" or "pAn" in str(meta.get("arTa", "")) or (op and op.startswith("pA~"))):
                 return "pAyay"
@@ -2456,6 +2461,10 @@ class TinantaDerivationEngine:
             # misses everywhere; kryAdiH-gated).
             if c == "pU" and meta.get("gana") == "kryAdiH":
                 return "pupUz"
+            # kryAdi kzIz san stem (cikzIz-; sole 09.0042 surveyed — old cikzIkz-
+            # misses everywhere; kryAdiH-gated).
+            if c == "kzIz" and meta.get("gana") == "kryAdiH":
+                return "cikzIz"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
@@ -2730,6 +2739,11 @@ class TinantaDerivationEngine:
             # _yan_sec; kryAdiH-gated).
             if meta.get("gana") == "kryAdiH" and c == "jyA":
                 return "jejIya"
+            # kryAdi kzIz intensive e-redup + Iy-grade (cekzIya; sole 09.0042
+            # surveyed — old cekzIz-forms miss everywhere; mirrors krdanta
+            # _yan_sec; kryAdiH-gated).
+            if meta.get("gana") == "kryAdiH" and c == "kzIz":
+                return "cekzIya"
             # kryAdi aS intensive a-redup + SAS-grade (aSASya; sole 09.0059
             # surveyed — old aAaSya-forms miss everywhere; mirrors krdanta
             # _yan_sec; kryAdiH-gated).

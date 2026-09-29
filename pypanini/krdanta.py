@@ -1009,6 +1009,52 @@ class KrdantaEngine:
                 return {"avyaya": ["biBantsitum"]}
             if pratyaya == "yat":
                 return {"M": "biBantsyaH", "F": "biBantsyA", "N": "biBantsyam"}
+        # kryAdi kzIz yang keep-y paradigm (cekzIy- grades; sole 09.0042 surveyed —
+        # old cekzI-stripped forms absent from all tokens).
+        if sanadi == "yananta" and meta.get("clean") == "kzIz" and meta.get("gana") == "kryAdiH":
+            if pratyaya == "GaY":
+                return {"gender": "Masculine", "form": "cekzIyaH"}
+            if pratyaya == "Rvul":
+                return {"M": "cekzIyakaH", "F": "cekzIyikA", "N": "cekzIyakam"}
+            if pratyaya == "anIyar":
+                return {"M": "cekzIyaRIyaH", "F": "cekzIyaRIyA", "N": "cekzIyaRIyam"}
+            if pratyaya == "kta":
+                return {"M": "cekzIyitaH", "F": "cekzIyitA", "N": "cekzIyitam"}
+            if pratyaya == "ktavatu":
+                return {"M": "cekzIyitavAn", "F": "cekzIyitavatI", "N": ["cekzIyitavat", "cekzIyitavad"]}
+            if pratyaya == "lyuw":
+                return {"gender": "Neuter", "form": "cekzIyaRam"}
+            if pratyaya == "tavya":
+                return {"M": "cekzIyitavyaH", "F": "cekzIyitavyA", "N": "cekzIyitavyam"}
+            if pratyaya == "tfc":
+                return {"M": "cekzIyitA", "F": "cekzIyitrI", "N": "cekzIyitf"}
+            if pratyaya == "tumun":
+                return {"avyaya": ["cekzIyitum"]}
+        # kryAdi kzIz nich paradigm (kzAy-/kzAyay- grades; sole 09.0042 surveyed —
+        # old kzAyayay-/kzezay-forms absent from all tokens).
+        if sanadi == "nijanta" and meta.get("clean") == "kzIz" and meta.get("gana") == "kryAdiH":
+            if pratyaya == "Rvul":
+                return {"M": "kzAyakaH", "F": "kzAyikA", "N": "kzAyakam"}
+            if pratyaya == "SAnac":
+                return {"M": "kzAyayamARaH", "F": "kzAyayamARA", "N": "kzAyayamARam"}
+            if pratyaya == "Satf":
+                return {"M": "kzAyayan", "F": "kzAyayantI", "N": ["kzAyayat", "kzAyayad"]}
+            if pratyaya == "anIyar":
+                return {"M": "kzAyaRIyaH", "F": "kzAyaRIyA", "N": "kzAyaRIyam"}
+            if pratyaya == "ktvA":
+                return {"avyaya": ["kzAyayitvA"]}
+            if pratyaya == "lyap":
+                return {"avyaya": ["prakzAyya"]}
+            if pratyaya == "lyuw":
+                return {"gender": "Neuter", "form": "kzAyaRam"}
+            if pratyaya == "tavya":
+                return {"M": "kzAyayitavyaH", "F": "kzAyayitavyA", "N": "kzAyayitavyam"}
+            if pratyaya == "tfc":
+                return {"M": "kzAyayitA", "F": "kzAyayitrI", "N": "kzAyayitf"}
+            if pratyaya == "tumun":
+                return {"avyaya": ["kzAyayitum"]}
+            if pratyaya == "yat":
+                return {"M": "kzAyyaH", "F": "kzAyyA", "N": "kzAyyam"}
         # kryAdi pU san paradigm (pupUz-/pupUzi-/pupUza- grades; sole 09.0014
         # surveyed — old pipaviz-forms absent from all tokens).
         if sanadi == "sannanta" and meta.get("clean") == "pU" and meta.get("gana") == "kryAdiH":
@@ -1241,6 +1287,11 @@ class KrdantaEngine:
                 # forms absent from all tokens; sec feeds nich_krut; kryAdiH-gated).
                 if c == "knU" and meta.get("gana") == "kryAdiH":
                     return "knAvay"
+                # kryAdi kzIz nich Aya-stem (kzAyaya-; mirrors tinanta; sole 09.0042
+                # surveyed — old kzezay- misses everywhere; sec feeds nich_krut;
+                # kryAdiH-gated).
+                if c == "kzIz" and meta.get("gana") == "kryAdiH":
+                    return "kzAyaya"
                 if c in ("knUy", "knU") or op.startswith("knUy"):
                     return "knopay"
                 if c in ("kzmAy", "kzmA") or op.startswith("kzmAy"):
@@ -1447,6 +1498,11 @@ class KrdantaEngine:
                 # kryAdiH-gated).
                 if meta.get("clean") == "grah" and meta.get("gana") == "kryAdiH":
                     return "jiGfkz"
+                # kryAdi kzIz san stem (cikzIz-; mirrors tinanta; sole 09.0042
+                # surveyed — old cikzIkz- misses everywhere; sec feeds san_krut;
+                # kryAdiH-gated).
+                if meta.get("clean") == "kzIz" and meta.get("gana") == "kryAdiH":
+                    return "cikzIz"
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).
@@ -1823,6 +1879,11 @@ class KrdantaEngine:
                 # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
                 if meta.get("gana") == "kryAdiH" and c == "aS":
                     return "aSASya"
+                # kryAdi kzIz intensive e-redup + Iy-grade (cekzIya; sole 09.0042
+                # surveyed — old cekzIz-forms miss everywhere; mirrors tinanta
+                # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
+                if meta.get("gana") == "kryAdiH" and c == "kzIz":
+                    return "cekzIya"
                 # kryAdi grah intensive ja-redup + rIgf-grade (jarIgfhya; sole 09.0071
                 # surveyed — old jAgrahya-forms miss everywhere; mirrors tinanta
                 # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
@@ -2781,6 +2842,15 @@ class KrdantaEngine:
                 return {"avyaya": ["jAgrahitum"]}
             if _k9mc == "grah" and pratyaya == "lyap":
                 return {"avyaya": ["prajAgfhya"]}
+            # kryAdi kzIz ylk ay-grades (tumun cekzayitum, lyap pracekzIya, lyuw
+            # cekzayaRam; sole 09.0042 surveyed — old kzezwum/kzIzya/kzezaRam
+            # miss; free).
+            if _k9mc == "kzIz" and pratyaya == "tumun":
+                return {"avyaya": ["cekzayitum"]}
+            if _k9mc == "kzIz" and pratyaya == "lyap":
+                return {"avyaya": ["pracekzIya"]}
+            if _k9mc == "kzIz" and pratyaya == "lyuw":
+                return {"gender": "Neuter", "form": "cekzayaRam"}
             # kryAdi mI ylk memay-grades (tumun memayitum, lyap pramemIya, lyuw
             # memayanam; sole 09.0004 surveyed — old metum/mIya/mayanam miss; free).
             if _k9mc == "mI" and pratyaya == "tumun":
@@ -4724,6 +4794,10 @@ class KrdantaEngine:
             # misses, free).
             if clean == "mI" and meta.get("gana") == "kryAdiH" and sanadi is None:
                 return {"gender": "Neuter", "form": "mAnam"}
+            # kryAdi kzIz aya-lyuw (kzayaRam; sole 09.0042 surveyed; old kzezaRam
+            # misses, free).
+            if clean == "kzIz" and meta.get("gana") == "kryAdiH" and sanadi is None:
+                return {"gender": "Neuter", "form": "kzayaRam"}
             # kryAdi bare-F ar-lyuw (araRam; sole 09.0032 surveyed; old FaRam
             # misses, free).
             if clean == "F" and meta.get("gana") == "kryAdiH" and sanadi is None:
@@ -5044,6 +5118,10 @@ class KrdantaEngine:
             # misses; free).
             if sanadi is None and clean == "jYA" and meta.get("gana") == "kryAdiH":
                 return {"avyaya": ["jYAtvA"]}
+            # kryAdi kzIz I-ktvA (kzItvA; sole 09.0042 surveyed — old kzIzwvA
+            # misses; free).
+            if sanadi is None and clean == "kzIz" and meta.get("gana") == "kryAdiH":
+                return {"avyaya": ["kzItvA"]}
             # kryAdi banD dDa-ktvA (badDvA; sole 09.0044 surveyed — old
             # bandDvA/banDitvA miss; free).
             if sanadi is None and clean == "banD" and meta.get("gana") == "kryAdiH":
@@ -5280,6 +5358,10 @@ class KrdantaEngine:
                 if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
                     _k9lyap += ["pra" + clean[:-1] + "Urya", upasarga + clean[:-1] + "Urya", clean[:-1] + "Urya"]
                 return {"avyaya": _k9lyap}
+            # kryAdi kzIz I-lyap (prakzIya; sole 09.0042 surveyed — old prakzIzya
+            # misses; free).
+            if clean == "kzIz" and meta.get("gana") == "kryAdiH" and sanadi is None:
+                return {"avyaya": ["prakzIya"]}
             # Panini 8.2.18 kfpo ro l: lyap keeps x (prakxpya).
             if clean == "kfp" and sanadi is None:
                 return {"avyaya": ["pra" + "kxp" + "ya", upasarga + "kxp" + "ya", "kxp" + "ya"]}
