@@ -8,18 +8,17 @@ Sweep-05: **38/38 100%** — complete (other session, GEN-05).
 Sweep-07: **25/25 100%** — complete (other session).
 Sweep-08: **10/10 100%** — complete (other session).
 Sweep-09: **71/71 100%** — COMPLETE (other session).
-Sweep-04: **109/161** (2 skipped duds) — mUla krut + san + san_krut
-  CLOSED; nich/yang/yak/ting remain.
+Sweep-04: **110/161** (2 skipped duds) — mUla krut + san + san_krut
+  CLOSED; nich tin CLOSED, nich_krut 4 fids left.
 Sweep-06: **36/174** (other session, active).
 Landscape: 10 162/509.
 
-## Done — divAdi last san stems (iteration 282)
-- sizvits/sisvidiz op-split, puz fid-split + alt twin, jugupiz
-  pre-Nitya fix, Iziz; 0079 dip repaired pre-commit.
-- Gates: 04 fid-diff 5 improved (+1045) / 0 worsened; 04 108/161->109/161.
+## Done — divAdi nich causative grades (iteration 283)
+- 10-fid dict mirrored both engines (+ Nitya exclusions for divAdi gup).
+- Gates: 04 fid-diff 10 improved (+1770, incl 0033 full pass) / 0 worsened.
 
 ## Next
-1. Gana-04 loop: nich stems → yang stems → yak residuals → ting
-   residuals (147: luw/lfw/lfN futures + liw).
+1. Gana-04 loop: nich_krut residuals (snas/knas/puz/kfS) → yang stems
+   → yak residuals → ting residuals (147).
 2. Then 06 (coordinate) → 10 → all-gana 100%.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
