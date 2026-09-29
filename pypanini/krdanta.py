@@ -2671,7 +2671,15 @@ class KrdantaEngine:
                     }
                     if pratyaya in _ykz:
                         return _ykz[pratyaya]
+                # divAdi jan yang kta triple (jAjAyita/jaMjYita/jaYjYita; sole 04.0044
+                # surveyed — old jaMjnita misses; free).
+                if sanadi == "yananta" and meta.get("clean") == "jan" and meta.get("gana") == "divAdiH" and pratyaya == "kta":
+                    return {"M": ["jAjAyitaH", "jaMjYitaH", "jaYjYitaH"], "F": ["jAjAyitA", "jaMjYitA", "jaYjYitA"], "N": ["jAjAyitam", "jaMjYitam", "jaYjYitam"]}
                 if pratyaya == "kta": return {"M": _b_kit+"itaH","F":_b_kit+"itA","N":_b_kit+"itam"}
+                # divAdi jan yang ktavatu triple (jAjAyitavAn/jaMjYitavAn/jaYjYitavAn;
+                # sole 04.0044 surveyed — old jaMjnitavAn misses; free).
+                if sanadi == "yananta" and meta.get("clean") == "jan" and meta.get("gana") == "divAdiH" and pratyaya == "ktavatu":
+                    return {"M": ["jAjAyitavAn", "jaMjYitavAn", "jaYjYitavAn"], "F": ["jAjAyitavatI", "jaMjYitavatI", "jaYjYitavatI"], "N": ["jAjAyitavat", "jaMjYitavat", "jaYjYitavat"]}
                 if pratyaya == "ktavatu": return {"M": _b_kit+"itavAn","F":_b_kit+"itavatI","N":_b_kit+"itavat"}
                 if pratyaya == "tavya": return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
                 if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
