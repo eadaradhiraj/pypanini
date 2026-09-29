@@ -4212,7 +4212,19 @@ class KrdantaEngine:
                 else:
                     f = _satf_base + "antI"  # BavantI / cuScutizantI
             n = stem_at  # Bavat
-            return {"M": m, "F": f, "N": n}
+            _gen = {"M": m, "F": f, "N": n}
+            # tudAdi weak-a Satf twins (tudan/tudatI-tudantI/tudat-tudad; clean+a stem
+            # mirrors present weak (tudati); surveyed 121 plain Satf-keyed 06 cleans
+            # take clean+at, other shapes own traits; additive — generic guNa kept;
+            # tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6w = clean + "at"
+                def _t6L(v):
+                    return v if isinstance(v, list) else [v]
+                _gen = {"M": _t6L(m) + [_t6w[:-1] + "n"],
+                        "F": _t6L(f) + [_t6w + "I", _t6w[:-1] + "ntI"],
+                        "N": _t6L(n) + [_t6w, _t6w[:-1] + "d"]}
+            return _gen
 
         elif pratyaya == "SAnac":
             if clean_ay and sanadi in ("yananta", "yanluganta"):
@@ -4518,7 +4530,17 @@ class KrdantaEngine:
                 _stem_coda = best[:-1] if best.endswith("a") else best
                 if _natva_applies(_trigger_stem) or _natva_applies(_stem_coda):
                     stem = stem.replace("amAna", "amARa").replace("mAna", "mARa").replace("na", "Ra")
-            return tri_linga(stem)
+            _gen = tri_linga(stem)
+            # tudAdi weak-a SAnac twin (tudamAnaH; clean+a stem mirrors present weak;
+            # same survey as Satf; additive — generic guNa kept; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _tw = tri_linga(clean + "amAna")
+                def _t6L(v):
+                    return v if isinstance(v, list) else [v]
+                _gen = {"M": _t6L(_gen["M"]) + _t6L(_tw["M"]),
+                        "F": _t6L(_gen["F"]) + _t6L(_tw["F"]),
+                        "N": _t6L(_gen["N"]) + _t6L(_tw["N"])}
+            return _gen
 
         elif pratyaya == "tavya":
             if clean == "SrA" and dhatu_id == "01.0922":

@@ -7,16 +7,17 @@ Sweep-03: **26/26 100%** — complete (other session).
 Sweep-05: **38/38 100%** — complete (other session, GEN-05).
 Sweep-07: **25/25 100%** — complete (other session).
 Sweep-08: **10/10 100%** — complete (other session).
-Sweep-09: **71/71 100%** — COMPLETE (raw 71/71, 0 skipped; miss-by-anta {}).
+Sweep-09: **71/71 100%** — COMPLETE.
 Sweep-04: **108/161** (other session, in progress).
-Landscape: 06 22/174, 10 162/509.
+Sweep-06: **28/174** — 22/174->28/174 (+6 pass-ups, 105 improved, 0 worsened; this iteration).
+Landscape: 10 162/509.
 
-## Done — GANA-09 COMPLETE (iteration 240)
-- kzIz yak-liw short-i table (cikziye...) + yak-luN mixed-grade table (akzAyi/akzAyiz-/akze-).
-- 0042 865->881/881 PASS. 09 70/71->71/71 100%.
-- Gates: pilots 5/5; 09 fid-diff 1/0; 01 fid-diff 0/0.
-- Prior (237-239): kzIz yak futures + keeps-y + twins (see STATS).
+## Done — tudAdi weak-a participles (iteration 241)
+- Satf/SAnac clean+a twins (tudan/tudamAna-; generic guNa kept).
+- Gates: pilots 5/5; 06 fid-diff 105/0; 01 fid-diff 0/0.
+- Prior (240): GANA-09 COMPLETE (see STATS).
 
 ## Next
-1. Gana-04 loop (other session active — coordinate to avoid same files).
-2. Then 06 → 10 → all-gana 100%.
+1. Gana-06: samprasArana/num/uv/iy/ir present + kta/tavya traits.
+2. Gana-04 loop (other session active — coordinate).
+3. Then 10 → all-gana 100%.
