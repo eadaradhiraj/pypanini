@@ -8164,6 +8164,12 @@ class TinantaDerivationEngine:
                     if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vyaD":
                         _d4vy = {("prathama","eka"):["vivyADa"],("prathama","dvi"):["viviDatuH"],("prathama","bahu"):["viviDuH"],("madhyama","eka"):["vivyadDa","vivyaDiTa"],("madhyama","dvi"):["viviDaTuH"],("madhyama","bahu"):["viviDa"],("uttama","eka"):["vivyaDa","vivyADa"],("uttama","dvi"):["viviDiva"],("uttama","bahu"):["viviDima"]}
                         return list(dict.fromkeys(_d4vy.get((purusha, vacana), []))), log
+                    # divAdi raD mUla liT mixed paradigm (raranDa + raradDa/reD twins; sole
+                    # 04.0090 surveyed — old raraD-forms miss everywhere; exclusive return,
+                    # divAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "raD":
+                        _d4ra = {("prathama","eka"):["raranDa"],("prathama","dvi"):["raranDatuH"],("prathama","bahu"):["raranDuH"],("madhyama","eka"):["raradDa","raranDiTa"],("madhyama","dvi"):["raranDaTuH"],("madhyama","bahu"):["raranDa"],("uttama","eka"):["raranDa"],("uttama","dvi"):["raranDiva","reDva"],("uttama","bahu"):["raranDima","reDma"]}
+                        return list(dict.fromkeys(_d4ra.get((purusha, vacana), []))), log
                     # divAdi Fz mUla liT (jajar-/jer- twins for jFz (17 forms), jaJar-
                     # only for JFz (10 forms); pair 04.0025/0026 surveyed — old
                     # jejarz-forms miss everywhere; exclusive return, divAdiH-gated).
