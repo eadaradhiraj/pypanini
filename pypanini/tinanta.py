@@ -4267,6 +4267,15 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): ["ayAYcakre", "ayAmAhe", "ayAmbaBUve"], ("uttama", "dvi"): ["ayAYcakfvahe", "ayAmAsivahe", "ayAmbaBUvivahe"], ("uttama", "bahu"): ["ayAYcakfmahe", "ayAmAsimahe", "ayAmbaBUvimahe"],
                     }
                     return _atman_I.get((purusha, vacana), []), log
+                # divAdi ISuc yak liT SuSuc-redup (sole 04.0061 surveyed — old miss
+                # everywhere; exclusive return, divAdiH-gated).
+                if clean == "ISuc" and meta.get("gana") == "divAdiH":
+                    _atman_su = {
+                        ("prathama", "eka"): ["SuSuce"], ("prathama", "dvi"): ["SuSucAte"], ("prathama", "bahu"): ["SuSucire"],
+                        ("madhyama", "eka"): ["SuSucize"], ("madhyama", "dvi"): ["SuSucATe"], ("madhyama", "bahu"): ["SuSuciDve"],
+                        ("uttama", "eka"): ["SuSuce"], ("uttama", "dvi"): ["SuSucivahe"], ("uttama", "bahu"): ["SuSucimahe"],
+                    }
+                    return _atman_su.get((purusha, vacana), []), log
                 if is_vowel_initial:
                     # aja~ yak liT vi-redup ve-grade (vivye/vivyAte/vivyire/vivyize...; sole aj-clean 01.0262
                     # surveyed, ~-gated anudatta reading; Ajize/AjiDve/Ajivahe/Ajimahe variants also listed but

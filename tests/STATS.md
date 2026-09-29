@@ -477,3 +477,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 330 (divAdi dI yak sya-twins (dAyizy/dAsy + augmented lfN; sole 04.0029 surveyed; probe-literal bug caught by guards; old miss; probes ALL-HIT): 04 holds 128/161 (+18 matched, 1 improved), 0 worsened (guards green).
 - Iteration 331 (divAdi v-i san-yak e-twins (didevizy-; trio 04.0001-0003 surveyed; mUla hits via generic; old miss in yak; additive _yak_sann_stems; probes ALL-HIT; all 3 full pass 799->889): 04 128/161->131/161 (+270 matched, 3 improved), 0 worsened (guards green). san_yak CLOSED.
 - Iteration 332 (divAdi ISuc yak stem + sya-future (Sucy-/Socizy-; sole 04.0061 surveyed; old miss; probes ALL-HIT): 04 holds 131/161 (+54 matched, 1 improved), 0 worsened (guards green).
+- Iteration 333 (divAdi ISuc yak liT SuSuc-table (sole 04.0061 surveyed; old miss; exclusive, jan-neighbor; 9-slot probes ALL-HIT): 04 holds 131/161 (+9 matched, 1 improved), 0 worsened (guards green).
