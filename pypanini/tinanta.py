@@ -4169,6 +4169,15 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): ["jijye"], ("uttama", "dvi"): ["jijyivahe"], ("uttama", "bahu"): ["jijyimahe"],
                     }
                     return _atman_jyA.get((purusha, vacana), []), log
+                # divAdi jan yak liT jajY-redup (sole 04.0044 surveyed — old jajane-forms
+                # miss everywhere; exclusive return, divAdiH-gated).
+                if clean == "jan" and meta.get("gana") == "divAdiH":
+                    _atman_jan = {
+                        ("prathama", "eka"): ["jajYe"], ("prathama", "dvi"): ["jajYAte"], ("prathama", "bahu"): ["jajYire"],
+                        ("madhyama", "eka"): ["jajYize"], ("madhyama", "dvi"): ["jajYATe"], ("madhyama", "bahu"): ["jajYiDve"],
+                        ("uttama", "eka"): ["jajYe"], ("uttama", "dvi"): ["jajYivahe"], ("uttama", "bahu"): ["jajYimahe"],
+                    }
+                    return _atman_jan.get((purusha, vacana), []), log
                 if is_vowel_initial:
                     # aja~ yak liT vi-redup ve-grade (vivye/vivyAte/vivyire/vivyize...; sole aj-clean 01.0262
                     # surveyed, ~-gated anudatta reading; Ajize/AjiDve/Ajivahe/Ajimahe variants also listed but
