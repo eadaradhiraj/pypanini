@@ -7656,6 +7656,12 @@ class TinantaDerivationEngine:
                         if meta.get("clean") in ("vevI", "dIDI") and meta.get("gana") == "adAdiH":
                             _yb = "vevy" if meta.get("clean") == "vevI" else "dIDy"
                             cands.append(_yb + _peri_at[(purusha, vacana)])
+                        # kryAdi vf Atmane liT bare-vavf twins (vavfze/vavfQve/vavfvahe/
+                        # vavfmahe; sole 09.0045 surveyed — old vavfi-forms miss;
+                        # additive, kryAdiH-gated).
+                        if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "vf":
+                            _k9vf = {("madhyama","eka"):["vavfze"],("madhyama","bahu"):["vavfQve"],("uttama","dvi"):["vavfvahe"],("uttama","bahu"):["vavfmahe"]}
+                            cands += _k9vf.get((purusha, vacana), [])
                     except Exception:
                         pass
                     return cands, log
