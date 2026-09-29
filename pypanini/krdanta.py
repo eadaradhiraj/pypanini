@@ -2568,7 +2568,9 @@ class KrdantaEngine:
                     return {"avyaya": [_p_form, "pra" + sec + "ya", sec + "ya"]}
             if sanadi == "yananta":
                 # Nitya-san yang_krut SAnac uses san base + ya (jugupsyamAnaH/titikzyamARaH; surveyed 7/7 unanimous)
-                if pratyaya == "SAnac" and sew and orig_clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+                # (divAdi gup excluded — sec jogupya already ends in ya, generic SAnac below gives
+                # jogupyamAnaH; sole 04.0147 surveyed).
+                if pratyaya == "SAnac" and sew and orig_clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (orig_clean == "gup" and meta.get("gana") == "divAdiH"):
                     _ys = sec + "yamAna"
                     if _natva_applies(sec) and _ys.endswith("amAna"):
                         _ys = _ys[:-5] + "amARa"
@@ -2730,7 +2732,9 @@ class KrdantaEngine:
                     f = sec + "mAnA" if sec.endswith("a") else sec + "amAnA"
                     n = sec + "mAnam" if sec.endswith("a") else sec + "amAnam"
                     # U-stem yan keeps dental n (cokzRUyamAna; same U-principle; trio surveyed)
-                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
+                    # Ruh/rih stems too (sozRuhyamAna/sezRihyamAna; R+u/i+h blocks R;
+                    # pair 04.0096/0097 surveyed — old R-forms miss).
+                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and meta.get("clean") not in ("kzRu", "snu", "UrRu", "snuh", "snih"):
                         m = m.replace("mAnaH", "mARaH").replace("amAnaH", "amARaH")
                         f = f.replace("mAnA", "mARA").replace("amAnA", "amARA")
                         n = n.replace("mAnam", "mARam").replace("amAnam", "amARam")
