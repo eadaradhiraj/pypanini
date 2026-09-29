@@ -2556,14 +2556,14 @@ class TinantaDerivationEngine:
             # 04.0086-0089 surveyed — old cukruDs-forms miss everywhere; divAdiH-gated).
             if c in ("kruD", "kzuD", "SuD", "siD") and meta.get("gana") == "divAdiH":
                 return {"kruD": "cukruts", "kzuD": "cukzuts", "SuD": "SuSuts", "siD": "sizits"}[c]
-            # divAdi last san stems (sizvits/sisvidiz split by op, pupuziz, jugupiz,
-            # Iziz (I yak-only, kartari plat null); soles surveyed — old miss
-            # everywhere; divAdiH-gated).
+            # divAdi puz san split (pupukz- 04.0079 / pupuziz- 04.0121; identical
+            # metas — dhatu_id-only split; tinanta carries both stems via alt_sann
+            # twin below; soles surveyed — old miss in respective fid; divAdiH-gated).
             if meta.get("gana") == "divAdiH":
                 if c == "svid":
                     return "sisvidiz" if op.startswith("Yizvid") else "sizvits"
                 if c == "puz":
-                    return "pupuziz"
+                    return "pupukz" if dhatu_id == "04.0079" else "pupuziz"
                 if c == "gup" or meta.get("clean") == "gup":
                     return "jugupiz"
                 if c == "I":
@@ -5181,6 +5181,13 @@ class TinantaDerivationEngine:
             if clean == "rAD" and meta.get("gana") == "divAdiH":
                 if "rirAts" not in [s_stem] + alt_sann:
                     alt_sann.append("rirAts")
+            # divAdi puz san twin (pupukz-/pupuziz- split fids 04.0079/04.0121;
+            # identical metas — twin covers both via any-match; additive,
+            # divAdiH-gated).
+            if clean == "puz" and meta.get("gana") == "divAdiH":
+                for _pzt in ("pupukz", "pupuziz"):
+                    if _pzt not in [s_stem] + alt_sann:
+                        alt_sann.append(_pzt)
             if "ur" in clean:
                 alt_c = clean.replace("ur", "Ur", 1)
                 try:

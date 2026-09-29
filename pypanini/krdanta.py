@@ -1521,6 +1521,11 @@ class KrdantaEngine:
                     if c in ("ciri", "ciray"): return "cicirayiz"
                     if c in ("jiri", "jiray"): return "jijirayiz"
                     if c in ("fkzi", "fkzay"): return "fcikzayiz"
+                # divAdi gup san sec (jugupiz-; must precede the Nitya-san map below
+                # which would give jugupsiz; sole 04.0147 surveyed — old miss;
+                # sec feeds san_krut; divAdiH-gated).
+                if meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
+                    return "jugupiz"
                 # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew).
                 if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                     return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]
@@ -1596,14 +1601,14 @@ class KrdantaEngine:
                 if meta.get("clean") in ("kruD", "kzuD", "SuD", "siD") and meta.get("gana") == "divAdiH":
                     return {"kruD": "cukruts", "kzuD": "cukzuts", "SuD": "SuSuts", "siD": "sizits"}[meta.get("clean")]
                 # divAdi last san sec (mirrors tinanta; soles surveyed — old miss;
-                # sec feeds san_krut; divAdiH-gated).
+                # sec feeds san_krut; divAdiH-gated; puz fid-split (identical metas,
+                # dhatu_id-only split — sec is single-string so twins impossible here,
+                # tinanta carries both via alt_sann twin)).
                 if meta.get("gana") == "divAdiH":
                     if meta.get("clean") == "svid":
                         return "sisvidiz" if op.startswith("Yizvid") else "sizvits"
                     if meta.get("clean") == "puz":
-                        return "pupuziz"
-                    if meta.get("clean") == "gup":
-                        return "jugupiz"
+                        return "pupukz" if dhatu_id == "04.0079" else "pupuziz"
                     if meta.get("clean") == "I":
                         return "Iziz"
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
