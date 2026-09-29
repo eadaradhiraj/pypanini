@@ -3469,6 +3469,14 @@ class TinantaDerivationEngine:
                         _alt_aug = self._add_augment("cekzIvya", False)
                         _alt_core = _alt_aug[:-1] if _alt_aug.endswith("a") else _alt_aug
                         _lan += self._conjugate_at_stem_atmane(_alt_core, "laN", purusha, vacana)
+                    # divAdi v-final-i yang-laN I-grade (adedIvyata; trio 04.0001-0003
+                    # surveyed — perfect keeps i-grade; old i-forms miss; additive,
+                    # mirrors kziv twin above; divAdiH-gated).
+                    if meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
+                        _d4ya = {"div": "dedIvya", "siv": "sezIvya", "sriv": "sesrIvya"}[(meta.get("clean", "") or clean)]
+                        _d4aug = self._add_augment(_d4ya, False)
+                        _d4core = _d4aug[:-1] if _d4aug.endswith("a") else _d4aug
+                        _lan += self._conjugate_at_stem_atmane(_d4core, "laN", purusha, vacana)
                     return list(dict.fromkeys(_lan)), log
                 _lwl = self._conjugate_at_stem_atmane(ys_core, lakara, purusha, vacana)
                 return list(dict.fromkeys(_lwl)), log
@@ -3525,6 +3533,13 @@ class TinantaDerivationEngine:
             # kziv yang present-system I-grade (cekzIvyate for lw/low/viDiliN; f~ already long via clean)
             if clean == "kziv":
                 _ywl += self._conjugate_at_stem_atmane("cekzIvy", lakara, purusha, vacana)
+            # divAdi v-final-i yang present-system I-grade (dedIvyate for lw/low/viDiliN;
+            # trio 04.0001-0003 surveyed — perfect keeps i-grade dedivAYcakre;
+            # old i-forms miss in present; additive, mirrors kziv twin above;
+            # divAdiH-gated).
+            if meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
+                _d4yp = {"div": "dedIvy", "siv": "sezIvy", "sriv": "sesrIvy"}[(meta.get("clean", "") or clean)]
+                _ywl += self._conjugate_at_stem_atmane(_d4yp, lakara, purusha, vacana)
             return list(dict.fromkeys(_ywl)), log
         # yak (karmani) - all sanadi variants, all lakaras
         if prayoga == "karmani":
