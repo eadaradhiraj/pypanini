@@ -2263,6 +2263,10 @@ class TinantaDerivationEngine:
         _op_ew_keep = ((op or "").replace("~", "").replace("`", "").strip().endswith("ew"))
         if _op_ew_keep and not sew:
             keeps_y_in_yan = True
+        # kzIz yang keeps stem-y (cekzIyAYcakre/cekzIyitA/acekzIyizwa, not cekzI-drop;
+        # sole 09.0042 surveyed; kryAdiH-gated).
+        if clean == "kzIz" and meta.get("gana") == "kryAdiH":
+            keeps_y_in_yan = True
         # i/I-ending idit with nasal (num) 7.1.58: klidi~ -> klind, hlAdI~ -> hlAd (strip I without n)
         if clean.endswith(("i","I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI") and (is_idit or pada == "Atmanepadi") and any(c in SLP1_VOWELS for c in clean[:-1]):
             base_wo_i = clean[:-1]
@@ -4715,6 +4719,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "mfj":
                     _mjyluw = {("prathama","eka"):["mArjitA","mArzwA"],("prathama","dvi"):["mArjitArO","mArzwArO"],("prathama","bahu"):["mArjitAraH","mArzwAraH"],("madhyama","eka"):["mArjitAse","mArzwAse"],("madhyama","dvi"):["mArjitAsATe","mArzwAsATe"],("madhyama","bahu"):["mArjitADve","mArzwADve"],("uttama","eka"):["mArjitAhe","mArzwAhe"],("uttama","dvi"):["mArjitAsvahe","mArzwAsvahe"],("uttama","bahu"):["mArjitAsmahe","mArzwAsmahe"]}
                     cands += _mjyluw.get((purusha, vacana), [])
+                # kzIz yak-luT twins (kzAyitA/kzetA; sole 09.0042 surveyed — kzAyi-future
+                # + kze- stems; additive; karmani-only, kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz":
+                    _k9yluw = {("prathama","eka"):["kzAyitA","kzetA"],("prathama","dvi"):["kzAyitArO","kzetArO"],("prathama","bahu"):["kzAyitAraH","kzetAraH"],("madhyama","eka"):["kzAyitAse","kzetAse"],("madhyama","dvi"):["kzAyitAsATe","kzetAsATe"],("madhyama","bahu"):["kzAyitADve","kzetADve"],("uttama","eka"):["kzAyitAhe","kzetAhe"],("uttama","dvi"):["kzAyitAsvahe","kzetAsvahe"],("uttama","bahu"):["kzAyitAsmahe","kzetAsmahe"]}
+                    cands += _k9yluw.get((purusha, vacana), [])
                 # iN yak-lut e-grade stem (aDyetA covers every slot via any-match; op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     cands += self._conjugate_luw("aDye", "Atmanepadi", purusha, vacana)
@@ -4834,6 +4843,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "han":
                     _hnz = {("prathama","eka"):["vaDizIzwa"],("prathama","dvi"):["vaDizIyAstAm"],("prathama","bahu"):["vaDizIran"],("madhyama","eka"):["vaDizIzWAH"],("madhyama","dvi"):["vaDizIyAsTAm"],("madhyama","bahu"):["vaDizIDvam"],("uttama","eka"):["vaDizIya"],("uttama","dvi"):["vaDizIvahi"],("uttama","bahu"):["vaDizImahi"]}
                     cands += _hnz.get((purusha, vacana), [])
+                # kzIz yak-ASIrliN twins (kzAyizIzwa/kzezIzwa + IQvam twins; sole 09.0042
+                # surveyed — kzAyi-future + kze- stems; additive, kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz":
+                    _k9zy = {("prathama","eka"):["kzAyizIzwa","kzezIzwa"],("prathama","dvi"):["kzAyizIyAstAm","kzezIyAstAm"],("prathama","bahu"):["kzAyizIran","kzezIran"],("madhyama","eka"):["kzAyizIzWAH","kzezIzWAH"],("madhyama","dvi"):["kzAyizIyAsTAm","kzezIyAsTAm"],("madhyama","bahu"):["kzAyizIDvam","kzAyizIQvam","kzezIQvam"],("uttama","eka"):["kzAyizIya","kzezIya"],("uttama","dvi"):["kzAyizIvahi","kzezIvahi"],("uttama","bahu"):["kzAyizImahi","kzezImahi"]}
+                    cands += _k9zy.get((purusha, vacana), [])
                 # snu yak-ASIrliN U-grade (snUyeta/snUyeran/snUyeyAtAm; sole 02.0033 surveyed — generic emits
                 # sizya-forms only; additive before return).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "snu":

@@ -2530,6 +2530,10 @@ class KrdantaEngine:
                 # sole 02.0026).
                 if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
                     keeps_y_in_yan = False
+                # kzIz yan keeps stem-y (cekzIyita; mirrors tinanta keeps_y exception;
+                # sole 09.0042 surveyed; kryAdiH-gated).
+                if meta.get("clean") == "kzIz" and meta.get("gana") == "kryAdiH":
+                    keeps_y_in_yan = True
                 if sec in ("cAskundya","SoSvindya","coskundya","SeSvindya","sASvindya"):
                     if sec in ("cAskundya","coskundya"):
                         sec = "coskundya"
