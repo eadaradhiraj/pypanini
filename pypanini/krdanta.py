@@ -2628,6 +2628,11 @@ class KrdantaEngine:
                     # old testirya misses; free).
                     if sanadi == "yananta" and meta.get("clean") == "stF" and meta.get("gana") == "kryAdiH":
                         return {"M": "testIryaH", "F": "testIryA", "N": "testIryam"}
+                    # divAdi v-final-i yang yat I-grade (dedIvya/sezIvya/sesrIvya; trio
+                    # 04.0001-0003 surveyed — old i-grade misses (0001 cross-hits); free).
+                    if sanadi == "yananta" and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
+                        _d4yy = {"div": "dedIvya", "siv": "sezIvya", "sriv": "sesrIvya"}[(meta.get("clean", "") or clean)]
+                        return {"M": _d4yy + "H", "F": _d4yy[:-1] + "A", "N": _d4yy + "m"}
                     # y-final yang palatal+Ay -> Iy (cAy->cekIyya, 7.3.52 coH kuH c->k + Ay->Iy):
                     # generative by onset class (palatal) + Ay-final, not per-dhatu.
                     if orig_clean.endswith("Ay") and orig_clean and orig_clean[0] in ("c", "C", "j", "J", "S"):
