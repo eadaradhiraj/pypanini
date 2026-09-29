@@ -3655,6 +3655,19 @@ class KrdantaEngine:
             # divAdi gup plain mUla ktavatu (gupitavAn; mirrors kta gate; free).
             if sanadi is None and meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
                 return {"M": "gupitavAn", "F": "gupitavatI", "N": ["gupitavat", "gupitavad"]}
+            # divAdi mUla ktavatu residuals (sitavAn, ditavAn, puz triple
+            # (covers split fids via any-match), frozen kfSa; soles surveyed;
+            # old miss everywhere; free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                if _d4mc == "so":
+                    return {"M": "sitavAn", "F": "sitavatI", "N": ["sitavat", "sitavad"]}
+                if _d4mc == "do":
+                    return {"M": "ditavAn", "F": "ditavatI", "N": ["ditavat", "ditavad"]}
+                if _d4mc == "puz":
+                    return {"M": ["puzwavAn", "puzitavAn", "pozitavAn"], "F": ["puzwavatI", "puzitavatI", "pozitavatI"], "N": ["puzwavat", "puzitavat", "pozitavat"]}
+                if _d4mc == "kfS":
+                    return {"M": "kfSa", "F": "kfSa", "N": ["kfSa", "kfSa"]}
             # kryAdi bare-F san-ktavatu (arirIzitavAn; sole 09.0032 surveyed; old
             # FdizitavAn misses, free).
             if sanadi == "sannanta" and meta.get("clean") == "F" and meta.get("gana") == "kryAdiH":
