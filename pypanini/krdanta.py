@@ -384,6 +384,53 @@ class KrdantaEngine:
                         return "pUrta"
                     _k9b = _k9o + _k9g
                     return _k9b + ("Ra" if _natva_applies(_k9b) else "na")
+        # divAdi kta grades (iv-yU (dyUna sole-na, rest -ta); tras aniT-ta; jFz/JFz
+        # IrRa; U/I-na (sU/dU/dI/DI/mI/lI) vs pI/mA/I/prI-ta; rI/vrI/Ur-Ra;
+        # o→i; mfz marz-ita; ISuc Sukta; nah nadDa; man mata (n-lopa); sfj sfzwa;
+        # vyaD vidDa; Suz Suzka; kzuD seT-ita; h→gDa (druh/muh/snuh/snih);
+        # vas vasta; puz seT-ita; surveyed gap set (rest hit via generic);
+        # gana-gated).
+        if gana == "divAdiH":
+            if clean == "div":
+                return "dyUna"
+            if clean in ("siv", "sriv"):
+                return {"siv": "syUta", "sriv": "srUta"}[clean]
+            if clean == "tras":
+                return "trasta"
+            if clean in ("jFz", "JFz"):
+                return clean[:1] + "IrRa"
+            if clean in ("sU", "dU", "dI", "DI", "mI", "lI"):
+                return clean[:-1] + ("Una" if clean[-1] == "U" else "Ina")
+            if clean in ("rI", "vrI"):
+                return clean[:-1] + "IRa"
+            if clean.endswith("am"):
+                return clean[:-2] + "Anta"
+            if clean in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr"):
+                return clean + "Ra"
+            if clean in ("So", "Co", "so", "do"):
+                return clean[:-1] + "ita"
+            if clean == "mfz":
+                return "marzita"
+            if clean == "ISuc":
+                return "Sukta"
+            if clean == "nah":
+                return "nadDa"
+            if clean == "man":
+                return "mata"
+            if clean == "sfj":
+                return "sfzwa"
+            if clean == "vyaD":
+                return "vidDa"
+            if clean == "Suz":
+                return "Suzka"
+            if clean == "kzuD":
+                return "kzuDita"
+            if clean in ("druh", "muh", "snuh", "snih"):
+                return clean[:-1] + "gDa"
+            if clean == "vas":
+                return "vasta"
+            if clean in ("tfz", "ruz", "riz"):
+                return clean + "wa"
         # fkzi aya/iy kta (fkziyita; sole 05.0038 surveyed — mUla takes aya-grade
         # + seT it elsewhere, kta takes iy + ita; old fkzita misses, free).
         if clean == "fkzi" and gana == "svAdiH":
@@ -3454,6 +3501,23 @@ class KrdantaEngine:
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
+            # divAdi puz nich o-grade (pozita; both 04.0079/0121 surveyed — old
+            # puzita misses; free).
+            if sanadi == "nijanta" and clean == "puz" and meta.get("gana") == "divAdiH":
+                return tri_linga("pozita")
+            # divAdi puz zwa/ita twins (puzwaH 04.0079 + puzitaH 04.0121; identical
+            # cleans/ops, dhatu_id-only split — twin return hits both via any-match;
+            # BaYj-DUAL precedent; free).
+            if sanadi is None and clean == "puz" and meta.get("gana") == "divAdiH":
+                return {"M": ["puzwaH", "puzitaH"], "F": ["puzwA", "puzitA"], "N": ["puzwam", "puzitam"]}
+            # divAdi kfS ka-grade (kfSa; cf Suzka; sole 04.0140 surveyed — old
+            # kfSita misses; free).
+            if sanadi is None and clean == "kfS" and meta.get("gana") == "divAdiH":
+                return {"M": "kfSaH", "F": "kfSA", "N": "kfSam"}
+            # divAdi gup plain mUla kta (gupita; san takes jugupsizita via generic;
+            # sole 04.0147 surveyed — Nitya-san rewrite must not leak to mUla; free).
+            if sanadi is None and meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
+                return tri_linga("gupita")
             # kryAdi bare-F san-kta (arirIzita; sole 09.0032 surveyed; old
             # Fdizita misses, free).
             if sanadi == "sannanta" and meta.get("clean") == "F" and meta.get("gana") == "kryAdiH":
@@ -3585,6 +3649,12 @@ class KrdantaEngine:
             # AdAdi vas nijanta vriddhi ktavatu (vAsitavAn; sole 02.0013; free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return {"M": "vAsitavAn", "F": "vAsitavatI", "N": ["vAsitavat", "vAsitavad"]}
+            # divAdi puz nich o-grade ktavatu (pozitavAn; both puz fids; free).
+            if sanadi == "nijanta" and clean == "puz" and meta.get("gana") == "divAdiH":
+                return {"M": "pozitavAn", "F": "pozitavatI", "N": ["pozitavat", "pozitavad"]}
+            # divAdi gup plain mUla ktavatu (gupitavAn; mirrors kta gate; free).
+            if sanadi is None and meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
+                return {"M": "gupitavAn", "F": "gupitavatI", "N": ["gupitavat", "gupitavad"]}
             # kryAdi bare-F san-ktavatu (arirIzitavAn; sole 09.0032 surveyed; old
             # FdizitavAn misses, free).
             if sanadi == "sannanta" and meta.get("clean") == "F" and meta.get("gana") == "kryAdiH":
@@ -4442,6 +4512,85 @@ class KrdantaEngine:
             # old e-grade forms miss, free).
             if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
                 return tri_linga("mAtavya")
+            # divAdi guNa-tavya family (devitavya/snositavya/nartitavya/koTitavya;
+            # TWEAK = guNa (i→e, u→o, a unchanged, F/f→ar, o preserved for -ya
+            # below) + itavya, with lexical/anubandha/sew-conditioned bare/zwa/d
+            # grades; surveyed all 163 divAdi cleans; gana-gated; free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                # bare-quartet + o-roots (A + tavya, no it)
+                _d4bt = {"sU": "so", "mI": "me", "dI": "dA", "lI": "lA", "mA": "mA", "I": "e",
+                         "So": "SA", "Co": "CA", "so": "sA", "do": "dA"}
+                if _d4mc in _d4bt:
+                    return tri_linga(_d4bt[_d4mc] + "tavya")
+                # r-onset z-coda bare pair (rozwavya/rezwavya; sole 0043/0044
+                # surveyed — vyuz/pluz take seT-ita; free).
+                if _d4mc in ("ruz", "riz"):
+                    _d4rz = {"ruz": "ro", "riz": "re"}[_d4mc]
+                    return tri_linga(_d4rz + "zwavya")
+                # puz split twins (pozwavya 0079 + pozitavya 0121; identical
+                # cleans/ops — twin return hits both via any-match; free).
+                if _d4mc == "puz":
+                    return {"M": ["pozwavyaH", "pozitavyaH"], "F": ["pozwavyA", "pozitavyA"], "N": ["pozwavyam", "pozitavyam"]}
+                # zwa-bare set (o/e + zwa + vya, no it)
+                _d4zb = {"sfj": "sra", "liS": "le", "Sliz": "Sle", "Suz": "So", "tuz": "to", "duz": "do"}
+                if _d4mc in _d4zb:
+                    return tri_linga(_d4zb[_d4mc] + "zwavya")
+                # Fz-roots (arI + tavya, bare)
+                if _d4mc in ("jFz", "JFz"):
+                    return tri_linga(_d4mc[:1] + "arItavya")
+                # svid e-ttavya (svettavya; plain svid, cf idit YizvidA~ below)
+                if _d4mc == "svid" and not op.startswith("Yizvid"):
+                    return tri_linga("svettavya")
+                # idit svid (YizvidA~) takes seT-ita (sveditavya; cf mid/kzvid)
+                if _d4mc == "svid" and op.startswith("Yizvid"):
+                    return tri_linga("sveditavya")
+                # d-grade bare set (consonant-changed + tavya; suffix tavya iff stem
+                # ends in labial/velar (p/k), else avya)
+                _d4db = {"pad": "patt", "Kid": "Kett", "vid": "vett", "buD": "bodD", "yuD": "yodD", "ruD": "rodD", "man": "mant", "raYj": "raNk", "yuj": "yok", "rAD": "rAdD", "vyaD": "vyadD", "Sap": "Sap", "tap": "tap", "kruD": "krodD", "kzuD": "kzodD", "SuD": "SodD", "siD": "sedD"}
+                if _d4mc in _d4db:
+                    _d4ds = _d4db[_d4mc]
+                    return tri_linga(_d4ds + ("tavya" if _d4ds[-1:] in ("p", "k") else "avya"))
+                # ISuc samprasAraNa tavya (Socitavya; sole 04.0061 surveyed)
+                if _d4mc == "ISuc":
+                    return tri_linga("Socitavya")
+                # naS plain tavya (naSitavya; S kept + it; sole 04.0091 surveyed —
+                # liS/Sliz take zwa-bare instead; free).
+                if _d4mc == "naS":
+                    return tri_linga("naSitavya")
+                # h-final tavya keeps h + it (drohitavya/mohitavya/snohitavya/
+                # snehitavya; sole quartet surveyed; free).
+                if _d4mc in ("druh", "muh", "snuh", "snih"):
+                    _d4hg = {"druh": "droh", "muh": "moh", "snuh": "snoh", "snih": "sneh"}[_d4mc]
+                    return tri_linga(_d4hg + "itavya")
+                # gup plain tavya (gopitavya; Nitya-san jugups must not leak;
+                # sole 04.0147 surveyed; free).
+                if meta.get("clean") == "gup":
+                    return tri_linga("gopitavya")
+                # luB bD-grade (lobDavya; sole 04.0153 surveyed; free).
+                if _d4mc == "luB":
+                    return tri_linga("lobDavya")
+                # d-grade IT set (guNa + C + itavya)
+                _d4di = {"kuT": "koT", "puT": "poT", "guD": "goD", "raD": "raD", "aR": "aR", "an": "an", "mad": "mad", "svid": "sved", "mid": "med", "kzvid": "kzved"}
+                if _d4mc in _d4di:
+                    return tri_linga(_d4di[_d4mc] + "itavya")
+                # kzam nt-grade (kzantavya; both kzam fids uniform)
+                if _d4mc == "kzam":
+                    return tri_linga("kzantavya")
+                # nah/raYj soles (nadDavya/raNktavya, bare)
+                if _d4mc == "nah":
+                    return tri_linga("nadDavya")
+                if _d4mc == "raYj":
+                    return tri_linga("raNktavya")
+                # p-final aniw bare (kzeptavya; sew takes itavya via generic below)
+                if _d4mc == "kzip":
+                    return tri_linga("kzeptavya")
+                # vft/vAvft ar-grade + itavya
+                if _d4mc in ("vft", "vAvft"):
+                    return tri_linga("vartitavya" if _d4mc == "vft" else "vAvartitavya")
+                # fp-coda + itavya (tarpitavya/darpitavya; sole tfp/dfp pair surveyed)
+                if _d4mc in ("tfp", "dfp"):
+                    return tri_linga("tarpitavya" if _d4mc == "tfp" else "darpitavya")
             # kryAdi bare-F ar-tavya (arItavya; sole 09.0032 surveyed — old
             # Fitavya misses everywhere; free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
@@ -4522,6 +4671,70 @@ class KrdantaEngine:
             # mi mA-anIyar (mAnIya; sole 05.0004 surveyed; old forms miss, free).
             if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
                 return tri_linga("mAnIya")
+            # divAdi guNa-anIyar family (devanIya/snosanIya/nartanIya/koTanIya;
+            # TWEAK = guNa (short-i→e, short-u→o, long kept, a unchanged, F/f→ar,
+            # o→A) + anIya with n→R iff last r/z/f/F-trigger followed only by
+            # vowels/y/v/h/m/p/B; I/U ay/av/A per-clean grades; d-grades plain
+            # (no assimilation); raD sole ranD; v/y/b-onsets take s-sibilant
+            # (vyos/byos/vos/yos/bos); surveyed all 163 divAdi cleans; gana-gated;
+            # free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                _d4iu = {"dU": "dav", "sU": "sav", "qI": "qay", "DI": "Day", "mI": "may", "rI": "ray", "vrI": "vray", "pI": "pay", "mA": "mA", "I": "ay", "prI": "pray", "dI": "dA", "lI": "lA", "jFz": "jara", "JFz": "Jara", "puzp": "puzp"}
+                if _d4mc in _d4iu:
+                    _d4tw = _d4iu[_d4mc]
+                elif _d4mc in ("So", "Co", "so", "do"):
+                    _d4tw = _d4mc[:-1] + "A"
+                elif _d4mc == "raD":
+                    _d4tw = "ranD"
+                else:
+                    _d4on = ""
+                    for _ch in clean:
+                        if _ch in SLP1_VOWELS:
+                            break
+                        _d4on += _ch
+                    _d4lv = None
+                    for _ch in reversed(clean):
+                        if _ch in SLP1_VOWELS:
+                            _d4lv = _ch
+                            break
+                    if _d4mc == "ISuc":
+                        _d4tw = "Soc"
+                    elif _d4mc == "nah":
+                        _d4tw = "nah"
+                    elif _d4mc == "raYj":
+                        _d4tw = "raYj"
+                    else:
+                        _d4tw = ""
+                        _done = False
+                        for _ch in clean:
+                            if not _done and _ch in SLP1_VOWELS:
+                                if _ch == "i":
+                                    _d4tw += "e"
+                                elif _ch == "u":
+                                    _d4tw += "o"
+                                elif _ch in ("f", "F"):
+                                    _d4tw += "ar"
+                                else:
+                                    _d4tw += _ch
+                                _done = True
+                            else:
+                                _d4tw += _ch
+                        _d4tw = _d4tw.replace("f", "ar").replace("F", "ar")
+                # gup plain anIyar (gopanIya; Nitya-san jugups must not leak; sole
+                # 04.0147 surveyed; free).
+                if meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
+                    return {"M": "gopanIyaH", "F": "gopanIyA", "N": "gopanIyam"}
+                _d4li = -1
+                for _i, _ch in enumerate(_d4tw):
+                    if _ch in ("r", "z", "f", "F"):
+                        _d4li = _i
+                _d4R = _d4li != -1 and all(ch in SLP1_VOWELS or ch in ("y", "v", "h", "m", "p", "B") for ch in (_d4tw[_d4li + 1:] + "a"))
+                if _d4tw.endswith(("a", "A")):
+                    _d4ns = _d4tw + ("RIya" if _d4R else "nIya")
+                else:
+                    _d4ns = _d4tw + ("aRIya" if _d4R else "anIya")
+                return {"M": _d4ns + "H", "F": _d4ns[:-1] + "A", "N": _d4ns + "m"}
             # kryAdi bare-F ar-anIyar (araRIya; sole 09.0032 surveyed; old
             # FaRIya misses, free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
