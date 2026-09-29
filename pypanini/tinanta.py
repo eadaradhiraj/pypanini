@@ -2708,6 +2708,11 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "kryAdiH" and c.endswith("F") and c[:-1] in ("p", "v", "B", "m", "sv"):
                 _fon = c[:-1]
                 return DEASPIRATE.get(_fon[0], _fon[0]) + "o" + _fon + "Urya"
+            # kryAdi stF intensive e-redup + ir-grade (testirya; sole 09.0017
+            # surveyed — old tAstirya-forms miss everywhere; mirrors krdanta
+            # _yan_sec; kryAdiH-gated).
+            if meta.get("gana") == "kryAdiH" and c == "stF":
+                return "testirya"
             # zWivu~: te-redup WI-grade (tezWIvya-, cf. SAnac zWIvyamAna).
             # we-variant (wezWIvya-) also attested but any-match needs one.
             if c == "zWiv":

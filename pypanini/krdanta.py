@@ -1794,6 +1794,11 @@ class KrdantaEngine:
                 if meta.get("gana") == "kryAdiH" and c.endswith("F") and c[:-1] in ("p", "v", "B", "m", "sv"):
                     _fon = c[:-1]
                     return DEASPIRATE.get(_fon[0], _fon[0]) + "o" + _fon + "Urya"
+                # kryAdi stF intensive e-redup + ir-grade (testirya; sole 09.0017
+                # surveyed — old tAstirya-forms miss everywhere; mirrors tinanta
+                # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
+                if meta.get("gana") == "kryAdiH" and c == "stF":
+                    return "testirya"
                 # zWivu~: te-redup iv-grade for krdanta yang (tezWivita;
                 # tinanta takes WI tezWIvya, handled there).
                 if c == "zWiv":
@@ -2353,6 +2358,10 @@ class KrdantaEngine:
                     if base_no_ya.endswith("Ur"):
                         base_no_ya = base_no_ya[:-2] + "ur"
                 if pratyaya == "yat":
+                    # kryAdi stF yang yat I-grade (testIrya; sole 09.0017 surveyed —
+                    # old testirya misses; free).
+                    if sanadi == "yananta" and meta.get("clean") == "stF" and meta.get("gana") == "kryAdiH":
+                        return {"M": "testIryaH", "F": "testIryA", "N": "testIryam"}
                     # y-final yang palatal+Ay -> Iy (cAy->cekIyya, 7.3.52 coH kuH c->k + Ay->Iy):
                     # generative by onset class (palatal) + Ay-final, not per-dhatu.
                     if orig_clean.endswith("Ay") and orig_clean and orig_clean[0] in ("c", "C", "j", "J", "S"):
@@ -2368,6 +2377,12 @@ class KrdantaEngine:
                                 "F": [_yb+"yA", "tezWIvyA"],
                                 "N": [_yb+"yam", "tezWIvyam"]}
                     return {"M": _yb+"yaH","F":_yb+"yA","N":_yb+"yam"}
+                # kryAdi stF yang SAnac/lyap I-grades (testIryamARa/pratestIrya;
+                # sole 09.0017 surveyed — old testirya-forms miss; free).
+                if sanadi == "yananta" and meta.get("clean") == "stF" and meta.get("gana") == "kryAdiH" and pratyaya == "SAnac":
+                    return {"M": "testIryamARaH", "F": "testIryamARA", "N": "testIryamARam"}
+                if sanadi == "yananta" and meta.get("clean") == "stF" and meta.get("gana") == "kryAdiH" and pratyaya == "lyap":
+                    return {"avyaya": ["pratestIrya"]}
                 _b_kit = base_no_ya
                 # Panini 6.4.98 gamahanajanakhanaghasAM lopaH kNityaNaNi: Kan -> Kn, gam -> gm, Gas -> ks (8.4.55 khari ca)
                 if orig_clean in ("gam", "Kan", "han", "jan"):
