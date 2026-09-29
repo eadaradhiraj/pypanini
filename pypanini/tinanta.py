@@ -2727,6 +2727,11 @@ class TinantaDerivationEngine:
             # _yan_sec; kryAdiH-gated).
             if meta.get("gana") == "kryAdiH" and c == "aS":
                 return "aSASya"
+            # kryAdi grah intensive ja-redup + rIf-grade (jarIgfhya; sole 09.0071
+            # surveyed — old jAgrahya-forms miss everywhere; mirrors krdanta
+            # _yan_sec; kryAdiH-gated).
+            if meta.get("gana") == "kryAdiH" and c == "grah":
+                return "jarIgfhya"
             # zWivu~: te-redup WI-grade (tezWIvya-, cf. SAnac zWIvyamAna).
             # we-variant (wezWIvya-) also attested but any-match needs one.
             if c == "zWiv":

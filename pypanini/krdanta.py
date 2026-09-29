@@ -1818,6 +1818,11 @@ class KrdantaEngine:
                 # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
                 if meta.get("gana") == "kryAdiH" and c == "aS":
                     return "aSASya"
+                # kryAdi grah intensive ja-redup + rIgf-grade (jarIgfhya; sole 09.0071
+                # surveyed — old jAgrahya-forms miss everywhere; mirrors tinanta
+                # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
+                if meta.get("gana") == "kryAdiH" and c == "grah":
+                    return "jarIgfhya"
                 # zWivu~: te-redup iv-grade for krdanta yang (tezWivita;
                 # tinanta takes WI tezWIvya, handled there).
                 if c == "zWiv":
@@ -2765,6 +2770,12 @@ class KrdantaEngine:
                 if _k9mc == "kliS":
                     return {"M": _k9rd + _k9tw + "A", "F": _k9rd + _k9tw + "rI", "N": _k9rd + _k9tw + "f"}
                 return {"M": _k9rd + _k9tw + "itA", "F": _k9rd + _k9tw + "itrI", "N": _k9rd + _k9tw + "itf"}
+            # kryAdi grah ylk tumun/lyap (jAgrahitum/prajAgfhya; sole 09.0071
+            # surveyed — old grahitum/pragrahya miss; free).
+            if _k9mc == "grah" and pratyaya == "tumun":
+                return {"avyaya": ["jAgrahitum"]}
+            if _k9mc == "grah" and pratyaya == "lyap":
+                return {"avyaya": ["prajAgfhya"]}
         # Yangluk redup + nasal for krdanta (Panini 8.4.58/8.3.23, 14-root nasal survey).
         # Target: tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun (tavya unanimous m/M, kta/ktavatu/Satf want loss — excluded, mirror mUla).
         # Additive for tri-linga/tumun/ktvA (old kept, zero worsened); replace for single-form lyuw/GaY (old misses).
@@ -5263,6 +5274,10 @@ class KrdantaEngine:
             # everywhere, free).
             if clean == "mi" and meta.get("gana") == "svAdiH" and sanadi is None:
                 return {"avyaya": ["pramAya"]}
+            # kryAdi grah fh-lyap (pragfhya; sole 09.0071 surveyed — old pragrahya
+            # misses; free).
+            if clean == "grah" and meta.get("gana") == "kryAdiH" and sanadi is None:
+                return {"avyaya": ["pragfhya"]}
             # F-final yanlug redup (tF->pratAtIrya; additive with Irya cross-match).
             # f-final (short): keep f, a-redup r/ri/rI (smf->prasarsmfya).
             if clean.endswith(("f", "F")) and sanadi == "yanluganta":
