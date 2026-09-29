@@ -2871,6 +2871,17 @@ class TinantaDerivationEngine:
             # we-variant (wezWIvya-) also attested but any-match needs one.
             if c == "zWiv":
                 return "tezWIvya"
+            # divAdi Ur-roots keep long U (popUrya; octet 04.0046-0053 surveyed —
+            # old popurya-forms miss everywhere; mirrors krdanta _yan_sec;
+            # divAdiH-gated).
+            if meta.get("gana") == "divAdiH" and c in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr"):
+                _uron = ""
+                for _ch in c:
+                    if _ch in SLP1_VOWELS:
+                        break
+                    _uron += _ch
+                _urc = {"g": "j", "G": "j", "D": "d"}.get(_uron[:1], _uron[:1])
+                return _urc + "o" + c + "ya"
             if c == "ve":
                 return "vAvAya"
             # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali & vArttika GrA-DmayoS ca:
@@ -3408,7 +3419,10 @@ class TinantaDerivationEngine:
                     base_no_ya = ys[:-2] if ys.endswith("ya") else ys[:-1] if ys.endswith("y") else ys
             # Panini 8.2.77 hali ca: lengthening to Ur only applies before consonant (ya).
             # When ya is elided before vowel/id-agama (i, A), Ur reverts to short ur.
-            if base_no_ya.endswith("Ur"):
+            # EXCEPTION: divAdi Ur-octet keeps U (popUrAYcakre; octet 04.0046-0053
+            # surveyed — old popur-forms miss everywhere; divAdiH-gated).
+            _d4ur = meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr")
+            if base_no_ya.endswith("Ur") and not _d4ur:
                 base_no_ya = base_no_ya[:-2] + "ur"
             # zWiv yang perfect-system short-i stems (wezWivAYcakre/wezWivitA/...; present-system keeps tezWIvya-).
             # Surveyed zWiv perfect paradigm (we-/te- redup × i-grade); additive list, consumed per-branch below.

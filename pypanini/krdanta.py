@@ -2014,6 +2014,17 @@ class KrdantaEngine:
                 # tinanta takes WI tezWIvya, handled there).
                 if c == "zWiv":
                     return "tezWivya"
+                # divAdi Ur-roots keep long U (popUrya; octet 04.0046-0053 surveyed —
+                # old popurya-forms miss everywhere; mirrors tinanta _yan_stem;
+                # sec feeds yang_krut; divAdiH-gated).
+                if meta.get("gana") == "divAdiH" and c in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr"):
+                    _uron = ""
+                    for _ch in c:
+                        if _ch in SLP1_VOWELS:
+                            break
+                        _uron += _ch
+                    _urc = {"g": "j", "G": "j", "D": "d"}.get(_uron[:1], _uron[:1])
+                    return _urc + "o" + c + "ya"
                 # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali & vArttika GrA-DmayoS ca:
                 # A -> I before halAdi kNiti (yaN), abhyAsa guna e (7.4.82)
                 if c in ("mA", "me"):
@@ -2587,7 +2598,11 @@ class KrdantaEngine:
                         else:
                             base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
                     # Panini 8.2.77 hali ca: lengthening to Ur only applies before consonant.
-                    if base_no_ya.endswith("Ur"):
+                    # EXCEPTION: divAdi Ur-octet keeps U (popUritaH; octet 04.0046-0053
+                    # surveyed — old popur-forms miss everywhere; mirrors tinanta;
+                    # divAdiH-gated).
+                    _d4ur = meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr")
+                    if base_no_ya.endswith("Ur") and not _d4ur:
                         base_no_ya = base_no_ya[:-2] + "ur"
                 if pratyaya == "yat":
                     # kryAdi stF yang yat I-grade (testIrya; sole 09.0017 surveyed —
