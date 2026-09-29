@@ -1961,6 +1961,10 @@ class KrdantaEngine:
                     return "johUya"
                 if c == "tF" or op.startswith("tF"):
                     return "tetIrya"
+                # sic yang s-retention (mirrors tinanta _yan_stem; sole 06.0170 surveyed;
+                # sec feeds yang_krut; tudAdiH-gated).
+                if c == "sic" and meta.get("gana") == "tudAdiH":
+                    return "sesicya"
                 # labial-F intensive o-redup + Ur-grade (mirrors tinanta _yan_stem;
                 # same 18-clean survey + onset set; sec feeds all yang_krut;
                 # kryAdiH-gated).

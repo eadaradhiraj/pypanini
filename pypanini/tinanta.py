@@ -2824,6 +2824,10 @@ class TinantaDerivationEngine:
                 return "johUya"
             if c == "tF" or op.startswith("tF"):
                 return "tetIrya"
+            # sic yang s-retention (sesicyate; sole 06.0170 surveyed — redup s stays
+            # dental (no satva to z), unlike sil sezilyate; tudAdiH-gated; mirrors krdanta).
+            if c == "sic" and meta.get("gana") == "tudAdiH":
+                return "sesicya"
             # labial-F intensive o-redup + Ur-grade (popUryate/vovUryate/boBUryate/
             # momUryate/sosvUryate; surveyed all 18 F-final 09 cleans: labial onsets
             # {p,v,B,m,sv} take o+Ur, other 12 (S/st/k/d/j/J/D/n/g/bare-F) keep e+Ir
@@ -3259,6 +3263,12 @@ class TinantaDerivationEngine:
                 else:
                     _r7ylw = {("prathama","eka"):["baMBaNkti","baMBaYjIti","bamBaNkti","bamBaYjIti"],("prathama","dvi"):["baMBaktaH","bamBaktaH"],("prathama","bahu"):["baMBajati","bamBajati"],("madhyama","eka"):["baMBaNkzi","baMBaYjIzi","bamBaNkzi","bamBaYjIzi"],("madhyama","dvi"):["baMBakTaH","bamBakTaH"],("madhyama","bahu"):["baMBakTa","bamBakTa"],("uttama","eka"):["baMBaYjImi","baMBaYjmi","bamBaYjImi","bamBaYjmi"],("uttama","dvi"):["baMBajvaH","bamBajvaH"],("uttama","bahu"):["baMBajmaH","bamBajmaH"]}
                 return _r7ylw.get((purusha, vacana), []), log
+            # sic yanluganta present (sesicIti/sesekti/sesiktaH/sesicati/...; sole 06.0170
+            # surveyed — s-retention + e-grade twins (sesekti/sesekzi/sesecmi); old
+            # sezik-forms miss; free).
+            if clean == "sic" and meta.get("gana") == "tudAdiH":
+                _s6ylw = {("prathama","eka"):["sesicIti","sesekti"],("prathama","dvi"):["sesiktaH"],("prathama","bahu"):["sesicati"],("madhyama","eka"):["sesicIzi","sesekzi"],("madhyama","dvi"):["sesikTaH"],("madhyama","bahu"):["sesikTa"],("uttama","eka"):["sesicImi","sesecmi"],("uttama","dvi"):["sesicvaH"],("uttama","bahu"):["sesicmaH"]}
+                return _s6ylw.get((purusha, vacana), []), log
             yls = _yanlug_stem(clean)
             # Panini 8.4.58 parasavarNa / 8.3.23 anusvara in yanlug stem, additive
             # (tunp->totump, SranB->SASramB, Sans->SASaMs; surveyed 14 n+labial/s cleans, zero conflicts)
