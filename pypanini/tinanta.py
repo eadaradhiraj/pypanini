@@ -2539,6 +2539,10 @@ class TinantaDerivationEngine:
             # miss everywhere; divAdiH-gated).
             if c in ("pad", "man") and meta.get("gana") == "divAdiH":
                 return "pits" if c == "pad" else "mimaMs"
+            # divAdi D-final san stems (cukruts/cukzuts/SuSuts/sizits; quartet
+            # 04.0086-0089 surveyed — old cukruDs-forms miss everywhere; divAdiH-gated).
+            if c in ("kruD", "kzuD", "SuD", "siD") and meta.get("gana") == "divAdiH":
+                return {"kruD": "cukruts", "kzuD": "cukzuts", "SuD": "SuSuts", "siD": "sizits"}[c]
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"

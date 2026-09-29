@@ -1591,6 +1591,10 @@ class KrdantaEngine:
                 # surveyed — old forms miss; sec feeds san_krut; divAdiH-gated).
                 if meta.get("clean") in ("pad", "man") and meta.get("gana") == "divAdiH":
                     return "pits" if meta.get("clean") == "pad" else "mimaMs"
+                # divAdi D-final san sec (mirrors tinanta; quartet 04.0086-0089 surveyed —
+                # old forms miss; sec feeds san_krut; divAdiH-gated).
+                if meta.get("clean") in ("kruD", "kzuD", "SuD", "siD") and meta.get("gana") == "divAdiH":
+                    return {"kruD": "cukruts", "kzuD": "cukzuts", "SuD": "SuSuts", "siD": "sizits"}[meta.get("clean")]
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).

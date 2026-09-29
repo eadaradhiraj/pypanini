@@ -411,3 +411,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 278 (divAdi rAD san stem (rits- + rirAts-twin at caller; mirrored sec; sole 04.0077 surveyed; old miss; probes ALL-HIT): 04 holds 108/161 (+209 matched, 1 improved), 0 worsened (guards green).
 - Iteration 279 (divAdi vyaD san stem (vivyats-; mirrored; sole 04.0078 surveyed; old miss; probes ALL-HIT): 04 holds 108/161 (+209 matched, 1 improved), 0 worsened (guards green).
 - Iteration 280 (divAdi pad/man yak-only san stems (pits/mimaMs; mirrored; pair 04.0065/0073 surveyed; kartari plat null ceiling; old miss; probes ALL-HIT): 04 holds 108/161 (+409 matched, 2 improved), 0 worsened (guards green).
+- Iteration 281 (divAdi D-final san stems (cukruts/cukzuts/SuSuts/sizits; mirrored; quartet 04.0086-0089 surveyed; old miss; probes ALL-HIT): 04 holds 108/161 (+836 matched, 4 improved), 0 worsened (guards green).
