@@ -2030,6 +2030,12 @@ class KrdantaEngine:
                 # mirrors tinanta _yan_stem; sec feeds yang_krut; divAdiH-gated).
                 if meta.get("gana") == "divAdiH" and c in ("jFz", "JFz"):
                     return "jejIrya" if c == "jFz" else "jeJIrya"
+                # divAdi yang uniform trio (sezIya/SoSucya/jogupya; soles 04.0042/0061/0147
+                # surveyed — yang paradigm unanimous; old miss in-paradigm; local clean
+                # may be adeca-rewritten (so->sA), so key on meta clean; mirrors
+                # tinanta _yan_stem; sec feeds yang_krut; divAdiH-gated).
+                if meta.get("gana") == "divAdiH" and meta.get("clean") in ("so", "ISuc", "gup"):
+                    return {"so": "sezIya", "ISuc": "SoSucya", "gup": "jogupya"}[meta.get("clean")]
                 # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali & vArttika GrA-DmayoS ca:
                 # A -> I before halAdi kNiti (yaN), abhyAsa guna e (7.4.82)
                 if c in ("mA", "me"):
@@ -2298,7 +2304,8 @@ class KrdantaEngine:
             else: sec = clean
             # Nitya-san (3.1.5/3.1.6, seT only; 01.0461 aniT excluded via sew): yang_krut uses san stem
             # (jugupsitaH/jugupsyamAnaH/...; surveyed 7/7 unanimous, zero conflicts). Standalone (after chain).
-            if sanadi == "yananta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+            # (divAdi gup excluded — takes jogupya via _yan_sec above, sole 04.0147 surveyed).
+            if sanadi == "yananta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (clean == "gup" and meta.get("gana") == "divAdiH"):
                 sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean]
             # Nitya-san yangluk_krut uses san stem too (jugupsat/jugupsitavyaH/...; surveyed 7/7 unanimous). Standalone (after chain).
             if sanadi == "yanluganta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):

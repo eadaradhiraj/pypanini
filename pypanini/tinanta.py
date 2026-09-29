@@ -2801,6 +2801,12 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "svAdiH":
                 if c == "hi": return "jeGIya"
                 if c == "aS": return "aSASya"
+            # divAdi yang uniform trio (sezIya/SoSucya/jogupya; soles 04.0042/0061/0147
+            # surveyed — yang paradigm unanimous (so cross-hit sAsAyate belongs to
+            # yangluk, untouched); old miss in-paradigm; must precede Nitya-san map
+            # below (gup); mirrors krdanta _yan_sec; divAdiH-gated).
+            if meta.get("gana") == "divAdiH" and c in ("so", "ISuc", "gup"):
+                return {"so": "sezIya", "ISuc": "SoSucya", "gup": "jogupya"}[c]
             # Nitya-san (3.1.5/3.1.6, seT only): yang uses san base (jugupsya/titikzya/...; 01.0461 aniT excluded via sew).
             if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                 _ysb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
