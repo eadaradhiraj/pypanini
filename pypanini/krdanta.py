@@ -1237,6 +1237,10 @@ class KrdantaEngine:
                 if c in ("raB", "laB") or "raBa" in op or "laBa" in op:
                     return (c[:-1] + "m" + c[-1]) + "ay"
                 # Panini 7.3.36 arti-hrI-vlI-rI-knUyI-kzmAyyAM puN RAu
+                # kryAdi knU Av-grade (knAvay-; sole 09.0012 surveyed — old knopay-
+                # forms absent from all tokens; sec feeds nich_krut; kryAdiH-gated).
+                if c == "knU" and meta.get("gana") == "kryAdiH":
+                    return "knAvay"
                 if c in ("knUy", "knU") or op.startswith("knUy"):
                     return "knopay"
                 if c in ("kzmAy", "kzmA") or op.startswith("kzmAy"):
