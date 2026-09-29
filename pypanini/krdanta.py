@@ -1583,6 +1583,10 @@ class KrdantaEngine:
                 # sec feeds san_krut; divAdiH-gated).
                 if meta.get("clean") == "rAD" and meta.get("gana") == "divAdiH":
                     return "rits"
+                # divAdi vyaD san sec (mirrors tinanta; sole 04.0078 surveyed —
+                # old forms miss; sec feeds san_krut; divAdiH-gated).
+                if meta.get("clean") == "vyaD" and meta.get("gana") == "divAdiH":
+                    return "vivyats"
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).

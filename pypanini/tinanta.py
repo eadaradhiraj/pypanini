@@ -2530,6 +2530,10 @@ class TinantaDerivationEngine:
             # miss everywhere; rirAts-twin added at caller; divAdiH-gated).
             if c == "rAD" and meta.get("gana") == "divAdiH":
                 return "rits"
+            # divAdi vyaD san stem (vivyats-; samprasAraNa viD; sole 04.0078 surveyed —
+            # old vivyaDs-forms miss everywhere; divAdiH-gated).
+            if c == "vyaD" and meta.get("gana") == "divAdiH":
+                return "vivyats"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
