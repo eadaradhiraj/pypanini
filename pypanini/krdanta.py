@@ -2756,6 +2756,11 @@ class KrdantaEngine:
                     # zWivu~ yang lyap takes WI twin too (pratezWIvya).
                     if sanadi == "yananta" and op.startswith("zWiv"):
                         _ly += ["pratezWIvya", "samtezWIvya", "tezWIvya"]
+                    # divAdi v-final-i yang lyap I-twins (pradedIvya/prasezIvya/prasesrIvya;
+                    # trio 04.0001-0003 surveyed — old i-twins miss (0001 cross-hits);
+                    # additive, divAdiH-gated).
+                    if sanadi == "yananta" and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
+                        _ly += [{"div": "pradedIvya", "siv": "prasezIvya", "sriv": "prasesrIvya"}[(meta.get("clean", "") or clean)]]
                     return {"avyaya": _ly}
                 if pratyaya == "Satf":
                     # yan Satf not expected? return None
