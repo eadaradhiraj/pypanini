@@ -2513,6 +2513,11 @@ class TinantaDerivationEngine:
             # old jijFziz-/jiJFziz-forms miss everywhere; divAdiH-gated).
             if c in ("jFz", "JFz") and meta.get("gana") == "divAdiH":
                 return "jijariz" if c == "jFz" else "jiJariz"
+            # divAdi uD san stems (buButs/yuyuts/ruruts; trio 04.0068-0070 surveyed —
+            # kartari plat null (ceiling, yak + san_krut scored); old bubuDs-forms
+            # miss everywhere; divAdiH-gated).
+            if c in ("buD", "yuD", "ruD") and meta.get("gana") == "divAdiH":
+                return {"buD": "buButs", "yuD": "yuyuts", "ruD": "ruruts"}[c]
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
