@@ -3720,8 +3720,14 @@ class TinantaDerivationEngine:
                 yak_stem = ys  # already ya
                 sec_stem = ys
             else:
+                # divAdi gup yak go-grades (gupyate; sole 04.0147 surveyed — Nitya
+                # jugups-rewrite poisons yak here (lfw go-grade separate); old miss;
+                # must precede ghu/adeca branches; divAdiH-gated).
+                if meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
+                    yak_stem = "gupy"
+                    sec_stem = "gupy"
                 # Panini 6.4.66 ghu-mA-sTA-gA-pA-jahAti-sAM hali (A -> I before halAdi kNit affix yak)
-                if clean in ("pA", "sTA", "gA", "mA", "dA", "DA", "hA", "sA") or clean == "gE":
+                elif clean in ("pA", "sTA", "gA", "mA", "dA", "DA", "hA", "sA") or clean == "gE":
                     yak_stem = (clean[:-1] if clean.endswith("A") else "g") + "Iy"
                     sec_stem = (clean[:-1] if clean.endswith("A") else "g") + "I"
                 # divAdi so yak I-grade (sIyate; sole 04.0042 surveyed — old soyate/
