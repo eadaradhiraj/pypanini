@@ -3717,6 +3717,13 @@ class TinantaDerivationEngine:
                 # keep alts for per-lakara generation
                 _yak_sann_alts = alt_s
                 _yak_sann_stems = [s_stem] + alt_s
+                # divAdi v-final-i san-yak e-grade twins (didevizy-; trio 04.0001-0003
+                # surveyed — mUla san hits e-grade via generic twin; old i-forms miss
+                # in yak; additive, divAdiH-gated).
+                if meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
+                    _d4sy = {"div": "dideviz", "siv": "siseviz", "sriv": "sisreviz"}[(meta.get("clean", "") or clean)]
+                    if _d4sy not in _yak_sann_stems:
+                        _yak_sann_stems.append(_d4sy)
                 if meta.get("op") == "cakziN" and lakara in ("liw", "luw", "lfw", "lfN", "ASIrliN", "luN"):
                     if lakara == "liw":
                         _yak_sann_stems.extend(["ciKyAs", "cikSAs"])
