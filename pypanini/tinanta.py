@@ -3725,6 +3725,14 @@ class TinantaDerivationEngine:
                         yak_variants.append(clean[:-1] + "Ury")
                     if clean[:-1] + "Ur" not in sec_variants:
                         sec_variants.append(clean[:-1] + "Ur")
+                # kzIz yak z-drop I-grade (kzIyate/kzIyatAm/akzIyata/kzIyeta; sole 09.0042
+                # surveyed — present-system uniform; parallels benedictive kzIyAt iter231;
+                # additive twins, kryAdiH-gated).
+                if clean == "kzIz" and meta.get("gana") == "kryAdiH":
+                    if "kzIy" not in yak_variants:
+                        yak_variants.append("kzIy")
+                    if "kzI" not in sec_variants:
+                        sec_variants.append("kzI")
                 # ve-class (veY/vyeY/hveY) yak takes samprasArana U-grade (Uyate/vIyate/hUyate; surveyed 3/3 unanimous, additive)
                 if clean in ("ve", "vye", "hve"):
                     _vey = {"ve": "Uy", "vye": "vIy", "hve": "hUy"}[clean]
@@ -4228,6 +4236,23 @@ class TinantaDerivationEngine:
                             ("uttama", "bahu"): ["AYcakfmahe", "AmAsimahe", "AmbaBUvimahe"],
                         }
                         cands += ["fkzay" + _ax for _ax in _fky5_aux.get((purusha, vacana), [])]
+                    # bare-F yak-liT ara-peri (arAYcakre/arAmAse/arAmbaBUve triplets;
+                    # sole 09.0032 surveyed — ar-base like mUla arAYcakAra (ar + AYcakre,
+                    # NOT ara + AYcakre); old FAYcakre-forms miss; additive here
+                    # (vowel-initial exits at return below), kryAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "F":
+                        _ara9_aux = {
+                            ("prathama", "eka"): ["AYcakre", "AmAse", "AmbaBUve"],
+                            ("prathama", "dvi"): ["AYcakrAte", "AmAsAte", "AmbaBUvAte"],
+                            ("prathama", "bahu"): ["AYcakrire", "AmAsire", "AmbaBUvire"],
+                            ("madhyama", "eka"): ["AYcakfze", "AmAsize", "AmbaBUvize"],
+                            ("madhyama", "dvi"): ["AYcakrATe", "AmAsATe", "AmbaBUvATe"],
+                            ("madhyama", "bahu"): ["AYcakfQve", "AmAsiDve", "AmbaBUviQve"],
+                            ("uttama", "eka"): ["AYcakre", "AmAhe", "AmbaBUve"],
+                            ("uttama", "dvi"): ["AYcakfvahe", "AmAsivahe", "AmbaBUvivahe"],
+                            ("uttama", "bahu"): ["AYcakfmahe", "AmAsimahe", "AmbaBUvimahe"],
+                        }
+                        cands += ["ar" + _ax for _ax in _ara9_aux.get((purusha, vacana), [])]
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
