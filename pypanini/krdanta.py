@@ -1808,6 +1808,11 @@ class KrdantaEngine:
                 # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
                 if meta.get("gana") == "kryAdiH" and c == "jyA":
                     return "jejIya"
+                # kryAdi aS intensive a-redup + SAS-grade (aSASya; sole 09.0059
+                # surveyed — old aAaSya-forms miss everywhere; mirrors tinanta
+                # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
+                if meta.get("gana") == "kryAdiH" and c == "aS":
+                    return "aSASya"
                 # zWivu~: te-redup iv-grade for krdanta yang (tezWivita;
                 # tinanta takes WI tezWIvya, handled there).
                 if c == "zWiv":

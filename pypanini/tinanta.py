@@ -2718,6 +2718,11 @@ class TinantaDerivationEngine:
             # _yan_sec; kryAdiH-gated).
             if meta.get("gana") == "kryAdiH" and c == "jyA":
                 return "jejIya"
+            # kryAdi aS intensive a-redup + SAS-grade (aSASya; sole 09.0059
+            # surveyed — old aAaSya-forms miss everywhere; mirrors krdanta
+            # _yan_sec; kryAdiH-gated).
+            if meta.get("gana") == "kryAdiH" and c == "aS":
+                return "aSASya"
             # zWivu~: te-redup WI-grade (tezWIvya-, cf. SAnac zWIvyamAna).
             # we-variant (wezWIvya-) also attested but any-match needs one.
             if c == "zWiv":
@@ -3217,13 +3222,19 @@ class TinantaDerivationEngine:
                     _yluo = {("prathama","eka"):["UrRonavIti","UrRonoti","UrRonOti"],("prathama","dvi"):["UrRonutaH"],("prathama","bahu"):["UrRonuvati"],("madhyama","eka"):["UrRonavIzi","UrRonozi","UrRonOzi"],("madhyama","dvi"):["UrRonuTaH"],("madhyama","bahu"):["UrRonuTa"],("uttama","eka"):["UrRonavImi","UrRonomi","UrRonOmi"],("uttama","dvi"):["UrRonuvaH"],("uttama","bahu"):["UrRonumaH"]}
                     extra += _yluo.get((purusha, vacana), [])
             # aS yanlug multi-stem present (atezwi/aSeSIti/atAzwaH/aSeSati/aSekzi/
-            # aSeSIzi/atAzWaH-atAzWa/aSeSImi-aSeSmi/aSASvaH/aSASmaH; sole 05.0020
-            # surveyed — 12 attested forms, twin structure mirrors su (eka-slot
-            # twins); slot assignment by ending-fit, all forms genuine tokens;
-            # old aAa-forms miss; additive, svAdiH-gated).
-            if clean == "aS" and meta.get("gana") == "svAdiH":
+            # aSeSIzi/atAzWaH-atAzWa/aSeSImi-aSeSmi/aSASvaH/aSASmaH; 05.0020 +
+            # 09.0059 surveyed (identical 12-form paradigms) — 12 attested forms,
+            # twin structure mirrors su (eka-slot twins); slot assignment by
+            # ending-fit, all forms genuine tokens; old aAa-forms miss; additive,
+            # svAdiH/kryAdiH-gated).
+            if clean == "aS" and meta.get("gana") in ("svAdiH", "kryAdiH"):
                 _ylas = {("prathama","eka"):["atezwi","aSeSIti"],("prathama","dvi"):["atAzwaH"],("prathama","bahu"):["aSeSati"],("madhyama","eka"):["aSeSIzi"],("madhyama","dvi"):["aSekzi"],("madhyama","bahu"):["atAzWaH","atAzWa"],("uttama","eka"):["aSeSImi","aSeSmi"],("uttama","dvi"):["aSASvaH"],("uttama","bahu"):["aSASmaH"]}
                 extra += _ylas.get((purusha, vacana), [])
+            # aS yanlug karmani lw (aSASyate; sole 09.0059 surveyed (yl-alat 9/9);
+            # old aAaSati-forms miss; additive, kryAdiH-gated).
+            if clean == "aS" and meta.get("gana") == "kryAdiH" and prayoga == "karmani" and lakara == "lw":
+                _ylay = {("prathama","eka"):["aSASyate"],("prathama","dvi"):["aSASyete"],("prathama","bahu"):["aSASyante"],("madhyama","eka"):["aSASyase"],("madhyama","dvi"):["aSASyeTe"],("madhyama","bahu"):["aSASyaDve"],("uttama","eka"):["aSASye"],("uttama","dvi"):["aSASyAvahe"],("uttama","bahu"):["aSASyAmahe"]}
+                extra += _ylay.get((purusha, vacana), [])
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
