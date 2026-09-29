@@ -4952,6 +4952,22 @@ class KrdantaEngine:
             # misses, free).
             if sanadi is None and clean == "kzIz" and meta.get("gana") == "kryAdiH":
                 return {"M": "kzAyakaH", "F": "kzAyikA", "N": "kzAyakam"}
+            # divAdi Rvul residuals (jAraka/JAraka, Ayaka, Socaka, ranDaka, gopaka;
+            # soles surveyed; old miss everywhere; free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                if _d4mc == "jFz":
+                    return {"M": "jArakaH", "F": "jArikA", "N": "jArakam"}
+                if _d4mc == "JFz":
+                    return {"M": "JArakaH", "F": "JArikA", "N": "JArakam"}
+                if _d4mc == "I":
+                    return {"M": "AyakaH", "F": "AyikA", "N": "Ayaka"}
+                if _d4mc == "ISuc":
+                    return {"M": "SocakaH", "F": "SocikA", "N": "Socakam"}
+                if _d4mc == "raD":
+                    return {"M": "ranDakaH", "F": "ranDikA", "N": "ranDakam"}
+                if _d4mc == "gup":
+                    return {"M": "gopakaH", "F": "gopikA", "N": "gopakam"}
             # idit i-final num-clean (agi->aNgakaH; meta skips num for Y-class)
             if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _rbw = clean[:-1]
