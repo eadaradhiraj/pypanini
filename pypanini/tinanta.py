@@ -2873,6 +2873,11 @@ class TinantaDerivationEngine:
             # _yan_sec; kryAdiH-gated).
             if meta.get("gana") == "kryAdiH" and c == "grah":
                 return "jarIgfhya"
+            # divAdi vyaD yang ve-redup + i-grade (veviDya-; sole 04.0078 surveyed —
+            # present veviDyate, perfect veviDAYcakre via base_no_ya; old vAvyaDya-
+            # forms miss everywhere; mirrors krdanta _yan_sec; divAdiH-gated).
+            if meta.get("gana") == "divAdiH" and c == "vyaD":
+                return "veviDya"
             # zWivu~: te-redup WI-grade (tezWIvya-, cf. SAnac zWIvyamAna).
             # we-variant (wezWIvya-) also attested but any-match needs one.
             if c == "zWiv":

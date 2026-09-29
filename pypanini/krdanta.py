@@ -2010,6 +2010,11 @@ class KrdantaEngine:
                 # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
                 if meta.get("gana") == "kryAdiH" and c == "grah":
                     return "jarIgfhya"
+                # divAdi vyaD yang ve-redup + i-grade (veviDya-; sole 04.0078 surveyed —
+                # old vAvyaDya-forms miss everywhere; mirrors tinanta _yan_stem;
+                # sec feeds yang_krut; divAdiH-gated).
+                if meta.get("gana") == "divAdiH" and c == "vyaD":
+                    return "veviDya"
                 # zWivu~: te-redup iv-grade for krdanta yang (tezWivita;
                 # tinanta takes WI tezWIvya, handled there).
                 if c == "zWiv":
