@@ -1578,6 +1578,11 @@ class KrdantaEngine:
                 # old forms miss everywhere; sec feeds san_krut; divAdiH-gated).
                 if meta.get("clean") == "nah" and meta.get("gana") == "divAdiH":
                     return "ninats"
+                # divAdi rAD san sec (mirrors tinanta primary rits-; sole 04.0077
+                # surveyed — old forms miss; ritsaH HIT covers GaY slot via any-match;
+                # sec feeds san_krut; divAdiH-gated).
+                if meta.get("clean") == "rAD" and meta.get("gana") == "divAdiH":
+                    return "rits"
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).

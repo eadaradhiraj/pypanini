@@ -2526,6 +2526,10 @@ class TinantaDerivationEngine:
             # miss everywhere; divAdiH-gated).
             if c == "nah" and meta.get("gana") == "divAdiH":
                 return "ninats"
+            # divAdi rAD san stem (rits-; sole 04.0077 surveyed — old rirADs-forms
+            # miss everywhere; rirAts-twin added at caller; divAdiH-gated).
+            if c == "rAD" and meta.get("gana") == "divAdiH":
+                return "rits"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
@@ -5070,6 +5074,11 @@ class TinantaDerivationEngine:
             if clean == "zWiv" or op.startswith(("zWivu", "sWivu")):
                 if "tuzWyUz" not in [s_stem] + alt_sann:
                     alt_sann.append("tuzWyUz")
+            # divAdi rAD san twin (rirAts- alongside rits-; sole 04.0077 surveyed —
+            # both twins attested every slot; additive, divAdiH-gated).
+            if clean == "rAD" and meta.get("gana") == "divAdiH":
+                if "rirAts" not in [s_stem] + alt_sann:
+                    alt_sann.append("rirAts")
             if "ur" in clean:
                 alt_c = clean.replace("ur", "Ur", 1)
                 try:
