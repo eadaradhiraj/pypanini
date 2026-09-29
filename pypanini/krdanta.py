@@ -4806,6 +4806,14 @@ class KrdantaEngine:
             # fkzi e-yat (fkzeya; sole 05.0038 surveyed; old iy-forms miss, free).
             if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
                 return tri_linga("fkzeya")
+            # divAdi bare-I e-yat (eya; sole 04.0038 surveyed; old
+            # Iya-forms miss; free).
+            if sanadi is None and clean == "I" and meta.get("gana") == "divAdiH":
+                return tri_linga("eya")
+            # divAdi jan a-yat (janya; sole 04.0044 surveyed; old jAnya misses;
+            # free).
+            if sanadi is None and clean == "jan" and meta.get("gana") == "divAdiH":
+                return tri_linga("janya")
             # Ryat vriddhi only single-cons no-r, I~ blocks (Kada->KAdya, narda->nardya, yatI->yatya, 3.1.124)
             # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
             # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-)
@@ -5036,6 +5044,24 @@ class KrdantaEngine:
             # mi mA-tfc (mAtA; sole 05.0004 surveyed; old forms miss, free).
             if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
                 return {"M": "mAtA", "F": "mAtrI", "N": "mAtf"}
+            # divAdi Fz/rI-tfc twins and A-grades (jarItA/jaritA, dAtA, SocitA,
+            # nadDA, srazwA + puz/svid twins; soles surveyed; old miss; free).
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean in ("jFz", "JFz"):
+                _d4t = "jarI" if clean == "jFz" else "JarI"
+                _d4t2 = "jari" if clean == "jFz" else "Jari"
+                return {"M": [_d4t + "tA", _d4t2 + "tA"], "F": [_d4t + "trI", _d4t2 + "trI"], "N": [_d4t + "tf", _d4t2 + "tf"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "dI":
+                return {"M": "dAtA", "F": "dAtrI", "N": "dAtf"}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "ISuc":
+                return {"M": "SocitA", "F": "SocitrI", "N": "Socitf"}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "nah":
+                return {"M": "nadDA", "F": "nadDrI", "N": "nadDf"}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "sfj":
+                return {"M": "srazwA", "F": "srazwrI", "N": "srazwf"}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "puz":
+                return {"M": ["pozwA", "pozitA"], "F": ["pozwrI", "pozitrI"], "N": ["pozwf", "pozitf"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "svid":
+                return {"M": ["svettA", "sveditA"], "F": ["svettrI", "sveditrI"], "N": ["svettf", "sveditf"]}
             # kryAdi bare-F ar-tfc (arItA; sole 09.0032 surveyed; old FitA
             # misses, free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
@@ -5331,6 +5357,24 @@ class KrdantaEngine:
             # mi mA-tumun (mAtum; sole 05.0004 surveyed; old e-forms miss, free).
             if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
                 return {"avyaya": ["mAtum"]}
+            # divAdi tfc-grade tumuns (jarItum/jaritum, dAtum, Socitum, nadDum,
+            # srazwum + puz/svid twins; soles surveyed; old miss; free).
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean in ("jFz", "JFz"):
+                _d4u = "jarI" if clean == "jFz" else "JarI"
+                _d4u2 = "jari" if clean == "jFz" else "Jari"
+                return {"avyaya": [_d4u + "tum", _d4u2 + "tum"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "dI":
+                return {"avyaya": ["dAtum"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "ISuc":
+                return {"avyaya": ["Socitum"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "nah":
+                return {"avyaya": ["nadDum"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "sfj":
+                return {"avyaya": ["srazwum"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "puz":
+                return {"avyaya": ["pozwum", "pozitum"]}
+            if sanadi is None and meta.get("gana") == "divAdiH" and clean == "svid":
+                return {"avyaya": ["svettum", "sveditum"]}
             # kryAdi bare-F ar-tumun (arItum; sole 09.0032 surveyed; old Fitum
             # misses, free).
             if sanadi is None and clean == "F" and meta.get("gana") == "kryAdiH":
