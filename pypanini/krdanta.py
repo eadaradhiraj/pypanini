@@ -5172,6 +5172,24 @@ class KrdantaEngine:
             # misses, free).
             if clean == "F" and meta.get("gana") == "kryAdiH" and sanadi is None:
                 return {"gender": "Neuter", "form": "araRam"}
+            # divAdi lyuw residuals (jaraRam/JaraRam, dAnam, ayanam, Socanam,
+            # ranDanam, gopanam; soles surveyed; old miss everywhere; free).
+            if sanadi is None and meta.get("gana") == "divAdiH":
+                _d4mc = meta.get("clean", "") or clean
+                if _d4mc == "jFz":
+                    return {"gender": "Neuter", "form": "jaraRam"}
+                if _d4mc == "JFz":
+                    return {"gender": "Neuter", "form": "JaraRam"}
+                if _d4mc == "dI":
+                    return {"gender": "Neuter", "form": "dAnam"}
+                if _d4mc == "I":
+                    return {"gender": "Neuter", "form": "ayanam"}
+                if _d4mc == "ISuc":
+                    return {"gender": "Neuter", "form": "Socanam"}
+                if _d4mc == "raD":
+                    return {"gender": "Neuter", "form": "ranDanam"}
+                if _d4mc == "gup":
+                    return {"gender": "Neuter", "form": "gopanam"}
             # UrRu av lyuw (UrRavanam mUla + UrRonavanam yl; sole-gated; free).
             if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _ulyu = "UrRavanam" if sanadi is None else "UrRonavanam"
