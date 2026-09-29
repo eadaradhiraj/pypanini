@@ -8871,6 +8871,12 @@ class TinantaDerivationEngine:
                     else:
                         _s5lun = {("prathama","eka"):[_s5ase+"sIt"],("prathama","dvi"):[_s5ase+"sId"],("prathama","bahu"):[_s5ase+"suH",_s5aDd+"Am"],("madhyama","eka"):[_s5ase+"sIH"],("madhyama","dvi"):[_s5aDd+"am"],("madhyama","bahu"):[_s5aDd+"a"],("uttama","eka"):[_s5ase+"sam"],("uttama","dvi"):[_s5ase+"sva"],("uttama","bahu"):[_s5ase+"sma"]}
                     cands += _s5lun.get((purusha, vacana), [])
+                # divAdi rAD sic-aorist (arAtsIt/arAtsId + arAdDAm twin, D-retention in
+                # ma.dvi/bahu; sole 04.0077 surveyed — old arADsat-forms miss everywhere;
+                # additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "rAD":
+                    _d4rlun = {("prathama","eka"):["arAtsIt","arAtsId"],("prathama","dvi"):["arAdDAm"],("prathama","bahu"):["arAtsuH"],("madhyama","eka"):["arAtsIH"],("madhyama","dvi"):["arAdDam"],("madhyama","bahu"):["arAdDa"],("uttama","eka"):["arAtsam"],("uttama","dvi"):["arAtsva"],("uttama","bahu"):["arAtsma"]}
+                    cands += _d4rlun.get((purusha, vacana), [])
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
