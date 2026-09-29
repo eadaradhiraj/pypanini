@@ -2333,6 +2333,10 @@ class KrdantaEngine:
                     # kta takes mAp-grade + ita like BAvita; manual triple).
                     if meta.get("clean") == "mi" and meta.get("gana") == "svAdiH":
                         return {"M": "mApitaH", "F": "mApitA", "N": "mApitam"}
+                    # divAdi puz nich o-grade kta (pozita; both 04.0079/0121 surveyed —
+                    # old puzwa misses in 0121 (0079 cross-hits mUla token); manual triple).
+                    if meta.get("clean") == "puz" and meta.get("gana") == "divAdiH":
+                        return {"M": "pozitaH", "F": "pozitA", "N": "pozitam"}
                     # tanAdi nich kta takes sec-base + ita (tAnita/sAnita/kzARita/kzeRita/
                     # arRita/tarRita/GarRita/vanita/mAnita/kArita; surveyed all 10 tanAdi
                     # cleans; mUla-fallthrough gives tanta/kziRta and misses; free).
@@ -2382,6 +2386,10 @@ class KrdantaEngine:
                     # mi nijanta mAp-grade (mApitavAn; sole 05.0004 surveyed; free).
                     if meta.get("clean") == "mi" and meta.get("gana") == "svAdiH":
                         return {"M": "mApitavAn", "F": "mApitavatI", "N": ["mApitavat", "mApitavad"]}
+                    # divAdi puz nich o-grade ktavatu (pozitavAn; both 04.0079/0121 surveyed —
+                    # old puzwavAn misses in 0121 (0079 cross-hits mUla token); free).
+                    if meta.get("clean") == "puz" and meta.get("gana") == "divAdiH":
+                        return {"M": "pozitavAn", "F": "pozitavatI", "N": ["pozitavat", "pozitavad"]}
                     # pA nijanta (pAlitavAn; same minimal pair; gana-gated; free).
                     if meta.get("clean") == "pA" and meta.get("gana") == "adAdiH":
                         return {"M": "pAlitavAn", "F": "pAlitavatI", "N": ["pAlitavat", "pAlitavad"]}
@@ -3579,10 +3587,8 @@ class KrdantaEngine:
             # AdAdi vas nijanta vriddhi (vAsita; sole 02.0013 surveyed; old vasita misses in-fid, free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return tri_linga("vAsita")
-            # divAdi puz nich o-grade (pozita; both 04.0079/0121 surveyed — old
-            # puzita misses; free).
-            if sanadi == "nijanta" and clean == "puz" and meta.get("gana") == "divAdiH":
-                return tri_linga("pozita")
+            # (divAdi puz nich kta lives in the nijanta kta block above — nijanta
+            # always returns there, so no gate belongs here.)
             # divAdi puz zwa/ita twins (puzwaH 04.0079 + puzitaH 04.0121; identical
             # cleans/ops, dhatu_id-only split — twin return hits both via any-match;
             # BaYj-DUAL precedent; free).
@@ -3727,9 +3733,8 @@ class KrdantaEngine:
             # AdAdi vas nijanta vriddhi ktavatu (vAsitavAn; sole 02.0013; free).
             if sanadi == "nijanta" and clean == "vas" and meta.get("gana") == "adAdiH":
                 return {"M": "vAsitavAn", "F": "vAsitavatI", "N": ["vAsitavat", "vAsitavad"]}
-            # divAdi puz nich o-grade ktavatu (pozitavAn; both puz fids; free).
-            if sanadi == "nijanta" and clean == "puz" and meta.get("gana") == "divAdiH":
-                return {"M": "pozitavAn", "F": "pozitavatI", "N": ["pozitavat", "pozitavad"]}
+            # (divAdi puz nich ktavatu lives in the nijanta ktavatu block above —
+            # nijanta always returns there, so no gate belongs here.)
             # divAdi gup plain mUla ktavatu (gupitavAn; mirrors kta gate; free).
             if sanadi is None and meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
                 return {"M": "gupitavAn", "F": "gupitavatI", "N": ["gupitavat", "gupitavad"]}
