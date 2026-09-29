@@ -1963,6 +1963,16 @@ class TinantaDerivationEngine:
                 "uttama": {"eka": ["akzEzam"], "dvi": ["akzEzva"], "bahu": ["akzEzma"]},
             }
             return list(dict.fromkeys(_kz_lun[purusha][vacana])), []
+        # kryAdi mI luN kartari takes iz-aorist (amAsIt/amAsId + izwAm/izuh/
+        # iIH/izwam/izwa/izam/izva/izma; sole 09.0004 surveyed — old amEzizwa-
+        # forms absent from all tokens; exclusive return, clean gate).
+        if clean == "mI" and lakara == "luN" and prayoga == "kartari" and sanadi is None and meta.get("gana") == "kryAdiH":
+            _mI_lun = {
+                "prathama": {"eka": ["amAsIt", "amAsId"], "dvi": ["amAsizwAm"], "bahu": ["amAsizuH"]},
+                "madhyama": {"eka": ["amAsIH"], "dvi": ["amAsizwam"], "bahu": ["amAsizwa"]},
+                "uttama": {"eka": ["amAsizam"], "dvi": ["amAsizva"], "bahu": ["amAsizma"]},
+            }
+            return list(dict.fromkeys(_mI_lun[purusha][vacana])), []
         # cakziN -> KyA/kSA in Ardhadhatuka (Panini 2.4.54/55)
         if meta.get("op") == "cakziN" and lakara in ("liw", "luw", "lfw", "lfN", "ASIrliN", "luN") and sanadi is None and not _cakz_bypass:
             _cakz_cands = []
