@@ -3544,6 +3544,11 @@ class TinantaDerivationEngine:
                     else:
                         yak_stem = clean[:-1] + "riy"
                         sec_stem = clean[:-1] + "ri"
+                # kryAdi jyA yak I-grade (jIyate; sole 09.0034 surveyed — old jyAyate
+                # misses; kryAdiH-gated).
+                elif clean == "jyA" and meta.get("gana") == "kryAdiH":
+                    yak_stem = "jIy"
+                    sec_stem = "jI"
                 # Panini 8.2.18 kfpo ro l: yak uses l-stem (kalpyate, not kfpyate).
                 elif clean == "kfp":
                     yak_stem = "kalpy"
@@ -3919,6 +3924,15 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): ["Uve"], ("uttama", "dvi"): ["Uvivahe"], ("uttama", "bahu"): ["Uvimahe"],
                     }
                     return _atman_u.get((purusha, vacana), []), log
+                # kryAdi jyA yak liT jijy-redup (sole 09.0034 surveyed — old jajyAe
+                # misses everywhere; exclusive return, kryAdiH-gated).
+                if clean == "jyA" and meta.get("gana") == "kryAdiH":
+                    _atman_jyA = {
+                        ("prathama", "eka"): ["jijye"], ("prathama", "dvi"): ["jijyAte"], ("prathama", "bahu"): ["jijyire"],
+                        ("madhyama", "eka"): ["jijyize"], ("madhyama", "dvi"): ["jijyATe"], ("madhyama", "bahu"): ["jijyiQve", "jijyiDve"],
+                        ("uttama", "eka"): ["jijye"], ("uttama", "dvi"): ["jijyivahe"], ("uttama", "bahu"): ["jijyimahe"],
+                    }
+                    return _atman_jyA.get((purusha, vacana), []), log
                 if is_vowel_initial:
                     # aja~ yak liT vi-redup ve-grade (vivye/vivyAte/vivyire/vivyize...; sole aj-clean 01.0262
                     # surveyed, ~-gated anudatta reading; Ajize/AjiDve/Ajivahe/Ajimahe variants also listed but
@@ -4442,6 +4456,12 @@ class TinantaDerivationEngine:
                         _k9yb = _k9rr + _k9rv + _k9wv
                         _k9yl = {("prathama","eka"):[_k9yb+"e"],("prathama","dvi"):[_k9yb+"Ate"],("prathama","bahu"):[_k9yb+"ire"],("madhyama","eka"):[_k9yb+"ize"],("madhyama","dvi"):[_k9yb+"ATe"],("madhyama","bahu"):[_k9yb+"iDve",_k9yb+"iQve"],("uttama","eka"):[_k9yb+"e"],("uttama","dvi"):[_k9yb+"ivahe"],("uttama","bahu"):[_k9yb+"imahe"]}
                         cands += _k9yl.get((purusha, vacana), [])
+                # kryAdi stunB yak-liT stumB-twin (tustumBe; sole 09.0008 surveyed —
+                # generic st→zw gives tuzwunBe which misses everywhere; additive,
+                # kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean", "") == "stunB":
+                    _k9stum = {("prathama","eka"):["tustumBe"],("prathama","dvi"):["tustumBAte"],("prathama","bahu"):["tustumBire"],("madhyama","eka"):["tustumBize"],("madhyama","dvi"):["tustumBATe"],("madhyama","bahu"):["tustumBiDve"],("uttama","eka"):["tustumBe"],("uttama","dvi"):["tustumBivahe"],("uttama","bahu"):["tustumBimahe"]}
+                    cands += _k9stum.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
