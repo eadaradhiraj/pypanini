@@ -8227,6 +8227,12 @@ class TinantaDerivationEngine:
                         pass
                     return cands, log
                 else:
+                    # divAdi gup mUla liT jugop-grade (sole 04.0147 surveyed — Nitya
+                    # jugups-rewrite poisons mUla here; old jujugOpsa-forms miss
+                    # everywhere; exclusive return, divAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
+                        _d4gu = {("prathama","eka"):["jugopa"],("prathama","dvi"):["jugupatuH"],("prathama","bahu"):["jugupuH"],("madhyama","eka"):["jugopiTa"],("madhyama","dvi"):["jugupaTuH"],("madhyama","bahu"):["jugupa"],("uttama","eka"):["jugopa"],("uttama","dvi"):["jugupiva"],("uttama","bahu"):["jugupima"]}
+                        return list(dict.fromkeys(_d4gu.get((purusha, vacana), []))), log
                     # divAdi vyaD mUla liT mixed paradigm (vivyADa/viviD- twins; sole 04.0078
                     # surveyed — old vevyaD-forms miss everywhere; exclusive return, divAdiH-gated).
                     if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vyaD":
