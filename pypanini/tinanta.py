@@ -4338,6 +4338,12 @@ class TinantaDerivationEngine:
                         ("uttama", "bahu"): [_vekt_y + "imahe", _vekt_y + "mahe"],
                     }
                     cands += _ve_yak.get((purusha, vacana), [])
+                # kzIz yak-liT short-i (cikziye/cikziyAte/cikziyire...; sole 09.0042
+                # surveyed — redup cikzI + y-glide + Atmane endings incl. Qve/Dve twins;
+                # old cikzIe-forms miss; additive, kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz":
+                    _kzy = {("prathama","eka"):["cikziye"],("prathama","dvi"):["cikziyAte"],("prathama","bahu"):["cikziyire"],("madhyama","eka"):["cikziyize"],("madhyama","dvi"):["cikziyATe"],("madhyama","bahu"):["cikziyiQve","cikziyiDve"],("uttama","eka"):["cikziye"],("uttama","dvi"):["cikziyivahe"],("uttama","bahu"):["cikziyimahe"]}
+                    cands += _kzy.get((purusha, vacana), [])
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
                     # Panini 6.4.77 aci Snu-DAtu-BruvAM yvo riyaN-uvaNAu: u/U takes uvaN (uv) before vowel endings
@@ -5103,6 +5109,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "jAg":
                     _jglun = {("prathama","eka"):["ajAgAri"],("prathama","dvi"):["ajAgarizAtAm"],("prathama","bahu"):["ajAgarizata"],("madhyama","eka"):["ajAgarizWAH"],("madhyama","dvi"):["ajAgarizATAm"],("madhyama","bahu"):["ajAgariDvam","ajAgariQvam"],("uttama","eka"):["ajAgarizi"],("uttama","dvi"):["ajAgarizvahi"],("uttama","bahu"):["ajAgarizmahi"]}
                     table[(purusha, vacana)] += _jglun.get((purusha, vacana), [])
+                # kzIz yak luN mixed grades (akzAyi peka sic-less + akzAyiz-/akze- twins;
+                # sole 09.0042 surveyed — kzAyi-future + kze- stems; additive, kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz":
+                    _k9zlun = {("prathama","eka"):["akzAyi"],("prathama","dvi"):["akzAyizAtAm","akzezAtAm"],("prathama","bahu"):["akzAyizata","akzezata"],("madhyama","eka"):["akzAyizWAH","akzezWAH"],("madhyama","dvi"):["akzAyizATAm","akzezATAm"],("madhyama","bahu"):["akzAyiQvam","akzAyiDvam","akzeQvam"],("uttama","eka"):["akzAyizi","akzezi"],("uttama","dvi"):["akzAyizvahi","akzezvahi"],("uttama","bahu"):["akzAyizmahi","akzezmahi"]}
+                    table[(purusha, vacana)] += _k9zlun.get((purusha, vacana), [])
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
