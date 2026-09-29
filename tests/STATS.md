@@ -457,3 +457,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 311 (divAdi dI/sfj yak-luT twins (dA/dAyi + srazwA; pair 04.0029/0075 surveyed; old miss; 18-slot probes ALL-HIT): 04 holds 126/161 (+18 matched, 2 improved), 0 worsened (guards green).
 - Iteration 312 (divAdi benedictive I-stems (dIv/sIv/srIv/viD; v-i trio + vyaD 04.0001-0003/0078 surveyed; old miss; 36-slot probes ALL-HIT): 04 holds 126/161 (+36 matched, 4 improved), 0 worsened (guards green).
 - Iteration 313 (divAdi rAD sic-aorist (arAtsIt/arAtsId + arAdDAm/D-retention twins; sole 04.0077 surveyed; svAdi-template; old miss; 9-slot probes ALL-HIT): 04 holds 126/161 (+6 matched, 1 improved), 0 worsened (guards green incl svAdi-homes).
+- Iteration 314 (divAdi do root-aorist (adAt/adAd, no s; sole 04.0043 surveyed; old miss; 9-slot probes ALL-HIT): 04 holds 126/161 (+4 matched, 1 improved), 0 worsened (guards green).

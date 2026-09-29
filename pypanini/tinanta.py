@@ -8877,6 +8877,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "rAD":
                     _d4rlun = {("prathama","eka"):["arAtsIt","arAtsId"],("prathama","dvi"):["arAdDAm"],("prathama","bahu"):["arAtsuH"],("madhyama","eka"):["arAtsIH"],("madhyama","dvi"):["arAdDam"],("madhyama","bahu"):["arAdDa"],("uttama","eka"):["arAtsam"],("uttama","dvi"):["arAtsva"],("uttama","bahu"):["arAtsma"]}
                     cands += _d4rlun.get((purusha, vacana), [])
+                # divAdi do root-aorist (adAt/adAd, no s; sole 04.0043 surveyed — old
+                # adavt-forms miss everywhere; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "do":
+                    _d4do = {("prathama","eka"):["adAt","adAd"],("prathama","dvi"):["adAtAm"],("prathama","bahu"):["aduH"],("madhyama","eka"):["adAH"],("madhyama","dvi"):["adAtam"],("madhyama","bahu"):["adAta"],("uttama","eka"):["adAm"],("uttama","dvi"):["adAva"],("uttama","bahu"):["adAma"]}
+                    cands += _d4do.get((purusha, vacana), [])
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
