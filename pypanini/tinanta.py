@@ -7960,6 +7960,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "I":
                     _d4ay = {("prathama","eka"):["ayAYcakre","ayAmAsa","ayAmbaBUva"],("prathama","dvi"):["ayAYcakrAte","ayAmAsAte","ayAmbaBUvAte"],("prathama","bahu"):["ayAYcakrire","ayAmAsire","ayAmbaBUvire"],("madhyama","eka"):["ayAYcakfze","ayAmAsize","ayAmbaBUvize"],("madhyama","dvi"):["ayAYcakrATe","ayAmAsATe","ayAmbaBUvATe"],("madhyama","bahu"):["ayAYcakfQve","ayAmAsiDve","ayAmbaBUviDve"],("uttama","eka"):["ayAYcakre","ayAmAsa","ayAmbaBUva"],("uttama","dvi"):["ayAYcakfvahe","ayAmAsivahe","ayAmbaBUvivahe"],("uttama","bahu"):["ayAYcakfmahe","ayAmAsimahe","ayAmbaBUvimahe"]}
                     forms += _d4ay.get((purusha, vacana), [])
+                # divAdi ISuc mUla liT SuSoc-grade (sole 04.0061 surveyed — vowel-initial
+                # liT returns via this block, old ISucAYcakre-forms miss everywhere;
+                # additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
+                    _d4su = {("prathama","eka"):["SuSoca"],("prathama","dvi"):["SuSucatuH"],("prathama","bahu"):["SuSucuH"],("madhyama","eka"):["SuSociTa"],("madhyama","dvi"):["SuSucaTuH"],("madhyama","bahu"):["SuSuca"],("uttama","eka"):["SuSoca"],("uttama","dvi"):["SuSuciva"],("uttama","bahu"):["SuSucima"]}
+                    forms += _d4su.get((purusha, vacana), [])
                 return list(dict.fromkeys(forms)), log
             else:
                 redup = self._reduplicated_stem(clean)

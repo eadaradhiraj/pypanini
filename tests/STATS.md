@@ -448,3 +448,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 302 (divAdi Fz mUla liT exclusive tables (jajar-/jer- twins 17 forms + jaJar- 10 forms; pair 04.0025/0026 surveyed; old miss; 18-slot probes ALL-HIT): 04 holds 125/161 (+18 matched, 2 improved), 0 worsened (guards green).
 - Iteration 303 (divAdi jan yak liT jajY-table (sole 04.0044 surveyed; old miss; exclusive, jyA-neighbor; 9-slot probes ALL-HIT): 04 holds 125/161 (+8 matched, 1 improved), 0 worsened (guards green).
 - Iteration 304 (divAdi vAvft yak liT vAvart-peri triple (sole 04.0056 surveyed; old miss; exclusive, jan-neighbor; 9-slot probes ALL-HIT): 04 holds 125/161 (+9 matched, 1 improved), 0 worsened (guards green).
+- Iteration 305 (divAdi ISuc mUla liT SuSoc-grade (sole 04.0061 surveyed; gate relocated to vowel-initial return after settrace; old miss; 9-slot probes ALL-HIT): 04 holds 125/161 (+9 matched, 1 improved), 0 worsened (guards green).
