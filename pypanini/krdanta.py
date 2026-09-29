@@ -1442,6 +1442,11 @@ class KrdantaEngine:
                 # mfjU san (mirrors tinanta; same sole guard).
                 if meta.get("clean") == "mfj" and meta.get("gana") == "adAdiH":
                     return "mimArjiz"
+                # kryAdi grah san stem (jiGfkz-; mirrors tinanta; sole 09.0071
+                # surveyed — old jigrahiz- misses everywhere; sec feeds san_krut;
+                # kryAdiH-gated).
+                if meta.get("clean") == "grah" and meta.get("gana") == "kryAdiH":
+                    return "jiGfkz"
                 # iR san gam-suppletion for krdanta (jigAMsita; ting takes jigamiz- above; op-gated).
                 if meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iR"):
                     return "jigAMs"
@@ -5015,6 +5020,10 @@ class KrdantaEngine:
             # bandDvA/banDitvA miss; free).
             if sanadi is None and clean == "banD" and meta.get("gana") == "kryAdiH":
                 return {"avyaya": ["badDvA"]}
+            # kryAdi grah fhI-ktvA (gfhItvA; sole 09.0071 surveyed — old
+            # graQvA/grahitvA miss; free).
+            if sanadi is None and clean == "grah" and meta.get("gana") == "kryAdiH":
+                return {"avyaya": ["gfhItvA"]}
             # Panini 8.2.18 kfpo ro l, yangluk: seT carkalpitvA + aniT carkxptvA.
             if sanadi == "yanluganta" and sec == "carkalp":
                 return {"avyaya": ["carkalpitvA", "carkxptvA"]}
