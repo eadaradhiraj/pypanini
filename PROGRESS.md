@@ -9,15 +9,15 @@ Sweep-07: **25/25 100%** — complete (other session).
 Sweep-08: **10/10 100%** — complete (other session).
 Sweep-09: **71/71 100%** — COMPLETE.
 Sweep-04: **108/161** (other session, in progress).
-Sweep-06: **28/174** — held (num-group +26/+35, 8 improved, 0 worsened; this iteration).
+Sweep-06: **28/174** — held (num Satf/SAnac full, 8 improved, 0 worsened; this iteration).
 Landscape: 10 162/509.
 
-## Done — tudAdi num-insertion (iteration 242)
-- lump/vind/limp/siYc/muYc/piMS/Kind/kfnt/uYC in _prim_bases (dhatu_id proxy gate).
+## Done — num-grade participles (iteration 243)
+- lumpat/lumpamAna- twins in iter241 blocks (same 9-clean map).
 - Gates: pilots 5/5; 06 fid-diff 8/0; 01 fid-diff 0/0.
-- Prior (241): weak-a participles (see STATS).
+- Prior (242): num-insertion (see STATS).
 
 ## Next
-1. Gana-06: num-group krdanta + 0170 + samprasArana/uv/iy/ir/C-gemination + kta/tavya.
+1. Gana-06: ylk-Satf redup (lolupat-) + 0170 + samprasArana/uv/iy/ir/C-gemination + kta/tavya.
 2. Gana-04 loop (other session active — coordinate).
 3. Then 10 → all-gana 100%.

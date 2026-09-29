@@ -4218,7 +4218,10 @@ class KrdantaEngine:
             # take clean+at, other shapes own traits; additive — generic guNa kept;
             # tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH":
-                _t6w = clean + "at"
+                # num-group takes num-stem (lumpat/vindat/siYcat/...; same 9-clean
+                # num survey as tinanta _prim_bases iter242).
+                _t6num = {"lup": "lump", "vid": "vind", "lip": "limp", "sic": "siYc", "muc": "muYc", "piS": "piMS", "Kid": "Kind", "kft": "kfnt", "uCi": "uYC"}.get(clean, clean)
+                _t6w = _t6num + "at"
                 def _t6L(v):
                     return v if isinstance(v, list) else [v]
                 _gen = {"M": _t6L(m) + [_t6w[:-1] + "n"],
@@ -4534,7 +4537,9 @@ class KrdantaEngine:
             # tudAdi weak-a SAnac twin (tudamAnaH; clean+a stem mirrors present weak;
             # same survey as Satf; additive — generic guNa kept; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH":
-                _tw = tri_linga(clean + "amAna")
+                # num-group takes num-stem (lumpamAna/...; same 9-clean survey).
+                _t6num = {"lup": "lump", "vid": "vind", "lip": "limp", "sic": "siYc", "muc": "muYc", "piS": "piMS", "Kid": "Kind", "kft": "kfnt", "uCi": "uYC"}.get(clean, clean)
+                _tw = tri_linga(_t6num + "amAna")
                 def _t6L(v):
                     return v if isinstance(v, list) else [v]
                 _gen = {"M": _t6L(_gen["M"]) + _t6L(_tw["M"]),
