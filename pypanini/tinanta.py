@@ -2452,6 +2452,10 @@ class TinantaDerivationEngine:
             # mimIz- miss everywhere; kryAdiH-gated).
             if c == "mI" and meta.get("gana") == "kryAdiH":
                 return "mits"
+            # kryAdi pU san stem (pupUz-; sole 09.0014 surveyed — old pipaviz-
+            # misses everywhere; kryAdiH-gated).
+            if c == "pU" and meta.get("gana") == "kryAdiH":
+                return "pupUz"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
