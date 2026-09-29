@@ -1561,6 +1561,11 @@ class KrdantaEngine:
                 # old forms miss everywhere; sec feeds san_krut; divAdiH-gated).
                 if meta.get("clean") in ("jFz", "JFz") and meta.get("gana") == "divAdiH":
                     return "jijariz" if meta.get("clean") == "jFz" else "jiJariz"
+                # divAdi v-final-i san sec (dideviz/siseviz/sisreviz/wizWeviz;
+                # quad 04.0001-0004 surveyed — old didiviz-forms miss; tin already
+                # hits via generic so krdanta-only; sec feeds san_krut; divAdiH-gated).
+                if meta.get("clean") in ("div", "siv", "sriv", "sWiv") and meta.get("gana") == "divAdiH":
+                    return {"div": "dideviz", "siv": "siseviz", "sriv": "sisreviz", "sWiv": "wizWeviz"}[meta.get("clean")]
                 # kryAdi mI san stem (mits-; mirrors tinanta; sole 09.0004
                 # surveyed — old mimayz- misses everywhere; sec feeds san_krut;
                 # kryAdiH-gated).
