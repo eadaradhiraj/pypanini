@@ -1345,9 +1345,10 @@ class KrdantaEngine:
                 # divAdi nich causative grades (mirrors tinanta; 10 fids surveyed —
                 # old forms miss everywhere; sec feeds nich_krut; local clean may be
                 # adeca-rewritten (so->sA) or san-rewritten (gup->jugups), so key on
-                # meta clean; divAdiH-gated).
-                if meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz", "dI", "rI", "So", "Co", "so", "ISuc", "raD", "gup"):
-                    return {"jFz": "jaray", "JFz": "JAray", "dI": "dApay", "rI": "repay", "So": "SAyay", "Co": "CAyay", "so": "sAyay", "ISuc": "Socay", "raD": "ranDay", "gup": "gopay"}[meta.get("clean")]
+                # meta clean; divAdiH-gated; snas/knas feed all nich_krut via the same
+                # ay/ay-less downstream split as SAyay (tin already hits via generic)).
+                if meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz", "dI", "rI", "So", "Co", "so", "ISuc", "raD", "gup", "snas", "knas"):
+                    return {"jFz": "jaray", "JFz": "JAray", "dI": "dApay", "rI": "repay", "So": "SAyay", "Co": "CAyay", "so": "sAyay", "ISuc": "Socay", "raD": "ranDay", "gup": "gopay", "snas": "snAsay", "knas": "knasay"}[meta.get("clean")]
                 if c in ("knUy", "knU") or op.startswith("knUy"):
                     return "knopay"
                 if c in ("kzmAy", "kzmA") or op.startswith("kzmAy"):
