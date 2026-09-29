@@ -6782,6 +6782,14 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "banD":
                 cands+=self._conjugate_at_stem_parasmai("Bantsy", "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane("Bantsy", "lw", purusha, vacana)
+            # kryAdi luw-trio sya-futures (mAsyati/kzezyati/grahIzyati; same sole-trio
+            # + A-stems as luw iter227 (mA/kze/grahI + sya; z after front-vowel stems
+            # kze/grahI, s after A-stem mA); attested plrut 9/9 each (+ alrut mI/grah);
+            # both padas for global match (banD precedent); additive, kryAdiH-gated).
+            if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") in ("mI", "kzIz", "grah"):
+                _k9fw = {"mI": "mAsy", "kzIz": "kzezy", "grah": "grahIzy"}[meta.get("clean")]
+                cands+=self._conjugate_at_stem_parasmai(_k9fw, "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_k9fw, "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
