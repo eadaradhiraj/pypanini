@@ -1867,6 +1867,46 @@ class TinantaDerivationEngine:
                         ("uttama", "bahu"): ["Izima"],
                     }
                 return list(dict.fromkeys(_k9lit.get((purusha, vacana), []))), []
+            # kryAdi bare-F mUla liT ara-periphrastic triple (arAYcakAra/
+            # arAmAsa/arAmbaBUva, paras endings, AYcak ma.eka -arTa + utt.eka
+            # a/A twins; sole 09.0032 surveyed — old Atmane FAYcakr-forms
+            # absent from all tokens; exclusive return, meta-clean gate).
+            if _k9mc == "F":
+                _k9Fay = {
+                    ("prathama", "eka"): ["arAYcakAra"],
+                    ("prathama", "dvi"): ["arAYcakratuH"],
+                    ("prathama", "bahu"): ["arAYcakruH"],
+                    ("madhyama", "eka"): ["arAYcakarTa"],
+                    ("madhyama", "dvi"): ["arAYcakraTuH"],
+                    ("madhyama", "bahu"): ["arAYcakra"],
+                    ("uttama", "eka"): ["arAYcakara", "arAYcakAra"],
+                    ("uttama", "dvi"): ["arAYcakfva"],
+                    ("uttama", "bahu"): ["arAYcakfma"],
+                }
+                _k9Fam = {
+                    ("prathama", "eka"): ["arAmAsa"],
+                    ("prathama", "dvi"): ["arAmAsatuH"],
+                    ("prathama", "bahu"): ["arAmAsuH"],
+                    ("madhyama", "eka"): ["arAmAsiTa"],
+                    ("madhyama", "dvi"): ["arAmAsaTuH"],
+                    ("madhyama", "bahu"): ["arAmAsa"],
+                    ("uttama", "eka"): ["arAmAsa"],
+                    ("uttama", "dvi"): ["arAmAsiva"],
+                    ("uttama", "bahu"): ["arAmAsima"],
+                }
+                _k9Fbu = {
+                    ("prathama", "eka"): ["arAmbaBUva"],
+                    ("prathama", "dvi"): ["arAmbaBUvatuH"],
+                    ("prathama", "bahu"): ["arAmbaBUvuH"],
+                    ("madhyama", "eka"): ["arAmbaBUviTa"],
+                    ("madhyama", "dvi"): ["arAmbaBUvaTuH"],
+                    ("madhyama", "bahu"): ["arAmbaBUva"],
+                    ("uttama", "eka"): ["arAmbaBUva"],
+                    ("uttama", "dvi"): ["arAmbaBUviva"],
+                    ("uttama", "bahu"): ["arAmbaBUvima"],
+                }
+                _k9Fslot = (purusha, vacana)
+                return list(dict.fromkeys(_k9Fay.get(_k9Fslot, []) + _k9Fam.get(_k9Fslot, []) + _k9Fbu.get(_k9Fslot, []))), []
         # de luN kartari takes i-aorist adita (not s-aorist amAsta like meN,
         # not seT adayizwa); sole de-root, additive-safe.
         if clean == "de" and lakara == "luN" and prayoga == "kartari" and sanadi is None:
