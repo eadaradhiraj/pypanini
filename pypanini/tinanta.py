@@ -4276,6 +4276,15 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): ["SuSuce"], ("uttama", "dvi"): ["SuSucivahe"], ("uttama", "bahu"): ["SuSucimahe"],
                     }
                     return _atman_su.get((purusha, vacana), []), log
+                # divAdi raD yak liT raranD-/re- twins (sole 04.0090 surveyed — old
+                # raraD-forms miss everywhere; exclusive return, divAdiH-gated).
+                if clean == "raD" and meta.get("gana") == "divAdiH":
+                    _atman_ra = {
+                        ("prathama", "eka"): ["raranDe"], ("prathama", "dvi"): ["raranDAte"], ("prathama", "bahu"): ["raranDire"],
+                        ("madhyama", "eka"): ["raranDize", "retse"], ("madhyama", "dvi"): ["raranDATe"], ("madhyama", "bahu"): ["raranDiDve", "redDve"],
+                        ("uttama", "eka"): ["raranDe"], ("uttama", "dvi"): ["raranDivahe", "reDvahe"], ("uttama", "bahu"): ["raranDimahe", "reDmahe"],
+                    }
+                    return _atman_ra.get((purusha, vacana), []), log
                 if is_vowel_initial:
                     # aja~ yak liT vi-redup ve-grade (vivye/vivyAte/vivyire/vivyize...; sole aj-clean 01.0262
                     # surveyed, ~-gated anudatta reading; Ajize/AjiDve/Ajivahe/Ajimahe variants also listed but
@@ -5164,6 +5173,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
                     table_d4g = {("prathama","eka"):["agopi"],("prathama","dvi"):["agopizAtAm"],("prathama","bahu"):["agopizata"],("madhyama","eka"):["agopizWAH"],("madhyama","dvi"):["agopizATAm"],("madhyama","bahu"):["agopiDvam"],("uttama","eka"):["agopizi"],("uttama","dvi"):["agopizvahi"],("uttama","bahu"):["agopizmahi"]}
                     return table_d4g[(purusha,vacana)], log
+                # divAdi raD yak luN nD-grade + ts-/Diz- twins (sole 04.0090 surveyed —
+                # old miss; exclusive return, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "raD":
+                    table_d4ra = {("prathama","eka"):["aranDi"],("prathama","dvi"):["aratsAtAm","araDizAtAm"],("prathama","bahu"):["aratsata","araDizata"],("madhyama","eka"):["aradDAH","araDizWAH"],("madhyama","dvi"):["aratsATAm","araDizATAm"],("madhyama","bahu"):["aradDvam","araDiDvam"],("uttama","eka"):["aratsi","araDizi"],("uttama","dvi"):["aratsvahi","araDizvahi"],("uttama","bahu"):["aratsmahi","araDizmahi"]}
+                    return table_d4ra[(purusha,vacana)], log
                 table = {("prathama","eka"):[aug_clean+"i", _aug(vbase)+"i", aug_orig+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", _aug(vbase)+"izAtAm", aug_orig+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", _aug(vbase)+"izata", aug_orig+"izata"],("madhyama","eka"):[aug_clean+"izWAH", _aug(vbase)+"izWAH", aug_orig+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", _aug(vbase)+"izATAm", aug_orig+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", _aug(vbase)+"iDvam", aug_orig+"iDvam", aug_orig+"iQvam"],("uttama","eka"):[aug_clean+"izi", _aug(vbase)+"izi", aug_orig+"izi"],("uttama","dvi"):[aug_clean+"izvahi", _aug(vbase)+"izvahi", aug_orig+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", _aug(vbase)+"izmahi", aug_orig+"izmahi"]}
                 # Panini 8.4.58/8.3.23 nasal assimilation in primitive yak-luN (tunp->atumpi, srans->asraMsi;
                 # same 14-root n+labial/s survey, additive)
