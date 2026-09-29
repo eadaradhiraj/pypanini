@@ -3900,6 +3900,13 @@ class TinantaDerivationEngine:
                     for _k9yc in ("grahIzy", "grAhizya"):
                         _k9ycc = self._add_augment(_k9yc, False) if lakara == "lfN" else _k9yc
                         cands+=self._conjugate_at_stem_atmane(_k9ycc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # kryAdi mI yak sya-futures (mAsyate/mAyizyate + augmented lfN
+                # twins; sole 09.0004 surveyed — old mayzyate-forms miss; additive,
+                # kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "mI" and lakara in ("lfw", "lfN"):
+                    for _k9yc in ("mAsy", "mAyizy"):
+                        _k9ycc = self._add_augment(_k9yc, False) if lakara == "lfN" else _k9yc
+                        cands+=self._conjugate_at_stem_atmane(_k9ycc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
@@ -4582,6 +4589,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "grah":
                     _k9yluw = {("prathama","eka"):["grahItA","grAhitA"],("prathama","dvi"):["grahItArO","grAhitArO"],("prathama","bahu"):["grahItAraH","grAhitAraH"],("madhyama","eka"):["grahItAse","grAhitAse"],("madhyama","dvi"):["grahItAsATe","grAhitAsATe"],("madhyama","bahu"):["grahItADve","grAhitADve"],("uttama","eka"):["grahItAhe","grAhitAhe"],("uttama","dvi"):["grahItAsvahe","grAhitAsvahe"],("uttama","bahu"):["grahItAsmahe","grAhitAsmahe"]}
                     cands += _k9yluw.get((purusha, vacana), [])
+                # kryAdi mI yak-luT mA/mAy twins (mAtA/mAyitA; sole 09.0004 surveyed —
+                # old maytA-forms miss; additive, karmani-only, kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "mI":
+                    _k9mluw = {("prathama","eka"):["mAtA","mAyitA"],("prathama","dvi"):["mAtArO","mAyitArO"],("prathama","bahu"):["mAtAraH","mAyitAraH"],("madhyama","eka"):["mAtAse","mAyitAse"],("madhyama","dvi"):["mAtAsATe","mAyitAsATe"],("madhyama","bahu"):["mAtADve","mAyitADve"],("uttama","eka"):["mAtAhe","mAyitAhe"],("uttama","dvi"):["mAtAsvahe","mAyitAsvahe"],("uttama","bahu"):["mAtAsmahe","mAyitAsmahe"]}
+                    cands += _k9mluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -4719,6 +4731,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "grah":
                     _k9ge = {("prathama","eka"):["grahIzIzwa","grAhizIzwa"],("prathama","dvi"):["grahIzIyAstAm","grAhizIyAstAm"],("prathama","bahu"):["grahIzIran","grAhizIran"],("madhyama","eka"):["grahIzIzWAH","grAhizIzWAH"],("madhyama","dvi"):["grahIzIyAsTAm","grAhizIyAsTAm"],("madhyama","bahu"):["grahIzIQvam","grahIzIDvam","grAhizIQvam","grAhizIDvam"],("uttama","eka"):["grahIzIya","grAhizIya"],("uttama","dvi"):["grahIzIvahi","grAhizIvahi"],("uttama","bahu"):["grahIzImahi","grAhizImahi"]}
                     cands += _k9ge[(purusha, vacana)]
+                # kryAdi mI yak-benedictive mA/mAy twins (mAsIzwa/mAyizIzwa;
+                # sole 09.0004 surveyed — old mayzIzwa misses; additive,
+                # kryAdiH-gated).
+                if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "mI":
+                    _k9me = {("prathama","eka"):["mAsIzwa","mAyizIzwa"],("prathama","dvi"):["mAsIyAstAm","mAyizIyAstAm"],("prathama","bahu"):["mAsIran","mAyizIran"],("madhyama","eka"):["mAsIzWAH","mAyizIzWAH"],("madhyama","dvi"):["mAsIyAsTAm","mAyizIyAsTAm"],("madhyama","bahu"):["mAsIDvam","mAyizIDvam"],("uttama","eka"):["mAsIya","mAyizIya"],("uttama","dvi"):["mAsIvahi","mAyizIvahi"],("uttama","bahu"):["mAsImahi","mAyizImahi"]}
+                    cands += _k9me[(purusha, vacana)]
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -7078,6 +7096,12 @@ class TinantaDerivationEngine:
                 _k9ba = self._add_augment("Bantsy", False)
                 cands+=self._conjugate_at_stem_parasmai(_k9ba, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_k9ba, "laN", purusha, vacana)
+            # kryAdi mI lfN (amAsyat; sole 09.0004 surveyed — old amayzyat
+            # misses; both padas for global match; additive, kryAdiH-gated).
+            if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "mI":
+                _k9ma = self._add_augment("mAsy", False)
+                cands+=self._conjugate_at_stem_parasmai(_k9ma, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_k9ma, "laN", purusha, vacana)
             # iN lfN E-grade (aDyEzyata covers every slot via any-match; op-gated; additive).
             if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                 _iy0 = self._add_augment("aDyEzy", True)
