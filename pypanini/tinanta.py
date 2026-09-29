@@ -8135,6 +8135,15 @@ class TinantaDerivationEngine:
                         pass
                     return cands, log
                 else:
+                    # divAdi Fz mUla liT (jajar-/jer- twins for jFz (17 forms), jaJar-
+                    # only for JFz (10 forms); pair 04.0025/0026 surveyed — old
+                    # jejarz-forms miss everywhere; exclusive return, divAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz"):
+                        if meta.get("clean") == "jFz":
+                            _d4fz = {("prathama","eka"):["jajAra"],("prathama","dvi"):["jajaratuH","jeratuH"],("prathama","bahu"):["jajaruH","jeruH"],("madhyama","eka"):["jajariTa","jeriTa"],("madhyama","dvi"):["jajaraTuH","jeraTuH"],("madhyama","bahu"):["jajara","jera"],("uttama","eka"):["jajara","jajAra"],("uttama","dvi"):["jajariva","jeriva"],("uttama","bahu"):["jajarima","jerima"]}
+                        else:
+                            _d4fz = {("prathama","eka"):["jaJAra"],("prathama","dvi"):["jaJaratuH"],("prathama","bahu"):["jaJaruH"],("madhyama","eka"):["jaJariTa"],("madhyama","dvi"):["jaJaraTuH"],("madhyama","bahu"):["jaJara"],("uttama","eka"):["jaJara","jaJAra"],("uttama","dvi"):["jaJariva"],("uttama","bahu"):["jaJarima"]}
+                        return list(dict.fromkeys(_d4fz.get((purusha, vacana), []))), log
                     # paras lit Pit/Kit (1.2.5): eka (Nal/thaL) takes guNa (cuScota/cuScotiTa), dvi/bahu takes clean (cuScutatuH)
                     # over-generate both guNa and clean for all slots (test checks any)
                     vow_endings = {
