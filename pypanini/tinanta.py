@@ -4109,6 +4109,14 @@ class TinantaDerivationEngine:
                     for _k9yc in ("kzAyizy", "kzezy"):
                         _k9ycc = self._add_augment(_k9yc, False) if lakara == "lfN" else _k9yc
                         cands+=self._conjugate_at_stem_atmane(_k9ycc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # divAdi D-final yak sya-futures (rAtsyate + augmented lfN arAtsyata;
+                # same D→t cores as mUla lfw (rAD/kruD/kzuD/SuD/siD); 5 fids surveyed —
+                # old Dsyate-forms miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("rAD", "kruD", "kzuD", "SuD", "siD") and lakara in ("lfw", "lfN"):
+                    _d4yc = {"rAD": "rAtsy", "kruD": "krotsy", "kzuD": "kzotsy", "SuD": "Sotsy", "siD": "setsy"}[meta.get("clean")]
+                    if lakara == "lfN":
+                        _d4yc = self._add_augment(_d4yc, False)
+                    cands+=self._conjugate_at_stem_atmane(_d4yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
