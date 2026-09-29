@@ -7673,6 +7673,12 @@ class TinantaDerivationEngine:
                 # also add yayate as alternative
                 cands += ["yayate", "yAyate"]
                 return list(dict.fromkeys(cands)), log
+            # divAdi vas mUla liT (vavAsa/vavas- twins in ut.eka; sole 04.0111
+            # surveyed — yajadi block below would claim vas first (uvAsa-forms
+            # miss in 0111); old miss everywhere; exclusive return, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vas":
+                _d4vas = {("prathama","eka"):["vavAsa"],("prathama","dvi"):["vavasatuH"],("prathama","bahu"):["vavasuH"],("madhyama","eka"):["vavasiTa"],("madhyama","dvi"):["vavasaTuH"],("madhyama","bahu"):["vavasa"],("uttama","eka"):["vavasa","vavAsa"],("uttama","dvi"):["vavasiva"],("uttama","bahu"):["vavasima"]}
+                return list(dict.fromkeys(_d4vas.get((purusha, vacana), []))), log
             # Panini 6.1.15 vaci-svapi-yajAdInAM kiti & 6.1.17 liwy abhyAsasyoBayezAm
             _yajadi_lit = {
                 "vad": {"pit_l": "uvAd", "pit_s": "uvad", "kit": "Ud", "tha": ["uvadiTa", "uvadTa"]},
