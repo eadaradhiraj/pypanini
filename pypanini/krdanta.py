@@ -980,6 +980,37 @@ class KrdantaEngine:
                         "N": [_s + "yam" for _s in _F3]}
             if pratyaya == "GaY":
                 return {"gender": "Masculine", "form": "arirIzaH"}
+        # kryAdi pU san paradigm (pupUz-/pupUzi-/pupUza- grades; sole 09.0014
+        # surveyed — old pipaviz-forms absent from all tokens).
+        if sanadi == "sannanta" and meta.get("clean") == "pU" and meta.get("gana") == "kryAdiH":
+            if pratyaya == "GaY":
+                return {"gender": "Masculine", "form": "pupUzaH"}
+            if pratyaya == "Rvul":
+                return {"M": "pupUzakaH", "F": "pupUzikA", "N": "pupUzakam"}
+            if pratyaya == "SAnac":
+                return {"M": "pupUzamARaH", "F": "pupUzamARA", "N": "pupUzamARam"}
+            if pratyaya == "Satf":
+                return {"M": "pupUzan", "F": "pupUzantI", "N": ["pupUzat", "pupUzad"]}
+            if pratyaya == "anIyar":
+                return {"M": "pupUzaRIyaH", "F": "pupUzaRIyA", "N": "pupUzaRIyam"}
+            if pratyaya == "kta":
+                return {"M": "pupUzitaH", "F": "pupUzitA", "N": "pupUzitam"}
+            if pratyaya == "ktavatu":
+                return {"M": "pupUzitavAn", "F": "pupUzitavatI", "N": ["pupUzitavat", "pupUzitavad"]}
+            if pratyaya == "ktvA":
+                return {"avyaya": ["pupUzitvA"]}
+            if pratyaya == "lyap":
+                return {"avyaya": ["prapupUzya"]}
+            if pratyaya == "lyuw":
+                return {"gender": "Neuter", "form": "pupUzaRam"}
+            if pratyaya == "tavya":
+                return {"M": "pupUzitavyaH", "F": "pupUzitavyA", "N": "pupUzitavyam"}
+            if pratyaya == "tfc":
+                return {"M": "pupUzitA", "F": "pupUzitrI", "N": "pupUzitf"}
+            if pratyaya == "tumun":
+                return {"avyaya": ["pupUzitum"]}
+            if pratyaya == "yat":
+                return {"M": "pupUzyaH", "F": "pupUzyA", "N": "pupUzyam"}
                         # Juhotyadi (GaNa 03)
         if dhatu_id and dhatu_id.startswith("03."):
             key = f"{dhatu_id}_{sanadi}_{pratyaya}"
