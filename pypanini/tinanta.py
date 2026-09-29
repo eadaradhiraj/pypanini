@@ -5225,6 +5225,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz":
                     _k9zlun = {("prathama","eka"):["akzAyi"],("prathama","dvi"):["akzAyizAtAm","akzezAtAm"],("prathama","bahu"):["akzAyizata","akzezata"],("madhyama","eka"):["akzAyizWAH","akzezWAH"],("madhyama","dvi"):["akzAyizATAm","akzezATAm"],("madhyama","bahu"):["akzAyiQvam","akzAyiDvam","akzeQvam"],("uttama","eka"):["akzAyizi","akzezi"],("uttama","dvi"):["akzAyizvahi","akzezvahi"],("uttama","bahu"):["akzAyizmahi","akzezmahi"]}
                     table[(purusha, vacana)] += _k9zlun.get((purusha, vacana), [])
+                # divAdi So yak luN mixed grades (aSAyi peka sic-less + aSAyiz-/aSAs- twins;
+                # sole 04.0040 surveyed — old aSavi-forms miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "So":
+                    _d4slun = {("prathama","eka"):["aSAyi"],("prathama","dvi"):["aSAyizAtAm","aSAsAtAm"],("prathama","bahu"):["aSAyizata","aSAsata"],("madhyama","eka"):["aSAyizWAH","aSAsTAH"],("madhyama","dvi"):["aSAyizATAm","aSAsATAm"],("madhyama","bahu"):["aSADvam","aSAyiDvam"],("uttama","eka"):["aSAyizi","aSAsi"],("uttama","dvi"):["aSAyizvahi","aSAsvahi"],("uttama","bahu"):["aSAyizmahi","aSAsmahi"]}
+                    table[(purusha, vacana)] += _d4slun.get((purusha, vacana), [])
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
