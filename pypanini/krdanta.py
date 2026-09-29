@@ -1612,6 +1612,19 @@ class KrdantaEngine:
 
                 # Panini 6.4.16 aj-jhan-gAM sani & 7.1.100 fta idDOH + 8.2.77 hali ca & 7.1.102 uda ozWya-pUrvAt
                 if c.endswith(("f", "F")):
+                    # kryAdi F-final san ariz-sec (cikarizita/cikarizat/...; mirrors tinanta
+                    # twin; surveyed all 18 F-final 09 cleans, ariz unanimous; sec feeds
+                    # san_krut kta/Satf/tavya/...; kryAdiH-gated; bare F aririz).
+                    if meta.get("gana") == "kryAdiH" and c.endswith("F"):
+                        if c == "F":
+                            return "aririz"
+                        _fon = c[:-1]
+                        _fr = _fon[1] if (len(_fon) >= 2 and _fon[0] in ("s", "S") and _fon[1] in SLP1_KHAY) else _fon[0]
+                        # NB: module maps are shadowed in derive scope — literals here,
+                        # chained sequentially (outer default must be inner RESULT, not original).
+                        _fr = {"B": "b", "G": "g", "Q": "q", "D": "d", "J": "j", "K": "k", "C": "c", "W": "w", "T": "t", "P": "p"}.get(_fr, _fr)
+                        _fr = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_fr, _fr)
+                        return _fr + "i" + _fon + "ariz"
                     _is_osthya = len(c) > 1 and c[-2] in ("p", "P", "b", "B", "m", "v")
                     if _is_osthya:
                         _c_san = c[:-1] + "Ur"

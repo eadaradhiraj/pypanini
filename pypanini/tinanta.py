@@ -3286,6 +3286,23 @@ class TinantaDerivationEngine:
                 _nij_secs = n_stems_all
             elif sanadi == "sannanta":
                 s_stem = _sannanta_stem(clean)
+                # kryAdi F-final san ariz-twin (cikarizati/jigarizati/piparizati/aririzati;
+                # surveyed all 18 F-final 09 cleans: ariz-plat[0] unanimous (labials cross-hit
+                # Ur-variants today, I-group misses); redup mirrors _sannanta_stem abhyAsa
+                # (s-cluster second-stop, deasp, cutva; root onset verbatim; bare F aririz);
+                # additive twin, kryAdiH-gated).
+                _far9 = None
+                if clean.endswith("F") and meta.get("gana") == "kryAdiH":
+                    _fon9 = clean[:-1]
+                    if not _fon9:
+                        _far9 = "aririz"
+                    else:
+                        _fr9 = _fon9[1] if (len(_fon9) >= 2 and _fon9[0] in ("s", "S") and _fon9[1] in SLP1_KHAY) else _fon9[0]
+                        # NB: module maps are shadowed in derive() body (liT-NB) — literals here,
+                        # chained sequentially (outer default must be inner RESULT, not original).
+                        _fr9 = {"B": "b", "G": "g", "Q": "q", "D": "d", "J": "j", "K": "k", "C": "c", "W": "w", "T": "t", "P": "p"}.get(_fr9, _fr9)
+                        _fr9 = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_fr9, _fr9)
+                        _far9 = _fr9 + "i" + _fon9 + "ariz"
                 # iN san laN/luN/lfN ya-grade for karmani path too (mirrors mUla-site override below;
                 # same sole-gated survey).
                 if lakara in ("laN", "luN", "lfN") and meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
@@ -3294,6 +3311,8 @@ class TinantaDerivationEngine:
                     s_stem = "jigAMs"
                 # also include urdidiz variant for vowel-initial urd
                 alt_s = []
+                if _far9 and _far9 != s_stem:
+                    alt_s.append(_far9)
                 if clean_ay:
                     _gay = _sannanta_stem(clean_ay)
                     if _gay not in alt_s:
@@ -4722,6 +4741,22 @@ class TinantaDerivationEngine:
         if sanadi == "sannanta":
             s_stem = _sannanta_stem(clean)
             alt_sann = []
+            # kryAdi F-final san ariz-twin (cikarizati/jigarizati/piparizati/aririzati;
+            # mirrors yak-side twin above; surveyed all 18 F-final 09 cleans, ariz-plat[0]
+            # unanimous; additive, kryAdiH-gated).
+            if clean.endswith("F") and meta.get("gana") == "kryAdiH":
+                _fon9k = clean[:-1]
+                if not _fon9k:
+                    _far9k = "aririz"
+                else:
+                    _fr9k = _fon9k[1] if (len(_fon9k) >= 2 and _fon9k[0] in ("s", "S") and _fon9k[1] in SLP1_KHAY) else _fon9k[0]
+                    # NB: module maps are shadowed in derive() body (liT-NB) — literals here,
+                    # chained sequentially (outer default must be inner RESULT, not original).
+                    _fr9k = {"B": "b", "G": "g", "Q": "q", "D": "d", "J": "j", "K": "k", "C": "c", "W": "w", "T": "t", "P": "p"}.get(_fr9k, _fr9k)
+                    _fr9k = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_fr9k, _fr9k)
+                    _far9k = _fr9k + "i" + _fon9k + "ariz"
+                if _far9k != s_stem and _far9k not in alt_sann:
+                    alt_sann.append(_far9k)
             # iN san laN/luN/lfN ya-grade (aDyajigAMsata; sole 02.0041 surveyed — other lakaras keep
             # aDi-; op-gated).
             if lakara in ("laN", "luN", "lfN") and meta.get("clean") == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
