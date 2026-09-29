@@ -2678,7 +2678,9 @@ class KrdantaEngine:
                 if pratyaya == "anIyar":
                     _ab = base_no_ya+"anIya"
                     # U-stem yan keeps dental n (cokzRUyanIya; U blocks Natva — not in a-cert; trio surveyed)
-                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and "nIya" in _ab and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
+                    # Ruh/rih stems too (sozRuhanIya/sezRihanIya; R+u/i+h blocks R;
+                    # pair 04.0096/0097 surveyed — old R-forms miss).
+                    if (_natva_applies(orig_clean) or _natva_applies(base_no_ya)) and "nIya" in _ab and meta.get("clean") not in ("kzRu", "snu", "UrRu", "snuh", "snih"):
                         _ab = _ab.replace("nIya", "RIya")
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "lyuw":
