@@ -3839,6 +3839,14 @@ class KrdantaEngine:
                 return {"M": _r7sM + _r7L(_r7mold.get("M", [])),
                         "F": [_r7r + _r7rt + "atI"] + _r7sM + _r7L(_r7mold.get("F", [])),
                         "N": _r7sM + _r7L(_r7mold.get("N", []))}
+            # tudAdi ylk-Satf num-set redup (momucat/lolupat/vevidat/lelipat/sesicat/
+            # carkftat+carikftat/ceKidat/pepiSat; redup + bare root + at/ad/atI, no num
+            # (unlike mUla lumpat-); 8-clean num survey (uCi passes already, excluded);
+            # tudAdiH-gated; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean in ("muc", "lup", "vid", "lip", "sic", "kft", "Kid", "piS"):
+                _t6rs = {"muc": ["momuc"], "lup": ["lolup"], "vid": ["vevid"], "lip": ["lelip"], "sic": ["sesic"], "kft": ["carkft", "carikft"], "Kid": ["ceKid"], "piS": ["pepiS"]}[clean]
+                _t6sM = [r + "at" for r in _t6rs] + [r + "ad" for r in _t6rs]
+                return {"M": _t6sM, "F": [r + "atI" for r in _t6rs], "N": _t6sM}
             # Panini 1.3.57 jYA-Sru-smf-dfSAM sanaH: Atmanepada in sannanta (takes SAnac, not Satf)
             if sanadi == "sannanta" and (clean in ("jYA", "Sru", "smf", "dfS", "darS") or (op and any(op.startswith(x) for x in ("jYA", "Sru", "smf", "dfS")))):
                 return None

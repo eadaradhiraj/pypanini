@@ -9,15 +9,15 @@ Sweep-07: **25/25 100%** — complete (other session).
 Sweep-08: **10/10 100%** — complete (other session).
 Sweep-09: **71/71 100%** — COMPLETE.
 Sweep-04: **108/161** (other session, in progress).
-Sweep-06: **28/174** — held (num Satf/SAnac full, 8 improved, 0 worsened; this iteration).
+Sweep-06: **35/174** — 28/174->35/174 (+7 pass-ups, 8 improved, 0 worsened; this iteration).
 Landscape: 10 162/509.
 
-## Done — num-grade participles (iteration 243)
-- lumpat/lumpamAna- twins in iter241 blocks (same 9-clean map).
+## Done — ylk-Satf num redup (iteration 244)
+- momucat/lolupat/.../pepiSat (bare-root redup, no num; 8-clean set).
 - Gates: pilots 5/5; 06 fid-diff 8/0; 01 fid-diff 0/0.
-- Prior (242): num-insertion (see STATS).
+- Prior (243): num-grade participles (see STATS).
 
 ## Next
-1. Gana-06: ylk-Satf redup (lolupat-) + 0170 + samprasArana/uv/iy/ir/C-gemination + kta/tavya.
+1. Gana-06: 0170 (gap 227) + samprasArana/uv/iy/ir/C-gemination + kta/tavya + yangluk residuals.
 2. Gana-04 loop (other session active — coordinate).
 3. Then 10 → all-gana 100%.
