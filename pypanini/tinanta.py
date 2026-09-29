@@ -7385,6 +7385,16 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") in ("mI", "kzIz", "grah"):
                 _k9luw = {"mI": "mA", "kzIz": "kze", "grah": "grahI"}[meta.get("clean")]
                 cands += self._conjugate_luw(_k9luw, pada, purusha, vacana)
+            # divAdi luw cores (jaritA/jarItA twins, SocitA, nadDA; soles 04.0025/0061/0062
+            # surveyed — stem excludes lut-t (jarit+tA would double-t); nah takes explicit
+            # nadDA-table (D+tA sandhi); old miss everywhere; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "ISuc", "nah"):
+                if meta.get("clean") == "nah":
+                    _d4na = {("prathama","eka"):["nadDA"],("prathama","dvi"):["nadDArO"],("prathama","bahu"):["nadDAraH"],("madhyama","eka"):["nadDAsi"],("madhyama","dvi"):["nadDAsTaH"],("madhyama","bahu"):["nadDAsTa"],("uttama","eka"):["nadDAsmi"],("uttama","dvi"):["nadDAsvaH"],("uttama","bahu"):["nadDAsmaH"]}
+                    cands += _d4na.get((purusha, vacana), [])
+                else:
+                    for _d4lw in (["jari", "jarI"] if meta.get("clean") == "jFz" else ["Soci"]):
+                        cands += self._conjugate_luw(_d4lw, pada, purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
