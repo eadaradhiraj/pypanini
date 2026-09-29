@@ -1231,6 +1231,10 @@ class KrdantaEngine:
                 # Panini 6.1.48 krIN-jinAM ROh & 7.3.36 arti-hrI-vlI-rI-knUyI-kzmAyyAtAM puk RAu
                 if c == "ji" or (op and clean_dhatu_op(op) == "ji"):
                     return "jApay"
+                # kryAdi short-I nich pay-sec (mirrors tinanta _nijanta_stem; same 5-clean
+                # survey + grades; sec feeds nich_krut kta/Satf/tavya/...; kryAdiH-gated).
+                if c in ("krI", "mI", "lI", "rI", "vlI") and meta.get("gana") == "kryAdiH":
+                    return {"krI": "krApay", "mI": "mApay", "lI": "lApay", "rI": "repay", "vlI": "vlepay"}[c]
                 # Panini 7.3.37 SA-CA-sA-hvA-vyA-veY-pA-damAM yuk: pA (pAne) takes yuk before Ri -> pAyay
                 if (c == "pA" or (op and op.startswith("pA~"))) and (dhatu_id == "01.1074" or "pAn" in str(meta.get("arTa", "")) or (op and op.startswith("pA~"))):
                     return "pAyay"
@@ -4194,7 +4198,10 @@ class KrdantaEngine:
             # Panini 8.2.18 kfpo ro l: mUla yat/Ryat uses l-stem (kalpyaH, matches Ryat).
             if clean == "kfp" and sanadi is None:
                 return tri_linga("kalpya")
-            if clean.startswith("kr"):
+            # krI falls through to generic i/I-final e-grade below (kreyaH; sole yat-keyed
+            # kr+i/I clean surveyed all ganas — kradi pair has no yat key; kryAdi krI was
+            # hijacked here into krIyaH).
+            if clean.startswith("kr") and not clean.endswith(("i", "I")):
                 if "u" in clean and len(clean) >= 2 and clean[-1] not in SLP1_VOWELS:
                     _u_idx = clean.rfind("u")
                     _has_cluster = len(clean) - 1 - _u_idx > 1

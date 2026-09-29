@@ -2201,6 +2201,14 @@ class TinantaDerivationEngine:
             # Panini 6.1.48 krIN-jinAM ROh & 7.3.36 arti-hrI-vlI-rI-knUyI-kzmAyyAtAM puk RAu
             if c == "ji" or (op and clean_dhatu_op(op) == "ji"):
                 return "jApay"
+            # kryAdi short-I nich pay-stems (krApayati/repayati/vlepayati/mApayati/
+            # lApayati; surveyed all 12 I-final 09 cleans: {krI,mI,lI,rI,vlI} take
+            # -pay- (A-grade kr/m/l, e-grade r/vl — classical causative grades, puk
+            # family above); si/prI/SrI/blI/plI/vrI/BrI keep -Ayay- via generic
+            # (prI/lI second variants already hit); kryAdiH-gated, first of additive
+            # n_stems list so monotonic).
+            if c in ("krI", "mI", "lI", "rI", "vlI") and meta.get("gana") == "kryAdiH":
+                return {"krI": "krApay", "mI": "mApay", "lI": "lApay", "rI": "repay", "vlI": "vlepay"}[c]
             # Panini 7.3.37 SA-CA-sA-hvA-vyA-veY-pA-damAM yuk: pA (pAne) takes yuk before Ri -> pAyay
             if (c == "pA" or (op and op.startswith("pA~"))) and (dhatu_id == "01.1074" or "pAn" in str(meta.get("arTa", "")) or (op and op.startswith("pA~"))):
                 return "pAyay"

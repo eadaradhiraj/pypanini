@@ -7,20 +7,20 @@ Sweep-03: **26/26 100%** — complete (other session).
 Sweep-05: **38/38 100%** — complete (other session, GEN-05).
 Sweep-07: **25/25 100%** — complete (other session).
 Sweep-08: **10/10 100%** — complete (other session).
-Sweep-09: **52/71** — held passes, +18 matched, 2 improved / 0 worsened (this iteration).
+Sweep-09: **55/71** — 52/71->55/71 (3 pass-ups, 0 worsened; this iteration).
 Sweep-04: 4/163, Sweep-06: 22/174, Sweep-10: 162/509 (per-gana csvs predate this iteration; untouched by construction — this iteration's code is kryAdiH-gated).
 
-## Done — benedictive pair (iteration 231)
-- kzIyAt + gfhyAt (mI already generic; additive _asb appends, clean+kryAdiH-gated).
-- Gates: pair ASIrliN 9/9; pilots 5/5; 09 fid-diff 2/0; 01 fid-diff 0/0.
-- Prior (230): luw-trio sya-futures; (229) labial-F U-family (see STATS).
+## Done — short-I nich pay-stems (iteration 232)
+- krApay/repay/vlepay/mApay/lApay (both engines; luN-caN untouched; krI yat kreyaH un-hijacked).
+- Gates: 3 pass-ups (0001/0035/0037); 0004 +148; pilots 5/5; 09 fid-diff 4/0; 01 fid-diff 0/0.
+- Prior (231): benedictive pair; (230) sya-futures; (229) labial-F U-family (see STATS).
 - KryAdi luw A-stems (mAtA/kzetA/grahItA) + banD Bantsyati future (HEAD code, ungated): gated via sweep_09 (+35, 4 improved, 0 worsened). Fixed kzetA stem (kze, not kzet) by probe.
 - SrA/jYA san-iz repair: commit 8dd6aa6 had dropped load-bearing SiSriz/jijYiz stems (-360 in 01.0922/0923, hidden by stale sweep_all.csv). Restored as surveyed shape class (c + op + BvAdiH, both engines; per-fid dhatu_id removed). 01.1067 SrE exclusion proven live (op-gate required: krdanta remaps SrE→SrA).
 - Gates: pilots 5/5; 01.0922/0923/1067 100%; full sweep 1156/1156, miss-by-anta {}; GRAND 994971/994971 reproduced exactly.
 - Lesson recorded in STATS: re-sweep after every code commit before pushing; never trust csv newer-code-than-csv.
 
 ## Next
-1. Gana-09 loop: trio luN/lfN/san/nich/yang + san/nich residuals + krut mUla grades — 19 fids remain (no passes yet for 0004/0042/0071).
+1. Gana-09 loop: trio luN/lfN/yang + san residuals (0014/0031/0033) + krut mUla grades + ktvA singles (0027/0043) — 16 fids remain.
 2. Gana loop: 04 (divAdi ya) → 06 (tudAdi a) → 10 (curAdi aya) (02/03/05/07/08 done).
 3. Cross-gana traits: nijanta-aorist gaps, mUla-aorist gaps.
 4. cakz follow-ups; hardcoded "02.0055" fid in KyA/kSA block to revisit.
