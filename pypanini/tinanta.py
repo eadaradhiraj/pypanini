@@ -2522,6 +2522,10 @@ class TinantaDerivationEngine:
             # old ISiSuciz-forms miss everywhere; divAdiH-gated).
             if c == "ISuc" and meta.get("gana") == "divAdiH":
                 return "SuSuciz"
+            # divAdi nah san stem (ninats-; sole 04.0062 surveyed — old ninakz-forms
+            # miss everywhere; divAdiH-gated).
+            if c == "nah" and meta.get("gana") == "divAdiH":
+                return "ninats"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
