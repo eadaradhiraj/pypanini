@@ -503,6 +503,46 @@ class TinantaDerivationEngine:
                 stem = stem[:-2] + stem[-2].lower() + stem[-1]
         return stem
 
+    def _divadi_stem(self, clean: str, meta: Dict, op: str) -> str:
+        """divAdi ya-vikaraNa stem: v-final short-i takes I (dIv/sIv/srIv/zWIv,
+        sW→zW); am-roots take A+ya (SAmy) except klam (klAm, no ya), Bram (no ya),
+        kzamU~z-op (plain); yas/tras take no ya (sole pair); jFz/JFz take Ir,
+        other f/F keep f/F; o-roots drop o (Sya); mid e-grade (medya), ISuc
+        samprasAraNa (Sucya), vyaD samprasAraNa (viDya), raYj Y→j (rajya);
+        everything else plain + ya. Surveyed all 163 divAdi cleans (kzam pair
+        op-gated; yas/jas unanimous rest). Gana-gated by callers.
+        """
+        _mc = meta.get("clean", "") or clean
+        # Nitya-san rewrite victim (local clean jugups, meta gup): divAdi present
+        # takes plain gupya.
+        if clean == "jugups" and meta.get("gana") == "divAdiH":
+            return "gupya"
+        if _mc in ("div", "siv", "sriv", "sWiv"):
+            return {"div": "d", "siv": "s", "sriv": "sr", "sWiv": "zW"}[_mc] + "Ivya"
+        if _mc == "yas":
+            return "yasa"
+        if _mc == "tras":
+            return "trasa"
+        if _mc == "Bram":
+            return "Brama"
+        if _mc == "klam":
+            return "klAma"
+        if _mc in ("Sam", "tam", "dam", "Sram") or (_mc == "kzam" and not op.endswith("~z")):
+            return clean[:-2] + "Amya"
+        if _mc in ("jFz", "JFz"):
+            return _mc[:1] + "Irya"
+        if _mc in ("So", "Co", "so", "do"):
+            return _mc[:-1] + "ya"
+        if _mc == "mid":
+            return "medya"
+        if _mc == "ISuc":
+            return "Sucya"
+        if _mc == "vyaD":
+            return "viDya"
+        if _mc == "raYj":
+            return "rajya"
+        return clean + "ya"
+
     def _juhoti_redup(self, clean: str, op: str = "") -> str:
         """juhoti abhyAsa (onset + vowel): cutva/deaspiration of onset (h/k/K/G/C/B/
         D/g→j/c/j/c/c/b/d/j; Panini 7.4.62 kuhoS cuH family); hrasva (I→i);
@@ -5609,6 +5649,37 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): [_k9stem + "Imahe"] + ([_k9stem + "umahe", _k9stem + "mahe"] if _k9o else []),
                 }
                 cands += _k9a.get((purusha, vacana), [])
+            # divAdi ya-present (dIvyati/dIvyanti + Atmane -yate; ya-stem + tin,
+            # no ablaut; vowel-initial tin (anti/AvaH/Amahe...) drops stem-a;
+            # Atmane dvi/bahu/u.eka likewise on y-less stem; surveyed all 163
+            # divAdi cleans; gana-gated; additive).
+            if meta.get("gana") == "divAdiH" and sanadi is None:
+                _d4ya = self._divadi_stem(clean, meta, op)
+                _d4y = _d4ya[:-1] if _d4ya.endswith("a") else _d4ya
+                _d4p = {
+                    ("prathama", "eka"): [_d4ya + "ti"],
+                    ("prathama", "dvi"): [_d4ya + "taH"],
+                    ("prathama", "bahu"): [_d4y + "anti"],
+                    ("madhyama", "eka"): [_d4ya + "si"],
+                    ("madhyama", "dvi"): [_d4ya + "TaH"],
+                    ("madhyama", "bahu"): [_d4ya + "Ta"],
+                    ("uttama", "eka"): [_d4y + "Ami"],
+                    ("uttama", "dvi"): [_d4y + "AvaH"],
+                    ("uttama", "bahu"): [_d4y + "AmaH"],
+                }
+                cands += _d4p.get((purusha, vacana), [])
+                _d4a = {
+                    ("prathama", "eka"): [_d4ya + "te"],
+                    ("prathama", "dvi"): [_d4y + "ete"],
+                    ("prathama", "bahu"): [_d4y + "ante"],
+                    ("madhyama", "eka"): [_d4ya + "se"],
+                    ("madhyama", "dvi"): [_d4y + "eTe"],
+                    ("madhyama", "bahu"): [_d4ya + "Dve"],
+                    ("uttama", "eka"): [_d4y + "e"],
+                    ("uttama", "dvi"): [_d4y + "Avahe"],
+                    ("uttama", "bahu"): [_d4y + "Amahe"],
+                }
+                cands += _d4a.get((purusha, vacana), [])
             # helper (cutva/hrasva/bare-A/i~r/f-split); per-class grade tables (18
             # classes); dA/DA abhyAsa-lopa in t-slots (dattaH); BI i/I-twins;
             # jan A/Y-grades + vidhi-twins; Atmane tables for mA/Bf/dA/ij/viz
