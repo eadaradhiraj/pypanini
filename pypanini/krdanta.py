@@ -1799,6 +1799,11 @@ class KrdantaEngine:
                 # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
                 if meta.get("gana") == "kryAdiH" and c == "stF":
                     return "testirya"
+                # kryAdi jyA intensive e-redup + Iy-grade (jejIya; sole 09.0034
+                # surveyed — old jAjya-forms miss everywhere; mirrors tinanta
+                # _yan_stem; sec feeds yang_krut; kryAdiH-gated).
+                if meta.get("gana") == "kryAdiH" and c == "jyA":
+                    return "jejIya"
                 # zWivu~: te-redup iv-grade for krdanta yang (tezWivita;
                 # tinanta takes WI tezWIvya, handled there).
                 if c == "zWiv":
@@ -4985,6 +4990,10 @@ class KrdantaEngine:
             # mA short-i ktvA (mitvA; 02.0057 surveyed — 03/04 take mItvA, so gana-gated; free).
             if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
                 return {"avyaya": ["mitvA"]}
+            # kryAdi jyA I-ktvA (jItvA; sole 09.0034 surveyed — old jyAtvA misses;
+            # free).
+            if sanadi is None and clean == "jyA" and meta.get("gana") == "kryAdiH":
+                return {"avyaya": ["jItvA"]}
             # kryAdi banD dDa-ktvA (badDvA; sole 09.0044 surveyed — old
             # bandDvA/banDitvA miss; free).
             if sanadi is None and clean == "banD" and meta.get("gana") == "kryAdiH":

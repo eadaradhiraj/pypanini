@@ -2713,6 +2713,11 @@ class TinantaDerivationEngine:
             # _yan_sec; kryAdiH-gated).
             if meta.get("gana") == "kryAdiH" and c == "stF":
                 return "testirya"
+            # kryAdi jyA intensive e-redup + Iy-grade (jejIya; sole 09.0034
+            # surveyed — old jAjya-forms miss everywhere; mirrors krdanta
+            # _yan_sec; kryAdiH-gated).
+            if meta.get("gana") == "kryAdiH" and c == "jyA":
+                return "jejIya"
             # zWivu~: te-redup WI-grade (tezWIvya-, cf. SAnac zWIvyamAna).
             # we-variant (wezWIvya-) also attested but any-match needs one.
             if c == "zWiv":
@@ -7858,6 +7863,10 @@ class TinantaDerivationEngine:
                 # sole 09.0071 surveyed; additive, kryAdiH-gated).
                 if clean == "grah" and meta.get("gana") == "kryAdiH":
                     _asb.append("gfh")
+                # jyA benedictive I-grade (jIyAt; sole 09.0034 surveyed; additive,
+                # kryAdiH-gated).
+                if clean == "jyA" and meta.get("gana") == "kryAdiH":
+                    _asb.append("jI")
                 if clean in ("zWiv", "kziv"):
                     _asb.append(clean[:-2] + "I" + "v")
                 # Panini 6.4.24 aniditAM hala upaDAyAH (nasal loss before yAt): tunp->tupyAt, Sans->SasyAt;
