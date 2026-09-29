@@ -407,6 +407,8 @@ class KrdantaEngine:
                 return clean[:-2] + "Anta"
             if clean in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr"):
                 return clean + "Ra"
+            if gana == "divAdiH" and clean in ("sA", "dA"):
+                return clean[:-1] + "ita"
             if clean in ("So", "Co", "so", "do"):
                 return clean[:-1] + "ita"
             if clean == "mfz":
