@@ -2509,6 +2509,10 @@ class TinantaDerivationEngine:
             # surveyed — old SuSav-/susav-/dudav-forms miss everywhere; divAdiH-gated).
             if c in ("So", "Co", "so", "do") and meta.get("gana") == "divAdiH":
                 return {"So": "SiSAs", "Co": "cicCAs", "so": "sizAs", "do": "dits"}[c]
+            # divAdi Fz san stems (jijariz/jiJariz; pair 04.0025/0026 surveyed —
+            # old jijFziz-/jiJFziz-forms miss everywhere; divAdiH-gated).
+            if c in ("jFz", "JFz") and meta.get("gana") == "divAdiH":
+                return "jijariz" if c == "jFz" else "jiJariz"
             # zWivu~: ti-redup Wev-stem (tizWeviz-, not zi-redup zizWiviz-;
             # W->t like yang te-; yU-alternate tuzWyUz- added at caller).
             if c == "zWiv": return "tizWeviz"
