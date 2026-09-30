@@ -3431,6 +3431,16 @@ class TinantaDerivationEngine:
                 else:
                     _yld4su = {("prathama","eka"):["SoSucIti","SoSokti"],("prathama","dvi"):["SoSuktaH"],("prathama","bahu"):["SoSucati"],("madhyama","eka"):["SoSucIzi","SoSokzi"],("madhyama","dvi"):["SoSukTaH"],("madhyama","bahu"):["SoSukTa"],("uttama","eka"):["SoSucImi","SoSocmi"],("uttama","dvi"):["SoSucvaH"],("uttama","bahu"):["SoSucmaH"]}
                     extra += _yld4su.get((purusha, vacana), [])
+            # divAdi Fz yanlug (jAjarIti/jAjarti kartari twins + jAjIryate karmani;
+            # pair 04.0025/0026 surveyed (J-mirror); old jAjFz-forms miss everywhere;
+            # additive, divAdiH-gated).
+            if clean in ("jFz", "JFz") and meta.get("gana") == "divAdiH" and lakara == "lw":
+                _J = "J" if clean == "JFz" else "j"
+                if prayoga == "karmani":
+                    extra += self._conjugate_at_stem_atmane("jA" + _J + "Iry", "lw", purusha, vacana)
+                else:
+                    _yld4fz = {("prathama","eka"):["jA" + _J + "arIti","jA" + _J + "arti"],("prathama","dvi"):["jA" + _J + "IrtaH"],("prathama","bahu"):["jA" + _J + "irati"],("madhyama","eka"):["jA" + _J + "arIzi","jA" + _J + "arzi"],("madhyama","dvi"):["jA" + _J + "IrTaH"],("madhyama","bahu"):["jA" + _J + "IrTa"],("uttama","eka"):["jA" + _J + "arImi","jA" + _J + "armi"],("uttama","dvi"):["jA" + _J + "IrvaH"],("uttama","bahu"):["jA" + _J + "IrmaH"]}
+                    extra += _yld4fz.get((purusha, vacana), [])
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
