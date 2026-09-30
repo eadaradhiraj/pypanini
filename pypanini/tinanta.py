@@ -6103,6 +6103,10 @@ class TinantaDerivationEngine:
                                     cand.append(_ya2 + _ye2)
                 except Exception:
                     pass
+                # divAdi bare-I nich-luN pr.eka Ayiyata-twin (sole 04.0038 surveyed — old miss
+                # (1/1 true miss, rest cross-hit); additive, divAdiH-gated).
+                if sanadi == "nijanta" and meta.get("gana") == "divAdiH" and meta.get("clean") == "I" and (purusha, vacana) == ("prathama", "eka"):
+                    cand.append("Ayiyata")
                 # Nitya-san nich-luN caN (3.1.5/3.1.6, seT only; 01.0461 excluded via sew): aug + dIrgha-san-base + ata.
                 try:
                     if sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
