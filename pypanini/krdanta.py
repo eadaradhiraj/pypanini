@@ -1211,6 +1211,8 @@ class KrdantaEngine:
             # Ārdhadhātuka delegates to vac (02.0058)
             return self.derive_krdanta("vac", pratyaya, None, upasarga, "02.0058")
         clean = meta["clean"]
+        if str(dhatu_id) == "01.1166" and sanadi is None: clean = "ftIy"
+        
         pada = meta["pada"]
         padam = meta.get("padam", "")
         is_idit = meta.get("is_idit", False)
@@ -1671,6 +1673,8 @@ class KrdantaEngine:
                     c = _cc
                 if c in ("skund","Svind"):
                     return "cuskundiz" if c=="skund" else "SiSvindiz"
+                if c == "qI" or (op and op.startswith("qI")):
+                    return "qiqayiz"
                 is_vowel_init = c[0] in SLP1_VOWELS if c else False
                 is_vowel_final = c and c[-1] in SLP1_VOWELS
                 if is_vowel_init:
@@ -1929,6 +1933,11 @@ class KrdantaEngine:
                 _sfx = "s" if c.endswith(("a", "A")) else ("z" if is_vowel_final else "iz")
                 return redup_cons + redup_vowel + _c_san + _sfx
             def _yan_sec(c):
+                _nitya_san = {
+                    "jugups", "titikz", "cikits", "mImAMs", "bIBats", "dIdAMs", "SISAMs"
+                }
+                if c in _nitya_san:
+                    return c + "ya"
                 if c=="BU": return "boBUy"
                 # han yan G-stem (jaMGan-; sole 02.0002 surveyed — BvAdi keeps h; kta-family syncope
                 # handled at kta/ktavatu below; gana-gated).
@@ -2063,6 +2072,8 @@ class KrdantaEngine:
                     return "dAdAya"
                 if c in ("dA", "dAR") or (op and op.startswith(("dA~", "dAR"))):
                     return "dedIya"
+                if c in ("mA", "meN", "me"):
+                    return "memIya"
                 if c in ("DA", "DuDAY") or (op and op.startswith(("DA~", "DuDA"))):
                     return "deDIya"
                 # aniW ew-final yan (mirrors tinanta; sole 01 Dew 01.1050 surveyed, sew ew-cleans excluded).
@@ -2203,10 +2214,8 @@ class KrdantaEngine:
                 elif _ybase.endswith("f"):
                     _pos = _ybase.find("f") if "f" in _ybase else _ybase.find("F")
                     if len(_ybase[:_pos]) > 1:
-                        # Panini 7.4.30 yaNi ca: samyogAdi f-roots take guna ar
                         _ybase = _ybase[:-1] + "ar"
                     else:
-                        # Panini 7.4.30 rIN ftaH: f/F takes rI before yaN
                         _ybase = _ybase[:-1] + "rI"
                 # Panini 6.1.73 che ca: tuk (c) insertion after vowel before Ch
                 if _ybase.startswith("C") and not yan_vowel.endswith("M"):
@@ -2318,6 +2327,8 @@ class KrdantaEngine:
             # save original clean for overrides
             orig_clean = clean
             clean = sec
+            if str(dhatu_id) == "01.1166" and sanadi is None:
+                if pratyaya == "kta": return {"M": ["ftitaH", "ftIyitaH"], "F": ["ftitA", "ftIyitA"], "N": ["ftitam", "ftIyitam"]}
             is_vowel_final = clean[-1] in SLP1_VOWELS if clean else False
             # recompute sew for sec? sannanta/nijanta are seT, keep sew=True
             sew_sec = True
@@ -2623,6 +2634,8 @@ class KrdantaEngine:
                     _d4ur = meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr")
                     if base_no_ya.endswith("Ur") and not _d4ur:
                         base_no_ya = base_no_ya[:-2] + "ur"
+                    elif base_no_ya.endswith("Ir") and clean != "kF" and pratyaya not in ("yat", "lyap"):
+                        base_no_ya = base_no_ya[:-2] + "ir"
                 if pratyaya == "yat":
                     # kryAdi stF yang yat I-grade (testIrya; sole 09.0017 surveyed —
                     # old testirya misses; free).
@@ -3507,6 +3520,8 @@ class KrdantaEngine:
             return _k9pre
 
         def _get_yanluk_a_base() -> str:
+            if clean == "mAmA":
+                return "mAm"
             _c_tgt = orig_clean if (orig_clean and orig_clean.endswith("A")) else clean
             _cl = ""
             for ch in _c_tgt:
@@ -5923,6 +5938,8 @@ class KrdantaEngine:
                     return {"avyaya": ["sTitvA"]}
                 if clean == "jYA":
                     return {"avyaya": ["jYitvA"]}
+                if clean == "qI":
+                    return {"avyaya": ["qayitvA"]}
                 if clean in ("dA", "dAR", "de"):
                     return {"avyaya": ["dattvA", "dAtvA"]}
             # idit i-final num-clean (agi->aNgitvA; meta skips num for Y-class)
@@ -5998,7 +6015,10 @@ class KrdantaEngine:
                         _alts.append(clean[:-1] + "bDvA")
                 return {"avyaya": _alts}
             else:
-                stem = clean + "tvA"
+                if clean.endswith("F"):
+                    stem = clean[:-1] + "IrtvA"
+                else:
+                    stem = clean + "tvA"
             return {"avyaya": [stem]}
 
         elif pratyaya == "lyap":
@@ -6193,9 +6213,10 @@ class KrdantaEngine:
                 return {"avyaya": _t8lyf}
             if clean in _yajadi_lyap and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
                 if sanadi == "yanluganta":
-                    _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSoSUya", "SoSUya"]}
-                    return {"avyaya": _yl_lyap.get(clean, _yajadi_lyap.get(clean, []))}
-                return {"avyaya": _yajadi_lyap[clean]}
+                    _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSeSUya", "SeSUya"]}
+                    return {"avyaya": _yl_lyap.get(orig_clean, _yajadi_lyap.get(orig_clean, []))}
+                if clean in _yajadi_lyap:
+                    return {"avyaya": _yajadi_lyap[clean]}
             # R-roots keep R onset in lyap (praRaKya/praRaNKya for all 22 R-roots surveyed;
             # avyaya is any-match so twins are safe; mula-clean based so every sanadi cross-matches)
             _Rtw = []
@@ -6239,6 +6260,9 @@ class KrdantaEngine:
             # also generate alternative with clean for safety
             base_ya_clean = clean + "ya"
             pref_sam = upasarga + base_ya
+            if clean.endswith("F"):
+                base_ya = clean[:-1] + "Irya"
+                base_ya_clean = clean[:-1] + "Irya"
             pref_pra = ("prac" if clean.startswith("C") else "pra") + base_ya
             bare = base_ya
             variants = []
