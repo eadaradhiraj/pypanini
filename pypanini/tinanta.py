@@ -4220,6 +4220,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc" and lakara in ("lfw", "lfN"):
                     _d4syc = self._add_augment("Socizy", False) if lakara == "lfN" else "Socizy"
                     cands+=self._conjugate_at_stem_atmane(_d4syc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # divAdi svid yak sya-future (svedizyate + augmented lfN; sole 04.0127
+                # surveyed — 0085 svetsyate untouched; op-split (Yizvid); old miss;
+                # additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "svid" and op.startswith("Yizvid") and lakara in ("lfw", "lfN"):
+                    _d4vyc = self._add_augment("svedizy", False) if lakara == "lfN" else "svedizy"
+                    cands+=self._conjugate_at_stem_atmane(_d4vyc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
@@ -5045,6 +5051,12 @@ class TinantaDerivationEngine:
                     for _qq in _qe.get((purusha, vacana), []):
                         if _qq not in cands:
                             cands.append(_qq)
+                # divAdi svid yak-luT e-grade (sveditA; sole 04.0127 surveyed — 0085 svettA
+                # untouched; op-split (Yizvid); old miss; additive,
+                # karmani-only, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "svid" and op.startswith("Yizvid"):
+                    _d4vluw = {("prathama","eka"):["sveditA"],("prathama","dvi"):["sveditArO"],("prathama","bahu"):["sveditAraH"],("madhyama","eka"):["sveditAse"],("madhyama","dvi"):["sveditAsATe"],("madhyama","bahu"):["sveditADve"],("uttama","eka"):["sveditAhe"],("uttama","dvi"):["sveditAsvahe"],("uttama","bahu"):["sveditAsmahe"]}
+                    cands += _d4vluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -5203,6 +5215,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
                     _d4sbe = {("prathama","eka"):["SocizIzwa"],("prathama","dvi"):["SocizIyAstAm"],("prathama","bahu"):["SocizIran"],("madhyama","eka"):["SocizIzWAH"],("madhyama","dvi"):["SocizIyAsTAm"],("madhyama","bahu"):["SocizIDvam"],("uttama","eka"):["SocizIya"],("uttama","dvi"):["SocizIvahi"],("uttama","bahu"):["SocizImahi"]}
                     cands += _d4sbe[(purusha, vacana)]
+                # divAdi svid yak-benedictive e-grade (svedizIzwa; sole 04.0127 surveyed —
+                # 0085 svitsIzwa untouched; op-split (Yizvid); old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "svid" and op.startswith("Yizvid"):
+                    _d4vbe = {("prathama","eka"):["svedizIzwa"],("prathama","dvi"):["svedizIyAstAm"],("prathama","bahu"):["svedizIran"],("madhyama","eka"):["svedizIzWAH"],("madhyama","dvi"):["svedizIyAsTAm"],("madhyama","bahu"):["svedizIDvam"],("uttama","eka"):["svedizIya"],("uttama","dvi"):["svedizIvahi"],("uttama","bahu"):["svedizImahi"]}
+                    cands += _d4vbe[(purusha, vacana)]
                 # divAdi Fz yak-benedictive iz-grades (jariz/jAriz/jIrz triples + IDvam
                 # twins (no IrzIDvam); pair 04.0025/0026 surveyed (J-mirror); old miss;
                 # additive, divAdiH-gated).
