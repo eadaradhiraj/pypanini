@@ -4970,7 +4970,18 @@ class KrdantaEngine:
                 stem = eff[:-1] + "itavya"
             else:
                 stem = eff + ("i" if sew else "") + "tavya"
-            return tri_linga(stem)
+            _gen = tri_linga(stem)
+            # tudAdi verbatim-itavya twins (vijitavya/kuwitavya/qipitavya/...; 50-clean
+            # survey — base == clean+itavya exactly (q/j/c/w codas, guru-blocked sP-,
+            # UrR-long, GUrR etc.); additive — generic guNa kept; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("vij", "laj", "lajj", "jarj", "carc", "JarJ", "tvac", "ubj", "ujJ", "GUrR", "cal", "kuw", "puw", "kuc", "guj", "guq", "qip", "Cur", "sPuw", "muw", "truw", "tuw", "cuw", "Cuw", "juq", "juw", "kaq", "luw", "luW", "kfq", "kuq", "puq", "Guw", "tuq", "Tuq", "sTuq", "Kuq", "Cuq", "sPur", "sPul", "sPar", "sPal", "sPuq", "cuq", "vruq", "kruq", "Bfq", "huq", "gur"):
+                _tw = tri_linga(clean + "itavya")
+                def _t6L(v):
+                    return v if isinstance(v, list) else [v]
+                _gen = {"M": _t6L(_gen["M"]) + _t6L(_tw["M"]),
+                        "F": _t6L(_gen["F"]) + _t6L(_tw["F"]),
+                        "N": _t6L(_gen["N"]) + _t6L(_tw["N"])}
+            return _gen
 
         elif pratyaya == "anIyar":
             # daridrA weak-a RIya (daridraRIya; sole 02.0068 surveyed — suffixal R, not Natva-blocked;
