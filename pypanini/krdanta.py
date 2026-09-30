@@ -4711,6 +4711,11 @@ class KrdantaEngine:
             # mfjU A-zw tavya (mArzwavya; sole-gated; free).
             if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
                 return tri_linga("mArzwavya")
+            # tudAdi yajadi samprasArana tavya (Barzwavya/vrazwavya/vicitavya/prazwavya;
+            # 4-clean survey — s/C→zw (8.2.29 kz→zwa family), vic present-stem + itavya;
+            # old Brajjitavya-forms absent from tokens (verified), free; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "vrasc", "vyac", "pracC"):
+                return tri_linga({"Brajj": "Barzwavya", "vrasc": "vrazwavya", "vyac": "vicitavya", "pracC": "prazwavya"}[clean])
             # iN aD- tavya (aDyetavya; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return tri_linga("aDyetavya")
