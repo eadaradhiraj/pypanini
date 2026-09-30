@@ -359,6 +359,11 @@ class KrdantaEngine:
         # jAgf f→ar before iT (jAgarita; sole 02.0067 surveyed; present keeps f/jAgar, kta takes ar-grade).
         if clean == "jAg":
             return "jAgarita"
+        # tudAdi yajadi samprasArana kta (Bfzwa/vfkRa/vicita/pfzwa; 4-clean survey —
+        # sj/cC→z (8.2.29 kz→zwa family), vfkRa (palatal→k 8.2.30 + Natva-Ra, kryAdi
+        # kta precedent), vic present-stem + ita; tudAdiH-gated; old forms miss, free).
+        if gana == "tudAdiH" and clean in ("Brajj", "vrasc", "vyac", "pracC"):
+            return {"Brajj": "Bfzwa", "vrasc": "vfkRa", "vyac": "vicita", "pracC": "pfzwa"}[clean]
         # kryAdi kta grades (F→Ir/Ur + na (Ra iff Natva), DU/lU/jyA/kzIz na,
         # pF sole ta-exception, grah gfhIta; kliS seT-twin handled at the kta
         # branch (klizwa cross-hits); surveyed gap set (rest hit via generic);
@@ -4356,8 +4361,11 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH":
                 # num-group takes num-stem (lumpat/vindat/siYcat/...; same 9-clean
                 # num survey as tinanta _prim_bases iter242).
+                # yajadi samprasArana takes samp-stem (Bfjjat/vfScat/vicat/pfcCat;
+                # same 4-clean survey as tinanta iter384; samp wins over num/clean).
                 _t6num = {"lup": "lump", "vid": "vind", "lip": "limp", "sic": "siYc", "muc": "muYc", "piS": "piMS", "Kid": "Kind", "kft": "kfnt", "uCi": "uYC"}.get(clean, clean)
-                _t6w = _t6num + "at"
+                _t6samp = {"Brajj": "Bfjj", "vrasc": "vfSc", "vyac": "vic", "pracC": "pfcC"}.get(clean, _t6num)
+                _t6w = _t6samp + "at"
                 def _t6L(v):
                     return v if isinstance(v, list) else [v]
                 _gen = {"M": _t6L(m) + [_t6w[:-1] + "n"],
@@ -4674,8 +4682,10 @@ class KrdantaEngine:
             # same survey as Satf; additive — generic guNa kept; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH":
                 # num-group takes num-stem (lumpamAna/...; same 9-clean survey).
+                # yajadi samprasArana takes samp-stem (BfjjamAna; same 4-clean survey).
                 _t6num = {"lup": "lump", "vid": "vind", "lip": "limp", "sic": "siYc", "muc": "muYc", "piS": "piMS", "Kid": "Kind", "kft": "kfnt", "uCi": "uYC"}.get(clean, clean)
-                _tw = tri_linga(_t6num + "amAna")
+                _t6samp = {"Brajj": "Bfjj", "vrasc": "vfSc", "vyac": "vic", "pracC": "pfcC"}.get(clean, _t6num)
+                _tw = tri_linga(_t6samp + "amAna")
                 def _t6L(v):
                     return v if isinstance(v, list) else [v]
                 _gen = {"M": _t6L(_gen["M"]) + _t6L(_tw["M"]),
