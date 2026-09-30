@@ -526,3 +526,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 375 (GEN-06: tudAdi majj tavya N-grade (maNktavya; sole 06.0151 surveyed; old majktavya-forms miss; probes ALL-HIT): 06 +3 matched (1 improved), 0 worsened (guards green).
 - Iteration 376 (GEN-06: tudAdi sj tavya zwavya-twins (Barzwavya/srazwavya; pair 06.0004/0150 surveyed; old Brajktavya-forms miss; probes ALL-HIT): 06 +6 matched (2 improved), 0 worsened (guards green).
 - Iteration 377 (GEN-06: tudAdi vij/majj tumun mirrors (vijitum/maNktum; pair 06.0009/0151 surveyed; tavya-mirror; old miss; probes ALL-HIT): 06 +2 matched (2 improved), 0 worsened (guards green).
+- Iteration 378 (GEN-06: tudAdi sj tumun zwum-twins (Barzwum/Brazwum + srazwum; pair 06.0004/0150 surveyed; tavya-mirror; old miss; probes ALL-HIT): 06 +2 matched (2 improved), 0 worsened (guards green).
