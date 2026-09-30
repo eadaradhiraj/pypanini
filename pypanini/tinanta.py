@@ -4964,6 +4964,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
                     _d4gluw = {("prathama","eka"):["gopitA"],("prathama","dvi"):["gopitArO"],("prathama","bahu"):["gopitAraH"],("madhyama","eka"):["gopitAse"],("madhyama","dvi"):["gopitAsATe"],("madhyama","bahu"):["gopitADve"],("uttama","eka"):["gopitAhe"],("uttama","dvi"):["gopitAsvahe"],("uttama","bahu"):["gopitAsmahe"]}
                     cands += _d4gluw.get((purusha, vacana), [])
+                # divAdi ISuc yak-luT o-grade (SocitA; sole 04.0061 surveyed — old
+                # ISocitA misses; additive, karmani-only, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
+                    _d4sluw = {("prathama","eka"):["SocitA"],("prathama","dvi"):["SocitArO"],("prathama","bahu"):["SocitAraH"],("madhyama","eka"):["SocitAse"],("madhyama","dvi"):["SocitAsATe"],("madhyama","bahu"):["SocitADve"],("uttama","eka"):["SocitAhe"],("uttama","dvi"):["SocitAsvahe"],("uttama","bahu"):["SocitAsmahe"]}
+                    cands += _d4sluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):

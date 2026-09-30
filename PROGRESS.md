@@ -1,24 +1,24 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-09-29
-Sweep-01: **1156/1156 100%** — held.
-Sweep-02: **77/77 100%** — complete (other session).
-Sweep-03: **26/26 100%** — complete (other session).
-Sweep-05: **38/38 100%** — complete (other session, GEN-05).
-Sweep-07: **25/25 100%** — complete (other session).
-Sweep-08: **10/10 100%** — complete (other session).
-Sweep-09: **71/71 100%** — COMPLETE (other session).
-Sweep-04: **128/161** (2 skipped duds; 3 luN ceilings logged) — mUla krut +
-  san + san_krut + nich + yang systems CLOSED.
+Date: 2026-09-30
+Sweep-01: **1156/1156 zero-miss** — merged ancient ubhaya stash fixed
+  ~700 fids (Atmanepadi/ubhaya handling); 12 regressions repaired.
+Sweep-02: **76/76 zero-miss** — held through merge.
+Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
+Sweep-07: **25/25 100%** — held. Sweep-08: **10/10 100%** — held.
+Sweep-09: **71/71 100%** — held.
+Sweep-04: **137/161** (2 skipped duds; 3 luN ceilings logged) — fid-diff
+  0/0 through merge; mUla krut + san + san_krut + nich + yang CLOSED.
 Sweep-06: **36/174** (other session, active).
 Landscape: 10 162/509.
 
-## Done — divAdi gup yanlug (iteration 326)
-- jogupIti/jogopti kartari + jogupyate karmani; 0147 full pass.
-- Gates: 04 fid-diff 1 improved (+18) / 0 worsened; 04 127/161->128/161.
+## Done — stash merge (f88652e)
+- 32+37 conflict hunks resolved (upstream default + 4 additive ubhaya
+  unions); 12 regressions repaired; stash@{0} retained for 06 session.
+- Gates: 01 zero-miss; all small ganas zero-miss; 04 fid-diff 0/0.
 
 ## Next
-1. Gana-04 loop: ting residuals (luw/lfw/lfN/liw/luN/ASIrliN) → yak →
-   san_yak → nich (1) → 04 done.
+1. Gana-04 loop: ISuc yak-luT SocitA-table (surveyed, probes next) →
+   ting residuals → yak → san_yak → nich (2) → 04 done.
 2. Then 06 (coordinate) → 10 → all-gana 100%.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
