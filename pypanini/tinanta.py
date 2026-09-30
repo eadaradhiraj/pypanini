@@ -5189,6 +5189,14 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
                     _d4sbe = {("prathama","eka"):["SocizIzwa"],("prathama","dvi"):["SocizIyAstAm"],("prathama","bahu"):["SocizIran"],("madhyama","eka"):["SocizIzWAH"],("madhyama","dvi"):["SocizIyAsTAm"],("madhyama","bahu"):["SocizIDvam"],("uttama","eka"):["SocizIya"],("uttama","dvi"):["SocizIvahi"],("uttama","bahu"):["SocizImahi"]}
                     cands += _d4sbe[(purusha, vacana)]
+                # divAdi Fz yak-benedictive iz-grades (jariz/jAriz/jIrz triples + IDvam
+                # twins (no IrzIDvam); pair 04.0025/0026 surveyed (J-mirror); old miss;
+                # additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz"):
+                    _J = "J" if meta.get("clean") == "JFz" else "j"
+                    _g3 = [_J + "ariz", _J + "Ariz", _J + "Irz"]
+                    _d4fbe = {("prathama","eka"):[g + "Izwa" for g in _g3],("prathama","dvi"):[g + "IyAstAm" for g in _g3],("prathama","bahu"):[g + "Iran" for g in _g3],("madhyama","eka"):[g + "IzWAH" for g in _g3],("madhyama","dvi"):[g + "IyAsTAm" for g in _g3],("madhyama","bahu"):[g + "IQvam" for g in _g3] + [g + "IDvam" for g in _g3[:2]],("uttama","eka"):[g + "Iya" for g in _g3],("uttama","dvi"):[g + "Ivahi" for g in _g3],("uttama","bahu"):[g + "Imahi" for g in _g3]}
+                    cands += _d4fbe[(purusha, vacana)]
                 # divAdi D-final yak-benedictive ts-grades (rAtsIzwa; rAD + D-quartet
                 # 04.0077/0086-0089 surveyed — D→t + guNa; old DsIzwa-forms miss;
                 # additive, divAdiH-gated).
