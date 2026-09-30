@@ -4231,6 +4231,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "nah" and lakara in ("lfw", "lfN"):
                     _d4nyc = self._add_augment("natsy", False) if lakara == "lfN" else "natsy"
                     cands+=self._conjugate_at_stem_atmane(_d4nyc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # divAdi puz yak sya-future (pozizyate + augmented lfN; sole 04.0121 surveyed —
+                # 0079 pokzyate untouched; fid-split; old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121" and lakara in ("lfw", "lfN"):
+                    _d4pyc = self._add_augment("pozizy", False) if lakara == "lfN" else "pozizy"
+                    cands+=self._conjugate_at_stem_atmane(_d4pyc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
@@ -5076,6 +5081,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "nah":
                     _d4nluw = {("prathama","eka"):["nadDA"],("prathama","dvi"):["nadDArO"],("prathama","bahu"):["nadDAraH"],("madhyama","eka"):["nadDAsi"],("madhyama","dvi"):["nadDAsTaH"],("madhyama","bahu"):["nadDAsTa"],("uttama","eka"):["nadDAsmi"],("uttama","dvi"):["nadDAsvaH"],("uttama","bahu"):["nadDAsmaH"]}
                     cands += _d4nluw.get((purusha, vacana), [])
+                # divAdi puz yak-luT o-grade (pozitA; sole 04.0121 surveyed — 0079 pozwA
+                # untouched; fid-split (san/luw-split precedent); old miss; additive,
+                # karmani-only, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
+                    _d4pluw = {("prathama","eka"):["pozitA"],("prathama","dvi"):["pozitArO"],("prathama","bahu"):["pozitAraH"],("madhyama","eka"):["pozitAse"],("madhyama","dvi"):["pozitAsATe"],("madhyama","bahu"):["pozitADve"],("uttama","eka"):["pozitAhe"],("uttama","dvi"):["pozitAsvahe"],("uttama","bahu"):["pozitAsmahe"]}
+                    cands += _d4pluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -5264,6 +5275,11 @@ class TinantaDerivationEngine:
                     _d4db = {"rAD": "rAts", "kruD": "kruts", "vyaD": "vyats", "kzuD": "kzuts", "SuD": "Suts", "siD": "sits"}[meta.get("clean")]
                     _d4dbe = {("prathama","eka"):[_d4db+"Izwa"],("prathama","dvi"):[_d4db+"IyAstAm"],("prathama","bahu"):[_d4db+"Iran"],("madhyama","eka"):[_d4db+"IzWAH"],("madhyama","dvi"):[_d4db+"IyAsTAm"],("madhyama","bahu"):[_d4db+"IDvam"],("uttama","eka"):[_d4db+"Iya"],("uttama","dvi"):[_d4db+"Ivahi"],("uttama","bahu"):[_d4db+"Imahi"]}
                     cands += _d4dbe[(purusha, vacana)]
+                # divAdi puz yak-benedictive o-grade (pozizIzwa; sole 04.0121 surveyed —
+                # 0079 pukzIzwa untouched; fid-split; old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
+                    _d4pbe = {("prathama","eka"):["pozizIzwa"],("prathama","dvi"):["pozizIyAstAm"],("prathama","bahu"):["pozizIran"],("madhyama","eka"):["pozizIzWAH"],("madhyama","dvi"):["pozizIyAsTAm"],("madhyama","bahu"):["pozizIDvam"],("uttama","eka"):["pozizIya"],("uttama","dvi"):["pozizIvahi"],("uttama","bahu"):["pozizImahi"]}
+                    cands += _d4pbe[(purusha, vacana)]
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -7821,6 +7837,13 @@ class TinantaDerivationEngine:
                 _d4sn = "Socizy" if meta.get("clean") == "ISuc" else "natsy"
                 cands+=self._conjugate_at_stem_parasmai(_d4sn, "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_d4sn, "lw", purusha, vacana)
+
+            # divAdi puz sya-futures (pozizyati + augmented lfN; sole 04.0121 surveyed —
+            # 0079 pokzyati untouched via generic; fid-split (san/luw-split precedent);
+            # old miss (18/18 true misses lfw+lfN); both padas; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
+                cands+=self._conjugate_at_stem_parasmai("pozizy", "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane("pozizy", "lw", purusha, vacana)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -7924,7 +7947,13 @@ class TinantaDerivationEngine:
                 _d4sc = "aSocizy" if meta.get("clean") == "ISuc" else "anatsy"
                 cands+=self._conjugate_at_stem_parasmai(_d4sc, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_d4sc, "laN", purusha, vacana)
-            # divAdi svid sya-conditional (asvedizyat; sole 04.0127 surveyed; old miss;
+
+            # divAdi puz sya-conditional (apozizyat; sole 04.0121 surveyed; old miss;
+            # augmented both padas; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
+                _d4pzc = self._add_augment("pozizy", False)
+                cands+=self._conjugate_at_stem_parasmai(_d4pzc, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_d4pzc, "laN", purusha, vacana)            # divAdi svid sya-conditional (asvedizyat; sole 04.0127 surveyed; old miss;
             # augmented both padas; additive, divAdiH-gated).
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "svid" and op.startswith("Yizvid"):
                 _d4svc = self._add_augment("svedizy", False)
