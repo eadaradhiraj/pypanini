@@ -895,6 +895,15 @@ class TinantaDerivationEngine:
             _num = {"lup": "lump", "vid": "vind", "lip": "limp", "sic": "siYc", "muc": "muYc", "piS": "piMS", "Kid": "Kind", "kft": "kfnt", "uCi": "uYC"}[clean]
             if _num not in bases:
                 bases.append(_num)
+        # tudAdi yajadi samprasArana (Bfjjati/vfScati/vicati/pfcCati; 4-clean
+        # surveyed set (vyac->vic, vrasc->vfSc, Brasj->Bfjj, praC->pfcC) —
+        # Panini 6.1.15 vaci-svapi-yajAdInAM kiti family; sfj/majj/ruj stay
+        # plain (not yajadi); 06-unique cleans (4-clean survey all ganas) +
+        # dhatu_id 06-prefix; additive.
+        if clean in ("Brajj", "vrasc", "vyac", "praC") and str(dhatu_id or "").startswith("06."):
+            _samp = {"Brajj": "Bfjj", "vrasc": "vfSc", "vyac": "vic", "praC": "pfcC"}[clean]
+            if _samp not in bases:
+                bases.append(_samp)
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
         if is_adeca(clean):
             a_root = clean[:-1] + "A"
