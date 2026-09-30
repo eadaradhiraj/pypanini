@@ -5882,7 +5882,13 @@ class KrdantaEngine:
                 stem = eff[:-1] + "itum"
             else:
                 stem = eff + ("i" if sew else "") + "tum"
-            return {"avyaya": [stem]}
+            _gen = [stem]
+            # tudAdi verbatim-itum twins (vijitum/kuwitum/qipitum/...; same 50-clean survey
+            # as tavya/tfc iters 389/391 — base == clean+itum; additive — generic kept;
+            # tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("vij", "laj", "lajj", "jarj", "carc", "JarJ", "tvac", "ubj", "ujJ", "GUrR", "cal", "kuw", "puw", "kuc", "guj", "guq", "qip", "Cur", "sPuw", "muw", "truw", "tuw", "cuw", "Cuw", "juq", "juw", "kaq", "luw", "luW", "kfq", "kuq", "puq", "Guw", "tuq", "Tuq", "sTuq", "Kuq", "Cuq", "sPur", "sPul", "sPar", "sPal", "sPuq", "cuq", "vruq", "kruq", "Bfq", "huq", "gur"):
+                _gen.append(clean + "itum")
+            return {"avyaya": _gen}
 
         elif pratyaya == "ktvA":
             if clean == "SrA" and dhatu_id == "01.0922":
