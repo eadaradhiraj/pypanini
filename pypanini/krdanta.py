@@ -6032,6 +6032,10 @@ class KrdantaEngine:
                     if core.endswith(("n", "Y")):
                         core = core[:-1]
                     return {"avyaya": [core + "ktvA", clean + "itvA"] if is_vew else [core + "ktvA"]}
+                # tudAdi sj/majj ktvA twins (BfzwvA/sfzwvA + maktvA/maNktvA; trio 06.0004/0150/0151
+                # surveyed — old BrajktvA-forms miss everywhere; tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj", "majj"):
+                    return {"avyaya": [{"Brajj": "BfzwvA", "sfj": "sfzwvA"}[clean]] if clean in ("Brajj", "sfj") else ["maktvA", "maNktvA"]}
                 if clean.endswith(("c", "C", "j", "J")):
                     return {"avyaya": [clean[:-1] + "ktvA", clean + "itvA"] if is_vew else [clean[:-1] + "ktvA"]}
                 if clean.endswith("B"):
