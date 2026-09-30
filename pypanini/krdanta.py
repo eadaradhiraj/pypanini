@@ -5751,6 +5751,11 @@ class KrdantaEngine:
             if clean == "guh" and sanadi in (None, "yanluganta"):
                 _pre = "jo" if sanadi == "yanluganta" else ""
                 return {"avyaya": [_pre + "goQum", _pre + "gUhitum"]}
+
+            # tudAdi vij/majj tumun mirrors (vijitum/maNktum; pair 06.0009/0151 surveyed —
+            # old vejitum/majktum-forms miss; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("vij", "majj"):
+                return {"avyaya": ["vijitum" if clean == "vij" else "maNktum"]}
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
