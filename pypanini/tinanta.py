@@ -5211,11 +5211,11 @@ class TinantaDerivationEngine:
                     _g3 = [_J + "ariz", _J + "Ariz", _J + "Irz"]
                     _d4fbe = {("prathama","eka"):[g + "Izwa" for g in _g3],("prathama","dvi"):[g + "IyAstAm" for g in _g3],("prathama","bahu"):[g + "Iran" for g in _g3],("madhyama","eka"):[g + "IzWAH" for g in _g3],("madhyama","dvi"):[g + "IyAsTAm" for g in _g3],("madhyama","bahu"):[g + "IQvam" for g in _g3] + [g + "IDvam" for g in _g3[:2]],("uttama","eka"):[g + "Iya" for g in _g3],("uttama","dvi"):[g + "Ivahi" for g in _g3],("uttama","bahu"):[g + "Imahi" for g in _g3]}
                     cands += _d4fbe[(purusha, vacana)]
-                # divAdi D-final yak-benedictive ts-grades (rAtsIzwa; rAD + D-quartet
+                # divAdi D-final yak-benedictive ts-grades (rAtsIzwa/vyatsIzwa; rAD + D-quartet + vyaD
                 # 04.0077/0086-0089 surveyed — D→t + guNa; old DsIzwa-forms miss;
                 # additive, divAdiH-gated).
-                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("rAD", "kruD", "kzuD", "SuD", "siD"):
-                    _d4db = {"rAD": "rAts", "kruD": "kruts", "kzuD": "kzuts", "SuD": "Suts", "siD": "sits"}[meta.get("clean")]
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("rAD", "vyaD", "kruD", "kzuD", "SuD", "siD"):
+                    _d4db = {"rAD": "rAts", "kruD": "kruts", "vyaD": "vyats", "kzuD": "kzuts", "SuD": "Suts", "siD": "sits"}[meta.get("clean")]
                     _d4dbe = {("prathama","eka"):[_d4db+"Izwa"],("prathama","dvi"):[_d4db+"IyAstAm"],("prathama","bahu"):[_d4db+"Iran"],("madhyama","eka"):[_d4db+"IzWAH"],("madhyama","dvi"):[_d4db+"IyAsTAm"],("madhyama","bahu"):[_d4db+"IDvam"],("uttama","eka"):[_d4db+"Iya"],("uttama","dvi"):[_d4db+"Ivahi"],("uttama","bahu"):[_d4db+"Imahi"]}
                     cands += _d4dbe[(purusha, vacana)]
                 return list(dict.fromkeys(cands)), log
