@@ -9248,7 +9248,13 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "rAD":
                     _d4rlun = {("prathama","eka"):["arAtsIt","arAtsId"],("prathama","dvi"):["arAdDAm"],("prathama","bahu"):["arAtsuH"],("madhyama","eka"):["arAtsIH"],("madhyama","dvi"):["arAdDam"],("madhyama","bahu"):["arAdDa"],("uttama","eka"):["arAtsam"],("uttama","dvi"):["arAtsva"],("uttama","bahu"):["arAtsma"]}
                     cands += _d4rlun.get((purusha, vacana), [])
-                # divAdi do root-aorist (adAt/adAd, no s; sole 04.0043 surveyed — old
+
+                # divAdi nah sic-aorist (anAtsIt/anAtsId + anAdDAm twin, D-retention in
+                # ma.dvi/bahu; sole 04.0062 surveyed — rAD-template; old anakzId-forms
+                # miss everywhere (9/9 true misses); additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "nah":
+                    _d4nlun = {("prathama","eka"):["anAtsIt","anAtsId"],("prathama","dvi"):["anAdDAm"],("prathama","bahu"):["anAtsuH"],("madhyama","eka"):["anAtsIH"],("madhyama","dvi"):["anAdDam"],("madhyama","bahu"):["anAdDa"],("uttama","eka"):["anAtsam"],("uttama","dvi"):["anAtsva"],("uttama","bahu"):["anAtsma"]}
+                    cands += _d4nlun.get((purusha, vacana), [])                # divAdi do root-aorist (adAt/adAd, no s; sole 04.0043 surveyed — old
                 # adavt-forms miss everywhere; additive, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "do":
                     _d4do = {("prathama","eka"):["adAt","adAd"],("prathama","dvi"):["adAtAm"],("prathama","bahu"):["aduH"],("madhyama","eka"):["adAH"],("madhyama","dvi"):["adAtam"],("madhyama","bahu"):["adAta"],("uttama","eka"):["adAm"],("uttama","dvi"):["adAva"],("uttama","bahu"):["adAma"]}
