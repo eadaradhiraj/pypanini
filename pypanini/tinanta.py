@@ -6592,6 +6592,11 @@ class TinantaDerivationEngine:
             # Panini 3.1.74 SruvaH Sf ca
             if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
                 cands += self._snu_parasmai("SfR", "lw", purusha, vacana)
+            # tudAdi u-final present uv-grade (nuvati/Duvati/guvati/Druvati/suvati; surveyed
+            # 06.0132/0133/0134/0135/0144 (RU~/DU~/gu/Dru/zU~; ku/kU plat-null) — generic guna
+            # gives navati-forms which miss; C-stem + parasmaipada; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean[-1:] in ("u", "U"):
+                cands+=self._conjugate_at_stem_parasmai(clean[:-1] + "uv", "lw", purusha, vacana)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
