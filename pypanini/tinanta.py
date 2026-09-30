@@ -3441,6 +3441,17 @@ class TinantaDerivationEngine:
                 else:
                     _yld4fz = {("prathama","eka"):["jA" + _J + "arIti","jA" + _J + "arti"],("prathama","dvi"):["jA" + _J + "IrtaH"],("prathama","bahu"):["jA" + _J + "irati"],("madhyama","eka"):["jA" + _J + "arIzi","jA" + _J + "arzi"],("madhyama","dvi"):["jA" + _J + "IrTaH"],("madhyama","bahu"):["jA" + _J + "IrTa"],("uttama","eka"):["jA" + _J + "arImi","jA" + _J + "armi"],("uttama","dvi"):["jA" + _J + "IrvaH"],("uttama","bahu"):["jA" + _J + "IrmaH"]}
                     extra += _yld4fz.get((purusha, vacana), [])
+            # divAdi Fz yanlug-liT periphrastic (jAjarAYcakAra-triple kartari +
+            # jAjarAYcakre-triple karmani; pair 04.0025/0026 surveyed (J-mirror);
+            # old miss everywhere; additive, divAdiH-gated).
+            if clean in ("jFz", "JFz") and meta.get("gana") == "divAdiH" and lakara == "liw":
+                _J = "J" if clean == "JFz" else "j"
+                _st = "jA" + _J + "ar"
+                if prayoga == "karmani":
+                    _ylfzk = {("prathama","eka"):["AYcakre","AmAse","ambaBUve"],("prathama","dvi"):["AYcakrAte","AmAsAte","ambaBUvAte"],("prathama","bahu"):["AYcakrire","AmAsire","ambaBUvire"],("madhyama","eka"):["AYcakfze","AmAsize","ambaBUvize"],("madhyama","dvi"):["AYcakrATe","AmAsATe","ambaBUvATe"],("madhyama","bahu"):["AYcakfQve","AmAsiDve","ambaBUviQve"],("uttama","eka"):["AYcakre","AmAhe","ambaBUve"],("uttama","dvi"):["AYcakfvahe","AmAsivahe","ambaBUvivahe"],("uttama","bahu"):["AYcakfmahe","AmAsimahe","ambaBUvimahe"]}
+                else:
+                    _ylfzk = {("prathama","eka"):["AYcakAra","AmAsa","ambaBUva"],("prathama","dvi"):["AYcakratuH","AmAsatuH","ambaBUvatuH"],("prathama","bahu"):["AYcakruH","AmAsuH","ambaBUvuH"],("madhyama","eka"):["AYcakarTa","AmAsiTa","ambaBUviTa"],("madhyama","dvi"):["AYcakraTuH","AmAsaTuH","ambaBUvaTuH"],("madhyama","bahu"):["AYcakra","AmAsa","ambaBUva"],("uttama","eka"):["AYcakara","AYcakAra","AmAsa","ambaBUva"],("uttama","dvi"):["AYcakfva","AmAsiva","ambaBUviva"],("uttama","bahu"):["AYcakfma","AmAsima","ambaBUvima"]}
+                extra += [_st + _ax for _ax in _ylfzk.get((purusha, vacana), [])]
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
@@ -5010,6 +5021,16 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
                     _d4sluw = {("prathama","eka"):["SocitA"],("prathama","dvi"):["SocitArO"],("prathama","bahu"):["SocitAraH"],("madhyama","eka"):["SocitAse"],("madhyama","dvi"):["SocitAsATe"],("madhyama","bahu"):["SocitADve"],("uttama","eka"):["SocitAhe"],("uttama","dvi"):["SocitAsvahe"],("uttama","bahu"):["SocitAsmahe"]}
                     cands += _d4sluw.get((purusha, vacana), [])
+                # divAdi Fz yak-luT i/I/A-grades (jaritA/jarItA/jAritA/jArItA quads;
+                # pair 04.0025/0026 surveyed (J-mirror); old miss; additive,
+                # karmani-only, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz"):
+                    _J = "J" if meta.get("clean") == "JFz" else "j"
+                    _q = [_J + "arit", _J + "arIt", _J + "Arit", _J + "ArIt"]
+                    _qe = {("prathama","eka"):[s + "A" for s in _q],("prathama","dvi"):[s + "ArO" for s in _q],("prathama","bahu"):[s + "AraH" for s in _q],("madhyama","eka"):[s + "Ase" for s in _q],("madhyama","dvi"):[s + "AsATe" for s in _q],("madhyama","bahu"):[s + "ADve" for s in _q],("uttama","eka"):[s + "Ahe" for s in _q],("uttama","dvi"):[s + "Asvahe" for s in _q],("uttama","bahu"):[s + "Asmahe" for s in _q]}
+                    for _qq in _qe.get((purusha, vacana), []):
+                        if _qq not in cands:
+                            cands.append(_qq)
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
