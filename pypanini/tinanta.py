@@ -8870,7 +8870,12 @@ class TinantaDerivationEngine:
                     # but R-final redup misses the single-v form; additive before return).
                     if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "snu" and (purusha, vacana) == ("madhyama", "eka"):
                         cands.append("suzRaviTa")
-                    # divAdi s-root liT m.eka o/e-grade siTa (suzRosiTa/tizwemiTa/tistemiTa;
+
+                    # divAdi stup liT m.eka o-grade twin (tuzwopiTa; sole 04.0151 surveyed
+                    # (zwupa~, meta-clean stup); old miss (1/1 true miss, rest cross-hit);
+                    # additive before return).
+                    if meta.get("gana") == "divAdiH" and sanadi is None and meta.get("clean") == "stup" and (purusha, vacana) == ("madhyama", "eka"):
+                        cands.append("tuzwopiTa")                    # divAdi s-root liT m.eka o/e-grade siTa (suzRosiTa/tizwemiTa/tistemiTa;
                     # trio 04.0005/0019/0137 surveyed — generic gives i-grade only;
                     # stim splits by op-onset (zw/st); additive before return).
                     if meta.get("gana") == "divAdiH" and sanadi is None and (purusha, vacana) == ("madhyama", "eka"):
