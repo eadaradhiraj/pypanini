@@ -5562,6 +5562,13 @@ class TinantaDerivationEngine:
                     _d4slun = {("prathama","eka"):["aSAyi"],("prathama","dvi"):["aSAyizAtAm","aSAsAtAm"],("prathama","bahu"):["aSAyizata","aSAsata"],("madhyama","eka"):["aSAyizWAH","aSAsTAH"],("madhyama","dvi"):["aSAyizATAm","aSAsATAm"],("madhyama","bahu"):["aSADvam","aSAyiDvam"],("uttama","eka"):["aSAyizi","aSAsi"],("uttama","dvi"):["aSAyizvahi","aSAsvahi"],("uttama","bahu"):["aSAyizmahi","aSAsmahi"]}
                     table[(purusha, vacana)] += _d4slun.get((purusha, vacana), [])
 
+                # divAdi Co/so yak luN mixed grades (acCAyi/asAyi peka sic-less + Ayiz-/As-
+                # twins; pair 04.0041/0042 surveyed — old miss (18/18 true misses); additive,
+                # divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("Co", "so"):
+                    _cc = "cC" if meta.get("clean") == "Co" else "s"
+                    _d4colun = {("prathama","eka"):["a" + _cc + "Ayi"],("prathama","dvi"):["a" + _cc + "AyizAtAm","a" + _cc + "AsAtAm"],("prathama","bahu"):["a" + _cc + "Ayizata","a" + _cc + "Asata"],("madhyama","eka"):["a" + _cc + "AyizWAH","a" + _cc + "AsTAH"],("madhyama","dvi"):["a" + _cc + "AyizATAm","a" + _cc + "AsATAm"],("madhyama","bahu"):["a" + _cc + "ADvam","a" + _cc + "AyiDvam"],("uttama","eka"):["a" + _cc + "Ayizi","a" + _cc + "Asi"],("uttama","dvi"):["a" + _cc + "Ayizvahi","a" + _cc + "Asvahi"],("uttama","bahu"):["a" + _cc + "Ayizmahi","a" + _cc + "Asmahi"]}
+                    table[(purusha, vacana)] += _d4colun.get((purusha, vacana), [])
                 # divAdi do yak luN mixed grades (adAyi peka sic-less + adAyiz-/adiz- twins
                 # + adiTAH/adiQvam variants; sole 04.0043 surveyed — old miss (9/9 true
                 # misses); additive, divAdiH-gated).
