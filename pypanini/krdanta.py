@@ -4876,6 +4876,11 @@ class KrdantaEngine:
             # before k; old majktavya-forms miss everywhere; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "majj":
                 return tri_linga("maNktavya")
+
+            # tudAdi sj tavya zwavya-twins (Barzwavya/srazwavya; pair 06.0004/0150 surveyed —
+            # old Brajktavya-forms miss everywhere; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj"):
+                return tri_linga({"Brajj": "Barzwavya", "sfj": "srazwavya"}[clean])
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
