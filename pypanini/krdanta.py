@@ -643,6 +643,10 @@ class KrdantaEngine:
         # surveyed pair 06.0004/0150 — old Brajkta-forms miss everywhere; tudAdiH-gated).
         if clean in ("Brajj", "sfj") and gana == "tudAdiH":
             return clean[0] + "fzwa"
+        # tudAdi ruj kta takes g+Ra (rugRa; sole 06.0152 surveyed — old rukta-forms miss
+        # everywhere; tudAdiH-gated).
+        if clean == "ruj" and gana == "tudAdiH":
+            return "rugRa"
         # tudAdi j-final kta takes g+na (vij/laj/lajj/majj/Buj -> vigna/lagna/magna/Bugna;
         # surveyed nonet 06.0009/0010/0011/0151/0153 — Brajj/sfj/ruj take zwa/gRa grades
         # elsewhere; old vikta-forms miss everywhere; tudAdiH-gated).
