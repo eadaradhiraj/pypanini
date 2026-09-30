@@ -4003,7 +4003,12 @@ class TinantaDerivationEngine:
                     _d4fyy = "jIry" if meta.get("clean") == "jFz" else "JIry"
                     if _d4fyy not in yak_list:
                         yak_list.append(_d4fyy)
-                # divAdi vyaD yak samprasAraNa stem (viDyate; sole 04.0078 surveyed — old
+
+                # divAdi do yak I-grade stem (dIyate; sole 04.0043 surveyed — old dAyate-forms
+                # miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "do":
+                    if "dIy" not in yak_list:
+                        yak_list.append("dIy")                # divAdi vyaD yak samprasAraNa stem (viDyate; sole 04.0078 surveyed — old
                 # vyaDyate-forms miss; additive, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vyaD":
                     if "viDy" not in yak_list:
@@ -4382,6 +4387,16 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): ["viviDe"], ("uttama", "dvi"): ["viviDivahe"], ("uttama", "bahu"): ["viviDimahe"],
                     }
                     return _atman_vy.get((purusha, vacana), []), log
+
+                # divAdi do yak liT dad-redup (sole 04.0043 surveyed — old miss (9/9 true
+                # misses); exclusive return, divAdiH-gated).
+                if clean == "do" and meta.get("gana") == "divAdiH":
+                    _atman_do = {
+                        ("prathama", "eka"): ["dade"], ("prathama", "dvi"): ["dadAte"], ("prathama", "bahu"): ["dadire"],
+                        ("madhyama", "eka"): ["dadize"], ("madhyama", "dvi"): ["dadATe"], ("madhyama", "bahu"): ["dadiDve"],
+                        ("uttama", "eka"): ["dade"], ("uttama", "dvi"): ["dadivahe"], ("uttama", "bahu"): ["dadimahe"],
+                    }
+                    return _atman_do.get((purusha, vacana), []), log
                 if is_vowel_initial:
                     # aja~ yak liT vi-redup ve-grade (vivye/vivyAte/vivyire/vivyize...; sole aj-clean 01.0262
                     # surveyed, ~-gated anudatta reading; Ajize/AjiDve/Ajivahe/Ajimahe variants also listed but
@@ -5528,6 +5543,13 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "So":
                     _d4slun = {("prathama","eka"):["aSAyi"],("prathama","dvi"):["aSAyizAtAm","aSAsAtAm"],("prathama","bahu"):["aSAyizata","aSAsata"],("madhyama","eka"):["aSAyizWAH","aSAsTAH"],("madhyama","dvi"):["aSAyizATAm","aSAsATAm"],("madhyama","bahu"):["aSADvam","aSAyiDvam"],("uttama","eka"):["aSAyizi","aSAsi"],("uttama","dvi"):["aSAyizvahi","aSAsvahi"],("uttama","bahu"):["aSAyizmahi","aSAsmahi"]}
                     table[(purusha, vacana)] += _d4slun.get((purusha, vacana), [])
+
+                # divAdi do yak luN mixed grades (adAyi peka sic-less + adAyiz-/adiz- twins
+                # + adiTAH/adiQvam variants; sole 04.0043 surveyed — old miss (9/9 true
+                # misses); additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "do":
+                    _d4dolun = {("prathama","eka"):["adAyi"],("prathama","dvi"):["adAyizAtAm","adizAtAm"],("prathama","bahu"):["adAyizata","adizata"],("madhyama","eka"):["adAyizWAH","adiTAH"],("madhyama","dvi"):["adAyizATAm","adizATAm"],("madhyama","bahu"):["adAyiDvam","adiQvam"],("uttama","eka"):["adAyizi","adizi"],("uttama","dvi"):["adAyizvahi","adizvahi"],("uttama","bahu"):["adAyizmahi","adizmahi"]}
+                    table[(purusha, vacana)] += _d4dolun.get((purusha, vacana), [])
 
                 # divAdi nah yak-luN D-twin (anadDvam alongside generic anahiDvam; sole
                 # 04.0062 surveyed — old miss (1/1 true miss); additive, divAdiH-gated).
