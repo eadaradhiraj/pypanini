@@ -3980,6 +3980,71 @@ class KrdantaEngine:
                 _t6rs = {"muc": ["momuc"], "lup": ["lolup"], "vid": ["vevid"], "lip": ["lelip"], "sic": ["sesic"], "kft": ["carkft", "carikft"], "Kid": ["ceKid"], "piS": ["pepiS"]}[clean]
                 _t6sM = [r + "at" for r in _t6rs] + [r + "ad" for r in _t6rs]
                 return {"M": _t6sM, "F": [r + "atI" for r in _t6rs], "N": _t6sM}
+            # tudAdi ylk-Satf general system (redup + weak root + at/ad/atI, no num;
+            # abhyasta 7.1.78 — M never takes num; surveyed all ~160 ylk-Satf-keyed
+            # 06 cleans. Redup = onset-C1 (s+stop takes second, else first; deasp;
+            # cutva k/K/g/G/h/C/J, q/S/s kept) + grade (u/U->o, i/I->e, a/A->A,
+            # f-medial->ar, bare-Cf->a + ra-root, bare-CF->A + ir/il-root, fR->a+M).
+            # Weak root = verbatim except penult-n/Y drop, samprasArana map, satva-z
+            # trio (sur/sU/sil), uv-expansion (vowel-final u/U), i-yat quartet
+            # (ry/py/Dy/kziy), F-ra/ir/il grades. V-initial unscored fids fall through
+            # harmlessly. Literals (shadowing lesson); tudAdiH-gated; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH":
+                _t6on = ""
+                for _ch in clean:
+                    if _ch in SLP1_VOWELS:
+                        break
+                    _t6on += _ch
+                if len(_t6on) >= 2 and _t6on[0] in ("s", "S") and _t6on[1] in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "t", "T", "d", "D", "p", "P", "b", "B"):
+                    _t6rc0 = _t6on[1]
+                else:
+                    _t6rc0 = _t6on[:1]
+                _t6rc = {"B": "b", "G": "g", "Q": "q", "D": "d", "J": "j", "K": "k", "C": "c", "W": "w", "T": "t", "P": "p"}.get(_t6rc0, _t6rc0)
+                _t6rc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "C": "c", "J": "j"}.get(_t6rc, _t6rc)
+                _t6lv = None
+                for _ch in reversed(clean):
+                    if _ch in SLP1_VOWELS:
+                        _t6lv = _ch
+                        break
+                _t6M = False
+                if clean.endswith("fR"):
+                    _t6gv = "a"
+                    _t6M = True
+                elif clean[-1:] == "F" and len(clean) == 2:
+                    _t6gv = "A"
+                elif _t6lv in ("u", "U"):
+                    _t6gv = "o"
+                elif _t6lv in ("i", "I"):
+                    _t6gv = "e"
+                elif _t6lv in ("a", "A"):
+                    _t6gv = "A"
+                elif _t6lv == "f":
+                    _t6gv = "ar"
+                else:
+                    _t6gv = "A"
+                if _t6M:
+                    _t6reds = [_t6rc + "aM"]
+                    if clean == "mfR":
+                        _t6reds.append(_t6rc + "am")
+                else:
+                    _t6reds = [_t6rc + _t6gv]
+                _t6wsp = {"Brajj": "Bfjj", "vrasc": "vfSc", "vyac": "vic", "pracC": "pfcC",
+                          "sur": "zur", "sU": "zuv", "sil": "zil",
+                          "ri": "ry", "pi": "py", "Di": "Dy", "kzi": "kziy",
+                          "df": "drat", "Df": "Drat", "pf": "prat", "mf": "mrat",
+                          "kF": "kir", "gF": ["gil", "gir"]}
+                if clean in _t6wsp:
+                    _t6w = _t6wsp[clean]
+                    _t6ws = _t6w if isinstance(_t6w, list) else [_t6w]
+                else:
+                    _t6w = clean
+                    if len(_t6w) >= 3 and _t6w[-2] in ("n", "Y") and _t6w[-1] not in SLP1_VOWELS:
+                        _t6w = _t6w[:-2] + _t6w[-1:]
+                    if _t6w[-1:] in ("u", "U"):
+                        _t6w = _t6w[:-1] + "uv"
+                    _t6ws = [_t6w]
+                _t6sM = [r + w + "at" for r in _t6reds for w in _t6ws] + [r + w + "ad" for r in _t6reds for w in _t6ws]
+                return {"M": _t6sM, "F": [r + w + "atI" for r in _t6reds for w in _t6ws], "N": _t6sM}
             # Panini 1.3.57 jYA-Sru-smf-dfSAM sanaH: Atmanepada in sannanta (takes SAnac, not Satf)
             if sanadi == "sannanta" and (clean in ("jYA", "Sru", "smf", "dfS", "darS") or (op and any(op.startswith(x) for x in ("jYA", "Sru", "smf", "dfS")))):
                 return None
