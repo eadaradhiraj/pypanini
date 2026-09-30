@@ -5524,7 +5524,17 @@ class KrdantaEngine:
                 b = eff[:-1] + "i"
             else:
                 b = eff + ("i" if sew else "")
-            return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
+            _gen = {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
+            # tudAdi verbatim-itfc twins (vijitA/kuwitA/qipitf/...; same 50-clean survey
+            # as tavya iter389 — base == clean+itf; additive — generic kept; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("vij", "laj", "lajj", "jarj", "carc", "JarJ", "tvac", "ubj", "ujJ", "GUrR", "cal", "kuw", "puw", "kuc", "guj", "guq", "qip", "Cur", "sPuw", "muw", "truw", "tuw", "cuw", "Cuw", "juq", "juw", "kaq", "luw", "luW", "kfq", "kuq", "puq", "Guw", "tuq", "Tuq", "sTuq", "Kuq", "Cuq", "sPur", "sPul", "sPar", "sPal", "sPuq", "cuq", "vruq", "kruq", "Bfq", "huq", "gur"):
+                _tw = {"M": clean + "itA", "F": clean + "itrI", "N": clean + "itf"}
+                def _t6L(v):
+                    return v if isinstance(v, list) else [v]
+                _gen = {"M": _t6L(_gen["M"]) + _t6L(_tw["M"]),
+                        "F": _t6L(_gen["F"]) + _t6L(_tw["F"]),
+                        "N": _t6L(_gen["N"]) + _t6L(_tw["N"])}
+            return _gen
 
         elif pratyaya == "lyuw":
             # jAgf ar-grade lyuw (jAgaraRam mUla; sole 02.0067 surveyed; free).
