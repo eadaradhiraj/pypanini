@@ -7654,6 +7654,11 @@ class TinantaDerivationEngine:
                 else:
                     for _d4lw in (["jari", "jarI"] if meta.get("clean") == "jFz" else ["Jari"] if meta.get("clean") == "JFz" else ["Soci"]):
                         cands += self._conjugate_luw(_d4lw, pada, purusha, vacana)
+            # divAdi puz luw o-grade (pozitA; sole 04.0121 surveyed — 0079 takes pozwA
+            # via generic; dhatu_id-only split (identical metas, san-split precedent);
+            # old miss; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
+                cands += self._conjugate_luw("pozi", pada, purusha, vacana)
             # divAdi gup go-grade luw (gopitA; sole 04.0147 surveyed — Nitya
             # jugups-rewrite poisons mUla; old miss; additive, divAdiH-gated).
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
