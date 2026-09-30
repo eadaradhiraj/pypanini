@@ -4300,6 +4300,23 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): ["raranDe"], ("uttama", "dvi"): ["raranDivahe", "reDvahe"], ("uttama", "bahu"): ["raranDimahe", "reDmahe"],
                     }
                     return _atman_ra.get((purusha, vacana), []), log
+                # divAdi Fz yak liT (jajar-/jer- twins for jFz (20 forms), jaJar-only
+                # for JFz (10 forms); pair 04.0025/0026 surveyed — mUla asymmetry
+                # precedent; old miss everywhere; exclusive return, divAdiH-gated).
+                if clean in ("jFz", "JFz") and meta.get("gana") == "divAdiH":
+                    if clean == "jFz":
+                        _atman_fz = {
+                            ("prathama", "eka"): ["jajare", "jere"], ("prathama", "dvi"): ["jajarAte", "jerAte"], ("prathama", "bahu"): ["jajarire", "jerire"],
+                            ("madhyama", "eka"): ["jajarize", "jerize"], ("madhyama", "dvi"): ["jajarATe", "jerATe"], ("madhyama", "bahu"): ["jajariQve", "jajariDve", "jeriQve", "jeriDve"],
+                            ("uttama", "eka"): ["jajare", "jere"], ("uttama", "dvi"): ["jajarivahe", "jerivahe"], ("uttama", "bahu"): ["jajarimahe", "jerimahe"],
+                        }
+                    else:
+                        _atman_fz = {
+                            ("prathama", "eka"): ["jaJare"], ("prathama", "dvi"): ["jaJarAte"], ("prathama", "bahu"): ["jaJarire"],
+                            ("madhyama", "eka"): ["jaJarize"], ("madhyama", "dvi"): ["jaJarATe"], ("madhyama", "bahu"): ["jaJariQve", "jaJariDve"],
+                            ("uttama", "eka"): ["jaJare"], ("uttama", "dvi"): ["jaJarivahe"], ("uttama", "bahu"): ["jaJarimahe"],
+                        }
+                    return _atman_fz.get((purusha, vacana), []), log
                 if is_vowel_initial:
                     # aja~ yak liT vi-redup ve-grade (vivye/vivyAte/vivyire/vivyize...; sole aj-clean 01.0262
                     # surveyed, ~-gated anudatta reading; Ajize/AjiDve/Ajivahe/Ajimahe variants also listed but
