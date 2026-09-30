@@ -4867,6 +4867,10 @@ class KrdantaEngine:
                 return _r7M
             if sanadi is None and meta.get("gana") == "ruDAdiH" and clean == "vij":
                 return tri_linga("vijitavya")
+            # tudAdi vij tavya i-grade (vijitavya; sole 06.0009 surveyed — generic guna
+            # gives vejitavya which misses; old miss; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vij":
+                return tri_linga("vijitavya")
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):

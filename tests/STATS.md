@@ -522,3 +522,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 371 (GEN-06: tudAdi sj-final kta C0+fzwa (Brasj/sfj -> Bfzwa/sfzwa; surveyed pair 06.0004/0150; stem-shape fix (tri_linga downstream handles F/N); old miss; probes ALL-HIT): 06 +36 matched (2 improved), 0 worsened (guards green).
 - Iteration 372 (GEN-06: tudAdi ruj kta g+Ra (rugRa; sole 06.0152 surveyed; old rukta-forms miss; probes ALL-HIT): 06 +18 matched (1 improved), 0 worsened (guards green).
 - Iteration 373 (GEN-06: tudAdi vrasc kta (vfkRa; samprasAraNa + cutva; sole 06.0012 surveyed; old vraskta-forms miss; probes ALL-HIT): 06 +18 matched (1 improved), 0 worsened (guards green).
+- Iteration 374 (GEN-06: tudAdi vij tavya i-grade (vijitavya; sole 06.0009 surveyed; generic guna gives vejitavya which misses; laj/lajj already hit via generic; probes ALL-HIT): 06 +3 matched (1 improved), 0 worsened (guards green incl ruDAdi-vij-home 07.0013).
