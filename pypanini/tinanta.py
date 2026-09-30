@@ -5194,6 +5194,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
                     table_d4g = {("prathama","eka"):["agopi"],("prathama","dvi"):["agopizAtAm"],("prathama","bahu"):["agopizata"],("madhyama","eka"):["agopizWAH"],("madhyama","dvi"):["agopizATAm"],("madhyama","bahu"):["agopiDvam"],("uttama","eka"):["agopizi"],("uttama","dvi"):["agopizvahi"],("uttama","bahu"):["agopizmahi"]}
                     return table_d4g[(purusha,vacana)], log
+                # divAdi ISuc yak luN o-grade (aSoci + aSociz-; sole 04.0061 surveyed —
+                # old miss; exclusive return, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
+                    table_d4su = {("prathama","eka"):["aSoci"],("prathama","dvi"):["aSocizAtAm"],("prathama","bahu"):["aSocizata"],("madhyama","eka"):["aSocizWAH"],("madhyama","dvi"):["aSocizATAm"],("madhyama","bahu"):["aSociDvam"],("uttama","eka"):["aSocizi"],("uttama","dvi"):["aSocizvahi"],("uttama","bahu"):["aSocizmahi"]}
+                    return table_d4su[(purusha,vacana)], log
                 # divAdi raD yak luN nD-grade + ts-/Diz- twins (sole 04.0090 surveyed —
                 # old miss; exclusive return, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "raD":
