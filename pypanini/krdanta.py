@@ -4032,7 +4032,8 @@ class KrdantaEngine:
                           "sur": "zur", "sU": "zuv", "sil": "zil",
                           "ri": "ry", "pi": "py", "Di": "Dy", "kzi": "kziy",
                           "df": "drat", "Df": "Drat", "pf": "prat", "mf": "mrat",
-                          "kF": "kir", "gF": ["gil", "gir"]}
+                          "kF": "kir", "gF": ["gil", "gir"],
+                          "Cur": "cCur", "Cuw": "cCuw", "Cuq": "cCuq"}
                 if clean in _t6wsp:
                     _t6w = _t6wsp[clean]
                     _t6ws = _t6w if isinstance(_t6w, list) else [_t6w]
@@ -5955,6 +5956,11 @@ class KrdantaEngine:
             # graQvA/grahitvA miss; free).
             if sanadi is None and clean == "grah" and meta.get("gana") == "kryAdiH":
                 return {"avyaya": ["gfhItvA"]}
+            # tudAdi praC zw-ktvA (pfzwvA; sole 06.0149 surveyed — samprasArana +
+            # satva (C→z) + vA, no iT; old pracktvA-forms miss everywhere; meta-clean
+            # gate (tuk lexicalizes pracC); tudAdiH-gated).
+            if sanadi is None and meta.get("clean") == "praC" and meta.get("gana") == "tudAdiH":
+                return {"avyaya": ["pfzwvA"]}
             # divAdi ktvA residuals (jarItvA/jaritA-twins, JIrtvA, sitvA, ditvA,
             # SucitvA/SocitvA, nadDvA, matvA, sfzwvA, vidDvA, vastvA/vasitvA,
             # puz/svid triples (cover split fids via any-match), gupitvA/gopitvA;

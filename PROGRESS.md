@@ -7,10 +7,10 @@ Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
 Sweep-07: **25/25 100%** — held. Sweep-08: **10/10 100%** — held.
 Sweep-09: **71/71 100%** — held.
 Sweep-04: **151/161** (other session) — ceiling audit in progress.
-Sweep-06: **81/174** — held (verbatim-itum +35, 35 improved, 0 worsened; this iteration).
+Sweep-06: **81/174** — held (ktvA+C-gemination +13, 4 improved, 0 worsened; this iteration).
 Landscape: 10 162/509.
 
-## Done — iterations 360-368 (other session) + 383-392 (this session)
+## Done — iterations 360-368 (other session) + 383-393 (this session)
 - 360-368: puz futures split (0121 full pass), sfj yak sya, dI yak pair, nah
   sic-aorist + yak, Co/so yak luN, stim liT twins (+zw twin repair),
   stup/stUp twins, Fz yak-benedictive, vyaD yak + benedictive, uD
@@ -25,6 +25,7 @@ Landscape: 10 162/509.
 - 390: bare-u/U tavya grades (6 improved).
 - 391: verbatim-itfc twins (36 improved).
 - 392: verbatim-itum twins (35 improved).
+- 393: zw-ktvA + C-gemination (4 improved).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
