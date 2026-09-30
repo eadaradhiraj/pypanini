@@ -7659,6 +7659,11 @@ class TinantaDerivationEngine:
             # old miss; additive, divAdiH-gated).
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
                 cands += self._conjugate_luw("pozi", pada, purusha, vacana)
+            # divAdi svid luw e-grade (sveditA; sole 04.0127 surveyed — 0085 takes svet-
+            # via generic; op-split (Yizvid, san-split precedent); old miss (9/9 true
+            # misses); additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "svid" and op.startswith("Yizvid"):
+                cands += self._conjugate_luw("svedi", pada, purusha, vacana)
             # divAdi gup go-grade luw (gopitA; sole 04.0147 surveyed — Nitya
             # jugups-rewrite poisons mUla; old miss; additive, divAdiH-gated).
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
