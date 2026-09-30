@@ -6107,7 +6107,11 @@ class TinantaDerivationEngine:
                 # (1/1 true miss, rest cross-hit); additive, divAdiH-gated).
                 if sanadi == "nijanta" and meta.get("gana") == "divAdiH" and meta.get("clean") == "I" and (purusha, vacana) == ("prathama", "eka"):
                     cand.append("Ayiyata")
-                # Nitya-san nich-luN caN (3.1.5/3.1.6, seT only; 01.0461 excluded via sew): aug + dIrgha-san-base + ata.
+
+                # divAdi stUp nich-luN pr.eka atuzwupata-twin (sole 04.0152 surveyed (zwUpa~);
+                # old miss (1/1 true miss, rest cross-hit); additive, divAdiH-gated).
+                if sanadi == "nijanta" and meta.get("gana") == "divAdiH" and meta.get("clean") == "stUp" and (purusha, vacana) == ("prathama", "eka"):
+                    cand.append("atuzwupata")                # Nitya-san nich-luN caN (3.1.5/3.1.6, seT only; 01.0461 excluded via sew): aug + dIrgha-san-base + ata.
                 try:
                     if sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
                         _csb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean]
