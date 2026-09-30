@@ -3976,6 +3976,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "grah":
                     if "gfhy" not in yak_list:
                         yak_list.append("gfhy")
+                # divAdi Fz yak Ir-grade stems (jIryate/JIryate; pair 04.0025/0026 surveyed —
+                # same Ir-grade as yang/mUla; old jFzyate-forms miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz"):
+                    _d4fyy = "jIry" if meta.get("clean") == "jFz" else "JIry"
+                    if _d4fyy not in yak_list:
+                        yak_list.append(_d4fyy)
                 # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: yak dIrgha for iv/Iv-final mUla
                 # (sWiv->sWIvyate, kzIvu~->kzIvyate; surveyed 01 iv/Iv set, additive, deduped)
                 if sanadi is None and len(clean) >= 2 and clean[-1] == "v" and clean[-2] in ("i", "I"):
