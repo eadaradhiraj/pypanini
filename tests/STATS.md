@@ -482,3 +482,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 335 (divAdi D-final yak-benedictive ts-grades (rAtsIzwa + D-quartet; rAD + 04.0086-0089 surveyed; old DsIzwa-forms miss; additive; probes ALL-HIT; all 5 full pass 880->889): 04 132/161->137/161 (+45 matched, 5 improved), 0 worsened (guards green).
 - Iteration 336 (divAdi Fz mUla benedictive Ir-grades (jIr/JIr; pair 04.0025/0026 surveyed; same grade as yang jejIrya; old miss; probes ALL-HIT): 04 holds 137/161 (+18 matched, 2 improved), 0 worsened (guards green).
 - Iteration 337 (divAdi ISuc mUla benedictive samprasAraNa (SucyAt; sole 04.0061 surveyed; same Suc-grade as yak; old miss; probes ALL-HIT): 04 holds 137/161 (+9 matched, 1 improved), 0 worsened (guards green).
+- Iteration 338 (divAdi ISuc aorist twins (root-aorist aSucat + sic-aorist aSocIt; sole 04.0061 surveyed; old miss; probes ALL-HIT): 04 holds 137/161 (+9 matched, 1 improved), 0 worsened (guards green).

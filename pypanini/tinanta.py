@@ -9087,6 +9087,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
                     _d4gu = {("prathama","eka"):["agupat","agupad"],("prathama","dvi"):["agupatAm"],("prathama","bahu"):["agupan"],("madhyama","eka"):["agupaH"],("madhyama","dvi"):["agupatam"],("madhyama","bahu"):["agupata"],("uttama","eka"):["agupam"],("uttama","dvi"):["agupAva"],("uttama","bahu"):["agupAma"]}
                     cands += _d4gu.get((purusha, vacana), [])
+                # divAdi ISuc aorist twins (root-aorist aSucat + sic-aorist aSocIt;
+                # sole 04.0061 surveyed — old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
+                    _d4su = {("prathama","eka"):["aSucat","aSucad","aSocIt","aSocId"],("prathama","dvi"):["aSucatAm","aSocizwAm"],("prathama","bahu"):["aSucan","aSocizuH"],("madhyama","eka"):["aSucaH","aSocIH"],("madhyama","dvi"):["aSucatam","aSocizwam"],("madhyama","bahu"):["aSucata","aSocizwa"],("uttama","eka"):["aSucam","aSocizam"],("uttama","dvi"):["aSucAva","aSocizva"],("uttama","bahu"):["aSucAma","aSocizma"]}
+                    cands += _d4su.get((purusha, vacana), [])
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
