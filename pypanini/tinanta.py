@@ -8654,6 +8654,10 @@ class TinantaDerivationEngine:
                 # vyaD 04.0001-0003/0078 surveyed — old i-grade miss; additive, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("div", "siv", "sriv", "vyaD"):
                     _asb.append({"div": "dIv", "siv": "sIv", "sriv": "srIv", "vyaD": "viD"}[meta.get("clean")])
+                # divAdi Fz benedictive Ir-grades (jIryAt/JIryAt; pair 04.0025/0026
+                # surveyed — same Ir-grade as yang jejIrya; old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz"):
+                    _asb.append("jIr" if meta.get("clean") == "jFz" else "JIr")
                 if clean in ("zWiv", "kziv"):
                     _asb.append(clean[:-2] + "I" + "v")
                 # Panini 6.4.24 aniditAM hala upaDAyAH (nasal loss before yAt): tunp->tupyAt, Sans->SasyAt;
