@@ -4226,6 +4226,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "svid" and op.startswith("Yizvid") and lakara in ("lfw", "lfN"):
                     _d4vyc = self._add_augment("svedizy", False) if lakara == "lfN" else "svedizy"
                     cands+=self._conjugate_at_stem_atmane(_d4vyc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # divAdi nah yak sya-future (natsyate + augmented lfN; sole 04.0062 surveyed —
+                # old miss (18/18 true misses lfw+lfN); additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "nah" and lakara in ("lfw", "lfN"):
+                    _d4nyc = self._add_augment("natsy", False) if lakara == "lfN" else "natsy"
+                    cands+=self._conjugate_at_stem_atmane(_d4nyc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
@@ -5066,6 +5071,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "svid" and op.startswith("Yizvid"):
                     _d4vluw = {("prathama","eka"):["sveditA"],("prathama","dvi"):["sveditArO"],("prathama","bahu"):["sveditAraH"],("madhyama","eka"):["sveditAse"],("madhyama","dvi"):["sveditAsATe"],("madhyama","bahu"):["sveditADve"],("uttama","eka"):["sveditAhe"],("uttama","dvi"):["sveditAsvahe"],("uttama","bahu"):["sveditAsmahe"]}
                     cands += _d4vluw.get((purusha, vacana), [])
+                # divAdi nah yak-luT D-grade (nadDA; sole 04.0062 surveyed — old nahtA-forms
+                # miss everywhere (9/9 true misses); additive, karmani-only, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "nah":
+                    _d4nluw = {("prathama","eka"):["nadDA"],("prathama","dvi"):["nadDArO"],("prathama","bahu"):["nadDAraH"],("madhyama","eka"):["nadDAsi"],("madhyama","dvi"):["nadDAsTaH"],("madhyama","bahu"):["nadDAsTa"],("uttama","eka"):["nadDAsmi"],("uttama","dvi"):["nadDAsvaH"],("uttama","bahu"):["nadDAsmaH"]}
+                    cands += _d4nluw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -5229,7 +5239,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
                     _d4sbe = {("prathama","eka"):["SocizIzwa"],("prathama","dvi"):["SocizIyAstAm"],("prathama","bahu"):["SocizIran"],("madhyama","eka"):["SocizIzWAH"],("madhyama","dvi"):["SocizIyAsTAm"],("madhyama","bahu"):["SocizIDvam"],("uttama","eka"):["SocizIya"],("uttama","dvi"):["SocizIvahi"],("uttama","bahu"):["SocizImahi"]}
                     cands += _d4sbe[(purusha, vacana)]
-                # divAdi svid yak-benedictive e-grade (svedizIzwa; sole 04.0127 surveyed —
+
+                # divAdi nah yak-benedictive ts-grade (natsIzwa; sole 04.0062 surveyed — old
+                # miss (9/9 true misses); additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "nah":
+                    _d4nbe = {("prathama","eka"):["natsIzwa"],("prathama","dvi"):["natsIyAstAm"],("prathama","bahu"):["natsIran"],("madhyama","eka"):["natsIzWAH"],("madhyama","dvi"):["natsIyAsTAm"],("madhyama","bahu"):["natsIDvam"],("uttama","eka"):["natsIya"],("uttama","dvi"):["natsIvahi"],("uttama","bahu"):["natsImahi"]}
+                    cands += _d4nbe[(purusha, vacana)]                # divAdi svid yak-benedictive e-grade (svedizIzwa; sole 04.0127 surveyed —
                 # 0085 svitsIzwa untouched; op-split (Yizvid); old miss; additive, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "svid" and op.startswith("Yizvid"):
                     _d4vbe = {("prathama","eka"):["svedizIzwa"],("prathama","dvi"):["svedizIyAstAm"],("prathama","bahu"):["svedizIran"],("madhyama","eka"):["svedizIzWAH"],("madhyama","dvi"):["svedizIyAsTAm"],("madhyama","bahu"):["svedizIDvam"],("uttama","eka"):["svedizIya"],("uttama","dvi"):["svedizIvahi"],("uttama","bahu"):["svedizImahi"]}
@@ -5492,6 +5507,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "So":
                     _d4slun = {("prathama","eka"):["aSAyi"],("prathama","dvi"):["aSAyizAtAm","aSAsAtAm"],("prathama","bahu"):["aSAyizata","aSAsata"],("madhyama","eka"):["aSAyizWAH","aSAsTAH"],("madhyama","dvi"):["aSAyizATAm","aSAsATAm"],("madhyama","bahu"):["aSADvam","aSAyiDvam"],("uttama","eka"):["aSAyizi","aSAsi"],("uttama","dvi"):["aSAyizvahi","aSAsvahi"],("uttama","bahu"):["aSAyizmahi","aSAsmahi"]}
                     table[(purusha, vacana)] += _d4slun.get((purusha, vacana), [])
+
+                # divAdi nah yak-luN D-twin (anadDvam alongside generic anahiDvam; sole
+                # 04.0062 surveyed — old miss (1/1 true miss); additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "nah" and (purusha, vacana) == ("madhyama", "bahu"):
+                    table[(purusha, vacana)] += ["anadDvam"]
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
