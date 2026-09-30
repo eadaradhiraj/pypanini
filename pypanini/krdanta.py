@@ -5413,6 +5413,11 @@ class KrdantaEngine:
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 b = clean[:-1] + apply_guna(clean[-1])
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
+            # tudAdi sj/majj tfc twins (BarzwA/srazwA + maNktA; trio 06.0004/0150/0151 surveyed —
+            # old BrajktA-forms miss everywhere; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj", "majj"):
+                _t6tf = {"Brajj": ("BarzwA", "BarzwrI", "Barzwf"), "sfj": ("srazwA", "srazwrI", "srazwf"), "majj": ("maNktA", "maNktrI", "maNktf")}[clean]
+                return {"M": _t6tf[0], "F": _t6tf[1], "N": _t6tf[2]}
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
