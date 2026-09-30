@@ -7059,6 +7059,11 @@ class TinantaDerivationEngine:
                 cands += _klaN.get((purusha, vacana), [])
                 if (purusha, vacana) == ("prathama", "bahu"):
                     cands += ["ajakzuH"] if _kc == "jakz" else ["a" + _kc + "an"]
+            # tudAdi u/i-final imperfect uv/iy-grades (aguvat/aguvatAm + aguvet; mirrors lw
+            # twins; surveyed nonet+quartet 06.0132-0135/0140-0144; old miss; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean[-1:] in ("u", "U", "i", "I"):
+                _d4imp = self._add_augment(clean[:-1] + ("uv" if clean[-1:] in ("u", "U") else "iy"), False)
+                cands+=self._conjugate_at_stem_parasmai(_d4imp, "laN", purusha, vacana)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
