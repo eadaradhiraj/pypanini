@@ -4003,6 +4003,11 @@ class TinantaDerivationEngine:
                     _d4fyy = "jIry" if meta.get("clean") == "jFz" else "JIry"
                     if _d4fyy not in yak_list:
                         yak_list.append(_d4fyy)
+                # divAdi vyaD yak samprasAraNa stem (viDyate; sole 04.0078 surveyed — old
+                # vyaDyate-forms miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vyaD":
+                    if "viDy" not in yak_list:
+                        yak_list.append("viDy")
                 # Panini 7.4.25 akft-sArvaDAtukayor dIrGaH: yak dIrgha for iv/Iv-final mUla
                 # (sWiv->sWIvyate, kzIvu~->kzIvyate; surveyed 01 iv/Iv set, additive, deduped)
                 if sanadi is None and len(clean) >= 2 and clean[-1] == "v" and clean[-2] in ("i", "I"):
@@ -4178,10 +4183,10 @@ class TinantaDerivationEngine:
                         _k9ycc = self._add_augment(_k9yc, False) if lakara == "lfN" else _k9yc
                         cands+=self._conjugate_at_stem_atmane(_k9ycc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 # divAdi D-final yak sya-futures (rAtsyate + augmented lfN arAtsyata;
-                # same D→t cores as mUla lfw (rAD/kruD/kzuD/SuD/siD); 5 fids surveyed —
+                # same D→t cores as mUla lfw (rAD/vyaD/kruD/kzuD/SuD/siD); 6 fids surveyed —
                 # old Dsyate-forms miss; additive, divAdiH-gated).
-                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("rAD", "kruD", "kzuD", "SuD", "siD") and lakara in ("lfw", "lfN"):
-                    _d4yc = {"rAD": "rAtsy", "kruD": "krotsy", "kzuD": "kzotsy", "SuD": "Sotsy", "siD": "setsy"}[meta.get("clean")]
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("rAD", "vyaD", "kruD", "kzuD", "SuD", "siD") and lakara in ("lfw", "lfN"):
+                    _d4yc = {"rAD": "rAtsy", "vyaD": "vyatsy", "kruD": "krotsy", "kzuD": "kzotsy", "SuD": "Sotsy", "siD": "setsy"}[meta.get("clean")]
                     if lakara == "lfN":
                         _d4yc = self._add_augment(_d4yc, False)
                     cands+=self._conjugate_at_stem_atmane(_d4yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
