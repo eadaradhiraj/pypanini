@@ -4388,7 +4388,25 @@ class TinantaDerivationEngine:
                     }
                     return _atman_vy.get((purusha, vacana), []), log
 
-                # divAdi do yak liT dad-redup (sole 04.0043 surveyed — old miss (9/9 true
+                # divAdi stim yak liT tisti-redup (sole 04.0137 surveyed — old miss (9/9
+                # true misses); exclusive return, divAdiH-gated).
+                if clean == "stim" and meta.get("gana") == "divAdiH" and not op.startswith("zw"):
+                    _atman_stm = {
+                        ("prathama", "eka"): ["tistime"], ("prathama", "dvi"): ["tistimAte"], ("prathama", "bahu"): ["tistimire"],
+                        ("madhyama", "eka"): ["tistimize"], ("madhyama", "dvi"): ["tistimATe"], ("madhyama", "bahu"): ["tistimiDve"],
+                        ("uttama", "eka"): ["tistime"], ("uttama", "dvi"): ["tistimivahe"], ("uttama", "bahu"): ["tistimimahe"],
+                    }
+                    return _atman_stm.get((purusha, vacana), []), log
+
+                # divAdi zw-stim yak liT tizwi-redup (sole 04.0019 surveyed — op-twin of
+                # tisti-; old miss; exclusive return, divAdiH-gated).
+                if clean == "stim" and meta.get("gana") == "divAdiH" and op.startswith("zw"):
+                    _atman_zw = {
+                        ("prathama", "eka"): ["tizwime"], ("prathama", "dvi"): ["tizwimAte"], ("prathama", "bahu"): ["tizwimire"],
+                        ("madhyama", "eka"): ["tizwimize"], ("madhyama", "dvi"): ["tizwimATe"], ("madhyama", "bahu"): ["tizwimiDve"],
+                        ("uttama", "eka"): ["tizwime"], ("uttama", "dvi"): ["tizwimivahe"], ("uttama", "bahu"): ["tizwimimahe"],
+                    }
+                    return _atman_zw.get((purusha, vacana), []), log                # divAdi do yak liT dad-redup (sole 04.0043 surveyed — old miss (9/9 true
                 # misses); exclusive return, divAdiH-gated).
                 if clean == "do" and meta.get("gana") == "divAdiH":
                     _atman_do = {
@@ -8133,6 +8151,14 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vas":
                 _d4vas = {("prathama","eka"):["vavAsa"],("prathama","dvi"):["vavasatuH"],("prathama","bahu"):["vavasuH"],("madhyama","eka"):["vavasiTa"],("madhyama","dvi"):["vavasaTuH"],("madhyama","bahu"):["vavasa"],("uttama","eka"):["vavasa","vavAsa"],("uttama","dvi"):["vavasiva"],("uttama","bahu"):["vavasima"]}
                 return list(dict.fromkeys(_d4vas.get((purusha, vacana), []))), log
+            # divAdi stim mUla liT (tistema- vs tizwema- op-twins; pair 04.0137/0019 surveyed
+            # (stima~/zwima~); old miss; exclusive return, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "stim":
+                if op.startswith("zw"):
+                    _d4st = {("prathama","eka"):["tizwema"],("prathama","dvi"):["tizwimatuH"],("prathama","bahu"):["tizwimuH"],("madhyama","eka"):["tizwemiTa"],("madhyama","dvi"):["tizwimaTuH"],("madhyama","bahu"):["tizwima"],("uttama","eka"):["tizwema"],("uttama","dvi"):["tizwimiva"],("uttama","bahu"):["tizwimima"]}
+                else:
+                    _d4st = {("prathama","eka"):["tistema"],("prathama","dvi"):["tistimatuH"],("prathama","bahu"):["tistimuH"],("madhyama","eka"):["tistemiTa"],("madhyama","dvi"):["tistimaTuH"],("madhyama","bahu"):["tistima"],("uttama","eka"):["tistema"],("uttama","dvi"):["tistimiva"],("uttama","bahu"):["tistimima"]}
+                return list(dict.fromkeys(_d4st.get((purusha, vacana), []))), log
             # Panini 6.1.15 vaci-svapi-yajAdInAM kiti & 6.1.17 liwy abhyAsasyoBayezAm
             _yajadi_lit = {
                 "vad": {"pit_l": "uvAd", "pit_s": "uvad", "kit": "Ud", "tha": ["uvadiTa", "uvadTa"]},
