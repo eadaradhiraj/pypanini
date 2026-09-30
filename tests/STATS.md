@@ -530,3 +530,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 379 (GEN-06: tudAdi sj/majj tfc twins (BarzwA/srazwA + maNktA; trio 06.0004/0150/0151 surveyed; old BrajktA-forms miss; probes ALL-HIT): 06 +9 matched (3 improved), 0 worsened (guards green).
 - Iteration 380 (GEN-06: tudAdi sj/majj ktvA twins (BfzwvA/sfzwvA + maktvA/maNktvA; trio 06.0004/0150/0151 surveyed; old BrajktvA-forms miss; probes ALL-HIT): 06 +3 matched (3 improved), 0 worsened (guards green).
 - Iteration 381 (GEN-06: tudAdi u-final present uv-grade (nuvati/Duvati/guvati/Druvati/suvati; surveyed nonet 06.0132-0135/0144; C-stem conjugation (uv+a fallacy catch); old miss; probes ALL-HIT): 06 +45 matched (5 improved), 0 worsened (guards green).
+- Iteration 382 (GEN-06: tudAdi i-final present iy-grade (riyati/piyati/Diyati/kziyati; surveyed quartet 06.0140-0143; old rayati-forms miss; probes ALL-HIT 36/36): 06 +36 matched (4 improved), 0 worsened (guards green).

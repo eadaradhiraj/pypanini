@@ -6597,6 +6597,11 @@ class TinantaDerivationEngine:
             # gives navati-forms which miss; C-stem + parasmaipada; additive, tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean[-1:] in ("u", "U"):
                 cands+=self._conjugate_at_stem_parasmai(clean[:-1] + "uv", "lw", purusha, vacana)
+            # tudAdi i-final present iy-grade (riyati/piyati/Diyati/kziyati; surveyed quartet
+            # 06.0140/0141/0142/0143 (ri/pi/Di/kzi) — generic guna gives rayati-forms which
+            # miss; C-stem + parasmaipada; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean[-1:] in ("i", "I"):
+                cands+=self._conjugate_at_stem_parasmai(clean[:-1] + "iy", "lw", purusha, vacana)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
