@@ -4781,6 +4781,12 @@ class KrdantaEngine:
             # old Brajjitavya-forms absent from tokens (verified), free; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "vrasc", "vyac", "pracC"):
                 return tri_linga({"Brajj": "Barzwavya", "vrasc": "vrazwavya", "vyac": "vicitavya", "pracC": "prazwavya"}[clean])
+            # tudAdi bare-u/U tavya (gutavya/Drutavya/kutavya + nuvitavya/kuvitavya/
+            # Duvitavya/savitavya; 7-clean survey — short-u takes aniT tavya (no iT),
+            # long-U takes uv-grade + iT (nU/kU/DU), sU takes av-grade + iT (U->av);
+            # old forms verified absent from tokens (probes), free; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("gu", "Dru", "ku", "nU", "kU", "DU", "sU"):
+                return tri_linga({"gu": "gutavya", "Dru": "Drutavya", "ku": "kutavya", "nU": "nuvitavya", "kU": "kuvitavya", "DU": "Duvitavya", "sU": "savitavya"}[clean])
             # iN aD- tavya (aDyetavya; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return tri_linga("aDyetavya")
