@@ -9113,6 +9113,15 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "do":
                     _d4do = {("prathama","eka"):["adAt","adAd"],("prathama","dvi"):["adAtAm"],("prathama","bahu"):["aduH"],("madhyama","eka"):["adAH"],("madhyama","dvi"):["adAtam"],("madhyama","bahu"):["adAta"],("uttama","eka"):["adAm"],("uttama","dvi"):["adAva"],("uttama","bahu"):["adAma"]}
                     cands += _d4do.get((purusha, vacana), [])
+                # divAdi Fz mUla luN (ajar-/ajArI- twins for jFz (18 forms), aJarI- only
+                # for JFz (10 forms); pair 04.0025/0026 surveyed — old miss everywhere;
+                # liT-table asymmetry precedent; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz"):
+                    if meta.get("clean") == "jFz":
+                        _d4fz = {("prathama","eka"):["ajarat","ajarad","ajArIt","ajArId"],("prathama","dvi"):["ajaratAm"],("prathama","bahu"):["ajaran","ajArizuH"],("madhyama","eka"):["ajaraH","ajArIH"],("madhyama","dvi"):["ajaratam","ajArizwam"],("madhyama","bahu"):["ajarata","ajArizwa"],("uttama","eka"):["ajaram","ajArizam"],("uttama","dvi"):["ajarAva","ajArizva"],("uttama","bahu"):["ajarAma","ajArizma"]}
+                    else:
+                        _d4fz = {("prathama","eka"):["aJArIt","aJArId"],("prathama","dvi"):["aJArizwAm"],("prathama","bahu"):["aJArizuH"],("madhyama","eka"):["aJArIH"],("madhyama","dvi"):["aJArizwam"],("madhyama","bahu"):["aJArizwa"],("uttama","eka"):["aJArizam"],("uttama","dvi"):["aJArizva"],("uttama","bahu"):["aJArizma"]}
+                    cands += _d4fz.get((purusha, vacana), [])
                 # divAdi vyaD sic-aorist (avyAtsIt/avyAtsId + avyAdDAm twin; sole 04.0078
                 # surveyed — old avyaDt-forms miss; additive, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "vyaD":
