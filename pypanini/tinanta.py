@@ -912,6 +912,13 @@ class TinantaDerivationEngine:
             for _kb in ("kuv", "kuve"):
                 if _kb not in bases:
                     bases.append(_kb)
+        # tudAdi f-Atmane riy-bases (priyate/mriyate/driyate/Driyate + system;
+        # quartet 06.0138/0139/0147/0148 surveyed — f→riy (i→y glide, rIN-like),
+        # no guNa; propagates via generic machinery; dhatu_id 06-prefix; additive).
+        if clean in ("pf", "mf", "df", "Df") and str(dhatu_id or "").startswith("06."):
+            _rb = {"pf": "priy", "mf": "mriy", "df": "driy", "Df": "Driy"}[clean]
+            if _rb not in bases:
+                bases.append(_rb)
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
         if is_adeca(clean):
             a_root = clean[:-1] + "A"
