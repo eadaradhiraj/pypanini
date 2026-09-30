@@ -1229,8 +1229,10 @@ class KrdantaEngine:
         # vowel-initial urd -> Urd for krdanta (dataset uses long U)
         if clean == "urd":
             clean = "Urd"
-        elif "ur" in clean:
-            # internal ur -> Ur (kurda -> kUrda)
+        elif "ur" in clean and not clean.endswith("ur"):
+            # internal ur -> Ur (kurda -> kUrda; ur-final keeps short u — tudAdi
+            # sur/kur/mur take suritaH not sUritaH (nonet surveyed; gur/cur take
+            # grades elsewhere))
             if "ur" in clean:
                 alt = clean.replace("ur", "Ur", 1)
                 # keep original but also generate capital variant for krdanta checks
