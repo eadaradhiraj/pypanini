@@ -639,6 +639,10 @@ class KrdantaEngine:
         # surveyed: sole 01 cC-aniT root 01.0244 uCI~, zero conflicts)
         if clean.endswith("cC") and not needs_i:
             return clean[:-2] + "zwa"
+        # tudAdi sj-final kta takes C0+fzwa (Brasj/sfj -> Bfzwa/sfzwa; samprasAraNa + zatva;
+        # surveyed pair 06.0004/0150 — old Brajkta-forms miss everywhere; tudAdiH-gated).
+        if clean in ("Brajj", "sfj") and gana == "tudAdiH":
+            return clean[0] + "fzwa"
         # tudAdi j-final kta takes g+na (vij/laj/lajj/majj/Buj -> vigna/lagna/magna/Bugna;
         # surveyed nonet 06.0009/0010/0011/0151/0153 — Brajj/sfj/ruj take zwa/gRa grades
         # elsewhere; old vikta-forms miss everywhere; tudAdiH-gated).
