@@ -905,6 +905,13 @@ class TinantaDerivationEngine:
             _samp = {"Brajj": "Bfjj", "vrasc": "vfSc", "vyac": "vic", "pracC": "pfcC"}[clean]
             if _samp not in bases:
                 bases.append(_samp)
+        # tudAdi ku/kU uv-bases (kuvate/kuveTe + low/laN/viDiliN/futures; pair
+        # 06.0136/0137 surveyed — kuv- stem + kuve- md-grade (v-epenthesis, no guNa);
+        # dhatu_id 06-prefix; additive).
+        if clean in ("ku", "kU") and str(dhatu_id or "").startswith("06."):
+            for _kb in ("kuv", "kuve"):
+                if _kb not in bases:
+                    bases.append(_kb)
         # Panini 6.1.45 Adeca upadeSe 'Siti: roots ending in eC (E, e, o) substitute At (A) before aSit affixes
         if is_adeca(clean):
             a_root = clean[:-1] + "A"
