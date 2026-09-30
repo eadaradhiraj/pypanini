@@ -4323,7 +4323,16 @@ class TinantaDerivationEngine:
                         ("uttama", "eka"): ["SuSuce"], ("uttama", "dvi"): ["SuSucivahe"], ("uttama", "bahu"): ["SuSucimahe"],
                     }
                     return _atman_su.get((purusha, vacana), []), log
-                # divAdi raD yak liT raranD-/re- twins (sole 04.0090 surveyed — old
+
+                # divAdi dI yak liT didIy-redup (sole 04.0029 surveyed — mirrors mUla didIy;
+                # old miss (8/9 true misses, 1 cross-hit); exclusive return, divAdiH-gated).
+                if clean == "dI" and meta.get("gana") == "divAdiH":
+                    _atman_dI = {
+                        ("prathama", "eka"): ["didIye"], ("prathama", "dvi"): ["didIyAte"], ("prathama", "bahu"): ["didIyire"],
+                        ("madhyama", "eka"): ["didIyize"], ("madhyama", "dvi"): ["didIyATe"], ("madhyama", "bahu"): ["didIyiQve"],
+                        ("uttama", "eka"): ["didIye"], ("uttama", "dvi"): ["didIyivahe"], ("uttama", "bahu"): ["didIyimahe"],
+                    }
+                    return _atman_dI.get((purusha, vacana), []), log                # divAdi raD yak liT raranD-/re- twins (sole 04.0090 surveyed — old
                 # raraD-forms miss everywhere; exclusive return, divAdiH-gated).
                 if clean == "raD" and meta.get("gana") == "divAdiH":
                     _atman_ra = {
@@ -5210,6 +5219,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
                     _d4gbe = {("prathama","eka"):["gopizIzwa"],("prathama","dvi"):["gopizIyAstAm"],("prathama","bahu"):["gopizIran"],("madhyama","eka"):["gopizIzWAH"],("madhyama","dvi"):["gopizIyAsTAm"],("madhyama","bahu"):["gopizIDvam"],("uttama","eka"):["gopizIya"],("uttama","dvi"):["gopizIvahi"],("uttama","bahu"):["gopizImahi"]}
                     cands += _d4gbe[(purusha, vacana)]
+                # divAdi dI yak-benedictive Ayiz-/A s-twins (dAyizIzwa/dAsIzwa; sole 04.0029
+                # surveyed — old miss (9/9 true misses); additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "dI":
+                    _d4dbe = {("prathama","eka"):["dAyizIzwa","dAsIzwa"],("prathama","dvi"):["dAyizIyAstAm","dAsIyAstAm"],("prathama","bahu"):["dAyizIran","dAsIran"],("madhyama","eka"):["dAyizIzWAH","dAsIzWAH"],("madhyama","dvi"):["dAyizIyAsTAm","dAsIyAsTAm"],("madhyama","bahu"):["dAyizIDvam","dAsIDvam"],("uttama","eka"):["dAyizIya","dAsIya"],("uttama","dvi"):["dAyizIvahi","dAsIvahi"],("uttama","bahu"):["dAyizImahi","dAsImahi"]}
+                    cands += _d4dbe[(purusha, vacana)]
                 # divAdi ISuc yak-benedictive o-grade (SocizIzwa; sole 04.0061 surveyed —
                 # old miss; additive, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
