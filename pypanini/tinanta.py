@@ -5122,6 +5122,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
                     _d4gbe = {("prathama","eka"):["gopizIzwa"],("prathama","dvi"):["gopizIyAstAm"],("prathama","bahu"):["gopizIran"],("madhyama","eka"):["gopizIzWAH"],("madhyama","dvi"):["gopizIyAsTAm"],("madhyama","bahu"):["gopizIDvam"],("uttama","eka"):["gopizIya"],("uttama","dvi"):["gopizIvahi"],("uttama","bahu"):["gopizImahi"]}
                     cands += _d4gbe[(purusha, vacana)]
+                # divAdi ISuc yak-benedictive o-grade (SocizIzwa; sole 04.0061 surveyed —
+                # old miss; additive, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
+                    _d4sbe = {("prathama","eka"):["SocizIzwa"],("prathama","dvi"):["SocizIyAstAm"],("prathama","bahu"):["SocizIran"],("madhyama","eka"):["SocizIzWAH"],("madhyama","dvi"):["SocizIyAsTAm"],("madhyama","bahu"):["SocizIDvam"],("uttama","eka"):["SocizIya"],("uttama","dvi"):["SocizIvahi"],("uttama","bahu"):["SocizImahi"]}
+                    cands += _d4sbe[(purusha, vacana)]
                 # divAdi D-final yak-benedictive ts-grades (rAtsIzwa; rAD + D-quartet
                 # 04.0077/0086-0089 surveyed — D→t + guNa; old DsIzwa-forms miss;
                 # additive, divAdiH-gated).
