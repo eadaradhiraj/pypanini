@@ -5212,6 +5212,17 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "raD":
                     table_d4ra = {("prathama","eka"):["aranDi"],("prathama","dvi"):["aratsAtAm","araDizAtAm"],("prathama","bahu"):["aratsata","araDizata"],("madhyama","eka"):["aradDAH","araDizWAH"],("madhyama","dvi"):["aratsATAm","araDizATAm"],("madhyama","bahu"):["aradDvam","araDiDvam"],("uttama","eka"):["aratsi","araDizi"],("uttama","dvi"):["aratsvahi","araDizvahi"],("uttama","bahu"):["aratsmahi","araDizmahi"]}
                     return table_d4ra[(purusha,vacana)], log
+                # divAdi Fz yak luN iz-grades (ajari-/ajarI-/ajAri-/ajArI-/ajIr- twins
+                # + Qvam/Dvam twins; pair 04.0025/0026 surveyed — J-mirror for JFz;
+                # old miss everywhere; exclusive return, divAdiH-gated).
+                if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz"):
+                    _J = "J" if meta.get("clean") == "JFz" else "j"
+                    _A = "A" if meta.get("clean") == "JFz" else "a"
+                    _p = "aJAri" if meta.get("clean") == "JFz" else "ajAri"
+                    _g = ["a" + _J + "ariz", "a" + _J + "arIz", "a" + _J + "Ariz", "a" + _J + "ArIz", "a" + _J + "Irz"]
+                    _gm = ["a" + _J + "ari", "a" + _J + "arI", "a" + _J + "Ari", "a" + _J + "ArI", "a" + _J + "Ir"]
+                    table_d4fz = {("prathama","eka"):[_p],("prathama","dvi"):[g + "AtAm" for g in _g],("prathama","bahu"):[g + "ata" for g in _g],("madhyama","eka"):[g + "WAH" for g in _g],("madhyama","dvi"):[g + "ATAm" for g in _g],("madhyama","bahu"):[gm + "Qvam" for gm in _gm] + [gm + "Dvam" for gm in _gm],("uttama","eka"):[g + "i" for g in _g],("uttama","dvi"):[g + "vahi" for g in _g],("uttama","bahu"):[g + "mahi" for g in _g]}
+                    return table_d4fz[(purusha,vacana)], log
                 table = {("prathama","eka"):[aug_clean+"i", _aug(vbase)+"i", aug_orig+"i"],("prathama","dvi"):[aug_clean+"izAtAm",aug_clean+"azAtAm", _aug(vbase)+"izAtAm", aug_orig+"izAtAm"],("prathama","bahu"):[aug_clean+"izata", _aug(vbase)+"izata", aug_orig+"izata"],("madhyama","eka"):[aug_clean+"izWAH", _aug(vbase)+"izWAH", aug_orig+"izWAH"],("madhyama","dvi"):[aug_clean+"izATAm", _aug(vbase)+"izATAm", aug_orig+"izATAm"],("madhyama","bahu"):[aug_clean+"iDvam",aug_clean+"iQvam", _aug(vbase)+"iDvam", aug_orig+"iDvam", aug_orig+"iQvam"],("uttama","eka"):[aug_clean+"izi", _aug(vbase)+"izi", aug_orig+"izi"],("uttama","dvi"):[aug_clean+"izvahi", _aug(vbase)+"izvahi", aug_orig+"izvahi"],("uttama","bahu"):[aug_clean+"izmahi", _aug(vbase)+"izmahi", aug_orig+"izmahi"]}
                 # Panini 8.4.58/8.3.23 nasal assimilation in primitive yak-luN (tunp->atumpi, srans->asraMsi;
                 # same 14-root n+labial/s survey, additive)
