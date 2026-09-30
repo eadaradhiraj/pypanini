@@ -3423,6 +3423,14 @@ class TinantaDerivationEngine:
                 else:
                     _yld4g = {("prathama","eka"):["jogupIti","jogopti"],("prathama","dvi"):["joguptaH"],("prathama","bahu"):["jogupati"],("madhyama","eka"):["jogupIzi","jogopsi"],("madhyama","dvi"):["jogupTaH"],("madhyama","bahu"):["jogupTa"],("uttama","eka"):["jogupImi","jogopmi"],("uttama","dvi"):["jogupvaH"],("uttama","bahu"):["jogupmaH"]}
                     extra += _yld4g.get((purusha, vacana), [])
+            # divAdi ISuc yanlug (SoSucIti/SoSokti kartari + SoSucyate karmani; sole
+            # 04.0061 surveyed — old IeISuk-forms miss everywhere; additive, divAdiH-gated).
+            if clean == "ISuc" and meta.get("gana") == "divAdiH" and lakara == "lw":
+                if prayoga == "karmani":
+                    extra += self._conjugate_at_stem_atmane("SoSucy", "lw", purusha, vacana)
+                else:
+                    _yld4su = {("prathama","eka"):["SoSucIti","SoSokti"],("prathama","dvi"):["SoSuktaH"],("prathama","bahu"):["SoSucati"],("madhyama","eka"):["SoSucIzi","SoSokzi"],("madhyama","dvi"):["SoSukTaH"],("madhyama","bahu"):["SoSukTa"],("uttama","eka"):["SoSucImi","SoSocmi"],("uttama","dvi"):["SoSucvaH"],("uttama","bahu"):["SoSucmaH"]}
+                    extra += _yld4su.get((purusha, vacana), [])
             return list(set(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
