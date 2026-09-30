@@ -639,6 +639,11 @@ class KrdantaEngine:
         # surveyed: sole 01 cC-aniT root 01.0244 uCI~, zero conflicts)
         if clean.endswith("cC") and not needs_i:
             return clean[:-2] + "zwa"
+        # tudAdi j-final kta takes g+na (vij/laj/lajj/majj/Buj -> vigna/lagna/magna/Bugna;
+        # surveyed nonet 06.0009/0010/0011/0151/0153 — Brajj/sfj/ruj take zwa/gRa grades
+        # elsewhere; old vikta-forms miss everywhere; tudAdiH-gated).
+        if clean in ("vij", "laj", "lajj", "majj", "Buj") and gana == "tudAdiH":
+            return clean[:-2] + "gna" if clean.endswith("jj") else clean[:-1] + "gna"
         # coH kuH (8.2.30): c/ch/j/J -> k
         if clean[-1] in ("c", "C", "j", "J"):
             return clean[:-1] + "k" + "ta"
