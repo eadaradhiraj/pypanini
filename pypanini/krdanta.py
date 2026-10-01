@@ -1096,6 +1096,15 @@ class KrdantaEngine:
             groot = groot.replace("n", "m", 1)
         return groot
 
+    def _tudadi_san13(self, clean: str):
+        """tudAdi sannanta 13 redup stems (shared by san kta/Satf/tavya/anIyar/yat/
+        Rvul/SAnac/tfc/tumun/lyuw/GaY/ktvA/lyap branches; first = primary scoring
+        variant, rest are attested twins; surveyed identical 13-fid set
+        (Brajj/vrasc/ubj/stfnh/tfnh/kfq/Bfq/kF/gF/df/praC/majj/Cup); None if clean
+        not in set."""
+        _m = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}
+        return _m.get(clean)
+
     def _tudAdi_ktin_stem(self, clean: str):
         """tudAdi ktin-stem (feminine action noun -ti): zwi-class (Bfz/kfz/vfz/uMz/
         uz/fz/miz/pfz/sfz + wi), gDi-class (Jarg/ujg/ub/Sub + Di), R-final lengthen +
@@ -2297,6 +2306,13 @@ class KrdantaEngine:
                 if c == "Df" and (op and "DfN" in op):
                     return "diDariz"
 
+                # tudAdi san 13 stems (biBarjiz/vivrakz/ubjijiz/...; same stems as san_krut
+                # anIyar/yat/Rvul/SAnac — first variants; sec feeds all san pratyayas
+                # (kta/Satf/tavya/tumun/ktvA/lyap...) + tinanta san lakaras; all currently
+                # miss so replacement free; tudAdiH-gated. PLACEMENT: before the aniT
+                # early-return below (13-set roots are aniT and would exit there).
+                if meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                    return {"Brajj": "biBarjiz", "vrasc": "vivrakz", "ubj": "ubjijiz", "stfnh": "tistfkz", "tfnh": "titfkz", "kfq": "cikfqiz", "Bfq": "biBfqiz", "kF": "cikariz", "gF": "jigaliz", "df": "didariz", "praC": "pipfcCiz", "majj": "mimaNkz", "Cup": "cucCups"}[meta.get("clean", "")]
                 if not is_vowel_final:
                     is_anit_root = str(meta.get("sew_raw", "")).startswith("ani")
                     if is_anit_root:
@@ -2337,13 +2353,6 @@ class KrdantaEngine:
                         redup_cons = "d"
                         redup_vowel = "i"
                     return redup_cons + redup_vowel + c_stem + "iz"
-
-                # tudAdi san 13 stems (biBarjiz/vivrakz/ubjijiz/...; same stems as san_krut
-                # anIyar/yat/Rvul/SAnac — first variants; sec feeds all san pratyayas
-                # (kta/Satf/tavya/tumun/ktvA/lyap...) + tinanta san lakaras; all currently
-                # miss so replacement free; tudAdiH-gated).
-                if meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
-                    return {"Brajj": "biBarjiz", "vrasc": "vivrakz", "ubj": "ubjijiz", "stfnh": "tistfkz", "tfnh": "titfkz", "kfq": "cikfqiz", "Bfq": "biBfqiz", "kF": "cikariz", "gF": "jigaliz", "df": "didariz", "praC": "pipfcCiz", "majj": "mimaNkz", "Cup": "cucCups"}[meta.get("clean", "")]
                 # Panini 6.4.16 aj-jhan-gAM sani & 7.1.100 fta idDOH + 8.2.77 hali ca & 7.1.102 uda ozWya-pUrvAt
                 if c.endswith(("f", "F")):
                     # kryAdi F-final san ariz-sec (cikarizita/cikarizat/...; mirrors tinanta
@@ -6323,6 +6332,12 @@ class KrdantaEngine:
             # iN aD- tfc (aDyetA; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDyetA", "F": "aDyetrI", "N": "aDyetf"}
+            # tudAdi san-tfc 13 stems (biBarjizitA/...; shared _tudadi_san13 map;
+            # surveyed identical 13-fid set; old clean-based misses; replace).
+            if sanadi == "sannanta" and meta.get("gana") == "tudAdiH":
+                _t6t = self._tudadi_san13(meta.get("clean", "") or clean)
+                if _t6t:
+                    return {"M": [s + "itA" for s in _t6t], "F": [s + "itrI" for s in _t6t], "N": [s + "itf" for s in _t6t]}
             if sanadi == "sannanta":
                 b = clean + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
@@ -6769,6 +6784,12 @@ class KrdantaEngine:
                 _tn = "N" if _tbw and _tbw[-1] in ("k", "K", "g", "G") else ("Y" if _tbw and _tbw[-1] in ("c", "C", "j", "J") else ("R" if _tbw and _tbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _tbw and _tbw[-1] in ("p", "P", "b", "B") else None)))
                 if _tn and len(_tbw) >= 1:
                     return {"avyaya": [_tbw[:-1] + _tn + _tbw[-1] + "itum"]}
+            # tudAdi san-tumun 13 stems (biBarjizitum/...; shared _tudadi_san13 map;
+            # surveyed identical 13-fid set; old clean-based misses; replace).
+            if sanadi == "sannanta" and meta.get("gana") == "tudAdiH":
+                _t6u = self._tudadi_san13(meta.get("clean", "") or clean)
+                if _t6u:
+                    return {"avyaya": [s + "itum" for s in _t6u]}
             if sanadi == "sannanta":
                 stem = clean + "i" + "tum"
                 return {"avyaya": [stem]}
