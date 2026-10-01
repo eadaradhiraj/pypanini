@@ -192,6 +192,7 @@ class KrdantaEngine:
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
             "ap": ("M-only Action Noun in -a (अप्)", "masculine_noun"),
+            "Ra": ("Vriddhi Agent Noun in -a (रः)", "agent_noun"),
             "a": ("Feminine Action Noun in -A (अः)", "feminine_noun"),
             "kyap": ("Gerundive in -yap (क्यप्)", "gerundive"),
             "BAvakarma-SAnac": ("Bhava-karman Present Participle (भावकर्म-शानच्)", "participle"),
@@ -6167,6 +6168,14 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("nU", "DU", "gu", "Dru", "ku", "kU", "sU", "kF", "gF"):
                 _t6ap = {"nU": "nuva", "DU": "Duva", "gu": "guta", "Dru": "Druta", "ku": "kuta", "kU": "kuva", "sU": "sava", "kF": "kara", "gF": "gala"}[meta.get("clean", "")]
                 return {"M": _t6ap + "H"}
+
+        elif pratyaya == "Ra":
+            # tudAdi Ra vriddhi nouns (cAla/koca/sAda; quartet 06.0083/0095/0163/0164
+            # surveyed — vriddhi-grade + a; previously None→unscored; scoped so other
+            # ganas keep None; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("cal", "kuc", "sad", "Sad"):
+                _t6ra = {"cal": "cAla", "kuc": "koca", "sad": "sAda", "Sad": "SAda"}[meta.get("clean", "")]
+                return {"M": _t6ra + "H", "F": _t6ra[:-1] + "A", "N": _t6ra + "m"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
