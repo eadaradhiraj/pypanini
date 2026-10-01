@@ -3235,8 +3235,9 @@ class TinantaDerivationEngine:
                 redup_cons = cluster[1] if cluster[1] in SLP1_KHAY else cluster[0]
             redup_cons = DEASPIRATE.get(redup_cons, redup_cons)
             # Panini 7.4.63 na kavater yaNi: cutva prohibited for BvAdi ku/kU but AdAdi takes cutva
-            # (02.0037 yangluk cokavIti; surveyed pair; gana-gated, mirrors _yan_stem).
-            if not (c_eff in ("ku", "kU") and len(clean) <= 2 and meta.get("gana") != "adAdiH"):
+            # (02.0037 yangluk cokavIti), as does tudAdi ku/kU (06.0136/0137 cokavIti/cokoti;
+            # surveyed trio; gana-gated, mirrors _yan_stem).
+            if not (c_eff in ("ku", "kU") and len(clean) <= 2 and meta.get("gana") not in ("adAdiH", "tudAdiH")):
                 redup_cons = VELAR_TO_PALATAL.get(redup_cons, redup_cons)
             # z-initial roots with high-vowel onset (meta-mapped z->s): base keeps z (mirroring _yan_stem)
             # Panini 8.3.59 AdeSapratyayayoH & 8.4.41 zwunA zwuH:
