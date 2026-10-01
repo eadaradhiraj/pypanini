@@ -184,6 +184,7 @@ class KrdantaEngine:
             "ktin": ("Feminine Action Noun in -ti (क्तिन्)", "feminine_noun"),
             "Ryat": ("Gerundive in -ya (र्यत्)", "gerundive"),
             "Ramul": ("Absolutive in -am (रामुल्)", "avyaya"),
+            "sya-Satf": ("Future Active Participle (स्य-शतृ)", "participle"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "BAvakarma-SAnac": ("Bhava-karman Present Participle (भावकर्म-शानच्)", "participle"),
         }
@@ -1147,6 +1148,67 @@ class KrdantaEngine:
         if not _a:
             return None
         return _a[0] + "i"
+
+    # u-keep set shared by vun + sya helpers (surveyed; juq split by fid 06.0051/0106)
+    _T6_U_KEEP = ("Cuq", "Cur", "Cuw", "Guw", "Kuq", "Tuq", "cuq", "cuw", "guj", "guq", "gur", "huq", "kuw", "kuc", "kuq", "luW", "luw", "muw", "puq", "puw", "juw", "tuw", "tuq", "vruq", "kruq", "truw")
+
+    def _tudAdi_sya_stem(self, clean: str, sew: bool = True, dhatu_id=None):
+        """tudAdi sya-future stem (sans -an, with trailing -a): kzy-class literals
+        (+izya twins), V-final aniT + zya (guzy kept, rezy e-grade), V-final seT
+        uv + izya, F seT ar/al + Izya, viC Ay (vicCAyizya), else vun-root +
+        izya/sya by sew with d+s→tsya sandhi for aniT. Returns stem or list or None."""
+        VOWS = "aAiIuUfFxXeEoO"
+        if not clean:
+            return None
+        _kzy = {"Brajj": ["Barkzya", "Brakzya"], "kfz": ["krakzya"], "vrasc": ["vrakzya", "vraScizya"], "vfh": ["varkzya", "varhizya"], "stfh": ["starkzya", "starhizya"], "bfh": ["Barkzya", "barhizya"], "tfh": ["tarkzya", "tarhizya"], "praC": ["prakzya"], "sfj": ["srakzya"], "majj": ["maNkzya"], "ruj": ["rokzya"], "stfnh": ["stfNkzya", "stfMhizya"], "tfnh": ["tfNkzya", "tfMhizya"], "Buj": ["Bokzya"]}
+        if clean in _kzy:
+            return _kzy[clean]
+        if clean == "viC":
+            return "vicCAyizya"
+        # vyac stays plain in sya (vyacizya; sole surveyed — vun/lyap take vic)
+        if clean == "vyac":
+            return "vyacizya"
+        # f-finals take ar + izya (marizya; mf surveyed, pf/df/Df unattested)
+        if len(clean) > 1 and clean[-1:] == "f" and clean[0] not in VOWS:
+            return clean[:-1] + "arizya"
+        # sU takes savizya (sole surveyed — nU/DU/ku take uvizya)
+        if clean == "sU":
+            return "savizya"
+        # c-final aniT takes kzya (mokzya/sekzya; c-final seT takes izya)
+        if clean[-1:] == "c" and not sew:
+            _ci = next((n for n, ch in enumerate(clean) if ch in VOWS), None)
+            if _ci is not None:
+                return clean[:_ci] + ("e" if clean[_ci] == "i" else "o" if clean[_ci] == "u" else clean[_ci]) + "kzya"
+        # spfS/mfS twins (ar-metathesis pair like Brajj Bark/Brak; before S-rule)
+        if clean == "spfS":
+            return ["sparkzya", "sprakzya"]
+        if clean == "mfS":
+            return ["markzya", "mrakzya"]
+        # S-final aniT takes kzya (dekzya/rokzya; S-final seT takes izya)
+        if clean[-1:] == "S" and not sew:
+            _si = next((n for n, ch in enumerate(clean) if ch in VOWS), None)
+            if _si is not None:
+                return clean[:_si] + ({"i": "e", "u": "o", "a": "a"}.get(clean[_si], clean[_si])) + "kzya"
+
+        if clean[-1:] in ("u", "U") and len(clean) > 1 and clean[0] not in VOWS:
+            if not sew:
+                return clean + "zya"
+            return clean[:-1] + "uvizya"
+        if clean[-1:] in ("i", "I") and len(clean) > 1 and clean[0] not in VOWS:
+            if not sew:
+                return clean[:-1] + "ezya"
+            return clean[:-1] + "iyizya"
+        if clean[-1:] == "F":
+            i = next((n for n, ch in enumerate(clean) if ch in VOWS), None)
+            return (clean[:i] + ("al" if clean[i - 1:i] == "g" else "ar") + "Izya") if i is not None else None
+        _vr = self._tudAdi_vun_root(clean, dhatu_id)
+        if _vr is None:
+            return None
+        suf = "izya" if sew else "sya"
+        stem = _vr + suf
+        if not sew and stem.endswith("dsya"):
+            stem = stem[:-4] + "tsya"
+        return stem
 
     def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
         # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
@@ -6023,6 +6085,16 @@ class KrdantaEngine:
                     elif _t6rmc == "gF":
                         _t6rr = "gal"
                     return {"avyaya": [_t6rr + "am"]}
+
+        elif pratyaya == "sya-Satf":
+            # tudAdi sya-future Satf via _tudAdi_sya_stem (164-clean survey incl.
+            # kzy/izya twins; M stem+an, F atI/antI, N at/ad; previously None→
+            # unscored; scoped so other ganas keep None; meta-clean + sew gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6sy = self._tudAdi_sya_stem(meta.get("clean", ""), bool(meta.get("sew")), dhatu_id)
+                if _t6sy:
+                    _t6sys = _t6sy if isinstance(_t6sy, list) else [_t6sy]
+                    return {"M": [s + "n" for s in _t6sys], "F": [x for s in _t6sys for x in (s + "tI", s + "ntI")], "N": [x for s in _t6sys for x in (s + "t", s + "d")]}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
