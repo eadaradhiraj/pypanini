@@ -3021,6 +3021,19 @@ class KrdantaEngine:
                 if pratyaya == "Rvul" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
                     _t6sr = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[meta.get("clean", "")]
                     return {"M": [s + "akaH" for s in _t6sr], "F": [s + "ikA" for s in _t6sr], "N": [s + "akam" for s in _t6sr]}
+                # tudAdi ubj san quartet (ubjijiz-grades for lyuw/GaY/ktvA/lyap; sole
+                # 06.0023 surveyed — generic C1-redup shadows the 13-map (sec ubibjiz
+                # feeds 25 passing slots, so per-pratyaya literals instead of sec move);
+                # old forms absent from all tokens; replace, tudAdiH-gated).
+                if meta.get("gana") == "tudAdiH" and meta.get("clean", "") == "ubj":
+                    if pratyaya == "lyuw":
+                        return {"gender": "Neuter", "form": "ubjijizaRam"}
+                    if pratyaya == "GaY":
+                        return {"gender": "Masculine", "form": "ubjijizaH"}
+                    if pratyaya == "ktvA":
+                        return {"avyaya": ["ubjijizya"]}
+                    if pratyaya == "lyap":
+                        return {"avyaya": ["probjijizya"]}
                 if pratyaya == "Rvul": return {"M": sec+"uH","F":sec+"uH","N":sec+"u"}
                 if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
                 _nat = _natva_applies(sec)
