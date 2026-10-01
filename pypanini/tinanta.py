@@ -9150,6 +9150,11 @@ class TinantaDerivationEngine:
                 # sole 09.0071 surveyed; additive, kryAdiH-gated).
                 if clean == "grah" and meta.get("gana") == "kryAdiH":
                     _asb.append("gfh")
+                # tudAdi benedictive samp/n-less stems (vfScyAt/vicyAt/stfhyAt/tfhyAt;
+                # quartet 06.0012/0013/0037/0077 surveyed — samprasArana (vrasc/vyac)
+                # + n-drop (stfnh/tfnh); additive, tudAdiH-gated).
+                if meta.get("gana") == "tudAdiH" and clean in ("vrasc", "vyac", "stfnh", "tfnh"):
+                    _asb.append({"vrasc": "vfSc", "vyac": "vic", "stfnh": "stfh", "tfnh": "tfh"}[clean])
                 # jyA benedictive I-grade (jIyAt; sole 09.0034 surveyed; additive,
                 # kryAdiH-gated).
                 if clean == "jyA" and meta.get("gana") == "kryAdiH":
