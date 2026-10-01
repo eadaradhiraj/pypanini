@@ -4255,6 +4255,14 @@ class KrdantaEngine:
                     _t6ws = [_t6w]
                 _t6sM = [r + w + "at" for r in _t6reds for w in _t6ws] + [r + w + "ad" for r in _t6reds for w in _t6ws]
                 return {"M": _t6sM, "F": [r + w + "atI" for r in _t6reds for w in _t6ws], "N": _t6sM}
+            # tudAdi san-Satf redup grades (biBarjizan/mumUrzan/...; 14-clean survey —
+            # hrasva redup + roots (vrak/Barj/tfk/maNk/samp/mumUr/vivicCAy); suffix iz
+            # (z after k-stems titfk/mimaNk/vivrak, s after cucCup, Ayiz for vivicC);
+            # F izantI, N izat/izad; mf exempted from 1.3.60 (attested); old forms
+            # miss everywhere; replace; probes exact).
+            if sanadi == "sannanta" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "mf", "kF", "gF", "praC", "majj", "Cup", "viC"):
+                _t6ss = {"Brajj": [("biBarj", "iz"), ("biBrajj", "iz"), ("biBark", "z"), ("biBrak", "z")], "vrasc": [("vivrak", "z"), ("vivraSc", "iz")], "ubj": [("ubjij", "iz")], "stfnh": [("tistfk", "z"), ("tistfMh", "iz")], "tfnh": [("titfk", "z"), ("titfMh", "iz")], "kfq": [("cikfq", "iz")], "Bfq": [("biBfq", "iz")], "mf": [("mumUr", "z")], "kF": [("cikar", "iz")], "gF": [("jigal", "iz"), ("jigar", "iz")], "praC": [("pipfcC", "iz")], "majj": [("mimaNk", "z")], "Cup": [("cucCup", "s")], "viC": [("vivicC", "Ayiz")]}[meta.get("clean", "")]
+                return {"M": [s + m + "an" for s, m in _t6ss], "F": [s + m + "antI" for s, m in _t6ss], "N": [x for s, m in _t6ss for x in (s + m + "at", s + m + "ad")]}
             # Panini 1.3.57 jYA-Sru-smf-dfSAM sanaH: Atmanepada in sannanta (takes SAnac, not Satf)
             if sanadi == "sannanta" and (clean in ("jYA", "Sru", "smf", "dfS", "darS") or (op and any(op.startswith(x) for x in ("jYA", "Sru", "smf", "dfS")))):
                 return None
