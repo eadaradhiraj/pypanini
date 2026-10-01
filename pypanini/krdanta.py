@@ -185,6 +185,7 @@ class KrdantaEngine:
             "Ryat": ("Gerundive in -ya (र्यत्)", "gerundive"),
             "Ramul": ("Absolutive in -am (रामुल्)", "avyaya"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
+            "BAvakarma-SAnac": ("Bhava-karman Present Participle (भावकर्म-शानच्)", "participle"),
         }
         self._cache = None
 
@@ -984,6 +985,11 @@ class KrdantaEngine:
         return {"vrasc": "vAvrazwum", "luB": "lolobDum", "stfnh": "tarstfRQum",
                 "vfh": "varvarQum", "bfh": "barbarQum", "tfh": "tartarQum",
                 "stfh": "tarstarQum", "tfnh": "tartfRQum"}.get(clean)
+
+    def _tudAdi_cAnaS_root(self, clean: str):
+        """tudAdi cAnaS present-grade root (samp/num/uv/iy/Mh/doubling/m/n +
+        truwya/SIya/sIda literals, default clean); shared by cAnaS + BAvakarma."""
+        return {"Brajj": "Bfjj", "DU": "Duv", "Df": "Driy", "Di": "Diy", "Dru": "Druv", "Kid": "Kind", "Sad": "SIy", "SunB": "SumB", "df": "driy", "dfnP": "dfmP", "fC": "fcC", "fnP": "fmP", "gF": "gil", "gu": "guv", "gunP": "gumP", "iz": "icC", "kF": "kir", "kU": "kuv", "kft": "kfnt", "ku": "kuv", "kzi": "kziy", "lip": "limp", "lup": "lump", "mf": "mriy", "miC": "micC", "muc": "muYc", "nU": "nuv", "pf": "priy", "pi": "piy", "piS": "piMS", "praC": "pfcC", "ri": "riy", "sU": "suv", "sad": "sId", "sic": "siYc", "stfnh": "stfh", "tfnP": "tfmP", "tfnh": "tfMh", "truw": "truwy", "tunP": "tumP", "tunp": "tump", "uC": "ucC", "uCi": "uYC", "unB": "umB", "viC": "vicCAy", "vid": "vind", "vrasc": "vfSc", "vyac": "vic"}.get(clean, clean)
 
     def _tudAdi_vun_root(self, clean: str, dhatu_id=None, ryat: bool = False):
         """tudAdi vun-root (agent noun -aka): samp quartet (Barj/vraSc/vic/pracC),
@@ -5215,11 +5221,56 @@ class KrdantaEngine:
             # None; natva-gated R; meta-clean-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH":
                 _t6cm = meta.get("clean", "")
-                _t6cr = {"Brajj": "Bfjj", "DU": "Duv", "Df": "Driy", "Di": "Diy", "Dru": "Druv", "Kid": "Kind", "Sad": "SIy", "SunB": "SumB", "df": "driy", "dfnP": "dfmP", "fC": "fcC", "fnP": "fmP", "gF": "gil", "gu": "guv", "gunP": "gumP", "iz": "icC", "kF": "kir", "kU": "kuv", "kft": "kfnt", "ku": "kuv", "kzi": "kziy", "lip": "limp", "lup": "lump", "mf": "mriy", "miC": "micC", "muc": "muYc", "nU": "nuv", "pf": "priy", "pi": "piy", "piS": "piMS", "praC": "pfcC", "ri": "riy", "sU": "suv", "sad": "sId", "sic": "siYc", "stfnh": "stfh", "tfnP": "tfmP", "tfnh": "tfMh", "truw": "truwy", "tunP": "tumP", "tunp": "tump", "uC": "ucC", "uCi": "uYC", "unB": "umB", "viC": "vicCAy", "vid": "vind", "vrasc": "vfSc", "vyac": "vic"}.get(_t6cm, _t6cm)
+                _t6cr = self._tudAdi_cAnaS_root(_t6cm)
                 _t6cb = _t6cr + "amAna"
                 if _natva_applies(_t6cr):
                     _t6cb = _t6cb.replace("amAna", "amARa")
                 return {"M": _t6cb + "H", "F": _t6cb[:-1] + "A", "N": _t6cb + "m"}
+
+        elif pratyaya == "BAvakarma-SAnac":
+            # tudAdi BAvakarma-SAnac (present-grade + yamAna, Ury-grade + amAna for
+            # ur-finals except Cur; 174-clean survey — samp quartet, micC/ucC/fcC/
+            # vicCAy doubling, u→Uy/i→Iy finals, f-final→riy, F→Iry, n-drop/_pPB,
+            # y-final + amAna (no doubled yy), medial vowels kept (no guNa);
+            # previously None→unscored; scoped branch + metadata; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6bm = meta.get("clean", "")
+                _V = "aAiIuUfFxXeEoO"
+                _t6br = _t6bm
+                _t6suf = "yamAna"
+                _samp4 = {"Brajj": "Bfjj", "vrasc": "vfSc", "vyac": "vic", "praC": "pfcC"}
+                if _t6bm in _samp4:
+                    _t6br = _samp4[_t6bm]
+                elif _t6bm in ("miC", "uC", "fC"):
+                    _t6br = {"miC": "micC", "uC": "ucC", "fC": "fcC"}[_t6bm]
+                elif _t6bm == "viC":
+                    _t6br = "vicCAy"
+                elif len(_t6bm) > 1 and _t6bm[0] not in _V and _t6bm[-1:] in ("u", "U"):
+                    _t6br = _t6bm[:-1] + "Uy"
+                elif len(_t6bm) > 1 and _t6bm[0] not in _V and _t6bm[-1:] in ("i", "I"):
+                    _t6br = _t6bm[:-1] + "Iy"
+                elif len(_t6bm) > 1 and _t6bm[-1:] == "f":
+                    _t6br = _t6bm[:-1] + "riy"
+                elif len(_t6bm) > 1 and _t6bm[-1:] == "F":
+                    _t6br = _t6bm[:-1] + "Iry"
+                elif _t6bm == "uCi":
+                    # uCi takes num (uYCyamAna; sole surveyed)
+                    _t6br = "uYC"
+                elif _t6bm.endswith("ur") and _t6bm != "Cur":
+                    _t6br = _t6bm[:-2] + "Ury"
+                else:
+                    import re as _re
+                    _t6br = _re.sub(r"n(?=[pPBh])", "", _t6bm)
+                if _t6br.endswith("y"):
+                    _t6bb = _t6br + "amAna"
+                    _t6nat = _t6br
+                else:
+                    _t6bb = _t6br + "yamAna"
+                    _t6nat = _t6br
+                if _natva_applies(_t6nat):
+                    _t6bb = _t6bb.replace("amAna", "amARa").replace("mAna", "mARa")
+                return {"M": _t6bb + "H", "F": _t6bb[:-1] + "A", "N": _t6bb + "m"}
+
 
         elif pratyaya == "tavya":
             if clean == "SrA" and dhatu_id == "01.0922":
