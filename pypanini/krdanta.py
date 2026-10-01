@@ -1800,6 +1800,11 @@ class KrdantaEngine:
                 # ay/ay-less downstream split as SAyay (tin already hits via generic)).
                 if meta.get("gana") == "divAdiH" and meta.get("clean") in ("jFz", "JFz", "dI", "rI", "So", "Co", "so", "ISuc", "raD", "gup", "snas", "knas"):
                     return {"jFz": "jaray", "JFz": "JAray", "dI": "dApay", "rI": "repay", "So": "SAyay", "Co": "CAyay", "so": "sAyay", "ISuc": "Socay", "raD": "ranDay", "gup": "gopay", "snas": "snAsay", "knas": "knasay"}[meta.get("clean")]
+                # tudAdi nich grades (mirrors tinanta; quartet 06.0012/0037/0077/0159
+                # surveyed — samprasArana + num-M + C-gemination; sec feeds nich_krut;
+                # viC collides with curAdi so tudAdiH-gated).
+                if meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vrasc", "stfnh", "tfnh", "viC"):
+                    return {"vrasc": "vraScay", "stfnh": "stfMhay", "tfnh": "tfMhay", "viC": "vicCAyay"}[meta.get("clean")]
                 if c in ("knUy", "knU") or op.startswith("knUy"):
                     return "knopay"
                 if c in ("kzmAy", "kzmA") or op.startswith("kzmAy"):
