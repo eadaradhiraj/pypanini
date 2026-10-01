@@ -810,6 +810,81 @@ class KrdantaEngine:
             rc = "c"
         return rc + "aM"
 
+    def _tudAdi_ylk_redup(self, clean: str, op: str = "", dhatu_id=None):
+        """tudAdi yanlug tavya-stem (abhyAsa + laghUpadha-guNa root): redup is
+        C1'+guNa-vowel (kuhoScuH k/K→c g/G→j, B→b D→d J→j C→c z/h→s/j; T/P→t/p
+        after s-split); i/I/u/U roots take laghu-only guNa (tunP/GUrR/micC keep,
+        vij/tud grade; a/A never); f-roots take a-redup + r/M-insert (M iff
+        R-final: pfR→paMparR) with laghu-only f→ar (dfnP keeps f) and n→m before
+        labials; F→ar (kF→kar, gF→gal literal); e/o-final roots take ay/av
+        (ri→reray, gu→jogav); miC/viC/praC double the final. z-roots keep z in
+        the root iff dhatu_id in {06.0066, 06.0090} (zura/zila; zadx/zica take
+        s). Returns stem (sans itavya) or None."""
+        VOWS = "aAiIuUfFxXeEoO"
+        if not clean or clean[0] in VOWS:
+            return None
+        if clean in ("kF", "gF"):
+            return {"kF": "cAkar", "gF": "jAgal"}[clean]
+        pre = ""
+        core = clean
+        if len(clean) > 2 and clean[0] == "s" and clean[1] in ("t", "T", "p", "P"):
+            pre = "s"
+            core = clean[1:]
+        _sub2 = {"T": "t", "P": "p"}
+        _sub1 = {"k": "c", "K": "c", "g": "j", "G": "j", "B": "b",
+                 "D": "d", "J": "j", "C": "c", "z": "s", "h": "j",
+                 "T": "t", "P": "p"}
+        c1p = _sub2.get(core[0], _sub1.get(core[0], core[0])) if pre else _sub1.get(core[0], core[0])
+        i = next((n for n, ch in enumerate(core) if ch in VOWS), None)
+        if i is None:
+            return None
+        v = core[i]
+        _gv = {"a": "A", "A": "A", "i": "e", "I": "e", "u": "o",
+               "U": "o", "f": "a", "F": "A"}
+        redup = c1p + _gv.get(v, v)
+        zkeep = str(dhatu_id or "") in ("06.0066", "06.0090", "06.0144")
+        if v == "f":
+            tail = core[i + 1:]
+            if tail[:1] == "n" and tail[1:2] in ("p", "P", "b", "B", "m"):
+                tail = "m" + tail[1:]
+            # laghu f -> ar (single tail or empty); guru (cluster) keeps f
+            head = core[:i]
+            if len(tail) <= 1:
+                coreroot = head + "ar" + tail
+            else:
+                coreroot = head + "f" + tail
+            if zkeep and coreroot.startswith("s"):
+                coreroot = "z" + coreroot[1:]
+            x = "M" if core.endswith("R") else "r"
+            return redup + x + pre + coreroot
+        # non-f root: laghUpadha guNa (hrasva i/u + at most one trailing consonant)
+        rest = core[i + 1:]
+        if rest[:1] == "n" and rest[1:2] in ("p", "P", "b", "B", "m"):
+            rest = "m" + rest[1:]
+            core = core[:i + 1] + rest
+        if v in ("a", "A"):
+            groot = core
+        elif v in ("i", "I", "u", "U") and len(rest) <= 1:
+            groot = core[:i] + ("e" if v in ("i", "I") else "o") + rest
+        elif v == "F":
+            groot = core[:i] + "a" + rest
+        else:
+            groot = core
+        # Brajj metathesizes r (Barj; sole -jj a-root that drops a j; lajj/majj keep).
+        if clean == "Brajj":
+            groot = "Barj"
+        # ylk-only doubling (miC/viC root-level per mUla micCita/vicCita; praC final
+        # and C-initial roots ylk-only per Curita/Cuwita mUla singles; surveyed 7).
+        if clean in ("miC", "viC", "praC") and core[-1:] in ("c", "C"):
+            groot = core[:-1] + core[-1:].lower() + core[-1:]
+        if not pre and core[:1] == "C":
+            groot = "c" + groot
+        if zkeep and groot.startswith("s"):
+            groot = "z" + groot[1:]
+        if groot[-1:] in ("e", "o"):
+            groot = groot[:-1] + ("ay" if groot[-1:] == "e" else "av")
+        return redup + pre + groot
+
     def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
         # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
         # Restricted to nasal shape (np/nP/nB/ns) — 14-root survey, zero conflicts elsewhere (pilots unaffected).
@@ -3117,7 +3192,15 @@ class KrdantaEngine:
                 _ob = clean
                 _nb = _ylm
                 if pratyaya == "tavya":
-                    return {"M": [_ob + "itavyaH", _nb + "itavyaH"], "F": [_ob + "itavyA", _nb + "itavyA"], "N": [_ob + "itavyam", _nb + "itavyam"]}
+                    # tudAdi ylk-tavya redup twins (totoditavya/vevejitavya/...; 152-clean
+                    # survey via _tudAdi_ylk_redup; nonconforming octet excluded (own
+                    # grades); additive — ob/nb kept).
+                    _t6yt = {"M": [_ob + "itavyaH", _nb + "itavyaH"], "F": [_ob + "itavyA", _nb + "itavyA"], "N": [_ob + "itavyam", _nb + "itavyam"]}
+                    if meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                        _t6yr = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                        if _t6yr:
+                            _t6yt = {"M": _t6yt["M"] + [_t6yr + "itavyaH"], "F": _t6yt["F"] + [_t6yr + "itavyA"], "N": _t6yt["N"] + [_t6yr + "itavyam"]}
+                    return _t6yt
                 if pratyaya == "anIyar":
                     _o_nat = _natva_applies(_ob)
                     _n_nat = _natva_applies(_nb)
@@ -4942,7 +5025,19 @@ class KrdantaEngine:
             if sanadi is None and clean == "grah" and meta.get("gana") == "kryAdiH":
                 return tri_linga("grahItavya")
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
-                return tri_linga(clean[:-1] + apply_guna(clean[-1]) + "tavya")
+                _t6gt = tri_linga(clean[:-1] + apply_guna(clean[-1]) + "tavya")
+                # tudAdi ylk-tavya redup twins, u/i-final site (gu/Dru/ku fall here;
+                # same survey + octet exclusion; additive).
+                if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                    _t6yr3 = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                    if _t6yr3:
+                        _t6yt3 = tri_linga(_t6yr3 + "itavya")
+                        def _t6L3(v):
+                            return v if isinstance(v, list) else [v]
+                        _t6gt = {"M": _t6L3(_t6gt["M"]) + _t6L3(_t6yt3["M"]),
+                                 "F": _t6L3(_t6gt["F"]) + _t6L3(_t6yt3["F"]),
+                                 "N": _t6L3(_t6gt["N"]) + _t6L3(_t6yt3["N"])}
+                return _t6gt
             # guhU~ vew: aniT oQ (goQavya) + seT Uhit (gUhitavya); yangluk
             # prefixes jo- (jogoQavya/jogUhitavya).
             if clean == "guh" and sanadi in (None, "yanluganta"):
@@ -4986,12 +5081,35 @@ class KrdantaEngine:
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
                     if t_stem != eff + "t" or not sew:
-                        return tri_linga(t_stem + "avya")
+                        _t6sa = tri_linga(t_stem + "avya")
+                        # tudAdi ylk-tavya redup twins, t-stem site (Brajj/vrasc/praC/
+                        # sfj/majj fall here; same survey + octet exclusion; additive).
+                        if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                            _t6yr4 = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                            if _t6yr4:
+                                _t6yt4 = tri_linga(_t6yr4 + "itavya")
+                                def _t6L4(v):
+                                    return v if isinstance(v, list) else [v]
+                                _t6sa = {"M": _t6L4(_t6sa["M"]) + _t6L4(_t6yt4["M"]),
+                                         "F": _t6L4(_t6sa["F"]) + _t6L4(_t6yt4["F"]),
+                                         "N": _t6L4(_t6sa["N"]) + _t6L4(_t6yt4["N"])}
+                        return _t6sa
             if sew and eff.endswith("A") and eff not in ("daridrA", "jAgf"):
                 stem = eff[:-1] + "itavya"
             else:
                 stem = eff + ("i" if sew else "") + "tavya"
             _gen = tri_linga(stem)
+            # tudAdi ylk-tavya redup twins, generic-fallback site (non-nasal roots like
+            # tud/vij fall through here; same 152-clean survey + octet exclusion; additive).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                _t6yr2 = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                if _t6yr2:
+                    _t6yt2 = tri_linga(_t6yr2 + "itavya")
+                    def _t6L2(v):
+                        return v if isinstance(v, list) else [v]
+                    _gen = {"M": _t6L2(_gen["M"]) + _t6L2(_t6yt2["M"]),
+                            "F": _t6L2(_gen["F"]) + _t6L2(_t6yt2["F"]),
+                            "N": _t6L2(_gen["N"]) + _t6L2(_t6yt2["N"])}
             # tudAdi verbatim-itavya twins (vijitavya/kuwitavya/qipitavya/...; 50-clean
             # survey — base == clean+itavya exactly (q/j/c/w codas, guru-blocked sP-,
             # UrR-long, GUrR etc.); additive — generic guNa kept; tudAdiH-gated).
