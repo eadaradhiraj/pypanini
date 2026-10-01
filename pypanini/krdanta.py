@@ -191,6 +191,7 @@ class KrdantaEngine:
             "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
+            "kyap": ("Gerundive in -yap (क्यप्)", "gerundive"),
             "BAvakarma-SAnac": ("Bhava-karman Present Participle (भावकर्म-शानच्)", "participle"),
         }
         self._cache = None
@@ -6138,6 +6139,16 @@ class KrdantaEngine:
                 _t6ar = "vicCAy" if _t6am == "viC" else self._tudAdi_vun_root(_t6am, dhatu_id)
                 if _t6ar:
                     return {"M": _t6ar + "aH", "F": _t6ar + "A", "N": _t6ar + "am"}
+
+        elif pratyaya == "kyap":
+            # tudAdi kyap gerundives (verbatim root + ya; fC doubles to fcC; 27-clean
+            # survey, all f-roots + juz; previously None→unscored; scoped so other
+            # ganas keep None; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6km = meta.get("clean", "")
+                _t6kr = "fcC" if _t6km == "fC" else _t6km
+                if _t6kr:
+                    return {"M": _t6kr + "yaH", "F": _t6kr + "yA", "N": _t6kr + "yam"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
