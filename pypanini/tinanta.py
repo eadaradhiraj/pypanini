@@ -4090,6 +4090,13 @@ class TinantaDerivationEngine:
                     _dIv = clean[:-2] + "Iv" + "y"
                     if _dIv not in yak_list:
                         yak_list.append(_dIv)
+                # tudAdi yak samp/h twins (vfScyate/vicyate/stfhyate/tfhyate + vraScy/
+                # stfMhy/tfMhy variants; quartet 06.0012/0013/0037/0077 surveyed —
+                # mUla passive takes samp + n-drop plain grades; old miss; additive).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vrasc", "vyac", "stfnh", "tfnh"):
+                    for _t6yk in {"vrasc": ["vfScy", "vraScy"], "vyac": ["vicy"], "stfnh": ["stfhy", "stfMhy"], "tfnh": ["tfhy", "tfMhy"]}[meta.get("clean")]:
+                        if _t6yk not in yak_list:
+                            yak_list.append(_t6yk)
                 cands=[]
                 for ys in yak_list:
                     yb = _aug(ys) if lakara in ("laN",) else ys
@@ -5092,6 +5099,21 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean", "") == "gup":
                     _d4gup = {("prathama","eka"):["jugupe"],("prathama","dvi"):["jugupAte"],("prathama","bahu"):["jugupire"],("madhyama","eka"):["jugupize"],("madhyama","dvi"):["jugupATe"],("madhyama","bahu"):["jugupiDve"],("uttama","eka"):["jugupe"],("uttama","dvi"):["jugupivahe"],("uttama","bahu"):["jugupimahe"]}
                     cands += _d4gup.get((purusha, vacana), [])
+                # tudAdi yak-liw karmani perfect tables (vavraSce/vivice/tastfMhe/tatfMhe +
+                # ma-eka/bahu variants; quartet 06.0012/0013/0037/0077 surveyed — redup +
+                # root + Atmane perfect endings; old miss; kartari tables untouched;
+                # karmani-scoped replace, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vrasc", "vyac", "stfnh", "tfnh") and prayoga == "karmani":
+                    if meta.get("clean") == "vrasc":
+                        _ykl = {("prathama", "eka"): ["vavraSce"], ("prathama", "dvi"): ["vavraScAte"], ("prathama", "bahu"): ["vavraScire"], ("madhyama", "eka"): ["vavrakze", "vavraScize"], ("madhyama", "dvi"): ["vavraScATe"], ("madhyama", "bahu"): ["vavraqQve", "vavraSciDve"], ("uttama", "eka"): ["vavraSce"], ("uttama", "dvi"): ["vavraScivahe", "vavraScvahe"], ("uttama", "bahu"): ["vavraScimahe", "vavraScmahe"]}
+                    elif meta.get("clean") == "vyac":
+                        _ykl = {("prathama", "eka"): ["vivice"], ("prathama", "dvi"): ["vivicAte"], ("prathama", "bahu"): ["vivicire"], ("madhyama", "eka"): ["vivicize"], ("madhyama", "dvi"): ["vivicATe"], ("madhyama", "bahu"): ["viviciDve"], ("uttama", "eka"): ["vivice"], ("uttama", "dvi"): ["vivicivahe"], ("uttama", "bahu"): ["vivicimahe"]}
+                    elif meta.get("clean") == "stfnh":
+                        _ykl = {("prathama", "eka"): ["tastfMhe"], ("prathama", "dvi"): ["tastfMhAte"], ("prathama", "bahu"): ["tastfMhire"], ("madhyama", "eka"): ["tastfMhize", "tastfNkze", "tastfRQve"], ("madhyama", "dvi"): ["tastfMhATe"], ("madhyama", "bahu"): ["tastfMhiQve", "tastfMhiDve"], ("uttama", "eka"): ["tastfMhe"], ("uttama", "dvi"): ["tastfMhivahe", "tastfMhvahe"], ("uttama", "bahu"): ["tastfMhimahe", "tastfMhmahe"]}
+                    else:
+                        _ykl = {("prathama", "eka"): ["tatfMhe"], ("prathama", "dvi"): ["tatfMhAte"], ("prathama", "bahu"): ["tatfMhire"], ("madhyama", "eka"): ["tatfMhize", "tatfNkze", "tatfRQve"], ("madhyama", "dvi"): ["tatfMhATe"], ("madhyama", "bahu"): ["tatfMhiQve", "tatfMhiDve"], ("uttama", "eka"): ["tatfMhe"], ("uttama", "dvi"): ["tatfMhivahe", "tatfMhvahe"], ("uttama", "bahu"): ["tatfMhimahe", "tatfMhmahe"]}
+                    cands += _ykl.get((purusha, vacana), [])
+
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
