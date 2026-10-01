@@ -930,6 +930,11 @@ class TinantaDerivationEngine:
             for _fb in (["kir"] if clean == "kF" else ["gir", "gil"]):
                 if _fb not in bases:
                     bases.append(_fb)
+        # tudAdi iz icC-base (icCati/icCet; sole 06.0078 surveyed izu~ — i kept +
+        # cC doubling (miC/viC ylk-doubling family); bare stem; dhatu_id 06-prefix).
+        if clean == "iz" and str(dhatu_id or "").startswith("06."):
+            if "icC" not in bases:
+                bases.append("icC")
         # tudAdi f-Atmane riy-bases (priyate/mriyate/driyate/Driyate + system;
         # quartet 06.0138/0139/0147/0148 surveyed — f→riy (i→y glide, rIN-like),
         # no guNa; propagates via generic machinery; dhatu_id 06-prefix; additive).
