@@ -5563,6 +5563,18 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "raD":
                     table_d4ra = {("prathama","eka"):["aranDi"],("prathama","dvi"):["aratsAtAm","araDizAtAm"],("prathama","bahu"):["aratsata","araDizata"],("madhyama","eka"):["aradDAH","araDizWAH"],("madhyama","dvi"):["aratsATAm","araDizATAm"],("madhyama","bahu"):["aradDvam","araDiDvam"],("uttama","eka"):["aratsi","araDizi"],("uttama","dvi"):["aratsvahi","araDizvahi"],("uttama","bahu"):["aratsmahi","araDizmahi"]}
                     return table_d4ra[(purusha,vacana)], log
+                # tudAdi yak-luN kz/iz-aorist tables (avraSci + vrakz/vraSciz twins incl
+                # avrazWAH/avraqQvam + astfMhi/atfMhi + stfMhiz/stfNkz incl RQAH/RQvam twins;
+                # trio 06.0012/0037/0077 surveyed — aug + kz/iz + Atmane aorist endings;
+                # old miss (27/27 true misses); exclusive return, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vrasc", "stfnh", "tfnh"):
+                    if meta.get("clean") == "vrasc":
+                        table_t6lun = {("prathama","eka"):["avraSci"],("prathama","dvi"):["avrakzAtAm","avraScizAtAm"],("prathama","bahu"):["avrakzata","avraScizata"],("madhyama","eka"):["avraScizWAH","avrazWAH"],("madhyama","dvi"):["avrakzATAm","avraScizATAm"],("madhyama","bahu"):["avraqQvam","avraSciDvam"],("uttama","eka"):["avrakzi","avraScizi"],("uttama","dvi"):["avrakzvahi","avraScizvahi"],("uttama","bahu"):["avrakzmahi","avraScizmahi"]}
+                    elif meta.get("clean") == "stfnh":
+                        table_t6lun = {("prathama","eka"):["astfMhi"],("prathama","dvi"):["astfMhizAtAm","astfNkzAtAm"],("prathama","bahu"):["astfMhizata","astfNkzata"],("madhyama","eka"):["astfMhizWAH","astfRQAH"],("madhyama","dvi"):["astfMhizATAm","astfNkzATAm"],("madhyama","bahu"):["astfMhiQvam","astfMhiDvam","astfRQvam"],("uttama","eka"):["astfMhizi","astfNkzi"],("uttama","dvi"):["astfMhizvahi","astfNkzvahi"],("uttama","bahu"):["astfMhizmahi","astfNkzmahi"]}
+                    else:
+                        table_t6lun = {("prathama","eka"):["atfMhi"],("prathama","dvi"):["atfMhizAtAm","atfNkzAtAm"],("prathama","bahu"):["atfMhizata","atfNkzata"],("madhyama","eka"):["atfMhizWAH","atfRQAH"],("madhyama","dvi"):["atfMhizATAm","atfNkzATAm"],("madhyama","bahu"):["atfMhiQvam","atfMhiDvam","atfRQvam"],("uttama","eka"):["atfMhizi","atfNkzi"],("uttama","dvi"):["atfMhizvahi","atfNkzvahi"],("uttama","bahu"):["atfMhizmahi","atfNkzmahi"]}
+                    return table_t6lun[(purusha,vacana)], log
                 # divAdi Fz yak luN iz-grades (ajari-/ajarI-/ajAri-/ajArI-/ajIr- twins
                 # + Qvam/Dvam twins; pair 04.0025/0026 surveyed — J-mirror for JFz;
                 # old miss everywhere; exclusive return, divAdiH-gated).
