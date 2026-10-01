@@ -5002,6 +5002,18 @@ class KrdantaEngine:
                 _gen = {"M": _t6L(_gen["M"]) + _t6L(_tw["M"]),
                         "F": _t6L(_gen["F"]) + _t6L(_tw["F"]),
                         "N": _t6L(_gen["N"]) + _t6L(_tw["N"])}
+                # tudAdi SAnac present-grade + natva twins (kuvamAna/priyamARa/
+                # kzipamARa; 10-clean survey — kuv/riy present grades + ungraded
+                # singles; generic guNa + dental twins miss; additive).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("ku", "kU", "pf", "mf", "df", "Df", "kzip", "kfz", "juz", "gur"):
+                    _t6sg = {"ku": "kuv", "kU": "kuv", "pf": "priy", "mf": "mriy", "df": "driy", "Df": "Driy"}.get(clean, clean)
+                    _t6sb = _t6sg + "amAna"
+                    if _natva_applies(_t6sg):
+                        _t6sb = _t6sb.replace("amAna", "amARa")
+                    _t6st = tri_linga(_t6sb)
+                    _gen = {"M": _t6L(_gen["M"]) + _t6L(_t6st["M"]),
+                            "F": _t6L(_gen["F"]) + _t6L(_t6st["F"]),
+                            "N": _t6L(_gen["N"]) + _t6L(_t6st["N"])}
             return _gen
 
         elif pratyaya == "tavya":
