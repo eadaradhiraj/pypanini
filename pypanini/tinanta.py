@@ -5273,6 +5273,18 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
                     _d4pluw = {("prathama","eka"):["pozitA"],("prathama","dvi"):["pozitArO"],("prathama","bahu"):["pozitAraH"],("madhyama","eka"):["pozitAse"],("madhyama","dvi"):["pozitAsATe"],("madhyama","bahu"):["pozitADve"],("uttama","eka"):["pozitAhe"],("uttama","dvi"):["pozitAsvahe"],("uttama","bahu"):["pozitAsmahe"]}
                     cands += _d4pluw.get((purusha, vacana), [])
+                # tudAdi yak-lut grade twins (vraScitA/vrazwA + prazwA + stfMhitA/stfRQA;
+                # trio 06.0012/0149/0037 surveyed (vrasc/praC/stfnh) — Atmane endings;
+                # old miss; additive, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vrasc", "praC", "stfnh"):
+                    for _t6lut in {"vrasc": ["vraSci"], "praC": [], "stfnh": ["stfMhit"]}[meta.get("clean")]:
+                        cands += self._conjugate_luw(_t6lut, "Atmanepadi", purusha, vacana)
+                    # zw/RQ-grades take bare -A (vrazwA, no -t-)
+                    _t6zw = {"vrasc": ["vrazw"], "praC": ["prazw"], "stfnh": ["stfRQ"]}[meta.get("clean")]
+                    _t6ze = {("prathama", "eka"): "A", ("prathama", "dvi"): "ArO", ("prathama", "bahu"): "AraH", ("madhyama", "eka"): "Ase", ("madhyama", "dvi"): "AsATe", ("madhyama", "bahu"): "ADve", ("uttama", "eka"): "Ahe", ("uttama", "dvi"): "Asvahe", ("uttama", "bahu"): "Asmahe"}.get((purusha, vacana), "A")
+                    for _t6zs in _t6zw:
+                        cands.append(_t6zs + _t6ze)
+
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
