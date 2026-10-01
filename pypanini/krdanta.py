@@ -185,6 +185,10 @@ class KrdantaEngine:
             "Ryat": ("Gerundive in -ya (र्यत्)", "gerundive"),
             "Ramul": ("Absolutive in -am (रामुल्)", "avyaya"),
             "sya-Satf": ("Future Active Participle (स्य-शतृ)", "participle"),
+            "sya-SAnac": ("Future Middle Participle (स्य-शानच्)", "participle"),
+            "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
+            "sya-SAnac": ("Future Middle Participle (स्य-शानच्)", "participle"),
+            "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "BAvakarma-SAnac": ("Bhava-karman Present Participle (भावकर्म-शानच्)", "participle"),
         }
@@ -6095,6 +6099,35 @@ class KrdantaEngine:
                 if _t6sy:
                     _t6sys = _t6sy if isinstance(_t6sy, list) else [_t6sy]
                     return {"M": [s + "n" for s in _t6sys], "F": [x for s in _t6sys for x in (s + "tI", s + "ntI")], "N": [x for s in _t6sys for x in (s + "t", s + "d")]}
+
+        elif pratyaya in ("sya-SAnac", "sya-BAvakarma-SAnac"):
+            # tudAdi sya mAna-participles (sya-Satf stems iter429 except V-finals take
+            # Av/Ay + izya and F takes Ar/Al + Izya; + amAna/amARa natva-gated;
+            # previously None→unscored; scoped so other ganas keep None).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6ym = meta.get("clean", "")
+                _V = "aAiIuUfFxXeEoO"
+                _t6ys = None
+                if len(_t6ym) > 1 and _t6ym[0] not in _V and _t6ym[-1:] in ("u", "U"):
+                    _t6ys = _t6ym[:-1] + "Avizya"
+                elif len(_t6ym) > 1 and _t6ym[0] not in _V and _t6ym[-1:] in ("i", "I"):
+                    _t6ys = _t6ym[:-1] + "Ayizya"
+                elif len(_t6ym) > 1 and _t6ym[-1:] == "F":
+                    _t6ys = _t6ym[:-1] + ("AlIzya" if _t6ym[:-1].endswith("g") else "ArIzya")
+                else:
+                    _t6ys = self._tudAdi_sya_stem(_t6ym, bool(meta.get("sew")), dhatu_id)
+                if _t6ys:
+                    _t6yss = _t6ys if isinstance(_t6ys, list) else [_t6ys]
+                    _o = []
+                    for _s in _t6yss:
+                        _b = _s + "mAna"
+                        # plain -sya- stays dental (totsyamAna; the -s- blocks);
+                        # izya/kzya/zya/Izya take natva-gated R
+                        if not (_s.endswith("sya") and not _s.endswith(("izya", "kzya", "zya", "Izya"))):
+                            if _natva_applies(_s):
+                                _b = _b.replace("amAna", "amARa").replace("mAna", "mARa")
+                        _o.append((_b + "H", _b[:-1] + "A", _b + "m"))
+                    return {"M": [x[0] for x in _o], "F": [x[1] for x in _o], "N": [x[2] for x in _o]}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
