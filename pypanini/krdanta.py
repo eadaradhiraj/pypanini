@@ -2982,6 +2982,11 @@ class KrdantaEngine:
                     if sec_base=="BAv": stem="BAvaka"
                     return {"M": stem+"H","F":stem[:-3]+"ikA" if stem.endswith("aka") else stem+"ikA","N":stem+"m"}
             if sanadi == "sannanta":
+                # tudAdi san-Rvul 13 stems (biBarjizakaH/...; same stems as anIyar/yat
+                # above; placed BEFORE generic sec+uH which misses; replace).
+                if pratyaya == "Rvul" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                    _t6sr = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[meta.get("clean", "")]
+                    return {"M": [s + "akaH" for s in _t6sr], "F": [s + "ikA" for s in _t6sr], "N": [s + "akam" for s in _t6sr]}
                 if pratyaya == "Rvul": return {"M": sec+"uH","F":sec+"uH","N":sec+"u"}
                 if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
                 _nat = _natva_applies(sec)
@@ -2991,16 +2996,23 @@ class KrdantaEngine:
                 # kta; old miss everywhere; replace meta-clean-gated).
                 # san-yat takes the SAME 13 stems + ya (biBarjizyaH/vivrakzyaH/...;
                 # surveyed identical 13-fid set; old sec+ya misses; replace).
+                # (san-Rvul served by early branch above.)
                 if pratyaya in ("anIyar", "yat") and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
                     _t6sa = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[meta.get("clean", "")]
                     if pratyaya == "yat":
                         return {"M": [s + "yaH" for s in _t6sa], "F": [s + "yA" for s in _t6sa], "N": [s + "yam" for s in _t6sa]}
                     _t6su = "anIya" if meta.get("clean", "") == "Cup" else "aRIya"
-                    return {"M": [s + _t6su + "H" for s in _t6sa], "F": [s + _t6su + "A" for s in _t6sa], "N": [s + _t6su + "m" for s in _t6sa]}
+                    return {"M": [s + _t6su + "H" for s in _t6sa], "F": [s + _t6su[:-1] + "A" for s in _t6sa], "N": [s + _t6su + "m" for s in _t6sa]}
                 if pratyaya == "anIyar": return {"M": sec+("aRIyaH" if _nat else "anIyaH"),"F":sec+("aRIyA" if _nat else "anIyA"),"N":sec+("aRIyam" if _nat else "anIyam")}
                 if pratyaya == "yat": return {"M": sec+"yaH","F":sec+"yA","N":sec+"yam"}
                 if pratyaya == "SAnac":
                     _oc = orig_clean or ""
+                    # tudAdi san-SAnac 13 stems (biBarjizamARaH/...; same stems as anIyar;
+                    # + amARa/amARA/amARam (Natva R); surveyed identical 13-fid set;
+                    # old sec-based misses; replace).
+                    if meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                        _t6ss = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[meta.get("clean", "")]
+                        return {"M": [s + "amARaH" for s in _t6ss], "F": [s + "amARA" for s in _t6ss], "N": [s + "amARam" for s in _t6ss]}
                     # fti sannanta uses ftIy stem (iyftIyizamARa) per IyaN option
                     if meta.get("clean") in ("fti", "ftI"):
                         return {"M": "iyftIyizamARaH", "F": "iyftIyizamARA", "N": "iyftIyizamARam"}
