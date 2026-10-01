@@ -4654,6 +4654,17 @@ class KrdantaEngine:
                 _gen = {"M": _t6L(m) + [_t6w[:-1] + "n"],
                         "F": _t6L(f) + [_t6w + "I", _t6w[:-1] + "ntI"],
                         "N": _t6L(n) + [_t6w, _t6w[:-1] + "d"]}
+            # tudAdi mUla-Satf yan-grades (nuvat/riyat/kirat/gilat/icCat/vicCAyat;
+            # 13-clean survey — vowel-final glide stems + at (U→uv, i→iy, F→ir/il,
+            # iz→icc, viC→vicCAy, gF twin; mirrors weak-a at-shape); old navan-forms
+            # miss everywhere; additive — generic + weak-a kept; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("iz", "nU", "DU", "gu", "Dru", "ri", "pi", "Di", "kzi", "sU", "kF", "gF", "viC"):
+                _t6vy = {"iz": ["icCat"], "nU": ["nuvat"], "DU": ["Duvat"], "gu": ["guvat"], "Dru": ["Druvat"], "ri": ["riyat"], "pi": ["piyat"], "Di": ["Diyat"], "kzi": ["kziyat"], "sU": ["suvat"], "kF": ["kirat"], "gF": ["gilat", "girat"], "viC": ["vicCAyat"]}[meta.get("clean", "")]
+                def _t6Ly(v):
+                    return v if isinstance(v, list) else [v]
+                _gen = {"M": _t6Ly(_gen["M"]) + [w[:-1] + "n" for w in _t6vy],
+                        "F": _t6Ly(_gen["F"]) + [w + "I" for w in _t6vy] + [w[:-1] + "ntI" for w in _t6vy],
+                        "N": _t6Ly(_gen["N"]) + [w for w in _t6vy] + [w[:-1] + "d" for w in _t6vy]}
             # tudAdi stfnh/tfnh Satf hat-twins (stfhan/stfhatI-stfhantI + tfMhan/...;
             # pair 06.0037/0077 surveyed — h-drop stems (0077 takes M); old nh-forms
             # miss everywhere; additive — generic kept; tudAdiH-gated).
