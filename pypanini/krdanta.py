@@ -4070,6 +4070,12 @@ class KrdantaEngine:
             if sanadi == "sannanta" and meta.get("clean") == "F" and meta.get("gana") == "kryAdiH":
                 return {"M": "arirIzitavAn", "F": "arirIzitavatI", "N": ["arirIzitavat", "arirIzitavad"]}
             stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
+            # tudAdi san-ktavatu redup grades (same 13 stems as san-kta iter401 +
+            # itavAn/itavatI/itavat-itavad; old miss everywhere; replace; meta-clean
+            # gated since local clean is the san stem).
+            if sanadi == "sannanta" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                _t6sv = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[meta.get("clean", "")]
+                return {"M": [s + "itavAn" for s in _t6sv], "F": [s + "itavatI" for s in _t6sv], "N": [x for s in _t6sv for x in (s + "itavat", s + "itavad")]}
             # yanlug d-final ktavatu mirrors kta (jAhlAttavAn alongside jAhlAnnavAn)
             if sanadi == "yanluganta" and clean.endswith("d"):
                 _alt = clean[:-1] + "tta"
