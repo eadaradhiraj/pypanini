@@ -634,3 +634,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 448 (GEN-06: tudAdi vrasc yang-GaY fs-grade (varIvfskaH; sole 06.0012 surveyed; old form absent from all tokens; replace): +1 matched (1 improved), 0 worsened (guards green; yang_krut bucket now 0 misses sweep-wide).
 - Iteration 449 (GEN-06: tudAdi vrasc ylk paradigm (vAvraSc-/vAvrazw- grades for tavya/anIyar/tfc/Rvul/lyuw/GaY/ktvA; sole 06.0012 surveyed; old forms absent from all tokens; replace): +15 matched (1 improved), 0 worsened (guards green).
 - Iteration 450 (GEN-06: tudAdi vyac ylk grades (vAvyacanIya + vAvyAcaka; sole 06.0013 surveyed; old forms absent from all tokens; replace): +6 matched (1 improved), 0 worsened (guards green).
+- Iteration 451 (GEN-06: tudAdi stfnh/tfnh ylk tri-redup grades (tar-/tari-/tarI- x RQ/Mhit twins for tavya/Rvul/tfc; pair 06.0037/0077 surveyed; old forms absent from all tokens; replace): +18 matched (2 improved x9), 0 worsened (guards green).
