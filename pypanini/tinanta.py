@@ -8006,6 +8006,16 @@ class TinantaDerivationEngine:
                 _d4sn = "Socizy" if meta.get("clean") == "ISuc" else "natsy"
                 cands+=self._conjugate_at_stem_parasmai(_d4sn, "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_d4sn, "lw", purusha, vacana)
+            # tudAdi sibilant sya-futures (Barkzyati/Brakzyati, vrakzyati/vraScizyati,
+            # stfMhizyati/stfNkzyati, prakzyati, srakzyati, maNkzyati; sextet
+            # 06.0004/0012/0037/0149/0150/0151 surveyed — a-grade kzya + izya twins;
+            # old Brajkzyati-forms miss everywhere; both padas for global match
+            # (banD precedent); additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "vrasc", "stfnh", "praC", "sfj", "majj"):
+                _t6fw = {"Brajj": ["Barkzy", "Brakzy"], "vrasc": ["vrakzy", "vraScizy"], "stfnh": ["stfMhizy", "stfNkzy"], "praC": ["prakzy"], "sfj": ["srakzy"], "majj": ["maNkzy"]}[meta.get("clean")]
+                for _t6c in _t6fw:
+                    cands+=self._conjugate_at_stem_parasmai(_t6c, "lw", purusha, vacana)
+                    cands+=self._conjugate_at_stem_atmane(_t6c, "lw", purusha, vacana)
 
             # divAdi puz sya-futures (pozizyati + augmented lfN; sole 04.0121 surveyed —
             # 0079 pokzyati untouched via generic; fid-split (san/luw-split precedent);
@@ -8067,6 +8077,12 @@ class TinantaDerivationEngine:
                 _k9ba = self._add_augment("Bantsy", False)
                 cands+=self._conjugate_at_stem_parasmai(_k9ba, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_k9ba, "laN", purusha, vacana)
+            # tudAdi sibilant sya-conditionals (augmented kzya-cores; same sextet as
+            # lfw above; old misses; both padas for global match; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "vrasc", "stfnh", "praC", "sfj", "majj"):
+                _t6fa = {"Brajj": "aBarkzy", "vrasc": "avrakzy", "stfnh": "astfMhizy", "praC": "aprakzy", "sfj": "asrakzy", "majj": "amaNkzy"}[meta.get("clean")]
+                cands+=self._conjugate_at_stem_parasmai(_t6fa, "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane(_t6fa, "laN", purusha, vacana)
             # kryAdi mI lfN (amAsyat; sole 09.0004 surveyed — old amayzyat
             # misses; both padas for global match; additive, kryAdiH-gated).
             if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "mI":
