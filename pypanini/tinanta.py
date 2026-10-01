@@ -3380,6 +3380,16 @@ class TinantaDerivationEngine:
             if clean == "sic" and meta.get("gana") == "tudAdiH":
                 _s6ylw = {("prathama","eka"):["sesicIti","sesekti"],("prathama","dvi"):["sesiktaH"],("prathama","bahu"):["sesicati"],("madhyama","eka"):["sesicIzi","sesekzi"],("madhyama","dvi"):["sesikTaH"],("madhyama","bahu"):["sesikTa"],("uttama","eka"):["sesicImi","sesecmi"],("uttama","dvi"):["sesicvaH"],("uttama","bahu"):["sesicmaH"]}
                 return _s6ylw.get((purusha, vacana), []), log
+            # tudAdi stfnh/tfnh ylk-present tri-redup tables (tar-/tari-/tarI- x
+            # Mh/RQ/Q/h grades; pair 06.0037/0077 surveyed — slot segmentation tripled
+            # from 12-form sister lists (2/1/1 pattern); old generic misses everywhere
+            # (18/18 true misses); exclusive return, lw+kartari-gated (block serves all
+            # lakaras with lw forms; non-lw passes must not shift).
+            if lakara == "lw" and prayoga == "kartari" and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("stfnh", "tfnh"):
+                _t6p = "st" if meta.get("clean") == "stfnh" else "t"
+                _t6t = ["tar" + _t6p + "f", "tari" + _t6p + "f", "tarI" + _t6p + "f"]
+                _t6ylw = {("prathama","eka"): [s + "MhIti" for s in _t6t] + [s + "RQi" for s in _t6t], ("prathama","dvi"): [s + "QaH" for s in _t6t], ("prathama","bahu"): [s + "hati" for s in _t6t], ("madhyama","eka"): [s + "MhIzi" for s in _t6t] + [s + "Nkzi" for s in _t6t], ("madhyama","dvi"): [s + "QaH" for s in _t6t], ("madhyama","bahu"): [s + "Qa" for s in _t6t], ("uttama","eka"): [s + "MhImi" for s in _t6t] + [s + "Mhmi" for s in _t6t], ("uttama","dvi"): [s + "hvaH" for s in _t6t], ("uttama","bahu"): [s + "hmaH" for s in _t6t]}
+                return _t6ylw.get((purusha, vacana), []), log
             yls = _yanlug_stem(clean)
             # Panini 8.4.58 parasavarNa / 8.3.23 anusvara in yanlug stem, additive
             # (tunp->totump, SranB->SASramB, Sans->SASaMs; surveyed 14 n+labial/s cleans, zero conflicts)
