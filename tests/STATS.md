@@ -600,3 +600,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 435 (GEN-06: tudAdi Ra vriddhi nouns (cAla/koca/sAda; quartet surveyed; previously None→unscored; scoped branch + metadata; probes 4/4 slots): 06 +12 matched (4 improved), 0 worsened (guards green).
 - Iteration 436 (GEN-06: tudAdi Sa nouns (icCA/vinda/limpa; trio surveyed; iz F/N-only; previously None→unscored; scoped branch + metadata; probes 3/3 slots): 06 +7 matched (3 improved), 0 worsened (guards green).
 - Iteration 437 (GEN-06: tudAdi lyu neuter ana-nouns (darpaRa/calana pair; previously None→unscored; scoped branch + metadata; probes 2/2 slots): 06 +6 matched (2 improved), 0 worsened (guards green).
+- Iteration 438 (GEN-06: tudAdi naN M-only nouns (praSna/viSna pair; C→S + na; previously None→unscored; scoped branch + metadata; probes 2/2 slots): 06 +2 matched (2 improved), 0 worsened (guards green).
