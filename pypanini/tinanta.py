@@ -9340,6 +9340,15 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "ruDAdiH" and meta.get("clean") == "BaYj" and prayoga == "kartari":
                     _r7luN = {("prathama","eka"):["aBANkzIt","aBANkzId"],("prathama","dvi"):["aBANktAm"],("prathama","bahu"):["aBANkzuH"],("madhyama","eka"):["aBANkzIH"],("madhyama","dvi"):["aBANktam"],("madhyama","bahu"):["aBANkta"],("uttama","eka"):["aBANkzam"],("uttama","dvi"):["aBANkzva"],("uttama","bahu"):["aBANkzma"]}
                     cands += _r7luN.get((purusha, vacana), [])
+                # tudAdi Brajj/praC s-aorists (aBArkzIt/aBrAkzIt + zwAm/zwa twins;
+                # pair 06.0004/0149 surveyed — samprasArana a-grade + kz/iz grades;
+                # additive; tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "praC") and prayoga == "kartari":
+                    if meta.get("clean") == "Brajj":
+                        _t6ln = {("prathama","eka"):["aBArkzIt","aBArkzId","aBrAkzIt","aBrAkzId"],("prathama","dvi"):["aBArzwAm","aBrAzwAm"],("prathama","bahu"):["aBArkzuH","aBrAkzuH"],("madhyama","eka"):["aBArkzIH","aBrAkzIH"],("madhyama","dvi"):["aBArzwam","aBrAzwam"],("madhyama","bahu"):["aBArzwa","aBrAzwa"],("uttama","eka"):["aBArkzam","aBrAkzam"],("uttama","dvi"):["aBArkzva","aBrAkzva"],("uttama","bahu"):["aBArkzma","aBrAkzma"]}
+                    else:
+                        _t6ln = {("prathama","eka"):["aprAkzIt","aprAkzId"],("prathama","dvi"):["aprAzwAm"],("prathama","bahu"):["aprAkzuH"],("madhyama","eka"):["aprAkzIH"],("madhyama","dvi"):["aprAzwam"],("madhyama","bahu"):["aprAzwa"],("uttama","eka"):["aprAkzam"],("uttama","dvi"):["aprAkzva"],("uttama","bahu"):["aprAkzma"]}
+                    cands += _t6ln.get((purusha, vacana), [])
                 # Panini 2.4.77 gA-tisTA-go-pA-BUByaH sicaH parasmEpadezu (sic-luk):
                 # Panini 3.4.110 AtaH (jhi -> us): aug[:-1] + uH (apuH, asTuH, aduH, aDuH, aguH)
                 # Panini 6.1.107 ami pUrvaH (mip -> am): aug + m (apAm, asTAm, adAm, aDAm, agAm)
