@@ -4968,6 +4968,10 @@ class KrdantaEngine:
             # old Brajktavya-forms miss everywhere; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj"):
                 return tri_linga({"Brajj": "Barzwavya", "sfj": "srazwavya"}[clean])
+            # tudAdi stfnh/tfnh tavya RQ-grade (stfRQavya/tfRQavya; pair 06.0037/0077
+            # surveyed — old nQ-forms miss everywhere; replace; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
+                return tri_linga({"stfnh": "stfRQavya", "tfnh": "tfRQavya"}[clean])
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
