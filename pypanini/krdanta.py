@@ -5141,6 +5141,10 @@ class KrdantaEngine:
             # kavanIya-forms miss everywhere; replace; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("ku", "kU"):
                 return tri_linga("kuvanIya")
+            # tudAdi stfnh/tfnh anIyar Mha-grade (stfMhaRIya; pair 06.0037/0077 surveyed;
+            # old nhanIya-forms miss everywhere; replace; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
+                return tri_linga({"stfnh": "stfMhaRIya", "tfnh": "tfMhaRIya"}[clean])
             # aja~ mUla ve-grade twin (vayanIya- via guna(ve); sole aj-clean 01.0262 surveyed, ~-gated;
             # additive, old ajanIya kept harmlessly).
             if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
