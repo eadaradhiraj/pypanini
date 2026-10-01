@@ -3640,6 +3640,18 @@ class KrdantaEngine:
                     return {"M": [s + "akaH" for s in _t6r], "F": [s + "ikA" for s in _t6r], "N": [s + "akam" for s in _t6r]}
                 if pratyaya == "tfc":
                     return {"M": [s + "A" for s in _t6q] + [s + "itA" for s in _t6r], "F": [s + "rI" for s in _t6q] + [s + "itrI" for s in _t6r], "N": [s + "f" for s in _t6q] + [s + "itf" for s in _t6r]}
+            # tudAdi ylk-ktvA septet (A/tri-redup + iT; 7 fids surveyed — old mUla-Q
+            # grades absent from all tokens; replace, tudAdiH-gated).
+            if pratyaya == "ktvA" and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "vyac", "stfnh", "tfnh", "praC", "pracC", "sfj", "majj"):
+                _t6k = meta.get("clean")
+                if _t6k == "Brajj":
+                    return {"avyaya": ["bABarjitvA", "bABrajjitvA"]}
+                if _t6k == "vyac":
+                    return {"avyaya": ["vAvyacitvA"]}
+                if _t6k in ("stfnh", "tfnh"):
+                    _t6p = "st" if _t6k == "stfnh" else "t"
+                    return {"avyaya": ["tar" + _t6p + "fQvA", "tar" + _t6p + "fMhitvA", "tari" + _t6p + "fQvA", "tari" + _t6p + "fMhitvA", "tarI" + _t6p + "fQvA", "tarI" + _t6p + "fMhitvA"]}
+                return {"avyaya": {"praC": ["pApracCitvA"], "pracC": ["pApracCitvA"], "sfj": ["sarsarjitvA", "sarisarjitvA", "sarIsarjitvA"], "majj": ["mAmajjitvA"]}[_t6k]}
             _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
             # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
             if _ylm is None:
