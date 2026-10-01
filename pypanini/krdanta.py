@@ -4228,7 +4228,7 @@ class KrdantaEngine:
                           "ri": "ry", "pi": "py", "Di": "Dy", "kzi": "kziy",
                           "df": "drat", "Df": "Drat", "pf": "prat", "mf": "mrat",
                           "kF": "kir", "gF": ["gil", "gir"],
-                          "Cur": "cCur", "Cuw": "cCuw", "Cuq": "cCuq"}
+                          "Cur": "cCur", "Cuw": "cCuw", "Cuq": "cCuq", "Cup": "cCup"}
                 if clean in _t6wsp:
                     _t6w = _t6wsp[clean]
                     _t6ws = _t6w if isinstance(_t6w, list) else [_t6w]
