@@ -4552,7 +4552,9 @@ class KrdantaEngine:
                     _t6gv = "A"
                 if _t6M:
                     _t6reds = [_t6rc + "aM"]
-                    if clean == "mfR":
+                    # pam-grade twin (pampfRat/pampfRatI; pfR 06.0055 surveyed like mfR —
+                    # R-grade f empty, a-grade full M/F/N; additive; tudAdiH-gated).
+                    if clean in ("mfR", "pfR"):
                         _t6reds.append(_t6rc + "am")
                 else:
                     _t6reds = [_t6rc + _t6gv]
@@ -4573,7 +4575,16 @@ class KrdantaEngine:
                         _t6w = _t6w[:-1] + "uv"
                     _t6ws = [_t6w]
                 _t6sM = [r + w + "at" for r in _t6reds for w in _t6ws] + [r + w + "ad" for r in _t6reds for w in _t6ws]
-                return {"M": _t6sM, "F": [r + w + "atI" for r in _t6reds for w in _t6ws], "N": _t6sM}
+                # ylk-Satf ri/rI twins (carikfzatI/carIkfzatI + taritfpan/tarItfpan...;
+                # 21-fid survey (kfz/tfp/tfP/dfp/stfnh/dfP/dfB/cft/mfq/pfq/vfh/bfh/tfh/
+                # stfh/tfnh/kfq/Bfq/sfj/spfS/mfS) — ar-redup appends i/I (car->cari/carI),
+                # M takes -an, F -atI, N -at/-ad; R-grade (paM/pam of pfR) excluded by
+                # ar-shape gate; additive — R-forms kept; tudAdiH-gated).
+                _t6tw = [r + v for r in _t6reds if r.endswith("ar") for v in ("i", "I")]
+                _t6tM = [t + w + "an" for t in _t6tw for w in _t6ws]
+                _t6tF = [t + w + "atI" for t in _t6tw for w in _t6ws]
+                _t6tN = [t + w + "at" for t in _t6tw for w in _t6ws] + [t + w + "ad" for t in _t6tw for w in _t6ws]
+                return {"M": _t6sM + _t6tM, "F": [r + w + "atI" for r in _t6reds for w in _t6ws] + _t6tF, "N": _t6sM + _t6tN}
             # tudAdi san-Satf redup grades (biBarjizan/mumUrzan/...; 14-clean survey —
             # hrasva redup + roots (vrak/Barj/tfk/maNk/samp/mumUr/vivicCAy); suffix iz
             # (z after k-stems titfk/mimaNk/vivrak, s after cucCup, Ayiz for vivicC);

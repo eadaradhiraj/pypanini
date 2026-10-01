@@ -7,11 +7,11 @@ Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
 Sweep-07: **25/25 100%** — held. Sweep-08: **10/10 100%** — held.
 Sweep-09: **71/71 100%** — held.
 Sweep-04: **151/161** (other session) — ceiling audit in progress.
-Sweep-06: **135/174** — 133/174->135/174 (+2 pass-ups 0132/0133, 8 improved, 0 worsened; this iteration).
+Sweep-06: **153/174** — 135/174->153/174 (+18 pass-ups, 21 improved, 0 worsened; this iteration).
 Sweep-10: **163/509** — held.
 Landscape: 04 + 06 + 10 remain.
 
-## Done — iterations 360-368 (other session) + 383-398, 442-456 (this session; other session continued 439-441 in parallel)
+## Done — iterations 360-368 (other session) + 383-398, 442-457 (this session; other session continued 439-441 in parallel)
 - 360-368: puz futures split (0121 full pass), sfj yak sya, dI yak pair, nah
   sic-aorist + yak, Co/so yak luN, stim liT twins (+zw twin repair),
   stup/stUp twins, Fz yak-benedictive, vyaD yak + benedictive, uD
@@ -47,9 +47,10 @@ Landscape: 04 + 06 + 10 remain.
 - 454: nich grades (4 improved; 10 refreshed).
 - 455: uv-lyuw/tumun (5 improved).
 - 456: ylk-anIyar/lyuw av-grade (8 improved, +2 pass-ups).
+- 457: ylk-Satf ri/rI twins (21 improved, +18 pass-ups).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
-1. Gana-06: ylk-Satf + krut/GaY + luN + yak-lfw residuals (other session also active — pull before each iteration; PYTHONHASHSEED=0 for all sweeps).
+1. Gana-06: ting-luN + yak-lfw + yang_krut + krut (21 fail left; other session also active — pull before each iteration; PYTHONHASHSEED=0 for all sweeps).
 2. Gana-04 ceiling audit (other session) → 10 → all-gana 100%.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
