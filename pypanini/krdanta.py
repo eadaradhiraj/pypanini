@@ -182,6 +182,7 @@ class KrdantaEngine:
             "lyap": ("Absolutive with Prefix (ल्यप्)", "avyaya"),
             "vun": ("Agent Noun in -aka (वुन्)", "agent_noun"),
             "ktin": ("Feminine Action Noun in -ti (क्तिन्)", "feminine_noun"),
+            "Ryat": ("Gerundive in -ya (र्यत्)", "gerundive"),
         }
         self._cache = None
 
@@ -982,7 +983,7 @@ class KrdantaEngine:
                 "vfh": "varvarQum", "bfh": "barbarQum", "tfh": "tartarQum",
                 "stfh": "tarstarQum", "tfnh": "tartfRQum"}.get(clean)
 
-    def _tudAdi_vun_root(self, clean: str, dhatu_id=None):
+    def _tudAdi_vun_root(self, clean: str, dhatu_id=None, ryat: bool = False):
         """tudAdi vun-root (agent noun -aka): samp quartet (Barj/vraSc/vic/pracC),
         stfnh/tfnh Mh-grades, micC/vicC/uC/fC doubling, u-final→uv, i-final→ay,
         sC-initial keeps vowel (n→M before h, n→m before labials), laghu-only
@@ -993,6 +994,9 @@ class KrdantaEngine:
         VOWS = "aAiIuUfFxXeEoO"
         if not clean:
             return None
+        # ryat vyac keeps y with vriddhi (vyAcya; sole surveyed — vun/lyap take vic)
+        if ryat and clean == "vyac":
+            return "vyAc"
         _samp4 = {"Brajj": "Barj", "vrasc": "vraSc", "vyac": "vic", "praC": "pracC"}
         if clean in _samp4:
             return _samp4[clean]
@@ -1002,23 +1006,29 @@ class KrdantaEngine:
             return "uYC"
         if clean in ("miC", "viC", "uC", "fC"):
             return {"miC": "micC", "viC": "vicC", "uC": "ucC", "fC": "fcC"}[clean]
-        # qip keeps i (qipaka; sole surveyed — kzip grades, so q-gated literal)
-        if clean == "qip":
+        # qip keeps i (qipaka; sole surveyed — kzip grades, so q-gated literal;
+        # vun-only: ryat grades (qepya)
+        if clean == "qip" and not ryat:
             return "qip"
-        # sU takes av-grade (savaka; sole 06.0144 surveyed — nU/DU/ku keep uv)
-        if clean == "sU":
+        # sU takes av-grade (savaka; sole 06.0144 surveyed — nU/DU/ku keep uv;
+        # vun-only: ryat takes sAvya)
+        if clean == "sU" and not ryat:
             return "sav"
         if clean[-1:] in ("u", "U") and len(clean) > 1 and clean[0] not in VOWS:
-            return clean[:-1] + "uv"
+            # ryat vriddhi (nAvya/gAvya; u→Av)
+            return clean[:-1] + ("Av" if ryat else "uv")
         if clean[-1:] in ("i", "I") and len(clean) > 1 and clean[0] not in VOWS:
-            return clean[:-1] + "ay"
+            # ryat vriddhi (presumed Ay; unattested i-finals)
+            return clean[:-1] + ("Ay" if ryat else "ay")
         # u-keep set (surveyed; juq split by fid since 0051 grades but 0106 keeps)
         _keep = ("Cuq", "Cur", "Cuw", "Guw", "Kuq", "Tuq", "cuq", "cuw", "guj", "guq", "gur", "huq", "kuw", "kuc", "kuq", "luW", "luw", "muw", "puq", "puw", "juw", "tuw", "tuq", "vruq", "kruq", "truw")
-        if clean in _keep or (clean == "juq" and str(dhatu_id or "") == "06.0106"):
+        # ryat always grades u (kowya/sPowya; no keep-set, no juq split)
+        if not ryat and (clean in _keep or (clean == "juq" and str(dhatu_id or "") == "06.0106")):
             return clean
         # sC-initial keeps vowels except laghu f→ar (spfS→sparS, stfh→starh;
-        # stfnh never reaches here (Mh-literal above); n→M before h, n→m before labials)
-        if len(clean) > 2 and clean[0] == "s" and clean[1] not in VOWS:
+        # stfnh never reaches here (Mh-literal above); n→M before h, n→m before labials;
+        # skipped in ryat mode (sPowya grades via laghu machinery))
+        if not ryat and len(clean) > 2 and clean[0] == "s" and clean[1] not in VOWS:
             _si = next((n for n, ch in enumerate(clean) if ch in VOWS), None)
             if _si is not None and clean[_si] == "f" and len(clean) - _si - 1 <= 1:
                 return clean[:_si] + "ar" + clean[_si + 1:]
@@ -1035,16 +1045,24 @@ class KrdantaEngine:
         rest = clean[i + 1:]
         laghu = len(rest) <= 1
         if v in ("a", "A"):
-            groot = clean
+            # ryat vriddhi: laghu a→A (sAdya/lAjya; guru carc/Barj keep)
+            if ryat and v == "a" and laghu:
+                groot = clean[:i] + "A" + rest
+            else:
+                groot = clean
         elif v in ("i", "I", "u", "U") and laghu:
             groot = clean[:i] + ("e" if v in ("i", "I") else "o") + rest
         elif v == "F" and rest == "":
-            # F-final (kF→kar, gF→gal; sole pair surveyed)
-            groot = clean[:i] + ("al" if clean[i - 1:i] == "g" else "ar")
+            # F-final (vun kF→kar/gF→gal; ryat kF/gF→kAr/gAr; sole pair surveyed)
+            groot = clean[:i] + ("Ar" if ryat else ("al" if clean[i - 1:i] == "g" else "ar"))
         elif v == "F":
             groot = clean[:i] + "a" + rest
         elif v == "f" and clean not in ("kfq", "Bfq") and laghu:
-            groot = clean[:i] + "ar" + rest
+            # ryat f-final takes Ar (pArya; f-medial ar unchanged)
+            if ryat and rest == "":
+                groot = clean[:i] + "Ar"
+            else:
+                groot = clean[:i] + "ar" + rest
         elif v == "f":
             groot = clean
         else:
@@ -5915,6 +5933,16 @@ class KrdantaEngine:
                 if _t6kn:
                     _t6kns = _t6kn if isinstance(_t6kn, list) else [_t6kn]
                     return {"F": [_t6ks + "H" for _t6ks in _t6kns]}
+
+        elif pratyaya == "Ryat":
+            # tudAdi Ryat gerundives via _tudAdi_vun_root(ryat=True) (vriddhi grades:
+            # laghu-a→A, u→Av, f-final→Ar, vyAc-kept; 144-clean first-entry survey;
+            # previously unimplemented (None → unscored); scoped so other ganas keep
+            # None; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6ry = self._tudAdi_vun_root(meta.get("clean", ""), dhatu_id, ryat=True)
+                if _t6ry:
+                    return {"M": _t6ry + "yaH", "F": _t6ry + "yA", "N": _t6ry + "yam"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
