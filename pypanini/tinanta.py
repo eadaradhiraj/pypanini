@@ -9398,6 +9398,12 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "banD":
                     _k9bz = {("prathama","eka"):["BantsIzwa"],("prathama","dvi"):["BantsIyAstAm"],("prathama","bahu"):["BantsIran"],("madhyama","eka"):["BantsIzWAH"],("madhyama","dvi"):["BantsIyAsTAm"],("madhyama","bahu"):["BantsIDvam"],("uttama","eka"):["BantsIya"],("uttama","dvi"):["BantsIvahi"],("uttama","bahu"):["BantsImahi"]}
                     cands += _k9bz.get((purusha, vacana), [])
+                # tudAdi kU ASIrliN uv-grade table (kuvizIzwa + IQvam twin; sole 06.0137
+                # surveyed — u-grade + v, no guNa; old kaviz-forms miss; additive,
+                # tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "kU":
+                    _t6kz = {("prathama","eka"):["kuvizIzwa"],("prathama","dvi"):["kuvizIyAstAm"],("prathama","bahu"):["kuvizIran"],("madhyama","eka"):["kuvizIzWAH"],("madhyama","dvi"):["kuvizIyAsTAm"],("madhyama","bahu"):["kuvizIQvam","kuvizIDvam"],("uttama","eka"):["kuvizIya"],("uttama","dvi"):["kuvizIvahi"],("uttama","bahu"):["kuvizImahi"]}
+                    cands += _t6kz.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":
