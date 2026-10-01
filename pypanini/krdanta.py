@@ -3064,6 +3064,15 @@ class KrdantaEngine:
                         return {"avyaya": ["ubjijizya"]}
                     if pratyaya == "lyap":
                         return {"avyaya": ["probjijizya"]}
+                # curAdi san-Rvul twin-sets (sec-matrix + aka/ikA; same survey; old sec+uH
+                # forms absent from all tokens; replace, curAdiH-gated).
+                if pratyaya == "Rvul" and meta.get("gana") == "curAdiH":
+                    _c10out = {"M": [], "F": [], "N": []}
+                    for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                        for _frm, _g in ((_c10s + "akaH", "M"), (_c10s + "ikA", "F"), (_c10s + "akam", "N")):
+                            if _frm not in _c10out[_g]:
+                                _c10out[_g].append(_frm)
+                    return _c10out
                 if pratyaya == "Rvul": return {"M": sec+"uH","F":sec+"uH","N":sec+"u"}
                 if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
                 _nat = _natva_applies(sec)
