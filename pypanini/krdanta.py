@@ -6455,6 +6455,16 @@ class KrdantaEngine:
                     if _v not in variants:
                         variants.append(_v)
             pref_m = pref_sam.replace("M", "m")
+            # tudAdi ur-final lyap Ur-grade twin (prasUrya; surveyed nonet 06.0066-0072/0099/0121 —
+            # kta keeps short u but lyap takes Ur (opposite grades); old prasurya-forms miss;
+            # additive; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean.endswith("ur"):
+                _uly = "pra" + clean[:-2] + "Urya"
+                if _uly not in variants:
+                    variants.append(_uly)
+                # Cur doubles (pracCUrya; sole 06.0099 surveyed Cura~; old miss).
+                if clean == "Cur" and "pracCUrya" not in variants:
+                    variants.append("pracCUrya")
             # a-initial consonant-final takes vriddhi base too (ata->prAtya; surveyed: only a-initial has lyap tables)
             try:
                 if clean[:1] == "a" and clean[-1:] not in SLP1_VOWELS:
