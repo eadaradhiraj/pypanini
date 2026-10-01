@@ -495,7 +495,9 @@ class KrdantaEngine:
             "gup": "jugupsita", "tij": "titikzita", "kit": "cikitsita",
             "mAn": "mImAMsita", "baD": "bIBatsita", "dAn": "dIdAMsita", "SAn": "SISAMsita",
         }
-        if clean in _nitya_san_kta and not (clean == "gup" and gana == "divAdiH"):
+        # curAdi mAn takes plain mAnita (pair 10.0233/0381 surveyed — old mImAMs-forms
+        # miss everywhere; curAdiH-gated exclusion, falls through to generic mAnita).
+        if clean in _nitya_san_kta and not (clean == "gup" and gana == "divAdiH") and not (clean == "mAn" and gana == "curAdiH"):
             return _nitya_san_kta[clean]
 
         # Panini 6.1.15 vaci-svapi-yajAdInAM kiti (kta/ktavatu kit samprasAraNa)
@@ -1753,7 +1755,7 @@ class KrdantaEngine:
             clean = clean[:-1] + "cC"
         sew = meta["sew"]
         # Nitya-san (3.1.5/3.1.6, seT only): krdanta mUla uses san base (consonant-final). Excludes 01.0461 via sew. kta already hits via _nitya_san_kta map (consistent: generic _kta_stem(jugups) also gives jugupsita).
-        if sanadi is None and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+        if sanadi is None and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (clean == "mAn" and meta.get("gana") == "curAdiH"):
             _nkr = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
             clean = _nkr[clean]
         # zUrkzya~ krdanta u-grade (sUkzyan/sUkzyitaH/...; sUrkzya~ keeps Ur). Op-initial-shape-gated homonym split (tinanta keeps sUrkzy-).
@@ -4383,6 +4385,18 @@ class KrdantaEngine:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     _c10cd = _c10mc[len(_c10mc) - next((j for j, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
                     if _c10vw and _c10vw[-1] in ("u", "U") and len(_c10cd) == 1 and _c10cd != "F":
+                        _c10v = self._guna_base(_c10mc, is_idit) + "ita"
+                        if _c10v != stem:
+                            _c10m = tri_linga(stem)
+                            _c10a = tri_linga(_c10v)
+                            return {"M": [_c10m["M"], _c10a["M"]], "F": [_c10m["F"], _c10a["F"]], "N": [_c10m["N"], _c10a["N"]]}
+                # curAdi i-kta e-grade twin (pejita/qepita/...; consonant-final short-i +
+                # single-coda survey (i-final roots take Y/N grades instead); generic plain
+                # twin kept first; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10mc = meta.get("clean", "") or clean
+                    _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                    if _c10vw and _c10vw[-1] == "i" and _c10mc[-1] not in SLP1_VOWELS and len(_c10mc) - (_c10mc.rindex("i")) == 2:
                         _c10v = self._guna_base(_c10mc, is_idit) + "ita"
                         if _c10v != stem:
                             _c10m = tri_linga(stem)

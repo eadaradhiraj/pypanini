@@ -656,3 +656,5 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - CEILING 06.0159 (viC): 42 dataless slots (san-active laN/viDiliN/lw/low 34 + ting-low 8; fid attests only p-keys in ting/san; correct active forms verified absent from all 1681 tokens; only legitimate bare-stem ma-eka hits kept). No fabrication. 06 stands at 173/174 + 1 ceiling fid.
 - Iteration 470 (GEN-10: curAdi a-root kta vriddhi twin (plain + vriddhi-A; a-nucleus + single-coda gate; generic twin kept first; homonymous roots take different grades lexically so twins): +171 matched (57 improved x3), 0 worsened (guards green).
 - Iteration 471 (GEN-10: curAdi u-kta guNa twins (plain + o-grade; u/U + single-coda, F-final excluded; generic first): probe 276→192 (-84), 0 worsened (guards green).
+- Iteration 472 (GEN-10: curAdi i-kta e-twins (plain + e-grade; consonant-final short-i + single-coda; generic first): probe -63, 0 worsened (guards green).
+- Iteration 473 (GEN-10: curAdi mAn Nitya-san exclusion (plain mAnita; pair 10.0233/0381 surveyed; map + sec-rewrite both gated; +24 on 0233 via ktavatu spill): probe -6 kta, 0 worsened (guards green).
