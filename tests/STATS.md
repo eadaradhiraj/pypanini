@@ -642,3 +642,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 456 (GEN-06: tudAdi stfnh/tfnh ylk-present tri-redup tables (tar-/tari-/tarI- x Mh/RQ/Q/h; slot pattern tripled from 12-form sisters; pair surveyed; probe 0 gaps; lw+kartari-gated, non-lw/karmani sets verified identical vs HEAD): +18 matched (2 improved x9), 0 worsened (guards green).
 - Iteration 457 (GEN-06: tudAdi stfnh/tfnh ylk-karmani fhy-stems (tri-redup x stfhy; pair surveyed; probe 0/18; additive): +18 matched (2 improved x9), 0 worsened (guards green; yangluk buckets now 0 misses sweep-wide).
 - Iteration 458 (GEN-06: tudAdi gur mUla Ur-grades (jogUrta/jogUrtavat; sole 06.0131 surveyed; kta F twin kept; shared _kta_stem untouched): +5 matched (1 improved), 0 worsened (guards green).
+- Iteration 459 (GEN-06: tudAdi mUla GaY quartet (vraska/vyAka/stfMha/tfMha; 4 fids surveyed; old forms absent from all tokens; replace): +4 matched (4 improved x1, 06 at 161/174), 0 worsened (guards green).

@@ -6717,6 +6717,10 @@ class KrdantaEngine:
             # guhU~ nijanta has no GaY key (structural miss).
             if sanadi == "nijanta" and meta.get("clean") == "guh":
                 return None
+            # tudAdi mUla GaY quartet (vraska/vyAka/stfMha/tfMha; 06.0012/0013/0037/0077
+            # surveyed — old mUla-grades absent from all tokens; replace, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vrasc", "vyac", "stfnh", "tfnh"):
+                return {"gender": "Masculine", "form": {"vrasc": "vraskaH", "vyac": "vyAkaH", "stfnh": "stfMhaH", "tfnh": "tfMhaH"}[meta.get("clean")]}
             # jAgf ar-grade (jAgaraH; sole 02.0067 surveyed; old jAgaH unattested, free).
             if sanadi is None and clean == "jAg":
                 return {"gender": "Masculine", "form": "jAgaraH"}
