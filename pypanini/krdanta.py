@@ -191,6 +191,7 @@ class KrdantaEngine:
             "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
+            "a": ("Feminine Action Noun in -A (अः)", "feminine_noun"),
             "kyap": ("Gerundive in -yap (क्यप्)", "gerundive"),
             "BAvakarma-SAnac": ("Bhava-karman Present Participle (भावकर्म-शानच्)", "participle"),
         }
@@ -6149,6 +6150,14 @@ class KrdantaEngine:
                 _t6kr = "fcC" if _t6km == "fC" else _t6km
                 if _t6kr:
                     return {"M": _t6kr + "yaH", "F": _t6kr + "yA", "N": _t6kr + "yam"}
+
+        elif pratyaya == "a":
+            # tudAdi a feminine action nouns (vun-roots + A; 26-clean survey, 26/26
+            # exact; previously None→unscored; scoped so other ganas keep None).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6ar = self._tudAdi_vun_root(meta.get("clean", ""), dhatu_id)
+                if _t6ar:
+                    return {"F": _t6ar + "A"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
