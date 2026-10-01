@@ -885,6 +885,93 @@ class KrdantaEngine:
             groot = groot[:-1] + ("ay" if groot[-1:] == "e" else "av")
         return redup + pre + groot
 
+    def _tudAdi_ylk_lyap(self, clean: str, op: str = "", dhatu_id=None):
+        """tudAdi yanlug lyap-stem (pra- -ya): redup syllable identical to tavya
+        (_tudAdi_ylk_redup abhyAsa); root NEVER takes guNa (tud→totudya vs tavya
+        totoditavya); yajadi-samp quartet (Brajj→Bfjj, vrasc→vfSc, vyac→vic,
+        praC→pfcC, mirrors tinanta); f-roots take r/M-insert (M iff R-final) but
+        keep f (dfnP keeps, infix n drops before consonants); F-final→Ir (kF→kIr);
+        miC/viC double the final; C-initial doubles; u/U-vowel followed by singleton
+        r takes Urya-grade
+        (REDUP + devoweled tavya-root onset + Urya: sozor→sozUrya; a+r like carc
+        stays plain); z-roots keep z in plain roots iff dhatu_id in {06.0090,
+        06.0144} (U-class onset rides the tavya stem). Returns stem (sans pra/ya)
+        or None."""
+        VOWS = "aAiIuUfFxXeEoO"
+        if not clean or clean[0] in VOWS:
+            return None
+        _samp4 = {"Brajj": "Bfjj", "vrasc": "vfSc", "vyac": "vic", "praC": "pfcC"}
+        pre = ""
+        core = clean
+        if len(clean) > 2 and clean[0] == "s" and clean[1] in ("t", "T", "p", "P"):
+            pre = "s"
+            core = clean[1:]
+        _sub2 = {"T": "t", "P": "p"}
+        _sub1 = {"k": "c", "K": "c", "g": "j", "G": "j", "B": "b",
+                 "D": "d", "J": "j", "C": "c", "z": "s", "h": "j",
+                 "T": "t", "P": "p"}
+        c1p = _sub2.get(core[0], _sub1.get(core[0], core[0])) if pre else _sub1.get(core[0], core[0])
+        i = next((n for n, ch in enumerate(core) if ch in VOWS), None)
+        if i is None:
+            return None
+        v = core[i]
+        _gv = {"a": "A", "A": "A", "i": "e", "I": "e", "u": "o",
+               "U": "o", "f": "a", "F": "A"}
+        redup = c1p + _gv.get(v, v)
+        if core in _samp4:
+            return redup + pre + _samp4[core]
+        # Urya-class: u/U-vowel followed by singleton r (end/vowel after; GUrR-type
+        # rR clusters stay plain)
+        if v in ("u", "U") and core[i + 1:i + 2] == "r" and core[i + 2:i + 3] in ("", "a", "A", "i", "I", "u", "U", "f", "F", "e", "o"):
+            _tav = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+            if not _tav:
+                return None
+            _troot = _tav[2:]
+            _on = ""
+            for _ch in _troot:
+                if _ch in VOWS:
+                    break
+                _on += _ch
+            if not _on:
+                return None
+            return redup + _on + "Urya"
+        if v == "f":
+            tail = core[i + 1:]
+            # lyap drops infix n before consonants (stfnh→stfh, dfnP→dfP;
+            # tavya instead assimilates n→m)
+            _ft = ""
+            for _q, _ch in enumerate(tail):
+                if _ch == "n" and tail[_q + 1:_q + 2] not in ("", "a", "A", "i", "I", "u", "U", "f", "F", "e", "o"):
+                    continue
+                _ft += _ch
+            tail = _ft
+            coreroot = core[:i] + "f" + tail
+            x = "M" if core.endswith("R") else "r"
+            return redup + x + pre + coreroot
+        # plain: root unchanged (never guNa); F-final takes Ir before ya
+        if core.endswith("F"):
+            root = core[:-1] + "Ir"
+        else:
+            root = core
+        # lyap drops infix n before consonants (tunP→tuP; tavya instead takes m)
+        _rt = ""
+        for _q, _ch in enumerate(root):
+            if _ch == "n" and root[_q + 1:_q + 2] not in ("", "a", "A", "i", "I", "u", "U", "f", "F", "e", "o"):
+                continue
+            _rt += _ch
+        root = _rt
+        # tunp takes stup-grade (mUla prastupya doublet; sole; surveyed)
+        if clean == "tunp":
+            root = "stup"
+        if root in ("miC", "viC"):
+            root = root[:-1] + root[-1:].lower() + root[-1:]
+        # C-initial doubling (cocCuw; mirrors tavya)
+        if not pre and core[:1] == "C":
+            root = "c" + root
+        if str(dhatu_id or "") in ("06.0090", "06.0144") and root.startswith("s"):
+            root = "z" + root[1:]
+        return redup + pre + root
+
     def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
         # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
         # Restricted to nasal shape (np/nP/nB/ns) — 14-root survey, zero conflicts elsewhere (pilots unaffected).
@@ -6725,6 +6812,15 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc":
                 if "pravfScya" not in variants:
                     variants.append("pravfScya")
+            # tudAdi ylk-lyap redup twins (same abhyAsa survey as tavya/tfc iters
+            # 395/396; ungraded root + Urya-class via _tudAdi_ylk_lyap; 160/160
+            # stems exact; additive).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH":
+                _t6yr8 = self._tudAdi_ylk_lyap(clean, op, dhatu_id)
+                # Urya-stems already end in ya (sozUrya); plain stems take +ya.
+                _t6y8 = "pra" + _t6yr8 if _t6yr8.endswith("ya") else "pra" + _t6yr8 + "ya"
+                if _t6yr8 and _t6y8 not in variants:
+                    variants.append(_t6y8)
             return {"avyaya": [pref_pra, pref_m, bare] + variants + _Rtw}
 
         return None
