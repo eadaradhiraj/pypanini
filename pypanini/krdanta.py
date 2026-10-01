@@ -5029,6 +5029,11 @@ class KrdantaEngine:
             # iN aD- tavya (aDyetavya; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return tri_linga("aDyetavya")
+            # tudAdi san-tavya redup grades (same 13 stems as san-kta iter401 +
+            # itavyaH/itavyA/itavyam; old miss everywhere; replace meta-clean-gated).
+            if sanadi == "sannanta" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                _t6st = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[meta.get("clean", "")]
+                return {"M": [s + "itavyaH" for s in _t6st], "F": [s + "itavyA" for s in _t6st], "N": [s + "itavyam" for s in _t6st]}
             if sanadi == "sannanta":
                 stem = clean + "itavya"
                 return tri_linga(stem)
