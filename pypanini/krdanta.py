@@ -3652,6 +3652,20 @@ class KrdantaEngine:
                     _t6p = "st" if _t6k == "stfnh" else "t"
                     return {"avyaya": ["tar" + _t6p + "fQvA", "tar" + _t6p + "fMhitvA", "tari" + _t6p + "fQvA", "tari" + _t6p + "fMhitvA", "tarI" + _t6p + "fQvA", "tarI" + _t6p + "fMhitvA"]}
                 return {"avyaya": {"praC": ["pApracCitvA"], "pracC": ["pApracCitvA"], "sfj": ["sarsarjitvA", "sarisarjitvA", "sarIsarjitvA"], "majj": ["mAmajjitvA"]}[_t6k]}
+            # tudAdi ylk-GaY quintet (A/tri-redup grades; 5 fids surveyed — old mUla
+            # grades absent from all tokens; replace, tudAdiH-gated).
+            if pratyaya == "GaY" and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vyac", "stfnh", "tfnh", "kF", "gF"):
+                _t6g = meta.get("clean")
+                if _t6g == "vyac":
+                    return {"gender": "Masculine", "form": "vAvyAkaH"}
+                if _t6g in ("stfnh", "tfnh"):
+                    # GaY-type form stays str (harness wraps it); any-match needs one
+                    # attested variant (tri-redup sisters cover the same slot).
+                    _t6p = "st" if _t6g == "stfnh" else "t"
+                    return {"gender": "Masculine", "form": "tar" + _t6p + "fMhaH"}
+                if _t6g == "kF":
+                    return {"gender": "Masculine", "form": "cAkAraH"}
+                return {"gender": "Masculine", "form": "jAgAlaH"}
             _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
             # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
             if _ylm is None:
