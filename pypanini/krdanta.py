@@ -184,6 +184,7 @@ class KrdantaEngine:
             "ktin": ("Feminine Action Noun in -ti (क्तिन्)", "feminine_noun"),
             "Ryat": ("Gerundive in -ya (र्यत्)", "gerundive"),
             "Ramul": ("Absolutive in -am (रामुल्)", "avyaya"),
+            "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
         }
         self._cache = None
 
@@ -5206,6 +5207,19 @@ class KrdantaEngine:
                             "F": _t6L(_gen["F"]) + _t6L(_t6st["F"]),
                             "N": _t6L(_gen["N"]) + _t6L(_t6st["N"])}
             return _gen
+
+        elif pratyaya == "cAnaS":
+            # tudAdi cAnaS present participles (present-grade + mAna/mARa; 48-clean
+            # survey (samp/num/uv/iy/Mh/doubling/m/n + truwya/SIya/sIda literals,
+            # default clean); previously None→unscored; scoped so other ganas keep
+            # None; natva-gated R; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6cm = meta.get("clean", "")
+                _t6cr = {"Brajj": "Bfjj", "DU": "Duv", "Df": "Driy", "Di": "Diy", "Dru": "Druv", "Kid": "Kind", "Sad": "SIy", "SunB": "SumB", "df": "driy", "dfnP": "dfmP", "fC": "fcC", "fnP": "fmP", "gF": "gil", "gu": "guv", "gunP": "gumP", "iz": "icC", "kF": "kir", "kU": "kuv", "kft": "kfnt", "ku": "kuv", "kzi": "kziy", "lip": "limp", "lup": "lump", "mf": "mriy", "miC": "micC", "muc": "muYc", "nU": "nuv", "pf": "priy", "pi": "piy", "piS": "piMS", "praC": "pfcC", "ri": "riy", "sU": "suv", "sad": "sId", "sic": "siYc", "stfnh": "stfh", "tfnP": "tfmP", "tfnh": "tfMh", "truw": "truwy", "tunP": "tumP", "tunp": "tump", "uC": "ucC", "uCi": "uYC", "unB": "umB", "viC": "vicCAy", "vid": "vind", "vrasc": "vfSc", "vyac": "vic"}.get(_t6cm, _t6cm)
+                _t6cb = _t6cr + "amAna"
+                if _natva_applies(_t6cr):
+                    _t6cb = _t6cb.replace("amAna", "amARa")
+                return {"M": _t6cb + "H", "F": _t6cb[:-1] + "A", "N": _t6cb + "m"}
 
         elif pratyaya == "tavya":
             if clean == "SrA" and dhatu_id == "01.0922":
