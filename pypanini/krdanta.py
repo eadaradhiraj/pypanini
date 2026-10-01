@@ -972,6 +972,14 @@ class KrdantaEngine:
             root = "z" + root[1:]
         return redup + pre + root
 
+    def _t6_ylk_oct_tumun(self, clean: str):
+        """octet ylk-tumun grades (tavya-grade + um: vAvrazwum/tarstfRQum/...;
+        8-clean survey — vrasc/luB/stfnh/vfh/bfh/tfh/stfh/tfnh take own grades
+        instead of redup+itum; additive)."""
+        return {"vrasc": "vAvrazwum", "luB": "lolobDum", "stfnh": "tarstfRQum",
+                "vfh": "varvarQum", "bfh": "barbarQum", "tfh": "tartarQum",
+                "stfh": "tarstarQum", "tfnh": "tartfRQum"}.get(clean)
+
     def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
         # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
         # Restricted to nasal shape (np/nP/nB/ns) — 14-root survey, zero conflicts elsewhere (pilots unaffected).
@@ -3328,7 +3336,10 @@ class KrdantaEngine:
                     # tudAdi ylk-tumun redup twins (same stem as tavya iter395 + itum;
                     # additive — ob/nb kept).
                     _t6yu = [_ob + "itum", _nb + "itum"]
-                    if meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                    _t6yo = self._t6_ylk_oct_tumun(clean) if meta.get("gana") == "tudAdiH" else None
+                    if _t6yo:
+                        _t6yu.append(_t6yo)
+                    elif meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
                         _t6yr = self._tudAdi_ylk_redup(clean, op, dhatu_id)
                         if _t6yr:
                             _t6yu.append(_t6yr + "itum")
@@ -6170,7 +6181,10 @@ class KrdantaEngine:
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 _t6gu = [clean[:-1] + apply_guna(clean[-1]) + "tum"]
                 # tudAdi ylk-tumun redup twins, u/i-final site (additive).
-                if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                _t6yo9 = self._t6_ylk_oct_tumun(clean) if (sanadi == "yanluganta" and meta.get("gana") == "tudAdiH") else None
+                if _t6yo9:
+                    _t6gu.append(_t6yo9)
+                elif sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
                     _t6yr9 = self._tudAdi_ylk_redup(clean, op, dhatu_id)
                     if _t6yr9:
                         _t6gu.append(_t6yr9 + "itum")
@@ -6204,7 +6218,10 @@ class KrdantaEngine:
                     if t_stem != eff + "t" or not sew:
                         _t6su = [t_stem + "um"]
                         # tudAdi ylk-tumun redup twins, t-stem site (additive).
-                        if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                        _t6yoA = self._t6_ylk_oct_tumun(clean) if (sanadi == "yanluganta" and meta.get("gana") == "tudAdiH") else None
+                        if _t6yoA:
+                            _t6su.append(_t6yoA)
+                        elif sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
                             _t6yrA = self._tudAdi_ylk_redup(clean, op, dhatu_id)
                             if _t6yrA:
                                 _t6su.append(_t6yrA + "itum")
@@ -6224,7 +6241,10 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
                 _gen.append("vicitum")
             # tudAdi ylk-tumun redup twins, generic-fallback site (additive).
-            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+            _t6yoB = self._t6_ylk_oct_tumun(clean) if (sanadi == "yanluganta" and meta.get("gana") == "tudAdiH") else None
+            if _t6yoB:
+                _gen.append(_t6yoB)
+            elif sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
                 _t6yrB = self._tudAdi_ylk_redup(clean, op, dhatu_id)
                 if _t6yrB:
                     _gen.append(_t6yrB + "itum")
