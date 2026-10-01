@@ -4375,6 +4375,19 @@ class KrdantaEngine:
                         _c10m = tri_linga(stem)
                         _c10a = tri_linga(_c10v)
                         return {"M": [_c10m["M"], _c10a["M"]], "F": [_c10m["F"], _c10a["F"]], "N": [_c10m["N"], _c10a["N"]]}
+                # curAdi u-root kta guNa twin (codita/polita/...; u/U-nucleus +
+                # single-coda survey (F-final excluded: pF takes Ur); generic plain
+                # twin kept first; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10mc = meta.get("clean", "") or clean
+                    _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                    _c10cd = _c10mc[len(_c10mc) - next((j for j, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                    if _c10vw and _c10vw[-1] in ("u", "U") and len(_c10cd) == 1 and _c10cd != "F":
+                        _c10v = self._guna_base(_c10mc, is_idit) + "ita"
+                        if _c10v != stem:
+                            _c10m = tri_linga(stem)
+                            _c10a = tri_linga(_c10v)
+                            return {"M": [_c10m["M"], _c10a["M"]], "F": [_c10m["F"], _c10a["F"]], "N": [_c10m["N"], _c10a["N"]]}
             # F-final yanlug redup (tF->tAtirita; additive with IrRa cross-match)
             if sanadi == "yanluganta" and clean.endswith(("f", "F")):
                 _cl = ""
