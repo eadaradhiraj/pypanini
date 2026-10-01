@@ -3992,6 +3992,15 @@ class KrdantaEngine:
                 return {"M": "jogUrtaH", "F": ["guritA", "jogUrtA"], "N": "jogUrtam"}
             if pratyaya == "ktavatu":
                 return {"M": "jogUrtavAn", "F": "jogUrtavatI", "N": ["jogUrtavat", "jogUrtavad"]}
+        # tudAdi gur mUla Ur-grades (jogUrta/jogUrtavat; sole 06.0131 surveyed —
+        # old M/N/ktavatu-forms absent from all tokens (kta F guritA cross-hits,
+        # kept as twin); mUla-scoped replace (shared _kta_stem untouched: tavya
+        # stays guritavya); tudAdiH-gated).
+        if (sanadi is None) and meta.get("clean") == "gur" and meta.get("gana") == "tudAdiH":
+            if pratyaya == "kta":
+                return {"M": "jogUrtaH", "F": ["guritA", "jogUrtA"], "N": "jogUrtam"}
+            if pratyaya == "ktavatu":
+                return {"M": "jogUrtavAn", "F": "jogUrtavatI", "N": ["jogUrtavat", "jogUrtavad"]}
         # mi yangluk (me-redup + grade split: my (kit: kta/ktavatu/cAnaS),
         # may (Nit: ac/anIyar/kvasu/tavya/tfc/vun/sya), mAy (GaY/Rvul),
         # mIy (BAvakarma); sole 05.0004 surveyed — all new forms verified in
