@@ -912,6 +912,10 @@ class TinantaDerivationEngine:
             for _kb in ("kuv", "kuve"):
                 if _kb not in bases:
                     bases.append(_kb)
+        if clean in ("nU", "DU", "gu", "Dru", "sU") and str(dhatu_id or "").startswith("06."):
+            _ub = clean[:-1] + "uv"
+            if _ub not in bases:
+                bases.append(_ub)
         # tudAdi f-Atmane riy-bases (priyate/mriyate/driyate/Driyate + system;
         # quartet 06.0138/0139/0147/0148 surveyed — f→riy (i→y glide, rIN-like),
         # no guNa; propagates via generic machinery; dhatu_id 06-prefix; additive).
