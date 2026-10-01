@@ -2740,6 +2740,13 @@ class KrdantaEngine:
                 if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
                 _nat = _natva_applies(sec)
                 if pratyaya == "lyuw": return {"gender":"Neuter","form":sec+("aRam" if _nat else "anam")}
+                # tudAdi san-anIyar redup grades (same 13 stems as san-kta iter401;
+                # aRIya everywhere (natva), dental anIya for cucCup; quad/twins mirror
+                # kta; old miss everywhere; replace meta-clean-gated).
+                if pratyaya == "anIyar" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                    _t6sa = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[meta.get("clean", "")]
+                    _t6su = "anIya" if meta.get("clean", "") == "Cup" else "aRIya"
+                    return {"M": [s + _t6su + "H" for s in _t6sa], "F": [s + _t6su + "A" for s in _t6sa], "N": [s + _t6su + "m" for s in _t6sa]}
                 if pratyaya == "anIyar": return {"M": sec+("aRIyaH" if _nat else "anIyaH"),"F":sec+("aRIyA" if _nat else "anIyA"),"N":sec+("aRIyam" if _nat else "anIyam")}
                 if pratyaya == "yat": return {"M": sec+"yaH","F":sec+"yA","N":sec+"yam"}
                 if pratyaya == "SAnac":
