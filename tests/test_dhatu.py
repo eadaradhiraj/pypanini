@@ -264,6 +264,11 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
                 cand = item["avyaya"] if isinstance(item["avyaya"], list) else [item["avyaya"]]
                 if check_slot(cand):
                     loc_mat += 1
+            elif "F" in item:
+                loc_tot += 1
+                cand = item["F"] if isinstance(item["F"], list) else [item["F"]]
+                if check_slot(cand):
+                    loc_mat += 1
             else:
                 loc_tot += 1
                 if check_slot([item["form"]]):

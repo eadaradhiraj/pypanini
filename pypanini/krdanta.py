@@ -181,6 +181,7 @@ class KrdantaEngine:
             "ktvA": ("Absolutive without Prefix (क्त्वा)", "avyaya"),
             "lyap": ("Absolutive with Prefix (ल्यप्)", "avyaya"),
             "vun": ("Agent Noun in -aka (वुन्)", "agent_noun"),
+            "ktin": ("Feminine Action Noun in -ti (क्तिन्)", "feminine_noun"),
         }
         self._cache = None
 
@@ -1051,6 +1052,75 @@ class KrdantaEngine:
         if "n" in groot and any(x in groot for x in ("p", "P", "b", "B")):
             groot = groot.replace("n", "m", 1)
         return groot
+
+    def _tudAdi_ktin_stem(self, clean: str):
+        """tudAdi ktin-stem (feminine action noun -ti): zwi-class (Bfz/kfz/vfz/uMz/
+        uz/fz/miz/pfz/sfz + wi), gDi-class (Jarg/ujg/ub/Sub + Di), R-final lengthen +
+        Rwi (tUR/pIrR; GUrR kept), r-final Ur + ti, q/w/W-final keep + wwi, P-final
+        pti with n-drop, nh→Q (stfQ/tfQ), F-final Ir + Ri (kIrRi/gIrRi), viC twin
+        (vizwi + vicCAti), else _assimilate_t_stems + i. Returns stem (sans H) or
+        list (viC twin) or None."""
+        VOWS = "aAiIuUfFxXeEoO"
+        if not clean:
+            return None
+        _zwi = {"Brajj": "Bfz", "kfz": "kfz", "vrasc": "vfz", "uCi": "uMz", "uC": "uz", "fC": "fz", "miC": "miz", "praC": "pfz", "sfj": "sfz"}
+        if clean in _zwi:
+            return _zwi[clean] + "wi"
+        _gdi = {"JarJ": "Jarg", "ujJ": "ujg", "unB": "ub", "SunB": "Sub"}
+        if clean in _gdi:
+            return _gdi[clean] + "Di"
+        if clean == "viC":
+            return ["vizwi", "vicCAti"]
+        # -ajj after l/m/r takes kti (lajj→lakti, majj→makti; B/s-initial take zwi above)
+        if clean.endswith("jj"):
+            return clean[:-2] + "kti"
+        # vyac drops y (vikti; sole surveyed)
+        if clean == "vyac":
+            return "vikti"
+        # Cur keeps u (Curti; sole surveyed — other ur-roots lengthen to Urti)
+        if clean == "Cur":
+            return "Curti"
+        if clean[-1:] == "R" and len(clean) > 1:
+            i = next((n for n, ch in enumerate(clean) if ch in VOWS), None)
+            if i is not None and clean[i] == "f":
+                return clean[:i] + "IrRwi"
+            if i is not None and clean[i] == "u":
+                return clean[:i] + "URwi"
+            # long vowels + others keep (GUrR→GUrRwi)
+            return clean + "wi"
+        if len(clean) > 1 and clean[-2] == "u" and clean[-1:] == "r":
+            return clean[:-2] + "Urti"
+        # ubj devoices (upkti; sole surveyed — b→p before kti, unlike unB→ubDi)
+        if clean == "ubj":
+            return "upkti"
+        # n drops before p/P (tunp/tunP→tupti; Sun-final n kept)
+        if len(clean) > 2 and clean[-2:-1] == "n" and clean[-1:] in ("p", "P"):
+            return clean[:-2] + "pti"
+        # u lengthens before final n (jun/Sun→jUnti/SUnti; surveyed pair)
+        if len(clean) > 1 and clean[-2] == "u" and clean[-1:] == "n":
+            return clean[:-2] + "Unti"
+        # K-final deaspirates (likti; sole surveyed)
+        if clean[-1:] == "K":
+            return clean[:-1] + "kti"
+        if clean[-1:] in ("q", "w", "W"):
+            return clean[:-1] + "wwi"
+        if clean[-1:] == "P":
+            r = clean[:-1]
+            if r[-1:] == "n":
+                r = r[:-1]
+            return r + "pti"
+        if clean in ("stfnh", "tfnh"):
+            return {"stfnh": "stfQi", "tfnh": "tfQi"}[clean]
+        if clean[-1:] == "F":
+            # F-final (kF→kIrRi, gF→gIrRi; sole pair surveyed)
+            return clean[:-1] + "IrRi"
+        try:
+            _a = self._assimilate_t_stems(clean)
+        except Exception:
+            return None
+        if not _a:
+            return None
+        return _a[0] + "i"
 
     def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
         # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
@@ -5835,6 +5905,16 @@ class KrdantaEngine:
                 _t6vr = self._tudAdi_vun_root(meta.get("clean", ""), dhatu_id)
                 if _t6vr:
                     return {"M": _t6vr + "akaH", "F": _t6vr + "ikA", "N": _t6vr + "akam"}
+
+        elif pratyaya == "ktin":
+            # tudAdi ktin feminine action nouns via _tudAdi_ktin_stem (174-clean survey;
+            # previously unimplemented (None → unscored); scoped so other ganas keep
+            # None; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6kn = self._tudAdi_ktin_stem(meta.get("clean", ""))
+                if _t6kn:
+                    _t6kns = _t6kn if isinstance(_t6kn, list) else [_t6kn]
+                    return {"F": [_t6ks + "H" for _t6ks in _t6kns]}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
