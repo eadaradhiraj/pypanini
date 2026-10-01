@@ -923,6 +923,13 @@ class TinantaDerivationEngine:
             _hb = {"stfnh": "stfh", "tfnh": "tfMh"}[clean]
             if _hb not in bases:
                 bases.append(_hb)
+        # tudAdi kF/gF ir/il-bases (kirati + girati/gilati; pair 06.0145/0146 surveyed —
+        # F→ir (kF) vs F→ir+il twins (gF); bare stems (conjugators supply -a-);
+        # propagates via generic machinery; dhatu_id 06-prefix; additive).
+        if clean in ("kF", "gF") and str(dhatu_id or "").startswith("06."):
+            for _fb in (["kir"] if clean == "kF" else ["gir", "gil"]):
+                if _fb not in bases:
+                    bases.append(_fb)
         # tudAdi f-Atmane riy-bases (priyate/mriyate/driyate/Driyate + system;
         # quartet 06.0138/0139/0147/0148 surveyed — f→riy (i→y glide, rIN-like),
         # no guNa; propagates via generic machinery; dhatu_id 06-prefix; additive).
