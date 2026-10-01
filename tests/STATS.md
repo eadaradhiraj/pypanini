@@ -668,3 +668,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 481 (GEN-10: curAdi ktavatu twin-sets (kta-grade stems + itavat; same shape survey): +321 matched (107 improved x3), 0 worsened (guards green; san_krut display rise is cap-churn).
 - Iteration 482 (GEN-10: curAdi san-kta twin-sets (plain/graded redup x ay/no-ay via in-scope _sannanta_sec on mUla-grades; generic first): probe 987→138 (-849), 0 worsened (guards green).
 - Iteration 483 (GEN-10: curAdi san-tavya twin-sets (same sec-matrix + itavya): probe 987→138 (-849), 0 worsened (guards green).
+- Iteration 484 (GEN-10: curAdi san-anIyar/yat twin-sets (sec-matrix; generic first; dead-downstream-block relocated upstream after return-trace; tri_linga late-def UnboundLocal avoided via inline M/F/N): probe anIyar 987→138, 0 worsened (guards green).

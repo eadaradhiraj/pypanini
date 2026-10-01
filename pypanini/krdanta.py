@@ -2394,6 +2394,34 @@ class KrdantaEngine:
                 # Panini 8.3.57 iRkoH: satva only applies after iN or ku; after a/A, suffix remains dental s
                 _sfx = "s" if c.endswith(("a", "A")) else ("z" if is_vowel_final else "iz")
                 return redup_cons + redup_vowel + _c_san + _sfx
+            def _c10_san_secs(sec, root, is_idit):
+                # curAdi san sec twin-matrix (plain/graded redup x ay/no-ay); root = mUla
+                # clean; ay/no-ay AND plain/graded lexical across homonymous roots so twins.
+                out = [sec]
+                _sx = sec[:-2] + "ayiz" if sec.endswith("iz") else sec + "ayiz"
+                if _sx != sec:
+                    out.append(_sx)
+                _rw = [ch for ch in root if ch in SLP1_VOWELS]
+                if _rw:
+                    _nc = _rw[-1]
+                    _cd = root[len(root) - next((k for k, ch in enumerate(reversed(root)) if ch in SLP1_VOWELS), 0):]
+                    _sg = len(_cd) == 1 or (len(_cd) == 2 and _cd[0].lower() == _cd[1].lower())
+                    _gg = []
+                    if _nc == "a" and _sg:
+                        _gg = [self._vriddhi_base(root, is_idit)]
+                    elif _nc in ("u", "U") and _sg and _cd != "F":
+                        _gg = [self._guna_base(root, is_idit)]
+                    elif _nc == "i" and _sg and root[-1] not in SLP1_VOWELS:
+                        _gg = [self._guna_base(root, is_idit)]
+                    for _gr in dict.fromkeys(g for g in _gg if g != root):
+                        try:
+                            _gs = _sannanta_sec(_gr)
+                        except Exception:
+                            continue
+                        for _gsv in dict.fromkeys([_gs, _gs[:-2] + "ayiz" if _gs.endswith("iz") else _gs + "ayiz"]):
+                            if _gsv not in out:
+                                out.append(_gsv)
+                return out
             def _yan_sec(c):
                 _nitya_san = {
                     "jugups", "titikz", "cikits", "mImAMs", "bIBats", "dIdAMs", "SISAMs"
@@ -3052,6 +3080,24 @@ class KrdantaEngine:
                         return {"M": [s + "yaH" for s in _t6sa], "F": [s + "yA" for s in _t6sa], "N": [s + "yam" for s in _t6sa]}
                     _t6su = "anIya" if meta.get("clean", "") == "Cup" else "aRIya"
                     return {"M": [s + _t6su + "H" for s in _t6sa], "F": [s + _t6su[:-1] + "A" for s in _t6sa], "N": [s + _t6su + "m" for s in _t6sa]}
+                # curAdi san anIyar/yat twin-sets (sec-matrix + anIya/aRIya/ya; same survey
+                # as san-kta; generic twin kept first; additive, curAdiH-gated).
+                if pratyaya in ("anIyar", "yat") and meta.get("gana") == "curAdiH":
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    _c10out = {"M": [], "F": [], "N": []}
+                    for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                        if pratyaya == "yat":
+                            _c10t = {"M": _c10s + "yaH", "F": _c10s + "yA", "N": _c10s + "yam"}
+                        else:
+                            _c10sf = "aRIya" if _natva_applies(_c10s) else "anIya"
+                            _c10b = _c10s + _c10sf
+                            _c10t = {"M": _c10b + "H", "F": _c10b[:-1] + "A" if _c10b.endswith("a") else _c10b + "A", "N": _c10b + "m"}
+                        for _gg in ("M", "F", "N"):
+                            for _cc in _c10L(_c10t[_gg]):
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
+                    return _c10out
                 if pratyaya == "anIyar": return {"M": sec+("aRIyaH" if _nat else "anIyaH"),"F":sec+("aRIyA" if _nat else "anIyA"),"N":sec+("aRIyam" if _nat else "anIyam")}
                 if pratyaya == "yat": return {"M": sec+"yaH","F":sec+"yA","N":sec+"yam"}
                 if pratyaya == "SAnac":
