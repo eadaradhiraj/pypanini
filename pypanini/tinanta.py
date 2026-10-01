@@ -2380,8 +2380,8 @@ class TinantaDerivationEngine:
             # tudAdi nich grades (vraScay/stfMhay/tfMhay/vicCAyay; quartet
             # 06.0012/0037/0077/0159 surveyed — samprasArana + num-M + C-gemination;
             # viC collides with curAdi 10.0304 so tudAdiH-gated; mirrors krdanta).
-            if c in ("vrasc", "stfnh", "tfnh", "viC") and meta.get("gana") == "tudAdiH":
-                return {"vrasc": "vraScay", "stfnh": "stfMhay", "tfnh": "tfMhay", "viC": "vicCAyay"}[c]
+            if c in ("vrasc", "stfnh", "tfnh", "viC", "vicC") and meta.get("gana") == "tudAdiH":
+                return {"vrasc": "vraScay", "stfnh": "stfMhay", "tfnh": "tfMhay", "viC": "vicCAyay", "vicC": "vicCAyay"}[c]
             # Nitya-san (3.1.5/3.1.6, seT only): nich uses san base (jugupsay/titikzay/...; 01.0461 aniT excluded via sew).
             if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                 _nsb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
