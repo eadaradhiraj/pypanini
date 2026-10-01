@@ -3325,7 +3325,14 @@ class KrdantaEngine:
                 if pratyaya == "GaY":
                     return {"gender": "Masculine", "form": _nb + "aH"}
                 if pratyaya == "tumun":
-                    return {"avyaya": [_ob + "itum", _nb + "itum"]}
+                    # tudAdi ylk-tumun redup twins (same stem as tavya iter395 + itum;
+                    # additive — ob/nb kept).
+                    _t6yu = [_ob + "itum", _nb + "itum"]
+                    if meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                        _t6yr = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                        if _t6yr:
+                            _t6yu.append(_t6yr + "itum")
+                    return {"avyaya": _t6yu}
                 if pratyaya == "ktvA":
                     return {"avyaya": [_ob + "itvA", _nb + "itvA"]}
 
@@ -6161,7 +6168,13 @@ class KrdantaEngine:
                     return {"avyaya": ["tAtaNktum", "tAtaYcitum"]}
                 return {"avyaya": ["vevejitum"]}
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
-                return {"avyaya": [clean[:-1] + apply_guna(clean[-1]) + "tum"]}
+                _t6gu = [clean[:-1] + apply_guna(clean[-1]) + "tum"]
+                # tudAdi ylk-tumun redup twins, u/i-final site (additive).
+                if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                    _t6yr9 = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                    if _t6yr9:
+                        _t6gu.append(_t6yr9 + "itum")
+                return {"avyaya": _t6gu}
             # guhU~ vew: aniT oQ (goQum) + seT Uhit (gUhitum); yangluk jo-.
             if clean == "guh" and sanadi in (None, "yanluganta"):
                 _pre = "jo" if sanadi == "yanluganta" else ""
@@ -6189,7 +6202,13 @@ class KrdantaEngine:
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
                     if t_stem != eff + "t" or not sew:
-                        return {"avyaya": [t_stem + "um"]}
+                        _t6su = [t_stem + "um"]
+                        # tudAdi ylk-tumun redup twins, t-stem site (additive).
+                        if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                            _t6yrA = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                            if _t6yrA:
+                                _t6su.append(_t6yrA + "itum")
+                        return {"avyaya": _t6su}
             if sew and eff.endswith("A") and eff not in ("daridrA", "jAgf"):
                 stem = eff[:-1] + "itum"
             else:
@@ -6204,6 +6223,11 @@ class KrdantaEngine:
             # old vyacitum-forms miss; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
                 _gen.append("vicitum")
+            # tudAdi ylk-tumun redup twins, generic-fallback site (additive).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                _t6yrB = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                if _t6yrB:
+                    _gen.append(_t6yrB + "itum")
             return {"avyaya": _gen}
 
         elif pratyaya == "ktvA":
