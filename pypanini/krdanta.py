@@ -193,6 +193,7 @@ class KrdantaEngine:
             "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
             "lyu": ("Neuter Verbal Noun in -ana (ल्यु)", "neuter_noun"),
             "naN": ("M-only na-Noun (नङ्)", "masculine_noun"),
+            "zwran": ("F-only trI-Noun (ष्ट्रन्)", "feminine_noun"),
             "ap": ("M-only Action Noun in -a (अप्)", "masculine_noun"),
             "Sa": ("Action Noun in -a (सः)", "action_noun"),
             "Ra": ("Vriddhi Agent Noun in -a (रः)", "agent_noun"),
@@ -6202,6 +6203,12 @@ class KrdantaEngine:
             # C-final takes S + na; previously None→unscored; scoped; meta-clean-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("praC", "viC"):
                 return {"M": {"praC": "praSnaH", "viC": "viSnaH"}[meta.get("clean", "")]}
+
+        elif pratyaya == "zwran":
+            # tudAdi zwran F-only trI-nouns (tottrI/sektrI; pair 06.0001/0170 surveyed —
+            # guNa-grade + trI; previously None→unscored; scoped; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("tud", "sic"):
+                return {"F": {"tud": "tottrI", "sic": "sektrI"}[meta.get("clean", "")]}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
