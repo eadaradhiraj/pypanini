@@ -5539,6 +5539,12 @@ class KrdantaEngine:
             # vrasktA-forms miss; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc" and pratyaya == "tfc":
                 return {"M": "vrazwA", "F": "vrazwrI", "N": "vrazwf"}
+            # tudAdi stfnh/tfnh tfc RQ+Mhit twins (stfRQA/stfMhitA; pair 06.0037/0077
+            # surveyed — twin entries in corpus; old nQ-forms miss everywhere; replace).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh") and pratyaya == "tfc":
+                _rq = {"stfnh": "stfRQ", "tfnh": "tfRQ"}[clean]
+                _mh = {"stfnh": "stfMhit", "tfnh": "tfMhit"}[clean]
+                return {"M": [_rq + "A", _mh + "A"], "F": [_rq + "rI", _mh + "rI"], "N": [_rq + "f", _mh + "f"]}
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
