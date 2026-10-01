@@ -8163,6 +8163,16 @@ class TinantaDerivationEngine:
                 }
                 cands = _hita.get((purusha, vacana), []) if prayoga == "karmani" else _hit.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
+            # tudAdi vrasc/vyac liw perfect tables (vavraSca/vivyAca strong + vic-weak
+            # twins, vavrazWa sandhi variant; pair 06.0012/06.0013 surveyed — perfect
+            # abhyasa + root grades (vrasc vraSc, vyac vyAc/vic); old 18/18 true
+            # misses; karmani liw unattested for both; replace, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vrasc", "vyac"):
+                if meta.get("clean") == "vrasc":
+                    _vcl = {("prathama", "eka"): ["vavraSca"], ("prathama", "dvi"): ["vavraScatuH"], ("prathama", "bahu"): ["vavraScuH"], ("madhyama", "eka"): ["vavraSciTa", "vavrazWa"], ("madhyama", "dvi"): ["vavraScaTuH"], ("madhyama", "bahu"): ["vavraSca"], ("uttama", "eka"): ["vavraSca"], ("uttama", "dvi"): ["vavraSciva", "vavraScva"], ("uttama", "bahu"): ["vavraScima", "vavraScma"]}
+                else:
+                    _vcl = {("prathama", "eka"): ["vivyAca"], ("prathama", "dvi"): ["vivicatuH"], ("prathama", "bahu"): ["vivicuH"], ("madhyama", "eka"): ["vivyaciTa"], ("madhyama", "dvi"): ["vivicaTuH"], ("madhyama", "bahu"): ["vivica"], ("uttama", "eka"): ["vivyaca"], ("uttama", "dvi"): ["vivyAca", "viviciva"], ("uttama", "bahu"): ["vivicima"]}
+                return list(dict.fromkeys(_vcl.get((purusha, vacana), []))), log
             # Ap (05.0016) karmani liw Ape/ApAte/Apire
             if sanadi is None and clean == "Ap" and meta.get("gana") == "svAdiH" and prayoga == "karmani":
                 _apa = {
