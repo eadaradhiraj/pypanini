@@ -9873,6 +9873,11 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "kU":
                     _t6kl = {("prathama","eka"):["akuvizwa"],("prathama","dvi"):["akuvizAtAm"],("prathama","bahu"):["akuvizata"],("madhyama","eka"):["akuvizWAH"],("madhyama","dvi"):["akuvizATAm"],("madhyama","bahu"):["akuviQvam","akuviDvam"],("uttama","eka"):["akuvizi"],("uttama","dvi"):["akuvizvahi"],("uttama","bahu"):["akuvizmahi"]}
                     cands += _t6kl.get((purusha, vacana), [])
+                # tudAdi vij/gur luN sic-peka i/u-grades (avijizwa/agurizwa; pair
+                # 06.0009/0131 surveyed — old e/o-grades absent from all tokens;
+                # additive peka twin, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vij", "gur") and (purusha, vacana) == ("prathama", "eka"):
+                    cands += [{"vij": "avijizwa", "gur": "agurizwa"}[meta.get("clean")]]
                 # iN mUla-luN Ez-grade table (aDyEzwa...; sole 02.0041 surveyed — op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     _inlun = {("prathama","eka"):["aDyEzwa"],("prathama","dvi"):["aDyEzAtAm"],("prathama","bahu"):["aDyEzata"],("madhyama","eka"):["aDyEzWAH"],("madhyama","dvi"):["aDyEzATAm"],("madhyama","bahu"):["aDyEQvam"],("uttama","eka"):["aDyEzi"],("uttama","dvi"):["aDyEzvahi"],("uttama","bahu"):["aDyEzmahi"]}
