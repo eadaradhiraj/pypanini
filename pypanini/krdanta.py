@@ -180,6 +180,7 @@ class KrdantaEngine:
             "tumun": ("Infinitive of Purpose (तुमुन्)", "avyaya"),
             "ktvA": ("Absolutive without Prefix (क्त्वा)", "avyaya"),
             "lyap": ("Absolutive with Prefix (ल्यप्)", "avyaya"),
+            "vun": ("Agent Noun in -aka (वुन्)", "agent_noun"),
         }
         self._cache = None
 
@@ -979,6 +980,77 @@ class KrdantaEngine:
         return {"vrasc": "vAvrazwum", "luB": "lolobDum", "stfnh": "tarstfRQum",
                 "vfh": "varvarQum", "bfh": "barbarQum", "tfh": "tartarQum",
                 "stfh": "tarstarQum", "tfnh": "tartfRQum"}.get(clean)
+
+    def _tudAdi_vun_root(self, clean: str, dhatu_id=None):
+        """tudAdi vun-root (agent noun -aka): samp quartet (Barj/vraSc/vic/pracC),
+        stfnh/tfnh Mh-grades, micC/vicC/uC/fC doubling, u-final→uv, i-final→ay,
+        sC-initial keeps vowel (n→M before h, n→m before labials), laghu-only
+        guNa (i/u→e/o; a never; guru kept), f→ar except kfq/Bfq literals, F→ar/al
+        (kar/gal), u-keep set (q/w-finals et al, juq split by fid 06.0051/0106),
+        vowel-initial roots take root-only treatment (iz→ez, uCi→uYC num).
+        Returns root (sans aka) or None."""
+        VOWS = "aAiIuUfFxXeEoO"
+        if not clean:
+            return None
+        _samp4 = {"Brajj": "Barj", "vrasc": "vraSc", "vyac": "vic", "praC": "pracC"}
+        if clean in _samp4:
+            return _samp4[clean]
+        if clean in ("stfnh", "tfnh"):
+            return {"stfnh": "stfMh", "tfnh": "tfMh"}[clean]
+        if clean == "uCi":
+            return "uYC"
+        if clean in ("miC", "viC", "uC", "fC"):
+            return {"miC": "micC", "viC": "vicC", "uC": "ucC", "fC": "fcC"}[clean]
+        # qip keeps i (qipaka; sole surveyed — kzip grades, so q-gated literal)
+        if clean == "qip":
+            return "qip"
+        # sU takes av-grade (savaka; sole 06.0144 surveyed — nU/DU/ku keep uv)
+        if clean == "sU":
+            return "sav"
+        if clean[-1:] in ("u", "U") and len(clean) > 1 and clean[0] not in VOWS:
+            return clean[:-1] + "uv"
+        if clean[-1:] in ("i", "I") and len(clean) > 1 and clean[0] not in VOWS:
+            return clean[:-1] + "ay"
+        # u-keep set (surveyed; juq split by fid since 0051 grades but 0106 keeps)
+        _keep = ("Cuq", "Cur", "Cuw", "Guw", "Kuq", "Tuq", "cuq", "cuw", "guj", "guq", "gur", "huq", "kuw", "kuc", "kuq", "luW", "luw", "muw", "puq", "puw", "juw", "tuw", "tuq", "vruq", "kruq", "truw")
+        if clean in _keep or (clean == "juq" and str(dhatu_id or "") == "06.0106"):
+            return clean
+        # sC-initial keeps vowels except laghu f→ar (spfS→sparS, stfh→starh;
+        # stfnh never reaches here (Mh-literal above); n→M before h, n→m before labials)
+        if len(clean) > 2 and clean[0] == "s" and clean[1] not in VOWS:
+            _si = next((n for n, ch in enumerate(clean) if ch in VOWS), None)
+            if _si is not None and clean[_si] == "f" and len(clean) - _si - 1 <= 1:
+                return clean[:_si] + "ar" + clean[_si + 1:]
+            r = clean
+            if "nh" in r:
+                r = r.replace("n", "M", 1)
+            elif "n" in r and any(x in r for x in ("p", "P", "b", "B", "m")):
+                r = r.replace("n", "m", 1)
+            return r
+        i = next((n for n, ch in enumerate(clean) if ch in VOWS), None)
+        if i is None:
+            return clean
+        v = clean[i]
+        rest = clean[i + 1:]
+        laghu = len(rest) <= 1
+        if v in ("a", "A"):
+            groot = clean
+        elif v in ("i", "I", "u", "U") and laghu:
+            groot = clean[:i] + ("e" if v in ("i", "I") else "o") + rest
+        elif v == "F" and rest == "":
+            # F-final (kF→kar, gF→gal; sole pair surveyed)
+            groot = clean[:i] + ("al" if clean[i - 1:i] == "g" else "ar")
+        elif v == "F":
+            groot = clean[:i] + "a" + rest
+        elif v == "f" and clean not in ("kfq", "Bfq") and laghu:
+            groot = clean[:i] + "ar" + rest
+        elif v == "f":
+            groot = clean
+        else:
+            groot = clean
+        if "n" in groot and any(x in groot for x in ("p", "P", "b", "B")):
+            groot = groot.replace("n", "m", 1)
+        return groot
 
     def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
         # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
@@ -5754,6 +5826,15 @@ class KrdantaEngine:
                 _t = {"M": _t6rk + "H", "F": _t6rk[:-3] + "ikA", "N": _t6rk + "m"}
                 return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
             return _out
+
+        elif pratyaya == "vun":
+            # tudAdi vun agent nouns (nodaka/barjaka/guvaka/...; 174-clean survey via
+            # _tudAdi_vun_root; previously unimplemented (None → unscored); scoped so
+            # other ganas keep None; meta-clean-gated since local clean reassigns).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6vr = self._tudAdi_vun_root(meta.get("clean", ""), dhatu_id)
+                if _t6vr:
+                    return {"M": _t6vr + "akaH", "F": _t6vr + "ikA", "N": _t6vr + "akam"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
