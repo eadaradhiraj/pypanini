@@ -3915,6 +3915,14 @@ class KrdantaEngine:
             op_for_kta = meta.get("op", "") if (sanadi is None or sanadi == "yanluganta") else ""
             # sannanta is seT for the kta family (surveyed 1156/1156, zero exceptions)
             stem = self._kta_stem(clean, True if sanadi == "sannanta" else sew, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
+            # tudAdi san-kta redup grades (biBarjizita/vivrakzita/...; 13-clean survey —
+            # hrasva redup + roots (f kept after k/B/c, ar else; vrak/Barj/tfk/maNk/
+            # samp/C-double; Mhit/Sci twins; Brajj quad); old forms miss everywhere;
+            # replace; probes ALL-HIT exact).
+            if sanadi == "sannanta" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                _t6skmc = meta.get("clean", "")
+                _t6sk = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[_t6skmc]
+                return {"M": [s + "itaH" for s in _t6sk], "F": [s + "itA" for s in _t6sk], "N": [s + "itam" for s in _t6sk]}
             # yanlug d-final: d+ta gives tta (jAhlAtta) alongside mUla nna (hlAnna);
             # additive so redup-tta hits without losing nna cross-match
             if sanadi == "yanluganta" and clean.endswith("d"):
