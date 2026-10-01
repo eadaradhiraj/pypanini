@@ -5739,6 +5739,12 @@ class KrdantaEngine:
             if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
                 _vy = "vAy" + "aka"
                 return {"M": [_out["M"], _vy + "H"], "F": [_out["F"], _vy[:-3] + "ikA"], "N": [_out["N"], _vy + "m"]}
+            # tudAdi Rvul Sci/A/Mh-grades (vraScaka/vyAcaka/stfMhaka/tfMhaka; quartet
+            # 06.0012/0013/0037/0077 surveyed; old aka-forms miss; additive, aja-pattern).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("vrasc", "vyac", "stfnh", "tfnh"):
+                _t6rk = {"vrasc": "vraScaka", "vyac": "vyAcaka", "stfnh": "stfMhaka", "tfnh": "tfMhaka"}[clean]
+                _t = {"M": _t6rk + "H", "F": _t6rk[:-3] + "ikA", "N": _t6rk + "m"}
+                return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
             return _out
 
         elif pratyaya == "tfc":
