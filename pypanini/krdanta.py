@@ -4584,6 +4584,32 @@ class KrdantaEngine:
             # kliS seT-twin ktavatu (mirrors kta; both verified in tokens; additive).
             if sanadi is None and clean == "kliS" and meta.get("gana") == "kryAdiH":
                 return {"M": ["kliSitavAn", "klizwavAn"], "F": ["kliSitavatI", "klizwavatI"], "N": ["kliSitavat", "klizwavat", "kliSitavad", "klizwavad"]}
+            # curAdi ktavatu twin-sets (kta-grade stems + itavat; same shape survey as kta;
+            # generic twin kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                _c10out = {"M": [], "F": [], "N": []}
+                for _c10mc in _c10ss:
+                    _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                    if not _c10vw:
+                        continue
+                    _c10nc = _c10vw[-1]
+                    _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                    _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                    _c10grades = []
+                    if _c10nc == "a" and _c10sg:
+                        _c10v = self._vriddhi_base(_c10mc, is_idit)
+                        _c10grades = [_c10mc] + ([_c10v] if _c10v != _c10mc else [])
+                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                        _c10grades = [_c10mc, self._guna_base(_c10mc, is_idit)] if _c10nc == "u" else [_c10mc]
+                    elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10grades = [_c10mc, self._guna_base(_c10mc, is_idit)]
+                    for _c10s in dict.fromkeys(_c10grades):
+                        for _frm, _g in ((_c10s + "itavAn", "M"), (_c10s + "itavatI", "F"), (_c10s + "itavat", "N"), (_c10s + "itavad", "N")):
+                            if _frm not in _c10out[_g]:
+                                _c10out[_g].append(_frm)
+                if any(_c10out.values()):
+                    return _c10out
             # mA short-i ktavatu (mitavAn; 02.0057 surveyed — gana-gated like kta; free).
             if sanadi is None and clean == "mA" and meta.get("gana") == "adAdiH":
                 return {"M": "mitavAn", "F": "mitavatI", "N": ["mitavat", "mitavad"]}
