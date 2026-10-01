@@ -935,6 +935,11 @@ class TinantaDerivationEngine:
         if clean == "iz" and str(dhatu_id or "").startswith("06."):
             if "icC" not in bases:
                 bases.append("icC")
+        # tudAdi viC vicCAy-base (vicCAyati/vicCAyet; sole 06.0159 surveyed — doubled
+        # cC + Ay (ylk/san Ay-family); bare stem; dhatu_id 06-prefix).
+        if clean == "viC" and str(dhatu_id or "").startswith("06."):
+            if "vicCAy" not in bases:
+                bases.append("vicCAy")
         # tudAdi f-Atmane riy-bases (priyate/mriyate/driyate/Driyate + system;
         # quartet 06.0138/0139/0147/0148 surveyed — f→riy (i→y glide, rIN-like),
         # no guNa; propagates via generic machinery; dhatu_id 06-prefix; additive).
@@ -6656,6 +6661,11 @@ class TinantaDerivationEngine:
             # miss; C-stem + parasmaipada; additive, tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean[-1:] in ("i", "I"):
                 cands+=self._conjugate_at_stem_parasmai(clean[:-1] + "iy", "lw", purusha, vacana)
+            # tudAdi viC Ay-present (vicCAyati; sole 06.0159 surveyed — lw takes a
+            # doubling branch (vicCati) that bypasses _prim_bases; explicit gate
+            # mirrors u/i-final twins; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "viC":
+                cands+=self._conjugate_at_stem_parasmai("vicCAy", "lw", purusha, vacana)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
@@ -7118,6 +7128,10 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean[-1:] in ("u", "U", "i", "I"):
                 _d4imp = self._add_augment(clean[:-1] + ("uv" if clean[-1:] in ("u", "U") else "iy"), False)
                 cands+=self._conjugate_at_stem_parasmai(_d4imp, "laN", purusha, vacana)
+            # tudAdi viC Ay-imperfect (avicCAyat; sole 06.0159 surveyed — mirrors lw twin).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "viC":
+                _d4impvic = self._add_augment("vicCAy", False)
+                cands+=self._conjugate_at_stem_parasmai(_d4impvic, "laN", purusha, vacana)
             cands += self._savarNa_A_variants(cands)
             return list(dict.fromkeys(cands)), log
 
@@ -7555,6 +7569,9 @@ class TinantaDerivationEngine:
             # Panini 3.1.74 SruvaH Sf ca
             if clean in ("Sru", "SrU") or (op and op.startswith("Sru")):
                 cands += self._snu_parasmai("SfR", "viDiliN", purusha, vacana)
+            # tudAdi viC Ay-optative (vicCAyet; sole 06.0159 surveyed — mirrors lw twin).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "viC":
+                cands+=self._conjugate_at_stem_parasmai("vicCAy", "viDiliN", purusha, vacana)
             # AdAdi-a luk optative: luk-stem + yAt-endings (adyAt/hanyAt; same yAt-map family as
             # yAyAt/yuyAt; gana + a-shape gated (mirrors lw-block condition); additive).
             if meta.get("gana") == "adAdiH" and sanadi is None and clean and clean[-1] not in SLP1_VOWELS:
