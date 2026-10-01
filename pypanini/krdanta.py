@@ -3003,6 +3003,23 @@ class KrdantaEngine:
                     # additive, divAdiH-gated).
                     if sanadi == "yananta" and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
                         _ly += [{"div": "pradedIvya", "siv": "prasezIvya", "sriv": "prasesrIvya"}[(meta.get("clean", "") or clean)]]
+                    # tudAdi yan-lyap redup twins (yang mirror of ylk-lyap: Urya-stems need
+                    # no extra ya (already ya-final); cokUyya pair literal; samp4 + ya;
+                    # 16-clean survey (same set as yang-SAnac iter417); additive).
+                    if sanadi == "yananta" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "vyac", "praC", "sur", "kur", "Kur", "mur", "kzur", "Gur", "pur", "Cur", "sPur", "gur", "ku", "kU"):
+                        _t6yn = None
+                        _t6ync = meta.get("clean", "")
+                        _t6ys4 = {"Brajj": "barIBfjj", "vrasc": "varIvfSc", "vyac": "vevic", "praC": "parIpfcC"}.get(_t6ync)
+                        if _t6ys4 is not None:
+                            _t6yn = "pra" + _t6ys4 + "ya"
+                        elif _t6ync in ("ku", "kU"):
+                            _t6yn = "pracokUyya"
+                        else:
+                            _t6yl9 = self._tudAdi_ylk_lyap(_t6ync, op, dhatu_id)
+                            if _t6yl9:
+                                _t6yn = "pra" + _t6yl9
+                        if _t6yn and _t6yn not in _ly:
+                            _ly.append(_t6yn)
                     return {"avyaya": _ly}
                 if pratyaya == "Satf":
                     # yan Satf not expected? return None
