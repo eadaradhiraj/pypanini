@@ -8182,6 +8182,12 @@ class TinantaDerivationEngine:
                 _fay = {("prathama", "eka"): [_fnp + "AYcakAra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("prathama", "dvi"): [_fnp + "AYcakratuH", _fnp + "AmAsatuH", _fnp + "AmbaBUvatuH"], ("prathama", "bahu"): [_fnp + "AYcakruH", _fnp + "AmAsuH", _fnp + "AmbaBUvuH"], ("madhyama", "eka"): [_fnp + "AYcakarTa", _fnp + "AmAsiTa", _fnp + "AmbaBUviTa"], ("madhyama", "dvi"): [_fnp + "AYcakraTuH", _fnp + "AmAsaTuH", _fnp + "AmbaBUvaTuH"], ("madhyama", "bahu"): [_fnp + "AYcakra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("uttama", "eka"): [_fnp + "AYcakara", _fnp + "AYcakAra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("uttama", "dvi"): [_fnp + "AYcakfva", _fnp + "AmAsiva", _fnp + "AmbaBUviva"], ("uttama", "bahu"): [_fnp + "AYcakfma", _fnp + "AmAsima", _fnp + "AmbaBUvima"]}
                 if prayoga == "kartari":
                     return list(dict.fromkeys(_fay.get((purusha, vacana), []))), log
+            # tudAdi fC liw Anar-perfect twins (AnarcCa/AnarCa + endings; sole 06.0016
+            # surveyed fCa~ — An- perfect with C-doubled + single variants; old miss;
+            # kartari replace, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "fC" and prayoga == "kartari":
+                _fca = {("prathama", "eka"): ["AnarcCa", "AnarCa"], ("prathama", "dvi"): ["AnarcCatuH", "AnarCatuH"], ("prathama", "bahu"): ["AnarcCuH", "AnarCuH"], ("madhyama", "eka"): ["AnarcCiTa", "AnarCiTa"], ("madhyama", "dvi"): ["AnarcCaTuH", "AnarCaTuH"], ("madhyama", "bahu"): ["AnarcCa", "AnarCa"], ("uttama", "eka"): ["AnarcCa", "AnarCa"], ("uttama", "dvi"): ["AnarcCiva", "AnarCiva"], ("uttama", "bahu"): ["AnarcCima", "AnarCima"]}
+                return list(dict.fromkeys(_fca.get((purusha, vacana), []))), log
             # Ap (05.0016) karmani liw Ape/ApAte/Apire
             if sanadi is None and clean == "Ap" and meta.get("gana") == "svAdiH" and prayoga == "karmani":
                 _apa = {
