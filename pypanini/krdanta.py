@@ -190,6 +190,7 @@ class KrdantaEngine:
             "sya-SAnac": ("Future Middle Participle (स्य-शानच्)", "participle"),
             "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
+            "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
             "BAvakarma-SAnac": ("Bhava-karman Present Participle (भावकर्म-शानच्)", "participle"),
         }
         self._cache = None
@@ -6128,6 +6129,15 @@ class KrdantaEngine:
                                 _b = _b.replace("amAna", "amARa").replace("mAna", "mARa")
                         _o.append((_b + "H", _b[:-1] + "A", _b + "m"))
                     return {"M": [x[0] for x in _o], "F": [x[1] for x in _o], "N": [x[2] for x in _o]}
+
+        elif pratyaya == "ac":
+            # tudAdi ac agent nouns (vun-roots + short a; viC takes vicCAy; 49-clean
+            # survey; previously None→unscored; scoped so other ganas keep None).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6am = meta.get("clean", "")
+                _t6ar = "vicCAy" if _t6am == "viC" else self._tudAdi_vun_root(_t6am, dhatu_id)
+                if _t6ar:
+                    return {"M": _t6ar + "aH", "F": _t6ar + "A", "N": _t6ar + "am"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
