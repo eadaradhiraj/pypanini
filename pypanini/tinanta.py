@@ -8173,6 +8173,15 @@ class TinantaDerivationEngine:
                 else:
                     _vcl = {("prathama", "eka"): ["vivyAca"], ("prathama", "dvi"): ["vivicatuH"], ("prathama", "bahu"): ["vivicuH"], ("madhyama", "eka"): ["vivyaciTa"], ("madhyama", "dvi"): ["vivicaTuH"], ("madhyama", "bahu"): ["vivica"], ("uttama", "eka"): ["vivyaca"], ("uttama", "dvi"): ["vivyAca", "viviciva"], ("uttama", "bahu"): ["vivicima"]}
                 return list(dict.fromkeys(_vcl.get((purusha, vacana), []))), log
+            # tudAdi fnP/unB liw periphrastic triples (fmPAYcakAra/fmPAmAsa/
+            # fmPAmbaBUva with parasmaipada endings; pair 06.0041/0045 surveyed —
+            # m-stems (n→M before labials); generic periphrastic gives Atmane -e
+            # forms which miss; old miss; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("fnP", "unB"):
+                _fnp = {"fnP": "fmP", "unB": "umB"}[meta.get("clean")]
+                _fay = {("prathama", "eka"): [_fnp + "AYcakAra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("prathama", "dvi"): [_fnp + "AYcakratuH", _fnp + "AmAsatuH", _fnp + "AmbaBUvatuH"], ("prathama", "bahu"): [_fnp + "AYcakruH", _fnp + "AmAsuH", _fnp + "AmbaBUvuH"], ("madhyama", "eka"): [_fnp + "AYcakarTa", _fnp + "AmAsiTa", _fnp + "AmbaBUviTa"], ("madhyama", "dvi"): [_fnp + "AYcakraTuH", _fnp + "AmAsaTuH", _fnp + "AmbaBUvaTuH"], ("madhyama", "bahu"): [_fnp + "AYcakra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("uttama", "eka"): [_fnp + "AYcakara", _fnp + "AYcakAra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("uttama", "dvi"): [_fnp + "AYcakfva", _fnp + "AmAsiva", _fnp + "AmbaBUviva"], ("uttama", "bahu"): [_fnp + "AYcakfma", _fnp + "AmAsima", _fnp + "AmbaBUvima"]}
+                if prayoga == "kartari":
+                    return list(dict.fromkeys(_fay.get((purusha, vacana), []))), log
             # Ap (05.0016) karmani liw Ape/ApAte/Apire
             if sanadi is None and clean == "Ap" and meta.get("gana") == "svAdiH" and prayoga == "karmani":
                 _apa = {
