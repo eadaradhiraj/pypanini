@@ -5123,6 +5123,11 @@ class KrdantaEngine:
                 if meta.get("clean") not in ("kzRu", "UrRu"):
                     stem = stem.replace("nIya", "RIya")
             _out = tri_linga(stem)
+            # tudAdi vyac anIyar i-grade (vicanIya; sole 06.0013 surveyed — y-drop;
+            # old vyacanIya-forms miss; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
+                _t = tri_linga("vicanIya")
+                return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
             # aja~ mUla ve-grade twin (vayanIya- via guna(ve); sole aj-clean 01.0262 surveyed, ~-gated;
             # additive, old ajanIya kept harmlessly).
             if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
@@ -5614,6 +5619,10 @@ class KrdantaEngine:
                     stem = stem[:-3] + "aRa"
                 elif stem.endswith("Ana"):
                     stem = stem[:-3] + "ARa"
+            # tudAdi vyac lyuw i-grade (vicana; sole 06.0013 surveyed — y-drop;
+            # old vyacan-forms miss; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
+                return {"gender": "Neuter", "form": "vicanam"}
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
@@ -5889,6 +5898,10 @@ class KrdantaEngine:
             # tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("vij", "laj", "lajj", "jarj", "carc", "JarJ", "tvac", "ubj", "ujJ", "GUrR", "cal", "kuw", "puw", "kuc", "guj", "guq", "qip", "Cur", "sPuw", "muw", "truw", "tuw", "cuw", "Cuw", "juq", "juw", "kaq", "luw", "luW", "kfq", "kuq", "puq", "Guw", "tuq", "Tuq", "sTuq", "Kuq", "Cuq", "sPur", "sPul", "sPar", "sPal", "sPuq", "cuq", "vruq", "kruq", "Bfq", "huq", "gur"):
                 _gen.append(clean + "itum")
+            # tudAdi vyac tumun i-grade (vicitum; sole 06.0013 surveyed — y-drop;
+            # old vyacitum-forms miss; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
+                _gen.append("vicitum")
             return {"avyaya": _gen}
 
         elif pratyaya == "ktvA":
@@ -6184,6 +6197,10 @@ class KrdantaEngine:
                         _alts.append(clean[:-1] + "dDvA")
                     elif clean.endswith("B"):
                         _alts.append(clean[:-1] + "bDvA")
+                # tudAdi vyac ktvA i-grade (vicitvA; sole 06.0013 surveyed — y-drop;
+                # old vyacitvA-forms miss; tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
+                    _alts.append("vicitvA")
                 return {"avyaya": _alts}
             else:
                 if clean.endswith("F"):
@@ -6475,6 +6492,11 @@ class KrdantaEngine:
                         variants.append(upasarga + _vr + "ya")
             except Exception:
                 pass
+            # tudAdi vyac lyap i-grade (pravicya; sole 06.0013 surveyed — y-drop;
+            # old pravyacya-forms miss; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
+                if "pravicya" not in variants:
+                    variants.append("pravicya")
             return {"avyaya": [pref_pra, pref_m, bare] + variants + _Rtw}
 
         return None
