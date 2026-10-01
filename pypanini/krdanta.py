@@ -3209,6 +3209,10 @@ class KrdantaEngine:
                         _lb = _lb[:-3] + "aRa"
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
+                    # tudAdi vrasc yang fs-grade (varIvfskaH; sole 06.0012 surveyed — old
+                    # varIvfSkaH absent from all tokens; replace, tudAdiH-gated).
+                    if sanadi == "yananta" and meta.get("clean") == "vrasc" and meta.get("gana") == "tudAdiH":
+                        return {"gender": "Masculine", "form": "varIvfskaH"}
                     # kzIvu~ yang short-i twin (cekzivaH; f~ keeps long-I cekzIvaH via generic below)
                     if orig_clean == "kzIv" and "u~" in op:
                         return {"gender": "Masculine", "form": "cekzivaH"}
