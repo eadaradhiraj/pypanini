@@ -7889,6 +7889,14 @@ class TinantaDerivationEngine:
                 _hu2 = {"stfnh": "stfh", "tfnh": "tfMh"}[clean]
                 _hbluw = {("prathama", "eka"): [_hu2 + "atAt"], ("prathama", "dvi"): [_hu2 + "atAd"], ("prathama", "bahu"): [_hu2 + "atu", _hu2 + "antu"], ("madhyama", "eka"): [_hu2 + "atAm", _hu2 + "a"], ("madhyama", "dvi"): [_hu2 + "antu"], ("madhyama", "bahu"): [_hu2 + "a", _hu2 + "ata"], ("uttama", "eka"): [_hu2 + "atAt", _hu2 + "ata"], ("uttama", "dvi"): [_hu2 + "atAd"], ("uttama", "bahu"): [_hu2 + "atam"]}
                 cands += _hbluw.get((purusha, vacana), [])
+            # tudAdi sj-lot a-lot tables (BfjjatAt/vfScatAt/pfcCatAt + sfj/majj plain;
+            # quintet 06.0004/0012/0149/0150/0151 surveyed — samp trio (tinanta samp
+            # survey) + plain pair; uttama Ani/Ava/Ama; mirrors stfnh _hbluw tables;
+            # old miss; additive; meta-clean-gated, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "vrasc", "praC", "sfj", "majj"):
+                _sjl = {"Brajj": "Bfjj", "vrasc": "vfSc", "praC": "pfcC", "sfj": "sfj", "majj": "majj"}[meta.get("clean")]
+                _sjlot = {("prathama", "eka"): [_sjl + "atAt"], ("prathama", "dvi"): [_sjl + "atAd"], ("prathama", "bahu"): [_sjl + "atu", _sjl + "antu"], ("madhyama", "eka"): [_sjl + "atAm", _sjl + "a"], ("madhyama", "dvi"): [_sjl + "antu"], ("madhyama", "bahu"): [_sjl + "a", _sjl + "ata"], ("uttama", "eka"): [_sjl + "atAt", _sjl + "ata", _sjl + "Ani"], ("uttama", "dvi"): [_sjl + "atAd", _sjl + "Ava"], ("uttama", "bahu"): [_sjl + "atam", _sjl + "Ama"]}
+                cands += _sjlot.get((purusha, vacana), [])
             # tudAdi stfnh/tfnh luw-uttama A-grades (stfhARi/stfhAva/stfhAma; pair
             # 06.0037/0077 surveyed — uttama-lot bypasses _prim_bases; old miss;
             # additive, tudAdiH-gated).
