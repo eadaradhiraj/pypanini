@@ -5468,6 +5468,14 @@ class KrdantaEngine:
             # kavanIya-forms miss everywhere; replace; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("ku", "kU"):
                 return tri_linga("kuvanIya")
+            # tudAdi u-final anIyar uv-grades (nuvanIya/DruvaRIya; quartet 06.0132-0135
+            # surveyed (ku/kU/sU pass already) — uv + anIya with stem-natva (Druv→R,
+            # nuv stays dental); old navanIya-forms miss; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("nU", "DU", "gu", "Dru"):
+                _t6ub = clean[:-1] + "uv"
+                _t6us = "aRIya" if _natva_applies(_t6ub) else "anIya"
+                _t = tri_linga(_t6ub + _t6us)
+                return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
             # tudAdi stfnh/tfnh anIyar Mha-grade (stfMhaRIya; pair 06.0037/0077 surveyed;
             # old nhanIya-forms miss everywhere; replace; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
