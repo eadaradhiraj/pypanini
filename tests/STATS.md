@@ -552,3 +552,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 387 (GEN-06: tudAdi ku/kU anIyar+lyuw kuv-grades (kuvanIya/kuvana; pair 06.0136/0137 surveyed; old kava-forms miss everywhere; replace; probes ALL-HIT): 06 +8 matched (2 improved), 0 worsened (guards green).
 - Iteration 388 (GEN-06: tudAdi stfnh/tfnh tavya RQ-grades (stfRQavya/tfRQavya; pair 06.0037/0077 surveyed; old nQ-forms miss everywhere; replace; probes ALL-HIT): 06 +6 matched (2 improved), 0 worsened (guards green).
 - Iteration 389 (GEN-06: tudAdi stfnh/tfnh tfc RQ+Mhit twins (stfRQA/stfMhitA lists; pair 06.0037/0077 surveyed twin entries; old nQ-forms miss everywhere; replace; probes ALL-HIT): 06 +6 matched (2 improved), 0 worsened (guards green).
+- Iteration 390 (GEN-06: tudAdi stfnh/tfnh tumun RQ+Mhit twins (stfRQum/stfMhitum; pair 06.0037/0077 surveyed twin entries; old nQum-forms miss everywhere; replace; probes ALL-HIT): 06 +2 matched (2 improved), 0 worsened (guards green).
