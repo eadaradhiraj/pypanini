@@ -647,4 +647,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 461 (GEN-06: tudAdi vyac mUla tfc (vicitA; sole 06.0013 surveyed; samp grade; old F/N absent, new triple attested; replace): +2 matched (1 improved, 06 at 166/174), 0 worsened (guards green).
 - Iteration 462 (GEN-06: tudAdi fnP/unB mUla lyap (prArPya/proBya; pair 06.0041/0045 surveyed; old forms absent from all tokens; replace): +2 matched (2 improved x1, 06 at 168/174), 0 worsened (guards green; krut bucket now 0 misses sweep-wide).
 - Iteration 463 (GEN-06: tudAdi kU ASIrliN uv-grade table (kuvizIzwa + IQvam twin; sole 06.0137 surveyed; old kaviz-forms miss; additive): +9 matched (1 improved), 0 worsened (guards green).
-- Iteration 464 (GEN-06: tudAdi kU mUla-luN uv-grade table (akuvizwa + Q/D twins; sole 06.0137 surveyed; additive): +9 matched (1 improved, 06.0137 now 902/902? 06 at 169/174), 0 worsened (guards green).
+- Iteration 464 (GEN-06: tudAdi kU mUla-luN uv-grade table (akuvizwa + Q/D twins; sole 06.0137 surveyed; additive): +9 matched (1 improved, 06.0137 now 902, 06 at 169/174), 0 worsened (guards green).
