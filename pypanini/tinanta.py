@@ -916,6 +916,13 @@ class TinantaDerivationEngine:
             _ub = clean[:-1] + "uv"
             if _ub not in bases:
                 bases.append(_ub)
+        # tudAdi stfnh/tfnh h-bases (stfhati/tfMhati + viDiliN/luw; pair 06.0037/0077
+        # surveyed — n-drop (stfh) vs n→M (tfMh); propagates via generic machinery;
+        # dhatu_id 06-prefix; additive).
+        if clean in ("stfnh", "tfnh") and str(dhatu_id or "").startswith("06."):
+            _hb = {"stfnh": "stfh", "tfnh": "tfMh"}[clean]
+            if _hb not in bases:
+                bases.append(_hb)
         # tudAdi f-Atmane riy-bases (priyate/mriyate/driyate/Driyate + system;
         # quartet 06.0138/0139/0147/0148 surveyed — f→riy (i→y glide, rIN-like),
         # no guNa; propagates via generic machinery; dhatu_id 06-prefix; additive).
@@ -7845,6 +7852,21 @@ class TinantaDerivationEngine:
             # jugups-rewrite poisons mUla; old miss; additive, divAdiH-gated).
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "gup":
                 cands += self._conjugate_luw("gopi", pada, purusha, vacana)
+            # tudAdi stfnh/tfnh a-lot tables (stfhatAt/stfhatu/stfha + ARi/Ava/Ama;
+            # pair 06.0037/0077 surveyed — true a-class lot (STEM+a+lot endings);
+            # lut-style tA-forms miss; mirrors mfjU _mjluw tables; old miss (5/5 true
+            # misses for stfnh); additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
+                _hu2 = {"stfnh": "stfh", "tfnh": "tfMh"}[clean]
+                _hbluw = {("prathama", "eka"): [_hu2 + "atAt"], ("prathama", "dvi"): [_hu2 + "atAd"], ("prathama", "bahu"): [_hu2 + "atu", _hu2 + "antu"], ("madhyama", "eka"): [_hu2 + "atAm", _hu2 + "a"], ("madhyama", "dvi"): [_hu2 + "antu"], ("madhyama", "bahu"): [_hu2 + "a", _hu2 + "ata"], ("uttama", "eka"): [_hu2 + "atAt", _hu2 + "ata"], ("uttama", "dvi"): [_hu2 + "atAd"], ("uttama", "bahu"): [_hu2 + "atam"]}
+                cands += _hbluw.get((purusha, vacana), [])
+            # tudAdi stfnh/tfnh luw-uttama A-grades (stfhARi/stfhAva/stfhAma; pair
+            # 06.0037/0077 surveyed — uttama-lot bypasses _prim_bases; old miss;
+            # additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh") and purusha == "uttama":
+                _hu = {"stfnh": "stfh", "tfnh": "tfMh"}[clean]
+                _hue = {"eka": "ARi", "dvi": "Ava", "bahu": "Ama"}[vacana]
+                cands.append(_hu + _hue)
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
