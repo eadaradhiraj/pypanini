@@ -3627,6 +3627,8 @@ class KrdantaEngine:
                     return {"M": "vAvyacanIyaH", "F": "vAvyacanIyA", "N": "vAvyacanIyam"}
                 if pratyaya == "Rvul":
                     return {"M": "vAvyAcakaH", "F": "vAvyAcikA", "N": "vAvyAcakam"}
+                if pratyaya == "lyuw":
+                    return {"gender": "Neuter", "form": "vAvyacanam"}
             # tudAdi stfnh/tfnh ylk tri-redup grades (tar-/tari-/tarI- x RQ/Mhit twins;
             # pair 06.0037/0077 surveyed — old Q-grades absent from all tokens;
             # replace, tudAdiH-gated).
