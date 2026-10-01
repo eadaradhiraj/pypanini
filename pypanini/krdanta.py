@@ -4363,6 +4363,18 @@ class KrdantaEngine:
                     _a = tri_linga(_alt)
                     _m = tri_linga(stem)
                     return {"M": [_m["M"], _a["M"]], "F": [_m["F"], _a["F"]], "N": [_m["N"], _a["N"]]}
+            # curAdi a-root kta vriddhi twin (lAjita/tAqita/...; a-nucleus +
+            # single-coda survey — generic plain twin kept first (cross-match
+            # safety); additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if _c10vw and _c10vw[-1] == "a" and len(_c10mc) - (_c10mc.rindex("a")) == 2:
+                    _c10v = self._vriddhi_base(_c10mc, is_idit) + "ita"
+                    if _c10v != stem:
+                        _c10m = tri_linga(stem)
+                        _c10a = tri_linga(_c10v)
+                        return {"M": [_c10m["M"], _c10a["M"]], "F": [_c10m["F"], _c10a["F"]], "N": [_c10m["N"], _c10a["N"]]}
             # F-final yanlug redup (tF->tAtirita; additive with IrRa cross-match)
             if sanadi == "yanluganta" and clean.endswith(("f", "F")):
                 _cl = ""
