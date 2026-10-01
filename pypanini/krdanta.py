@@ -5712,6 +5712,42 @@ class KrdantaEngine:
                 _t6st = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}[meta.get("clean", "")]
                 return {"M": [s + "itavyaH" for s in _t6st], "F": [s + "itavyA" for s in _t6st], "N": [s + "itavyam" for s in _t6st]}
             if sanadi == "sannanta":
+                # curAdi san-tavya twin-sets (plain/graded redup x ay/no-ay + itavya; same
+                # survey as san-kta; generic twin kept first; additive, curAdiH-gated).
+                if meta.get("gana") == "curAdiH":
+                    _c10ts = [clean]
+                    _c10sx = clean[:-2] + "ayiz" if clean.endswith("iz") else clean + "ayiz"
+                    if _c10sx != clean:
+                        _c10ts.append(_c10sx)
+                    _c10rt = meta.get("clean", "") or clean
+                    _c10rw = [ch for ch in _c10rt if ch in SLP1_VOWELS]
+                    if _c10rw:
+                        _c10nc = _c10rw[-1]
+                        _c10cd = _c10rt[len(_c10rt) - next((k for k, ch in enumerate(reversed(_c10rt)) if ch in SLP1_VOWELS), 0):]
+                        _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                        _c10gg = []
+                        if _c10nc == "a" and _c10sg:
+                            _c10gg = [self._vriddhi_base(_c10rt, is_idit)]
+                        elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                            _c10gg = [self._guna_base(_c10rt, is_idit)]
+                        elif _c10nc == "i" and _c10sg and _c10rt[-1] not in SLP1_VOWELS:
+                            _c10gg = [self._guna_base(_c10rt, is_idit)]
+                        for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
+                            try:
+                                _c10gs = _sannanta_sec(_c10gr)
+                            except Exception:
+                                continue
+                            for _c10gsv in dict.fromkeys([_c10gs, _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10gs + "ayiz"]):
+                                if _c10gsv not in _c10ts:
+                                    _c10ts.append(_c10gsv)
+                    _c10out = {"M": [], "F": [], "N": []}
+                    for _c10s in _c10ts:
+                        _c10t = tri_linga(_c10s + "itavya")
+                        for _gg in ("M", "F", "N"):
+                            for _cc in (_c10t[_gg] if isinstance(_c10t[_gg], list) else [_c10t[_gg]]):
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
+                    return _c10out
                 stem = clean + "itavya"
                 return tri_linga(stem)
             if sanadi == "yanluganta" and ((orig_clean and orig_clean.endswith("A")) or clean.endswith("A")):
