@@ -5278,6 +5278,33 @@ class KrdantaEngine:
                         _ss = _ss[: -len(_asuf)] + ("amARa" if _asuf == "amAna" else "ARa")
                     return tri_linga(_ss)
 
+            # curAdi SAnac twin-sets (bases x amAna/amARa; same shape survey as Satf/tavya;
+            # generic twin kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                _c10out = {"M": [], "F": [], "N": []}
+                for _c10mc in _c10ss:
+                    _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                    if not _c10vw:
+                        continue
+                    _c10nc = _c10vw[-1]
+                    _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                    _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                    _c10bases = []
+                    if _c10nc == "a" and _c10sg:
+                        _c10v = self._vriddhi_base(_c10mc, is_idit)
+                        _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10v != _c10mc else [])
+                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                        _c10bases = [_c10mc, self._guna_base(_c10mc, is_idit) + "ay"] if _c10nc == "u" else [_c10mc + "ay"]
+                    elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10bases = [_c10mc, self._guna_base(_c10mc, is_idit) + "ay"]
+                    for _c10b in dict.fromkeys(_c10bases):
+                        for _suf, _f, _n in (("amAna", "amAnA", "amAnam"), ("amARa", "amARA", "amARam")):
+                            for _frm, _g in ((_c10b + _suf + "H", "M"), (_c10b + _f, "F"), (_c10b + _n, "N")):
+                                if _frm not in _c10out[_g]:
+                                    _c10out[_g].append(_frm)
+                if any(_c10out.values()):
+                    return _c10out
             if clean_ay and sanadi is None and clean != "kram":
                 stem = clean_ay + "amAna"
                 if (_natva_applies(clean_ay) or _natva_applies(clean)) and stem.endswith("amAna"):

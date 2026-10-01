@@ -664,3 +664,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 477 (GEN-10: tavya repair (10.0304 regression from i-twin meta-clean stems: unified twin-sets over local+meta cleans + geminate-aware gating + vicC fid triple; return-trace + pre-change worktree bisect): probe 618→483, 0 worsened (guards green; 0304 recovered).
 - Iteration 478 (GEN-10: curAdi a-Satf twin-set (plain+an + plain+ayan + vriddhi+ayan; same gates): probe 822→573 (-249), 0 worsened (guards green).
 - Iteration 479 (GEN-10: u/U-Satf split (short-u keeps plain+an/o+ay; long-U takes U+ayan + DUp Ay fid-triple 10.0303; 0303 -3 regression from shared branch diagnosed via survey): probe 420→363, 0 worsened (guards green; 0303 recovered).
+- Iteration 480 (GEN-10: curAdi SAnac twin-sets (bases x amAna/amARa; same shape survey): probe 954→414 (-540), 0 worsened (guards green).
