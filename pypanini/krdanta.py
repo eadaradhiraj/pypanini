@@ -6775,6 +6775,15 @@ class KrdantaEngine:
                 _t6t = self._tudadi_san13(meta.get("clean", "") or clean)
                 if _t6t:
                     return {"M": [s + "itA" for s in _t6t], "F": [s + "itrI" for s in _t6t], "N": [s + "itf" for s in _t6t]}
+            # curAdi san-tfc twin-sets (sec-matrix + itA/itrI/itf; same survey; generic
+            # twin kept first; additive, curAdiH-gated).
+            if sanadi == "sannanta" and meta.get("gana") == "curAdiH":
+                _c10out = {"M": [], "F": [], "N": []}
+                for _c10s in _c10_san_secs(clean, meta.get("clean", "") or clean, is_idit):
+                    for _frm, _g in ((_c10s + "itA", "M"), (_c10s + "itrI", "F"), (_c10s + "itf", "N")):
+                        if _frm not in _c10out[_g]:
+                            _c10out[_g].append(_frm)
+                return _c10out
             if sanadi == "sannanta":
                 b = clean + "i"
                 return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
