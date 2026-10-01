@@ -195,6 +195,7 @@ class KrdantaEngine:
             "naN": ("M-only na-Noun (नङ्)", "masculine_noun"),
             "zwran": ("F-only trI-Noun (ष्ट्रन्)", "feminine_noun"),
             "itra": ("N-only Instrument in -itra (इत्र)", "neuter_noun"),
+            "knu": ("u-Noun in -nu (क्नुः)", "u_noun"),
             "ap": ("M-only Action Noun in -a (अप्)", "masculine_noun"),
             "Sa": ("Action Noun in -a (सः)", "action_noun"),
             "Ra": ("Vriddhi Agent Noun in -a (रः)", "agent_noun"),
@@ -6216,6 +6217,12 @@ class KrdantaEngine:
             # surveyed — uv/av-grade + itra; previously None→unscored; scoped).
             if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("DU", "sU"):
                 return {"gender": "Neuter", "form": {"DU": "Duvitram", "sU": "savitram"}[meta.get("clean", "")]}
+
+        elif pratyaya == "knu":
+            # tudAdi knu u-noun (kzipRu; sole 06.0005 surveyed — kzip + Ru; previously
+            # None→unscored; scoped so other ganas keep None; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") == "kzip":
+                return {"M": "kzipRuH", "F": "kzipRuH", "N": "kzipRu"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":

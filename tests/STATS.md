@@ -603,3 +603,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 438 (GEN-06: tudAdi naN M-only nouns (praSna/viSna pair; C→S + na; previously None→unscored; scoped branch + metadata; probes 2/2 slots): 06 +2 matched (2 improved), 0 worsened (guards green).
 - Iteration 439 (GEN-06: tudAdi zwran F-only nouns (tottrI/sektrI pair; guNa + trI; previously None→unscored; scoped branch + metadata; probes 2/2 slots): 06 +2 matched (2 improved), 0 worsened (guards green).
 - Iteration 440 (GEN-06: tudAdi itra N-instruments (gender/form style; pair) + harness N-scoring (elif-N + F-branch N; load-bearing for Sa-iz N) + Sa-iz N long-A fix (new pass 06.0078): 06 +3 matched (3 improved), 0 worsened (guards green).
+- Iteration 441 (GEN-06: tudAdi knu u-noun (kzipRu sole; previously None→unscored; scoped branch + metadata; probes HIT): 06 +3 matched (1 improved), 0 worsened (guards green).
