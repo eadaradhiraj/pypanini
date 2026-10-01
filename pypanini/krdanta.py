@@ -4437,6 +4437,16 @@ class KrdantaEngine:
                 _gen = {"M": _t6L(m) + [_t6w[:-1] + "n"],
                         "F": _t6L(f) + [_t6w + "I", _t6w[:-1] + "ntI"],
                         "N": _t6L(n) + [_t6w, _t6w[:-1] + "d"]}
+            # tudAdi stfnh/tfnh Satf hat-twins (stfhan/stfhatI-stfhantI + tfMhan/...;
+            # pair 06.0037/0077 surveyed — h-drop stems (0077 takes M); old nh-forms
+            # miss everywhere; additive — generic kept; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
+                _t6h = {"stfnh": "stfhat", "tfnh": "tfMhat"}[clean]
+                def _t6L(v):
+                    return v if isinstance(v, list) else [v]
+                _gen = {"M": _t6L(_gen["M"]) + [_t6h[:-1] + "n"],
+                        "F": _t6L(_gen["F"]) + [_t6h + "I", _t6h[:-1] + "ntI"],
+                        "N": _t6L(_gen["N"]) + [_t6h, _t6h[:-1] + "d"]}
             return _gen
 
         elif pratyaya == "SAnac":
