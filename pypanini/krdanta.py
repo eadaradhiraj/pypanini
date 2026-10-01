@@ -2338,6 +2338,12 @@ class KrdantaEngine:
                         redup_vowel = "i"
                     return redup_cons + redup_vowel + c_stem + "iz"
 
+                # tudAdi san 13 stems (biBarjiz/vivrakz/ubjijiz/...; same stems as san_krut
+                # anIyar/yat/Rvul/SAnac — first variants; sec feeds all san pratyayas
+                # (kta/Satf/tavya/tumun/ktvA/lyap...) + tinanta san lakaras; all currently
+                # miss so replacement free; tudAdiH-gated).
+                if meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                    return {"Brajj": "biBarjiz", "vrasc": "vivrakz", "ubj": "ubjijiz", "stfnh": "tistfkz", "tfnh": "titfkz", "kfq": "cikfqiz", "Bfq": "biBfqiz", "kF": "cikariz", "gF": "jigaliz", "df": "didariz", "praC": "pipfcCiz", "majj": "mimaNkz", "Cup": "cucCups"}[meta.get("clean", "")]
                 # Panini 6.4.16 aj-jhan-gAM sani & 7.1.100 fta idDOH + 8.2.77 hali ca & 7.1.102 uda ozWya-pUrvAt
                 if c.endswith(("f", "F")):
                     # kryAdi F-final san ariz-sec (cikarizita/cikarizat/...; mirrors tinanta

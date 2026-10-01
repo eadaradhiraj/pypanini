@@ -2495,6 +2495,11 @@ class TinantaDerivationEngine:
                             return vrid + "ay"
             return c + "ay"
         def _sannanta_stem(c):
+            # tudAdi san 13 stems (biBarjizati/vivrakzati/...; same stems as krdanta
+            # san-sec — first variants; sec feeds tinanta san lakaras; all currently
+            # miss so replacement free; tudAdiH-gated).
+            if meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "ubj", "stfnh", "tfnh", "kfq", "Bfq", "kF", "gF", "df", "praC", "majj", "Cup"):
+                return {"Brajj": "biBarjiz", "vrasc": "vivrakz", "ubj": "ubjijiz", "stfnh": "tistfkz", "tfnh": "titfkz", "kfq": "cikfqiz", "Bfq": "biBfqiz", "kF": "cikariz", "gF": "jigaliz", "df": "didariz", "praC": "pipfcCiz", "majj": "mimaNkz", "Cup": "cucCups"}[meta.get("clean", "")]
             if meta.get("gana") == "svAdiH":
                 if c == "Ap": return "Ips"
                 if c == "Sak": return "Sikz"
