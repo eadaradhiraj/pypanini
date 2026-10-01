@@ -3129,6 +3129,16 @@ class KrdantaEngine:
                         _sbb = sec[:-2] if sec.endswith("iz") else sec
                         _s3 = _sbb[:-2] + "AsamAna"
                         return {"M": _s3 + "H", "F": _s3[:-1] + "A" if _s3.endswith("a") else _s3 + "A", "N": _s3 + "m"}
+                # curAdi san-SAnac twin-sets (sec-matrix + amAna/amARa; same survey; generic
+                # twin kept first; additive, sanadi-gated).
+                if sanadi == "sannanta" and meta.get("gana") == "curAdiH":
+                    _c10out = {"M": [], "F": [], "N": []}
+                    for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                        for _suf, _f, _n in (("amAna", "amAnA", "amAnam"), ("amARa", "amARA", "amARam")):
+                            for _frm, _g in ((_c10s + _suf + "H", "M"), (_c10s + _f, "F"), (_c10s + _n, "N")):
+                                if _frm not in _c10out[_g]:
+                                    _c10out[_g].append(_frm)
+                    return _c10out
                     stem = sec + ("amARa" if _nat else "amAna")
                     _f = stem[:-1] + "A" if stem.endswith("a") else stem + "A"
                     return {"M": stem + "H", "F": _f, "N": stem + "m"}
