@@ -7,11 +7,11 @@ Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
 Sweep-07: **25/25 100%** — held. Sweep-08: **10/10 100%** — held.
 Sweep-09: **71/71 100%** — held.
 Sweep-04: **151/161** (other session) — ceiling audit in progress.
-Sweep-06: **153/174** — held (s-aorist trio +27, 3 improved, 0 worsened; this iteration).
+Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — yak/yang/yangluk/krut buckets all 0; only san-active + ting-low dataless slots remain (correct forms verified absent from all tokens; no fabrication).
 Sweep-10: **163/509** — held.
 Landscape: 04 + 06 + 10 remain.
 
-## Done — iterations 360-368 (other session) + 383-398, 442-458 (this session; other session continued 439-441 in parallel)
+## Done — iterations 360-368 (other session) + 383-398, 442-469 (this session)
 - 360-368: puz futures split (0121 full pass), sfj yak sya, dI yak pair, nah
   sic-aorist + yak, Co/so yak luN, stim liT twins (+zw twin repair),
   stup/stUp twins, Fz yak-benedictive, vyaD yak + benedictive, uD
@@ -51,7 +51,17 @@ Landscape: 04 + 06 + 10 remain.
 - 458: s-aorist trio (3 improved).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
+## Done — iterations 459-469 (this session; 06 yak/yang/yangluk/krut/ting/nich/san sweep)
+- 459: mUla GaY quartet (+4). 460: u-tumun quartet (+4). 461: vyac mUla tfc (+2).
+- 462: fnP/unB lyap (+2; krut bucket 0). 463: kU ASIrliN (+9). 464: kU luN (+9).
+- 465: vij/gur luN twins (+2; viC-low-8 dataless ceiling noted).
+- 466: gur nich o-grades (+5; nich_krut bucket 0).
+- 467: fC nich-liw (+18; indent-accident reverted via git apply -R).
+- 468: ubj san quartet (+4; san_krut bucket 0; 06 at 173/174).
+- 469: vicC nich map (+36; 06.0159 at 859; CEILING 06.0159: 42 dataless slots).
+- (443-458: yak samp twins/liw/lut, benedictive, luN, yaN stems + krut mirror, GaY, ylk paradigms, ktvA/GaY batches, gur grades — see STATS.md.)
+
 ## Next
-1. Gana-06: yak-lfw (40) + yang_krut (23) + krut (17) (21 fail left; other session also active — pull before each iteration; PYTHONHASHSEED=0 for all sweeps).
-2. Gana-04 ceiling audit (other session) → 10 → all-gana 100%.
+1. Gana-06 COMPLETE modulo ceiling (173/174 + 06.0159 dataless-fid note).
+2. Gana-10 baseline sweep → loop (pull before each iteration; never two sweeps concurrently).
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
