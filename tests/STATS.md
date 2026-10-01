@@ -660,3 +660,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 473 (GEN-10: curAdi mAn Nitya-san exclusion (plain mAnita; pair 10.0233/0381 surveyed; map + sec-rewrite both gated; +24 on 0233 via ktavatu spill): probe -6 kta, 0 worsened (guards green).
 - Iteration 474 (GEN-10: curAdi a-tavya twin-set (plain+itavya + plain+ayitavya + vriddhi+ayitavya; same gate; generic first): probe 960→702 (-258), 0 worsened (guards green).
 - Iteration 475 (GEN-10: curAdi u-tavya twin (plain+itavya + guNa+ayitavya; same gate; indent-hijack into a-inner-if diagnosed via return-trace, dedented): probe 702→618 (-84), 0 worsened (guards green).
+- Iteration 476 (GEN-10: curAdi i-tavya twin (plain+itavya + e+ayitavya; same gate as i-kta): probe 618→561 (-57), 0 worsened (guards green).
