@@ -5478,6 +5478,21 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
                     _d4pbe = {("prathama","eka"):["pozizIzwa"],("prathama","dvi"):["pozizIyAstAm"],("prathama","bahu"):["pozizIran"],("madhyama","eka"):["pozizIzWAH"],("madhyama","dvi"):["pozizIyAsTAm"],("madhyama","bahu"):["pozizIDvam"],("uttama","eka"):["pozizIya"],("uttama","dvi"):["pozizIvahi"],("uttama","bahu"):["pozizImahi"]}
                     cands += _d4pbe[(purusha, vacana)]
+                # tudAdi yak-benedictive kz-grades (Barkz/Brakz + vrakz/vraSciz + stfMhiz/stfNkz +
+                # prakz + maNkz; quintet 06.0004/0012/0037/0149/0151 surveyed — sc→kz / h→kz with
+                # iT-twins; old miss (41/45 true misses); additive, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "vrasc", "stfnh", "praC", "majj"):
+                    if meta.get("clean") == "Brajj":
+                        _t6be = {("prathama","eka"):["BarkzIzwa","BrakzIzwa"],("prathama","dvi"):["BarkzIyAstAm","BrakzIyAstAm"],("prathama","bahu"):["BarkzIran","BrakzIran"],("madhyama","eka"):["BarkzIzWAH","BrakzIzWAH"],("madhyama","dvi"):["BarkzIyAsTAm","BrakzIyAsTAm"],("madhyama","bahu"):["BarkzIDvam","BrakzIDvam"],("uttama","eka"):["BarkzIya","BrakzIya"],("uttama","dvi"):["BarkzIvahi","BrakzIvahi"],("uttama","bahu"):["BarkzImahi","BrakzImahi"]}
+                    elif meta.get("clean") == "vrasc":
+                        _t6be = {("prathama","eka"):["vrakzIzwa","vraScizIzwa"],("prathama","dvi"):["vrakzIyAstAm","vraScizIyAstAm"],("prathama","bahu"):["vrakzIran","vraScizIran"],("madhyama","eka"):["vrakzIzWAH","vraScizIzWAH"],("madhyama","dvi"):["vrakzIyAsTAm","vraScizIyAstAm"],("madhyama","bahu"):["vrakzIDvam","vraScizIDvam"],("uttama","eka"):["vrakzIya","vraScizIya"],("uttama","dvi"):["vrakzIvahi","vraScizIvahi"],("uttama","bahu"):["vrakzImahi","vraScizImahi"]}
+                    elif meta.get("clean") == "stfnh":
+                        _t6be = {("prathama","eka"):["stfMhizIzwa","stfNkzIzwa"],("prathama","dvi"):["stfMhizIyAstAm","stfNkzIyAstAm"],("prathama","bahu"):["stfMhizIran","stfNkzIran"],("madhyama","eka"):["stfMhizIzWAH","stfNkzIzWAH"],("madhyama","dvi"):["stfMhizIyAsTAm","stfNkzIyAsTAm"],("madhyama","bahu"):["stfMhizIQvam","stfMhizIDvam","stfNkzIDvam"],("uttama","eka"):["stfMhizIya","stfNkzIya"],("uttama","dvi"):["stfMhizIvahi","stfNkzIvahi"],("uttama","bahu"):["stfMhizImahi","stfNkzImahi"]}
+                    elif meta.get("clean") == "praC":
+                        _t6be = {("prathama","eka"):["prakzIzwa"],("prathama","dvi"):["prakzIyAstAm"],("prathama","bahu"):["prakzIran"],("madhyama","eka"):["prakzIzWAH"],("madhyama","dvi"):["prakzIyAsTAm"],("madhyama","bahu"):["prakzIDvam"],("uttama","eka"):["prakzIya"],("uttama","dvi"):["prakzIvahi"],("uttama","bahu"):["prakzImahi"]}
+                    else:
+                        _t6be = {("prathama","eka"):["maNkzIzwa"],("prathama","dvi"):["maNkzIyAstAm"],("prathama","bahu"):["maNkzIran"],("madhyama","eka"):["maNkzIzWAH"],("madhyama","dvi"):["maNkzIyAsTAm"],("madhyama","bahu"):["maNkzIDvam"],("uttama","eka"):["maNkzIya"],("uttama","dvi"):["maNkzIvahi"],("uttama","bahu"):["maNkzImahi"]}
+                    cands += _t6be.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
