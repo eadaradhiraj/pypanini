@@ -6396,6 +6396,11 @@ class KrdantaEngine:
             # jAg ar-tfc (jAgaritA; sole-gated; free).
             if sanadi is None and clean == "jAg" and meta.get("gana") == "adAdiH":
                 return {"M": "jAgaritA", "F": "jAgaritrI", "N": "jAgaritf"}
+            # tudAdi vyac mUla tfc (vicitA; sole 06.0013 surveyed — samp vic-grade;
+            # old F/N absent from all tokens (M cross-hits, new M attested); replace,
+            # tudAdiH-gated).
+            if sanadi is None and clean == "vyac" and meta.get("gana") == "tudAdiH":
+                return {"M": "vicitA", "F": "vicitrI", "N": "vicitf"}
             # UrRu uv tfc (UrRuvitA; sole-gated; free).
             if sanadi is None and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return {"M": "UrRuvitA", "F": "UrRuvitrI", "N": "UrRuvitf"}
