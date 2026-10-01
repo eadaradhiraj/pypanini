@@ -93,6 +93,16 @@ def validate_one(fid: str):
                     cand = item["F"] if isinstance(item["F"], list) else [item["F"]]
                     if hit(cand): matched += 1
                     elif len(misses) < 12: misses.append(f"{kk}/{code}:{cand[0] if cand else '∅'}")
+                    if "N" in item:
+                        total += 1
+                        cand = item["N"] if isinstance(item["N"], list) else [item["N"]]
+                        if hit(cand): matched += 1
+                        elif len(misses) < 12: misses.append(f"{kk}/{code}:{cand[0] if cand else '∅'}")
+                elif "N" in item:
+                    total += 1
+                    cand = item["N"] if isinstance(item["N"], list) else [item["N"]]
+                    if hit(cand): matched += 1
+                    elif len(misses) < 12: misses.append(f"{kk}/{code}:{cand[0] if cand else '∅'}")
                 else:
                     total += 1
                     if item.get("form") in toks: matched += 1

@@ -194,6 +194,7 @@ class KrdantaEngine:
             "lyu": ("Neuter Verbal Noun in -ana (ल्यु)", "neuter_noun"),
             "naN": ("M-only na-Noun (नङ्)", "masculine_noun"),
             "zwran": ("F-only trI-Noun (ष्ट्रन्)", "feminine_noun"),
+            "itra": ("N-only Instrument in -itra (इत्र)", "neuter_noun"),
             "ap": ("M-only Action Noun in -a (अप्)", "masculine_noun"),
             "Sa": ("Action Noun in -a (सः)", "action_noun"),
             "Ra": ("Vriddhi Agent Noun in -a (रः)", "agent_noun"),
@@ -6188,7 +6189,7 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("iz", "vid", "lip"):
                 _t6sa = {"iz": "icC", "vid": "vind", "lip": "limp"}[meta.get("clean", "")]
                 if meta.get("clean", "") == "iz":
-                    return {"F": _t6sa + "A", "N": _t6sa + "am"}
+                    return {"F": _t6sa + "A", "N": _t6sa + "Am"}
                 return {"M": _t6sa + "aH", "F": _t6sa + "A", "N": _t6sa + "am"}
 
         elif pratyaya == "lyu":
@@ -6209,6 +6210,12 @@ class KrdantaEngine:
             # guNa-grade + trI; previously None→unscored; scoped; meta-clean-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("tud", "sic"):
                 return {"F": {"tud": "tottrI", "sic": "sektrI"}[meta.get("clean", "")]}
+
+        elif pratyaya == "itra":
+            # tudAdi itra N-only instruments (Duvitram/savitram; pair 06.0133/0144
+            # surveyed — uv/av-grade + itra; previously None→unscored; scoped).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("DU", "sU"):
+                return {"gender": "Neuter", "form": {"DU": "Duvitram", "sU": "savitram"}[meta.get("clean", "")]}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
