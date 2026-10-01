@@ -4251,6 +4251,15 @@ class TinantaDerivationEngine:
                     for _k9yc in ("kzAyizy", "kzezy"):
                         _k9ycc = self._add_augment(_k9yc, False) if lakara == "lfN" else _k9yc
                         cands+=self._conjugate_at_stem_atmane(_k9ycc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # tudAdi u/U yak sya-futures (gAvizyate/guzyate + twins + augmented lfN;
+                # 7-clean survey (gu/Dru/ku take Av-izya + u-zya, nU/kU/DU take Av-izya +
+                # uv-izya, sU takes a/Av-vizya; short-u vs long-U split, sU lexical);
+                # additive, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("gu", "Dru", "ku", "nU", "kU", "DU", "sU") and lakara in ("lfw", "lfN"):
+                    _t6yc = {"gu": ["gAvizy", "guzy"], "Dru": ["DrAvizy", "Druzy"], "ku": ["kAvizy", "kuzy"], "nU": ["nAvizy", "nuvizy"], "kU": ["kAvizy", "kuvizy"], "DU": ["DAvizy", "Duvizy"], "sU": ["savizy", "sAvizy"]}[meta.get("clean")]
+                    for _t6c in _t6yc:
+                        _t6cc = self._add_augment(_t6c, False) if lakara == "lfN" else _t6c
+                        cands+=self._conjugate_at_stem_atmane(_t6cc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 # divAdi D-final yak sya-futures (rAtsyate + augmented lfN arAtsyata;
                 # same D→t cores as mUla lfw (rAD/vyaD/kruD/kzuD/SuD/siD); 6 fids surveyed —
                 # old Dsyate-forms miss; additive, divAdiH-gated).

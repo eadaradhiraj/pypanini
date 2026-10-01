@@ -7,10 +7,10 @@ Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
 Sweep-07: **25/25 100%** — held. Sweep-08: **10/10 100%** — held.
 Sweep-09: **71/71 100%** — held.
 Sweep-04: **151/161** (other session) — ceiling audit in progress.
-Sweep-06: **132/174** — 131/174->132/174 (+1 pass-up 0147, 13 improved ~+190 each, 0 worsened; this iteration).
+Sweep-06: **132/174** — held (u/U yak futures +54, 3 improved, 0 worsened; this iteration).
 Landscape: 10 162/509.
 
-## Done — iterations 360-368 (other session) + 383-398, 442-444 (this session; other session continued 439-441 in parallel)
+## Done — iterations 360-368 (other session) + 383-398, 442-445 (this session; other session continued 439-441 in parallel)
 - 360-368: puz futures split (0121 full pass), sfj yak sya, dI yak pair, nah
   sic-aorist + yak, Co/so yak luN, stim liT twins (+zw twin repair),
   stup/stUp twins, Fz yak-benedictive, vyaD yak + benedictive, uD
@@ -34,9 +34,10 @@ Landscape: 10 162/509.
 - 442: san-Rvul + anIyar-F fix + SAnac (13 improved).
 - 443: sya-futures + conditionals (6 improved).
 - 444: san-sec routing (13 improved ~+190, +1 pass-up).
+- 445: u/U yak futures (3 improved).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
-1. Gana-06: yak (40) + ting (38) + yangluk_krut (35) + san (25) + krut (24) (other session also active — pull before each iteration).
+1. Gana-06: ku/kU krdanta + present leftovers + yangluk_krut (other session also active — pull before each iteration).
 2. Gana-04 ceiling audit (other session) → 10 → all-gana 100%.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
