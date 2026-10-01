@@ -3603,6 +3603,23 @@ class KrdantaEngine:
         # Target: tavya/anIyar/tfc/Rvul/lyuw/GaY/tumun (tavya unanimous m/M, kta/ktavatu/Satf want loss — excluded, mirror mUla).
         # Additive for tri-linga/tumun/ktvA (old kept, zero worsened); replace for single-form lyuw/GaY (old misses).
         if sanadi == "yanluganta" and pratyaya in ("tavya", "anIyar", "tfc", "Rvul", "lyuw", "GaY", "tumun", "ktvA"):
+            # tudAdi vrasc ylk paradigm (vAvraSc-/vAvrazw- grades; sole 06.0012 surveyed —
+            # old vrask-/vrasc-grades absent from all tokens; replace, tudAdiH-gated).
+            if meta.get("clean") == "vrasc" and meta.get("gana") == "tudAdiH":
+                if pratyaya == "tavya":
+                    return {"M": ["vAvrazwavyaH", "vAvraScitavyaH"], "F": ["vAvrazwavyA", "vAvraScitavyA"], "N": ["vAvrazwavyam", "vAvraScitavyam"]}
+                if pratyaya == "anIyar":
+                    return {"M": "vAvraScanIyaH", "F": "vAvraScanIyA", "N": "vAvraScanIyam"}
+                if pratyaya == "tfc":
+                    return {"M": ["vAvrazwA", "vAvraScitA"], "F": ["vAvrazwrI", "vAvraScitrI"], "N": ["vAvrazwf", "vAvraScitf"]}
+                if pratyaya == "Rvul":
+                    return {"M": "vAvraScakaH", "F": "vAvraScikA", "N": "vAvraScakam"}
+                if pratyaya == "lyuw":
+                    return {"gender": "Neuter", "form": "vAvraScanam"}
+                if pratyaya == "GaY":
+                    return {"gender": "Masculine", "form": "vAvraskaH"}
+                if pratyaya == "ktvA":
+                    return {"avyaya": ["vAvraScitvA"]}
             _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
             # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
             if _ylm is None:
