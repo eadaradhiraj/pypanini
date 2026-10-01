@@ -649,3 +649,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 463 (GEN-06: tudAdi kU ASIrliN uv-grade table (kuvizIzwa + IQvam twin; sole 06.0137 surveyed; old kaviz-forms miss; additive): +9 matched (1 improved), 0 worsened (guards green).
 - Iteration 464 (GEN-06: tudAdi kU mUla-luN uv-grade table (akuvizwa + Q/D twins; sole 06.0137 surveyed; additive): +9 matched (1 improved, 06.0137 now 902, 06 at 169/174), 0 worsened (guards green).
 - Iteration 465 (GEN-06: tudAdi vij/gur luN sic-peka i/u-twins (avijizwa/agurizwa; pair 06.0009/0131 surveyed; old forms absent; additive): +2 matched (2 improved x1, 06 at 170/174), 0 worsened (guards green; viC low 8 dataless ceiling, no fabrication).
+- Iteration 466 (GEN-06: tudAdi gur nich o-grades (gorita/goritavat; sole 06.0131 surveyed; in-flow triples after unreachable-standalone diagnosed via return-trace): +5 matched (1 improved, 06 at 171/174), 0 worsened (guards green; nich_krut bucket now 0 misses sweep-wide).

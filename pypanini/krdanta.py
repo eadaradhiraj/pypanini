@@ -2846,6 +2846,11 @@ class KrdantaEngine:
                     # old kfSita misses; manual triple).
                     if meta.get("clean") == "kfS" and meta.get("gana") == "divAdiH":
                         return {"M": "karSitaH", "F": "karSitA", "N": "karSitam"}
+                    # tudAdi gur nich o-grade kta (gorita; sole 06.0131 surveyed — old
+                    # u-grades absent from all tokens (kta F goritA already hits, kept
+                    # as twin); manual triple, tudAdiH-gated).
+                    if meta.get("clean") == "gur" and meta.get("gana") == "tudAdiH":
+                        return {"M": "goritaH", "F": "goritA", "N": "goritam"}
                     # tanAdi nich kta takes sec-base + ita (tAnita/sAnita/kzARita/kzeRita/
                     # arRita/tarRita/GarRita/vanita/mAnita/kArita; surveyed all 10 tanAdi
                     # cleans; mUla-fallthrough gives tanta/kziRta and misses; free).
@@ -2903,6 +2908,10 @@ class KrdantaEngine:
                     # old kfSitavAn misses; free).
                     if meta.get("clean") == "kfS" and meta.get("gana") == "divAdiH":
                         return {"M": "karSitavAn", "F": "karSitavatI", "N": ["karSitavat", "karSitavad"]}
+                    # tudAdi gur nich o-grade ktavatu (goritavat; sole 06.0131 surveyed —
+                    # old u-grades absent from all tokens; manual triple, tudAdiH-gated).
+                    if meta.get("clean") == "gur" and meta.get("gana") == "tudAdiH":
+                        return {"M": "goritavAn", "F": "goritavatI", "N": ["goritavat", "goritavad"]}
                     # pA nijanta (pAlitavAn; same minimal pair; gana-gated; free).
                     if meta.get("clean") == "pA" and meta.get("gana") == "adAdiH":
                         return {"M": "pAlitavAn", "F": "pAlitavatI", "N": ["pAlitavat", "pAlitavad"]}
