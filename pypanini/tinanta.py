@@ -4643,7 +4643,11 @@ class TinantaDerivationEngine:
                     # sole 09.0032 surveyed — ar-base like mUla arAYcakAra (ar + AYcakre,
                     # NOT ara + AYcakre); old FAYcakre-forms miss; additive here
                     # (vowel-initial exits at return below), kryAdiH-gated).
-                    if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "F":
+                    # tudAdi fnP/unB num-peri (fmPAYcakre/umBAYcakre triplets; pair
+                    # 06.0041/0045 surveyed — num mP/mB + peri auxiliaries; old
+                    # fnPAYcakre-forms miss; additive here, tudAdiH-gated).
+                    if sanadi is None and ((meta.get("gana") == "kryAdiH" and meta.get("clean") == "F") or (meta.get("gana") == "tudAdiH" and meta.get("clean") in ("fnP", "unB"))):
+                        _ara9b = "ar" if meta.get("clean") == "F" else ("fmP" if meta.get("clean") == "fnP" else "umB")
                         _ara9_aux = {
                             ("prathama", "eka"): ["AYcakre", "AmAse", "AmbaBUve"],
                             ("prathama", "dvi"): ["AYcakrAte", "AmAsAte", "AmbaBUvAte"],
@@ -4655,7 +4659,13 @@ class TinantaDerivationEngine:
                             ("uttama", "dvi"): ["AYcakfvahe", "AmAsivahe", "AmbaBUvivahe"],
                             ("uttama", "bahu"): ["AYcakfmahe", "AmAsimahe", "AmbaBUvimahe"],
                         }
-                        cands += ["ar" + _ax for _ax in _ara9_aux.get((purusha, vacana), [])]
+                        cands += [_ara9b + _ax for _ax in _ara9_aux.get((purusha, vacana), [])]
+                    # fC yak-liT An-redup (AnarcCe/AnarCe twins; sole 06.0016 surveyed —
+                    # An + arcC/arc + Atmane endings; old fcCAYcakre-forms miss; additive
+                    # here, tudAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "fC":
+                        _an6 = {("prathama","eka"):["AnarcCe","AnarCe"],("prathama","dvi"):["AnarcCAte","AnarCAte"],("prathama","bahu"):["AnarcCire","AnarCire"],("madhyama","eka"):["AnarcCize","AnarCize"],("madhyama","dvi"):["AnarcCATe","AnarCATe"],("madhyama","bahu"):["AnarcCiDve","AnarCiDve"],("uttama","eka"):["AnarcCe","AnarCe"],("uttama","dvi"):["AnarcCivahe","AnarCivahe"],("uttama","bahu"):["AnarcCimahe","AnarCimahe"]}
+                        cands += _an6.get((purusha, vacana), [])
                     return list(dict.fromkeys(cands)), log
                 redup = self._reduplicated_stem(clean)
                 redups = [redup]
@@ -4748,6 +4758,13 @@ class TinantaDerivationEngine:
                     if meta.get("clean") == "gF":
                         _k9yl2 = {("prathama","eka"):["jagale"],("prathama","dvi"):["jagalAte"],("prathama","bahu"):["jagalire"],("madhyama","eka"):["jagalize"],("madhyama","dvi"):["jagalATe"],("madhyama","bahu"):["jagaliQve","jagaliDve"],("uttama","eka"):["jagale"],("uttama","dvi"):["jagalivahe"],("uttama","bahu"):["jagalimahe"]}
                         cands += _k9yl2.get((purusha, vacana), [])
+                # Brajj/sfj/majj yak-liT a-redup (baBarje/baBrajje, sasfje, mamajje;
+                # trio 06.0004/0150/0151 surveyed — a-redup + plain root + Atmane endings
+                # (Brajj Barj/Brajj metathesis twins); old misses; additive, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "sfj", "majj"):
+                    _t6yb = {"Brajj": ["baBarj", "baBrajj"], "sfj": ["sasfj"], "majj": ["mamajj"]}[meta.get("clean")]
+                    _t6yl = {("prathama","eka"):[s+"e" for s in _t6yb],("prathama","dvi"):[s+"Ate" for s in _t6yb],("prathama","bahu"):[s+"ire" for s in _t6yb],("madhyama","eka"):[s+"ize" for s in _t6yb],("madhyama","dvi"):[s+"ATe" for s in _t6yb],("madhyama","bahu"):[s+"iDve" for s in _t6yb],("uttama","eka"):[s+"e" for s in _t6yb],("uttama","dvi"):[s+"ivahe" for s in _t6yb],("uttama","bahu"):[s+"imahe" for s in _t6yb]}
+                    cands += _t6yl.get((purusha, vacana), [])
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
                     # Panini 6.4.77 aci Snu-DAtu-BruvAM yvo riyaN-uvaNAu: u/U takes uvaN (uv) before vowel endings
