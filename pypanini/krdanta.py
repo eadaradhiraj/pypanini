@@ -4419,6 +4419,47 @@ class KrdantaEngine:
                     _a = tri_linga(_red)
                     _m = tri_linga(stem)
                     return {"M": [_m["M"], _a["M"]], "F": [_m["F"], _a["F"]], "N": [_m["N"], _a["N"]]}
+            # curAdi san-kta twin-sets (plain/graded redup x ay/no-ay; ay/no-ay AND plain/
+            # graded lexical across homonymous roots so twins; generic twin kept first;
+            # additive, sanadi-gated).
+            if sanadi == "sannanta" and meta.get("gana") == "curAdiH":
+                _c10acc = {"M": [], "F": [], "N": []}
+                def _c10ad(tri):
+                    for _gg in ("M", "F", "N"):
+                        _vv = tri[_gg] if isinstance(tri[_gg], list) else [tri[_gg]]
+                        for _cc in _vv:
+                            if _cc not in _c10acc[_gg]:
+                                _c10acc[_gg].append(_cc)
+                _c10ad(tri_linga(stem))
+                _c10sx = clean[:-2] + "ayiz" if clean.endswith("iz") else clean + "ayiz"
+                _c10sa = self._kta_stem(_c10sx, True, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
+                if _c10sa != stem:
+                    _c10ad(tri_linga(_c10sa))
+                # graded-redup twins (redup + mUla-grade + ayiz/iz via _sannanta_sec on the
+                # grade; same shape survey as mUla kta twins)
+                _c10rt = meta.get("clean", "") or clean
+                _c10rw = [ch for ch in _c10rt if ch in SLP1_VOWELS]
+                if _c10rw:
+                    _c10nc = _c10rw[-1]
+                    _c10cd = _c10rt[len(_c10rt) - next((k for k, ch in enumerate(reversed(_c10rt)) if ch in SLP1_VOWELS), 0):]
+                    _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                    _c10gg = []
+                    if _c10nc == "a" and _c10sg:
+                        _c10gg = [self._vriddhi_base(_c10rt, is_idit)]
+                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                        _c10gg = [self._guna_base(_c10rt, is_idit)]
+                    elif _c10nc == "i" and _c10sg and _c10rt[-1] not in SLP1_VOWELS:
+                        _c10gg = [self._guna_base(_c10rt, is_idit)]
+                    for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
+                        try:
+                            _c10gs = _sannanta_sec(_c10gr)
+                        except Exception:
+                            continue
+                        for _c10gsv in dict.fromkeys([_c10gs, _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10gs + "ayiz"]):
+                            _c10gst = self._kta_stem(_c10gsv, True, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
+                            _c10ad(tri_linga(_c10gst))
+                if any(_c10acc.values()):
+                    return _c10acc
             return tri_linga(stem)
 
         elif pratyaya == "ktavatu":
