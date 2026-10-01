@@ -6174,6 +6174,11 @@ class KrdantaEngine:
                 return {"avyaya": [clean[:-2] + "zwvA", clean + "itvA"]}
             if clean.endswith("D"):
                 return {"avyaya": [clean[:-1] + "dDvA", clean + "itvA"]}
+            # tudAdi stfnh/tfnh ktvA Q+Mhit twins (stfQvA/stfMhitvA; pair 06.0037/0077
+            # surveyed twin entries; old nQvA-forms miss everywhere; replace).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
+                _rk = {"stfnh": "stf", "tfnh": "tf"}[clean]
+                return {"avyaya": [_rk + "QvA", _rk + "MhitvA"]}
             if clean.endswith("h"):
                 if clean == "dah":
                     return {"avyaya": ["dagDvA"]}
