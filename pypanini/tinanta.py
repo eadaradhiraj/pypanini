@@ -3446,6 +3446,13 @@ class TinantaDerivationEngine:
                     ]
                     extra += self._conjugate_at_stem_atmane(_yls_riy, "lw", purusha, vacana)
             extra += self._conjugate_at_stem_atmane(yls + "y", "lw", purusha, vacana)
+            # tudAdi stfnh/tfnh ylk-karmani fhy-stems (tri-redup x stfhy; pair
+            # 06.0037/0077 surveyed — old yls+y misses everywhere (18/18 true
+            # misses); additive, tudAdiH-gated).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("stfnh", "tfnh"):
+                _t6p = "st" if meta.get("clean") == "stfnh" else "t"
+                for _t6hy in ["tar" + _t6p + "fhy", "tari" + _t6p + "fhy", "tarI" + _t6p + "fhy"]:
+                    extra += self._conjugate_at_stem_atmane(_t6hy, "lw", purusha, vacana)
             # fṛ yanlug karmani falls back to the yan-stem (arAryate-class; sole f-clean 01.1086 surveyed;
             # yanlug yls never matches karmani tokens; derived from _yan_stem, not hardcoded).
             if clean == "f":
