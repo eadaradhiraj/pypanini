@@ -2911,6 +2911,12 @@ class TinantaDerivationEngine:
             # dental (no satva to z), unlike sil sezilyate; tudAdiH-gated; mirrors krdanta).
             if c == "sic" and meta.get("gana") == "tudAdiH":
                 return "sesicya"
+            # tudAdi yaN samp/I-grades (barIBfjjya/varIvfScya/parIpfcCya + vevicya;
+            # quartet 06.0004/0012/0149/0013 surveyed — a-rI redup + ra→f samp stem
+            # (vyac takes e-redup + ya→i, cf. yak vicyate); old A-redup miss (198/198
+            # true misses across yang paradigm); tudAdiH-gated, mirrors krdanta).
+            if meta.get("gana") == "tudAdiH" and c in ("Brajj", "vrasc", "praC", "pracC", "vyac"):
+                return {"Brajj": "barIBfjjya", "vrasc": "varIvfScya", "praC": "parIpfcCya", "pracC": "parIpfcCya", "vyac": "vevicya"}[c]
             # labial-F intensive o-redup + Ur-grade (popUryate/vovUryate/boBUryate/
             # momUryate/sosvUryate; surveyed all 18 F-final 09 cleans: labial onsets
             # {p,v,B,m,sv} take o+Ur, other 12 (S/st/k/d/j/J/D/n/g/bare-F) keep e+Ir
