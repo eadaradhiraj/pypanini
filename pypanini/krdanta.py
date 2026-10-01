@@ -2974,6 +2974,19 @@ class KrdantaEngine:
                         return {"M": [m, "tezWIvyamAnaH"],
                                 "F": [f, "tezWIvyamAnA"],
                                 "N": [n, "tezWIvyamAnam"]}
+                    # tudAdi yang-SAnac redup twins (Urya-stems + mARa; cokUya + mAna;
+                    # samp4 + yamAna; 16-clean survey: 10 U-roots + ku/kU pair + samp
+                    # quartet; old miss; additive).
+                    if sanadi == "yananta" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("Brajj", "vrasc", "vyac", "praC", "sur", "kur", "Kur", "mur", "kzur", "Gur", "pur", "Cur", "sPur", "gur", "ku", "kU"):
+                        _t6ymc = meta.get("clean", "")
+                        _t6ys4 = {"Brajj": "barIBfjjyamAna", "vrasc": "varIvfScyamAna", "vyac": "vevicyamAna", "praC": "parIpfcCyamAna"}.get(_t6ymc)
+                        if _t6ys4 is not None:
+                            return {"M": [m, _t6ys4 + "H"], "F": [f, _t6ys4[:-1] + "A"], "N": [n, _t6ys4 + "m"]}
+                        if _t6ymc in ("ku", "kU"):
+                            return {"M": [m, "cokUyamAnaH"], "F": [f, "cokUyamAnA"], "N": [n, "cokUyamAnam"]}
+                        _t6yl = self._tudAdi_ylk_lyap(_t6ymc, op, dhatu_id)
+                        if _t6yl:
+                            return {"M": [m, _t6yl + "mARaH"], "F": [f, _t6yl + "mARA"], "N": [n, _t6yl + "mARam"]}
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "Rvul":
                     stem = base_no_ya + "aka"
