@@ -4862,6 +4862,26 @@ class KrdantaEngine:
                     else:
                         _d4yp = clean + "ya"
                     return {"M": _d4yp + "n", "F": _d4yp + "ntI", "N": [_d4yp + "t", _d4yp + "d"]}
+                # curAdi a-Satf twin-set (plain+an + plain+ayan + vriddhi+ayan; a-nucleus +
+                # single-or-geminate-coda survey (V+ayan / plain+an / plain+ayan all attested);
+                # generic twin kept first; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                    _c10out = {"M": [], "F": [], "N": []}
+                    for _c10mc in _c10ss:
+                        _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                        if not _c10vw or _c10vw[-1] != "a":
+                            continue
+                        _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                        if not (len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())):
+                            continue
+                        _c10v = self._vriddhi_base(_c10mc, is_idit)
+                        for _c10b in dict.fromkeys([_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10v != _c10mc else [])):
+                            for _frm, _g in ((_c10b + "an", "M"), (_c10b + "antI", "F"), (_c10b + "at", "N"), (_c10b + "ad", "N")):
+                                if _frm not in _c10out[_g]:
+                                    _c10out[_g].append(_frm)
+                    if any(_c10out.values()):
+                        return _c10out
                 if clean in ("gam", "gamx") or op.startswith("gam"):
                     _satf_base = "gacC"
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
