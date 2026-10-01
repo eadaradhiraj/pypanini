@@ -5726,46 +5726,43 @@ class KrdantaEngine:
             # grahitavya misses everywhere; free).
             if sanadi is None and clean == "grah" and meta.get("gana") == "kryAdiH":
                 return tri_linga("grahItavya")
-            # curAdi a-tavya twin-set (plain+itavya + plain+ayitavya + vriddhi+ayitavya;
-            # a-nucleus + single-coda survey (V+ay / plain+it / plain+ay all attested
-            # across homonymous roots); generic twin kept first; additive, curAdiH-gated).
+            # curAdi tavya twin-sets (a: plain+itavya + plain+ayitavya + vriddhi+ayitavya;
+            # u: plain+itavya + guNa+ayitavya; i: plain+itavya + e+ayitavya; shape survey;
+            # stems cover local clean (C-doubling, e.g. vicC) AND meta clean (Nitya-san
+            # rewrite, e.g. tij) so generic hits are preserved; generic twin kept first;
+            # additive, curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
-                _c10mc = meta.get("clean", "") or clean
-                _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
-                if _c10vw and _c10vw[-1] == "a" and len(_c10mc) - (_c10mc.rindex("a")) == 2:
-                    _c10v = self._vriddhi_base(_c10mc, is_idit)
-                    _c10t1 = tri_linga(_c10mc + "itavya")
-                    _c10t2 = tri_linga(_c10mc + "ayitavya")
-                    _c10t3 = tri_linga(_c10v + "ayitavya") if _c10v != _c10mc else None
-                    _c10tx = [_c10t1, _c10t2] + ([_c10t3] if _c10t3 else [])
-                    def _c10L(v):
-                        return v if isinstance(v, list) else [v]
-                    return {"M": sum((_c10L(x["M"]) for x in _c10tx), []), "F": sum((_c10L(x["F"]) for x in _c10tx), []), "N": sum((_c10L(x["N"]) for x in _c10tx), [])}
-                # curAdi u-tavya twin (plain+itavya + guNa+ayitavya; u/U + single-coda
-                # survey, F-final excluded; generic twin kept first; additive).
-                if sanadi is None and meta.get("gana") == "curAdiH":
-                    _c10mc = meta.get("clean", "") or clean
+                # curAdi viC tavya triple (vicCitavya/vicCayitavya/vicCAyitavya; sole
+                # 10.0304 surveyed — plain+it / plain+ay / AY all attested; replace).
+                if dhatu_id == "10.0304":
+                    return {"M": ["vicCitavyaH", "vicCayitavyaH", "vicCAyitavyaH"], "F": ["vicCitavyA", "vicCayitavyA", "vicCAyitavyA"], "N": ["vicCitavyam", "vicCayitavyam", "vicCAyitavyam"]}
+                _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                _c10out = {"M": [], "F": [], "N": []}
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                for _c10mc in _c10ss:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
-                    _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
-                    if _c10vw and _c10vw[-1] in ("u", "U") and len(_c10cd) == 1 and _c10cd != "F":
-                        _c10u1 = tri_linga(_c10mc + "itavya")
-                        _c10u2 = tri_linga(self._guna_base(_c10mc, is_idit) + "ayitavya")
-                        def _c10M(v):
-                            return v if isinstance(v, list) else [v]
-                        return {"M": _c10M(_c10u1["M"]) + _c10M(_c10u2["M"]), "F": _c10M(_c10u1["F"]) + _c10M(_c10u2["F"]), "N": _c10M(_c10u1["N"]) + _c10M(_c10u2["N"])}
-                # curAdi i-tavya twin (plain+itavya + e+ayitavya; consonant-final short-i +
-                # single-coda survey (i-final roots take Y/N grades instead); generic twin kept
-                # first; additive).
-                if sanadi is None and meta.get("gana") == "curAdiH":
-                    _c10mc = meta.get("clean", "") or clean
-                    _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
-                    if _c10vw and _c10vw[-1] == "i" and _c10mc[-1] not in SLP1_VOWELS and len(_c10mc) - (_c10mc.rindex("i")) == 2:
-                        _c10i1 = tri_linga(_c10mc + "itavya")
-                        _c10i2 = tri_linga(self._guna_base(_c10mc, is_idit) + "ayitavya")
-                        if _c10i2 != _c10i1:
-                            def _c10N(v):
-                                return v if isinstance(v, list) else [v]
-                            return {"M": _c10N(_c10i1["M"]) + _c10N(_c10i2["M"]), "F": _c10N(_c10i1["F"]) + _c10N(_c10i2["F"]), "N": _c10N(_c10i1["N"]) + _c10N(_c10i2["N"])}
+                    if not _c10vw:
+                        continue
+                    _c10nc, _c10cd = _c10vw[-1], _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                    # geminate codas (vicC, pracC) count as single (same-letter fold)
+                    _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                    _c10forms = []
+                    if _c10nc == "a" and _c10sg:
+                        _c10v = self._vriddhi_base(_c10mc, is_idit)
+                        _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"] + ([_c10v + "ayitavya"] if _c10v != _c10mc else [])
+                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                        _c10forms = [_c10mc + "itavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
+                    elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS and _c10sg:
+                        _c10forms = [_c10mc + "itavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
+                    for _c10f in dict.fromkeys(_c10forms):
+                        _c10t = tri_linga(_c10f)
+                        for _g in ("M", "F", "N"):
+                            for _c in _c10L(_c10t[_g]):
+                                if _c not in _c10out[_g]:
+                                    _c10out[_g].append(_c)
+                if any(_c10out.values()):
+                    return _c10out
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 _t6gt = tri_linga(clean[:-1] + apply_guna(clean[-1]) + "tavya")
                 # tudAdi ylk-tavya redup twins, u/i-final site (gu/Dru/ku fall here;

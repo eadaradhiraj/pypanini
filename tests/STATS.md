@@ -661,3 +661,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 474 (GEN-10: curAdi a-tavya twin-set (plain+itavya + plain+ayitavya + vriddhi+ayitavya; same gate; generic first): probe 960→702 (-258), 0 worsened (guards green).
 - Iteration 475 (GEN-10: curAdi u-tavya twin (plain+itavya + guNa+ayitavya; same gate; indent-hijack into a-inner-if diagnosed via return-trace, dedented): probe 702→618 (-84), 0 worsened (guards green).
 - Iteration 476 (GEN-10: curAdi i-tavya twin (plain+itavya + e+ayitavya; same gate as i-kta): probe 618→561 (-57), 0 worsened (guards green).
+- Iteration 477 (GEN-10: tavya repair (10.0304 regression from i-twin meta-clean stems: unified twin-sets over local+meta cleans + geminate-aware gating + vicC fid triple; return-trace + pre-change worktree bisect): probe 618→483, 0 worsened (guards green; 0304 recovered).
