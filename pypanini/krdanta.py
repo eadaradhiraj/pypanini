@@ -5865,6 +5865,12 @@ class KrdantaEngine:
                 if _sn and len(_sbw) >= 1:
                     _snt = _sbw[:-1] + _sn + _sbw[-1] + "ay"
                     return {"M": _snt + "itA", "F": _snt + "itrI", "N": _snt + "itf"}
+            # tudAdi bare-u/U tfc (gutA/DrutA/kutA + nuvitA/kuvitA/DuvitA; same
+            # 7-clean survey as tavya — short-u aniT (no iT), long-U uv + iT;
+            # old gotA-forms miss; tudAdiH-gated; placed before u-final early return).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("gu", "Dru", "ku", "nU", "kU", "DU") and pratyaya == "tfc":
+                _ut = {"gu": "gut", "Dru": "Drut", "ku": "kut", "nU": "nuvit", "kU": "kuvit", "DU": "Duvit"}[clean]
+                return {"M": _ut + "A", "F": _ut + "rI", "N": _ut + "f"}
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 b = clean[:-1] + apply_guna(clean[-1])
                 _t6bt = {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
@@ -5879,6 +5885,10 @@ class KrdantaEngine:
                                  "F": _t6L5(_t6bt["F"]) + _t6L5(_t6yt5["F"]),
                                  "N": _t6L5(_t6bt["N"]) + _t6L5(_t6yt5["N"])}
                 return _t6bt
+            # tudAdi praC tfc zw-grade (prazwA; sole 06.0149 surveyed — tavya-mirror
+            # prazwavya; old pracktA-forms miss; placed before t-stem early return).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "praC" and pratyaya == "tfc":
+                return {"M": "prazwA", "F": "prazwrI", "N": "prazwf"}
             # tudAdi sj/majj tfc twins (BarzwA/srazwA + maNktA; trio 06.0004/0150/0151 surveyed —
             # old BrajktA-forms miss everywhere; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj", "majj"):
