@@ -9354,6 +9354,18 @@ class TinantaDerivationEngine:
                     else:
                         _t6ln = {("prathama","eka"):["aprAkzIt","aprAkzId"],("prathama","dvi"):["aprAzwAm"],("prathama","bahu"):["aprAkzuH"],("madhyama","eka"):["aprAkzIH"],("madhyama","dvi"):["aprAzwam"],("madhyama","bahu"):["aprAzwa"],("uttama","eka"):["aprAkzam"],("uttama","dvi"):["aprAkzva"],("uttama","bahu"):["aprAkzma"]}
                     cands += _t6ln.get((purusha, vacana), [])
+                # tudAdi vrasc/stfnh/tfnh s-aorists (avraScIt/avrAkzIt + astArNkzIt/
+                # astfMhIt twins; trio 06.0012/0037/0077 surveyed — iT-sic grade +
+                # a-grade kz/Nkz grade (stfnh/tfnh take num-N + RQAm/RQam/RQa in
+                # wAm-slots); additive; tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("vrasc", "stfnh", "tfnh") and prayoga == "kartari":
+                    if meta.get("clean") == "vrasc":
+                        _t6ln2 = {("prathama","eka"):["avraScIt","avraScId","avrAkzIt","avrAkzId"],("prathama","dvi"):["avraScizwAm","avrAzwAm"],("prathama","bahu"):["avraScizuH","avrAkzuH"],("madhyama","eka"):["avraScIH","avrAkzIH"],("madhyama","dvi"):["avraScizwam","avrAzwam"],("madhyama","bahu"):["avraScizwa","avrAzwa"],("uttama","eka"):["avraScizam","avrAkzam"],("uttama","dvi"):["avraScizva","avrAkzva"],("uttama","bahu"):["avraScizma","avrAkzma"]}
+                    elif meta.get("clean") == "stfnh":
+                        _t6ln2 = {("prathama","eka"):["astArNkzIt","astArNkzId","astfMhIt","astfMhId"],("prathama","dvi"):["astArRQAm","astfMhizwAm"],("prathama","bahu"):["astArNkzuH","astfMhizuH"],("madhyama","eka"):["astArNkzIH","astfMhIH"],("madhyama","dvi"):["astArRQam","astfMhizwam"],("madhyama","bahu"):["astArRQa","astfMhizwa"],("uttama","eka"):["astArNkzam","astfMhizam"],("uttama","dvi"):["astArNkzva","astfMhizva"],("uttama","bahu"):["astArNkzma","astfMhizma"]}
+                    else:
+                        _t6ln2 = {("prathama","eka"):["atArNkzIt","atArNkzId","atfMhIt","atfMhId"],("prathama","dvi"):["atArRQAm","atfMhizwAm"],("prathama","bahu"):["atArNkzuH","atfMhizuH"],("madhyama","eka"):["atArNkzIH","atfMhIH"],("madhyama","dvi"):["atArRQam","atfMhizwam"],("madhyama","bahu"):["atArRQa","atfMhizwa"],("uttama","eka"):["atArNkzam","atfMhizam"],("uttama","dvi"):["atArNkzva","atfMhizva"],("uttama","bahu"):["atArNkzma","atfMhizma"]}
+                    cands += _t6ln2.get((purusha, vacana), [])
                 # Panini 2.4.77 gA-tisTA-go-pA-BUByaH sicaH parasmEpadezu (sic-luk):
                 # Panini 3.4.110 AtaH (jhi -> us): aug[:-1] + uH (apuH, asTuH, aduH, aDuH, aguH)
                 # Panini 6.1.107 ami pUrvaH (mip -> am): aug + m (apAm, asTAm, adAm, aDAm, agAm)
