@@ -77,6 +77,8 @@ def validate_one(fid: str):
                     continue
                 if "M" in item:
                     for g in ["M","F","N"]:
+                        if g not in item:
+                            continue
                         total += 1
                         cand = item[g] if isinstance(item[g], list) else [item[g]]
                         if hit(cand): matched += 1

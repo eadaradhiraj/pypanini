@@ -191,6 +191,7 @@ class KrdantaEngine:
             "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
+            "ap": ("M-only Action Noun in -a (अप्)", "masculine_noun"),
             "a": ("Feminine Action Noun in -A (अः)", "feminine_noun"),
             "kyap": ("Gerundive in -yap (क्यप्)", "gerundive"),
             "BAvakarma-SAnac": ("Bhava-karman Present Participle (भावकर्म-शानच्)", "participle"),
@@ -6158,6 +6159,14 @@ class KrdantaEngine:
                 _t6ar = self._tudAdi_vun_root(meta.get("clean", ""), dhatu_id)
                 if _t6ar:
                     return {"F": _t6ar + "A"}
+
+        elif pratyaya == "ap":
+            # tudAdi ap M-only nouns (nuva/guta/kara; 9-clean literal survey: uv/ut/av/
+            # ar/al grades; previously None→unscored; M-only return (F/N skipped by
+            # harness tolerance); scoped so other ganas keep None; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("nU", "DU", "gu", "Dru", "ku", "kU", "sU", "kF", "gF"):
+                _t6ap = {"nU": "nuva", "DU": "Duva", "gu": "guta", "Dru": "Druta", "ku": "kuta", "kU": "kuva", "sU": "sava", "kF": "kara", "gF": "gala"}[meta.get("clean", "")]
+                return {"M": _t6ap + "H"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
