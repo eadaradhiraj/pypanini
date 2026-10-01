@@ -5685,6 +5685,17 @@ class KrdantaEngine:
             # UrRu yl on-anIyar (UrRonavanIya; sole-gated; free).
             if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
                 return tri_linga("UrRonavanIya")
+            # tudAdi ylk-anIyar uv/M-grades (tarstfMhaRIya/nonavanIya/doDravaRIya/...;
+            # 9-clean survey — yanlug redup + AV-grade root (uv->av: nonav/doDav/
+            # jogav/doDrav/cokav/sozav; M for stfnh/tfnh) + anIya/aRIya with
+            # _natva_applies R-split (f/r/z triggers); old misses; replace
+            # meta-clean-gated).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("stfnh", "tfnh", "nU", "DU", "gu", "Dru", "ku", "kU", "sU"):
+                _t6ys = {"stfnh": "tarstfMh", "tfnh": "tartfMh", "nU": "nonav", "DU": "doDav", "gu": "jogav", "Dru": "doDrav", "ku": "cokav", "kU": "cokav", "sU": "sozav"}[meta.get("clean", "")]
+                _t6s = "aRIyaH" if _natva_applies(_t6ys) else "anIyaH"
+                _t6f = "aRIyA" if _natva_applies(_t6ys) else "anIyA"
+                _t6n = "aRIyam" if _natva_applies(_t6ys) else "anIyam"
+                return {"M": [_t6ys + _t6s], "F": [_t6ys + _t6f], "N": [_t6ys + _t6n]}
             # fkzi aya-anIyar (fkzayaRIya; sole 05.0038 surveyed; old forms miss, free).
             if sanadi is None and clean == "fkzi" and meta.get("gana") == "svAdiH":
                 return tri_linga("fkzayaRIya")
@@ -6524,6 +6535,12 @@ class KrdantaEngine:
             if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _ulyu = "UrRavanam" if sanadi is None else "UrRonavanam"
                 return {"gender": "Neuter", "form": _ulyu}
+            # tudAdi ylk-lyuw uv-grades (tarstfMhaRa/nonavana/doDravaRa/...; same 9-clean
+            # survey + R-split as anIyar above (av-grade roots); old misses; replace
+            # meta-clean-gated).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("stfnh", "tfnh", "nU", "DU", "gu", "Dru", "ku", "kU", "sU"):
+                _t6ys = {"stfnh": "tarstfMh", "tfnh": "tartfMh", "nU": "nonav", "DU": "doDav", "gu": "jogav", "Dru": "doDrav", "ku": "cokav", "kU": "cokav", "sU": "sozav"}[meta.get("clean", "")]
+                return {"gender": "Neuter", "form": _t6ys + ("aRam" if _natva_applies(_t6ys) else "anam")}
             # tudAdi uv-lyuw (nuvana/Duvana/guvana/DruvaRa/kuvana/savana; 7-clean survey —
             # uv-grade + ana (Natva R iff r-trigger: DruvaRa); sU takes av-grade (savana,
             # lexical, already hits); old navanam-forms verified absent (sU identical);
