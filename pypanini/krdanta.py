@@ -3212,7 +3212,14 @@ class KrdantaEngine:
                     _n_n = "aRIyam" if _n_nat else "anIyam"
                     return {"M": [_ob + _o_s, _nb + _n_s], "F": [_ob + _o_f, _nb + _n_f], "N": [_ob + _o_n, _nb + _n_n]}
                 if pratyaya == "tfc":
-                    return {"M": [_ob + "itA", _nb + "itA"], "F": [_ob + "itrI", _nb + "itrI"], "N": [_ob + "itf", _nb + "itf"]}
+                    # tudAdi ylk-tfc redup twins (same stem/method as tavya iter395;
+                    # additive — ob/nb kept).
+                    _t6yf = {"M": [_ob + "itA", _nb + "itA"], "F": [_ob + "itrI", _nb + "itrI"], "N": [_ob + "itf", _nb + "itf"]}
+                    if meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                        _t6yr = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                        if _t6yr:
+                            _t6yf = {"M": _t6yf["M"] + [_t6yr + "itA"], "F": _t6yf["F"] + [_t6yr + "itrI"], "N": _t6yf["N"] + [_t6yr + "itf"]}
+                    return _t6yf
                 if pratyaya == "Rvul":
                     def _rv(base):
                         return {"M": base + "akaH", "F": base + "aka"[:-3] + "ikA" if (base + "aka").endswith("aka") else base + "ikA", "N": base + "akam"}
@@ -5660,7 +5667,18 @@ class KrdantaEngine:
                     return {"M": _snt + "itA", "F": _snt + "itrI", "N": _snt + "itf"}
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 b = clean[:-1] + apply_guna(clean[-1])
-                return {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
+                _t6bt = {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
+                # tudAdi ylk-tfc redup twins, u/i-final site (additive).
+                if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                    _t6yr5 = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                    if _t6yr5:
+                        _t6yt5 = {"M": _t6yr5 + "itA", "F": _t6yr5 + "itrI", "N": _t6yr5 + "itf"}
+                        def _t6L5(v):
+                            return v if isinstance(v, list) else [v]
+                        _t6bt = {"M": _t6L5(_t6bt["M"]) + _t6L5(_t6yt5["M"]),
+                                 "F": _t6L5(_t6bt["F"]) + _t6L5(_t6yt5["F"]),
+                                 "N": _t6L5(_t6bt["N"]) + _t6L5(_t6yt5["N"])}
+                return _t6bt
             # tudAdi sj/majj tfc twins (BarzwA/srazwA + maNktA; trio 06.0004/0150/0151 surveyed —
             # old BrajktA-forms miss everywhere; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj", "majj"):
@@ -5681,12 +5699,33 @@ class KrdantaEngine:
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
                     if t_stem != eff + "t" or not sew:
-                        return {"M": t_stem + "A", "F": t_stem + "rI", "N": t_stem + "f"}
+                        _t6st = {"M": t_stem + "A", "F": t_stem + "rI", "N": t_stem + "f"}
+                        # tudAdi ylk-tfc redup twins, t-stem site (additive).
+                        if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                            _t6yr6 = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                            if _t6yr6:
+                                _t6yt6 = {"M": _t6yr6 + "itA", "F": _t6yr6 + "itrI", "N": _t6yr6 + "itf"}
+                                def _t6L6(v):
+                                    return v if isinstance(v, list) else [v]
+                                _t6st = {"M": _t6L6(_t6st["M"]) + _t6L6(_t6yt6["M"]),
+                                         "F": _t6L6(_t6st["F"]) + _t6L6(_t6yt6["F"]),
+                                         "N": _t6L6(_t6st["N"]) + _t6L6(_t6yt6["N"])}
+                        return _t6st
             if sew and eff.endswith("A") and eff not in ("daridrA", "jAgf"):
                 b = eff[:-1] + "i"
             else:
                 b = eff + ("i" if sew else "")
             _gen = {"M": b + "tA", "F": b + "trI", "N": b + "tf"}
+            # tudAdi ylk-tfc redup twins, generic-fallback site (additive).
+            if sanadi == "yanluganta" and meta.get("gana") == "tudAdiH" and clean not in ("vrasc", "luB", "stfnh", "vfh", "bfh", "tfh", "stfh", "tfnh"):
+                _t6yr7 = self._tudAdi_ylk_redup(clean, op, dhatu_id)
+                if _t6yr7:
+                    _t6yt7 = {"M": _t6yr7 + "itA", "F": _t6yr7 + "itrI", "N": _t6yr7 + "itf"}
+                    def _t6L7(v):
+                        return v if isinstance(v, list) else [v]
+                    _gen = {"M": _t6L7(_gen["M"]) + _t6L7(_t6yt7["M"]),
+                            "F": _t6L7(_gen["F"]) + _t6L7(_t6yt7["F"]),
+                            "N": _t6L7(_gen["N"]) + _t6L7(_t6yt7["N"])}
             # tudAdi verbatim-itfc twins (vijitA/kuwitA/qipitf/...; same 50-clean survey
             # as tavya iter389 — base == clean+itf; additive — generic kept; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("vij", "laj", "lajj", "jarj", "carc", "JarJ", "tvac", "ubj", "ujJ", "GUrR", "cal", "kuw", "puw", "kuc", "guj", "guq", "qip", "Cur", "sPuw", "muw", "truw", "tuw", "cuw", "Cuw", "juq", "juw", "kaq", "luw", "luW", "kfq", "kuq", "puq", "Guw", "tuq", "Tuq", "sTuq", "Kuq", "Cuq", "sPur", "sPul", "sPar", "sPal", "sPuq", "cuq", "vruq", "kruq", "Bfq", "huq", "gur"):
