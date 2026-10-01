@@ -4870,13 +4870,24 @@ class KrdantaEngine:
                     _c10out = {"M": [], "F": [], "N": []}
                     for _c10mc in _c10ss:
                         _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
-                        if not _c10vw or _c10vw[-1] != "a":
+                        if not _c10vw:
                             continue
+                        _c10nc = _c10vw[-1]
                         _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
-                        if not (len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())):
-                            continue
-                        _c10v = self._vriddhi_base(_c10mc, is_idit)
-                        for _c10b in dict.fromkeys([_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10v != _c10mc else [])):
+                        _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                        _c10bases = []
+                        if _c10nc == "a" and _c10sg:
+                            _c10v = self._vriddhi_base(_c10mc, is_idit)
+                            _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10v != _c10mc else [])
+                        elif _c10nc == "u" and _c10sg and _c10cd != "F":
+                            _c10bases = [_c10mc, self._guna_base(_c10mc, is_idit) + "ay"]
+                        elif _c10nc == "U" and _c10sg and _c10cd != "F":
+                            # long-U takes plain-U + ayan (mUlayan/...; DUpa~ adds U+Ay twin
+                            # 10.0303 surveyed; old o-grades miss everywhere here).
+                            _c10bases = [_c10mc + "ay"] + ([_c10mc + "Ay"] if dhatu_id == "10.0303" else [])
+                        elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
+                            _c10bases = [_c10mc, self._guna_base(_c10mc, is_idit) + "ay"]
+                        for _c10b in dict.fromkeys(_c10bases):
                             for _frm, _g in ((_c10b + "an", "M"), (_c10b + "antI", "F"), (_c10b + "at", "N"), (_c10b + "ad", "N")):
                                 if _frm not in _c10out[_g]:
                                     _c10out[_g].append(_frm)
