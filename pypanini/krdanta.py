@@ -5133,6 +5133,10 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc":
                 _t = tri_linga("vraScanIya")
                 return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
+            # tudAdi ku/kU anIyar kuv-grade (kuvanIya; pair 06.0136/0137 surveyed — old
+            # kavanIya-forms miss everywhere; replace; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("ku", "kU"):
+                return tri_linga("kuvanIya")
             # aja~ mUla ve-grade twin (vayanIya- via guna(ve); sole aj-clean 01.0262 surveyed, ~-gated;
             # additive, old ajanIya kept harmlessly).
             if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
@@ -5636,6 +5640,10 @@ class KrdantaEngine:
             # tudAdi vrasc lyuw Sca-grade (vraScana; sole 06.0012 surveyed; old miss).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc":
                 return {"gender": "Neuter", "form": "vraScanam"}
+            # tudAdi ku/kU lyuw kuv-grade (kuvana; pair 06.0136/0137 surveyed — old
+            # kavan-forms miss everywhere; replace; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("ku", "kU"):
+                return {"gender": "Neuter", "form": "kuvanam"}
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
