@@ -6524,6 +6524,12 @@ class KrdantaEngine:
             if clean == "UrRu" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
                 _ulyu = "UrRavanam" if sanadi is None else "UrRonavanam"
                 return {"gender": "Neuter", "form": _ulyu}
+            # tudAdi uv-lyuw (nuvana/Duvana/guvana/DruvaRa/kuvana/savana; 7-clean survey —
+            # uv-grade + ana (Natva R iff r-trigger: DruvaRa); sU takes av-grade (savana,
+            # lexical, already hits); old navanam-forms verified absent (sU identical);
+            # tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("nU", "DU", "gu", "Dru", "ku", "kU", "sU"):
+                return {"gender": "Neuter", "form": {"nU": "nuvanam", "DU": "Duvanam", "gu": "guvanam", "Dru": "DruvaRam", "ku": "kuvanam", "kU": "kuvanam", "sU": "savanam"}[meta.get("clean", "")]}
             # fkzi aya-lyuw (fkzayaRam; sole 05.0038 surveyed; old i-forms miss, free).
             if clean == "fkzi" and meta.get("gana") == "svAdiH" and sanadi is None:
                 return {"gender": "Neuter", "form": "fkzayaRam"}
@@ -6879,6 +6885,13 @@ class KrdantaEngine:
             # tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("vij", "laj", "lajj", "jarj", "carc", "JarJ", "tvac", "ubj", "ujJ", "GUrR", "cal", "kuw", "puw", "kuc", "guj", "guq", "qip", "Cur", "sPuw", "muw", "truw", "tuw", "cuw", "Cuw", "juq", "juw", "kaq", "luw", "luW", "kfq", "kuq", "puq", "Guw", "tuq", "Tuq", "sTuq", "Kuq", "Cuq", "sPur", "sPul", "sPar", "sPal", "sPuq", "cuq", "vruq", "kruq", "Bfq", "huq", "gur"):
                 _gen.append(clean + "itum")
+            # tudAdi uv-tumun (nuvitum/Duvitum/gutum/Drutum/kutum/kuvitum/savitum;
+            # 7-clean survey — uv-grade + itum (short-u gu/Dru/ku take aniT tum, no iT;
+            # sU av-grade); old navitum-forms miss; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("nU", "DU", "gu", "Dru", "ku", "kU", "sU"):
+                _t6tm = {"nU": "nuvitum", "DU": "Duvitum", "gu": "gutum", "Dru": "Drutum", "ku": "kutum", "kU": "kuvitum", "sU": "savitum"}[meta.get("clean", "")]
+                if _t6tm not in _gen:
+                    _gen.append(_t6tm)
             # tudAdi vyac tumun i-grade (vicitum; sole 06.0013 surveyed — y-drop;
             # old vyacitum-forms miss; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
