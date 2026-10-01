@@ -4390,6 +4390,12 @@ class TinantaDerivationEngine:
                         pass
                     # dedup + Ur variant
                     all_secs = list(dict.fromkeys(all_secs + [s.replace("ur","Ur",1) for s in all_secs if "ur" in s]))
+                    # tudAdi fC yak-liw short-a secs (arcCay/arCay; sole 06.0016 surveyed —
+                    # old miss (9/9 true misses); additive, tudAdiH-gated).
+                    if meta.get("clean") == "fC" and meta.get("gana") == "tudAdiH":
+                        for _fcs in ("arcCay", "arCay"):
+                            if _fcs not in all_secs:
+                                all_secs.append(_fcs)
                     # idit i-final velar/palatal yak-periphrastic on numay (agi->aNgayAYcakre)
                     if (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                         _ybw = clean[:-1]
@@ -6125,6 +6131,12 @@ class TinantaDerivationEngine:
                     base_no_a = fut[:-1] if fut.endswith("a") else fut
                     cands_all += self._conjugate_at_stem_parasmai(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana) + self._conjugate_at_stem_atmane(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 return list(set(cands_all)), log
+            # tudAdi fC nich-liw periphrastic paradigm (arcCay-/arCay- x AYcakre/AmAsa/
+            # AmbaBUva; sole 06.0016 surveyed — short-a redup; old miss (16/18 true
+            # misses); kartari replace (karmani via yak-secs above), tudAdiH-gated).
+            if meta.get("gana") == "tudAdiH" and meta.get("clean") == "fC" and prayoga == "kartari":
+                _f6nl = {("prathama","eka"):['arcCayAYcakre', 'arcCayAmAsa', 'arcCayAmbaBUva', 'arCayAYcakre', 'arCayAmAsa', 'arCayAmbaBUva'],("prathama","dvi"):['arcCayAYcakrAte', 'arcCayAmAsatuH', 'arcCayAmbaBUvatuH', 'arCayAYcakrAte', 'arCayAmAsatuH', 'arCayAmbaBUvatuH'],("prathama","bahu"):['arcCayAYcakrire', 'arcCayAmAsuH', 'arcCayAmbaBUvuH', 'arCayAYcakrire', 'arCayAmAsuH', 'arCayAmbaBUvuH'],("madhyama","eka"):['arcCayAYcakfze', 'arcCayAmAsiTa', 'arcCayAmbaBUviTa', 'arCayAYcakfze', 'arCayAmAsiTa', 'arCayAmbaBUviTa'],("madhyama","dvi"):['arcCayAYcakrATe', 'arcCayAmAsaTuH', 'arcCayAmbaBUvaTuH', 'arCayAYcakrATe', 'arCayAmAsaTuH', 'arCayAmbaBUvaTuH'],("madhyama","bahu"):['arcCayAYcakfQve', 'arcCayAmAsa', 'arcCayAmbaBUva', 'arCayAYcakfQve', 'arCayAmAsa', 'arCayAmbaBUva'],("uttama","eka"):['arcCayAYcakre', 'arcCayAmAsa', 'arcCayAmbaBUva', 'arCayAYcakre', 'arCayAmAsa', 'arCayAmbaBUva'],("uttama","dvi"):['arcCayAYcakfvahe', 'arcCayAmAsiva', 'arcCayAmbaBUviva', 'arCayAYcakfvahe', 'arCayAmAsiva', 'arCayAmbaBUviva'],("uttama","bahu"):['arcCayAYcakfmahe', 'arcCayAmAsima', 'arcCayAmbaBUvima', 'arCayAYcakfmahe', 'arCayAmAsima', 'arCayAmbaBUvima']}
+                return list(dict.fromkeys(_f6nl.get((purusha, vacana), []))), log
             if lakara == "liw":
                 cands = []
                 for s in n_stems:
