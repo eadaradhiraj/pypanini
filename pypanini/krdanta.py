@@ -5741,6 +5741,18 @@ class KrdantaEngine:
                     def _c10L(v):
                         return v if isinstance(v, list) else [v]
                     return {"M": sum((_c10L(x["M"]) for x in _c10tx), []), "F": sum((_c10L(x["F"]) for x in _c10tx), []), "N": sum((_c10L(x["N"]) for x in _c10tx), [])}
+                # curAdi u-tavya twin (plain+itavya + guNa+ayitavya; u/U + single-coda
+                # survey, F-final excluded; generic twin kept first; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10mc = meta.get("clean", "") or clean
+                    _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                    _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                    if _c10vw and _c10vw[-1] in ("u", "U") and len(_c10cd) == 1 and _c10cd != "F":
+                        _c10u1 = tri_linga(_c10mc + "itavya")
+                        _c10u2 = tri_linga(self._guna_base(_c10mc, is_idit) + "ayitavya")
+                        def _c10M(v):
+                            return v if isinstance(v, list) else [v]
+                        return {"M": _c10M(_c10u1["M"]) + _c10M(_c10u2["M"]), "F": _c10M(_c10u1["F"]) + _c10M(_c10u2["F"]), "N": _c10M(_c10u1["N"]) + _c10M(_c10u2["N"])}
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:
                 _t6gt = tri_linga(clean[:-1] + apply_guna(clean[-1]) + "tavya")
                 # tudAdi ylk-tavya redup twins, u/i-final site (gu/Dru/ku fall here;
