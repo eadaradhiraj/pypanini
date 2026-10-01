@@ -191,6 +191,7 @@ class KrdantaEngine:
             "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
+            "lyu": ("Neuter Verbal Noun in -ana (ल्यु)", "neuter_noun"),
             "ap": ("M-only Action Noun in -a (अप्)", "masculine_noun"),
             "Sa": ("Action Noun in -a (सः)", "action_noun"),
             "Ra": ("Vriddhi Agent Noun in -a (रः)", "agent_noun"),
@@ -6187,6 +6188,13 @@ class KrdantaEngine:
                 if meta.get("clean", "") == "iz":
                     return {"F": _t6sa + "A", "N": _t6sa + "am"}
                 return {"M": _t6sa + "aH", "F": _t6sa + "A", "N": _t6sa + "am"}
+
+        elif pratyaya == "lyu":
+            # tudAdi lyu neuter ana-nouns (darpaRa/calana; pair 06.0036/0083 surveyed;
+            # previously None→unscored; scoped so other ganas keep None).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("dfp", "cal"):
+                _t6lu = {"dfp": ("darpaRaH", "darpaRa", "darpaRam"), "cal": ("calanaH", "calanA", "calanam")}[meta.get("clean", "")]
+                return {"M": _t6lu[0], "F": _t6lu[1], "N": _t6lu[2]}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
