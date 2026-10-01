@@ -8182,6 +8182,15 @@ class TinantaDerivationEngine:
                 _fay = {("prathama", "eka"): [_fnp + "AYcakAra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("prathama", "dvi"): [_fnp + "AYcakratuH", _fnp + "AmAsatuH", _fnp + "AmbaBUvatuH"], ("prathama", "bahu"): [_fnp + "AYcakruH", _fnp + "AmAsuH", _fnp + "AmbaBUvuH"], ("madhyama", "eka"): [_fnp + "AYcakarTa", _fnp + "AmAsiTa", _fnp + "AmbaBUviTa"], ("madhyama", "dvi"): [_fnp + "AYcakraTuH", _fnp + "AmAsaTuH", _fnp + "AmbaBUvaTuH"], ("madhyama", "bahu"): [_fnp + "AYcakra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("uttama", "eka"): [_fnp + "AYcakara", _fnp + "AYcakAra", _fnp + "AmAsa", _fnp + "AmbaBUva"], ("uttama", "dvi"): [_fnp + "AYcakfva", _fnp + "AmAsiva", _fnp + "AmbaBUviva"], ("uttama", "bahu"): [_fnp + "AYcakfma", _fnp + "AmAsima", _fnp + "AmbaBUvima"]}
                 if prayoga == "kartari":
                     return list(dict.fromkeys(_fay.get((purusha, vacana), []))), log
+            # tudAdi stfnh/tfnh liw perfect tables (tastfMha/tatfMha + RQ ma-eka
+            # variant; pair 06.0037/0077 surveyed — sT-redup tast vs ta, Mh-root
+            # (n→M, f kept); old miss; kartari replace, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("stfnh", "tfnh") and prayoga == "kartari":
+                if meta.get("clean") == "stfnh":
+                    _hbl = {("prathama", "eka"): ["tastfMha"], ("prathama", "dvi"): ["tastfMhatuH"], ("prathama", "bahu"): ["tastfMhuH"], ("madhyama", "eka"): ["tastfMhiTa", "tastfRQa"], ("madhyama", "dvi"): ["tastfMhaTuH"], ("madhyama", "bahu"): ["tastfMha"], ("uttama", "eka"): ["tastfMha"], ("uttama", "dvi"): ["tastfMhiva", "tastfMhva"], ("uttama", "bahu"): ["tastfMhima", "tastfMhma"]}
+                else:
+                    _hbl = {("prathama", "eka"): ["tatfMha"], ("prathama", "dvi"): ["tatfMhatuH"], ("prathama", "bahu"): ["tatfMhuH"], ("madhyama", "eka"): ["tatfMhiTa", "tatfRQa"], ("madhyama", "dvi"): ["tatfMhaTuH"], ("madhyama", "bahu"): ["tatfMha"], ("uttama", "eka"): ["tatfMha"], ("uttama", "dvi"): ["tatfMhiva", "tatfMhva"], ("uttama", "bahu"): ["tatfMhima", "tatfMhma"]}
+                return list(dict.fromkeys(_hbl.get((purusha, vacana), []))), log
             # tudAdi fC liw Anar-perfect twins (AnarcCa/AnarCa + endings; sole 06.0016
             # surveyed fCa~ — An- perfect with C-doubled + single variants; old miss;
             # kartari replace, tudAdiH-gated).
