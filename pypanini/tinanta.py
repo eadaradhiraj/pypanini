@@ -5139,6 +5139,15 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz":
                     _k9yluw = {("prathama","eka"):["kzAyitA","kzetA"],("prathama","dvi"):["kzAyitArO","kzetArO"],("prathama","bahu"):["kzAyitAraH","kzetAraH"],("madhyama","eka"):["kzAyitAse","kzetAse"],("madhyama","dvi"):["kzAyitAsATe","kzetAsATe"],("madhyama","bahu"):["kzAyitADve","kzetADve"],("uttama","eka"):["kzAyitAhe","kzetAhe"],("uttama","dvi"):["kzAyitAsvahe","kzetAsvahe"],("uttama","bahu"):["kzAyitAsmahe","kzetAsmahe"]}
                     cands += _k9yluw.get((purusha, vacana), [])
+                # tudAdi yak-luT zw/Nk-twins (BarzwA/BrazwA, srazwA, maNktA; trio
+                # 06.0004/0150/0151 surveyed — samprasArana + zw (no iT), majj N+k;
+                # zw-stems take -A endings, Nk-stem takes -tA endings; additive;
+                # karmani-only, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "sfj", "majj"):
+                    _t6yl = {"Brajj": (["Barzw", "Brazw"], "A"), "sfj": (["srazw"], "A"), "majj": (["maNk"], "tA")}[meta.get("clean")]
+                    _t6ys, _t6ye = _t6yl
+                    _t6yluw = {("prathama","eka"):[s+_t6ye for s in _t6ys],("prathama","dvi"):[s+_t6ye+"rO" for s in _t6ys],("prathama","bahu"):[s+_t6ye+"raH" for s in _t6ys],("madhyama","eka"):[s+_t6ye+"se" for s in _t6ys],("madhyama","dvi"):[s+_t6ye+"sATe" for s in _t6ys],("madhyama","bahu"):[s+_t6ye+"Dve" for s in _t6ys],("uttama","eka"):[s+_t6ye+"he" for s in _t6ys],("uttama","dvi"):[s+_t6ye+"svahe" for s in _t6ys],("uttama","bahu"):[s+_t6ye+"smahe" for s in _t6ys]}
+                    cands += _t6yluw.get((purusha, vacana), [])
                 # iN yak-lut e-grade stem (aDyetA covers every slot via any-match; op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     cands += self._conjugate_luw("aDye", "Atmanepadi", purusha, vacana)
