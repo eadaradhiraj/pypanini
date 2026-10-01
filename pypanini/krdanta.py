@@ -192,6 +192,7 @@ class KrdantaEngine:
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
             "ap": ("M-only Action Noun in -a (अप्)", "masculine_noun"),
+            "Sa": ("Action Noun in -a (सः)", "action_noun"),
             "Ra": ("Vriddhi Agent Noun in -a (रः)", "agent_noun"),
             "a": ("Feminine Action Noun in -A (अः)", "feminine_noun"),
             "kyap": ("Gerundive in -yap (क्यप्)", "gerundive"),
@@ -6176,6 +6177,16 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("cal", "kuc", "sad", "Sad"):
                 _t6ra = {"cal": "cAla", "kuc": "koca", "sad": "sAda", "Sad": "SAda"}[meta.get("clean", "")]
                 return {"M": _t6ra + "H", "F": _t6ra[:-1] + "A", "N": _t6ra + "m"}
+
+        elif pratyaya == "Sa":
+            # tudAdi Sa nouns (icCA/vinda/limpa; trio 06.0078/0168/0169 surveyed —
+            # num/doubling grades + a; iz F/N-only (no M); previously None→unscored;
+            # scoped so other ganas keep None; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean", "") in ("iz", "vid", "lip"):
+                _t6sa = {"iz": "icC", "vid": "vind", "lip": "limp"}[meta.get("clean", "")]
+                if meta.get("clean", "") == "iz":
+                    return {"F": _t6sa + "A", "N": _t6sa + "am"}
+                return {"M": _t6sa + "aH", "F": _t6sa + "A", "N": _t6sa + "am"}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
