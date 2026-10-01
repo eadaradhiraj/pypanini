@@ -2447,6 +2447,11 @@ class KrdantaEngine:
                 # sec feeds yang_krut; tudAdiH-gated).
                 if c == "sic" and meta.get("gana") == "tudAdiH":
                     return "sesicya"
+                # tudAdi yaN samp/I-grades (mirrors tinanta _yan_stem; quartet
+                # 06.0004/0012/0149/0013 surveyed — sec feeds yang_krut;
+                # tudAdiH-gated).
+                if meta.get("gana") == "tudAdiH" and c in ("Brajj", "vrasc", "praC", "pracC", "vyac"):
+                    return {"Brajj": "barIBfjjya", "vrasc": "varIvfScya", "praC": "parIpfcCya", "pracC": "parIpfcCya", "vyac": "vevicya"}[c]
                 # labial-F intensive o-redup + Ur-grade (mirrors tinanta _yan_stem;
                 # same 18-clean survey + onset set; sec feeds all yang_krut;
                 # kryAdiH-gated).
