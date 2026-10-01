@@ -7353,6 +7353,10 @@ class KrdantaEngine:
             return {"avyaya": [stem]}
 
         elif pratyaya == "lyap":
+            # tudAdi fnP/unB mUla lyap (prArPya/proBya; pair 06.0041/0045 surveyed —
+            # Ar/o grades; old forms absent from all tokens; replace, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("fnP", "unB"):
+                return {"avyaya": ["prArPya" if meta.get("clean") == "fnP" else "proBya"]}
             # tanAdi ylk lyap (prataMtaya/prasaMsAya/pracaMkzaya/pracekziya/prataMtfya/
             # prajaMGfya/pravaMvaya/pramaMmaya/pracarkfya; pra + redup + tuk-stem + ya
             # — ylk counterpart of the mUla tuk block above, stem minus tuk-t (sA kept

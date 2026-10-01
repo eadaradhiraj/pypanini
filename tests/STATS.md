@@ -645,3 +645,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 459 (GEN-06: tudAdi mUla GaY quartet (vraska/vyAka/stfMha/tfMha; 4 fids surveyed; old forms absent from all tokens; replace): +4 matched (4 improved x1, 06 at 161/174), 0 worsened (guards green).
 - Iteration 460 (GEN-06: tudAdi u-tumun quartet (gutum/Drutum/kutum + prazwum; 4 fids surveyed; old forms absent from all tokens; replace): +4 matched (4 improved x1, 06 at 165/174), 0 worsened (guards green).
 - Iteration 461 (GEN-06: tudAdi vyac mUla tfc (vicitA; sole 06.0013 surveyed; samp grade; old F/N absent, new triple attested; replace): +2 matched (1 improved, 06 at 166/174), 0 worsened (guards green).
+- Iteration 462 (GEN-06: tudAdi fnP/unB mUla lyap (prArPya/proBya; pair 06.0041/0045 surveyed; old forms absent from all tokens; replace): +2 matched (2 improved x1, 06 at 168/174), 0 worsened (guards green; krut bucket now 0 misses sweep-wide).
