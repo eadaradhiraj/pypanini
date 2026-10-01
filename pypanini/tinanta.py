@@ -4738,6 +4738,16 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "kzIz":
                     _kzy = {("prathama","eka"):["cikziye"],("prathama","dvi"):["cikziyAte"],("prathama","bahu"):["cikziyire"],("madhyama","eka"):["cikziyize"],("madhyama","dvi"):["cikziyATe"],("madhyama","bahu"):["cikziyiQve","cikziyiDve"],("uttama","eka"):["cikziye"],("uttama","dvi"):["cikziyivahe"],("uttama","bahu"):["cikziyimahe"]}
                     cands += _kzy.get((purusha, vacana), [])
+                # kF/gF yak-liT a-grade (cakare/jagare + jagale twin; pair 06.0145/0146
+                # surveyed — redup ca/ja + kar/gar stems + Atmane endings incl. Qve/Dve
+                # twins; old cakFe-forms miss; additive, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("kF", "gF"):
+                    _k9yb = "cakar" if meta.get("clean") == "kF" else "jagar"
+                    _k9yl = {("prathama","eka"):[_k9yb+"e"],("prathama","dvi"):[_k9yb+"Ate"],("prathama","bahu"):[_k9yb+"ire"],("madhyama","eka"):[_k9yb+"ize"],("madhyama","dvi"):[_k9yb+"ATe"],("madhyama","bahu"):[_k9yb+"iQve",_k9yb+"iDve"],("uttama","eka"):[_k9yb+"e"],("uttama","dvi"):[_k9yb+"ivahe"],("uttama","bahu"):[_k9yb+"imahe"]}
+                    cands += _k9yl.get((purusha, vacana), [])
+                    if meta.get("clean") == "gF":
+                        _k9yl2 = {("prathama","eka"):["jagale"],("prathama","dvi"):["jagalAte"],("prathama","bahu"):["jagalire"],("madhyama","eka"):["jagalize"],("madhyama","dvi"):["jagalATe"],("madhyama","bahu"):["jagaliQve","jagaliDve"],("uttama","eka"):["jagale"],("uttama","dvi"):["jagalivahe"],("uttama","bahu"):["jagalimahe"]}
+                        cands += _k9yl2.get((purusha, vacana), [])
                 for rd in redups:
                     cands += [rd + endings[(purusha,vacana)], rd + endings_v[(purusha,vacana)], rd + endings_q[(purusha,vacana)], rd + endings_vq[(purusha,vacana)]]
                     # Panini 6.4.77 aci Snu-DAtu-BruvAM yvo riyaN-uvaNAu: u/U takes uvaN (uv) before vowel endings
