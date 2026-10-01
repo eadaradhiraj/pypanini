@@ -3620,6 +3620,13 @@ class KrdantaEngine:
                     return {"gender": "Masculine", "form": "vAvraskaH"}
                 if pratyaya == "ktvA":
                     return {"avyaya": ["vAvraScitvA"]}
+            # tudAdi vyac ylk grades (vAvyacanIya + vAvyAcaka; sole 06.0013 surveyed —
+            # old mUla-grades absent from all tokens; replace, tudAdiH-gated).
+            if meta.get("clean") == "vyac" and meta.get("gana") == "tudAdiH":
+                if pratyaya == "anIyar":
+                    return {"M": "vAvyacanIyaH", "F": "vAvyacanIyA", "N": "vAvyacanIyam"}
+                if pratyaya == "Rvul":
+                    return {"M": "vAvyAcakaH", "F": "vAvyAcikA", "N": "vAvyAcakam"}
             _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
             # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
             if _ylm is None:
