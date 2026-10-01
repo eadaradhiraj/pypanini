@@ -6856,6 +6856,10 @@ class KrdantaEngine:
             # iN aD- tumun (aDyetum; sole-gated; free).
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"avyaya": ["aDyetum"]}
+            # tudAdi u-root tumun (gutum/Drutum/kutum + prazwum; quartet 06.0134/0135/0136/0149
+            # surveyed — old guNa-grades absent from all tokens; replace, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("gu", "Dru", "ku", "praC", "pracC"):
+                return {"avyaya": [{"gu": "gutum", "Dru": "Drutum", "ku": "kutum", "praC": "prazwum", "pracC": "prazwum"}[meta.get("clean")]]}
             # mi mA-tumun (mAtum; sole 05.0004 surveyed; old e-forms miss, free).
             if sanadi is None and clean == "mi" and meta.get("gana") == "svAdiH":
                 return {"avyaya": ["mAtum"]}
