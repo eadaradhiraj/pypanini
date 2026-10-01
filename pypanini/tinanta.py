@@ -9867,6 +9867,12 @@ class TinantaDerivationEngine:
                                 cands.append(_asb + "mahi")
                 except Exception:
                     pass
+                # tudAdi kU mUla-luN uv-grade table (akuvizwa + Q/D twins; sole 06.0137
+                # surveyed — u-grade + v, no guNa; old kaviz-forms miss; additive,
+                # tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "kU":
+                    _t6kl = {("prathama","eka"):["akuvizwa"],("prathama","dvi"):["akuvizAtAm"],("prathama","bahu"):["akuvizata"],("madhyama","eka"):["akuvizWAH"],("madhyama","dvi"):["akuvizATAm"],("madhyama","bahu"):["akuviQvam","akuviDvam"],("uttama","eka"):["akuvizi"],("uttama","dvi"):["akuvizvahi"],("uttama","bahu"):["akuvizmahi"]}
+                    cands += _t6kl.get((purusha, vacana), [])
                 # iN mUla-luN Ez-grade table (aDyEzwa...; sole 02.0041 surveyed — op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     _inlun = {("prathama","eka"):["aDyEzwa"],("prathama","dvi"):["aDyEzAtAm"],("prathama","bahu"):["aDyEzata"],("madhyama","eka"):["aDyEzWAH"],("madhyama","dvi"):["aDyEzATAm"],("madhyama","bahu"):["aDyEQvam"],("uttama","eka"):["aDyEzi"],("uttama","dvi"):["aDyEzvahi"],("uttama","bahu"):["aDyEzmahi"]}
