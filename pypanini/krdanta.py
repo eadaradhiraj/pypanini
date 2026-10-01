@@ -183,6 +183,7 @@ class KrdantaEngine:
             "vun": ("Agent Noun in -aka (वुन्)", "agent_noun"),
             "ktin": ("Feminine Action Noun in -ti (क्तिन्)", "feminine_noun"),
             "Ryat": ("Gerundive in -ya (र्यत्)", "gerundive"),
+            "Ramul": ("Absolutive in -am (रामुल्)", "avyaya"),
         }
         self._cache = None
 
@@ -5943,6 +5944,20 @@ class KrdantaEngine:
                 _t6ry = self._tudAdi_vun_root(meta.get("clean", ""), dhatu_id, ryat=True)
                 if _t6ry:
                     return {"M": _t6ry + "yaH", "F": _t6ry + "yA", "N": _t6ry + "yam"}
+
+        elif pratyaya == "Ramul":
+            # tudAdi Ramul absolutives (ryat-roots + am: karqam/Barqam/gAlam; 174-clean
+            # survey; kfq/Bfq voice ar (unlike vun/san keeps), gF takes al (unlike
+            # Ryat Ar); avyaya; previously None→unscored; scoped; meta-clean-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH":
+                _t6rmc = meta.get("clean", "")
+                _t6rr = self._tudAdi_vun_root(_t6rmc, dhatu_id, ryat=True)
+                if _t6rr:
+                    if _t6rmc in ("kfq", "Bfq"):
+                        _t6rr = {"kfq": "karq", "Bfq": "Barq"}[_t6rmc]
+                    elif _t6rmc == "gF":
+                        _t6rr = "gal"
+                    return {"avyaya": [_t6rr + "am"]}
 
         elif pratyaya == "tfc":
             if clean == "SrA" and dhatu_id == "01.0922":
