@@ -5128,6 +5128,11 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
                 _t = tri_linga("vicanIya")
                 return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
+            # tudAdi vrasc anIyar Sca-grade (vraScanIya; sole 06.0012 surveyed;
+            # old vrascanIya-forms miss; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc":
+                _t = tri_linga("vraScanIya")
+                return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
             # aja~ mUla ve-grade twin (vayanIya- via guna(ve); sole aj-clean 01.0262 surveyed, ~-gated;
             # additive, old ajanIya kept harmlessly).
             if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
@@ -5521,6 +5526,11 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj", "majj"):
                 _t6tf = {"Brajj": ("BarzwA", "BarzwrI", "Barzwf"), "sfj": ("srazwA", "srazwrI", "srazwf"), "majj": ("maNktA", "maNktrI", "maNktf")}[clean]
                 return {"M": _t6tf[0], "F": _t6tf[1], "N": _t6tf[2]}
+
+            # tudAdi vrasc tfc zw-grade (vrazwA; sole 06.0012 surveyed — old
+            # vrasktA-forms miss; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc" and pratyaya == "tfc":
+                return {"M": "vrazwA", "F": "vrazwrI", "N": "vrazwf"}
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
@@ -5623,6 +5633,9 @@ class KrdantaEngine:
             # old vyacan-forms miss; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
                 return {"gender": "Neuter", "form": "vicanam"}
+            # tudAdi vrasc lyuw Sca-grade (vraScana; sole 06.0012 surveyed; old miss).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc":
+                return {"gender": "Neuter", "form": "vraScanam"}
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
@@ -5883,6 +5896,10 @@ class KrdantaEngine:
             # tavya-mirror; old Brajktum-forms miss; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj"):
                 return {"avyaya": ["Barzwum", "Brazwum"] if clean == "Brajj" else ["srazwum"]}
+            # tudAdi vrasc tumun zw-grade (vrazwum; sole 06.0012 surveyed — old
+            # vrasktum-forms miss; replace; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc":
+                return {"avyaya": ["vrazwum"]}
             eff = guna_base if is_laghu_ik_init else (clean if (clean and clean[0] in SLP1_VOWELS) or "Ur" in clean or "Ud" in clean else guna_base)
             if not sew or is_vew:
                 for t_stem in self._assimilate_t_stems(eff):
@@ -6168,6 +6185,10 @@ class KrdantaEngine:
                 # surveyed — old BrajktvA-forms miss everywhere; tudAdiH-gated).
                 if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("Brajj", "sfj", "majj"):
                     return {"avyaya": [{"Brajj": "BfzwvA", "sfj": "sfzwvA"}[clean]] if clean in ("Brajj", "sfj") else ["maktvA", "maNktvA"]}
+                # tudAdi vrasc ktvA Sci-grade (vraScitvA; sole 06.0012 surveyed — old
+                # vrasktvA-forms miss; replace; tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc":
+                    return {"avyaya": ["vraScitvA"]}
                 if clean.endswith(("c", "C", "j", "J")):
                     return {"avyaya": [clean[:-1] + "ktvA", clean + "itvA"] if is_vew else [clean[:-1] + "ktvA"]}
                 if clean.endswith("B"):
@@ -6497,6 +6518,10 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
                 if "pravicya" not in variants:
                     variants.append("pravicya")
+            # tudAdi vrasc lyap fSc-grade (pravfScya; sole 06.0012 surveyed; old miss).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vrasc":
+                if "pravfScya" not in variants:
+                    variants.append("pravfScya")
             return {"avyaya": [pref_pra, pref_m, bare] + variants + _Rtw}
 
         return None
