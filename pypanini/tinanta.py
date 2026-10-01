@@ -4200,6 +4200,16 @@ class TinantaDerivationEngine:
                         if lakara == "lfN":
                             _r7yc = self._add_augment(_r7yc, _r7yc[0] in SLP1_VOWELS if _r7yc else False)
                         cands+=self._conjugate_at_stem_atmane(_r7yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # tudAdi yak sya-futures (Barkzyate/Brakzyate, srakzyate, maNkzyate...;
+                # same sextet + stems as ting iter443 (06.0004/0012/0037/0149/0150/0151
+                # surveyed) — yak pathway builds its own kzya-stem (Brajkzyate misses),
+                # so cores repeat here in Atmane conjugation; additive, tudAdiH-gated).
+                if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("Brajj", "vrasc", "stfnh", "praC", "sfj", "majj") and lakara in ("lfw", "lfN"):
+                    _t6ycs = {"Brajj": ["Barkzy", "Brakzy"], "vrasc": ["vrakzy", "vraScizy"], "stfnh": ["stfMhizy", "stfNkzy"], "praC": ["prakzy"], "sfj": ["srakzy"], "majj": ["maNkzy"]}[meta.get("clean")]
+                    for _t6yc in _t6ycs:
+                        if lakara == "lfN":
+                            _t6yc = self._add_augment(_t6yc, _t6yc[0] in SLP1_VOWELS if _t6yc else False)
+                        cands+=self._conjugate_at_stem_atmane(_t6yc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                 # iN yak future z-grade (aDyezyate + augmented lfN; op-gated; additive).
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     # yak lfN E-grade (aDyEzyata covers every slot via any-match; sole-gated).
