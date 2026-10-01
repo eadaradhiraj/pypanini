@@ -5618,6 +5618,14 @@ class KrdantaEngine:
                 _vyy = "vAy" + "ya"
                 _t = {"M": _vyy + "H", "F": _vyy[:-1] + "A" if _vyy.endswith("a") else _vyy + "A", "N": _vyy + "m"}
                 return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
+            # tudAdi u-final yat U-grade (nUya/guya/kuya; sextet 06.0132-0136/0144
+            # surveyed (sU passes already) — U kept before yat (no guNa/glide);
+            # old navya-forms miss; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("nU", "DU", "gu", "Dru", "ku", "kU"):
+                _t6uy = tri_linga(clean + "ya")
+                def _t6Ly(v):
+                    return v if isinstance(v, list) else [v]
+                return {"M": [_out["M"], _t6uy["M"]], "F": [_out["F"], _t6uy["F"]], "N": [_out["N"], _t6uy["N"]]}
             return _out
 
         elif pratyaya == "Rvul":
