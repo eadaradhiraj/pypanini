@@ -5658,6 +5658,10 @@ class KrdantaEngine:
             # kavan-forms miss everywhere; replace; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("ku", "kU"):
                 return {"gender": "Neuter", "form": "kuvanam"}
+            # tudAdi stfnh/tfnh lyuw Mha-grade (stfMhaRa; pair 06.0037/0077 surveyed;
+            # old nhanam-forms miss everywhere; replace; tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
+                return {"gender": "Neuter", "form": {"stfnh": "stfMhaRam", "tfnh": "tfMhaRam"}[clean]}
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
