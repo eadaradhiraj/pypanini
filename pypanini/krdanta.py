@@ -6611,6 +6611,21 @@ class KrdantaEngine:
                     _c10mm = re.sub(r"n([pPbB])", r"m\1", _c10raw)
                     if _c10mm != _c10raw and _c10mm not in _c10stems:
                         _c10stems.append(_c10mm)
+                # f-grade stems (parT-/pAr-/kIr- + kalp; same survey/guards as tavya iter544;
+                # plain grades flow through a-branch below; additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if "M" in _c10raw and "M" not in (op or ""):
+                        continue
+                    _c10fw = [ch for ch in _c10raw if ch in SLP1_VOWELS]
+                    if _c10fw and _c10fw[-1] in ("f", "F"):
+                        _c10fpost = _c10raw[_c10raw.rindex(_c10fw[-1])+1:]
+                        if "i" in _c10fpost or "I" in _c10fpost:
+                            continue
+                        _c10pre = _c10raw[:_c10raw.rindex(_c10fw[-1])]
+                        for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10raw == "kfp" else ()):
+                            _c10fg = _c10pre + _c10g + _c10fpost
+                            if _c10fg not in _c10stems:
+                                _c10stems.append(_c10fg)
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
