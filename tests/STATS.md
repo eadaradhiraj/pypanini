@@ -735,3 +735,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 547 (GEN-10: tfc f-grade stems + kalp + F-2 arI (same guards): probe tfc 78→60, sweep +18 (7 improved), 0 worsened (guards green).
 - Iteration 548 (GEN-10: anIyar f-grade stems + kalp (natva gives paraRIya free): probe anIyar 57→45, sweep +12 (4 improved), 0 worsened (guards green).
 - Iteration 549 (GEN-10: Rvul f-grade stems + kalp (same guards): probe Rvul 36→30, sweep +6 (2 improved), 0 worsened (guards green).
+- Iteration 550 (GEN-10: yat f-grade stems + kalp (same guards): probe yat 54→45, sweep +9 (3 improved), 0 worsened (guards green).
