@@ -43,6 +43,6 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
-1. Gana-10: yak + ting (pull before each iteration — shared tree; PYTHONHASHSEED=0). Failed hypotheses (no commit): (a) lyap pra+V sandhi twins — correct forms, zero gain (bare stems cover slots), reverted; (b) tavya bare e-grade twins (jretavya/metavya) — correct forms, zero gain, reverted (kept AY + short-i); (c) tumun/lyap jYAp twins — correct forms, zero gain, reverted; (d) nich yat delegation follow-ups pending.
+1. Gana-10: yak + ting (pull before each iteration — shared tree; PYTHONHASHSEED=0). Failed hypotheses (no commit): (a) lyap pra+V sandhi twins — correct forms, zero gain (bare stems cover slots), reverted; (b) tavya bare e-grade twins (jretavya/metavya) — correct forms, zero gain, reverted (kept AY + short-i); (c) tumun/lyap jYAp twins — correct forms, zero gain, reverted.
 2. Gana-04 ceiling audit (other session) → all-gana 100% modulo ceilings.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
