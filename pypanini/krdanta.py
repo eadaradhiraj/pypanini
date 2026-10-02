@@ -3149,6 +3149,16 @@ class KrdantaEngine:
                             for _c10v in (_pra + _c10mm + "ya", "pra" + _c10mm + "ya", _c10mm + "ya"):
                                 if _c10v not in _c10ly:
                                     _c10ly.append(_c10v)
+                    # curAdi nich lyap mUla-delegation (mUla ay-grades flow through; additive).
+                    if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                        try:
+                            _c10mk = self.derive_krdanta(dhatu, "lyap", None, upasarga, dhatu_id=dhatu_id) or {}
+                        except Exception:
+                            _c10mk = {}
+                        _c10mkv = _c10mk.get("avyaya", []) if isinstance(_c10mk, dict) else []
+                        if not isinstance(_c10mkv, list):
+                            _c10mkv = [_c10mkv]
+                        _c10ly = _c10mkv + [_x for _x in _c10ly if _x not in _c10mkv]
                     return {"avyaya": _c10ly}
                 if pratyaya == "SAnac":
                     # Nitya-san nich keeps -ay- before amAna (jugupsayamAnaH/titikzayamARaH); generic sec_base gives BAv-style -yamAna
