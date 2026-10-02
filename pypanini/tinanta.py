@@ -66,7 +66,7 @@ def clean_dhatu_op(op: str) -> str:
     if ("I~" in op) and raw.endswith("I") and len(raw) > 1:
         raw = raw[:-1]
     for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
-        if (op.startswith(_pre + "~") or op.startswith(_pre)) and len(raw) > len(_pre) + 1:
+        if (op.startswith(_pre + "~") or op.startswith(_pre)) and len(raw) > len(_pre) + 1 and not (_pre == "o" and op.startswith("ola")):
             raw = raw[len(_pre):]
             break
     # qukfY (08.0010): qu- it (1.3.5 AdirYi...) + kf + Y-it; the length guard above
@@ -3110,7 +3110,7 @@ class TinantaDerivationEngine:
             try:
                 _op0 = (meta.get("op", "") or "").replace("~", "")
                 for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
-                    if _op0.startswith(_pre):
+                    if _op0.startswith(_pre) and not (_pre == 'o' and _op0.startswith('ola')):
                         _op0 = _op0[len(_pre):]
                         break
                 if _op0.startswith("z") and yan_vowel in ("e", "o", "arI", "alI"):
@@ -3287,7 +3287,7 @@ class TinantaDerivationEngine:
             try:
                 _op0 = (meta.get("op", "") or "").replace("~", "")
                 for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
-                    if _op0.startswith(_pre):
+                    if _op0.startswith(_pre) and not (_pre == 'o' and _op0.startswith('ola')):
                         _op0 = _op0[len(_pre):]
                         break
                 if _op0.startswith("z") and yan_vowel in ("e", "o", "arI", "alI"):
@@ -9247,7 +9247,7 @@ class TinantaDerivationEngine:
                             try:
                                 _op0 = (meta.get("op", "") or "").replace("~", "")
                                 for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
-                                    if _op0.startswith(_pre):
+                                    if _op0.startswith(_pre) and not (_pre == 'o' and _op0.startswith('ola')):
                                         _op0 = _op0[len(_pre):]
                                         break
                                 if len(_op0) > 1 and _op0[0] == "z" and (_op0[1] in ("i", "e", "U", "u") or _op0.startswith("zv")):

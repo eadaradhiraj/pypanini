@@ -97,7 +97,7 @@ def clean_dhatu_op(op: str) -> str:
     if ("I~" in op) and raw.endswith("I") and len(raw) > 1:
         raw = raw[:-1]
     for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
-        if (op.startswith(_pre + "~") or op.startswith(_pre)) and len(raw) > len(_pre) + 1:
+        if (op.startswith(_pre + "~") or op.startswith(_pre)) and len(raw) > len(_pre) + 1 and not (_pre == "o" and op.startswith("ola")):
             raw = raw[len(_pre):]
             break
     # qukfY (08.0010): qu- it + kf + Y-it; length guard spares 3-char raws (quk) —
@@ -1303,7 +1303,7 @@ class KrdantaEngine:
         try:
             _op0 = (meta.get("op", "") or "").replace("~", "")
             for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
-                if _op0.startswith(_pre):
+                if _op0.startswith(_pre) and not (_pre == 'o' and _op0.startswith('ola')):
                     _op0 = _op0[len(_pre):]
                     break
             if _op0.startswith("z") and yan_vowel in ("e", "o", "arI", "alI"):
@@ -2413,6 +2413,24 @@ class KrdantaEngine:
                         _gg = [self._guna_base(root, is_idit)]
                     elif _nc == "i" and _sg and root[-1] not in SLP1_VOWELS:
                         _gg = [self._guna_base(root, is_idit)]
+                    # i-final nasal twins (tuYj/laRq/cint...; mirrors idit num-rule; is_idit-gated)
+                    if root.endswith(("i", "I")) and is_idit:
+                        _bw = root[:-1]
+                        if _bw:
+                            _nl = _bw[-1]
+                            _nn = None
+                            if _nl in ("k", "K", "g", "G"):
+                                _nn = "N"
+                            elif _nl in ("c", "C", "j", "J"):
+                                _nn = "Y"
+                            elif _nl in ("w", "W", "q", "Q", "R"):
+                                _nn = "R"
+                            elif _nl in ("p", "P", "b", "B"):
+                                _nn = "m"
+                            if _nn and len(_bw) >= 1:
+                                _ng = _bw[:-1] + _nn + _bw[-1] if len(_bw) >= 1 else _bw
+                                if _ng != root and _ng not in _gg:
+                                    _gg.append(_ng)
                     for _gr in dict.fromkeys(g for g in _gg if g != root):
                         try:
                             _gs = _sannanta_sec(_gr)
@@ -2645,7 +2663,7 @@ class KrdantaEngine:
                 try:
                     _op0 = (meta.get("op", "") or "").replace("~", "")
                     for _pre in ("wuo", "quo", "wu", "qu", "Yi", "o"):
-                        if _op0.startswith(_pre):
+                        if _op0.startswith(_pre) and not (_pre == 'o' and _op0.startswith('ola')):
                             _op0 = _op0[len(_pre):]
                             break
                     if _op0.startswith("z") and yan_vowel in ("e", "o", "arI", "alI"):
