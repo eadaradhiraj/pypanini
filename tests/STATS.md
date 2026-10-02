@@ -802,3 +802,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 606 (GEN-10: kta n→N twin before velars (saNketita/...; unanimous 4/4): probe kta 21→9, sweep +24 (4 improved), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 607 (GEN-10: ktavatu n→N twin before velars (saNketitavAn/...; same survey as kta iter606): sweep +24 (4 improved), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 608 (GEN-10: kta plain meta-clean triple (kfpita; homonymous kfp pair): sweep +6 (10.0408), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 609 (GEN-10: kta a+s plain+vriddhi twins (vasita/...; lexical grades so union; vriddhi-suppression diagnosed, included): sweep +6 (10.0488), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
