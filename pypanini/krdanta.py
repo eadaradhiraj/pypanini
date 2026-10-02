@@ -6240,6 +6240,22 @@ class KrdantaEngine:
                     _c10mm = re.sub(r"n([pPbB])", r"m\1", _c10raw)
                     if _c10mm != _c10raw and _c10mm not in _c10ss:
                         _c10ss.append(_c10mm)
+                # f-grade stems (parT-/pAr-/kIr- + kalp; grade lexical ar/Ar/Ir so all
+                # three + kalp (kfp surveyed); grades flow through a/A/I branches below;
+                # additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    # M-stems (num-inserted M absent from op) keep generic formation; skip grading
+                    if "M" in _c10raw and "M" not in (op or ""):
+                        continue
+                    _c10fw = [ch for ch in _c10raw if ch in SLP1_VOWELS]
+                    # i-post stems excluded (bfhi/BfSi take M-insertion via generic; surveyed)
+                    if _c10fw and _c10fw[-1] in ("f", "F") and "i" not in _c10raw[_c10raw.rindex(_c10fw[-1])+1:] and "I" not in _c10raw[_c10raw.rindex(_c10fw[-1])+1:]:
+                        _c10pre = _c10raw[:_c10raw.rindex(_c10fw[-1])]
+                        _c10post = _c10raw[_c10raw.rindex(_c10fw[-1])+1:]
+                        for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10raw == "kfp" else ()):
+                            _c10fg = _c10pre + _c10g + _c10post
+                            if _c10fg not in _c10ss:
+                                _c10ss.append(_c10fg)
                 _c10out = {"M": [], "F": [], "N": []}
                 def _c10L(v):
                     return v if isinstance(v, list) else [v]
@@ -6270,6 +6286,15 @@ class KrdantaEngine:
                             for _c in _c10L(_c10t[_g]):
                                 if _c not in _c10out[_g]:
                                     _c10out[_g].append(_c)
+                    # F-final-2 arI-grade (parItavya/jarItavya; pair surveyed; additive).
+                    for _c10raw in (clean, meta.get("clean", "") or clean):
+                        if len(_c10raw) == 2 and _c10raw.endswith("F"):
+                            _c10ari = _c10raw[:-1] + "arI"
+                            _c10t = tri_linga(_c10ari + "tavya")
+                            for _gg in ("M", "F", "N"):
+                                for _cc in _c10L(_c10t[_gg]):
+                                    if _cc not in _c10out[_gg]:
+                                        _c10out[_gg].append(_cc)
                 if any(_c10out.values()):
                     return _c10out
             if clean and clean[-1] in ("i", "I", "u", "U") and not sew:

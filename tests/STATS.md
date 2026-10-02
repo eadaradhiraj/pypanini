@@ -729,3 +729,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 541 (GEN-10: nich ktvA n→m twin (sambayitvA/...): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 542 (GEN-10: nich lyap n→m twin (prasambya/...; _c10ly-append, generic first): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 543 (GEN-10: f-grade present twins (ar/Ar/Ir+ay; 31/31 unanimous grade+ay; F-final-2 widened): sweep +330 (4 improved), 0 worsened (guards green; yak/san bucket churn).
+- Iteration 544 (GEN-10: tavya f-grade stems + kalp + F-2 arI (M-stem hijack of bfhi/BfSi diagnosed via HEAD-worktree, i-post + num-M gates added): probe tavya 132→111, sweep +21 (7 improved), 0 worsened (guards green).
