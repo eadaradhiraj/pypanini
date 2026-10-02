@@ -5102,9 +5102,9 @@ class KrdantaEngine:
                         _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
                         _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
                         _c10bases = []
-                        if _c10nc == "a" and _c10sg:
+                        if _c10nc == "a":
                             _c10v = self._vriddhi_base(_c10mc, is_idit)
-                            _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10v != _c10mc else [])
+                            _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10sg and _c10v != _c10mc else [])
                         elif _c10nc == "u" and _c10sg and _c10cd != "F":
                             _c10bases = [_c10mc, self._guna_base(_c10mc, is_idit) + "ay"]
                         elif _c10nc == "U" and _c10sg and _c10cd != "F":
@@ -5528,9 +5528,9 @@ class KrdantaEngine:
                     _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
                     _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
                     _c10bases = []
-                    if _c10nc == "a" and _c10sg:
+                    if _c10nc == "a":
                         _c10v = self._vriddhi_base(_c10mc, is_idit)
-                        _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10v != _c10mc else [])
+                        _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10sg and _c10v != _c10mc else [])
                     elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
                         _c10bases = [_c10mc, self._guna_base(_c10mc, is_idit) + "ay"] if _c10nc == "u" else [_c10mc + "ay"]
                     elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
@@ -6079,9 +6079,9 @@ class KrdantaEngine:
                     # geminate codas (vicC, pracC) count as single (same-letter fold)
                     _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
                     _c10forms = []
-                    if _c10nc == "a" and _c10sg:
+                    if _c10nc == "a":
                         _c10v = self._vriddhi_base(_c10mc, is_idit)
-                        _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"] + ([_c10v + "ayitavya"] if _c10v != _c10mc else [])
+                        _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"] + ([_c10v + "ayitavya"] if _c10sg and _c10v != _c10mc else [])
                     elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
                         _c10forms = [_c10mc + "itavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
                     elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS and _c10sg:
