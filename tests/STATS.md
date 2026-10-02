@@ -742,3 +742,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 554 (GEN-10: ktvA f-grade twins + kfp dedicated ay-twin (separate return-site diagnosed via trace): sweep +5 (5 improved), 0 worsened (guards green).
 - Iteration 555 (GEN-10: lyap f-grade twins + kfp dedicated kalp-twin (separate return-site via trace): sweep +6 (6 improved), 0 worsened (guards green).
 - Iteration 556 (GEN-10: n→m widened to n→M/s (puMsita/aMsita; lambda repl, anusvara diagnosed; 29 sites one rule): sweep +102 (2 improved), 0 worsened (guards green).
+- Iteration 557 (GEN-10: kta n→R twin before w/W/q (luRwita/...; unanimous 3/3; nich kta free via merge): probe kta 81→66, sweep +18 (3 improved), 0 worsened (guards green).

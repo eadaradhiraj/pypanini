@@ -4606,6 +4606,15 @@ class KrdantaEngine:
                     _a = tri_linga(_alt)
                     _m = tri_linga(stem)
                     return {"M": [_m["M"], _a["M"]], "F": [_m["F"], _a["F"]], "N": [_m["N"], _a["N"]]}
+            # curAdi kta n->R twin before w/W/q (luRwita/daRqita/...; unanimous 3/3;
+            # generic plain triple kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10mc)
+                if _c10rg != _c10mc:
+                    _c10m = tri_linga(stem)
+                    _c10t = tri_linga(_c10rg + "ita")
+                    return {"M": [_c10m["M"], _c10t["M"]], "F": [_c10m["F"], _c10t["F"]], "N": [_c10m["N"], _c10t["N"]]}
             # curAdi kta n->m twin before labials (sambita/Sambita/sAmbita; unanimous 3/3
             # surveyed n+labial roots; generic plain triple kept first; additive, curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
