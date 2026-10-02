@@ -4616,6 +4616,26 @@ class KrdantaEngine:
                     _c10m = tri_linga(stem)
                     _c10t = tri_linga(_c10mm + "ita")
                     return {"M": [_c10m["M"], _c10t["M"]], "F": [_c10m["F"], _c10t["F"]], "N": [_c10m["N"], _c10t["N"]]}
+            # curAdi f-grade kta twins (parTita/kalpita/...; ar/Ar/Ir + kalp; same
+            # survey/guards as tavya iter544 (M-stems and i-post excluded); generic plain
+            # triple kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10fw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if _c10fw and _c10fw[-1] in ("f", "F") and "M" not in _c10mc:
+                    _c10fpost = _c10mc[_c10mc.rindex(_c10fw[-1])+1:]
+                    if "i" not in _c10fpost and "I" not in _c10fpost:
+                        _c10m = tri_linga(stem)
+                        _c10out = {"M": [_c10m["M"]], "F": [_c10m["F"]], "N": [_c10m["N"]]}
+                        _c10pre = _c10mc[:_c10mc.rindex(_c10fw[-1])]
+                        for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10mc == "kfp" else ()):
+                            _c10t = tri_linga(_c10pre + _c10g + _c10fpost + "ita")
+                            for _gg in ("M", "F", "N"):
+                                _vv = _c10t[_gg] if isinstance(_c10t[_gg], list) else [_c10t[_gg]]
+                                for _cc in _vv:
+                                    if _cc not in _c10out[_gg]:
+                                        _c10out[_gg].append(_cc)
+                        return _c10out
             # curAdi a-root kta vriddhi twin (lAjita/tAqita/...; a-nucleus +
             # single-coda survey — generic plain twin kept first (cross-match
             # safety); additive, curAdiH-gated).
