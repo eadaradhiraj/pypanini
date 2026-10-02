@@ -5117,6 +5117,11 @@ class KrdantaEngine:
                 # generic twin kept first; additive, curAdiH-gated).
                 if sanadi is None and meta.get("gana") == "curAdiH":
                     _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                    # n->m before labials (sambayan/...; unanimous 3/3; additive, order-kept).
+                    for _c10raw in (clean, meta.get("clean", "") or clean):
+                        _c10mm = re.sub(r"n([pPbB])", r"m\1", _c10raw)
+                        if _c10mm != _c10raw and _c10mm not in _c10ss:
+                            _c10ss.append(_c10mm)
                     _c10out = {"M": [], "F": [], "N": []}
                     for _c10mc in _c10ss:
                         _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]

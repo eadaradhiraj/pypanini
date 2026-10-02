@@ -702,3 +702,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 514 (GEN-10: curAdi ktavatu n→m twin (sambitavAn/...; stem+vAn twin-1 exact; nich ktavatu free via merge): sweep +18 (3 improved), 0 worsened (guards green).
 - Iteration 515 (GEN-10: tavya m-stem in _c10ss (sambayitavya/...; order-kept additive): probe tavya 153→132, sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 516 (GEN-10: nich tavya n→m twin (sambayitavya/...; sec-based, generic first): nich probe 1479→1452, sweep +9 (3 improved), 0 worsened (guards green).
+- Iteration 517 (GEN-10: Satf m-stem in _c10ss (sambayan/...; order-kept additive): probe Satf 90→72, sweep +9 (3 improved), 0 worsened (guards green).
