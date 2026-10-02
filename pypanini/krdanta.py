@@ -5533,10 +5533,15 @@ class KrdantaEngine:
                     if _c10nc == "a":
                         _c10v = self._vriddhi_base(_c10mc, is_idit)
                         _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10sg and _c10v != _c10mc else [])
-                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
-                        _c10bases = [_c10mc, self._guna_base(_c10mc, is_idit) + "ay"] if _c10nc == "u" else [_c10mc + "ay"]
-                    elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
-                        _c10bases = [_c10mc, self._guna_base(_c10mc, is_idit) + "ay"]
+                    elif _c10nc == "u" and _c10cd != "F" and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10bases = [_c10mc, _c10mc + "ay"] + ([self._guna_base(_c10mc, is_idit) + "ay"] if _c10sg else [])
+                    elif _c10nc == "U" and _c10cd != "F" and _c10mc[-1] not in SLP1_VOWELS:
+                        # long-U takes plain-U + ay (mUlayamAna/DUpayamAna; mirrors Satf U-branch)
+                        _c10bases = [_c10mc + "ay"]
+                    elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10bases = [_c10mc, _c10mc + "ay"] + ([self._guna_base(_c10mc, is_idit) + "ay"] if _c10sg else [])
+                    elif _c10nc in ("A", "e", "I", "o") and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10bases = [_c10mc, _c10mc + "ay"]
                     for _c10b in dict.fromkeys(_c10bases):
                         for _suf, _f, _n in (("amAna", "amAnA", "amAnam"), ("amARa", "amARA", "amARam")):
                             for _frm, _g in ((_c10b + _suf + "H", "M"), (_c10b + _f, "F"), (_c10b + _n, "N")):
