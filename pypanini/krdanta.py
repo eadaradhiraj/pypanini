@@ -2876,7 +2876,7 @@ class KrdantaEngine:
                 # curAdi nich kta/ktavatu take mUla grades (SAWita/corita/mAnita; surveyed —
                 # mUla recursion twins (all mUla fixes flow through) + nich sec triple;
                 # additive, curAdiH-gated).
-                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu", "tavya", "tfc"):
+                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu", "tavya", "tfc", "anIyar"):
                     try:
                         _c10mk = self.derive_krdanta(dhatu, pratyaya, None, upasarga, dhatu_id=dhatu_id) or {}
                     except Exception:
@@ -2897,6 +2897,18 @@ class KrdantaEngine:
                         _c10n = {"M": [sec + "itA"] + ([_c10tmm + "itA"] if _c10tmm != sec else []),
                                 "F": [sec + "itrI"] + ([_c10tmm + "itrI"] if _c10tmm != sec else []),
                                 "N": [sec + "itf"] + ([_c10tmm + "itf"] if _c10tmm != sec else [])}
+                    elif pratyaya == "anIyar":
+                        # natural nich sec-forms + natva + n/R twin (mirrors downstream nich-anIyar)
+                        _c10ab = sec_base + "anIya"
+                        if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and "nIya" in _c10ab:
+                            _c10ab = _c10ab.replace("nIya", "RIya")
+                        _c10am = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
+                        _c10ab2 = _c10am + "anIya"
+                        if (_natva_applies(orig_clean) or _natva_applies(_c10am)) and "nIya" in _c10ab2:
+                            _c10ab2 = _c10ab2.replace("nIya", "RIya")
+                        _c10n = {"M": [_c10ab + "H"] + ([_c10ab2 + "H"] if _c10ab2 != _c10ab else []),
+                                "F": [(_c10ab[:-1] + "A" if _c10ab.endswith("a") else _c10ab + "A")] + ([(_c10ab2[:-1] + "A" if _c10ab2.endswith("a") else _c10ab2 + "A")] if _c10ab2 != _c10ab else []),
+                                "N": [_c10ab + "m"] + ([_c10ab2 + "m"] if _c10ab2 != _c10ab else [])}
                     else:
                         _c10n = {"M": sec_base + "itavAn", "F": sec_base + "itavatI", "N": [sec_base + "itavat", sec_base + "itavad"]}
                     _c10out = {"M": [], "F": [], "N": []}

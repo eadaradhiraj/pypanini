@@ -760,3 +760,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 572 (GEN-10: san R-roots in helper + san-kta + san-tavya (loop-nesting regression -312 diagnosed via fid-diff, dedent repaired): sweep +96 (3 improved, 32 each), 0 worsened (guards green).
 - Iteration 573 (GEN-10: nich tavya mUla-delegation (merge; superset by construction): sweep +117 (39 improved), 0 worsened (guards green).
 - Iteration 574 (GEN-10: nich tfc mUla-delegation (merge; superset by construction) + ciY nich capay-stem (curAdiH-gated, svAdi verified): sweep +141 (40 improved), 0 worsened (guards green incl 05.0005).
+- Iteration 575 (GEN-10: nich anIyar mUla-delegation (natva+n/R mirrored; dead helper removed): sweep +126 (42 improved), 0 worsened (guards green).
