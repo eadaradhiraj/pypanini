@@ -722,3 +722,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 534 (GEN-10: nich anIyar n→m twin (sambanIya/...; natva-mirrored, generic first): sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 535 (GEN-10: nich yat n→m twin (sambya/...; sec-form first): sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 536 (GEN-10: san-tavya n→m + z-devoice (mirrors san-kta; nich bucket churn again, fid-diff clean): sweep +15 (5 improved), 0 worsened (guards green).
+- Iteration 537 (GEN-10: nich Rvul n→m twin (sambaka/...; _gRv-first): sweep +9 (3 improved), 0 worsened (guards green).

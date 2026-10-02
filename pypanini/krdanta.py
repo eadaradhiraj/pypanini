@@ -3147,7 +3147,13 @@ class KrdantaEngine:
                     stem = sec_base[:-1]+"Ava"+"ka" if sec_base.endswith("a") else sec_base+"aka"
                     # for BU, sec_base is BAv -> BAvaka
                     if sec_base=="BAv": stem="BAvaka"
-                    return {"M": stem+"H","F":stem[:-3]+"ikA" if stem.endswith("aka") else stem+"ikA","N":stem+"m"}
+                    _gRv = {"M": stem+"H","F":stem[:-3]+"ikA" if stem.endswith("aka") else stem+"ikA","N":stem+"m"}
+                    # curAdi nich Rvul n->m twin (sambaka/...; unanimous 3/3; generic kept first).
+                    if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                        _c10mm = re.sub(r"n([pPbB])", r"m\1", sec_base)
+                        if _c10mm != sec_base:
+                            return {"M": [_gRv["M"], _c10mm + "akaH"], "F": [_gRv["F"], _c10mm + "ikA"], "N": [_gRv["N"], _c10mm + "akam"]}
+                    return _gRv
             if sanadi == "sannanta":
                 # tudAdi san-Rvul 13 stems (biBarjizakaH/...; same stems as anIyar/yat
                 # above; placed BEFORE generic sec+uH which misses; replace).
