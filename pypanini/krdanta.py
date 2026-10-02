@@ -7340,6 +7340,12 @@ class KrdantaEngine:
             # old nhanam-forms miss everywhere; replace; tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
                 return {"gender": "Neuter", "form": {"stfnh": "stfMhaRam", "tfnh": "tfMhaRam"}[clean]}
+            # curAdi lyuw n->m before labials (sambanam/...; old sanbanam-forms absent
+            # corpus-wide; replace; unanimous 3/3; curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mm = re.sub(r"n([pPbB])", r"m\1", clean)
+                if _c10mm != clean:
+                    return {"gender": "Neuter", "form": _c10mm + "anam"}
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
