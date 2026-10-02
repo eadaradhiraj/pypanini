@@ -1107,6 +1107,23 @@ class KrdantaEngine:
         _m = {"Brajj": ["biBarjiz", "biBrajjiz", "biBarkz", "biBrakz"], "vrasc": ["vivrakz", "vivraSciz"], "ubj": ["ubjijiz"], "stfnh": ["tistfkz", "tistfMhiz"], "tfnh": ["titfkz", "titfMhiz"], "kfq": ["cikfqiz"], "Bfq": ["biBfqiz"], "kF": ["cikariz"], "gF": ["jigaliz", "jigariz"], "df": ["didariz"], "praC": ["pipfcCiz"], "majj": ["mimaNkz"], "Cup": ["cucCups"]}
         return _m.get(clean)
 
+    def _curAdi_aya_twins(self, raw: str, suffix: str, is_idit: bool = False):
+        """curAdi aya-grade twins (coray-/lAqay-/lakzay- + suffix; plain+ay, guNa+ay,
+        vriddhi+ay (a-roots), U+ay (u-roots); shape-derived via _guna_base /
+        _vriddhi_base; deduped; caller appends additively)."""
+        _bases = [raw + "ay", self._guna_base(raw, is_idit) + "ay"]
+        _vw = [ch for ch in raw if ch in SLP1_VOWELS]
+        if _vw and _vw[-1] == "a":
+            _bases.append(self._vriddhi_base(raw, is_idit) + "ay")
+        if "u" in raw:
+            _bases.append(raw.replace("u", "U", 1) + "ay")
+        _out = []
+        for _b in _bases:
+            _f = _b + suffix
+            if _f not in _out:
+                _out.append(_f)
+        return _out
+
     def _tudAdi_ktin_stem(self, clean: str):
         """tudAdi ktin-stem (feminine action noun -ti): zwi-class (Bfz/kfz/vfz/uMz/
         uz/fz/miz/pfz/sfz + wi), gDi-class (Jarg/ujg/ub/Sub + Di), R-final lengthen +
@@ -8199,6 +8216,13 @@ class KrdantaEngine:
                         _c10f = _c10rg + "ayitum"
                         if _c10f not in _gen:
                             _gen.append(_c10f)
+            # curAdi tumun general aya-twins (corayitum/lAqayitum/...; aya+iT is the
+            # norm sweep-wide; shared _curAdi_aya_twins; generic kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                    for _c10f in self._curAdi_aya_twins(_c10raw, "itum", is_idit):
+                        if _c10f not in _gen:
+                            _gen.append(_c10f)
             return {"avyaya": _gen}
 
         elif pratyaya == "ktvA":
@@ -8431,9 +8455,25 @@ class KrdantaEngine:
             if clean == "mA" or orig_clean == "me":
                 return {"avyaya": ["mItvA"]}
             if clean.endswith("kz"):
-                return {"avyaya": [clean[:-2] + "zwvA", clean + "itvA"]}
+                _k10kz = [clean[:-2] + "zwvA", clean + "itvA"]
+                # curAdi aya-twin (lakzayitvA; kz-branch exits before the tail twins;
+                # shared helper; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        for _c10f in self._curAdi_aya_twins(_c10raw, "itvA", is_idit):
+                            if _c10f not in _k10kz:
+                                _k10kz.append(_c10f)
+                return {"avyaya": _k10kz}
             if clean.endswith("D"):
-                return {"avyaya": [clean[:-1] + "dDvA", clean + "itvA"]}
+                _k10d = [clean[:-1] + "dDvA", clean + "itvA"]
+                # curAdi aya-twin (banDayitvA; D-branch exits before the tail twins;
+                # shared helper; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        for _c10f in self._curAdi_aya_twins(_c10raw, "itvA", is_idit):
+                            if _c10f not in _k10d:
+                                _k10d.append(_c10f)
+                return {"avyaya": _k10d}
             # tudAdi stfnh/tfnh ktvA Q+Mhit twins (stfQvA/stfMhitvA; pair 06.0037/0077
             # surveyed twin entries; old nQvA-forms miss everywhere; replace).
             if sanadi is None and meta.get("gana") == "tudAdiH" and clean in ("stfnh", "tfnh"):
@@ -8538,6 +8578,13 @@ class KrdantaEngine:
                         _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                         if _c10rg != _c10raw:
                             _c10f = _c10rg + "ayitvA"
+                            if _c10f not in _alts:
+                                _alts.append(_c10f)
+                # curAdi ktvA general aya-twins (corayitvA/lAqayitvA/...; aya+iT is the
+                # norm sweep-wide; shared _curAdi_aya_twins; generic kept first; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        for _c10f in self._curAdi_aya_twins(_c10raw, "itvA", is_idit):
                             if _c10f not in _alts:
                                 _alts.append(_c10f)
                 return {"avyaya": _alts}
