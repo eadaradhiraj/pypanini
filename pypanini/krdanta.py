@@ -6898,6 +6898,11 @@ class KrdantaEngine:
                             _c10fg = _c10pre + _c10g + _c10fpost
                             if _c10fg not in _c10stems:
                                 _c10stems.append(_c10fg)
+                # n->R before w/W/q in yat (luRwya/...; unanimous 3/3; additive).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
+                    if _c10rg != _c10raw and _c10rg not in _c10stems:
+                        _c10stems.append(_c10rg)
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
