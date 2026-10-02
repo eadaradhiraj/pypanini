@@ -3484,6 +3484,12 @@ class KrdantaEngine:
                                 for _frm, _g in ((_c10s + _suf + "H", "M"), (_c10s + _f, "F"), (_c10s + _n, "N")):
                                     if _frm not in _c10out[_g]:
                                         _c10out[_g].append(_frm)
+                        # vowel-initial san via shared V-sec helper (same survey; additive).
+                        for _c10sv in _curAdi_sanV_secs(meta.get("clean", "") or clean, is_idit):
+                            for _suf, _f, _n in (("amAna", "amAnA", "amAnam"), ("amARa", "amARA", "amARam")):
+                                for _frm, _g in ((_c10sv + _suf + "H", "M"), (_c10sv + _f, "F"), (_c10sv + _n, "N")):
+                                    if _frm not in _c10out[_g]:
+                                        _c10out[_g].append(_frm)
                         return _c10out
                     stem = sec + ("amARa" if _nat else "amAna")
                     _f = stem[:-1] + "A" if stem.endswith("a") else stem + "A"
