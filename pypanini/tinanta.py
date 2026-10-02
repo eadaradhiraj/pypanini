@@ -997,6 +997,12 @@ class TinantaDerivationEngine:
                     _c10ay = [_c10mc + "ay", self._bhvadi_guna_base(_c10mc, is_idit) + "ay"]
                 elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
                     _c10ay = [_c10mc + "ay", self._bhvadi_guna_base(_c10mc, is_idit) + "ay"]
+                # U-grade twin for short-u (Urjayate/...; coda-ungated - U vs o vs plain
+                # is lexical; additive).
+                if _c10nc == "u":
+                    _c10uu = _c10mc[:_c10mc.rindex(_c10nc)] + "U" + _c10mc[_c10mc.rindex(_c10nc)+1:] + "ay"
+                    if _c10uu not in _c10ay:
+                        _c10ay.append(_c10uu)
                 for _c10a in dict.fromkeys(_c10ay):
                     if _c10a not in bases:
                         bases.append(_c10a)
