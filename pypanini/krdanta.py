@@ -2820,6 +2820,10 @@ class KrdantaEngine:
                 _nitya_san_nic = sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not meta.get("gana") == "curAdiH" and not (clean == "gup" and meta.get("gana") == "divAdiH")
                 if _nitya_san_nic:
                     sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean] + "ay"
+                # ciY nich stem is capay- (sole curAdi ciY 10.0124 surveyed; svAdi cApay
+                # untouched via curAdiH gate).
+                if meta.get("gana") == "curAdiH" and clean == "ci" and (op or "") == "ciY":
+                    sec = "capay"
             elif sanadi == "sannanta":
                 sec = _sannanta_sec(clean_ay) if (clean_ay and clean != "kram") else _sannanta_sec(clean)
                 # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (iw->ewiwiz, uz->oziziz, uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, fj->arjijiz)
@@ -2872,7 +2876,7 @@ class KrdantaEngine:
                 # curAdi nich kta/ktavatu take mUla grades (SAWita/corita/mAnita; surveyed —
                 # mUla recursion twins (all mUla fixes flow through) + nich sec triple;
                 # additive, curAdiH-gated).
-                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu", "tavya"):
+                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu", "tavya", "tfc"):
                     try:
                         _c10mk = self.derive_krdanta(dhatu, pratyaya, None, upasarga, dhatu_id=dhatu_id) or {}
                     except Exception:
@@ -2887,6 +2891,12 @@ class KrdantaEngine:
                         _c10n = {"M": [sec + "itavyaH"] + ([_c10tmm + "itavyaH"] if _c10tmm != sec else []),
                                 "F": [sec + "itavyA"] + ([_c10tmm + "itavyA"] if _c10tmm != sec else []),
                                 "N": [sec + "itavyam"] + ([_c10tmm + "itavyam"] if _c10tmm != sec else [])}
+                    elif pratyaya == "tfc":
+                        # natural nich sec-forms + n/R twin (mirrors downstream nich-tfc)
+                        _c10tmm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec)
+                        _c10n = {"M": [sec + "itA"] + ([_c10tmm + "itA"] if _c10tmm != sec else []),
+                                "F": [sec + "itrI"] + ([_c10tmm + "itrI"] if _c10tmm != sec else []),
+                                "N": [sec + "itf"] + ([_c10tmm + "itf"] if _c10tmm != sec else [])}
                     else:
                         _c10n = {"M": sec_base + "itavAn", "F": sec_base + "itavatI", "N": [sec_base + "itavat", sec_base + "itavad"]}
                     _c10out = {"M": [], "F": [], "N": []}
