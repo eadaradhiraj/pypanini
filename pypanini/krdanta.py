@@ -4857,6 +4857,15 @@ class KrdantaEngine:
                             if _cc not in _c10out[_gg]:
                                 _c10out[_gg].append(_cc)
                 return _c10out
+            # curAdi a+nD n-retention twins (banDita/ganDita/krandita/anDita; unanimous 4/4;
+            # T-roots and SunD drop via generic; generic drop-triple kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if _c10vw and _c10vw[-1] == "a" and re.search(r"n[Dd]$", _c10mc):
+                    _c10m = tri_linga(stem)
+                    _c10t = tri_linga(_c10mc + "ita")
+                    return {"M": [_c10m["M"], _c10t["M"]], "F": [_c10m["F"], _c10t["F"]], "N": [_c10m["N"], _c10t["N"]]}
             # curAdi a-root kta vriddhi twin (lAjita/tAqita/...; a-nucleus +
             # single-coda survey — generic plain twin kept first (cross-match
             # safety); additive, curAdiH-gated).
