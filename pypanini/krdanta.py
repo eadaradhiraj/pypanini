@@ -3051,6 +3051,12 @@ class KrdantaEngine:
                     if _c10mm != sec:
                         return {"M": [sec + "itA", _c10mm + "itA"], "F": [sec + "itrI", _c10mm + "itrI"], "N": [sec + "itf", _c10mm + "itf"]}
                 if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
+                # curAdi nich tumun n->m twin (sambayitum/...; unanimous 3/3;
+                # generic sec-form kept first; additive, nijanta+curAdiH-gated).
+                if sanadi == "nijanta" and meta.get("gana") == "curAdiH" and pratyaya == "tumun":
+                    _c10mm = re.sub(r"n([pPbB])", r"m\1", sec)
+                    if _c10mm != sec:
+                        return {"avyaya": [sec + "itum", _c10mm + "itum"]}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum"]}
                 if pratyaya == "ktvA": return {"avyaya": [sec+"itvA"]}
                 # curAdi san-lyap twin-sets (sec-matrix + pra/ya; same survey; generic twins
