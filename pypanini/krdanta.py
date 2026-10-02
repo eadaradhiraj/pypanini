@@ -2779,7 +2779,7 @@ class KrdantaEngine:
                 # Nitya-san (3.1.5/3.1.6, seT only; 01.0461 aniT excluded via sew): nich of san stem
                 # (jugupsayamAnaH/jugupsayan/jugupsayitavyaH/jugupsyaH...; surveyed 7/7 unanimous, zero conflicts;
                 # divAdi gup excluded — takes gopay via _nijanta_sec above, sole 04.0147 surveyed).
-                _nitya_san_nic = sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (clean == "gup" and meta.get("gana") == "divAdiH")
+                _nitya_san_nic = sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (clean == "mAn" and meta.get("gana") == "curAdiH") and not (clean == "gup" and meta.get("gana") == "divAdiH")
                 if _nitya_san_nic:
                     sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean] + "ay"
             elif sanadi == "sannanta":
@@ -2831,6 +2831,29 @@ class KrdantaEngine:
             # Handle overrides first
             if sanadi == "nijanta":
                 sec_base = sec[:-2] if sec.endswith("ay") else sec
+                # curAdi nich kta/ktavatu take mUla grades (SAWita/corita/mAnita; surveyed —
+                # mUla recursion twins (all mUla fixes flow through) + nich sec triple;
+                # additive, curAdiH-gated).
+                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu"):
+                    try:
+                        _c10mk = self.derive_krdanta(dhatu, pratyaya, None, upasarga, dhatu_id=dhatu_id) or {}
+                    except Exception:
+                        _c10mk = {}
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    if pratyaya == "kta":
+                        _c10n = {"M": sec_base + "itaH", "F": sec_base + "itA", "N": sec_base + "itam"}
+                    else:
+                        _c10n = {"M": sec_base + "itavAn", "F": sec_base + "itavatI", "N": [sec_base + "itavat", sec_base + "itavad"]}
+                    _c10out = {"M": [], "F": [], "N": []}
+                    for _src in (_c10mk, _c10n):
+                        for _gg in ("M", "F", "N"):
+                            if _gg not in _src:
+                                continue
+                            for _cc in _c10L(_src[_gg]):
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
+                    return _c10out
                 # kta/ktavatu for Nijanta: use mUla _kta_stem for cross-match safety (Panini exact sec kta needs A-shortening hlAd->hlad vs yat->yAt; mUla yatta/hlAnna always in tokens)
                 if pratyaya == "kta":
                     # dEp nich kta is dApitaH (sole 01 dEp-op 01.1073; sec dApay + ita, not mUla dAta);
