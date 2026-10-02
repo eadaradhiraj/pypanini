@@ -6367,6 +6367,36 @@ class KrdantaEngine:
             if sanadi is None and orig_clean == "aj" and "~" in (op or ""):
                 _t = tri_linga(self._guna_base("ve", is_idit) + "anIya")
                 return {"M": [_out["M"], _t["M"]], "F": [_out["F"], _t["F"]], "N": [_out["N"], _t["N"]]}
+            # curAdi anIyar grade twins (plain + vriddhi/guNa/e + anIya/aRIya per natva;
+            # same shape survey; generic _out kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                _c10out = {"M": _c10L(_out["M"]), "F": _c10L(_out["F"]), "N": _c10L(_out["N"])}
+                for _c10mc in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                    _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                    if not _c10vw:
+                        continue
+                    _c10nc = _c10vw[-1]
+                    _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                    _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                    _c10gg = [_c10mc]
+                    if _c10nc == "a" and _c10sg:
+                        _c10v = self._vriddhi_base(_c10mc, is_idit)
+                        if _c10v != _c10mc:
+                            _c10gg.append(_c10v)
+                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                        _c10gg.append(self._guna_base(_c10mc, is_idit))
+                    elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10gg.append(self._guna_base(_c10mc, is_idit))
+                    for _c10g in dict.fromkeys(_c10gg):
+                        _c10sf = "aRIya" if _natva_applies(_c10g) else "anIya"
+                        _c10t = tri_linga(_c10g + _c10sf)
+                        for _gg in ("M", "F", "N"):
+                            for _cc in _c10L(_c10t[_gg]):
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
+                return _c10out
             return _out
 
         elif pratyaya == "yat":
