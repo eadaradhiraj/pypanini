@@ -8211,6 +8211,19 @@ class KrdantaEngine:
                 _gen = {"M": _t6L(_gen["M"]) + _t6L(_tw["M"]),
                         "F": _t6L(_gen["F"]) + _t6L(_tw["F"]),
                         "N": _t6L(_gen["N"]) + _t6L(_tw["N"])}
+            # curAdi vowel-final-i AY-twins (smAyayitA; AY surveyed smi; idit excluded;
+            # generic _gen kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if _c10vw and _c10mc[-1:] == "i" and "i~" not in (op or "") and "I~" not in (op or ""):
+                    _c10ab = _c10mc[:-1] + "Ay"
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    _c10xt = []
+                    for _c10b in (_c10ab, _c10ab + "ay"):
+                        _c10xt.append((_c10b + "itA", _c10b + "itrI", _c10b + "itf"))
+                    return {"M": _c10L(_gen["M"]) + [_x[0] for _x in _c10xt], "F": _c10L(_gen["F"]) + [_x[1] for _x in _c10xt], "N": _c10L(_gen["N"]) + [_x[2] for _x in _c10xt]}
             return _gen
 
         elif pratyaya == "lyuw":
