@@ -6810,6 +6810,37 @@ class KrdantaEngine:
                 return {"M": "majjaTu"}
 
         elif pratyaya == "tfc":
+            # curAdi tfc twin-sets (plain+itA + plain+ayitA + grade+ayitA; same shape survey
+            # as tavya; generic twin kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                _c10out = {"M": [], "F": [], "N": []}
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                for _c10mc in _c10ss:
+                    _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                    if not _c10vw:
+                        continue
+                    _c10nc = _c10vw[-1]
+                    _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                    _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                    _c10forms = []
+                    if _c10nc == "a":
+                        _c10v = self._vriddhi_base(_c10mc, is_idit)
+                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA"] + ([_c10v + "ayitA"] if _c10sg and _c10v != _c10mc else [])
+                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                        _c10gu = self._guna_base(_c10mc, is_idit)
+                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA", _c10gu + "ayitA"] if _c10nc == "u" else [_c10mc + "itA", _c10mc + "ayitA"]
+                    elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA", self._guna_base(_c10mc, is_idit) + "ayitA"]
+                    for _c10f in dict.fromkeys(_c10forms):
+                        _c10t = {"M": _c10f, "F": _c10f[:-1] + "rI" if _c10f.endswith("A") else _c10f + "rI", "N": _c10f[:-1] + "f" if _c10f.endswith("A") else _c10f + "f"}
+                        for _gg in ("M", "F", "N"):
+                            for _cc in _c10L(_c10t[_gg]):
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
+                if any(_c10out.values()):
+                    return _c10out
             if clean == "SrA" and dhatu_id == "01.0922":
                 return {"M": "SritA", "F": "SritrI", "N": "Sritf"}
             # daridrA weak tfc (daridritA; sole 02.0068 surveyed; old A-forms miss, free).

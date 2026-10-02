@@ -688,3 +688,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 501 (GEN-10: curAdi Nitya-san nich exclusion broadened to full set (all plain/mUla grades): probe 1585→1510 (-75), 0 worsened (guards green).
 - Iteration 502 (GEN-10: fused-ola clean exemption (7 prefix-strip sites; only 10.0014 starts with ola corpus-wide) + san nasal twins in helper + san-kta graded extension: probe 10.0014 599→32, 0 worsened (guards green).
 - Iteration 503 (GEN-10: ay-extension to a+CC in tavya/Satf/SAnac (plain+ay without vriddhi): probe tavya -114, 0 worsened (guards green).
+- Iteration 504 (GEN-10: curAdi tfc twin-sets (plain+itA + plain+ayitA + grade+ayitA): probe -?, 0 worsened (guards green).
