@@ -2984,6 +2984,15 @@ class KrdantaEngine:
                 if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum"]}
                 if pratyaya == "ktvA": return {"avyaya": [sec+"itvA"]}
+                # curAdi san-lyap twin-sets (sec-matrix + pra/ya; same survey; generic twins
+                # kept first; additive, pratyaya+sanadi-gated).
+                if pratyaya == "lyap" and sanadi == "sannanta" and meta.get("gana") == "curAdiH":
+                    _c10out = []
+                    for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                        for _frm in ("pra" + _c10s + "ya", _c10s + "ya"):
+                            if _frm not in _c10out:
+                                _c10out.append(_frm)
+                    return {"avyaya": _c10out}
                 if pratyaya == "lyap":
                     _pra = "prac" if sec_base.startswith("C") else "pra"
                     return {"avyaya": [_pra+sec_base+"ya", "pra"+sec_base+"ya", sec_base+"ya", _pra+sec+"ya", "pra"+sec+"ya", sec+"ya"]}
@@ -3167,6 +3176,15 @@ class KrdantaEngine:
                         return {"avyaya": [sec + "itvA", sec + "ya"]}
                     else:
                         return {"avyaya": [sec + "itvA"]}
+                # curAdi san-lyap twin-sets (sec-matrix + pra/ya; same survey; generic twins
+                # kept first; additive, pratyaya-gated).
+                if pratyaya == "lyap" and meta.get("gana") == "curAdiH":
+                    _c10out = []
+                    for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                        for _frm in ("pra" + _c10s + "ya", _c10s + "ya"):
+                            if _frm not in _c10out:
+                                _c10out.append(_frm)
+                    return {"avyaya": _c10out}
                 if pratyaya == "lyap":
                     _pra = "prE" if sec.startswith("e") else ("prO" if sec.startswith("o") else ("pre" if sec.startswith("i") else ("pro" if sec.startswith("u") else ("prA" if sec.startswith("a") else "pra"))))
                     _p_form = _pra + sec[1:] + "ya" if sec and sec[0] in SLP1_VOWELS else "pra" + sec + "ya"
