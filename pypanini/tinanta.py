@@ -3800,6 +3800,33 @@ class TinantaDerivationEngine:
                     s_stem = "jigAMs"
                 # also include urdidiz variant for vowel-initial urd
                 alt_s = []
+                # curAdi san sec twin-matrix (plain/graded redup x ay/no-ay; same survey as
+                # krdanta san twins; additive via alt_s).
+                if meta.get("gana") == "curAdiH":
+                    _c10sx = s_stem[:-2] + "ayiz" if s_stem.endswith("iz") else s_stem + "ayiz"
+                    if _c10sx not in [s_stem] + alt_s:
+                        alt_s.append(_c10sx)
+                    _c10rt = meta.get("clean", "") or clean
+                    _c10rw = [ch for ch in _c10rt if ch in SLP1_VOWELS]
+                    if _c10rw:
+                        _c10nc = _c10rw[-1]
+                        _c10cd = _c10rt[len(_c10rt) - next((k for k, ch in enumerate(reversed(_c10rt)) if ch in SLP1_VOWELS), 0):]
+                        _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                        _c10gg = []
+                        if _c10nc == "a" and _c10sg:
+                            _c10gg = [self._vriddhi_base(_c10rt, is_idit)]
+                        elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                            _c10gg = [self._bhvadi_guna_base(_c10rt, is_idit)]
+                        elif _c10nc == "i" and _c10sg and _c10rt[-1] not in SLP1_VOWELS:
+                            _c10gg = [self._bhvadi_guna_base(_c10rt, is_idit)]
+                        for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
+                            try:
+                                _c10gs = _sannanta_stem(_c10gr)
+                            except Exception:
+                                continue
+                            for _c10gsv in dict.fromkeys([_c10gs, _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10gs + "ayiz"]):
+                                if _c10gsv not in [s_stem] + alt_s:
+                                    alt_s.append(_c10gsv)
                 if _far9 and _far9 != s_stem:
                     alt_s.append(_far9)
                 if clean_ay:
@@ -5869,6 +5896,33 @@ class TinantaDerivationEngine:
         if sanadi == "sannanta":
             s_stem = _sannanta_stem(clean)
             alt_sann = []
+            # curAdi san sec twin-matrix (plain/graded redup x ay/no-ay; same survey as
+            # krdanta san twins; additive via alt_sann).
+            if meta.get("gana") == "curAdiH":
+                _c10sx = s_stem[:-2] + "ayiz" if s_stem.endswith("iz") else s_stem + "ayiz"
+                if _c10sx not in [s_stem] + alt_sann:
+                    alt_sann.append(_c10sx)
+                _c10rt = meta.get("clean", "") or clean
+                _c10rw = [ch for ch in _c10rt if ch in SLP1_VOWELS]
+                if _c10rw:
+                    _c10nc = _c10rw[-1]
+                    _c10cd = _c10rt[len(_c10rt) - next((k for k, ch in enumerate(reversed(_c10rt)) if ch in SLP1_VOWELS), 0):]
+                    _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                    _c10gg = []
+                    if _c10nc == "a" and _c10sg:
+                        _c10gg = [self._vriddhi_base(_c10rt, is_idit)]
+                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                        _c10gg = [self._bhvadi_guna_base(_c10rt, is_idit)]
+                    elif _c10nc == "i" and _c10sg and _c10rt[-1] not in SLP1_VOWELS:
+                        _c10gg = [self._bhvadi_guna_base(_c10rt, is_idit)]
+                    for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
+                        try:
+                            _c10gs = _sannanta_stem(_c10gr)
+                        except Exception:
+                            continue
+                        for _c10gsv in dict.fromkeys([_c10gs, _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10gs + "ayiz"]):
+                            if _c10gsv not in [s_stem] + alt_sann:
+                                alt_sann.append(_c10gsv)
             # kryAdi F-final san ariz-twin (cikarizati/jigarizati/piparizati/aririzati;
             # mirrors yak-side twin above; surveyed all 18 F-final 09 cleans, ariz-plat[0]
             # unanimous; additive, kryAdiH-gated).
