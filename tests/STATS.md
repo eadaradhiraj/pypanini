@@ -758,3 +758,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 570 (GEN-10: nich R-widening (11 sec-sites, one rule; all 10 slots verified): sweep +75 (3 improved, 25 each), 0 worsened (guards green).
 - Iteration 571 (GEN-10: tinanta present+yak R-widening (2 sites; bare-alternation regex bug diagnosed, class fixed): sweep +509 (3 improved, ~170 each), 0 worsened (guards green).
 - Iteration 572 (GEN-10: san R-roots in helper + san-kta + san-tavya (loop-nesting regression -312 diagnosed via fid-diff, dedent repaired): sweep +96 (3 improved, 32 each), 0 worsened (guards green).
+- Iteration 573 (GEN-10: nich tavya mUla-delegation (merge; superset by construction): sweep +117 (39 improved), 0 worsened (guards green).
