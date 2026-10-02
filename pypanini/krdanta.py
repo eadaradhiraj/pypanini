@@ -7157,6 +7157,21 @@ class KrdantaEngine:
                     _c10mm = re.sub(r"n([pPbB])", r"m\1", _c10raw)
                     if _c10mm != _c10raw and _c10mm not in _c10ss:
                         _c10ss.append(_c10mm)
+                # f-grade stems (parT-/pAr-/kIr- + kalp; same survey/guards as tavya/Satf/SAnac;
+                # additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if "M" in _c10raw and "M" not in (op or ""):
+                        continue
+                    _c10fw = [ch for ch in _c10raw if ch in SLP1_VOWELS]
+                    if _c10fw and _c10fw[-1] in ("f", "F"):
+                        _c10fpost = _c10raw[_c10raw.rindex(_c10fw[-1])+1:]
+                        if "i" in _c10fpost or "I" in _c10fpost:
+                            continue
+                        _c10pre = _c10raw[:_c10raw.rindex(_c10fw[-1])]
+                        for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10raw == "kfp" else ()):
+                            _c10fg = _c10pre + _c10g + _c10fpost
+                            if _c10fg not in _c10ss:
+                                _c10ss.append(_c10fg)
                 _c10out = {"M": [], "F": [], "N": []}
                 def _c10L(v):
                     return v if isinstance(v, list) else [v]
@@ -7190,6 +7205,15 @@ class KrdantaEngine:
                             for _cc in _c10L(_c10t[_gg]):
                                 if _cc not in _c10out[_gg]:
                                     _c10out[_gg].append(_cc)
+                    # F-final-2 arI-grade (parItA/jarItA; pair surveyed; additive).
+                    for _c10raw in (clean, meta.get("clean", "") or clean):
+                        if len(_c10raw) == 2 and _c10raw.endswith("F"):
+                            for _c10f in (_c10raw[:-1] + "arItA",):
+                                _c10t = {"M": _c10f, "F": _c10f[:-1] + "rI" if _c10f.endswith("A") else _c10f + "rI", "N": _c10f[:-1] + "f" if _c10f.endswith("A") else _c10f + "f"}
+                                for _gg in ("M", "F", "N"):
+                                    for _cc in _c10L(_c10t[_gg]):
+                                        if _cc not in _c10out[_gg]:
+                                            _c10out[_gg].append(_cc)
                 if any(_c10out.values()):
                     return _c10out
             if clean == "SrA" and dhatu_id == "01.0922":

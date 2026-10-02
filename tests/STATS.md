@@ -732,3 +732,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 544 (GEN-10: tavya f-grade stems + kalp + F-2 arI (M-stem hijack of bfhi/BfSi diagnosed via HEAD-worktree, i-post + num-M gates added): probe tavya 132→111, sweep +21 (7 improved), 0 worsened (guards green).
 - Iteration 545 (GEN-10: Satf f-grade stems + kalp (same guards as tavya): probe Satf 72→57, sweep +15 (5 improved), 0 worsened (guards green).
 - Iteration 546 (GEN-10: SAnac f-grade stems + kalp (same guards): probe SAnac 81→54, sweep +27 (9 improved, passes 150/492: 10.0339/0344), 0 worsened (guards green).
+- Iteration 547 (GEN-10: tfc f-grade stems + kalp + F-2 arI (same guards): probe tfc 78→60, sweep +18 (7 improved), 0 worsened (guards green).
