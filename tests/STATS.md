@@ -763,3 +763,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 575 (GEN-10: nich anIyar mUla-delegation (natva+n/R mirrored; dead helper removed): sweep +126 (42 improved), 0 worsened (guards green).
 - Iteration 576 (GEN-10: nich Rvul mUla-delegation (stem-triple + n/R mirrored): sweep +129 (43 improved), 0 worsened (guards green).
 - Iteration 577 (GEN-10: nich yat mUla-delegation (sec-ya + n/R mirrored): sweep +126 (42 improved), 0 worsened (guards green).
+- Iteration 578 (GEN-10: nich tumun mUla-delegation (avyaya merge): sweep +3 (3 improved), 0 worsened (guards green).
