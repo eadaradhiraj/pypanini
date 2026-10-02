@@ -5477,6 +5477,16 @@ class KrdantaEngine:
                         if _frm not in _c10out[_g]:
                             _c10out[_g].append(_frm)
                 return _c10out
+            # curAdi vowel-final-i AY-twins (smAyitavAn; AY surveyed smi; idit excluded;
+            # generic triple kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if _c10vw and _c10mc[-1:] == "i" and "i~" not in (op or "") and "I~" not in (op or ""):
+                    _c10ab = _c10mc[:-1] + "Ay"
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    return {"M": _c10L(b + "avAn") + [_c10ab + "itavAn"], "F": _c10L(b + "avatI") + [_c10ab + "itavatI"], "N": _c10L(b + "avat") + [_c10ab + "itavat", _c10ab + "itavad"]}
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
         elif pratyaya == "Satf":

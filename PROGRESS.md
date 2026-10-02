@@ -11,7 +11,7 @@ Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — held.
 Sweep-10: **316/492 scored** (17 skipped) — held (V-initial san + aya-less, 6 improved, 0 worsened; this iteration).
 Landscape: 04 + 10 remain (06 modulo ceiling).
 
-## Done — this session (06) + 460-467 + 585-614 (10)
+## Done — this session (06) + 460-467 + 585-615 (10)
 - 06: iterations 383-398, 442-458 → 173/174 modulo 06.0159 ceiling (see STATS.md).
 - 460: verify pull 7738ab6 + fresh sweeps (csv refresh).
 - 461: curAdi general aya-twins ktvA/tumun (293 improved, +99 pass-ups).
@@ -51,6 +51,7 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - 612: lambda N-widening (1021 improved-tokens, holds 322).
 - 613: san N-roots tavya+matrix (55 improved-tokens, holds 322).
 - 614: z-grade machinery (315 improved-tokens, 323/492: PASS 10.0190).
+- 615: ktavatu AY dedicated twins (9 improved-tokens, holds 323).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
