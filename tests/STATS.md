@@ -755,3 +755,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 567 (GEN-10: ktvA n→R twin (luRwayitvA/...; _alts-append): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 568 (GEN-10: lyap n→R twin (praluRwya/...; variants-append): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 569 (GEN-10: lyuw n→R replace (luRwanam/...; old absent corpus-wide): sweep +3 (3 improved), 0 worsened (guards green).
+- Iteration 570 (GEN-10: nich R-widening (11 sec-sites, one rule; all 10 slots verified): sweep +75 (3 improved, 25 each), 0 worsened (guards green).

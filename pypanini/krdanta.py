@@ -3040,28 +3040,28 @@ class KrdantaEngine:
                 # curAdi nich tavya n->m twin (sambayitavya/...; unanimous 3/3;
                 # generic sec-forms kept first; additive, nijanta+curAdiH-gated).
                 if sanadi == "nijanta" and meta.get("gana") == "curAdiH" and pratyaya == "tavya":
-                    _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec)
+                    _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec)
                     if _c10mm != sec:
                         return {"M": [sec + "itavyaH", _c10mm + "itavyaH"], "F": [sec + "itavyA", _c10mm + "itavyA"], "N": [sec + "itavyam", _c10mm + "itavyam"]}
                 if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
                 # curAdi nich tfc n->m twin (sambayitA/...; unanimous 3/3;
                 # generic sec-forms kept first; additive, nijanta+curAdiH-gated).
                 if sanadi == "nijanta" and meta.get("gana") == "curAdiH" and pratyaya == "tfc":
-                    _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec)
+                    _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec)
                     if _c10mm != sec:
                         return {"M": [sec + "itA", _c10mm + "itA"], "F": [sec + "itrI", _c10mm + "itrI"], "N": [sec + "itf", _c10mm + "itf"]}
                 if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
                 # curAdi nich tumun n->m twin (sambayitum/...; unanimous 3/3;
                 # generic sec-form kept first; additive, nijanta+curAdiH-gated).
                 if sanadi == "nijanta" and meta.get("gana") == "curAdiH" and pratyaya == "tumun":
-                    _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec)
+                    _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec)
                     if _c10mm != sec:
                         return {"avyaya": [sec + "itum", _c10mm + "itum"]}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum"]}
                 # curAdi nich ktvA n->m twin (sambayitvA/...; unanimous 3/3;
                 # generic sec-form kept first; additive, nijanta+curAdiH-gated).
                 if sanadi == "nijanta" and meta.get("gana") == "curAdiH" and pratyaya == "ktvA":
-                    _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec)
+                    _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec)
                     if _c10mm != sec:
                         return {"avyaya": [sec + "itvA", _c10mm + "itvA"]}
                 if pratyaya == "ktvA": return {"avyaya": [sec+"itvA"]}
@@ -3079,7 +3079,7 @@ class KrdantaEngine:
                     _c10ly = [_pra+sec_base+"ya", "pra"+sec_base+"ya", sec_base+"ya", _pra+sec+"ya", "pra"+sec+"ya", sec+"ya"]
                     # curAdi nich lyap n->m twin (prasambya/...; unanimous 3/3; generic kept first).
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
-                        _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec_base)
+                        _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
                         if _c10mm != sec_base:
                             for _c10v in (_pra + _c10mm + "ya", "pra" + _c10mm + "ya", _c10mm + "ya"):
                                 if _c10v not in _c10ly:
@@ -3124,7 +3124,7 @@ class KrdantaEngine:
                     # curAdi nich SAnac n->m twin (sambayamAna/...; unanimous 3/3;
                     # generic sec-forms kept first; additive, nijanta+curAdiH-gated).
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
-                        _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec_base)
+                        _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
                         if _c10mm != sec_base:
                             _c10ab = _c10mm + "ayamAna"
                             _c10am = _c10ab + "H"
@@ -3142,7 +3142,7 @@ class KrdantaEngine:
                     # curAdi nich anIyar n->m twin (sambanIya/...; unanimous 3/3;
                     # generic sec-form kept first; additive, nijanta+curAdiH-gated).
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
-                        _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec_base)
+                        _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
                         if _c10mm != sec_base:
                             _c10ab = _c10mm + "anIya"
                             if (_natva_applies(orig_clean) or _natva_applies(_c10mm)) and "nIya" in _c10ab:
@@ -3156,7 +3156,7 @@ class KrdantaEngine:
                 # curAdi nich yat n->m twin (sambya/...; unanimous 3/3;
                 # generic sec-form kept first; additive, nijanta+curAdiH-gated).
                 if sanadi == "nijanta" and meta.get("gana") == "curAdiH" and pratyaya == "yat":
-                    _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec_base)
+                    _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
                     if _c10mm != sec_base:
                         return {"M": [sec_base + "yaH", _c10mm + "yaH"], "F": [sec_base + "yA", _c10mm + "yA"], "N": [sec_base + "yam", _c10mm + "yam"]}
                 if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
@@ -3168,7 +3168,7 @@ class KrdantaEngine:
                     # curAdi nich lyuw n->m before labials (sambanam; old sanbanam absent
                     # corpus-wide (mUla iter526 survey); replace; unanimous 3/3; gated).
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
-                        _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec_base)
+                        _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
                         if _c10mm != sec_base:
                             return {"gender": "Neuter", "form": _c10mm + "anam"}
                     return {"gender":"Neuter","form":_lb+"m"}
@@ -3182,7 +3182,7 @@ class KrdantaEngine:
                     _gRv = {"M": stem+"H","F":stem[:-3]+"ikA" if stem.endswith("aka") else stem+"ikA","N":stem+"m"}
                     # curAdi nich Rvul n->m twin (sambaka/...; unanimous 3/3; generic kept first).
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
-                        _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec_base)
+                        _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
                         if _c10mm != sec_base:
                             return {"M": [_gRv["M"], _c10mm + "akaH"], "F": [_gRv["F"], _c10mm + "ikA"], "N": [_gRv["N"], _c10mm + "akam"]}
                     return _gRv
@@ -5630,7 +5630,7 @@ class KrdantaEngine:
                 return _c10out
             # curAdi nich Satf n->m twin (sambayan/...; unanimous 3/3; generic kept first).
             if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
-                _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), sec_base)
+                _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
                 if _c10mm != sec_base:
                     def _c10Ly(v):
                         return v if isinstance(v, list) else [v]
