@@ -7683,6 +7683,11 @@ class KrdantaEngine:
                 _t6yrB = self._tudAdi_ylk_redup(clean, op, dhatu_id)
                 if _t6yrB:
                     _gen.append(_t6yrB + "itum")
+            # curAdi tumun n->m twin (sambayitum/...; unanimous 3/3; generic kept first).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mm = re.sub(r"n([pPbB])", r"m\1", clean)
+                if _c10mm != clean and _c10mm + "ayitum" not in _gen:
+                    _gen.append(_c10mm + "ayitum")
             return {"avyaya": _gen}
 
         elif pratyaya == "ktvA":
