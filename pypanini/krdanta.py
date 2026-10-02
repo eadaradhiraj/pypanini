@@ -6321,6 +6321,11 @@ class KrdantaEngine:
                     _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10raw)
                     if _c10mm != _c10raw and _c10mm not in _c10ss:
                         _c10ss.append(_c10mm)
+                # n->R before w/W/q in tavya (luRwayitavya/...; unanimous 3/3; additive).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
+                    if _c10rg != _c10raw and _c10rg not in _c10ss:
+                        _c10ss.append(_c10rg)
                 # f-grade stems (parT-/pAr-/kIr- + kalp; grade lexical ar/Ar/Ir so all
                 # three + kalp (kfp surveyed); grades flow through a/A/I branches below;
                 # additive, order-kept).
@@ -6351,9 +6356,10 @@ class KrdantaEngine:
                     if _c10nc == "a":
                         _c10v = self._vriddhi_base(_c10mc, is_idit)
                         _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"] + ([_c10v + "ayitavya"] if _c10sg and _c10v != _c10mc else [])
-                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                    elif _c10nc in ("u", "U") and _c10cd != "F" and _c10mc[-1] not in SLP1_VOWELS:
                         _c10gu = self._guna_base(_c10mc, is_idit) + "ayitavya"
                         _c10uu = _c10mc[:_c10mc.rindex(_c10nc)] + "U" + _c10mc[_c10mc.rindex(_c10nc)+1:] + "ayitavya" if _c10nc == "u" else None
+                        _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"] + ([_c10gu] if _c10sg else []) + ([_c10uu] if _c10sg and _c10uu and _c10uu != _c10gu else [])
                         _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya", _c10gu] + ([_c10uu] if _c10uu and _c10uu != _c10gu else [])
                     elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS and _c10sg:
                         _c10forms = [_c10mc + "itavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
