@@ -782,3 +782,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 469 (GEN-10: san-Satf V-secs via shared helper (+an/antI/at-ad): probe V-san 84→75, sweep +9 (3 improved: 10.0023/0037/0169), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 470 (GEN-10: san-tavya V-secs via shared helper (append to _c10ts): probe V-san 75→60, sweep +15 (5 improved, PASS 10.0014/0105 → 318/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 471 (GEN-10: san-SAnac V-secs via shared helper (+amAna/amARa): probe V-san 60→51, sweep +9 (3 improved: 10.0023/0037/0169), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 472 (GEN-10: san-matrix V-secs via shared helper (all matrix sites; lyap pra+u sandhi queued): probe V-san 51→0, sweep +51 (3 improved, 17 each), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)

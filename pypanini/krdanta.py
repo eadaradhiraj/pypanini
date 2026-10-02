@@ -2553,6 +2553,10 @@ class KrdantaEngine:
                                         out.append(_gsv)
                         except Exception:
                             continue
+                    # vowel-initial san via shared V-sec helper (same survey; additive).
+                    for _c10sv in _curAdi_sanV_secs(root, is_idit):
+                        if _c10sv not in out:
+                            out.append(_c10sv)
                 return out
             def _yan_sec(c):
                 _nitya_san = {
