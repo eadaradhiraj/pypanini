@@ -697,3 +697,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 509b (GEN-10: Satf vowel-final guard (3 regressions from hijacking smarter generic diagnosed, cons-final added; false 0-worsened claim in 509 corrected): 0 worsened (guards green).
 - Iteration 510 (GEN-10: U-grade present twins (Urjayate/...; file-emptied by open(w)-before-throw footgun, recovered from HEAD, compute-then-write henceforth): 0 worsened (guards green).
 - Iteration 511 (GEN-10: SAnac U/A/e/I/o + plain+ay broadening (mirrors Satf; mUl/DUp plain-U+ay): probe SAnac 300→90, sweep +210 (70 improved, 148/492 passes), 0 worsened (guards green).
+- Iteration 512 (GEN-10: nich SAnac ay-twin ATTEMPTED then REVERTED — probe slot HIT (sAntvayamAnaH) but sweep fid-diff +0/0 (token already covered via mUla iter511); zero-gain protocol, tree restored to 1b94053).
