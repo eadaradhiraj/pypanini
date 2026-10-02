@@ -5705,6 +5705,11 @@ class KrdantaEngine:
                         _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                         if _c10rg != _c10raw and _c10rg not in _c10ss:
                             _c10ss.append(_c10rg)
+                    # n->N before velars in stems (saNket-...; same survey as kta iter606).
+                    for _c10rw in (clean, meta.get("clean", "") or clean):
+                        _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                        if _c10ng != _c10rw and _c10ng not in _c10ss:
+                            _c10ss.append(_c10ng)
                     # f-grade stems (parT-/pAr-/kIr- + kalp; same survey as tavya iter544;
                     # M-stems and i-post excluded (bfhi/BfSi generic); additive, order-kept).
                     for _c10raw in (clean, meta.get("clean", "") or clean):
@@ -6189,6 +6194,11 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10ss:
                         _c10ss.append(_c10rg)
+                # n->N before velars in stems (saNket-...; same survey as kta iter606).
+                for _c10rw in (clean, meta.get("clean", "") or clean):
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                    if _c10ng != _c10rw and _c10ng not in _c10ss:
+                        _c10ss.append(_c10ng)
                 # f-grade stems (parT-/pAr-/kIr- + kalp; same survey/guards as tavya/Satf;
                 # additive, order-kept).
                 for _c10raw in (clean, meta.get("clean", "") or clean):
@@ -6810,6 +6820,11 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10ss:
                         _c10ss.append(_c10rg)
+                # n->N before velars in stems (saNket-...; same survey as kta iter606).
+                for _c10rw in (clean, meta.get("clean", "") or clean):
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                    if _c10ng != _c10rw and _c10ng not in _c10ss:
+                        _c10ss.append(_c10ng)
                 # f-grade stems (parT-/pAr-/kIr- + kalp; grade lexical ar/Ar/Ir so all
                 # three + kalp (kfp surveyed); grades flow through a/A/I branches below;
                 # additive, order-kept).
@@ -7190,6 +7205,11 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10stems:
                         _c10stems.append(_c10rg)
+                # n->N before velars in stems (saNket-...; same survey as kta iter606).
+                for _c10rw in (clean, meta.get("clean", "") or clean):
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                    if _c10ng != _c10rw and _c10ng not in _c10stems:
+                        _c10stems.append(_c10ng)
                 # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10stems:
@@ -7406,6 +7426,11 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10stems:
                         _c10stems.append(_c10rg)
+                # n->N before velars in stems (saNket-...; same survey as kta iter606).
+                for _c10rw in (clean, meta.get("clean", "") or clean):
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                    if _c10ng != _c10rw and _c10ng not in _c10stems:
+                        _c10stems.append(_c10ng)
                 # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10stems:
@@ -7591,6 +7616,11 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10stems:
                         _c10stems.append(_c10rg)
+                # n->N before velars in stems (saNket-...; same survey as kta iter606).
+                for _c10rw in (clean, meta.get("clean", "") or clean):
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                    if _c10ng != _c10rw and _c10ng not in _c10stems:
+                        _c10stems.append(_c10ng)
                 # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10stems:
@@ -7814,6 +7844,11 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10ss:
                         _c10ss.append(_c10rg)
+                # n->N before velars in stems (saNket-...; same survey as kta iter606).
+                for _c10rw in (clean, meta.get("clean", "") or clean):
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                    if _c10ng != _c10rw and _c10ng not in _c10ss:
+                        _c10ss.append(_c10ng)
                 # f-grade stems (parT-/pAr-/kIr- + kalp; same survey/guards as tavya/Satf/SAnac;
                 # additive, order-kept).
                 for _c10raw in (clean, meta.get("clean", "") or clean):
@@ -8209,7 +8244,7 @@ class KrdantaEngine:
             # curAdi lyuw n->m before labials (sambanam/...; old sanbanam-forms absent
             # corpus-wide; replace; unanimous 3/3; curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
-                _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), clean)
+                _c10mm = re.sub(r"n([pPbBskKgG])", (lambda _m: ("M" if _m.group(1) == "s" else ("N" if _m.group(1) in "kKgG" else "m")) + _m.group(1)), clean)
                 if _c10mm != clean:
                     return {"gender": "Neuter", "form": _c10mm + "anam"}
             # curAdi lyuw n->R before w/W/q (luRwanam/...; old forms absent corpus-wide;
@@ -8606,6 +8641,13 @@ class KrdantaEngine:
                         _c10f = _c10rg + "ayitum"
                         if _c10f not in _gen:
                             _gen.append(_c10f)
+                # n->N before velars in tumun (saNketayitum; same survey as kta iter606).
+                for _c10rw in (clean, meta.get("clean", "") or clean):
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                    if _c10ng != _c10rw:
+                        _c10f = _c10ng + "ayitum"
+                        if _c10f not in _gen:
+                            _gen.append(_c10f)
             # curAdi tumun general aya-twins (corayitum/lAqayitum/...; aya+iT is the
             # norm sweep-wide; shared _curAdi_aya_twins; generic kept first; additive).
             if sanadi is None and meta.get("gana") == "curAdiH":
@@ -8975,6 +9017,14 @@ class KrdantaEngine:
                             _c10f = _c10rg + "ayitvA"
                             if _c10f not in _alts:
                                 _alts.append(_c10f)
+                # n->N before velars in ktvA (saNketayitvA; same survey as kta iter606).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10rw in (clean, meta.get("clean", "") or clean):
+                        _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                        if _c10ng != _c10rw:
+                            _c10f = _c10ng + "ayitvA"
+                            if _c10f not in _alts:
+                                _alts.append(_c10f)
                 # curAdi ktvA general aya-twins (corayitvA/lAqayitvA/...; aya+iT is the
                 # norm sweep-wide; shared _curAdi_aya_twins; generic kept first; additive).
                 if sanadi is None and meta.get("gana") == "curAdiH":
@@ -9332,6 +9382,14 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw:
                         for _c10v in ("pra" + _c10rg + "ya", upasarga + _c10rg + "ya", _c10rg + "ya"):
+                            if _c10v not in variants:
+                                variants.append(_c10v)
+            # n->N before velars in lyap (prasaNketya; same survey as kta iter606).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                for _c10rw in (clean, meta.get("clean", "") or clean):
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rw)
+                    if _c10ng != _c10rw:
+                        for _c10v in ("pra" + _c10ng + "ya", upasarga + _c10ng + "ya", _c10ng + "ya"):
                             if _c10v not in variants:
                                 variants.append(_c10v)
             # curAdi lyap general aya-twins (pracorya/pralAjya/praSrATya... drop-ay;
