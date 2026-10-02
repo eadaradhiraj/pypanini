@@ -4156,6 +4156,12 @@ class TinantaDerivationEngine:
                                     yak_variants.append(_c10fg + "y")
                                 if _c10fg not in sec_variants:
                                     sec_variants.append(_c10fg)
+                # jYAp yak twin (jYApyate; p persists, sole jYA surveyed; additive).
+                if meta.get("gana") == "curAdiH" and clean == "jYA":
+                    if "jYApy" not in yak_variants:
+                        yak_variants.append("jYApy")
+                    if "jYAp" not in sec_variants:
+                        sec_variants.append("jYAp")
                 # deduplicate
                 yak_variants = list(dict.fromkeys(yak_variants))
                 sec_variants = list(dict.fromkeys(sec_variants))

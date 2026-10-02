@@ -39,6 +39,7 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - 483: ktavatu jYAp-stem twins (3 improved-tokens, holds 320).
 - 484: jYAp stem in 7 stem-lists (21 improved-tokens, holds 320).
 - 486: ktvA jYA union (1 improved-token, holds 320).
+- 487: jYAp yak twins (36 improved-tokens, holds 320).
 - 485: jYAp present stem (304 improved-tokens, holds 320).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
