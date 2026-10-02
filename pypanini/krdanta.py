@@ -6498,6 +6498,10 @@ class KrdantaEngine:
                                         _c10ts.append(_c10gsv)
                         except Exception:
                             continue
+                    # vowel-initial san via shared V-sec helper (same survey; additive).
+                    for _c10sv in _curAdi_sanV_secs(_c10rt, is_idit):
+                        if _c10sv not in _c10ts:
+                            _c10ts.append(_c10sv)
                     _c10out = {"M": [], "F": [], "N": []}
                     for _c10s in _c10ts:
                         _c10t = tri_linga(_c10s + "itavya")
