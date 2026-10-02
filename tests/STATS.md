@@ -801,3 +801,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 605 (GEN-10: SAnac vowel-final-i AY dedicated twins at _gen site (superset; _c10ss-hijack of cIyamAna diagnosed, SAnac/tfc stem-inserts reverted, anIyar/Rvul/yat merges verified safe): sweep +9 (10.0058), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 606 (GEN-10: kta n→N twin before velars (saNketita/...; unanimous 4/4): probe kta 21→9, sweep +24 (4 improved), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 607 (GEN-10: ktavatu n→N twin before velars (saNketitavAn/...; same survey as kta iter606): sweep +24 (4 improved), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 608 (GEN-10: kta plain meta-clean triple (kfpita; homonymous kfp pair): sweep +6 (10.0408), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)

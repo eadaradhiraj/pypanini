@@ -4834,6 +4834,13 @@ class KrdantaEngine:
                     if "i" not in _c10fpost and "I" not in _c10fpost:
                         _c10m = tri_linga(stem)
                         _c10out = {"M": [_c10m["M"]], "F": [_c10m["F"]], "N": [_c10m["N"]]}
+                        # plain meta-clean triple (kfpita; homonymous kfp pair takes plain vs kalp)
+                        _c10p = tri_linga(_c10mc + "ita")
+                        for _gg in ("M", "F", "N"):
+                            _vv = _c10p[_gg] if isinstance(_c10p[_gg], list) else [_c10p[_gg]]
+                            for _cc in _vv:
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
                         _c10pre = _c10mc[:_c10mc.rindex(_c10fw[-1])]
                         for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10mc == "kfp" else ()):
                             _c10t = tri_linga(_c10pre + _c10g + _c10fpost + "ita")
