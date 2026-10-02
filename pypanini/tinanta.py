@@ -1008,6 +1008,15 @@ class TinantaDerivationEngine:
                     _c10uu = _c10mc[:_c10mc.rindex(_c10nc)] + "U" + _c10mc[_c10mc.rindex(_c10nc)+1:] + "ay"
                     if _c10uu not in _c10ay:
                         _c10ay.append(_c10uu)
+                # f-grade present twins (parT-/pAr-/kIr- + ay; grade lexical ar/Ar/Ir
+                # so all three; unanimous grade+ay survey 31/31; additive, appended last).
+                if _c10nc in ("f", "F") and (_c10mc[-1] not in SLP1_VOWELS or (_c10nc == "F" and len(_c10mc) == 2)):
+                    _c10pre = _c10mc[:_c10mc.rindex(_c10nc)]
+                    _c10post = _c10mc[_c10mc.rindex(_c10nc)+1:]
+                    for _c10g in ("ar", "Ar", "Ir"):
+                        _c10fg = _c10pre + _c10g + _c10post + "ay"
+                        if _c10fg not in _c10ay:
+                            _c10ay.append(_c10fg)
                 for _c10a in dict.fromkeys(_c10ay):
                     if _c10a not in bases:
                         bases.append(_c10a)
