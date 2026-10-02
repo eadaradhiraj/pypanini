@@ -5488,6 +5488,15 @@ class KrdantaEngine:
                         if _frm not in _c10out[_g]:
                             _c10out[_g].append(_frm)
                 return _c10out
+            # curAdi nich Satf n->m twin (sambayan/...; unanimous 3/3; generic kept first).
+            if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                _c10mm = re.sub(r"n([pPbB])", r"m\1", sec_base)
+                if _c10mm != sec_base:
+                    def _c10Ly(v):
+                        return v if isinstance(v, list) else [v]
+                    return {"M": _c10Ly(_gen["M"]) + [_c10mm + "ayan"],
+                            "F": _c10Ly(_gen["F"]) + [_c10mm + "ayantI"],
+                            "N": _c10Ly(_gen["N"]) + [_c10mm + "ayat", _c10mm + "ayad"]}
             return _gen
 
         elif pratyaya == "SAnac":
