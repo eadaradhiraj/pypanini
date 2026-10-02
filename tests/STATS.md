@@ -676,3 +676,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 489 (GEN-10: curAdi san-GaY twin-sets (sec-matrix + aH, M-only so F/N unscored): probe 329→46 (-283), 0 worsened (guards green).
 - Iteration 490 (GEN-10: curAdi san-lyuw twin-sets (sec-matrix + aRam/an, N-only preserves slot count; spurious +m diagnosed: aRam already ends in m): probe 329→46 (-283), 0 worsened (guards green).
 - Iteration 491 (GEN-10: curAdi san-lyap twin-sets (sec-matrix + pra/ya; two misplacements to nijanta/early-lyap diagnosed via return-traces, landed at sannanta site): probe 329→46 (-283), 0 worsened (guards green).
+- Iteration 492 (GEN-10: curAdi san-ktvA twin-sets (sec-matrix + itvA/ya; sec+ya twin initially dropped caused 8x-1 regressions, diagnosed via worsened-fid attested variants, fixed): probe 328→45 (-283), 0 worsened (guards green).

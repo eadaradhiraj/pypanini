@@ -3171,6 +3171,15 @@ class KrdantaEngine:
                 if pratyaya == "SAtf" if False else pratyaya == "Satf":
                     # sannanta Satf is like buBUzat etc, use primitive but with sec
                     pass
+                # curAdi san-ktvA twin-sets (sec-matrix + itvA; same survey; generic twins
+                # kept first; additive, pratyaya+sanadi-gated).
+                if pratyaya == "ktvA" and sanadi == "sannanta" and meta.get("gana") == "curAdiH":
+                    _c10out = []
+                    for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                        for _frm in (_c10s + "itvA", _c10s + "ya"):
+                            if _frm not in _c10out:
+                                _c10out.append(_frm)
+                    return {"avyaya": _c10out}
                 if pratyaya == "ktvA":
                     if sec.endswith("iz") or (sec == "Ips" and meta.get("gana") == "svAdiH"):
                         return {"avyaya": [sec + "itvA", sec + "ya"]}
