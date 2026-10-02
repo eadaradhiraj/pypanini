@@ -8954,6 +8954,13 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
                     _d4su = {("prathama","eka"):["SuSoca"],("prathama","dvi"):["SuSucatuH"],("prathama","bahu"):["SuSucuH"],("madhyama","eka"):["SuSociTa"],("madhyama","dvi"):["SuSucaTuH"],("madhyama","bahu"):["SuSuca"],("uttama","eka"):["SuSoca"],("uttama","dvi"):["SuSuciva"],("uttama","bahu"):["SuSucima"]}
                     forms += _d4su.get((purusha, vacana), [])
+                # curAdi mUla-liw aya-periphrastic paras table, vowel-initial branch
+                # (urj→UrjayAYcakAra; vowel-initial roots return via `forms` here —
+                # same table as the consonant branch; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "kartari":
+                    for _c10xv in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
+                        _c10lpv = {("prathama","eka"): [_c10xv + "AYcakAra", _c10xv + "AmAsa", _c10xv + "AmbaBUva"], ("prathama","dvi"): [_c10xv + "AYcakratuH", _c10xv + "AmAsatuH", _c10xv + "AmbaBUvatuH"], ("prathama","bahu"): [_c10xv + "AYcakruH", _c10xv + "AmAsuH", _c10xv + "AmbaBUvuH"], ("madhyama","eka"): [_c10xv + "AYcakarTa", _c10xv + "AmAsiTa", _c10xv + "AmbaBUviTa"], ("madhyama","dvi"): [_c10xv + "AYcakraTuH", _c10xv + "AmAsaTuH", _c10xv + "AmbaBUvaTuH"], ("madhyama","bahu"): [_c10xv + "AYcakra", _c10xv + "AmAsa", _c10xv + "AmbaBUva"], ("uttama","eka"): [_c10xv + "AYcakara", _c10xv + "AYcakAra", _c10xv + "AmAsa", _c10xv + "AmbaBUva"], ("uttama","dvi"): [_c10xv + "AYcakfva", _c10xv + "AmAsiva", _c10xv + "AmbaBUviva"], ("uttama","bahu"): [_c10xv + "AYcakfma", _c10xv + "AmAsima", _c10xv + "AmbaBUvima"]}
+                        forms += _c10lpv.get((purusha, vacana), [])
                 return list(dict.fromkeys(forms)), log
             else:
                 redup = self._reduplicated_stem(clean)
@@ -9148,6 +9155,14 @@ class TinantaDerivationEngine:
                             cands += _d4di.get((purusha, vacana), [])
                     except Exception:
                         pass
+                    # curAdi mUla-liw aya-periphrastic paras table (UrjayAYcakAra/...;
+                    # 63-fid sweep-wide miss pattern — mUla section returns before the
+                    # yak-section twins below; same _prim_bases ay-stems; additive,
+                    # kartari, curAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "kartari":
+                        for _c10xp in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
+                            _c10lpp = {("prathama","eka"): [_c10xp + "AYcakAra", _c10xp + "AmAsa", _c10xp + "AmbaBUva"], ("prathama","dvi"): [_c10xp + "AYcakratuH", _c10xp + "AmAsatuH", _c10xp + "AmbaBUvatuH"], ("prathama","bahu"): [_c10xp + "AYcakruH", _c10xp + "AmAsuH", _c10xp + "AmbaBUvuH"], ("madhyama","eka"): [_c10xp + "AYcakarTa", _c10xp + "AmAsiTa", _c10xp + "AmbaBUviTa"], ("madhyama","dvi"): [_c10xp + "AYcakraTuH", _c10xp + "AmAsaTuH", _c10xp + "AmbaBUvaTuH"], ("madhyama","bahu"): [_c10xp + "AYcakra", _c10xp + "AmAsa", _c10xp + "AmbaBUva"], ("uttama","eka"): [_c10xp + "AYcakara", _c10xp + "AYcakAra", _c10xp + "AmAsa", _c10xp + "AmbaBUva"], ("uttama","dvi"): [_c10xp + "AYcakfva", _c10xp + "AmAsiva", _c10xp + "AmbaBUviva"], ("uttama","bahu"): [_c10xp + "AYcakfma", _c10xp + "AmAsima", _c10xp + "AmbaBUvima"]}
+                            cands += _c10lpp.get((purusha, vacana), [])
                     return cands, log
                 else:
                     # divAdi gup mUla liT jugop-grade (sole 04.0147 surveyed — Nitya
@@ -9393,6 +9408,8 @@ class TinantaDerivationEngine:
                     # curAdi mUla-liw aya-periphrastic twins (corayAYcakre/...; nic-perfect;
                     # appended to generic redup set (additive — redup cross-hits preserved);
                     # aya-stems reused from _prim_bases; kartari, curAdiH-gated).
+                    # (paras cakAra table lives in the mUla vowel/consonant branches
+                    # above — this yak-section twin stays Atmane-only.)
                     if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "kartari":
                         for _c10x in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
                             _c10lt = {("prathama","eka"): [_c10x + "AYcakre", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("prathama","dvi"): [_c10x + "AYcakrAte", _c10x + "AmAsatuH", _c10x + "AmbaBUvatuH"], ("prathama","bahu"): [_c10x + "AYcakrire", _c10x + "AmAsuH", _c10x + "AmbaBUvuH"], ("madhyama","eka"): [_c10x + "AYcakfze", _c10x + "AmAsiTa", _c10x + "AmbaBUviTa"], ("madhyama","dvi"): [_c10x + "AYcakrATe", _c10x + "AmAsaTuH", _c10x + "AmbaBUvaTuH"], ("madhyama","bahu"): [_c10x + "AYcakfQve", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("uttama","eka"): [_c10x + "AYcakre", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("uttama","dvi"): [_c10x + "AYcakfvahe", _c10x + "AmAsiva", _c10x + "AmbaBUviva"], ("uttama","bahu"): [_c10x + "AYcakfmahe", _c10x + "AmAsima", _c10x + "AmbaBUvima"]}
