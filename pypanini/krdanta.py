@@ -6015,14 +6015,30 @@ class KrdantaEngine:
                             _c10gg = [self._guna_base(_c10rt, is_idit)]
                         elif _c10nc == "i" and _c10sg and _c10rt[-1] not in SLP1_VOWELS:
                             _c10gg = [self._guna_base(_c10rt, is_idit)]
+                        # n->m before labials in san (sizambayizitavya/...; unanimous 3/3; additive).
+                        _c10nl = re.sub(r"n([pPbB])", r"m\1", _c10rt)
+                        if _c10nl != _c10rt and _c10nl not in _c10gg:
+                            _c10gg.append(_c10nl)
+                        # z-initial twin when op starts with z (op zanba~ surveyed)
+                        if (op or "").startswith("z") and _c10nl[:1] == "s":
+                            _c10zl = "z" + _c10nl[1:]
+                            if _c10zl not in _c10gg:
+                                _c10gg.append(_c10zl)
                         for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
                             try:
                                 _c10gs = _sannanta_sec(_c10gr)
+                                # z-initial redup devoices (sizamb- from zizamb-)
+                                _c10gsl = [_c10gs]
+                                if _c10gr[:1] == "z" and _c10gs.startswith("zi"):
+                                    _c10sd = "si" + _c10gs[2:]
+                                    if _c10sd not in _c10gsl:
+                                        _c10gsl.append(_c10sd)
+                                for _c10gsb in _c10gsl:
+                                    for _c10gsv in dict.fromkeys([_c10gsb, _c10gsb[:-2] + "ayiz" if _c10gsb.endswith("iz") else _c10gsb + "ayiz"]):
+                                        if _c10gsv not in _c10ts:
+                                            _c10ts.append(_c10gsv)
                             except Exception:
                                 continue
-                            for _c10gsv in dict.fromkeys([_c10gs, _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10gs + "ayiz"]):
-                                if _c10gsv not in _c10ts:
-                                    _c10ts.append(_c10gsv)
                     _c10out = {"M": [], "F": [], "N": []}
                     for _c10s in _c10ts:
                         _c10t = tri_linga(_c10s + "itavya")
