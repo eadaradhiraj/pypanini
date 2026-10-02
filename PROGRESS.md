@@ -11,7 +11,7 @@ Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — held.
 Sweep-10: **316/492 scored** (17 skipped) — held (V-initial san + aya-less, 6 improved, 0 worsened; this iteration).
 Landscape: 04 + 10 remain (06 modulo ceiling).
 
-## Done — this session (06) + 460-485 (10)
+## Done — this session (06) + 460-467 + 585-605 (10)
 - 06: iterations 383-398, 442-458 → 173/174 modulo 06.0159 ceiling (see STATS.md).
 - 460: verify pull 7738ab6 + fresh sweeps (csv refresh).
 - 461: curAdi general aya-twins ktvA/tumun (293 improved, +99 pass-ups).
@@ -21,27 +21,27 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - 465: curAdi san-yak twins (30 improved, +3 pass-ups).
 - 466: curAdi san-kta grade extensions (30 improved, holds 316).
 - 467: vowel-initial san + aya-less grades (6 improved, holds 316).
-- 468: shared _curAdi_sanV_secs helper (zero-diff) + san-ktavatu V-secs (9 improved, holds 316).
-- 469: san-Satf V-secs via helper (9 improved, holds 316).
-- 470: san-tavya V-secs via helper (15 improved, 318/492: PASS 10.0014/0105).
-- 471: san-SAnac V-secs via helper (9 improved, holds 318).
-- 472: san-matrix V-secs via helper (51 improved-tokens, V-san probe 0, holds 318).
-- 473: vowel-final-i AY-presents (197 improved-tokens, holds 318).
-- 474: f-grade yak twins (216 improved-tokens, 319/492: PASS 10.0028).
-- 475: kta a+nD retention twins (12 improved-tokens, holds 319).
-- 476: kta vowel-final-u Av-twins (9 improved-tokens, holds 319).
-- 477: kta vowel-final-i twins (15 improved-tokens, holds 319).
-- 478: kta a+nh Ng-twins (6 improved-tokens, holds 319).
-- 479: ktavatu a+nD retention twins (12 improved-tokens, 320/492: PASS 10.0021).
-- 480: tavya vowel-final-i AY-twins (6 improved-tokens, holds 320).
-- 481: tavya short-i twins for I-final (3 improved-tokens, holds 320).
-- 482: kta jYAp-stem twins (3 improved-tokens, holds 320).
-- 483: ktavatu jYAp-stem twins (3 improved-tokens, holds 320).
-- 484: jYAp stem in 7 stem-lists (21 improved-tokens, holds 320).
-- 486: ktvA jYA union (1 improved-token, holds 320).
-- 487: SAnac AY dedicated twins (9 improved-tokens, holds 320).
-- 487: jYAp yak twins (36 improved-tokens, holds 320).
-- 485: jYAp present stem (304 improved-tokens, holds 320).
+- 585: shared _curAdi_sanV_secs helper (zero-diff) + san-ktavatu V-secs (9 improved, holds 316).
+- 586: san-Satf V-secs via helper (9 improved, holds 316).
+- 587: san-tavya V-secs via helper (15 improved, 318/492: PASS 10.0014/0105).
+- 588: san-SAnac V-secs via helper (9 improved, holds 318).
+- 589: san-matrix V-secs via helper (51 improved-tokens, V-san probe 0, holds 318).
+- 590: vowel-final-i AY-presents (197 improved-tokens, holds 318).
+- 591: f-grade yak twins (216 improved-tokens, 319/492: PASS 10.0028).
+- 592: kta a+nD retention twins (12 improved-tokens, holds 319).
+- 593: kta vowel-final-u Av-twins (9 improved-tokens, holds 319).
+- 594: kta vowel-final-i twins (15 improved-tokens, holds 319).
+- 595: kta a+nh Ng-twins (6 improved-tokens, holds 319).
+- 596: ktavatu a+nD retention twins (12 improved-tokens, 320/492: PASS 10.0021).
+- 597: tavya vowel-final-i AY-twins (6 improved-tokens, holds 320).
+- 598: tavya short-i twins for I-final (3 improved-tokens, holds 320).
+- 599: kta jYA jYAp-stem twins (3 improved-tokens, holds 320).
+- 600: ktavatu jYAp-stem twins (3 improved-tokens, holds 320).
+- 601: jYAp stem in 7 stem-lists (21 improved-tokens, holds 320).
+- 602: jYAp present stem (304 improved-tokens, holds 320).
+- 603: ktvA jYA union (1 improved-token, holds 320).
+- 604: jYAp yak twins (36 improved-tokens, holds 320).
+- 605: SAnac AY dedicated twins (9 improved-tokens, holds 320).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
