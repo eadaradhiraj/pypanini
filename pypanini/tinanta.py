@@ -9250,6 +9250,13 @@ class TinantaDerivationEngine:
                             cands.append("suzRogDa")
                         elif _d4mc == "snih":
                             cands.append("sizRegDa")
+                    # curAdi mUla-liw aya-periphrastic twins (corayAYcakre/...; nic-perfect;
+                    # appended to generic redup set (additive — redup cross-hits preserved);
+                    # aya-stems reused from _prim_bases; kartari, curAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "kartari":
+                        for _c10x in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
+                            _c10lt = {("prathama","eka"): [_c10x + "AYcakre", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("prathama","dvi"): [_c10x + "AYcakrAte", _c10x + "AmAsatuH", _c10x + "AmbaBUvatuH"], ("prathama","bahu"): [_c10x + "AYcakrire", _c10x + "AmAsuH", _c10x + "AmbaBUvuH"], ("madhyama","eka"): [_c10x + "AYcakfze", _c10x + "AmAsiTa", _c10x + "AmbaBUviTa"], ("madhyama","dvi"): [_c10x + "AYcakrATe", _c10x + "AmAsaTuH", _c10x + "AmbaBUvaTuH"], ("madhyama","bahu"): [_c10x + "AYcakfQve", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("uttama","eka"): [_c10x + "AYcakre", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("uttama","dvi"): [_c10x + "AYcakfvahe", _c10x + "AmAsiva", _c10x + "AmbaBUviva"], ("uttama","bahu"): [_c10x + "AYcakfmahe", _c10x + "AmAsima", _c10x + "AmbaBUvima"]}
+                            cands += _c10lt.get((purusha, vacana), [])
                     return list(set(cands)), log
 
         elif lakara == "ASIrliN":
