@@ -1,17 +1,17 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-10-01
+Date: 2026-10-02
 Sweep-01: **1156/1156 100%** — held, fid-diff 0/0.
 Sweep-02: **76/76 zero-miss** — held.
 Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
 Sweep-07: **25/25 100%** — held. Sweep-08: **10/10 100%** — held.
 Sweep-09: **71/71 100%** — held.
 Sweep-04: **151/161** (other session) — ceiling audit in progress.
-Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — yak/yang/yangluk/krut buckets all 0; only san-active + ting-low dataless slots remain (correct forms verified absent from all tokens; no fabrication).
-Sweep-10: **163/509** — held.
-Landscape: 04 + 06 + 10 remain.
+Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — verified fresh this session; yak/yang/yangluk/krut buckets all 0; only san-active + ting-low dataless slots remain.
+Sweep-10: **150/492 scored** (17 skipped ganasutra roots) — verified fresh (335 improved, 0 worsened under pulled GEN-10 systems).
+Landscape: 04 + 10 remain (06 modulo ceiling).
 
-## Done — iterations 360-368 (other session) + 383-398, 442-469 (this session)
+## Done — iterations 360-368 (other session) + 383-398, 442-458, 460 (this session)
 - 360-368: puz futures split (0121 full pass), sfj yak sya, dI yak pair, nah
   sic-aorist + yak, Co/so yak luN, stim liT twins (+zw twin repair),
   stup/stUp twins, Fz yak-benedictive, vyaD yak + benedictive, uD
@@ -49,19 +49,11 @@ Landscape: 04 + 06 + 10 remain.
 - 456: ylk-anIyar/lyuw av-grade (8 improved, +2 pass-ups).
 - 457: ylk-Satf ri/rI twins (21 improved, +18 pass-ups).
 - 458: s-aorist trio (3 improved).
+- 459-469 (other session): 06 completion to 173/174 + GEN-10 systems (see STATS.md).
+- 460: verify pull 7738ab6 + fresh sweeps (06 173/174 confirmed, 10 150 scored, 01 held; csvs refreshed).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
-## Done — iterations 459-469 (this session; 06 yak/yang/yangluk/krut/ting/nich/san sweep)
-- 459: mUla GaY quartet (+4). 460: u-tumun quartet (+4). 461: vyac mUla tfc (+2).
-- 462: fnP/unB lyap (+2; krut bucket 0). 463: kU ASIrliN (+9). 464: kU luN (+9).
-- 465: vij/gur luN twins (+2; viC-low-8 dataless ceiling noted).
-- 466: gur nich o-grades (+5; nich_krut bucket 0).
-- 467: fC nich-liw (+18; indent-accident reverted via git apply -R).
-- 468: ubj san quartet (+4; san_krut bucket 0; 06 at 173/174).
-- 469: vicC nich map (+36; 06.0159 at 859; CEILING 06.0159: 42 dataless slots).
-- (443-458: yak samp twins/liw/lut, benedictive, luN, yaN stems + krut mirror, GaY, ylk paradigms, ktvA/GaY batches, gur grades — see STATS.md.)
-
 ## Next
-1. Gana-06 COMPLETE modulo ceiling (173/174 + 06.0159 dataless-fid note).
-2. Gana-10 baseline sweep → loop (pull before each iteration; never two sweeps concurrently).
+1. Gana-10 loop (krut 958 + ting 402 top buckets; PYTHONHASHSEED=0; pull before each iteration — shared tree with other session).
+2. Gana-04 ceiling audit (other session) → all-gana 100% modulo ceilings.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
