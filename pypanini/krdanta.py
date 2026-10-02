@@ -8383,6 +8383,9 @@ class KrdantaEngine:
                 return {"avyaya": ["prakzIya"]}
             # Panini 8.2.18 kfpo ro l: lyap keeps x (prakxpya).
             if clean == "kfp" and sanadi is None:
+                # curAdi kalp twin (prakalpya; 10.0278 surveyed; generic kept first; additive).
+                if meta.get("gana") == "curAdiH":
+                    return {"avyaya": ["pra" + "kxp" + "ya", upasarga + "kxp" + "ya", "kxp" + "ya", "pra" + "kalp" + "ya", upasarga + "kalp" + "ya", "kalp" + "ya"]}
                 return {"avyaya": ["pra" + "kxp" + "ya", upasarga + "kxp" + "ya", "kxp" + "ya"]}
             # fkzi Ar-lyap (prArkzitya; sole 05.0038 surveyed — pra + Arkzi + tya;
             # all generic aya-twins miss everywhere, free).
@@ -8647,6 +8650,23 @@ class KrdantaEngine:
                     for _c10v in ("pra" + _c10mm + "ya", upasarga + _c10mm + "ya", _c10mm + "ya"):
                         if _c10v not in variants:
                             variants.append(_c10v)
+            # curAdi lyap f-grade twins (praparTya/prakalpya/...; ar/Ar/Ir + kalp;
+            # same survey/guards as tavya iter544; generic kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if "M" in _c10raw and "M" not in (op or ""):
+                        continue
+                    _c10fw = [ch for ch in _c10raw if ch in SLP1_VOWELS]
+                    if _c10fw and _c10fw[-1] in ("f", "F"):
+                        _c10fpost = _c10raw[_c10raw.rindex(_c10fw[-1])+1:]
+                        if "i" in _c10fpost or "I" in _c10fpost:
+                            continue
+                        _c10pre = _c10raw[:_c10raw.rindex(_c10fw[-1])]
+                        for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10raw == "kfp" else ()):
+                            _c10fg = _c10pre + _c10g + _c10fpost
+                            for _c10v in ("pra" + _c10fg + "ya", upasarga + _c10fg + "ya", _c10fg + "ya"):
+                                if _c10v not in variants:
+                                    variants.append(_c10v)
             return {"avyaya": [pref_pra, pref_m, bare] + variants + _Rtw}
 
         return None
