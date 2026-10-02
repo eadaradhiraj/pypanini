@@ -727,3 +727,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 539 (GEN-10: nich lyuw n→m replace (sambanam; form-str, old absent per iter526): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 540 (GEN-10: nich tumun n→m twin (sambayitum/...; m-sec+itum): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 541 (GEN-10: nich ktvA n→m twin (sambayitvA/...): sweep +3 (3 improved), 0 worsened (guards green).
+- Iteration 542 (GEN-10: nich lyap n→m twin (prasambya/...; _c10ly-append, generic first): sweep +3 (3 improved), 0 worsened (guards green).

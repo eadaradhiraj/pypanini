@@ -3076,7 +3076,15 @@ class KrdantaEngine:
                     return {"avyaya": _c10out}
                 if pratyaya == "lyap":
                     _pra = "prac" if sec_base.startswith("C") else "pra"
-                    return {"avyaya": [_pra+sec_base+"ya", "pra"+sec_base+"ya", sec_base+"ya", _pra+sec+"ya", "pra"+sec+"ya", sec+"ya"]}
+                    _c10ly = [_pra+sec_base+"ya", "pra"+sec_base+"ya", sec_base+"ya", _pra+sec+"ya", "pra"+sec+"ya", sec+"ya"]
+                    # curAdi nich lyap n->m twin (prasambya/...; unanimous 3/3; generic kept first).
+                    if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                        _c10mm = re.sub(r"n([pPbB])", r"m\1", sec_base)
+                        if _c10mm != sec_base:
+                            for _c10v in (_pra + _c10mm + "ya", "pra" + _c10mm + "ya", _c10mm + "ya"):
+                                if _c10v not in _c10ly:
+                                    _c10ly.append(_c10v)
+                    return {"avyaya": _c10ly}
                 if pratyaya == "SAnac":
                     # Nitya-san nich keeps -ay- before amAna (jugupsayamAnaH/titikzayamARaH); generic sec_base gives BAv-style -yamAna
                     if _nitya_san_nic:
