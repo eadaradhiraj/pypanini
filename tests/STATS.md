@@ -674,3 +674,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 487 (GEN-10: curAdi san-SAnac twin-sets (sec-matrix + amAna/amARa, nested in SAnac-if; sibling-hijack + registry-cwd artifacts diagnosed: worktree runs need data symlink, /tmp wipe recovery, polluted sweeps discarded): probe 990→138 (-852), 0 worsened (guards green).
 - Iteration 488 (GEN-10: curAdi san-Satf twin-sets (sec-matrix + an/antI/at-ad; _gen kept first): probe 834→111 (-723), 0 worsened (guards green).
 - Iteration 489 (GEN-10: curAdi san-GaY twin-sets (sec-matrix + aH, M-only so F/N unscored): probe 329→46 (-283), 0 worsened (guards green).
+- Iteration 490 (GEN-10: curAdi san-lyuw twin-sets (sec-matrix + aRam/an, N-only preserves slot count; spurious +m diagnosed: aRam already ends in m): probe 329→46 (-283), 0 worsened (guards green).

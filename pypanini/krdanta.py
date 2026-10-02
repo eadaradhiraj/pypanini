@@ -3084,6 +3084,15 @@ class KrdantaEngine:
                     return {"M": _c10out}
                 if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
                 _nat = _natva_applies(sec)
+                # curAdi san-lyuw twin-sets (sec-matrix + aRam/an+m, N-only so slot count
+                # preserved; same survey; generic twin kept first; additive, curAdiH-gated).
+                if pratyaya == "lyuw" and meta.get("gana") == "curAdiH":
+                    _c10out = []
+                    for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                        _c10f = _c10s + ("aRam" if _natva_applies(_c10s) else "anam")
+                        if _c10f not in _c10out:
+                            _c10out.append(_c10f)
+                    return {"N": _c10out}
                 if pratyaya == "lyuw": return {"gender":"Neuter","form":sec+("aRam" if _nat else "anam")}
                 # tudAdi san-anIyar redup grades (same 13 stems as san-kta iter401;
                 # aRIya everywhere (natva), dental anIya for cucCup; quad/twins mirror
