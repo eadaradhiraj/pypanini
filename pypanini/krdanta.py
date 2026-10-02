@@ -3127,6 +3127,12 @@ class KrdantaEngine:
                             _gN = _ab + "m"
                             return {"M": [_gM, _c10aM], "F": [_gF, _c10aF], "N": [_gN, _c10aN]}
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
+                # curAdi nich yat n->m twin (sambya/...; unanimous 3/3;
+                # generic sec-form kept first; additive, nijanta+curAdiH-gated).
+                if sanadi == "nijanta" and meta.get("gana") == "curAdiH" and pratyaya == "yat":
+                    _c10mm = re.sub(r"n([pPbB])", r"m\1", sec_base)
+                    if _c10mm != sec_base:
+                        return {"M": [sec_base + "yaH", _c10mm + "yaH"], "F": [sec_base + "yA", _c10mm + "yA"], "N": [sec_base + "yam", _c10mm + "yam"]}
                 if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
                 if pratyaya == "lyuw":
                     _lb = sec_base+"ana"

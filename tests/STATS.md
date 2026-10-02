@@ -720,3 +720,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 532 (GEN-10: nich Satf n→m twin (sambayan/...; _gen-first lists): sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 533 (GEN-10: nich SAnac n→m twin (sambayamAna/...; m-form tokens uncovered unlike iter512 ay-only): nich probe 1452→1434, sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 534 (GEN-10: nich anIyar n→m twin (sambanIya/...; natva-mirrored, generic first): sweep +9 (3 improved), 0 worsened (guards green).
+- Iteration 535 (GEN-10: nich yat n→m twin (sambya/...; sec-form first): sweep +9 (3 improved), 0 worsened (guards green).
