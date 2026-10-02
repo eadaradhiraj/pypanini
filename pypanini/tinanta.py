@@ -6183,6 +6183,58 @@ class TinantaDerivationEngine:
                     _c10stem2 = _c10rc + _c10rv + _c10ax[:-2] + "iz"
                     if _c10stem2 not in s_stems:
                         s_stems.append(_c10stem2)
+            # curAdi vowel-initial san (awwiway/atistay/urjijay/olilaRq...;
+            # ajAder dvitIyasya: prefix-V (+graded nasal) + inner-san-grade + iz;
+            # same split/grade rules as the krdanta san-kta twin-set; inner sec
+            # via _sannanta_sec plus direct redup fallback; additive,
+            # curAdiH-gated).
+            if meta.get("gana") == "curAdiH" and clean and clean[0] in SLP1_VOWELS:
+                _c10vi = 0
+                while _c10vi < len(clean) and clean[_c10vi] in SLP1_VOWELS:
+                    _c10vi += 1
+                _c10pre = clean[:_c10vi]
+                _c10rest = clean[_c10vi:]
+                if len(_c10rest) > 1 and _c10rest[:1] == "r":
+                    _c10pre += "r"
+                    _c10rest = _c10rest[1:]
+                if len(_c10rest) > 1 and _c10rest[:1] in ("n", "m", "Y", "M"):
+                    _c10ng = {"s": "M", "k": "Y", "g": "Y", "D": "n", "j": "Y", "h": "Y", "c": "Y"}.get(_c10rest[1])
+                    if _c10ng:
+                        _c10pre += _c10ng
+                        _c10rest = _c10rest[1:]
+                if clean in ("aji", "ahi"):
+                    _c10pre = "aY"
+                    _c10rest = clean[1:]
+                if len(_c10pre) == 1 and len(_c10rest) == 1:
+                    _c10pre = {"a": "A", "i": "e"}.get(_c10pre, _c10pre)
+                if _c10rest:
+                    _c10ig = [_c10rest + "ay", self._vriddhi_base(_c10rest, is_idit) + "ay", self._bhvadi_guna_base(_c10rest, is_idit) + "ay"]
+                    if _c10rest[-1:] in ("i", "I"):
+                        _c10ibw = _c10rest[:-1]
+                        if _c10ibw:
+                            _c10in = "N" if _c10ibw[-1:] in ("k", "K", "g", "G") else ("Y" if _c10ibw[-1:] in ("c", "C", "j", "J") else ("R" if _c10ibw[-1:] in ("w", "W", "q", "Q", "R") else ("m" if _c10ibw[-1:] in ("p", "P", "b", "B") else None)))
+                            if _c10in:
+                                _c10iy = _c10ibw[:-1] + _c10in + _c10ibw[-1:] if len(_c10ibw) >= 1 else _c10ibw
+                                _c10ig.append(_c10iy + "ay")
+                    _c10ri = _c10rest[0]
+                    if len(_c10rest) > 1 and _c10rest[0] == _c10rest[1]:
+                        _c10ri = _c10rest[:2]
+                    elif _c10rest[:1] in ("s", "S") and len(_c10rest) > 1 and _c10rest[1] in SLP1_KHAY:
+                        _c10ri = _c10rest[1]
+                    _c10ri = {"B": "b", "G": "g", "Q": "q", "D": "d", "J": "j", "K": "k", "C": "c", "W": "w", "T": "t", "P": "p"}.get(_c10ri, _c10ri)
+                    _c10ri = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_c10ri, _c10ri)
+                    for _c10igx in dict.fromkeys(_c10ig):
+                        try:
+                            _c10gs = _sannanta_stem(_c10igx)
+                            for _c10gsv in dict.fromkeys([_c10pre + _c10gs, _c10pre + _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10pre + _c10gs + "ayiz"]):
+                                if _c10gsv not in s_stems:
+                                    s_stems.append(_c10gsv)
+                        except Exception:
+                            pass
+                        _c10gx = _c10igx[1:] if (len(_c10ri) == 2 and _c10ri[0] == _c10ri[1] and _c10igx.startswith(_c10ri[0])) else _c10igx
+                        for _c10sv in dict.fromkeys([_c10pre + _c10ri + "i" + _c10gx + "iz", _c10pre + _c10ri + "i" + _c10gx[:-2] + "iz" if _c10gx.endswith("ay") else _c10pre + _c10ri + "i" + _c10gx + "iz"]):
+                            if _c10sv not in s_stems:
+                                s_stems.append(_c10sv)
             # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, iw->ewiwiz, uz->oziziz, fj->arjijiz)
             if is_vowel_initial and len(clean) == 2 and clean[0] in ("i", "u", "f") and clean[1] not in SLP1_VOWELS:
                 for _st in list(s_stems):
