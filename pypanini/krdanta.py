@@ -6973,11 +6973,19 @@ class KrdantaEngine:
                     if _c10nc == "a":
                         _c10v = self._vriddhi_base(_c10mc, is_idit)
                         _c10forms = [_c10mc + "itA", _c10mc + "ayitA"] + ([_c10v + "ayitA"] if _c10sg and _c10v != _c10mc else [])
-                    elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
-                        _c10gu = self._guna_base(_c10mc, is_idit)
-                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA", _c10gu + "ayitA"] if _c10nc == "u" else [_c10mc + "itA", _c10mc + "ayitA"]
-                    elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
-                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA", self._guna_base(_c10mc, is_idit) + "ayitA"]
+                    elif _c10nc == "u" and _c10cd != "F" and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10gu = self._guna_base(_c10mc, is_idit) + "ayitA"
+                        _c10uu = _c10mc[:_c10mc.rindex(_c10nc)] + "U" + _c10mc[_c10mc.rindex(_c10nc)+1:] + "ayitA"
+                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA"] + ([_c10gu] if _c10sg else []) + ([_c10uu] if _c10uu != _c10gu else [])
+                    elif _c10nc == "U" and _c10cd != "F" and _c10mc[-1] not in SLP1_VOWELS:
+                        # long-U keeps plain-U twins (mUlitA/mUlayitA; superset, no-regression)
+                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA"]
+                    elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA"] + ([self._guna_base(_c10mc, is_idit) + "ayitA"] if _c10sg else [])
+                    elif _c10nc in ("A", "e", "I", "o") and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA"]
+                        if _c10nc == "e" and len(_c10mc) >= 2:
+                            _c10forms.append(_c10mc[:-1] + _c10mc[-1].lower() + _c10mc[-1] + "ayitA")
                     for _c10f in dict.fromkeys(_c10forms):
                         _c10t = {"M": _c10f, "F": _c10f[:-1] + "rI" if _c10f.endswith("A") else _c10f + "rI", "N": _c10f[:-1] + "f" if _c10f.endswith("A") else _c10f + "f"}
                         for _gg in ("M", "F", "N"):
