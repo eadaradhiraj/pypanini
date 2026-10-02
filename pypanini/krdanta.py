@@ -7321,6 +7321,14 @@ class KrdantaEngine:
                 _t6u = self._tudadi_san13(meta.get("clean", "") or clean)
                 if _t6u:
                     return {"avyaya": [s + "itum" for s in _t6u]}
+            # curAdi san-tumun twin-sets (sec-matrix + itum; same survey; generic twin
+            # kept first; additive, pratyaya+sanadi-gated).
+            if pratyaya == "tumun" and sanadi == "sannanta" and meta.get("gana") == "curAdiH":
+                _c10out = []
+                for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                    if _c10s + "itum" not in _c10out:
+                        _c10out.append(_c10s + "itum")
+                return {"avyaya": _c10out}
             if sanadi == "sannanta":
                 stem = clean + "i" + "tum"
                 return {"avyaya": [stem]}
