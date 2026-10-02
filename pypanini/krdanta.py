@@ -4921,6 +4921,13 @@ class KrdantaEngine:
             # kliS seT-twin ktavatu (mirrors kta; both verified in tokens; additive).
             if sanadi is None and clean == "kliS" and meta.get("gana") == "kryAdiH":
                 return {"M": ["kliSitavAn", "klizwavAn"], "F": ["kliSitavatI", "klizwavatI"], "N": ["kliSitavat", "klizwavat", "kliSitavad", "klizwavad"]}
+            # curAdi ktavatu n->R twin before w/W/q (luRwitavAn/...; unanimous 3/3;
+            # generic stem triple kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10mc)
+                if _c10rg != _c10mc:
+                    return {"M": [stem + "vAn", _c10rg + "itavAn"], "F": [stem + "vatI", _c10rg + "itavatI"], "N": [stem + "vat", _c10rg + "itavat"]}
             # curAdi ktavatu n->m twin before labials (sambitavAn/...; unanimous 3/3;
             # mirrors kta iter513; generic triple kept first; additive, curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
