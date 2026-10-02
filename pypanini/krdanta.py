@@ -4920,6 +4920,21 @@ class KrdantaEngine:
                 _c10mm = _re.sub(r"n([pPbB])", r"m\1", _c10mc)
                 if _c10mm != _c10mc:
                     return {"M": [stem + "vAn", _c10mm + "itavAn"], "F": [stem + "vatI", _c10mm + "itavatI"], "N": [stem + "vat", _c10mm + "itavat"]}
+            # curAdi ktavatu f-grade twins (parTitavAn/kalpitavAn/...; ar/Ar/Ir + kalp;
+            # same survey/guards as kta iter551; generic stem triple kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10fw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if _c10fw and _c10fw[-1] in ("f", "F") and "M" not in _c10mc:
+                    _c10fpost = _c10mc[_c10mc.rindex(_c10fw[-1])+1:]
+                    if "i" not in _c10fpost and "I" not in _c10fpost:
+                        _c10out = {"M": [stem + "vAn"], "F": [stem + "vatI"], "N": [stem + "vat"]}
+                        _c10pre = _c10mc[:_c10mc.rindex(_c10fw[-1])]
+                        for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10mc == "kfp" else ()):
+                            for _frm, _g in ((_c10pre + _c10g + _c10fpost + "itavAn", "M"), (_c10pre + _c10g + _c10fpost + "itavatI", "F"), (_c10pre + _c10g + _c10fpost + "itavat", "N")):
+                                if _frm not in _c10out[_g]:
+                                    _c10out[_g].append(_frm)
+                        return _c10out
             # curAdi ktavatu twin-sets (kta-grade stems + itavat; same shape survey as kta;
             # generic twin kept first; additive, curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
