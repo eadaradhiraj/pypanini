@@ -3113,6 +3113,19 @@ class KrdantaEngine:
                     # trio keeps dental n (kzRAvanIya; mirrors mUla suppression)
                     if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and "nIya" in _ab and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
                         _ab = _ab.replace("nIya", "RIya")
+                    # curAdi nich anIyar n->m twin (sambanIya/...; unanimous 3/3;
+                    # generic sec-form kept first; additive, nijanta+curAdiH-gated).
+                    if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                        _c10mm = re.sub(r"n([pPbB])", r"m\1", sec_base)
+                        if _c10mm != sec_base:
+                            _c10ab = _c10mm + "anIya"
+                            if (_natva_applies(orig_clean) or _natva_applies(_c10mm)) and "nIya" in _c10ab:
+                                _c10ab = _c10ab.replace("nIya", "RIya")
+                            _c10aM, _c10aF = _c10ab + "H", (_c10ab[:-1] + "A" if _c10ab.endswith("a") else _c10ab + "A")
+                            _c10aN = _c10ab + "m"
+                            _gM, _gF = _ab + "H", (_ab[:-1] + "A" if _ab.endswith("a") else _ab + "A")
+                            _gN = _ab + "m"
+                            return {"M": [_gM, _c10aM], "F": [_gF, _c10aF], "N": [_gN, _c10aN]}
                     return {"M": _ab+"H","F":_ab[:-1]+"A" if _ab.endswith("a") else _ab+"A","N":_ab+"m"}
                 if pratyaya == "yat": return {"M": sec_base+"yaH","F":sec_base+"yA","N":sec_base+"yam"}
                 if pratyaya == "lyuw":
