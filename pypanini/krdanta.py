@@ -5675,6 +5675,10 @@ class KrdantaEngine:
                                 if _c10fg not in _c10ss:
                                     _c10ss.append(_c10fg)
                     _c10out = {"M": [], "F": [], "N": []}
+                    # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
+                    for _c10raw in (clean, meta.get("clean", "") or clean):
+                        if _c10raw == "jYA" and "jYAp" not in _c10ss:
+                            _c10ss.append("jYAp")
                     for _c10mc in _c10ss:
                         _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                         if not _c10vw:
@@ -6155,6 +6159,10 @@ class KrdantaEngine:
                             if _c10fg not in _c10ss:
                                 _c10ss.append(_c10fg)
                 _c10out = {"M": [], "F": [], "N": []}
+                # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw == "jYA" and "jYAp" not in _c10ss:
+                        _c10ss.append("jYAp")
                 for _c10mc in _c10ss:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -6761,6 +6769,10 @@ class KrdantaEngine:
                 _c10out = {"M": [], "F": [], "N": []}
                 def _c10L(v):
                     return v if isinstance(v, list) else [v]
+                # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw == "jYA" and "jYAp" not in _c10ss:
+                        _c10ss.append("jYAp")
                 for _c10mc in _c10ss:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7118,6 +7130,10 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10stems:
                         _c10stems.append(_c10rg)
+                # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw == "jYA" and "jYAp" not in _c10stems:
+                        _c10stems.append("jYAp")
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7323,6 +7339,10 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10stems:
                         _c10stems.append(_c10rg)
+                # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw == "jYA" and "jYAp" not in _c10stems:
+                        _c10stems.append("jYAp")
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7497,6 +7517,10 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw and _c10rg not in _c10stems:
                         _c10stems.append(_c10rg)
+                # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw == "jYA" and "jYAp" not in _c10stems:
+                        _c10stems.append("jYAp")
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7727,6 +7751,10 @@ class KrdantaEngine:
                 _c10out = {"M": [], "F": [], "N": []}
                 def _c10L(v):
                     return v if isinstance(v, list) else [v]
+                # jYAp stem (p persists across pratyayas; sole jYA surveyed; additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw == "jYA" and "jYAp" not in _c10ss:
+                        _c10ss.append("jYAp")
                 for _c10mc in _c10ss:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
