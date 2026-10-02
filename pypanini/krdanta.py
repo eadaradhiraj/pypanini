@@ -4874,6 +4874,27 @@ class KrdantaEngine:
                     _c10m = tri_linga(stem)
                     _c10t = tri_linga(_c10mc[:-1] + "Avita")
                     return {"M": [_c10m["M"], _c10t["M"]], "F": [_c10m["F"], _c10t["F"]], "N": [_c10m["N"], _c10t["N"]]}
+            # curAdi vowel-final-i kta twins (jiyita/smAyita/...; iy-glide + AY-grade, both
+            # lexical across vowel-final-i roots so union; idit num-roots excluded via i~;
+            # generic triple kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10op = op or ""
+                if _c10mc[-1:] in ("i", "I") and "i~" not in _c10op and "I~" not in _c10op:
+                    _c10m = tri_linga(stem)
+                    _c10out = {"M": [_c10m["M"]], "F": [_c10m["F"]], "N": [_c10m["N"]]}
+                    if _c10mc[-1:] == "I":
+                        _c10sts = [_c10mc[:-1] + "iyita", _c10mc[:-1] + "Ayita", _c10mc[:-1] + "ita"]
+                    else:
+                        _c10sts = [_c10mc + "yita", _c10mc[:-1] + "Ayita"]
+                    for _c10st in _c10sts:
+                        _c10t = tri_linga(_c10st)
+                        for _gg in ("M", "F", "N"):
+                            _vv = _c10t[_gg] if isinstance(_c10t[_gg], list) else [_c10t[_gg]]
+                            for _cc in _vv:
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
+                    return _c10out
             # curAdi a-root kta vriddhi twin (lAjita/tAqita/...; a-nucleus +
             # single-coda survey — generic plain twin kept first (cross-match
             # safety); additive, curAdiH-gated).
