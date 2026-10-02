@@ -4739,6 +4739,20 @@ class KrdantaEngine:
                                     if _cc not in _c10out[_gg]:
                                         _c10out[_gg].append(_cc)
                         return _c10out
+            # curAdi ci kta twins (ciyita/capita/cayita/cAyita; pair 10.0124/0325 surveyed;
+            # ciY takes iy+ap+e, plain-ci takes iy+AY; union, generic cita-triple kept first;
+            # svAdi cita untouched via curAdiH gate; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "ci":
+                _c10m = tri_linga(stem)
+                _c10out = {"M": [_c10m["M"]], "F": [_c10m["F"]], "N": [_c10m["N"]]}
+                for _c10st in ("ciyita", "capita", "cayita", "cAyita"):
+                    _c10t = tri_linga(_c10st)
+                    for _gg in ("M", "F", "N"):
+                        _vv = _c10t[_gg] if isinstance(_c10t[_gg], list) else [_c10t[_gg]]
+                        for _cc in _vv:
+                            if _cc not in _c10out[_gg]:
+                                _c10out[_gg].append(_cc)
+                return _c10out
             # curAdi a-root kta vriddhi twin (lAjita/tAqita/...; a-nucleus +
             # single-coda survey — generic plain twin kept first (cross-match
             # safety); additive, curAdiH-gated).

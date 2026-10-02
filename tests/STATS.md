@@ -768,3 +768,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 580 (GEN-10: nich lyap mUla-delegation (in-place avyaya merge at return site): sweep +38 (38 improved), 0 worsened (guards green).
 - Iteration 581 (GEN-10: nich Satf mUla-delegation (fall-through deletion caught by guard-total shift 882→879, restored): sweep +105 (35 improved), 0 worsened (guards green exact).
 - Iteration 582 (GEN-10: nich SAnac mUla-delegation + sec+amAna ay-twin (capayamAna; plain-ret preserved): sweep +117 (39 improved), 0 worsened (guards green exact).
+- Iteration 583 (GEN-10: ci kta twin-set (iy/ap/e/AY union; svAdi cita untouched): sweep +6 (2 improved), 0 worsened (guards green incl 05.0005).
