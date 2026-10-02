@@ -3021,6 +3021,12 @@ class KrdantaEngine:
                     if meta.get("gana") in ("tanAdiH", "ruDAdiH"):
                         return {"M": sec_base+"itavAn", "F": sec_base+"itavatI", "N": sec_base+"itavat"}
                     return {"M": _b+"avAn", "F": _b+"avatI", "N": _b+"avat"}
+                # curAdi nich tavya n->m twin (sambayitavya/...; unanimous 3/3;
+                # generic sec-forms kept first; additive, nijanta+curAdiH-gated).
+                if sanadi == "nijanta" and meta.get("gana") == "curAdiH" and pratyaya == "tavya":
+                    _c10mm = re.sub(r"n([pPbB])", r"m\1", sec)
+                    if _c10mm != sec:
+                        return {"M": [sec + "itavyaH", _c10mm + "itavyaH"], "F": [sec + "itavyA", _c10mm + "itavyA"], "N": [sec + "itavyam", _c10mm + "itavyam"]}
                 if pratyaya == "tavya": return {"M": sec+"itavyaH","F":sec+"itavyA","N":sec+"itavyam"}
                 if pratyaya == "tfc": return {"M": sec+"itA","F":sec+"itrI","N":sec+"itf"}
                 if pratyaya == "tumun": return {"avyaya": [sec+"itum"]}
