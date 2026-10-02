@@ -8047,6 +8047,15 @@ class KrdantaEngine:
                             _c10f = _c10pre + _c10g + _c10fpost + "ayitum"
                             if _c10f not in _gen:
                                 _gen.append(_c10f)
+            # curAdi tumun n->R twin before w/W/q (luRwayitum/...; unanimous 3/3;
+            # generic kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
+                    if _c10rg != _c10raw:
+                        _c10f = _c10rg + "ayitum"
+                        if _c10f not in _gen:
+                            _gen.append(_c10f)
             return {"avyaya": _gen}
 
         elif pratyaya == "ktvA":
