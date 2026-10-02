@@ -4883,6 +4883,49 @@ class KrdantaEngine:
                     _c10nl = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10rt)
                     if _c10nl != _c10rt and _c10nl not in _c10gg:
                         _c10gg.append(_c10nl)
+                    # unsg-gated vriddhi/guNa (smAy for smi — sg fails on 2-coda but
+                    # vriddhi is attested; additive: extras only add candidates).
+                    for _c10ug in dict.fromkeys([self._vriddhi_base(_c10rt, is_idit), self._guna_base(_c10rt, is_idit)]):
+                        if _c10ug != _c10rt and _c10ug not in _c10gg:
+                            _c10gg.append(_c10ug)
+                    # f-grades ar/Ar/Ir/Ur (GAray/kIrtay/gAray/mArjay...; surveyed
+                    # F-set; mirrors ktvA/tumun/lyap f-grade blocks; additive).
+                    if _c10rw and _c10rw[-1] in ("f", "F"):
+                        _c10fpost = _c10rt[_c10rt.rindex(_c10rw[-1])+1:]
+                        if "i" not in _c10fpost and "I" not in _c10fpost:
+                            _c10pre = _c10rt[:_c10rt.rindex(_c10rw[-1])]
+                            for _c10fg in ("ar", "Ar", "Ir", "Ur"):
+                                _c10f = _c10pre + _c10fg + _c10fpost
+                                if _c10f != _c10rt and _c10f not in _c10gg:
+                                    _c10gg.append(_c10f)
+                    # Y-nasal grades unconditioned (laRq/CaYj; the is_idit-gated
+                    # twin above misses non-idit laqi/Caji; coda-class map is
+                    # shape-derived; additive).
+                    if _c10rt[-1:] in ("i", "I"):
+                        _c10ybw = _c10rt[:-1]
+                        if _c10ybw:
+                            _c10yn = "N" if _c10ybw[-1:] in ("k", "K", "g", "G") else ("Y" if _c10ybw[-1:] in ("c", "C", "j", "J") else ("R" if _c10ybw[-1:] in ("w", "W", "q", "Q", "R") else ("m" if _c10ybw[-1:] in ("p", "P", "b", "B") else None)))
+                            if _c10yn:
+                                _c10yg = _c10ybw[:-1] + _c10yn + _c10ybw[-1:] if len(_c10ybw) >= 1 else _c10ybw
+                                if _c10yg != _c10rt and _c10yg not in _c10gg:
+                                    _c10gg.append(_c10yg)
+                    # ci cap-suppletion (cicapayizita; 0124 op ciY surveyed vs 0325
+                    # op ci which takes cay/cAyay; op-gated).
+                    if _c10rt == "ci" and (op or "") == "ciY" and "cap" not in _c10gg:
+                        _c10gg.append("cap")
+                    # op-z grades (zwop/sizReh/suzuww...; op carries z while clean
+                    # normalizes to s; plain/guNa/vriddhi/n-m of op-root; mirrors
+                    # tinanta op-z block; surveyed z-op set; additive).
+                    _c10zop = (op or "").replace("~", "")
+                    if _c10zop.endswith("a"):
+                        _c10zop = _c10zop[:-1]
+                    if _c10zop.endswith("N"):
+                        _c10zop = _c10zop[:-1]
+                    if _c10zop.startswith("z") and _c10rt[:1] == "s":
+                        for _c10zg in dict.fromkeys([_c10zop, self._guna_base(_c10zop, is_idit), self._vriddhi_base(_c10zop, is_idit)]):
+                            for _c10zb in dict.fromkeys([_c10zg, re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10zg)]):
+                                if _c10zb != _c10rt and _c10zb not in _c10gg:
+                                    _c10gg.append(_c10zb)
                     # z-initial twin when op starts with z (sizambayizita; op zanba~ surveyed)
                     if (op or "").startswith("z") and _c10nl[:1] == "s":
                         _c10zl = "z" + _c10nl[1:]
@@ -4892,6 +4935,9 @@ class KrdantaEngine:
                     _c10rl = re.sub(r"n([wWqQR])", r"R\1", _c10rt)
                     if _c10rl != _c10rt and _c10rl not in _c10gg:
                         _c10gg.append(_c10rl)
+                    # plain+ay grade (kfpay for kfp; san takes aya-stems; additive).
+                    if _c10rt + "ay" not in _c10gg:
+                        _c10gg.append(_c10rt + "ay")
                     for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
                         try:
                             _c10gs = _sannanta_sec(_c10gr)
@@ -4907,6 +4953,23 @@ class KrdantaEngine:
                                     _c10ad(tri_linga(_c10gst))
                         except Exception:
                             continue
+                    # direct redup fallback (sismAyayiz/cikfpayiz/tuzwopayiz/...;
+                    # clean-based redup (s-cluster 2nd, cutva, u-iff) + grade +
+                    # iz/ayiz via _kta_stem; covers grades where _sannanta_sec
+                    # misfires; additive).
+                    if _c10rt and _c10rt[0] not in SLP1_VOWELS:
+                        _c10rc = _c10rt[0]
+                        if _c10rt[:1] in ("s", "S") and len(_c10rt) > 1 and _c10rt[1] in SLP1_KHAY:
+                            _c10rc = _c10rt[1]
+                        _c10rc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_c10rc, _c10rc)
+                        _c10rv = "u" if ("u" in _c10rt or "U" in _c10rt) else "i"
+                        for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
+                            for _c10sv in dict.fromkeys([_c10rc + _c10rv + _c10gr + "iz", _c10rc + _c10rv + _c10gr + "ayiz"]):
+                                try:
+                                    _c10st = self._kta_stem(_c10sv, True, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
+                                    _c10ad(tri_linga(_c10st))
+                                except Exception:
+                                    continue
                 if any(_c10acc.values()):
                     return _c10acc
             return tri_linga(stem)
