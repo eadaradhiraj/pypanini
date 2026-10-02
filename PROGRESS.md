@@ -11,7 +11,7 @@ Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — held.
 Sweep-10: **316/492 scored** (17 skipped) — held (V-initial san + aya-less, 6 improved, 0 worsened; this iteration).
 Landscape: 04 + 10 remain (06 modulo ceiling).
 
-## Done — this session (06) + 460-467 (10)
+## Done — this session (06) + 460-468 (10)
 - 06: iterations 383-398, 442-458 → 173/174 modulo 06.0159 ceiling (see STATS.md).
 - 460: verify pull 7738ab6 + fresh sweeps (csv refresh).
 - 461: curAdi general aya-twins ktvA/tumun (293 improved, +99 pass-ups).
@@ -21,9 +21,10 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - 465: curAdi san-yak twins (30 improved, +3 pass-ups).
 - 466: curAdi san-kta grade extensions (30 improved, holds 316).
 - 467: vowel-initial san + aya-less grades (6 improved, holds 316).
+- 468: shared _curAdi_sanV_secs helper (zero-diff) + san-ktavatu V-secs (9 improved, holds 316).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
-1. Gana-10: san_krut/ktavatu-Satf-tavya (V-grades) + yak + ting (pull before each iteration — shared tree; PYTHONHASHSEED=0).
+1. Gana-10: san_krut/Satf-tavya (V-grades via helper) + yak + ting (pull before each iteration — shared tree; PYTHONHASHSEED=0).
 2. Gana-04 ceiling audit (other session) → all-gana 100% modulo ceilings.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.

@@ -2435,6 +2435,59 @@ class KrdantaEngine:
                 # Panini 8.3.57 iRkoH: satva only applies after iN or ku; after a/A, suffix remains dental s
                 _sfx = "s" if c.endswith(("a", "A")) else ("z" if is_vowel_final else "iz")
                 return redup_cons + redup_vowel + _c_san + _sfx
+            def _curAdi_sanV_secs(_c10rt, is_idit):
+                # vowel-initial san secs (urjijay/awwiway/atistay/olilaRq/arcikay...;
+                # ajAder dvitIyasya prefix-V + inner grades; same survey as the san-kta
+                # V-block below; returns iz/ayiz secs (pre-_kta_stem) in emission order).
+                _secs = []
+                if not (_c10rt and _c10rt[0] in SLP1_VOWELS):
+                    return _secs
+                _c10vi = 0
+                while _c10vi < len(_c10rt) and _c10rt[_c10vi] in SLP1_VOWELS:
+                    _c10vi += 1
+                _c10pre = _c10rt[:_c10vi]
+                _c10rest = _c10rt[_c10vi:]
+                if len(_c10rest) > 1 and _c10rest[:1] == "r":
+                    _c10pre += "r"
+                    _c10rest = _c10rest[1:]
+                if len(_c10rest) > 1 and _c10rest[:1] in ("n", "m", "Y", "M"):
+                    _c10ng = {"s": "M", "k": "Y", "g": "Y", "D": "n", "j": "Y", "h": "Y", "c": "Y"}.get(_c10rest[1])
+                    if _c10ng:
+                        _c10pre += _c10ng
+                        _c10rest = _c10rest[1:]
+                if _c10rt in ("aji", "ahi"):
+                    _c10pre = "aY"
+                    _c10rest = _c10rt[1:]
+                if len(_c10pre) == 1 and len(_c10rest) == 1:
+                    _c10pre = {"a": "A", "i": "e"}.get(_c10pre, _c10pre)
+                if not _c10rest:
+                    return _secs
+                _c10ig = [_c10rest + "ay", self._vriddhi_base(_c10rest, is_idit) + "ay", self._guna_base(_c10rest, is_idit) + "ay"]
+                if _c10rest[-1:] in ("i", "I"):
+                    _c10ibw = _c10rest[:-1]
+                    if _c10ibw:
+                        _c10in = "N" if _c10ibw[-1:] in ("k", "K", "g", "G") else ("Y" if _c10ibw[-1:] in ("c", "C", "j", "J") else ("R" if _c10ibw[-1:] in ("w", "W", "q", "Q", "R") else ("m" if _c10ibw[-1:] in ("p", "P", "b", "B") else None)))
+                        if _c10in:
+                            _c10iy = _c10ibw[:-1] + _c10in + _c10ibw[-1:] if len(_c10ibw) >= 1 else _c10ibw
+                            _c10ig.append(_c10iy + "ay")
+                _c10ri = _c10rest[0]
+                if len(_c10rest) > 1 and _c10rest[0] == _c10rest[1]:
+                    _c10ri = _c10rest[:2]
+                elif _c10rest[:1] in ("s", "S") and len(_c10rest) > 1 and _c10rest[1] in SLP1_KHAY:
+                    _c10ri = _c10rest[1]
+                _c10ri = {"B": "b", "G": "g", "Q": "q", "D": "d", "J": "j", "K": "k", "C": "c", "W": "w", "T": "t", "P": "p"}.get(_c10ri, _c10ri)
+                _c10ri = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_c10ri, _c10ri)
+                for _c10igx in dict.fromkeys(_c10ig):
+                    try:
+                        _c10gs = _sannanta_sec(_c10igx)
+                        for _c10gsv in dict.fromkeys([_c10pre + _c10gs, _c10pre + _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10pre + _c10gs + "ayiz"]):
+                            _secs.append(_c10gsv)
+                    except Exception:
+                        pass
+                    _c10gx = _c10igx[1:] if (len(_c10ri) == 2 and _c10ri[0] == _c10ri[1] and _c10igx.startswith(_c10ri[0])) else _c10igx
+                    for _c10sv in dict.fromkeys([_c10pre + _c10ri + "i" + _c10gx + "iz", _c10pre + _c10ri + "i" + _c10gx[:-2] + "iz" if _c10gx.endswith("ay") else _c10pre + _c10ri + "i" + _c10gx + "iz"]):
+                        _secs.append(_c10sv)
+                return _secs
             def _c10_san_secs(sec, root, is_idit):
                 # curAdi san sec twin-matrix (plain/graded redup x ay/no-ay); root = mUla
                 # clean; ay/no-ay AND plain/graded lexical across homonymous roots so twins.
@@ -4989,58 +5042,13 @@ class KrdantaEngine:
                     # plain+ay/vriddhi/guNa/Y-nasal on inner root; inner redup
                     # (s-cluster 2nd, ww-kept, deasp+cutva incl h→j); surveyed
                     # V-set; additive).
-                    if _c10rt and _c10rt[0] in SLP1_VOWELS:
-                        _c10vi = 0
-                        while _c10vi < len(_c10rt) and _c10rt[_c10vi] in SLP1_VOWELS:
-                            _c10vi += 1
-                        _c10pre = _c10rt[:_c10vi]
-                        _c10rest = _c10rt[_c10vi:]
-                        if len(_c10rest) > 1 and _c10rest[:1] == "r":
-                            _c10pre += "r"
-                            _c10rest = _c10rest[1:]
-                        if len(_c10rest) > 1 and _c10rest[:1] in ("n", "m", "Y", "M"):
-                            _c10ng = {"s": "M", "k": "Y", "g": "Y", "D": "n", "j": "Y", "h": "Y", "c": "Y"}.get(_c10rest[1])
-                            if _c10ng:
-                                _c10pre += _c10ng
-                                _c10rest = _c10rest[1:]
-                        if _c10rt in ("aji", "ahi"):
-                            _c10pre = "aY"
-                            _c10rest = _c10rt[1:]
-                        if len(_c10pre) == 1 and len(_c10rest) == 1:
-                            _c10pre = {"a": "A", "i": "e"}.get(_c10pre, _c10pre)
-                        if _c10rest:
-                            _c10ig = [_c10rest + "ay", self._vriddhi_base(_c10rest, is_idit) + "ay", self._guna_base(_c10rest, is_idit) + "ay"]
-                            if _c10rest[-1:] in ("i", "I"):
-                                _c10ibw = _c10rest[:-1]
-                                if _c10ibw:
-                                    _c10in = "N" if _c10ibw[-1:] in ("k", "K", "g", "G") else ("Y" if _c10ibw[-1:] in ("c", "C", "j", "J") else ("R" if _c10ibw[-1:] in ("w", "W", "q", "Q", "R") else ("m" if _c10ibw[-1:] in ("p", "P", "b", "B") else None)))
-                                    if _c10in:
-                                        _c10iy = _c10ibw[:-1] + _c10in + _c10ibw[-1:] if len(_c10ibw) >= 1 else _c10ibw
-                                        _c10ig.append(_c10iy + "ay")
-                            _c10ri = _c10rest[0]
-                            if len(_c10rest) > 1 and _c10rest[0] == _c10rest[1]:
-                                _c10ri = _c10rest[:2]
-                            elif _c10rest[:1] in ("s", "S") and len(_c10rest) > 1 and _c10rest[1] in SLP1_KHAY:
-                                _c10ri = _c10rest[1]
-                            _c10ri = {"B": "b", "G": "g", "Q": "q", "D": "d", "J": "j", "K": "k", "C": "c", "W": "w", "T": "t", "P": "p"}.get(_c10ri, _c10ri)
-                            _c10ri = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j"}.get(_c10ri, _c10ri)
-                            for _c10igx in dict.fromkeys(_c10ig):
-                                try:
-                                    _c10gs = _sannanta_sec(_c10igx)
-                                    for _c10gsv in dict.fromkeys([_c10pre + _c10gs, _c10pre + _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10pre + _c10gs + "ayiz"]):
-                                        _c10gst = self._kta_stem(_c10gsv, True, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
-                                        _c10ad(tri_linga(_c10gst))
-                                except Exception:
-                                    pass
-                                # doubled redup (wwi) strips one cons from the grade
-                                # (wway→way; single redups keep the grade whole).
-                                _c10gx = _c10igx[1:] if (len(_c10ri) == 2 and _c10ri[0] == _c10ri[1] and _c10igx.startswith(_c10ri[0])) else _c10igx
-                                for _c10sv in dict.fromkeys([_c10pre + _c10ri + "i" + _c10gx + "iz", _c10pre + _c10ri + "i" + _c10gx[:-2] + "iz" if _c10gx.endswith("ay") else _c10pre + _c10ri + "i" + _c10gx + "iz"]):
-                                    try:
-                                        _c10st = self._kta_stem(_c10sv, True, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
-                                        _c10ad(tri_linga(_c10st))
-                                    except Exception:
-                                        continue
+                    # vowel-initial san via shared V-sec helper (same survey; additive).
+                    for _c10sv in _curAdi_sanV_secs(_c10rt, is_idit):
+                        try:
+                            _c10st = self._kta_stem(_c10sv, True, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
+                            _c10ad(tri_linga(_c10st))
+                        except Exception:
+                            continue
                 if any(_c10acc.values()):
                     return _c10acc
             return tri_linga(stem)
@@ -5307,6 +5315,11 @@ class KrdantaEngine:
                 _c10out = {"M": [b + "avAn"], "F": [b + "avatI"], "N": [b + "avat"]}
                 for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
                     for _frm, _g in ((_c10s + "itavAn", "M"), (_c10s + "itavatI", "F"), (_c10s + "itavat", "N"), (_c10s + "itavad", "N")):
+                        if _frm not in _c10out[_g]:
+                            _c10out[_g].append(_frm)
+                # vowel-initial san via shared V-sec helper (same survey; additive).
+                for _c10sv in _curAdi_sanV_secs(meta.get("clean", "") or clean, is_idit):
+                    for _frm, _g in ((_c10sv + "itavAn", "M"), (_c10sv + "itavatI", "F"), (_c10sv + "itavat", "N"), (_c10sv + "itavad", "N")):
                         if _frm not in _c10out[_g]:
                             _c10out[_g].append(_frm)
                 return _c10out
