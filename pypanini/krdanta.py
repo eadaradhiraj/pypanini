@@ -2431,14 +2431,30 @@ class KrdantaEngine:
                                 _ng = _bw[:-1] + _nn + _bw[-1] if len(_bw) >= 1 else _bw
                                 if _ng != root and _ng not in _gg:
                                     _gg.append(_ng)
+                    # n->m before labials in san (sizambayiz-...; unanimous 3/3; additive).
+                    _nlab = re.sub(r"n([pPbB])", r"m\1", root)
+                    if _nlab != root and _nlab not in _gg:
+                        _gg.append(_nlab)
+                    # z-initial twin when op starts with z (op zanba~ surveyed)
+                    if (meta.get("op") or "").startswith("z") and _nlab[:1] == "s":
+                        _zl = "z" + _nlab[1:]
+                        if _zl not in _gg:
+                            _gg.append(_zl)
                     for _gr in dict.fromkeys(g for g in _gg if g != root):
                         try:
                             _gs = _sannanta_sec(_gr)
+                            # z-initial redup devoices (sizamb- from zizamb-)
+                            _gsl = [_gs]
+                            if _gr[:1] == "z" and _gs.startswith("zi"):
+                                _sd = "si" + _gs[2:]
+                                if _sd not in _gsl:
+                                    _gsl.append(_sd)
+                            for _gsb in _gsl:
+                                for _gsv in dict.fromkeys([_gsb, _gsb[:-2] + "ayiz" if _gsb.endswith("iz") else _gsb + "ayiz"]):
+                                    if _gsv not in out:
+                                        out.append(_gsv)
                         except Exception:
                             continue
-                        for _gsv in dict.fromkeys([_gs, _gs[:-2] + "ayiz" if _gs.endswith("iz") else _gs + "ayiz"]):
-                            if _gsv not in out:
-                                out.append(_gsv)
                 return out
             def _yan_sec(c):
                 _nitya_san = {
