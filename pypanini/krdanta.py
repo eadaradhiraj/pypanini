@@ -2779,7 +2779,7 @@ class KrdantaEngine:
                 # Nitya-san (3.1.5/3.1.6, seT only; 01.0461 aniT excluded via sew): nich of san stem
                 # (jugupsayamAnaH/jugupsayan/jugupsayitavyaH/jugupsyaH...; surveyed 7/7 unanimous, zero conflicts;
                 # divAdi gup excluded — takes gopay via _nijanta_sec above, sole 04.0147 surveyed).
-                _nitya_san_nic = sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (clean == "mAn" and meta.get("gana") == "curAdiH") and not (clean == "gup" and meta.get("gana") == "divAdiH")
+                _nitya_san_nic = sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not meta.get("gana") == "curAdiH" and not (clean == "gup" and meta.get("gana") == "divAdiH")
                 if _nitya_san_nic:
                     sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean] + "ay"
             elif sanadi == "sannanta":
