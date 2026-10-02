@@ -7683,6 +7683,12 @@ class KrdantaEngine:
                 _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), clean)
                 if _c10mm != clean:
                     return {"gender": "Neuter", "form": _c10mm + "anam"}
+            # curAdi lyuw n->R before w/W/q (luRwanam/...; old forms absent corpus-wide;
+            # replace; unanimous 3/3; curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10rg = re.sub(r"n([wWqQR])", r"R\1", clean)
+                if _c10rg != clean:
+                    return {"gender": "Neuter", "form": _c10rg + "anam"}
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
