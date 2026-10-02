@@ -2543,8 +2543,8 @@ class KrdantaEngine:
                             _gs = _sannanta_sec(_gr)
                             # z-initial redup devoices (sizamb- from zizamb-)
                             _gsl = [_gs]
-                            if _gr[:1] == "z" and _gs.startswith("zi"):
-                                _sd = "si" + _gs[2:]
+                            if _gr[:1] == "z" and _gs[:1] == "z":
+                                _sd = "s" + _gs[1:]
                                 if _sd not in _gsl:
                                     _gsl.append(_sd)
                             for _gsb in _gsl:
@@ -5102,8 +5102,8 @@ class KrdantaEngine:
                             _c10gs = _sannanta_sec(_c10gr)
                             # z-initial redup devoices (sizamb- from zizamb-; op zanba~ surveyed)
                             _c10gsl = [_c10gs]
-                            if _c10gr[:1] == "z" and _c10gs.startswith("zi"):
-                                _c10sd = "si" + _c10gs[2:]
+                            if _c10gr[:1] == "z" and _c10gs[:1] == "z":
+                                _c10sd = "s" + _c10gs[1:]
                                 if _c10sd not in _c10gsl:
                                     _c10gsl.append(_c10sd)
                             for _c10gsb in _c10gsl:
@@ -6628,8 +6628,8 @@ class KrdantaEngine:
                             _c10gs = _sannanta_sec(_c10gr)
                             # z-initial redup devoices (sizamb- from zizamb-)
                             _c10gsl = [_c10gs]
-                            if _c10gr[:1] == "z" and _c10gs.startswith("zi"):
-                                _c10sd = "si" + _c10gs[2:]
+                            if _c10gr[:1] == "z" and _c10gs[:1] == "z":
+                                _c10sd = "s" + _c10gs[1:]
                                 if _c10sd not in _c10gsl:
                                     _c10gsl.append(_c10sd)
                             for _c10gsb in _c10gsl:

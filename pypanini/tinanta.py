@@ -6021,8 +6021,8 @@ class TinantaDerivationEngine:
                             _c10gs = _sannanta_stem(_c10gr)
                             # z-initial redup devoices (sizamb- from zizamb-; mirrors krdanta)
                             _c10gsl = [_c10gs]
-                            if _c10gr[:1] == "z" and _c10gs.startswith("zi"):
-                                _c10sd = "si" + _c10gs[2:]
+                            if _c10gr[:1] == "z" and _c10gs[:1] == "z":
+                                _c10sd = "s" + _c10gs[1:]
                                 if _c10sd not in _c10gsl:
                                     _c10gsl.append(_c10sd)
                             for _c10gsb in _c10gsl:

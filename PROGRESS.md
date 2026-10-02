@@ -11,7 +11,7 @@ Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — held.
 Sweep-10: **316/492 scored** (17 skipped) — held (V-initial san + aya-less, 6 improved, 0 worsened; this iteration).
 Landscape: 04 + 10 remain (06 modulo ceiling).
 
-## Done — this session (06) + 460-467 + 585-609 (10)
+## Done — this session (06) + 460-467 + 585-610 (10)
 - 06: iterations 383-398, 442-458 → 173/174 modulo 06.0159 ceiling (see STATS.md).
 - 460: verify pull 7738ab6 + fresh sweeps (csv refresh).
 - 461: curAdi general aya-twins ktvA/tumun (293 improved, +99 pass-ups).
@@ -46,9 +46,10 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - 607: ktavatu n→N velar twins (24 improved-tokens, holds 320).
 - 608: kta plain meta-clean triple (6 improved-tokens, holds 320).
 - 609: kta a+s plain+vriddhi twins (6 improved-tokens, holds 320).
+- 610: generalized z-devoice (58 improved-tokens, 322/492: PASS 10.0038/0242).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
-1. Gana-10: yak + ting (pull before each iteration — shared tree; PYTHONHASHSEED=0). Failed hypotheses (no commit): (a) lyap pra+V sandhi twins — correct forms, zero gain (bare stems cover slots), reverted; (b) tavya bare e-grade twins (jretavya/metavya) — correct forms, zero gain, reverted (kept AY + short-i); (c) tumun/lyap jYAp twins — correct forms, zero gain, reverted; (d) san jYAp grade — correct form, zero gain (slot already hit), reverted.
+1. Gana-10: yak + ting + yangluk-redup + luN-aorist (pull before each iteration — shared tree; PYTHONHASHSEED=0). Queued irregular: sad Asad-suppletion (Asanna/Asatta/AsIda), ci-cap extras. Failed hypotheses (no commit): (a) lyap pra+V sandhi twins — correct forms, zero gain (bare stems cover slots), reverted; (b) tavya bare e-grade twins (jretavya/metavya) — correct forms, zero gain, reverted (kept AY + short-i); (c) tumun/lyap jYAp twins — correct forms, zero gain, reverted; (d) san jYAp grade — correct form, zero gain (slot already hit), reverted.
 2. Gana-04 ceiling audit (other session) → all-gana 100% modulo ceilings.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
