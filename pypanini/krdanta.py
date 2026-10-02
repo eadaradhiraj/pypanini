@@ -2440,6 +2440,10 @@ class KrdantaEngine:
                         _zl = "z" + _nlab[1:]
                         if _zl not in _gg:
                             _gg.append(_zl)
+                    # n->R before w/W/q in san (luluRwayiz-...; unanimous 3/3; additive).
+                    _rlab = re.sub(r"n([wWqQR])", r"R\1", root)
+                    if _rlab != root and _rlab not in _gg:
+                        _gg.append(_rlab)
                     for _gr in dict.fromkeys(g for g in _gg if g != root):
                         try:
                             _gs = _sannanta_sec(_gr)
@@ -4739,6 +4743,10 @@ class KrdantaEngine:
                         _c10zl = "z" + _c10nl[1:]
                         if _c10zl not in _c10gg:
                             _c10gg.append(_c10zl)
+                    # n->R before w/W/q in san (luluRwayiz-...; unanimous 3/3; additive).
+                    _c10rl = re.sub(r"n([wWqQR])", r"R\1", _c10rt)
+                    if _c10rl != _c10rt and _c10rl not in _c10gg:
+                        _c10gg.append(_c10rl)
                     for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
                         try:
                             _c10gs = _sannanta_sec(_c10gr)
@@ -6153,21 +6161,25 @@ class KrdantaEngine:
                             _c10zl = "z" + _c10nl[1:]
                             if _c10zl not in _c10gg:
                                 _c10gg.append(_c10zl)
-                        for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
-                            try:
-                                _c10gs = _sannanta_sec(_c10gr)
-                                # z-initial redup devoices (sizamb- from zizamb-)
-                                _c10gsl = [_c10gs]
-                                if _c10gr[:1] == "z" and _c10gs.startswith("zi"):
-                                    _c10sd = "si" + _c10gs[2:]
-                                    if _c10sd not in _c10gsl:
-                                        _c10gsl.append(_c10sd)
-                                for _c10gsb in _c10gsl:
-                                    for _c10gsv in dict.fromkeys([_c10gsb, _c10gsb[:-2] + "ayiz" if _c10gsb.endswith("iz") else _c10gsb + "ayiz"]):
-                                        if _c10gsv not in _c10ts:
-                                            _c10ts.append(_c10gsv)
-                            except Exception:
-                                continue
+                    # n->R before w/W/q in san (luluRwayiz-...; unanimous 3/3; additive).
+                    _c10rl = re.sub(r"n([wWqQR])", r"R\1", _c10rt)
+                    if _c10rl != _c10rt and _c10rl not in _c10gg:
+                        _c10gg.append(_c10rl)
+                    for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
+                        try:
+                            _c10gs = _sannanta_sec(_c10gr)
+                            # z-initial redup devoices (sizamb- from zizamb-)
+                            _c10gsl = [_c10gs]
+                            if _c10gr[:1] == "z" and _c10gs.startswith("zi"):
+                                _c10sd = "si" + _c10gs[2:]
+                                if _c10sd not in _c10gsl:
+                                    _c10gsl.append(_c10sd)
+                            for _c10gsb in _c10gsl:
+                                for _c10gsv in dict.fromkeys([_c10gsb, _c10gsb[:-2] + "ayiz" if _c10gsb.endswith("iz") else _c10gsb + "ayiz"]):
+                                    if _c10gsv not in _c10ts:
+                                        _c10ts.append(_c10gsv)
+                        except Exception:
+                            continue
                     _c10out = {"M": [], "F": [], "N": []}
                     for _c10s in _c10ts:
                         _c10t = tri_linga(_c10s + "itavya")
