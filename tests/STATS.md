@@ -700,3 +700,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 512 (GEN-10: nich SAnac ay-twin ATTEMPTED then REVERTED — probe slot HIT (sAntvayamAnaH) but sweep fid-diff +0/0 (token already covered via mUla iter511); zero-gain protocol, tree restored to 1b94053).
 - Iteration 513 (GEN-10: curAdi kta n→m twin before labials (sambita/Sambita/sAmbita; unanimous 3/3; nich kta free via mUla-delegation merge): probe kta 120→111, sweep +18 (3 improved), 0 worsened (guards green).
 - Iteration 514 (GEN-10: curAdi ktavatu n→m twin (sambitavAn/...; stem+vAn twin-1 exact; nich ktavatu free via merge): sweep +18 (3 improved), 0 worsened (guards green).
+- Iteration 515 (GEN-10: tavya m-stem in _c10ss (sambayitavya/...; order-kept additive): probe tavya 153→132, sweep +9 (3 improved), 0 worsened (guards green).

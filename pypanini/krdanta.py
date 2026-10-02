@@ -6093,6 +6093,11 @@ class KrdantaEngine:
                 if dhatu_id == "10.0304":
                     return {"M": ["vicCitavyaH", "vicCayitavyaH", "vicCAyitavyaH"], "F": ["vicCitavyA", "vicCayitavyA", "vicCAyitavyA"], "N": ["vicCitavyam", "vicCayitavyam", "vicCAyitavyam"]}
                 _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                # n->m before labials (sambayitavya/...; unanimous 3/3; additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    _c10mm = re.sub(r"n([pPbB])", r"m\1", _c10raw)
+                    if _c10mm != _c10raw and _c10mm not in _c10ss:
+                        _c10ss.append(_c10mm)
                 _c10out = {"M": [], "F": [], "N": []}
                 def _c10L(v):
                     return v if isinstance(v, list) else [v]
