@@ -7996,6 +7996,11 @@ class KrdantaEngine:
                 # old vyacitvA-forms miss; tudAdiH-gated).
                 if sanadi is None and meta.get("gana") == "tudAdiH" and clean == "vyac":
                     _alts.append("vicitvA")
+                # curAdi ktvA n->m twin (sambayitvA/...; unanimous 3/3; generic kept first).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10mm = re.sub(r"n([pPbB])", r"m\1", clean)
+                    if _c10mm != clean and _c10mm + "ayitvA" not in _alts:
+                        _alts.append(_c10mm + "ayitvA")
                 return {"avyaya": _alts}
             else:
                 if clean.endswith("F"):
