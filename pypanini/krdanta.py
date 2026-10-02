@@ -4866,6 +4866,14 @@ class KrdantaEngine:
                     _c10m = tri_linga(stem)
                     _c10t = tri_linga(_c10mc + "ita")
                     return {"M": [_c10m["M"], _c10t["M"]], "F": [_c10m["F"], _c10t["F"]], "N": [_c10m["N"], _c10t["N"]]}
+            # curAdi vowel-final-u kta Av-twins (yAvita/cyAvita/BAvita; homonymous BU pair
+            # takes Av/plain lexically so twins; generic plain triple kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                if _c10mc[-1:] in ("u", "U"):
+                    _c10m = tri_linga(stem)
+                    _c10t = tri_linga(_c10mc[:-1] + "Avita")
+                    return {"M": [_c10m["M"], _c10t["M"]], "F": [_c10m["F"], _c10t["F"]], "N": [_c10m["N"], _c10t["N"]]}
             # curAdi a-root kta vriddhi twin (lAjita/tAqita/...; a-nucleus +
             # single-coda survey — generic plain twin kept first (cross-match
             # safety); additive, curAdiH-gated).
