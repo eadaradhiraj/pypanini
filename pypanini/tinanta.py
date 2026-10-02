@@ -3910,6 +3910,36 @@ class TinantaDerivationEngine:
                 if clean in ("kzIv", "kziv"):
                     if "cikzeviz" not in [s_stem] + alt_s:
                         alt_s.append("cikzeviz")
+                # curAdi san aya-redup twins for san-yak (same grades as the mUla
+                # san block: C1+i/u-redup + prim aya-stem + iz and minus-ay + iz,
+                # vriddhi-ay for I-roots, op-z satva twins; yak stems derive from
+                # these via +y below; additive via alt_s, curAdiH-gated).
+                if meta.get("gana") == "curAdiH" and clean and clean[0] not in SLP1_VOWELS:
+                    _c10rc = clean[0]
+                    if clean[:1] in ("s", "S") and len(clean) > 1 and clean[1] in SLP1_KHAY:
+                        _c10rc = clean[1]
+                    _c10rc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_c10rc, _c10rc)
+                    _c10rv = "u" if ("u" in clean or "U" in clean) else "i"
+                    _c10ayx = [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]
+                    if clean[-1:] in ("i", "I"):
+                        _c10va = self._vriddhi_base(clean, is_idit) + "ay"
+                        if _c10va not in _c10ayx:
+                            _c10ayx.append(_c10va)
+                    _zop = (op or "").replace("~", "")
+                    if _zop.endswith("a"):
+                        _zop = _zop[:-1]
+                    if _zop.endswith("N"):
+                        _zop = _zop[:-1]
+                    if _zop.startswith("z") and clean[:1] == "s":
+                        for _c10zg in dict.fromkeys([_zop, self._bhvadi_guna_base(_zop, is_idit), self._vriddhi_base(_zop, is_idit)]):
+                            for _c10zb in dict.fromkeys([_c10zg, re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10zg)]):
+                                _c10zy = _c10zb + "ay"
+                                if _c10zy not in _c10ayx:
+                                    _c10ayx.append(_c10zy)
+                    for _c10ax in dict.fromkeys(_c10ayx):
+                        for _c10stem in (_c10rc + _c10rv + _c10ax + "iz", _c10rc + _c10rv + _c10ax[:-2] + "iz"):
+                            if _c10stem not in [s_stem] + alt_s:
+                                alt_s.append(_c10stem)
                 yak_stem = s_stem + "y"
                 sec_stem = s_stem
                 # keep alts for per-lakara generation
@@ -6130,6 +6160,22 @@ class TinantaDerivationEngine:
                     _c10va = self._vriddhi_base(clean, is_idit) + "ay"
                     if _c10va not in _c10ayx:
                         _c10ayx.append(_c10va)
+                # op-z satva twins (suzuww/sizReh/tuzwop/sizamb/zmAy...; op carries
+                # z (zuwwa~/zwupa~/zRiha~/zanba~/zmiN) while clean normalizes to s;
+                # redup stays s-/t- (su/tu/si), root takes op-grades (plain/guNa/
+                # vriddhi + n→m) as fake ay-stems; unvoiced twins kept (z-op does
+                # not always voice: svad→sisvad); surveyed z-op set; additive).
+                _zop = (op or "").replace("~", "")
+                if _zop.endswith("a"):
+                    _zop = _zop[:-1]
+                if _zop.endswith("N"):
+                    _zop = _zop[:-1]
+                if _zop.startswith("z") and clean[:1] == "s":
+                    for _c10zg in dict.fromkeys([_zop, self._bhvadi_guna_base(_zop, is_idit), self._vriddhi_base(_zop, is_idit)]):
+                        for _c10zb in dict.fromkeys([_c10zg, re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10zg)]):
+                            _c10zy = _c10zb + "ay"
+                            if _c10zy not in _c10ayx:
+                                _c10ayx.append(_c10zy)
                 for _c10ax in dict.fromkeys(_c10ayx):
                     _c10stem = _c10rc + _c10rv + _c10ax + "iz"
                     if _c10stem not in s_stems:
