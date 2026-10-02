@@ -8388,6 +8388,15 @@ class KrdantaEngine:
                                 _c10f = _c10pre + _c10g + _c10fpost + "ayitvA"
                                 if _c10f not in _alts:
                                     _alts.append(_c10f)
+                # curAdi ktvA n->R twin before w/W/q (luRwayitvA/...; unanimous 3/3;
+                # generic kept first; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10raw in (clean, meta.get("clean", "") or clean):
+                        _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
+                        if _c10rg != _c10raw:
+                            _c10f = _c10rg + "ayitvA"
+                            if _c10f not in _alts:
+                                _alts.append(_c10f)
                 return {"avyaya": _alts}
             else:
                 if clean.endswith("F"):
