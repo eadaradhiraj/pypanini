@@ -684,4 +684,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 497 (GEN-10: curAdi yak R-twins + o-twins + Nitya-san exclusion + liw periphrastics: yak bucket 1125→18 display, 0 worsened (guards green; san display rise is cap-churn).
 - Iteration 498 (GEN-10: curAdi san-ktavatu twin-sets (sec-matrix + itavat, generic b-triple first): probe 987→138 (-849), 0 worsened (guards green; san_krut bucket now ~0 misses sweep-wide).
 - Iteration 499 (GEN-10: curAdi san sec-matrix in tinanta present-system (alt_sann twins; 3776-region serves yak/futures, present-system needed its own at 5898): probe san 29191→4050, sweep +50602 (284 improved +180), 0 worsened (guards green; krut/nich display churn).
-- Iteration 500 (GEN-10: curAdi nich kta/ktavatu mUla-delegation + mAn nich exclusion (plain mAnay sec): probe nich 2227→1585, sweep +? (147 passes), 0 worsened (guards green).
+- Iteration 500 (GEN-10: curAdi nich kta/ktavatu mUla-delegation + mAn nich exclusion (plain mAnay sec): probe nich 2227→1585, sweep +642 (131 improved; baseline reconstructed via worktree after /tmp wipe, gate validated post-hoc), 0 worsened (guards green).
