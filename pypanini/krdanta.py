@@ -5935,6 +5935,11 @@ class KrdantaEngine:
                     for _frm, _g in ((_c10s + "an", "M"), (_c10s + "antI", "F"), (_c10s + "at", "N"), (_c10s + "ad", "N")):
                         if _frm not in _c10out[_g]:
                             _c10out[_g].append(_frm)
+                # vowel-initial san via shared V-sec helper (same survey; additive).
+                for _c10sv in _curAdi_sanV_secs(meta.get("clean", "") or clean, is_idit):
+                    for _frm, _g in ((_c10sv + "an", "M"), (_c10sv + "antI", "F"), (_c10sv + "at", "N"), (_c10sv + "ad", "N")):
+                        if _frm not in _c10out[_g]:
+                            _c10out[_g].append(_frm)
                 return _c10out
             # curAdi nich Satf mUla-delegation (mUla grades + _gen + n/R twin; additive).
             if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
