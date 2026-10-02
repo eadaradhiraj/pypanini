@@ -6892,11 +6892,15 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "curAdiH":
                 _c10mc = meta.get("clean", "") or clean
                 _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
-                if _c10vw and _c10vw[-1] == "i" and _c10mc.endswith("i"):
+                if _c10vw and _c10vw[-1] in ("i", "I") and _c10mc[-1:] in ("i", "I"):
                     _c10ay = _c10mc[:-1] + "Ayayitavya"
                     def _c10L(v):
                         return v if isinstance(v, list) else [v]
-                    return {"M": _c10L(_gen["M"]) + [_c10ay + "H"], "F": _c10L(_gen["F"]) + [_c10ay[:-1] + "A"], "N": _c10L(_gen["N"]) + [_c10ay + "m"]}
+                    _c10xt = [(_c10ay + "H", (_c10ay[:-1] + "A"), _c10ay + "m")]
+                    if _c10mc[-1:] == "I":
+                        _c10sh = _c10mc[:-1] + "itavya"
+                        _c10xt.append((_c10sh + "H", _c10sh[:-1] + "A", _c10sh + "m"))
+                    return {"M": _c10L(_gen["M"]) + [_x[0] for _x in _c10xt], "F": _c10L(_gen["F"]) + [_x[1] for _x in _c10xt], "N": _c10L(_gen["N"]) + [_x[2] for _x in _c10xt]}
             return _gen
 
         elif pratyaya == "anIyar":
