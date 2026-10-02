@@ -708,3 +708,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 520 (GEN-10: tfc U/A/e/I/o + u/i-plain + U-grade extension (mirrors tavya/Satf; superset twin-1s): probe tfc 205→78, sweep +127 (63 improved), 0 worsened (guards green).
 - Iteration 521 (GEN-10: anIyar m-stem in _c10stems (sambanIya/...; order-kept additive): probe anIyar 66→57, sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 522 (GEN-10: Rvul m-stem in _c10stems (sambaka/...; order-kept additive): probe Rvul 45→36, sweep +9 (3 improved), 0 worsened (guards green).
+- Iteration 523 (GEN-10: yat m-stem in _c10stems (sambya/...; order-kept additive): probe yat 63→54, sweep +9 (3 improved), 0 worsened (guards green).
