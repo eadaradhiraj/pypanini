@@ -3196,18 +3196,37 @@ class KrdantaEngine:
                     m = base+"H"
                     f = base[:-1]+"A" if base.endswith("a") else base+"A"
                     n = base+"m"
-                    # curAdi nich SAnac n->m twin (sambayamAna/...; unanimous 3/3;
-                    # generic sec-forms kept first; additive, nijanta+curAdiH-gated).
+                    # curAdi nich SAnac mUla-delegation (mUla grades + base + ay-twin; additive).
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                        try:
+                            _c10mk = self.derive_krdanta(dhatu, "SAnac", None, upasarga, dhatu_id=dhatu_id) or {}
+                        except Exception:
+                            _c10mk = {}
+                        def _c10Ly(v):
+                            return v if isinstance(v, list) else [v]
+                        _c10out = {"M": [], "F": [], "N": []}
+                        for _gg in ("M", "F", "N"):
+                            for _cc in _c10Ly(_c10mk.get(_gg, [])):
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
+                        for _gg, _vv in (("M", m), ("F", f), ("N", n)):
+                            for _cc in _c10Ly(_vv):
+                                if _cc not in _c10out[_gg]:
+                                    _c10out[_gg].append(_cc)
                         _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
                         if _c10mm != sec_base:
                             _c10ab = _c10mm + "ayamAna"
-                            _c10am = _c10ab + "H"
-                            _c10af = _c10ab[:-1] + "A" if _c10ab.endswith("a") else _c10ab + "A"
-                            _c10an = _c10ab + "m"
-                            return {"M": [m, _c10am] if _c10am != m else m,
-                                    "F": [f, _c10af] if _c10af != f else f,
-                                    "N": [n, _c10an] if _c10an != n else n}
+                            for _frm, _g in ((_c10ab + "H", "M"), ((_c10ab[:-1] + "A" if _c10ab.endswith("a") else _c10ab + "A"), "F"), (_c10ab + "m", "N")):
+                                if _frm not in _c10out[_g]:
+                                    _c10out[_g].append(_frm)
+                        # ay-stem twin (capayamAna; sec+amAna alongside sec_base+yamAna;
+                        # sole ciY surveyed; additive).
+                        if sec.endswith("ay"):
+                            _c10ayb = sec + "amAna"
+                            for _frm, _g in ((_c10ayb + "H", "M"), ((_c10ayb[:-1] + "A" if _c10ayb.endswith("a") else _c10ayb + "A"), "F"), (_c10ayb + "m", "N")):
+                                if _frm not in _c10out[_g]:
+                                    _c10out[_g].append(_frm)
+                        return _c10out
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "anIyar":
                     _ab = sec_base+"anIya"
