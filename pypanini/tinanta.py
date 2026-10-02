@@ -984,7 +984,7 @@ class TinantaDerivationEngine:
             if clean + "ay" not in bases:
                 bases.append(clean + "ay")
             # n->m before labials (sambayati/...; unanimous 3/3; additive, appended last).
-            _c10mm = re.sub(r"n([pPbB])", r"m\1", clean)
+            _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), clean)
             if _c10mm != clean and _c10mm + "ay" not in bases:
                 bases.append(_c10mm + "ay")
             for _c10mc in dict.fromkeys([clean]):
@@ -4004,7 +4004,7 @@ class TinantaDerivationEngine:
                     sec_variants = [sec_stem, clean] if sec_stem != clean else [sec_stem]
                 # curAdi yak n->m twin (sambyate/...; unanimous 3/3; additive, appended last).
                 if meta.get("gana") == "curAdiH":
-                    _c10mm = re.sub(r"n([pPbB])", r"m\1", clean)
+                    _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), clean)
                     if _c10mm != clean:
                         if _c10mm + "y" not in yak_variants:
                             yak_variants.append(_c10mm + "y")
