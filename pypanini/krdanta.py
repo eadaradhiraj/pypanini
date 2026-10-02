@@ -5736,6 +5736,11 @@ class KrdantaEngine:
                     _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10raw)
                     if _c10mm != _c10raw and _c10mm not in _c10ss:
                         _c10ss.append(_c10mm)
+                # n->R before w/W/q in SAnac (luRwayamAna/...; unanimous 3/3; additive).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
+                    if _c10rg != _c10raw and _c10rg not in _c10ss:
+                        _c10ss.append(_c10rg)
                 # f-grade stems (parT-/pAr-/kIr- + kalp; same survey/guards as tavya/Satf;
                 # additive, order-kept).
                 for _c10raw in (clean, meta.get("clean", "") or clean):

@@ -746,3 +746,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 558 (GEN-10: ktavatu n→R twin (luRwitavAn/...; stem+vAn twin-1; nich free via merge): sweep +18 (3 improved), 0 worsened (guards green).
 - Iteration 559 (GEN-10: tavya R-stems + u-plain ungating (gu/U stay sg-gated): probe tavya 111→75, sweep +36 (12 improved), 0 worsened (guards green).
 - Iteration 560 (GEN-10: Satf R-stems in _c10ss (luRwayan/...): probe Satf 57→48, sweep +9 (3 improved), 0 worsened (guards green).
+- Iteration 561 (GEN-10: SAnac R-stems in _c10ss (luRwayamAna/...): probe SAnac 54→45, sweep +9 (3 improved), 0 worsened (guards green).
