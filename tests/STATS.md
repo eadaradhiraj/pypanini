@@ -788,3 +788,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 475 (GEN-10: kta a+nD n-retention twins (banDita/...; unanimous 4/4; T/SunD drop via generic): probe kta 60→48, sweep +12 (4 improved), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 476 (GEN-10: kta vowel-final-u Av-twins (yAvita/cyAvita/BAvita; homonymous BU; guNa-coda guard verified): probe kta 48→39, sweep +9 (3 improved), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 477 (GEN-10: kta vowel-final-i twins (iy-glide + AY-grade + I-shortening; idit excluded via i~): probe kta 39→27, sweep +15 (4 improved), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 478 (GEN-10: kta a+nh Ng-twins (raNgita; sole a-nh surveyed, tudAdi i-nh Q verified): probe kta 27→24, sweep +6 (10.0397), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots + 06.0037/0077 green.)
