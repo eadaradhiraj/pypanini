@@ -2876,7 +2876,7 @@ class KrdantaEngine:
                 # curAdi nich kta/ktavatu take mUla grades (SAWita/corita/mAnita; surveyed —
                 # mUla recursion twins (all mUla fixes flow through) + nich sec triple;
                 # additive, curAdiH-gated).
-                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu", "tavya", "tfc", "anIyar", "Rvul", "yat", "tumun"):
+                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu", "tavya", "tfc", "anIyar", "Rvul", "yat", "tumun", "ktvA"):
                     try:
                         _c10mk = self.derive_krdanta(dhatu, pratyaya, None, upasarga, dhatu_id=dhatu_id) or {}
                     except Exception:
@@ -2887,6 +2887,14 @@ class KrdantaEngine:
                         # avyaya merge: mUla twins + natural nich sec-form + n/R twin
                         _c10tmm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec)
                         _c10nat = [sec + "itum"] + ([_c10tmm + "itum"] if _c10tmm != sec else [])
+                        _c10mkv = _c10mk.get("avyaya", []) if isinstance(_c10mk, dict) else []
+                        if not isinstance(_c10mkv, list):
+                            _c10mkv = [_c10mkv]
+                        return {"avyaya": _c10mkv + [_x for _x in _c10nat if _x not in _c10mkv]}
+                    if pratyaya == "ktvA":
+                        # avyaya merge: mUla twins + natural nich sec-form + n/R twin
+                        _c10tmm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec)
+                        _c10nat = [sec + "itvA"] + ([_c10tmm + "itvA"] if _c10tmm != sec else [])
                         _c10mkv = _c10mk.get("avyaya", []) if isinstance(_c10mk, dict) else []
                         if not isinstance(_c10mkv, list):
                             _c10mkv = [_c10mkv]
