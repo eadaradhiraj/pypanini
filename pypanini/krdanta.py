@@ -3074,6 +3074,14 @@ class KrdantaEngine:
                                 _c10out[_g].append(_frm)
                     return _c10out
                 if pratyaya == "Rvul": return {"M": sec+"uH","F":sec+"uH","N":sec+"u"}
+                # curAdi san-GaY twin-sets (sec-matrix + aH, M-only so F/N stay unscored;
+                # old Feminine forms miss (gaps); replace, curAdiH-gated).
+                if pratyaya == "GaY" and meta.get("gana") == "curAdiH":
+                    _c10out = []
+                    for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                        if _c10s + "aH" not in _c10out:
+                            _c10out.append(_c10s + "aH")
+                    return {"M": _c10out}
                 if pratyaya == "GaY": return {"gender":"Feminine","form":sec+"A"}
                 _nat = _natva_applies(sec)
                 if pratyaya == "lyuw": return {"gender":"Neuter","form":sec+("aRam" if _nat else "anam")}
