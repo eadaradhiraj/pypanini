@@ -4134,6 +4134,24 @@ class TinantaDerivationEngine:
                         yak_variants.append(_ykc + "y")
                     if _ykc not in sec_variants:
                         sec_variants.append(_ykc)
+                # f-grade yak twins (parTyate/pAryate/kIrtyate/kalpyate; same survey/guards
+                # as present f-twins (ar/Ar/Ir + kalp; M-stems and i-post excluded); additive).
+                if str(dhatu_id or "").startswith("10."):
+                    for _c10raw in (clean, meta.get("clean", "") or clean):
+                        if "M" in _c10raw and "M" not in (op or ""):
+                            continue
+                        _c10fw = [ch for ch in _c10raw if ch in SLP1_VOWELS]
+                        if _c10fw and _c10fw[-1] in ("f", "F"):
+                            _c10fpost = _c10raw[_c10raw.rindex(_c10fw[-1])+1:]
+                            if "i" in _c10fpost or "I" in _c10fpost:
+                                continue
+                            _c10pre = _c10raw[:_c10raw.rindex(_c10fw[-1])]
+                            for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10raw == "kfp" else ()):
+                                _c10fg = _c10pre + _c10g + _c10fpost
+                                if _c10fg + "y" not in yak_variants:
+                                    yak_variants.append(_c10fg + "y")
+                                if _c10fg not in sec_variants:
+                                    sec_variants.append(_c10fg)
                 # deduplicate
                 yak_variants = list(dict.fromkeys(yak_variants))
                 sec_variants = list(dict.fromkeys(sec_variants))

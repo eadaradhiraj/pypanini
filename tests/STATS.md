@@ -784,3 +784,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 471 (GEN-10: san-SAnac V-secs via shared helper (+amAna/amARa): probe V-san 60→51, sweep +9 (3 improved: 10.0023/0037/0169), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 472 (GEN-10: san-matrix V-secs via shared helper (all matrix sites; lyap pra+u sandhi queued): probe V-san 51→0, sweep +51 (3 improved, 17 each), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 473 (GEN-10: vowel-final-i AY-grade presents (smAyay/jAyay/cAyay/jrAyay; unanimous 4/4; tinanta.py): sweep +197 (2 improved: 10.0058 +134, 10.0347 +63), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 474 (GEN-10: f-grade yak twins (grade+y/sec variants; same survey/guards; tinanta.py): sweep +216 (6 improved, PASS 10.0028 → 319/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
