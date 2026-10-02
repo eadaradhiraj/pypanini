@@ -6113,6 +6113,30 @@ class TinantaDerivationEngine:
                     s_alt2 = alt.replace(clean, guna_base, 1)
                     if s_alt2 not in s_stems:
                         s_stems.append(s_alt2)
+            # curAdi san aya-redup stems (mimAnayiz/cucUrRayiz/cikfpayiz/piprayiz/...;
+            # C1+i/u-redup + _prim_bases aya-stem + iz, plus minus-ay + iz twin;
+            # s-cluster takes second stop, velar cutva (k→c/g→j), u/U-roots take
+            # u-redup; vriddhi-ay added for I-roots (prAy/smAy/cAy); graded san
+            # the matrix misses (M-hijack, inconsistent ayiz-twins); additive,
+            # curAdiH-gated).
+            if meta.get("gana") == "curAdiH" and clean and clean[0] not in SLP1_VOWELS:
+                _c10rc = clean[0]
+                if clean[:1] in ("s", "S") and len(clean) > 1 and clean[1] in SLP1_KHAY:
+                    _c10rc = clean[1]
+                _c10rc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_c10rc, _c10rc)
+                _c10rv = "u" if ("u" in clean or "U" in clean) else "i"
+                _c10ayx = [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]
+                if clean[-1:] in ("i", "I"):
+                    _c10va = self._vriddhi_base(clean, is_idit) + "ay"
+                    if _c10va not in _c10ayx:
+                        _c10ayx.append(_c10va)
+                for _c10ax in dict.fromkeys(_c10ayx):
+                    _c10stem = _c10rc + _c10rv + _c10ax + "iz"
+                    if _c10stem not in s_stems:
+                        s_stems.append(_c10stem)
+                    _c10stem2 = _c10rc + _c10rv + _c10ax[:-2] + "iz"
+                    if _c10stem2 not in s_stems:
+                        s_stems.append(_c10stem2)
             # Panini 6.1.2 ajAder dvitIyasya: guna of initial vowel in sannanta for laghupadha vowel-initial roots (uK->ociKiz, iK->eciKiz, uW->owiWiz, uh->ojihiz, iw->ewiwiz, uz->oziziz, fj->arjijiz)
             if is_vowel_initial and len(clean) == 2 and clean[0] in ("i", "u", "f") and clean[1] not in SLP1_VOWELS:
                 for _st in list(s_stems):
