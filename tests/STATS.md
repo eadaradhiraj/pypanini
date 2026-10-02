@@ -766,3 +766,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 578 (GEN-10: nich tumun mUla-delegation (avyaya merge): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 579 (GEN-10: nich ktvA mUla-delegation (avyaya merge): sweep +2 (2 improved), 0 worsened (guards green).
 - Iteration 580 (GEN-10: nich lyap mUla-delegation (in-place avyaya merge at return site): sweep +38 (38 improved), 0 worsened (guards green).
+- Iteration 581 (GEN-10: nich Satf mUla-delegation (fall-through deletion caught by guard-total shift 882→879, restored): sweep +105 (35 improved), 0 worsened (guards green exact).
