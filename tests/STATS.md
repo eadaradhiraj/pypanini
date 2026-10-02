@@ -713,3 +713,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 525 (GEN-10: ktvA n→m twin (sambayitvA/...; first return-site wrong-branch diagnosed via return-trace, moved to reached site): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 526 (GEN-10: lyuw n→m replace (sambanam/...; form-str constraint, old forms absent corpus-wide): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 527 (GEN-10: lyap n→m twin (prasambya/...; variants-append, generic first): sweep +3 (3 improved), 0 worsened (guards green).
+- Iteration 528 (GEN-10: tinanta present m-stem (sambayati/...; appended last; +import re): sweep +402 (3 improved, 134 each), 0 worsened (guards green).

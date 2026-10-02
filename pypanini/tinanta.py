@@ -8,6 +8,7 @@ Generative Tiṅanta Derivation Engine
 from typing import Dict, List, Optional, Tuple
 import json
 import glob
+import re
 from pathlib import Path
 
 from .pratyahara import MaheshvaraSutrasSLP1
@@ -982,6 +983,10 @@ class TinantaDerivationEngine:
             # plain); graded+ay per shape gates below.
             if clean + "ay" not in bases:
                 bases.append(clean + "ay")
+            # n->m before labials (sambayati/...; unanimous 3/3; additive, appended last).
+            _c10mm = re.sub(r"n([pPbB])", r"m\1", clean)
+            if _c10mm != clean and _c10mm + "ay" not in bases:
+                bases.append(_c10mm + "ay")
             for _c10mc in dict.fromkeys([clean]):
                 _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                 if not _c10vw:
