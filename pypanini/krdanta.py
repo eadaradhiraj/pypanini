@@ -5320,6 +5320,17 @@ class KrdantaEngine:
                 _gen = {"M": _t6L(_gen["M"]) + [_t6h[:-1] + "n"],
                         "F": _t6L(_gen["F"]) + [_t6h + "I", _t6h[:-1] + "ntI"],
                         "N": _t6L(_gen["N"]) + [_t6h, _t6h[:-1] + "d"]}
+            # curAdi san-Satf twin-sets (sec-matrix + an/antI/at-ad; same survey; generic
+            # _gen kept first; additive, sanadi-gated).
+            if sanadi == "sannanta" and pratyaya == "Satf" and meta.get("gana") == "curAdiH":
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                _c10out = {"M": _c10L(_gen["M"]), "F": _c10L(_gen["F"]), "N": _c10L(_gen["N"])}
+                for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                    for _frm, _g in ((_c10s + "an", "M"), (_c10s + "antI", "F"), (_c10s + "at", "N"), (_c10s + "ad", "N")):
+                        if _frm not in _c10out[_g]:
+                            _c10out[_g].append(_frm)
+                return _c10out
             return _gen
 
         elif pratyaya == "SAnac":
