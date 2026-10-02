@@ -5301,6 +5301,13 @@ class KrdantaEngine:
                 _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                 if _c10vw and _c10vw[-1] == "a" and re.search(r"n[Dd]$", _c10mc):
                     return {"M": [stem + "vAn", _c10mc + "itavAn"], "F": [stem + "vatI", _c10mc + "itavatI"], "N": [stem + "vat", _c10mc + "itavat"]}
+            # curAdi ktavatu n->N twin before velars (saNketitavAn/...; unanimous 4/4;
+            # same survey as kta iter606; generic stem triple kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10mc)
+                if _c10ng != _c10mc:
+                    return {"M": [stem + "vAn", _c10ng + "itavAn"], "F": [stem + "vatI", _c10ng + "itavatI"], "N": [stem + "vat", _c10ng + "itavat"]}
             # curAdi ktavatu n->m twin before labials (sambitavAn/...; unanimous 3/3;
             # mirrors kta iter513; generic triple kept first; additive, curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
