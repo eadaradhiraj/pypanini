@@ -3095,6 +3095,18 @@ class KrdantaEngine:
                     m = base+"H"
                     f = base[:-1]+"A" if base.endswith("a") else base+"A"
                     n = base+"m"
+                    # curAdi nich SAnac n->m twin (sambayamAna/...; unanimous 3/3;
+                    # generic sec-forms kept first; additive, nijanta+curAdiH-gated).
+                    if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                        _c10mm = re.sub(r"n([pPbB])", r"m\1", sec_base)
+                        if _c10mm != sec_base:
+                            _c10ab = _c10mm + "ayamAna"
+                            _c10am = _c10ab + "H"
+                            _c10af = _c10ab[:-1] + "A" if _c10ab.endswith("a") else _c10ab + "A"
+                            _c10an = _c10ab + "m"
+                            return {"M": [m, _c10am] if _c10am != m else m,
+                                    "F": [f, _c10af] if _c10af != f else f,
+                                    "N": [n, _c10an] if _c10an != n else n}
                     return {"M": m,"F":f,"N":n}
                 if pratyaya == "anIyar":
                     _ab = sec_base+"anIya"
