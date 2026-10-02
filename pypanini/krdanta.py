@@ -3145,6 +3145,12 @@ class KrdantaEngine:
                     # trio keeps dental n (kzRAvana; mirrors mUla suppression)
                     if (_natva_applies(orig_clean) or _natva_applies(sec_base)) and _lb.endswith("ana") and meta.get("clean") not in ("kzRu", "snu", "UrRu"):
                         _lb = _lb[:-3] + "aRa"
+                    # curAdi nich lyuw n->m before labials (sambanam; old sanbanam absent
+                    # corpus-wide (mUla iter526 survey); replace; unanimous 3/3; gated).
+                    if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                        _c10mm = re.sub(r"n([pPbB])", r"m\1", sec_base)
+                        if _c10mm != sec_base:
+                            return {"gender": "Neuter", "form": _c10mm + "anam"}
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
                     return {"gender":"Masculine","form":sec_base+"aH"}
