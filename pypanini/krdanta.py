@@ -2876,7 +2876,7 @@ class KrdantaEngine:
                 # curAdi nich kta/ktavatu take mUla grades (SAWita/corita/mAnita; surveyed —
                 # mUla recursion twins (all mUla fixes flow through) + nich sec triple;
                 # additive, curAdiH-gated).
-                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu", "tavya", "tfc", "anIyar", "Rvul"):
+                if meta.get("gana") == "curAdiH" and pratyaya in ("kta", "ktavatu", "tavya", "tfc", "anIyar", "Rvul", "yat"):
                     try:
                         _c10mk = self.derive_krdanta(dhatu, pratyaya, None, upasarga, dhatu_id=dhatu_id) or {}
                     except Exception:
@@ -2920,6 +2920,12 @@ class KrdantaEngine:
                             _c10n["M"].append(_c10mm + "akaH")
                             _c10n["F"].append(_c10mm + "ikA")
                             _c10n["N"].append(_c10mm + "akam")
+                    elif pratyaya == "yat":
+                        # natural nich sec-forms + n/R twin (mirrors downstream nich-yat)
+                        _c10mm = re.sub(r"n([pPbBsqQRwW])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else "m")) + _m.group(1)), sec_base)
+                        _c10n = {"M": [sec_base + "yaH"] + ([_c10mm + "yaH"] if _c10mm != sec_base else []),
+                                "F": [sec_base + "yA"] + ([_c10mm + "yA"] if _c10mm != sec_base else []),
+                                "N": [sec_base + "yam"] + ([_c10mm + "yam"] if _c10mm != sec_base else [])}
                     else:
                         _c10n = {"M": sec_base + "itavAn", "F": sec_base + "itavatI", "N": [sec_base + "itavat", sec_base + "itavad"]}
                     _c10out = {"M": [], "F": [], "N": []}
