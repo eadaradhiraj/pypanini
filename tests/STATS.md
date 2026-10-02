@@ -738,3 +738,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 550 (GEN-10: yat f-grade stems + kalp (same guards): probe yat 54→45, sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 551 (GEN-10: kta f-grade twins (ar/Ar/Ir+ita + kalp; standalone twin-1=generic): probe kta 111→81, sweep +36 (10 improved), 0 worsened (guards green).
 - Iteration 552 (GEN-10: ktavatu f-grade twins (ar/Ar/Ir+itavat + kalp; stem+vAn twin-1): sweep +36 (10 improved), 0 worsened (guards green).
+- Iteration 553 (GEN-10: tumun f-grade twins (parTayitum/kalpayitum/...; _gen-append): sweep +7 (7 improved), 0 worsened (guards green).

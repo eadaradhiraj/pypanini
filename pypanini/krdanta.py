@@ -7979,6 +7979,22 @@ class KrdantaEngine:
                 _c10mm = re.sub(r"n([pPbB])", r"m\1", clean)
                 if _c10mm != clean and _c10mm + "ayitum" not in _gen:
                     _gen.append(_c10mm + "ayitum")
+            # curAdi tumun f-grade twins (parTayitum/kalpayitum/...; ar/Ar/Ir+ay + kalpay;
+            # same survey/guards as tavya iter544; generic kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if "M" in _c10raw and "M" not in (op or ""):
+                        continue
+                    _c10fw = [ch for ch in _c10raw if ch in SLP1_VOWELS]
+                    if _c10fw and _c10fw[-1] in ("f", "F"):
+                        _c10fpost = _c10raw[_c10raw.rindex(_c10fw[-1])+1:]
+                        if "i" in _c10fpost or "I" in _c10fpost:
+                            continue
+                        _c10pre = _c10raw[:_c10raw.rindex(_c10fw[-1])]
+                        for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10raw == "kfp" else ()):
+                            _c10f = _c10pre + _c10g + _c10fpost + "ayitum"
+                            if _c10f not in _gen:
+                                _gen.append(_c10f)
             return {"avyaya": _gen}
 
         elif pratyaya == "ktvA":
