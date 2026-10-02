@@ -753,3 +753,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 565 (GEN-10: yat R-stems in _c10stems (luRwya/...): probe yat 45→36, sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 566 (GEN-10: tumun n→R twin (luRwayitum/...; _gen-append): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 567 (GEN-10: ktvA n→R twin (luRwayitvA/...; _alts-append): sweep +3 (3 improved), 0 worsened (guards green).
+- Iteration 568 (GEN-10: lyap n→R twin (praluRwya/...; variants-append): sweep +3 (3 improved), 0 worsened (guards green).

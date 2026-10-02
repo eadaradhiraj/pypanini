@@ -8737,6 +8737,15 @@ class KrdantaEngine:
                             for _c10v in ("pra" + _c10fg + "ya", upasarga + _c10fg + "ya", _c10fg + "ya"):
                                 if _c10v not in variants:
                                     variants.append(_c10v)
+            # curAdi lyap n->R twin before w/W/q (praluRwya/...; unanimous 3/3;
+            # generic kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
+                    if _c10rg != _c10raw:
+                        for _c10v in ("pra" + _c10rg + "ya", upasarga + _c10rg + "ya", _c10rg + "ya"):
+                            if _c10v not in variants:
+                                variants.append(_c10v)
             return {"avyaya": [pref_pra, pref_m, bare] + variants + _Rtw}
 
         return None
