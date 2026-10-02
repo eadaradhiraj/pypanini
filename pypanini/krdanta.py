@@ -8320,6 +8320,13 @@ class KrdantaEngine:
                 _t6y8 = "pra" + _t6yr8 if _t6yr8.endswith("ya") else "pra" + _t6yr8 + "ya"
                 if _t6yr8 and _t6y8 not in variants:
                     variants.append(_t6y8)
+            # curAdi lyap n->m twin (prasambya/...; unanimous 3/3; generic kept first).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mm = re.sub(r"n([pPbB])", r"m\1", clean)
+                if _c10mm != clean:
+                    for _c10v in ("pra" + _c10mm + "ya", upasarga + _c10mm + "ya", _c10mm + "ya"):
+                        if _c10v not in variants:
+                            variants.append(_c10v)
             return {"avyaya": [pref_pra, pref_m, bare] + variants + _Rtw}
 
         return None
