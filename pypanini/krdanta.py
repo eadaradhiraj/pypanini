@@ -5331,6 +5331,13 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "curAdiH":
                 _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
                 _c10out = {"M": [], "F": [], "N": []}
+                # vowel-final-i AY-stems (smAyay-...; AY surveyed smi; idit num-roots
+                # excluded via i~ (laqi/sPuqi keep num-grades); additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw.endswith("i") and "i~" not in (op or "") and "I~" not in (op or ""):
+                        _c10ay = _c10raw[:-1] + "Ay"
+                        if _c10ay not in _c10ss:
+                            _c10ss.append(_c10ay)
                 for _c10mc in _c10ss:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -6432,6 +6439,20 @@ class KrdantaEngine:
                     _gen = {"M": _t6L(_gen["M"]) + _t6L(_t6st["M"]),
                             "F": _t6L(_gen["F"]) + _t6L(_t6st["F"]),
                             "N": _t6L(_gen["N"]) + _t6L(_t6st["N"])}
+            # curAdi vowel-final-i AY-twins (smAyayamAna; AY surveyed smi; idit excluded;
+            # generic _gen kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if _c10vw and _c10mc[-1:] == "i" and "i~" not in (op or "") and "I~" not in (op or ""):
+                    _c10ab = _c10mc[:-1] + "Ay"
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    _c10xt = []
+                    for _c10b in (_c10ab, _c10ab + "ay"):
+                        for _suf, _f, _n in (("amAna", "amAnA", "amAnam"), ("amARa", "amARA", "amARam")):
+                            _c10xt.append((_c10b + _suf + "H", _c10b + _f, _c10b + _n))
+                    return {"M": _c10L(_gen["M"]) + [_x[0] for _x in _c10xt], "F": _c10L(_gen["F"]) + [_x[1] for _x in _c10xt], "N": _c10L(_gen["N"]) + [_x[2] for _x in _c10xt]}
             return _gen
 
         elif pratyaya == "cAnaS":
@@ -7134,6 +7155,13 @@ class KrdantaEngine:
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10stems:
                         _c10stems.append("jYAp")
+                # vowel-final-i AY-stems (smAyay-...; AY surveyed smi; idit num-roots
+                # excluded via i~ (laqi/sPuqi keep num-grades); additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw.endswith("i") and "i~" not in (op or "") and "I~" not in (op or ""):
+                        _c10ay = _c10raw[:-1] + "Ay"
+                        if _c10ay not in _c10stems:
+                            _c10stems.append(_c10ay)
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7343,6 +7371,13 @@ class KrdantaEngine:
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10stems:
                         _c10stems.append("jYAp")
+                # vowel-final-i AY-stems (smAyay-...; AY surveyed smi; idit num-roots
+                # excluded via i~ (laqi/sPuqi keep num-grades); additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw.endswith("i") and "i~" not in (op or "") and "I~" not in (op or ""):
+                        _c10ay = _c10raw[:-1] + "Ay"
+                        if _c10ay not in _c10stems:
+                            _c10stems.append(_c10ay)
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7521,6 +7556,13 @@ class KrdantaEngine:
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10stems:
                         _c10stems.append("jYAp")
+                # vowel-final-i AY-stems (smAyay-...; AY surveyed smi; idit num-roots
+                # excluded via i~ (laqi/sPuqi keep num-grades); additive, order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw.endswith("i") and "i~" not in (op or "") and "I~" not in (op or ""):
+                        _c10ay = _c10raw[:-1] + "Ay"
+                        if _c10ay not in _c10stems:
+                            _c10stems.append(_c10ay)
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
