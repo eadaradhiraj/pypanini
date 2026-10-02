@@ -691,3 +691,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 504 (GEN-10: curAdi tfc twin-sets (plain+itA + plain+ayitA + grade+ayitA): probe -?, 0 worsened (guards green).
 - Iteration 505 (GEN-10: curAdi anIyar grade twins (plain + vriddhi/guNa/e + anIya/aRIya; _out kept first): probe 255→66 (-189), 0 worsened (guards green).
 - Iteration 506 (GEN-10: curAdi Rvul grade twins (plain + vriddhi/guNa/e + aka; _out kept first): 0 worsened (guards green).
+- Iteration 507 (GEN-10: curAdi yat grade twins (plain + vriddhi/guNa/e + ya; _out kept first): 0 worsened (guards green).
