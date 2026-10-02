@@ -6083,9 +6083,15 @@ class KrdantaEngine:
                         _c10v = self._vriddhi_base(_c10mc, is_idit)
                         _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"] + ([_c10v + "ayitavya"] if _c10sg and _c10v != _c10mc else [])
                     elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
-                        _c10forms = [_c10mc + "itavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
+                        _c10gu = self._guna_base(_c10mc, is_idit) + "ayitavya"
+                        _c10uu = _c10mc[:_c10mc.rindex(_c10nc)] + "U" + _c10mc[_c10mc.rindex(_c10nc)+1:] + "ayitavya" if _c10nc == "u" else None
+                        _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya", _c10gu] + ([_c10uu] if _c10uu and _c10uu != _c10gu else [])
                     elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS and _c10sg:
                         _c10forms = [_c10mc + "itavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
+                    elif _c10nc in ("U", "A", "e", "I", "o") and _c10mc[-1] not in SLP1_VOWELS:
+                        _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"]
+                        if _c10nc == "e" and len(_c10mc) >= 2 and _c10mc[-1] not in SLP1_VOWELS:
+                            _c10forms.append(_c10mc[:-1] + _c10mc[-1].lower() + _c10mc[-1] + "ayitavya")
                     for _c10f in dict.fromkeys(_c10forms):
                         _c10t = tri_linga(_c10f)
                         for _g in ("M", "F", "N"):

@@ -692,3 +692,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 505 (GEN-10: curAdi anIyar grade twins (plain + vriddhi/guNa/e + anIya/aRIya; _out kept first): probe 255→66 (-189), 0 worsened (guards green).
 - Iteration 506 (GEN-10: curAdi Rvul grade twins (plain + vriddhi/guNa/e + aka; _out kept first): 0 worsened (guards green).
 - Iteration 507 (GEN-10: curAdi yat grade twins (plain + vriddhi/guNa/e + ya; _out kept first): 0 worsened (guards green).
+- Iteration 508 (GEN-10: tavya U/A/e/I/o + U-grade extension (4-fid vowel-final regression from hijacking smarter generic diagnosed, cons-final gate added): probe -216, 0 worsened (guards green).
