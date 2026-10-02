@@ -2538,6 +2538,10 @@ class KrdantaEngine:
                     _rlab = re.sub(r"n([wWqQR])", r"R\1", root)
                     if _rlab != root and _rlab not in _gg:
                         _gg.append(_rlab)
+                    # n->N before velars in san-matrix (saNket-...; same survey).
+                    _nvel = re.sub(r"n([kKgG])", r"N\1", root)
+                    if _nvel != root and _nvel not in _gg:
+                        _gg.append(_nvel)
                     for _gr in dict.fromkeys(g for g in _gg if g != root):
                         try:
                             _gs = _sannanta_sec(_gr)
@@ -6633,6 +6637,10 @@ class KrdantaEngine:
                     _c10rl = re.sub(r"n([wWqQR])", r"R\1", _c10rt)
                     if _c10rl != _c10rt and _c10rl not in _c10gg:
                         _c10gg.append(_c10rl)
+                    # n->N before velars in san-tavya (sisaNketayizitavya; same survey).
+                    _c10ng = re.sub(r"n([kKgG])", r"N\1", _c10rt)
+                    if _c10ng != _c10rt and _c10ng not in _c10gg:
+                        _c10gg.append(_c10ng)
                     for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
                         try:
                             _c10gs = _sannanta_sec(_c10gr)
