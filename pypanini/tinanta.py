@@ -1023,6 +1023,10 @@ class TinantaDerivationEngine:
                     _c10Ay = _c10mc[:-1] + "Ayay"
                     if _c10Ay not in _c10ay:
                         _c10ay.append(_c10Ay)
+                # jYAp present stem (jYApayate; p persists, sole jYA surveyed; additive).
+                if clean == "jYA":
+                    if "jYApay" not in bases:
+                        bases.append("jYApay")
                 for _c10a in dict.fromkeys(_c10ay):
                     if _c10a not in bases:
                         bases.append(_c10a)
