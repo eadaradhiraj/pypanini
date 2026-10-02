@@ -2507,6 +2507,10 @@ class KrdantaEngine:
                         _gg = [self._guna_base(root, is_idit)]
                     elif _nc == "i" and _sg and root[-1] not in SLP1_VOWELS:
                         _gg = [self._guna_base(root, is_idit)]
+                    # unsg-gated vriddhi/guNa (smAy for smi; mirrors san-kta; additive)
+                    for _ug in dict.fromkeys([self._vriddhi_base(root, is_idit), self._guna_base(root, is_idit)]):
+                        if _ug != root and _ug not in _gg:
+                            _gg.append(_ug)
                     # i-final nasal twins (tuYj/laRq/cint...; mirrors idit num-rule; is_idit-gated)
                     if root.endswith(("i", "I")) and is_idit:
                         _bw = root[:-1]
@@ -2534,6 +2538,22 @@ class KrdantaEngine:
                         _zl = "z" + _nlab[1:]
                         if _zl not in _gg:
                             _gg.append(_zl)
+                            # graded z-roots (zmAy/zReh/zwop; grades mirror unsg block)
+                            for _zg in dict.fromkeys([self._vriddhi_base(_zl, is_idit), self._guna_base(_zl, is_idit)]):
+                                if _zg != _zl and _zg not in _gg:
+                                    _gg.append(_zg)
+                    # op-z grades (zwop/sizReh/suzuww...; op carries z while clean normalizes
+                    # to s; plain/guNa/vriddhi/n-m of op-root; mirrors san-kta block; additive).
+                    _c10zop = (meta.get("op") or "").replace("~", "")
+                    if _c10zop.endswith("a"):
+                        _c10zop = _c10zop[:-1]
+                    if _c10zop.endswith("N"):
+                        _c10zop = _c10zop[:-1]
+                    if _c10zop.startswith("z") and root[:1] == "s":
+                        for _c10zg in dict.fromkeys([_c10zop, self._guna_base(_c10zop, is_idit), self._vriddhi_base(_c10zop, is_idit)]):
+                            for _c10zb in dict.fromkeys([_c10zg, re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10zg)]):
+                                if _c10zb != root and _c10zb not in _gg:
+                                    _gg.append(_c10zb)
                     # n->R before w/W/q in san (luluRwayiz-...; unanimous 3/3; additive).
                     _rlab = re.sub(r"n([wWqQR])", r"R\1", root)
                     if _rlab != root and _rlab not in _gg:
@@ -2561,6 +2581,18 @@ class KrdantaEngine:
                     for _c10sv in _curAdi_sanV_secs(root, is_idit):
                         if _c10sv not in out:
                             out.append(_c10sv)
+                    # direct-redup fallback for z-grades (sizmAyayiz/...; _sannanta_sec
+                    # keys off meta/clean and drops them; mirrors san-kta fallback; additive)
+                    if root and root[0] not in SLP1_VOWELS:
+                        _c10rc = root[0]
+                        if root[:1] in ("s", "S") and len(root) > 1 and root[1] in SLP1_KHAY:
+                            _c10rc = root[1]
+                        _c10rc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_c10rc, _c10rc)
+                        _c10rv = "u" if ("u" in root or "U" in root) else "i"
+                        for _c10gr in dict.fromkeys(g for g in _gg if g != root and g[:1] == "z"):
+                            for _c10sv in dict.fromkeys([_c10rc + _c10rv + _c10gr + "iz", _c10rc + _c10rv + _c10gr + "ayiz"]):
+                                if _c10sv not in out:
+                                    out.append(_c10sv)
                 return out
             def _yan_sec(c):
                 _nitya_san = {
@@ -6633,6 +6665,21 @@ class KrdantaEngine:
                             _c10zl = "z" + _c10nl[1:]
                             if _c10zl not in _c10gg:
                                 _c10gg.append(_c10zl)
+                            # graded z-roots (zmAy/zReh/zwop; grades mirror unsg block)
+                            for _zg in dict.fromkeys([self._vriddhi_base(_c10zl, is_idit), self._guna_base(_c10zl, is_idit)]):
+                                if _zg != _c10zl and _zg not in _c10gg:
+                                    _c10gg.append(_zg)
+                        # op-z grades (zwop/sizReh/suzuww...; mirrors san-kta/helper block)
+                        _c10zop = (op or "").replace("~", "")
+                        if _c10zop.endswith("a"):
+                            _c10zop = _c10zop[:-1]
+                        if _c10zop.endswith("N"):
+                            _c10zop = _c10zop[:-1]
+                        if _c10zop.startswith("z") and _c10rt[:1] == "s":
+                            for _c10zg in dict.fromkeys([_c10zop, self._guna_base(_c10zop, is_idit), self._vriddhi_base(_c10zop, is_idit)]):
+                                for _c10zb in dict.fromkeys([_c10zg, re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10zg)]):
+                                    if _c10zb != _c10rt and _c10zb not in _c10gg:
+                                        _c10gg.append(_c10zb)
                     # n->R before w/W/q in san (luluRwayiz-...; unanimous 3/3; additive).
                     _c10rl = re.sub(r"n([wWqQR])", r"R\1", _c10rt)
                     if _c10rl != _c10rt and _c10rl not in _c10gg:
@@ -6660,6 +6707,17 @@ class KrdantaEngine:
                     for _c10sv in _curAdi_sanV_secs(_c10rt, is_idit):
                         if _c10sv not in _c10ts:
                             _c10ts.append(_c10sv)
+                    # direct-redup fallback for z-grades (tuzwopayiz-...; mirrors san-kta)
+                    if _c10rt and _c10rt[0] not in SLP1_VOWELS:
+                        _c10rc = _c10rt[0]
+                        if _c10rt[:1] in ("s", "S") and len(_c10rt) > 1 and _c10rt[1] in SLP1_KHAY:
+                            _c10rc = _c10rt[1]
+                        _c10rc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_c10rc, _c10rc)
+                        _c10rv = "u" if ("u" in _c10rt or "U" in _c10rt) else "i"
+                        for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt and g[:1] == "z"):
+                            for _c10sv in dict.fromkeys([_c10rc + _c10rv + _c10gr + "iz", _c10rc + _c10rv + _c10gr + "ayiz"]):
+                                if _c10sv not in _c10ts:
+                                    _c10ts.append(_c10sv)
                     _c10out = {"M": [], "F": [], "N": []}
                     for _c10s in _c10ts:
                         _c10t = tri_linga(_c10s + "itavya")
