@@ -748,3 +748,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 560 (GEN-10: Satf R-stems in _c10ss (luRwayan/...): probe Satf 57→48, sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 561 (GEN-10: SAnac R-stems in _c10ss (luRwayamAna/...): probe SAnac 54→45, sweep +9 (3 improved), 0 worsened (guards green).
 - Iteration 562 (GEN-10: tfc R-stems in _c10ss (luRwayitA/...): probe tfc 60→51, sweep +9 (3 improved), 0 worsened (guards green).
+- Iteration 563 (GEN-10: anIyar R-stems in _c10stems (luRwanIya/...; plain unconditional): probe anIyar 45→36, sweep +9 (3 improved), 0 worsened (guards green).
