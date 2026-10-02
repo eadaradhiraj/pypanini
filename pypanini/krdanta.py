@@ -6425,7 +6425,12 @@ class KrdantaEngine:
                 def _c10L(v):
                     return v if isinstance(v, list) else [v]
                 _c10out = {"M": _c10L(_out["M"]), "F": _c10L(_out["F"]), "N": _c10L(_out["N"])}
-                for _c10mc in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                _c10stems = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                for _c10raw in list(_c10stems):
+                    _c10mm = re.sub(r"n([pPbB])", r"m\1", _c10raw)
+                    if _c10mm != _c10raw and _c10mm not in _c10stems:
+                        _c10stems.append(_c10mm)
+                for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
                         continue
