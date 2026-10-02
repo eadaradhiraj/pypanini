@@ -5323,6 +5323,9 @@ class KrdantaEngine:
                         if _frm not in _c10out[_g]:
                             _c10out[_g].append(_frm)
                 return _c10out
+            # curAdi jYA jYAp-stem ktavatu twins (jYApitavAn; same survey as kta iter482).
+            if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "jYA":
+                return {"M": [stem + "vAn", "jYApitavAn"], "F": [stem + "vatI", "jYApitavatI"], "N": [stem + "vat", "jYApitavat"]}
             # curAdi ktavatu twin-sets (kta-grade stems + itavat; same shape survey as kta;
             # generic twin kept first; additive, curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
