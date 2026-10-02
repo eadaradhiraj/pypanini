@@ -715,3 +715,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 527 (GEN-10: lyap n→m twin (prasambya/...; variants-append, generic first): sweep +3 (3 improved), 0 worsened (guards green).
 - Iteration 528 (GEN-10: tinanta present m-stem (sambayati/...; appended last; +import re): sweep +402 (3 improved, 134 each), 0 worsened (guards green).
 - Iteration 529 (GEN-10: mUla yak n→m twin (sambyate/...; variants-append, generic first): sweep +108 (3 improved, 36 each), 0 worsened (guards green).
+- Iteration 530 (GEN-10: san-kta n→m + z-redup-devoice twins (sizambayizita/...; dead-code misplacement diagnosed via output-shrink, repaired): sweep +15 (5 improved), 0 worsened (guards green).

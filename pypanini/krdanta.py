@@ -4616,14 +4616,30 @@ class KrdantaEngine:
                         _c10gg = [self._guna_base(_c10rt, is_idit)]
                     elif _c10nc == "i" and _c10sg and _c10rt[-1] not in SLP1_VOWELS:
                         _c10gg = [self._guna_base(_c10rt, is_idit)]
+                    # n->m before labials in san (sizambayizita/...; unanimous 3/3; additive).
+                    _c10nl = re.sub(r"n([pPbB])", r"m\1", _c10rt)
+                    if _c10nl != _c10rt and _c10nl not in _c10gg:
+                        _c10gg.append(_c10nl)
+                    # z-initial twin when op starts with z (sizambayizita; op zanba~ surveyed)
+                    if (op or "").startswith("z") and _c10nl[:1] == "s":
+                        _c10zl = "z" + _c10nl[1:]
+                        if _c10zl not in _c10gg:
+                            _c10gg.append(_c10zl)
                     for _c10gr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
                         try:
                             _c10gs = _sannanta_sec(_c10gr)
+                            # z-initial redup devoices (sizamb- from zizamb-; op zanba~ surveyed)
+                            _c10gsl = [_c10gs]
+                            if _c10gr[:1] == "z" and _c10gs.startswith("zi"):
+                                _c10sd = "si" + _c10gs[2:]
+                                if _c10sd not in _c10gsl:
+                                    _c10gsl.append(_c10sd)
+                            for _c10gsb in _c10gsl:
+                                for _c10gsv in dict.fromkeys([_c10gsb, _c10gsb[:-2] + "ayiz" if _c10gsb.endswith("iz") else _c10gsb + "ayiz"]):
+                                    _c10gst = self._kta_stem(_c10gsv, True, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
+                                    _c10ad(tri_linga(_c10gst))
                         except Exception:
                             continue
-                        for _c10gsv in dict.fromkeys([_c10gs, _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10gs + "ayiz"]):
-                            _c10gst = self._kta_stem(_c10gsv, True, op_for_kta, is_idit=is_idit, gana=meta.get("gana", "BvAdiH"))
-                            _c10ad(tri_linga(_c10gst))
                 if any(_c10acc.values()):
                     return _c10acc
             return tri_linga(stem)
