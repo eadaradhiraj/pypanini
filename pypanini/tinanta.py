@@ -4145,6 +4145,28 @@ class TinantaDerivationEngine:
                     for _t6yk in {"vrasc": ["vfScy", "vraScy"], "vyac": ["vicy"], "stfnh": ["stfhy", "stfMhy"], "tfnh": ["tfhy", "tfMhy"]}[meta.get("clean")]:
                         if _t6yk not in yak_list:
                             yak_list.append(_t6yk)
+                # curAdi yak grade twins (coryate/lAqyate/medyate + plain twins; a/u/i
+                # short-vowel survey (N/Y-grades separate); mUla passive takes grade + y
+                # (no ay, unlike present); old miss; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10mc in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                        if not _c10vw:
+                            continue
+                        _c10nc = _c10vw[-1]
+                        _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                        _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                        _c10gy = []
+                        if _c10nc == "a" and _c10sg:
+                            _c10v = self._vriddhi_base(_c10mc, is_idit)
+                            _c10gy = [_c10mc + "y"] + ([_c10v + "y"] if _c10v != _c10mc else [])
+                        elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                            _c10gy = [_c10mc + "y", self._bhvadi_guna_base(_c10mc, is_idit) + "y"]
+                        elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
+                            _c10gy = [_c10mc + "y", self._bhvadi_guna_base(_c10mc, is_idit) + "y"]
+                        for _c10g in dict.fromkeys(_c10gy):
+                            if _c10g not in yak_list:
+                                yak_list.append(_c10g)
                 cands=[]
                 for ys in yak_list:
                     yb = _aug(ys) if lakara in ("laN",) else ys
