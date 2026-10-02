@@ -671,3 +671,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 484 (GEN-10: curAdi san-anIyar/yat twin-sets (sec-matrix; generic first; dead-downstream-block relocated upstream after return-trace; tri_linga late-def UnboundLocal avoided via inline M/F/N): probe anIyar 987→138, 0 worsened (guards green).
 - Iteration 485 (GEN-10: curAdi san-Rvul twin-sets (sec-matrix + aka; old sec+uH absent; replace; ungated-block hijack caught via absurd +23232/totals-growth + polluted sweeps discarded, pratyaya gate added): probe 987→138 (-849), 0 worsened (guards green).
 - Iteration 486 (GEN-10: curAdi san-tfc twin-sets (sec-matrix + itA/itrI/itf): probe 987→138 (-849), 0 worsened (guards green).
+- Iteration 487 (GEN-10: curAdi san-SAnac twin-sets (sec-matrix + amAna/amARa, nested in SAnac-if; sibling-hijack + registry-cwd artifacts diagnosed: worktree runs need data symlink, /tmp wipe recovery, polluted sweeps discarded): probe 990→138 (-852), 0 worsened (guards green).
