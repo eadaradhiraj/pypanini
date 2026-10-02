@@ -1679,7 +1679,9 @@ class TinantaDerivationEngine:
             clean_ay = "fkzay"
         # Panini 3.1.5 gup-tij-kit + 3.1.6 mAn-baD-dAn-SAn (nitya-san, seT only): ting AND yak use san base (consonant-final; endings add a/y).
         # Excludes aniT gupU~ 01.0461 (sew False, gopAy path) — failed-hydrogen lesson 2026-09-25.
-        if sanadi is None and prayoga in ("kartari", "karmani") and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+        # curAdi Nitya-san cleans take plain/grade presents (bADyate/tejyate/gupyate/mAnyate;
+        # surveyed set — old san-grade forms miss everywhere in 10; curAdiH-gated exclusion).
+        if sanadi is None and prayoga in ("kartari", "karmani") and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not meta.get("gana") == "curAdiH":
             _nitya_ting = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
             clean = _nitya_ting[clean]
         # Panini 3.1.29 fterIyaN: fti (sOtra, takArAnta) takes svArtha IyaN,
@@ -4167,6 +4169,17 @@ class TinantaDerivationEngine:
                         for _c10g in dict.fromkeys(_c10gy):
                             if _c10g not in yak_list:
                                 yak_list.append(_c10g)
+                # curAdi yak R-twins (laRqyate/vaRwyate/...; i-final w/W/q/Q-roots surveyed —
+                # drop-i + R-insert mirrors num-R; old miss; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10mc in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        if len(_c10mc) >= 2 and _c10mc[-2:] in ("wi", "Wi", "qi", "Qi"):
+                            _c10r = _c10mc[:-2] + "R" + _c10mc[-2:-1] + "y"
+                            if _c10r not in yak_list:
+                                yak_list.append(_c10r)
+                            _c10o = "o" + _c10r
+                            if _c10o not in yak_list:
+                                yak_list.append(_c10o)
                 cands=[]
                 for ys in yak_list:
                     yb = _aug(ys) if lakara in ("laN",) else ys
@@ -5190,6 +5203,13 @@ class TinantaDerivationEngine:
                         _ykl = {("prathama", "eka"): ["tatfMhe"], ("prathama", "dvi"): ["tatfMhAte"], ("prathama", "bahu"): ["tatfMhire"], ("madhyama", "eka"): ["tatfMhize", "tatfNkze", "tatfRQve"], ("madhyama", "dvi"): ["tatfMhATe"], ("madhyama", "bahu"): ["tatfMhiQve", "tatfMhiDve"], ("uttama", "eka"): ["tatfMhe"], ("uttama", "dvi"): ["tatfMhivahe", "tatfMhvahe"], ("uttama", "bahu"): ["tatfMhimahe", "tatfMhmahe"]}
                     cands += _ykl.get((purusha, vacana), [])
 
+                # curAdi mUla-yak-liw nic-periphrastics (corayAYcakre/...; nic-stems reused
+                # from _prim_bases + karmani slot inflection; old redup cross-hits preserved;
+                # additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "karmani":
+                    for _c10x in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
+                        _c10lt = {("prathama","eka"): [_c10x + "AYcakre", _c10x + "AmAse", _c10x + "AmbaBUve"], ("prathama","dvi"): [_c10x + "AYcakrAte", _c10x + "AmAsAte", _c10x + "AmbaBUvAte"], ("prathama","bahu"): [_c10x + "AYcakrire", _c10x + "AmAsire", _c10x + "AmbaBUvire"], ("madhyama","eka"): [_c10x + "AYcakfze", _c10x + "AmAsize", _c10x + "AmbaBUvize"], ("madhyama","dvi"): [_c10x + "AYcakrATe", _c10x + "AmAsATe", _c10x + "AmbaBUvATe"], ("madhyama","bahu"): [_c10x + "AYcakfQve", _c10x + "AmAsiDve", _c10x + "AmbaBUviQve"], ("uttama","eka"): [_c10x + "AYcakre", _c10x + "AmAhe", _c10x + "AmbaBUve"], ("uttama","dvi"): [_c10x + "AYcakfvahe", _c10x + "AmAsivahe", _c10x + "AmbaBUvivahe"], ("uttama","bahu"): [_c10x + "AYcakfmahe", _c10x + "AmAsimahe", _c10x + "AmbaBUvimahe"]}
+                        cands += _c10lt.get((purusha, vacana), [])
                 return cands, log
             if lakara == "luw":
                 if sanadi in ("sannanta","nijanta","yananta"):
