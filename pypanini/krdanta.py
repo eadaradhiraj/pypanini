@@ -8750,7 +8750,12 @@ class KrdantaEngine:
                 if clean in ("sTA", "zWA"):
                     return {"avyaya": ["sTitvA"]}
                 if clean == "jYA":
-                    return {"avyaya": ["jYitvA"]}
+                    _c10jy = ["jYitvA"]
+                    if meta.get("gana") == "curAdiH":
+                        _c10jy.append("jYApayitvA")
+                    if meta.get("gana") == "kryAdiH":
+                        _c10jy.append("jYAtvA")
+                    return {"avyaya": _c10jy}
                 if clean == "qI":
                     return {"avyaya": ["qayitvA"]}
                 if clean in ("dA", "dAR", "de"):

@@ -796,3 +796,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 483 (GEN-10: ktavatu jYAp-stem twins (twin-1=HEAD-verified generic): sweep +3 (10.0258), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green incl 09.0043.)
 - Iteration 484 (GEN-10: jYAp stem in 7 stem-lists (tavya/Satf/SAnac/tfc/anIyar/Rvul/yat; 16sp-indent hijack of Satf main loop diagnosed via 01.0001 UnboundLocalError, repaired): sweep +21 (10.0258), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green incl 09.0043.)
 - Iteration 485 (GEN-10: jYAp present stem (NameError via meta-scope diagnosed, clean-gated; tinanta.py): sweep +304 (10.0258), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 486 (GEN-10: ktvA jYA union (jYitvA/jYApayitvA/jYAtvA; 3-gana survey, twin-1 verified): sweep +1 (10.0258 ktvA), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green incl 09.0043.)
