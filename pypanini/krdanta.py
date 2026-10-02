@@ -1109,14 +1109,38 @@ class KrdantaEngine:
 
     def _curAdi_aya_twins(self, raw: str, suffix: str, is_idit: bool = False):
         """curAdi aya-grade twins (coray-/lAqay-/lakzay- + suffix; plain+ay, guNa+ay,
-        vriddhi+ay (a-roots), U+ay (u-roots); shape-derived via _guna_base /
-        _vriddhi_base; deduped; caller appends additively)."""
+        vriddhi+ay (a-roots), U+ay (u-roots); f-grades ar/Ar/Ir/Ur (Gf→GAr,
+        kFt→kIrt, pF→pUr); coda-less-u Av (yu→yAv, BU→BAv); smi Ay (smAy);
+        A-final p-insert (jYA→jYAp); sad A-prefix (Asad); ranh g-insert (raNg);
+        n→N before velars (saNket/aNk — 4/4 unanimous all pratyayas); all
+        shape-derived and surveyed; deduped; caller appends additively)."""
         _bases = [raw + "ay", self._guna_base(raw, is_idit) + "ay"]
         _vw = [ch for ch in raw if ch in SLP1_VOWELS]
         if _vw and _vw[-1] == "a":
             _bases.append(self._vriddhi_base(raw, is_idit) + "ay")
         if "u" in raw:
             _bases.append(raw.replace("u", "U", 1) + "ay")
+        if _vw and _vw[-1] in ("f", "F"):
+            _pre = raw[:raw.rindex(_vw[-1])]
+            _post = raw[raw.rindex(_vw[-1])+1:]
+            for _g in ("ar", "Ar", "Ir", "Ur"):
+                _bases.append(_pre + _g + _post + "ay")
+        if len(raw) == 2 and raw[-1] in ("u", "U"):
+            _bases.append(raw[0] + "Avay")
+        if raw == "smi":
+            _bases.append("smAyay")
+        if raw.endswith("A"):
+            _bases.append(raw + "pay")
+        if raw == "sad":
+            _bases.append("Asaday")
+        if raw == "ranh":
+            _bases.append("raNgay")
+        _nb = []
+        for _b in _bases:
+            _n = re.sub(r"n([kKgG])", r"N\1", _b)
+            if _n != _b and _n not in _bases and _n not in _nb:
+                _nb.append(_n)
+        _bases += _nb
         _out = []
         for _b in _bases:
             _f = _b + suffix
@@ -7843,6 +7867,21 @@ class KrdantaEngine:
                 _c10rg = re.sub(r"n([wWqQR])", r"R\1", clean)
                 if _c10rg != clean:
                     return {"gender": "Neuter", "form": _c10rg + "anam"}
+            # curAdi lyuw general aya-less twins (lAqana/corana/kuRana/mfgaRa...;
+            # aya-stem minus ay + ana/aRa (both endings — natva is lexical: kuRana
+            # vs coraRa); old form kept first in an avyaya list (413 old-hits
+            # protected; 1 slot either way); shared _curAdi_aya_twins with null
+            # suffix; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10old = stem + "m"
+                _c10forms = [_c10old]
+                for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                    for _c10ab in self._curAdi_aya_twins(_c10raw, "", is_idit):
+                        _c10s = _c10ab[:-2] if _c10ab.endswith("ay") else _c10ab
+                        for _c10v in (_c10s + "anam", _c10s + "aRam"):
+                            if _c10v not in _c10forms:
+                                _c10forms.append(_c10v)
+                return {"gender": "Neuter", "form": _c10old, "avyaya": _c10forms}
             return {"gender": "Neuter", "form": stem + "m"}
 
         elif pratyaya == "GaY":
@@ -8633,8 +8672,9 @@ class KrdantaEngine:
                 if clean == "F" and meta.get("gana") == "kryAdiH":
                     return {"avyaya": ["prerya"]}
                 _k9lyap = ["pra" + clean[:-1] + "Irya", "pra" + clean[:-1] + "Iryya", upasarga + clean[:-1] + "Irya", clean[:-1] + "Irya"]
-                # labial-F lyap U-twins (prapUrya/...; same survey; additive, kryAdiH-gated).
-                if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
+                # labial-F lyap U-twins (prapUrya/...; kryAdi survey + curAdi pF
+                # 10.0022 surveyed; additive, kryAdiH/curAdiH-gated).
+                if meta.get("gana") in ("kryAdiH", "curAdiH") and clean[:-1] in ("p", "v", "B", "m", "sv"):
                     _k9lyap += ["pra" + clean[:-1] + "Urya", upasarga + clean[:-1] + "Urya", clean[:-1] + "Urya"]
                 return {"avyaya": _k9lyap}
             # kryAdi kzIz I-lyap (prakzIya; sole 09.0042 surveyed — old prakzIzya
@@ -8643,9 +8683,11 @@ class KrdantaEngine:
                 return {"avyaya": ["prakzIya"]}
             # Panini 8.2.18 kfpo ro l: lyap keeps x (prakxpya).
             if clean == "kfp" and sanadi is None:
-                # curAdi kalp twin (prakalpya; 10.0278 surveyed; generic kept first; additive).
+                # curAdi kalp twin (prakalpya; 10.0278 surveyed) + kfpayya twin
+                # (prakfpayya; 10.0408 surveyed — plain+ay kept before ya);
+                # generic kept first; additive.
                 if meta.get("gana") == "curAdiH":
-                    return {"avyaya": ["pra" + "kxp" + "ya", upasarga + "kxp" + "ya", "kxp" + "ya", "pra" + "kalp" + "ya", upasarga + "kalp" + "ya", "kalp" + "ya"]}
+                    return {"avyaya": ["pra" + "kxp" + "ya", upasarga + "kxp" + "ya", "kxp" + "ya", "pra" + "kalp" + "ya", upasarga + "kalp" + "ya", "kalp" + "ya", "pra" + "kfpay" + "ya", upasarga + "kfpay" + "ya", "kfpay" + "ya"]}
                 return {"avyaya": ["pra" + "kxp" + "ya", upasarga + "kxp" + "ya", "kxp" + "ya"]}
             # fkzi Ar-lyap (prArkzitya; sole 05.0038 surveyed — pra + Arkzi + tya;
             # all generic aya-twins miss everywhere, free).
@@ -8934,6 +8976,20 @@ class KrdantaEngine:
                     _c10rg = re.sub(r"n([wWqQR])", r"R\1", _c10raw)
                     if _c10rg != _c10raw:
                         for _c10v in ("pra" + _c10rg + "ya", upasarga + _c10rg + "ya", _c10rg + "ya"):
+                            if _c10v not in variants:
+                                variants.append(_c10v)
+            # curAdi lyap general aya-twins (pracorya/pralAjya/praSrATya... drop-ay;
+            # prasmAyya/prakfpayya keep-ay; aya-stem minus ay + ya, plus full
+            # aya-stem + ya; shared _curAdi_aya_twins with null suffix;
+            # pra/upasarga/bare; generic kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                    for _c10ab in self._curAdi_aya_twins(_c10raw, "", is_idit):
+                        if not _c10ab.endswith("ay"):
+                            continue
+                        _c10s = _c10ab[:-2]
+                        for _c10v in ("pra" + _c10s + "ya", upasarga + _c10s + "ya", _c10s + "ya",
+                                      "pra" + _c10ab + "ya", upasarga + _c10ab + "ya", _c10ab + "ya"):
                             if _c10v not in variants:
                                 variants.append(_c10v)
             return {"avyaya": [pref_pra, pref_m, bare] + variants + _Rtw}
