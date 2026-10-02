@@ -682,3 +682,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 495 (GEN-10: curAdi mUla-liw aya-periphrastics ADDITIVE at generic return (exclusive table reverted after 82-fid regression: redup cross-hits are load-bearing): probe liw 2850→834, sweep +15746 (283 improved), 0 worsened (guards green; yak display jump is cap-churn of pre-existing gaps).
 - Iteration 496 (GEN-10: curAdi yak grade twins in yak_list (grade+y, no ay; same shape survey): probe 8486→4976 (-3510), 0 worsened (guards green).
 - Iteration 497 (GEN-10: curAdi yak R-twins + o-twins + Nitya-san exclusion + liw periphrastics: yak bucket 1125→18 display, 0 worsened (guards green; san display rise is cap-churn).
+- Iteration 498 (GEN-10: curAdi san-ktavatu twin-sets (sec-matrix + itavat, generic b-triple first): probe 987→138 (-849), 0 worsened (guards green; san_krut bucket now ~0 misses sweep-wide).

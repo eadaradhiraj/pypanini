@@ -4789,6 +4789,15 @@ class KrdantaEngine:
             if sanadi is None and clean == "vaS" and meta.get("gana") == "adAdiH":
                 return {"M": ["vaSitavAn", "uSitavAn"], "F": ["vaSitavatI", "uSitavatI"], "N": ["vaSitavat", "uSitavat", "uSitavad"]}
             b = stem[:-1] if stem.endswith("a") else stem
+            # curAdi san-ktavatu twin-sets (sec-matrix + itavat; same survey as san-kta;
+            # generic b-triple kept first; additive, pratyaya+sanadi-gated).
+            if pratyaya == "ktavatu" and sanadi == "sannanta" and meta.get("gana") == "curAdiH":
+                _c10out = {"M": [b + "avAn"], "F": [b + "avatI"], "N": [b + "avat"]}
+                for _c10s in _c10_san_secs(sec, meta.get("clean", "") or clean, is_idit):
+                    for _frm, _g in ((_c10s + "itavAn", "M"), (_c10s + "itavatI", "F"), (_c10s + "itavat", "N"), (_c10s + "itavad", "N")):
+                        if _frm not in _c10out[_g]:
+                            _c10out[_g].append(_frm)
+                return _c10out
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
         elif pratyaya == "Satf":
