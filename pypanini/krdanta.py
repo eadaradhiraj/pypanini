@@ -5063,6 +5063,14 @@ class KrdantaEngine:
                                 if _frm not in _c10out[_g]:
                                     _c10out[_g].append(_frm)
                         return _c10out
+            # curAdi ci ktavatu twins (same iy/ap/e/AY union as kta; stem+vAn twin-1).
+            if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "ci":
+                _c10out = {"M": [stem + "vAn"], "F": [stem + "vatI"], "N": [stem + "vat"]}
+                for _c10st in ("ciyita", "capita", "cayita", "cAyita"):
+                    for _frm, _g in ((_c10st + "vAn", "M"), (_c10st + "vatI", "F"), (_c10st + "vat", "N"), (_c10st + "vad", "N")):
+                        if _frm not in _c10out[_g]:
+                            _c10out[_g].append(_frm)
+                return _c10out
             # curAdi ktavatu twin-sets (kta-grade stems + itavat; same shape survey as kta;
             # generic twin kept first; additive, curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
