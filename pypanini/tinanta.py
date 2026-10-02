@@ -975,6 +975,31 @@ class TinantaDerivationEngine:
             _c_guna = clean[:-1] + apply_guna(clean[-1])
             if _c_guna not in bases:
                 bases.append(_c_guna)
+        # curAdi aya-presents (coray-/lAjay-/pejay- nic stems; a/u/i short-vowel survey;
+        # generic mUla-grade kept (already in bases); additive, 10-prefix-gated).
+        if str(dhatu_id or "").startswith("10."):
+            # plain+ay present stem applies broadly (lakzay-/kalay- even where kta stays
+            # plain); graded+ay per shape gates below.
+            if clean + "ay" not in bases:
+                bases.append(clean + "ay")
+            for _c10mc in dict.fromkeys([clean]):
+                _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if not _c10vw:
+                    continue
+                _c10nc = _c10vw[-1]
+                _c10cd = _c10mc[len(_c10mc) - next((k for k, ch in enumerate(reversed(_c10mc)) if ch in SLP1_VOWELS), 0):]
+                _c10sg = len(_c10cd) == 1 or (len(_c10cd) == 2 and _c10cd[0].lower() == _c10cd[1].lower())
+                _c10ay = []
+                if _c10nc == "a" and _c10sg:
+                    _c10v = self._vriddhi_base(_c10mc, is_idit)
+                    _c10ay = [_c10mc + "ay"] + ([_c10v + "ay"] if _c10v != _c10mc else [])
+                elif _c10nc in ("u", "U") and _c10sg and _c10cd != "F":
+                    _c10ay = [_c10mc + "ay", self._bhvadi_guna_base(_c10mc, is_idit) + "ay"]
+                elif _c10nc == "i" and _c10sg and _c10mc[-1] not in SLP1_VOWELS:
+                    _c10ay = [_c10mc + "ay", self._bhvadi_guna_base(_c10mc, is_idit) + "ay"]
+                for _c10a in dict.fromkeys(_c10ay):
+                    if _c10a not in bases:
+                        bases.append(_c10a)
         # Panini 3.1.28-3.1.31 Aya / RiN (gup, DUp, pan, kam)
         if (clean == "gup" and ("U" in op or dhatu_id == "01.0461")) or (clean in ("DUp", "Dop") or op.startswith("DUp") or dhatu_id == "01.0462"):
             _ay = "gopAy" if clean == "gup" else "DUpAy"
