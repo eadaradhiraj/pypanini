@@ -11,7 +11,7 @@ Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — held.
 Sweep-10: **316/492 scored** (17 skipped) — held (V-initial san + aya-less, 6 improved, 0 worsened; this iteration).
 Landscape: 04 + 10 remain (06 modulo ceiling).
 
-## Done — this session (06) + 460-481 (10)
+## Done — this session (06) + 460-482 (10)
 - 06: iterations 383-398, 442-458 → 173/174 modulo 06.0159 ceiling (see STATS.md).
 - 460: verify pull 7738ab6 + fresh sweeps (csv refresh).
 - 461: curAdi general aya-twins ktvA/tumun (293 improved, +99 pass-ups).
@@ -35,9 +35,10 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - 479: ktavatu a+nD retention twins (12 improved-tokens, 320/492: PASS 10.0021).
 - 480: tavya vowel-final-i AY-twins (6 improved-tokens, holds 320).
 - 481: tavya short-i twins for I-final (3 improved-tokens, holds 320).
+- 482: kta jYAp-stem twins (3 improved-tokens, holds 320).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
-1. Gana-10: yak + ting (pull before each iteration — shared tree; PYTHONHASHSEED=0). Failed hypothesis (no commit): san/mUla/nich lyap pra+V sandhi twins (prorjya/prelya/prAwwya) — correct forms, zero sweep gain (bare stems already cover slots); reverted.
+1. Gana-10: yak + ting (pull before each iteration — shared tree; PYTHONHASHSEED=0). Failed hypotheses (no commit): (a) lyap pra+V sandhi twins — correct forms, zero gain (bare stems cover slots), reverted; (b) tavya bare e-grade twins (jretavya/metavya) — correct forms, zero gain, reverted (kept AY + short-i).
 2. Gana-04 ceiling audit (other session) → all-gana 100% modulo ceilings.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.

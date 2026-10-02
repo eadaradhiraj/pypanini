@@ -4903,6 +4903,12 @@ class KrdantaEngine:
                     _c10m = tri_linga(stem)
                     _c10t = tri_linga(_c10mc[:-2] + "Ngita")
                     return {"M": [_c10m["M"], _c10t["M"]], "F": [_c10m["F"], _c10t["F"]], "N": [_c10m["N"], _c10t["N"]]}
+            # curAdi jYA jYAp-stem kta twins (jYApita/...; p-stem persists across all
+            # pratyayas surveyed; other ganas untouched via curAdiH gate; generic kept first).
+            if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "jYA":
+                _c10m = tri_linga(stem)
+                _c10t = tri_linga("jYApita")
+                return {"M": [_c10m["M"], _c10t["M"]], "F": [_c10m["F"], _c10t["F"]], "N": [_c10m["N"], _c10t["N"]]}
             # curAdi a-root kta vriddhi twin (lAjita/tAqita/...; a-nucleus +
             # single-coda survey — generic plain twin kept first (cross-match
             # safety); additive, curAdiH-gated).
