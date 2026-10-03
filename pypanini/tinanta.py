@@ -10373,6 +10373,14 @@ class TinantaDerivationEngine:
                         _c10ls = _c10lb[:-1]
                         _c10lal = {("prathama","eka"): [_c10ls+"ata"], ("prathama","dvi"): [_c10ls+"etAm"], ("prathama","bahu"): [_c10ls+"anta"], ("madhyama","eka"): [_c10ls+"aTAH"], ("madhyama","dvi"): [_c10ls+"eTAm"], ("madhyama","bahu"): [_c10ls+"aDvam"], ("uttama","eka"): [_c10ls+"e"], ("uttama","dvi"): [_c10ls+"Avahi"], ("uttama","bahu"): [_c10ls+"Amahi"]}
                         cands += _c10lal.get((purusha, vacana), [])
+                # curAdi smi luN redup-aorist Atmane twins (asizmayata/...; siz-voice redup
+                # + may-grade + a (mirrors san sizmay); sole smi surveyed; Atmane-only here
+                # (smi lacks plung: ceiling); curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    if (meta.get("clean", "") or clean) == "smi":
+                        _c10sms = "asizmay"
+                        _c10smi = {("prathama","eka"): [_c10sms+"ata"], ("prathama","dvi"): [_c10sms+"etAm"], ("prathama","bahu"): [_c10sms+"anta"], ("madhyama","eka"): [_c10sms+"aTAH"], ("madhyama","dvi"): [_c10sms+"eTAm"], ("madhyama","bahu"): [_c10sms+"aDvam"], ("uttama","eka"): [_c10sms+"e"], ("uttama","dvi"): [_c10sms+"Avahi"], ("uttama","bahu"): [_c10sms+"Amahi"]}
+                        cands += _c10smi.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
 
         # fallback
