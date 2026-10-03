@@ -6309,6 +6309,8 @@ class KrdantaEngine:
                         _c10bases = [_c10mc, _c10mc + "ay"] + ([self._guna_base(_c10mc, is_idit) + "ay"] if _c10sg else [])
                     elif _c10nc in ("A", "e", "I", "o") and _c10mc[-1] not in SLP1_VOWELS:
                         _c10bases = [_c10mc, _c10mc + "ay"]
+                    elif _c10nc in ("f", "F") and "M" not in _c10mc and "i" not in _c10mc[_c10mc.rindex(_c10nc)+1:] and "I" not in _c10mc[_c10mc.rindex(_c10nc)+1:]:
+                        _c10bases = [_c10mc, _c10mc + "ay"]
                     for _c10b in dict.fromkeys(_c10bases):
                         for _suf, _f, _n in (("amAna", "amAnA", "amAnam"), ("amARa", "amARA", "amARam")):
                             for _frm, _g in ((_c10b + _suf + "H", "M"), (_c10b + _f, "F"), (_c10b + _n, "N")):
