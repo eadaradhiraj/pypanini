@@ -7362,6 +7362,18 @@ class KrdantaEngine:
                             for _cc in _c10L(_c10t[_gg]):
                                 if _cc not in _c10out[_gg]:
                                     _c10out[_gg].append(_cc)
+                        # plain f-stems take aRIya too (kfpaRIyaH/spfhaRIyaH/...;
+                        # surveyed plains unanimous R; additive twin, anIya kept).
+                        if _c10sf == "anIya":
+                            _c10gw = [ch for ch in _c10g if ch in SLP1_VOWELS]
+                            if _c10gw and _c10gw[-1] in ("f", "F") and "M" not in _c10g:
+                                _c10post = _c10g[_c10g.rindex(_c10gw[-1])+1:]
+                                if "i" not in _c10post and "I" not in _c10post:
+                                    _c10t2 = tri_linga(_c10g + "aRIya")
+                                    for _gg in ("M", "F", "N"):
+                                        for _cc in _c10L(_c10t2[_gg]):
+                                            if _cc not in _c10out[_gg]:
+                                                _c10out[_gg].append(_cc)
                 return _c10out
             return _out
 
