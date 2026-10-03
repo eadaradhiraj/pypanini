@@ -831,3 +831,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 635 (GEN-10: F-final present gate widening (GArayate/gArayate; lowercase-f len-2 gated out; 4/5 Ar+ay survey, vf held): sweep +584 (2 improved: 10.0152/0231), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 636 (GEN-10: Av-grade presents (yAvay/cyAvay/BAvay; unanimous 4/5, DU Davate held): sweep +584 (4 improved, PASS 10.0382 → 331/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 637 (GEN-10: AY yak twins (smAyyate/...; unanimous AYy + lAp; net +36 sweep-wide verified zero-loss): sweep +36 (10.0058), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 638 (GEN-10: Av yak twins (yAvyate/...; unanimous 5/5 Av+y, distinct from AY+y): sweep +108 (3 improved: 10.0235/0275/0277), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)

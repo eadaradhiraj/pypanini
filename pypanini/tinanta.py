@@ -4181,6 +4181,14 @@ class TinantaDerivationEngine:
                             yak_variants.append("lApy")
                         if "lAp" not in sec_variants:
                             sec_variants.append("lAp")
+                # vowel-final-u Av yak twins (yAvyate/cyAvyate/...; unanimous 5/5 Av+y
+                # survey; mirrors krdanta Av-stems; additive).
+                if meta.get("gana") == "curAdiH" and clean[-1:] in ("u", "U"):
+                    _c10avy = clean[:-1] + "Av"
+                    if _c10avy + "y" not in yak_variants:
+                        yak_variants.append(_c10avy + "y")
+                    if _c10avy not in sec_variants:
+                        sec_variants.append(_c10avy)
                 # deduplicate
                 yak_variants = list(dict.fromkeys(yak_variants))
                 sec_variants = list(dict.fromkeys(sec_variants))
