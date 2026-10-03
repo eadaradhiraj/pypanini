@@ -846,3 +846,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 650 (GEN-10: luN s-final short-V twins (apaspaSata/...; lexical grades so union): sweep +3 (PASS 10.0200/0202/0220 → 345/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 651 (GEN-10: luN rj-root redup-aorist (amamArjata/...; Ca-redup + cutva; V-initial ij separate): sweep +1 (PASS 10.0201 → 346/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 652 (GEN-10: luN bast ba-redup (ababastata; sole bast surveyed, ust-roots u-grade): sweep +1 (PASS 10.0203 → 347/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 653 (GEN-10: luN anD-root redup-aorist (ababanData/...; Ca + cutva; SunD/anD separate): sweep +1 (PASS 10.0204 → 348/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
