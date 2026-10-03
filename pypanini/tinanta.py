@@ -10631,6 +10631,16 @@ class TinantaDerivationEngine:
                         _c10sms = "asizmay"
                         _c10smi = {("prathama","eka"): [_c10sms+"ata"], ("prathama","dvi"): [_c10sms+"etAm"], ("prathama","bahu"): [_c10sms+"anta"], ("madhyama","eka"): [_c10sms+"aTAH"], ("madhyama","dvi"): [_c10sms+"eTAm"], ("madhyama","bahu"): [_c10sms+"aDvam"], ("uttama","eka"): [_c10sms+"e"], ("uttama","dvi"): [_c10sms+"Avahi"], ("uttama","bahu"): [_c10sms+"Amahi"]}
                         cands += _c10smi.get((purusha, vacana), [])
+                # curAdi kUw luN union twins (acUkuwata/acukUwata; cU/kuw vs cu/kUw lexical
+                # split across homonymous pair (kal/cak precedent); Atmane-only here (0225 lacks
+                # plung: ceiling; 0432 already passing); curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    if (meta.get("clean", "") or clean) == "kUw":
+                        for _c10ks, _c10kr in (("cU", "kuw"), ("cu", "kUw")):
+                            _c10kb = "a" + _c10ks + _c10kr + "a"
+                            _c10kz = _c10kb[:-1]
+                            _c10kuw = {("prathama","eka"): [_c10kz+"ata"], ("prathama","dvi"): [_c10kz+"etAm"], ("prathama","bahu"): [_c10kz+"anta"], ("madhyama","eka"): [_c10kz+"aTAH"], ("madhyama","dvi"): [_c10kz+"eTAm"], ("madhyama","bahu"): [_c10kz+"aDvam"], ("uttama","eka"): [_c10kz+"e"], ("uttama","dvi"): [_c10kz+"Avahi"], ("uttama","bahu"): [_c10kz+"Amahi"]}
+                            cands += _c10kuw.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
 
         # fallback
