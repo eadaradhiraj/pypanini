@@ -8,10 +8,10 @@ Sweep-07: **25/25 100%** — held. Sweep-08: **10/10 100%** — held.
 Sweep-09: **71/71 100%** — held.
 Sweep-04: **151/161** (other session) — ceiling audit in progress.
 Sweep-06: **173/174 + 1 ceiling fid (06.0159 viC, 42 dataless slots)** — held.
-Sweep-10: **394/492 scored** (17 skipped) — 387->394 (+7 pass-ups, 17 improved, 0 worsened; this iteration).
+Sweep-10: **405/492 scored** (17 skipped) — 394->405 (+11 pass-ups, 29 improved, 0 worsened; this iteration).
 Landscape: 04 + 10 remain (06 modulo ceiling).
 
-## Done — this session (06) + 460-467 + 585-663 (10)
+## Done — this session (06) + 460-467 + 585-664 (10)
 - 06: iterations 383-398, 442-458 → 173/174 modulo 06.0159 ceiling (see STATS.md).
 - 460: verify pull 7738ab6 + fresh sweeps (csv refresh).
 - 461: curAdi general aya-twins ktvA/tumun (293 improved, +99 pass-ups).
@@ -56,9 +56,10 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - 661 (this session): curAdi ylk kta/ktavatu/Satf via shared stems (29 improved, +4 pass-ups, 361/492).
 - 662 (this session): nich-lyuw mUla-delegation + Ay-grade (45 improved, +26 pass-ups, 387/492).
 - 663 (this session): yak-liw aya-periphrastics in serving branch (17 improved, +7 pass-ups, 394/492).
+- 664 (this session): yak-luN sic-aorists at table-return site (29 improved, +11 pass-ups, 405/492).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
-1. Gana-10: yak-luN + krut/ktvA-Satf + ting-luN + san_yak (pull before each iteration — shared tree; PYTHONHASHSEED=0). Queued irregular (other session): sad Asad-suppletion (Asanna/Asatta/AsIda), ci-cap extras. Failed hypotheses, do not retry (other session): (a) lyap pra+V sandhi twins — zero gain, reverted; (b) tavya bare e-grade twins — zero gain, reverted; (c) tumun/lyap jYAp twins — zero gain, reverted; (d) san jYAp grade — zero gain, reverted.
+1. Gana-10: ylk/tavya + krut/ktvA-Satf + nich + ting-luN (pull before each iteration — shared tree; PYTHONHASHSEED=0). Queued irregular (other session): sad Asad-suppletion (Asanna/Asatta/AsIda), ci-cap extras. Failed hypotheses, do not retry (other session): (a) lyap pra+V sandhi twins — zero gain, reverted; (b) tavya bare e-grade twins — zero gain, reverted; (c) tumun/lyap jYAp twins — zero gain, reverted; (d) san jYAp grade — zero gain, reverted.
 2. Gana-04 ceiling audit (other session) → all-gana 100% modulo ceilings.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.

@@ -6021,6 +6021,16 @@ class TinantaDerivationEngine:
                 # 04.0062 surveyed — old miss (1/1 true miss); additive, divAdiH-gated).
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "nah" and (purusha, vacana) == ("madhyama", "bahu"):
                     table[(purusha, vacana)] += ["anadDvam"]
+                # curAdi yak-luN sic-aorists (asambi/akIrti/asaNketi...; aug +
+                # yak-sec (aya-stem minus ay) + Atmane sic endings, ay/no-ay
+                # twins (mbahu triple); ~30-fid sweep-wide pattern; old mUla-ish
+                # forms miss everywhere; additive into table; curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10x in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
+                        _c10s = _c10x[:-2]
+                        _c10a = self._add_augment(_c10s, _c10s[0] in SLP1_VOWELS if _c10s else False)
+                        _c10lu = {("prathama","eka"): [_c10a + "i"], ("prathama","dvi"): [_c10a + "ayizAtAm", _c10a + "izAtAm"], ("prathama","bahu"): [_c10a + "ayizata", _c10a + "izata"], ("madhyama","eka"): [_c10a + "ayizWAH", _c10a + "izWAH"], ("madhyama","dvi"): [_c10a + "ayizATAm", _c10a + "izATAm"], ("madhyama","bahu"): [_c10a + "ayiQvam", _c10a + "ayiDvam", _c10a + "iDvam"], ("uttama","eka"): [_c10a + "ayizi", _c10a + "izi"], ("uttama","dvi"): [_c10a + "ayizvahi", _c10a + "izvahi"], ("uttama","bahu"): [_c10a + "ayizmahi", _c10a + "izmahi"]}
+                        table[(purusha, vacana)] += _c10lu.get((purusha, vacana), [])
                 return table[(purusha,vacana)], log
             # default yak
             return self._conjugate_at_stem_atmane(_aug(yak_stem) if lakara in ("laN",) else yak_stem, lakara, purusha, vacana), log
