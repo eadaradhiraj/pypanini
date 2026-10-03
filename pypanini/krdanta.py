@@ -2033,8 +2033,9 @@ class KrdantaEngine:
                 # sec feeds san_krut; divAdiH-gated).
                 if meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
                     return "jugupiz"
-                # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew).
-                if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
+                # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew;
+                # curAdi mAn takes regular san stem (mimAnayizita 10.0233 vs Nitya mImAMsizita 01.1127; pair surveyed)).
+                if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew and not (c == "mAn" and meta.get("gana") == "curAdiH"):
                     return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]
                 # SI san ay-grade (mirrors tinanta; same sole guard).
                 if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
