@@ -9517,6 +9517,16 @@ class KrdantaEngine:
                 # labial-F ktvA U-twin (pUrtvA/...; same 18-clean survey; additive, kryAdiH-gated).
                 if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
                     _k9ktva.append(clean[:-1] + "UrtvA")
+                # curAdi aya-twins + labial U-twin (pUrtvA/GArayitvA/...; F-branch
+                # exits before the tail twins; shared helper; additive,
+                # curAdiH-gated).
+                if meta.get("gana") == "curAdiH":
+                    if clean[:-1] in ("p", "v", "B", "m", "sv") and clean[:-1] + "UrtvA" not in _k9ktva:
+                        _k9ktva.append(clean[:-1] + "UrtvA")
+                    for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        for _c10f in self._curAdi_aya_twins(_c10raw, "itvA", is_idit):
+                            if _c10f not in _k9ktva:
+                                _k9ktva.append(_c10f)
                 return {"avyaya": _k9ktva}
             # Panini 8.2.18 kfpo ro l: udit-aniT kxptvA + seT kalpitvA (vew gets both;
             # homonymous curAdi pair takes kalp vs plain lexically (0278/0408) so union).
@@ -9619,7 +9629,15 @@ class KrdantaEngine:
                 _kbw = clean[:-1]
                 _kn = "N" if _kbw and _kbw[-1] in ("k", "K", "g", "G") else ("Y" if _kbw and _kbw[-1] in ("c", "C", "j", "J") else ("R" if _kbw and _kbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _kbw and _kbw[-1] in ("p", "P", "b", "B") else None)))
                 if _kn and len(_kbw) >= 1:
-                    return {"avyaya": [_kbw[:-1] + _kn + _kbw[-1] + "itvA"]}
+                    _k10iy = [_kbw[:-1] + _kn + _kbw[-1] + "itvA"]
+                    # curAdi aya-twins (snehayitvA/...; idit-branch exits before
+                    # the tail twins; shared helper; additive, curAdiH-gated).
+                    if meta.get("gana") == "curAdiH":
+                        for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                            for _c10f in self._curAdi_aya_twins(_c10raw, "itvA", is_idit):
+                                if _c10f not in _k10iy:
+                                    _k10iy.append(_c10f)
+                    return {"avyaya": _k10iy}
             if clean == "mA" or orig_clean == "me":
                 return {"avyaya": ["mItvA"]}
             if clean.endswith("kz"):
@@ -9660,9 +9678,24 @@ class KrdantaEngine:
                 _alts = [_core + "QvA", clean + "itvA"]
                 if is_laghu_ik_init or (guna_base != clean and not is_idit):
                     _alts.append(guna_base + "itvA")
+                # curAdi aya-twins (snehayitvA/...; h-branch exits before the
+                # tail twins; shared helper; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        for _c10f in self._curAdi_aya_twins(_c10raw, "itvA", is_idit):
+                            if _c10f not in _alts:
+                                _alts.append(_c10f)
                 return {"avyaya": _alts}
             if clean.endswith("nd"):
-                return {"avyaya": [clean[:-1] + "tvA", clean + "itvA"]}
+                _k10nd = [clean[:-1] + "tvA", clean + "itvA"]
+                # curAdi aya-twins (krandayitvA/...; nd-branch exits before the
+                # tail twins; shared helper; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        for _c10f in self._curAdi_aya_twins(_c10raw, "itvA", is_idit):
+                            if _c10f not in _k10nd:
+                                _k10nd.append(_c10f)
+                return {"avyaya": _k10nd}
             if clean.endswith("m"):
                 # Panini 6.4.37 anudAttopadeSa... anunAsikalopa: ram/yam/nam/gam drop m before kit jhal tvA (7.2.56 uditto vA)
                 if clean in ("ram", "yam", "nam", "gam") or clean.endswith(("ram", "yam", "nam", "gam")):
@@ -9769,7 +9802,16 @@ class KrdantaEngine:
                     stem = clean[:-1] + "IrtvA"
                 else:
                     stem = clean + "tvA"
-            return {"avyaya": [stem]}
+                _k10an = [stem]
+                # curAdi aya-twins for aniT fallthrough (smitvA/citvA/yutvA...;
+                # aniT branch skips the seT tail twins; shared helper; additive,
+                # curAdiH-gated).
+                if meta.get("gana") == "curAdiH":
+                    for _c10raw in dict.fromkeys([clean, meta.get("clean", "") or clean]):
+                        for _c10f in self._curAdi_aya_twins(_c10raw, "itvA", is_idit):
+                            if _c10f not in _k10an:
+                                _k10an.append(_c10f)
+                return {"avyaya": _k10an}
 
         elif pratyaya == "lyap":
             # tudAdi fnP/unB mUla lyap (prArPya/proBya; pair 06.0041/0045 surveyed —
