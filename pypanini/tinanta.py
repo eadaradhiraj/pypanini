@@ -2445,6 +2445,20 @@ class TinantaDerivationEngine:
             # viC collides with curAdi 10.0304 so tudAdiH-gated; mirrors krdanta).
             if c in ("vrasc", "stfnh", "tfnh", "viC", "vicC") and meta.get("gana") == "tudAdiH":
                 return {"vrasc": "vraScay", "stfnh": "stfMhay", "tfnh": "tfMhay", "viC": "vicCAyay", "vicC": "vicCAyay"}[c]
+            # curAdi nich causative grades (sambay/kIrtay/capay+cayay/tejay/gopay/
+            # saNketay...; 14-fid survey: n-m/n-N via regex (same map as krdanta
+            # nich twins), f-Ir, ci cap/cay twins, tij-guNa, gup o-grade;
+            # must precede Nitya-san map below (gup); curAdiH-gated).
+            if meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or c
+                _c10mm = re.sub(r"n([pPbBsqQRwWkKgG])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else ("N" if _m.group(1) in "kKgG" else "m"))) + _m.group(1)), _c10mc)
+                if _c10mm != _c10mc:
+                    return _c10mm + "ay"
+                _c10ng = {"kFt": "kIrtay", "tij": "tejay", "gup": "gopay", "luRw": "luRway", "luRW": "luRWay", "daRq": "daRqay"}
+                if _c10mc in _c10ng:
+                    return _c10ng[_c10mc]
+                if _c10mc == "ci":
+                    return "capay"
             # Nitya-san (3.1.5/3.1.6, seT only): nich uses san base (jugupsay/titikzay/...; 01.0461 aniT excluded via sew).
             if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
                 _nsb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
@@ -3753,6 +3767,12 @@ class TinantaDerivationEngine:
                     n_stems_all.append(vriddhi_alt)
                 if clean + "ay" not in n_stems_all:
                     n_stems_all.append(clean + "ay")
+                # curAdi ci cayay-twin (cayayati alongside capayati; 0124 op ciY
+                # takes both, 0325 op ci takes cayay; surveyed pair; additive,
+                # curAdiH-gated).
+                if meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "ci":
+                    if "cayay" not in n_stems_all:
+                        n_stems_all.append("cayay")
                 if (clean.endswith("A") or is_adeca(clean)) and clean != "de" and meta.get("op") not in ("deN", "deY"):
                     a_root = clean[:-1] + "A" if is_adeca(clean) else clean
                     for _mst in (a_root[:-1] + "apay", a_root + "pay"):
