@@ -848,3 +848,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 652 (GEN-10: luN bast ba-redup (ababastata; sole bast surveyed, ust-roots u-grade): sweep +1 (PASS 10.0203 → 347/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 653 (GEN-10: luN anD-root redup-aorist (ababanData/...; Ca + cutva; SunD/anD separate): sweep +1 (PASS 10.0204 → 348/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 654 (GEN-10: luN aW-root union tables (aSISaWata/aSaSaWata; cluster-short rule; unanimous 7/7): sweep +1 (PASS 10.0214 → 349/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 655 (GEN-10: luN kz-root redup-aorist (alalakzata/...; short root-vowel redup; unanimous 8/8): sweep +2 (PASS 10.0215/0219 → 351/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)

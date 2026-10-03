@@ -10184,6 +10184,21 @@ class TinantaDerivationEngine:
                         _c10rj_a = {("prathama","eka"): [_c10js+"ata"], ("prathama","dvi"): [_c10js+"etAm"], ("prathama","bahu"): [_c10js+"anta"], ("madhyama","eka"): [_c10js+"aTAH"], ("madhyama","dvi"): [_c10js+"eTAm"], ("madhyama","bahu"): [_c10js+"aDvam"], ("uttama","eka"): [_c10js+"e"], ("uttama","dvi"): [_c10js+"Avahi"], ("uttama","bahu"): [_c10js+"Amahi"]}
                         cands += _c10rj_p.get((purusha, vacana), [])
                         cands += _c10rj_a.get((purusha, vacana), [])
+                # curAdi kz-root redup-aorist twins (alalakzata/...; C1 + short root vowel
+                # (a/o/U->a/u/u) + kz + a; unanimous 8/8 kz survey; both padas attested;
+                # curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10km = re.match(r"^(.+)kz$", clean or "")
+                    if _c10km:
+                        _c10kv = [ch for ch in clean if ch in SLP1_VOWELS]
+                        if _c10kv:
+                            _c10ks = {"A": "a", "I": "i", "U": "u", "o": "u"}.get(_c10kv[-1], _c10kv[-1])
+                            _c10kb = "a" + _c10km.group(1)[:1] + _c10ks + clean + "a"
+                            _c10kz = _c10kb[:-1]
+                            _c10kz_p = {("prathama","eka"): [_c10kb+"t", _c10kb+"d"], ("prathama","dvi"): [_c10kb+"tAm"], ("prathama","bahu"): [_c10kb+"n"], ("madhyama","eka"): [_c10kb+"H"], ("madhyama","dvi"): [_c10kb+"tam"], ("madhyama","bahu"): [_c10kb+"ta"], ("uttama","eka"): [_c10kb+"m"], ("uttama","dvi"): [_c10kz+"Ava"], ("uttama","bahu"): [_c10kz+"Ama"]}
+                            _c10kz_a = {("prathama","eka"): [_c10kz+"ata"], ("prathama","dvi"): [_c10kz+"etAm"], ("prathama","bahu"): [_c10kz+"anta"], ("madhyama","eka"): [_c10kz+"aTAH"], ("madhyama","dvi"): [_c10kz+"eTAm"], ("madhyama","bahu"): [_c10kz+"aDvam"], ("uttama","eka"): [_c10kz+"e"], ("uttama","dvi"): [_c10kz+"Avahi"], ("uttama","bahu"): [_c10kz+"Amahi"]}
+                            cands += _c10kz_p.get((purusha, vacana), [])
+                            cands += _c10kz_a.get((purusha, vacana), [])
                 # curAdi aW-root redup-aorist union twins (aSISaWata/aSaSaWata/...; I/i-redup
                 # (cluster-short) + short-a twin (SI/Sa lexical split); unanimous 7/7 aW survey;
                 # both padas attested; curAdiH-gated; additive).
@@ -10437,6 +10452,21 @@ class TinantaDerivationEngine:
                         _c10rj_a = {("prathama","eka"): [_c10js+"ata"], ("prathama","dvi"): [_c10js+"etAm"], ("prathama","bahu"): [_c10js+"anta"], ("madhyama","eka"): [_c10js+"aTAH"], ("madhyama","dvi"): [_c10js+"eTAm"], ("madhyama","bahu"): [_c10js+"aDvam"], ("uttama","eka"): [_c10js+"e"], ("uttama","dvi"): [_c10js+"Avahi"], ("uttama","bahu"): [_c10js+"Amahi"]}
                         cands += _c10rj_p.get((purusha, vacana), [])
                         cands += _c10rj_a.get((purusha, vacana), [])
+                # curAdi kz-root redup-aorist twins (alalakzata/...; C1 + short root vowel
+                # (a/o/U->a/u/u) + kz + a; unanimous 8/8 kz survey; both padas attested;
+                # curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10km = re.match(r"^(.+)kz$", clean or "")
+                    if _c10km:
+                        _c10kv = [ch for ch in clean if ch in SLP1_VOWELS]
+                        if _c10kv:
+                            _c10ks = {"A": "a", "I": "i", "U": "u", "o": "u"}.get(_c10kv[-1], _c10kv[-1])
+                            _c10kb = "a" + _c10km.group(1)[:1] + _c10ks + clean + "a"
+                            _c10kz = _c10kb[:-1]
+                            _c10kz_p = {("prathama","eka"): [_c10kb+"t", _c10kb+"d"], ("prathama","dvi"): [_c10kb+"tAm"], ("prathama","bahu"): [_c10kb+"n"], ("madhyama","eka"): [_c10kb+"H"], ("madhyama","dvi"): [_c10kb+"tam"], ("madhyama","bahu"): [_c10kb+"ta"], ("uttama","eka"): [_c10kb+"m"], ("uttama","dvi"): [_c10kz+"Ava"], ("uttama","bahu"): [_c10kz+"Ama"]}
+                            _c10kz_a = {("prathama","eka"): [_c10kz+"ata"], ("prathama","dvi"): [_c10kz+"etAm"], ("prathama","bahu"): [_c10kz+"anta"], ("madhyama","eka"): [_c10kz+"aTAH"], ("madhyama","dvi"): [_c10kz+"eTAm"], ("madhyama","bahu"): [_c10kz+"aDvam"], ("uttama","eka"): [_c10kz+"e"], ("uttama","dvi"): [_c10kz+"Avahi"], ("uttama","bahu"): [_c10kz+"Amahi"]}
+                            cands += _c10kz_p.get((purusha, vacana), [])
+                            cands += _c10kz_a.get((purusha, vacana), [])
                 # curAdi aW-root redup-aorist union twins (aSISaWata/aSaSaWata/...; I/i-redup
                 # (cluster-short) + short-a twin (SI/Sa lexical split); unanimous 7/7 aW survey;
                 # both padas attested; curAdiH-gated; additive).
