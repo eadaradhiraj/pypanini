@@ -10156,6 +10156,13 @@ class TinantaDerivationEngine:
                         _c10lun_a = {("prathama","eka"): [_c10ls+"ata"], ("prathama","dvi"): [_c10ls+"etAm"], ("prathama","bahu"): [_c10ls+"anta"], ("madhyama","eka"): [_c10ls+"aTAH"], ("madhyama","dvi"): [_c10ls+"eTAm"], ("madhyama","bahu"): [_c10ls+"aDvam"], ("uttama","eka"): [_c10ls+"e"], ("uttama","dvi"): [_c10ls+"Avahi"], ("uttama","bahu"): [_c10ls+"Amahi"]}
                         cands += _c10lun_p.get((purusha, vacana), [])
                         cands += _c10lun_a.get((purusha, vacana), [])
+                # curAdi kFt luN twin-stem redup-aorist parasmaipada (acikIrtat/...; aci-redup
+                # + kIrt/kft; pr.eka-only here (other plung slots dataless: ceiling); sole kFt
+                # surveyed; curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    if (meta.get("clean", "") or clean) == "kFt":
+                        _c10kft = {("prathama","eka"): ["acikIrtat", "acikIrtad", "acIkftat"]}
+                        cands += _c10kft.get((purusha, vacana), [])
                 # curAdi UR-root redup-aorist twins (acUkuRata/...; cutva/deasp redup-cons
                 # + U (u after onset clusters per buBruR); unanimous 4-fid UR survey;
                 # both padas attested; curAdiH-gated; additive).
@@ -10332,6 +10339,15 @@ class TinantaDerivationEngine:
                         _c10lun_a = {("prathama","eka"): [_c10ls+"ata"], ("prathama","dvi"): [_c10ls+"etAm"], ("prathama","bahu"): [_c10ls+"anta"], ("madhyama","eka"): [_c10ls+"aTAH"], ("madhyama","dvi"): [_c10ls+"eTAm"], ("madhyama","bahu"): [_c10ls+"aDvam"], ("uttama","eka"): [_c10ls+"e"], ("uttama","dvi"): [_c10ls+"Avahi"], ("uttama","bahu"): [_c10ls+"Amahi"]}
                         cands += _c10lun_p.get((purusha, vacana), [])
                         cands += _c10lun_a.get((purusha, vacana), [])
+                # curAdi kFt luN twin-stem redup-aorist Atmane (acikIrtata/...; aci-redup
+                # + kIrt/kft + a with 9 endings; full 18-form alung surveyed; sole kFt;
+                # curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    if (meta.get("clean", "") or clean) == "kFt":
+                        _c10kfs = ["acikIrt", "acIkft"]
+                        _c10kfa = {("prathama","eka"): ["ata"], ("prathama","dvi"): ["etAm"], ("prathama","bahu"): ["anta"], ("madhyama","eka"): ["aTAH"], ("madhyama","dvi"): ["eTAm"], ("madhyama","bahu"): ["aDvam"], ("uttama","eka"): ["e"], ("uttama","dvi"): ["Avahi"], ("uttama","bahu"): ["Amahi"]}
+                        for _c10ks in _c10kfs:
+                            cands += [_c10ks + _e for _e in _c10kfa.get((purusha, vacana), [])]
                 # curAdi UR-root redup-aorist twins (acUkuRata/...; cutva/deasp redup-cons
                 # + U (u after onset clusters per buBruR); unanimous 4-fid UR survey;
                 # both padas attested; curAdiH-gated; additive).
