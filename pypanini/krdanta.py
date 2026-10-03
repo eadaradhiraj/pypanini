@@ -2220,6 +2220,12 @@ class KrdantaEngine:
                             # aspirate C doubles in redup (ACi->AYcicCiz); others single (agi->aYjigiz)
                             _mid = _py + "i" + (_py + _tb if _tail[0] == "C" else _tb)
                             return c[0] + _rp + "Y" + _mid + "iz"
+                    # C-onset idit Y-grade doubling (cicCaYjiz; sole Caji surveyed — K/B/G
+                    # singles keep single redup; old ciCaYjiz-forms absent corpus-wide;
+                    # mirrors ACi doubling above; sec feeds san_krut matrix).
+                    if c[:1] == "C" and "Y" in c and c[-1:] not in SLP1_VOWELS:
+                        _cyp = {"k": "c", "K": "c", "g": "j", "G": "j", "C": "c", "J": "j"}.get(c[1], c[1]) if len(c) > 1 else c[:1].lower()
+                        return c[0].lower() + "i" + _cyp + c[1:] + "iz"
                     # ends-i retroflex/labial takes num-only (no Y): awi->aRwiwiz, aBi->ambiBiz (redup-C lowered, root-C kept)
                     if c[-1:] in ("i", "I") and _tail and _tail[0] in ("w", "W", "q", "Q", "R", "p", "P", "b", "B"):
                         _rn = "R" if _tail[0] in ("w", "W", "q", "Q", "R") else "m"
@@ -6741,6 +6747,24 @@ class KrdantaEngine:
                                 _c10s = _c10ab[:-2]
                                 if _c10s != _c10rt and _c10s not in _c10gg:
                                     _c10gg.append(_c10s)
+                        # i-final nasal twins (CaYj/...; mirrors shared helper; additive)
+                        if _c10rt.endswith(("i", "I")) and is_idit:
+                            _c10bw = _c10rt[:-1]
+                            if _c10bw:
+                                _c10nl = _c10bw[-1]
+                                _c10nn = None
+                                if _c10nl in ("k", "K", "g", "G"):
+                                    _c10nn = "N"
+                                elif _c10nl in ("c", "C", "j", "J"):
+                                    _c10nn = "Y"
+                                elif _c10nl in ("w", "W", "q", "Q", "R"):
+                                    _c10nn = "R"
+                                elif _c10nl in ("p", "P", "b", "B"):
+                                    _c10nn = "m"
+                                if _c10nn and len(_c10bw) >= 1:
+                                    _c10ng = _c10bw[:-1] + _c10nn + _c10bw[-1] if len(_c10bw) >= 1 else _c10bw
+                                    if _c10ng != _c10rt and _c10ng not in _c10gg:
+                                        _c10gg.append(_c10ng)
                         # n->m before labials in san (sizambayizitavya/...; unanimous 3/3; additive).
                         _c10nl = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10rt)
                         if _c10nl != _c10rt and _c10nl not in _c10gg:
