@@ -128,7 +128,7 @@ def resolve_dhatu_slp(json_path: Path, arg: str) -> str:
     return clean_dhatu_op(op)
 
 
-def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
+def validate_dhatu(arg: str, verbose: bool = True, prefix: str = None) -> tuple[int, int]:
     """
     Generative vs JSON cross-check for one dhatu.
     Returns (matched, total). Raises AssertionError if not 100% (for CI).
@@ -140,7 +140,10 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
     dhatu_label = info.get("OpadeSikasvarUpam", dhatu)
     artha = info.get("arTaH", "")
 
-    all_tokens = extract_all_text_tokens(data)
+    if prefix:
+        all_tokens = extract_all_text_tokens(data["upasarga_forms"][prefix])
+    else:
+        all_tokens = extract_all_text_tokens(data)
 
     def check_slot(forms_slp):
         for f in forms_slp:
@@ -182,7 +185,13 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
         ("low", "low"), ("laN", "laN"), ("viDiliN", "viDiliN"),
         ("ASIrliN", "ASIrliN"), ("luN", "luN"), ("lfN", "lfN"),
     ]
-    conjugations = data.get("conjugations", {})
+    if prefix:
+        if "upasarga_forms" not in data or prefix not in data["upasarga_forms"]:
+            if verbose: print(f"Prefix {prefix} not found in {arg}")
+            return 0, 0
+        conjugations = data["upasarga_forms"][prefix].get("conjugations", {})
+    else:
+        conjugations = data.get("conjugations", {})
     antas_to_check = [k for k in anta_map if k in conjugations]
     if not antas_to_check:
         antas_to_check = ["ting"]
@@ -202,7 +211,7 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
             for p in ["prathama", "madhyama", "uttama"]:
                 for v in ["eka", "dvi", "bahu"]:
                     try:
-                        forms, _ = te.derive(dhatu, code, p, v, prayoga=prayoga, sanadi=sanadi, dhatu_id=dhatu_id, json_path=str(json_path))
+                        forms, _ = te.derive(dhatu, code, p, v, prayoga=prayoga, sanadi=sanadi, upasarga=prefix, dhatu_id=dhatu_id, json_path=str(json_path))
                     except Exception as e:
                         forms = []
                     loc_tot += 1
@@ -231,7 +240,10 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
         "yang_krut": "yananta",
         "yangluk_krut": "yanluganta",
     }
-    participles = data.get("participles", {})
+    if prefix:
+        participles = data["upasarga_forms"][prefix].get("participles", {})
+    else:
+        participles = data.get("participles", {})
     # if no participles key, fallback to primitive only
     krut_antas = [k for k in krut_map if k in participles] or ["krut"]
     # attested-only scoring: a pratyaya with no key in this anta's participles dict is unscorable
@@ -244,7 +256,7 @@ def validate_dhatu(arg: str, verbose: bool = True) -> tuple[int, int]:
     all_krd_mat = 0
     for krut_key in krut_antas:
         sanadi_k = krut_map[krut_key]
-        krd_anta = ke.derive_all_krdantas(dhatu, sanadi=sanadi_k, dhatu_id=dhatu_id)
+        krd_anta = ke.derive_all_krdantas(dhatu, sanadi=sanadi_k, upasarga=prefix, dhatu_id=dhatu_id)
         # count
         loc_tot = 0
         loc_mat = 0
@@ -342,10 +354,11 @@ def main():
     parser.add_argument("--id", dest="dhatu_id", help="alias for dhatu positional")
     parser.add_argument("-v", "--verbose", action="store_true", default=True)
     parser.add_argument("-q", "--quiet", action="store_true")
+    parser.add_argument("-p", "--prefix", help="Test a specific prefix from upasarga_forms")
     args = parser.parse_args()
     arg = args.dhatu_id or args.dhatu
     verbose = not args.quiet
-    matched, total = validate_dhatu(arg, verbose=verbose)
+    matched, total = validate_dhatu(arg, verbose=verbose, prefix=args.prefix)
     sys.exit(0 if matched == total else 1)
 
 

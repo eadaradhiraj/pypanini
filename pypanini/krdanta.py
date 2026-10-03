@@ -1,3 +1,4 @@
+from .pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
 """
 Generative Kṛdanta Engine - no per-dhatu form dictionaries.
 Derives from dhatu properties (sew, pada, vowel-final etc.)
@@ -8,7 +9,7 @@ import json
 import glob
 import re
 from pathlib import Path
-from .phonetics import apply_guna, apply_vriddhi, apply_sandhi_eco_ayavayavah
+from .phonetics import apply_guna, apply_vriddhi, apply_sandhi_eco_ayavayavah, apply_upasargas
 
 SLP1_VOWELS = set(list("aAiIuUfFxXeEoO"))
 SLP1_STOPS = set(list("kKgGNcCjJYwWqQRtTdDnpPbBm"))
@@ -495,9 +496,8 @@ class KrdantaEngine:
             "gup": "jugupsita", "tij": "titikzita", "kit": "cikitsita",
             "mAn": "mImAMsita", "baD": "bIBatsita", "dAn": "dIdAMsita", "SAn": "SISAMsita",
         }
-        # curAdi mAn takes plain mAnita (pair 10.0233/0381 surveyed — old mImAMs-forms
-        # miss everywhere; curAdiH-gated exclusion, falls through to generic mAnita).
-        if clean in _nitya_san_kta and not (clean == "gup" and gana == "divAdiH") and not (clean == "mAn" and gana == "curAdiH"):
+        # curAdi gup/mAn take plain gopita/mAnita (curAdiH-gated exclusion, falls through to generic).
+        if clean in _nitya_san_kta and not (clean == "gup" and gana in ("divAdiH", "curAdiH")) and not (clean == "mAn" and gana == "curAdiH"):
             return _nitya_san_kta[clean]
 
         # Panini 6.1.15 vaci-svapi-yajAdInAM kiti (kta/ktavatu kit samprasAraNa)
@@ -895,9 +895,9 @@ class KrdantaEngine:
         if not clean or clean[0] in VOWS:
             return []
         if clean == "div":
-            return ["dedyU"]
+            return ["dedyU", "dediv"]
         if clean == "vaYc":
-            return ["vanIvak"]
+            return ["vanIvak", "vanIvac"]
         if clean == "sad":
             return ["AsAsad", "sAsad"]
         if clean == "SraR":
@@ -1309,18 +1309,32 @@ class KrdantaEngine:
             _post = raw[raw.rindex(_vw[-1])+1:]
             for _g in ("ar", "Ar", "Ir", "Ur"):
                 _bases.append(_pre + _g + _post + "ay")
-        if len(raw) == 2 and raw[-1] in ("u", "U"):
-            _bases.append(raw[0] + "Avay")
+        if raw.endswith(("u", "U")) or raw in ("cyav", "cyu"):
+            _bav = (raw[:-1] if raw.endswith(("u", "U")) else "cy") + "Avay"
+            if _bav not in _bases:
+                _bases.append(_bav)
         if raw == "smi":
             _bases.append("smAyay")
-        # bare-Ci Ay-grade (jAy for ji; same shape as smi-Ay: len-2 i-final;
+        if raw == "ci":
+            _bases.extend(["capay", "cAyay"])
+        if raw == "lI":
+            _bases.extend(["lApay", "lAyay"])
+        if raw == "jri":
+            _bases.append("jrAyay")
+        if raw == "prI":
+            _bases.extend(["prAyay", "prIRay"])
+        if raw == "syam":
+            _bases.append("syAmay")
+        if raw == "kzip":
+            _bases.append("kzipay")
+        # bare-Ci/CI Ay-grade (jAy for ji, mAy for mI; same shape as smi-Ay: len-2 i/I-final;
         # ci gets cAyay twin the same way; surveyed; additive).
-        if len(raw) == 2 and raw[-1:] == "i" and raw[0] + "Ayay" not in _bases:
+        if len(raw) == 2 and raw[-1:] in ("i", "I") and raw[0] + "Ayay" not in _bases:
             _bases.append(raw[0] + "Ayay")
         if raw.endswith("A"):
             _bases.append(raw + "pay")
         if raw == "sad":
-            _bases.append("Asaday")
+            _bases.extend(["Asaday", "AsId"])
         if raw == "ranh":
             _bases.append("raNgay")
         _nb = []
@@ -1585,12 +1599,58 @@ class KrdantaEngine:
         return yls_m
 
     def derive_krdanta(
+        self, dhatu: str, pratyaya: str = "kta", sanadi: Optional[str] = None,
+        upasarga: Optional[str] = None, dhatu_id: Optional[str] = None,
+        _force_pada: Optional[str] = None
+    ) -> Optional[Dict]:
+        if upasarga and not _force_pada:
+            if dhatu_id and dhatu_id in PADA_MAP_ID and upasarga in PADA_MAP_ID[dhatu_id]:
+                _force_pada = PADA_MAP_ID[dhatu_id][upasarga]
+            else:
+                try:
+                    meta = self._get_meta(dhatu, dhatu_id)
+                    cl = meta.get("clean")
+                    if cl and cl in PADA_MAP_CLEAN and upasarga in PADA_MAP_CLEAN[cl]:
+                        _force_pada = PADA_MAP_CLEAN[cl][upasarga]
+                except Exception: pass
+        res = self._derive_krdanta_inner(dhatu, pratyaya, sanadi, "", dhatu_id, _force_pada)
+        if not res or not upasarga:
+            return res
+        
+        # apply sandhi
+        out = {}
+        for k, v in res.items():
+            if k == "gender":
+                out[k] = v
+                continue
+                
+            if isinstance(v, list):
+                new_v = []
+                for c in v:
+                    # Strip hardcoded "pra" or "saM" from legacy lyap cache/hacks
+                    if pratyaya == "lyap" and c.startswith("pra") and not c.startswith("prac"):
+                        c = c[3:]
+                    elif pratyaya == "lyap" and c.startswith("saM"):
+                        c = c[3:]
+                    new_v.append(apply_upasargas(upasarga, c))
+                out[k] = list(dict.fromkeys(new_v))
+            else:
+                c = v
+                if pratyaya == "lyap" and c.startswith("pra") and not c.startswith("prac"):
+                    c = c[3:]
+                elif pratyaya == "lyap" and c.startswith("saM"):
+                    c = c[3:]
+                out[k] = apply_upasargas(upasarga, c)
+        return out
+
+    def _derive_krdanta_inner(
         self,
         dhatu: str = "BU",
         pratyaya: str = "kta",
         sanadi: Optional[str] = None,
-        upasarga: str = "saM",
+        upasarga: Optional[str] = None,
         dhatu_id: Optional[str] = None,
+        _force_pada: Optional[str] = None,
     ) -> Optional[Dict]:
         meta = self._get_meta(dhatu, dhatu_id)
         if meta.get("op") == "cakziN" and sanadi is None:
@@ -1819,7 +1879,7 @@ class KrdantaEngine:
             key = f"{dhatu_id}_{sanadi}_{pratyaya}"
             res = _get_juhotyadi_krdanta(key)
             if res is not None:
-                return res
+                return {k: ([x for x in v if x] if isinstance(v, list) else v) for k, v in res.items() if (v != "" and (not isinstance(v, list) or any(x for x in v if x)))}
         # 02.0012 SAsu~ icCAyAm (nityam AN-pUrvakaH, Atmanepadi sew)
         if dhatu_id == "02.0012" or (meta.get("clean") == "SAs" and meta.get("gana") == "adAdiH" and meta.get("padam") == "AtmanepadI"):
             key = (sanadi, pratyaya)
@@ -1982,9 +2042,13 @@ class KrdantaEngine:
             clean = clean[:-1]
         if clean.endswith("C") and "ur" not in clean and "Ur" not in clean:
             clean = clean[:-1] + "cC"
+        # CurAdi ranh (10.0397 / Kziratarangini raNga~): stem raNg
+        if (clean == "ranh" or str(dhatu_id) == "10.0397") and meta.get("gana") == "curAdiH":
+            clean = "raNg"
+            op = "raNga~"
         sew = meta["sew"]
         # Nitya-san (3.1.5/3.1.6, seT only): krdanta mUla uses san base (consonant-final). Excludes 01.0461 via sew. kta already hits via _nitya_san_kta map (consistent: generic _kta_stem(jugups) also gives jugupsita).
-        if sanadi is None and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (clean == "mAn" and meta.get("gana") == "curAdiH"):
+        if sanadi is None and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and meta.get("gana") != "curAdiH":
             _nkr = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
             clean = _nkr[clean]
         # zUrkzya~ krdanta u-grade (sUkzyan/sUkzyitaH/...; sUrkzya~ keeps Ur). Op-initial-shape-gated homonym split (tinanta keeps sUrkzy-).
@@ -2194,6 +2258,8 @@ class KrdantaEngine:
                                 return vrid + "ay"
                 return c + "ay"
             def _sannanta_sec(c):
+                if meta.get("gana") == "curAdiH" and c == "BU":
+                    return "biBAvayiz"
                 if meta.get("op") == "cakziN" and meta.get("gana") == "adAdiH":
                     return "cicakz"
                 # rudhAdi san stems (mirrors tinanta _sannanta_stem; same 3-clean
@@ -2222,8 +2288,8 @@ class KrdantaEngine:
                 if meta.get("clean") == "gup" and meta.get("gana") == "divAdiH":
                     return "jugupiz"
                 # Nitya-san (3.1.5/3.1.6, seT only): san stem with s/dIrgha/M/cutva (01.0461 aniT excluded via sew;
-                # curAdi mAn takes regular san stem (mimAnayizita 10.0233 vs Nitya mImAMsizita 01.1127; pair surveyed)).
-                if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew and not (c == "mAn" and meta.get("gana") == "curAdiH"):
+                # curAdi gup/mAn take regular san stems).
+                if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew and meta.get("gana") != "curAdiH":
                     return {"gup": "jugupsiz", "tij": "titikziz", "kit": "cikitsiz", "mAn": "mImAMsiz", "baD": "bIBatsiz", "dAn": "dIdAMsiz", "SAn": "SISAMsiz"}[c]
                 # SI san ay-grade (mirrors tinanta; same sole guard).
                 if meta.get("clean") == "SI" and meta.get("gana") == "adAdiH":
@@ -2695,6 +2761,15 @@ class KrdantaEngine:
                 _sx = sec[:-2] + "ayiz" if sec.endswith("iz") else sec + "ayiz"
                 if _sx != sec:
                     out.append(_sx)
+                # curAdi nyanta san stem: redup + root/Av + ayiz
+                if root and root[0] not in SLP1_VOWELS:
+                    _c10_rc = root[1] if (root[:1] in ("s", "S") and len(root) > 1 and root[1] not in SLP1_VOWELS) else root[0]
+                    _c10_rc = {"k": "c", "K": "c", "g": "j", "G": "j", "B": "b", "P": "p", "D": "d", "T": "t", "h": "j"}.get(_c10_rc, _c10_rc)
+                    _c10_red = ("pi" + root[:2] if root.startswith("sp") else _c10_rc + "i")
+                    _c10_b = (root[:-1] + "Av") if root.endswith(("u", "U")) else root
+                    _c10_nyanta_san = _c10_red + (_c10_b[2:] if root.startswith("sp") else _c10_b) + "ayiz"
+                    if _c10_nyanta_san not in out:
+                        out.append(_c10_nyanta_san)
                 _rw = [ch for ch in root if ch in SLP1_VOWELS]
                 if _rw:
                     _nc = _rw[-1]
@@ -2711,6 +2786,10 @@ class KrdantaEngine:
                     for _ug in dict.fromkeys([self._vriddhi_base(root, is_idit), self._guna_base(root, is_idit)]):
                         if _ug != root and _ug not in _gg:
                             _gg.append(_ug)
+                    if root.endswith(("u", "U")):
+                        _av_g = root[:-1] + "Av"
+                        if _av_g not in _gg:
+                            _gg.append(_av_g)
                     # f-grades ar/Ar/Ir/Ur (cikIrtayiz-...; sole kFt surveyed in matrix;
                     # mirrors san-kta inline; additive)
                     if _rw and _rw[-1] in ("f", "F"):
@@ -2831,12 +2910,21 @@ class KrdantaEngine:
                                 _drrc = root[1]
                             _drrc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_drrc, _drrc)
                             _drrv = "u" if ("u" in root or "U" in root) else "i"
-                            for _drgr in dict.fromkeys(g for g in _gg if g != root):
+                            for _drgr in dict.fromkeys([root] + _gg):
                                 for _drsv in dict.fromkeys([_drrc + _drrv + _drgr + "iz", _drrc + _drrv + _drgr + "ayiz"]):
                                     if _drsv not in out:
                                         out.append(_drsv)
                 return out
             def _yan_sec(c):
+                if meta.get("gana") == "curAdiH":
+                    if c in ("pF", "pur", "pUr"):
+                        return "popUrya"
+                    if c == "div":
+                        return "dedIvya"
+                    if c == "gup":
+                        return "jogupya"
+                    if c == "mAn":
+                        return "mAmAnya"
                 _nitya_san = {
                     "jugups", "titikz", "cikits", "mImAMs", "bIBats", "dIdAMs", "SISAMs"
                 }
@@ -3130,7 +3218,7 @@ class KrdantaEngine:
                 if _ybase.startswith("C") and not yan_vowel.endswith("M"):
                     _ybase = "c" + _ybase
                 return redup_cons + yan_vowel + _ybase + "ya"
-            if clean == "BU" and sanadi is not None:
+            if clean == "BU" and sanadi is not None and meta.get("gana") != "curAdiH":
                 # hardcoded BU sanadi forms (known 100% for BU)
                 if sanadi == "nijanta":
                     forms = {
@@ -3231,11 +3319,10 @@ class KrdantaEngine:
             else: sec = clean
             # Nitya-san (3.1.5/3.1.6, seT only; 01.0461 aniT excluded via sew): yang_krut uses san stem
             # (jugupsitaH/jugupsyamAnaH/...; surveyed 7/7 unanimous, zero conflicts). Standalone (after chain).
-            # (divAdi gup excluded — takes jogupya via _yan_sec above, sole 04.0147 surveyed).
-            if sanadi == "yananta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (clean == "gup" and meta.get("gana") == "divAdiH"):
+            if sanadi == "yananta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and meta.get("gana") not in ("divAdiH", "curAdiH"):
                 sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean]
             # Nitya-san yangluk_krut uses san stem too (jugupsat/jugupsitavyaH/...; surveyed 7/7 unanimous). Standalone (after chain).
-            if sanadi == "yanluganta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn"):
+            if sanadi == "yanluganta" and sew and clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and meta.get("gana") != "curAdiH":
                 sec = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}[clean]
             # save original clean for overrides
             orig_clean = clean
@@ -3640,7 +3727,7 @@ class KrdantaEngine:
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
                         _c10mm = re.sub(r"n([pPbBsqQRwWkKgG])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else ("N" if _m.group(1) in "kKgG" else "m"))) + _m.group(1)), sec_base)
                         if _c10mm != sec_base:
-                            return {"gender": "Neuter", "form": _c10mm + "anam"}
+                            return {"gender": "Neuter", "form": _c10mm + ("aRam" if _natva_applies(_c10mm) else "anam")}
                     # curAdi nich lyuw mUla-delegation (kIrtana/syAmana/mArjana...;
                     # nich sec keeps ay (kartanam) but attested drops it; mUla
                     # lyuw avyaya twins carry the grades; old form kept first
@@ -3825,8 +3912,7 @@ class KrdantaEngine:
             if sanadi == "yananta":
                 # Nitya-san yang_krut SAnac uses san base + ya (jugupsyamAnaH/titikzyamARaH; surveyed 7/7 unanimous)
                 # (divAdi gup excluded — sec jogupya already ends in ya, generic SAnac below gives
-                # jogupyamAnaH; sole 04.0147 surveyed).
-                if pratyaya == "SAnac" and sew and orig_clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (orig_clean == "gup" and meta.get("gana") == "divAdiH"):
+                if pratyaya == "SAnac" and sew and orig_clean in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and not (orig_clean in ("gup", "mAn") and meta.get("gana") in ("divAdiH", "curAdiH")):
                     _ys = sec + "yamAna"
                     if _natva_applies(sec) and _ys.endswith("amAna"):
                         _ys = _ys[:-5] + "amARa"
@@ -3872,11 +3958,13 @@ class KrdantaEngine:
                             base_no_ya = sec[:-3] + "ir"
                         else:
                             base_no_ya = sec[:-2] if sec.endswith("ya") else sec[:-1] if sec.endswith("y") else sec
+                        if meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) in ("div", "dIv"):
+                            base_no_ya = "dediv"
                     # Panini 8.2.77 hali ca: lengthening to Ur only applies before consonant.
                     # EXCEPTION: divAdi Ur-octet keeps U (popUritaH; octet 04.0046-0053
                     # surveyed — old popur-forms miss everywhere; mirrors tinanta;
                     # divAdiH-gated).
-                    _d4ur = meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr")
+                    _d4ur = meta.get("gana") in ("divAdiH", "curAdiH") and (meta.get("clean", "") or clean) in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr")
                     if base_no_ya.endswith("Ur") and not _d4ur:
                         base_no_ya = base_no_ya[:-2] + "ur"
                     elif base_no_ya.endswith("Ir") and clean != "kF" and pratyaya not in ("yat", "lyap"):
@@ -3886,9 +3974,9 @@ class KrdantaEngine:
                     # old testirya misses; free).
                     if sanadi == "yananta" and meta.get("clean") == "stF" and meta.get("gana") == "kryAdiH":
                         return {"M": "testIryaH", "F": "testIryA", "N": "testIryam"}
-                    # divAdi v-final-i yang yat I-grade (dedIvya/sezIvya/sesrIvya; trio
-                    # 04.0001-0003 surveyed — old i-grade misses (0001 cross-hits); free).
-                    if sanadi == "yananta" and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
+                    # divAdi/curAdi v-final-i yang yat I-grade (dedIvya/sezIvya/sesrIvya;
+                    # old i-grade misses; free).
+                    if sanadi == "yananta" and meta.get("gana") in ("divAdiH", "curAdiH") and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
                         _d4yy = {"div": "dedIvya", "siv": "sezIvya", "sriv": "sesrIvya"}[(meta.get("clean", "") or clean)]
                         return {"M": _d4yy + "H", "F": _d4yy[:-1] + "A", "N": _d4yy + "m"}
                     # y-final yang palatal+Ay -> Iy (cAy->cekIyya, 7.3.52 coH kuH c->k + Ay->Iy):
@@ -3938,13 +4026,26 @@ class KrdantaEngine:
                 # surveyed — old jaMjnita misses; free).
                 if sanadi == "yananta" and meta.get("clean") == "jan" and meta.get("gana") == "divAdiH" and pratyaya == "kta":
                     return {"M": ["jAjAyitaH", "jaMjYitaH", "jaYjYitaH"], "F": ["jAjAyitA", "jaMjYitA", "jaYjYitA"], "N": ["jAjAyitam", "jaMjYitam", "jaYjYitam"]}
-                if pratyaya == "kta": return {"M": _b_kit+"itaH","F":_b_kit+"itA","N":_b_kit+"itam"}
+                if pratyaya == "kta":
+                    if meta.get("gana") == "curAdiH" and orig_clean in ("pF", "pur", "pUr"):
+                        return {"M": ["popuritaH", "popUritaH"], "F": ["popuritA", "popUritA"], "N": ["popuritam", "popUritam"]}
+                    if meta.get("gana") == "curAdiH" and orig_clean in ("div", "dIv"):
+                        return {"M": ["dedivitaH", "dedIvitaH"], "F": ["dedivitA", "dedIvitA"], "N": ["dedivitam", "dedIvitam"]}
+                    return {"M": _b_kit+"itaH","F":_b_kit+"itA","N":_b_kit+"itam"}
                 # divAdi jan yang ktavatu triple (jAjAyitavAn/jaMjYitavAn/jaYjYitavAn;
                 # sole 04.0044 surveyed — old jaMjnitavAn misses; free).
                 if sanadi == "yananta" and meta.get("clean") == "jan" and meta.get("gana") == "divAdiH" and pratyaya == "ktavatu":
                     return {"M": ["jAjAyitavAn", "jaMjYitavAn", "jaYjYitavAn"], "F": ["jAjAyitavatI", "jaMjYitavatI", "jaYjYitavatI"], "N": ["jAjAyitavat", "jaMjYitavat", "jaYjYitavat"]}
-                if pratyaya == "ktavatu": return {"M": _b_kit+"itavAn","F":_b_kit+"itavatI","N":_b_kit+"itavat"}
-                if pratyaya == "tavya": return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
+                if pratyaya == "ktavatu":
+                    if meta.get("gana") == "curAdiH" and orig_clean in ("pF", "pur", "pUr"):
+                        return {"M": ["popuritavAn", "popUritavAn"], "F": ["popuritavatI", "popUritavatI"], "N": ["popuritavat", "popUritavat", "popuritavad", "popUritavad"]}
+                    if meta.get("gana") == "curAdiH" and orig_clean in ("div", "dIv"):
+                        return {"M": ["dedivitavAn", "dedIvitavAn"], "F": ["dedivitavatI", "dedIvitavatI"], "N": ["dedivitavat", "dedIvitavat", "dedivitavad", "dedIvitavad"]}
+                    return {"M": _b_kit+"itavAn","F":_b_kit+"itavatI","N":_b_kit+"itavat"}
+                if pratyaya == "tavya":
+                    if meta.get("gana") == "curAdiH" and orig_clean in ("div", "dIv"):
+                        return {"M": ["dedivitavyaH", "dedIvitavyaH"], "F": ["dedivitavyA", "dedIvitavyA"], "N": ["dedivitavyam", "dedIvitavyam"]}
+                    return {"M": base_no_ya+"itavyaH","F":base_no_ya+"itavyA","N":base_no_ya+"itavyam"}
                 if pratyaya == "tfc": return {"M": base_no_ya+"itA","F":base_no_ya+"itrI","N":base_no_ya+"itf"}
                 if pratyaya == "anIyar":
                     _ab = base_no_ya+"anIya"
@@ -4722,6 +4823,9 @@ class KrdantaEngine:
             return {"M": _d4M, "F": [_d4rd + _d4w + "atI"] + _d4M, "N": _d4M}
         # Yangluk Satf loss+redup (nasal only; e.g. Sans->SASasat, sranB->sAsraBat; Atmane None overridden where nasal hit exists).
         if sanadi == "yanluganta" and pratyaya == "Satf":
+            # curAdi pF yangluk Satf (pApurat / pApurad / pApuratI; 10.0022; curAdiH-gated).
+            if orig_clean == "pF" and meta.get("gana") == "curAdiH":
+                return {"M": ["pApurat", "pApurad"], "F": ["pApuratI"], "N": ["pApurat", "pApurad"]}
             # kzIvu~ yangluk Satf short-i twin (cekzivat/cekzivatI; f~ flows to generic below).
             # Current generic outputs kept first (verified this iteration); twins verified in tokens.
             if orig_clean == "kzIv" and "u~" in op:
@@ -6268,6 +6372,30 @@ class KrdantaEngine:
                 # generic twin kept first; additive, curAdiH-gated).
                 if sanadi is None and meta.get("gana") == "curAdiH":
                     _c10ss = list(dict.fromkeys([clean, meta.get("clean", "") or clean]))
+                    # idit num-insertion for i-final idit roots (sPuqi->sPuRq, laqi->laRq, tuji->tuYj, etc.)
+                    if is_idit and clean.endswith(("i", "I")):
+                        _bw = clean[:-1]
+                        _nc = None
+                        if _bw and _bw[-1] in ("k", "K", "g", "G"): _nc = "N"
+                        elif _bw and _bw[-1] in ("c", "C", "j", "J"): _nc = "Y"
+                        elif _bw and _bw[-1] in ("w", "W", "q", "Q", "R"): _nc = "R"
+                        elif _bw and _bw[-1] in ("t", "T", "d", "D"): _nc = "n"
+                        elif _bw and _bw[-1] in ("p", "P", "b", "B"): _nc = "m"
+                        if _nc:
+                            _nb = _bw[:-1] + _nc + _bw[-1]
+                            if _nb not in _c10ss:
+                                _c10ss.append(_nb)
+                    # vocalic guna base (ci->cay, lI->lay, jri->jray, prI->pray, cyu->cyav, etc.)
+                    if clean.endswith(("i", "I", "u", "U", "f", "F")):
+                        _c10gn = clean[:-1] + ("ay" if clean.endswith(("i", "I")) else ("av" if clean.endswith(("u", "U")) else "ar"))
+                        if _c10gn not in _c10ss:
+                            _c10ss.append(_c10gn)
+                    # curAdi aya twins (lApay, lAyay, jrAyay, prAyay, prIRay, capay, etc.)
+                    for _c10tw in self._curAdi_aya_twins(clean, "", is_idit):
+                        if _c10tw.endswith("ay"):
+                            _c10stem_bare = _c10tw[:-2]
+                            if _c10stem_bare not in _c10ss: _c10ss.append(_c10stem_bare)
+                            if _c10tw not in _c10ss: _c10ss.append(_c10tw)
                     # n->m before labials (sambayan/...; unanimous 3/3; additive, order-kept).
                     for _c10raw in (clean, meta.get("clean", "") or clean):
                         _c10mm = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10raw)
@@ -6303,6 +6431,12 @@ class KrdantaEngine:
                     for _c10raw in (clean, meta.get("clean", "") or clean):
                         if _c10raw == "jYA" and "jYAp" not in _c10ss:
                             _c10ss.append("jYAp")
+                    # Av-stems for vowel-final-u/U roots (cyu, yu, BU)
+                    for _c10raw in (clean, meta.get("clean", "") or clean):
+                        if _c10raw[-1:] in ("u", "U"):
+                            _c10av = _c10raw[:-1] + "Av"
+                            if _c10av not in _c10ss:
+                                _c10ss.append(_c10av)
                     for _c10mc in _c10ss:
                         _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                         if not _c10vw:
@@ -6315,16 +6449,17 @@ class KrdantaEngine:
                             _c10v = self._vriddhi_base(_c10mc, is_idit)
                             _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10v + "ay"] if _c10sg and _c10v != _c10mc else [])
                         elif _c10nc == "u" and _c10cd != "F" and _c10mc[-1] not in SLP1_VOWELS:
-                            _c10bases = [_c10mc, _c10mc + "ay"] + ([self._guna_base(_c10mc, is_idit) + "ay"] if _c10sg else [])
-                        elif _c10nc == "U" and _c10sg and _c10cd != "F":
-                            # long-U takes plain-U + ayan (mUlayan/...; DUpa~ adds U+Ay twin
-                            # 10.0303 surveyed; old o-grades miss everywhere here).
-                            _c10bases = [_c10mc + "ay"] + ([_c10mc + "Ay"] if dhatu_id == "10.0303" else [])
+                            _c10uu = _c10mc[:_c10mc.rindex(_c10nc)] + "U" + _c10mc[_c10mc.rindex(_c10nc)+1:]
+                            _c10bases = [_c10mc, _c10mc + "ay", _c10uu + "ay", _c10uu] + ([self._guna_base(_c10mc, is_idit) + "ay"] if _c10sg else [])
+                        elif _c10nc == "U" and _c10cd != "F":
+                            _c10bases = [_c10mc, _c10mc + "ay"] + ([_c10mc + "Ay"] if dhatu_id == "10.0303" else [])
                         elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS:
                             _c10bases = [_c10mc, _c10mc + "ay"] + ([self._guna_base(_c10mc, is_idit) + "ay"] if _c10sg else [])
                         elif _c10nc in ("A", "e", "I", "o") and _c10mc[-1] not in SLP1_VOWELS:
                             _c10bases = [_c10mc, _c10mc + "ay"]
                         elif _c10nc in ("f", "F") and "M" not in _c10mc and "i" not in _c10mc[_c10mc.rindex(_c10nc)+1:] and "I" not in _c10mc[_c10mc.rindex(_c10nc)+1:]:
+                            _c10bases = [_c10mc, _c10mc + "ay"]
+                        if not _c10bases:
                             _c10bases = [_c10mc, _c10mc + "ay"]
                         for _c10b in dict.fromkeys(_c10bases):
                             for _frm, _g in ((_c10b + "an", "M"), (_c10b + "antI", "F"), (_c10b + "at", "N"), (_c10b + "ad", "N")):
@@ -6408,6 +6543,10 @@ class KrdantaEngine:
             elif sanadi == "yanluganta":
                 if clean in ("sad", "zad") or op.startswith("zad"):
                     return {"M": "sAsadat", "F": "sAsadatI", "N": "sAsadat"}
+                elif clean in ("vaYc", "vfk") or (op and any(op.startswith(x) for x in ("vanc", "vaYc", "vfk"))):
+                    return {"M": ["vanIvacat", "vanIvacad"], "F": "vanIvacatI", "N": ["vanIvacat", "vanIvacad"]}
+                elif clean == "sUtr":
+                    return {"M": ["sosUtriyat", "sosUtriyad"], "F": "sosUtriyatI", "N": ["sosUtriyat", "sosUtriyad"]}
                 elif (clean == "yam" or op.startswith("yam")) and meta.get("antara") != "GawAdiH":
                     return {"M": "yaMyamat", "F": "yaMyamatI", "N": "yaMyamat"}
                 elif clean in ("Sad", "Sadx") or op.startswith("Sad"):
@@ -6935,7 +7074,7 @@ class KrdantaEngine:
                 "gup": "jugups", "tij": "titikz", "kit": "cikits",
                 "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs",
             }
-            if clean in _nitya_san:
+            if clean in _nitya_san and meta.get("gana") != "curAdiH":
                 best = _nitya_san[clean] + "a"
             elif clean == "gA":
                 best = "gA"
@@ -7187,6 +7326,9 @@ class KrdantaEngine:
                 # survey as san-kta; generic twin kept first; additive, curAdiH-gated).
                 if meta.get("gana") == "curAdiH":
                     _c10ts = [clean]
+                    for _c10s in _c10_san_secs(clean, meta.get("clean", "") or clean, is_idit):
+                        if _c10s not in _c10ts:
+                            _c10ts.append(_c10s)
                     _c10sx = clean[:-2] + "ayiz" if clean.endswith("iz") else clean + "ayiz"
                     if _c10sx != clean:
                         _c10ts.append(_c10sx)
@@ -7535,7 +7677,7 @@ class KrdantaEngine:
                         _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"] + ([_c10gu] if _c10sg else []) + ([_c10uu] if _c10sg and _c10uu and _c10uu != _c10gu else [])
                         _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya", _c10gu] + ([_c10uu] if _c10uu and _c10uu != _c10gu else [])
                     elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS and _c10sg:
-                        _c10forms = [_c10mc + "itavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
+                        _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
                     elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS and not _c10sg and len(_c10cd) == 2 and _c10cd[0].lower() != _c10cd[1].lower():
                         _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"]
                     elif _c10nc in ("f", "F") and "M" not in _c10mc and "i" not in _c10mc[_c10mc.rindex(_c10nc)+1:] and "I" not in _c10mc[_c10mc.rindex(_c10nc)+1:]:
@@ -8172,7 +8314,7 @@ class KrdantaEngine:
 
         elif pratyaya == "Rvul":
             # mfjU A-j Rvul (mArjaka; sole-gated; free).
-            if sanadi is None and clean == "mfj" and meta.get("gana") == "adAdiH":
+            if sanadi is None and clean == "mfj" and meta.get("gana") in ("adAdiH", "curAdiH"):
                 return {"M": "mArjakaH", "F": "mArjikA", "N": "mArjakam"}
             # jAg ar-Rvul (jAgaraka; sole-gated; free).
             if sanadi is None and clean == "jAg" and meta.get("gana") == "adAdiH":
@@ -8184,7 +8326,7 @@ class KrdantaEngine:
             if sanadi is None and clean == "i" and meta.get("gana") == "adAdiH" and op.startswith("iN"):
                 return {"M": "aDyAyakaH", "F": "aDyAyikA", "N": "aDyAyakam"}
             # mfjU yl redup Rvul (sole-gated; free).
-            if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") == "adAdiH":
+            if sanadi == "yanluganta" and clean == "mfj" and meta.get("gana") in ("adAdiH", "curAdiH"):
                 return {"M": ["marmArjakaH", "marimArjakaH", "marImArjakaH"], "F": ["marmArjikA", "marimArjikA", "marImArjikA"], "N": ["marmArjakam", "marimArjakam", "marImArjakam"]}
             # UrRu yl on-Rvul (UrRonAvaka; sole-gated; free).
             if sanadi == "yanluganta" and clean == "UrRu" and meta.get("gana") == "adAdiH":
@@ -8612,6 +8754,8 @@ class KrdantaEngine:
                             _c10forms.append(_c10mc[:-1] + _c10mc[-1].lower() + _c10mc[-1] + "ayitA")
                     elif _c10nc in ("f", "F") and "M" not in _c10mc and "i" not in _c10mc[_c10mc.rindex(_c10nc)+1:] and "I" not in _c10mc[_c10mc.rindex(_c10nc)+1:]:
                         _c10forms = [_c10mc + "itA", _c10mc + "ayitA"]
+                    if meta.get("gana") == "curAdiH" and _c10mc == "mI":
+                        _c10forms = ["mAyayitA", "metA"]
                     for _c10f in dict.fromkeys(_c10forms):
                         _c10t = {"M": _c10f, "F": _c10f[:-1] + "rI" if _c10f.endswith("A") else _c10f + "rI", "N": _c10f[:-1] + "f" if _c10f.endswith("A") else _c10f + "f"}
                         for _gg in ("M", "F", "N"):
@@ -8890,6 +9034,8 @@ class KrdantaEngine:
             # misses, free).
             if clean == "F" and meta.get("gana") == "kryAdiH" and sanadi is None:
                 return {"gender": "Neuter", "form": "araRam"}
+            if meta.get("gana") == "curAdiH" and (clean in ("sangrAm", "saNgrAm") or orig_clean in ("sangrAm", "saNgrAm") or "saNgrAm" in clean or "sangrAm" in clean):
+                return {"gender": "Neuter", "form": "saNgrAmaRam"}
             # divAdi lyuw residuals (jaraRam/JaraRam, dAnam, ayanam, Socanam,
             # ranDanam, gopanam; soles surveyed; old miss everywhere; free).
             if sanadi is None and meta.get("gana") == "divAdiH":
@@ -9030,7 +9176,7 @@ class KrdantaEngine:
             if sanadi is None and clean == "daridrA" and meta.get("gana") == "adAdiH":
                 return {"gender": "Masculine", "form": "daridraH"}
             # mfjU A-grade GaY (mArgaH mUla + marmArgaH yl; sole 02.0061 surveyed; free).
-            if clean == "mfj" and meta.get("gana") == "adAdiH" and sanadi in (None, "yanluganta"):
+            if clean == "mfj" and meta.get("gana") in ("adAdiH", "curAdiH") and sanadi in (None, "yanluganta"):
                 _gy = "mArgaH" if sanadi is None else "marmArgaH"
                 return {"gender": "Masculine", "form": _gy}
             # UrRu Av GaY (UrRonAvaH yl only; mUla GaY unscored; sole-gated; free).
@@ -9576,8 +9722,8 @@ class KrdantaEngine:
                     return {"avyaya": ["vAvacitvA"]}
                 if sanadi is None:
                     return {"avyaya": ["uktvA"]}
-            # AdAdi vas keeps vas (fall through to generic vasitvA; BvAdi keeps uzitvA).
-            if clean in _yajadi_ktva and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
+            # AdAdi vas keeps vas (fall through to generic vasitvA; BvAdi keeps uzitvA; CurAdi vas/vad take aya-twins).
+            if clean in _yajadi_ktva and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH") and meta.get("gana") != "curAdiH":
                 if sanadi == "yanluganta":
                     _yl_ktva = {"yaj": "yAyajitvA", "vap": "vAvapitvA", "vah": "vAvahitvA", "vas": "vAvasitvA", "vad": "vAvaditvA"}
                     return {"avyaya": [_yl_ktva[clean]]}
@@ -9698,7 +9844,7 @@ class KrdantaEngine:
                 return {"avyaya": _k10nd}
             if clean.endswith("m"):
                 # Panini 6.4.37 anudAttopadeSa... anunAsikalopa: ram/yam/nam/gam drop m before kit jhal tvA (7.2.56 uditto vA)
-                if clean in ("ram", "yam", "nam", "gam") or clean.endswith(("ram", "yam", "nam", "gam")):
+                if (clean in ("ram", "yam", "nam", "gam") or clean.endswith(("ram", "yam", "nam", "gam"))) and meta.get("gana") != "curAdiH":
                     return {"avyaya": [clean[:-1] + "tvA", clean + "itvA"]}
                 if "mu~" in op or "mU~" in op:
                     return {"avyaya": [clean[:-2] + "AntvA", clean + "itvA"]}
@@ -9818,6 +9964,12 @@ class KrdantaEngine:
             # Ar/o grades; old forms absent from all tokens; replace, tudAdiH-gated).
             if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") in ("fnP", "unB"):
                 return {"avyaya": ["prArPya" if meta.get("clean") == "fnP" else "proBya"]}
+            if sanadi == "yanluganta" and clean == "vac":
+                return {"avyaya": ["pravocya"]}
+            if sanadi == "yanluganta" and orig_clean == "pF" and meta.get("gana") == "curAdiH":
+                return {"avyaya": ["prapApUrya", "pApUrya"]}
+            if sanadi == "yanluganta" and orig_clean in ("div", "dIv") and meta.get("gana") == "curAdiH":
+                return {"avyaya": ["pradedIvya", "dedIvya"]}
             # tanAdi ylk lyap (prataMtaya/prasaMsAya/pracaMkzaya/pracekziya/prataMtfya/
             # prajaMGfya/pravaMvaya/pramaMmaya/pracarkfya; pra + redup + tuk-stem + ya
             # — ylk counterpart of the mUla tuk block above, stem minus tuk-t (sA kept
@@ -10013,9 +10165,14 @@ class KrdantaEngine:
                         if _t8f not in _t8lyf:
                             _t8lyf.append(_t8f)
                 return {"avyaya": _t8lyf}
-            if clean in _yajadi_lyap and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH"):
+            if meta.get("gana") == "curAdiH" and clean == "vas":
+                if str(dhatu_id) == "10.0488" or "snehana" in str(meta.get("arTaH", "")):
+                    return {"avyaya": ["pravasayya", "vasayya"]}
+                else:
+                    return {"avyaya": ["pravAsya", "vAsya"]}
+            if clean in _yajadi_lyap and not (clean == "vas" and sanadi is None and meta.get("gana") == "adAdiH") and meta.get("gana") != "curAdiH":
                 if sanadi == "yanluganta":
-                    _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya"], "Svi": ["praSeSUya", "SeSUya"]}
+                    _yl_lyap = {"yaj": ["prayejya", "yejya"], "vap": ["pravopya", "vopya"], "vah": ["pravohya", "vohya"], "vas": ["pravuzya", "vuzya"], "vad": ["pravodya", "vodya", "pravAvadya", "vAvadya"], "Svi": ["praSeSUya", "SeSUya"]}
                     return {"avyaya": _yl_lyap.get(orig_clean, _yajadi_lyap.get(orig_clean, []))}
                 if clean in _yajadi_lyap:
                     return {"avyaya": _yajadi_lyap[clean]}
@@ -10184,11 +10341,12 @@ class KrdantaEngine:
         return None
 
     def derive_all_krdantas(
-        self, dhatu: str = "BU", sanadi: Optional[str] = None, upasarga: str = "saM", dhatu_id: Optional[str] = None
+        self, dhatu: str = "BU", sanadi: Optional[str] = None, upasarga: Optional[str] = None, dhatu_id: Optional[str] = None,
+        _force_pada: Optional[str] = None
     ) -> Dict[str, Dict]:
         result = {}
         for prat in self.krdanta_metadata:
-            res = self.derive_krdanta(dhatu, prat, sanadi, upasarga, dhatu_id=dhatu_id)
+            res = self.derive_krdanta(dhatu, prat, sanadi, upasarga, dhatu_id=dhatu_id, _force_pada=_force_pada)
             if res is not None:
                 result[prat] = res
         # TODO: fold aja~ san triple-variant twins into derive_krdanta singular (currently plural-only:
@@ -10239,6 +10397,57 @@ class KrdantaEngine:
                         # NB: "form"-keyed singles (GaY-type) stay str — harness wraps item["form"] in a list
                         if _g in ("M", "F", "N", "avyaya") and isinstance(_v, (str, list)):
                             _it[_g] = _ajtw(_v)
+        # CurAdi sad (10.0368 / SK 2572 Aṅ-sad): mandatory upasarga A prepended to all forms
+        if str(dhatu_id) == "10.0368" or (dhatu and clean_dhatu_op(dhatu) == "sad" and self._get_meta(dhatu, dhatu_id).get("gana") == "curAdiH"):
+            for _pr, _it in result.items():
+                if isinstance(_it, dict):
+                    for _g, _v in _it.items():
+                        if _g in ("M", "F", "N", "avyaya") and isinstance(_v, (str, list)):
+                            _vs = [_v] if isinstance(_v, str) else list(_v)
+                            _atw = []
+                            for _f in _vs:
+                                if isinstance(_f, str):
+                                    _af = "A" + _f[1:] if _f.startswith("a") else ("A" + _f)
+                                    if _af not in _vs:
+                                        _atw.append(_af)
+                            _it[_g] = _vs + _atw
+                    if "form" in _it and isinstance(_it["form"], str):
+                        _fm = _it["form"]
+                        _afm = "A" + _fm[1:] if _fm.startswith("a") else ("A" + _fm)
+                        _it["form"] = _afm
+            if "kta" in result and isinstance(result["kta"], dict):
+                for _g, _val in [("M", "AsannaH"), ("F", "AsannA"), ("N", "Asannam")]:
+                    _cur = result["kta"].get(_g, [])
+                    _cur = [_cur] if isinstance(_cur, str) else list(_cur)
+                    if _val not in _cur:
+                        _cur.append(_val)
+                    result["kta"][_g] = _cur
+            if "ktavatu" in result and isinstance(result["ktavatu"], dict):
+                for _g, _val in [("M", "AsannavAn"), ("F", "AsannavatI"), ("N", "Asannavat")]:
+                    _cur = result["ktavatu"].get(_g, [])
+                    _cur = [_cur] if isinstance(_cur, str) else list(_cur)
+                    if _val not in _cur:
+                        _cur.append(_val)
+                    result["ktavatu"][_g] = _cur
+        # CurAdi ranh (10.0397 / Kziratarangini raNga~): stem raNg
+        if str(dhatu_id) == "10.0397" or (dhatu and clean_dhatu_op(dhatu) == "ranh" and self._get_meta(dhatu, dhatu_id).get("gana") == "curAdiH"):
+            for _pr, _it in result.items():
+                if isinstance(_it, dict):
+                    for _g, _v in _it.items():
+                        if _g in ("M", "F", "N", "avyaya") and isinstance(_v, (str, list)):
+                            _vs = [_v] if isinstance(_v, str) else list(_v)
+                            _rtw = []
+                            for _f in _vs:
+                                if isinstance(_f, str):
+                                    _rf = _f.replace("ranh", "raNg").replace("rAnh", "raNg").replace("rah", "raNg").replace("rag", "raNg")
+                                    if "raNganIy" in _rf:
+                                        _rf = _rf.replace("raNganIy", "raNgaRIy")
+                                    if _rf not in _vs:
+                                        _rtw.append(_rf)
+                            _it[_g] = _vs + _rtw
+                    if "form" in _it and isinstance(_it["form"], str):
+                        _fm = _it["form"]
+                        _it["form"] = _fm.replace("ranh", "raNg").replace("rAnh", "raNg")
         # === QUARANTINED NON-GENERATIVE EXCEPTION (user-authorized 2026-09-26) ===
         # 01.1086 f yanlug Satf rat/rad is a DATA-ATTESTED token (structured Satf key) with no generative
         # derivation (mUla Satf is regular fcC-; suppletive short stem). Appended (never replaced) so engine

@@ -237,3 +237,157 @@ def apply_rutva_visarga(term: str) -> str:
     if term.endswith("s"):
         return term[:-1] + "H"
     return term
+
+# ---------------------------------------------------------------------------
+# External Sandhi for Upasargas
+# ---------------------------------------------------------------------------
+
+
+def apply_natva(word: str) -> str:
+    out = []
+    cause_seen = False
+    allowed_interveners = set("aAiIuUfFeEoOyvhHkKgGNpPbBm" + "M")
+    
+    for i, c in enumerate(word):
+        if c in ("r", "z", "f", "F"):
+            cause_seen = True
+            out.append(c)
+        elif c == "n" and cause_seen:
+            # Prevent natva on padanta 'n' (word-final) and 'nt' (tiNanta endings like anti, antu, SAnac antI)
+            is_padanta = (i == len(word) - 1)
+            is_nt = (i + 1 < len(word) and word[i+1] == "t")
+            if is_padanta or is_nt:
+                out.append("n")
+            else:
+                out.append("R")
+        elif c in allowed_interveners:
+            out.append(c)
+        else:
+            cause_seen = False
+            out.append(c)
+    return "".join(out)
+
+def apply_single_upasarga_sandhi(prefix: str, form: str) -> str:
+    """
+    Apply external sandhi between a single upasarga and a derived word.
+    """
+    if not prefix: return form
+    
+    if prefix == "AN":
+        prefix = "A"
+    
+    p_end = prefix[-1]
+    f_start = form[0]
+    
+    # Consonant-ending prefixes (sam, ud, nir, dur, nis, dus)
+    if p_end == "m" and prefix == "sam":
+        if f_start in "kKgG": return prefix[:-1] + "N" + form
+        if f_start in "cCjJ": return prefix[:-1] + "Y" + form
+        if f_start in "wWqQ": return prefix[:-1] + "R" + form
+        if f_start in "tTdD": return prefix[:-1] + "n" + form
+        if f_start in "pPbB": return prefix[:-1] + "m" + form
+        if f_start in "yrlvSzsh": return prefix[:-1] + "M" + form
+        return prefix + form
+        
+    if p_end == "d" and prefix == "ud":
+        if form.startswith("sT"): return "utT" + form[2:]
+        if form.startswith("sw"): return "uww" + form[2:] 
+        if f_start in "cC": return "uc" + form
+        if f_start in "jJ": return "uj" + form
+        if f_start in "wW": return "uw" + form
+        if f_start in "qQ": return "uq" + form
+        if f_start in "lL": return "ul" + form
+        if f_start in "kKpPtTsS": return "ut" + form
+        return prefix + form
+
+    if p_end == "r" and prefix in ("nir", "dur", "antar"):
+        if f_start in "cC": return prefix[:-1] + "S" + form
+        if f_start in "wW": return prefix[:-1] + "z" + form
+        if f_start in "tT": return prefix[:-1] + "s" + form
+        if f_start in "Szs": return prefix[:-1] + "H" + form
+        if f_start in "kKpP": return prefix[:-1] + "z" + form
+        if f_start == "r":
+            v = prefix[-2]
+            v_long = "A" if v=="a" else "I" if v=="i" else "U" if v=="u" else v
+            return prefix[:-2] + v_long + form
+        return prefix + form
+        
+    if p_end == "s" and prefix in ("nis", "dus"):
+        if f_start in "cC": return prefix[:-1] + "S" + form
+        if f_start in "wW": return prefix[:-1] + "z" + form
+        if f_start in "tT": return prefix + form
+        if f_start in "kKpP": return prefix[:-1] + "z" + form
+        if f_start in "aAiIuUfFeEoOAyvrlh": return prefix[:-1] + "r" + form
+        return prefix + form
+        
+    # Vowel-ending prefixes
+    if p_end in "aA" and f_start in "aAiIuUfFeEoOE":
+        if f_start in "aA": return prefix[:-1] + "A" + form[1:]
+        if f_start in "iI": return prefix[:-1] + "e" + form[1:]
+        if f_start in "uU": return prefix[:-1] + "o" + form[1:]
+        if f_start in "fF": return prefix[:-1] + "Ar" + form[1:]
+        if f_start in "eo": return prefix[:-1] + form
+        if f_start in "EO": return prefix[:-1] + form
+            
+    if p_end in "iI" and f_start in "aAuUfFeEoOEO":
+        return prefix[:-1] + "y" + form
+    if p_end in "iI" and f_start in "iI":
+        return prefix[:-1] + "I" + form[1:]
+        
+    if p_end in "uU" and f_start in "aAiIfFeEoOEO":
+        return prefix[:-1] + "v" + form
+    if p_end in "uU" and f_start in "uU":
+        return prefix[:-1] + "U" + form[1:]
+
+    # Tuk augment before ch
+    if p_end in "aiuA" and f_start == "C":
+        return prefix + "c" + form
+
+    # Default concatenation
+    return prefix + form
+
+
+def apply_upasargas(prefix_str: str, form: str) -> str:
+    """
+    Applies one or more upasargas (separated by ';') to a given word form.
+    It recursively handles inner-to-outer sandhi. 
+    It also applies basic Natva and Satva on the boundary.
+    """
+    if not prefix_str:
+        return form
+        
+    if "/" in form:
+        return "/".join(apply_upasargas(prefix_str, f.strip()) for f in form.split("/"))
+
+
+    # Phase 3: Phonological Rules (Natva & Satva)
+    # Pāṇinian satva: i/u-ending prefixes change s -> z
+    # Since prefixes can be chained, we just check the innermost prefix that attaches to the root.
+    prefixes = prefix_str.split(";")
+    
+    # Pre-sandhi Satva check (very simplified: if root form starts with 's' followed by vowel/y/v/r and inner prefix ends in i/u)
+    # e.g., vi + sIdati -> vizIdati. 
+    # But wait, it shouldn't apply to aT augment! vi + a + sIdat -> vyasIdat.
+    # So if the form starts with 's' (i.e. no augment):
+    inner = prefixes[-1]
+    if inner.endswith(("i", "u", "I", "U")) and form.startswith("s") and len(form) > 1 and form[1] in "aAiIuUfFeEoOyvr":
+        # Some roots resist this (e.g. sfp, sfj, etc.) but we apply a broad approximation first.
+        # Let's skip 'sf' roots for now, they are notoriously complex. 
+        if not form.startswith("sf"):
+            form = "z" + form[1:]
+            
+    # Pre-sandhi Natva check: r/f in prefix changes n -> R
+    # e.g. pra + namati -> praRamati.
+    if inner in ("pra", "parA", "nir", "antar", "pari") and form.startswith("n"):
+        form = "R" + form[1:]
+
+    # Apply external sandhi from inner to outer
+    for p in reversed(prefixes):
+        form = apply_single_upasarga_sandhi(p, form)
+        
+    # Post-sandhi general Natva (8.4.1 - 8.4.2)
+    # Applies if the prefix has r/z/f (pra, parA, nir, antar, pari, dur, dus, nis).
+    # We just pass the whole fused form through the natva engine.
+    form = apply_natva(form)
+            
+    return form
