@@ -4168,6 +4168,19 @@ class TinantaDerivationEngine:
                         yak_variants.append("jYApy")
                     if "jYAp" not in sec_variants:
                         sec_variants.append("jYAp")
+                # vowel-final-i AY yak twins (smAyyate/jAyyate/...; unanimous AYy survey
+                # incl I-finals; lI p-insert (lApyate) mirrors kta; additive).
+                if meta.get("gana") == "curAdiH" and clean[-1:] in ("i", "I"):
+                    _c10ayy = clean[:-1] + "Ay"
+                    if _c10ayy + "y" not in yak_variants:
+                        yak_variants.append(_c10ayy + "y")
+                    if _c10ayy not in sec_variants:
+                        sec_variants.append(_c10ayy)
+                    if clean == "lI":
+                        if "lApy" not in yak_variants:
+                            yak_variants.append("lApy")
+                        if "lAp" not in sec_variants:
+                            sec_variants.append("lAp")
                 # deduplicate
                 yak_variants = list(dict.fromkeys(yak_variants))
                 sec_variants = list(dict.fromkeys(sec_variants))
