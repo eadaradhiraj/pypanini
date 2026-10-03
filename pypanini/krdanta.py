@@ -2634,6 +2634,19 @@ class KrdantaEngine:
                                 for _ewsv in dict.fromkeys([_ewrc + _ewrv + _ewgr + "iz", _ewrc + _ewrv + _ewgr + "ayiz"]):
                                     if _ewsv not in out:
                                         out.append(_ewsv)
+                        # direct-redup fallback for all grades (jijayiz/...; _sannanta_sec
+                        # misfires on short ay-grades like jay (voicing-fallback junk); exact
+                        # mirror of san-kta fallback; additive, deduped)
+                        if root and root[0] not in SLP1_VOWELS:
+                            _drrc = root[0]
+                            if root[:1] in ("s", "S") and len(root) > 1 and root[1] in SLP1_KHAY:
+                                _drrc = root[1]
+                            _drrc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_drrc, _drrc)
+                            _drrv = "u" if ("u" in root or "U" in root) else "i"
+                            for _drgr in dict.fromkeys(g for g in _gg if g != root):
+                                for _drsv in dict.fromkeys([_drrc + _drrv + _drgr + "iz", _drrc + _drrv + _drgr + "ayiz"]):
+                                    if _drsv not in out:
+                                        out.append(_drsv)
                 return out
             def _yan_sec(c):
                 _nitya_san = {
@@ -6837,6 +6850,19 @@ class KrdantaEngine:
                             for _c10sv in dict.fromkeys([_c10rc + _c10rv + _c10gr + "iz", _c10rc + _c10rv + _c10gr + "ayiz"]):
                                 if _c10sv not in _c10ts:
                                     _c10ts.append(_c10sv)
+                    # direct-redup fallback for all grades (jijayiz-...; _sannanta_sec
+                    # misfires on short ay-grades; exact mirror of san-kta fallback;
+                    # additive, deduped)
+                    if _c10rt and _c10rt[0] not in SLP1_VOWELS:
+                        _drrc = _c10rt[0]
+                        if _c10rt[:1] in ("s", "S") and len(_c10rt) > 1 and _c10rt[1] in SLP1_KHAY:
+                            _drrc = _c10rt[1]
+                        _drrc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_drrc, _drrc)
+                        _drrv = "u" if ("u" in _c10rt or "U" in _c10rt) else "i"
+                        for _drgr in dict.fromkeys(g for g in _c10gg if g != _c10rt):
+                            for _drsv in dict.fromkeys([_drrc + _drrv + _drgr + "iz", _drrc + _drrv + _drgr + "ayiz"]):
+                                if _drsv not in _c10ts:
+                                    _c10ts.append(_drsv)
                     _c10out = {"M": [], "F": [], "N": []}
                     for _c10s in _c10ts:
                         _c10t = tri_linga(_c10s + "itavya")
