@@ -6972,6 +6972,8 @@ class KrdantaEngine:
                         _c10forms = [_c10mc + "itavya", self._guna_base(_c10mc, is_idit) + "ayitavya"]
                     elif _c10nc == "i" and _c10mc[-1] not in SLP1_VOWELS and not _c10sg and len(_c10cd) == 2 and _c10cd[0].lower() != _c10cd[1].lower():
                         _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"]
+                    elif _c10nc in ("f", "F") and "M" not in _c10mc and "i" not in _c10mc[_c10mc.rindex(_c10nc)+1:] and "I" not in _c10mc[_c10mc.rindex(_c10nc)+1:]:
+                        _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"]
                     elif _c10nc in ("U", "A", "e", "I", "o") and _c10mc[-1] not in SLP1_VOWELS:
                         _c10forms = [_c10mc + "itavya", _c10mc + "ayitavya"]
                         if _c10nc == "e" and len(_c10mc) >= 2 and _c10mc[-1] not in SLP1_VOWELS:
