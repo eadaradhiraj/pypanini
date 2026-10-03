@@ -8960,13 +8960,14 @@ class KrdantaEngine:
                 if meta.get("gana") == "kryAdiH" and clean[:-1] in ("p", "v", "B", "m", "sv"):
                     _k9ktva.append(clean[:-1] + "UrtvA")
                 return {"avyaya": _k9ktva}
-            # Panini 8.2.18 kfpo ro l: udit-aniT kxptvA + seT kalpitvA (vew gets both).
+            # Panini 8.2.18 kfpo ro l: udit-aniT kxptvA + seT kalpitvA (vew gets both;
+            # homonymous curAdi pair takes kalp vs plain lexically (0278/0408) so union).
             if clean == "kfp" and sanadi is None:
                 if is_vew or not sew:
                     return {"avyaya": ["kxptvA", "kalpitvA"]}
                 # curAdi kalpayitvA twin (10.0278 surveyed; generic kept first; additive).
                 if meta.get("gana") == "curAdiH":
-                    return {"avyaya": ["kalpitvA", "kalpayitvA"]}
+                    return {"avyaya": ["kalpitvA", "kalpayitvA", "kfpitvA", "kfpayitvA"]}
                 return {"avyaya": ["kalpitvA"]}
             # F-final yanlug redup (tF->tAtaritvA; additive with IrtvA cross-match).
             # f-final (short): ar + a-redup r/ri/rI
