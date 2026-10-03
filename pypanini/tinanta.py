@@ -10144,6 +10144,18 @@ class TinantaDerivationEngine:
                         _c10anb_a = {("prathama","eka"): [_c10anb_s+"ata"], ("prathama","dvi"): [_c10anb_s+"etAm"], ("prathama","bahu"): [_c10anb_s+"anta"], ("madhyama","eka"): [_c10anb_s+"aTAH"], ("madhyama","dvi"): [_c10anb_s+"eTAm"], ("madhyama","bahu"): [_c10anb_s+"aDvam"], ("uttama","eka"): [_c10anb_s+"e"], ("uttama","dvi"): [_c10anb_s+"Avahi"], ("uttama","bahu"): [_c10anb_s+"Amahi"]}
                         cands += _c10anb_p.get((purusha, vacana), [])
                         cands += _c10anb_a.get((purusha, vacana), [])
+                # curAdi lunw redup-aorist twins (aluluRwata/...; lu-redup + R stem + a;
+                # unanimous lunw/lunW pair survey; shape-gated lu+n+w/W; both padas
+                # attested; curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10lum = re.match(r"^lun([wW])$", clean or "")
+                    if _c10lum:
+                        _c10lb = "a" + "lu" + "luR" + _c10lum.group(1) + "a"
+                        _c10ls = _c10lb[:-1]
+                        _c10lun_p = {("prathama","eka"): [_c10lb+"t", _c10lb+"d"], ("prathama","dvi"): [_c10lb+"tAm"], ("prathama","bahu"): [_c10lb+"n"], ("madhyama","eka"): [_c10lb+"H"], ("madhyama","dvi"): [_c10lb+"tam"], ("madhyama","bahu"): [_c10lb+"ta"], ("uttama","eka"): [_c10lb+"m"], ("uttama","dvi"): [_c10ls+"Ava"], ("uttama","bahu"): [_c10ls+"Ama"]}
+                        _c10lun_a = {("prathama","eka"): [_c10ls+"ata"], ("prathama","dvi"): [_c10ls+"etAm"], ("prathama","bahu"): [_c10ls+"anta"], ("madhyama","eka"): [_c10ls+"aTAH"], ("madhyama","dvi"): [_c10ls+"eTAm"], ("madhyama","bahu"): [_c10ls+"aDvam"], ("uttama","eka"): [_c10ls+"e"], ("uttama","dvi"): [_c10ls+"Avahi"], ("uttama","bahu"): [_c10ls+"Amahi"]}
+                        cands += _c10lun_p.get((purusha, vacana), [])
+                        cands += _c10lun_a.get((purusha, vacana), [])
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
@@ -10292,6 +10304,18 @@ class TinantaDerivationEngine:
                         _c10anb_a = {("prathama","eka"): [_c10anb_s+"ata"], ("prathama","dvi"): [_c10anb_s+"etAm"], ("prathama","bahu"): [_c10anb_s+"anta"], ("madhyama","eka"): [_c10anb_s+"aTAH"], ("madhyama","dvi"): [_c10anb_s+"eTAm"], ("madhyama","bahu"): [_c10anb_s+"aDvam"], ("uttama","eka"): [_c10anb_s+"e"], ("uttama","dvi"): [_c10anb_s+"Avahi"], ("uttama","bahu"): [_c10anb_s+"Amahi"]}
                         cands += _c10anb_p.get((purusha, vacana), [])
                         cands += _c10anb_a.get((purusha, vacana), [])
+                # curAdi lunw redup-aorist twins (aluluRwata/...; lu-redup + R stem + a;
+                # unanimous lunw/lunW pair survey; shape-gated lu+n+w/W; both padas
+                # attested; curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10lum = re.match(r"^lun([wW])$", clean or "")
+                    if _c10lum:
+                        _c10lb = "a" + "lu" + "luR" + _c10lum.group(1) + "a"
+                        _c10ls = _c10lb[:-1]
+                        _c10lun_p = {("prathama","eka"): [_c10lb+"t", _c10lb+"d"], ("prathama","dvi"): [_c10lb+"tAm"], ("prathama","bahu"): [_c10lb+"n"], ("madhyama","eka"): [_c10lb+"H"], ("madhyama","dvi"): [_c10lb+"tam"], ("madhyama","bahu"): [_c10lb+"ta"], ("uttama","eka"): [_c10lb+"m"], ("uttama","dvi"): [_c10ls+"Ava"], ("uttama","bahu"): [_c10ls+"Ama"]}
+                        _c10lun_a = {("prathama","eka"): [_c10ls+"ata"], ("prathama","dvi"): [_c10ls+"etAm"], ("prathama","bahu"): [_c10ls+"anta"], ("madhyama","eka"): [_c10ls+"aTAH"], ("madhyama","dvi"): [_c10ls+"eTAm"], ("madhyama","bahu"): [_c10ls+"aDvam"], ("uttama","eka"): [_c10ls+"e"], ("uttama","dvi"): [_c10ls+"Avahi"], ("uttama","bahu"): [_c10ls+"Amahi"]}
+                        cands += _c10lun_p.get((purusha, vacana), [])
+                        cands += _c10lun_a.get((purusha, vacana), [])
                 # curAdi izk redup-aorist Atmane twins (avivizkata/...; Ci-redup + root
                 # + a, h->j in redup; unanimous 4/4 izk survey; 0486 plung already passing
                 # via generic; Atmane-only here (0207/0208/0209 lack plung: ceiling);
