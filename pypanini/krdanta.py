@@ -5384,6 +5384,10 @@ class KrdantaEngine:
                     _c10fpost = _c10mc[_c10mc.rindex(_c10fw[-1])+1:]
                     if "i" not in _c10fpost and "I" not in _c10fpost:
                         _c10out = {"M": [stem + "vAn"], "F": [stem + "vatI"], "N": [stem + "vat"]}
+                        # plain meta-clean triple (kfpitavAn; mirror kta iter608)
+                        for _frm, _g in ((_c10mc + "itavAn", "M"), (_c10mc + "itavatI", "F"), (_c10mc + "itavat", "N")):
+                            if _frm not in _c10out[_g]:
+                                _c10out[_g].append(_frm)
                         _c10pre = _c10mc[:_c10mc.rindex(_c10fw[-1])]
                         for _c10g in ("ar", "Ar", "Ir") + (("al",) if _c10mc == "kfp" else ()):
                             for _frm, _g in ((_c10pre + _c10g + _c10fpost + "itavAn", "M"), (_c10pre + _c10g + _c10fpost + "itavatI", "F"), (_c10pre + _c10g + _c10fpost + "itavat", "N")):
