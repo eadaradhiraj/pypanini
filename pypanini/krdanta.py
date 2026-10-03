@@ -835,6 +835,51 @@ class KrdantaEngine:
             rc = "c"
         return rc + "aM"
 
+    def _curAdi_ylk_tavya_grades(self, clean: str, meta=None, op: str = "", is_idit: bool = False):
+        """curAdi yanlug tavya-grade pairs for krdanta (shared by tavya/tfc/tumun/
+        ktvA/lyuw/GaY sites); returns (redups, grades): redups mirror the kta
+        helper (e/o/A/ar + ari-twins + marI-sole + n short-a twins); grades are
+        tavya-roots (guNa/plain/plain+ay/ar + mfj/BU/DU/pUr soles + helper
+        aya-twins); surveyed full 10-set; callers add suffixes + mUla twins."""
+        _c10gg = [self._guna_base(clean, is_idit), clean]
+        for _c10ab in self._curAdi_aya_twins(clean, "", is_idit):
+            if _c10ab.endswith("ay"):
+                if _c10ab not in _c10gg:
+                    _c10gg.append(_c10ab)
+                _c10s = _c10ab[:-2]
+                if _c10s not in _c10gg:
+                    _c10gg.append(_c10s)
+        if clean == "mfj":
+            for _c10mg in ("mArz", "mArj"):
+                if _c10mg not in _c10gg:
+                    _c10gg.append(_c10mg)
+        if clean == "BU" and "Bav" not in _c10gg:
+            _c10gg.append("Bav")
+        if clean == "DU":
+            for _c10dg in ("Dav", "Dot"):
+                if _c10dg not in _c10gg:
+                    _c10gg.append(_c10dg)
+        if clean == "pUr" and "pUr" not in _c10gg:
+            _c10gg.append("pUr")
+        _c10rr = []
+        _c10v = next((ch for ch in clean if ch in SLP1_VOWELS), None)
+        _c10gv = {"a": "A", "A": "A", "i": "e", "I": "e", "u": "o", "U": "o", "f": "ar"}.get(_c10v, "A")
+        _c10c1 = clean[0] if clean else ""
+        if clean[:1] in ("s", "S") and len(clean) > 1 and clean[1] in SLP1_KHAY:
+            _c10c1 = clean[1]
+        _c10c1 = {"k": "c", "K": "c", "g": "j", "G": "j", "B": "b", "D": "d", "J": "j", "C": "c", "T": "t", "P": "p"}.get(_c10c1, _c10c1)
+        _c10rr.append(_c10c1 + _c10gv)
+        if _c10gv == "ar":
+            _c10rr.append(_c10c1 + "ari")
+        if clean == "mfj":
+            _c10rr.append("marI")
+        if "n" in clean:
+            for _nn in ("n", "M", "N", "Y", "R"):
+                _c10nr = _c10c1 + "a" + _nn
+                if _c10nr not in _c10rr:
+                    _c10rr.append(_c10nr)
+        return (dict.fromkeys(_c10rr), dict.fromkeys(_c10gg))
+
     def _curAdi_ylk_redup_stems(self, clean: str, meta=None, op: str = ""):
         """curAdi yanlug redup+root stems for krdanta (cecy/yoyuj/tAtap/marmfz/
         vanIvak/dedyU...; C1+e/o/A/ar-redup (first vowel: a/A→A, i/I→e, u/U→o,
@@ -4442,6 +4487,90 @@ class KrdantaEngine:
                 return {"M": _c10M + _c10L(_c10mold.get("M", [])),
                         "F": _c10F + _c10L(_c10mold.get("F", [])),
                         "N": _c10N + _c10L(_c10mold.get("N", []))}
+            # curAdi ylk tfc/tumun/ktvA/lyuw/GaY/anIyar (same redup+grade stems
+            # via _curAdi_ylk_tavya_grades; suffixes per pratyaya (itA/itrI/itf,
+            # itum, itvA, ana/aRa, aH, anIya/aRIya; mfj mArz takes w-grade
+            # suffixes); mUla twins per pratyaya (tavya lesson: exclusive returns
+            # must carry generic twins); surveyed; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "curAdiH" and pratyaya in ("tfc", "tumun", "ktvA", "lyuw", "GaY", "anIyar"):
+                _c10mc = meta.get("clean", "") or clean
+                _c10rr, _c10gg0 = self._curAdi_ylk_tavya_grades(_c10mc, meta, op, is_idit)
+                _c10wlist = []
+                for _w in dict.fromkeys(_c10gg0):
+                    _c10wlist.append(_w)
+                    if _w.endswith("ay") and _w[:-2] not in _c10wlist:
+                        _c10wlist.append(_w[:-2])
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                try:
+                    _c10mold = self.derive_krdanta(dhatu, pratyaya, None, upasarga, dhatu_id=dhatu_id) or {}
+                except Exception:
+                    _c10mold = {}
+                if pratyaya == "tfc":
+                    _c10M, _c10F, _c10N = [], [], []
+                    for _r in dict.fromkeys(_c10rr):
+                        for _w in dict.fromkeys(_c10wlist):
+                            _c10bs = ([_r + _w + "wA"] if _w == "mArz" else [_r + _w + "itA"])
+                            for _b in _c10bs:
+                                _c10M.append(_b)
+                                _c10F.append(_b[:-1] + "rI")
+                                _c10N.append(_b[:-1] + "f")
+                    return {"M": _c10M + _c10L(_c10mold.get("M", [])),
+                            "F": _c10F + _c10L(_c10mold.get("F", [])),
+                            "N": _c10N + _c10L(_c10mold.get("N", []))}
+                if pratyaya == "tumun":
+                    _c10t = []
+                    for _r in dict.fromkeys(_c10rr):
+                        for _w in dict.fromkeys(_c10wlist):
+                            _c10t.append(_r + _w + ("wum" if _w == "mArz" else "itum"))
+                    return {"avyaya": _c10t + _c10L(_c10mold.get("avyaya", []))}
+                if pratyaya == "ktvA":
+                    _c10t = []
+                    for _r in dict.fromkeys(_c10rr):
+                        for _w in dict.fromkeys(_c10wlist):
+                            _c10t.append(_r + _w + ("wA" if _w == "mArz" else "itvA"))
+                    return {"avyaya": _c10t + _c10L(_c10mold.get("avyaya", []))}
+                if pratyaya == "lyuw":
+                    _c10t = []
+                    for _r in dict.fromkeys(_c10rr):
+                        for _w in dict.fromkeys(_c10wlist):
+                            _c10t.append(_r + _w + "anam")
+                            _c10t.append(_r + _w + "aRam")
+                    try:
+                        _c10mold = self.derive_krdanta(dhatu, "lyuw", None, upasarga, dhatu_id=dhatu_id) or {}
+                    except Exception:
+                        _c10mold = {}
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    _c10mf = _c10mold.get("form", None) if isinstance(_c10mold, dict) else None
+                    _c10ma = _c10mold.get("avyaya", []) if isinstance(_c10mold, dict) else []
+                    return {"avyaya": _c10t + ([_c10mf] if isinstance(_c10mf, str) else _c10L(_c10mf or [])) + _c10L(_c10ma or [])}
+                if pratyaya == "GaY":
+                    _c10t = []
+                    for _r in dict.fromkeys(_c10rr):
+                        for _w in dict.fromkeys(_c10wlist):
+                            _c10t.append(_r + _w + "aH")
+                    try:
+                        _c10mold = self.derive_krdanta(dhatu, "GaY", None, upasarga, dhatu_id=dhatu_id) or {}
+                    except Exception:
+                        _c10mold = {}
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    _c10mf = _c10mold.get("form", None) if isinstance(_c10mold, dict) else None
+                    _c10ma = _c10mold.get("avyaya", []) if isinstance(_c10mold, dict) else []
+                    return {"avyaya": _c10t + ([_c10mf] if isinstance(_c10mf, str) else _c10L(_c10mf or [])) + _c10L(_c10ma or [])}
+                if pratyaya == "anIyar":
+                    _c10M, _c10F, _c10N = [], [], []
+                    for _r in dict.fromkeys(_c10rr):
+                        for _w in dict.fromkeys(_c10wlist):
+                            for _sfx in ("anIya", "aRIya"):
+                                _c10b = _r + _w + _sfx
+                                _c10M.append(_c10b + "H")
+                                _c10F.append(_c10b[:-1] + "A")
+                                _c10N.append(_c10b + "m")
+                    return {"M": _c10M + _c10L(_c10mold.get("M", [])),
+                            "F": _c10F + _c10L(_c10mold.get("F", [])),
+                            "N": _c10N + _c10L(_c10mold.get("N", []))}
             _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
             # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
             if _ylm is None:
