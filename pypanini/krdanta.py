@@ -7418,9 +7418,14 @@ class KrdantaEngine:
                 return {"M": "-", "F": "-", "N": "-"}
             if clean.startswith("kr") and clean[-1:] in ("w", "W", "q", "Q", "t", "T", "d", "D", "n"):
                 return {"M": "-", "F": "-", "N": "-"}
-            # Panini 8.2.18 kfpo ro l: mUla yat/Ryat uses l-stem (kalpyaH, matches Ryat).
+            # Panini 8.2.18 kfpo ro l: mUla yat/Ryat uses l-stem (kalpyaH, matches Ryat;
+            # homonymous kfp pair takes kalp vs plain lexically (0278/0408) so union).
             if clean == "kfp" and sanadi is None:
-                return tri_linga("kalpya")
+                _kfpk = tri_linga("kalpya")
+                _kfpp = tri_linga("kfpya")
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                return {"M": _c10L(_kfpk["M"]) + _c10L(_kfpp["M"]), "F": _c10L(_kfpk["F"]) + _c10L(_kfpp["F"]), "N": _c10L(_kfpk["N"]) + _c10L(_kfpp["N"])}
             # krI falls through to generic i/I-final e-grade below (kreyaH; sole yat-keyed
             # kr+i/I clean surveyed all ganas — kradi pair has no yat key; kryAdi krI was
             # hijacked here into krIyaH).
