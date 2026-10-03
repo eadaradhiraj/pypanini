@@ -2344,6 +2344,11 @@ class KrdantaEngine:
                 # pU (pUN / pUY) takes guna av + iT iz, abhyAsa takes i by 7.4.79 -> pipaviz
                 if c in ("pU", "pUN", "pUY") or op in ("pU", "pUN", "pUY", "pU~", "pUN~", "pUY~") or dhatu_id in ("01.1121", "09.0014"):
                     return "pipaviz"
+                # seT miw-final guNa ew + iT iz (sismewiz; sole smiw surveyed — placed
+                # before smi branch whose op-prefix gate would shadow smew; mirrors smi;
+                # sec feeds san_krut matrix).
+                if c == "smew":
+                    return "sismewiz"
                 # Panini 7.2.74 smi-pUN-raYj-vaSAMS ca sani: smi takes guna ay + iT iz -> sismayiz
                 if c in ("smi", "zmi", "zmiN") or (op and any(op.startswith(x) for x in ("smi", "zmi"))):
                     return "sismayiz"
@@ -2593,6 +2598,19 @@ class KrdantaEngine:
                             for _c10sv in dict.fromkeys([_c10rc + _c10rv + _c10gr + "iz", _c10rc + _c10rv + _c10gr + "ayiz"]):
                                 if _c10sv not in out:
                                     out.append(_c10sv)
+                        # direct-redup fallback for ew-grades (sismewayiz/...; _sannanta_sec
+                        # misfires on ew-finals (sole smiw surveyed, sPiw/Kew pass via secs);
+                        # mirrors san-kta fallback; additive)
+                        if root and root[0] not in SLP1_VOWELS:
+                            _ewrc = root[0]
+                            if root[:1] in ("s", "S") and len(root) > 1 and root[1] in SLP1_KHAY:
+                                _ewrc = root[1]
+                            _ewrc = {"k": "c", "K": "c", "g": "j", "G": "j"}.get(_ewrc, _ewrc)
+                            _ewrv = "u" if ("u" in root or "U" in root) else "i"
+                            for _ewgr in dict.fromkeys(g for g in _gg if g != root and g.endswith("ew")):
+                                for _ewsv in dict.fromkeys([_ewrc + _ewrv + _ewgr + "iz", _ewrc + _ewrv + _ewgr + "ayiz"]):
+                                    if _ewsv not in out:
+                                        out.append(_ewsv)
                 return out
             def _yan_sec(c):
                 _nitya_san = {
@@ -6696,6 +6714,10 @@ class KrdantaEngine:
                             _c10gg = [self._guna_base(_c10rt, is_idit)]
                         elif _c10nc == "i" and _c10sg and _c10rt[-1] not in SLP1_VOWELS:
                             _c10gg = [self._guna_base(_c10rt, is_idit)]
+                        # unsg-gated vriddhi/guNa (smew for smiw; mirrors san-kta; additive)
+                        for _c10ug in dict.fromkeys([self._vriddhi_base(_c10rt, is_idit), self._guna_base(_c10rt, is_idit)]):
+                            if _c10ug != _c10rt and _c10ug not in _c10gg:
+                                _c10gg.append(_c10ug)
                         # n->m before labials in san (sizambayizitavya/...; unanimous 3/3; additive).
                         _c10nl = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10rt)
                         if _c10nl != _c10rt and _c10nl not in _c10gg:
