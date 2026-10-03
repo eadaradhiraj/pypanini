@@ -10376,13 +10376,13 @@ class TinantaDerivationEngine:
                         _c10is = _c10ib[:-1]
                         _c10izk = {("prathama","eka"): [_c10is+"ata"], ("prathama","dvi"): [_c10is+"etAm"], ("prathama","bahu"): [_c10is+"anta"], ("madhyama","eka"): [_c10is+"aTAH"], ("madhyama","dvi"): [_c10is+"eTAm"], ("madhyama","bahu"): [_c10is+"aDvam"], ("uttama","eka"): [_c10is+"e"], ("uttama","dvi"): [_c10is+"Avahi"], ("uttama","bahu"): [_c10is+"Amahi"]}
                         cands += _c10izk.get((purusha, vacana), [])
-                # curAdi al-root redup-aorist Atmane twins (alIlalata/...; CI-redup + root
+                # curAdi al/it-root redup-aorist Atmane twins (alIlalata/...; CI-redup + root
                 # + a, k->c g->j cutva + B->b deaspiration in redup (root keeps B); single-onset-al
                 # survey (kzal
                 # cik- and 0404kal cak- keep their own shapes via onset gate); Atmane-only
                 # here (lal/gal/Bal lack plung: ceiling); curAdiH-gated; additive).
                 if sanadi is None and meta.get("gana") == "curAdiH":
-                    _c10lm = re.match(r"^([^aAiIuUfFxXeEoO])al$", clean or "")
+                    _c10lm = re.match(r"^([^aAiIuUfFxXeEoO])(al|it)$", clean or "")
                     if _c10lm:
                         _c10lc = {"k": "c", "g": "j", "B": "b"}.get(_c10lm.group(1), _c10lm.group(1))
                         _c10lb = "a" + _c10lc + "I" + clean + "a"
