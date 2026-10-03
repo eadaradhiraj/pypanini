@@ -10156,6 +10156,19 @@ class TinantaDerivationEngine:
                         _c10lun_a = {("prathama","eka"): [_c10ls+"ata"], ("prathama","dvi"): [_c10ls+"etAm"], ("prathama","bahu"): [_c10ls+"anta"], ("madhyama","eka"): [_c10ls+"aTAH"], ("madhyama","dvi"): [_c10ls+"eTAm"], ("madhyama","bahu"): [_c10ls+"aDvam"], ("uttama","eka"): [_c10ls+"e"], ("uttama","dvi"): [_c10ls+"Avahi"], ("uttama","bahu"): [_c10ls+"Amahi"]}
                         cands += _c10lun_p.get((purusha, vacana), [])
                         cands += _c10lun_a.get((purusha, vacana), [])
+                # curAdi as-root redup-aorist twins (adIdasata/...; CI-redup + root + a,
+                # union short-a twin (ararasata/avavasata; vas/ras lexical split, kal/cak
+                # precedent); single-onset-as survey; both padas attested; curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10sm = re.match(r"^([^aAiIuUfFxXeEoO])as$", clean or "")
+                    if _c10sm:
+                        for _c10sv in (_c10sm.group(1) + "I", _c10sm.group(1) + "a"):
+                            _c10sb = "a" + _c10sv + clean + "a"
+                            _c10ss = _c10sb[:-1]
+                            _c10as_p = {("prathama","eka"): [_c10sb+"t", _c10sb+"d"], ("prathama","dvi"): [_c10sb+"tAm"], ("prathama","bahu"): [_c10sb+"n"], ("madhyama","eka"): [_c10sb+"H"], ("madhyama","dvi"): [_c10sb+"tam"], ("madhyama","bahu"): [_c10sb+"ta"], ("uttama","eka"): [_c10sb+"m"], ("uttama","dvi"): [_c10ss+"Ava"], ("uttama","bahu"): [_c10ss+"Ama"]}
+                            _c10as_a = {("prathama","eka"): [_c10ss+"ata"], ("prathama","dvi"): [_c10ss+"etAm"], ("prathama","bahu"): [_c10ss+"anta"], ("madhyama","eka"): [_c10ss+"aTAH"], ("madhyama","dvi"): [_c10ss+"eTAm"], ("madhyama","bahu"): [_c10ss+"aDvam"], ("uttama","eka"): [_c10ss+"e"], ("uttama","dvi"): [_c10ss+"Avahi"], ("uttama","bahu"): [_c10ss+"Amahi"]}
+                            cands += _c10as_p.get((purusha, vacana), [])
+                            cands += _c10as_a.get((purusha, vacana), [])
                 # curAdi kFt luN twin-stem redup-aorist parasmaipada (acikIrtat/...; aci-redup
                 # + kIrt/kft; pr.eka-only here (other plung slots dataless: ceiling); sole kFt
                 # surveyed; curAdiH-gated; additive).
@@ -10339,6 +10352,19 @@ class TinantaDerivationEngine:
                         _c10lun_a = {("prathama","eka"): [_c10ls+"ata"], ("prathama","dvi"): [_c10ls+"etAm"], ("prathama","bahu"): [_c10ls+"anta"], ("madhyama","eka"): [_c10ls+"aTAH"], ("madhyama","dvi"): [_c10ls+"eTAm"], ("madhyama","bahu"): [_c10ls+"aDvam"], ("uttama","eka"): [_c10ls+"e"], ("uttama","dvi"): [_c10ls+"Avahi"], ("uttama","bahu"): [_c10ls+"Amahi"]}
                         cands += _c10lun_p.get((purusha, vacana), [])
                         cands += _c10lun_a.get((purusha, vacana), [])
+                # curAdi as-root redup-aorist twins (adIdasata/...; CI-redup + root + a,
+                # union short-a twin (ararasata/avavasata; vas/ras lexical split, kal/cak
+                # precedent); single-onset-as survey; both padas attested; curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10sm = re.match(r"^([^aAiIuUfFxXeEoO])as$", clean or "")
+                    if _c10sm:
+                        for _c10sv in (_c10sm.group(1) + "I", _c10sm.group(1) + "a"):
+                            _c10sb = "a" + _c10sv + clean + "a"
+                            _c10ss = _c10sb[:-1]
+                            _c10as_p = {("prathama","eka"): [_c10sb+"t", _c10sb+"d"], ("prathama","dvi"): [_c10sb+"tAm"], ("prathama","bahu"): [_c10sb+"n"], ("madhyama","eka"): [_c10sb+"H"], ("madhyama","dvi"): [_c10sb+"tam"], ("madhyama","bahu"): [_c10sb+"ta"], ("uttama","eka"): [_c10sb+"m"], ("uttama","dvi"): [_c10ss+"Ava"], ("uttama","bahu"): [_c10ss+"Ama"]}
+                            _c10as_a = {("prathama","eka"): [_c10ss+"ata"], ("prathama","dvi"): [_c10ss+"etAm"], ("prathama","bahu"): [_c10ss+"anta"], ("madhyama","eka"): [_c10ss+"aTAH"], ("madhyama","dvi"): [_c10ss+"eTAm"], ("madhyama","bahu"): [_c10ss+"aDvam"], ("uttama","eka"): [_c10ss+"e"], ("uttama","dvi"): [_c10ss+"Avahi"], ("uttama","bahu"): [_c10ss+"Amahi"]}
+                            cands += _c10as_p.get((purusha, vacana), [])
+                            cands += _c10as_a.get((purusha, vacana), [])
                 # curAdi kFt luN twin-stem redup-aorist Atmane (acikIrtata/...; aci-redup
                 # + kIrt/kft + a with 9 endings; full 18-form alung surveyed; sole kFt;
                 # curAdiH-gated; additive).

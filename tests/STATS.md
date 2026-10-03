@@ -840,3 +840,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 644 (GEN-10: luN smi redup-aorist (asizmayata; siz-voice + may-grade; sole smi surveyed, Atmane-only): sweep +1 (10.0058), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 645 (GEN-10: luN kFt twin-stem redup-aorist (acikIrtata/acIkftata; parasmaipada pr.eka-only, rest dataless ceiling): sweep +1 (10.0155), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 646 (GEN-10: luN al/it widening (acIcitata; cit sole it-root, same CI formation): sweep +1 (PASS 10.0192 → 339/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 647 (GEN-10: luN as-root union tables (adIdasata/...; CI + short-a twins, vas/ras split): sweep +1 (PASS 10.0195 → 340/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
