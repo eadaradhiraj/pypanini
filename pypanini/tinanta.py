@@ -10490,6 +10490,14 @@ class TinantaDerivationEngine:
                             _c10ss = _c10sb[:-1]
                             _c10svt = {("prathama","eka"): [_c10ss+"ata"], ("prathama","dvi"): [_c10ss+"etAm"], ("prathama","bahu"): [_c10ss+"anta"], ("madhyama","eka"): [_c10ss+"aTAH"], ("madhyama","dvi"): [_c10ss+"eTAm"], ("madhyama","bahu"): [_c10ss+"aDvam"], ("uttama","eka"): [_c10ss+"e"], ("uttama","dvi"): [_c10ss+"Avahi"], ("uttama","bahu"): [_c10ss+"Amahi"]}
                             cands += _c10svt.get((purusha, vacana), [])
+                # curAdi bast luN ba-redup-aorist Atmane twins (ababastata/...; ba + bast
+                # + a; sole bast surveyed (ust-roots take u-grade); Atmane-only here (bast
+                # lacks plung: ceiling); curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    if (meta.get("clean", "") or clean) == "bast":
+                        _c10bab = "ababasta"[:-1]
+                        _c10bat = {("prathama","eka"): [_c10bab+"ata"], ("prathama","dvi"): [_c10bab+"etAm"], ("prathama","bahu"): [_c10bab+"anta"], ("madhyama","eka"): [_c10bab+"aTAH"], ("madhyama","dvi"): [_c10bab+"eTAm"], ("madhyama","bahu"): [_c10bab+"aDvam"], ("uttama","eka"): [_c10bab+"e"], ("uttama","dvi"): [_c10bab+"Avahi"], ("uttama","bahu"): [_c10bab+"Amahi"]}
+                        cands += _c10bat.get((purusha, vacana), [])
                 # curAdi smi luN redup-aorist Atmane twins (asizmayata/...; siz-voice redup
                 # + may-grade + a (mirrors san sizmay); sole smi surveyed; Atmane-only here
                 # (smi lacks plung: ceiling); curAdiH-gated; additive).
