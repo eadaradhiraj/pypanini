@@ -4779,6 +4779,18 @@ class TinantaDerivationEngine:
                         be = tbl[(purusha,vacana)]
                         cands.append((var + "A")+be)
                         cands.append((var + "A")+"M"+be[1:])
+                    # curAdi yak-liw aya-periphrastics, vowel-initial branch
+                    # (UrjayAYcakre/AmAse/ambaBUve full paradigm; yak stems lack
+                    # ay; aya-stems join vars (AYcakre/AMcakre free) plus full
+                    # AmAse/ambaBUve paradigm below; additive, curAdiH-gated).
+                    if sanadi is None and meta.get("gana") == "curAdiH":
+                        for _c10x in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
+                            _c10ama = _c10x + "A"
+                            _c10be = tbl[(purusha, vacana)]
+                            cands.append(_c10ama + _c10be)
+                            cands.append(_c10ama + "M" + _c10be[1:])
+                            _c10tri = {("prathama","eka"): [_c10x + "AmAse", _c10x + "AmbaBUve"], ("prathama","dvi"): [_c10x + "AmAsAte", _c10x + "AmbaBUvAte"], ("prathama","bahu"): [_c10x + "AmAsire", _c10x + "AmbaBUvire"], ("madhyama","eka"): [_c10x + "AmAside", _c10x + "AmbaBUvide"], ("madhyama","dvi"): [_c10x + "AmAsATe", _c10x + "AmbaBUvATe"], ("madhyama","bahu"): [_c10x + "AmAsiDve", _c10x + "AmbaBUviDve"], ("uttama","eka"): [_c10x + "AmAse", _c10x + "AmbaBUve"], ("uttama","dvi"): [_c10x + "AmAsivahe", _c10x + "AmbaBUvivahe"], ("uttama","bahu"): [_c10x + "AmAsimahe", _c10x + "AmbaBUvimahe"]}
+                            cands += _c10tri.get((purusha, vacana), [])
                     # yak liw vriddhi-Atmane finite forms for a+single-C minus j (ata->Ate; surveyed 12 roots, zero conflicts)
                     try:
                         if len(clean) == 2 and clean[0] == "a" and clean[1] not in SLP1_VOWELS and clean[1] not in ("j", "J"):
@@ -9068,6 +9080,14 @@ class TinantaDerivationEngine:
                                 forms.append(_pnc + _ax)
                 except Exception:
                     pass
+                # curAdi yak-liw aya-periphrastics, vowel-initial branch
+                # (UrjayAYcakre/AmAse/ambaBUve full paradigm; yak anta calls
+                # with karmani; aya-stems reused from _prim_bases; additive
+                # alongside the AYcakre-only vars above; curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    for _c10xa in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
+                        _c10la = {("prathama","eka"): [_c10xa + "AYcakre", _c10xa + "AmAse", _c10xa + "AmbaBUve"], ("prathama","dvi"): [_c10xa + "AYcakrAte", _c10xa + "AmAsAte", _c10xa + "AmbaBUvAte"], ("prathama","bahu"): [_c10xa + "AYcakrire", _c10xa + "AmAsire", _c10xa + "AmbaBUvire"], ("madhyama","eka"): [_c10xa + "AYcakfze", _c10xa + "AmAside", _c10xa + "AmbaBUvide"], ("madhyama","dvi"): [_c10xa + "AYcakrATe", _c10xa + "AmAsATe", _c10xa + "AmbaBUvATe"], ("madhyama","bahu"): [_c10xa + "AYcakfQve", _c10xa + "AmAsiDve", _c10xa + "AmbaBUviDve"], ("uttama","eka"): [_c10xa + "AYcakre", _c10xa + "AmAse", _c10xa + "AmbaBUve"], ("uttama","dvi"): [_c10xa + "AYcakfvahe", _c10xa + "AmAsivahe", _c10xa + "AmbaBUvivahe"], ("uttama","bahu"): [_c10xa + "AYcakfmahe", _c10xa + "AmAsimahe", _c10xa + "AmbaBUvimahe"]}
+                        forms += _c10la.get((purusha, vacana), [])
                 # Panini 3.1.36 ijAdeS ca gurumato 'nfcCaH (non-gurumat laghu i/u roots uK, iK, iw, uW, uh, uz take reduplication)
                 try:
                     if clean and clean[0] in ("i", "u") and len(clean) == 2 and clean[1] not in SLP1_VOWELS and not is_idit:
