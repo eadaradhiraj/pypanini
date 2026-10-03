@@ -10184,6 +10184,15 @@ class TinantaDerivationEngine:
                         _c10rj_a = {("prathama","eka"): [_c10js+"ata"], ("prathama","dvi"): [_c10js+"etAm"], ("prathama","bahu"): [_c10js+"anta"], ("madhyama","eka"): [_c10js+"aTAH"], ("madhyama","dvi"): [_c10js+"eTAm"], ("madhyama","bahu"): [_c10js+"aDvam"], ("uttama","eka"): [_c10js+"e"], ("uttama","dvi"): [_c10js+"Avahi"], ("uttama","bahu"): [_c10js+"Amahi"]}
                         cands += _c10rj_p.get((purusha, vacana), [])
                         cands += _c10rj_a.get((purusha, vacana), [])
+                # curAdi kuww luN cu-redup twins (acukuwwata/...; cu + kuww + a; homonymous
+                # kuwwa~ pair (0034 uBaya / 0226 Atmane); both padas attested; curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    if (meta.get("clean", "") or clean) == "kuww":
+                        _c10kus = "acukuww"
+                        _c10kuw_p = {("prathama","eka"): ["acukuwwat", "acukuwwad"], ("prathama","dvi"): ["acukuwwatAm"], ("prathama","bahu"): ["acukuwwan"], ("madhyama","eka"): ["acukuwwaH"], ("madhyama","dvi"): ["acukuwwatam"], ("madhyama","bahu"): ["acukuwwata"], ("uttama","eka"): ["acukuwwam"], ("uttama","dvi"): ["acukuwwAva"], ("uttama","bahu"): ["acukuwwAma"]}
+                        _c10kuw_a = {("prathama","eka"): [_c10kus+"ata"], ("prathama","dvi"): [_c10kus+"etAm"], ("prathama","bahu"): [_c10kus+"anta"], ("madhyama","eka"): [_c10kus+"aTAH"], ("madhyama","dvi"): [_c10kus+"eTAm"], ("madhyama","bahu"): [_c10kus+"aDvam"], ("uttama","eka"): [_c10kus+"e"], ("uttama","dvi"): [_c10kus+"Avahi"], ("uttama","bahu"): [_c10kus+"Amahi"]}
+                        cands += _c10kuw_p.get((purusha, vacana), [])
+                        cands += _c10kuw_a.get((purusha, vacana), [])
                 # curAdi uw-root redup-aorist union twins (acUkuwata/atutruwata/...; cutva
                 # redup-cons + U/u union (puw pair splits lexically, Cuw short; cluster rule
                 # holds directionally); unanimous uw survey; both padas attested;
@@ -10467,6 +10476,15 @@ class TinantaDerivationEngine:
                         _c10rj_a = {("prathama","eka"): [_c10js+"ata"], ("prathama","dvi"): [_c10js+"etAm"], ("prathama","bahu"): [_c10js+"anta"], ("madhyama","eka"): [_c10js+"aTAH"], ("madhyama","dvi"): [_c10js+"eTAm"], ("madhyama","bahu"): [_c10js+"aDvam"], ("uttama","eka"): [_c10js+"e"], ("uttama","dvi"): [_c10js+"Avahi"], ("uttama","bahu"): [_c10js+"Amahi"]}
                         cands += _c10rj_p.get((purusha, vacana), [])
                         cands += _c10rj_a.get((purusha, vacana), [])
+                # curAdi kuww luN cu-redup twins (acukuwwata/...; cu + kuww + a; homonymous
+                # kuwwa~ pair (0034 uBaya / 0226 Atmane); both padas attested; curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    if (meta.get("clean", "") or clean) == "kuww":
+                        _c10kus = "acukuww"
+                        _c10kuw_p = {("prathama","eka"): ["acukuwwat", "acukuwwad"], ("prathama","dvi"): ["acukuwwatAm"], ("prathama","bahu"): ["acukuwwan"], ("madhyama","eka"): ["acukuwwaH"], ("madhyama","dvi"): ["acukuwwatam"], ("madhyama","bahu"): ["acukuwwata"], ("uttama","eka"): ["acukuwwam"], ("uttama","dvi"): ["acukuwwAva"], ("uttama","bahu"): ["acukuwwAma"]}
+                        _c10kuw_a = {("prathama","eka"): [_c10kus+"ata"], ("prathama","dvi"): [_c10kus+"etAm"], ("prathama","bahu"): [_c10kus+"anta"], ("madhyama","eka"): [_c10kus+"aTAH"], ("madhyama","dvi"): [_c10kus+"eTAm"], ("madhyama","bahu"): [_c10kus+"aDvam"], ("uttama","eka"): [_c10kus+"e"], ("uttama","dvi"): [_c10kus+"Avahi"], ("uttama","bahu"): [_c10kus+"Amahi"]}
+                        cands += _c10kuw_p.get((purusha, vacana), [])
+                        cands += _c10kuw_a.get((purusha, vacana), [])
                 # curAdi uw-root redup-aorist union twins (acUkuwata/atutruwata/...; cutva
                 # redup-cons + U/u union (puw pair splits lexically, Cuw short; cluster rule
                 # holds directionally); unanimous uw survey; both padas attested;

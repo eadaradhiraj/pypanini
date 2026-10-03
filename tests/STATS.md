@@ -853,3 +853,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 657 (GEN-10: luN Ur/Ur widening + stem-R survey + SUr twin (ajUgurata/aSuSUrata; double-a endings diagnosed): sweep +2 (PASS 10.0217/0444 → 353/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 658 (GEN-10: luN uw-root union twins (acUkuwata/atutruwata/...; U/u split incl puw pair): sweep +2 (PASS 10.0221/0222 → 355/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 659 (GEN-10: luN kUw union twins (acUkuwata/acukUwata; redup+stem lexical split): sweep +1 (PASS 10.0225 → 356/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 660 (GEN-10: luN kuww twins (acukuwwata; homonymous pair, Atmane+parasmaipada): sweep +1 (PASS 10.0226 → 357/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
