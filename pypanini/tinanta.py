@@ -10184,6 +10184,22 @@ class TinantaDerivationEngine:
                         _c10rj_a = {("prathama","eka"): [_c10js+"ata"], ("prathama","dvi"): [_c10js+"etAm"], ("prathama","bahu"): [_c10js+"anta"], ("madhyama","eka"): [_c10js+"aTAH"], ("madhyama","dvi"): [_c10js+"eTAm"], ("madhyama","bahu"): [_c10js+"aDvam"], ("uttama","eka"): [_c10js+"e"], ("uttama","dvi"): [_c10js+"Avahi"], ("uttama","bahu"): [_c10js+"Amahi"]}
                         cands += _c10rj_p.get((purusha, vacana), [])
                         cands += _c10rj_a.get((purusha, vacana), [])
+                # curAdi aW-root redup-aorist union twins (aSISaWata/aSaSaWata/...; I/i-redup
+                # (cluster-short) + short-a twin (SI/Sa lexical split); unanimous 7/7 aW survey;
+                # both padas attested; curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10wm = re.match(r"^(.+)aW$", clean or "")
+                    if _c10wm:
+                        _c10wo = _c10wm.group(1)
+                        _c10wc = {"k": "c", "g": "j", "h": "j", "B": "b"}.get(_c10wo[:1], _c10wo[:1])
+                        _c10wiv = "i" if len(_c10wo) > 1 else "I"
+                        for _c10wv in dict.fromkeys([_c10wiv, "a"]):
+                            _c10wb = "a" + _c10wc + _c10wv + clean + "a"
+                            _c10ws = _c10wb[:-1]
+                            _c10aw_p = {("prathama","eka"): [_c10wb+"t", _c10wb+"d"], ("prathama","dvi"): [_c10wb+"tAm"], ("prathama","bahu"): [_c10wb+"n"], ("madhyama","eka"): [_c10wb+"H"], ("madhyama","dvi"): [_c10wb+"tam"], ("madhyama","bahu"): [_c10wb+"ta"], ("uttama","eka"): [_c10wb+"m"], ("uttama","dvi"): [_c10ws+"Ava"], ("uttama","bahu"): [_c10ws+"Ama"]}
+                            _c10aw_a = {("prathama","eka"): [_c10ws+"ata"], ("prathama","dvi"): [_c10ws+"etAm"], ("prathama","bahu"): [_c10ws+"anta"], ("madhyama","eka"): [_c10ws+"aTAH"], ("madhyama","dvi"): [_c10ws+"eTAm"], ("madhyama","bahu"): [_c10ws+"aDvam"], ("uttama","eka"): [_c10ws+"e"], ("uttama","dvi"): [_c10ws+"Avahi"], ("uttama","bahu"): [_c10ws+"Amahi"]}
+                            cands += _c10aw_p.get((purusha, vacana), [])
+                            cands += _c10aw_a.get((purusha, vacana), [])
                 # curAdi anD-root redup-aorist twins (ababanData/...; Ca-redup + root + a,
                 # g->j cutva (SunD takes Su, anD V-initial An-da, separate); single-onset-anD
                 # survey; both padas attested; curAdiH-gated; additive).
@@ -10421,6 +10437,22 @@ class TinantaDerivationEngine:
                         _c10rj_a = {("prathama","eka"): [_c10js+"ata"], ("prathama","dvi"): [_c10js+"etAm"], ("prathama","bahu"): [_c10js+"anta"], ("madhyama","eka"): [_c10js+"aTAH"], ("madhyama","dvi"): [_c10js+"eTAm"], ("madhyama","bahu"): [_c10js+"aDvam"], ("uttama","eka"): [_c10js+"e"], ("uttama","dvi"): [_c10js+"Avahi"], ("uttama","bahu"): [_c10js+"Amahi"]}
                         cands += _c10rj_p.get((purusha, vacana), [])
                         cands += _c10rj_a.get((purusha, vacana), [])
+                # curAdi aW-root redup-aorist union twins (aSISaWata/aSaSaWata/...; I/i-redup
+                # (cluster-short) + short-a twin (SI/Sa lexical split); unanimous 7/7 aW survey;
+                # both padas attested; curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10wm = re.match(r"^(.+)aW$", clean or "")
+                    if _c10wm:
+                        _c10wo = _c10wm.group(1)
+                        _c10wc = {"k": "c", "g": "j", "h": "j", "B": "b"}.get(_c10wo[:1], _c10wo[:1])
+                        _c10wiv = "i" if len(_c10wo) > 1 else "I"
+                        for _c10wv in dict.fromkeys([_c10wiv, "a"]):
+                            _c10wb = "a" + _c10wc + _c10wv + clean + "a"
+                            _c10ws = _c10wb[:-1]
+                            _c10aw_p = {("prathama","eka"): [_c10wb+"t", _c10wb+"d"], ("prathama","dvi"): [_c10wb+"tAm"], ("prathama","bahu"): [_c10wb+"n"], ("madhyama","eka"): [_c10wb+"H"], ("madhyama","dvi"): [_c10wb+"tam"], ("madhyama","bahu"): [_c10wb+"ta"], ("uttama","eka"): [_c10wb+"m"], ("uttama","dvi"): [_c10ws+"Ava"], ("uttama","bahu"): [_c10ws+"Ama"]}
+                            _c10aw_a = {("prathama","eka"): [_c10ws+"ata"], ("prathama","dvi"): [_c10ws+"etAm"], ("prathama","bahu"): [_c10ws+"anta"], ("madhyama","eka"): [_c10ws+"aTAH"], ("madhyama","dvi"): [_c10ws+"eTAm"], ("madhyama","bahu"): [_c10ws+"aDvam"], ("uttama","eka"): [_c10ws+"e"], ("uttama","dvi"): [_c10ws+"Avahi"], ("uttama","bahu"): [_c10ws+"Amahi"]}
+                            cands += _c10aw_p.get((purusha, vacana), [])
+                            cands += _c10aw_a.get((purusha, vacana), [])
                 # curAdi anD-root redup-aorist twins (ababanData/...; Ca-redup + root + a,
                 # g->j cutva (SunD takes Su, anD V-initial An-da, separate); single-onset-anD
                 # survey; both padas attested; curAdiH-gated; additive).
