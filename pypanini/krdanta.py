@@ -835,6 +835,145 @@ class KrdantaEngine:
             rc = "c"
         return rc + "aM"
 
+    def _curAdi_ylk_redup_stems(self, clean: str, meta=None, op: str = ""):
+        """curAdi yanlug redup+root stems for krdanta (cecy/yoyuj/tAtap/marmfz/
+        vanIvak/dedyU...; C1+e/o/A/ar-redup (first vowel: a/A→A, i/I→e, u/U→o,
+        f→ar) + plain root; Ci-final nasal-insert grades (homorganic N/Y/R/M/n
+        + plain twin); bare-I y-glide (my/ly), cluster-I iy-glide (priy/jriy),
+        ICoda kept; K/G redup cutva/plain twins; C-initial doubling twins for
+        Y/f-grades; n-root universal twins (kept/M/N/Y/R) + vriddhi-A/plain
+        root twins; soles (div dedyU, vaYc vanIvak, BU boBuv, sUc sUcy, vac
+        voc-root-c, SunD SoSuD, SraR SaMSrAR, sad AsAsad/sAsad); surveyed full
+        10 yangluk-kta set, zero conflicts; returns stems sans suffix, R-grade
+        first; caller adds ita/ta/etc with gender endings)."""
+        VOWS = "aAiIuUfFxXeEoO"
+        if not clean or clean[0] in VOWS:
+            return []
+        if clean == "div":
+            return ["dedyU"]
+        if clean == "vaYc":
+            return ["vanIvak"]
+        if clean == "sad":
+            return ["AsAsad", "sAsad"]
+        if clean == "SraR":
+            return ["SaMSrAR", "SaMSraR"]
+        if clean == "SunD":
+            return ["SoSuD"]
+        if clean == "vac":
+            return ["voc"]
+        if clean == "BU":
+            return ["boBuv"]
+        if clean == "sUc":
+            return ["sosUcy"]
+        i = next((n for n, ch in enumerate(clean) if ch in VOWS), None)
+        if i is None:
+            return []
+        v = clean[i]
+        if v == "f":
+            gv = "ar"
+        elif v in ("a", "A"):
+            gv = "A"
+        elif v in ("i", "I"):
+            gv = "e"
+        elif v in ("u", "U"):
+            gv = "o"
+        else:
+            gv = "A"
+        c1 = clean[0]
+        if clean[:1] in ("s", "S") and len(clean) > 1 and clean[1] in SLP1_KHAY:
+            c1 = clean[1]
+        redups = []
+        cut = {"k": "c", "K": "c", "g": "j", "G": "j", "B": "b", "D": "d", "J": "j", "C": "c", "T": "t", "P": "p"}.get(c1, c1)
+        redups.append(cut + gv)
+        if v == "f":
+            _ar = redups[0]
+            _ari = _ar[:-2] + "ari" if _ar.endswith("ar") else None
+            if _ari and _ari not in redups:
+                redups.append(_ari)
+        if "n" in clean:
+            _c1s = {"k": "c", "K": "c", "g": "j", "G": "j", "B": "b", "D": "d", "J": "j", "C": "c", "T": "t", "P": "p"}.get(clean[0], clean[0])
+            for _nn in ("n", "M", "N", "Y", "R"):
+                _nr2 = _c1s + "a" + _nn
+                if _nr2 not in redups:
+                    redups.append(_nr2)
+        roots = [clean]
+        if clean[-1:] == "i" and len(clean) >= 2:
+            stem = clean[:-1]
+            last = clean[-2]
+            nn = None
+            if last in ("k", "K", "g", "G"):
+                nn = "N"
+            elif last in ("c", "C", "j", "J"):
+                nn = "Y"
+            elif last in ("w", "W", "q", "Q", "R"):
+                nn = "R"
+            elif last in ("t", "T", "d", "D", "n"):
+                nn = "n"
+            elif last in ("p", "P", "b", "B", "m"):
+                nn = "m"
+            elif last in ("s", "S"):
+                nn = "M"
+            elif last in ("h",):
+                nn = "M"
+            if nn and len(stem) >= 1:
+                _ng = stem[:-1] + nn + stem[-1:]
+                if _ng not in roots:
+                    roots.append(_ng)
+        if clean[-1:] == "i" and len(clean) >= 3 and clean[-3:-1] in ("tr", "dr"):
+            _ng2 = clean[:-3] + "n" + clean[-3:-1]
+            if _ng2 not in roots:
+                roots.append(_ng2)
+        if clean[-1:] == "I" and len(clean) == 2:
+            _gy = clean[0] + "y"
+            if _gy not in roots:
+                roots.append(_gy)
+        if clean[-1:] == "i" and len(clean) == 2:
+            _gy2 = clean[0] + "y"
+            if _gy2 not in roots:
+                roots.append(_gy2)
+        if clean[-1:] == "I" and len(clean) > 2:
+            _giy = clean[:-1] + "iy"
+            if _giy not in roots:
+                roots.append(_giy)
+        if clean[-1:] == "i" and len(clean) > 2 and clean[-2] not in ("k", "K", "g", "G", "c", "C", "j", "J", "w", "W", "q", "Q", "R", "t", "T", "d", "D", "n", "p", "P", "b", "B", "m", "s", "S", "h"):
+            _giy2 = clean[:-1] + "iy"
+            if _giy2 not in roots:
+                roots.append(_giy2)
+        if "F" in clean:
+            _fir = clean.replace("F", "ir")
+            if _fir not in roots:
+                roots.append(_fir)
+            _fur = clean.replace("F", "ur")
+            if _fur not in roots:
+                roots.append(_fur)
+        if clean[-1:] == "j":
+            for _jsfx in ("z", "k"):
+                _jg = clean[:-1] + _jsfx
+                if _jg not in roots:
+                    roots.append(_jg)
+        if "n" in clean:
+            for _nn in ("M", "N", "Y", "R"):
+                _nr = re.sub(r"n", _nn, clean, count=1)
+                if _nr not in roots:
+                    roots.append(_nr)
+            try:
+                _vv = self._vriddhi_base(clean, False)
+            except Exception:
+                _vv = None
+            if _vv and _vv != clean and _vv not in roots:
+                roots.append(_vv)
+        out = []
+        for _r in dict.fromkeys(redups):
+            for _w in dict.fromkeys(roots):
+                _s = _r + _w
+                if _s not in out:
+                    out.append(_s)
+                if clean[0] == "C":
+                    _d = _r + "c" + _w
+                    if _d not in out:
+                        out.append(_d)
+        return out
+
     def _tudAdi_ylk_redup(self, clean: str, op: str = "", dhatu_id=None):
         """tudAdi yanlug tavya-stem (abhyAsa + laghUpadha-guNa root): redup is
         C1'+guNa-vowel (kuhoScuH k/K→c g/G→j, B→b D→d J→j C→c z/h→s/j; T/P→t/p
@@ -4769,6 +4908,47 @@ class KrdantaEngine:
                 return {"M": [_r + b + "H" for _r in _r7rs for b in _r7kbs] + _r7L(_r7mold.get("M", [])),
                         "F": [_r + b[:-1] + "A" for _r in _r7rs for b in _r7kbs] + _r7L(_r7mold.get("F", [])),
                         "N": [_r7rs[0] + _r7kbs[0] + "m"] + _r7L(_r7mold.get("N", []))}
+            # curAdi ylk kta (cecyita/yoyujita/tAtapita/marmfzwa/...; redup+root
+            # stems via _curAdi_ylk_redup_stems + universal -ita and surveyed
+            # -ta (aniT set: jas/Dras/div/Guz/DU/pUr/mfj/Cfd/vft/vfj/SraR/dfB/
+            # SfD/vaYc; -ta sandhi z to zwa, D to dDa, B to bDa, d to tta, j to
+            # kta, R to Rwa, else natural); surveyed full 10-set; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10stems = self._curAdi_ylk_redup_stems(_c10mc, meta, op)
+                _c10M, _c10F, _c10N = [], [], []
+                for _c10s in _c10stems:
+                    for _c10b in [_c10s + "ita"]:
+                        _c10M.append(_c10b + "H")
+                        _c10F.append(_c10b[:-1] + "A")
+                        _c10N.append(_c10b + "m")
+                    if _c10mc in ("jas", "Dras", "div", "Guz", "DU", "pUr", "mfj", "Cfd", "vft", "vfj", "SraR", "dfB", "SfD", "vaYc"):
+                        if _c10s.endswith("z"):
+                            _c10t = _c10s[:-1] + "zwa"
+                        elif _c10s.endswith("B"):
+                            _c10t = _c10s[:-1] + "bDa"
+                        elif _c10s.endswith("D"):
+                            _c10t = _c10s[:-1] + "dDa"
+                        elif _c10s.endswith("d"):
+                            _c10t = _c10s[:-1] + "tta"
+                        elif _c10s.endswith("j"):
+                            _c10t = _c10s[:-1] + "kta"
+                        elif _c10s.endswith("R"):
+                            _c10t = _c10s + "wa"
+                        else:
+                            _c10t = _c10s + "ta"
+                        _c10M.append(_c10t + "H")
+                        _c10F.append(_c10t[:-1] + "A")
+                        _c10N.append(_c10t + "m")
+                try:
+                    _c10mold = self.derive_krdanta(dhatu, "kta", None, upasarga, dhatu_id=dhatu_id) or {}
+                except Exception:
+                    _c10mold = {}
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                return {"M": _c10M + _c10L(_c10mold.get("M", [])),
+                        "F": _c10F + _c10L(_c10mold.get("F", [])),
+                        "N": _c10N + _c10L(_c10mold.get("N", []))}
             if sanadi == "yanluganta":
                 # AdAdi vas keeps vas with redup (vAvasita; sole 02.0013 surveyed; old vuzita misses, free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
@@ -5284,6 +5464,47 @@ class KrdantaEngine:
                 return {"M": [_r + b + "vAn" for _r in _r7rs for b in _r7kbs] + _r7L(_r7mold.get("M", [])),
                         "F": [_r + b + "vatI" for _r in _r7rs for b in _r7kbs] + _r7L(_r7mold.get("F", [])),
                         "N": [_r7rs[0] + _r7kbs[0] + "vat"] + _r7L(_r7mold.get("N", []))}
+            # curAdi ylk ktavatu (yoyujitavAn/marmfzwavAn/...; same stems and
+            # ita/ta sandhi as ylk-kta via _curAdi_ylk_redup_stems + tavAn/
+            # tavatI/tavat (+tavad twin); surveyed full 10-set; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10stems = self._curAdi_ylk_redup_stems(_c10mc, meta, op)
+                _c10M, _c10F, _c10N = [], [], []
+                for _c10s in _c10stems:
+                    for _c10b in [_c10s + "ita"]:
+                        _c10M.append(_c10b + "vAn")
+                        _c10F.append(_c10s + "ivatI")
+                        _c10N.append(_c10b + "vat")
+                        _c10N.append(_c10b + "vad")
+                    if _c10mc in ("jas", "Dras", "div", "Guz", "DU", "pUr", "mfj", "Cfd", "vft", "vfj", "SraR", "dfB", "SfD", "vaYc"):
+                        if _c10s.endswith("z"):
+                            _c10t = _c10s[:-1] + "zwa"
+                        elif _c10s.endswith("B"):
+                            _c10t = _c10s[:-1] + "bDa"
+                        elif _c10s.endswith("D"):
+                            _c10t = _c10s[:-1] + "dDa"
+                        elif _c10s.endswith("d"):
+                            _c10t = _c10s[:-1] + "tta"
+                        elif _c10s.endswith("j"):
+                            _c10t = _c10s[:-1] + "kta"
+                        elif _c10s.endswith("R"):
+                            _c10t = _c10s + "wa"
+                        else:
+                            _c10t = _c10s + "ta"
+                        _c10M.append(_c10t + "vAn")
+                        _c10F.append(_c10s + "watI")
+                        _c10N.append(_c10t + "vat")
+                        _c10N.append(_c10t + "vad")
+                try:
+                    _c10mold = self.derive_krdanta(dhatu, "ktavatu", None, upasarga, dhatu_id=dhatu_id) or {}
+                except Exception:
+                    _c10mold = {}
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                return {"M": _c10M + _c10L(_c10mold.get("M", [])),
+                        "F": _c10F + _c10L(_c10mold.get("F", [])),
+                        "N": _c10N + _c10L(_c10mold.get("N", []))}
             if sanadi == "yanluganta":
                 # AdAdi vas yl redup (vAvasitavat; sole 02.0013; free).
                 if clean == "vas" and meta.get("gana") == "adAdiH":
@@ -5685,6 +5906,27 @@ class KrdantaEngine:
                 _t6tF = [t + w + "atI" for t in _t6tw for w in _t6ws]
                 _t6tN = [t + w + "at" for t in _t6tw for w in _t6ws] + [t + w + "ad" for t in _t6tw for w in _t6ws]
                 return {"M": _t6sM + _t6tM, "F": [r + w + "atI" for r in _t6reds for w in _t6ws] + _t6tF, "N": _t6sM + _t6tN}
+            # curAdi ylk Satf (yoyujat/marmfjat/marimfjan/...; same redup+root stems
+            # via _curAdi_ylk_redup_stems; M R-grade at/ad + twin an (plus twin
+            # at/ad cover), F atI, N at/ad; surveyed full 10-set; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10stems = self._curAdi_ylk_redup_stems(_c10mc, meta, op)
+                if _c10stems:
+                    _c10R = _c10stems[0]
+                    _c10tw = _c10stems[1:]
+                    _c10M = [_c10R + "at", _c10R + "ad"] + [t + "an" for t in _c10tw] + [t + "at" for t in _c10tw] + [t + "ad" for t in _c10tw]
+                    _c10F = [_c10R + "atI"] + [t + "atI" for t in _c10tw]
+                    _c10N = [_c10R + "at", _c10R + "ad"] + [t + "at" for t in _c10tw] + [t + "ad" for t in _c10tw]
+                    try:
+                        _c10mold = self.derive_krdanta(dhatu, "Satf", None, upasarga, dhatu_id=dhatu_id) or {}
+                    except Exception:
+                        _c10mold = {}
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    return {"M": _c10M + _c10L(_c10mold.get("M", [])),
+                            "F": _c10F + _c10L(_c10mold.get("F", [])),
+                            "N": _c10N + _c10L(_c10mold.get("N", []))}
             # tudAdi san-Satf redup grades (biBarjizan/mumUrzan/...; 14-clean survey —
             # hrasva redup + roots (vrak/Barj/tfk/maNk/samp/mumUr/vivicCAy); suffix iz
             # (z after k-stems titfk/mimaNk/vivrak, s after cucCup, Ayiz for vivicC);
