@@ -10445,6 +10445,25 @@ class TinantaDerivationEngine:
                         _c10ls = _c10lb[:-1]
                         _c10lal = {("prathama","eka"): [_c10ls+"ata"], ("prathama","dvi"): [_c10ls+"etAm"], ("prathama","bahu"): [_c10ls+"anta"], ("madhyama","eka"): [_c10ls+"aTAH"], ("madhyama","dvi"): [_c10ls+"eTAm"], ("madhyama","bahu"): [_c10ls+"aDvam"], ("uttama","eka"): [_c10ls+"e"], ("uttama","dvi"): [_c10ls+"Avahi"], ("uttama","bahu"): [_c10ls+"Amahi"]}
                         cands += _c10lal.get((purusha, vacana), [])
+                # curAdi s-final short-V redup-aorist Atmane twins (apaspaSata/...;
+                # redup = simplified onset (s-cluster 2nd, else cutva/deasp C1) + short
+                # root vowel; grades lexical (tras takes ti) so union twins; s/S-final survey;
+                # Atmane-only here (spaS/Barts/kuts lack plung: ceiling); curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10sm = re.match(r"^(.+)[sS]$", clean or "")
+                    if _c10sm:
+                        _c10svw = [ch for ch in clean if ch in SLP1_VOWELS]
+                        if _c10svw:
+                            _c10son = _c10sm.group(1)
+                            if len(_c10son) >= 2 and _c10son[:1] in ("s", "S"):
+                                _c10sc = _c10son[1]
+                            else:
+                                _c10sc = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "B": "b"}.get(_c10son[:1], _c10son[:1])
+                            _c10sv = {"A": "a", "I": "i", "U": "u"}.get(_c10svw[-1], _c10svw[-1])
+                            _c10sb = "a" + _c10sc + _c10sv + clean + "a"
+                            _c10ss = _c10sb[:-1]
+                            _c10svt = {("prathama","eka"): [_c10ss+"ata"], ("prathama","dvi"): [_c10ss+"etAm"], ("prathama","bahu"): [_c10ss+"anta"], ("madhyama","eka"): [_c10ss+"aTAH"], ("madhyama","dvi"): [_c10ss+"eTAm"], ("madhyama","bahu"): [_c10ss+"aDvam"], ("uttama","eka"): [_c10ss+"e"], ("uttama","dvi"): [_c10ss+"Avahi"], ("uttama","bahu"): [_c10ss+"Amahi"]}
+                            cands += _c10svt.get((purusha, vacana), [])
                 # curAdi smi luN redup-aorist Atmane twins (asizmayata/...; siz-voice redup
                 # + may-grade + a (mirrors san sizmay); sole smi surveyed; Atmane-only here
                 # (smi lacks plung: ceiling); curAdiH-gated; additive).
