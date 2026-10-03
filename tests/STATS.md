@@ -842,3 +842,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 646 (GEN-10: luN al/it widening (acIcitata; cit sole it-root, same CI formation): sweep +1 (PASS 10.0192 → 339/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 647 (GEN-10: luN as-root union tables (adIdasata/...; CI + short-a twins, vas/ras split): sweep +1 (PASS 10.0195 → 340/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 648 (GEN-10: luN ap-root tables (ajijYapata/...; cluster-short-i rule, unanimous 8/8): sweep +1 (PASS 10.0196 → 341/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 649 (GEN-10: luN ap/ip widening (aqIqipata; qip/kzip confirm cluster rule): sweep +1 (PASS 10.0197 → 342/492), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)

@@ -10157,10 +10157,10 @@ class TinantaDerivationEngine:
                         cands += _c10lun_p.get((purusha, vacana), [])
                         cands += _c10lun_a.get((purusha, vacana), [])
                 # curAdi ap-root redup-aorist twins (ajijYapata/...; cutva redup-cons + i
-                # after clusters else I; unanimous 8/8 ap survey; both padas attested
+                # after clusters else I; unanimous ap survey + qip/kzip ip pair (cluster rule holds); both padas attested
                 # (tap plung sic already passing); curAdiH-gated; additive).
                 if sanadi is None and meta.get("gana") == "curAdiH":
-                    _c10pm = re.match(r"^(.+)ap$", clean or "")
+                    _c10pm = re.match(r"^(.+)(ap|ip)$", clean or "")
                     if _c10pm:
                         _c10po = _c10pm.group(1)
                         _c10pc = {"k": "c", "g": "j", "h": "j", "B": "b"}.get(_c10po[:1], _c10po[:1])
@@ -10368,10 +10368,10 @@ class TinantaDerivationEngine:
                         cands += _c10lun_p.get((purusha, vacana), [])
                         cands += _c10lun_a.get((purusha, vacana), [])
                 # curAdi ap-root redup-aorist twins (ajijYapata/...; cutva redup-cons + i
-                # after clusters else I; unanimous 8/8 ap survey; both padas attested
+                # after clusters else I; unanimous ap survey + qip/kzip ip pair (cluster rule holds); both padas attested
                 # (tap plung sic already passing); curAdiH-gated; additive).
                 if sanadi is None and meta.get("gana") == "curAdiH":
-                    _c10pm = re.match(r"^(.+)ap$", clean or "")
+                    _c10pm = re.match(r"^(.+)(ap|ip)$", clean or "")
                     if _c10pm:
                         _c10po = _c10pm.group(1)
                         _c10pc = {"k": "c", "g": "j", "h": "j", "B": "b"}.get(_c10po[:1], _c10po[:1])
