@@ -2527,6 +2527,12 @@ class KrdantaEngine:
                                 _ff = _fpre + _fg + _fpost
                                 if _ff != root and _ff not in _gg:
                                     _gg.append(_ff)
+                    # aya-less grades (jYAp/lAp/smAy/...; mirrors san-kta inline; additive)
+                    for _ab in self._curAdi_aya_twins(root, "", is_idit):
+                        if _ab.endswith("ay"):
+                            _s = _ab[:-2]
+                            if _s != root and _s not in _gg:
+                                _gg.append(_s)
                     # i-final nasal twins (tuYj/laRq/cint...; mirrors idit num-rule; is_idit-gated)
                     if root.endswith(("i", "I")) and is_idit:
                         _bw = root[:-1]
@@ -6729,6 +6735,12 @@ class KrdantaEngine:
                         for _c10ug in dict.fromkeys([self._vriddhi_base(_c10rt, is_idit), self._guna_base(_c10rt, is_idit)]):
                             if _c10ug != _c10rt and _c10ug not in _c10gg:
                                 _c10gg.append(_c10ug)
+                        # aya-less grades (jYApay-...; mirrors san-kta inline; additive)
+                        for _c10ab in self._curAdi_aya_twins(_c10rt, "", is_idit):
+                            if _c10ab.endswith("ay"):
+                                _c10s = _c10ab[:-2]
+                                if _c10s != _c10rt and _c10s not in _c10gg:
+                                    _c10gg.append(_c10s)
                         # n->m before labials in san (sizambayizitavya/...; unanimous 3/3; additive).
                         _c10nl = re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10rt)
                         if _c10nl != _c10rt and _c10nl not in _c10gg:
