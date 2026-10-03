@@ -4380,6 +4380,68 @@ class KrdantaEngine:
                 if _t6g == "kF":
                     return {"gender": "Masculine", "form": "cAkAraH"}
                 return {"gender": "Masculine", "form": "jAgAlaH"}
+            # curAdi ylk tavya (yoyojitavya/tAtapitavya/marmArzwavya/sosUcayitavya...;
+            # redup + tavya-root-grade + itavya (universal seT) + mfj-sole wavya
+            # (mArz+wavya); root grades: guNa (u), plain (a), plain+ay (I),
+            # ar (f/F), nasal-insert, n-plain/vriddhi, s-plain, soles (Bav, Dav,
+            # Dot, pUr, mArz, mArj); redups mirror the kta helper + marI-sole;
+            # surveyed full 10-set; free).
+            if sanadi == "yanluganta" and meta.get("gana") == "curAdiH" and pratyaya == "tavya":
+                _c10mc = meta.get("clean", "") or clean
+                _c10gg = [self._guna_base(_c10mc, is_idit), _c10mc]
+                for _c10ab in self._curAdi_aya_twins(_c10mc, "", is_idit):
+                    if _c10ab.endswith("ay"):
+                        if _c10ab not in _c10gg:
+                            _c10gg.append(_c10ab)
+                        _c10s = _c10ab[:-2]
+                        if _c10s not in _c10gg:
+                            _c10gg.append(_c10s)
+                if _c10mc == "mfj":
+                    for _c10mg in ("mArz", "mArj"):
+                        if _c10mg not in _c10gg:
+                            _c10gg.append(_c10mg)
+                if _c10mc == "BU" and "Bav" not in _c10gg:
+                    _c10gg.append("Bav")
+                if _c10mc == "DU":
+                    for _c10dg in ("Dav", "Dot"):
+                        if _c10dg not in _c10gg:
+                            _c10gg.append(_c10dg)
+                if _c10mc == "pUr" and "pUr" not in _c10gg:
+                    _c10gg.append("pUr")
+                _c10rr = []
+                _c10v = next((ch for ch in _c10mc if ch in SLP1_VOWELS), None)
+                _c10gv = {"a": "A", "A": "A", "i": "e", "I": "e", "u": "o", "U": "o", "f": "ar"}.get(_c10v, "A")
+                _c10c1 = _c10mc[0]
+                if _c10mc[:1] in ("s", "S") and len(_c10mc) > 1 and _c10mc[1] in SLP1_KHAY:
+                    _c10c1 = _c10mc[1]
+                _c10c1 = {"k": "c", "K": "c", "g": "j", "G": "j", "B": "b", "D": "d", "J": "j", "C": "c", "T": "t", "P": "p"}.get(_c10c1, _c10c1)
+                _c10rr.append(_c10c1 + _c10gv)
+                if _c10gv == "ar":
+                    _c10rr.append(_c10c1 + "ari")
+                if _c10mc == "mfj":
+                    _c10rr.append("marI")
+                if "n" in _c10mc:
+                    for _nn in ("n", "M", "N", "Y", "R"):
+                        _c10nr = _c10c1 + "a" + _nn
+                        if _c10nr not in _c10rr:
+                            _c10rr.append(_c10nr)
+                _c10M, _c10F, _c10N = [], [], []
+                for _r in dict.fromkeys(_c10rr):
+                    for _w in dict.fromkeys(_c10gg):
+                        for _sfx in (["itavya"] if not (_c10mc == "mfj" and _w == "mArz") else ["wavya"]):
+                            _c10b = _r + _w + _sfx
+                            _c10M.append(_c10b + "H")
+                            _c10F.append(_c10b[:-1] + "A")
+                            _c10N.append(_c10b + "m")
+                try:
+                    _c10mold = self.derive_krdanta(dhatu, "tavya", None, upasarga, dhatu_id=dhatu_id) or {}
+                except Exception:
+                    _c10mold = {}
+                def _c10L(v):
+                    return v if isinstance(v, list) else [v]
+                return {"M": _c10M + _c10L(_c10mold.get("M", [])),
+                        "F": _c10F + _c10L(_c10mold.get("F", [])),
+                        "N": _c10N + _c10L(_c10mold.get("N", []))}
             _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
             # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
             if _ylm is None:
