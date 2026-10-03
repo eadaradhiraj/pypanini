@@ -10104,6 +10104,18 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "ISuc":
                     _d4su = {("prathama","eka"):["aSucat","aSucad","aSocIt","aSocId"],("prathama","dvi"):["aSucatAm","aSocizwAm"],("prathama","bahu"):["aSucan","aSocizuH"],("madhyama","eka"):["aSucaH","aSocIH"],("madhyama","dvi"):["aSucatam","aSocizwam"],("madhyama","bahu"):["aSucata","aSocizwa"],("uttama","eka"):["aSucam","aSocizam"],("uttama","dvi"):["aSucAva","aSocizva"],("uttama","bahu"):["aSucAma","aSocizma"]}
                     cands += _d4su.get((purusha, vacana), [])
+                # curAdi anb redup-aorist twins (asasambata/aSaSambata/asasAmbata;
+                # augment + sa-redup + m-assimilated stem; unanimous 3/3 n-labial survey;
+                # shape-gated (sibilant + A + n + labial), curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10am = re.match(r"^([sS])([aA])n([pPbB])$", clean or "")
+                    if _c10am:
+                        _c10on, _c10A, _c10lb = _c10am.group(1), _c10am.group(2), _c10am.group(3)
+                        _c10ab = "a" + _c10on + "a" + _c10on + _c10A + "m" + _c10lb + "a"
+                        _c10anb_p = {("prathama","eka"): [_c10ab+"t", _c10ab+"d"], ("prathama","dvi"): [_c10ab+"tAm"], ("prathama","bahu"): [_c10ab+"n"], ("madhyama","eka"): [_c10ab+"H"], ("madhyama","dvi"): [_c10ab+"tam"], ("madhyama","bahu"): [_c10ab+"ta"], ("uttama","eka"): [_c10ab+"m"], ("uttama","dvi"): [_c10ab[:-1]+"Ava"], ("uttama","bahu"): [_c10ab[:-1]+"Ama"]}
+                        _c10anb_a = {("prathama","eka"): [_c10ab+"ta"], ("prathama","dvi"): [_c10ab+"eTAm"], ("prathama","bahu"): [_c10ab+"nta"], ("madhyama","eka"): [_c10ab+"TAH"], ("madhyama","dvi"): [_c10ab+"eTAm"], ("madhyama","bahu"): [_c10ab+"Dvam"], ("uttama","eka"): [_c10ab+"e"], ("uttama","dvi"): [_c10ab+"Avahi"], ("uttama","bahu"): [_c10ab+"Amahi"]}
+                        cands += _c10anb_p.get((purusha, vacana), [])
+                        cands += _c10anb_a.get((purusha, vacana), [])
                 return list(set(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
@@ -10239,6 +10251,18 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                     _inlun = {("prathama","eka"):["aDyEzwa"],("prathama","dvi"):["aDyEzAtAm"],("prathama","bahu"):["aDyEzata"],("madhyama","eka"):["aDyEzWAH"],("madhyama","dvi"):["aDyEzATAm"],("madhyama","bahu"):["aDyEQvam"],("uttama","eka"):["aDyEzi"],("uttama","dvi"):["aDyEzvahi"],("uttama","bahu"):["aDyEzmahi"]}
                     cands += _inlun.get((purusha, vacana), [])
+                # curAdi anb redup-aorist twins (asasambata/aSaSambata/asasAmbata;
+                # augment + sa-redup + m-assimilated stem; unanimous 3/3 n-labial survey;
+                # shape-gated (sibilant + A + n + labial), curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10am = re.match(r"^([sS])([aA])n([pPbB])$", clean or "")
+                    if _c10am:
+                        _c10on, _c10A, _c10lb = _c10am.group(1), _c10am.group(2), _c10am.group(3)
+                        _c10ab = "a" + _c10on + "a" + _c10on + _c10A + "m" + _c10lb + "a"
+                        _c10anb_p = {("prathama","eka"): [_c10ab+"t", _c10ab+"d"], ("prathama","dvi"): [_c10ab+"tAm"], ("prathama","bahu"): [_c10ab+"n"], ("madhyama","eka"): [_c10ab+"H"], ("madhyama","dvi"): [_c10ab+"tam"], ("madhyama","bahu"): [_c10ab+"ta"], ("uttama","eka"): [_c10ab+"m"], ("uttama","dvi"): [_c10ab[:-1]+"Ava"], ("uttama","bahu"): [_c10ab[:-1]+"Ama"]}
+                        _c10anb_a = {("prathama","eka"): [_c10ab+"ta"], ("prathama","dvi"): [_c10ab+"eTAm"], ("prathama","bahu"): [_c10ab+"nta"], ("madhyama","eka"): [_c10ab+"TAH"], ("madhyama","dvi"): [_c10ab+"eTAm"], ("madhyama","bahu"): [_c10ab+"Dvam"], ("uttama","eka"): [_c10ab+"e"], ("uttama","dvi"): [_c10ab+"Avahi"], ("uttama","bahu"): [_c10ab+"Amahi"]}
+                        cands += _c10anb_p.get((purusha, vacana), [])
+                        cands += _c10anb_a.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
 
         # fallback
