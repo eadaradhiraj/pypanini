@@ -5493,6 +5493,16 @@ class KrdantaEngine:
                     def _c10L(v):
                         return v if isinstance(v, list) else [v]
                     return {"M": _c10L(b + "avAn") + [_c10ab + "itavAn"], "F": _c10L(b + "avatI") + [_c10ab + "itavatI"], "N": _c10L(b + "avat") + [_c10ab + "itavat", _c10ab + "itavad"]}
+            # curAdi vowel-final-I twins (litavAn/priyitavAn; iy-glide + short, mirror kta iter594;
+            # generic kept first; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
+                if _c10vw and _c10mc[-1:] == "I" and "i~" not in (op or "") and "I~" not in (op or ""):
+                    def _c10L(v):
+                        return v if isinstance(v, list) else [v]
+                    _c10xt = [(_c10mc[:-1] + "iyitavAn", _c10mc[:-1] + "iyitavatI", _c10mc[:-1] + "iyitavat"), (_c10mc[:-1] + "itavAn", _c10mc[:-1] + "itavatI", _c10mc[:-1] + "itavat")]
+                    return {"M": _c10L(b + "avAn") + [_x[0] for _x in _c10xt], "F": _c10L(b + "avatI") + [_x[1] for _x in _c10xt], "N": _c10L(b + "avat") + [_x[2] for _x in _c10xt] + [_c10mc[:-1] + "iyitavad", _c10mc[:-1] + "itavad"]}
             return {"M": b + "avAn", "F": b + "avatI", "N": b + "avat"}
 
         elif pratyaya == "Satf":
