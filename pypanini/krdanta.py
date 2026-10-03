@@ -5401,6 +5401,12 @@ class KrdantaEngine:
             # curAdi jYA jYAp-stem ktavatu twins (jYApitavAn; same survey as kta iter482).
             if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "jYA":
                 return {"M": [stem + "vAn", "jYApitavAn"], "F": [stem + "vatI", "jYApitavatI"], "N": [stem + "vat", "jYApitavat"]}
+            # curAdi vowel-final-u Av-twins (yAvitavAn/...; Av surveyed yu/cyu/BU;
+            # generic stem triple kept first; additive, curAdiH-gated).
+            if sanadi is None and meta.get("gana") == "curAdiH":
+                _c10mc = meta.get("clean", "") or clean
+                if _c10mc[-1:] in ("u", "U"):
+                    return {"M": [stem + "vAn", _c10mc[:-1] + "AvitavAn"], "F": [stem + "vatI", _c10mc[:-1] + "AvitavatI"], "N": [stem + "vat", _c10mc[:-1] + "Avitavat"]}
             # curAdi ktavatu twin-sets (kta-grade stems + itavat; same shape survey as kta;
             # generic twin kept first; additive, curAdiH-gated).
             if sanadi is None and meta.get("gana") == "curAdiH":
@@ -6265,6 +6271,12 @@ class KrdantaEngine:
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10ss:
                         _c10ss.append("jYAp")
+                # vowel-final-u Av-stems (yAvay-...; Av surveyed yu/cyu/BU; additive order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw[-1:] in ("u", "U"):
+                        _c10av = _c10raw[:-1] + "Av"
+                        if _c10av not in _c10ss:
+                            _c10ss.append(_c10av)
                 for _c10mc in _c10ss:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -6924,6 +6936,12 @@ class KrdantaEngine:
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10ss:
                         _c10ss.append("jYAp")
+                # vowel-final-u Av-stems (yAvay-...; Av surveyed yu/cyu/BU; additive order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw[-1:] in ("u", "U"):
+                        _c10av = _c10raw[:-1] + "Av"
+                        if _c10av not in _c10ss:
+                            _c10ss.append(_c10av)
                 for _c10mc in _c10ss:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7297,6 +7315,12 @@ class KrdantaEngine:
                         _c10ay = _c10raw[:-1] + "Ay"
                         if _c10ay not in _c10stems:
                             _c10stems.append(_c10ay)
+                # vowel-final-u Av-stems (yAvay-...; Av surveyed yu/cyu/BU; additive order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw[-1:] in ("u", "U"):
+                        _c10av = _c10raw[:-1] + "Av"
+                        if _c10av not in _c10stems:
+                            _c10stems.append(_c10av)
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7518,6 +7542,12 @@ class KrdantaEngine:
                         _c10ay = _c10raw[:-1] + "Ay"
                         if _c10ay not in _c10stems:
                             _c10stems.append(_c10ay)
+                # vowel-final-u Av-stems (yAvay-...; Av surveyed yu/cyu/BU; additive order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw[-1:] in ("u", "U"):
+                        _c10av = _c10raw[:-1] + "Av"
+                        if _c10av not in _c10stems:
+                            _c10stems.append(_c10av)
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7708,6 +7738,12 @@ class KrdantaEngine:
                         _c10ay = _c10raw[:-1] + "Ay"
                         if _c10ay not in _c10stems:
                             _c10stems.append(_c10ay)
+                # vowel-final-u Av-stems (yAvay-...; Av surveyed yu/cyu/BU; additive order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw[-1:] in ("u", "U"):
+                        _c10av = _c10raw[:-1] + "Av"
+                        if _c10av not in _c10stems:
+                            _c10stems.append(_c10av)
                 for _c10mc in _c10stems:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
@@ -7947,6 +7983,12 @@ class KrdantaEngine:
                 for _c10raw in (clean, meta.get("clean", "") or clean):
                     if _c10raw == "jYA" and "jYAp" not in _c10ss:
                         _c10ss.append("jYAp")
+                # vowel-final-u Av-stems (yAvay-...; Av surveyed yu/cyu/BU; additive order-kept).
+                for _c10raw in (clean, meta.get("clean", "") or clean):
+                    if _c10raw[-1:] in ("u", "U"):
+                        _c10av = _c10raw[:-1] + "Av"
+                        if _c10av not in _c10ss:
+                            _c10ss.append(_c10av)
                 for _c10mc in _c10ss:
                     _c10vw = [ch for ch in _c10mc if ch in SLP1_VOWELS]
                     if not _c10vw:
