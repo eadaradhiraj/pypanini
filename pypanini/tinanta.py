@@ -10252,12 +10252,12 @@ class TinantaDerivationEngine:
                 # + U (u after onset clusters per buBruR); unanimous 4-fid UR survey;
                 # both padas attested; curAdiH-gated; additive).
                 if sanadi is None and meta.get("gana") == "curAdiH":
-                    _c10um = re.match(r"^(.+)UR$", clean or "")
+                    _c10um = re.match(r"^(.+)(UR|Ur)$", clean or "")
                     if _c10um:
                         _c10uo = _c10um.group(1)
                         _c10uc = {"k": "c", "g": "j", "B": "b"}.get(_c10uo[:1], _c10uo[:1])
                         _c10uv = "u" if len(_c10uo) > 1 else "U"
-                        _c10us0 = _c10uo + "uR"
+                        _c10us0 = _c10uo + "u" + ("R" if (clean.endswith("UR") or _c10uo[:1] in ("s", "S")) else "r")
                         _c10ub = "a" + _c10uc + _c10uv + _c10us0 + "a"
                         _c10us = _c10ub[:-1]
                         _c10ur_p = {("prathama","eka"): [_c10ub+"t", _c10ub+"d"], ("prathama","dvi"): [_c10ub+"tAm"], ("prathama","bahu"): [_c10ub+"n"], ("madhyama","eka"): [_c10ub+"H"], ("madhyama","dvi"): [_c10ub+"tam"], ("madhyama","bahu"): [_c10ub+"ta"], ("uttama","eka"): [_c10ub+"m"], ("uttama","dvi"): [_c10us+"Ava"], ("uttama","bahu"): [_c10us+"Ama"]}
@@ -10522,18 +10522,25 @@ class TinantaDerivationEngine:
                 # + U (u after onset clusters per buBruR); unanimous 4-fid UR survey;
                 # both padas attested; curAdiH-gated; additive).
                 if sanadi is None and meta.get("gana") == "curAdiH":
-                    _c10um = re.match(r"^(.+)UR$", clean or "")
+                    _c10um = re.match(r"^(.+)(UR|Ur)$", clean or "")
                     if _c10um:
                         _c10uo = _c10um.group(1)
                         _c10uc = {"k": "c", "g": "j", "B": "b"}.get(_c10uo[:1], _c10uo[:1])
                         _c10uv = "u" if len(_c10uo) > 1 else "U"
-                        _c10us0 = _c10uo + "uR"
+                        _c10us0 = _c10uo + "u" + ("R" if (clean.endswith("UR") or _c10uo[:1] in ("s", "S")) else "r")
                         _c10ub = "a" + _c10uc + _c10uv + _c10us0 + "a"
                         _c10us = _c10ub[:-1]
                         _c10ur_p = {("prathama","eka"): [_c10ub+"t", _c10ub+"d"], ("prathama","dvi"): [_c10ub+"tAm"], ("prathama","bahu"): [_c10ub+"n"], ("madhyama","eka"): [_c10ub+"H"], ("madhyama","dvi"): [_c10ub+"tam"], ("madhyama","bahu"): [_c10ub+"ta"], ("uttama","eka"): [_c10ub+"m"], ("uttama","dvi"): [_c10us+"Ava"], ("uttama","bahu"): [_c10us+"Ama"]}
                         _c10ur_a = {("prathama","eka"): [_c10us+"ata"], ("prathama","dvi"): [_c10us+"etAm"], ("prathama","bahu"): [_c10us+"anta"], ("madhyama","eka"): [_c10us+"aTAH"], ("madhyama","dvi"): [_c10us+"eTAm"], ("madhyama","bahu"): [_c10us+"aDvam"], ("uttama","eka"): [_c10us+"e"], ("uttama","dvi"): [_c10us+"Avahi"], ("uttama","bahu"): [_c10us+"Amahi"]}
                         cands += _c10ur_p.get((purusha, vacana), [])
                         cands += _c10ur_a.get((purusha, vacana), [])
+                # curAdi SUr luN keep-U twin (aSuSUrata; sole SUr surveyed — U kept, short-u
+                # redup; Atmane-only here (SUr lacks plung: ceiling); curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    if (meta.get("clean", "") or clean) == "SUr":
+                        _c10sus = "aSuSUra"[:-1]
+                        _c10sur = {("prathama","eka"): [_c10sus+"ata"], ("prathama","dvi"): [_c10sus+"etAm"], ("prathama","bahu"): [_c10sus+"anta"], ("madhyama","eka"): [_c10sus+"aTAH"], ("madhyama","dvi"): [_c10sus+"eTAm"], ("madhyama","bahu"): [_c10sus+"aDvam"], ("uttama","eka"): [_c10sus+"e"], ("uttama","dvi"): [_c10sus+"Avahi"], ("uttama","bahu"): [_c10sus+"Amahi"]}
+                        cands += _c10sur.get((purusha, vacana), [])
                 # curAdi izk redup-aorist Atmane twins (avivizkata/...; Ci-redup + root
                 # + a, h->j in redup; unanimous 4/4 izk survey; 0486 plung already passing
                 # via generic; Atmane-only here (0207/0208/0209 lack plung: ceiling);
