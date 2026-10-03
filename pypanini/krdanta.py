@@ -1268,6 +1268,10 @@ class KrdantaEngine:
             _bases.append(raw[0] + "Avay")
         if raw == "smi":
             _bases.append("smAyay")
+        # bare-Ci Ay-grade (jAy for ji; same shape as smi-Ay: len-2 i-final;
+        # ci gets cAyay twin the same way; surveyed; additive).
+        if len(raw) == 2 and raw[-1:] == "i" and raw[0] + "Ayay" not in _bases:
+            _bases.append(raw[0] + "Ayay")
         if raw.endswith("A"):
             _bases.append(raw + "pay")
         if raw == "sad":
@@ -3592,6 +3596,22 @@ class KrdantaEngine:
                         _c10mm = re.sub(r"n([pPbBsqQRwWkKgG])", (lambda _m: ("M" if _m.group(1) == "s" else ("R" if _m.group(1) in "wWqQR" else ("N" if _m.group(1) in "kKgG" else "m"))) + _m.group(1)), sec_base)
                         if _c10mm != sec_base:
                             return {"gender": "Neuter", "form": _c10mm + "anam"}
+                    # curAdi nich lyuw mUla-delegation (kIrtana/syAmana/mArjana...;
+                    # nich sec keeps ay (kartanam) but attested drops it; mUla
+                    # lyuw avyaya twins carry the grades; old form kept first
+                    # (0275 cyavanam hits via old only); additive,
+                    # nijanta+curAdiH-gated).
+                    if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
+                        try:
+                            _c10mk = self.derive_krdanta(dhatu, "lyuw", None, upasarga, dhatu_id=dhatu_id) or {}
+                        except Exception:
+                            _c10mk = {}
+                        _c10av = _c10mk.get("avyaya", []) if isinstance(_c10mk, dict) else []
+                        if not isinstance(_c10av, list):
+                            _c10av = [_c10av]
+                        _c10all = [_lb + "m"] + [x for x in _c10av if x != _lb + "m"]
+                        if len(_c10all) > 1:
+                            return {"avyaya": _c10all}
                     return {"gender":"Neuter","form":_lb+"m"}
                 if pratyaya == "GaY":
                     return {"gender":"Masculine","form":sec_base+"aH"}
