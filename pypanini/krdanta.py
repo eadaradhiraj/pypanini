@@ -2516,6 +2516,16 @@ class KrdantaEngine:
                     for _ug in dict.fromkeys([self._vriddhi_base(root, is_idit), self._guna_base(root, is_idit)]):
                         if _ug != root and _ug not in _gg:
                             _gg.append(_ug)
+                    # f-grades ar/Ar/Ir/Ur (cikIrtayiz-...; sole kFt surveyed in matrix;
+                    # mirrors san-kta inline; additive)
+                    if _rw and _rw[-1] in ("f", "F"):
+                        _fpost = root[root.rindex(_rw[-1])+1:]
+                        if "i" not in _fpost and "I" not in _fpost:
+                            _fpre = root[:root.rindex(_rw[-1])]
+                            for _fg in ("ar", "Ar", "Ir", "Ur"):
+                                _ff = _fpre + _fg + _fpost
+                                if _ff != root and _ff not in _gg:
+                                    _gg.append(_ff)
                     # i-final nasal twins (tuYj/laRq/cint...; mirrors idit num-rule; is_idit-gated)
                     if root.endswith(("i", "I")) and is_idit:
                         _bw = root[:-1]
@@ -6742,6 +6752,16 @@ class KrdantaEngine:
                                 for _c10zb in dict.fromkeys([_c10zg, re.sub(r"n([pPbBs])", (lambda _m: ("M" if _m.group(1) == "s" else "m") + _m.group(1)), _c10zg)]):
                                     if _c10zb != _c10rt and _c10zb not in _c10gg:
                                         _c10gg.append(_c10zb)
+                    # f-grades ar/Ar/Ir/Ur (cikIrtayizitavya; sole kFt surveyed;
+                    # mirrors san-kta inline; additive)
+                    if _c10rw and _c10rw[-1] in ("f", "F"):
+                        _c10fp = _c10rt[_c10rt.rindex(_c10rw[-1])+1:]
+                        if "i" not in _c10fp and "I" not in _c10fp:
+                            _c10fq = _c10rt[:_c10rt.rindex(_c10rw[-1])]
+                            for _c10fg in ("ar", "Ar", "Ir", "Ur"):
+                                _c10ff = _c10fq + _c10fg + _c10fp
+                                if _c10ff != _c10rt and _c10ff not in _c10gg:
+                                    _c10gg.append(_c10ff)
                     # n->R before w/W/q in san (luluRwayiz-...; unanimous 3/3; additive).
                     _c10rl = re.sub(r"n([wWqQR])", r"R\1", _c10rt)
                     if _c10rl != _c10rt and _c10rl not in _c10gg:
