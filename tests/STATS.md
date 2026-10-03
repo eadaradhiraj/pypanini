@@ -816,3 +816,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 620 (GEN-10: tavya f-plain twins (kfpayitavya/spfhayitavya/...; M/i-post guards mirrored; superset): sweep +24 (4 improved: 10.0408/0410/0441/0442), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 621 (GEN-10: Satf f-plain bases (kfpayan/spfhayan/...; mirror tavya iter620; superset): sweep +12 (2 improved: 10.0408/0410), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
 - Iteration 622 (GEN-10: SAnac f-plain bases (kfpayamARa/spfhayamARa/...; mirror Satf iter621; superset): sweep +24 (4 improved: 10.0408/0410/0441/0442), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)
+- Iteration 623 (GEN-10: tfc f-plain forms (kfpayitA/spfhayitA/...; mirror SAnac iter622; superset): sweep +24 (4 improved: 10.0408/0410/0441/0442), 0 worsened; 06 holds 173/174, 01 holds 1156/1156 fid-diff 0/0; pilots green.)

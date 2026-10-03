@@ -8031,6 +8031,8 @@ class KrdantaEngine:
                         _c10forms = [_c10mc + "itA", _c10mc + "ayitA"]
                         if _c10nc == "e" and len(_c10mc) >= 2:
                             _c10forms.append(_c10mc[:-1] + _c10mc[-1].lower() + _c10mc[-1] + "ayitA")
+                    elif _c10nc in ("f", "F") and "M" not in _c10mc and "i" not in _c10mc[_c10mc.rindex(_c10nc)+1:] and "I" not in _c10mc[_c10mc.rindex(_c10nc)+1:]:
+                        _c10forms = [_c10mc + "itA", _c10mc + "ayitA"]
                     for _c10f in dict.fromkeys(_c10forms):
                         _c10t = {"M": _c10f, "F": _c10f[:-1] + "rI" if _c10f.endswith("A") else _c10f + "rI", "N": _c10f[:-1] + "f" if _c10f.endswith("A") else _c10f + "f"}
                         for _gg in ("M", "F", "N"):
