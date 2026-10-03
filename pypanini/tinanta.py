@@ -1008,6 +1008,12 @@ class TinantaDerivationEngine:
                     _c10uu = _c10mc[:_c10mc.rindex(_c10nc)] + "U" + _c10mc[_c10mc.rindex(_c10nc)+1:] + "ay"
                     if _c10uu not in _c10ay:
                         _c10ay.append(_c10uu)
+                # Av-grade present twins (yAvay/cyAvay/BAvay; unanimous 4/5, DU takes
+                # Davate via generic; additive, appended last).
+                if _c10nc in ("u", "U") and _c10mc[-1] in ("u", "U"):
+                    _c10av = _c10mc[:-1] + "Avay"
+                    if _c10av not in _c10ay:
+                        _c10ay.append(_c10av)
                 # f-grade present twins (parT-/pAr-/kIr- + ay; grade lexical ar/Ar/Ir
                 # so all three; unanimous grade+ay survey 31/31; additive, appended last).
                 if _c10nc in ("f", "F") and (_c10mc[-1] not in SLP1_VOWELS or len(_c10mc) == 2):
