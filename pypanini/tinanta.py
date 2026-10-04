@@ -3013,7 +3013,7 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "divAdiH" and c in ("so", "ISuc", "gup"):
                 return {"so": "sezIya", "ISuc": "SoSucya", "gup": "jogupya"}[c]
             # Nitya-san (3.1.5/3.1.6, seT only): yang uses san base (jugupsya/titikzya/...; 01.0461 aniT excluded via sew).
-            if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
+            if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew and meta.get("gana") != "curAdiH":
                 _ysb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
                 return _ysb[c] + "ya"
             if c == "BU":
@@ -3321,7 +3321,7 @@ class TinantaDerivationEngine:
             if c == "f":
                 return "arerI"
             # Nitya-san (3.1.5/3.1.6, seT only): yanlug uses san base (jugups/titikz/...; 01.0461 aniT excluded via sew).
-            if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew:
+            if c in ("gup", "tij", "kit", "mAn", "baD", "dAn", "SAn") and sew and meta.get("gana") != "curAdiH":
                 _ylb = {"gup": "jugups", "tij": "titikz", "kit": "cikits", "mAn": "mImAMs", "baD": "bIBats", "dAn": "dIdAMs", "SAn": "SISAMs"}
                 return _ylb[c]
             # Panini 7.4.67 dyutisvApyoH saMprasAraRam: dyut takes samprasarana i -> e guna in abhyasa (7.4.82)
