@@ -9985,7 +9985,7 @@ class TinantaDerivationEngine:
                 cands += ["ayatizwa", "ayati", "ayAtizwa"]
                 return list(dict.fromkeys(cands)), log
             # yatI special handling
-            if clean in ("yat", "yatI") and sanadi is None:
+            if clean in ("yat", "yatI") and sanadi is None and meta.get("gana") != "curAdiH":
                 tbl_yat = {("prathama","eka"):["ayatizwa"],("prathama","dvi"):["ayatizAtAm"],("prathama","bahu"):["ayatizata"],("madhyama","eka"):["ayatizWAH"],("madhyama","dvi"):["ayatizATAm"],("madhyama","bahu"):["ayatiDvam"],("uttama","eka"):["ayatizi"],("uttama","dvi"):["ayatizvahi"],("uttama","bahu"):["ayatizmahi"]}
                 cands = tbl_yat.get((purusha,vacana), ["ayatizwa"])
                 cands += ["ayati", "ayAtizwa"]
