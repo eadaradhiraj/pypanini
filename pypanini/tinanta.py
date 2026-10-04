@@ -4453,6 +4453,12 @@ class TinantaDerivationEngine:
                             _c10o = "o" + _c10r
                             if _c10o not in yak_list:
                                 yak_list.append(_c10o)
+                # ranh yak Ng stem (raNgyate; 10.0397 surveyed, yy absent 0 vs Ng 55;
+                # fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    for _c10ng in ("raNgy",):
+                        if _c10ng not in yak_list:
+                            yak_list.append(_c10ng)
                 cands=[]
                 for ys in yak_list:
                     yb = _aug(ys) if lakara in ("laN",) else ys
