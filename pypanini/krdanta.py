@@ -1,4 +1,4 @@
-from .pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
+from pypanini.pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
 """
 Generative Kṛdanta Engine - no per-dhatu form dictionaries.
 Derives from dhatu properties (sew, pada, vowel-final etc.)
@@ -1507,7 +1507,7 @@ class KrdantaEngine:
         c_eff = c.replace("ur", "Ur", 1) if "ur" in c else c
         if is_adeca(c):
             c_eff = c[:-1] + "A"
-        if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")) and c not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+        if (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and c.endswith(("i", "I")) and c not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
             _bw = c[:-1]
             _nn = "N" if _bw and _bw[-1] in ("k", "K", "g", "G") else ("Y" if _bw and _bw[-1] in ("c", "C", "j", "J") else ("R" if _bw and _bw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _bw and _bw[-1] in ("p", "P", "b", "B") else None)))
             if _nn and len(_bw) >= 1:
@@ -1951,7 +1951,7 @@ class KrdantaEngine:
         clean = meta["clean"]
         if str(dhatu_id) == "01.1166" and sanadi is None: clean = "ftIy"
         
-        pada = meta["pada"]
+        pada = _force_pada or meta["pada"]
         padam = meta.get("padam", "")
         is_idit = meta.get("is_idit", False)
         is_mit = meta.get("is_mit", False)
@@ -1981,7 +1981,7 @@ class KrdantaEngine:
                     clean = alt
                 pass
         # i-ending idit with nasal (num) for krdanta as well (skudi/Svidi/vadi/klidi etc.)
-        if clean.endswith(("i","I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI") and (is_idit or pada == "Atmanepadi") and any(c in SLP1_VOWELS for c in clean[:-1]):
+        if clean.endswith(("i","I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI") and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and any(c in SLP1_VOWELS for c in clean[:-1]):
             base_wo_i = clean[:-1]
             if clean.endswith("I"):
                 clean = base_wo_i
@@ -2145,7 +2145,7 @@ class KrdantaEngine:
                 if is_mit and "e" in c:
                     return c.replace("e", "i", 1) + "ay"
                 # idit i-final numclean+ay (agi->aNgay, sraki->sraNkay; meta skips num for Y-class)
-                if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")) and c not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+                if (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and c.endswith(("i", "I")) and c not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                     _nbw = c[:-1]
                     _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
@@ -2545,7 +2545,7 @@ class KrdantaEngine:
                     redup_vowel = "u" if last_v in ("u","U","o","O") else "i"
 
                 # idit i-final velar/palatal takes assimilated num (sraki->sisraNkiz; meta skips num for Y-class)
-                if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")) and c not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+                if (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and c.endswith(("i", "I")) and c not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                     _nbw = c[:-1]
                     _nn = "N" if _nbw and _nbw[-1] in ("k", "K", "g", "G") else ("Y" if _nbw and _nbw[-1] in ("c", "C", "j", "J") else ("R" if _nbw and _nbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _nbw and _nbw[-1] in ("p", "P", "b", "B") else None)))
                     if _nn and len(_nbw) >= 1:
@@ -3093,7 +3093,7 @@ class KrdantaEngine:
                 if is_adeca(c):
                     c = c[:-1] + "A"
                 # idit i-final fresh numclean (mirror _nijanta_sec/tinanta; sraki->sAsraNkya; mangled ends-cons auto-miss)
-                if (is_idit or pada == "Atmanepadi") and c.endswith(("i", "I")) and c not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+                if (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and c.endswith(("i", "I")) and c not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                     _ybw = c[:-1]
                     _ynn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else ("R" if _ybw and _ybw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ybw and _ybw[-1] in ("p", "P", "b", "B") else None)))
                     if _ynn and len(_ybw) >= 1:
@@ -3303,7 +3303,7 @@ class KrdantaEngine:
             # cross-anta deDIyamAnaH match (3 slots, documented rotation); kta/ktavatu go spurious->true.
             elif sanadi == "yanluganta" and clean.endswith("ew") and not sew:
                 sec = clean[:-2] + "A"
-            elif sanadi == "yanluganta" and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            elif sanadi == "yanluganta" and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 # Y-class (meta skips num): primitive+num, reduplicated if Atmanepadi (sraki->sAsraNkitaH, agi->aNgitaH)
                 _ylbw = clean[:-1]
                 _yln = "N" if _ylbw and _ylbw[-1] in ("k", "K", "g", "G") else ("Y" if _ylbw and _ylbw[-1] in ("c", "C", "j", "J") else ("R" if _ylbw and _ylbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ylbw and _ylbw[-1] in ("p", "P", "b", "B") else None)))
@@ -3659,6 +3659,19 @@ class KrdantaEngine:
                     m = base+"H"
                     f = base[:-1]+"A" if base.endswith("a") else base+"A"
                     n = base+"m"
+                    
+                    _ay_base = sec + "amAna"
+                    if (_natva_applies(orig_clean) or _natva_applies(sec)) and _ay_base.endswith("amAna"):
+                        _ay_base = _ay_base[:-5] + "amARa"
+                        
+                    _ay_m = _ay_base + "H"
+                    _ay_f = _ay_base[:-1]+"A" if _ay_base.endswith("a") else _ay_base+"A"
+                    _ay_n = _ay_base + "m"
+                    
+                    m = [m, _ay_m]
+                    f = [f, _ay_f]
+                    n = [n, _ay_n]
+                    
                     # curAdi nich SAnac mUla-delegation (mUla grades + base + ay-twin; additive).
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
                         try:
@@ -6254,7 +6267,7 @@ class KrdantaEngine:
             if sanadi == "sannanta" and (clean in ("jYA", "Sru", "smf", "dfS", "darS") or (op and any(op.startswith(x) for x in ("jYA", "Sru", "smf", "dfS")))):
                 return None
             # Panini 1.3.60 SaqaH SIyateH: Sad takes Atmanepada (SAnac), not Satf in mUla
-            if pada == "Atmanepadi" or (clean_ay and sanadi == "yanluganta") or ((clean in ("Sad", "Sadx") or op.startswith("Sad")) and sanadi is None):
+            if (pada == "Atmanepadi" and _force_pada is None) or (clean_ay and sanadi == "yanluganta") or ((clean in ("Sad", "Sadx") or op.startswith("Sad")) and sanadi is None):
                 return None
             _satf_base = guna_base if (sanadi is None or sanadi == "yanluganta") else clean
             if clean == "sUrkzy" and dhatu_id == "01.1048":
@@ -6656,7 +6669,7 @@ class KrdantaEngine:
             if clean[-3:].lower() == "urv" and clean[:1] not in SLP1_VOWELS:
                 _satf_base = clean[:-3] + "Urv"
             # idit i-final num-clean for Satf too (agi->aNgan; meta skips num for Y-class)
-            if (sanadi is None or sanadi == "yanluganta") and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if (sanadi is None or sanadi == "yanluganta") and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _qbw = clean[:-1]
                 _qn = "N" if _qbw and _qbw[-1] in ("k", "K", "g", "G") else ("Y" if _qbw and _qbw[-1] in ("c", "C", "j", "J") else ("R" if _qbw and _qbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _qbw and _qbw[-1] in ("p", "P", "b", "B") else None)))
                 if _qn and len(_qbw) >= 1:
@@ -6879,7 +6892,7 @@ class KrdantaEngine:
             # NB: derive-level num may pre-rewrite local clean (kasi->kaMs), so gate on meta-clean fallback.
             # dIDI/vevI excluded (dInDAna is wrong; the y-SAnac special below is correct; pair-gated).
             _idc = clean if clean.endswith(("i", "I")) else (meta.get("clean", "") or "")
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and _idc.endswith(("i", "I")) and any(c in SLP1_VOWELS for c in _idc[:-1]) and meta.get("clean") not in ("dIDI", "vevI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and _idc.endswith(("i", "I")) and any(c in SLP1_VOWELS for c in _idc[:-1]) and meta.get("clean") not in ("dIDI", "vevI"):
                 _sbw = _idc[:-1]
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else ("n" if _sbw and _sbw[-1] in ("t", "T", "d", "D", "n") else None))))
                 if not _sn and _sbw and _sbw[-1] in ("s", "S", "z", "h"):
@@ -7497,7 +7510,7 @@ class KrdantaEngine:
                     _r7ys = ["vevejitavya"]
                 return {"M": [_s + "H" for _s in _r7ys], "F": [_s[:-1] + "A" for _s in _r7ys], "N": [_s + "m" for _s in _r7ys]}
             # idit i-final numay (agi->aNgayitavyaH, sraki->sraNkayitavyaH; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
                 if _sn and len(_sbw) >= 1:
@@ -7933,7 +7946,7 @@ class KrdantaEngine:
             if sanadi is None and clean == "mI" and meta.get("gana") == "kryAdiH":
                 return tri_linga("mAnIya")
             # idit i-final num-clean (agi->aNganIyaH; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
                 if _sn and len(_sbw) >= 1:
@@ -8143,7 +8156,7 @@ class KrdantaEngine:
                 stem = clean + "ya"
                 return {"M": stem+"H","F":stem[:-1]+"A" if stem.endswith("a") else stem+"A","N":stem+"m"}
             # idit i-final vowel-initial vriddhi-num + aya (agi->ANgayaH; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean[:1] in SLP1_VOWELS and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean[:1] in SLP1_VOWELS and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _ybw = clean[:-1]
                 _yn = "N" if _ybw and _ybw[-1] in ("k", "K", "g", "G") else ("Y" if _ybw and _ybw[-1] in ("c", "C", "j", "J") else ("R" if _ybw and _ybw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _ybw and _ybw[-1] in ("p", "P", "b", "B") else None)))
                 if _yn and len(_ybw) >= 1:
@@ -8359,7 +8372,7 @@ class KrdantaEngine:
                 if _d4mc == "gup":
                     return {"M": "gopakaH", "F": "gopikA", "N": "gopakam"}
             # idit i-final num-clean (agi->aNgakaH; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _rbw = clean[:-1]
                 _rn = "N" if _rbw and _rbw[-1] in ("k", "K", "g", "G") else ("Y" if _rbw and _rbw[-1] in ("c", "C", "j", "J") else ("R" if _rbw and _rbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _rbw and _rbw[-1] in ("p", "P", "b", "B") else None)))
                 if _rn and len(_rbw) >= 1:
@@ -8910,7 +8923,7 @@ class KrdantaEngine:
                     _r7ys = ["vevejitA"]
                 return {"M": _r7ys, "F": [_s[:-1] + "rI" for _s in _r7ys], "N": [_s[:-1] + "f" for _s in _r7ys]}
             # idit i-final numay (agi->aNgayitA, sraki->sraNkayitA; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
                 if _sn and len(_sbw) >= 1:
@@ -9077,7 +9090,7 @@ class KrdantaEngine:
             if clean == "i" and meta.get("gana") == "adAdiH" and sanadi is None and op.startswith("iN"):
                 return {"gender": "Neuter", "form": "aDyayanam"}
             # idit i-final num-clean (agi->aNganam, sraki->sraNkaRam; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _sbw = clean[:-1]
                 _sn = "N" if _sbw and _sbw[-1] in ("k", "K", "g", "G") else ("Y" if _sbw and _sbw[-1] in ("c", "C", "j", "J") else ("R" if _sbw and _sbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _sbw and _sbw[-1] in ("p", "P", "b", "B") else None)))
                 if _sn and len(_sbw) >= 1:
@@ -9221,7 +9234,7 @@ class KrdantaEngine:
                             "form": _rc + "A" + clean[:-1] + "AraH"}
                 if sanadi is None:
                     return None
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _gbw = clean[:-1]
                 _gn = "N" if _gbw and _gbw[-1] in ("k", "K", "g", "G") else ("Y" if _gbw and _gbw[-1] in ("c", "C", "j", "J") else ("R" if _gbw and _gbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _gbw and _gbw[-1] in ("p", "P", "b", "B") else None)))
                 if _gn and len(_gbw) >= 1:
@@ -9365,7 +9378,7 @@ class KrdantaEngine:
             if sanadi is None and meta.get("gana") == "ruDAdiH" and clean == "vij":
                 return {"avyaya": ["vijitum"]}
             # idit i-final num-clean (agi->aNgitum; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _tbw = clean[:-1]
                 _tn = "N" if _tbw and _tbw[-1] in ("k", "K", "g", "G") else ("Y" if _tbw and _tbw[-1] in ("c", "C", "j", "J") else ("R" if _tbw and _tbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _tbw and _tbw[-1] in ("p", "P", "b", "B") else None)))
                 if _tn and len(_tbw) >= 1:
@@ -9771,7 +9784,7 @@ class KrdantaEngine:
                 if clean in ("dA", "dAR", "de"):
                     return {"avyaya": ["dattvA", "dAtvA"]}
             # idit i-final num-clean (agi->aNgitvA; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _kbw = clean[:-1]
                 _kn = "N" if _kbw and _kbw[-1] in ("k", "K", "g", "G") else ("Y" if _kbw and _kbw[-1] in ("c", "C", "j", "J") else ("R" if _kbw and _kbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _kbw and _kbw[-1] in ("p", "P", "b", "B") else None)))
                 if _kn and len(_kbw) >= 1:
@@ -10202,7 +10215,7 @@ class KrdantaEngine:
             except Exception:
                 _Rtw = []
             # idit i-final num-clean (agi->aNgya; meta skips num for Y-class)
-            if sanadi is None and (is_idit or pada == "Atmanepadi") and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
+            if sanadi is None and (is_idit or (pada == "Atmanepadi" and _force_pada is None)) and clean.endswith(("i", "I")) and clean not in ("fti", "ftI", "qI", "dI", "mI", "rI", "pI", "vI"):
                 _lbw = clean[:-1]
                 _ln = "N" if _lbw and _lbw[-1] in ("k", "K", "g", "G") else ("Y" if _lbw and _lbw[-1] in ("c", "C", "j", "J") else ("R" if _lbw and _lbw[-1] in ("w", "W", "q", "Q", "R") else ("m" if _lbw and _lbw[-1] in ("p", "P", "b", "B") else None)))
                 if _ln and len(_lbw) >= 1:

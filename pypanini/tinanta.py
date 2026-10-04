@@ -1,5 +1,5 @@
-from .pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
-from .pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
+from pypanini.pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
+from pypanini.pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
 """
 Generative Tiṅanta Derivation Engine
 - No hardcoded per-dhatu form dictionaries
@@ -1692,6 +1692,21 @@ class TinantaDerivationEngine:
                     if cl and cl in PADA_MAP_CLEAN and upasarga in PADA_MAP_CLEAN[cl]:
                         _force_pada = PADA_MAP_CLEAN[cl][upasarga]
                 except Exception: pass
+        cands, log = self._derive_inner(
+            dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path,
+            _force_pada, _cakz_bypass
+        )
+        if upasarga and not _force_pada:
+            if dhatu_id and dhatu_id in PADA_MAP_ID and upasarga in PADA_MAP_ID[dhatu_id]:
+                _force_pada = PADA_MAP_ID[dhatu_id][upasarga]
+            else:
+                try:
+                    meta = self._get_meta(dhatu, dhatu_id)
+                    cl = meta.get("clean")
+                    if cl and cl in PADA_MAP_CLEAN and upasarga in PADA_MAP_CLEAN[cl]:
+                        _force_pada = PADA_MAP_CLEAN[cl][upasarga]
+                except Exception: pass
+        
         cands, log = self._derive_inner(
             dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path,
             _force_pada, _cakz_bypass
@@ -6384,7 +6399,7 @@ class TinantaDerivationEngine:
             aug_s_list = [self._add_augment(s, s[0] in SLP1_VOWELS if s else False) for s in s_stems]
             aug_s = aug_s_list[0]
             # per-lakara sannanta (kartari, inherits pada; over-generate both padas for ubhayapada / cross-matching)
-            is_atman = (pada == "Atmanepadi")
+            is_atman = ((pada == "Atmanepadi" and _force_pada is None))
             if lakara in ("lw", "laN", "low", "viDiliN"):
                 cands_all = []
                 for idx, s in enumerate(s_stems):
@@ -6534,7 +6549,7 @@ class TinantaDerivationEngine:
                 else:
                     n_stems = ["KyAy", "kSAy"]
             # Use first as n_stem for backward compat, but will generate for all below
-            is_atman = (pada == "Atmanepadi")
+            is_atman = ((pada == "Atmanepadi" and _force_pada is None))
             # For the per-lakara handling below, we will need to handle multiple n_stems
             # To keep simple, we will generate candidates for all n_stems in each lakara branch
             # So we keep n_stem as is, but also keep n_stems list
@@ -8997,12 +9012,12 @@ class TinantaDerivationEngine:
             # early-return like ji (Atmane/karmani falls through untouched); table covers all 9 slots.
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "UrRu":
                 _nuv = {("prathama","eka"):["UrRunAva"],("prathama","dvi"):["UrRunuvatuH"],("prathama","bahu"):["UrRunuvuH"],("madhyama","eka"):["UrRunaviTa","UrRunuviTa"],("madhyama","dvi"):["UrRunuvaTuH"],("madhyama","bahu"):["UrRunuva"],("uttama","eka"):["UrRunava","UrRunAva"],("uttama","dvi"):["UrRunuviva"],("uttama","bahu"):["UrRunuvima"]}
-                if not (pada == "Atmanepadi" or prayoga == "karmani"):
+                if not ((pada == "Atmanepadi" and _force_pada is None) or prayoga == "karmani"):
                     return list(dict.fromkeys(_nuv.get((purusha, vacana), []))), log
             # stu o-grade liT m.eka (tuzwoTa; sole 02.0038 surveyed — ru/tu take a-grade ruraviTa/tutaviTa;
             # mid-chain appends get wiped by later generic assigns, so pada-split early-return like nuva/ji).
             if meta.get("gana") == "adAdiH" and sanadi is None and meta.get("clean") == "stu" and (purusha, vacana) == ("madhyama", "eka") and lakara == "liw":
-                if not (pada == "Atmanepadi" or prayoga == "karmani"):
+                if not ((pada == "Atmanepadi" and _force_pada is None) or prayoga == "karmani"):
                     return ["tuzwoTa"], log
             # ve-class liT Atmane redup (vye->vivye, hve->juhuve; surveyed 2/2 unanimous, JSON Atmane-only; ve already hits via generic path so excluded)
             if clean in ("vye", "hve"):
@@ -9099,7 +9114,7 @@ class TinantaDerivationEngine:
                     ("madhyama", "eka"): ["AriTa"], ("madhyama", "dvi"): ["AraTuH"], ("madhyama", "bahu"): ["Ara"],
                     ("uttama", "eka"): ["Ara"], ("uttama", "dvi"): ["Ariva"], ("uttama", "bahu"): ["Arima"],
                 }
-                _cands_f = (_atman_f.get(_pv, []) if (pada == "Atmanepadi" or prayoga == "karmani") else _paras_f.get(_pv, [])) + _atman_f.get(_pv, []) + _paras_f.get(_pv, [])
+                _cands_f = (_atman_f.get(_pv, []) if ((pada == "Atmanepadi" and _force_pada is None) or prayoga == "karmani") else _paras_f.get(_pv, [])) + _atman_f.get(_pv, []) + _paras_f.get(_pv, [])
                 return list(dict.fromkeys(_cands_f)), log
             if is_vowel_initial:
                 flip = {"u":"U","U":"u","i":"I","I":"i"}
