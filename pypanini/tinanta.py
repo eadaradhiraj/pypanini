@@ -3055,7 +3055,7 @@ class TinantaDerivationEngine:
             # {p,v,B,m,sv} take o+Ur, other 12 (S/st/k/d/j/J/D/n/g/bare-F) keep e+Ir
             # via generic below; gF-yang jegilyate quirk excluded (not o+Ur);
             # kryAdiH-gated, mirrors krdanta _yan_sec).
-            if meta.get("gana") == "kryAdiH" and c.endswith("F") and c[:-1] in ("p", "v", "B", "m", "sv"):
+            if meta.get("gana") in ("kryAdiH", "curAdiH") and c.endswith("F") and c[:-1] in ("p", "v", "B", "m", "sv"):
                 _fon = c[:-1]
                 return DEASPIRATE.get(_fon[0], _fon[0]) + "o" + _fon + "Urya"
             # kryAdi stF intensive e-redup + Ir-grade (testIrya; sole 09.0017
