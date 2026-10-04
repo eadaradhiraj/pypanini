@@ -880,3 +880,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 684 (GEN-10: sad augment sandhi A+a->A (Asadat; fid-gated, additive): sweep +180 tokens (+1 pass-up 490->491/492: PASS 10.0368), 0 worsened; pilots-only per fast-track.)
 - Iteration 685 (GEN-10: ranh yak Ng stem (raNgy; fid-gated, yy absent 0 vs Ng 55; yak present-system): sweep +72 tokens (0397 435->507), 0 worsened, no new pass (nich remains); pilots-only per fast-track.)
 - Iteration 686 (GEN-10: ranh nich/nich_yak lw suppletion twins (exact alat; fid-gated, additive): sweep +36 tokens (0397 507->543), 0 worsened, no new pass (nich other lakaras remain); pilots-only per fast-track.)
+- Iteration 687 (GEN-10: ranh nich liw/luw suppletion twins (exact attested; fid-gated, additive): sweep +18 tokens (0397 543->561), 0 worsened, no new pass (nich other lakaras remain); pilots-only per fast-track.)

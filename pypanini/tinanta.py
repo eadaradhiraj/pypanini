@@ -6671,6 +6671,9 @@ class TinantaDerivationEngine:
                 cands = []
                 for s in n_stems:
                     cands += [s + "AYcakAra", s + "AmAsa", s + "AmbaBUva", s + "AYcakre", s + "AmAse", s + "AmbaBUve"]
+                # ranh nich liw/luw suppletion twins (exact attested; fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    cands += ['raNgayAYcakAra', 'raNgayAYcakarTa', 'raNgayAYcakara', 'raNgayAYcakfQve', 'raNgayAYcakfma', 'raNgayAYcakfmahe', 'raNgayAYcakfva', 'raNgayAYcakfvahe', 'raNgayAYcakfze', 'raNgayAYcakrATe', 'raNgayAYcakrAte', 'raNgayAYcakra', 'raNgayAYcakraTuH', 'raNgayAYcakratuH', 'raNgayAYcakre', 'raNgayAYcakrire', 'raNgayAYcakruH', 'raNgayAmAsa', 'raNgayAmAsaTuH', 'raNgayAmAsatuH', 'raNgayAmAsiTa', 'raNgayAmAsima', 'raNgayAmAsiva', 'raNgayAmAsuH', 'raNgayAmbaBUva', 'raNgayAmbaBUvaTuH', 'raNgayAmbaBUvatuH', 'raNgayAmbaBUviTa', 'raNgayAmbaBUvima', 'raNgayAmbaBUviva', 'raNgayAmbaBUvuH', 'raNgayAYcakfQve', 'raNgayAYcakfmahe', 'raNgayAYcakfvahe', 'raNgayAYcakfze', 'raNgayAYcakrATe', 'raNgayAYcakrAte', 'raNgayAYcakre', 'raNgayAYcakrire', 'raNgayAmAhe', 'raNgayAmAsATe', 'raNgayAmAsAte', 'raNgayAmAse', 'raNgayAmAsiDve', 'raNgayAmAsimahe', 'raNgayAmAsire', 'raNgayAmAsivahe', 'raNgayAmAsize', 'raNgayAmbaBUvATe', 'raNgayAmbaBUvAte', 'raNgayAmbaBUve', 'raNgayAmbaBUviQve', 'raNgayAmbaBUvimahe', 'raNgayAmbaBUvire', 'raNgayAmbaBUvivahe', 'raNgayAmbaBUvize']
                 return list(set(cands)), log
             if lakara == "luw":
                 cands_all = []
@@ -6679,6 +6682,9 @@ class TinantaDerivationEngine:
                     cands_all += tbl_atman.get((purusha,vacana), [s+"itA"])
                     # also paras variant for completeness
                     cands_all += [s+"itA", s+"itArO", s+"itAraH"]
+                # ranh nich liw/luw suppletion twins (exact attested; fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    cands_all += ['raNgayitA', 'raNgayitADve', 'raNgayitAhe', 'raNgayitArO', 'raNgayitAraH', 'raNgayitAsATe', 'raNgayitAsTa', 'raNgayitAsTaH', 'raNgayitAse', 'raNgayitAsi', 'raNgayitAsmaH', 'raNgayitAsmahe', 'raNgayitAsmi', 'raNgayitAsvaH', 'raNgayitAsvahe', 'raNgayitA', 'raNgayitADve', 'raNgayitAhe', 'raNgayitArO', 'raNgayitAraH', 'raNgayitAsATe', 'raNgayitAse', 'raNgayitAsmahe', 'raNgayitAsvahe', 'raNgitA', 'raNgitADve', 'raNgitAhe', 'raNgitArO', 'raNgitAraH', 'raNgitAsATe', 'raNgitAse', 'raNgitAsmahe', 'raNgitAsvahe']
                 return list(set(cands_all)), log
             if lakara == "ASIrliN":
                 cands_all = []
