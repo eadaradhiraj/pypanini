@@ -10407,6 +10407,48 @@ class TinantaDerivationEngine:
                                 _c10gn_a = {("prathama","eka"): [_c10gt+"ata"], ("prathama","dvi"): [_c10gt+"etAm"], ("prathama","bahu"): [_c10gt+"anta"], ("madhyama","eka"): [_c10gt+"aTAH"], ("madhyama","dvi"): [_c10gt+"eTAm"], ("madhyama","bahu"): [_c10gt+"aDvam"], ("uttama","eka"): [_c10gt+"e"], ("uttama","dvi"): [_c10gt+"Avahi"], ("uttama","bahu"): [_c10gt+"Amahi"]}
                                 cands += _c10gn_p.get((purusha, vacana), [])
                                 cands += _c10gn_a.get((purusha, vacana), [])
+                # curAdi V-initial mUla luN redup-aorist union (ajAder dvitIyasya; ArtaTata/
+                # AYcakata/AYjagata/Onanata/AndaData/AMsasata; Y-num a + main a + M-nasal a +
+                # no-rp a; mirrors nich V-initial a-twins but mUla stems (clean/short); V-initial
+                # only (consonant covered by general union above); both padas; curAdiH-gated;
+                # additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10vc = (meta.get("clean", "") or clean) or ""
+                    if _c10vc and _c10vc[0] in SLP1_VOWELS and len(_c10vc) >= 2:
+                        _c10vv = _c10vc[0]
+                        _c10va = {"a": "A", "A": "A", "i": "E", "I": "E", "e": "E", "u": "O", "U": "O", "o": "O"}.get(_c10vv, "A")
+                        _c10vs = _c10vc[1:]
+                        _c10vsh = "".join({"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}.get(ch, ch) for ch in _c10vc)
+                        _c10vss = _c10vsh[1:] if len(_c10vsh) >= 2 else _c10vs
+                        _c10vend_p = {("prathama","eka"): ["at", "ad"], ("prathama","dvi"): ["atAm"], ("prathama","bahu"): ["an"], ("madhyama","eka"): ["aH"], ("madhyama","dvi"): ["atam"], ("madhyama","bahu"): ["ata"], ("uttama","eka"): ["am"], ("uttama","dvi"): ["Ava"], ("uttama","bahu"): ["Ama"]}
+                        _c10vend_a = {("prathama","eka"): ["ata"], ("prathama","dvi"): ["etAm"], ("prathama","bahu"): ["anta"], ("madhyama","eka"): ["aTAH"], ("madhyama","dvi"): ["eTAm"], ("madhyama","bahu"): ["aDvam"], ("uttama","eka"): ["e"], ("uttama","dvi"): ["Avahi"], ("uttama","bahu"): ["Amahi"]}
+                        for _c10ve in list(dict.fromkeys(_c10vend_p.get((purusha, vacana), []) + _c10vend_a.get((purusha, vacana), []))):
+                            for _c10vst, _c10vrp0 in ((_c10vs, True), (_c10vss, False)):
+                                if not _c10vst or _c10vst[0] in SLP1_VOWELS:
+                                    continue
+                                # Y-num a-twin (nc: n+cons)
+                                if _c10vst[0] == "n" and len(_c10vst) > 1 and _c10vst[1] not in SLP1_VOWELS and _c10vst[1] != "n":
+                                    _c10vcc0 = _c10vst[1:]
+                                    if _c10vcc0 and _c10vcc0[0] not in SLP1_VOWELS:
+                                        _c10vrc0 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_c10vcc0[0], _c10vcc0[0]), DEASPIRATE.get(_c10vcc0[0], _c10vcc0[0]))
+                                        cands.append(_c10va + "Y" + _c10vrc0 + "a" + _c10vcc0 + _c10ve)
+                                _c10vcore = _c10vst[:-1] if _c10vst[-1:] in ("i", "I") and len(_c10vst) > 1 else _c10vst
+                                if _c10vcore:
+                                    if _c10vcore[0] == "r" and len(_c10vcore) > 1:
+                                        _c10vrp, _c10vcc2 = "r", _c10vcore[1:]
+                                    elif _c10vcore[0] in ("n", "m", "Y", "R", "N") and len(_c10vcore) > 1 and _c10vcore[1] not in SLP1_VOWELS:
+                                        _c10vrp, _c10vcc2 = _c10vcore[0], _c10vcore[1:]
+                                    else:
+                                        _c10vrp, _c10vcc2 = "", _c10vcore
+                                    if _c10vcc2 and _c10vcc2[0] not in SLP1_VOWELS:
+                                        _c10vrc2 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_c10vcc2[0], _c10vcc2[0]), DEASPIRATE.get(_c10vcc2[0], _c10vcc2[0]))
+                                        cands.append(_c10va + _c10vrp + _c10vrc2 + "a" + _c10vcc2 + _c10ve)
+                                        if _c10vrp == "n" and _c10vcc2[:1] in ("s", "S"):
+                                            cands.append(_c10va + "M" + _c10vrc2 + "a" + _c10vcc2 + _c10ve)
+                                        if _c10vrp:
+                                            cands.append(_c10va + _c10vrc2 + "a" + _c10vcc2 + _c10ve)
+                                if _c10vrp0:
+                                    break
                 # curAdi uw-root redup-aorist union twins (acUkuwata/atutruwata/...; cutva
                 # redup-cons + U/u union (puw pair splits lexically, Cuw short; cluster rule
                 # holds directionally); unanimous uw survey; both padas attested;
@@ -10734,6 +10776,48 @@ class TinantaDerivationEngine:
                                 _c10gn_a = {("prathama","eka"): [_c10gt+"ata"], ("prathama","dvi"): [_c10gt+"etAm"], ("prathama","bahu"): [_c10gt+"anta"], ("madhyama","eka"): [_c10gt+"aTAH"], ("madhyama","dvi"): [_c10gt+"eTAm"], ("madhyama","bahu"): [_c10gt+"aDvam"], ("uttama","eka"): [_c10gt+"e"], ("uttama","dvi"): [_c10gt+"Avahi"], ("uttama","bahu"): [_c10gt+"Amahi"]}
                                 cands += _c10gn_p.get((purusha, vacana), [])
                                 cands += _c10gn_a.get((purusha, vacana), [])
+                # curAdi V-initial mUla luN redup-aorist union (ajAder dvitIyasya; ArtaTata/
+                # AYcakata/AYjagata/Onanata/AndaData/AMsasata; Y-num a + main a + M-nasal a +
+                # no-rp a; mirrors nich V-initial a-twins but mUla stems (clean/short); V-initial
+                # only (consonant covered by general union above); both padas; curAdiH-gated;
+                # additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10vc = (meta.get("clean", "") or clean) or ""
+                    if _c10vc and _c10vc[0] in SLP1_VOWELS and len(_c10vc) >= 2:
+                        _c10vv = _c10vc[0]
+                        _c10va = {"a": "A", "A": "A", "i": "E", "I": "E", "e": "E", "u": "O", "U": "O", "o": "O"}.get(_c10vv, "A")
+                        _c10vs = _c10vc[1:]
+                        _c10vsh = "".join({"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}.get(ch, ch) for ch in _c10vc)
+                        _c10vss = _c10vsh[1:] if len(_c10vsh) >= 2 else _c10vs
+                        _c10vend_p = {("prathama","eka"): ["at", "ad"], ("prathama","dvi"): ["atAm"], ("prathama","bahu"): ["an"], ("madhyama","eka"): ["aH"], ("madhyama","dvi"): ["atam"], ("madhyama","bahu"): ["ata"], ("uttama","eka"): ["am"], ("uttama","dvi"): ["Ava"], ("uttama","bahu"): ["Ama"]}
+                        _c10vend_a = {("prathama","eka"): ["ata"], ("prathama","dvi"): ["etAm"], ("prathama","bahu"): ["anta"], ("madhyama","eka"): ["aTAH"], ("madhyama","dvi"): ["eTAm"], ("madhyama","bahu"): ["aDvam"], ("uttama","eka"): ["e"], ("uttama","dvi"): ["Avahi"], ("uttama","bahu"): ["Amahi"]}
+                        for _c10ve in list(dict.fromkeys(_c10vend_p.get((purusha, vacana), []) + _c10vend_a.get((purusha, vacana), []))):
+                            for _c10vst, _c10vrp0 in ((_c10vs, True), (_c10vss, False)):
+                                if not _c10vst or _c10vst[0] in SLP1_VOWELS:
+                                    continue
+                                # Y-num a-twin (nc: n+cons)
+                                if _c10vst[0] == "n" and len(_c10vst) > 1 and _c10vst[1] not in SLP1_VOWELS and _c10vst[1] != "n":
+                                    _c10vcc0 = _c10vst[1:]
+                                    if _c10vcc0 and _c10vcc0[0] not in SLP1_VOWELS:
+                                        _c10vrc0 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_c10vcc0[0], _c10vcc0[0]), DEASPIRATE.get(_c10vcc0[0], _c10vcc0[0]))
+                                        cands.append(_c10va + "Y" + _c10vrc0 + "a" + _c10vcc0 + _c10ve)
+                                _c10vcore = _c10vst[:-1] if _c10vst[-1:] in ("i", "I") and len(_c10vst) > 1 else _c10vst
+                                if _c10vcore:
+                                    if _c10vcore[0] == "r" and len(_c10vcore) > 1:
+                                        _c10vrp, _c10vcc2 = "r", _c10vcore[1:]
+                                    elif _c10vcore[0] in ("n", "m", "Y", "R", "N") and len(_c10vcore) > 1 and _c10vcore[1] not in SLP1_VOWELS:
+                                        _c10vrp, _c10vcc2 = _c10vcore[0], _c10vcore[1:]
+                                    else:
+                                        _c10vrp, _c10vcc2 = "", _c10vcore
+                                    if _c10vcc2 and _c10vcc2[0] not in SLP1_VOWELS:
+                                        _c10vrc2 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_c10vcc2[0], _c10vcc2[0]), DEASPIRATE.get(_c10vcc2[0], _c10vcc2[0]))
+                                        cands.append(_c10va + _c10vrp + _c10vrc2 + "a" + _c10vcc2 + _c10ve)
+                                        if _c10vrp == "n" and _c10vcc2[:1] in ("s", "S"):
+                                            cands.append(_c10va + "M" + _c10vrc2 + "a" + _c10vcc2 + _c10ve)
+                                        if _c10vrp:
+                                            cands.append(_c10va + _c10vrc2 + "a" + _c10vcc2 + _c10ve)
+                                if _c10vrp0:
+                                    break
                 # curAdi uw-root redup-aorist union twins (acUkuwata/atutruwata/...; cutva
                 # redup-cons + U/u union (puw pair splits lexically, Cuw short; cluster rule
                 # holds directionally); unanimous uw survey; both padas attested;
