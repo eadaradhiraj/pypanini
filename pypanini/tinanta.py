@@ -767,6 +767,7 @@ class TinantaDerivationEngine:
                     _cc0 = _stem[1:]
                     _rc0 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc0[0], _cc0[0]), DEASPIRATE.get(_cc0[0], _cc0[0]))
                     _res.append(_v_aug + "Y" + _rc0 + "i" + _cc0 + ending)
+                    _res.append(_v_aug + "Y" + _rc0 + "a" + _cc0 + ending)
                 _core = _stem[:-1] if _stem[-1:] in ("i", "I") and len(_stem) > 1 else _stem
                 if _core:
                     if _core[0] == "r" and len(_core) > 1:
@@ -779,8 +780,12 @@ class TinantaDerivationEngine:
                         _num = _NUM.get(_cc2[0], "") if _stem[-1:] in ("i", "I") and len(_stem) > 1 else ""
                         _rc2 = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc2[0], _cc2[0]), DEASPIRATE.get(_cc2[0], _cc2[0]))
                         _res.append(_v_aug + _rp + _num + _rc2 + "i" + _cc2 + ending)
+                        _res.append(_v_aug + _rp + _num + _rc2 + "a" + _cc2 + ending)
+                        if _rp == "n" and _cc2[:1] in ("s", "S"):
+                            _res.append(_v_aug + "M" + _num + _rc2 + "a" + _cc2 + ending)
                         if _rp:
                             _res.append(_v_aug + _num + _rc2 + "i" + _cc2 + ending)
+                            _res.append(_v_aug + _num + _rc2 + "a" + _cc2 + ending)
             return _res
         bases: set = set()
         bases.add(clean)
