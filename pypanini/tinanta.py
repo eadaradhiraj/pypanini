@@ -3704,7 +3704,7 @@ class TinantaDerivationEngine:
             # When ya is elided before vowel/id-agama (i, A), Ur reverts to short ur.
             # EXCEPTION: divAdi Ur-octet keeps U (popUrAYcakre; octet 04.0046-0053
             # surveyed — old popur-forms miss everywhere; divAdiH-gated).
-            _d4ur = meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr")
+            _d4ur = meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("pUr", "tUr", "DUr", "gUr", "GUr", "jUr", "SUr", "cUr") or (meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "pUr")
             if base_no_ya.endswith("Ur") and not _d4ur:
                 base_no_ya = base_no_ya[:-2] + "ur"
             # zWiv yang perfect-system short-i stems (wezWivAYcakre/wezWivitA/...; present-system keeps tezWIvya-).
