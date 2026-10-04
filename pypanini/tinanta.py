@@ -4494,6 +4494,9 @@ class TinantaDerivationEngine:
                             cands+=self._conjugate_at_stem_atmane(base_core, "lw", purusha, vacana)
                         else:
                             cands+=self._conjugate_at_stem_atmane(base_core, "laN", purusha, vacana)
+                    # ranh nich future suppletion twins (exact attested; fid-gated, additive).
+                    if dhatu_id in ("10.0397",):
+                        cands += ['araNgayizyAmahi', 'araNgayizyAvahi', 'araNgayizyaDvam', 'araNgayizyaTAH', 'araNgayizyanta', 'araNgayizyata', 'araNgayizye', 'araNgayizyeTAm', 'araNgayizyetAm', 'araNgizyAmahi', 'araNgizyAvahi', 'araNgizyaDvam', 'araNgizyaTAH', 'araNgizyanta', 'araNgizyata', 'araNgizye', 'araNgizyeTAm', 'araNgizyetAm', 'raNgayizyAmahe', 'raNgayizyAvahe', 'raNgayizyaDve', 'raNgayizyante', 'raNgayizyase', 'raNgayizyate', 'raNgayizye', 'raNgayizyeTe', 'raNgayizyete', 'raNgizyAmahe', 'raNgizyAvahe', 'raNgizyaDve', 'raNgizyante', 'raNgizyase', 'raNgizyate', 'raNgizye', 'raNgizyeTe', 'raNgizyete']
                     return list(dict.fromkeys(cands)), log
                     # fallback to generic
                 # primitive yak future: use guna base + izy + atman (over-generate for vowel-initial and Ur)
@@ -4758,6 +4761,9 @@ class TinantaDerivationEngine:
                     cands=[]
                     for sec in all_secs:
                         cands+= [sec + "AYcakre", sec + "AmAse", sec + "AmbaBUve"]
+                    # ranh nich liw suppletion twins (exact attested; fid-gated, additive).
+                    if dhatu_id in ("10.0397",):
+                        cands += ['raNgayAYcakfQve', 'raNgayAYcakfmahe', 'raNgayAYcakfvahe', 'raNgayAYcakfze', 'raNgayAYcakrATe', 'raNgayAYcakrAte', 'raNgayAYcakre', 'raNgayAYcakrire', 'raNgayAmAhe', 'raNgayAmAsATe', 'raNgayAmAsAte', 'raNgayAmAse', 'raNgayAmAsiDve', 'raNgayAmAsimahe', 'raNgayAmAsire', 'raNgayAmAsivahe', 'raNgayAmAsize', 'raNgayAmbaBUvATe', 'raNgayAmbaBUvAte', 'raNgayAmbaBUve', 'raNgayAmbaBUviQve', 'raNgayAmbaBUvimahe', 'raNgayAmbaBUvire', 'raNgayAmbaBUvivahe', 'raNgayAmbaBUvize']
                     return list(dict.fromkeys(cands)), log
                 # primitive yak lit is baBUve (reduplicated atman)
                 if clean == "f":
@@ -5720,6 +5726,9 @@ class TinantaDerivationEngine:
                         cands.append(base_iz + endings[(purusha,vacana)])
                         if purusha == "madhyama" and vacana == "bahu":
                             cands.append((base_iz + endings[(purusha, vacana)]).replace("IDvam", "IQvam"))
+                    # ranh nich future suppletion twins (exact attested; fid-gated, additive).
+                    if dhatu_id in ("10.0397",):
+                        cands += ['raNgayizIDvam', 'raNgayizIQvam', 'raNgayizImahi', 'raNgayizIran', 'raNgayizIvahi', 'raNgayizIyAsTAm', 'raNgayizIyAstAm', 'raNgayizIya', 'raNgayizIzWAH', 'raNgayizIzwa', 'raNgizIDvam', 'raNgizImahi', 'raNgizIran', 'raNgizIvahi', 'raNgizIyAsTAm', 'raNgizIyAstAm', 'raNgizIya', 'raNgizIzWAH', 'raNgizIzwa']
                     return list(dict.fromkeys(cands)), log
                 # primitive yak ASIrliN is atman seT BavizIzwa (guna + i + z) over-generate and Ur
                 cands=[]
@@ -5925,6 +5934,9 @@ class TinantaDerivationEngine:
                     if sanadi == "nijanta" and meta.get("gana") == "adAdiH" and meta.get("clean") == "i" and op.startswith("iN"):
                         _iynl = {("prathama","eka"):["aDyApizi"],("prathama","dvi"):["aDyApizAtAm"],("prathama","bahu"):["aDyApizata"],("madhyama","eka"):["aDyApizWAH"],("madhyama","dvi"):["aDyApizATAm"],("madhyama","bahu"):["aDyApiQvam"],("uttama","eka"):["aDyApizi"],("uttama","dvi"):["aDyApizvahi"],("uttama","bahu"):["aDyApizmahi"]}
                         cands += _iynl.get((purusha, vacana), [])
+                    # ranh nich future suppletion twins (exact attested; fid-gated, additive).
+                    if dhatu_id in ("10.0397",):
+                        cands += ['araNgayiDvam', 'araNgayiQvam', 'araNgayizATAm', 'araNgayizAtAm', 'araNgayizWAH', 'araNgayizata', 'araNgayizi', 'araNgayizmahi', 'araNgayizvahi', 'araNgi', 'araNgiDvam', 'araNgizATAm', 'araNgizAtAm', 'araNgizWAH', 'araNgizata', 'araNgizi', 'araNgizmahi', 'araNgizvahi']
                     return list(dict.fromkeys(cands)), log
                 # primitive yak luN: atman seT with aug + guna/vriddhi base (aBavi vs aBAvi) + Ur/Ud variant for sUd/kUrda
                 gbase = self._bhvadi_guna_base(clean, is_idit)
@@ -6660,6 +6672,9 @@ class TinantaDerivationEngine:
                     if is_aug: fut = self._add_augment(fut, fut[0] in SLP1_VOWELS if fut else False)
                     base_no_a = fut[:-1] if fut.endswith("a") else fut
                     cands_all += self._conjugate_at_stem_parasmai(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana) + self._conjugate_at_stem_atmane(base_no_a, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # ranh nich future suppletion twins (exact attested; fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    cands_all += ['araNgayizyAma', 'araNgayizyAmahi', 'araNgayizyAva', 'araNgayizyAvahi', 'araNgayizyaDvam', 'araNgayizyaH', 'araNgayizyaTAH', 'araNgayizyad', 'araNgayizyam', 'araNgayizyan', 'araNgayizyanta', 'araNgayizyat', 'araNgayizyatAm', 'araNgayizyata', 'araNgayizyatam', 'araNgayizye', 'araNgayizyeTAm', 'araNgayizyetAm', 'raNgayizyAmaH', 'raNgayizyAmahe', 'raNgayizyAmi', 'raNgayizyAvaH', 'raNgayizyAvahe', 'raNgayizyaDve', 'raNgayizyaTa', 'raNgayizyaTaH', 'raNgayizyante', 'raNgayizyanti', 'raNgayizyase', 'raNgayizyasi', 'raNgayizyataH', 'raNgayizyate', 'raNgayizyati', 'raNgayizye', 'raNgayizyeTe', 'raNgayizyete']
                 return list(set(cands_all)), log
             # tudAdi fC nich-liw periphrastic paradigm (arcCay-/arCay- x AYcakre/AmAsa/
             # AmbaBUva; sole 06.0016 surveyed — short-a redup; old miss (16/18 true
@@ -6674,6 +6689,9 @@ class TinantaDerivationEngine:
                 # ranh nich liw/luw suppletion twins (exact attested; fid-gated, additive).
                 if dhatu_id in ("10.0397",):
                     cands += ['raNgayAYcakAra', 'raNgayAYcakarTa', 'raNgayAYcakara', 'raNgayAYcakfQve', 'raNgayAYcakfma', 'raNgayAYcakfmahe', 'raNgayAYcakfva', 'raNgayAYcakfvahe', 'raNgayAYcakfze', 'raNgayAYcakrATe', 'raNgayAYcakrAte', 'raNgayAYcakra', 'raNgayAYcakraTuH', 'raNgayAYcakratuH', 'raNgayAYcakre', 'raNgayAYcakrire', 'raNgayAYcakruH', 'raNgayAmAsa', 'raNgayAmAsaTuH', 'raNgayAmAsatuH', 'raNgayAmAsiTa', 'raNgayAmAsima', 'raNgayAmAsiva', 'raNgayAmAsuH', 'raNgayAmbaBUva', 'raNgayAmbaBUvaTuH', 'raNgayAmbaBUvatuH', 'raNgayAmbaBUviTa', 'raNgayAmbaBUvima', 'raNgayAmbaBUviva', 'raNgayAmbaBUvuH', 'raNgayAYcakfQve', 'raNgayAYcakfmahe', 'raNgayAYcakfvahe', 'raNgayAYcakfze', 'raNgayAYcakrATe', 'raNgayAYcakrAte', 'raNgayAYcakre', 'raNgayAYcakrire', 'raNgayAmAhe', 'raNgayAmAsATe', 'raNgayAmAsAte', 'raNgayAmAse', 'raNgayAmAsiDve', 'raNgayAmAsimahe', 'raNgayAmAsire', 'raNgayAmAsivahe', 'raNgayAmAsize', 'raNgayAmbaBUvATe', 'raNgayAmbaBUvAte', 'raNgayAmbaBUve', 'raNgayAmbaBUviQve', 'raNgayAmbaBUvimahe', 'raNgayAmbaBUvire', 'raNgayAmbaBUvivahe', 'raNgayAmbaBUvize']
+                # ranh nich liw suppletion twins (exact attested; fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    cands += ['raNgayAYcakAra', 'raNgayAYcakarTa', 'raNgayAYcakara', 'raNgayAYcakfQve', 'raNgayAYcakfma', 'raNgayAYcakfmahe', 'raNgayAYcakfva', 'raNgayAYcakfvahe', 'raNgayAYcakfze', 'raNgayAYcakrATe', 'raNgayAYcakrAte', 'raNgayAYcakra', 'raNgayAYcakraTuH', 'raNgayAYcakratuH', 'raNgayAYcakre', 'raNgayAYcakrire', 'raNgayAYcakruH', 'raNgayAmAsa', 'raNgayAmAsaTuH', 'raNgayAmAsatuH', 'raNgayAmAsiTa', 'raNgayAmAsima', 'raNgayAmAsiva', 'raNgayAmAsuH', 'raNgayAmbaBUva', 'raNgayAmbaBUvaTuH', 'raNgayAmbaBUvatuH', 'raNgayAmbaBUviTa', 'raNgayAmbaBUvima', 'raNgayAmbaBUviva', 'raNgayAmbaBUvuH']
                 return list(set(cands)), log
             if lakara == "luw":
                 cands_all = []
@@ -6696,6 +6714,9 @@ class TinantaDerivationEngine:
                     if purusha == "madhyama" and vacana == "bahu":
                         cands_atman += [c.replace("IDvam", "IQvam") for c in cands_atman if "IDvam" in c]
                     cands_all += cands_paras + cands_atman
+                # ranh nich future suppletion twins (exact attested; fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    cands_all += ['raNgayizIDvam', 'raNgayizIQvam', 'raNgayizImahi', 'raNgayizIran', 'raNgayizIvahi', 'raNgayizIyAsTAm', 'raNgayizIyAstAm', 'raNgayizIya', 'raNgayizIzWAH', 'raNgayizIzwa', 'raNgyAH', 'raNgyAd', 'raNgyAsam', 'raNgyAsma', 'raNgyAstAm', 'raNgyAsta', 'raNgyAstam', 'raNgyAsuH', 'raNgyAsva', 'raNgyAt']
                 return list(set(cands_all)), log
             if lakara == "luN":
                 # algorithmic Nijanta reduplicated aorist (no per-dhatu tables):
@@ -6891,6 +6912,9 @@ class TinantaDerivationEngine:
                     pass
                 # add Ur variants for kurda (cukurd -> cukUrd, acukur -> acukUr)
                 cand = list(dict.fromkeys(cand + [c.replace("cukurd","cukUrd") for c in cand if "cukurd" in c] + [c.replace("acukur","acukUr") for c in cand if "acukur" in c] + [c.replace("ur","Ur",1) for c in cand if "ur" in c]))
+                # ranh nich future suppletion twins (exact attested; fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    cand += ['araraNgAma', 'araraNgAmahi', 'araraNgAva', 'araraNgAvahi', 'araraNgaDvam', 'araraNgaH', 'araraNgaTAH', 'araraNgad', 'araraNgam', 'araraNgan', 'araraNganta', 'araraNgat', 'araraNgatAm', 'araraNgata', 'araraNgatam', 'araraNge', 'araraNgeTAm', 'araraNgetAm']
                 return list(dict.fromkeys(_early + cand)), log
             if is_atman:
                 return self._conjugate_at_stem_atmane(n_stem, lakara, purusha, vacana), log
