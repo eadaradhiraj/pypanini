@@ -3743,6 +3743,11 @@ class TinantaDerivationEngine:
                         _d4aug = self._add_augment(_d4ya, False)
                         _d4core = _d4aug[:-1] if _d4aug.endswith("a") else _d4aug
                         _lan += self._conjugate_at_stem_atmane(_d4core, "laN", purusha, vacana)
+                    # curAdi div yang-laN I-grade (adedIvyata; 10.0230/0249; additive, curAdiH-gated).
+                    if meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "div":
+                        _c10aug = self._add_augment("dedIvya", False)
+                        _c10core = _c10aug[:-1] if _c10aug.endswith("a") else _c10aug
+                        _lan += self._conjugate_at_stem_atmane(_c10core, "laN", purusha, vacana)
                     return list(dict.fromkeys(_lan)), log
                 _lwl = self._conjugate_at_stem_atmane(ys_core, lakara, purusha, vacana)
                 return list(dict.fromkeys(_lwl)), log
@@ -3806,6 +3811,10 @@ class TinantaDerivationEngine:
             if meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("div", "siv", "sriv"):
                 _d4yp = {"div": "dedIvy", "siv": "sezIvy", "sriv": "sesrIvy"}[(meta.get("clean", "") or clean)]
                 _ywl += self._conjugate_at_stem_atmane(_d4yp, lakara, purusha, vacana)
+            # curAdi div yang present I-grade twin (dedIvyate; 10.0230/0249 pair — present
+            # keeps i-grade; additive, curAdiH-gated, mirrors divAdi trio above).
+            if meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "div":
+                _ywl += self._conjugate_at_stem_atmane("dedIvy", lakara, purusha, vacana)
             return list(dict.fromkeys(_ywl)), log
         # yak (karmani) - all sanadi variants, all lakaras
         if prayoga == "karmani":
