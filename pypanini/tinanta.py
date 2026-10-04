@@ -3955,6 +3955,11 @@ class TinantaDerivationEngine:
                             for _c10gsv in dict.fromkeys([_c10gs, _c10gs[:-2] + "ayiz" if _c10gs.endswith("iz") else _c10gs + "ayiz"]):
                                 if _c10gsv not in [s_stem] + alt_s:
                                     alt_s.append(_c10gsv)
+                # curAdi yu/BU san Avay secs for yak (alt_s feeds _yak_sann_stems).
+                if meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) in ("yu", "BU"):
+                    for _c10av in ("yiyAvayiz", "biBAvayiz"):
+                        if _c10av not in [s_stem] + alt_s:
+                            alt_s.append(_c10av)
                 if _far9 and _far9 != s_stem:
                     alt_s.append(_far9)
                 if clean_ay:
@@ -6432,6 +6437,12 @@ class TinantaDerivationEngine:
                         _sg = apply_guna(_st[0]) + _st[1:]
                         if _sg not in s_stems:
                             s_stems.append(_sg)
+            # curAdi yu/BU san Avay secs (yiyAvayiz/biBAvayiz; 10.0235/0277 pair;
+            # exact secs; additive to s_stems (serves all san lakaras)).
+            if meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) in ("yu", "BU"):
+                for _c10av in ("yiyAvayiz", "biBAvayiz"):
+                    if _c10av not in s_stems:
+                        s_stems.append(_c10av)
             aug_s_list = [self._add_augment(s, s[0] in SLP1_VOWELS if s else False) for s in s_stems]
             aug_s = aug_s_list[0]
             # per-lakara sannanta (kartari, inherits pada; over-generate both padas for ubhayapada / cross-matching)
