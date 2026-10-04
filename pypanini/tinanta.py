@@ -1712,7 +1712,7 @@ class TinantaDerivationEngine:
             _force_pada, _cakz_bypass
         )
         if upasarga:
-            cands = [apply_upasargas(upasarga, c) for c in cands]
+            cands = [apply_upasargas(upasarga, c, dhatu_id) for c in cands]
             return list(dict.fromkeys(cands)), log
         return cands, log
 
@@ -10294,6 +10294,41 @@ class TinantaDerivationEngine:
                         _c10kuw_a = {("prathama","eka"): [_c10kus+"ata"], ("prathama","dvi"): [_c10kus+"etAm"], ("prathama","bahu"): [_c10kus+"anta"], ("madhyama","eka"): [_c10kus+"aTAH"], ("madhyama","dvi"): [_c10kus+"eTAm"], ("madhyama","bahu"): [_c10kus+"aDvam"], ("uttama","eka"): [_c10kus+"e"], ("uttama","dvi"): [_c10kus+"Avahi"], ("uttama","bahu"): [_c10kus+"Amahi"]}
                         cands += _c10kuw_p.get((purusha, vacana), [])
                         cands += _c10kuw_a.get((purusha, vacana), [])
+                # curAdi general luN redup-aorist union (abhyasa Ca/Ci/Cu/CI + stem plain/short/
+                # guNa/R/N; lexical grades so union; consonant-initial only (V-initial ajAder
+                # separate); both padas attested across roots; curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10gc = (meta.get("clean", "") or clean) or ""
+                    if _c10gc and _c10gc[0] not in SLP1_VOWELS:
+                        if _c10gc[:1] in ("s", "S") and len(_c10gc) > 1 and _c10gc[1] in SLP1_KHAY:
+                            _c10gr = _c10gc[1]
+                        else:
+                            _c10gr = _c10gc[0]
+                        _c10gr = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "B": "b", "D": "d", "T": "t", "C": "c"}.get(_c10gr, _c10gr)
+                        _c10gs = [_c10gc]
+                        _c10sh = "".join({"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}.get(ch, ch) for ch in _c10gc)
+                        if _c10sh not in _c10gs:
+                            _c10gs.append(_c10sh)
+                        try:
+                            _c10gu = self._bhvadi_guna_base(_c10gc, is_idit)
+                            if _c10gu and _c10gu not in _c10gs:
+                                _c10gs.append(_c10gu)
+                        except Exception:
+                            pass
+                        _c10rl = re.sub(r"n([wWqQR])", r"R\1", _c10gc)
+                        if _c10rl != _c10gc and _c10rl not in _c10gs:
+                            _c10gs.append(_c10rl)
+                        _c10nl = re.sub(r"n([kKgG])", r"N\1", _c10gc)
+                        if _c10nl != _c10gc and _c10nl not in _c10gs:
+                            _c10gs.append(_c10nl)
+                        for _c10gv in ("a", "i", "u", "I"):
+                            for _c10gm in dict.fromkeys(_c10gs):
+                                _c10gb = "a" + _c10gr + _c10gv + _c10gm + "a"
+                                _c10gt = _c10gb[:-1]
+                                _c10gn_p = {("prathama","eka"): [_c10gb+"t", _c10gb+"d"], ("prathama","dvi"): [_c10gb+"tAm"], ("prathama","bahu"): [_c10gb+"n"], ("madhyama","eka"): [_c10gb+"H"], ("madhyama","dvi"): [_c10gb+"tam"], ("madhyama","bahu"): [_c10gb+"ta"], ("uttama","eka"): [_c10gb+"m"], ("uttama","dvi"): [_c10gt+"Ava"], ("uttama","bahu"): [_c10gt+"Ama"]}
+                                _c10gn_a = {("prathama","eka"): [_c10gt+"ata"], ("prathama","dvi"): [_c10gt+"etAm"], ("prathama","bahu"): [_c10gt+"anta"], ("madhyama","eka"): [_c10gt+"aTAH"], ("madhyama","dvi"): [_c10gt+"eTAm"], ("madhyama","bahu"): [_c10gt+"aDvam"], ("uttama","eka"): [_c10gt+"e"], ("uttama","dvi"): [_c10gt+"Avahi"], ("uttama","bahu"): [_c10gt+"Amahi"]}
+                                cands += _c10gn_p.get((purusha, vacana), [])
+                                cands += _c10gn_a.get((purusha, vacana), [])
                 # curAdi uw-root redup-aorist union twins (acUkuwata/atutruwata/...; cutva
                 # redup-cons + U/u union (puw pair splits lexically, Cuw short; cluster rule
                 # holds directionally); unanimous uw survey; both padas attested;
@@ -10586,6 +10621,41 @@ class TinantaDerivationEngine:
                         _c10kuw_a = {("prathama","eka"): [_c10kus+"ata"], ("prathama","dvi"): [_c10kus+"etAm"], ("prathama","bahu"): [_c10kus+"anta"], ("madhyama","eka"): [_c10kus+"aTAH"], ("madhyama","dvi"): [_c10kus+"eTAm"], ("madhyama","bahu"): [_c10kus+"aDvam"], ("uttama","eka"): [_c10kus+"e"], ("uttama","dvi"): [_c10kus+"Avahi"], ("uttama","bahu"): [_c10kus+"Amahi"]}
                         cands += _c10kuw_p.get((purusha, vacana), [])
                         cands += _c10kuw_a.get((purusha, vacana), [])
+                # curAdi general luN redup-aorist union (abhyasa Ca/Ci/Cu/CI + stem plain/short/
+                # guNa/R/N; lexical grades so union; consonant-initial only (V-initial ajAder
+                # separate); both padas attested across roots; curAdiH-gated; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH":
+                    _c10gc = (meta.get("clean", "") or clean) or ""
+                    if _c10gc and _c10gc[0] not in SLP1_VOWELS:
+                        if _c10gc[:1] in ("s", "S") and len(_c10gc) > 1 and _c10gc[1] in SLP1_KHAY:
+                            _c10gr = _c10gc[1]
+                        else:
+                            _c10gr = _c10gc[0]
+                        _c10gr = {"k": "c", "K": "c", "g": "j", "G": "j", "h": "j", "B": "b", "D": "d", "T": "t", "C": "c"}.get(_c10gr, _c10gr)
+                        _c10gs = [_c10gc]
+                        _c10sh = "".join({"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}.get(ch, ch) for ch in _c10gc)
+                        if _c10sh not in _c10gs:
+                            _c10gs.append(_c10sh)
+                        try:
+                            _c10gu = self._bhvadi_guna_base(_c10gc, is_idit)
+                            if _c10gu and _c10gu not in _c10gs:
+                                _c10gs.append(_c10gu)
+                        except Exception:
+                            pass
+                        _c10rl = re.sub(r"n([wWqQR])", r"R\1", _c10gc)
+                        if _c10rl != _c10gc and _c10rl not in _c10gs:
+                            _c10gs.append(_c10rl)
+                        _c10nl = re.sub(r"n([kKgG])", r"N\1", _c10gc)
+                        if _c10nl != _c10gc and _c10nl not in _c10gs:
+                            _c10gs.append(_c10nl)
+                        for _c10gv in ("a", "i", "u", "I"):
+                            for _c10gm in dict.fromkeys(_c10gs):
+                                _c10gb = "a" + _c10gr + _c10gv + _c10gm + "a"
+                                _c10gt = _c10gb[:-1]
+                                _c10gn_p = {("prathama","eka"): [_c10gb+"t", _c10gb+"d"], ("prathama","dvi"): [_c10gb+"tAm"], ("prathama","bahu"): [_c10gb+"n"], ("madhyama","eka"): [_c10gb+"H"], ("madhyama","dvi"): [_c10gb+"tam"], ("madhyama","bahu"): [_c10gb+"ta"], ("uttama","eka"): [_c10gb+"m"], ("uttama","dvi"): [_c10gt+"Ava"], ("uttama","bahu"): [_c10gt+"Ama"]}
+                                _c10gn_a = {("prathama","eka"): [_c10gt+"ata"], ("prathama","dvi"): [_c10gt+"etAm"], ("prathama","bahu"): [_c10gt+"anta"], ("madhyama","eka"): [_c10gt+"aTAH"], ("madhyama","dvi"): [_c10gt+"eTAm"], ("madhyama","bahu"): [_c10gt+"aDvam"], ("uttama","eka"): [_c10gt+"e"], ("uttama","dvi"): [_c10gt+"Avahi"], ("uttama","bahu"): [_c10gt+"Amahi"]}
+                                cands += _c10gn_p.get((purusha, vacana), [])
+                                cands += _c10gn_a.get((purusha, vacana), [])
                 # curAdi uw-root redup-aorist union twins (acUkuwata/atutruwata/...; cutva
                 # redup-cons + U/u union (puw pair splits lexically, Cuw short; cluster rule
                 # holds directionally); unanimous uw survey; both padas attested;
