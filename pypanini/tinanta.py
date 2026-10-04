@@ -4664,6 +4664,9 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "sfj" and lakara in ("lfw", "lfN"):
                     _d4sjyc = self._add_augment("srakzy", False) if lakara == "lfN" else "srakzy"
                     cands+=self._conjugate_at_stem_atmane(_d4sjyc, "lw" if lakara=="lfw" else "laN", purusha, vacana)
+                # curAdi mI future Ayay twins yak (flat; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
+                    cands += ['mAyayizyate', 'mAyayizyete', 'mAyayizyante', 'mAyayizyase', 'mAyayizyeTe', 'mAyayizyaDve', 'mAyayizye', 'mAyayizyAvahe', 'mAyayizyAmahe', 'mAyayizyati', 'mAyayizyataH', 'mAyayizyanti', 'mAyayizyasi', 'mAyayizyaTaH', 'mAyayizyaTa', 'mAyayizyAmi', 'mAyayizyAvaH', 'mAyayizyAmaH', 'amAyayizyata', 'amAyayizyetAm', 'amAyayizyanta', 'amAyayizyaTAH', 'amAyayizyeTAm', 'amAyayizyaDvam', 'amAyayizye', 'amAyayizyAvahi', 'amAyayizyAmahi', 'amAyayizyat', 'amAyayizyad', 'amAyayizyatAm', 'amAyayizyan', 'amAyayizyaH', 'amAyayizyatam', 'amAyayizyata', 'amAyayizyam', 'amAyayizyAva', 'amAyayizyAma']
                 return list(dict.fromkeys(cands)), log
             if lakara == "liw":
                 if clean == "yat":
@@ -5637,6 +5640,9 @@ class TinantaDerivationEngine:
                     for _t6zs in _t6zw:
                         cands.append(_t6zs + _t6ze)
 
+                # curAdi mI future Ayay twins yak (flat; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
+                    cands += ['mAyayitA', 'mAyayitArO', 'mAyayitAraH', 'mAyayitAse', 'mAyayitAsATe', 'mAyayitADve', 'mAyayitAhe', 'mAyayitAsvahe', 'mAyayitAsmahe', 'mAyayitA', 'mAyayitArO', 'mAyayitAraH', 'mAyayitAsi', 'mAyayitAsTaH', 'mAyayitAsTa', 'mAyayitAsmi', 'mAyayitAsvaH', 'mAyayitAsmaH']
                 return list(dict.fromkeys(cands)), log
             if lakara == "ASIrliN":
                 if sanadi in ("sannanta","nijanta"):
@@ -5845,6 +5851,9 @@ class TinantaDerivationEngine:
                     else:
                         _t6be = {("prathama","eka"):["maNkzIzwa"],("prathama","dvi"):["maNkzIyAstAm"],("prathama","bahu"):["maNkzIran"],("madhyama","eka"):["maNkzIzWAH"],("madhyama","dvi"):["maNkzIyAsTAm"],("madhyama","bahu"):["maNkzIDvam"],("uttama","eka"):["maNkzIya"],("uttama","dvi"):["maNkzIvahi"],("uttama","bahu"):["maNkzImahi"]}
                     cands += _t6be.get((purusha, vacana), [])
+                # curAdi mI future Ayay twins yak (flat; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
+                    cands += ['mAyayizIzwa', 'mAyayizIyAstAm', 'mAyayizIran', 'mAyayizIzWAH', 'mAyayizIyAsTAm', 'mAyayizIQvam', 'mAyayizIDvam', 'mAyayizIya', 'mAyayizIvahi', 'mAyayizImahi', 'mAyyAt', 'mAyyAd', 'mIyAt', 'mIyAd', 'mAyyAstAm', 'mIyAstAm', 'mAyyAsuH', 'mIyAsuH', 'mAyyAH', 'mIyAH', 'mAyyAstam', 'mIyAstam', 'mAyyAsta', 'mIyAsta', 'mAyyAsam', 'mIyAsam', 'mAyyAsva', 'mIyAsva', 'mAyyAsma', 'mIyAsma']
                 return list(dict.fromkeys(cands)), log
             if lakara == "luN":
                 if sanadi in ("sannanta","nijanta","yananta"):
@@ -8535,6 +8544,9 @@ class TinantaDerivationEngine:
                 _hu = {"stfnh": "stfh", "tfnh": "tfMh"}[clean]
                 _hue = {"eka": "ARi", "dvi": "Ava", "bahu": "Ama"}[vacana]
                 cands.append(_hu + _hue)
+            # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
+                cands += ['mAyayitA', 'mAyayitArO', 'mAyayitAraH', 'mAyayitAse', 'mAyayitAsATe', 'mAyayitADve', 'mAyayitAhe', 'mAyayitAsvahe', 'mAyayitAsmahe', 'mAyayitA', 'mAyayitArO', 'mAyayitAraH', 'mAyayitAsi', 'mAyayitAsTaH', 'mAyayitAsTa', 'mAyayitAsmi', 'mAyayitAsvaH', 'mAyayitAsmaH']
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
@@ -8654,6 +8666,9 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
                 cands+=self._conjugate_at_stem_parasmai("pozizy", "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane("pozizy", "lw", purusha, vacana)
+            # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
+                cands += ['mAyayizyate', 'mAyayizyete', 'mAyayizyante', 'mAyayizyase', 'mAyayizyeTe', 'mAyayizyaDve', 'mAyayizye', 'mAyayizyAvahe', 'mAyayizyAmahe', 'mAyayizyati', 'mAyayizyataH', 'mAyayizyanti', 'mAyayizyasi', 'mAyayizyaTaH', 'mAyayizyaTa', 'mAyayizyAmi', 'mAyayizyAvaH', 'mAyayizyAmaH']
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -8781,6 +8796,9 @@ class TinantaDerivationEngine:
                 _d4gc = self._add_augment("gopizy", False)
                 cands+=self._conjugate_at_stem_parasmai(_d4gc, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_d4gc, "laN", purusha, vacana)
+            # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
+            if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
+                cands += ['amAyayizyata', 'amAyayizyetAm', 'amAyayizyanta', 'amAyayizyaTAH', 'amAyayizyeTAm', 'amAyayizyaDvam', 'amAyayizye', 'amAyayizyAvahi', 'amAyayizyAmahi', 'amAyayizyat', 'amAyayizyad', 'amAyayizyatAm', 'amAyayizyan', 'amAyayizyaH', 'amAyayizyatam', 'amAyayizyata', 'amAyayizyam', 'amAyayizyAva', 'amAyayizyAma']
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
@@ -9980,6 +9998,9 @@ class TinantaDerivationEngine:
                 if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "kU":
                     _t6kz = {("prathama","eka"):["kuvizIzwa"],("prathama","dvi"):["kuvizIyAstAm"],("prathama","bahu"):["kuvizIran"],("madhyama","eka"):["kuvizIzWAH"],("madhyama","dvi"):["kuvizIyAsTAm"],("madhyama","bahu"):["kuvizIQvam","kuvizIDvam"],("uttama","eka"):["kuvizIya"],("uttama","dvi"):["kuvizIvahi"],("uttama","bahu"):["kuvizImahi"]}
                     cands += _t6kz.get((purusha, vacana), [])
+                # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
+                if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
+                    cands += ['mAyayizIzwa', 'mAyayizIyAstAm', 'mAyayizIran', 'mAyayizIzWAH', 'mAyayizIyAsTAm', 'mAyayizIQvam', 'mAyayizIDvam', 'mAyayizIya', 'mAyayizIvahi', 'mAyayizImahi', 'mAyyAt', 'mAyyAd', 'mIyAt', 'mIyAd', 'mAyyAstAm', 'mIyAstAm', 'mAyyAsuH', 'mIyAsuH', 'mAyyAH', 'mIyAH', 'mAyyAstam', 'mIyAstam', 'mAyyAsta', 'mIyAsta', 'mAyyAsam', 'mIyAsam', 'mAyyAsva', 'mIyAsva', 'mAyyAsma', 'mIyAsma']
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":
