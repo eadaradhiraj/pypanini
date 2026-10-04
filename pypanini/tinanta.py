@@ -1739,6 +1739,8 @@ class TinantaDerivationEngine:
         # absent; base As- matches As-tokens, prefix upa+As- via sandhi below; additive).
         if dhatu_id in ("10.0368",):
             _sadA = ["A" + c for c in cands]
+            # augment sandhi: A- + a- (aug) -> A- (dirgha, single A)
+            _sadA += ["A" + c[1:] for c in cands if c.startswith("a")]
             cands = list(dict.fromkeys(list(cands) + _sadA))
         if upasarga:
             cands = [apply_upasargas(upasarga, c, dhatu_id) for c in cands]
