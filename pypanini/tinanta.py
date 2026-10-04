@@ -783,6 +783,18 @@ class TinantaDerivationEngine:
                         _res.append(_v_aug + _rp + _num + _rc2 + "a" + _cc2 + ending)
                         if _rp == "n" and _cc2[:1] in ("s", "S"):
                             _res.append(_v_aug + "M" + _num + _rc2 + "a" + _cc2 + ending)
+                        # geminate swapped doubling (ww+i+w for Awwiwata; 10.0037 aww surveyed;
+                        # additive; shape-gated, no gana).
+                        if len(_cc2) == 2 and _cc2[0] == _cc2[1] and _cc2[0] not in SLP1_VOWELS:
+                            _res.append(_v_aug + _rp + _num + _cc2 + "i" + _cc2[1:] + ending)
+                            _res.append(_v_aug + _rp + _num + _cc2 + "a" + _cc2[1:] + ending)
+                        # s-cluster second-stop redup in V-initial CaN (t+i+st for Atistata;
+                        # 10.0169 ast surveyed; mirrors consonant s+cons 7.4.62; additive).
+                        if len(_cc2) >= 2 and _cc2[0] in ("s", "S") and _cc2[1] not in SLP1_VOWELS:
+                            _c2b = _cc2[1:]
+                            _r2b = VELAR_TO_PALATAL.get(DEASPIRATE.get(_cc2[1], _cc2[1]), DEASPIRATE.get(_cc2[1], _cc2[1]))
+                            _res.append(_v_aug + _rp + _num + _r2b + "i" + _cc2 + ending)
+                            _res.append(_v_aug + _rp + _num + _r2b + "a" + _cc2 + ending)
                         if _rp:
                             _res.append(_v_aug + _num + _rc2 + "i" + _cc2 + ending)
                             _res.append(_v_aug + _num + _rc2 + "a" + _cc2 + ending)
@@ -3960,6 +3972,12 @@ class TinantaDerivationEngine:
                     for _c10av in ("yiyAvayiz", "biBAvayiz"):
                         if _c10av not in [s_stem] + alt_s:
                             alt_s.append(_c10av)
+                # curAdi aww/ast san yak ay secs (awwiwayiz/atistayiz; 10.0037/0169 pair;
+                # san kartari already passes (wwiw+ay via s_stems); yak lacks ay (wiww); additive).
+                if meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) in ("aww", "ast"):
+                    for _c10ay2 in ("awwiwayiz", "atistayiz"):
+                        if _c10ay2 not in [s_stem] + alt_s:
+                            alt_s.append(_c10ay2)
                 if _far9 and _far9 != s_stem:
                     alt_s.append(_far9)
                 if clean_ay:
