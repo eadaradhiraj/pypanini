@@ -8927,6 +8927,22 @@ class TinantaDerivationEngine:
                 cands = tbl_yat.get((purusha,vacana), ["yete"])
                 # also add yayate as alternative
                 cands += ["yayate", "yAyate"]
+                # curAdi ting-liw nijanta twins (yAtayAYcakAra/...; 10.0261 attests nijanta
+                # periphrastics; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "kartari":
+                    _yN = []
+                    try:
+                        _yN.append(_nijanta_stem(clean))
+                    except Exception:
+                        pass
+                    try:
+                        _yN.append(self._vriddhi_base(clean, is_idit) + "ay")
+                    except Exception:
+                        pass
+                    _yN.append(clean + "ay")
+                    for _yS in dict.fromkeys(b for b in _yN if b.endswith("ay")):
+                        _yT = {("prathama","eka"): [_yS + "AYcakAra", _yS + "AmAsa", _yS + "AmbaBUva"], ("prathama","dvi"): [_yS + "AYcakratuH", _yS + "AmAsatuH", _yS + "AmbaBUvatuH"], ("prathama","bahu"): [_yS + "AYcakruH", _yS + "AmAsuH", _yS + "AmbaBUvuH"], ("madhyama","eka"): [_yS + "AYcakarTa", _yS + "AmAsiTa", _yS + "AmbaBUviTa"], ("madhyama","dvi"): [_yS + "AYcakraTuH", _yS + "AmAsaTuH", _yS + "AmbaBUvaTuH"], ("madhyama","bahu"): [_yS + "AYcakra", _yS + "AmAsa", _yS + "AmbaBUva"], ("uttama","eka"): [_yS + "AYcakara", _yS + "AYcakAra", _yS + "AmAsa", _yS + "AmbaBUva"], ("uttama","dvi"): [_yS + "AYcakfva", _yS + "AmAsiva", _yS + "AmbaBUviva"], ("uttama","bahu"): [_yS + "AYcakfma", _yS + "AmAsima", _yS + "AmbaBUvima"]}
+                        cands += _yT.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             # divAdi vas mUla liT (vavAsa/vavas- twins in ut.eka; sole 04.0111
             # surveyed — yajadi block below would claim vas first (uvAsa-forms
@@ -8984,6 +9000,22 @@ class TinantaDerivationEngine:
                 }
                 _pv = (purusha, vacana)
                 _ycands = (_atman.get(_pv, []) if (pada in ("Atmanepadi", "uBayapadi") or prayoga == "karmani") else _paras.get(_pv, [])) + _atman.get(_pv, []) + _paras.get(_pv, [])
+                # curAdi ting-liw nijanta twins (vAsay/vasay/vAday periphrastics; 10.0273/0488/0379
+                # attest nijanta alongside mUla; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "kartari":
+                    _vN = []
+                    try:
+                        _vN.append(_nijanta_stem(clean))
+                    except Exception:
+                        pass
+                    try:
+                        _vN.append(self._vriddhi_base(clean, is_idit) + "ay")
+                    except Exception:
+                        pass
+                    _vN.append(clean + "ay")
+                    for _vS in dict.fromkeys(b for b in _vN if b.endswith("ay")):
+                        _vT = {("prathama","eka"): [_vS + "AYcakAra", _vS + "AmAsa", _vS + "AmbaBUva"], ("prathama","dvi"): [_vS + "AYcakratuH", _vS + "AmAsatuH", _vS + "AmbaBUvatuH"], ("prathama","bahu"): [_vS + "AYcakruH", _vS + "AmAsuH", _vS + "AmbaBUvuH"], ("madhyama","eka"): [_vS + "AYcakarTa", _vS + "AmAsiTa", _vS + "AmbaBUviTa"], ("madhyama","dvi"): [_vS + "AYcakraTuH", _vS + "AmAsaTuH", _vS + "AmbaBUvaTuH"], ("madhyama","bahu"): [_vS + "AYcakra", _vS + "AmAsa", _vS + "AmbaBUva"], ("uttama","eka"): [_vS + "AYcakara", _vS + "AYcakAra", _vS + "AmAsa", _vS + "AmbaBUva"], ("uttama","dvi"): [_vS + "AYcakfva", _vS + "AmAsiva", _vS + "AmbaBUviva"], ("uttama","bahu"): [_vS + "AYcakfma", _vS + "AmAsima", _vS + "AmbaBUvima"]}
+                        _ycands += _vT.get((purusha, vacana), [])
                 return list(dict.fromkeys(_ycands)), log
             # Panini 7.3.57 san-litoH jeH (kuttva j -> g for ji in liw: jigAya, jigyatuH...)
             if clean == "ji" or op in ("ji", "ji~"):
@@ -9011,6 +9043,22 @@ class TinantaDerivationEngine:
                 }
                 _pv = (purusha, vacana)
                 _jicands = (_atman_ji.get(_pv, []) if (pada in ("Atmanepadi", "uBayapadi") or prayoga == "karmani") else _paras_ji.get(_pv, [])) + _paras_ji.get(_pv, []) + _atman_ji.get(_pv, [])
+                # curAdi ting-liw nijanta twins (jAyayAYcakAra; 10.0324 attests nijanta AY-grade
+                # alongside mUla; additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "kartari":
+                    _jN = []
+                    try:
+                        _jN.append(_nijanta_stem(clean))
+                    except Exception:
+                        pass
+                    try:
+                        _jN.append(self._vriddhi_base(clean, is_idit) + "ay")
+                    except Exception:
+                        pass
+                    _jN.append(clean + "ay")
+                    for _jS in dict.fromkeys(b for b in _jN if b.endswith("ay")):
+                        _jT = {("prathama","eka"): [_jS + "AYcakAra", _jS + "AmAsa", _jS + "AmbaBUva"], ("prathama","dvi"): [_jS + "AYcakratuH", _jS + "AmAsatuH", _jS + "AmbaBUvatuH"], ("prathama","bahu"): [_jS + "AYcakruH", _jS + "AmAsuH", _jS + "AmbaBUvuH"], ("madhyama","eka"): [_jS + "AYcakarTa", _jS + "AmAsiTa", _jS + "AmbaBUviTa"], ("madhyama","dvi"): [_jS + "AYcakraTuH", _jS + "AmAsaTuH", _jS + "AmbaBUvaTuH"], ("madhyama","bahu"): [_jS + "AYcakra", _jS + "AmAsa", _jS + "AmbaBUva"], ("uttama","eka"): [_jS + "AYcakara", _jS + "AYcakAra", _jS + "AmAsa", _jS + "AmbaBUva"], ("uttama","dvi"): [_jS + "AYcakfva", _jS + "AmAsiva", _jS + "AmbaBUviva"], ("uttama","bahu"): [_jS + "AYcakfma", _jS + "AmAsima", _jS + "AmbaBUvima"]}
+                        _jicands += _jT.get((purusha, vacana), [])
                 return list(dict.fromkeys(_jicands)), log
             # UrRu nuva-perfect (UrRunAva/UrRunuvatuH...; sole o-root surveyed — regular u-roots reduplicate
             # (yuyAva/rurAva); m.bahu bare uva, u.eka triple uva/ava/Ava, m.eka aviTa/uviTa; parasmaipada
@@ -9077,6 +9125,22 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): [_red + "imahe"],
                 }
                 _acands = (_atman_a.get(_pv, []) if (pada in ("Atmanepadi", "uBayapadi") or prayoga == "karmani") else _paras_a.get(_pv, [])) + _paras_a.get(_pv, []) + _atman_a.get(_pv, [])
+                # curAdi ting-liw nijanta twins (jYApayAYcakAra; 10.0258 attests nijanta p-grade;
+                # additive, curAdiH-gated).
+                if sanadi is None and meta.get("gana") == "curAdiH" and prayoga == "kartari":
+                    _aN = []
+                    try:
+                        _aN.append(_nijanta_stem(clean))
+                    except Exception:
+                        pass
+                    try:
+                        _aN.append(self._vriddhi_base(clean, is_idit) + "ay")
+                    except Exception:
+                        pass
+                    _aN.append(clean + "ay")
+                    for _aS in dict.fromkeys(b for b in _aN if b.endswith("ay")):
+                        _aT = {("prathama","eka"): [_aS + "AYcakAra", _aS + "AmAsa", _aS + "AmbaBUva"], ("prathama","dvi"): [_aS + "AYcakratuH", _aS + "AmAsatuH", _aS + "AmbaBUvatuH"], ("prathama","bahu"): [_aS + "AYcakruH", _aS + "AmAsuH", _aS + "AmbaBUvuH"], ("madhyama","eka"): [_aS + "AYcakarTa", _aS + "AmAsiTa", _aS + "AmbaBUviTa"], ("madhyama","dvi"): [_aS + "AYcakraTuH", _aS + "AmAsaTuH", _aS + "AmbaBUvaTuH"], ("madhyama","bahu"): [_aS + "AYcakra", _aS + "AmAsa", _aS + "AmbaBUva"], ("uttama","eka"): [_aS + "AYcakara", _aS + "AYcakAra", _aS + "AmAsa", _aS + "AmbaBUva"], ("uttama","dvi"): [_aS + "AYcakfva", _aS + "AmAsiva", _aS + "AmbaBUviva"], ("uttama","bahu"): [_aS + "AYcakfma", _aS + "AmAsima", _aS + "AmbaBUvima"]}
+                        _acands += _aT.get((purusha, vacana), [])
                 return list(dict.fromkeys(_acands)), log
             # Panini 3.1.36 ijAdeS ca gurumato 'nfcCaH: single short vowel roots (u) are not gurumat,
             # so do not take Am; they undergo reduplication: u+u -> U (6.1.101), uvaN (6.4.77) -> Uv-
