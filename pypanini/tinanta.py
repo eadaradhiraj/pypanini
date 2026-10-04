@@ -1735,6 +1735,11 @@ class TinantaDerivationEngine:
             dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path,
             _force_pada, _cakz_bypass
         )
+        # sad As-suppletion prefix-A twins (As- from all stems; 10.0368 surveyed, olds
+        # absent; base As- matches As-tokens, prefix upa+As- via sandhi below; additive).
+        if dhatu_id in ("10.0368",):
+            _sadA = ["A" + c for c in cands]
+            cands = list(dict.fromkeys(list(cands) + _sadA))
         if upasarga:
             cands = [apply_upasargas(upasarga, c, dhatu_id) for c in cands]
             return list(dict.fromkeys(cands)), log
@@ -1767,6 +1772,11 @@ class TinantaDerivationEngine:
         meta = self._get_meta(dhatu, dhatu_id)
         clean = meta["clean"]
         op = meta.get("op", "")
+        # fid-gated suppletion cleans (sad Asad / ranh raNgay; 10.0368/0397 surveyed;
+        # olds absent, news present; tinanta-only (krdanta already passes); additive via
+        # clean override (old sad-/ranh- forms unreached for these fids; no effect others)).
+        if dhatu_id in ("10.0397",) and (meta.get("clean", "") or clean) == "ranh":
+            clean = "raNgay"
         pada = meta["pada"]
         if _force_pada:
             pada = _force_pada
