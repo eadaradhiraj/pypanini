@@ -795,6 +795,13 @@ class TinantaDerivationEngine:
         if _op0.startswith("zR"):
             _opb = (_op0[:-1] if _op0[-1] in SLP1_VOWELS else _op0) + "ap"
             bases.add(_opb)
+        # zw-onset op-stem CaN-base (zwUpa->zwup; sole 10.0191 zwUpa-op surveyed; clean
+        # normalizes zw->st for most machinery but CaN wants original onset (tu+zwup),
+        # paralleling zR above; additive).
+        if _op0.startswith("zw"):
+            _opw = _op0[:-1] if _op0[-1] in SLP1_VOWELS else _op0
+            _opw = "".join({"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}.get(ch, ch) for ch in _opw)
+            bases.add(_opw)
         short_map = {"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}
         shortened = "".join(short_map.get(ch, ch) for ch in clean)
         bases.add(shortened)
