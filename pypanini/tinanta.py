@@ -10399,6 +10399,19 @@ class TinantaDerivationEngine:
                         _c10nl = re.sub(r"n([kKgG])", r"N\1", _c10gc)
                         if _c10nl != _c10gc and _c10nl not in _c10gs:
                             _c10gs.append(_c10nl)
+                        # mUla luN nijanta-grade twins (p-grade jYap for jYA 10.0258; stripped
+                        # _nijanta_stem without ay + short; additive, curAdiH-gated).
+                        try:
+                            _c10nj = _nijanta_stem(_c10gc)
+                            if _c10nj.endswith("ay"):
+                                _c10nj = _c10nj[:-2]
+                            if _c10nj and _c10nj not in _c10gs:
+                                _c10gs.append(_c10nj)
+                            _c10njh = "".join({"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}.get(ch, ch) for ch in _c10nj)
+                            if _c10njh != _c10nj and _c10njh not in _c10gs:
+                                _c10gs.append(_c10njh)
+                        except Exception:
+                            pass
                         for _c10gv in ("a", "i", "u", "I"):
                             for _c10gm in dict.fromkeys(_c10gs):
                                 _c10gb = "a" + _c10gr + _c10gv + _c10gm + "a"
@@ -10768,6 +10781,19 @@ class TinantaDerivationEngine:
                         _c10nl = re.sub(r"n([kKgG])", r"N\1", _c10gc)
                         if _c10nl != _c10gc and _c10nl not in _c10gs:
                             _c10gs.append(_c10nl)
+                        # mUla luN nijanta-grade twins (p-grade jYap for jYA 10.0258; stripped
+                        # _nijanta_stem without ay + short; additive, curAdiH-gated).
+                        try:
+                            _c10nj = _nijanta_stem(_c10gc)
+                            if _c10nj.endswith("ay"):
+                                _c10nj = _c10nj[:-2]
+                            if _c10nj and _c10nj not in _c10gs:
+                                _c10gs.append(_c10nj)
+                            _c10njh = "".join({"A": "a", "I": "i", "U": "u", "e": "i", "o": "u"}.get(ch, ch) for ch in _c10nj)
+                            if _c10njh != _c10nj and _c10njh not in _c10gs:
+                                _c10gs.append(_c10njh)
+                        except Exception:
+                            pass
                         for _c10gv in ("a", "i", "u", "I"):
                             for _c10gm in dict.fromkeys(_c10gs):
                                 _c10gb = "a" + _c10gr + _c10gv + _c10gm + "a"
