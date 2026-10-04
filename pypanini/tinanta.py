@@ -4467,6 +4467,9 @@ class TinantaDerivationEngine:
                         cands+=self._conjugate_at_stem_atmane(ys, "laN", purusha, vacana)
                     else:
                         cands+=self._conjugate_at_stem_atmane(ys, lakara, purusha, vacana)
+                # ranh nich/nich_yak lw suppletion twins (exact alat; fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    cands += {('prathama', 'eka'): ['raNgyate'], ('prathama', 'dvi'): ['raNgyete'], ('prathama', 'bahu'): ['raNgyante'], ('madhyama', 'eka'): ['raNgyase'], ('madhyama', 'dvi'): ['raNgyeTe'], ('madhyama', 'bahu'): ['raNgyaDve'], ('uttama', 'eka'): ['raNgye'], ('uttama', 'dvi'): ['raNgyAvahe'], ('uttama', 'bahu'): ['raNgyAmahe']}.get((purusha, vacana), [])
                 return list(dict.fromkeys(cands)), log
             if lakara in ("lfw", "lfN"):
                 base = self._bhvadi_guna_base(sec_stem if sanadi in ("sannanta","nijanta") else clean)
@@ -6645,6 +6648,9 @@ class TinantaDerivationEngine:
                     st = aug if lakara=="laN" else s
                     cands += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
                     cands += self._conjugate_at_stem_atmane(st, lakara, purusha, vacana)
+                # ranh nich/nich_yak lw suppletion twins (exact alat; fid-gated, additive).
+                if dhatu_id in ("10.0397",):
+                    cands += {('prathama', 'eka'): ['raNgayate'], ('prathama', 'dvi'): ['raNgayete'], ('prathama', 'bahu'): ['raNgayante'], ('madhyama', 'eka'): ['raNgayase'], ('madhyama', 'dvi'): ['raNgayeTe'], ('madhyama', 'bahu'): ['raNgayaDve'], ('uttama', 'eka'): ['raNgaye'], ('uttama', 'dvi'): ['raNgayAvahe'], ('uttama', 'bahu'): ['raNgayAmahe']}.get((purusha, vacana), [])
                 return list(set(cands)), log
             if lakara in ("lfw", "lfN"):
                 is_aug = (lakara=="lfN")
