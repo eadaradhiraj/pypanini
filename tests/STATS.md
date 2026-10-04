@@ -872,3 +872,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 676 (GEN-10: yat mUla luN curAdi exclusion (fall through to general I-redup union; sic absent for ting luN; yak block untouched): sweep +9 tokens (10.0261 598->607), 0 worsened; pilots green. NOTE: yak/san_yak/nich_yak liw remain.)
 - Iteration 677 (GEN-10: curAdi pUr yang-Ur exception (popUrAYcakre; divAdi octet extended to curAdi pUr; popur absent 0 vs popUr 1429): sweep +108 tokens (+1 pass-up 482->483/492: PASS 10.0334; yang bucket cleared), 0 worsened; pilots green.)
 - Iteration 678 (GEN-10: zw-onset CaN op-base (zwUpa->zwup; sole 10.0191; mirrors zR; tu+zwup atuzwupata): sweep +1 token (+1 pass-up 483->484/492: PASS 10.0191; nich bucket cleared), 0 worsened; pilots green.)
+- Iteration 679 (GEN-10: yat yak/nich_yak liw yAtay atman twins (curAdiH-gated, additive; san_yak via cross-hit): sweep +27 tokens (+1 pass-up 484->485/492: PASS 10.0261; yak bucket cleared), 0 worsened; pilots green.)

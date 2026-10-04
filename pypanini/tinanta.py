@@ -4670,6 +4670,12 @@ class TinantaDerivationEngine:
                     tbl_yat = {("prathama","eka"):["yete"],("prathama","dvi"):["yetAte"],("prathama","bahu"):["yetire"],("madhyama","eka"):["yetize"],("madhyama","dvi"):["yetATe"],("madhyama","bahu"):["yetiDve"],("uttama","eka"):["yete"],("uttama","dvi"):["yetivahe"],("uttama","bahu"):["yetimahe"]}
                     cands = tbl_yat.get((purusha,vacana), ["yete"])
                     cands += ["yayate", "yAyate"]
+                    # curAdi yat yak/nich_yak liw yAtay atman twins (yAtayAYcakre/...; 10.0261
+                    # yak+nich_yak attest yAtay; san_yak needs san-sec (separate); additive).
+                    if meta.get("gana") == "curAdiH":
+                        for _yS in ("yAtay",):
+                            _yT = {("prathama","eka"): [_yS + "AYcakre", _yS + "AmAse", _yS + "AmbaBUve"], ("prathama","dvi"): [_yS + "AYcakrAte", _yS + "AmAsAte", _yS + "AmbaBUvAte"], ("prathama","bahu"): [_yS + "AYcakrire", _yS + "AmAsire", _yS + "AmbaBUvire"], ("madhyama","eka"): [_yS + "AYcakfze", _yS + "AmAsize", _yS + "AmbaBUvize"], ("madhyama","dvi"): [_yS + "AYcakrATe", _yS + "AmAsATe", _yS + "AmbaBUvATe"], ("madhyama","bahu"): [_yS + "AYcakfQve", _yS + "AmAsiDve", _yS + "AmbaBUviQve"], ("uttama","eka"): [_yS + "AYcakre", _yS + "AmAhe", _yS + "AmbaBUve"], ("uttama","dvi"): [_yS + "AYcakfvahe", _yS + "AmAsivahe", _yS + "AmbaBUvivahe"], ("uttama","bahu"): [_yS + "AYcakfmahe", _yS + "AmAsimahe", _yS + "AmbaBUvimahe"]}
+                            cands += _yT.get((purusha, vacana), [])
                     return list(dict.fromkeys(cands)), log
                 # yak lit: atmanepada periphrastic or reduplicated
                 if sanadi in ("sannanta", "nijanta", "yananta"):
