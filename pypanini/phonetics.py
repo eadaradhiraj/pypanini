@@ -493,7 +493,7 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
         if dhatu_id == "01.0450":
             # ziDu~ gatyAm does NOT get Satva with any prefix!
             pass
-        elif inner.endswith(("i", "u", "I", "U")):
+        elif inner.endswith(("i", "u", "I", "U")) or inner in ("nir", "dur", "dus", "nis"):
             if form.startswith("s") and len(form) > 1:
                 if form[1] in "aAiIuUfFeEoOyvr" and not form.startswith("sf"):
                     form = "z" + form[1:]
@@ -505,7 +505,7 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
                     form = "zR" + form[2:]
             elif (form.startswith("a") or form.startswith("A")) and len(form) > 2 and form[1] == "s":
                 core = form[2:]
-                if core.startswith(("eD", "iD", "iYc", "ec", "ic", "vaYj", "vaK", "aYj", "aNk", "tu", "to", "wO", "tAv", "un", "uv", "Av", "O", "ev", "evi")):
+                if core.startswith(("eD", "iD", "iYc", "ec", "ic", "vaYj", "vaK", "aYj", "aNk", "tu", "to", "wO", "tAv", "un", "uv", "Av", "O", "ev", "evi", "TA", "Tu", "Te", "Ti", "TI")):
                     z_core = core
                     if z_core.startswith("t"): z_core = "w" + z_core[1:]
                     elif z_core.startswith("T"): z_core = "W" + z_core[1:]
@@ -539,6 +539,16 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
             if "aseziD" in form: form = form.replace("aseziD", "azeziD")
             if "asisiD" in form: form = form.replace("asisiD", "aziziD")
             if "asesiD" in form: form = form.replace("asesiD", "azeziD")
+            # Panini 8.3.66 sadiraprateH: sad s->z after i/u-prefixes (except prati),
+            # including reduplication (zAzad, zizats) and augmented a-forms (azad, azId, azizats, azAzad).
+            if inner != "prati":
+                if "zAsad" in form: form = form.replace("zAsad", "zAzad")
+                if "zisats" in form: form = form.replace("zisats", "zizats")
+                if "asid" in form: form = form.replace("asid", "azid")
+                if "asId" in form: form = form.replace("asId", "azId")
+                if "asad" in form: form = form.replace("asad", "azad")
+                if "asizats" in form: form = form.replace("asizats", "azizats")
+                if "asAsad" in form: form = form.replace("asAsad", "azAzad")
         
     # Wait, 01.0049 (ziDa~) gets NO SATVA with pari! 
     # Actually, pari + ziDa~ = pariseDati, but ni + ziDa~ = nizeDati.

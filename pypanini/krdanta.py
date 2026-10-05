@@ -1657,6 +1657,11 @@ class KrdantaEngine:
                 if ";AN" in upasarga:
                     new_v += [c.replace("ny", "y") for c in list(new_v) if "ny" in c]
                     new_v += [c.replace("nv", "v") for c in list(new_v) if "nv" in c]
+                # 8.3.64 sthAdiSv aByAsena ca for yanluganta participles (tAsT -> tAzW)
+                if sanadi == "yanluganta" and upasarga:
+                    _inner = upasarga.split(";")[-1]
+                    if _inner.endswith(("i", "u", "I", "U")) or _inner in ("nir", "dur", "dus", "nis"):
+                        new_v += [c.replace("tAsT", "tAzW") for c in list(new_v) if "tAsT" in c]
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1679,6 +1684,10 @@ class KrdantaEngine:
                 if ";AN" in upasarga:
                     _all += [c.replace("ny", "y") for c in list(_all) if "ny" in c]
                     _all += [c.replace("nv", "v") for c in list(_all) if "nv" in c]
+                if sanadi == "yanluganta" and upasarga:
+                    _inner = upasarga.split(";")[-1]
+                    if _inner.endswith(("i", "u", "I", "U")) or _inner in ("nir", "dur", "dus", "nis"):
+                        _all += [c.replace("tAsT", "tAzW") for c in list(_all) if "tAsT" in c]
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 

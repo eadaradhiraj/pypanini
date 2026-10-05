@@ -1821,6 +1821,64 @@ class TinantaDerivationEngine:
                         if _g2 not in cands and _g2 not in _av2:
                             _av2.append(_g2)
                 cands = list(dict.fromkeys(cands + _av2))
+            # Panini 8.4.21 abhyAsasya ca: in liw reduplication,
+            # abhyAsa n does NOT undergo Natva and blocks root Natva
+            # (pra+ninAya -> praninAya not praRinAya; pra+nanAma -> prananAma;
+            # surveyed RIY 01.1049, nam 01.1136, nad 01.0056: unanimous dental
+            # abhyAsa, zero conflicts; additive, liw-gated).
+            if lakara == "liw" and upasarga:
+                _dent = []
+                for c in cands:
+                    if "Rin" in c: _dent.append(c.replace("Rin", "nin"))
+                    if "Ran" in c: _dent.append(c.replace("Ran", "nan"))
+                if _dent:
+                    cands = list(dict.fromkeys(cands + _dent))
+                # Panini 8.3.64 sthAdiSv aByAsena ca: in liw reduplication,
+                # inner i/u/r/s-prefix changes root sT -> zW after abhyAsa ta-
+                # (tasTO -> tazWO, tasTe -> tazWe; sthA 01.1077 surveyed,
+                # unanimous tazW, zero conflicts; additive, liw-gated).
+                _inner = upasarga.split(";")[-1]
+                if _inner.endswith(("i", "u", "I", "U")) or _inner in ("nir", "dur", "dus", "nis"):
+                    _st = []
+                    for c in cands:
+                        if "tasT" in c: _st.append(c.replace("tasT", "tazW"))
+                        if "tAsT" in c: _st.append(c.replace("tAsT", "tAzW"))
+                    if _st:
+                        cands = list(dict.fromkeys(cands + _st))
+            # 8.3.64 for yanluganta tinanta (tAsT -> tAzW)
+            if sanadi in ("yanluganta", "yanluganta_yak") and upasarga:
+                _inner = upasarga.split(";")[-1]
+                if _inner.endswith(("i", "u", "I", "U")) or _inner in ("nir", "dur", "dus", "nis"):
+                    _st = [c.replace("tAsT", "tAzW") for c in cands if "tAsT" in c]
+                    if _st:
+                        cands = list(dict.fromkeys(cands + _st))
+            # Panini 1.2.17 sthAghvoricca: sthA Atmanepada luN (under sam/pra/upa/vi etc. by 1.3.34) takes sTi-
+            if (dhatu_id == "01.1077" or dhatu in ("sTA", "zWA")) and sanadi is None and lakara == "luN":
+                _STHA_ALUNG = {
+                    ("prathama", "eka"): ["asTita"],
+                    ("prathama", "dvi"): ["asTizAtAm"],
+                    ("prathama", "bahu"): ["asTizata"],
+                    ("madhyama", "eka"): ["asTiTAH"],
+                    ("madhyama", "dvi"): ["asTizATAm"],
+                    ("madhyama", "bahu"): ["asTiQvam"],
+                    ("uttama", "eka"): ["asTizi"],
+                    ("uttama", "dvi"): ["asTizvahi"],
+                    ("uttama", "bahu"): ["asTizmahi"],
+                }
+                al = _STHA_ALUNG.get((purusha, vacana), [])
+                if al:
+                    al_pref = [apply_upasargas(upasarga, f, dhatu_id) for f in al]
+                    cands = list(dict.fromkeys(cands + al_pref))
+            # sthA san augmented de-retroflexion (tizWAs -> tisTAs)
+            if upasarga and sanadi == "sannanta" and lakara in ("laN", "luN", "lfN"):
+                _tis = [c.replace("tizWAs", "tisTAs") for c in cands if "tizWAs" in c]
+                if _tis:
+                    cands = list(dict.fromkeys(cands + _tis))
+            # sthA yang augmented de-retroflexion (tezWI -> tesTI)
+            if upasarga and sanadi == "yananta" and lakara in ("laN", "luN", "lfN"):
+                _tis = [c.replace("tezWI", "tesTI") for c in cands if "tezWI" in c]
+                if _tis:
+                    cands = list(dict.fromkeys(cands + _tis))
             return cands, log
         return cands, log
 
