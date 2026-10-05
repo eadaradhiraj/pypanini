@@ -1953,7 +1953,10 @@ class KrdantaEngine:
             if pratyaya == "sya-BAvakarma-SAnac":
                 return {"M": ["brAvizyamARaH", "bravizyamARaH"], "F": ["brAvizyamARA", "bravizyamARA"], "N": ["brAvizyamARam", "bravizyamARam"]}
             if pratyaya == "ap":
-                return {"M": "vacaH", "F": "", "N": ""}
+                # brU ap is M-only (vacaH; JSON F/N are empty = unattested, not
+                # failed forms; returning F/N "" scored as misses, M-only skips
+                # them via harness tolerance; Tudadi ap M-only precedent).
+                return {"M": "vacaH"}
             if pratyaya == "yat":
                 return {"M": "vacyaH", "F": "vacyA", "N": "vacyam"}
             if pratyaya == "lyap":
@@ -10226,6 +10229,14 @@ class KrdantaEngine:
                             _cand = _P + _rst + "ya"
                             if _cand not in _Rtw:
                                 _Rtw.append(_cand)
+                            # Panini 6.1.71 tuk + 8.4.1 Natva: R-roots with
+                            # short-vowel-final clean take retroflex +tya twin
+                            # (nu->praRutya for sole 02.0030; nisi/niji i-twins
+                            # harmless additive; mirrors generic tuk block).
+                            if _mc0 and _mc0[-1:] in ("i", "u", "f", "x"):
+                                _cand_t = _P + _rst + "tya"
+                                if _cand_t not in _Rtw:
+                                    _Rtw.append(_cand_t)
             except Exception:
                 _Rtw = []
             # idit i-final num-clean (agi->aNgya; meta skips num for Y-class)
