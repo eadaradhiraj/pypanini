@@ -1916,8 +1916,9 @@ class TinantaDerivationEngine:
                     cands = list(dict.fromkeys(cands + _tis))
             # van-family dental twins (pari/pra/nir + van -> parivavana, not parivavaRa;
             # van-roots never take Natva on their own n; sru-suffix R (sravaRa) unaffected
-            # via van-shape gate; surveyed zero vav/vev+R tokens sweep-wide; additive).
-            if upasarga and "van" in dhatu:
+            # via van-shape gate (nasalized vaYc/svaYj included; vaR-roots already-R need nothing);
+            # surveyed zero vav/vev+R tokens sweep-wide; additive).
+            if upasarga and ("van" in dhatu or "vaY" in dhatu or "vaN" in dhatu):
                 _vdn = []
                 for c in cands:
                     for _o, _n in (

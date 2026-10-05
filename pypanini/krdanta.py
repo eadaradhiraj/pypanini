@@ -1696,7 +1696,7 @@ class KrdantaEngine:
                         new_v += _sam_nas
                 # van-family dental twins (mirrors tinanta; san_krut vivaR->vivana etc.;
                 # van-shape gate keeps sru-suffix R intact; additive).
-                if upasarga and "van" in dhatu:
+                if upasarga and ("van" in dhatu or "vaY" in dhatu or "vaN" in dhatu):
                     _vdn = []
                     for c in list(new_v):
                         if not isinstance(c, str):
@@ -1818,7 +1818,7 @@ class KrdantaEngine:
                     if _sam_nas:
                         _all += _sam_nas
                 # van-family dental twins (mirrors tinanta; additive).
-                if upasarga and "van" in dhatu:
+                if upasarga and ("van" in dhatu or "vaY" in dhatu or "vaN" in dhatu):
                     _vdn = []
                     for c in list(_all):
                         if not isinstance(c, str):
