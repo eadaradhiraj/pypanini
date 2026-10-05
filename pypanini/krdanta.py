@@ -3242,7 +3242,7 @@ class KrdantaEngine:
                         "kta": {"M": "BAvitaH", "F": "BAvitA", "N": "BAvitam"},
                         "ktavatu": {"M": "BAvitavAn", "F": "BAvitavatI", "N": "BAvitavat"},
                         "Satf": {"M": "BAvayan", "F": "BAvayantI", "N": "BAvayat"},
-                        "SAnac": {"M": "BAvyamAnaH", "F": "BAvyamAnA", "N": "BAvyamAnam"},
+                        "SAnac": {"M": ["BAvyamAnaH", "BAvayamAnaH"], "F": ["BAvyamAnA", "BAvayamAnA"], "N": ["BAvyamAnam", "BAvayamAnam"]},
                         "tavya": {"M": "BAvayitavyaH", "F": "BAvayitavyA", "N": "BAvayitavyam"},
                         "anIyar": {"M": "BAvanIyaH", "F": "BAvanIyA", "N": "BAvanIyam"},
                         "yat": {"M": "BAvyaH", "F": "BAvyA", "N": "BAvyam"},
