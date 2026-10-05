@@ -1914,6 +1914,25 @@ class TinantaDerivationEngine:
                 _tis = [c.replace("tezWI", "tesTI") for c in cands if "tezWI" in c]
                 if _tis:
                     cands = list(dict.fromkeys(cands + _tis))
+            # van-family dental twins (pari/pra/nir + van -> parivavana, not parivavaRa;
+            # van-roots never take Natva on their own n; sru-suffix R (sravaRa) unaffected
+            # via van-shape gate; surveyed zero vav/vev+R tokens sweep-wide; additive).
+            if upasarga and "van" in dhatu:
+                _vdn = []
+                for c in cands:
+                    for _o, _n in (
+                        ("vavAR", "vavAn"), ("vavaR", "vavana"),
+                        ("vevAR", "vevAn"), ("vevaR", "vevana"),
+                        ("vivAR", "vivAn"), ("vivaR", "vivana"),
+                        ("vARay", "vAnay"), ("vaRay", "vanay"),
+                        ("vAR", "vAn"), ("vaR", "van"),
+                    ):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _vdn:
+                                _vdn.append(_g)
+                if _vdn:
+                    cands = list(dict.fromkeys(cands + _vdn))
             return cands, log
         return cands, log
 

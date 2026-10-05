@@ -1694,6 +1694,34 @@ class KrdantaEngine:
                             _sam_nas.append(c.replace("caMkram", "caNkram"))
                     if _sam_nas:
                         new_v += _sam_nas
+                # van-family dental twins (mirrors tinanta; san_krut vivaR->vivana etc.;
+                # van-shape gate keeps sru-suffix R intact; additive).
+                if upasarga and "van" in dhatu:
+                    _vdn = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (
+                            ("vavAR", "vavAn"), ("vavaR", "vavana"),
+                            ("vevAR", "vevAn"), ("vevaR", "vevana"),
+                            ("vivAR", "vivAn"), ("vivaR", "vivana"),
+                            ("vARay", "vAnay"), ("vaRay", "vanay"),
+                            ("vAR", "vAn"), ("vaR", "van"),
+                        ):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _vdn:
+                                    _vdn.append(_g)
+                    if _vdn:
+                        new_v += _vdn
+                # van lyap anusvara twin (parivanya->parivaMvanya; sole prefixed van 01.0534
+                # surveyed — Mvanya tokens exist ONLY there sweep-wide; additive).
+                if upasarga and pratyaya == "lyap" and "van" in dhatu:
+                    _vm = [c.replace("vanya", "vaMvanya") for c in list(new_v)
+                           if isinstance(c, str) and "vanya" in c and "vaMvanya" not in c]
+                    _vm = [c for c in _vm if c not in new_v]
+                    if _vm:
+                        new_v += _vm
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1753,6 +1781,32 @@ class KrdantaEngine:
                                 _sam_nas.append(c.replace("caMkram", "caNkram"))
                     if _sam_nas:
                         _all += _sam_nas
+                # van-family dental twins (mirrors tinanta; additive).
+                if upasarga and "van" in dhatu:
+                    _vdn = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (
+                            ("vavAR", "vavAn"), ("vavaR", "vavana"),
+                            ("vevAR", "vevAn"), ("vevaR", "vevana"),
+                            ("vivAR", "vivAn"), ("vivaR", "vivana"),
+                            ("vARay", "vAnay"), ("vaRay", "vanay"),
+                            ("vAR", "vAn"), ("vaR", "van"),
+                        ):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _vdn:
+                                    _vdn.append(_g)
+                    if _vdn:
+                        _all += _vdn
+                # van lyap anusvara twin (mirrors list branch; additive).
+                if upasarga and pratyaya == "lyap" and "van" in dhatu:
+                    _vm = [c.replace("vanya", "vaMvanya") for c in list(_all)
+                           if isinstance(c, str) and "vanya" in c and "vaMvanya" not in c]
+                    _vm = [c for c in _vm if c not in _all]
+                    if _vm:
+                        _all += _vm
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 
