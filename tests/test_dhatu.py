@@ -295,7 +295,9 @@ def validate_dhatu(arg: str, verbose: bool = True, prefix: str = None) -> tuple[
                     loc_mat += 1
             else:
                 loc_tot += 1
-                if check_slot([item["form"]]):
+                _f = item["form"]
+                cand = _f if isinstance(_f, list) else [_f]
+                if check_slot(cand):
                     loc_mat += 1
         all_krd_tot += loc_tot
         all_krd_mat += loc_mat

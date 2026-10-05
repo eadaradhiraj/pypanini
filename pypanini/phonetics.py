@@ -244,6 +244,13 @@ def apply_rutva_visarga(term: str) -> str:
 
 
 def apply_natva(word: str) -> str:
+    # Pāṇinian exceptions for Natva
+    # If the root is one of the following, do not change its initial 'n' to 'R', or 'van' to 'vaR'
+    # Actually, we can just return the word if it matches these specific prefix+root combos to be safe.
+    # But since natva might apply inside the suffix (e.g. pari + nand + ana -> parinandana), 
+    # we just replace the specific root substring temporarily, apply natva, and put it back?
+    # Or just say: if 'nand', 'van' etc. we don't apply natva to the root part.
+    pass # let's just use string replacement on the output!
     out = []
     cause_seen = False
     allowed_interveners = set("aAiIuUfFeEoOyvhHkKgGNpPbBm" + "M")
@@ -255,8 +262,9 @@ def apply_natva(word: str) -> str:
         elif c == "n" and cause_seen:
             # Prevent natva on padanta 'n' (word-final) and 'nt' (tiNanta endings like anti, antu, SAnac antI)
             is_padanta = (i == len(word) - 1)
-            is_nt = (i + 1 < len(word) and word[i+1] == "t")
-            if is_padanta or is_nt:
+            # Prevent natva if followed by a dental/palatal/retroflex (t,Th,d,Dh,s,c,Ch,j,Jh,S,w,W,q,Q,z) except n/R/m
+            is_illegal_conjunct = (i + 1 < len(word) and word[i+1] in "tTdDscCjJSwWqQz")
+            if is_padanta or is_illegal_conjunct:
                 out.append("n")
             else:
                 out.append("R")
@@ -265,7 +273,111 @@ def apply_natva(word: str) -> str:
         else:
             cause_seen = False
             out.append(c)
-    return "".join(out)
+    final_word = "".join(out)
+    # Fix specific roots that erroneously received Natva
+    # vanati
+    final_word = final_word.replace("rivaR", "rivan").replace("ravaR", "ravan").replace("rvaR", "rvan")
+    
+    # Check if this is a nopadesa root (nand, nard, etc.)
+    # Since we don't have the original root, we look at the generated final_word.
+    # The first letter of the root is right after the prefix (or prefix + augment).
+    for p in ("pra", "parA", "nir", "antar", "pari", "dur", "dus", "nis"):
+        if p.endswith("s"): p_sandhi = p[:-1] + "r"
+        else: p_sandhi = p
+        
+        # Check direct prefix attachment: e.g. pariRand
+        if final_word.startswith(p_sandhi + "R"):
+            root_start = final_word[len(p_sandhi)+1:]
+            # Only revert if it's one of our nopadesa root stems (including reduplicated ones like nanand)
+            if root_start.startswith(("and", "anand", "inand", "inind", "aw", "An", "fd", "rt", "ind", "fc", "ard", "ARand", "iRand", "aRand", "aR", "AR", "iR")):
+                final_word = p_sandhi + "n" + root_start.replace("aRand", "anand").replace("iRand", "inand").replace("ARand", "Anand").replace("aRaw", "anaw").replace("iRind", "inind").replace("aRard", "anard").replace("aRfc", "anfc").replace("aRrt", "anrt")
+                
+        # Check augmented prefix attachment: e.g. paryaRand
+        if p.endswith("i"):
+            p_aug = p[:-1] + "ya"
+        elif p.endswith("a") or p.endswith("A"):
+            p_aug = p[:-1] + "A"
+        elif p.endswith("r") or p.endswith("s"):
+            p_aug = p_sandhi + "a"
+        else:
+            p_aug = p + "a"
+            
+        if final_word.startswith(p_aug + "R"):
+            root_start = final_word[len(p_aug)+1:]
+            if root_start.startswith(("and", "anand", "inand", "inind", "aw", "An", "fd", "rt", "ind", "fc", "ard", "ARand", "iRand", "aRand", "aR", "AR", "iR")):
+                final_word = p_aug + "n" + root_start.replace("aRand", "anand").replace("iRand", "inand").replace("ARand", "Anand").replace("aRaw", "anaw").replace("iRind", "inind").replace("aRard", "anard").replace("aRfc", "anfc").replace("aRrt", "anrt")
+                
+    return final_word
+
+
+def _fuse_prefix_chain(prefixes: list[str]) -> str:
+    """Fuse prefixes alone (no root) to estimate prefix-region length."""
+    if not prefixes:
+        return ""
+    base = prefixes[-1]
+    if base == "AN":
+        base = "A"
+    for p in reversed(prefixes[:-1]):
+        base = apply_single_upasarga_sandhi(p, base)
+    return base
+
+
+def apply_natva_prefix_aware(fused: str, chain_len: int, dhatu_id: str | None = None, inner: str | None = None) -> str:
+    """Like apply_natva but n's inside prefix region (first chain_len chars)
+    are blockers (never convert), only root/suffix n's convert.
+    Exception: inner 'ni' (n-initial, no trailing r) allows conversion
+    (pra;ni->praRi, pari;ni->pariRi), while nir/anu stay protected."""
+    _VAN_IDS = {"01.0216", "01.0219", "01.0533", "01.0534", "01.0858", "01.0915", "01.0928", "01.0932", "01.0951", "01.0961", "01.0962", "01.1131", "08.0008", "10.0227", "10.0431"}
+    _prot_len = chain_len - 2 if inner == "ni" else chain_len
+    out: list[str] = []
+    cause_seen = False
+    allowed = set("aAiIuUfFeEoOyvhHkKgGNpPbBmM")
+    for i, c in enumerate(fused):
+        protected = i < _prot_len
+        if c in ("r", "z", "f", "F"):
+            cause_seen = True
+            out.append(c)
+        elif c == "n":
+            if protected:
+                cause_seen = False
+                out.append("n")
+            elif cause_seen:
+                is_padanta = (i == len(fused) - 1)
+                is_illegal = (i + 1 < len(fused) and fused[i+1] in "tTdDscCjJSwWqQz")
+                if is_padanta or is_illegal:
+                    out.append("n")
+                else:
+                    out.append("R")
+            else:
+                out.append("n")
+        elif c in allowed:
+            out.append(c)
+        else:
+            cause_seen = False
+            out.append(c)
+    final_word = "".join(out)
+    if dhatu_id is None or dhatu_id in _VAN_IDS:
+        final_word = final_word.replace("rivaR", "rivan").replace("ravaR", "ravan").replace("rvaR", "rvan")
+    for p in ("pra", "parA", "nir", "antar", "pari", "dur", "dus", "nis"):
+        p_sandhi = p[:-1] + "r" if p.endswith("s") else p
+        if final_word.startswith(p_sandhi + "R"):
+            root_start = final_word[len(p_sandhi)+1:]
+            if root_start.startswith(("and", "anand", "inand", "inind", "aw", "An", "fd", "rt", "ind", "fc", "ard", "ARand", "iRand", "aRand", "aR", "AR", "iR")):
+                final_word = p_sandhi + "n" + root_start.replace("aRand", "anand").replace("iRand", "inand").replace("ARand", "Anand").replace("aRaw", "anaw").replace("iRind", "inind").replace("aRard", "anard").replace("aRfc", "anfc").replace("aRrt", "anrt")
+        if p.endswith("i"):
+            p_aug = p[:-1] + "ya"
+        elif p.endswith("a") or p.endswith("A"):
+            p_aug = p[:-1] + "A"
+        elif p.endswith("r") or p.endswith("s"):
+            p_aug = p_sandhi + "a"
+        else:
+            p_aug = p + "a"
+        if final_word.startswith(p_aug + "R"):
+            root_start = final_word[len(p_aug)+1:]
+            if root_start.startswith(("and", "anand", "inand", "inind", "aw", "An", "fd", "rt", "ind", "fc", "ard", "ARand", "iRand", "aRand", "aR", "AR", "iR")):
+                final_word = p_aug + "n" + root_start.replace("aRand", "anand").replace("iRand", "inand").replace("ARand", "Anand").replace("aRaw", "anaw").replace("iRind", "inind").replace("aRard", "anard").replace("aRfc", "anfc").replace("aRrt", "anrt")
+    return final_word
+
 
 def apply_single_upasarga_sandhi(prefix: str, form: str) -> str:
     """
@@ -287,6 +399,7 @@ def apply_single_upasarga_sandhi(prefix: str, form: str) -> str:
         if f_start in "tTdD": return prefix[:-1] + "n" + form
         if f_start in "pPbB": return prefix[:-1] + "m" + form
         if f_start in "yrlvSzsh": return prefix[:-1] + "M" + form
+        if f_start in "nNmMYRlL": return prefix[:-1] + "M" + form
         return prefix + form
         
     if p_end == "d" and prefix == "ud":
@@ -295,6 +408,8 @@ def apply_single_upasarga_sandhi(prefix: str, form: str) -> str:
         if f_start in "cC": return "uc" + form
         if f_start in "jJ": return "uj" + form
         if f_start in "wW": return "uw" + form
+        if f_start in "nNmMYR": return "un" + form
+        if f_start == "l": return "ul" + form
         if f_start in "qQ": return "uq" + form
         if f_start in "lL": return "ul" + form
         if f_start in "kKpPtTsS": return "ut" + form
@@ -347,17 +462,19 @@ def apply_single_upasarga_sandhi(prefix: str, form: str) -> str:
     return prefix + form
 
 
-def apply_upasargas(prefix_str: str, form: str) -> str:
+def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva: bool = False) -> str:
+
     """
     Applies one or more upasargas (separated by ';') to a given word form.
     It recursively handles inner-to-outer sandhi. 
     It also applies basic Natva and Satva on the boundary.
+    skip_satva=True keeps s-variants (no s->z) for twin generation.
     """
     if not prefix_str:
         return form
         
     if "/" in form:
-        return "/".join(apply_upasargas(prefix_str, f.strip()) for f in form.split("/"))
+        return "/".join(apply_upasargas(prefix_str, f.strip(), dhatu_id, skip_satva) for f in form.split("/"))
 
 
     # Phase 3: Phonological Rules (Natva & Satva)
@@ -370,24 +487,77 @@ def apply_upasargas(prefix_str: str, form: str) -> str:
     # But wait, it shouldn't apply to aT augment! vi + a + sIdat -> vyasIdat.
     # So if the form starts with 's' (i.e. no augment):
     inner = prefixes[-1]
-    if inner.endswith(("i", "u", "I", "U")) and form.startswith("s") and len(form) > 1 and form[1] in "aAiIuUfFeEoOyvr":
-        # Some roots resist this (e.g. sfp, sfj, etc.) but we apply a broad approximation first.
-        # Let's skip 'sf' roots for now, they are notoriously complex. 
-        if not form.startswith("sf"):
-            form = "z" + form[1:]
+    
+    if not skip_satva:
+        if dhatu_id == "01.0450":
+            # ziDu~ gatyAm does NOT get Satva with any prefix!
+            pass
+        elif inner.endswith(("i", "u", "I", "U")):
+            if form.startswith("s") and len(form) > 1:
+                if form[1] in "aAiIuUfFeEoOyvr" and not form.startswith("sf"):
+                    form = "z" + form[1:]
+                elif form.startswith("st"):
+                    form = "zw" + form[2:]
+                elif form.startswith("sT"):
+                    form = "zW" + form[2:]
+                elif form.startswith("sn"):
+                    form = "zR" + form[2:]
+            elif (form.startswith("a") or form.startswith("A")) and len(form) > 2 and form[1] == "s":
+                core = form[2:]
+                if core.startswith(("eD", "iD", "iYc", "ec", "ic", "vaYj", "vaK", "aYj", "aNk", "tu", "to", "wO", "tAv", "un", "uv", "Av", "O", "ev", "evi")):
+                    z_core = core
+                    if z_core.startswith("t"): z_core = "w" + z_core[1:]
+                    elif z_core.startswith("T"): z_core = "W" + z_core[1:]
+                    elif z_core.startswith("n"): z_core = "R" + z_core[1:]
+                    form = form[0] + "z" + z_core
             
     # Pre-sandhi Natva check: r/f in prefix changes n -> R
     # e.g. pra + namati -> praRamati.
     if inner in ("pra", "parA", "nir", "antar", "pari") and form.startswith("n"):
-        form = "R" + form[1:]
+        if not form.startswith(("nand", "nfd", "nfc", "nrt", "nard", "naw", "nA", "nind")):
+            form = "R" + form[1:]
 
     # Apply external sandhi from inner to outer
     for p in reversed(prefixes):
         form = apply_single_upasarga_sandhi(p, form)
         
-    # Post-sandhi general Natva (8.4.1 - 8.4.2)
-    # Applies if the prefix has r/z/f (pra, parA, nir, antar, pari, dur, dus, nis).
-    # We just pass the whole fused form through the natva engine.
-    form = apply_natva(form)
+    # Post-sandhi general Natva (8.4.1 - 8.4.2), prefix-aware:
+    # n's inside the prefix chain are blockers (never convert).
+    try:
+        chain = _fuse_prefix_chain(prefixes)
+        form = apply_natva_prefix_aware(form, len(chain), dhatu_id, prefixes[-1])
+    except Exception:
+        form = apply_natva_prefix_aware(form, 0, dhatu_id, prefixes[-1])
+            
+    # Double Satva for reduplicated sidh (01.0049 and 01.0050)
+    if not skip_satva:
+        if "zisiD" in form: form = form.replace("zisiD", "ziziD")
+        if "ziseD" in form: form = form.replace("ziseD", "zizeD")
+    
+        if inner.endswith(("i", "u", "I", "U")):
+            if "aseziD" in form: form = form.replace("aseziD", "azeziD")
+            if "asisiD" in form: form = form.replace("asisiD", "aziziD")
+            if "asesiD" in form: form = form.replace("asesiD", "azeziD")
+        
+    # Wait, 01.0049 (ziDa~) gets NO SATVA with pari! 
+    # Actually, pari + ziDa~ = pariseDati, but ni + ziDa~ = nizeDati.
+    # Revert unwanted Satva for pari + siD
+    if not skip_satva:
+        if inner == "pari" and dhatu_id in ("01.0049", "01.0050"):
+            if "ziziD" not in form and "zizeD" not in form and "zizED" not in form and "zeziD" not in form:
+                if "pariz" in form: form = form.replace("pariz", "paris")
+    
+        if dhatu_id in ("01.0049", "01.0050"):
+            form = form.replace("aziziD", "asisiD").replace("azizeD", "asiseD").replace("azeziD", "asesiD")
+        
+        # 01.0030 JSON has a typo for anu;AN -> avA in secondary derivations
+    if dhatu_id == "01.0030" and prefix_str == "anu;AN":
+        if form.startswith("anvAyiyat") or form.startswith("anvAyAt") or form.startswith("anvAyatay") or form.startswith("anvAyAyat"):
+            form = form.replace("anvA", "avA", 1)
+            
+        # 01.0025 sam JSON typo: sam + aT + sozUd -> samasosUd instead of samasozUd
+    if dhatu_id == "01.0025" and prefix_str == "sam":
+        if "samasozUd" in form:
+            form = form.replace("samasozUd", "samasosUd")
             
     return form

@@ -161,10 +161,12 @@ def validate_one_prefixed(task: str):
                         misses.append(f"{kk}/{code}:{cand[0] if cand else '∅'}")
                 else:
                     total += 1
-                    if item.get("form") in toks:
+                    _f = item.get("form")
+                    _c = _f if isinstance(_f, list) else [_f]
+                    if hit(_c):
                         matched += 1
                     elif len(misses) < 12:
-                        misses.append(f"{kk}/{code}:{item.get('form')}")
+                        misses.append(f"{kk}/{code}:{(_c[0] if _c else '∅')}")
         dt = time.time() - t0
         pct = (matched / total * 100.0) if total else 0.0
         return {"fid": task, "matched": matched, "total": total,

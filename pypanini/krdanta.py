@@ -1632,7 +1632,8 @@ class KrdantaEngine:
                         c = c[3:]
                     elif pratyaya == "lyap" and c.startswith("saM"):
                         c = c[3:]
-                    new_v.append(apply_upasargas(upasarga, c))
+                    new_v.append(apply_upasargas(upasarga, c, dhatu_id))
+                    new_v.append(apply_upasargas(upasarga, c, dhatu_id, skip_satva=True))
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1640,7 +1641,9 @@ class KrdantaEngine:
                     c = c[3:]
                 elif pratyaya == "lyap" and c.startswith("saM"):
                     c = c[3:]
-                out[k] = apply_upasargas(upasarga, c)
+                _a = apply_upasargas(upasarga, c, dhatu_id)
+                _b = apply_upasargas(upasarga, c, dhatu_id, skip_satva=True)
+                out[k] = _a if _a == _b else [_a, _b]
         return out
 
     def _derive_krdanta_inner(

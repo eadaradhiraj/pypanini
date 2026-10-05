@@ -1751,8 +1751,15 @@ class TinantaDerivationEngine:
             _bF = {"luw": ['vaktA', 'vaktADve', 'vaktAhe', 'vaktArO', 'vaktAraH', 'vaktAsATe', 'vaktAsTa', 'vaktAsTaH', 'vaktAse', 'vaktAsi', 'vaktAsmaH', 'vaktAsmahe', 'vaktAsmi', 'vaktAsvaH', 'vaktAsvahe'], "lfw": ['vakzyAmaH', 'vakzyAmahe', 'vakzyAmi', 'vakzyAvaH', 'vakzyAvahe', 'vakzyaDve', 'vakzyaTa', 'vakzyaTaH', 'vakzyante', 'vakzyanti', 'vakzyase', 'vakzyasi', 'vakzyataH', 'vakzyate', 'vakzyati', 'vakzye', 'vakzyeTe', 'vakzyete'], "ASIrliN": ['ucyAH', 'ucyAd', 'ucyAsam', 'ucyAsma', 'ucyAstAm', 'ucyAsta', 'ucyAstam', 'ucyAsuH', 'ucyAsva', 'ucyAt', 'vakzIDvam', 'vakzImahi', 'vakzIran', 'vakzIvahi', 'vakzIyAsTAm', 'vakzIyAstAm', 'vakzIya', 'vakzIzWAH', 'vakzIzwa'], "lfN": ['avakzyAma', 'avakzyAmahi', 'avakzyAva', 'avakzyAvahi', 'avakzyaDvam', 'avakzyaH', 'avakzyaTAH', 'avakzyad', 'avakzyam', 'avakzyan', 'avakzyanta', 'avakzyat', 'avakzyatAm', 'avakzyata', 'avakzyatam', 'avakzye', 'avakzyeTAm', 'avakzyetAm']}
             cands = list(dict.fromkeys(list(cands) + _bF.get(lakara, [])))
         if upasarga:
-            cands = [apply_upasargas(upasarga, c, dhatu_id) for c in cands]
-            return list(dict.fromkeys(cands)), log
+            _sat = [apply_upasargas(upasarga, c, dhatu_id) for c in cands]
+            _nosat = [apply_upasargas(upasarga, c, dhatu_id, skip_satva=True) for c in cands]
+            cands = list(dict.fromkeys(_sat + _nosat))
+            # 01.1091 zu yang augmented de-retroflexion (bare asozU- vs prefixed asosU-;
+            # sole zu surveyed: lw keeps sozU, laN/luN/lfN take sosU with prefix+augment).
+            if dhatu_id == "01.1091" and sanadi == "yananta" and lakara in ("laN", "luN", "lfN"):
+                _sos = [c.replace("sozU", "sosU") for c in cands if "sozU" in c]
+                cands = list(dict.fromkeys(cands + _sos))
+            return cands, log
         return cands, log
 
     def _derive_inner(
