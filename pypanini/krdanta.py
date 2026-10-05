@@ -10742,7 +10742,11 @@ class KrdantaEngine:
                 def _ajtw(_v):
                     _was_str = isinstance(_v, str)
                     _vs = [_v] if _was_str else list(_v)
-                    for _o, _n in (("ajijiz", "ajivayiz"), ("ajijiz", "vivIz")):
+                    # NOTE: prefixed fusion capitalizes (A/AN + ajijiz -> AjijizitaH) so Capital pairs
+                    # ride along (AjivayizitaH/AvivIzitaH attested in every 0262 prefixed block); the
+                    # lowercase pair keeps unprefixed + consonant/i-fused behavior byte-identical.
+                    for _o, _n in (("ajijiz", "ajivayiz"), ("ajijiz", "vivIz"),
+                                   ("Ajijiz", "Ajivayiz"), ("Ajijiz", "AvivIz")):
                         for _f in list(_vs):
                             if isinstance(_f, str) and _o in _f:
                                 _g = _f.replace(_o, _n)
@@ -10764,11 +10768,15 @@ class KrdantaEngine:
                         _it["avyaya"] = _av
                         continue
                     if _pr == "lyuw":
-                        # ajivayiz-form (ajivayizaRam; old ajijizaRam misses so replacement is free;
-                        # Ramul/GaY passes left untouched).
+                        # ajivayiz-form (ajivayizaRam/AjivayizaRam + AvivIzaRam; old ajijizaRam misses
+                        # so replacement is free unprefixed; prefixed Capital pairs ride along with the
+                        # _ajtw twins above; Ramul/GaY passes left untouched).
                         _fm = _it.get("form", "")
                         if isinstance(_fm, str) and "ajijiz" in _fm:
                             _it["form"] = _fm.replace("ajijiz", "ajivayiz")
+                        elif isinstance(_fm, str) and "Ajijiz" in _fm:
+                            _it["form"] = [_fm.replace("Ajijiz", "Ajivayiz"),
+                                           _fm.replace("Ajijiz", "AvivIz")]
                         continue
                     for _g, _v in _it.items():
                         # NB: "form"-keyed singles (GaY-type) stay str — harness wraps item["form"] in a list
