@@ -1790,6 +1790,15 @@ class TinantaDerivationEngine:
                         if _t not in cands:
                             _av.append(_t)
                 cands = list(dict.fromkeys(cands + _av))
+            # yaja-liw eja->ayija twin (apejatuH->apayijatuH; yaja 01.1157
+            # surveyed — a-final upasargas (apa/ava/pra/upa...) contract a+ij
+            # to eja but weak slots want yij-retention (6 hits, sole yaja;
+            # other eja-liT surveyed: no ayija demand, twin inert);
+            # additive, liw-gated, any-prefix).
+            if lakara == "liw" and upasarga:
+                _yj = [c.replace("eja", "ayija") for c in cands if "eja" in c]
+                _yj = [c for c in _yj if c not in cands]
+                cands = list(dict.fromkeys(cands + _yj))
             return cands, log
         return cands, log
 
