@@ -889,3 +889,4 @@ Prior 100% passes (5 roots unlocked in milestone 1106):
 - Iteration 691 (GEN-04: divAdi dI luw A-grade (exact alut; 04.0029 surveyed; additive, divAdiH dI-gated): 10 holds 492/492 (+0/-0), 04 +9/-0 (151/161 holds, 0029 870->879), 0 worsened; pilots-only per fast-track.)
 - Iteration 692 (GEN-04: jan/vAvft liw twins (exact alit; divAdiH-gated, additive; traced live sites): 10 holds 492/492 (+0/-0), 04 +17/-0 (151->153/161: PASS 04.0044/0056), 0 worsened; pilots-only per fast-track.)
 - Iteration 693 (GEN-04: dI future dAs twins (exact lfw/ASIrliN/luN/lfN; divAdiH dI-gated, additive; traced live sites): 10 holds 492/492 (+0/-0), 04 +36/-0 (153->154/161: PASS 04.0029), 0 worsened; pilots-only per fast-track.)
+- Iteration 694 (GEN-04: ruD/yuD/buD lfw t-twins (exact attested; trio surveyed, additive; traced live site): 10 holds 492/492 (+0/-0), 04 +27/-0 (154/161 holds), 0 worsened; pilots-only per fast-track.)

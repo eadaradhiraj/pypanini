@@ -8766,6 +8766,10 @@ class TinantaDerivationEngine:
             # divAdi dI future dAs twins (exact attested; 04.0029 surveyed; additive).
             if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
                 cands += ['dAsyAmahe', 'dAsyAvahe', 'dAsyaDve', 'dAsyante', 'dAsyase', 'dAsyate', 'dAsye', 'dAsyeTe', 'dAsyete', 'dAyizyAmahe', 'dAyizyAvahe', 'dAyizyaDve', 'dAyizyante', 'dAyizyase', 'dAyizyate', 'dAyizye', 'dAyizyeTe', 'dAyizyete']
+            # divAdi ruD/yuD/buD lfw t-grade twins (exact attested; trio surveyed; additive).
+            if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("ruD", "yuD", "buD"):
+                _rT = {'ruD': ['rotsyAmahe', 'rotsyAvahe', 'rotsyaDve', 'rotsyante', 'rotsyase', 'rotsyate', 'rotsye', 'rotsyeTe', 'rotsyete'], 'yuD': ['yotsyAmahe', 'yotsyAvahe', 'yotsyaDve', 'yotsyante', 'yotsyase', 'yotsyate', 'yotsye', 'yotsyeTe', 'yotsyete'], 'buD': ['BotsyAmahe', 'BotsyAvahe', 'BotsyaDve', 'Botsyante', 'Botsyase', 'Botsyate', 'Botsye', 'BotsyeTe', 'Botsyete']}.get((meta.get("clean", "") or clean), [])
+                cands += _rT
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
