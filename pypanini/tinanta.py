@@ -8662,6 +8662,12 @@ class TinantaDerivationEngine:
             # divAdi dI luw A-grade twins (exact alut; 04.0029 surveyed; additive).
             if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
                 cands += ['dAtA', 'dAtArO', 'dAtAraH', 'dAtAse', 'dAtAsATe', 'dAtADve', 'dAtAhe', 'dAtAsvahe', 'dAtAsmahe']
+            # aniW sfj luw zw-grade (srazwA; pair 04.0075 divAdi + 06.0150 tudAdi
+            # surveyed — sew fj-roots (fja/Bfj/Dfj/gfj/vfj) take arjitA via generic
+            # iT, excluded by aniW gate; zw-stems take bare -A endings (not -tA);
+            # both padas for global match (prathama overlaps); additive).
+            if sanadi is None and meta.get("clean") == "sfj" and meta.get("gana") in ("divAdiH", "tudAdiH") and not sew:
+                cands += ['srazwA', 'srazwArO', 'srazwAraH', 'srazwAsi', 'srazwAsTaH', 'srazwAsTa', 'srazwAsmi', 'srazwAsvaH', 'srazwAsmaH', 'srazwAse', 'srazwAsATe', 'srazwADve', 'srazwAhe', 'srazwAsvahe', 'srazwAsmahe']
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
@@ -8781,6 +8787,13 @@ class TinantaDerivationEngine:
             if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "puz" and dhatu_id == "04.0121":
                 cands+=self._conjugate_at_stem_parasmai("pozizy", "lw", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane("pozizy", "lw", purusha, vacana)
+            # divAdi aniW sfj sya-future (srakzyati/srakzyate; sole 04.0075 surveyed —
+            # tudAdi sfj sextet block above covers 06.0150; sew fj-roots take arjizy
+            # via generic iT, excluded by aniW gate; both padas for global match;
+            # additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "sfj" and not sew:
+                cands+=self._conjugate_at_stem_parasmai("srakzy", "lw", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane("srakzy", "lw", purusha, vacana)
             # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
             if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
                 cands += ['mAyayizyate', 'mAyayizyete', 'mAyayizyante', 'mAyayizyase', 'mAyayizyeTe', 'mAyayizyaDve', 'mAyayizye', 'mAyayizyAvahe', 'mAyayizyAmahe', 'mAyayizyati', 'mAyayizyataH', 'mAyayizyanti', 'mAyayizyasi', 'mAyayizyaTaH', 'mAyayizyaTa', 'mAyayizyAmi', 'mAyayizyAvaH', 'mAyayizyAmaH']
@@ -8851,6 +8864,12 @@ class TinantaDerivationEngine:
                 _t6fa = {"Brajj": "aBarkzy", "vrasc": "avrakzy", "stfnh": "astfMhizy", "praC": "aprakzy", "sfj": "asrakzy", "majj": "amaNkzy"}[meta.get("clean")]
                 cands+=self._conjugate_at_stem_parasmai(_t6fa, "laN", purusha, vacana)
                 cands+=self._conjugate_at_stem_atmane(_t6fa, "laN", purusha, vacana)
+            # divAdi aniW sfj sya-conditional (asrakzyat/asrakzyata; sole 04.0075
+            # surveyed — tudAdi block above covers 06.0150; sew fj-roots excluded
+            # by aniW gate; both padas for global match; additive, divAdiH-gated).
+            if sanadi is None and meta.get("gana") == "divAdiH" and meta.get("clean") == "sfj" and not sew:
+                cands+=self._conjugate_at_stem_parasmai("asrakzy", "laN", purusha, vacana)
+                cands+=self._conjugate_at_stem_atmane("asrakzy", "laN", purusha, vacana)
             # kryAdi mI lfN (amAsyat; sole 09.0004 surveyed — old amayzyat
             # misses; both padas for global match; additive, kryAdiH-gated).
             if sanadi is None and meta.get("gana") == "kryAdiH" and meta.get("clean") == "mI":
