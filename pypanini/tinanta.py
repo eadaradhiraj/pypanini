@@ -1742,6 +1742,10 @@ class TinantaDerivationEngine:
             # augment sandhi: A- + a- (aug) -> A- (dirgha, single A)
             _sadA += ["A" + c[1:] for c in cands if c.startswith("a")]
             cands = list(dict.fromkeys(list(cands) + _sadA))
+        # brU liw suppletion twins (exact plit/alit uvAca/Uce; 02.0039 surveyed, pada-prefixed
+        # absent; fid-gated liw-only, additive; vac/uBayapadI untouched for others).
+        if dhatu_id in ("02.0039",) and lakara == "liw" and sanadi is None:
+            cands = list(dict.fromkeys(list(cands) + ['UcATe', 'UcAte', 'Uca', 'UcaTuH', 'UcatuH', 'Uce', 'UciDve', 'Ucima', 'Ucimahe', 'Ucire', 'Uciva', 'Ucivahe', 'Ucize', 'UcuH', 'uvAca', 'uvaca', 'uvaciTa', 'uvakTa']))
         if upasarga:
             cands = [apply_upasargas(upasarga, c, dhatu_id) for c in cands]
             return list(dict.fromkeys(cands)), log
