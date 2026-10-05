@@ -503,7 +503,10 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
     # upasargasya rephasya latvaM syAd ayatau parataH.
     # The 'r' of the innermost upasarga is replaced by 'l' before the root 'ay' (01.0546 aya~),
     # but not in sannanta (where form starts with 'ayiyiz').
-    if (dhatu_id == "01.0546" or form.startswith(("ay", "Ay"))) and not ("iyiz" in form or "diiz" in form):
+    # Surveyed all 01 prefixed blocks: latva l-forms (nil-/palA-/plA-) occur ONLY in 01.0546
+    # (parA/nir); the form-based clause fired on augmented laN (a+yat->ayatata) for y-roots
+    # (yat/yama/yaja/yac etc., 16 tasks, ~3000 tokens, zero l-hits) — removed, 0546-only.
+    if dhatu_id == "01.0546" and not ("iyiz" in form or "diiz" in form):
         _latva = {"nir": "nil", "parA": "palA", "pra": "pla", "pari": "pali", "dur": "dul"}
         if prefixes[-1] in _latva:
             prefixes[-1] = _latva[prefixes[-1]]
