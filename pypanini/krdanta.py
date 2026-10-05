@@ -1793,6 +1793,19 @@ class KrdantaEngine:
                                         _vlt.append(_g)
                         if _vlt:
                             new_v += _vlt
+                # labh-AN nasal twins (mirrors tinanta; laB + AN-inner; additive).
+                if upasarga and dhatu == "laB" and upasarga.split(";")[-1] == "AN":
+                    _lmt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("laB", "lamB"), ("lABa", "lamBa")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _lmt:
+                                    _lmt.append(_g)
+                    if _lmt:
+                        new_v += _lmt
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1947,6 +1960,19 @@ class KrdantaEngine:
                                         _vlt.append(_g)
                         if _vlt:
                             _all += _vlt
+                # labh-AN nasal twins (mirrors tinanta; laB + AN-inner; additive).
+                if upasarga and dhatu == "laB" and upasarga.split(";")[-1] == "AN":
+                    _lmt = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("laB", "lamB"), ("lABa", "lamBa")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _lmt:
+                                    _lmt.append(_g)
+                    if _lmt:
+                        _all += _lmt
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 

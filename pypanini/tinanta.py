@@ -2046,6 +2046,20 @@ class TinantaDerivationEngine:
                                     _vlt.append(_g)
                 if _vlt:
                     cands = list(dict.fromkeys(cands + _vlt))
+            # labh-AN nasal twins (AlamByate alongside AlaByate; qulaBa~z 01.1130 surveyed — AN-inner
+            # (AN/prati;AN/sam;AN/upa;AN/vi;AN, 5 tasks) takes nasal lamB in yak (AlamByate) and krdanta
+            # (AlamByaH/AlamBaH/AlamBya, incl. real lAlamB- forms); plain-A inner (A-block) keeps plain
+            # and already passes; unprefixed unaffected (upasarga-gated); additive, laB + AN-inner).
+            if upasarga and dhatu == "laB" and upasarga.split(";")[-1] == "AN":
+                _lmt = []
+                for c in cands:
+                    for _o, _n in (("laB", "lamB"), ("lABa", "lamBa")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _lmt:
+                                _lmt.append(_g)
+                if _lmt:
+                    cands = list(dict.fromkeys(cands + _lmt))
             return cands, log
         return cands, log
 
