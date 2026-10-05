@@ -1964,6 +1964,14 @@ class TinantaDerivationEngine:
                             _ejn.append(_g)
                 if _ejn:
                     cands = list(dict.fromkeys(cands + _ejn))
+            # Anakz dental twin (RAnakz->nAnakz; Rakza~ 01.0752 yang surveyed — zero RAnakz tokens
+            # sweep-wide vs 526 nAnakz, so self-gating by substring; inner-pra natva over-fires where
+            # the word-initial nopadesa-An guard cannot see it; additive).
+            if upasarga:
+                _ank = [c.replace("RAnakz", "nAnakz") for c in cands if "RAnakz" in c]
+                _ank = [c for c in _ank if c not in cands]
+                if _ank:
+                    cands = list(dict.fromkeys(cands + _ank))
             return cands, log
         return cands, log
 

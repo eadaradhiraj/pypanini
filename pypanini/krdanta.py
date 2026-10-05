@@ -1751,6 +1751,13 @@ class KrdantaEngine:
                                 _ejn.append(_g)
                     if _ejn:
                         new_v += _ejn
+                # Anakz dental twin (mirrors tinanta; self-gating; additive).
+                if upasarga:
+                    _ank = [c.replace("RAnakz", "nAnakz") for c in list(new_v)
+                            if isinstance(c, str) and "RAnakz" in c]
+                    _ank = [c for c in _ank if c not in new_v]
+                    if _ank:
+                        new_v += _ank
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1865,6 +1872,13 @@ class KrdantaEngine:
                                 _ejn.append(_g)
                     if _ejn:
                         _all += _ejn
+                # Anakz dental twin (mirrors list branch; self-gating; additive).
+                if upasarga:
+                    _ank = [c.replace("RAnakz", "nAnakz") for c in list(_all)
+                            if isinstance(c, str) and "RAnakz" in c]
+                    _ank = [c for c in _ank if c not in _all]
+                    if _ank:
+                        _all += _ank
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 
