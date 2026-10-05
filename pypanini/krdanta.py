@@ -1722,6 +1722,35 @@ class KrdantaEngine:
                     _vm = [c for c in _vm if c not in new_v]
                     if _vm:
                         new_v += _vm
+                # ej-san E-grade twins (mirrors tinanta; sannanta-gated, ej-shape gate; additive).
+                if upasarga and sanadi == "sannanta" and "ej" in dhatu:
+                    _ejt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("ejijiz", "Ejijiz"), ("ejdiiz", "Ejdiiz"), ("ejiz", "Ejiz")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _ejt:
+                                    _ejt.append(_g)
+                    if _ejt:
+                        new_v += _ejt
+                # ej-nich Apa-allomorph twins (mirrors tinanta; nijanta+apa+ej-gated; additive).
+                if upasarga and sanadi == "nijanta" and "ej" in dhatu and upasarga.split(";")[-1] == "apa":
+                    _ejn = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        if c.startswith("ape"):
+                            _g = "Ape" + c[3:]
+                            if _g not in new_v and _g not in _ejn:
+                                _ejn.append(_g)
+                        elif c.startswith("apE"):
+                            _g = "ApE" + c[3:]
+                            if _g not in new_v and _g not in _ejn:
+                                _ejn.append(_g)
+                    if _ejn:
+                        new_v += _ejn
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1807,6 +1836,35 @@ class KrdantaEngine:
                     _vm = [c for c in _vm if c not in _all]
                     if _vm:
                         _all += _vm
+                # ej-san E-grade twins (mirrors list branch; sannanta-gated, ej-shape gate).
+                if upasarga and sanadi == "sannanta" and "ej" in dhatu:
+                    _ejt = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("ejijiz", "Ejijiz"), ("ejdiiz", "Ejdiiz"), ("ejiz", "Ejiz")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _ejt:
+                                    _ejt.append(_g)
+                    if _ejt:
+                        _all += _ejt
+                # ej-nich Apa-allomorph twins (mirrors list branch; nijanta+apa+ej-gated).
+                if upasarga and sanadi == "nijanta" and "ej" in dhatu and upasarga.split(";")[-1] == "apa":
+                    _ejn = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        if c.startswith("ape"):
+                            _g = "Ape" + c[3:]
+                            if _g not in _all and _g not in _ejn:
+                                _ejn.append(_g)
+                        elif c.startswith("apE"):
+                            _g = "ApE" + c[3:]
+                            if _g not in _all and _g not in _ejn:
+                                _ejn.append(_g)
+                    if _ejn:
+                        _all += _ejn
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 

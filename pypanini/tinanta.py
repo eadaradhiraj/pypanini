@@ -1933,6 +1933,37 @@ class TinantaDerivationEngine:
                                 _vdn.append(_g)
                 if _vdn:
                     cands = list(dict.fromkeys(cands + _vdn))
+            # ej-san E-grade twins (apEjijiz alongside apejijiz; ejf~ 01.0203/0267 apa surveyed —
+            # E-majority unaugmented (240/311) with e-minority augmented (Apejiz 36/45) so both grades
+            # needed; ud keeps e-hits (249) with E inert; Brejf~/teja~ unaffected (no prefixed data);
+            # additive, sannanta-gated, ej-shape gate).
+            if upasarga and sanadi == "sannanta" and "ej" in dhatu:
+                _ejt = []
+                for c in cands:
+                    for _o, _n in (("ejijiz", "Ejijiz"), ("ejdiiz", "Ejdiiz"), ("ejiz", "Ejiz")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _ejt:
+                                _ejt.append(_g)
+                if _ejt:
+                    cands = list(dict.fromkeys(cands + _ejt))
+            # ej-nich Apa-allomorph twins (Apejayati alongside apejayati; apa+ejf~ 01.0203/0267
+            # surveyed — nich present/perfect/imperative/future take Apa (209+90), mUla keeps apejate
+            # and san keeps apEjijiz (short ap), ud+nich keeps udej (apa-gate); krdanta nich takes both
+            # (ApejayitA + apejayitavyA) so twin, not replacement; additive, nijanta+apa+ej-gated).
+            if upasarga and sanadi == "nijanta" and "ej" in dhatu and upasarga.split(";")[-1] == "apa":
+                _ejn = []
+                for c in cands:
+                    if c.startswith("ape"):
+                        _g = "Ape" + c[3:]
+                        if _g not in cands and _g not in _ejn:
+                            _ejn.append(_g)
+                    elif c.startswith("apE"):
+                        _g = "ApE" + c[3:]
+                        if _g not in cands and _g not in _ejn:
+                            _ejn.append(_g)
+                if _ejn:
+                    cands = list(dict.fromkeys(cands + _ejn))
             return cands, log
         return cands, log
 
