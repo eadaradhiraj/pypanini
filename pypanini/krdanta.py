@@ -1636,6 +1636,12 @@ class KrdantaEngine:
                     new_v.append(apply_upasargas(upasarga, c, dhatu_id, skip_satva=True))
                 # ud+S palatal twins (ucC alongside ucS; surveyed 10/10).
                 new_v += [c.replace("ucS", "ucC") for c in list(new_v) if "ucS" in c]
+                # sam/ud yata->ata twins (samataH/udataH alongside saMyataH/udyataH;
+                # yam-pair 01.1031/1139 surveyed — sam/ud-final upasargas drop y of
+                # yata-kta/ktavatu (16/16 unanimous, vowel-final prefixes keep y);
+                # additive, inner-gated).
+                if pratyaya in ("kta", "ktavatu") and upasarga.split(";")[-1] in ("sam", "ud"):
+                    new_v += [c.replace("Myat", "mat").replace("myat", "mat").replace("dyat", "dat") for c in list(new_v) if ("Myat" in c or "myat" in c or "dyat" in c)]
                 # stacked ;AN n-loss twins (nyA->yA, nvA->vA; surveyed 13/13).
                 if ";AN" in upasarga:
                     new_v += [c.replace("ny", "y") for c in list(new_v) if "ny" in c]
@@ -1651,6 +1657,8 @@ class KrdantaEngine:
                 _b = apply_upasargas(upasarga, c, dhatu_id, skip_satva=True)
                 _all = [_a] if _a == _b else [_a, _b]
                 _all += [c.replace("ucS", "ucC") for c in list(_all) if "ucS" in c]
+                if pratyaya in ("kta", "ktavatu") and upasarga.split(";")[-1] in ("sam", "ud"):
+                    _all += [c.replace("Myat", "mat").replace("myat", "mat").replace("dyat", "dat") for c in list(_all) if ("Myat" in c or "myat" in c or "dyat" in c)]
                 if ";AN" in upasarga:
                     _all += [c.replace("ny", "y") for c in list(_all) if "ny" in c]
                     _all += [c.replace("nv", "v") for c in list(_all) if "nv" in c]
