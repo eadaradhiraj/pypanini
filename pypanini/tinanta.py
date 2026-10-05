@@ -1973,6 +1973,21 @@ class TinantaDerivationEngine:
                 _ank = [c for c in _ank if c not in cands]
                 if _ank:
                     cands = list(dict.fromkeys(cands + _ank))
+            # yang-augment de-voicing twins (sesiD alongside seziD; siD/sev/smi/stuBu 0049/0050/0450/
+            # 0574/1099/0460 yang-laN/luN/lfN surveyed — prefixed augmented takes dental stem (apAsesiD,
+            # pratyatostuB, upAsesev, aByasesm) while unaugmented keeps zw (pratitozwuB) or z (apaseziD)
+            # and unprefixed augmented keeps z (aseziD); krdanta yang_krut keeps z (apaseziDita) so
+            # tinanta-only; stem-specific pairs leave luN izwa-endings (z) intact; additive).
+            if upasarga and sanadi == "yananta" and lakara in ("laN", "luN", "lfN"):
+                _yzd = []
+                for c in cands:
+                    for _o, _n in (("zwu", "stu"), ("ezi", "esi"), ("eze", "ese"), ("ezm", "esm")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _yzd:
+                                _yzd.append(_g)
+                if _yzd:
+                    cands = list(dict.fromkeys(cands + _yzd))
             return cands, log
         return cands, log
 
