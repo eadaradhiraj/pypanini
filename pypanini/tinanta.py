@@ -1809,6 +1809,18 @@ class TinantaDerivationEngine:
                 _yj2 = [c.replace("yayaj", "yij") for c in cands if "yayaj" in c]
                 _yj2 = [c for c in _yj2 if c not in cands]
                 cands = list(dict.fromkeys(cands + _yj2))
+                # va-roots-liw o->avu twin (apopatuH->apavupatuH; vapa/vaha/vasa/
+                # vada quartet 01.1158/1159/1160/1164 surveyed — eka-slots keep
+                # o-contraction and already pass; dvi/bahu-slots want a-vu-;
+                # first-o only (prefix fusions like prod- keep later o-);
+                # 37 hits, others inert; additive, liw-gated, any-prefix).
+                _av2 = []
+                for c in cands:
+                    if "o" in c:
+                        _g2 = c.replace("o", "avu", 1)
+                        if _g2 not in cands and _g2 not in _av2:
+                            _av2.append(_g2)
+                cands = list(dict.fromkeys(cands + _av2))
             return cands, log
         return cands, log
 
