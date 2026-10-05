@@ -1773,6 +1773,23 @@ class TinantaDerivationEngine:
                     if "nv" in c:
                         _an.append(c.replace("nv", "v"))
                 cands = list(dict.fromkeys(cands + _an))
+            # AN-liw samprasarana twins (o->avu, e->ayi: opatuH->avupatuH,
+            # ejatuH->ayijatuH/eje->ayije; yam/vap/vah/vas/vad quintet
+            # 01.1157/1158/1159/1160/1164 surveyed — AN contracts A+abhyasa-u/i
+            # to o/e but dvi/bahu-slots want a-reduplicated (eka keeps o- and
+            # already passes); self-gating (only o/e-initial fire); additive).
+            if lakara == "liw" and upasarga.split(";")[-1] == "AN":
+                _av = []
+                for c in cands:
+                    if c.startswith("o"):
+                        _t = "avu" + c[1:]
+                        if _t not in cands:
+                            _av.append(_t)
+                    elif c.startswith("e"):
+                        _t = "ayi" + c[1:]
+                        if _t not in cands:
+                            _av.append(_t)
+                cands = list(dict.fromkeys(cands + _av))
             return cands, log
         return cands, log
 
