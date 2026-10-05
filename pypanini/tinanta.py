@@ -2060,6 +2060,50 @@ class TinantaDerivationEngine:
                                 _lmt.append(_g)
                 if _lmt:
                     cands = list(dict.fromkeys(cands + _lmt))
+            # A;upa;vi augmentless twins (opaviramat alongside opavyaramat; ramu~ 01.0989 surveyed —
+            # sole A;upa;vi task in 01; block has ZERO augmented tokens (no opavya- anywhere in 1163),
+            # laN across all antas takes augmentless (opaviramat...); sibling stacks (vi;upa/upa;AN/pra;vi)
+            # keep augment and already pass; unprefixed untouched (prefix-gated); additive, A;upa;vi +
+            # augmented).
+            if upasarga == "A;upa;vi" and lakara in ("laN", "luN", "lfN"):
+                _aot = [c.replace("vya", "vi") for c in cands if "vya" in c]
+                _aot = [c for c in _aot if c not in cands]
+                if _aot:
+                    cands = list(dict.fromkeys(cands + _aot))
+            # A;upa;vi luN O-fusion + M twins (OpaviraMramizWAH alongside opavyaramizWAH; same task —
+            # luN takes LONG-O fusion (Opavi: OpaviraMramizWAH/OpaviriraMsIt) with yak-M (raMram); laN/lfN
+            # keep short opavi (M handled per-lakara below); chained de-augment + O + M; additive).
+            # NB laN O-split: san_yak/yang/yang_yak/nich laN take O too (OpaviriraMsyata/OpaviraMramyata/
+            # OpaviramayaTAH) while ting/yak/san keep short — O-twin extends to laN for those antas below.
+            if upasarga == "A;upa;vi" and lakara in ("luN",):
+                _aol = []
+                for c in cands:
+                    _g = c.replace("vya", "vi").replace("opavi", "Opavi").replace("iram", "iraMram")
+                    if _g != c and _g not in cands and _g not in _aol:
+                        _aol.append(_g)
+                if _aol:
+                    cands = list(dict.fromkeys(cands + _aol))
+            # A;upa;vi lfN O + a-grade twins (Opaviramayizyat alongside opavyarAmayizyat; same task —
+            # lfN nich takes O-fusion with a-grade stem (Opaviramayizyat) while engine voices A-grade
+            # rAmay; other antas already pass short (twins inert there); no M (unlike luN-yak);
+            # chained; additive).
+            if upasarga == "A;upa;vi" and lakara in ("lfN",):
+                _aof = []
+                for c in cands:
+                    _g = c.replace("vya", "vi").replace("rAmay", "ramay").replace("opavi", "Opavi")
+                    if _g != c and _g not in cands and _g not in _aof:
+                        _aof.append(_g)
+                if _aof:
+                    cands = list(dict.fromkeys(cands + _aof))
+            if upasarga == "A;upa;vi" and lakara == "laN" and (
+                    (sanadi == "sannanta" and prayoga == "karmani") or sanadi in ("nijanta", "yananta", "yanluganta")):
+                _ao2 = []
+                for c in cands:
+                    _g = c.replace("vya", "vi").replace("opavi", "Opavi")
+                    if _g != c and _g not in cands and _g not in _ao2:
+                        _ao2.append(_g)
+                if _ao2:
+                    cands = list(dict.fromkeys(cands + _ao2))
             # Uh-ASIrliN short-u twins (XuhyAt alongside XUhyAt; Uha~ 01.0735 surveyed, 20 tasks —
             # prefixed benedictive takes short u (aByuhyAt/niruhyAt/...) while engine voices long U;
             # unprefixed passes via uhizIzwa (upasarga-gated so untouched); krdanta clean (gap is
