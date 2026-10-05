@@ -1642,6 +1642,17 @@ class KrdantaEngine:
                 # additive, inner-gated).
                 if pratyaya in ("kta", "ktavatu") and upasarga.split(";")[-1] in ("sam", "ud"):
                     new_v += [c.replace("Myat", "mat").replace("myat", "mat").replace("dyat", "dat") for c in list(new_v) if ("Myat" in c or "myat" in c or "dyat" in c)]
+                # dA-kta upasarga allomorphy (Atta/parItta/pratta alongside
+                # Adatta/paridatta/pradatta; dA/deN-pair 01.1079/1117 surveyed —
+                # A-final inner keeps datta (already passing, untouched);
+                # i-final inner takes Itta (idatta->Itta); else takes tta
+                # (datta->tta); additive, inner-final-gated).
+                if pratyaya in ("kta", "ktavatu") and "datt" in "".join(list(new_v)):
+                    _inner = upasarga.split(";")[-1]
+                    if _inner.endswith("i") and not _inner.endswith("A"):
+                        new_v += [c.replace("idatt", "Itt") for c in list(new_v) if "idatt" in c]
+                    elif not _inner.endswith("A"):
+                        new_v += [c.replace("datt", "tt") for c in list(new_v) if "datt" in c]
                 # stacked ;AN n-loss twins (nyA->yA, nvA->vA; surveyed 13/13).
                 if ";AN" in upasarga:
                     new_v += [c.replace("ny", "y") for c in list(new_v) if "ny" in c]
@@ -1659,6 +1670,12 @@ class KrdantaEngine:
                 _all += [c.replace("ucS", "ucC") for c in list(_all) if "ucS" in c]
                 if pratyaya in ("kta", "ktavatu") and upasarga.split(";")[-1] in ("sam", "ud"):
                     _all += [c.replace("Myat", "mat").replace("myat", "mat").replace("dyat", "dat") for c in list(_all) if ("Myat" in c or "myat" in c or "dyat" in c)]
+                if pratyaya in ("kta", "ktavatu") and any("datt" in c for c in list(_all) if isinstance(c, str)):
+                    _inner = upasarga.split(";")[-1]
+                    if _inner.endswith("i") and not _inner.endswith("A"):
+                        _all += [c.replace("idatt", "Itt") for c in list(_all) if isinstance(c, str) and "idatt" in c]
+                    elif not _inner.endswith("A"):
+                        _all += [c.replace("datt", "tt") for c in list(_all) if isinstance(c, str) and "datt" in c]
                 if ";AN" in upasarga:
                     _all += [c.replace("ny", "y") for c in list(_all) if "ny" in c]
                     _all += [c.replace("nv", "v") for c in list(_all) if "nv" in c]
