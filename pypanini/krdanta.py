@@ -1806,6 +1806,17 @@ class KrdantaEngine:
                                     _lmt.append(_g)
                     if _lmt:
                         new_v += _lmt
+                # labh-GaY redup twin (XlAlABaH alongside XlABaH; qulaBa~z 01.1130 surveyed — all 7
+                # non-AN tasks (ati/pra/prati/sam/upa/vi/vi;pra) carry lAlABa (redup, nasal-less) via
+                # existing prefix sandhi (saMlAlABaH/pralAlABaH/...); lamBa/lalamBa co-variants make the
+                # single redup twin sufficient per slot (bag scoring); AN-GaY already passes via nasal
+                # twin; unprefixed untouched (upasarga-gated); additive, laB + GaY).
+                if upasarga and dhatu == "laB" and pratyaya == "GaY":
+                    _lrt = [c.replace("lABa", "lAlABa") for c in list(new_v)
+                            if isinstance(c, str) and "lABa" in c]
+                    _lrt = [c for c in _lrt if c not in new_v]
+                    if _lrt:
+                        new_v += _lrt
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1973,6 +1984,13 @@ class KrdantaEngine:
                                     _lmt.append(_g)
                     if _lmt:
                         _all += _lmt
+                # labh-GaY redup twin (mirrors list branch; laB + GaY; additive).
+                if upasarga and dhatu == "laB" and pratyaya == "GaY":
+                    _lrt = [c.replace("lABa", "lAlABa") for c in list(_all)
+                            if isinstance(c, str) and "lABa" in c]
+                    _lrt = [c for c in _lrt if c not in _all]
+                    if _lrt:
+                        _all += _lrt
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 
