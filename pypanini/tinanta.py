@@ -8638,6 +8638,9 @@ class TinantaDerivationEngine:
             # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
             if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
                 cands += ['mAyayitA', 'mAyayitArO', 'mAyayitAraH', 'mAyayitAse', 'mAyayitAsATe', 'mAyayitADve', 'mAyayitAhe', 'mAyayitAsvahe', 'mAyayitAsmahe', 'mAyayitA', 'mAyayitArO', 'mAyayitAraH', 'mAyayitAsi', 'mAyayitAsTaH', 'mAyayitAsTa', 'mAyayitAsmi', 'mAyayitAsvaH', 'mAyayitAsmaH']
+            # divAdi dI luw A-grade twins (exact alut; 04.0029 surveyed; additive).
+            if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
+                cands += ['dAtA', 'dAtArO', 'dAtAraH', 'dAtAse', 'dAtAsATe', 'dAtADve', 'dAtAhe', 'dAtAsvahe', 'dAtAsmahe']
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfw":
