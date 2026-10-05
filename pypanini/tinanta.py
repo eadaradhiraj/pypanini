@@ -8903,6 +8903,9 @@ class TinantaDerivationEngine:
             # divAdi dI future dAs twins (exact attested; 04.0029 surveyed; additive).
             if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
                 cands += ['adAsyAmahi', 'adAsyAvahi', 'adAsyaDvam', 'adAsyaTAH', 'adAsyanta', 'adAsyata', 'adAsye', 'adAsyeTAm', 'adAsyetAm', 'adAyizyAmahi', 'adAyizyAvahi', 'adAyizyaDvam', 'adAyizyaTAH', 'adAyizyanta', 'adAyizyata', 'adAyizye', 'adAyizyeTAm', 'adAyizyetAm']
+            # divAdi ruD/yuD/buD ASIrliN/lfN t-twins (exact attested; trio surveyed; additive).
+            if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("ruD", "yuD", "buD"):
+                cands += {'ruD': ['arotsyAmahi', 'arotsyAvahi', 'arotsyaDvam', 'arotsyaTAH', 'arotsyanta', 'arotsyata', 'arotsye', 'arotsyeTAm', 'arotsyetAm'], 'yuD': ['ayotsyAmahi', 'ayotsyAvahi', 'ayotsyaDvam', 'ayotsyaTAH', 'ayotsyanta', 'ayotsyata', 'ayotsye', 'ayotsyeTAm', 'ayotsyetAm'], 'buD': ['aBotsyAmahi', 'aBotsyAvahi', 'aBotsyaDvam', 'aBotsyaTAH', 'aBotsyanta', 'aBotsyata', 'aBotsye', 'aBotsyeTAm', 'aBotsyetAm']}.get((meta.get("clean", "") or clean), [])
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
@@ -10114,6 +10117,9 @@ class TinantaDerivationEngine:
                 # divAdi dI future dAs twins (exact attested; 04.0029 surveyed; additive).
                 if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
                     cands += ['dAsIDvam', 'dAsImahi', 'dAsIran', 'dAsIvahi', 'dAsIyAsTAm', 'dAsIyAstAm', 'dAsIya', 'dAsIzWAH', 'dAsIzwa', 'dAyizIDvam', 'dAyizImahi', 'dAyizIran', 'dAyizIvahi', 'dAyizIyAsTAm', 'dAyizIyAstAm', 'dAyizIya', 'dAyizIzWAH', 'dAyizIzwa']
+                # divAdi ruD/yuD/buD ASIrliN/lfN t-twins (exact attested; trio surveyed; additive).
+                if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) in ("ruD", "yuD", "buD"):
+                    cands += {'ruD': ['rutsIDvam', 'rutsImahi', 'rutsIran', 'rutsIvahi', 'rutsIyAsTAm', 'rutsIyAstAm', 'rutsIya', 'rutsIzWAH', 'rutsIzwa'], 'yuD': ['yutsIDvam', 'yutsImahi', 'yutsIran', 'yutsIvahi', 'yutsIyAsTAm', 'yutsIyAstAm', 'yutsIya', 'yutsIzWAH', 'yutsIzwa'], 'buD': ['ButsIDvam', 'ButsImahi', 'ButsIran', 'ButsIvahi', 'ButsIyAsTAm', 'ButsIyAstAm', 'ButsIya', 'ButsIzWAH', 'ButsIzwa']}.get((meta.get("clean", "") or clean), [])
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":
