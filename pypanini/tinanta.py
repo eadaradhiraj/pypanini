@@ -2060,6 +2060,15 @@ class TinantaDerivationEngine:
                                 _lmt.append(_g)
                 if _lmt:
                     cands = list(dict.fromkeys(cands + _lmt))
+            # Uh-ASIrliN short-u twins (XuhyAt alongside XUhyAt; Uha~ 01.0735 surveyed, 20 tasks —
+            # prefixed benedictive takes short u (aByuhyAt/niruhyAt/...) while engine voices long U;
+            # unprefixed passes via uhizIzwa (upasarga-gated so untouched); krdanta clean (gap is
+            # ting-only); additive, Uh + ASIrliN).
+            if upasarga and dhatu == "Uh" and lakara == "ASIrliN":
+                _uht = [c.replace("Uhy", "uhy") for c in cands if "Uhy" in c]
+                _uht = [c for c in _uht if c not in cands]
+                if _uht:
+                    cands = list(dict.fromkeys(cands + _uht))
             return cands, log
         return cands, log
 
