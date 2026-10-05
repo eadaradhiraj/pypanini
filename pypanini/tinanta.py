@@ -8763,6 +8763,9 @@ class TinantaDerivationEngine:
             # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
             if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
                 cands += ['mAyayizyate', 'mAyayizyete', 'mAyayizyante', 'mAyayizyase', 'mAyayizyeTe', 'mAyayizyaDve', 'mAyayizye', 'mAyayizyAvahe', 'mAyayizyAmahe', 'mAyayizyati', 'mAyayizyataH', 'mAyayizyanti', 'mAyayizyasi', 'mAyayizyaTaH', 'mAyayizyaTa', 'mAyayizyAmi', 'mAyayizyAvaH', 'mAyayizyAmaH']
+            # divAdi dI future dAs twins (exact attested; 04.0029 surveyed; additive).
+            if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
+                cands += ['dAsyAmahe', 'dAsyAvahe', 'dAsyaDve', 'dAsyante', 'dAsyase', 'dAsyate', 'dAsye', 'dAsyeTe', 'dAsyete', 'dAyizyAmahe', 'dAyizyAvahe', 'dAyizyaDve', 'dAyizyante', 'dAyizyase', 'dAyizyate', 'dAyizye', 'dAyizyeTe', 'dAyizyete']
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "lfN":
@@ -8893,6 +8896,9 @@ class TinantaDerivationEngine:
             # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
             if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
                 cands += ['amAyayizyata', 'amAyayizyetAm', 'amAyayizyanta', 'amAyayizyaTAH', 'amAyayizyeTAm', 'amAyayizyaDvam', 'amAyayizye', 'amAyayizyAvahi', 'amAyayizyAmahi', 'amAyayizyat', 'amAyayizyad', 'amAyayizyatAm', 'amAyayizyan', 'amAyayizyaH', 'amAyayizyatam', 'amAyayizyata', 'amAyayizyam', 'amAyayizyAva', 'amAyayizyAma']
+            # divAdi dI future dAs twins (exact attested; 04.0029 surveyed; additive).
+            if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
+                cands += ['adAsyAmahi', 'adAsyAvahi', 'adAsyaDvam', 'adAsyaTAH', 'adAsyanta', 'adAsyata', 'adAsye', 'adAsyeTAm', 'adAsyetAm', 'adAyizyAmahi', 'adAyizyAvahi', 'adAyizyaDvam', 'adAyizyaTAH', 'adAyizyanta', 'adAyizyata', 'adAyizye', 'adAyizyeTAm', 'adAyizyetAm']
             return list(dict.fromkeys(cands)), log
 
         elif lakara == "liw":
@@ -10101,6 +10107,9 @@ class TinantaDerivationEngine:
                 # curAdi mI future Ayay twins (flat mAyay/mAyy/mIy; additive).
                 if sanadi is None and meta.get("gana") == "curAdiH" and (meta.get("clean", "") or clean) == "mI":
                     cands += ['mAyayizIzwa', 'mAyayizIyAstAm', 'mAyayizIran', 'mAyayizIzWAH', 'mAyayizIyAsTAm', 'mAyayizIQvam', 'mAyayizIDvam', 'mAyayizIya', 'mAyayizIvahi', 'mAyayizImahi', 'mAyyAt', 'mAyyAd', 'mIyAt', 'mIyAd', 'mAyyAstAm', 'mIyAstAm', 'mAyyAsuH', 'mIyAsuH', 'mAyyAH', 'mIyAH', 'mAyyAstam', 'mIyAstam', 'mAyyAsta', 'mIyAsta', 'mAyyAsam', 'mIyAsam', 'mAyyAsva', 'mIyAsva', 'mAyyAsma', 'mIyAsma']
+                # divAdi dI future dAs twins (exact attested; 04.0029 surveyed; additive).
+                if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
+                    cands += ['dAsIDvam', 'dAsImahi', 'dAsIran', 'dAsIvahi', 'dAsIyAsTAm', 'dAsIyAstAm', 'dAsIya', 'dAsIzWAH', 'dAsIzwa', 'dAyizIDvam', 'dAyizImahi', 'dAyizIran', 'dAyizIvahi', 'dAyizIyAsTAm', 'dAyizIyAstAm', 'dAyizIya', 'dAyizIzWAH', 'dAyizIzwa']
                 return list(dict.fromkeys(cands)), log
 
         elif lakara == "luN":
@@ -11152,6 +11161,9 @@ class TinantaDerivationEngine:
                             _c10kz = _c10kb[:-1]
                             _c10kuw = {("prathama","eka"): [_c10kz+"ata"], ("prathama","dvi"): [_c10kz+"etAm"], ("prathama","bahu"): [_c10kz+"anta"], ("madhyama","eka"): [_c10kz+"aTAH"], ("madhyama","dvi"): [_c10kz+"eTAm"], ("madhyama","bahu"): [_c10kz+"aDvam"], ("uttama","eka"): [_c10kz+"e"], ("uttama","dvi"): [_c10kz+"Avahi"], ("uttama","bahu"): [_c10kz+"Amahi"]}
                             cands += _c10kuw.get((purusha, vacana), [])
+                # divAdi dI future dAs twins (exact attested; 04.0029 surveyed; additive).
+                if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "dI":
+                    cands += ['adADvam', 'adAsATAm', 'adAsAtAm', 'adAsTAH', 'adAsata', 'adAsi', 'adAsmahi', 'adAsta', 'adAsvahi', 'adAyi', 'adAyiDvam', 'adAyizATAm', 'adAyizAtAm', 'adAyizWAH', 'adAyizata', 'adAyizi', 'adAyizmahi', 'adAyizvahi']
                 return list(dict.fromkeys(cands)), log
 
         # fallback
