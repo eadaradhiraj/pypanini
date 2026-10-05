@@ -6523,6 +6523,14 @@ class TinantaDerivationEngine:
                 for _c10av in ("yiyAvayiz", "biBAvayiz"):
                     if _c10av not in s_stems:
                         s_stems.append(_c10av)
+            # tudAdi viC sannanta Ay-stem (vivicCAyiz; sole 06.0159 surveyed — san
+            # present-system (lw/low/laN/viD) takes Aya only (vivicCAyizati...;
+            # other san lakaras list both Aya/non-Aya so already pass via generic
+            # vivicCiz-); praC/fC/uC/miC take plain cC (pfcCati...), excluded by
+            # clean gate; serves all 4 present lakaras via s_stems; additive).
+            if meta.get("gana") == "tudAdiH" and meta.get("clean") == "viC":
+                if "vivicCAyiz" not in s_stems:
+                    s_stems.append("vivicCAyiz")
             aug_s_list = [self._add_augment(s, s[0] in SLP1_VOWELS if s else False) for s in s_stems]
             aug_s = aug_s_list[0]
             # per-lakara sannanta (kartari, inherits pada; over-generate both padas for ubhayapada / cross-matching)
@@ -7896,6 +7904,10 @@ class TinantaDerivationEngine:
                     cands+=self._conjugate_at_stem_parasmai(base, "low", purusha, vacana)
                 else:
                     cands+=self._conjugate_at_stem_parasmai(base, "low", purusha, vacana)
+            # tudAdi viC Ay-imperative (vicCAyatu; sole 06.0159 surveyed — mirrors lw
+            # twin; low missed while lw/laN/viD passed; additive, tudAdiH-gated).
+            if sanadi is None and meta.get("gana") == "tudAdiH" and meta.get("clean") == "viC":
+                cands+=self._conjugate_at_stem_parasmai("vicCAy", "low", purusha, vacana)
             # Panini 3.1.87 dhinvi-kfRvyor a ca
             if meta.get("op") in ("Divi~", "kfvi~") or clean in ("Div", "Dinv", "kfv", "kfRv"):
                 _px = "Din" if ("Div" in clean or meta.get("op") == "Divi~") else "kfR"
