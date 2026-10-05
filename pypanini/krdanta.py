@@ -1778,6 +1778,21 @@ class KrdantaEngine:
                             _uzy = [c for c in _uzy if c not in new_v]
                             if _uzy:
                                 new_v += _uzy
+                # V-initial san LONG-grade twins (mirrors tinanta; V-initial + sannanta; additive).
+                if upasarga and sanadi == "sannanta" and dhatu[:1] in ("a", "A", "i", "I", "u", "U", "f", "F", "e", "E", "o", "O"):
+                    _pin = upasarga.split(";")[-1][:-1]
+                    if _pin:
+                        _vlt = []
+                        for c in list(new_v):
+                            if not isinstance(c, str):
+                                continue
+                            for _o, _n in ((_pin + "o", _pin + "O"), (_pin + "e", _pin + "E")):
+                                if _o in c:
+                                    _g = c.replace(_o, _n)
+                                    if _g not in new_v and _g not in _vlt:
+                                        _vlt.append(_g)
+                        if _vlt:
+                            new_v += _vlt
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1917,6 +1932,21 @@ class KrdantaEngine:
                             _uzy = [c for c in _uzy if c not in _all]
                             if _uzy:
                                 _all += _uzy
+                # V-initial san LONG-grade twins (mirrors list branch; V-initial + sannanta).
+                if upasarga and sanadi == "sannanta" and dhatu[:1] in ("a", "A", "i", "I", "u", "U", "f", "F", "e", "E", "o", "O"):
+                    _pin = upasarga.split(";")[-1][:-1]
+                    if _pin:
+                        _vlt = []
+                        for c in list(_all):
+                            if not isinstance(c, str):
+                                continue
+                            for _o, _n in ((_pin + "o", _pin + "O"), (_pin + "e", _pin + "E")):
+                                if _o in c:
+                                    _g = c.replace(_o, _n)
+                                    if _g not in _all and _g not in _vlt:
+                                        _vlt.append(_g)
+                        if _vlt:
+                            _all += _vlt
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 

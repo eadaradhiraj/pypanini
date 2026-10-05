@@ -2028,6 +2028,24 @@ class TinantaDerivationEngine:
                                 _uzt.append(_g)
                     if _uzt:
                         cands = list(dict.fromkeys(cands + _uzt))
+            # V-initial san LONG-grade twins (avORiRiz alongside avoRiRiz; oRf~/ezf~/uza~ 0523/0705/0792
+            # surveyed — a-final inners (ava/upa/sam;upa) fuse by drop (av+oRiRiz) and take long stems
+            # (avORiRiz/upEziziz/samupOziziz); i/m-final inners (ati/pari/ni/prati/sam) keep short and
+            # already pass; unprefixed has both grades (ORiRiz 57/Eziziz 38/Oziziz 57); pairs built from
+            # inner self-gate (consonant-inners keep full prefix so never match); additive, V-initial +
+            # sannanta).
+            if upasarga and sanadi == "sannanta" and dhatu[:1] in ("a", "A", "i", "I", "u", "U", "f", "F", "e", "E", "o", "O"):
+                _vlt = []
+                _pin = upasarga.split(";")[-1][:-1]
+                if _pin:
+                    for c in cands:
+                        for _o, _n in (( _pin + "o", _pin + "O"), (_pin + "e", _pin + "E")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in cands and _g not in _vlt:
+                                    _vlt.append(_g)
+                if _vlt:
+                    cands = list(dict.fromkeys(cands + _vlt))
             return cands, log
         return cands, log
 
