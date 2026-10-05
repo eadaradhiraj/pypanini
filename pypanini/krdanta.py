@@ -1634,6 +1634,8 @@ class KrdantaEngine:
                         c = c[3:]
                     new_v.append(apply_upasargas(upasarga, c, dhatu_id))
                     new_v.append(apply_upasargas(upasarga, c, dhatu_id, skip_satva=True))
+                # ud+S palatal twins (ucC alongside ucS; surveyed 10/10).
+                new_v += [c.replace("ucS", "ucC") for c in list(new_v) if "ucS" in c]
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1643,7 +1645,9 @@ class KrdantaEngine:
                     c = c[3:]
                 _a = apply_upasargas(upasarga, c, dhatu_id)
                 _b = apply_upasargas(upasarga, c, dhatu_id, skip_satva=True)
-                out[k] = _a if _a == _b else [_a, _b]
+                _all = [_a] if _a == _b else [_a, _b]
+                _all += [c.replace("ucS", "ucC") for c in list(_all) if "ucS" in c]
+                out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 
     def _derive_krdanta_inner(

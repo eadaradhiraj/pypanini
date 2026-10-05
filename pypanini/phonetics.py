@@ -406,13 +406,14 @@ def apply_single_upasarga_sandhi(prefix: str, form: str) -> str:
         if form.startswith("sT"): return "utT" + form[2:]
         if form.startswith("sw"): return "uww" + form[2:] 
         if f_start in "cC": return "uc" + form
+        if f_start == "S": return "uc" + form
         if f_start in "jJ": return "uj" + form
         if f_start in "wW": return "uw" + form
         if f_start in "nNmMYR": return "un" + form
         if f_start == "l": return "ul" + form
         if f_start in "qQ": return "uq" + form
         if f_start in "lL": return "ul" + form
-        if f_start in "kKpPtTsS": return "ut" + form
+        if f_start in "kKpPtTs": return "ut" + form
         return prefix + form
 
     if p_end == "r" and prefix in ("nir", "dur", "antar"):

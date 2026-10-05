@@ -1759,6 +1759,10 @@ class TinantaDerivationEngine:
             if dhatu_id == "01.1091" and sanadi == "yananta" and lakara in ("laN", "luN", "lfN"):
                 _sos = [c.replace("sozU", "sosU") for c in cands if "sozU" in c]
                 cands = list(dict.fromkeys(cands + _sos))
+            # ud+S palatal twins (ud+S->ucS primary via sandhi; ucC twin for
+            # Tuk/C-grade; surveyed 10/10 S-roots 01+02+10 take uc, zero utS).
+            _ucc = [c.replace("ucS", "ucC") for c in cands if "ucS" in c]
+            cands = list(dict.fromkeys(cands + _ucc))
             return cands, log
         return cands, log
 
