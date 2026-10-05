@@ -10462,6 +10462,30 @@ class KrdantaEngine:
                             _g2 = _f.replace("my", "My")
                             if _g2 not in _v:
                                 _v.append(_g2)
+        # sam+gam SAnac gacC-twin (samAgamyamAna->samAgacCamAna; sole gam
+        # 01.1137 surveyed — all 12 sam-chain tasks want gacC (classical
+        # saMgacC- stem); non-sam gam SAnac unattested (no key); originals
+        # kept when no 'gamyam' present → zero rotation; additive,
+        # krut-only (surveyed), sam-chain-gated).
+        if sanadi is None and upasarga and "sam" in upasarga.split(";"):
+            try:
+                _gm = self._get_meta(dhatu, dhatu_id)
+            except Exception:
+                _gm = {}
+            if _gm.get("clean") == "gam":
+                _si = result.get("SAnac")
+                if isinstance(_si, dict):
+                    for _g in ("M", "F", "N"):
+                        _v = _si.get(_g)
+                        if isinstance(_v, str):
+                            if "gamyam" in _v:
+                                _si[_g] = [_v, _v.replace("gamyam", "gacCam")]
+                        elif isinstance(_v, list):
+                            for _f in list(_v):
+                                if isinstance(_f, str) and "gamyam" in _f:
+                                    _g2 = _f.replace("gamyam", "gacCam")
+                                    if _g2 not in _v:
+                                        _v.append(_g2)
         # CurAdi sad (10.0368 / SK 2572 Aṅ-sad): mandatory upasarga A prepended to all forms
         if str(dhatu_id) == "10.0368" or (dhatu and clean_dhatu_op(dhatu) == "sad" and self._get_meta(dhatu, dhatu_id).get("gana") == "curAdiH"):
             for _pr, _it in result.items():
