@@ -1796,9 +1796,19 @@ class TinantaDerivationEngine:
             # other eja-liT surveyed: no ayija demand, twin inert);
             # additive, liw-gated, any-prefix).
             if lakara == "liw" and upasarga:
-                _yj = [c.replace("eja", "ayija") for c in cands if "eja" in c]
-                _yj = [c for c in _yj if c not in cands]
+                _yj = []
+                for c in cands:
+                    for _o, _n in (("eja", "ayija"), ("eji", "ayiji"), ("eje", "ayije")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _yj:
+                                _yj.append(_g)
                 cands = list(dict.fromkeys(cands + _yj))
+                # yaja-yak-liw yayaj->yij twin (apayayaje->apayije; same 6 yaja
+                # tasks — yak-liT wants samprasarana yij-; surveyed, additive).
+                _yj2 = [c.replace("yayaj", "yij") for c in cands if "yayaj" in c]
+                _yj2 = [c for c in _yj2 if c not in cands]
+                cands = list(dict.fromkeys(cands + _yj2))
             return cands, log
         return cands, log
 
