@@ -1763,6 +1763,16 @@ class TinantaDerivationEngine:
             # Tuk/C-grade; surveyed 10/10 S-roots 01+02+10 take uc, zero utS).
             _ucc = [c.replace("ucS", "ucC") for c in cands if "ucS" in c]
             cands = list(dict.fromkeys(cands + _ucc))
+            # stacked ;AN n-loss twins (ni/anu+A: nyA->yA, nvA->vA; surveyed
+            # 13/13 ;AN fids in 01 carry both variants, zero conflicts).
+            if ";AN" in upasarga:
+                _an = []
+                for c in cands:
+                    if "ny" in c:
+                        _an.append(c.replace("ny", "y"))
+                    if "nv" in c:
+                        _an.append(c.replace("nv", "v"))
+                cands = list(dict.fromkeys(cands + _an))
             return cands, log
         return cands, log
 
