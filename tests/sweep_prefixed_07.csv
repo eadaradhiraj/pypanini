@@ -1,0 +1,161 @@
+fid,matched,total,pct,secs,misses,skipped
+07.0001:AN,880,880,100.0,2.1,,12
+07.0001:aBi;sam,880,880,100.0,2.1,,12
+07.0001:anu;ava,880,880,100.0,2.2,,12
+07.0001:apa,880,880,100.0,2.0,,12
+07.0001:ava,880,880,100.0,1.7,,12
+07.0001:ni,880,880,100.0,1.9,,12
+07.0001:pari,880,880,100.0,2.0,,12
+07.0001:pra,880,880,100.0,2.1,,12
+07.0001:prati,880,880,100.0,1.7,,12
+07.0001:sam,880,880,100.0,2.3,,12
+07.0001:sam;ni,0,880,0.0,0.9,ting/lw/prathama/eka:samniruRadDi | ting/lw/prathama/dvi:samnirundDaH | ting/lw/prathama/bahu:samnirunDanti | ting/lw/madhyama/eka:samniruRatsi | ting/lw/madhyama/dvi:samnirundDaH | krut/kta/M:samnirudDaH | krut/kta/F:samnirudDA | krut/kta/N:samnirudDam | krut/ktavatu/M:samnirudDavAn | krut/ktavatu/F:samnirudDavatI | krut/ktavatu/N:samnirudDavat | krut/Satf/M:samnirunDan,12
+07.0001:sam;upa,880,880,100.0,2.2,,12
+07.0001:ud,880,880,100.0,2.4,,12
+07.0001:upa,880,880,100.0,1.7,,12
+07.0001:upa;sam,880,880,100.0,2.0,,12
+07.0001:vi,880,880,100.0,0.4,,12
+07.0001:vi;apa,880,880,100.0,2.3,,12
+07.0002:apa,880,880,100.0,2.2,,12
+07.0002:nir,871,880,99.0,2.0,ting/low/uttama/eka:nirBedAni | ting/low/uttama/dvi:nirBedAva | ting/low/uttama/bahu:nirBedAma | krut/kta/M:nirBiRRaH | krut/kta/F:nirBiRRA | krut/kta/N:nirBiRRam | krut/ktavatu/M:nirBiRRavAn | krut/ktavatu/F:nirBiRRavatI | krut/ktavatu/N:nirBiRRavat,12
+07.0002:parA,873,880,99.2,2.5,ting/low/uttama/eka:parABedAni | krut/kta/M:parABiRRaH | krut/kta/F:parABiRRA | krut/kta/N:parABiRRam | krut/ktavatu/M:parABiRRavAn | krut/ktavatu/F:parABiRRavatI | krut/ktavatu/N:parABiRRavat,12
+07.0002:pra,871,880,99.0,2.2,ting/low/uttama/eka:praBedAni | ting/low/uttama/dvi:praBedAva | ting/low/uttama/bahu:praBedAma | krut/kta/M:praBiRRaH | krut/kta/F:praBiRRA | krut/kta/N:praBiRRam | krut/ktavatu/M:praBiRRavAn | krut/ktavatu/F:praBiRRavatI | krut/ktavatu/N:praBiRRavat,12
+07.0002:prati,880,880,100.0,2.3,,12
+07.0002:sam,880,880,100.0,1.8,,12
+07.0002:ud,880,880,100.0,2.2,,12
+07.0002:vi,880,880,100.0,2.2,,12
+07.0003:A,880,880,100.0,2.2,,12
+07.0003:AN,880,880,100.0,2.1,,12
+07.0003:apa,880,880,100.0,1.8,,12
+07.0003:apa;AN,880,880,100.0,2.3,,12
+07.0003:ati,880,880,100.0,2.1,,12
+07.0003:pari,880,880,100.0,2.0,,12
+07.0003:pari;ava,880,880,100.0,2.1,,12
+07.0003:pra,880,880,100.0,2.1,,12
+07.0003:ud,880,880,100.0,2.1,,12
+07.0003:vi,880,880,100.0,2.1,,12
+07.0003:vi;ava,880,880,100.0,3.0,,12
+07.0003:vi;ud,880,880,100.0,2.2,,12
+07.0004:AN,880,880,100.0,2.1,,12
+07.0004:aBi;ati,880,880,100.0,2.3,,12
+07.0004:ati,880,880,100.0,2.2,,12
+07.0004:ati;ati,880,880,100.0,2.2,,12
+07.0004:pra,880,880,100.0,2.2,,12
+07.0004:ud,880,880,100.0,2.2,,12
+07.0004:vi,880,880,100.0,2.0,,12
+07.0004:vi;ati,880,880,100.0,2.1,,12
+07.0005:apa,880,880,100.0,2.3,,12
+07.0005:pra,873,880,99.2,1.7,ting/lw/prathama/eka:praviRakti | ting/lw/madhyama/eka:praviRakzi | ting/lw/uttama/eka:praviRacmi | ting/low/prathama/eka:pravecatu | ting/low/uttama/eka:pravecAni,12
+07.0005:pra;vi,873,880,99.2,2.2,ting/lw/prathama/eka:praviviRakti | ting/lw/madhyama/eka:praviviRakzi | ting/lw/uttama/eka:praviviRacmi | ting/low/prathama/eka:pravivecatu | ting/low/uttama/eka:pravivecAni,12
+07.0005:vi,880,880,100.0,2.2,,12
+07.0006:ava,880,880,100.0,2.2,,12
+07.0006:pra,880,880,100.0,2.2,,12
+07.0006:sam,880,880,100.0,1.8,,12
+07.0007:AN,880,880,100.0,2.7,,12
+07.0007:aBi,880,880,100.0,2.6,,12
+07.0007:aBi;pra,873,880,99.2,2.4,ting/lw/prathama/eka:aBiprayuRakti | ting/lw/madhyama/eka:aBiprayuRakzi | ting/lw/uttama/eka:aBiprayuRajmi | ting/low/prathama/eka:aBiprayojatu | ting/low/uttama/eka:aBiprayojAni,12
+07.0007:aDi,880,880,100.0,2.2,,12
+07.0007:anu,880,880,100.0,2.3,,12
+07.0007:apa,880,880,100.0,2.3,,12
+07.0007:ati,880,880,100.0,2.4,,12
+07.0007:ati;pra,873,880,99.2,2.4,ting/lw/prathama/eka:atiprayuRakti | ting/lw/madhyama/eka:atiprayuRakzi | ting/lw/uttama/eka:atiprayuRajmi | ting/low/prathama/eka:atiprayojatu | ting/low/uttama/eka:atiprayojAni,12
+07.0007:dus,873,880,99.2,2.6,ting/lw/prathama/eka:duryuRakti | ting/lw/madhyama/eka:duryuRakzi | ting/lw/uttama/eka:duryuRajmi | ting/low/prathama/eka:duryojatu | ting/low/uttama/eka:duryojAni,12
+07.0007:ni,880,880,100.0,2.4,,12
+07.0007:nir,873,880,99.2,2.5,ting/lw/prathama/eka:niryuRakti | ting/lw/madhyama/eka:niryuRakzi | ting/lw/uttama/eka:niryuRajmi | ting/low/prathama/eka:niryojatu | ting/low/uttama/eka:niryojAni,12
+07.0007:nir;anu,0,880,0.0,2.4,ting/lw/prathama/eka:niraRuyuRakti | ting/lw/prathama/dvi:niraRuyuNktaH | ting/lw/prathama/bahu:niraRuyuYjanti | ting/lw/madhyama/eka:niraRuyuRakzi | ting/lw/madhyama/dvi:niraRuyuNkTaH | krut/kta/M:niraRuyuktaH | krut/kta/F:niraRuyuktA | krut/kta/N:niraRuyuktam | krut/ktavatu/M:niraRuyuktavAn | krut/ktavatu/F:niraRuyuktavatI | krut/ktavatu/N:niraRuyuktavat | krut/Satf/M:niraRuyuYjan,12
+07.0007:pari,873,880,99.2,2.5,ting/lw/prathama/eka:pariyuRakti | ting/lw/madhyama/eka:pariyuRakzi | ting/lw/uttama/eka:pariyuRajmi | ting/low/prathama/eka:pariyojatu | ting/low/uttama/eka:pariyojAni,12
+07.0007:pari;anu,0,880,0.0,2.5,ting/lw/prathama/eka:paryaRuyuRakti | ting/lw/prathama/dvi:paryaRuyuNktaH | ting/lw/prathama/bahu:paryaRuyuYjanti | ting/lw/madhyama/eka:paryaRuyuRakzi | ting/lw/madhyama/dvi:paryaRuyuNkTaH | krut/kta/M:paryaRuyuktaH | krut/kta/F:paryaRuyuktA | krut/kta/N:paryaRuyuktam | krut/ktavatu/M:paryaRuyuktavAn | krut/ktavatu/F:paryaRuyuktavatI | krut/ktavatu/N:paryaRuyuktavat | krut/Satf/M:paryaRuyuYjan,12
+07.0007:pari;upa,873,880,99.2,2.7,ting/lw/prathama/eka:paryupayuRakti | ting/lw/madhyama/eka:paryupayuRakzi | ting/lw/uttama/eka:paryupayuRajmi | ting/low/prathama/eka:paryupayojatu | ting/low/uttama/eka:paryupayojAni,12
+07.0007:pra,873,880,99.2,2.3,ting/lw/prathama/eka:prayuRakti | ting/lw/madhyama/eka:prayuRakzi | ting/lw/uttama/eka:prayuRajmi | ting/low/prathama/eka:prayojatu | ting/low/uttama/eka:prayojAni,12
+07.0007:prati,880,880,100.0,2.7,,12
+07.0007:prati;aBi,880,880,100.0,1.9,,12
+07.0007:prati;pra,873,880,99.2,1.9,ting/lw/prathama/eka:pratiprayuRakti | ting/lw/madhyama/eka:pratiprayuRakzi | ting/lw/uttama/eka:pratiprayuRajmi | ting/low/prathama/eka:pratiprayojatu | ting/low/uttama/eka:pratiprayojAni,12
+07.0007:sam,880,880,100.0,2.5,,12
+07.0007:sam;A,880,880,100.0,2.4,,12
+07.0007:sam;anu,880,880,100.0,2.5,,12
+07.0007:sam;ni,0,880,0.0,2.6,ting/lw/prathama/eka:samniyunakti | ting/lw/prathama/dvi:samniyuNktaH | ting/lw/prathama/bahu:samniyuYjanti | ting/lw/madhyama/eka:samniyunakzi | ting/lw/madhyama/dvi:samniyuNkTaH | krut/kta/M:samniyuktaH | krut/kta/F:samniyuktA | krut/kta/N:samniyuktam | krut/ktavatu/M:samniyuktavAn | krut/ktavatu/F:samniyuktavatI | krut/ktavatu/N:samniyuktavat | krut/Satf/M:samniyuYjan,12
+07.0007:sam;pra,873,880,99.2,2.5,ting/lw/prathama/eka:samprayuRakti | ting/lw/madhyama/eka:samprayuRakzi | ting/lw/uttama/eka:samprayuRajmi | ting/low/prathama/eka:samprayojatu | ting/low/uttama/eka:samprayojAni,12
+07.0007:sam;upa;AN,880,880,100.0,2.4,,12
+07.0007:ud,880,880,100.0,2.6,,12
+07.0007:upa,880,880,100.0,2.6,,12
+07.0007:upa;pra,873,880,99.2,2.4,ting/lw/prathama/eka:upaprayuRakti | ting/lw/madhyama/eka:upaprayuRakzi | ting/lw/uttama/eka:upaprayuRajmi | ting/low/prathama/eka:upaprayojatu | ting/low/uttama/eka:upaprayojAni,12
+07.0007:vi,880,880,100.0,2.6,,12
+07.0007:vi;ni,880,880,100.0,2.6,,12
+07.0007:vi;nis,873,880,99.2,2.4,ting/lw/prathama/eka:viniryuRakti | ting/lw/madhyama/eka:viniryuRakzi | ting/lw/uttama/eka:viniryuRajmi | ting/low/prathama/eka:viniryojatu | ting/low/uttama/eka:viniryojAni,12
+07.0007:vi;pra,873,880,99.2,2.6,ting/lw/prathama/eka:viprayuRakti | ting/lw/madhyama/eka:viprayuRakzi | ting/lw/uttama/eka:viprayuRajmi | ting/low/prathama/eka:viprayojatu | ting/low/uttama/eka:viprayojAni,12
+07.0007:vi;sam,880,880,100.0,2.9,,12
+07.0007:vi;upa,880,880,100.0,2.6,,12
+07.0008:AN,880,880,100.0,2.6,,12
+07.0009:AN,880,880,100.0,2.5,,12
+07.0009:aBi,880,880,100.0,2.5,,12
+07.0009:ati,880,880,100.0,2.5,,12
+07.0009:ava,880,880,100.0,2.5,,12
+07.0009:ni,880,880,100.0,2.5,,12
+07.0009:pari,880,880,100.0,2.3,,12
+07.0009:pra,880,880,100.0,2.5,,12
+07.0009:sam,880,880,100.0,2.9,,12
+07.0009:ud,880,880,100.0,2.6,,12
+07.0009:upa,880,880,100.0,2.6,,12
+07.0009:vi,880,880,100.0,2.5,,12
+07.0010:pari,874,874,100.0,2.5,,18
+07.0010:ud,874,874,100.0,2.4,,18
+07.0011:upa;sam,620,620,100.0,2.2,,7
+07.0012:pari,862,871,99.0,2.1,ting/low/uttama/eka:pariKedE | ting/low/uttama/dvi:pariKedAvahE | ting/low/uttama/bahu:pariKedAmahE | krut/kta/M:pariKiRRaH | krut/kta/F:pariKiRRA | krut/kta/N:pariKiRRam | krut/ktavatu/M:pariKiRRavAn | krut/ktavatu/F:pariKiRRavatI | krut/ktavatu/N:pariKiRRavat,12
+07.0014:ava,874,874,100.0,2.0,,18
+07.0014:pra,874,874,100.0,1.8,,18
+07.0014:vi,874,874,100.0,1.9,,18
+07.0015:AN,874,874,100.0,1.8,,18
+07.0015:nir,867,874,99.2,1.8,ting/lw/prathama/eka:nizpiRazwi | ting/lw/madhyama/eka:nizpiRakzi | ting/lw/uttama/eka:nizpiRazmi | ting/low/prathama/eka:nizpezatu | ting/low/uttama/eka:nizpezARi,18
+07.0015:pari,867,874,99.2,1.8,ting/lw/prathama/eka:paripiRazwi | ting/lw/madhyama/eka:paripiRakzi | ting/lw/uttama/eka:paripiRazmi | ting/low/prathama/eka:paripezatu | ting/low/uttama/eka:paripezARi,18
+07.0015:pra,867,874,99.2,2.0,ting/lw/prathama/eka:prapiRazwi | ting/lw/madhyama/eka:prapiRakzi | ting/lw/uttama/eka:prapiRazmi | ting/low/prathama/eka:prapezatu | ting/low/uttama/eka:prapezARi,18
+07.0015:prati,874,874,100.0,1.7,,18
+07.0015:sam,874,874,100.0,1.6,,18
+07.0015:ud,874,874,100.0,1.8,,18
+07.0015:vi;nis,867,874,99.2,1.8,ting/lw/prathama/eka:vinizpiRazwi | ting/lw/madhyama/eka:vinizpiRakzi | ting/lw/uttama/eka:vinizpiRazmi | ting/low/prathama/eka:vinizpezatu | ting/low/uttama/eka:vinizpezARi,18
+07.0016:nir,853,874,97.6,1.8,"ting/lw/prathama/eka:nirBaRakti | ting/lw/madhyama/eka:nirBaRakzi | ting/lw/uttama/eka:nirBaRajmi | ting/low/prathama/eka:nirBaYjatu | ting/low/uttama/eka:nirBaYjAni | krut/kta/M:nirBagRaH | krut/kta/F:nirBagRA | krut/kta/N:nirBagRam | krut/ktavatu/M:nirBagRavAn | krut/ktavatu/F:nirBagRavatI | krut/ktavatu/N:nirBagRavat | yangluk_krut/kta/M:['nirbaMBaYjitaH', 'nirbamBaYjitaH', 'nirBagRaH']",18
+07.0016:vi,874,874,100.0,1.7,,18
+07.0017:AN,880,880,100.0,1.7,,12
+07.0017:pari,870,880,98.9,1.7,ting/lw/prathama/eka:pariBuRakti | ting/lw/madhyama/eka:pariBuRakzi | ting/lw/uttama/eka:pariBuRajmi | ting/low/prathama/eka:pariBojatu | ting/low/uttama/eka:pariBojAni,12
+07.0017:sam,880,880,100.0,1.7,,12
+07.0017:upa,880,880,100.0,1.8,,12
+07.0019:upa,874,874,100.0,1.8,,18
+07.0020:aBi,623,623,100.0,1.6,,13
+07.0020:ni,623,623,100.0,1.6,,13
+07.0020:upa,623,623,100.0,1.7,,13
+07.0020:vi,623,623,100.0,1.4,,13
+07.0021:A,415,623,66.6,1.4,san/lw/prathama/eka:AYdijizati | san/lw/prathama/dvi:AYdijizete | san/lw/prathama/bahu:AYjijizante | san/lw/madhyama/eka:AYjijizasi | san/lw/madhyama/dvi:AYdijizeTe | san_krut/kta/M:AYjijizitaH | san_krut/kta/F:AYjijizitA | san_krut/kta/N:AYjijizitam | san_krut/ktavatu/M:AYjijizitavAn | san_krut/ktavatu/F:AYjijizitavatI | san_krut/ktavatu/N:AYjijizitavat | san_krut/Satf/M:AYjijizan,13
+07.0021:AN,623,623,100.0,1.2,,13
+07.0021:aBi,623,623,100.0,1.1,,13
+07.0021:aDi,623,623,100.0,1.1,,13
+07.0021:ni,623,623,100.0,1.0,,13
+07.0021:pra,601,623,96.5,1.1,ting/lw/prathama/eka:prARakti | ting/lw/madhyama/eka:prARakzi | ting/lw/uttama/eka:prARajmi | ting/liw/prathama/dvi:prAYjAYcakrAte | ting/liw/prathama/bahu:prAYjAYcakrire,13
+07.0021:prati,623,623,100.0,1.0,,13
+07.0021:sam,623,623,100.0,1.1,,13
+07.0021:upa,623,623,100.0,1.0,,13
+07.0021:vi,623,623,100.0,1.1,,13
+07.0022:AN,874,874,100.0,1.2,,18
+07.0023:AN,874,874,100.0,1.5,,18
+07.0023:apa,874,874,100.0,1.3,,18
+07.0023:pra,858,874,98.2,1.5,ting/lw/prathama/eka:praviRakti | ting/lw/madhyama/eka:praviRakzi | ting/lw/uttama/eka:praviRajmi | ting/low/prathama/eka:pravejatu | ting/low/uttama/eka:pravejAni | krut/kta/M:pravigRaH | krut/kta/F:pravigRA | krut/kta/N:pravigRam | krut/ktavatu/M:pravigRavAn | krut/ktavatu/F:pravigRavatI | krut/ktavatu/N:pravigRavat,18
+07.0023:sam,874,874,100.0,1.6,,18
+07.0023:ud,874,874,100.0,1.9,,18
+07.0023:vi,874,874,100.0,1.8,,18
+07.0024:AN,874,874,100.0,2.0,,18
+07.0024:aDi,874,874,100.0,2.0,,18
+07.0024:apa,874,874,100.0,2.0,,18
+07.0024:api,874,874,100.0,2.0,,18
+07.0024:ni,874,874,100.0,2.0,,18
+07.0024:parA,874,874,100.0,2.0,,18
+07.0024:pari,874,874,100.0,2.0,,18
+07.0024:pari;vi;AN,874,874,100.0,2.1,,18
+07.0024:pra,874,874,100.0,2.1,,18
+07.0024:sam,874,874,100.0,2.3,,18
+07.0024:vi,874,874,100.0,2.1,,18
+07.0024:vi;AN,874,874,100.0,1.8,,18
+07.0024:vi;apa,874,874,100.0,2.1,,18
+07.0025:AN,874,874,100.0,2.4,,18
+07.0025:nir,874,874,100.0,1.9,,18
+07.0025:pra,874,874,100.0,1.9,,18
+07.0025:sam,874,874,100.0,2.3,,18
+07.0025:upa,874,874,100.0,1.8,,18
+07.0025:vi,874,874,100.0,1.8,,18

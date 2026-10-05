@@ -1,0 +1,523 @@
+fid,matched,total,pct,secs,misses,skipped
+02.0001:A,622,623,99.8,0.4,nich/luN/prathama/eka:Adayizwa,13
+02.0001:AN,623,623,100.0,0.9,,13
+02.0001:ava,623,623,100.0,0.3,,13
+02.0001:pra,623,623,100.0,0.6,,13
+02.0001:sam,621,623,99.7,1.0,ting/laN/uttama/dvi:samAdAva | ting/laN/uttama/bahu:samAdAma,13
+02.0001:vi,621,623,99.7,0.7,ting/laN/uttama/dvi:vyAdAva | ting/laN/uttama/bahu:vyAdAma,13
+02.0002:A,877,877,100.0,0.9,,15
+02.0002:AN,880,883,99.7,1.3,krut/SAnac/M:AhanyamAnaH | krut/SAnac/F:AhanyamAnA | krut/SAnac/N:AhanyamAnam,9
+02.0002:aBi,877,877,100.0,1.4,,15
+02.0002:aBi;AN,880,883,99.7,1.6,krut/SAnac/M:aByAhanyamAnaH | krut/SAnac/F:aByAhanyamAnA | krut/SAnac/N:aByAhanyamAnam,9
+02.0002:aDi;ava,877,877,100.0,2.7,,15
+02.0002:apa,877,877,100.0,1.5,,15
+02.0002:ati,877,877,100.0,2.3,,15
+02.0002:ava,877,877,100.0,2.5,,15
+02.0002:ni,877,877,100.0,2.4,,15
+02.0002:ni;pra,853,877,97.3,1.8,"ting/lw/prathama/bahu:nipraGRanti | ting/low/prathama/bahu:niprahaRantu | ting/low/uttama/eka:niprahaRARi | ting/laN/prathama/bahu:niprAhaRan | yak/luN/prathama/eka:niprAhaRi | krut/Satf/M:nipraGRan | krut/Satf/F:nipraGRatI | krut/Satf/N:['nipraGRat', 'nipraGRad'] | krut/anIyar/M:niprahaRaRIyaH | krut/anIyar/F:niprahaRaRIyA | krut/anIyar/N:niprahaRaRIyam | krut/lyuw:niprahaRaRam",15
+02.0002:nir,853,877,97.3,2.3,"ting/lw/prathama/bahu:nirGRanti | ting/low/prathama/bahu:nirhaRantu | ting/low/uttama/eka:nirhaRARi | ting/laN/prathama/bahu:nirahaRan | yak/luN/prathama/eka:nirahaRi | krut/Satf/M:nirGRan | krut/Satf/F:nirGRatI | krut/Satf/N:['nirGRat', 'nirGRad'] | krut/anIyar/M:nirhaRaRIyaH | krut/anIyar/F:nirhaRaRIyA | krut/anIyar/N:nirhaRaRIyam | krut/lyuw:nirhaRaRam",15
+02.0002:parA,854,877,97.4,2.6,"ting/lw/prathama/bahu:parAGRanti | ting/low/prathama/bahu:parAhaRantu | ting/low/uttama/eka:parAhaRARi | ting/laN/prathama/bahu:parAhaRan | yak/luN/prathama/eka:parAhaRi | krut/Satf/M:parAGRan | krut/Satf/F:parAGRatI | krut/Satf/N:['parAGRat', 'parAGRad'] | krut/anIyar/M:parAhaRaRIyaH | krut/anIyar/F:parAhaRaRIyA | krut/anIyar/N:parAhaRaRIyam | krut/lyuw:parAhaRaRam",15
+02.0002:pari,853,877,97.3,2.2,"ting/lw/prathama/bahu:pariGRanti | ting/low/prathama/bahu:parihaRantu | ting/low/uttama/eka:parihaRARi | ting/laN/prathama/bahu:paryahaRan | yak/luN/prathama/eka:paryahaRi | krut/Satf/M:pariGRan | krut/Satf/F:pariGRatI | krut/Satf/N:['pariGRat', 'pariGRad'] | krut/anIyar/M:parihaRaRIyaH | krut/anIyar/F:parihaRaRIyA | krut/anIyar/N:parihaRaRIyam | krut/lyuw:parihaRaRam",15
+02.0002:pra,853,877,97.3,2.1,"ting/lw/prathama/bahu:praGRanti | ting/low/prathama/bahu:prahaRantu | ting/low/uttama/eka:prahaRARi | ting/laN/prathama/bahu:prAhaRan | yak/luN/prathama/eka:prAhaRi | krut/Satf/M:praGRan | krut/Satf/F:praGRatI | krut/Satf/N:['praGRat', 'praGRad'] | krut/anIyar/M:prahaRaRIyaH | krut/anIyar/F:prahaRaRIyA | krut/anIyar/N:prahaRaRIyam | krut/lyuw:prahaRaRam",15
+02.0002:prati,877,877,100.0,2.4,,15
+02.0002:sam,705,877,80.4,2.0,yang/lw/prathama/eka:saYjaMGanyate | yang/lw/prathama/dvi:saYjaMGanyete | yang/lw/prathama/bahu:saYjaMGanyante | yang/lw/madhyama/eka:saYjaMGanyase | yang/lw/madhyama/dvi:saYjaMGanyeTe | yang_krut/kta/M:saYjaMGnitaH | yang_krut/kta/F:saYjaMGnitA | yang_krut/kta/N:saYjaMGnitam | yang_krut/ktavatu/M:saYjaMGnitavAn | yang_krut/ktavatu/F:saYjaMGnitavatI | yang_krut/ktavatu/N:saYjaMGnitavat | yang_krut/SAnac/M:saYjaMGanyamAnaH,15
+02.0002:sam;AN,880,883,99.7,2.2,krut/SAnac/M:samAhanyamAnaH | krut/SAnac/F:samAhanyamAnA | krut/SAnac/N:samAhanyamAnam,9
+02.0002:sam;ud,877,877,100.0,2.1,,15
+02.0002:ud,877,877,100.0,2.9,,15
+02.0002:upa,877,877,100.0,3.0,,15
+02.0002:upa;AN,880,883,99.7,2.7,krut/SAnac/M:upAhanyamAnaH | krut/SAnac/F:upAhanyamAnA | krut/SAnac/N:upAhanyamAnam,9
+02.0002:upa;ud,877,877,100.0,2.9,,15
+02.0002:vi,877,877,100.0,0.6,,15
+02.0002:vi;A,877,877,100.0,1.8,,15
+02.0002:vi;AN,880,883,99.7,2.4,krut/SAnac/M:vyAhanyamAnaH | krut/SAnac/F:vyAhanyamAnA | krut/SAnac/N:vyAhanyamAnam,9
+02.0002:vi;ati,877,877,100.0,1.1,,15
+02.0002:vi;ni,877,877,100.0,2.5,,15
+02.0002:vi;nis,361,877,41.2,3.5,"ting/lw/prathama/bahu:vinisGnanti | ting/liw/prathama/eka:vinisjaGAna | ting/liw/prathama/dvi:vinisjaGnatuH | ting/liw/prathama/bahu:vinisjaGnuH | ting/liw/madhyama/eka:vinisjaGaniTa | krut/Satf/M:vinisGnan | krut/Satf/F:vinisGnatI | krut/Satf/N:['vinisGnat', 'vinisGnad'] | krut/anIyar/M:vinirhaRaRIyaH | krut/anIyar/F:vinirhaRaRIyA | krut/anIyar/N:vinirhaRaRIyam | krut/lyuw:vinirhaRaRam",15
+02.0002:vi;pra,853,877,97.3,2.5,"ting/lw/prathama/bahu:vipraGRanti | ting/low/prathama/bahu:viprahaRantu | ting/low/uttama/eka:viprahaRARi | ting/laN/prathama/bahu:viprAhaRan | yak/luN/prathama/eka:viprAhaRi | krut/Satf/M:vipraGRan | krut/Satf/F:vipraGRatI | krut/Satf/N:['vipraGRat', 'vipraGRad'] | krut/anIyar/M:viprahaRaRIyaH | krut/anIyar/F:viprahaRaRIyA | krut/anIyar/N:viprahaRaRIyam | krut/lyuw:viprahaRaRam",15
+02.0003:pra,880,880,100.0,1.9,,12
+02.0004:AN,880,880,100.0,2.7,,12
+02.0004:ava,880,880,100.0,2.2,,12
+02.0004:nir,880,880,100.0,2.5,,12
+02.0004:prati,880,880,100.0,1.9,,12
+02.0004:sam,880,880,100.0,2.4,,12
+02.0004:upa,880,880,100.0,2.0,,12
+02.0004:vi,880,880,100.0,3.1,,12
+02.0005:AN,880,880,100.0,2.5,,12
+02.0005:ava,880,880,100.0,2.6,,12
+02.0005:ni,880,880,100.0,1.9,,12
+02.0005:nir,880,880,100.0,2.3,,12
+02.0005:pari,880,880,100.0,2.4,,12
+02.0005:pra,880,880,100.0,2.4,,12
+02.0005:sam,880,880,100.0,2.7,,12
+02.0005:ud,880,880,100.0,2.4,,12
+02.0005:upa,880,880,100.0,1.8,,12
+02.0006:AN,880,880,100.0,2.7,,12
+02.0006:ava,880,880,100.0,1.9,,12
+02.0006:nir,880,880,100.0,2.5,,12
+02.0006:ud,880,880,100.0,2.1,,12
+02.0007:AN,868,868,100.0,2.3,,12
+02.0007:aBi,868,868,100.0,2.2,,12
+02.0007:ava,868,868,100.0,3.2,,12
+02.0007:pari,868,868,100.0,1.9,,12
+02.0007:pari;sam,868,868,100.0,3.0,,12
+02.0007:pra,868,868,100.0,2.9,,12
+02.0007:pra;sam,868,868,100.0,2.1,,12
+02.0007:prati,868,868,100.0,2.7,,12
+02.0007:prati;AN,868,868,100.0,2.7,,12
+02.0007:prati;vi,868,868,100.0,2.7,,12
+02.0007:sam,868,868,100.0,3.0,,12
+02.0007:sam;pra,868,868,100.0,2.5,,12
+02.0007:ud;AN,868,868,100.0,2.1,,12
+02.0007:upa;sam,868,868,100.0,2.6,,12
+02.0007:vi,868,868,100.0,2.5,,12
+02.0007:vi;AN,868,868,100.0,2.5,,12
+02.0008:AN,620,620,100.0,2.3,,7
+02.0008:ni,620,620,100.0,2.0,,7
+02.0008:ni;AN,285,620,46.0,1.5,san/lw/prathama/eka:nyeririzati | san/lw/prathama/dvi:nyeririzete | san/lw/prathama/bahu:nyerdiizanti | san/lw/madhyama/eka:nyerdiizase | san/lw/madhyama/dvi:nyerdiizaTaH | san_krut/kta/M:nyeririzitaH | san_krut/kta/F:nyeririzitA | san_krut/kta/N:nyeririzitam | san_krut/ktavatu/M:nyeririzitavAn | san_krut/ktavatu/F:nyeririzitavatI | san_krut/ktavatu/N:nyeririzitavat | san_krut/SAnac/M:nyeririzamARaH,7
+02.0008:pra,620,620,100.0,1.8,,7
+02.0008:sam,620,620,100.0,1.4,,7
+02.0008:sam;pra,620,620,100.0,1.5,,7
+02.0008:sam;ud,620,620,100.0,1.0,,7
+02.0008:ud,620,620,100.0,1.2,,7
+02.0008:vi,620,620,100.0,1.2,,7
+02.0008:vi;ava,620,620,100.0,1.3,,7
+02.0009:prati,620,620,100.0,1.1,,7
+02.0010:pari,620,620,100.0,1.2,,7
+02.0011:aBi,616,620,99.4,1.2,ting/low/uttama/dvi:aByAzAvahE | ting/luN/madhyama/bahu:aByAziDvam | yak/luN/madhyama/bahu:aByAziDvam | nich_yak/luN/madhyama/bahu:aByAziDvam,7
+02.0011:aDi,616,620,99.4,1.2,ting/low/uttama/dvi:aDyAzAvahE | ting/luN/madhyama/bahu:aDyAziDvam | yak/luN/madhyama/bahu:aDyAziDvam | nich_yak/luN/madhyama/bahu:aDyAziDvam,7
+02.0011:nir,620,620,100.0,0.8,,7
+02.0011:pari,616,620,99.4,1.1,ting/low/uttama/dvi:paryAzAvahE | ting/luN/madhyama/bahu:paryAziDvam | yak/luN/madhyama/bahu:paryAziDvam | nich_yak/luN/madhyama/bahu:paryAziDvam,7
+02.0011:pari;upa,620,620,100.0,1.1,,7
+02.0011:prati;sam,620,620,100.0,1.1,,7
+02.0011:sam,620,620,100.0,0.9,,7
+02.0011:sam;upa,620,620,100.0,1.0,,7
+02.0011:ud,620,620,100.0,1.2,,7
+02.0011:upa,620,620,100.0,1.1,,7
+02.0012:AN,978,978,100.0,0.8,,12
+02.0013:aBi,868,868,100.0,1.1,,12
+02.0013:aDi,868,868,100.0,1.1,,12
+02.0013:ni,868,868,100.0,1.3,,12
+02.0013:prati,868,868,100.0,1.3,,12
+02.0013:sam,868,868,100.0,1.3,,12
+02.0013:sam;vi,868,868,100.0,1.9,,12
+02.0013:upa,868,868,100.0,1.5,,12
+02.0013:vi,868,868,100.0,1.6,,12
+02.0016:pra,868,868,100.0,1.7,,12
+02.0019:sam,868,868,100.0,1.8,,12
+02.0020:ud,868,868,100.0,1.9,,12
+02.0022:AN,868,868,100.0,1.8,,12
+02.0022:aDi,868,868,100.0,2.4,,12
+02.0022:apa,868,868,100.0,2.3,,12
+02.0022:api,868,868,100.0,1.6,,12
+02.0022:ni,868,868,100.0,2.2,,12
+02.0022:parA,868,868,100.0,1.9,,12
+02.0022:pari,868,868,100.0,2.0,,12
+02.0022:pari;vi;AN,868,868,100.0,1.9,,12
+02.0022:pra,868,868,100.0,2.1,,12
+02.0022:sam,868,868,100.0,2.5,,12
+02.0022:vi,868,868,100.0,2.1,,12
+02.0022:vi;AN,868,868,100.0,1.5,,12
+02.0022:vi;apa,868,868,100.0,2.0,,12
+02.0024:AN,868,868,100.0,2.0,,12
+02.0025:pra,816,870,93.8,2.0,yang/laN/prathama/eka:prAsozUyata | yang/laN/prathama/dvi:prAsozUyetAm | yang/laN/prathama/bahu:prAsozUyanta | yang/laN/madhyama/eka:prAsozUyaTAH | yang/laN/madhyama/dvi:prAsozUyeTAm,10
+02.0025:prati;pra,816,870,93.8,1.9,yang/laN/prathama/eka:pratiprAsozUyata | yang/laN/prathama/dvi:pratiprAsozUyetAm | yang/laN/prathama/bahu:pratiprAsozUyanta | yang/laN/madhyama/eka:pratiprAsozUyaTAH | yang/laN/madhyama/dvi:pratiprAsozUyeTAm,10
+02.0025:sam;pra,816,870,93.8,1.9,yang/laN/prathama/eka:samprAsozUyata | yang/laN/prathama/dvi:samprAsozUyetAm | yang/laN/prathama/bahu:samprAsozUyanta | yang/laN/madhyama/eka:samprAsozUyaTAH | yang/laN/madhyama/dvi:samprAsozUyeTAm,10
+02.0025:ud,816,870,93.8,2.1,yang/laN/prathama/eka:udasozUyata | yang/laN/prathama/dvi:udasozUyetAm | yang/laN/prathama/bahu:udasozUyanta | yang/laN/madhyama/eka:udasozUyaTAH | yang/laN/madhyama/dvi:udasozUyeTAm,10
+02.0026:AN,870,870,100.0,2.0,,10
+02.0026:aBi,870,870,100.0,1.9,,10
+02.0026:aDi,870,870,100.0,1.3,,10
+02.0026:aDi;AN,870,870,100.0,1.8,,10
+02.0026:ati,870,870,100.0,1.8,,10
+02.0026:pari,870,870,100.0,1.8,,10
+02.0026:prati,870,870,100.0,1.7,,10
+02.0026:sam,870,870,100.0,1.7,,10
+02.0026:ud,216,870,24.8,2.0,"ting/lw/prathama/eka:utSeti | ting/lw/prathama/dvi:utSItaH | ting/lw/prathama/bahu:utSiyanti | ting/lw/madhyama/eka:utSezi | ting/lw/madhyama/dvi:utSITaH | krut/kta/M:utSayitaH | krut/kta/F:utSayitA | krut/kta/N:utSayitam | krut/ktavatu/M:utSayitavAn | krut/ktavatu/F:utSayitavatI | krut/ktavatu/N:['utSayitavat', 'utSayitavad'] | krut/SAnac/M:utSayAnaH",10
+02.0026:upa,871,871,100.0,1.8,,9
+02.0026:vi,871,871,100.0,1.4,,9
+02.0027:AN,876,876,100.0,1.7,,16
+02.0027:aBi,876,876,100.0,1.8,,16
+02.0027:aBi;AN,876,876,100.0,1.9,,16
+02.0027:apa,876,876,100.0,1.9,,16
+02.0027:ava,876,876,100.0,1.8,,16
+02.0027:ni,876,876,100.0,2.3,,16
+02.0027:nir,876,876,100.0,2.1,,16
+02.0027:pari,876,876,100.0,2.0,,16
+02.0027:pra,876,876,100.0,1.4,,16
+02.0027:pra;vi,876,876,100.0,1.9,,16
+02.0027:prati,876,876,100.0,1.9,,16
+02.0027:sam,877,877,100.0,2.0,,15
+02.0027:sam;pra,876,876,100.0,1.9,,16
+02.0027:su;aBi,876,876,100.0,2.0,,16
+02.0027:ud,877,877,100.0,1.7,,15
+02.0027:ud;AN,876,876,100.0,1.8,,16
+02.0027:upa;sam,877,877,100.0,2.0,,15
+02.0027:vi,876,876,100.0,2.0,,16
+02.0027:vi;ati,876,876,100.0,2.0,,16
+02.0028:AN,869,877,99.1,1.9,krut/anIyar/M:AravanIyaH | krut/anIyar/F:AravanIyA | krut/anIyar/N:AravanIyam | krut/lyuw:Aravanam | yangluk_krut/anIyar/M:AravanIyaH | yangluk_krut/anIyar/F:AravanIyA | yangluk_krut/anIyar/N:AravanIyam | yangluk_krut/lyuw:Aravanam,15
+02.0028:aBi,869,877,99.1,1.9,krut/anIyar/M:aBiravanIyaH | krut/anIyar/F:aBiravanIyA | krut/anIyar/N:aBiravanIyam | krut/lyuw:aBiravanam | yangluk_krut/anIyar/M:aBiravanIyaH | yangluk_krut/anIyar/F:aBiravanIyA | yangluk_krut/anIyar/N:aBiravanIyam | yangluk_krut/lyuw:aBiravanam,15
+02.0028:prati,869,877,99.1,2.3,krut/anIyar/M:pratiravanIyaH | krut/anIyar/F:pratiravanIyA | krut/anIyar/N:pratiravanIyam | krut/lyuw:pratiravanam | yangluk_krut/anIyar/M:pratiravanIyaH | yangluk_krut/anIyar/F:pratiravanIyA | yangluk_krut/anIyar/N:pratiravanIyam | yangluk_krut/lyuw:pratiravanam,15
+02.0028:vi,869,877,99.1,1.8,krut/anIyar/M:viravanIyaH | krut/anIyar/F:viravanIyA | krut/anIyar/N:viravanIyam | krut/lyuw:viravanam | yangluk_krut/anIyar/M:viravanIyaH | yangluk_krut/anIyar/F:viravanIyA | yangluk_krut/anIyar/N:viravanIyam | yangluk_krut/lyuw:viravanam,15
+02.0030:AN,876,876,100.0,1.4,,16
+02.0030:aBi,876,876,100.0,1.8,,16
+02.0030:aBi;pra,414,876,47.3,1.8,ting/liw/prathama/eka:aBipraRunava | ting/liw/prathama/dvi:aBipraRunavatuH | ting/liw/prathama/bahu:aBipraRunavuH | ting/liw/madhyama/eka:aBipraRuAYcakfze | ting/liw/madhyama/dvi:aBipraRunavaTuH | san_krut/kta/M:aBipraRunUzitaH | san_krut/kta/F:aBipraRunUzitA | san_krut/kta/N:aBipraRunUzitam | san_krut/ktavatu/M:aBipraRunUzitavAn | san_krut/ktavatu/F:aBipraRunUzitavatI | san_krut/ktavatu/N:aBipraRunUzitavat | san_krut/Satf/M:aBipraRunUzan,16
+02.0030:aBi;sam,216,876,24.7,1.8,ting/lw/prathama/eka:aBisamnOti | ting/lw/prathama/dvi:aBisamnutaH | ting/lw/prathama/bahu:aBisamnuvanti | ting/lw/madhyama/eka:aBisamnOzi | ting/lw/madhyama/dvi:aBisamnuTaH | krut/kta/M:aBisamnutaH | krut/kta/F:aBisamnutA | krut/kta/N:aBisamnutam | krut/ktavatu/M:aBisamnutavAn | krut/ktavatu/F:aBisamnutavatI | krut/ktavatu/N:aBisamnutavat | krut/Satf/M:aBisamnuvan,16
+02.0030:apa,876,876,100.0,1.8,,16
+02.0030:ati,876,876,100.0,1.9,,16
+02.0030:ava,876,876,100.0,1.9,,16
+02.0030:pari,414,876,47.3,1.9,ting/liw/prathama/eka:pariRunava | ting/liw/prathama/dvi:pariRunavatuH | ting/liw/prathama/bahu:pariRunavuH | ting/liw/madhyama/eka:pariRuAYcakfze | ting/liw/madhyama/dvi:pariRunavaTuH | san_krut/kta/M:pariRunUzitaH | san_krut/kta/F:pariRunUzitA | san_krut/kta/N:pariRunUzitam | san_krut/ktavatu/M:pariRunUzitavAn | san_krut/ktavatu/F:pariRunUzitavatI | san_krut/ktavatu/N:pariRunUzitavat | san_krut/Satf/M:pariRunUzan,16
+02.0030:pra,414,876,47.3,1.8,ting/liw/prathama/eka:praRunava | ting/liw/prathama/dvi:praRunavatuH | ting/liw/prathama/bahu:praRunavuH | ting/liw/madhyama/eka:praRuAYcakfze | ting/liw/madhyama/dvi:praRunavaTuH | san_krut/kta/M:praRunUzitaH | san_krut/kta/F:praRunUzitA | san_krut/kta/N:praRunUzitam | san_krut/ktavatu/M:praRunUzitavAn | san_krut/ktavatu/F:praRunUzitavatI | san_krut/ktavatu/N:praRunUzitavat | san_krut/Satf/M:praRunUzan,16
+02.0030:sam,216,876,24.7,1.9,ting/lw/prathama/eka:samnOti | ting/lw/prathama/dvi:samnutaH | ting/lw/prathama/bahu:samnuvanti | ting/lw/madhyama/eka:samnOzi | ting/lw/madhyama/dvi:samnuTaH | krut/kta/M:samnutaH | krut/kta/F:samnutA | krut/kta/N:samnutam | krut/ktavatu/M:samnutavAn | krut/ktavatu/F:samnutavatI | krut/ktavatu/N:samnutavat | krut/Satf/M:samnuvan,16
+02.0030:vi,876,876,100.0,1.9,,16
+02.0031:ava,876,876,100.0,1.9,,16
+02.0031:pari,876,876,100.0,1.9,,16
+02.0032:AN,876,876,100.0,1.9,,16
+02.0032:ava,876,876,100.0,1.9,,16
+02.0032:sam,846,876,96.6,2.0,ting/lw/prathama/eka:saNkzROti | ting/lw/prathama/bahu:saNkzRuvanti | ting/lw/madhyama/eka:saNkzROzi | ting/lw/madhyama/dvi:saNkzRuTaH | ting/lw/madhyama/bahu:saNkzRuTa | krut/SAnac/M:saNkzRavamARaH | krut/SAnac/F:saNkzRavamARA | krut/SAnac/N:saNkzRavamARam,16
+02.0033:pra,822,876,93.8,1.9,yang/laN/prathama/eka:prAsozRUyata | yang/laN/prathama/dvi:prAsozRUyetAm | yang/laN/prathama/bahu:prAsozRUyanta | yang/laN/madhyama/eka:prAsozRUyaTAH | yang/laN/madhyama/dvi:prAsozRUyeTAm,16
+02.0034:aBi,882,882,100.0,2.0,,10
+02.0034:apa,846,882,95.9,1.9,nich_yak/lw/prathama/eka:aporRAvyate | nich_yak/lw/prathama/dvi:aporRAvyete | nich_yak/lw/prathama/bahu:aporRAvyante | nich_yak/lw/madhyama/eka:aporRAvyase | nich_yak/lw/madhyama/dvi:aporRAvyeTe,10
+02.0034:pra,882,882,100.0,2.0,,10
+02.0034:vi,882,882,100.0,2.0,,10
+02.0036:pari,100,876,11.4,2.1,ting/lw/prathama/eka:parizOti | ting/lw/prathama/dvi:parizutaH | ting/lw/prathama/bahu:parizuvanti | ting/lw/madhyama/eka:parizOzi | ting/lw/madhyama/dvi:parizuTaH | krut/kta/M:parizutaH | krut/kta/F:parizutA | krut/kta/N:parizutam | krut/ktavatu/M:parizutavAn | krut/ktavatu/F:parizutavatI | krut/ktavatu/N:parizutavat | krut/Satf/M:parizuvan,16
+02.0036:pra,822,876,93.8,2.1,yang/laN/prathama/eka:prAsozUyata | yang/laN/prathama/dvi:prAsozUyetAm | yang/laN/prathama/bahu:prAsozUyanta | yang/laN/madhyama/eka:prAsozUyaTAH | yang/laN/madhyama/dvi:prAsozUyeTAm,16
+02.0037:nir,860,876,98.2,1.9,"ting/low/uttama/eka:nizkavARi | krut/anIyar/M:nizkavaRIyaH | krut/anIyar/F:nizkavaRIyA | krut/anIyar/N:nizkavaRIyam | krut/lyuw:nizkavaRam | nich_krut/SAnac/M:['nizkAvyamARaH', 'nizkAvayamARaH'] | nich_krut/SAnac/F:['nizkAvyamARA', 'nizkAvayamARA'] | nich_krut/SAnac/N:['nizkAvyamARam', 'nizkAvayamARam'] | nich_krut/anIyar/M:nizkAvaRIyaH | nich_krut/anIyar/F:nizkAvaRIyA | nich_krut/anIyar/N:nizkAvaRIyam | nich_krut/lyuw:nizkAvaRam",16
+02.0038:apa,784,879,89.2,2.1,san/laN/prathama/eka:apAtuzwUzata | san/laN/prathama/dvi:apAtuzwUzetAm | san/laN/prathama/bahu:apAtuzwUzanta | san/laN/madhyama/eka:apAtuzwUzaTAH | san/laN/madhyama/dvi:apAtuzwUzeTAm,13
+02.0038:pari,784,879,89.2,2.2,san/laN/prathama/eka:paryatuzwUzata | san/laN/prathama/dvi:paryatuzwUzetAm | san/laN/prathama/bahu:paryatuzwUzanta | san/laN/madhyama/eka:paryatuzwUzaTAH | san/laN/madhyama/dvi:paryatuzwUzeTAm,13
+02.0038:pra,785,880,89.2,1.8,san/laN/prathama/eka:prAtuzwUzata | san/laN/prathama/dvi:prAtuzwUzetAm | san/laN/prathama/bahu:prAtuzwUzanta | san/laN/madhyama/eka:prAtuzwUzaTAH | san/laN/madhyama/dvi:prAtuzwUzeTAm,12
+02.0038:sam,785,880,89.2,2.0,san/laN/prathama/eka:samatuzwUzata | san/laN/prathama/dvi:samatuzwUzetAm | san/laN/prathama/bahu:samatuzwUzanta | san/laN/madhyama/eka:samatuzwUzaTAH | san/laN/madhyama/dvi:samatuzwUzeTAm,12
+02.0039:aBi,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:aBi;anu,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:aDi,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:ati,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:nir,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:parA,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:pari,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:pari;pra,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:pra,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:prati,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:sam,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:ud,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:upa,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0039:vi,0,0,0.0,0.0,ERROR:string index out of range,0
+02.0040:AN,570,625,91.2,2.8,ting/lw/madhyama/eka:ezi | ting/lw/uttama/eka:emi | ting/luw/prathama/dvi:AytArO | ting/luw/prathama/bahu:AytAraH | ting/luw/madhyama/eka:AytAsi | krut/tavya/M:etavyaH | krut/tavya/F:etavyA | krut/tavya/N:etavyam | krut/yat/M:eyaH | krut/yat/F:eyA | krut/yat/N:eyam | krut/tfc/F:etrI,11
+02.0040:aBi,625,625,100.0,2.6,,11
+02.0040:aBi;AN,570,625,91.2,2.5,ting/lw/madhyama/eka:aByezi | ting/lw/uttama/eka:aByemi | ting/luw/prathama/dvi:aByAytArO | ting/luw/prathama/bahu:aByAytAraH | ting/luw/madhyama/eka:aByAytAsi | krut/tavya/M:aByetavyaH | krut/tavya/F:aByetavyA | krut/tavya/N:aByetavyam | krut/yat/M:aByeyaH | krut/yat/F:aByeyA | krut/yat/N:aByeyam | krut/tfc/F:aByetrI,11
+02.0040:aBi;ava,570,625,91.2,2.3,ting/lw/madhyama/eka:aByavezi | ting/lw/uttama/eka:aByavemi | ting/luw/prathama/dvi:aByavAytArO | ting/luw/prathama/bahu:aByavAytAraH | ting/luw/madhyama/eka:aByavAytAsi | krut/tavya/M:aByavetavyaH | krut/tavya/F:aByavetavyA | krut/tavya/N:aByavetavyam | krut/yat/M:aByaveyaH | krut/yat/F:aByaveyA | krut/yat/N:aByaveyam | krut/tfc/F:aByavetrI,11
+02.0040:aBi;ni,626,626,100.0,2.3,,10
+02.0040:aBi;pari,626,626,100.0,1.7,,10
+02.0040:aBi;pra,570,625,91.2,1.3,ting/lw/madhyama/eka:aBiprezi | ting/lw/uttama/eka:aBipremi | ting/luw/prathama/dvi:aBiprAytArO | ting/luw/prathama/bahu:aBiprAytAraH | ting/luw/madhyama/eka:aBiprAytAsi | krut/tavya/M:aBipretavyaH | krut/tavya/F:aBipretavyA | krut/tavya/N:aBipretavyam | krut/yat/M:aBipreyaH | krut/yat/F:aBipreyA | krut/yat/N:aBipreyam | krut/tfc/F:aBipretrI,11
+02.0040:aBi;sam,625,625,100.0,1.8,,11
+02.0040:aBi;sam;AN,570,625,91.2,1.8,ting/lw/madhyama/eka:aBisamezi | ting/lw/uttama/eka:aBisamemi | ting/luw/prathama/dvi:aBisamAytArO | ting/luw/prathama/bahu:aBisamAytAraH | ting/luw/madhyama/eka:aBisamAytAsi | krut/tavya/M:aBisametavyaH | krut/tavya/F:aBisametavyA | krut/tavya/N:aBisametavyam | krut/yat/M:aBisameyaH | krut/yat/F:aBisameyA | krut/yat/N:aBisameyam | krut/tfc/F:aBisametrI,11
+02.0040:aBi;ud,625,625,100.0,1.8,,11
+02.0040:aBi;ud;AN,570,625,91.2,1.8,ting/lw/madhyama/eka:aByudezi | ting/lw/uttama/eka:aByudemi | ting/luw/prathama/dvi:aByudAytArO | ting/luw/prathama/bahu:aByudAytAraH | ting/luw/madhyama/eka:aByudAytAsi | krut/tavya/M:aByudetavyaH | krut/tavya/F:aByudetavyA | krut/tavya/N:aByudetavyam | krut/yat/M:aByudeyaH | krut/yat/F:aByudeyA | krut/yat/N:aByudeyam | krut/tfc/F:aByudetrI,11
+02.0040:aBi;upa,570,625,91.2,1.8,ting/lw/madhyama/eka:aByupezi | ting/lw/uttama/eka:aByupemi | ting/luw/prathama/dvi:aByupAytArO | ting/luw/prathama/bahu:aByupAytAraH | ting/luw/madhyama/eka:aByupAytAsi | krut/tavya/M:aByupetavyaH | krut/tavya/F:aByupetavyA | krut/tavya/N:aByupetavyam | krut/yat/M:aByupeyaH | krut/yat/F:aByupeyA | krut/yat/N:aByupeyam | krut/tfc/F:aByupetrI,11
+02.0040:aBi;upa;AN,570,625,91.2,2.0,ting/lw/madhyama/eka:aByupezi | ting/lw/uttama/eka:aByupemi | ting/luw/prathama/dvi:aByupAytArO | ting/luw/prathama/bahu:aByupAytAraH | ting/luw/madhyama/eka:aByupAytAsi | krut/tavya/M:aByupetavyaH | krut/tavya/F:aByupetavyA | krut/tavya/N:aByupetavyam | krut/yat/M:aByupeyaH | krut/yat/F:aByupeyA | krut/yat/N:aByupeyam | krut/tfc/F:aByupetrI,11
+02.0040:aBi;vi,625,625,100.0,2.0,,11
+02.0040:aDi,625,625,100.0,1.6,,11
+02.0040:anu,625,625,100.0,1.8,,11
+02.0040:anu;AN,197,625,31.5,1.7,ting/lw/madhyama/eka:anvezi | ting/lw/uttama/eka:anvemi | ting/luw/prathama/dvi:anvAytArO | ting/luw/prathama/bahu:anvAytAraH | ting/luw/madhyama/eka:anvAytAsi | krut/tavya/M:anvetavyaH | krut/tavya/F:anvetavyA | krut/tavya/N:anvetavyam | krut/yat/M:anveyaH | krut/yat/F:anveyA | krut/yat/N:anveyam | krut/tfc/F:anvetrI,11
+02.0040:anu;ava,570,625,91.2,1.8,ting/lw/madhyama/eka:anvavezi | ting/lw/uttama/eka:anvavemi | ting/luw/prathama/dvi:anvavAytArO | ting/luw/prathama/bahu:anvavAytAraH | ting/luw/madhyama/eka:anvavAytAsi | krut/tavya/M:anvavetavyaH | krut/tavya/F:anvavetavyA | krut/tavya/N:anvavetavyam | krut/yat/M:anvaveyaH | krut/yat/F:anvaveyA | krut/yat/N:anvaveyam | krut/tfc/F:anvavetrI,11
+02.0040:anu;parA,570,625,91.2,1.8,ting/lw/madhyama/eka:anuparezi | ting/lw/uttama/eka:anuparemi | ting/luw/prathama/dvi:anuparAytArO | ting/luw/prathama/bahu:anuparAytAraH | ting/luw/madhyama/eka:anuparAytAsi | krut/tavya/M:anuparetavyaH | krut/tavya/F:anuparetavyA | krut/tavya/N:anuparetavyam | krut/yat/M:anupareyaH | krut/yat/F:anupareyA | krut/yat/N:anupareyam | krut/tfc/F:anuparetrI,11
+02.0040:anu;pari,626,626,100.0,1.8,,10
+02.0040:anu;pari;AN,570,625,91.2,2.0,ting/lw/madhyama/eka:anuparyezi | ting/lw/uttama/eka:anuparyemi | ting/luw/prathama/dvi:anuparyAytArO | ting/luw/prathama/bahu:anuparyAytAraH | ting/luw/madhyama/eka:anuparyAytAsi | krut/tavya/M:anuparyetavyaH | krut/tavya/F:anuparyetavyA | krut/tavya/N:anuparyetavyam | krut/yat/M:anuparyeyaH | krut/yat/F:anuparyeyA | krut/yat/N:anuparyeyam | krut/tfc/F:anuparyetrI,11
+02.0040:anu;sam,625,625,100.0,1.9,,11
+02.0040:anu;vi,625,625,100.0,1.7,,11
+02.0040:anu;vi;ava,570,625,91.2,1.9,ting/lw/madhyama/eka:anuvyavezi | ting/lw/uttama/eka:anuvyavemi | ting/luw/prathama/dvi:anuvyavAytArO | ting/luw/prathama/bahu:anuvyavAytAraH | ting/luw/madhyama/eka:anuvyavAytAsi | krut/tavya/M:anuvyavetavyaH | krut/tavya/F:anuvyavetavyA | krut/tavya/N:anuvyavetavyam | krut/yat/M:anuvyaveyaH | krut/yat/F:anuvyaveyA | krut/yat/N:anuvyaveyam | krut/tfc/F:anuvyavetrI,11
+02.0040:apa,570,625,91.2,2.0,ting/lw/madhyama/eka:apezi | ting/lw/uttama/eka:apemi | ting/luw/prathama/dvi:apAytArO | ting/luw/prathama/bahu:apAytAraH | ting/luw/madhyama/eka:apAytAsi | krut/tavya/M:apetavyaH | krut/tavya/F:apetavyA | krut/tavya/N:apetavyam | krut/yat/M:apeyaH | krut/yat/F:apeyA | krut/yat/N:apeyam | krut/tfc/F:apetrI,11
+02.0040:apa;ati,625,625,100.0,2.0,,11
+02.0040:apa;parA,570,625,91.2,2.3,ting/lw/madhyama/eka:apaparezi | ting/lw/uttama/eka:apaparemi | ting/luw/prathama/dvi:apaparAytArO | ting/luw/prathama/bahu:apaparAytAraH | ting/luw/madhyama/eka:apaparAytAsi | krut/tavya/M:apaparetavyaH | krut/tavya/F:apaparetavyA | krut/tavya/N:apaparetavyam | krut/yat/M:apapareyaH | krut/yat/F:apapareyA | krut/yat/N:apapareyam | krut/tfc/F:apaparetrI,11
+02.0040:apa;pra,570,625,91.2,1.8,ting/lw/madhyama/eka:apaprezi | ting/lw/uttama/eka:apapremi | ting/luw/prathama/dvi:apaprAytArO | ting/luw/prathama/bahu:apaprAytAraH | ting/luw/madhyama/eka:apaprAytAsi | krut/tavya/M:apapretavyaH | krut/tavya/F:apapretavyA | krut/tavya/N:apapretavyam | krut/yat/M:apapreyaH | krut/yat/F:apapreyA | krut/yat/N:apapreyam | krut/tfc/F:apapretrI,11
+02.0040:apa;ud,625,625,100.0,2.5,,11
+02.0040:api,625,625,100.0,2.0,,11
+02.0040:ati,625,625,100.0,2.6,,11
+02.0040:ati;AN,570,625,91.2,1.6,ting/lw/madhyama/eka:atyezi | ting/lw/uttama/eka:atyemi | ting/luw/prathama/dvi:atyAytArO | ting/luw/prathama/bahu:atyAytAraH | ting/luw/madhyama/eka:atyAytAsi | krut/tavya/M:atyetavyaH | krut/tavya/F:atyetavyA | krut/tavya/N:atyetavyam | krut/yat/M:atyeyaH | krut/yat/F:atyeyA | krut/yat/N:atyeyam | krut/tfc/F:atyetrI,11
+02.0040:ava,570,625,91.2,2.0,ting/lw/madhyama/eka:avezi | ting/lw/uttama/eka:avemi | ting/luw/prathama/dvi:avAytArO | ting/luw/prathama/bahu:avAytAraH | ting/luw/madhyama/eka:avAytAsi | krut/tavya/M:avetavyaH | krut/tavya/F:avetavyA | krut/tavya/N:avetavyam | krut/yat/M:aveyaH | krut/yat/F:aveyA | krut/yat/N:aveyam | krut/tfc/F:avetrI,11
+02.0040:dur;anu,0,625,0.0,1.4,ting/lw/prathama/eka:duraRveti | ting/lw/prathama/dvi:duraRvitaH | ting/lw/prathama/bahu:duraRuyanti | ting/lw/madhyama/eka:duraRvezi | ting/lw/madhyama/dvi:duraRviTaH | krut/kta/M:duraRvitaH | krut/kta/F:duraRvitA | krut/kta/N:duraRvitam | krut/ktavatu/M:duraRvitavAn | krut/ktavatu/F:duraRvitavatI | krut/ktavatu/N:duraRvitavat | krut/Satf/M:duraRuyan,11
+02.0040:dur;ati,625,625,100.0,2.0,,11
+02.0040:ni,626,626,100.0,1.8,,10
+02.0040:nir,625,625,100.0,1.9,,11
+02.0040:nir;AN,570,625,91.2,1.7,ting/lw/madhyama/eka:nirezi | ting/lw/uttama/eka:niremi | ting/luw/prathama/dvi:nirAytArO | ting/luw/prathama/bahu:nirAytAraH | ting/luw/madhyama/eka:nirAytAsi | krut/tavya/M:niretavyaH | krut/tavya/F:niretavyA | krut/tavya/N:niretavyam | krut/yat/M:nireyaH | krut/yat/F:nireyA | krut/yat/N:nireyam | krut/tfc/F:niretrI,11
+02.0040:nir;anu,0,625,0.0,1.8,ting/lw/prathama/eka:niraRveti | ting/lw/prathama/dvi:niraRvitaH | ting/lw/prathama/bahu:niraRuyanti | ting/lw/madhyama/eka:niraRvezi | ting/lw/madhyama/dvi:niraRviTaH | krut/kta/M:niraRvitaH | krut/kta/F:niraRvitA | krut/kta/N:niraRvitam | krut/ktavatu/M:niraRvitavAn | krut/ktavatu/F:niraRvitavatI | krut/ktavatu/N:niraRvitavat | krut/Satf/M:niraRuyan,11
+02.0040:nir;apa,570,625,91.2,1.8,ting/lw/madhyama/eka:nirapezi | ting/lw/uttama/eka:nirapemi | ting/luw/prathama/dvi:nirapAytArO | ting/luw/prathama/bahu:nirapAytAraH | ting/luw/madhyama/eka:nirapAytAsi | krut/tavya/M:nirapetavyaH | krut/tavya/F:nirapetavyA | krut/tavya/N:nirapetavyam | krut/yat/M:nirapeyaH | krut/yat/F:nirapeyA | krut/yat/N:nirapeyam | krut/tfc/F:nirapetrI,11
+02.0040:nir;ati,625,625,100.0,1.8,,11
+02.0040:parA,570,625,91.2,1.6,ting/lw/madhyama/eka:parezi | ting/lw/uttama/eka:paremi | ting/luw/prathama/dvi:parAytArO | ting/luw/prathama/bahu:parAytAraH | ting/luw/madhyama/eka:parAytAsi | krut/tavya/M:paretavyaH | krut/tavya/F:paretavyA | krut/tavya/N:paretavyam | krut/yat/M:pareyaH | krut/yat/F:pareyA | krut/yat/N:pareyam | krut/tfc/F:paretrI,11
+02.0040:pari,626,626,100.0,1.8,,10
+02.0040:pari;AN,570,625,91.2,1.5,ting/lw/madhyama/eka:paryezi | ting/lw/uttama/eka:paryemi | ting/luw/prathama/dvi:paryAytArO | ting/luw/prathama/bahu:paryAytAraH | ting/luw/madhyama/eka:paryAytAsi | krut/tavya/M:paryetavyaH | krut/tavya/F:paryetavyA | krut/tavya/N:paryetavyam | krut/yat/M:paryeyaH | krut/yat/F:paryeyA | krut/yat/N:paryeyam | krut/tfc/F:paryetrI,11
+02.0040:pari;ava,570,625,91.2,2.2,ting/lw/madhyama/eka:paryavezi | ting/lw/uttama/eka:paryavemi | ting/luw/prathama/dvi:paryavAytArO | ting/luw/prathama/bahu:paryavAytAraH | ting/luw/madhyama/eka:paryavAytAsi | krut/tavya/M:paryavetavyaH | krut/tavya/F:paryavetavyA | krut/tavya/N:paryavetavyam | krut/yat/M:paryaveyaH | krut/yat/F:paryaveyA | krut/yat/N:paryaveyam | krut/tfc/F:paryavetrI,11
+02.0040:pra,570,625,91.2,1.5,ting/lw/madhyama/eka:prezi | ting/lw/uttama/eka:premi | ting/luw/prathama/dvi:prAytArO | ting/luw/prathama/bahu:prAytAraH | ting/luw/madhyama/eka:prAytAsi | krut/tavya/M:pretavyaH | krut/tavya/F:pretavyA | krut/tavya/N:pretavyam | krut/yat/M:preyaH | krut/yat/F:preyA | krut/yat/N:preyam | krut/tfc/F:pretrI,11
+02.0040:prati,386,625,61.8,1.6,san/lw/prathama/eka:pratijaygamizate | san/lw/prathama/dvi:pratijigamizete | san/lw/prathama/bahu:pratijigamizante | san/lw/madhyama/eka:pratijigamizase | san/lw/madhyama/dvi:pratijaygamizeTe | san_krut/kta/M:pratijigAMsitaH | san_krut/kta/F:pratijigAMsitA | san_krut/kta/N:pratijigAMsitam | san_krut/ktavatu/M:pratijigAMsitavAn | san_krut/ktavatu/F:pratijigAMsitavatI | san_krut/ktavatu/N:pratijigAMsitavat | san_krut/Satf/M:pratijigAMsan,11
+02.0040:prati;AN,570,625,91.2,1.6,ting/lw/madhyama/eka:pratyezi | ting/lw/uttama/eka:pratyemi | ting/luw/prathama/dvi:pratyAytArO | ting/luw/prathama/bahu:pratyAytAraH | ting/luw/madhyama/eka:pratyAytAsi | krut/tavya/M:pratyetavyaH | krut/tavya/F:pratyetavyA | krut/tavya/N:pratyetavyam | krut/yat/M:pratyeyaH | krut/yat/F:pratyeyA | krut/yat/N:pratyeyam | krut/tfc/F:pratyetrI,11
+02.0040:prati;ava,570,625,91.2,1.4,ting/lw/madhyama/eka:pratyavezi | ting/lw/uttama/eka:pratyavemi | ting/luw/prathama/dvi:pratyavAytArO | ting/luw/prathama/bahu:pratyavAytAraH | ting/luw/madhyama/eka:pratyavAytAsi | krut/tavya/M:pratyavetavyaH | krut/tavya/F:pratyavetavyA | krut/tavya/N:pratyavetavyam | krut/yat/M:pratyaveyaH | krut/yat/F:pratyaveyA | krut/yat/N:pratyaveyam | krut/tfc/F:pratyavetrI,11
+02.0040:prati;parA,570,625,91.2,1.8,ting/lw/madhyama/eka:pratiparezi | ting/lw/uttama/eka:pratiparemi | ting/luw/prathama/dvi:pratiparAytArO | ting/luw/prathama/bahu:pratiparAytAraH | ting/luw/madhyama/eka:pratiparAytAsi | krut/tavya/M:pratiparetavyaH | krut/tavya/F:pratiparetavyA | krut/tavya/N:pratiparetavyam | krut/yat/M:pratipareyaH | krut/yat/F:pratipareyA | krut/yat/N:pratipareyam | krut/tfc/F:pratiparetrI,11
+02.0040:prati;pari,626,626,100.0,1.8,,10
+02.0040:prati;ud,625,625,100.0,1.8,,11
+02.0040:sam,625,625,100.0,2.2,,11
+02.0040:sam;AN,570,625,91.2,1.5,ting/lw/madhyama/eka:samezi | ting/lw/uttama/eka:samemi | ting/luw/prathama/dvi:samAytArO | ting/luw/prathama/bahu:samAytAraH | ting/luw/madhyama/eka:samAytAsi | krut/tavya/M:sametavyaH | krut/tavya/F:sametavyA | krut/tavya/N:sametavyam | krut/yat/M:sameyaH | krut/yat/F:sameyA | krut/yat/N:sameyam | krut/tfc/F:sametrI,11
+02.0040:sam;AN;ava,570,625,91.2,1.4,ting/lw/madhyama/eka:samAvezi | ting/lw/uttama/eka:samAvemi | ting/luw/prathama/dvi:samAvAytArO | ting/luw/prathama/bahu:samAvAytAraH | ting/luw/madhyama/eka:samAvAytAsi | krut/tavya/M:samAvetavyaH | krut/tavya/F:samAvetavyA | krut/tavya/N:samAvetavyam | krut/yat/M:samAveyaH | krut/yat/F:samAveyA | krut/yat/N:samAveyam | krut/tfc/F:samAvetrI,11
+02.0040:sam;aBi-AN,457,625,73.1,2.0,"ting/laN/prathama/eka:samaBi-ANAyat | ting/laN/prathama/dvi:samaBi-ANAyatAm | ting/laN/prathama/bahu:samaBi-ANAyan | ting/laN/madhyama/eka:samaBi-ANAyaH | ting/laN/madhyama/dvi:samaBi-ANAyatam | krut/kta/F:samaBi-ANitA | krut/ktavatu/M:samaBi-ANitavAn | krut/ktavatu/F:samaBi-ANitavatI | krut/Satf/M:samaBi-ANyan | krut/Satf/F:['samaBi-ANyantI', 'samaBi-ANyatI'] | krut/tavya/F:samaBi-ANetavyA | krut/anIyar/F:samaBi-ANayanIyA",11
+02.0040:sam;aBi;ava,570,625,91.2,2.0,ting/lw/madhyama/eka:samaByavezi | ting/lw/uttama/eka:samaByavemi | ting/luw/prathama/dvi:samaByavAytArO | ting/luw/prathama/bahu:samaByavAytAraH | ting/luw/madhyama/eka:samaByavAytAsi | krut/tavya/M:samaByavetavyaH | krut/tavya/F:samaByavetavyA | krut/tavya/N:samaByavetavyam | krut/yat/M:samaByaveyaH | krut/yat/F:samaByaveyA | krut/yat/N:samaByaveyam | krut/tfc/F:samaByavetrI,11
+02.0040:sam;anu,625,625,100.0,1.6,,11
+02.0040:sam;ava,570,625,91.2,1.8,ting/lw/madhyama/eka:samavezi | ting/lw/uttama/eka:samavemi | ting/luw/prathama/dvi:samavAytArO | ting/luw/prathama/bahu:samavAytAraH | ting/luw/madhyama/eka:samavAytAsi | krut/tavya/M:samavetavyaH | krut/tavya/F:samavetavyA | krut/tavya/N:samavetavyam | krut/yat/M:samaveyaH | krut/yat/F:samaveyA | krut/yat/N:samaveyam | krut/tfc/F:samavetrI,11
+02.0040:sam;parA,570,625,91.2,1.8,ting/lw/madhyama/eka:samparezi | ting/lw/uttama/eka:samparemi | ting/luw/prathama/dvi:samparAytArO | ting/luw/prathama/bahu:samparAytAraH | ting/luw/madhyama/eka:samparAytAsi | krut/tavya/M:samparetavyaH | krut/tavya/F:samparetavyA | krut/tavya/N:samparetavyam | krut/yat/M:sampareyaH | krut/yat/F:sampareyA | krut/yat/N:sampareyam | krut/tfc/F:samparetrI,11
+02.0040:sam;pari,626,626,100.0,2.5,,10
+02.0040:sam;pra,570,625,91.2,1.8,ting/lw/madhyama/eka:samprezi | ting/lw/uttama/eka:sampremi | ting/luw/prathama/dvi:samprAytArO | ting/luw/prathama/bahu:samprAytAraH | ting/luw/madhyama/eka:samprAytAsi | krut/tavya/M:sampretavyaH | krut/tavya/F:sampretavyA | krut/tavya/N:sampretavyam | krut/yat/M:sampreyaH | krut/yat/F:sampreyA | krut/yat/N:sampreyam | krut/tfc/F:sampretrI,11
+02.0040:sam;prati,386,625,61.8,1.8,san/lw/prathama/eka:sampratijaygamizate | san/lw/prathama/dvi:sampratijigamizete | san/lw/prathama/bahu:sampratijigamizante | san/lw/madhyama/eka:sampratijigamizase | san/lw/madhyama/dvi:sampratijaygamizeTe | san_krut/kta/M:sampratijigAMsitaH | san_krut/kta/F:sampratijigAMsitA | san_krut/kta/N:sampratijigAMsitam | san_krut/ktavatu/M:sampratijigAMsitavAn | san_krut/ktavatu/F:sampratijigAMsitavatI | san_krut/ktavatu/N:sampratijigAMsitavat | san_krut/Satf/M:sampratijigAMsan,11
+02.0040:sam;ud,625,625,100.0,1.9,,11
+02.0040:sam;ud;AN,570,625,91.2,2.0,ting/lw/madhyama/eka:samudezi | ting/lw/uttama/eka:samudemi | ting/luw/prathama/dvi:samudAytArO | ting/luw/prathama/bahu:samudAytAraH | ting/luw/madhyama/eka:samudAytAsi | krut/tavya/M:samudetavyaH | krut/tavya/F:samudetavyA | krut/tavya/N:samudetavyam | krut/yat/M:samudeyaH | krut/yat/F:samudeyA | krut/yat/N:samudeyam | krut/tfc/F:samudetrI,11
+02.0040:sam;upa,570,625,91.2,1.9,ting/lw/madhyama/eka:samupezi | ting/lw/uttama/eka:samupemi | ting/luw/prathama/dvi:samupAytArO | ting/luw/prathama/bahu:samupAytAraH | ting/luw/madhyama/eka:samupAytAsi | krut/tavya/M:samupetavyaH | krut/tavya/F:samupetavyA | krut/tavya/N:samupetavyam | krut/yat/M:samupeyaH | krut/yat/F:samupeyA | krut/yat/N:samupeyam | krut/tfc/F:samupetrI,11
+02.0040:su,625,625,100.0,1.9,,11
+02.0040:ud,625,625,100.0,2.0,,11
+02.0040:ud;AN,570,625,91.2,1.6,ting/lw/madhyama/eka:udezi | ting/lw/uttama/eka:udemi | ting/luw/prathama/dvi:udAytArO | ting/luw/prathama/bahu:udAytAraH | ting/luw/madhyama/eka:udAytAsi | krut/tavya/M:udetavyaH | krut/tavya/F:udetavyA | krut/tavya/N:udetavyam | krut/yat/M:udeyaH | krut/yat/F:udeyA | krut/yat/N:udeyam | krut/tfc/F:udetrI,11
+02.0040:upa,570,625,91.2,2.0,ting/lw/madhyama/eka:upezi | ting/lw/uttama/eka:upemi | ting/luw/prathama/dvi:upAytArO | ting/luw/prathama/bahu:upAytAraH | ting/luw/madhyama/eka:upAytAsi | krut/tavya/M:upetavyaH | krut/tavya/F:upetavyA | krut/tavya/N:upetavyam | krut/yat/M:upeyaH | krut/yat/F:upeyA | krut/yat/N:upeyam | krut/tfc/F:upetrI,11
+02.0040:upa;AN,570,625,91.2,2.0,ting/lw/madhyama/eka:upezi | ting/lw/uttama/eka:upemi | ting/luw/prathama/dvi:upAytArO | ting/luw/prathama/bahu:upAytAraH | ting/luw/madhyama/eka:upAytAsi | krut/tavya/M:upetavyaH | krut/tavya/F:upetavyA | krut/tavya/N:upetavyam | krut/yat/M:upeyaH | krut/yat/F:upeyA | krut/yat/N:upeyam | krut/tfc/F:upetrI,11
+02.0040:upa;ati,625,625,100.0,1.1,,11
+02.0040:upa;ava,570,625,91.2,1.7,ting/lw/madhyama/eka:upAvezi | ting/lw/uttama/eka:upAvemi | ting/luw/prathama/dvi:upAvAytArO | ting/luw/prathama/bahu:upAvAytAraH | ting/luw/madhyama/eka:upAvAytAsi | krut/tavya/M:upAvetavyaH | krut/tavya/F:upAvetavyA | krut/tavya/N:upAvetavyam | krut/yat/M:upAveyaH | krut/yat/F:upAveyA | krut/yat/N:upAveyam | krut/tfc/F:upAvetrI,11
+02.0040:upa;pra,570,625,91.2,1.5,ting/lw/madhyama/eka:upaprezi | ting/lw/uttama/eka:upapremi | ting/luw/prathama/dvi:upaprAytArO | ting/luw/prathama/bahu:upaprAytAraH | ting/luw/madhyama/eka:upaprAytAsi | krut/tavya/M:upapretavyaH | krut/tavya/F:upapretavyA | krut/tavya/N:upapretavyam | krut/yat/M:upapreyaH | krut/yat/F:upapreyA | krut/yat/N:upapreyam | krut/tfc/F:upapretrI,11
+02.0040:upa;sam,625,625,100.0,1.7,,11
+02.0040:upa;sam;AN,570,625,91.2,1.7,ting/lw/madhyama/eka:upasamezi | ting/lw/uttama/eka:upasamemi | ting/luw/prathama/dvi:upasamAytArO | ting/luw/prathama/bahu:upasamAytAraH | ting/luw/madhyama/eka:upasamAytAsi | krut/tavya/M:upasametavyaH | krut/tavya/F:upasametavyA | krut/tavya/N:upasametavyam | krut/yat/M:upasameyaH | krut/yat/F:upasameyA | krut/yat/N:upasameyam | krut/tfc/F:upasametrI,11
+02.0040:upa;sam;pra,570,625,91.2,1.7,ting/lw/madhyama/eka:upasamprezi | ting/lw/uttama/eka:upasampremi | ting/luw/prathama/dvi:upasamprAytArO | ting/luw/prathama/bahu:upasamprAytAraH | ting/luw/madhyama/eka:upasamprAytAsi | krut/tavya/M:upasampretavyaH | krut/tavya/F:upasampretavyA | krut/tavya/N:upasampretavyam | krut/yat/M:upasampreyaH | krut/yat/F:upasampreyA | krut/yat/N:upasampreyam | krut/tfc/F:upasampretrI,11
+02.0040:upa;ud,625,625,100.0,1.7,,11
+02.0040:vi,625,625,100.0,1.8,,11
+02.0040:vi;apa,570,625,91.2,1.4,ting/lw/madhyama/eka:vyapezi | ting/lw/uttama/eka:vyapemi | ting/luw/prathama/dvi:vyapAytArO | ting/luw/prathama/bahu:vyapAytAraH | ting/luw/madhyama/eka:vyapAytAsi | krut/tavya/M:vyapetavyaH | krut/tavya/F:vyapetavyA | krut/tavya/N:vyapetavyam | krut/yat/M:vyapeyaH | krut/yat/F:vyapeyA | krut/yat/N:vyapeyam | krut/tfc/F:vyapetrI,11
+02.0040:vi;ati,625,625,100.0,1.4,,11
+02.0040:vi;ava,570,625,91.2,1.7,ting/lw/madhyama/eka:vyavezi | ting/lw/uttama/eka:vyavemi | ting/luw/prathama/dvi:vyavAytArO | ting/luw/prathama/bahu:vyavAytAraH | ting/luw/madhyama/eka:vyavAytAsi | krut/tavya/M:vyavetavyaH | krut/tavya/F:vyavetavyA | krut/tavya/N:vyavetavyam | krut/yat/M:vyaveyaH | krut/yat/F:vyaveyA | krut/yat/N:vyaveyam | krut/tfc/F:vyavetrI,11
+02.0040:vi;parA,570,625,91.2,1.7,ting/lw/madhyama/eka:viparezi | ting/lw/uttama/eka:viparemi | ting/luw/prathama/dvi:viparAytArO | ting/luw/prathama/bahu:viparAytAraH | ting/luw/madhyama/eka:viparAytAsi | krut/tavya/M:viparetavyaH | krut/tavya/F:viparetavyA | krut/tavya/N:viparetavyam | krut/yat/M:vipareyaH | krut/yat/F:vipareyA | krut/yat/N:vipareyam | krut/tfc/F:viparetrI,11
+02.0040:vi;pari,626,626,100.0,1.7,,10
+02.0040:vi;pra,570,625,91.2,1.7,ting/lw/madhyama/eka:viprezi | ting/lw/uttama/eka:vipremi | ting/luw/prathama/dvi:viprAytArO | ting/luw/prathama/bahu:viprAytAraH | ting/luw/madhyama/eka:viprAytAsi | krut/tavya/M:vipretavyaH | krut/tavya/F:vipretavyA | krut/tavya/N:vipretavyam | krut/yat/M:vipreyaH | krut/yat/F:vipreyA | krut/yat/N:vipreyam | krut/tfc/F:vipretrI,11
+02.0040:vi;prati,386,625,61.8,2.1,san/lw/prathama/eka:vipratijaygamizate | san/lw/prathama/dvi:vipratijigamizete | san/lw/prathama/bahu:vipratijigamizante | san/lw/madhyama/eka:vipratijigamizase | san/lw/madhyama/dvi:vipratijaygamizeTe | san_krut/kta/M:vipratijigAMsitaH | san_krut/kta/F:vipratijigAMsitA | san_krut/kta/N:vipratijigAMsitam | san_krut/ktavatu/M:vipratijigAMsitavAn | san_krut/ktavatu/F:vipratijigAMsitavatI | san_krut/ktavatu/N:vipratijigAMsitavat | san_krut/Satf/M:vipratijigAMsan,11
+02.0041:aDi,193,623,31.0,1.2,"ting/lw/prathama/eka:aDyeti | ting/lw/prathama/bahu:aDiyanti | ting/lw/madhyama/eka:aDyezi | ting/lw/madhyama/dvi:aDITaH | ting/lw/madhyama/bahu:aDITa | krut/kta/M:aDyaDItaH | krut/kta/F:aDyaDItA | krut/kta/N:aDyaDItam | krut/ktavatu/M:aDyaDItavAn | krut/ktavatu/F:aDyaDItavatI | krut/ktavatu/N:['aDyaDItavat', 'aDyaDItavad'] | krut/SAnac/M:aDyaDIyAnaH",4
+02.0041:dur;aDi,193,623,31.0,1.7,"ting/lw/prathama/eka:duraDyeti | ting/lw/prathama/bahu:duraDiyanti | ting/lw/madhyama/eka:duraDyezi | ting/lw/madhyama/dvi:duraDITaH | ting/lw/madhyama/bahu:duraDITa | krut/kta/M:duraDyaDItaH | krut/kta/F:duraDyaDItA | krut/kta/N:duraDyaDItam | krut/ktavatu/M:duraDyaDItavAn | krut/ktavatu/F:duraDyaDItavatI | krut/ktavatu/N:['duraDyaDItavat', 'duraDyaDItavad'] | krut/SAnac/M:duraDyaDIyAnaH",4
+02.0041:pra;AN;aDi,193,623,31.0,1.3,"ting/lw/prathama/eka:prADyeti | ting/lw/prathama/bahu:prADiyanti | ting/lw/madhyama/eka:prADyezi | ting/lw/madhyama/dvi:prADITaH | ting/lw/madhyama/bahu:prADITa | krut/kta/M:prADyaDItaH | krut/kta/F:prADyaDItA | krut/kta/N:prADyaDItam | krut/ktavatu/M:prADyaDItavAn | krut/ktavatu/F:prADyaDItavatI | krut/ktavatu/N:['prADyaDItavat', 'prADyaDItavad'] | krut/SAnac/M:prADyaDIyAnaH",4
+02.0041:prati;aDi,193,623,31.0,1.5,"ting/lw/prathama/eka:pratyaDyeti | ting/lw/prathama/bahu:pratyaDiyanti | ting/lw/madhyama/eka:pratyaDyezi | ting/lw/madhyama/dvi:pratyaDITaH | ting/lw/madhyama/bahu:pratyaDITa | krut/kta/M:pratyaDyaDItaH | krut/kta/F:pratyaDyaDItA | krut/kta/N:pratyaDyaDItam | krut/ktavatu/M:pratyaDyaDItavAn | krut/ktavatu/F:pratyaDyaDItavatI | krut/ktavatu/N:['pratyaDyaDItavat', 'pratyaDyaDItavad'] | krut/SAnac/M:pratyaDyaDIyAnaH",4
+02.0041:sam;aDi,193,623,31.0,1.4,"ting/lw/prathama/eka:samaDyeti | ting/lw/prathama/bahu:samaDiyanti | ting/lw/madhyama/eka:samaDyezi | ting/lw/madhyama/dvi:samaDITaH | ting/lw/madhyama/bahu:samaDITa | krut/kta/M:samaDyaDItaH | krut/kta/F:samaDyaDItA | krut/kta/N:samaDyaDItam | krut/ktavatu/M:samaDyaDItavAn | krut/ktavatu/F:samaDyaDItavatI | krut/ktavatu/N:['samaDyaDItavat', 'samaDyaDItavad'] | krut/SAnac/M:samaDyaDIyAnaH",4
+02.0042:aDi,72,677,10.6,1.5,"ting/lw/prathama/eka:aDyaDyeti | ting/lw/prathama/dvi:aDyaDItaH | ting/lw/prathama/bahu:aDyaDiyanti | ting/lw/madhyama/eka:aDyaDyezi | ting/lw/madhyama/dvi:aDyaDITaH | krut/kta/M:aDyaDItaH | krut/kta/F:aDyaDItA | krut/kta/N:aDyaDItam | krut/ktavatu/M:aDyaDItavAn | krut/ktavatu/F:aDyaDItavatI | krut/ktavatu/N:aDyaDItavat | krut/Satf/M:['aDyaDiyat', 'aDyaDIyat']",11
+02.0043:AN,876,876,100.0,1.5,,16
+02.0043:aBi,876,876,100.0,1.3,,16
+02.0043:apa,876,876,100.0,1.3,,16
+02.0043:ati,876,876,100.0,1.7,,16
+02.0043:ava,876,876,100.0,1.7,,16
+02.0043:pra,876,876,100.0,1.2,,16
+02.0043:ud,876,876,100.0,1.7,,16
+02.0043:upa;AN,876,876,100.0,2.0,,16
+02.0043:vi,876,876,100.0,2.1,,16
+02.0044:A,877,877,100.0,1.6,,15
+02.0044:AN,877,877,100.0,2.1,,15
+02.0044:aBi,877,877,100.0,1.9,,15
+02.0044:aBi;ava,877,877,100.0,2.1,,15
+02.0044:aBi;pra,877,877,100.0,2.1,,15
+02.0044:aBi;upa,877,877,100.0,2.2,,15
+02.0044:aDi,877,877,100.0,2.6,,15
+02.0044:anu,877,877,100.0,2.1,,15
+02.0044:anu;pari,877,877,100.0,1.7,,15
+02.0044:apa,877,877,100.0,2.1,,15
+02.0044:api,877,877,100.0,2.3,,15
+02.0044:ati,877,877,100.0,2.1,,15
+02.0044:ava,877,877,100.0,2.1,,15
+02.0044:ni,877,877,100.0,2.1,,15
+02.0044:nir,877,877,100.0,2.2,,15
+02.0044:nir;aBi,877,877,100.0,2.1,,15
+02.0044:parA,877,877,100.0,2.0,,15
+02.0044:pari,877,877,100.0,2.5,,15
+02.0044:pari;AN,877,877,100.0,2.3,,15
+02.0044:pari;pra,877,877,100.0,2.0,,15
+02.0044:pra,877,877,100.0,2.1,,15
+02.0044:prati,877,877,100.0,2.1,,15
+02.0044:prati;AN,877,877,100.0,1.8,,15
+02.0044:prati;apa,877,877,100.0,2.7,,15
+02.0044:prati;nir,877,877,100.0,2.2,,15
+02.0044:prati;pra,877,877,100.0,2.0,,15
+02.0044:prati;ud,877,877,100.0,2.4,,15
+02.0044:prati;upa,877,877,100.0,1.9,,15
+02.0044:sam,877,877,100.0,2.4,,15
+02.0044:sam;A,877,877,100.0,2.4,,15
+02.0044:sam;aBi,877,877,100.0,2.4,,15
+02.0044:sam;ava;AN,877,877,100.0,2.3,,15
+02.0044:sam;pra,877,877,100.0,2.9,,15
+02.0044:sam;ud,877,877,100.0,2.6,,15
+02.0044:su;aBi;AN,877,877,100.0,2.2,,15
+02.0044:ud,877,877,100.0,2.4,,15
+02.0044:ud;AN,877,877,100.0,2.3,,15
+02.0044:upa,877,877,100.0,2.4,,15
+02.0044:upa;AN,877,877,100.0,2.2,,15
+02.0044:upa;pra,877,877,100.0,2.1,,15
+02.0044:vi,877,877,100.0,2.8,,15
+02.0044:vi;apa,877,877,100.0,2.0,,15
+02.0044:vi;ati,877,877,100.0,2.4,,15
+02.0044:vi;nis,877,877,100.0,1.9,,15
+02.0044:vi;pra,877,877,100.0,1.9,,15
+02.0045:AN,877,877,100.0,2.2,,15
+02.0045:aBi,877,877,100.0,2.2,,15
+02.0045:anu;ud,877,877,100.0,2.1,,15
+02.0045:anu;vi,877,877,100.0,2.6,,15
+02.0045:apa,877,877,100.0,1.4,,15
+02.0045:ati,877,877,100.0,2.3,,15
+02.0045:ava,877,877,100.0,2.1,,15
+02.0045:ni,877,877,100.0,2.1,,15
+02.0045:nir,877,877,100.0,2.2,,15
+02.0045:parA,877,877,100.0,2.1,,15
+02.0045:pari;nir,0,877,0.0,2.7,ting/lw/prathama/eka:pariRirvAati | ting/lw/prathama/dvi:pariRirvAataH | ting/lw/prathama/bahu:pariRirvAanti | ting/lw/madhyama/eka:pariRirvAasi | ting/lw/madhyama/dvi:pariRirvAaTaH | krut/kta/M:pariRirvAtaH | krut/kta/F:pariRirvAtA | krut/kta/N:pariRirvAtam | krut/ktavatu/M:pariRirvAtavAn | krut/ktavatu/F:pariRirvAtavatI | krut/ktavatu/N:pariRirvAtavat | krut/Satf/M:pariRirvAn,15
+02.0045:pra,877,877,100.0,3.0,,15
+02.0045:ud,877,877,100.0,2.7,,15
+02.0045:upa,877,877,100.0,2.7,,15
+02.0045:vi,877,877,100.0,1.7,,15
+02.0046:AN,877,877,100.0,2.1,,15
+02.0046:aBi,877,877,100.0,2.7,,15
+02.0046:ati,877,877,100.0,2.6,,15
+02.0046:nir,877,877,100.0,2.2,,15
+02.0046:pra,877,877,100.0,2.0,,15
+02.0046:prati,877,877,100.0,2.1,,15
+02.0046:sam;vi,877,877,100.0,2.2,,15
+02.0046:ud,877,877,100.0,1.9,,15
+02.0046:vi,877,877,100.0,1.8,,15
+02.0046:vi;prati,877,877,100.0,1.8,,15
+02.0047:AN,822,877,93.7,1.7,"san/luN/prathama/eka:AsizRAsIt | san/luN/prathama/dvi:AsizRAsItAm | san/luN/prathama/bahu:AsizRAsIzuH | san/luN/madhyama/eka:AsizRAsIH | san/luN/madhyama/dvi:AsizRAsItam | nich_krut/Satf/M:Asnapayan | nich_krut/Satf/F:AsnapayantI | nich_krut/Satf/N:Asnapayat | nich_krut/SAnac/M:['AsnapyamAnaH', 'AsnapayamAnaH'] | nich_krut/SAnac/F:['AsnapyamAnA', 'AsnapayamAnA'] | nich_krut/SAnac/N:['AsnapyamAnam', 'AsnapayamAnam'] | nich_krut/tavya/M:AsnapayitavyaH",15
+02.0047:apa,812,877,92.6,1.6,"san/laN/prathama/eka:apAsizRAsata | san/laN/prathama/dvi:apAsizRAsatAm | san/laN/prathama/bahu:apAsizRAsan | san/laN/madhyama/eka:apAsizRAsaTAH | san/laN/madhyama/dvi:apAsizRAsatam | nich_krut/Satf/M:apasnapayan | nich_krut/Satf/F:apasnapayantI | nich_krut/Satf/N:apasnapayat | nich_krut/SAnac/M:['apasnapyamAnaH', 'apasnapayamAnaH'] | nich_krut/SAnac/F:['apasnapyamAnA', 'apasnapayamAnA'] | nich_krut/SAnac/N:['apasnapyamAnam', 'apasnapayamAnam'] | nich_krut/tavya/M:apasnapayitavyaH",15
+02.0047:ava,812,877,92.6,2.0,"san/laN/prathama/eka:avAsizRAsata | san/laN/prathama/dvi:avAsizRAsatAm | san/laN/prathama/bahu:avAsizRAsan | san/laN/madhyama/eka:avAsizRAsaTAH | san/laN/madhyama/dvi:avAsizRAsatam | nich_krut/Satf/M:avasnapayan | nich_krut/Satf/F:avasnapayantI | nich_krut/Satf/N:avasnapayat | nich_krut/SAnac/M:['avasnapyamAnaH', 'avasnapayamAnaH'] | nich_krut/SAnac/F:['avasnapyamAnA', 'avasnapayamAnA'] | nich_krut/SAnac/N:['avasnapyamAnam', 'avasnapayamAnam'] | nich_krut/tavya/M:avasnapayitavyaH",15
+02.0047:ni,162,877,18.5,2.2,ting/lw/prathama/eka:nizRAati | ting/lw/prathama/dvi:nizRAataH | ting/lw/prathama/bahu:nizRAanti | ting/lw/madhyama/eka:nizRAasi | ting/lw/madhyama/dvi:nizRAaTaH | krut/kta/M:nizRAtaH | krut/kta/F:nizRAtA | krut/kta/N:nizRAtam | krut/ktavatu/M:nizRAtavAn | krut/ktavatu/F:nizRAtavatI | krut/ktavatu/N:nizRAtavat | krut/Satf/M:nizRAn,15
+02.0047:pra,812,877,92.6,1.8,"san/laN/prathama/eka:prAsizRAsata | san/laN/prathama/dvi:prAsizRAsatAm | san/laN/prathama/bahu:prAsizRAsan | san/laN/madhyama/eka:prAsizRAsaTAH | san/laN/madhyama/dvi:prAsizRAsatam | nich_krut/Satf/M:prasnapayan | nich_krut/Satf/F:prasnapayantI | nich_krut/Satf/N:prasnapayat | nich_krut/SAnac/M:['prasnapyamAnaH', 'prasnapayamAnaH'] | nich_krut/SAnac/F:['prasnapyamAnA', 'prasnapayamAnA'] | nich_krut/SAnac/N:['prasnapyamAnam', 'prasnapayamAnam'] | nich_krut/tavya/M:prasnapayitavyaH",15
+02.0047:prati,162,877,18.5,1.7,ting/lw/prathama/eka:pratizRAati | ting/lw/prathama/dvi:pratizRAataH | ting/lw/prathama/bahu:pratizRAanti | ting/lw/madhyama/eka:pratizRAasi | ting/lw/madhyama/dvi:pratizRAaTaH | krut/kta/M:pratizRAtaH | krut/kta/F:pratizRAtA | krut/kta/N:pratizRAtam | krut/ktavatu/M:pratizRAtavAn | krut/ktavatu/F:pratizRAtavatI | krut/ktavatu/N:pratizRAtavat | krut/Satf/M:pratizRAn,15
+02.0047:ud,812,877,92.6,1.9,"san/laN/prathama/eka:udasizRAsata | san/laN/prathama/dvi:udasizRAsatAm | san/laN/prathama/bahu:udasizRAsan | san/laN/madhyama/eka:udasizRAsaTAH | san/laN/madhyama/dvi:udasizRAsatam | nich_krut/Satf/M:utsnapayan | nich_krut/Satf/F:utsnapayantI | nich_krut/Satf/N:utsnapayat | nich_krut/SAnac/M:['utsnapyamAnaH', 'utsnapayamAnaH'] | nich_krut/SAnac/F:['utsnapyamAnA', 'utsnapayamAnA'] | nich_krut/SAnac/N:['utsnapyamAnam', 'utsnapayamAnam'] | nich_krut/tavya/M:utsnapayitavyaH",15
+02.0047:upa,812,877,92.6,1.8,"san/laN/prathama/eka:upAsizRAsata | san/laN/prathama/dvi:upAsizRAsatAm | san/laN/prathama/bahu:upAsizRAsan | san/laN/madhyama/eka:upAsizRAsaTAH | san/laN/madhyama/dvi:upAsizRAsatam | nich_krut/Satf/M:upasnapayan | nich_krut/Satf/F:upasnapayantI | nich_krut/Satf/N:upasnapayat | nich_krut/SAnac/M:['upasnapyamAnaH', 'upasnapayamAnaH'] | nich_krut/SAnac/F:['upasnapyamAnA', 'upasnapayamAnA'] | nich_krut/SAnac/N:['upasnapyamAnam', 'upasnapayamAnam'] | nich_krut/tavya/M:upasnapayitavyaH",15
+02.0047:vi,162,877,18.5,2.0,ting/lw/prathama/eka:vizRAati | ting/lw/prathama/dvi:vizRAataH | ting/lw/prathama/bahu:vizRAanti | ting/lw/madhyama/eka:vizRAasi | ting/lw/madhyama/dvi:vizRAaTaH | krut/kta/M:vizRAtaH | krut/kta/F:vizRAtA | krut/kta/N:vizRAtam | krut/ktavatu/M:vizRAtavAn | krut/ktavatu/F:vizRAtavatI | krut/ktavatu/N:vizRAtavat | krut/Satf/M:vizRAn,15
+02.0049:aBi,877,877,100.0,2.0,,15
+02.0049:apa,877,877,100.0,2.1,,15
+02.0049:ava,877,877,100.0,1.6,,15
+02.0049:ni,877,877,100.0,1.7,,15
+02.0049:pra,877,877,100.0,1.9,,15
+02.0049:vi,877,877,100.0,1.8,,15
+02.0051:aBi,877,877,100.0,1.9,,15
+02.0051:ni,877,877,100.0,1.8,,15
+02.0051:nir,861,877,98.2,1.8,ting/low/uttama/eka:nizpAARi | krut/anIyar/M:nizpARIyaH | krut/anIyar/F:nizpARIyA | krut/anIyar/N:nizpARIyam | krut/lyuw:nizpARam | yang_krut/SAnac/M:nizpApAyamARaH | yang_krut/SAnac/F:nizpApAyamARA | yang_krut/SAnac/N:nizpApAyamARam | yang_krut/anIyar/M:nizpApAyaRIyaH | yang_krut/anIyar/F:nizpApAyaRIyA | yang_krut/anIyar/N:nizpApAyaRIyam | yang_krut/lyuw:nizpApAyaRam,15
+02.0051:pari,877,877,100.0,2.1,,15
+02.0053:AN,877,877,100.0,2.3,,15
+02.0054:sam,877,877,100.0,1.8,,15
+02.0055:A,877,877,100.0,2.0,,15
+02.0055:AN,877,877,100.0,2.2,,15
+02.0055:aBi,877,877,100.0,2.2,,15
+02.0055:aBi;AN,877,877,100.0,2.2,,15
+02.0055:anu;sam,877,877,100.0,0.8,,15
+02.0055:ati,877,877,100.0,2.1,,15
+02.0055:ava,877,877,100.0,2.4,,15
+02.0055:nir;upa;AN,877,877,100.0,1.8,,15
+02.0055:parA,877,877,100.0,1.7,,15
+02.0055:pari,877,877,100.0,2.1,,15
+02.0055:pari;sam,877,877,100.0,2.1,,15
+02.0055:pra,877,877,100.0,2.1,,15
+02.0055:pra;sam,877,877,100.0,2.2,,15
+02.0055:prati,877,877,100.0,2.6,,15
+02.0055:prati;A,877,877,100.0,1.9,,15
+02.0055:prati;AN,877,877,100.0,2.0,,15
+02.0055:prati;sam,877,877,100.0,2.4,,15
+02.0055:sam,877,877,100.0,2.3,,15
+02.0055:sam;A,877,877,100.0,2.3,,15
+02.0055:su,877,877,100.0,2.6,,15
+02.0055:ud;AN,877,877,100.0,2.2,,15
+02.0055:upa,877,877,100.0,3.0,,15
+02.0055:upa;AN,877,877,100.0,2.0,,15
+02.0055:upa;sam,877,877,100.0,2.5,,15
+02.0055:vi,877,877,100.0,3.1,,15
+02.0055:vi;AN,877,877,100.0,3.1,,15
+02.0056:AN,877,877,100.0,2.8,,15
+02.0056:vi,877,877,100.0,2.5,,15
+02.0057:aBi,877,877,100.0,2.7,,15
+02.0057:anu,877,877,100.0,3.2,,15
+02.0057:apa,877,877,100.0,2.1,,15
+02.0057:ava,877,877,100.0,1.7,,15
+02.0057:ni,877,877,100.0,1.6,,15
+02.0057:nir,877,877,100.0,2.0,,15
+02.0057:nis,216,877,24.6,1.7,"ting/lw/prathama/eka:nismAati | ting/lw/prathama/dvi:nismAataH | ting/lw/prathama/bahu:nismAanti | ting/lw/madhyama/eka:nismAasi | ting/lw/madhyama/dvi:nismAaTaH | krut/kta/M:nismitaH | krut/kta/F:nismitA | krut/kta/N:nismitam | krut/ktavatu/M:nismitavAn | krut/ktavatu/F:nismitavatI | krut/ktavatu/N:['nismitavat', 'nismitavad'] | krut/Satf/M:nismAn",15
+02.0057:pari,877,877,100.0,2.0,,15
+02.0057:pra,877,877,100.0,2.1,,15
+02.0057:prati,877,877,100.0,1.9,,15
+02.0057:sam,877,877,100.0,2.0,,15
+02.0057:ud,877,877,100.0,2.0,,15
+02.0057:upa,877,877,100.0,2.1,,15
+02.0057:vi,877,877,100.0,2.0,,15
+02.0058:aDi,873,874,99.9,1.9,krut/lyap:aDiprocya,18
+02.0058:apa,858,874,98.2,1.9,ting/liw/prathama/dvi:apocatuH | ting/liw/prathama/bahu:apocuH | ting/liw/madhyama/dvi:apocaTuH | ting/liw/madhyama/bahu:apoca | ting/liw/uttama/dvi:apociva | krut/lyap:apaprocya,18
+02.0058:ati,873,874,99.9,2.0,krut/lyap:atiprocya,18
+02.0058:ni,873,874,99.9,1.8,krut/lyap:niprocya,18
+02.0058:nir,873,874,99.9,2.0,krut/lyap:nizprocya,18
+02.0058:parA,858,874,98.2,2.0,ting/liw/prathama/dvi:parocatuH | ting/liw/prathama/bahu:parocuH | ting/liw/madhyama/dvi:parocaTuH | ting/liw/madhyama/bahu:paroca | ting/liw/uttama/dvi:parociva | krut/lyap:parAprocya,18
+02.0058:pra,858,874,98.2,2.0,ting/liw/prathama/dvi:procatuH | ting/liw/prathama/bahu:procuH | ting/liw/madhyama/dvi:procaTuH | ting/liw/madhyama/bahu:proca | ting/liw/uttama/dvi:prociva | krut/lyap:praprocya,18
+02.0058:prati,873,874,99.9,1.9,krut/lyap:pratiprocya,18
+02.0058:prati;pra,858,874,98.2,2.0,ting/liw/prathama/dvi:pratiprocatuH | ting/liw/prathama/bahu:pratiprocuH | ting/liw/madhyama/dvi:pratiprocaTuH | ting/liw/madhyama/bahu:pratiproca | ting/liw/uttama/dvi:pratiprociva | krut/lyap:pratipraprocya,18
+02.0058:ud,873,874,99.9,2.0,krut/lyap:utprocya,18
+02.0058:upa,858,874,98.2,2.1,ting/liw/prathama/dvi:upocatuH | ting/liw/prathama/bahu:upocuH | ting/liw/madhyama/dvi:upocaTuH | ting/liw/madhyama/bahu:upoca | ting/liw/uttama/dvi:upociva | krut/lyap:upaprocya,18
+02.0058:vi,873,874,99.9,1.9,krut/lyap:viprocya,18
+02.0059:AN,874,874,100.0,1.9,,18
+02.0059:ni,874,874,100.0,1.9,,18
+02.0059:nir,874,874,100.0,2.3,,18
+02.0059:pari,874,874,100.0,2.2,,18
+02.0059:pra,874,874,100.0,1.8,,18
+02.0059:prati,874,874,100.0,2.0,,18
+02.0059:prati;sam,877,880,99.7,1.9,krut/SAnac/M:pratisaMvidyamAnaH | krut/SAnac/F:pratisaMvidyamAnA | krut/SAnac/N:pratisaMvidyamAnam,12
+02.0059:sam,877,880,99.7,2.1,krut/SAnac/M:saMvidyamAnaH | krut/SAnac/F:saMvidyamAnA | krut/SAnac/N:saMvidyamAnam,12
+02.0060:aBi,588,623,94.4,2.1,"ting/lw/prathama/dvi:aBizwaH | ting/lw/prathama/bahu:aBizanti | ting/lw/madhyama/dvi:aBizWaH | ting/lw/madhyama/bahu:aBizWa | ting/lw/uttama/dvi:aBizvaH | krut/Satf/M:['aByasan', 'aBizan'] | krut/Satf/F:['aByasantI', 'aByasatI', 'aBizatI'] | krut/Satf/N:['aByasat', 'aBizat', 'aBizad'] | nich_krut/SAnac/M:aBiBAvyamAnaH | nich_krut/SAnac/F:aBiBAvyamAnA | nich_krut/SAnac/N:aBiBAvyamAnam",13
+02.0060:apa,611,623,98.1,2.0,ting/liw/prathama/eka:apabaBUe | ting/liw/prathama/dvi:apabaBUAte | ting/liw/prathama/bahu:apabaBUire | ting/liw/madhyama/eka:apabaBUize | ting/liw/madhyama/dvi:apabaBUATe | nich_krut/SAnac/M:apaBAvyamAnaH | nich_krut/SAnac/F:apaBAvyamAnA | nich_krut/SAnac/N:apaBAvyamAnam,13
+02.0060:api,597,623,95.8,2.1,"ting/lw/prathama/dvi:apizwaH | ting/lw/prathama/bahu:apizanti | ting/lw/madhyama/dvi:apizWaH | ting/lw/madhyama/bahu:apizWa | ting/lw/uttama/dvi:apizvaH | krut/Satf/M:['apyasan', 'apizan'] | krut/Satf/F:['apyasantI', 'apyasatI', 'apizatI'] | krut/Satf/N:['apyasat', 'apizat', 'apizad'] | nich_krut/SAnac/M:apiBAvyamAnaH | nich_krut/SAnac/F:apiBAvyamAnA | nich_krut/SAnac/N:apiBAvyamAnam",13
+02.0060:ati,588,623,94.4,1.6,"ting/lw/prathama/dvi:atizwaH | ting/lw/prathama/bahu:atizanti | ting/lw/madhyama/dvi:atizWaH | ting/lw/madhyama/bahu:atizWa | ting/lw/uttama/dvi:atizvaH | krut/Satf/M:['atyasan', 'atizan'] | krut/Satf/F:['atyasantI', 'atyasatI', 'atizatI'] | krut/Satf/N:['atyasat', 'atizat', 'atizad'] | nich_krut/SAnac/M:atiBAvyamAnaH | nich_krut/SAnac/F:atiBAvyamAnA | nich_krut/SAnac/N:atiBAvyamAnam",13
+02.0060:pra,611,623,98.1,2.0,ting/liw/prathama/eka:prabaBUe | ting/liw/prathama/dvi:prabaBUAte | ting/liw/prathama/bahu:prabaBUire | ting/liw/madhyama/eka:prabaBUize | ting/liw/madhyama/dvi:prabaBUATe | nich_krut/SAnac/M:praBAvyamARaH | nich_krut/SAnac/F:praBAvyamARA | nich_krut/SAnac/N:praBAvyamARam,13
+02.0060:sam,611,623,98.1,1.9,ting/liw/prathama/eka:sambaBUe | ting/liw/prathama/dvi:sambaBUAte | ting/liw/prathama/bahu:sambaBUire | ting/liw/madhyama/eka:sambaBUize | ting/liw/madhyama/dvi:sambaBUATe | nich_krut/SAnac/M:samBAvyamAnaH | nich_krut/SAnac/F:samBAvyamAnA | nich_krut/SAnac/N:samBAvyamAnam,13
+02.0060:upa,611,623,98.1,1.9,ting/liw/prathama/eka:upabaBUe | ting/liw/prathama/dvi:upabaBUAte | ting/liw/prathama/bahu:upabaBUire | ting/liw/madhyama/eka:upabaBUize | ting/liw/madhyama/dvi:upabaBUATe | nich_krut/SAnac/M:upaBAvyamAnaH | nich_krut/SAnac/F:upaBAvyamAnA | nich_krut/SAnac/N:upaBAvyamAnam,13
+02.0061:apa,874,874,100.0,2.1,,18
+02.0061:ava,874,874,100.0,1.9,,18
+02.0061:ni,874,874,100.0,2.0,,18
+02.0061:nir,874,874,100.0,2.3,,18
+02.0061:pari,874,874,100.0,2.2,,18
+02.0061:pra,874,874,100.0,1.7,,18
+02.0061:pra;ud,216,874,24.7,2.2,"ting/lw/prathama/eka:proRmArzwi | ting/lw/prathama/dvi:proRmfzwaH | ting/lw/prathama/bahu:proRmArjanti | ting/lw/madhyama/eka:proRmArkzi | ting/lw/madhyama/dvi:proRmfzWaH | krut/kta/M:proRmfzwaH | krut/kta/F:proRmfzwA | krut/kta/N:proRmfzwam | krut/ktavatu/M:proRmfzwavAn | krut/ktavatu/F:proRmfzwavatI | krut/ktavatu/N:['proRmfzwavat', 'proRmfzwavad'] | krut/Satf/M:proRmfjan",18
+02.0061:prati,874,874,100.0,2.6,,18
+02.0061:sam,874,874,100.0,2.3,,18
+02.0061:ud,874,874,100.0,2.2,,18
+02.0061:upa,874,874,100.0,2.2,,18
+02.0061:vi,874,874,100.0,2.4,,18
+02.0062:ava,874,874,100.0,2.1,,18
+02.0062:pra,874,874,100.0,2.3,,18
+02.0062:upa;A,874,874,100.0,2.2,,18
+02.0062:upa;AN,874,874,100.0,1.8,,18
+02.0062:vi,874,874,100.0,2.2,,18
+02.0063:ava,782,877,89.2,2.0,san/laN/prathama/eka:avAsuzupsata | san/laN/prathama/dvi:avAsuzupsatAm | san/laN/prathama/bahu:avAsuzupsan | san/laN/madhyama/eka:avAsuzupsaTAH | san/laN/madhyama/dvi:avAsuzupseTAm,15
+02.0063:ni,108,877,12.3,2.1,"ting/lw/prathama/eka:nizvapiti | ting/lw/prathama/dvi:nizvapitaH | ting/lw/prathama/bahu:nizvapanti | ting/lw/madhyama/eka:nizvapizi | ting/lw/madhyama/dvi:nizvapiTaH | krut/kta/M:nizuptaH | krut/kta/F:nizuptA | krut/kta/N:nizuptam | krut/ktavatu/M:nizuptavAn | krut/ktavatu/F:nizuptavatI | krut/ktavatu/N:['nizuptavat', 'nizuptavad'] | krut/Satf/M:nizvapan",15
+02.0063:ni;su,108,877,12.3,2.1,"ting/lw/prathama/eka:nisuzvapiti | ting/lw/prathama/dvi:nisuzvapitaH | ting/lw/prathama/bahu:nisuzvapanti | ting/lw/madhyama/eka:nisuzvapizi | ting/lw/madhyama/dvi:nisuzvapiTaH | krut/kta/M:nisuzuptaH | krut/kta/F:nisuzuptA | krut/kta/N:nisuzuptam | krut/ktavatu/M:nisuzuptavAn | krut/ktavatu/F:nisuzuptavatI | krut/ktavatu/N:['nisuzuptavat', 'nisuzuptavad'] | krut/Satf/M:nisuzvapan",15
+02.0063:pra,782,877,89.2,1.9,san/laN/prathama/eka:prAsuzupsata | san/laN/prathama/dvi:prAsuzupsatAm | san/laN/prathama/bahu:prAsuzupsan | san/laN/madhyama/eka:prAsuzupsaTAH | san/laN/madhyama/dvi:prAsuzupseTAm,15
+02.0063:vi,108,877,12.3,1.9,"ting/lw/prathama/eka:vizvapiti | ting/lw/prathama/dvi:vizvapitaH | ting/lw/prathama/bahu:vizvapanti | ting/lw/madhyama/eka:vizvapizi | ting/lw/madhyama/dvi:vizvapiTaH | krut/kta/M:vizuptaH | krut/kta/F:vizuptA | krut/kta/N:vizuptam | krut/ktavatu/M:vizuptavAn | krut/ktavatu/F:vizuptavatI | krut/ktavatu/N:['vizuptavat', 'vizuptavad'] | krut/Satf/M:vizvapan",15
+02.0064:A,874,874,100.0,1.9,,18
+02.0064:AN,874,874,100.0,2.5,,18
+02.0064:aBi,874,874,100.0,2.1,,18
+02.0064:aBi;pra,874,874,100.0,2.3,,18
+02.0064:nir,874,874,100.0,1.2,,18
+02.0064:parA,874,874,100.0,2.0,,18
+02.0064:pari;AN,874,874,100.0,2.5,,18
+02.0064:pari;vi,874,874,100.0,2.2,,18
+02.0064:pra,874,874,100.0,2.3,,18
+02.0064:prati;AN,874,874,100.0,2.3,,18
+02.0064:prati;vi,874,874,100.0,2.3,,18
+02.0064:ud,216,874,24.7,2.0,ting/lw/prathama/eka:utSvasiti | ting/lw/prathama/dvi:utSvasitaH | ting/lw/prathama/bahu:utSvasanti | ting/lw/madhyama/eka:utSvasizi | ting/lw/madhyama/dvi:utSvasiTaH | krut/kta/M:utSvasitaH | krut/kta/F:utSvasitA | krut/kta/N:utSvasitam | krut/ktavatu/M:utSvasitavAn | krut/ktavatu/F:utSvasitavatI | krut/ktavatu/N:utSvasitavat | krut/Satf/M:utSvasan,18
+02.0064:upa,874,874,100.0,2.2,,18
+02.0064:vi,874,874,100.0,2.3,,18
+02.0065:aBi;ava,623,623,100.0,2.0,,13
+02.0065:aBi;pra,611,623,98.1,1.8,"ting/low/uttama/eka:aBiprARARi | krut/anIyar/M:aBiprARaRIyaH | krut/anIyar/F:aBiprARaRIyA | krut/anIyar/N:aBiprARaRIyam | krut/lyuw:aBiprARaRam | nich_krut/SAnac/M:['aBiprARyamARaH', 'aBiprARayamARaH'] | nich_krut/SAnac/F:['aBiprARyamARA', 'aBiprARayamARA'] | nich_krut/SAnac/N:['aBiprARyamARam', 'aBiprARayamARam'] | nich_krut/anIyar/M:aBiprARaRIyaH | nich_krut/anIyar/F:aBiprARaRIyA | nich_krut/anIyar/N:aBiprARaRIyam | nich_krut/lyuw:aBiprARaRam",13
+02.0065:anu,623,623,100.0,1.8,,13
+02.0065:apa,623,623,100.0,1.7,,13
+02.0065:ava,623,623,100.0,1.6,,13
+02.0065:pra,403,623,64.7,1.6,ting/low/uttama/eka:prAnARi | san/lw/prathama/eka:prAndiizate | san/lw/prathama/dvi:prAndiizataH | san/lw/prathama/bahu:prAndiizanti | san/lw/madhyama/eka:prAniRizasi | krut/anIyar/M:prAnaRIyaH | krut/anIyar/F:prAnaRIyA | krut/anIyar/N:prAnaRIyam | krut/lyuw:prAnaRam | san_krut/kta/M:prAniRizitaH | san_krut/kta/F:prAniRizitA | san_krut/kta/N:prAniRizitam,13
+02.0065:sam,623,623,100.0,1.4,,13
+02.0065:ud,623,623,100.0,1.3,,13
+02.0067:pra,623,623,100.0,1.3,,13
+02.0067:prati,623,623,100.0,1.3,,13
+02.0067:su,623,623,100.0,1.3,,13
+02.0070:aBi;anu,874,874,100.0,1.3,,18
+02.0070:ni,874,874,100.0,1.4,,18
+02.0070:pra,874,874,100.0,1.5,,18
+02.0070:prati,874,874,100.0,1.3,,18
+02.0070:sam,874,874,100.0,1.6,,18
+02.0070:ud,216,874,24.7,1.9,"ting/lw/prathama/eka:utSAsti | ting/lw/prathama/dvi:utSizwaH | ting/lw/prathama/bahu:utSAsati | ting/lw/madhyama/eka:utSAssi | ting/lw/madhyama/dvi:utSizWaH | krut/kta/M:utSizwaH | krut/kta/F:utSizwA | krut/kta/N:utSizwam | krut/ktavatu/M:utSizwavAn | krut/ktavatu/F:utSizwavatI | krut/ktavatu/N:['utSizwavat', 'utSizwavad'] | krut/Satf/M:['utSAsan', 'utSAsat', 'utSAsad']",18
+02.0070:vi,874,874,100.0,1.6,,18
+02.0071:vi,622,622,100.0,1.8,,5
+02.0075:aBi,873,874,99.9,1.9,krut/lyap:aBiproSya,18
+02.0077:A,870,870,100.0,2.0,,10
+02.0077:apa,870,870,100.0,2.1,,10
+02.0077:apa;ni,870,870,100.0,1.6,,10
+02.0077:api,870,870,100.0,2.0,,10
+02.0077:ni,870,870,100.0,1.8,,10
