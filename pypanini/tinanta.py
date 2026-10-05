@@ -10528,7 +10528,7 @@ class TinantaDerivationEngine:
                 # curAdi general luN redup-aorist union (abhyasa Ca/Ci/Cu/CI + stem plain/short/
                 # guNa/R/N; lexical grades so union; consonant-initial only (V-initial ajAder
                 # separate); both padas attested across roots; curAdiH-gated; additive).
-                if sanadi is None and meta.get("gana") == "curAdiH":
+                if sanadi is None and meta.get("gana") in ("curAdiH", "divAdiH"):
                     _c10gc = (meta.get("clean", "") or clean) or ""
                     if _c10gc and _c10gc[0] not in SLP1_VOWELS:
                         if _c10gc[:1] in ("s", "S") and len(_c10gc) > 1 and _c10gc[1] in SLP1_KHAY:
@@ -10910,7 +10910,7 @@ class TinantaDerivationEngine:
                 # curAdi general luN redup-aorist union (abhyasa Ca/Ci/Cu/CI + stem plain/short/
                 # guNa/R/N; lexical grades so union; consonant-initial only (V-initial ajAder
                 # separate); both padas attested across roots; curAdiH-gated; additive).
-                if sanadi is None and meta.get("gana") == "curAdiH":
+                if sanadi is None and meta.get("gana") in ("curAdiH", "divAdiH"):
                     _c10gc = (meta.get("clean", "") or clean) or ""
                     if _c10gc and _c10gc[0] not in SLP1_VOWELS:
                         if _c10gc[:1] in ("s", "S") and len(_c10gc) > 1 and _c10gc[1] in SLP1_KHAY:
