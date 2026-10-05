@@ -10793,6 +10793,30 @@ class KrdantaEngine:
                             _g2 = _f.replace("my", "My")
                             if _g2 not in _v:
                                 _v.append(_g2)
+        # yam-SAnac redup+M twins (yamamAna->yamyamAna/yaMyamAna; yam-pair 01.1031/1139 surveyed —
+        # all 36 prefixed tasks (26+27 minus passing) want redup yamyamAna + M-variant yaMyamAna
+        # (AyaMyamAna/saMyaMyamAna/.../nirAyaMyamARaH with Natva-R); unprefixed already carries redup
+        # via generic stem; prefixed path drops it so twin restores; "yamam" self-gates to yam
+        # (ram/kam/gam give myamAna); additive, anta-independent).
+        if dhatu == "yam":
+            for _pr, _it in result.items():
+                if _pr != "SAnac" or not isinstance(_it, dict):
+                    continue
+                for _g in ("M", "F", "N"):
+                    _v = _it.get(_g)
+                    if isinstance(_v, str):
+                        if "yamam" in _v:
+                            _tw = [x for x in (_v.replace("yamam", "yamyam"),
+                                               _v.replace("yamam", "yaMyam")) if x not in (_v,)]
+                            if _tw:
+                                _it[_g] = [_v] + _tw
+                    elif isinstance(_v, list):
+                        for _f in list(_v):
+                            if isinstance(_f, str) and "yamam" in _f:
+                                for _g2 in (_f.replace("yamam", "yamyam"),
+                                            _f.replace("yamam", "yaMyam")):
+                                    if _g2 not in _v:
+                                        _v.append(_g2)
         # R-nich SAnac ay-twin (pARyamAna->pARayamAna; R-roots 01.0506/0507 (+
         # 0903 pending) surveyed — _nijanta_sec drops ay (pARy) but prefixed
         # tokens want pARay- retained (mUla keeps dropped via cross-match, same
