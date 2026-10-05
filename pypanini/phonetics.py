@@ -342,12 +342,25 @@ def apply_natva_prefix_aware(fused: str, chain_len: int, dhatu_id: str | None = 
                 cause_seen = False
                 out.append("n")
             elif cause_seen:
-                is_padanta = (i == len(fused) - 1)
-                is_illegal = (i + 1 < len(fused) and fused[i+1] in "tTdDscCjJSwWqQz")
-                if is_padanta or is_illegal:
+                # Panini 8.4.21 abhyAsasya ca & 8.4.39 kzuBnAdiSu ca: abhyAsa n and Kan (01.1020)
+                # never undergo Natva; dental n blocks subsequent Natva from preceding cause.
+                rem = fused[i:]
+                if (rem.startswith(("nin", "nen", "nan", "nIn", "naMnam", "nannam")) and not rem.startswith("nant")) or (dhatu_id == "01.1020" and fused[:i+1].endswith(("Kan", "KAn"))):
+                    cause_seen = False
                     out.append("n")
                 else:
-                    out.append("R")
+                    is_padanta = (i == len(fused) - 1)
+                    is_illegal = (i + 1 < len(fused) and fused[i+1] in "tTdDscCjJSwWqQz")
+                    if is_padanta or is_illegal:
+                        out.append("n")
+                    else:
+                        out.append("R")
+                        # If part of geminate nn, maintain cause_seen for the 2nd n (nizanna->nizaRRa);
+                        # otherwise 8.4.2: intervening R is tavarga (not in at-ku-pu-AN-num) and blocks further Natva.
+                        if i + 1 < len(fused) and fused[i+1] == "n":
+                            pass
+                        else:
+                            cause_seen = False
             else:
                 out.append("n")
         elif c in allowed:
@@ -358,6 +371,9 @@ def apply_natva_prefix_aware(fused: str, chain_len: int, dhatu_id: str | None = 
     final_word = "".join(out)
     if dhatu_id is None or dhatu_id in _VAN_IDS:
         final_word = final_word.replace("rivaR", "rivan").replace("ravaR", "ravan").replace("rvaR", "rvan")
+    # Panini 8.4.14 non-nopadeza patx~ (01.0979) yanganta substitute panIpat never undergoes Natva
+    if "paRIpat" in final_word:
+        final_word = final_word.replace("paRIpat", "panIpat")
     for p in ("pra", "parA", "nir", "antar", "pari", "dur", "dus", "nis"):
         p_sandhi = p[:-1] + "r" if p.endswith("s") else p
         if final_word.startswith(p_sandhi + "R"):
@@ -433,7 +449,7 @@ def apply_single_upasarga_sandhi(prefix: str, form: str) -> str:
         if f_start in "wW": return prefix[:-1] + "z" + form
         if f_start in "tT": return prefix + form
         if f_start in "kKpP": return prefix[:-1] + "z" + form
-        if f_start in "aAiIuUfFeEoOAyvrlh": return prefix[:-1] + "r" + form
+        if f_start in "aAiIuUfFeEoO" or f_start in "gGdDqQbBjJnNmMYRyvrlh": return prefix[:-1] + "r" + form
         return prefix + form
         
     # Vowel-ending prefixes
@@ -483,6 +499,16 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
     # Since prefixes can be chained, we just check the innermost prefix that attaches to the root.
     prefixes = prefix_str.split(";")
     
+    # Panini 8.2.19 upasargasyAyatau:
+    # upasargasya rephasya latvaM syAd ayatau parataH.
+    # The 'r' of the innermost upasarga is replaced by 'l' before the root 'ay' (01.0546 aya~),
+    # but not in sannanta (where form starts with 'ayiyiz').
+    if (dhatu_id == "01.0546" or form.startswith(("ay", "Ay"))) and not ("iyiz" in form or "diiz" in form):
+        _latva = {"nir": "nil", "parA": "palA", "pra": "pla", "pari": "pali", "dur": "dul"}
+        if prefixes[-1] in _latva:
+            prefixes[-1] = _latva[prefixes[-1]]
+            prefix_str = ";".join(prefixes)
+
     # Pre-sandhi Satva check (very simplified: if root form starts with 's' followed by vowel/y/v/r and inner prefix ends in i/u)
     # e.g., vi + sIdati -> vizIdati. 
     # But wait, it shouldn't apply to aT augment! vi + a + sIdat -> vyasIdat.
@@ -505,7 +531,7 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
                     form = "zR" + form[2:]
             elif (form.startswith("a") or form.startswith("A")) and len(form) > 2 and form[1] == "s":
                 core = form[2:]
-                if core.startswith(("eD", "iD", "iYc", "ec", "ic", "vaYj", "vaK", "aYj", "aNk", "tu", "to", "wO", "tAv", "un", "uv", "Av", "O", "ev", "evi", "TA", "Tu", "Te", "Ti", "TI")):
+                if core.startswith(("eD", "iD", "iYc", "ec", "ic", "vaYj", "vaK", "aYj", "aNk", "tu", "to", "wO", "tAv", "un", "uv", "Av", "O", "ev", "evi", "TA", "Tu", "Te", "Ti", "TI", "aj", "vaj", "ANk", "ANK", "aNK", "ats", "Ad", "ad", "att", "atsA")):
                     z_core = core
                     if z_core.startswith("t"): z_core = "w" + z_core[1:]
                     elif z_core.startswith("T"): z_core = "W" + z_core[1:]
@@ -514,8 +540,9 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
             
     # Pre-sandhi Natva check: r/f in prefix changes n -> R
     # e.g. pra + namati -> praRamati.
+    # Panini 8.4.21 abhyAsasya ca: abhyāsa n (nin, nen, nan, nIn) never undergoes Natva.
     if inner in ("pra", "parA", "nir", "antar", "pari") and form.startswith("n"):
-        if not form.startswith(("nand", "nfd", "nfc", "nrt", "nard", "naw", "nA", "nind")):
+        if not form.startswith(("nand", "nfd", "nfc", "nrt", "nard", "naw", "nA", "nind", "nin", "nen", "nan", "nIn", "naMnam", "nannam")) or form.startswith("nant"):
             form = "R" + form[1:]
 
     # Apply external sandhi from inner to outer
@@ -534,6 +561,16 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
     if not skip_satva:
         if "zisiD" in form: form = form.replace("zisiD", "ziziD")
         if "ziseD" in form: form = form.replace("ziseD", "zizeD")
+        # Panini 8.3.65 saYja-svaYjAm double satva in reduplication (liw, san, yang, yangluk)
+        for _s, _z in (
+            ("zasaYj", "zazaYj"), ("zisaNkz", "zizaNkz"),
+            ("zisvaNkz", "zizvaNkz"),
+            ("zAsaj", "zAzaj"), ("zAsag", "zAzag"),
+            ("zAsaYj", "zAzaYj"), ("zAsaNk", "zAzaNk"), ("zAsak", "zAzak"),
+            ("zAsvaYj", "zAzvaYj"), ("zAsvaj", "zAzvaj"), ("zAsvag", "zAzvag"),
+            ("zAsvaNk", "zAzvaNk"), ("zAsvak", "zAzvak"),
+        ):
+            if _s in form: form = form.replace(_s, _z)
     
         if inner.endswith(("i", "u", "I", "U")):
             if "aseziD" in form: form = form.replace("aseziD", "azeziD")

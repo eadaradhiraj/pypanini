@@ -1662,6 +1662,38 @@ class KrdantaEngine:
                     _inner = upasarga.split(";")[-1]
                     if _inner.endswith(("i", "u", "I", "U")) or _inner in ("nir", "dur", "dus", "nis"):
                         new_v += [c.replace("tAsT", "tAzW") for c in list(new_v) if "tAsT" in c]
+                # sad (01.0990) reduplicated twins for participles
+                if upasarga:
+                    _sad_tw = []
+                    for c in list(new_v):
+                        for _o, _n in (
+                            ("zizats", "zisats"), ("azizats", "asisats"),
+                            ("azisats", "asisats"), ("asizats", "asisats"),
+                            ("sizats", "sisats"), ("zAzad", "zAsad"),
+                        ):
+                            if _o in c: _sad_tw.append(c.replace(_o, _n))
+                    if _sad_tw:
+                        new_v += _sad_tw
+                # sam + reduplicated nasal twins (Panini 8.3.23 mo'nusvAraH / 8.4.58-59 vA padAntasya)
+                if upasarga:
+                    _sam_nas = []
+                    for c in list(new_v):
+                        if "saYcaM" in c:
+                            _sam_nas.append(c.replace("saYcaM", "saMcaM"))
+                            _sam_nas.append(c.replace("saYcaM", "saYcaY"))
+                            _sam_nas.append(c.replace("saYcaMkr", "saYcaNkr"))
+                        if "saYjaM" in c:
+                            _sam_nas.append(c.replace("saYjaM", "saMjaM"))
+                            _sam_nas.append(c.replace("saYjaM", "saYjaN"))
+                        if "sandaM" in c:
+                            _sam_nas.append(c.replace("sandaM", "saMdaM"))
+                            _sam_nas.append(c.replace("sandaM", "sandan"))
+                        if "samp" in c:
+                            _sam_nas.append(c.replace("samp", "saMp"))
+                        if "caMkram" in c:
+                            _sam_nas.append(c.replace("caMkram", "caNkram"))
+                    if _sam_nas:
+                        new_v += _sam_nas
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1688,6 +1720,39 @@ class KrdantaEngine:
                     _inner = upasarga.split(";")[-1]
                     if _inner.endswith(("i", "u", "I", "U")) or _inner in ("nir", "dur", "dus", "nis"):
                         _all += [c.replace("tAsT", "tAzW") for c in list(_all) if "tAsT" in c]
+                # sad (01.0990) reduplicated twins for participles
+                if upasarga:
+                    _sad_tw = []
+                    for c in list(_all):
+                        for _o, _n in (
+                            ("zizats", "zisats"), ("azizats", "asisats"),
+                            ("azisats", "asisats"), ("asizats", "asisats"),
+                            ("sizats", "sisats"), ("zAzad", "zAsad"),
+                        ):
+                            if _o in c: _sad_tw.append(c.replace(_o, _n))
+                    if _sad_tw:
+                        _all += _sad_tw
+                # sam + reduplicated nasal twins (Panini 8.3.23 mo'nusvAraH / 8.4.58-59 vA padAntasya)
+                if upasarga:
+                    _sam_nas = []
+                    for c in list(_all):
+                        if isinstance(c, str):
+                            if "saYcaM" in c:
+                                _sam_nas.append(c.replace("saYcaM", "saMcaM"))
+                                _sam_nas.append(c.replace("saYcaM", "saYcaY"))
+                                _sam_nas.append(c.replace("saYcaMkr", "saYcaNkr"))
+                            if "saYjaM" in c:
+                                _sam_nas.append(c.replace("saYjaM", "saMjaM"))
+                                _sam_nas.append(c.replace("saYjaM", "saYjaN"))
+                            if "sandaM" in c:
+                                _sam_nas.append(c.replace("sandaM", "saMdaM"))
+                                _sam_nas.append(c.replace("sandaM", "sandan"))
+                            if "samp" in c:
+                                _sam_nas.append(c.replace("samp", "saMp"))
+                            if "caMkram" in c:
+                                _sam_nas.append(c.replace("caMkram", "caNkram"))
+                    if _sam_nas:
+                        _all += _sam_nas
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 
@@ -7094,7 +7159,7 @@ class KrdantaEngine:
                 return {"M": _k9ys + "H", "F": _k9ys[:-1] + "A", "N": _k9ys + "m"}
             # Panini 3.2.124 lawaH Satf-SAnacAv aprathamAsamAnADikaraRe
             # SAnac is Atmanepada only (in kartari)
-            is_atman_eligible = (pada == "Atmanepadi") or ("uBaya" in padam) or ("ubhay" in padam.lower()) or (clean in ("sTA", "zWA", "Sad", "kram", "sajj", "zasj", "vad", "BU"))
+            is_atman_eligible = (pada in ("Atmanepadi", "uBayapadi")) or ("uBaya" in padam) or ("ubhay" in padam.lower()) or (clean in ("sTA", "zWA", "Sad", "kram", "sajj", "zasj", "vad", "BU", "car"))
             if not is_atman_eligible:
                 if clean == "vas":
                     return tri_linga("uzyamARa")
@@ -7169,6 +7234,8 @@ class KrdantaEngine:
                 best = "tizWa"
             elif clean == "kram":
                 best = "krama"
+            elif clean in ("gam", "gaml") or (op and op.startswith("gaml")):
+                best = "gacCa"
             elif clean in ("zasj", "sajj"):
                 best = "sajja"
             elif clean in ("urd", "kurd", "Kurd", "gurd", "GurR") or "Ur" in clean:

@@ -1773,6 +1773,28 @@ class TinantaDerivationEngine:
                     if "nv" in c:
                         _an.append(c.replace("nv", "v"))
                 cands = list(dict.fromkeys(cands + _an))
+            # sam + reduplicated nasal twins (Panini 8.3.23 mo'nusvAraH / 8.4.58-59 vA padAntasya)
+            # When sam attaches to a stem with nasal reduplication (caM, jaM, daM):
+            # 1. Both anusvAra: saYcaM->saMcaM, saYjaM->saMjaM, sandaM->saMdaM
+            # 2. Both parasavarNa: saYcaMc->saYcaYc, saYcaMk->saYcaNk, saYjaMg->saYjaNg, sandaMd->sandand
+            _sam_nas = []
+            for c in cands:
+                if "saYcaM" in c:
+                    _sam_nas.append(c.replace("saYcaM", "saMcaM"))
+                    _sam_nas.append(c.replace("saYcaM", "saYcaY"))
+                    _sam_nas.append(c.replace("saYcaMkr", "saYcaNkr"))
+                if "saYjaM" in c:
+                    _sam_nas.append(c.replace("saYjaM", "saMjaM"))
+                    _sam_nas.append(c.replace("saYjaM", "saYjaN"))
+                if "sandaM" in c:
+                    _sam_nas.append(c.replace("sandaM", "saMdaM"))
+                    _sam_nas.append(c.replace("sandaM", "sandan"))
+                if "samp" in c:
+                    _sam_nas.append(c.replace("samp", "saMp"))
+                if "caMkram" in c:
+                    _sam_nas.append(c.replace("caMkram", "caNkram"))
+            if _sam_nas:
+                cands = list(dict.fromkeys(cands + _sam_nas))
             # AN-liw samprasarana twins (o->avu, e->ayi: opatuH->avupatuH,
             # ejatuH->ayijatuH/eje->ayije; yam/vap/vah/vas/vad quintet
             # 01.1157/1158/1159/1160/1164 surveyed — AN contracts A+abhyasa-u/i
@@ -1852,6 +1874,19 @@ class TinantaDerivationEngine:
                     _st = [c.replace("tAsT", "tAzW") for c in cands if "tAsT" in c]
                     if _st:
                         cands = list(dict.fromkeys(cands + _st))
+            # sad (01.0990) reduplicated twins (zizats/zisats, azizats/asisats, zAzad/zAsad):
+            # abhyasa/root satva alternatives in liw, san, yang; unanimous attested in 01.0990; additive.
+            if upasarga:
+                _sad_tw = []
+                for c in cands:
+                    if "zizats" in c: _sad_tw.append(c.replace("zizats", "zisats"))
+                    if "azizats" in c: _sad_tw.append(c.replace("azizats", "asisats"))
+                    if "azisats" in c: _sad_tw.append(c.replace("azisats", "asisats"))
+                    if "asizats" in c: _sad_tw.append(c.replace("asizats", "asisats"))
+                    if "sizats" in c: _sad_tw.append(c.replace("sizats", "sisats"))
+                    if "zAzad" in c: _sad_tw.append(c.replace("zAzad", "zAsad"))
+                if _sad_tw:
+                    cands = list(dict.fromkeys(cands + _sad_tw))
             # Panini 1.2.17 sthAghvoricca: sthA Atmanepada luN (under sam/pra/upa/vi etc. by 1.3.34) takes sTi-
             if (dhatu_id == "01.1077" or dhatu in ("sTA", "zWA")) and sanadi is None and lakara == "luN":
                 _STHA_ALUNG = {
@@ -9749,17 +9784,19 @@ class TinantaDerivationEngine:
                                 _li = _i
                                 break
                         _suf = clean[_li+1:] if _li != -1 else ""
-                        if _lv == "a" and "r" not in _suf and len(_suf) <= 1 and clean and clean[-1] not in SLP1_VOWELS:
+                        if _lv == "a" and len(_suf) <= 1 and clean and clean[-1] not in SLP1_VOWELS:
                             _init = ""
                             for _ch in clean:
                                 if _ch in SLP1_VOWELS:
                                     break
                                 _init += _ch
-                            _rc0 = _init[0] if _init else clean[0]
-                            _be = _rc0 + "e"
-                            _fc = clean[-1]
-                            for _ee in (endings,):
-                                cands.append(_be + _fc + _ee[(purusha, vacana)])
+                            if len(_init) == 1:
+                                _be = _init + "e"
+                                _fc = clean[-1]
+                                for _ee in (endings,):
+                                    cands.append(_be + _fc + _ee[(purusha, vacana)])
+                                    if (purusha, vacana) == ("madhyama", "bahu"):
+                                        cands.append(_be + _fc + "iQve")
                     except Exception:
                         pass
                     # Panini 6.4.122 tfPalaBajatrapaSca: et-tva + abhyAsa-lopa in liT for trap (trepe, etc.)

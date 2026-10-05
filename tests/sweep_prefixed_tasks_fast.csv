@@ -1,0 +1,5 @@
+fid,matched,total,pct,secs,misses,skipped
+01.0534:aBi,872,874,99.8,0.9,krut/lyap:aBivanya | yangluk_krut/lyap:aBivanya,18
+01.0534:pari,235,874,26.9,0.6,ting/liw/prathama/eka:parivavARa | ting/liw/prathama/dvi:parivavaRatuH | ting/liw/prathama/bahu:parivavaRvuH | ting/liw/madhyama/eka:pariveRiTa | ting/liw/madhyama/dvi:parivavARaTuH | krut/lyap:parivanya | san_krut/kta/M:parivivaRizitaH | san_krut/kta/F:parivivaRizitA | san_krut/kta/N:parivivaRizitam | san_krut/ktavatu/M:parivivaRizitavAn | san_krut/ktavatu/F:parivivaRizitavatI | san_krut/ktavatu/N:parivivaRizitavat,18
+01.0534:sam,872,874,99.8,0.6,krut/lyap:saMvanya | yangluk_krut/lyap:saMvanya,18
+01.0534:vi,872,874,99.8,0.9,krut/lyap:vivanya | yangluk_krut/lyap:vivanya,18

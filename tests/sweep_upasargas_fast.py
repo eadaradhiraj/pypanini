@@ -217,8 +217,11 @@ def main():
         tasks = sorted({t.strip() for t in args.tasks.split(",") if t.strip()})
         if not args.out:
             args.out = "tests/sweep_prefixed_tasks_fast.csv"
-    elif args.fid and args.prefix:
-        tasks = [f"{args.fid}:{args.prefix}"]
+    elif args.fid:
+        if args.prefix:
+            tasks = [f"{args.fid}:{args.prefix}"]
+        else:
+            tasks = [t for t in gather_tasks(args.gana) if t.startswith(f"{args.fid}:")]
         if not args.out:
             args.out = "tests/sweep_prefixed_tasks_fast.csv"
     else:

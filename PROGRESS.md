@@ -64,6 +64,6 @@ Landscape: 04 + 10 remain (06 modulo ceiling).
 - Gates: every commit fid-diff 0 worsened; guards green throughout.
 
 ## Next
-1. Gana-10: krut/ktvA-Satf (30) + ting-luN/liw + yang/yangluk residuals (pull before each iteration — shared tree; PYTHONHASHSEED=0). Queued irregular (other session): sad Asad-suppletion (Asanna/Asatta/AsIda), ci-cap extras. Failed hypotheses, do not retry (other session): (a) lyap pra+V sandhi twins — zero gain, reverted; (b) tavya bare e-grade twins — zero gain, reverted; (c) tumun/lyap jYAp twins — zero gain, reverted; (d) san jYAp grade — zero gain, reverted.
+1. Gana-10: krut/ktvA-Satf (30) + ting-luN/liw + yang/yangluk residuals (pull before each iteration — shared tree; PYTHONHASHSEED=0). Queued irregular (other session): sad Asad-suppletion (Asanna/Asatta/AsIda), ci-cap extras. Failed hypotheses, do not retry (other session): (a) lyap pra+V sandhi twins — zero gain, reverted; (b) tavya bare e-grade twins — zero gain, reverted; (c) tumun/lyap jYAp twins — zero gain, reverted; (d) san jYAp grade — zero gain, reverted; (e) nich-Atmane ciY cayay-twin — correct forms, zero gain (0124 already passes), reverted.
 2. Gana-04 ceiling audit (other session) → all-gana 100% modulo ceilings.
 3. Cross-gana guards (01 + all-100% ganas) before every commit.
