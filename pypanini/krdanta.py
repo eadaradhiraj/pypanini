@@ -10479,6 +10479,27 @@ class KrdantaEngine:
                             _g2 = _f.replace("my", "My")
                             if _g2 not in _v:
                                 _v.append(_g2)
+        # R-nich SAnac ay-twin (pARyamAna->pARayamAna; R-roots 01.0506/0507 (+
+        # 0903 pending) surveyed — _nijanta_sec drops ay (pARy) but prefixed
+        # tokens want pARay- retained (mUla keeps dropped via cross-match, same
+        # BU pattern); capital-R self-gates to R-stems; originals kept →
+        # zero rotation; additive, nijanta-SAnac-scoped).
+        if sanadi == "nijanta":
+            _rs = result.get("SAnac")
+            if isinstance(_rs, dict):
+                for _g in ("M", "F", "N"):
+                    _v = _rs.get(_g)
+                    if isinstance(_v, str):
+                        if "Ryam" in _v:
+                            _g2 = _v.replace("Ryam", "Rayam")
+                            if _g2 != _v:
+                                _rs[_g] = [_v, _g2]
+                    elif isinstance(_v, list):
+                        for _f in list(_v):
+                            if isinstance(_f, str) and "Ryam" in _f:
+                                _g2 = _f.replace("Ryam", "Rayam")
+                                if _g2 not in _v:
+                                    _v.append(_g2)
         # sam+gam SAnac gacC-twin (samAgamyamAna->samAgacCamAna; sole gam
         # 01.1137 surveyed — all 12 sam-chain tasks want gacC (classical
         # saMgacC- stem); non-sam gam SAnac unattested (no key); originals
