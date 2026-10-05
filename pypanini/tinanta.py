@@ -9650,6 +9650,12 @@ class TinantaDerivationEngine:
                         for _c10xp in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
                             _c10lpp = {("prathama","eka"): [_c10xp + "AYcakAra", _c10xp + "AmAsa", _c10xp + "AmbaBUva"], ("prathama","dvi"): [_c10xp + "AYcakratuH", _c10xp + "AmAsatuH", _c10xp + "AmbaBUvatuH"], ("prathama","bahu"): [_c10xp + "AYcakruH", _c10xp + "AmAsuH", _c10xp + "AmbaBUvuH"], ("madhyama","eka"): [_c10xp + "AYcakarTa", _c10xp + "AmAsiTa", _c10xp + "AmbaBUviTa"], ("madhyama","dvi"): [_c10xp + "AYcakraTuH", _c10xp + "AmAsaTuH", _c10xp + "AmbaBUvaTuH"], ("madhyama","bahu"): [_c10xp + "AYcakra", _c10xp + "AmAsa", _c10xp + "AmbaBUva"], ("uttama","eka"): [_c10xp + "AYcakara", _c10xp + "AYcakAra", _c10xp + "AmAsa", _c10xp + "AmbaBUva"], ("uttama","dvi"): [_c10xp + "AYcakfva", _c10xp + "AmAsiva", _c10xp + "AmbaBUviva"], ("uttama","bahu"): [_c10xp + "AYcakfma", _c10xp + "AmAsima", _c10xp + "AmbaBUvima"]}
                             cands += _c10lpp.get((purusha, vacana), [])
+                    # divAdi jan liw Ye twins (exact alit; 04.0044 surveyed; additive).
+                    if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "jan":
+                        cands += ['jajYATe', 'jajYAte', 'jajYe', 'jajYiDve', 'jajYimahe', 'jajYire', 'jajYivahe', 'jajYize']
+                    # divAdi vAvft liw periphrastic twins (exact alit; 04.0056 surveyed; additive).
+                    if sanadi is None and meta.get("gana") == "divAdiH" and (meta.get("clean", "") or clean) == "vAvft":
+                        cands += ['vAvartAYcakfQve', 'vAvartAYcakfmahe', 'vAvartAYcakfvahe', 'vAvartAYcakfze', 'vAvartAYcakrATe', 'vAvartAYcakrAte', 'vAvartAYcakre', 'vAvartAYcakrire', 'vAvartAmAsa', 'vAvartAmAsaTuH', 'vAvartAmAsatuH', 'vAvartAmAsiTa', 'vAvartAmAsima', 'vAvartAmAsiva', 'vAvartAmAsuH', 'vAvartAmbaBUva', 'vAvartAmbaBUvaTuH', 'vAvartAmbaBUvatuH', 'vAvartAmbaBUviTa', 'vAvartAmbaBUvima', 'vAvartAmbaBUviva', 'vAvartAmbaBUvuH']
                     return cands, log
                 else:
                     # divAdi gup mUla liT jugop-grade (sole 04.0147 surveyed — Nitya
