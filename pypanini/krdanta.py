@@ -10435,6 +10435,25 @@ class KrdantaEngine:
                         # NB: "form"-keyed singles (GaY-type) stay str — harness wraps item["form"] in a list
                         if _g in ("M", "F", "N", "avyaya") and isinstance(_v, (str, list)):
                             _it[_g] = _ajtw(_v)
+        # SAnac anusvara twin (m->M before y: yamyamAna->yaMyamAna; yam-pair
+        # 01.1031/1139 surveyed — prefixed AN-tasks want AyaMyamAna (18 hits);
+        # all other my-SAnac surveyed (ram/kam/gam/tap/sam...) show zero My
+        # demand so twin is inert elsewhere; originals kept byte-identical when
+        # no 'my' present → zero rotation; additive, anta-independent).
+        for _pr, _it in result.items():
+            if _pr != "SAnac" or not isinstance(_it, dict):
+                continue
+            for _g in ("M", "F", "N"):
+                _v = _it.get(_g)
+                if isinstance(_v, str):
+                    if "my" in _v and _v.replace("my", "My") not in (_v,):
+                        _it[_g] = [_v, _v.replace("my", "My")]
+                elif isinstance(_v, list):
+                    for _f in list(_v):
+                        if isinstance(_f, str) and "my" in _f:
+                            _g2 = _f.replace("my", "My")
+                            if _g2 not in _v:
+                                _v.append(_g2)
         # CurAdi sad (10.0368 / SK 2572 Aṅ-sad): mandatory upasarga A prepended to all forms
         if str(dhatu_id) == "10.0368" or (dhatu and clean_dhatu_op(dhatu) == "sad" and self._get_meta(dhatu, dhatu_id).get("gana") == "curAdiH"):
             for _pr, _it in result.items():
