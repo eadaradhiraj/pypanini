@@ -1817,6 +1817,24 @@ class KrdantaEngine:
                     _lrt = [c for c in _lrt if c not in new_v]
                     if _lrt:
                         new_v += _lrt
+                # glE-nich A-grade twins (glApay alongside glapay; glE 01.1051 surveyed, ava/pari/pra/vi
+                # 4 tasks — prefixed nich_krut uniformly wants A-grade (avaglApayan/avaglApayitavyaH/
+                # avaglApanIyaH/avaglApayamAnaH) while engine voices a-grade; unprefixed carries both
+                # grades (glapayan + glApayan attested); tinanta nich passes already so krdanta-only;
+                # additive, nijanta + glE).
+                if upasarga and sanadi == "nijanta" and dhatu == "glE":
+                    _glt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("glapyam", "glApayam"), ("glapay", "glApay"),
+                                       ("glapan", "glApan"), ("glap", "glAp")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _glt:
+                                    _glt.append(_g)
+                    if _glt:
+                        new_v += _glt
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1991,6 +2009,20 @@ class KrdantaEngine:
                     _lrt = [c for c in _lrt if c not in _all]
                     if _lrt:
                         _all += _lrt
+                # glE-nich A-grade twins (mirrors list branch; nijanta + glE; additive).
+                if upasarga and sanadi == "nijanta" and dhatu == "glE":
+                    _glt = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("glapyam", "glApayam"), ("glapay", "glApay"),
+                                       ("glapan", "glApan"), ("glap", "glAp")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _glt:
+                                    _glt.append(_g)
+                    if _glt:
+                        _all += _glt
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 
