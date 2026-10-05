@@ -1988,6 +1988,46 @@ class TinantaDerivationEngine:
                                 _yzd.append(_g)
                 if _yzd:
                     cands = list(dict.fromkeys(cands + _yzd))
+            # vas-ASIrliN vA-grade twins (XvAvasyAt/XvAsyAt/XvivatsyAt alongside XvasyAt; vasa~ 01.1160
+            # surveyed — A/a-final inners (AN/apa/pra/upa, 7 tasks) take vA-grades while i/consonant
+            # inners (pari/sam/aDi/vi/ni/ati/prati/ud/nir, 10 tasks) pass via yuzyAt already; ozyAt
+            # unattested sweep-wide prefixed; unprefixed keeps uzyAt; additive, vas+ASIrliN+A/a-inner).
+            if upasarga and dhatu == "vas" and lakara == "ASIrliN":
+                _vin = upasarga.split(";")[-1]
+                if _vin == "AN":
+                    _vin = "A"
+                if _vin.endswith(("A", "a")):
+                    _vst = []
+                    for c in cands:
+                        for _o, _n in (("vasy", "vAvasy"), ("vasy", "vAsy")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in cands and _g not in _vst:
+                                    _vst.append(_g)
+                        if "vasyAt" in c:
+                            _g = c.replace("vasyAt", "vivatsyAt")
+                            if _g not in cands and _g not in _vst:
+                                _vst.append(_g)
+                    if _vst:
+                        cands = list(dict.fromkeys(cands + _vst))
+            # vas ozy-de-fusion twins (uzyate alongside ozyate; vasa~ 01.1160 surveyed — A/a-final
+            # inners (AN/apa/pra/upa + stacks, 7 tasks) voice prefix+us to o (ozyate/prozyate) but data
+            # keeps u (uzyate/pruzyate/upuzyate/apuzyate/vipruzyate/aDyuzyate/apapruzyate — uzya/uzyate
+            # bare or prefixed in every block); i/consonant inners already pass via yuzyAt/samuzyAt;
+            # unprefixed keeps uzyAt; additive, vas + A/a-inner, tinanta-wide).
+            if upasarga and dhatu == "vas":
+                _vin = upasarga.split(";")[-1]
+                if _vin == "AN":
+                    _vin = "A"
+                if _vin.endswith(("A", "a")):
+                    _uzt = []
+                    for c in cands:
+                        if "ozy" in c:
+                            _g = c.replace("ozy", "uzy")
+                            if _g not in cands and _g not in _uzt:
+                                _uzt.append(_g)
+                    if _uzt:
+                        cands = list(dict.fromkeys(cands + _uzt))
             return cands, log
         return cands, log
 

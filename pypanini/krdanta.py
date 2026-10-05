@@ -1758,6 +1758,26 @@ class KrdantaEngine:
                     _ank = [c for c in _ank if c not in new_v]
                     if _ank:
                         new_v += _ank
+                # vas ozit/ouzya de-fusion twins (uzita/uzya alongside ozita/ozya; vasa~ 01.1160
+                # surveyed — A/a-final inners; kta/ktavatu take uzita (Avuzita/pruzita), lyap takes
+                # uzya (Avuzya/pruzya/upuzya/...); i/consonant inners already pass; additive).
+                if upasarga and dhatu == "vas":
+                    _vin = upasarga.split(";")[-1]
+                    if _vin == "AN":
+                        _vin = "A"
+                    if _vin.endswith(("A", "a")):
+                        if pratyaya in ("kta", "ktavatu"):
+                            _uzk = [c.replace("ozit", "uzit") for c in list(new_v)
+                                    if isinstance(c, str) and "ozit" in c]
+                            _uzk = [c for c in _uzk if c not in new_v]
+                            if _uzk:
+                                new_v += _uzk
+                        if pratyaya == "lyap":
+                            _uzy = [c.replace("ozya", "uzya") for c in list(new_v)
+                                    if isinstance(c, str) and "ozya" in c]
+                            _uzy = [c for c in _uzy if c not in new_v]
+                            if _uzy:
+                                new_v += _uzy
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -1879,6 +1899,24 @@ class KrdantaEngine:
                     _ank = [c for c in _ank if c not in _all]
                     if _ank:
                         _all += _ank
+                # vas ozit/ouzya de-fusion twins (mirrors list branch; additive).
+                if upasarga and dhatu == "vas":
+                    _vin = upasarga.split(";")[-1]
+                    if _vin == "AN":
+                        _vin = "A"
+                    if _vin.endswith(("A", "a")):
+                        if pratyaya in ("kta", "ktavatu"):
+                            _uzk = [c.replace("ozit", "uzit") for c in list(_all)
+                                    if isinstance(c, str) and "ozit" in c]
+                            _uzk = [c for c in _uzk if c not in _all]
+                            if _uzk:
+                                _all += _uzk
+                        if pratyaya == "lyap":
+                            _uzy = [c.replace("ozya", "uzya") for c in list(_all)
+                                    if isinstance(c, str) and "ozya" in c]
+                            _uzy = [c for c in _uzy if c not in _all]
+                            if _uzy:
+                                _all += _uzy
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 
