@@ -1824,6 +1824,23 @@ class KrdantaEngine:
                     _lrt = [c for c in _lrt if c not in new_v]
                     if _lrt:
                         new_v += _lrt
+                # ku/pu-nir suffix-n dental twins (nizkavamAnaH alongside nizkavamARaH; kuN/pUN 1103/1121
+                # surveyed — nir blocks natva on n-initial suffixes (SAnac -Ana, anIyar -anIya, lyuw -ana)
+                # while engine voices (R); unprefixed already dental (kavamAnaH) and passing; BU-nich
+                # voices same context (BAvamARa) so ku/pu-gated, not general; tinanta clean (krdanta-only);
+                # additive, ku/pu + nir-inner).
+                if upasarga and dhatu in ("ku", "pu", "kU", "pU") and upasarga.split(";")[-1] == "nir":
+                    _kvt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("mAR", "mAn"), ("RIy", "nIy"), ("Ram", "nam")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _kvt:
+                                    _kvt.append(_g)
+                    if _kvt:
+                        new_v += _kvt
                 # glE-nich A-grade twins (glApay alongside glapay; glE 01.1051 surveyed, ava/pari/pra/vi
                 # 4 tasks — prefixed nich_krut uniformly wants A-grade (avaglApayan/avaglApayitavyaH/
                 # avaglApanIyaH/avaglApayamAnaH) while engine voices a-grade; unprefixed carries both
@@ -2023,6 +2040,19 @@ class KrdantaEngine:
                     _lrt = [c for c in _lrt if c not in _all]
                     if _lrt:
                         _all += _lrt
+                # ku/pu-nir suffix-n dental twins (mirrors list branch; ku/pu + nir-inner; additive).
+                if upasarga and dhatu in ("ku", "pu", "kU", "pU") and upasarga.split(";")[-1] == "nir":
+                    _kvt = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("mAR", "mAn"), ("RIy", "nIy"), ("Ram", "nam")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _kvt:
+                                    _kvt.append(_g)
+                    if _kvt:
+                        _all += _kvt
                 # glE-nich A-grade twins (mirrors list branch; nijanta + glE; additive).
                 if upasarga and sanadi == "nijanta" and dhatu == "glE":
                     _glt = []
