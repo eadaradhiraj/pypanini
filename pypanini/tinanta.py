@@ -2123,6 +2123,23 @@ class TinantaDerivationEngine:
                 _uht = [c for c in _uht if c not in cands]
                 if _uht:
                     cands = list(dict.fromkeys(cands + _uht))
+            # arc-liT ayAY-periphrastic twins (prAYcayAYcakrAte alongside prAYcAYcakrAte; aYc/arc/arj
+            # 0215/0232/0256 surveyed — prefixed periphrastic liT takes causative-ay Am (ayAYcakre) while
+            # engine voices plain Am; apa-block also carries ayAY (passes already, twin inert-or-bonus);
+            # unprefixed passes via synthetic (prefix-gated so untouched); additive, arc-family + liw).
+            if upasarga and dhatu in ("aYc", "arc", "arj") and lakara == "liw":
+                _ayt = [c.replace("AYcak", "ayAYcak") for c in cands if "AYcak" in c]
+                _ayt = [c for c in _ayt if c not in cands]
+                if _ayt:
+                    cands = list(dict.fromkeys(cands + _ayt))
+            # fj-liT An-dental twins (nirAnfjAte alongside nirARfjAte; fja~ 01.0200 surveyed, sole nir
+            # task — liT synthetic Anfj denatalizes under nir (nopadesa-An guard misses prefix+A+R);
+            # unprefixed Anfje already dental and passing; krdanta clean (ting-only); additive, fj + liw).
+            if upasarga and dhatu == "fj" and lakara == "liw":
+                _fjt = [c.replace("ARfj", "Anfj") for c in cands if "ARfj" in c]
+                _fjt = [c for c in _fjt if c not in cands]
+                if _fjt:
+                    cands = list(dict.fromkeys(cands + _fjt))
             return cands, log
         return cands, log
 
