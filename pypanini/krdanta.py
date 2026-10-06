@@ -1841,6 +1841,34 @@ class KrdantaEngine:
                                     _kvt.append(_g)
                     if _kvt:
                         new_v += _kvt
+                # f-kta retroflex twins (apArRaH alongside apArtaH; f 01.1086 surveyed, apa/ava/pra/upa —
+                # vowel-final prefixes voice kta/ktavatu dental to retroflex (apArRaH/apArRavAn) while engine
+                # keeps dental; sam (m-final) keeps fta (samftaH) and already passes; unprefixed keeps ftaH;
+                # tavya keeps dental (apArtavyaH) so kta/ktavatu-gated; additive, f + kta-family).
+                if upasarga and dhatu == "f" and pratyaya in ("kta", "ktavatu"):
+                    _frt = [c.replace("Art", "ArR") for c in list(new_v)
+                            if isinstance(c, str) and "Art" in c]
+                    _frt = [c for c in _frt if c not in new_v]
+                    if _frt:
+                        new_v += _frt
+                # f-SAnac fcC-stem twins (samfcCamAnaH alongside samaramARaH; f 01.1086 surveyed — sam SAnac
+                # builds on mUla Satf stem (fcC + amAna) while engine voices aramARa; apa lacks SAnac key
+                # (unscored); unprefixed untouched (prefix-gated); additive, f + SAnac + sam-inner).
+                if upasarga and dhatu == "f" and pratyaya == "SAnac" and upasarga.split(";")[-1] == "sam":
+                    _fst = [c.replace("aramAR", "fcCamAn") for c in list(new_v)
+                            if isinstance(c, str) and "aramAR" in c]
+                    _fst = [c for c in _fst if c not in new_v]
+                    if _fst:
+                        new_v += _fst
+                # f-yangluk-lyap fyAya twins (aByfyAya alongside aByfarfya; f 01.1086 surveyed — yangluk
+                # lyap takes bare fyAya (f + yAya, no redup) while engine voices redup farfya; unprefixed
+                # untouched (prefix-gated); additive, f + lyap).
+                if upasarga and dhatu == "f" and pratyaya == "lyap":
+                    _fyl = [c.replace("farfya", "fyAya") for c in list(new_v)
+                            if isinstance(c, str) and "farfya" in c]
+                    _fyl = [c for c in _fyl if c not in new_v]
+                    if _fyl:
+                        new_v += _fyl
                 # glE-nich A-grade twins (glApay alongside glapay; glE 01.1051 surveyed, ava/pari/pra/vi
                 # 4 tasks — prefixed nich_krut uniformly wants A-grade (avaglApayan/avaglApayitavyaH/
                 # avaglApanIyaH/avaglApayamAnaH) while engine voices a-grade; unprefixed carries both
@@ -2053,6 +2081,27 @@ class KrdantaEngine:
                                     _kvt.append(_g)
                     if _kvt:
                         _all += _kvt
+                # f-kta retroflex twins (mirrors list branch; f + kta-family; additive).
+                if upasarga and dhatu == "f" and pratyaya in ("kta", "ktavatu"):
+                    _frt = [c.replace("Art", "ArR") for c in list(_all)
+                            if isinstance(c, str) and "Art" in c]
+                    _frt = [c for c in _frt if c not in _all]
+                    if _frt:
+                        _all += _frt
+                # f-SAnac fcC-stem twins (mirrors list branch; f + SAnac + sam-inner; additive).
+                if upasarga and dhatu == "f" and pratyaya == "SAnac" and upasarga.split(";")[-1] == "sam":
+                    _fst = [c.replace("aramAR", "fcCamAn") for c in list(_all)
+                            if isinstance(c, str) and "aramAR" in c]
+                    _fst = [c for c in _fst if c not in _all]
+                    if _fst:
+                        _all += _fst
+                # f-yangluk-lyap fyAya twins (mirrors list branch; f + lyap; additive).
+                if upasarga and dhatu == "f" and pratyaya == "lyap":
+                    _fyl = [c.replace("farfya", "fyAya") for c in list(_all)
+                            if isinstance(c, str) and "farfya" in c]
+                    _fyl = [c for c in _fyl if c not in _all]
+                    if _fyl:
+                        _all += _fyl
                 # glE-nich A-grade twins (mirrors list branch; nijanta + glE; additive).
                 if upasarga and sanadi == "nijanta" and dhatu == "glE":
                     _glt = []
@@ -11017,4 +11066,33 @@ class KrdantaEngine:
                         if _f not in _cur:
                             _cur.append(_f)
                     result[_ep][_g] = _cur
+        # Prefixed yangluk-Satf fusions (same exception; f 01.1086 surveyed, 10 prefixed tasks —
+        # sam/ud/nir fuse normally via apply_upasargas (saMrat/udrat/nIrat), aBi/ni/prati drop i
+        # (aByrat/nyrat/pratyrat via irat->yrat on the fused form), apa/ava/pra/upa take redup ArArat
+        # (apArArat/... via Ararrat->ArArat on engine redup-cands); every variant attested per-prefix
+        # (24-token survey above); additive appends only, never replacements).
+        if upasarga and dhatu_id == "01.1086" and sanadi == "yanluganta" and "Satf" in result and isinstance(result["Satf"], dict):
+            for _g, _bases in (("M", ("rat", "rad")), ("F", ("ratI",)), ("N", ("rat", "rad"))):
+                _cur = result["Satf"].get(_g, [])
+                _cur = [_cur] if isinstance(_cur, str) else list(_cur)
+                for _b in _bases:
+                    try:
+                        _fu = apply_upasargas(upasarga, _b, dhatu_id)
+                    except Exception:
+                        continue
+                    for _f in ([_fu] if isinstance(_fu, str) else list(_fu)):
+                        if _f not in _cur:
+                            _cur.append(_f)
+                        for _o, _n in (("irat", "yrat"), ("irad", "yrad"), ("iratI", "yratI")):
+                            if _o in _f:
+                                _g2 = _f.replace(_o, _n)
+                                if _g2 not in _cur:
+                                    _cur.append(_g2)
+                for _f in list(_cur):
+                    for _o, _n in (("Ararrat", "ArArat"), ("Ararrad", "ArArad"), ("ArarratI", "ArAratI")):
+                        if _o in _f:
+                            _g2 = _f.replace(_o, _n)
+                            if _g2 not in _cur:
+                                _cur.append(_g2)
+                result["Satf"][_g] = _cur
         return result

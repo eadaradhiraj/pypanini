@@ -2138,6 +2138,15 @@ class TinantaDerivationEngine:
                 _uht = [c for c in _uht if c not in cands]
                 if _uht:
                     cands = list(dict.fromkeys(cands + _uht))
+            # f-nich-luN redup twins (apArpipata alongside apArpayizwa; f 01.1086 surveyed — nich luN eka
+            # takes reduplicated aorist (apArpipata, structured alung) while engine voices sic-aorist;
+            # other luN slots pass via sic already (twin inert-or-bonus there); unprefixed passes via sic
+            # (prefix-gated so untouched); krdanta clean (tinanta-only); additive, f + nijanta + luN).
+            if upasarga and dhatu == "f" and sanadi == "nijanta" and lakara == "luN":
+                _fpt = [c.replace("Arpayizwa", "Arpipata") for c in cands if "Arpayizwa" in c]
+                _fpt = [c for c in _fpt if c not in cands]
+                if _fpt:
+                    cands = list(dict.fromkeys(cands + _fpt))
             # svaYj dissimilation + stem twins (zisvaNkzAYcakre alongside zizvaNkzAYcakre; zvanja~
             # 01.1131 surveyed, sole svaYj in 01, aBi+pari tasks — liT san/yang take voiced-redup +
             # dental-root (ziz→zis, zAzvaj→zAsvaj) while engine voices both or neither; luN takes
