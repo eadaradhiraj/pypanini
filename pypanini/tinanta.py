@@ -2147,6 +2147,21 @@ class TinantaDerivationEngine:
                 _fpt = [c for c in _fpt if c not in cands]
                 if _fpt:
                     cands = list(dict.fromkeys(cands + _fpt))
+            # pA-nir low-Ani twins (nizpApAni/nizpibAni alongside nizpAARi; pA 01.1074 surveyed, sole nir —
+            # low uttama-eka voices wrong -ARi formation (nizpAARi/nizpibARi) while data takes -Ani
+            # (nizpApAni + nizpibAni, both attested); other low slots pass already; unprefixed passes via
+            # pibAni (prefix-gated so untouched); krdanta clean here (tinanta-only); additive, pA + low +
+            # nir-inner).
+            if upasarga and dhatu == "pA" and lakara == "low" and upasarga.split(";")[-1] == "nir":
+                _pat = []
+                for c in cands:
+                    for _o, _n in (("pAARi", "pApAni"), ("pibARi", "pibAni")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _pat:
+                                _pat.append(_g)
+                if _pat:
+                    cands = list(dict.fromkeys(cands + _pat))
             # svaYj dissimilation + stem twins (zisvaNkzAYcakre alongside zizvaNkzAYcakre; zvanja~
             # 01.1131 surveyed, sole svaYj in 01, aBi+pari tasks — liT san/yang take voiced-redup +
             # dental-root (ziz→zis, zAzvaj→zAsvaj) while engine voices both or neither; luN takes

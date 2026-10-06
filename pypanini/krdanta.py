@@ -1824,12 +1824,12 @@ class KrdantaEngine:
                     _lrt = [c for c in _lrt if c not in new_v]
                     if _lrt:
                         new_v += _lrt
-                # ku/pu-nir suffix-n dental twins (nizkavamAnaH alongside nizkavamARaH; kuN/pUN 1103/1121
+                # ku/pu-nir suffix-n dental twins (nizkavamAnaH alongside nizkavamARaH; kuN/pUN/pA 1103/1121/1074
                 # surveyed — nir blocks natva on n-initial suffixes (SAnac -Ana, anIyar -anIya, lyuw -ana)
                 # while engine voices (R); unprefixed already dental (kavamAnaH) and passing; BU-nich
-                # voices same context (BAvamARa) so ku/pu-gated, not general; tinanta clean (krdanta-only);
+                # voices same context (BAvamARa) so ku/pu/pA-gated, not general; tinanta clean (krdanta-only);
                 # additive, ku/pu + nir-inner).
-                if upasarga and dhatu in ("ku", "pu", "kU", "pU") and upasarga.split(";")[-1] == "nir":
+                if upasarga and dhatu in ("ku", "pu", "kU", "pU", "pA") and upasarga.split(";")[-1] == "nir":
                     _kvt = []
                     for c in list(new_v):
                         if not isinstance(c, str):
@@ -2096,7 +2096,7 @@ class KrdantaEngine:
                     if _lrt:
                         _all += _lrt
                 # ku/pu-nir suffix-n dental twins (mirrors list branch; ku/pu + nir-inner; additive).
-                if upasarga and dhatu in ("ku", "pu", "kU", "pU") and upasarga.split(";")[-1] == "nir":
+                if upasarga and dhatu in ("ku", "pu", "kU", "pU", "pA") and upasarga.split(";")[-1] == "nir":
                     _kvt = []
                     for c in list(_all):
                         if not isinstance(c, str):
