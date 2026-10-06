@@ -2030,11 +2030,13 @@ class TinantaDerivationEngine:
             # su/si/snu/siv extension (05.0001/05.0002/02.0033/02.0036/04.0002/09.0005 surveyed —
             # prefixed augmented yang takes dental stem (prAsosUyata, prAsesIyata, prAsosnUyata,
             # vyasesIvyata) while unprefixed augmented keeps z (asozUyata); additive).
+            # stu/svap extension (02.0038/02.0063 surveyed — prAtostUyata/prAsosupyata).
             if upasarga and sanadi == "yananta" and lakara in ("laN", "luN", "lfN"):
                 _yzd = []
                 for c in cands:
                     for _o, _n in (("zwu", "stu"), ("ezi", "esi"), ("eze", "ese"), ("ezm", "esm"),
-                                   ("ozU", "osU"), ("ezI", "esI"), ("ozRU", "osnU")):
+                                   ("ozU", "osU"), ("ezI", "esI"), ("ozRU", "osnU"),
+                                   ("ozwU", "ostU"), ("ozup", "osup")):
                         if _o in c:
                             _g = c.replace(_o, _n)
                             if _g not in cands and _g not in _yzd:
@@ -2119,6 +2121,108 @@ class TinantaDerivationEngine:
                 _iyt = [c for c in _iyt if c not in cands]
                 if _iyt:
                     cands = list(dict.fromkeys(cands + _iyt))
+            # ad laN athematic twins (samAdva alongside samAdAva; ada~ 02.0001 surveyed —
+            # prefixed laN uttama takes athematic -va/-ma (samAdva/vyAdva) while engine
+            # voices thematic -Ava (samAdAva); unprefixed has both (AdAva/adva) and passes;
+            # unprefixed untouched; additive, ad + laN).
+            if upasarga and dhatu == "ad" and lakara == "laN":
+                _adv = []
+                for c in cands:
+                    for _o, _n in (("AdAva", "Adva"), ("AdAma", "Adma")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _adv:
+                                _adv.append(_g)
+                if _adv:
+                    cands = list(dict.fromkeys(cands + _adv))
+            # ad-nich prati luN haplology twin (Addata alongside Adadata; same task —
+            # nich-luN p.eka takes haplologized Addata while engine voices Adadata;
+            # sibling slots keep Adada- and already pass; additive, ad + nijanta + luN).
+            if upasarga and dhatu == "ad" and sanadi == "nijanta" and lakara == "luN":
+                _adt2 = [c.replace("Adadata", "Addata") for c in cands if "Adadata" in c]
+                _adt2 = [c for c in _adt2 if c not in cands]
+                if _adt2:
+                    cands = list(dict.fromkeys(cands + _adt2))
+            # an pra-natva twins (prARiti/prARiRizati alongside prAniti/prAninizati;
+            # ana~ 02.0065 surveyed, pra/aBi;pra — pra voices stem n to R everywhere
+            # (ting lw already R via core natva; low/laN/san keep dental) while data
+            # takes R throughout; unprefixed keeps dental and passes; unprefixed
+            # untouched; additive, an + sannanta/mUla + pra-inner).
+            if upasarga and dhatu == "an" and upasarga.split(";")[-1] == "pra":
+                _ant = []
+                for c in cands:
+                    for _o, _n in ((("Aniniz", "ARiRiz"),) if sanadi == "sannanta" else
+                                   (("AnAni", "ARAni"), ("Anan", "ARan"))):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _ant:
+                                _ant.append(_g)
+                if _ant:
+                    cands = list(dict.fromkeys(cands + _ant))
+            # stu/svap san-devoicing twins (prAtustUzat/prAsusupsat alongside
+            # prAtuzwUzat/prAsuzupsat; stu~ 02.0038 + svap~ 02.0063 surveyed —
+            # prefixed augmented san takes dental stems while engine voices +
+            # retroflexes; unaugmented san passes; unprefixed keeps z; additive,
+            # stu/svap + sannanta + augmented).
+            if upasarga and sanadi == "sannanta" and lakara in ("laN", "luN", "lfN"):
+                _svt2 = []
+                for c in cands:
+                    for _o, _n in ((("tuzwU", "tustU"),) if dhatu == "stu" else
+                                   ((("suzup", "susup"),) if dhatu == "svap" else ())):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _svt2:
+                                _svt2.append(_g)
+                if _svt2:
+                    cands = list(dict.fromkeys(cands + _svt2))
+            # kzRu sam-Atmane twins (saNkzRute alongside saNkzROti; kzRu~ 02.0032
+            # surveyed, sole sam — sam forces Atmanepada with Ru-stem + -te/-vate/
+            # -ze/-vATe/-Dve/-ve/-vahe/-mahe (plus low -tAm, laN samakzRuta-family,
+            # viDiliN RuvI-family) while engine voices paras -ti/-nti and a-stem
+            # Ravate/Raveta; unprefixed is paras-meta and passes; unprefixed untouched;
+            # additive, kzRu + sam).
+            if upasarga == "sam" and dhatu == "kzRu":
+                _kzt = []
+                for c in cands:
+                    if lakara == "lw":
+                        _pairs = (("kzROti", "kzRute"), ("kzRuvanti", "kzRuvate"),
+                                  ("kzROzi", "kzRuze"), ("kzRuTaH", "kzRuvATe"),
+                                  ("kzRuTa", "kzRuDve"), ("kzROmi", "kzRuve"),
+                                  ("kzRuvaH", "kzRuvahe"), ("kzRumaH", "kzRumahe"))
+                    elif lakara == "low":
+                        _pairs = (("kzRavatAm", "kzRutAm"), ("kzRavantAm", "kzRuvatAm"))
+                    elif lakara == "laN":
+                        _pairs = (("kzRavata", "kzRuta"), ("kzRavanta", "kzRuvata"),
+                                  ("kzRavaTAH", "kzRuTAH"),
+                                  ("kzRavetAm", "kzRuvATAm"), ("kzRaveTAm", "kzRuvATAm"),
+                                  ("kzRave", "kzRuvi"), ("kzRavAvahi", "kzRuvahi"),
+                                  ("kzRavAmahi", "kzRumahi"))
+                    elif lakara == "viDiliN":
+                        _pairs = (("kzRave", "kzRuvI"),)
+                    else:
+                        _pairs = ()
+                    for _o, _n in _pairs:
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _kzt:
+                                _kzt.append(_g)
+                if _kzt:
+                    cands = list(dict.fromkeys(cands + _kzt))
+            # UrRu apa vriddhi twins (AporRAvyate alongside aporRAvyate; UrRu~ 02.0034
+            # surveyed, sole apa — apa takes vriddhi-A (Apor in lw, ApOr in augmented)
+            # while engine voices short-a fusion; sibling prefixes keep short and pass;
+            # unprefixed untouched; additive, UrRu + nijanta-karmani + apa).
+            if upasarga == "apa" and dhatu == "UrRu" and sanadi == "nijanta" and prayoga == "karmani":
+                _urt = []
+                for c in cands:
+                    _pairs = (("aporR", "ApOrR"),) if lakara in ("laN", "luN", "lfN") else (("aporR", "AporR"),)
+                    for _o, _n in _pairs:
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _urt:
+                                _urt.append(_g)
+                if _urt:
+                    cands = list(dict.fromkeys(cands + _urt))
             # iR hyphen-chain augment twins (samABi-ANet alongside samaBi-ANAyat;
             # 02.0040:sam;aBi-AN surveyed, sole hyphen task needing it (03.0010 dA
             # passes already) — augment sits after the outer prefix (sam + A + aBi-AN)

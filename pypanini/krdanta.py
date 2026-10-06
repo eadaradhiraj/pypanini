@@ -1782,6 +1782,97 @@ class KrdantaEngine:
                                     _iNt.append(_g)
                     if _iNt:
                         new_v += _iNt
+                # han prefixed twins (AGnAnaH/praGnat/prahaRanIyaH alongside
+                # AhanamAnaH/praGRatI/prahananIyaH; hana~ 02.0002 surveyed —
+                # A-final inners (AN-stacks) take Gna- suppletion in SAnac while
+                # engine keeps hanamAna; Satf takes dental Gnat while engine voices
+                # GRat; anIyar/lyuw (mUla + yangluk) take haRana while engine keeps
+                # hanana; unprefixed keeps hanamAna/GRat?/hanana and passes;
+                # unprefixed untouched; additive, han + upasarga).
+                if upasarga and dhatu == "han":
+                    _iHn = upasarga.split(";")[-1]
+                    if _iHn == "AN":
+                        _iHn = "A"
+                    _han = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        _pairs = []
+                        if _iHn.endswith(("a", "A")) and pratyaya == "SAnac":
+                            _pairs.append(("hanamAn", "GnAn"))
+                        if pratyaya == "Satf":
+                            _pairs.append(("GRat", "Gnat"))
+                        if pratyaya in ("anIyar", "lyuw"):
+                            _pairs.append(("hanan", "haRan"))
+                        for _o, _n in _pairs:
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _han:
+                                    _han.append(_g)
+                    if _han:
+                        new_v += _han
+                # snap prefixed twins (AsnApaya- alongside Asnapaya-; snap~ 02.0047
+                # surveyed — nich_krut takes snAp-grades throughout while engine voices
+                # snap- grades; unprefixed keeps snap and passes; unprefixed untouched;
+                # additive, snA + nijanta).
+                if upasarga and dhatu == "snA" and sanadi == "nijanta":
+                    _snp = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        if pratyaya in ("SAnac", "cAnaS", "sya-SAnac", "sya-BAvakarma-SAnac", "BAvakarma-SAnac"):
+                            _pairs = (("snapy", "snApay"), ("snapay", "snApay"))
+                        elif pratyaya in ("kta", "ktavatu", "tavya", "tfc", "tumun", "ktin", "kvasu"):
+                            _pairs = (("snapi", "snApi"), ("snapay", "snApay"), ("snapti", "snApti"))
+                        elif pratyaya in ("yat", "lyap"):
+                            _pairs = (("snapy", "snApy"),)
+                        elif pratyaya in ("Satf", "sya-Satf"):
+                            _pairs = (("snapay", "snApay"),)
+                        elif pratyaya in ("Rvul", "vun", "ac"):
+                            _pairs = (("snapak", "snApak"), ("snapik", "snApik"))
+                        elif pratyaya in ("anIyar", "lyuw", "GaY", "Ramul"):
+                            _pairs = (("snapan", "snApan"), ("snapam", "snApam"))
+                        else:
+                            _pairs = ()
+                        for _o, _n in _pairs:
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _snp:
+                                    _snp.append(_g)
+                    if _snp:
+                        new_v += _snp
+                # vid SAnac i-grade twin (saMvidAnaH alongside saMvedamAnaH; vida~ 02.0059
+                # surveyed, sam/prati;sam — SAnac takes vidA- while engine voices vedamA-;
+                # unprefixed keeps vedamA and passes; additive, vid + SAnac + upasarga).
+                if upasarga and dhatu == "vid" and pratyaya == "SAnac":
+                    _vid = [c.replace("vedamAn", "vidAn") for c in list(new_v)
+                            if isinstance(c, str) and "vedamAn" in c]
+                    _vid = [c for c in _vid if c not in new_v]
+                    if _vid:
+                        new_v += _vid
+                # an pra-natva twins (mirrors tinanta; prARan/prARanIya alongside
+                # prAnan/prAnanIya; same survey; mUla + san_krut; additive).
+                if upasarga and dhatu == "an" and upasarga.split(";")[-1] == "pra":
+                    _an2 = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        _pairs = (("Aniniz", "ARiRiz"),) if sanadi == "sannanta" else (("Anan", "ARan"),)
+                        for _o, _n in _pairs:
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _an2:
+                                    _an2.append(_g)
+                    if _an2:
+                        new_v += _an2
+                # kzRu sam-SAnac twin (saNkzRuvAnaH alongside saNkzRavamARaH; same survey
+                # as tinanta; additive, kzRu + sam + SAnac).
+                if upasarga == "sam" and dhatu == "kzRu" and pratyaya == "SAnac":
+                    _kzs = [c.replace("kzRavamAR", "kzRuvAn") for c in list(new_v)
+                            if isinstance(c, str) and "kzRavamAR" in c]
+                    _kzs = [c for c in _kzs if c not in new_v]
+                    if _kzs:
+                        new_v += _kzs
                 # sam + reduplicated nasal twins (Panini 8.3.23 mo'nusvAraH / 8.4.58-59 vA padAntasya)
                 if upasarga:
                     _sam_nas = []
@@ -2279,6 +2370,81 @@ class KrdantaEngine:
                                     _iNt2.append(_g)
                     if _iNt2:
                         _all += _iNt2
+                # han/snA/vid/an/kzRu prefixed twins (mirrors list-chain twins above;
+                # covers avyaya tumun/lyap + form items; additive).
+                if upasarga and dhatu == "han":
+                    _iHn = upasarga.split(";")[-1]
+                    if _iHn == "AN":
+                        _iHn = "A"
+                    _han2 = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        _pairs = []
+                        if _iHn.endswith(("a", "A")) and pratyaya == "SAnac":
+                            _pairs.append(("hanamAn", "GnAn"))
+                        if pratyaya == "Satf":
+                            _pairs.append(("GRat", "Gnat"))
+                        if pratyaya in ("anIyar", "lyuw"):
+                            _pairs.append(("hanan", "haRan"))
+                        for _o, _n in _pairs:
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _han2:
+                                    _han2.append(_g)
+                    if _han2:
+                        _all += _han2
+                if upasarga and dhatu == "snA" and sanadi == "nijanta":
+                    _snp2 = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        if pratyaya in ("SAnac", "cAnaS", "sya-SAnac", "sya-BAvakarma-SAnac", "BAvakarma-SAnac"):
+                            _pairs = (("snapy", "snApay"), ("snapay", "snApay"))
+                        elif pratyaya in ("kta", "ktavatu", "tavya", "tfc", "tumun", "ktin", "kvasu"):
+                            _pairs = (("snapi", "snApi"), ("snapay", "snApay"), ("snapti", "snApti"))
+                        elif pratyaya in ("yat", "lyap"):
+                            _pairs = (("snapy", "snApy"),)
+                        elif pratyaya in ("Satf", "sya-Satf"):
+                            _pairs = (("snapay", "snApay"),)
+                        elif pratyaya in ("Rvul", "vun", "ac"):
+                            _pairs = (("snapak", "snApak"), ("snapik", "snApik"))
+                        elif pratyaya in ("anIyar", "lyuw", "GaY", "Ramul"):
+                            _pairs = (("snapan", "snApan"), ("snapam", "snApam"))
+                        else:
+                            _pairs = ()
+                        for _o, _n in _pairs:
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _snp2:
+                                    _snp2.append(_g)
+                    if _snp2:
+                        _all += _snp2
+                if upasarga and dhatu == "vid" and pratyaya == "SAnac":
+                    _vid2 = [c.replace("vedamAn", "vidAn") for c in list(_all)
+                             if isinstance(c, str) and "vedamAn" in c]
+                    _vid2 = [c for c in _vid2 if c not in _all]
+                    if _vid2:
+                        _all += _vid2
+                if upasarga and dhatu == "an" and upasarga.split(";")[-1] == "pra":
+                    _an22 = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        _pairs = (("Aniniz", "ARiRiz"),) if sanadi == "sannanta" else (("Anan", "ARan"),)
+                        for _o, _n in _pairs:
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _an22:
+                                    _an22.append(_g)
+                    if _an22:
+                        _all += _an22
+                if upasarga == "sam" and dhatu == "kzRu" and pratyaya == "SAnac":
+                    _kzs2 = [c.replace("kzRavamAR", "kzRuvAn") for c in list(_all)
+                             if isinstance(c, str) and "kzRavamAR" in c]
+                    _kzs2 = [c for c in _kzs2 if c not in _all]
+                    if _kzs2:
+                        _all += _kzs2
                 # sam + reduplicated nasal twins (Panini 8.3.23 mo'nusvAraH / 8.4.58-59 vA padAntasya)
                 if upasarga:
                     _sam_nas = []
