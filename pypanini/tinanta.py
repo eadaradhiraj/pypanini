@@ -2123,6 +2123,37 @@ class TinantaDerivationEngine:
                 _uht = [c for c in _uht if c not in cands]
                 if _uht:
                     cands = list(dict.fromkeys(cands + _uht))
+            # svaYj dissimilation + stem twins (zisvaNkzAYcakre alongside zizvaNkzAYcakre; zvanja~
+            # 01.1131 surveyed, sole svaYj in 01, aBi+pari tasks — liT san/yang take voiced-redup +
+            # dental-root (ziz→zis, zAzvaj→zAsvaj) while engine voices both or neither; luN takes
+            # sAsvaYj-redup (aByasAsvaYjizwa); lfN takes sisvaNkz-redup + zvaNkz-voice (aByasisvaNkzyata
+            # + aByazvaNkzyata) while engine voices plain svaNkz; unprefixed keeps dental-dental and
+            # passes (prefix-gated so untouched); krdanta clean (ting-only); additive, svaYj +
+            # lakara-split).
+            if upasarga and dhatu == "svaYj":
+                _sjt = []
+                if lakara == "liw":
+                    for c in cands:
+                        for _o, _n in (("zizvaNkz", "zisvaNkz"), ("zAzvaj", "zAsvaj")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in cands and _g not in _sjt:
+                                    _sjt.append(_g)
+                if lakara == "luN":
+                    for c in cands:
+                        if "zvaYj" in c:
+                            _g = c.replace("zvaYj", "sAsvaYj")
+                            if _g not in cands and _g not in _sjt:
+                                _sjt.append(_g)
+                if lakara == "lfN":
+                    for c in cands:
+                        for _o, _n in (("svaNkz", "sisvaNkz"), ("svaNkz", "zvaNkz")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in cands and _g not in _sjt:
+                                    _sjt.append(_g)
+                if _sjt:
+                    cands = list(dict.fromkeys(cands + _sjt))
             # arc-liT ayAY-periphrastic twins (prAYcayAYcakrAte alongside prAYcAYcakrAte; aYc/arc/arj
             # 0215/0232/0256 surveyed — prefixed periphrastic liT takes causative-ay Am (ayAYcakre) while
             # engine voices plain Am; apa-block also carries ayAY (passes already, twin inert-or-bonus);
