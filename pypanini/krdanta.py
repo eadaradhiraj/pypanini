@@ -1903,6 +1903,22 @@ class KrdantaEngine:
                     _rmt = [c for c in _rmt if c not in new_v]
                     if _rmt:
                         new_v += _rmt
+                # krIq-yangluk-Satf redup+nasal twins (AcekrIqan/saMcekrIqan/saYcekrIqan alongside AkrIqan;
+                # krIqf~ 01.0405 surveyed, sole krIq in 01, AN/pari/pari;sam/sam — prefixed yangluk-Satf takes
+                # redup cekrIq (vs plain unprefixed krIqan) with sam M/Y-free-variants (saM/saY, no N);
+                # chained redup-then-nasal collapses harmlessly for AN/pari (no N); unprefixed plain passes
+                # already (prefix-gated so untouched); additive, krIq + yangluk + Satf).
+                if upasarga and dhatu == "krIq" and sanadi == "yanluganta" and pratyaya == "Satf":
+                    _krt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str) or "krIq" not in c:
+                            continue
+                        _g1 = c.replace("krIq", "cekrIq")
+                        for _g in (_g1, _g1.replace("NcekrIq", "McekrIq"), _g1.replace("NcekrIq", "YcekrIq")):
+                            if _g not in new_v and _g not in _krt:
+                                _krt.append(_g)
+                    if _krt:
+                        new_v += _krt
                 # glE-nich A-grade twins (glApay alongside glapay; glE 01.1051 surveyed, ava/pari/pra/vi
                 # 4 tasks — prefixed nich_krut uniformly wants A-grade (avaglApayan/avaglApayitavyaH/
                 # avaglApanIyaH/avaglApayamAnaH) while engine voices a-grade; unprefixed carries both
@@ -2180,6 +2196,18 @@ class KrdantaEngine:
                     _rmt = [c for c in _rmt if c not in _all]
                     if _rmt:
                         _all += _rmt
+                # krIq-yangluk-Satf redup+nasal twins (mirrors list branch; krIq + yangluk + Satf; additive).
+                if upasarga and dhatu == "krIq" and sanadi == "yanluganta" and pratyaya == "Satf":
+                    _krt = []
+                    for c in list(_all):
+                        if not isinstance(c, str) or "krIq" not in c:
+                            continue
+                        _g1 = c.replace("krIq", "cekrIq")
+                        for _g in (_g1, _g1.replace("NcekrIq", "McekrIq"), _g1.replace("NcekrIq", "YcekrIq")):
+                            if _g not in _all and _g not in _krt:
+                                _krt.append(_g)
+                    if _krt:
+                        _all += _krt
                 # cam-Satf A/M-grade twins (mirrors list branch; cam + Satf + AN-inner; additive).
                 if upasarga and dhatu == "cam" and pratyaya == "Satf" and upasarga.split(";")[-1] == "AN":
                     _cmt = []
