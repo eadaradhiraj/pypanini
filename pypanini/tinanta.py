@@ -2155,6 +2155,15 @@ class TinantaDerivationEngine:
                 _uht = [c for c in _uht if c not in cands]
                 if _uht:
                     cands = list(dict.fromkeys(cands + _uht))
+            # mAn-family dental twins (pramAnayate alongside pramARati; mAna~ 10.0381 surveyed, sole pra —
+            # root-internal n (mAn, like van) blocks natva after r-prefixes (1322 mAn vs 9 suffix-mARa tokens)
+            # while engine voices; prati saved by t-blocker (no twin needed), apa/ava lack r (unaffected);
+            # unprefixed passes already (prefix-gated so untouched); additive, mAn-shape, tinanta-wide).
+            if upasarga and "mAn" in dhatu:
+                _mnt = [c.replace("mAR", "mAn") for c in cands if "mAR" in c]
+                _mnt = [c for c in _mnt if c not in cands]
+                if _mnt:
+                    cands = list(dict.fromkeys(cands + _mnt))
             # f-nich-luN redup twins (apArpipata alongside apArpayizwa; f 01.1086 surveyed — nich luN eka
             # takes reduplicated aorist (apArpipata, structured alung) while engine voices sic-aorist;
             # other luN slots pass via sic already (twin inert-or-bonus there); unprefixed passes via sic

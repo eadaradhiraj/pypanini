@@ -1841,6 +1841,23 @@ class KrdantaEngine:
                                     _kvt.append(_g)
                     if _kvt:
                         new_v += _kvt
+                # mAn-family dental twins (mirrors tinanta; mAn-shape; additive; SAnac suffix-mARa
+                # preserved — pre-suffix occurrences dentalize (pramimARayizamARaH keeps amARaH), other
+                # pratyayas dentalize fully (pramARitaH has no suffix-mARa).
+                if upasarga and "mAn" in dhatu:
+                    _mnt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str) or "mAR" not in c:
+                            continue
+                        if "SAnac" in pratyaya and c.endswith(("mARaH", "mARA", "mARam")):
+                            _i = c.rfind("mAR")
+                            _g = c[:_i].replace("mAR", "mAn") + c[_i:]
+                        else:
+                            _g = c.replace("mAR", "mAn")
+                        if _g not in new_v and _g not in _mnt:
+                            _mnt.append(_g)
+                    if _mnt:
+                        new_v += _mnt
                 # Sru-SAnac vocalic twins (SfRvAna alongside SravamARa; Sru 01.1092 surveyed, sam/sam;prati —
                 # sam-chain SAnac builds on vocalic fR-stem; additive, Sru + SAnac + sam-chain).
                 if upasarga and dhatu in ("sru", "Sru") and pratyaya == "SAnac" and "sam" in upasarga.split(";"):
@@ -2219,6 +2236,23 @@ class KrdantaEngine:
                                     _kvt.append(_g)
                     if _kvt:
                         _all += _kvt
+                # mAn-family dental twins (mirrors tinanta; mAn-shape; additive; SAnac suffix-mARa
+                # preserved — pre-suffix occurrences dentalize (pramimARayizamARaH keeps amARaH), other
+                # pratyayas dentalize fully (pramARitaH has no suffix-mARa).
+                if upasarga and "mAn" in dhatu:
+                    _mnt = []
+                    for c in list(_all):
+                        if not isinstance(c, str) or "mAR" not in c:
+                            continue
+                        if "SAnac" in pratyaya and c.endswith(("mARaH", "mARA", "mARam")):
+                            _i = c.rfind("mAR")
+                            _g = c[:_i].replace("mAR", "mAn") + c[_i:]
+                        else:
+                            _g = c.replace("mAR", "mAn")
+                        if _g not in _all and _g not in _mnt:
+                            _mnt.append(_g)
+                    if _mnt:
+                        _all += _mnt
                 # Sru-SAnac vocalic twins (SfRvAna alongside SravamARa; Sru 01.1092 surveyed, sam/sam;prati —
                 # sam-chain SAnac builds on vocalic fR-stem (saMSfRvAnaH) while engine voices SravamARa;
                 # other prefixes pass via SrUyamAna-variants already (additive twin inert-or-bonus there);
