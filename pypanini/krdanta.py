@@ -1887,6 +1887,33 @@ class KrdantaEngine:
                                     _glt.append(_g)
                     if _glt:
                         new_v += _glt
+                # Pal-kta Palta twins (utPaltaH alongside utPullaH; PalA 01.0594 surveyed, ud/vi —
+                # prefixed kta/ktavatu take Palta-stem (utPaltaH) while engine voices geminate Pulla;
+                # unprefixed keeps PullaH (attested) and passing; other pratyayas keep Pulla (tavya
+                # utPullavya? passes) so kta/ktavatu-gated; additive, Pal + kta-family).
+                if upasarga and dhatu == "Pal" and pratyaya in ("kta", "ktavatu"):
+                    _plt = [c.replace("Pulla", "Palta").replace("PullA", "PaltA") for c in list(new_v)
+                            if isinstance(c, str) and ("Pulla" in c or "PullA" in c)]
+                    _plt = [c for c in _plt if c not in new_v]
+                    if _plt:
+                        new_v += _plt
+                # had-kta dental twins (nirhannaH alongside nirhaRRaH; hada~ 01.1132 surveyed, sole nir —
+                # nir voices kta nn to RR (natva over-fire; nopadesa-An guard misses hanna) while data
+                # keeps dental (nirhannaH/nirhannavAn, incl. yangluk hatta-variant nirhattaH); unprefixed
+                # already dental (hannaH) and passing; "atta"→"anna" tightly had-gated (atta ubiquitous
+                # elsewhere); additive, had + kta-family).
+                if upasarga and dhatu == "had" and pratyaya in ("kta", "ktavatu"):
+                    _hnt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("aRRa", "anna"), ("atta", "anna"), ("aRRA", "annA")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _hnt:
+                                    _hnt.append(_g)
+                    if _hnt:
+                        new_v += _hnt
                 out[k] = list(dict.fromkeys(new_v))
             else:
                 c = v
@@ -2116,6 +2143,26 @@ class KrdantaEngine:
                                     _glt.append(_g)
                     if _glt:
                         _all += _glt
+                # Pal-kta Palta twins (mirrors list branch; Pal + kta-family; additive).
+                if upasarga and dhatu == "Pal" and pratyaya in ("kta", "ktavatu"):
+                    _plt = [c.replace("Pulla", "Palta").replace("PullA", "PaltA") for c in list(_all)
+                            if isinstance(c, str) and ("Pulla" in c or "PullA" in c)]
+                    _plt = [c for c in _plt if c not in _all]
+                    if _plt:
+                        _all += _plt
+                # had-kta dental twins (mirrors list branch; had + kta-family; additive).
+                if upasarga and dhatu == "had" and pratyaya in ("kta", "ktavatu"):
+                    _hnt = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("aRRa", "anna"), ("atta", "anna"), ("aRRA", "annA")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _hnt:
+                                    _hnt.append(_g)
+                    if _hnt:
+                        _all += _hnt
                 out[k] = _all[0] if len(_all) == 1 else list(dict.fromkeys(_all))
         return out
 
