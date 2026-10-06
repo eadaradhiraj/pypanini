@@ -1480,7 +1480,7 @@ class KrdantaEngine:
             stem = stem[:-4] + "tsya"
         return stem
 
-    def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str) -> Optional[str]:
+    def _yanlug_m_base(self, clean: str, op: str, meta: Dict, is_idit: bool, pada: str, _force_pada: Optional[str] = None) -> Optional[str]:
         # Yangluk redup + nasal base for krdanta (mirrors tinanta _yanlug_stem, then 8.4.58/8.3.23).
         # Restricted to nasal shape (np/nP/nB/ns) — 14-root survey, zero conflicts elsewhere (pilots unaffected).
         # Returns assimilated redup base (e.g. SranB->SASramB, tunp->totump, Sans->SASaMs, srans->sanIsraMs),
@@ -1937,12 +1937,12 @@ class KrdantaEngine:
                                     _dct.append(_g)
                     if _dct:
                         new_v += _dct
-                # hras/ras-nich ay-retention twins (hrAsayamAna alongside hrAsyamAna; hrasa~/rasa~ 0808/0810
+                # hras/ras/srans-nich ay-retention twins (hrAsayamAna alongside hrAsyamAna; hrasa~/rasa~/sransu~ 0808/0810/0857
                 # surveyed, nir/prati — nich-SAnac keeps causative -ay- (hrAsayamAna/rAsayamAna, dental)
                 # while engine voices y-drop (hrAsyamAna) + natva-R (hrAsayamARa); same ay-retention theme
                 # as R-nich twin, different gate; unprefixed untouched (prefix-gated); additive, hras/ras +
                 # nijanta + SAnac).
-                if upasarga and dhatu in ("hras", "ras") and sanadi == "nijanta" and pratyaya == "SAnac":
+                if upasarga and dhatu in ("hras", "ras", "srans") and sanadi == "nijanta" and pratyaya == "SAnac":
                     _hrt = []
                     for c in list(new_v):
                         if not isinstance(c, str):
@@ -2315,8 +2315,8 @@ class KrdantaEngine:
                                     _dct.append(_g)
                     if _dct:
                         _all += _dct
-                # hras/ras-nich ay-retention twins (mirrors list branch; hras/ras + nijanta + SAnac; additive).
-                if upasarga and dhatu in ("hras", "ras") and sanadi == "nijanta" and pratyaya == "SAnac":
+                # hras/ras/srans-nich ay-retention twins (mirrors list branch; + srans; additive).
+                if upasarga and dhatu in ("hras", "ras", "srans") and sanadi == "nijanta" and pratyaya == "SAnac":
                     _hrt = []
                     for c in list(_all):
                         if not isinstance(c, str):
@@ -5410,12 +5410,12 @@ class KrdantaEngine:
                     return {"M": _c10M + _c10L(_c10mold.get("M", [])),
                             "F": _c10F + _c10L(_c10mold.get("F", [])),
                             "N": _c10N + _c10L(_c10mold.get("N", []))}
-            _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
+            _ylm = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada, _force_pada)
             # orig_clean may be reassigned to sec above; use sec-source clean for nasal check (sec==clean for yanluganta)
             if _ylm is None:
                 # fallback: try with current clean (sec) if orig differs
                 try:
-                    _ylm = self._yanlug_m_base(clean, op, meta, is_idit, pada)
+                    _ylm = self._yanlug_m_base(clean, op, meta, is_idit, pada, _force_pada)
                 except Exception:
                     _ylm = None
             if _ylm is not None:
@@ -5623,10 +5623,10 @@ class KrdantaEngine:
                 # M-tokens, mirroring the tanAdi ylk-Satf twin philosophy).
                 return {"M": [_s5yl + "at", _s5yl + "ad"], "F": [_s5yl + "atI", _s5yl + "at", _s5yl + "ad"], "N": [_s5yl + "at"]}
             try:
-                _ylm2 = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada)
+                _ylm2 = self._yanlug_m_base(orig_clean if 'orig_clean' in dir() else clean, op, meta, is_idit, pada, _force_pada)
                 if _ylm2 is None:
                     try:
-                        _ylm2 = self._yanlug_m_base(clean, op, meta, is_idit, pada)
+                        _ylm2 = self._yanlug_m_base(clean, op, meta, is_idit, pada, _force_pada)
                     except Exception:
                         _ylm2 = None
                 if _ylm2 is not None:
