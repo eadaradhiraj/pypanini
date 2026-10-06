@@ -1841,6 +1841,14 @@ class KrdantaEngine:
                                     _kvt.append(_g)
                     if _kvt:
                         new_v += _kvt
+                # Sru-SAnac vocalic twins (SfRvAna alongside SravamARa; Sru 01.1092 surveyed, sam/sam;prati —
+                # sam-chain SAnac builds on vocalic fR-stem; additive, Sru + SAnac + sam-chain).
+                if upasarga and dhatu in ("sru", "Sru") and pratyaya == "SAnac" and "sam" in upasarga.split(";"):
+                    _srv = [c.replace("SravamAR", "SfRvAn") for c in list(new_v)
+                            if isinstance(c, str) and "SravamAR" in c]
+                    _srv = [c for c in _srv if c not in new_v]
+                    if _srv:
+                        new_v += _srv
                 # f-kta retroflex twins (apArRaH alongside apArtaH; f 01.1086 surveyed, apa/ava/pra/upa —
                 # vowel-final prefixes voice kta/ktavatu dental to retroflex (apArRaH/apArRavAn) while engine
                 # keeps dental; sam (m-final) keeps fta (samftaH) and already passes; unprefixed keeps ftaH;
@@ -2108,6 +2116,16 @@ class KrdantaEngine:
                                     _kvt.append(_g)
                     if _kvt:
                         _all += _kvt
+                # Sru-SAnac vocalic twins (SfRvAna alongside SravamARa; Sru 01.1092 surveyed, sam/sam;prati —
+                # sam-chain SAnac builds on vocalic fR-stem (saMSfRvAnaH) while engine voices SravamARa;
+                # other prefixes pass via SrUyamAna-variants already (additive twin inert-or-bonus there);
+                # unprefixed untouched (prefix-gated); additive, Sru + SAnac + sam-chain).
+                if upasarga and dhatu in ("sru", "Sru") and pratyaya == "SAnac" and "sam" in upasarga.split(";"):
+                    _srv = [c.replace("SravamAR", "SfRvAn") for c in list(_all)
+                            if isinstance(c, str) and "SravamAR" in c]
+                    _srv = [c for c in _srv if c not in _all]
+                    if _srv:
+                        _all += _srv
                 # f-kta retroflex twins (mirrors list branch; f + kta-family; additive).
                 if upasarga and dhatu == "f" and pratyaya in ("kta", "ktavatu"):
                     _frt = [c.replace("Art", "ArR") for c in list(_all)

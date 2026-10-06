@@ -2147,6 +2147,21 @@ class TinantaDerivationEngine:
                 _fpt = [c for c in _fpt if c not in cands]
                 if _fpt:
                     cands = list(dict.fromkeys(cands + _fpt))
+            # sru-liT aniT twins (saMSuSruze alongside saMSuSruize; Sru 01.1092 surveyed, sam/sam;prati —
+            # sam-in-chain takes aniT liT-Atmane (SuSruze/SuSruQve/SuSruvahe) while engine voices seT iT
+            # (SuSruize/SuSruiDve/SuSruivahe); all other prefixes take seT and already pass; unprefixed
+            # passes (prefix-gated so untouched); krdanta clean (tinanta-only); additive, sru + liw +
+            # sam-in-chain).
+            if upasarga and dhatu in ("sru", "Sru") and lakara == "liw" and "sam" in upasarga.split(";"):
+                _srt = []
+                for c in cands:
+                    for _o, _n in (("uize", "uze"), ("uiDve", "uQve"), ("uivahe", "uvahe"), ("uimahe", "umahe")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _srt:
+                                _srt.append(_g)
+                if _srt:
+                    cands = list(dict.fromkeys(cands + _srt))
             # pA-nir low-Ani twins (nizpApAni/nizpibAni alongside nizpAARi; pA 01.1074 surveyed, sole nir —
             # low uttama-eka voices wrong -ARi formation (nizpAARi/nizpibARi) while data takes -Ani
             # (nizpApAni + nizpibAni, both attested); other low slots pass already; unprefixed passes via
