@@ -1910,6 +1910,23 @@ class KrdantaEngine:
                                     _ydt.append(_g)
                     if _ydt:
                         new_v += _ydt
+                # hras/ras-nich ay-retention twins (hrAsayamAna alongside hrAsyamAna; hrasa~/rasa~ 0808/0810
+                # surveyed, nir/prati — nich-SAnac keeps causative -ay- (hrAsayamAna/rAsayamAna, dental)
+                # while engine voices y-drop (hrAsyamAna) + natva-R (hrAsayamARa); same ay-retention theme
+                # as R-nich twin, different gate; unprefixed untouched (prefix-gated); additive, hras/ras +
+                # nijanta + SAnac).
+                if upasarga and dhatu in ("hras", "ras") and sanadi == "nijanta" and pratyaya == "SAnac":
+                    _hrt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("syamAn", "sayamAn"), ("syamAR", "sayamAn"), ("yamAR", "yamAn")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _hrt:
+                                    _hrt.append(_g)
+                    if _hrt:
+                        new_v += _hrt
                 # ram-yangluk-Satf M twins (uparaMraman alongside uparaman; ramu~ 01.0989 surveyed, sole upa —
                 # yangluk Satf takes M-nasal redup stem (uparaMraman/uparaMramantI/...) while engine voices
                 # plain raman; A;upa;vi passes via raman already (twin inert-or-bonus there); unprefixed
@@ -2251,6 +2268,19 @@ class KrdantaEngine:
                                     _ydt.append(_g)
                     if _ydt:
                         _all += _ydt
+                # hras/ras-nich ay-retention twins (mirrors list branch; hras/ras + nijanta + SAnac; additive).
+                if upasarga and dhatu in ("hras", "ras") and sanadi == "nijanta" and pratyaya == "SAnac":
+                    _hrt = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("syamAn", "sayamAn"), ("syamAR", "sayamAn"), ("yamAR", "yamAn")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _hrt:
+                                    _hrt.append(_g)
+                    if _hrt:
+                        _all += _hrt
                 # glE-nich A-grade twins (mirrors list branch; nijanta + glE; additive).
                 if upasarga and sanadi == "nijanta" and dhatu == "glE":
                     _glt = []
