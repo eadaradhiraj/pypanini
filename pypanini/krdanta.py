@@ -1877,6 +1877,16 @@ class KrdantaEngine:
                     _fyl = [c for c in _fyl if c not in new_v]
                     if _fyl:
                         new_v += _fyl
+                # ram-yangluk-Satf M twins (uparaMraman alongside uparaman; ramu~ 01.0989 surveyed, sole upa —
+                # yangluk Satf takes M-nasal redup stem (uparaMraman/uparaMramantI/...) while engine voices
+                # plain raman; A;upa;vi passes via raman already (twin inert-or-bonus there); unprefixed
+                # untouched (prefix-gated); additive, ram + yangluk + Satf).
+                if upasarga and dhatu == "ram" and sanadi == "yanluganta" and pratyaya == "Satf":
+                    _rmt = [c.replace("araman", "araMraman").replace("aramat", "araMramat") for c in list(new_v)
+                            if isinstance(c, str) and ("araman" in c or "aramat" in c)]
+                    _rmt = [c for c in _rmt if c not in new_v]
+                    if _rmt:
+                        new_v += _rmt
                 # glE-nich A-grade twins (glApay alongside glapay; glE 01.1051 surveyed, ava/pari/pra/vi
                 # 4 tasks — prefixed nich_krut uniformly wants A-grade (avaglApayan/avaglApayitavyaH/
                 # avaglApanIyaH/avaglApayamAnaH) while engine voices a-grade; unprefixed carries both
@@ -2147,6 +2157,13 @@ class KrdantaEngine:
                     _fyl = [c for c in _fyl if c not in _all]
                     if _fyl:
                         _all += _fyl
+                # ram-yangluk-Satf M twins (mirrors list branch; ram + yangluk + Satf; additive).
+                if upasarga and dhatu == "ram" and sanadi == "yanluganta" and pratyaya == "Satf":
+                    _rmt = [c.replace("araman", "araMraman").replace("aramat", "araMramat") for c in list(_all)
+                            if isinstance(c, str) and ("araman" in c or "aramat" in c)]
+                    _rmt = [c for c in _rmt if c not in _all]
+                    if _rmt:
+                        _all += _rmt
                 # glE-nich A-grade twins (mirrors list branch; nijanta + glE; additive).
                 if upasarga and sanadi == "nijanta" and dhatu == "glE":
                     _glt = []

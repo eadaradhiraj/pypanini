@@ -2095,6 +2095,23 @@ class TinantaDerivationEngine:
                 _aot = [c for c in _aot if c not in cands]
                 if _aot:
                     cands = list(dict.fromkeys(cands + _aot))
+            # ramu-upa luN Atmane twins (upAraMsta alongside upAramt; ramu~ 01.0989 surveyed, sole upa —
+            # upa-luN takes Atmane sic-endings (upAraMsta/upAraMsAtAm/upAraMsata/upAraMsTAH/upAraMsATAm/
+            # upAranDvam/upAraMsi/upAraMsvahi/upAraMsmahi, structured alung) while engine voices
+            # parasmaipada sic/root endings; sibling prefixes keep P-endings and already pass (vi has both);
+            # unprefixed untouched (prefix-gated); additive, ram + luN + upa-inner, 9 slot-pairs).
+            if upasarga and dhatu == "ram" and lakara == "luN" and upasarga.split(";")[-1] == "upa":
+                _rlt = []
+                for c in cands:
+                    for _o, _n in (("ramt", "raMsta"), ("MstAm", "MsAtAm"), ("Msan", "Msata"),
+                                   ("MsaH", "MsTAH"), ("Mswam", "MsATAm"), ("Msata", "nDvam"),
+                                   ("amam", "aMsi"), ("Msva", "Msvahi"), ("MsAma", "Msmahi")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _rlt:
+                                _rlt.append(_g)
+                if _rlt:
+                    cands = list(dict.fromkeys(cands + _rlt))
             # A;upa;vi luN O-fusion + M twins (OpaviraMramizWAH alongside opavyaramizWAH; same task —
             # luN takes LONG-O fusion (Opavi: OpaviraMramizWAH/OpaviriraMsIt) with yak-M (raMram); laN/lfN
             # keep short opavi (M handled per-lakara below); chained de-augment + O + M; additive).
