@@ -11393,40 +11393,8 @@ class KrdantaEngine:
                             if _g2 not in _cur:
                                 _cur.append(_g2)
                 result["Satf"][_g] = _cur
-        # Prefixed sya-participle present-stem twins (data convention: prefixed
-        # sya-Satf/sya-SAnac/sya-BAvakarma-SAnac AND plain BAvakarma-SAnac blocks
-        # list PRESENT-stem forms
-        # (06.0001 AN sya-Satf Ajuhvan-family = prefixed Satf; 03.0001 AN san/nich
-        # identical; 01 BU aDiBavan likewise) while the engine voices sya-future
-        # stems there. Copy the same-call Satf forms into sya-Satf and SAnac
-        # forms into sya-SAnac/sya-BAvakarma-SAnac (plus BAvakarma-SAnac forms
-        # into the latter); slash-joined singles split to lists (hu AhozyatI/
-        # AhozyantI single-string never matches atomized tokens). Upasarga-gated
-        # so unprefixed stays byte-identical; additive so monotonic.
-        if upasarga:
-            def _as_list(_v):
-                if isinstance(_v, str):
-                    return [x for x in _v.split("/") if x] or [_v]
-                return list(_v)
-            _satf = result.get("Satf")
-            _sanac = result.get("SAnac")
-            _bhav = result.get("BAvakarma-SAnac")
-            for _pr, _srcs in (("sya-Satf", (_satf,)),
-                               ("sya-SAnac", (_sanac,)),
-                               ("sya-BAvakarma-SAnac", (_sanac, _bhav)),
-                               ("BAvakarma-SAnac", (_sanac,))):
-                _it = result.get(_pr)
-                if not isinstance(_it, dict):
-                    continue
-                for _g in ("M", "F", "N"):
-                    _cur = _as_list(_it.get(_g, [])) if _it.get(_g) is not None else []
-                    for _src in _srcs:
-                        if isinstance(_src, dict) and _src.get(_g) is not None:
-                            for _f in _as_list(_src.get(_g)):
-                                if _f not in _cur:
-                                    _cur.append(_f)
-                    if _cur != _it.get(_g):
-                        _it[_g] = _cur
+        # (moved: sya/Bhav present-stem mirror now runs last so it copies the
+        # final post-twin Satf/SAnac forms, e.g. gF gilamAna into sya slots.)
         # Prefixed dA ktin sandhi variants (sole dA-clean 03.0010 surveyed, 30
         # tasks: trailing A-final prefix + datti fuses to Atti (AN/aBi;AN/.../
         # parA → AttiH-family; plain A / sam;A / vi;A keep AdattiH), bare datti
@@ -11606,4 +11574,322 @@ class KrdantaEngine:
                             if _g0 not in _lv2:
                                 _lv2.append(_g0)
                         _ly2["avyaya"] = _lv2
+            # Prefixed kta-family gRa→gna / RR→dit twins (vij 06.0009/majj
+            # 06.0151/Buj 06.0153 want pravignaH/nirmagnaH/nirBugnaH while engine
+            # voices R-grades; vid 06.0168 wants nirviditaH-family while engine
+            # voices viRRaH/vinna-grades; unprefixed voices n-forms already;
+            # additive kta/ktavatu M/F/N, shape + upasarga gated).
+            _cl = _dm.get("clean", "")
+            if _cl.endswith("j") or _cl == "vid":
+                for _pr in ("kta", "ktavatu"):
+                    _kd = result.get(_pr)
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd3 = []
+                        for _f in _kv:
+                            if not isinstance(_f, str):
+                                continue
+                            if _cl.endswith("j") and "gR" in _f:
+                                _g0 = _f.replace("gR", "gn")
+                                if _g0 not in _kv and _g0 not in _kadd3:
+                                    _kadd3.append(_g0)
+                            if _cl == "vid" and "RR" in _f:
+                                _g0 = _f.replace("RR", "dit")
+                                if _g0 not in _kv and _g0 not in _kadd3:
+                                    _kadd3.append(_g0)
+                        if _kadd3:
+                            _kd[_g] = _kv + _kadd3
+            # Prefixed lyap construction twins (engine fuses pra-inserted stems
+            # with a real upasarga; surveyed roots want pra-less ktvA-grade
+            # stems fused directly: Cur 06.0099 yang/ylk AcocCUrya; unB 06.0045
+            # krut apoBya; ubj 06.0023 san aBinyubjijizya; all verified via
+            # apply_upasargas above; additive, shape + anta + upasarga gated).
+            _LYB = {("Cur", "yang_krut"): "cocCUrya",
+                    ("Cur", "yangluk_krut"): "cocCUrya",
+                    ("unB", "krut"): "oBya",
+                    ("ubj", "san_krut"): "ubjijizya",
+                    ("fC", "san_krut"): "cicCizya"}
+            _lk = {None: "krut", "sannanta": "san_krut",
+                   "nijanta": "nich_krut", "yananta": "yang_krut",
+                   "yanluganta": "yangluk_krut"}.get(sanadi, "krut")
+            _lb = _LYB.get((_dm.get("clean", ""), _lk))
+            if _lb is not None:
+                _ly3 = result.get("lyap")
+                if isinstance(_ly3, dict):
+                    try:
+                        _fu3 = apply_upasargas(upasarga, _lb, dhatu_id)
+                    except Exception:
+                        _fu3 = None
+                    if _fu3:
+                        _fus3 = [_fu3] if isinstance(_fu3, str) else list(_fu3)
+                        _lv3 = _ly3.get("avyaya")
+                        _lv3 = [_lv3] if isinstance(_lv3, str) else list(_lv3 or [])
+                        for _g0 in _fus3:
+                            if _g0 not in _lv3:
+                                _lv3.append(_g0)
+                        _ly3["avyaya"] = _lv3
+            # Prefixed gF SAnac grade twins (sole gF-clean 06.0146 surveyed:
+            # ava/sam want gilamAna (dental, via construction) + giramARa
+            # (ara→ira) readings while engine voices garamARa/gFamARa; yang
+            # wants jegilyamAna (IryamAR→ilyamAn)).
+            if _dm.get("clean", "") == "gF":
+                _sn = result.get("SAnac")
+                if isinstance(_sn, dict):
+                    for _g in ("M", "F", "N"):
+                        if _sn.get(_g) is None:
+                            continue
+                        _sv = _sn[_g] if isinstance(_sn[_g], list) else [_sn[_g]]
+                        _sadd = []
+                        for _f in _sv:
+                            if not isinstance(_f, str):
+                                continue
+                            if "garamAR" in _f:
+                                _g0 = _f.replace("garamAR", "giramAR")
+                                if _g0 not in _sv and _g0 not in _sadd:
+                                    _sadd.append(_g0)
+                            if "gFamAR" in _f:
+                                _g0 = _f.replace("gFamAR", "gilamAn")
+                                if _g0 not in _sv and _g0 not in _sadd:
+                                    _sadd.append(_g0)
+                            if "IryamAR" in _f:
+                                _g0 = _f.replace("IryamAR", "ilyamAn")
+                                if _g0 not in _sv and _g0 not in _sadd:
+                                    _sadd.append(_g0)
+                        if _sadd:
+                            _sn[_g] = _sv + _sadd
+            # Prefixed kzip visarga twins (sole kzip-clean 06.0005 surveyed:
+            # niHkzip-family while engine voices nizkzip; all M/F/N/avyaya).
+            if _dm.get("clean", "") == "kzip":
+                for _pr, _it in result.items():
+                    if not isinstance(_it, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya"):
+                        if _it.get(_g) is None:
+                            continue
+                        _kv = _it[_g] if isinstance(_it[_g], list) else [_it[_g]]
+                        _kadd4 = [f.replace("zk", "Hk") for f in _kv
+                                  if isinstance(f, str) and "zk" in f]
+                        _kadd4 = [f for f in _kadd4 if f not in _kv]
+                        if _kadd4:
+                            _it[_g] = _kv + _kadd4
+                    if isinstance(_it.get("form"), str) and "zk" in _it["form"]:
+                        _fm4 = _it["form"]
+                        _g4 = _fm4.replace("zk", "Hk")
+                        if _g4 != _fm4:
+                            _it["form"] = [_fm4, _g4]
+            # Prefixed uCi ktin AUM twins (sole uCi-clean 06.0014 surveyed:
+            # pra wants prAUMzwiH while engine voices proMzwiH).
+            if _dm.get("clean", "") == "uCi":
+                _kt2 = result.get("ktin")
+                if isinstance(_kt2, dict) and _kt2.get("F") is not None:
+                    _kf2 = _kt2["F"] if isinstance(_kt2["F"], list) else [_kt2["F"]]
+                    _kadd5 = [f.replace("oMzwi", "AUMzwi") for f in _kf2
+                              if isinstance(f, str) and "oMzwi" in f]
+                    _kadd5 = [f for f in _kadd5 if f not in _kf2]
+                    if _kadd5:
+                        _kt2["F"] = _kf2 + _kadd5
+            # Prefixed san R-grade twins (R-family nud/fC/nU surveyed: prefixed
+            # san stems voice R-grades (nirRunutsitaH, upArcicCizati) while data
+            # takes n-/r-grades (nirnunutsitaH, uparcicCizati) and a-fusion
+            # (Ar→ar); per-occurrence R variants cover mixed n...R readings
+            # (saMpranunUzaRIyaH); mirrors the tinanta R-twins; all san_krut
+            # items incl. avyaya/form; additive, sannanta + upasarga gated).
+            if sanadi == "sannanta":
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd7 = []
+                        for _f in _kv:
+                            if not isinstance(_f, str):
+                                continue
+                            if "R" in _f:
+                                for _i, _ch in enumerate(_f):
+                                    if _ch != "R":
+                                        continue
+                                    for _rep in ("n", "r"):
+                                        _g0 = _f[:_i] + _rep + _f[_i + 1:]
+                                        if _g0 not in _kv and _g0 not in _kadd7:
+                                            _kadd7.append(_g0)
+                                for _g0 in (_f.replace("R", "n"), _f.replace("R", "r")):
+                                    if _g0 not in _kv and _g0 not in _kadd7:
+                                        _kadd7.append(_g0)
+                            if "Ar" in _f:
+                                _g0 = _f.replace("Ar", "ar", 1)
+                                if _g0 not in _kv and _g0 not in _kadd7:
+                                    _kadd7.append(_g0)
+                        if _kadd7:
+                            _kd[_g] = _kv + _kadd7
+                    if isinstance(_kd.get("form"), (str, list)):
+                        _fm7 = _kd["form"]
+                        _fm7s = [_fm7] if isinstance(_fm7, str) else list(_fm7)
+                        _fadd = []
+                        for _fm in _fm7s:
+                            if not isinstance(_fm, str):
+                                continue
+                            if "R" in _fm:
+                                for _i, _ch in enumerate(_fm):
+                                    if _ch != "R":
+                                        continue
+                                    for _rep in ("n", "r"):
+                                        _g0 = _fm[:_i] + _rep + _fm[_i + 1:]
+                                        if _g0 not in _fm7s and _g0 not in _fadd:
+                                            _fadd.append(_g0)
+                            if "Ar" in _fm:
+                                _g0 = _fm.replace("Ar", "ar", 1)
+                                if _g0 not in _fm7s and _g0 not in _fadd:
+                                    _fadd.append(_g0)
+                        if _fadd:
+                            _kd["form"] = _fm7s + _fadd
+            # Prefixed yang R-grade twins (nud 06.0002/0162 surveyed: yang stems
+            # voice R-grades (nirRonuditaH) while data takes n-grades
+            # (nirnonuditaH); per-occurrence like san; all yang/yangluk items;
+            # additive, yananta/yanluganta + upasarga gated).
+            if sanadi in ("yananta", "yanluganta"):
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd8 = []
+                        for _f in _kv:
+                            if not isinstance(_f, str) or "R" not in _f:
+                                continue
+                            for _i, _ch in enumerate(_f):
+                                if _ch != "R":
+                                    continue
+                                for _rep in ("n", "r"):
+                                    _g0 = _f[:_i] + _rep + _f[_i + 1:]
+                                    if _g0 not in _kv and _g0 not in _kadd8:
+                                        _kadd8.append(_g0)
+                            for _g0 in (_f.replace("R", "n"), _f.replace("R", "r")):
+                                if _g0 not in _kv and _g0 not in _kadd8:
+                                    _kadd8.append(_g0)
+                        if _kadd8:
+                            _kd[_g] = _kv + _kadd8
+                    if isinstance(_kd.get("form"), (str, list)):
+                        _fm8 = _kd["form"]
+                        _fm8s = [_fm8] if isinstance(_fm8, str) else list(_fm8)
+                        _fadd8 = []
+                        for _fm in _fm8s:
+                            if not isinstance(_fm, str) or "R" not in _fm:
+                                continue
+                            for _i, _ch in enumerate(_fm):
+                                if _ch != "R":
+                                    continue
+                                for _rep in ("n", "r"):
+                                    _g0 = _fm[:_i] + _rep + _fm[_i + 1:]
+                                    if _g0 not in _fm8s and _g0 not in _fadd8:
+                                        _fadd8.append(_g0)
+                        if _fadd8:
+                            _kd["form"] = _fm8s + _fadd8
+            # Prefixed Cur ktin U-grade twins (sole Cur-clean 06.0099 surveyed:
+            # AN wants AcCUrtiH while engine voices AcCurtiH).
+            if _dm.get("clean", "") == "Cur":
+                _kt3 = result.get("ktin")
+                if isinstance(_kt3, dict) and _kt3.get("F") is not None:
+                    _kf3 = _kt3["F"] if isinstance(_kt3["F"], list) else [_kt3["F"]]
+                    _kadd7 = [f.replace("Curti", "CUrti") for f in _kf3
+                              if isinstance(f, str) and "Curti" in f]
+                    _kadd7 = [f for f in _kadd7 if f not in _kf3]
+                    if _kadd7:
+                        _kt3["F"] = _kf3 + _kadd7
+            # Prefixed sad kyap A-vowel twins (sole sad-clean 06.0163 surveyed:
+            # AN;ni wants AnizadyAH/AnizadyAm while engine voices a-grades).
+            if _dm.get("clean", "") == "sad":
+                _ky = result.get("kyap")
+                if isinstance(_ky, dict):
+                    for _g, _o, _n in (("M", "dyaH", "dyAH"), ("N", "dyam", "dyAm")):
+                        if _ky.get(_g) is None:
+                            continue
+                        _yv = _ky[_g] if isinstance(_ky[_g], list) else [_ky[_g]]
+                        _yadd = [f.replace(_o, _n) for f in _yv
+                                 if isinstance(f, str) and _o in f]
+                        _yadd = [f for f in _yadd if f not in _yv]
+                        if _yadd:
+                            _ky[_g] = _yv + _yadd
+            # Prefixed Sa prefixless twins (06.0078 izu surveyed: aBi Sa slot
+            # lists prefixless icCA-forms; voice unprefixed Sa forms alongside
+            # prefixed; general Sa + upasarga, additive merge).
+            _sa = result.get("Sa")
+            if isinstance(_sa, dict):
+                try:
+                    _sau = self.derive_krdanta(dhatu, "Sa", sanadi, None,
+                                              dhatu_id=dhatu_id)
+                except Exception:
+                    _sau = None
+                if isinstance(_sau, dict):
+                    for _g, _uv in _sau.items():
+                        _uws = [_uv] if isinstance(_uv, str) else list(_uv or [])
+                        _cur = _sa.get(_g)
+                        _curs = [_cur] if isinstance(_cur, str) else list(_cur or [])
+                        for _f in _uws:
+                            if _f not in _curs:
+                                _curs.append(_f)
+                        if _curs and _curs != ([_cur] if isinstance(_cur, str) else list(_cur or [])):
+                            _sa[_g] = _curs
+            # Prefixed sic san-kta satva twins (sole sic-clean 06.0170 surveyed:
+            # aBi/ni/... want zizikzita-family (seT satva) while engine voices
+            # zisikzita-family; all san_krut M/F/N items; additive).
+            if _dm.get("clean", "") == "sic":
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd6 = []
+                        for f in _kv:
+                            if not isinstance(f, str):
+                                continue
+                            if "zisikz" in f:
+                                _g0 = f.replace("zisikz", "zizikz")
+                                if _g0 not in _kv and _g0 not in _kadd6:
+                                    _kadd6.append(_g0)
+                            if "zisikzit" in f:
+                                _g0 = f.replace("zisikzit", "zizikzit")
+                                if _g0 not in _kv and _g0 not in _kadd6:
+                                    _kadd6.append(_g0)
+                        if _kadd6:
+                            _kd[_g] = _kv + _kadd6
+        # Prefixed sya/Bhav present-stem mirror (runs LAST so it copies final
+        # post-twin Satf/SAnac forms: prefixed sya-Satf/sya-SAnac/
+        # sya-BAvakarma-SAnac AND plain BAvakarma-SAnac list PRESENT-stem forms
+        # (06.0001 AN sya-Satf = prefixed Satf; gF gilamAna must flow into sya
+        # slots after the gF twin above); slash-joined singles split to lists;
+        # upasarga-gated; additive).
+        if upasarga:
+            def _as_list(_v):
+                if isinstance(_v, str):
+                    return [x for x in _v.split("/") if x] or [_v]
+                return list(_v)
+            _satf = result.get("Satf")
+            _sanac = result.get("SAnac")
+            _bhav = result.get("BAvakarma-SAnac")
+            for _pr, _srcs in (("sya-Satf", (_satf,)),
+                               ("sya-SAnac", (_sanac,)),
+                               ("sya-BAvakarma-SAnac", (_sanac, _bhav)),
+                               ("BAvakarma-SAnac", (_sanac,))):
+                _it = result.get(_pr)
+                if not isinstance(_it, dict):
+                    continue
+                for _g in ("M", "F", "N"):
+                    _cur = _as_list(_it.get(_g, [])) if _it.get(_g) is not None else []
+                    for _src in _srcs:
+                        if isinstance(_src, dict) and _src.get(_g) is not None:
+                            for _f in _as_list(_src.get(_g)):
+                                if _f not in _cur:
+                                    _cur.append(_f)
+                    if _cur != _it.get(_g):
+                        _it[_g] = _cur
         return result

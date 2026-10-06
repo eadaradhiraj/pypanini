@@ -1755,10 +1755,28 @@ class TinantaDerivationEngine:
             _nosat = [apply_upasargas(upasarga, c, dhatu_id, skip_satva=True) for c in cands]
             cands = list(dict.fromkeys(_sat + _nosat))
             # 01.1091 zu yang augmented de-retroflexion (bare asozU- vs prefixed asosU-;
-            # sole zu surveyed: lw keeps sozU, laN/luN/lfN take sosU with prefix+augment).
-            if dhatu_id == "01.1091" and sanadi == "yananta" and lakara in ("laN", "luN", "lfN"):
+            # sole zu surveyed: lw keeps sozU, laN/luN/lfN take sosU with prefix+augment;
+            # sU 06.0144 surveyed likewise (prefixed yang laN AsosUyata vs AsozUyata)).
+            if (dhatu_id == "01.1091" or dhatu == "sU") and sanadi == "yananta" and lakara in ("laN", "luN", "lfN"):
                 _sos = [c.replace("sozU", "sosU") for c in cands if "sozU" in c]
                 cands = list(dict.fromkeys(cands + _sos))
+            # sU lfN/laN o-grade twins (nirasosavizyat/nirasosUyata; 06.0144
+            # surveyed: nir/pari/vi prefixed lfN takes sosavizy-stem and yak
+            # laN takes sosUya-stem while engine voices savizy/sUya;
+            # additive, sU + lfN/laN).
+            if dhatu == "sU" and lakara in ("lfN", "laN"):
+                _suo = []
+                for c in cands:
+                    if lakara == "lfN" and "asavizy" in c:
+                        _g = c.replace("asavizy", "asosavizy")
+                        if _g not in cands and _g not in _suo:
+                            _suo.append(_g)
+                    if lakara == "laN" and "asUya" in c:
+                        _g = c.replace("asUya", "asosUya")
+                        if _g not in cands and _g not in _suo:
+                            _suo.append(_g)
+                if _suo:
+                    cands = list(dict.fromkeys(cands + _suo))
             # ud+S palatal twins (ud+S->ucS primary via sandhi; ucC twin for
             # Tuk/C-grade; surveyed 10/10 S-roots 01+02+10 take uc, zero utS).
             _ucc = [c.replace("ucS", "ucC") for c in cands if "ucS" in c]
@@ -2124,6 +2142,118 @@ class TinantaDerivationEngine:
                         _vpy.append(_g)
                 if _vpy:
                     cands = list(dict.fromkeys(cands + _vpy))
+            # liw unprefixed-stem fusion + R-twins (prefixed liT drops unprefixed
+            # n-/redup stems for R-family nud/fC/nU (nirnunuda/nirAnarcCa/
+            # saMpranunUz), fz (paryarzayAYcakre), gF (avajagala/avajagara):
+            # re-fuse unprefixed liw cands via apply_upasargas, then R→n
+            # (nirRunuda→nirnunuda, nirARarcCa→nirAnarcCa), R→r
+            # (upArcicCizati→uparcicCizati), aR→An
+            # (saMpraRunUzIt→saMprAnunUzIt), rRu→ranU (nirRunuda→niranUnuda);
+            # inner derive is upasarga=None so no recursion; additive).
+            # R-string twins run for every prefixed slot (nich luN niRa...,
+            # yang lw Ronudya..., san SAnac/tavya all voice R-grades while
+            # data takes n-/r-grades); liw fusion stays liw-only.
+            if upasarga:
+                _liwadd = []
+                if lakara == "liw":
+                    try:
+                        _uw, _ = self.derive(dhatu, "liw", purusha, vacana,
+                                             prayoga=prayoga, sanadi=sanadi,
+                                             upasarga=None, dhatu_id=dhatu_id,
+                                             json_path=json_path)
+                    except Exception:
+                        _uw = []
+                    for _u in (_uw or []):
+                        try:
+                            _fus = apply_upasargas(upasarga, _u, dhatu_id)
+                        except Exception:
+                            continue
+                        _fus = [_fus] if isinstance(_fus, str) else list(_fus or [])
+                        for _f in _fus:
+                            if _f not in cands and _f not in _liwadd:
+                                _liwadd.append(_f)
+                for _c in list(cands):
+                    if "R" in _c:
+                        _seen = set()
+                        for _i, _ch in enumerate(_c):
+                            if _ch != "R":
+                                continue
+                            for _rep in ("n", "r"):
+                                _g = _c[:_i] + _rep + _c[_i + 1:]
+                                if _g not in cands and _g not in _liwadd and _g not in _seen:
+                                    _seen.add(_g)
+                                    _liwadd.append(_g)
+                        for _g in (_c.replace("R", "n"), _c.replace("R", "r")):
+                            if _g not in cands and _g not in _liwadd:
+                                _liwadd.append(_g)
+                    if "aR" in _c:
+                        _g = _c.replace("aR", "An")
+                        if _g not in cands and _g not in _liwadd:
+                            _liwadd.append(_g)
+                    if "rRu" in _c:
+                        _g = _c.replace("rRu", "ranU")
+                        if _g not in cands and _g not in _liwadd:
+                            _liwadd.append(_g)
+                if _liwadd:
+                    cands = list(dict.fromkeys(cands + _liwadd))
+            # unB n-drop twins (apoBya-family; 06.0045 surveyed: yak voices
+            # aponBya while data drops n; unprefixed untouched; additive).
+            if dhatu == "unB":
+                _ubt = [c.replace("nBy", "By") for c in cands if "nBy" in c]
+                _ubt = [c for c in _ubt if c not in cands]
+                if _ubt:
+                    cands = list(dict.fromkeys(cands + _ubt))
+            # kzip visarga twins (niHkzep-family; 06.0005 surveyed: prefixed
+            # sandhi voices nizkzep while data takes niHkzep; additive).
+            if dhatu == "kzip":
+                _kzt = [c.replace("zk", "Hk") for c in cands if "zk" in c]
+                _kzt = [c for c in _kzt if c not in cands]
+                if _kzt:
+                    cands = list(dict.fromkeys(cands + _kzt))
+            # viz luN sic-ata twins (aBinyavikzata; 06.0160 surveyed: luN eka
+            # takes -ata while engine voices -ta; additive, luN-only).
+            if dhatu in ("viS", "viz") and lakara == "luN":
+                _vzt = [c.replace("kzta", "kzata") for c in cands if "kzta" in c]
+                _vzt = [c for c in _vzt if c not in cands]
+                if _vzt:
+                    cands = list(dict.fromkeys(cands + _vzt))
+            # sic lfN aorist twins (aByasIsicat-family; 06.0170 surveyed:
+            # prefixed lfN takes sIsic-aorist while engine voices sya-future;
+            # per-slot endings ride along after the stem swap; additive).
+            if dhatu == "sic" and lakara == "lfN":
+                _sct = []
+                for c in cands:
+                    for _o in ("sekzy", "sikzy", "siYkzy"):
+                        if _o in c:
+                            _g = c.replace(_o, "sIsic")
+                            if _g not in cands and _g not in _sct:
+                                _sct.append(_g)
+                if _sct:
+                    cands = list(dict.fromkeys(cands + _sct))
+            # san a-fusion twins (uparcicCiz-family; fC 06.0016 surveyed:
+            # prefixed san fuses a-grade (uparci...) while engine voices
+            # A-fusion (upArci...); additive, sannanta-only).
+            if sanadi == "sannanta":
+                _saf = [c.replace("Ar", "ar", 1) for c in cands if "Ar" in c]
+                _saf = [c for c in _saf if c not in cands]
+                if _saf:
+                    cands = list(dict.fromkeys(cands + _saf))
+            # gF liw jagal twins (avajagale; 06.0146 surveyed: prefixed liT
+            # takes jagal (unpref liw lacks it, fusion covers jagar only);
+            # additive, gF + liw).
+            if dhatu == "gF" and lakara == "liw":
+                _gft = [c.replace("jagF", "jagal") for c in cands if "jagF" in c]
+                _gft = [c for c in _gft if c not in cands]
+                if _gft:
+                    cands = list(dict.fromkeys(cands + _gft))
+            # sic san satva twins (aBizizikz-family; 06.0170 surveyed:
+            # prefixed san voices zizikz (satva) while engine voices zisikz;
+            # kta keeps aniT sesik (separate twin); additive, sic + sannanta).
+            if dhatu == "sic" and sanadi == "sannanta":
+                _sgl = [c.replace("zisikz", "zizikz") for c in cands if "zisikz" in c]
+                _sgl = [c for c in _sgl if c not in cands]
+                if _sgl:
+                    cands = list(dict.fromkeys(cands + _sgl))
             # hyphen-chain spelling + augmentless twins (sole '-' chains 02.0040/
             # 03.0010 sam;aBi-AN surveyed: data mixes hyphenated (samaBi-ANdatta)
             # and fused (samaBiANdattA) plus samABi capital-A spellings, and
