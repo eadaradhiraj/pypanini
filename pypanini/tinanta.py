@@ -1988,6 +1988,21 @@ class TinantaDerivationEngine:
                                 _yzd.append(_g)
                 if _yzd:
                     cands = list(dict.fromkeys(cands + _yzd))
+            # san-augment de-voicing twins (tistyAs alongside tizwyAs; styE/snE 01.1059/1072 surveyed,
+            # ni/sam/ud tasks — prefixed augmented san takes dental + de-retroflexed stem (nyatistyAsat,
+            # samatistyAsat, udasisnAsat) while engine voices + retroflexes (nyatizwyAsat/udasizRAsata);
+            # unaugmented san passes already; krdanta clean (tinanta-only); stem-specific pairs;
+            # additive, sannanta + augmented).
+            if upasarga and sanadi == "sannanta" and lakara in ("laN", "luN", "lfN"):
+                _sdt = []
+                for c in cands:
+                    for _o, _n in (("tizwy", "tisty"), ("sizRA", "sisnA")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _sdt:
+                                _sdt.append(_g)
+                if _sdt:
+                    cands = list(dict.fromkeys(cands + _sdt))
             # vas-ASIrliN vA-grade twins (XvAvasyAt/XvAsyAt/XvivatsyAt alongside XvasyAt; vasa~ 01.1160
             # surveyed — A/a-final inners (AN/apa/pra/upa, 7 tasks) take vA-grades while i/consonant
             # inners (pari/sam/aDi/vi/ni/ati/prati/ud/nir, 10 tasks) pass via yuzyAt already; ozyAt
