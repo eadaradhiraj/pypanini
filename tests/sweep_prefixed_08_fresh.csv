@@ -1,0 +1,68 @@
+fid,matched,total,pct,secs,misses,skipped
+08.0001:AN,880,880,100.0,2.3,,12
+08.0001:aBi,880,880,100.0,3.3,,12
+08.0001:aBi;AN,880,880,100.0,3.0,,12
+08.0001:aBi;ava,880,880,100.0,2.6,,12
+08.0001:aBi;sam,703,880,79.9,2.9,yang/lw/prathama/eka:aBisantaMtanyate | yang/lw/prathama/dvi:aBisantaMtanyete | yang/lw/prathama/bahu:aBisantaMtanyante | yang/lw/madhyama/eka:aBisantaMtanyase | yang/lw/madhyama/dvi:aBisantaMtanyeTe | yang_krut/kta/M:aBisantaMtanitaH | yang_krut/kta/F:aBisantaMtanitA | yang_krut/kta/N:aBisantaMtanitam | yang_krut/ktavatu/M:aBisantaMtanitavAn | yang_krut/ktavatu/F:aBisantaMtanitavatI | yang_krut/ktavatu/N:aBisantaMtanitavat | yang_krut/SAnac/M:aBisantaMtanyamAnaH,12
+08.0001:aBi;vi,880,880,100.0,3.1,,12
+08.0001:aDi,880,880,100.0,1.4,,12
+08.0001:anu;AN,880,880,100.0,0.5,,12
+08.0001:anu;sam,703,880,79.9,3.2,yang/lw/prathama/eka:anusantaMtanyate | yang/lw/prathama/dvi:anusantaMtanyete | yang/lw/prathama/bahu:anusantaMtanyante | yang/lw/madhyama/eka:anusantaMtanyase | yang/lw/madhyama/dvi:anusantaMtanyeTe | yang_krut/kta/M:anusantaMtanitaH | yang_krut/kta/F:anusantaMtanitA | yang_krut/kta/N:anusantaMtanitam | yang_krut/ktavatu/M:anusantaMtanitavAn | yang_krut/ktavatu/F:anusantaMtanitavatI | yang_krut/ktavatu/N:anusantaMtanitavat | yang_krut/SAnac/M:anusantaMtanyamAnaH,12
+08.0001:apa,880,880,100.0,4.1,,12
+08.0001:ava,880,880,100.0,2.6,,12
+08.0001:ni,880,880,100.0,2.5,,12
+08.0001:pari,880,880,100.0,2.8,,12
+08.0001:pari;AN,880,880,100.0,3.0,,12
+08.0001:pra,880,880,100.0,2.7,,12
+08.0001:sam,703,880,79.9,3.1,yang/lw/prathama/eka:santaMtanyate | yang/lw/prathama/dvi:santaMtanyete | yang/lw/prathama/bahu:santaMtanyante | yang/lw/madhyama/eka:santaMtanyase | yang/lw/madhyama/dvi:santaMtanyeTe | yang_krut/kta/M:santaMtanitaH | yang_krut/kta/F:santaMtanitA | yang_krut/kta/N:santaMtanitam | yang_krut/ktavatu/M:santaMtanitavAn | yang_krut/ktavatu/F:santaMtanitavatI | yang_krut/ktavatu/N:santaMtanitavat | yang_krut/SAnac/M:santaMtanyamAnaH,12
+08.0001:ud,880,880,100.0,3.1,,12
+08.0001:upa;sam,703,880,79.9,2.7,yang/lw/prathama/eka:upasantaMtanyate | yang/lw/prathama/dvi:upasantaMtanyete | yang/lw/prathama/bahu:upasantaMtanyante | yang/lw/madhyama/eka:upasantaMtanyase | yang/lw/madhyama/dvi:upasantaMtanyeTe | yang_krut/kta/M:upasantaMtanitaH | yang_krut/kta/F:upasantaMtanitA | yang_krut/kta/N:upasantaMtanitam | yang_krut/ktavatu/M:upasantaMtanitavAn | yang_krut/ktavatu/F:upasantaMtanitavatI | yang_krut/ktavatu/N:upasantaMtanitavat | yang_krut/SAnac/M:upasantaMtanyamAnaH,12
+08.0001:vi,880,880,100.0,3.7,,12
+08.0001:vi;apa,880,880,100.0,2.2,,12
+08.0001:vi;ati,880,880,100.0,3.3,,12
+08.0002:pari,880,880,100.0,2.9,,12
+08.0009:aBi;pra,834,871,95.8,2.9,krut/SAnac/M:aBipramaRvAnaH | krut/SAnac/F:aBipramaRvAnA | krut/SAnac/N:aBipramaRvAnam | krut/tavya/M:aBipramaRitavyaH | krut/tavya/F:aBipramaRitavyA | krut/tavya/N:aBipramaRitavyam | krut/Rvul/M:aBipramaRakaH | krut/Rvul/F:aBipramaRikA | krut/Rvul/N:aBipramaRakam | krut/tfc/M:aBipramaRitA | krut/tfc/F:aBipramaRitrI | krut/tfc/N:aBipramaRitf,12
+08.0009:ava,871,871,100.0,2.9,,12
+08.0009:pari,834,871,95.8,2.9,krut/SAnac/M:parimaRvAnaH | krut/SAnac/F:parimaRvAnA | krut/SAnac/N:parimaRvAnam | krut/tavya/M:parimaRitavyaH | krut/tavya/F:parimaRitavyA | krut/tavya/N:parimaRitavyam | krut/Rvul/M:parimaRakaH | krut/Rvul/F:parimaRikA | krut/Rvul/N:parimaRakam | krut/tfc/M:parimaRitA | krut/tfc/F:parimaRitrI | krut/tfc/N:parimaRitf,12
+08.0009:pra,834,871,95.8,3.0,krut/SAnac/M:pramaRvAnaH | krut/SAnac/F:pramaRvAnA | krut/SAnac/N:pramaRvAnam | krut/tavya/M:pramaRitavyaH | krut/tavya/F:pramaRitavyA | krut/tavya/N:pramaRitavyam | krut/Rvul/M:pramaRakaH | krut/Rvul/F:pramaRikA | krut/Rvul/N:pramaRakam | krut/tfc/M:pramaRitA | krut/tfc/F:pramaRitrI | krut/tfc/N:pramaRitf,12
+08.0009:prati,871,871,100.0,4.0,,12
+08.0009:upa,871,871,100.0,1.2,,12
+08.0009:vi,871,871,100.0,2.1,,12
+08.0010:A,880,880,100.0,2.1,,12
+08.0010:AN,880,880,100.0,2.8,,12
+08.0010:aBi,880,880,100.0,3.0,,12
+08.0010:aBi;AN,880,880,100.0,3.2,,12
+08.0010:aBi;nir,880,880,100.0,3.5,,12
+08.0010:aDi,880,880,100.0,3.2,,12
+08.0010:apa,880,880,100.0,4.4,,12
+08.0010:apa;AN,880,880,100.0,4.2,,12
+08.0010:ati,880,880,100.0,4.9,,12
+08.0010:ati;AN,880,880,100.0,4.4,,12
+08.0010:dus,880,880,100.0,4.8,,12
+08.0010:ni,880,880,100.0,3.8,,12
+08.0010:ni;AN,880,880,100.0,4.2,,12
+08.0010:nir,880,880,100.0,6.0,,12
+08.0010:nir;A,880,880,100.0,4.0,,12
+08.0010:nir;AN,880,880,100.0,5.1,,12
+08.0010:nir;upa,880,880,100.0,3.0,,12
+08.0010:parA,874,874,100.0,4.2,,18
+08.0010:pari,880,880,100.0,2.6,,12
+08.0010:pari;AN,880,880,100.0,4.3,,12
+08.0010:pra,880,880,100.0,4.2,,12
+08.0010:prati,880,880,100.0,4.2,,12
+08.0010:prati;sam,880,880,100.0,4.4,,12
+08.0010:prati;upa,880,880,100.0,4.2,,12
+08.0010:sam,880,880,100.0,4.7,,12
+08.0010:su,880,880,100.0,4.7,,12
+08.0010:ud,880,880,100.0,4.1,,12
+08.0010:ud;A,880,880,100.0,4.5,,12
+08.0010:ud;AN,880,880,100.0,5.5,,12
+08.0010:upa,880,880,100.0,3.4,,12
+08.0010:upa;AN,880,880,100.0,4.5,,12
+08.0010:upa;sam,880,880,100.0,3.2,,12
+08.0010:vi,880,880,100.0,5.4,,12
+08.0010:vi;A,880,880,100.0,5.7,,12
+08.0010:vi;AN,880,880,100.0,5.6,,12
+08.0010:vi;apa;AN,880,880,100.0,5.4,,12
+08.0010:vi;ni,880,880,100.0,3.6,,12
+08.0010:vi;pra,880,880,100.0,3.3,,12

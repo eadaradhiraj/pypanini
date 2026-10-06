@@ -1652,6 +1652,15 @@ class KrdantaEngine:
                     # back to u-grade, normal sandhi does the rest; additive).
                     if pratyaya == "lyap" and dhatu in ("brU", "vac", "vaS") and c.startswith("pro"):
                         c = "u" + c[3:]
+                    # I lyap grade twins (eya/Iya alongside preya; I~ 04.0038 surveyed —
+                    # mUla lyap lexicalizes pra (preya); a-final inners (ava) take e-grade
+                    # (aveya) while i-final inners (prati/vi) take I-grade (pratIya/vIya);
+                    # unprefixed keeps preya and passes; additive, I + lyap).
+                    if pratyaya == "lyap" and dhatu == "I" and c.startswith("preya"):
+                        _iin = upasarga.split(";")[-1]
+                        if _iin == "AN":
+                            _iin = "A"
+                        c = c.replace("preya", "eya" if _iin.endswith(("a", "A")) else "Iya", 1)
                     new_v.append(apply_upasargas(upasarga, c, dhatu_id))
                     new_v.append(apply_upasargas(upasarga, c, dhatu_id, skip_satva=True))
                     # iN aDi-prefix-drop (outer-prefixes + aDhi-fused stem; prA-lexicalized
@@ -2258,6 +2267,12 @@ class KrdantaEngine:
                 # brU/vac/vaS lyap de-fusion (mirrors list-chain twin above).
                 if pratyaya == "lyap" and dhatu in ("brU", "vac", "vaS") and c.startswith("pro"):
                     c = "u" + c[3:]
+                # I lyap grade twins (mirrors list-chain twin above).
+                if pratyaya == "lyap" and dhatu == "I" and c.startswith("preya"):
+                    _iin = upasarga.split(";")[-1]
+                    if _iin == "AN":
+                        _iin = "A"
+                    c = c.replace("preya", "eya" if _iin.endswith(("a", "A")) else "Iya", 1)
                 _a = apply_upasargas(upasarga, c, dhatu_id)
                 _b = apply_upasargas(upasarga, c, dhatu_id, skip_satva=True)
                 _all = [_a] if _a == _b else [_a, _b]

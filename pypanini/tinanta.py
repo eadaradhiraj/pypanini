@@ -512,7 +512,8 @@ class TinantaDerivationEngine:
     def _divadi_stem(self, clean: str, meta: Dict, op: str) -> str:
         """divAdi ya-vikaraNa stem: v-final short-i takes I (dIv/sIv/srIv/zWIv,
         sW→zW); am-roots take A+ya (SAmy) except klam (klAm, no ya), Bram (no ya),
-        kzamU~z-op (plain); yas/tras take no ya (sole pair); jFz/JFz take Ir,
+        kzamU~z-op (plain); yas/tras take no ya (sole pair, yas adds a ya-variant
+        twin at the lw call site for 04.0107 prefixed yasyati); jFz/JFz take Ir,
         other f/F keep f/F; o-roots drop o (Sya); mid e-grade (medya), ISuc
         samprasAraNa (Sucya), vyaD samprasAraNa (viDya), raYj Y→j (rajya);
         everything else plain + ya. Surveyed all 163 divAdi cleans (kzam pair
@@ -8031,6 +8032,36 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): [_d4y + "Amahe"],
                 }
                 cands += _d4a.get((purusha, vacana), [])
+                # yas ya-variant (yasyati alongside yasati; yasa~ 04.0107 surveyed —
+                # prefixed blocks carry only yasyati (prayasyati) while unprefixed has
+                # both; the no-ya _divadi_stem reading holds unprefixed; additive twin
+                # stem; divAdiH + yas-gated).
+                if (meta.get("clean", "") or clean) == "yas":
+                    _d4y2, _d4yy = "yasya", "yasy"
+                    _d4p2 = {
+                        ("prathama", "eka"): [_d4y2 + "ti"],
+                        ("prathama", "dvi"): [_d4y2 + "taH"],
+                        ("prathama", "bahu"): [_d4yy + "anti"],
+                        ("madhyama", "eka"): [_d4y2 + "si"],
+                        ("madhyama", "dvi"): [_d4y2 + "TaH"],
+                        ("madhyama", "bahu"): [_d4y2 + "Ta"],
+                        ("uttama", "eka"): [_d4yy + "Ami"],
+                        ("uttama", "dvi"): [_d4yy + "AvaH"],
+                        ("uttama", "bahu"): [_d4yy + "AmaH"],
+                    }
+                    cands += _d4p2.get((purusha, vacana), [])
+                    _d4a2 = {
+                        ("prathama", "eka"): [_d4y2 + "te"],
+                        ("prathama", "dvi"): [_d4yy + "ete"],
+                        ("prathama", "bahu"): [_d4yy + "ante"],
+                        ("madhyama", "eka"): [_d4y2 + "se"],
+                        ("madhyama", "dvi"): [_d4yy + "eTe"],
+                        ("madhyama", "bahu"): [_d4yy + "Dve"],
+                        ("uttama", "eka"): [_d4yy + "e"],
+                        ("uttama", "dvi"): [_d4yy + "Avahe"],
+                        ("uttama", "bahu"): [_d4yy + "Amahe"],
+                    }
+                    cands += _d4a2.get((purusha, vacana), [])
             # helper (cutva/hrasva/bare-A/i~r/f-split); per-class grade tables (18
             # classes); dA/DA abhyAsa-lopa in t-slots (dattaH); BI i/I-twins;
             # jan A/Y-grades + vidhi-twins; Atmane tables for mA/Bf/dA/ij/viz
