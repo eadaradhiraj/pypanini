@@ -1616,14 +1616,27 @@ class KrdantaEngine:
         res = self._derive_krdanta_inner(dhatu, pratyaya, sanadi, "", dhatu_id, _force_pada)
         if not res or not upasarga:
             return res
-        
+
+        # iN aDi-prefix-drop setup (mirrors tinanta; aDhi-fused unprefixed stems
+        # reused with outer-prefixes only when inner is redundant aDi).
+        _iN_drop = False
+        _iN_outer = ""
+        if dhatu == "i" and upasarga.split(";")[-1] == "aDi":
+            try:
+                _iNop = (self._get_meta(dhatu, dhatu_id).get("op", "") or "")
+            except Exception:
+                _iNop = ""
+            if _iNop.strip("~`") in ("iN", "ik"):
+                _iN_drop = True
+                _iN_outer = ";".join(upasarga.split(";")[:-1])
+
         # apply sandhi
         out = {}
         for k, v in res.items():
             if k == "gender":
                 out[k] = v
                 continue
-                
+
             if isinstance(v, list):
                 new_v = []
                 for c in v:
@@ -1632,8 +1645,25 @@ class KrdantaEngine:
                         c = c[3:]
                     elif pratyaya == "lyap" and c.startswith("saM"):
                         c = c[3:]
+                    # brU/vac/vaS lyap de-fusion (ucya/uSya alongside procya/proSya;
+                    # 02.0039/0058/0075 surveyed — mUla lyap lexicalizes pra (procya)
+                    # so naive prefixing doubles it (praprocya/aBiprocya/utprocya);
+                    # data fuses (procya/aByucya/uducya/nirucya/aByanUcya); strip pro
+                    # back to u-grade, normal sandhi does the rest; additive).
+                    if pratyaya == "lyap" and dhatu in ("brU", "vac", "vaS") and c.startswith("pro"):
+                        c = "u" + c[3:]
                     new_v.append(apply_upasargas(upasarga, c, dhatu_id))
                     new_v.append(apply_upasargas(upasarga, c, dhatu_id, skip_satva=True))
+                    # iN aDi-prefix-drop (outer-prefixes + aDhi-fused stem; prA-lexicalized
+                    # lyap (prADItya) strips back to aDItya first).
+                    if _iN_drop and isinstance(c, str):
+                        _dc = ("aD" + c[4:]) if c.startswith("prAD") else c
+                        if _dc.startswith("aD"):
+                            if _iN_outer:
+                                new_v.append(apply_upasargas(_iN_outer, _dc, dhatu_id))
+                                new_v.append(apply_upasargas(_iN_outer, _dc, dhatu_id, skip_satva=True))
+                            else:
+                                new_v.append(_dc)
                 # ud+S palatal twins (ucC alongside ucS; surveyed 10/10).
                 new_v += [c.replace("ucS", "ucC") for c in list(new_v) if "ucS" in c]
                 # sam/ud yata->ata twins (samataH/udataH alongside saMyataH/udyataH;
@@ -1674,6 +1704,84 @@ class KrdantaEngine:
                             if _o in c: _sad_tw.append(c.replace(_o, _n))
                     if _sad_tw:
                         new_v += _sad_tw
+                # sad upa;AN Au-drop + GaY vriddhi twins (upAsAda/upAsAsada
+                # alongside AupAsada/AupAsAsada; zada~ 10.0368 surveyed, sole
+                # upa;AN — the upa;AN chain voices sad forms to Au- (AupAsadaH,
+                # AupAsAsadanam) while data keeps short u (upAsAdaH,
+                # upAsAsadanam; GaY with vriddhi sAda); lyuw keeps short a;
+                # unprefixed untouched (upasarga-gated); additive, sad + upa;AN).
+                if upasarga == "upa;AN" and dhatu == "sad":
+                    _sad_an = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        _g = c.replace("AupAs", "upAs")
+                        if pratyaya == "GaY":
+                            _g = _g.replace("sada", "sAda")
+                        if _g not in new_v and _g not in _sad_an and _g != c:
+                            _sad_an.append(_g)
+                    if _sad_an:
+                        new_v += _sad_an
+                # iR-san prati iziz-twins (mirrors tinanta; pratIzizita alongside
+                # pratijigAMsita; iR 02.0040 surveyed — prati-inner drops jigamiz
+                # suppletion in san_krut too; additive, i + sannanta + prati-inner).
+                if upasarga and dhatu == "i" and sanadi == "sannanta" and upasarga.split(";")[-1] == "prati":
+                    _izk = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        _g = c
+                        for _o, _n in (("tijigAMs", "tIziz"), ("tijaygAMs", "tIziz"),
+                                       ("tijigam", "tIziz"), ("tijaygam", "tIziz"),
+                                       ("tIzizanIya", "tIzizaRIya"), ("tIzizanIyA", "tIzizaRIyA"), ("tIzizanam", "tIzizaRam")):
+                            if _o in _g:
+                                _g = _g.replace(_o, _n)
+                        if _g != c and _g not in new_v and _g not in _izk:
+                            _izk.append(_g)
+                    if _izk:
+                        new_v += _izk
+                # iR E-grade twins (mirrors tinanta; Etavya/Eya/EtA alongside
+                # etavya/eya/etA; same survey; mUla-only; additive).
+                if upasarga and dhatu == "i" and sanadi is None:
+                    _iin = upasarga.split(";")[-1]
+                    if _iin == "AN" or _iin.endswith("-AN"):
+                        _iin = "A"
+                    if _iin.endswith(("a", "A")):
+                        _ek = []
+                        for c in list(new_v):
+                            if not isinstance(c, str):
+                                continue
+                            for _o, _n in (("etavya", "Etavya"), ("etavyA", "EtavyA"),
+                                           ("eya", "Eya"), ("eyA", "EyA"),
+                                           ("etA", "EtA"), ("etr", "Etr"), ("etf", "Etf"),
+                                           ("etum", "Etum")):
+                                if _o in c:
+                                    _g = c.replace(_o, _n)
+                                    if _g not in new_v and _g not in _ek:
+                                        _ek.append(_g)
+                        if _ek:
+                            new_v += _ek
+                # iR-nich prati Ayay-twins (pratyAyita alongside pratigamita; same survey —
+                # prati-inner nich_krut drops gamay-suppletion for Ayay-grades; additive,
+                # i + nijanta + prati-inner).
+                if upasarga and dhatu == "i" and sanadi == "nijanta" and upasarga.split(";")[-1] == "prati":
+                    _iNt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("tigamit", "tyAyit"), ("tigamayit", "tyAyayit"),
+                                       ("tigamayan", "tyAyayan"), ("tigamayant", "tyAyayant"),
+                                       ("tigamayat", "tyAyayat"),
+                                       ("tigaman", "tyAyan"), ("tigamayam", "tyAyayam"),
+                                       ("tigamya", "tyAyya"), ("tigamayya", "tyAyya"),
+                                       ("tigamyA", "tyAyyA"),
+                                       ("tigamak", "tyAyak"), ("tigamik", "tyAyik")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _iNt:
+                                    _iNt.append(_g)
+                    if _iNt:
+                        new_v += _iNt
                 # sam + reduplicated nasal twins (Panini 8.3.23 mo'nusvAraH / 8.4.58-59 vA padAntasya)
                 if upasarga:
                     _sam_nas = []
@@ -2056,9 +2164,21 @@ class KrdantaEngine:
                     c = c[3:]
                 elif pratyaya == "lyap" and c.startswith("saM"):
                     c = c[3:]
+                # brU/vac/vaS lyap de-fusion (mirrors list-chain twin above).
+                if pratyaya == "lyap" and dhatu in ("brU", "vac", "vaS") and c.startswith("pro"):
+                    c = "u" + c[3:]
                 _a = apply_upasargas(upasarga, c, dhatu_id)
                 _b = apply_upasargas(upasarga, c, dhatu_id, skip_satva=True)
                 _all = [_a] if _a == _b else [_a, _b]
+                # iN aDi-prefix-drop (outer-prefixes + aDhi-fused stem; prA-strip as above).
+                if _iN_drop and isinstance(c, str):
+                    _dc = ("aD" + c[4:]) if c.startswith("prAD") else c
+                    if _dc.startswith("aD"):
+                        if _iN_outer:
+                            _all.append(apply_upasargas(_iN_outer, _dc, dhatu_id))
+                            _all.append(apply_upasargas(_iN_outer, _dc, dhatu_id, skip_satva=True))
+                        else:
+                            _all.append(_dc)
                 _all += [c.replace("ucS", "ucC") for c in list(_all) if "ucS" in c]
                 if pratyaya in ("kta", "ktavatu") and upasarga.split(";")[-1] in ("sam", "ud"):
                     _all += [c.replace("Myat", "mat").replace("myat", "mat").replace("dyat", "dat") for c in list(_all) if ("Myat" in c or "myat" in c or "dyat" in c)]
@@ -2087,6 +2207,78 @@ class KrdantaEngine:
                             if _o in c: _sad_tw.append(c.replace(_o, _n))
                     if _sad_tw:
                         _all += _sad_tw
+                # sad upa;AN Au-drop + GaY vriddhi twins (mirrors list-chain
+                # twin above; zada~ 10.0368 surveyed; additive, sad + upa;AN).
+                if upasarga == "upa;AN" and dhatu == "sad":
+                    _sad_an2 = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        _g = c.replace("AupAs", "upAs")
+                        if pratyaya == "GaY":
+                            _g = _g.replace("sada", "sAda")
+                        if _g not in _all and _g not in _sad_an2 and _g != c:
+                            _sad_an2.append(_g)
+                    if _sad_an2:
+                        _all += _sad_an2
+                # iR-san prati iziz-twins (mirrors list-chain twin above; covers
+                # tumun/lyap avyaya + lyuw/GaY form; additive).
+                if upasarga and dhatu == "i" and sanadi == "sannanta" and upasarga.split(";")[-1] == "prati":
+                    _izk2 = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        _g = c
+                        for _o, _n in (("tijigAMs", "tIziz"), ("tijaygAMs", "tIziz"),
+                                       ("tijigam", "tIziz"), ("tijaygam", "tIziz"),
+                                       ("tIzizanIya", "tIzizaRIya"), ("tIzizanIyA", "tIzizaRIyA"), ("tIzizanam", "tIzizaRam")):
+                            if _o in _g:
+                                _g = _g.replace(_o, _n)
+                        if _g != c and _g not in _all and _g not in _izk2:
+                            _izk2.append(_g)
+                    if _izk2:
+                        _all += _izk2
+                # iR E-grade twins (mirrors list-chain twin above; covers avyaya
+                # tumun/lyap + form items; additive).
+                if upasarga and dhatu == "i" and sanadi is None:
+                    _iin = upasarga.split(";")[-1]
+                    if _iin == "AN" or _iin.endswith("-AN"):
+                        _iin = "A"
+                    if _iin.endswith(("a", "A")):
+                        _ek2 = []
+                        for c in list(_all):
+                            if not isinstance(c, str):
+                                continue
+                            for _o, _n in (("etavya", "Etavya"), ("etavyA", "EtavyA"),
+                                           ("eya", "Eya"), ("eyA", "EyA"),
+                                           ("etA", "EtA"), ("etr", "Etr"), ("etf", "Etf"),
+                                           ("etum", "Etum")):
+                                if _o in c:
+                                    _g = c.replace(_o, _n)
+                                    if _g not in _all and _g not in _ek2:
+                                        _ek2.append(_g)
+                        if _ek2:
+                            _all += _ek2
+                # iR-nich prati Ayay-twins (mirrors list-chain twin above; covers
+                # tumun/lyap avyaya + lyuw form; additive).
+                if upasarga and dhatu == "i" and sanadi == "nijanta" and upasarga.split(";")[-1] == "prati":
+                    _iNt2 = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("tigamit", "tyAyit"), ("tigamayit", "tyAyayit"),
+                                       ("tigamya", "tyAyya"), ("tigamayya", "tyAyya"),
+                                       ("tigamyA", "tyAyyA"),
+                                       ("tigaman", "tyAyan"), ("tigamayam", "tyAyayam"),
+                                       ("tigamayan", "tyAyayan"), ("tigamayant", "tyAyayant"),
+                                       ("tigamayat", "tyAyayat"),
+                                       ("tigamak", "tyAyak"), ("tigamik", "tyAyik")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _iNt2:
+                                    _iNt2.append(_g)
+                    if _iNt2:
+                        _all += _iNt2
                 # sam + reduplicated nasal twins (Panini 8.3.23 mo'nusvAraH / 8.4.58-59 vA padAntasya)
                 if upasarga:
                     _sam_nas = []
@@ -8910,6 +9102,10 @@ class KrdantaEngine:
             # kzi/kzE (vowel-final, outside block) and kzam carry yat keys; other 16 yat-less).
             if clean == "kzam" and sanadi is None:
                 return tri_linga("kzamya")
+            # kzal yat (kzAlya; sole 10.0086 surveyed — kz-block overfires to "-"
+            # while data carries full kzAlya-family unprefixed and prefixed).
+            if clean == "kzal" and sanadi is None:
+                return tri_linga("kzAlya")
             if clean.startswith(("ts", "km", "kz")) and not (clean.endswith(("p", "P", "b", "B", "m")) and "u" in clean) and not (clean[-1] in SLP1_VOWELS):
                 return {"M": "-", "F": "-", "N": "-"}
             if clean.startswith("kr") and clean[-1:] in ("w", "W", "q", "Q", "t", "T", "d", "D", "n"):
@@ -11310,7 +11506,10 @@ class KrdantaEngine:
                     if "form" in _it and isinstance(_it["form"], str):
                         _fm = _it["form"]
                         _afm = "A" + _fm[1:] if _fm.startswith("a") else ("A" + _fm)
-                        _it["form"] = _afm
+                        # keep BOTH like M/F/N above (additive; the old replace
+                        # dropped the prefixed twin, e.g. upAsAsadanam for
+                        # 10.0368:upa;AN yang_krut lyuw).
+                        _it["form"] = [_fm, _afm] if _afm != _fm else _fm
             if "kta" in result and isinstance(result["kta"], dict):
                 for _g, _val in [("M", "AsannaH"), ("F", "AsannA"), ("N", "Asannam")]:
                     _cur = result["kta"].get(_g, [])
@@ -11839,12 +12038,13 @@ class KrdantaEngine:
                             _sa[_g] = _curs
             # Prefixed sic san-kta satva twins (sole sic-clean 06.0170 surveyed:
             # aBi/ni/... want zizikzita-family (seT satva) while engine voices
-            # zisikzita-family; all san_krut M/F/N items; additive).
+            # zisikzita-family; all san_krut M/F/N items + form/avyaya items
+            # (lyuw/GaY form, tumun/lyap avyaya); additive).
             if _dm.get("clean", "") == "sic":
                 for _pr, _kd in result.items():
                     if not isinstance(_kd, dict):
                         continue
-                    for _g in ("M", "F", "N"):
+                    for _g in ("M", "F", "N", "form", "avyaya"):
                         if _kd.get(_g) is None:
                             continue
                         _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]

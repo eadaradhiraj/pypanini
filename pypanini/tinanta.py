@@ -1754,6 +1754,32 @@ class TinantaDerivationEngine:
             _sat = [apply_upasargas(upasarga, c, dhatu_id) for c in cands]
             _nosat = [apply_upasargas(upasarga, c, dhatu_id, skip_satva=True) for c in cands]
             cands = list(dict.fromkeys(_sat + _nosat))
+            # iN aDi-prefix-drop twins (aDIte alongside aDyaDIte; iN 02.0041 + ik 02.0042
+            # surveyed — both lexically contain adhi so an explicit aDi inner is redundant:
+            # the prefixed paradigm equals outer-prefixes + unprefixed aDhi-fused stems
+            # (aDIte/duraDIte/pratyaDIte/prADIte/samaDIte, aDyeti); unprefixed provides
+            # the aDhi-fused stems; unprefixed untouched; additive, adhi-root + aDi-inner).
+            if dhatu == "i" and upasarga.split(";")[-1] == "aDi":
+                try:
+                    _iNop = (self._get_meta(dhatu, dhatu_id).get("op", "") or "")
+                except Exception:
+                    _iNop = ""
+                if _iNop.strip("~`") in ("iN", "ik"):
+                    _outer = ";".join(upasarga.split(";")[:-1])
+                    try:
+                        _up0, _ = self._derive_inner(dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path, None, _cakz_bypass)
+                    except Exception:
+                        _up0 = []
+                    _adt = []
+                    for _u in _up0:
+                        if isinstance(_u, str) and _u.startswith("aD"):
+                            _gs = [apply_upasargas(_outer, _u, dhatu_id),
+                                   apply_upasargas(_outer, _u, dhatu_id, skip_satva=True)] if _outer else [_u]
+                            for _h in _gs:
+                                if _h not in cands and _h not in _adt:
+                                    _adt.append(_h)
+                    if _adt:
+                        cands = list(dict.fromkeys(cands + _adt))
             # 01.1091 zu yang augmented de-retroflexion (bare asozU- vs prefixed asosU-;
             # sole zu surveyed: lw keeps sozU, laN/luN/lfN take sosU with prefix+augment;
             # sU 06.0144 surveyed likewise (prefixed yang laN AsosUyata vs AsozUyata)).
@@ -1763,7 +1789,8 @@ class TinantaDerivationEngine:
             # sU lfN/laN o-grade twins (nirasosavizyat/nirasosUyata; 06.0144
             # surveyed: nir/pari/vi prefixed lfN takes sosavizy-stem and yak
             # laN takes sosUya-stem while engine voices savizy/sUya;
-            # additive, sU + lfN/laN).
+            # yak-laN Avahi/Amahi take satva-z (nirazUyAvahi) while engine keeps
+            # dental (nirasUyAvahi); additive, sU + lfN/laN).
             if dhatu == "sU" and lakara in ("lfN", "laN"):
                 _suo = []
                 for c in cands:
@@ -1773,6 +1800,10 @@ class TinantaDerivationEngine:
                             _suo.append(_g)
                     if lakara == "laN" and "asUya" in c:
                         _g = c.replace("asUya", "asosUya")
+                        if _g not in cands and _g not in _suo:
+                            _suo.append(_g)
+                    if lakara == "laN" and "asUy" in c:
+                        _g = c.replace("asUy", "azUy")
                         if _g not in cands and _g not in _suo:
                             _suo.append(_g)
                 if _suo:
@@ -1995,11 +2026,15 @@ class TinantaDerivationEngine:
             # 0574/1099/0460 yang-laN/luN/lfN surveyed — prefixed augmented takes dental stem (apAsesiD,
             # pratyatostuB, upAsesev, aByasesm) while unaugmented keeps zw (pratitozwuB) or z (apaseziD)
             # and unprefixed augmented keeps z (aseziD); krdanta yang_krut keeps z (apaseziDita) so
-            # tinanta-only; stem-specific pairs leave luN izwa-endings (z) intact; additive).
+            # tinanta-only; stem-specific pairs leave luN izwa-endings (z) intact; additive;
+            # su/si/snu/siv extension (05.0001/05.0002/02.0033/02.0036/04.0002/09.0005 surveyed —
+            # prefixed augmented yang takes dental stem (prAsosUyata, prAsesIyata, prAsosnUyata,
+            # vyasesIvyata) while unprefixed augmented keeps z (asozUyata); additive).
             if upasarga and sanadi == "yananta" and lakara in ("laN", "luN", "lfN"):
                 _yzd = []
                 for c in cands:
-                    for _o, _n in (("zwu", "stu"), ("ezi", "esi"), ("eze", "ese"), ("ezm", "esm")):
+                    for _o, _n in (("zwu", "stu"), ("ezi", "esi"), ("eze", "ese"), ("ezm", "esm"),
+                                   ("ozU", "osU"), ("ezI", "esI"), ("ozRU", "osnU")):
                         if _o in c:
                             _g = c.replace(_o, _n)
                             if _g not in cands and _g not in _yzd:
@@ -2021,6 +2056,100 @@ class TinantaDerivationEngine:
                                 _sdt.append(_g)
                 if _sdt:
                     cands = list(dict.fromkeys(cands + _sdt))
+            # iR-san prati iziz-twins (pratIzizati alongside pratijigamizati; iR 02.0040
+            # surveyed — prati-inner (prati/sam;prati/vi;prati) drops the jigamiz
+            # suppletion and takes regular iziz-formation with satva (pratIziz-,
+            # pratyEziz- augmented) while every other inner (AN/ava/ni/aBi/...)
+            # keeps suppletive jigamiz (Ajigamizati/nijigamizati) and already passes;
+            # unprefixed keeps jigamiz; additive, i + sannanta + prati-inner).
+            if upasarga and dhatu == "i" and sanadi == "sannanta" and upasarga.split(";")[-1] == "prati":
+                _izt = []
+                for c in cands:
+                    _g = c
+                    for _o, _n in (("tijigamiz", "tIziz"), ("tijaygamiz", "tIziz"),
+                                   ("tijigam", "tIz"), ("tijaygam", "tIz"),
+                                   ("tyajigamiz", "tyEziz"), ("tyajaygamiz", "tyEziz"),
+                                   ("tyajigam", "tyEz"), ("tyajaygam", "tyEz"),
+                                   ("tijigamizy", "tIzizy"), ("tijaygamizy", "tIzizy"),
+                                   ("tyajigamizy", "tyEzizy"), ("tyajaygamizy", "tyEzizy"),
+                                   ("tijigAMsy", "tIzizy"), ("tijaygAMsy", "tIzizy"),
+                                   ("tyajigAMsy", "tyEzizy"), ("tyajaygAMsy", "tyEzizy"),
+                                   ("tijigAMs", "tIziz"), ("tijaygAMs", "tIziz"),
+                                   ("tyajigAMs", "tyEziz"), ("tyajaygAMs", "tyEziz")):
+                        if _o in _g:
+                            _g = _g.replace(_o, _n)
+                    if _g != c and _g not in cands and _g not in _izt:
+                        _izt.append(_g)
+                if _izt:
+                    cands = list(dict.fromkeys(cands + _izt))
+            # iR E-grade twins (prEti/prEzi/prEmi alongside preti/prezi/premi; iR 02.0040
+            # surveyed — a/A-final inners (AN/ava/apa/upa/pra/parA, 47 tasks) take
+            # vriddhi-E in strong slots (Eti/Ezi/Emi, Etu, EtA/EtArO, Ezyati, AyitA/EtA,
+            # Ayizyate/Ezyate, AyizIzwa/EzIzwa) while i/consonant inners (aBi/ni/pari/
+            # prati/...) keep short e (pratyeti/aBiti) and already pass; dvi slots keep
+            # short (etaH/eTaH) via pair shape; unprefixed keeps e; additive,
+            # i + mUla + a/A-final-inner).
+            if upasarga and dhatu == "i" and sanadi is None:
+                _iin = upasarga.split(";")[-1]
+                if _iin == "AN" or _iin.endswith("-AN"):
+                    _iin = "A"
+                if _iin.endswith(("a", "A")):
+                    _etw = []
+                    for c in cands:
+                        for _o, _n in (("eti", "Eti"), ("ezi", "Ezi"), ("emi", "Emi"),
+                                       ("etu", "Etu"),
+                                       ("AytA", "EtA"), ("etA", "EtA"),
+                                       ("AytA", "AyitA"),
+                                       ("Ayzy", "Ezy"), ("ezy", "Ezy"), ("esya", "Ezya"),
+                                       ("Ayzy", "Ayizy"),
+                                       ("AyzI", "EzI"), ("ezI", "EzI"), ("esI", "EzI"),
+                                       ("AyzI", "AyizI")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in cands and _g not in _etw:
+                                    _etw.append(_g)
+                    if _etw:
+                        cands = list(dict.fromkeys(cands + _etw))
+            # iR-nich prati luN Ayiy-twin (pratyAyiyata alongside pratyagamayizwa;
+            # same task — nich-luN p.eka takes Ayiy-stem while engine voices
+            # gamay-suppletion; other nich slots already pass; additive,
+            # i + nijanta + luN + prati-inner).
+            if upasarga and dhatu == "i" and sanadi == "nijanta" and lakara == "luN" and upasarga.split(";")[-1] == "prati":
+                _iyt = [c.replace("yagamayizwa", "yAyiyata") for c in cands if "yagamayizwa" in c]
+                _iyt = [c for c in _iyt if c not in cands]
+                if _iyt:
+                    cands = list(dict.fromkeys(cands + _iyt))
+            # iR hyphen-chain augment twins (samABi-ANet alongside samaBi-ANAyat;
+            # 02.0040:sam;aBi-AN surveyed, sole hyphen task needing it (03.0010 dA
+            # passes already) — augment sits after the outer prefix (sam + A + aBi-AN)
+            # with a-elision (samABi-AN) and short stems (ANet/ANitAm/ANezyat) while
+            # engine keeps augment outside (samaBi-ANAyatAm); unaugmented slots pass;
+            # unprefixed untouched; additive, i + hyphen-inner + augmented).
+            if upasarga and dhatu == "i" and "-" in upasarga and lakara in ("laN", "lfN"):
+                _hyt = []
+                for c in cands:
+                    _g = c
+                    for _o, _n in (("samaBi-AN", "samABi-AN"),
+                                   ("samABi-ANAyatAm", "samABi-ANitAm"),
+                                   ("samABi-ANAyatam", "samABi-ANitam"),
+                                   ("samABi-ANAyata", "samABi-ANita"),
+                                   ("samABi-ANAyam", "samABi-ANayam"),
+                                   ("samABi-ANAyAva", "samABi-ANiva"),
+                                   ("samABi-ANAyAma", "samABi-ANima"),
+                                   ("samABi-ANAyan", "samABi-ANyan"),
+                                   ("samABi-ANAyaH", "samABi-ANeH"),
+                                   ("samABi-ANAyat", "samABi-ANet"),
+                                   ("samABi-ANEt", "samABi-ANet"),
+                                   ("samABi-ANEd", "samABi-ANed"),
+                                   ("samABi-ANAyzy", "samABi-ANezy"),
+                                   ("samABi-ANEzy", "samABi-ANezy"),
+                                   ("samABi-ANEsy", "samABi-ANezy")):
+                        if _o in _g:
+                            _g = _g.replace(_o, _n)
+                    if _g != c and _g not in cands and _g not in _hyt:
+                        _hyt.append(_g)
+                if _hyt:
+                    cands = list(dict.fromkeys(cands + _hyt))
             # vas-ASIrliN vA-grade twins (XvAvasyAt/XvAsyAt/XvivatsyAt alongside XvasyAt; vasa~ 01.1160
             # surveyed — A/a-final inners (AN/apa/pra/upa, 7 tasks) take vA-grades while i/consonant
             # inners (pari/sam/aDi/vi/ni/ati/prati/ud/nir, 10 tasks) pass via yuzyAt already; ozyAt
@@ -2122,12 +2251,12 @@ class TinantaDerivationEngine:
                 _vpt = [c for c in _vpt if c not in cands]
                 if _vpt:
                     cands = list(dict.fromkeys(cands + _vpt))
-            # vipra-luN/lfN leading-augment twins (avipravadizyat alongside viprAvadizyat; same task —
-            # luN/lfN (unlike laN) take leading augment before the prefix (a + vipra + vadizyat/…) while
-            # engine voices internal augment only (viprAvadizyat); laN stays augmentless (above), except
-            # karmani-laN which also takes leading-augment (avipravivadizyata/avipravAdyata/… for yak/
-            # san_yak/nich_yak/yang_yak); additive, vipra + (luN/lfN any, laN karmani-only)).
-            if upasarga == "vipra" and (lakara in ("luN", "lfN") or (lakara == "laN" and prayoga == "karmani")):
+            # vipra leading-augment twins (avipravadizyat alongside viprAvadizyat; same task —
+            # luN/lfN take leading augment before the prefix (a + vipra + vadizyat/…) while
+            # engine voices internal augment only (viprAvadizyat); laN takes it in EVERY anta
+            # (avipravadata/avipravAdyata/avipravivadizyata/avipravAdayata/avipravAvadyata for
+            # ting/yak/san/nich/yang, kartari and karmani alike); additive, vipra + augmented).
+            if upasarga == "vipra" and lakara in ("laN", "luN", "lfN"):
                 _vpa = ["a" + c for c in cands if c.startswith("vipr") and ("a" + c) not in cands]
                 if _vpa:
                     cands = list(dict.fromkeys(cands + _vpa))
@@ -10683,6 +10812,7 @@ class TinantaDerivationEngine:
 
         elif lakara == "ASIrliN":
             cands = []
+            _ubh_paras = []
             if pada in ("parasmEpadi", "uBayapadi"):
                 _asb = [clean]
                 if clean == "aj" or op.startswith("aja"):
@@ -10819,10 +10949,16 @@ class TinantaDerivationEngine:
                     ("uttama", "bahu"): "yAsma",
                 }
                 cands.extend([b + endings_paras[(purusha, vacana)] for b in _asb])
-                return [b + endings_paras[(purusha, vacana)] for b in _asb], log
+                if pada == "uBayapadi":
+                    # uBaya keeps paras AND falls through to the Atmane section
+                    # below (additive; 10.0274 car+ud surveyed — prefixed ud wants
+                    # Atmane cArayiz-family alongside paras caryAt).
+                    _ubh_paras = list(cands)
+                else:
+                    return [b + endings_paras[(purusha, vacana)] for b in _asb], log
             if pada in ("Atmanepadi", "uBayapadi") or prayoga == "karmani":
                 # Atmanepadi sew: eDizIzwa / modizIzwa etc. Use guna base for consonant-final non-idit (mud->mod); over-generate for vowel-initial
-                cands=[]
+                cands = list(_ubh_paras)
                 for base_cmp in self._prim_bases(clean, is_idit, op, dhatu_id, sew):
                     if "Ur" in base_cmp or "Ud" in base_cmp:
                         eff = base_cmp
