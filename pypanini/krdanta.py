@@ -1806,6 +1806,13 @@ class KrdantaEngine:
                                     _lmt.append(_g)
                     if _lmt:
                         new_v += _lmt
+                # sev-ni double-satva twins (mirrors tinanta; sev + sannanta + ni-inner; additive).
+                if upasarga and dhatu == "sev" and sanadi == "sannanta" and upasarga.split(";")[-1] == "ni":
+                    _svt = [c.replace("seviz", "zeviz") for c in list(new_v)
+                            if isinstance(c, str) and "seviz" in c]
+                    _svt = [c for c in _svt if c not in new_v]
+                    if _svt:
+                        new_v += _svt
                 # labh-GaY redup twin (XlAlABaH alongside XlABaH; qulaBa~z 01.1130 surveyed — all 7
                 # non-AN tasks (ati/pra/prati/sam/upa/vi/vi;pra) carry lAlABa (redup, nasal-less) via
                 # existing prefix sandhi (saMlAlABaH/pralAlABaH/...); lamBa/lalamBa co-variants make the
@@ -2002,6 +2009,13 @@ class KrdantaEngine:
                                     _lmt.append(_g)
                     if _lmt:
                         _all += _lmt
+                # sev-ni double-satva twins (mirrors tinanta; sev + sannanta + ni-inner; additive).
+                if upasarga and dhatu == "sev" and sanadi == "sannanta" and upasarga.split(";")[-1] == "ni":
+                    _svt = [c.replace("seviz", "zeviz") for c in list(_all)
+                            if isinstance(c, str) and "seviz" in c]
+                    _svt = [c for c in _svt if c not in _all]
+                    if _svt:
+                        _all += _svt
                 # labh-GaY redup twin (mirrors list branch; laB + GaY; additive).
                 if upasarga and dhatu == "laB" and pratyaya == "GaY":
                     _lrt = [c.replace("lABa", "lAlABa") for c in list(_all)

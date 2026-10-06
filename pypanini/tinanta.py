@@ -2060,6 +2060,16 @@ class TinantaDerivationEngine:
                                 _lmt.append(_g)
                 if _lmt:
                     cands = list(dict.fromkeys(cands + _lmt))
+            # sev-ni double-satva twins (nizizevizate alongside nizisevizate; zevf~ 01.0574 surveyed —
+            # ni-inner (i-final satva trigger) voices BOTH sibilants (nizizeviz- in san lw/liw/luw/lfw/low/
+            # viDiliN/ASIrliN + san_krut) while engine voices redup only (ziseviz); AN/upa inners keep
+            # dental and already pass; augmented laN/luN/lfN already pass (twins inert there); unprefixed
+            # untouched (prefix-gated); additive, sev + sannanta + ni-inner).
+            if upasarga and dhatu == "sev" and sanadi == "sannanta" and upasarga.split(";")[-1] == "ni":
+                _svt = [c.replace("seviz", "zeviz") for c in cands if "seviz" in c]
+                _svt = [c for c in _svt if c not in cands]
+                if _svt:
+                    cands = list(dict.fromkeys(cands + _svt))
             # A;upa;vi augmentless twins (opaviramat alongside opavyaramat; ramu~ 01.0989 surveyed —
             # sole A;upa;vi task in 01; block has ZERO augmented tokens (no opavya- anywhere in 1163),
             # laN across all antas takes augmentless (opaviramat...); sibling stacks (vi;upa/upa;AN/pra;vi)
