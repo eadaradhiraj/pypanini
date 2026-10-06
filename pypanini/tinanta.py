@@ -2464,14 +2464,30 @@ class TinantaDerivationEngine:
                                 _sct.append(_g)
                 if _sct:
                     cands = list(dict.fromkeys(cands + _sct))
-            # san a-fusion twins (uparcicCiz-family; fC 06.0016 surveyed:
-            # prefixed san fuses a-grade (uparci...) while engine voices
-            # A-fusion (upArci...); additive, sannanta-only).
+            # san a-fusion twins (upasizvitsat-family; svid 04.0085 + siD 04.0089
+            # surveyed: prefixed san fuses short (upasiz...) while engine voices
+            # A-fusion (upAsiz...); self-gating via Asiz; additive, sannanta).
             if sanadi == "sannanta":
                 _saf = [c.replace("Ar", "ar", 1) for c in cands if "Ar" in c]
                 _saf = [c for c in _saf if c not in cands]
+                _saz = [c.replace("Asiz", "asiz") for c in cands if "Asiz" in c]
+                _saz = [c for c in _saz if c not in cands and c not in _saf]
+                _saf = _saf + _saz
                 if _saf:
                     cands = list(dict.fromkeys(cands + _saf))
+            # yang anusvara twins (saMtaMtam/saMbaMBram; tamu 04.0099 + Bramu
+            # 04.0102 surveyed: sam-prefix voices M before labials/dentals
+            # while engine voices dental; additive, yananta + upasarga).
+            if sanadi == "yananta":
+                _yat = []
+                for c in cands:
+                    for _o, _n in (("ntaMt", "MtaMt"), ("sambaMB", "saMbaMB")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _yat:
+                                _yat.append(_g)
+                if _yat:
+                    cands = list(dict.fromkeys(cands + _yat))
             # gF liw jagal twins (avajagale; 06.0146 surveyed: prefixed liT
             # takes jagal (unpref liw lacks it, fusion covers jagar only);
             # additive, gF + liw).
@@ -2480,6 +2496,49 @@ class TinantaDerivationEngine:
                 _gft = [c for c in _gft if c not in cands]
                 if _gft:
                     cands = list(dict.fromkeys(cands + _gft))
+            # (moved to end of derive: see so laN/lfN zya-grade twins before
+            # `return cands, log` — an A-fusion twin voices savat-forms later.)
+            # so-san avasiz twins (AvasizAsat-family; 04.0042 surveyed: ava-chain
+            # prefixed san fuses short (avasiz) while engine voices A-fusion
+            # (avAsiz); self-gating via vAsiz substring; additive, sannanta).
+            if sanadi == "sannanta":
+                _sov = [c.replace("vAsiz", "vsiz") for c in cands if "vAsiz" in c]
+                _sov = [c for c in _sov if c not in cands]
+                if _sov:
+                    cands = list(dict.fromkeys(cands + _sov))
+            # so-san sic-aorist twins (AvAsAsizATAm/AvAsisAsIt; 04.0042 surveyed:
+            # ava-chain san luN takes sic-aorist sAsiz (dvi) and reduplicated
+            # sisAs (eka) while engine voices root-aorist sizAs; self-gating via
+            # sizAsIt; additive, sannanta + luN).
+            if sanadi == "sannanta" and lakara == "luN":
+                _sos2 = []
+                for c in cands:
+                    if "sizAsIt" in c:
+                        for _n in ("sAsizAT", "sisAsIt"):
+                            _g = c.replace("sizAsIt", _n)
+                            if _g not in cands and _g not in _sos2:
+                                _sos2.append(_g)
+                    if c.startswith("ava") and "sizAs" in c:
+                        _g = "Ava" + c[3:]
+                        if _g not in cands and _g not in _sos2:
+                            _sos2.append(_g)
+                if _sos2:
+                    cands = list(dict.fromkeys(cands + _sos2))
+            # iz/iN-liT redup twins (prEzizizAYcakre/avAyayAYcakre; 04.0022 iza~
+            # + 04.0038 IN surveyed: prefixed liT takes reduplicated stems
+            # while engine voices plain (unprefixed lacks redup too, so no
+            # fusion source); per-slot endings ride along; additive).
+            if (dhatu == "iz" or dhatu == "I") and lakara == "liw":
+                _rdt = []
+                for c in cands:
+                    for _o, _n in (("ezAYcak", "EzizizAYcak"), ("ezAMcak", "EzizizAMcak"),
+                                    ("AyAYcak", "AyayAYcak"), ("AyAMcak", "AyayAMcak")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _rdt:
+                                _rdt.append(_g)
+                if _rdt:
+                    cands = list(dict.fromkeys(cands + _rdt))
             # sic san satva twins (aBizizikz-family; 06.0170 surveyed:
             # prefixed san voices zizikz (satva) while engine voices zisikz;
             # kta keeps aniT sesik (separate twin); additive, sic + sannanta).
@@ -2712,6 +2771,21 @@ class TinantaDerivationEngine:
                 _fjt = [c for c in _fjt if c not in cands]
                 if _fjt:
                     cands = list(dict.fromkeys(cands + _fjt))
+            # so laN/lfN/luN zya-grade twins (aByazyat/aByazyAma/aByazAyi; 04.0042
+            # surveyed: ending-agnostic stem ops (asav/sy/sIy drop the ending
+            # vowel so -Ama/-Avahi uttama endings ride along; yak-luN takes
+            # zy-sic-aorist azAyi/zAyiz); additive, so + laN/lfN/luN).
+            if upasarga and dhatu == "so" and lakara in ("laN", "lfN", "luN"):
+                _soz2 = []
+                for c in cands:
+                    _ops = (("asav", "azy"), ("sy", "zy"), ("sIy", "zIy")) if lakara == "laN" else (("asavzy", "azy"), ("asavy", "azy"), ("savzye", "zAyizye"), ("savzye", "zAsye")) if lakara == "lfN" else (("asavi", "azAyi"), ("saviz", "zAyiz"))
+                    for _o, _n in _ops:
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _soz2:
+                                _soz2.append(_g)
+                if _soz2:
+                    cands = list(dict.fromkeys(cands + _soz2))
             return cands, log
         return cands, log
 

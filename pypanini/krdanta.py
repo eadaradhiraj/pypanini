@@ -12183,6 +12183,150 @@ class KrdantaEngine:
                     _kadd7 = [f for f in _kadd7 if f not in _kf3]
                     if _kadd7:
                         _kt3["F"] = _kf3 + _kadd7
+            # Prefixed vyaD GaY vriddhi twins (sole vyaD-clean 04.0078 surveyed,
+            # 16 tasks: prefixed GaY wants vyADaH while engine voices vyaDaH;
+            # unprefixed voices A-grade already; additive, GaY + upasarga).
+            if result.get("GaY") is not None:
+                _gy = result.get("GaY")
+                if isinstance(_gy, dict) and isinstance(_gy.get("form"), str) and "vyaDa" in _gy["form"]:
+                    _fm = _gy["form"]
+                    _g0 = _fm.replace("vyaDa", "vyADa")
+                    _gy["form"] = [_fm, _g0] if _g0 != _fm else _fm
+            # Prefixed krut R-grade twins (nft 04.0010 surveyed: pari/pra kta
+            # wants parinfttaH/parinartitavyaH/parinftyan while prefixed fusion
+            # voices R-grades; per-occurrence like san/yang; all krut M/F/N;
+            # additive, mUla + upasarga gated).
+            if sanadi is None:
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd9 = []
+                        for _f in _kv:
+                            if not isinstance(_f, str) or "R" not in _f:
+                                continue
+                            for _i, _ch in enumerate(_f):
+                                if _ch != "R":
+                                    continue
+                                for _rep in ("n", "r"):
+                                    _g0 = _f[:_i] + _rep + _f[_i + 1:]
+                                    if _g0 not in _kv and _g0 not in _kadd9:
+                                        _kadd9.append(_g0)
+                            for _g0 in (_f.replace("R", "n"), _f.replace("R", "r")):
+                                if _g0 not in _kv and _g0 not in _kadd9:
+                                    _kadd9.append(_g0)
+                        if _kadd9:
+                            _kd[_g] = _kv + _kadd9
+            # Prefixed tras nich-SAnac ya-retention twins (sole tras-clean
+            # 04.0011 surveyed, 7 tasks: nich SAnac wants apatrAsayamAnaH
+            # (ya-kept) while engine voices trAsyamAna (ya-drop); additive).
+            if _dm.get("clean", "") == "tras" and sanadi == "nijanta":
+                _trs = result.get("SAnac")
+                if isinstance(_trs, dict):
+                    for _g in ("M", "F", "N"):
+                        if _trs.get(_g) is None:
+                            continue
+                        _tv = _trs[_g] if isinstance(_trs[_g], list) else [_trs[_g]]
+                        _tadd = []
+                        for _f in _tv:
+                            if isinstance(_f, str) and "syamAn" in _f:
+                                _g0 = _f.replace("syamAn", "sayamAn")
+                                if _g0 not in _tv and _g0 not in _tadd:
+                                    _tadd.append(_g0)
+                        if _tadd:
+                            _trs[_g] = _tv + _tadd
+            # Prefixed pad panna twins (sole pad-clean 04.0065 surveyed, 8 tasks:
+            # aBi;nir/... kta wants aBinizpannaH while engine voices paRRaH;
+            # kta/ktavatu all antas; additive, pad + upasarga gated).
+            if _dm.get("clean", "") == "pad":
+                for _pr in ("kta", "ktavatu"):
+                    _kd = result.get(_pr)
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd10 = []
+                        for _f in _kv:
+                            if isinstance(_f, str) and "paRR" in _f:
+                                _g0 = _f.replace("paRR", "pann")
+                                if _g0 not in _kv and _g0 not in _kadd10:
+                                    _kadd10.append(_g0)
+                        if _kadd10:
+                            _kd[_g] = _kv + _kadd10
+            # Prefixed Kid nn twins (sole Kid-clean 04.0066 surveyed: pari kta
+            # wants pariKinnaH while engine voices KiRRaH; kta/ktavatu all
+            # antas; additive, Kid + upasarga gated; vid RR→dit unaffected).
+            if _dm.get("clean", "") == "Kid":
+                for _pr in ("kta", "ktavatu"):
+                    _kd = result.get(_pr)
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd11 = []
+                        for _f in _kv:
+                            if isinstance(_f, str) and "RR" in _f:
+                                _g0 = _f.replace("RR", "nn")
+                                if _g0 not in _kv and _g0 not in _kadd11:
+                                    _kadd11.append(_g0)
+                        if _kadd11:
+                            _kd[_g] = _kv + _kadd11
+            # Prefixed man An twins (sole man-clean 04.0073 surveyed: Rvul wants
+            # pramAnakaH, GaY pramAnaH, nich SAnac pramAnayamAnaH while engine
+            # voices R-grades; ARyam→Anayam first, then aR→An; all M/F/N items;
+            # additive, man + upasarga gated).
+            if _dm.get("clean", "") == "man":
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd12 = []
+                        for _f in _kv:
+                            if not isinstance(_f, str):
+                                continue
+                            if "ARyam" in _f:
+                                _g0 = _f.replace("ARyam", "Anayam")
+                                if _g0 not in _kv and _g0 not in _kadd12:
+                                    _kadd12.append(_g0)
+                                    continue
+                            if "aR" in _f:
+                                _g0 = _f.replace("aR", "An")
+                                if _g0 not in _kv and _g0 not in _kadd12:
+                                    _kadd12.append(_g0)
+                        if _kadd12:
+                            _kd[_g] = _kv + _kadd12
+            # Prefixed yang anusvara twins (saMtaMtam/saMbaMBram; tamu 04.0099 +
+            # Bramu 04.0102 surveyed: mirrors the tinanta yang twin; all
+            # yang/yangluk M/F/N/avyaya; additive).
+            if sanadi in ("yananta", "yanluganta"):
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kadd13 = []
+                        for _f in _kv:
+                            if not isinstance(_f, str):
+                                continue
+                            for _o, _n in (("ntaMt", "MtaMt"), ("sambaMB", "saMbaMB")):
+                                if _o in _f:
+                                    _g0 = _f.replace(_o, _n)
+                                    if _g0 not in _kv and _g0 not in _kadd13:
+                                        _kadd13.append(_g0)
+                        if _kadd13:
+                            _kd[_g] = _kv + _kadd13
             # Prefixed sad kyap A-vowel twins (sole sad-clean 06.0163 surveyed:
             # AN;ni wants AnizadyAH/AnizadyAm while engine voices a-grades).
             if _dm.get("clean", "") == "sad":
