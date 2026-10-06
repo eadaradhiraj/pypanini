@@ -2648,6 +2648,80 @@ class TinantaDerivationEngine:
                                 _yladd.append(_g)
                 if _yladd:
                     cands = list(dict.fromkeys(cands + _yladd))
+            # anj I-grade twins (AYjIzati/AYjIzitaH; 07.0021 surveyed: A-prefixed
+            # san takes I-grade jIz (aniT) while engine voices jijiz; ending-
+            # agnostic stem op covers lw/kta/ktavatu (jijiza->jIza for present,
+            # jijizita->jIzita for kta); additive, aYj-gated).
+            if dhatu == "aYj":
+                _ajt = [c.replace("jijiz", "jIz") for c in cands if "jijiz" in c]
+                _ajt = [c for c in _ajt if c not in cands]
+                if _ajt:
+                    cands = list(dict.fromkeys(cands + _ajt))
+            # stanB/skanB udatta twins (uttaBnAti/udatastamBa/vicaskamBa; 09.0007
+            # stanB + 09.0009 skanB surveyed: ud/vi prefixed lw geminates
+            # (uttaBn, no s), liw takes augment (udatastamB) or ca-redup
+            # (vicaskamB), prati/vi take zw-grades (tazwamB/tizwamB/tAzwaB)
+            # in every lakara incl. augmented laN (yasta->yazwa) and yang,
+            # ud takes ttam-geminates, skanB vi takes zka-satva + n-drop;
+            # additive, shape-gated (all lakaras; bare untouched via upasarga).
+            if dhatu in ("stanB", "skanB"):
+                _sbt = []
+                for c in cands:
+                    for _o, _n in (("tstaBn", "ttaBn"), ("tstaBn", "tTtaBn"),
+                                    ("uttastamB", "udatastamB"), ("tastamB", "caskamB"),
+                                    ("tstanB", "ttamB"), ("tstanB", "tTtamB"),
+                                    ("tstamB", "ttamB"), ("tstamB", "tTtamB"),
+                                    ("tstan", "ttan"), ("tstan", "tTtan"),
+                                    ("tstanBy", "ttaBy"), ("tstanBy", "tTtaBy"),
+                                    ("stanBy", "zwaBy"), ("skanBy", "zkaBy"),
+                                    ("skan", "zka"), ("stan", "zwan"),
+                                    ("sta", "zwa")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _sbt:
+                                _sbt.append(_g)
+                if _sbt:
+                    cands = list(dict.fromkeys(cands + _sbt))
+            # skanB satva twins (vizkabDaH/vizkaBnAti; 09.0009 surveyed:
+            # vi-prefixed forms take satva-z while engine voices s;
+            # additive, skanB-gated).
+            if dhatu == "skanB":
+                _skt = []
+                for c in cands:
+                    for _o, _n in (("skab", "zkab"), ("skaBn", "zkaBn"),
+                                    ("skamB", "zkamB"), ("skanB", "zkanB")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _skt:
+                                _skt.append(_g)
+                if _skt:
+                    cands = list(dict.fromkeys(cands + _skt))
+            # cam A-lengthening twins (AcAmnoti; 05.0031 surveyed: AN present
+            # takes A-grade while engine voices short a; additive, cam-gated).
+            if dhatu == "cam":
+                _cmt = [c.replace("camn", "cAmn") for c in cands if "camn" in c]
+                _cmt = [c for c in _cmt if c not in cands]
+                if _cmt:
+                    cands = list(dict.fromkeys(cands + _cmt))
+            # su aBi-satva twins (aByazUyata/aByazoQvam; 05.0001 surveyed:
+            # i-final inner aBi takes satva-z on augmented stems while engine
+            # voices s (aByasUyata/aByasoQvam); ya+z and yo+z grades;
+            # additive, su + aBi-inner gated).
+            if upasarga and dhatu == "su" and upasarga.split(";")[-1] in ("aBi", "vi", "ni", "pari", "aDi", "su"):
+                _suz = []
+                for c in cands:
+                    for _o, _n in (("yasUy", "yazUy"), ("YasUy", "YazUy"),
+                                    ("yasuy", "yazuy"), ("Yasuy", "Yazuy"),
+                                    ("yaso", "yazo"), ("Yaso", "Yazo"),
+                                    ("yasO", "yazO"), ("YasO", "YazO"),
+                                    ("yazOz", "yazoz"), ("YazOz", "Yazoz"),
+                                    ("yasOz", "yazoz"), ("YasOz", "Yazoz")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _suz:
+                                _suz.append(_g)
+                if _suz:
+                    cands = list(dict.fromkeys(cands + _suz))
             # iz/iN-liT redup twins (prEzizizAYcakre/avAyayAYcakre; 04.0022 iza~
             # + 04.0038 IN surveyed: prefixed liT takes reduplicated stems
             # while engine voices plain (unprefixed lacks redup too, so no

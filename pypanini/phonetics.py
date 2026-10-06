@@ -532,6 +532,8 @@ def apply_upasargas(prefix_str: str, form: str, dhatu_id: str = None, skip_satva
                     form = "zW" + form[2:]
                 elif form.startswith("sn"):
                     form = "zR" + form[2:]
+                elif form.startswith("sk"):
+                    form = "zk" + form[2:]
             elif (form.startswith("a") or form.startswith("A")) and len(form) > 2 and form[1] == "s":
                 core = form[2:]
                 if core.startswith(("eD", "iD", "iYc", "ec", "ic", "vaYj", "vaK", "aYj", "aNk", "tu", "to", "wO", "tAv", "un", "uv", "Av", "O", "ev", "evi", "TA", "Tu", "Te", "Ti", "TI", "aj", "vaj", "ANk", "ANK", "aNK", "ats", "Ad", "ad", "att", "atsA")):

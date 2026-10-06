@@ -12463,6 +12463,122 @@ class KrdantaEngine:
                                     _kaddY.append(_g0)
                         if _kaddY:
                             _kd[_g] = _kv + _kaddY
+            # Prefixed cam A-lengthening twins (sole cam-clean 05.0031 surveyed:
+            # AN lw/Satf want AcAmnoti/AcAmnuvan while engine voices short a;
+            # additive, cam + upasarga gated, M/F/N/avyaya/form).
+            if _dm.get("clean", "") == "cam":
+                for _pr, _it in result.items():
+                    if not isinstance(_it, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya"):
+                        _v = _it.get(_g)
+                        if _v is None:
+                            continue
+                        _vs = [_v] if isinstance(_v, str) else list(_v)
+                        _cadd = []
+                        for _f in _vs:
+                            if isinstance(_f, str) and "camn" in _f:
+                                _g0 = _f.replace("camn", "cAmn")
+                                if _g0 not in _vs and _g0 not in _cadd:
+                                    _cadd.append(_g0)
+                        if _cadd:
+                            _it[_g] = _vs + _cadd
+            # Prefixed mI I-retention twins (sole mI-clean 09.0004 surveyed: pra
+            # Satf M wants pramIRan while engine voices pramInan; additive).
+            if _dm.get("clean", "") == "mI":
+                _mI = result.get("Satf")
+                if isinstance(_mI, dict) and _mI.get("M") is not None:
+                    _mv = _mI["M"] if isinstance(_mI["M"], list) else [_mI["M"]]
+                    _madd = []
+                    for _f in _mv:
+                        if isinstance(_f, str) and "mInan" in _f:
+                            _g0 = _f.replace("mInan", "mIRan")
+                            if _g0 not in _mv and _g0 not in _madd:
+                                _madd.append(_g0)
+                    if _madd:
+                        _mI["M"] = _mv + _madd
+            # Prefixed anj I-grade twins (sole aYj-clean 07.0021 surveyed: A san
+            # all san_krut want AYjIz-family (aniT I-grade) while engine
+            # voices jijiz; ending-agnostic (jijiza->jIza, jijizita->jIzita);
+            # additive, aYj + sannanta gated, M/F/N/avyaya/form).
+            if sanadi == "sannanta" and _dm.get("clean", "") == "aYj":
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya", "form"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kaddA = []
+                        for _f in _kv:
+                            if isinstance(_f, str) and "jijiz" in _f:
+                                _g0 = _f.replace("jijiz", "jIz")
+                                if _g0 not in _kv and _g0 not in _kaddA:
+                                    _kaddA.append(_g0)
+                        if _kaddA:
+                            _kd[_g] = _kv + _kaddA if isinstance(_kd[_g], list) else (_kv + _kaddA if len(_kv + _kaddA) > 1 else (_kv + _kaddA)[0])
+            # Prefixed staB geminate/satva twins (09.0007 stanB uttabDaH/utTtabDaH
+            # + 09.0009 skanB vizkabDaH surveyed: ud mUla geminates (tta, s-drop,
+            # n->m), vi/skanB voices satva-z (ska->zka, skan->zka n-drop for
+            # ASIrliN/lyap), prati/vi take zw-grades (sta->zwa, stanBy->zwaBy)
+            # in mUla+san, skanB anIyar/lyuw/SAnac take natva-R after z;
+            # kta/ktavatu/Satf/tavya/tumun/ktvA/lyap/lyuw/GaY all antas;
+            # additive, stanB/skanB + upasarga gated, M/F/N/avyaya/form).
+            if upasarga and _dm.get("clean", "") in ("stanB", "skanB"):
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya", "form"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kaddS = []
+                        for _f in _kv:
+                            if not isinstance(_f, str):
+                                continue
+                            for _o, _n in (("tstabD", "ttabD"), ("tstabD", "tTtabD"),
+                                            ("skabD", "zkabD"),
+                                            ("tstanB", "ttamB"), ("tstanB", "tTtamB"),
+                                            ("tstamB", "ttamB"), ("tstamB", "tTtamB"),
+                                            ("tsta", "tta"), ("tsta", "tTta"),
+                                            ("tstam", "ttam"), ("tstam", "tTtam"),
+                                            ("skanBy", "zkaBy"), ("stanBy", "zwaBy"),
+                                            ("tstanBy", "ttaBy"), ("tstanBy", "tTtaBy"),
+                                            ("skan", "zka"), ("stan", "zwan"),
+                                            ("ska", "zka"), ("sta", "zwa"),
+                                            ("zkamBanIy", "zkamBaRIy"),
+                                            ("zkamBanam", "zkamBaRam"),
+                                            ("zkamBayamAn", "zkamBayamAR")):
+                                if _o in _f:
+                                    _g0 = _f.replace(_o, _n)
+                                    if _g0 not in _kv and _g0 not in _kaddS:
+                                        _kaddS.append(_g0)
+                        if _kaddS:
+                            _kd[_g] = _kv + _kaddS if isinstance(_kd[_g], list) else (_kv + _kaddS if len(_kv + _kaddS) > 1 else (_kv + _kaddS)[0])
+            # Prefixed F lyap pra-strip twins (sole F-clean 09.0032 surveyed, 4
+            # tasks: AN/ni/pari/vi lyap lists prefixless pra-less readings
+            # (erya/nIrya/parIrya/vIrya; ArirIzya/nyarirIzya/erzizya-family)
+            # while engine voices pra-fusions (Aprerya/niprerya/...);
+            # strip lexicalized 'pr' from fused forms then contract
+            # (iA->ya, ie->I, Ae->e, AA->A); additive).
+            if _dm.get("clean", "") == "F":
+                _lyF = result.get("lyap")
+                if isinstance(_lyF, dict):
+                    _lvF = _lyF.get("avyaya")
+                    _lvF = [_lvF] if isinstance(_lvF, str) else list(_lvF or [])
+                    _fadd = []
+                    for _f in list(_lvF):
+                        if not isinstance(_f, str) or "pr" not in _f:
+                            continue
+                        _g0 = _f.replace("pr", "", 1)
+                        for _o, _n in (("iA", "ya"), ("ie", "I"),
+                                        ("Ae", "e"), ("AA", "A")):
+                            if _o in _g0:
+                                _g0 = _g0.replace(_o, _n)
+                        if _g0 and _g0 not in _lvF and _g0 not in _fadd:
+                            _fadd.append(_g0)
+                    if _fadd:
+                        _lyF["avyaya"] = _lvF + _fadd
             # Prefixed sad kyap A-vowel twins (sole sad-clean 06.0163 surveyed):
             # AN;ni wants AnizadyAH/AnizadyAm while engine voices a-grades).
             if _dm.get("clean", "") == "sad":

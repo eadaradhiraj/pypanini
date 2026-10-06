@@ -105,8 +105,10 @@ def validate_one(fid: str):
                     elif len(misses) < 12: misses.append(f"{kk}/{code}:{cand[0] if cand else '∅'}")
                 else:
                     total += 1
-                    if item.get("form") in toks: matched += 1
-                    elif len(misses) < 12: misses.append(f"{kk}/{code}:{item.get('form')}")
+                    _f = item.get("form")
+                    _c = _f if isinstance(_f, list) else [_f]
+                    if hit(_c): matched += 1
+                    elif len(misses) < 12: misses.append(f"{kk}/{code}:{(_c[0] if _c else '∅')}")
         dt = time.time()-t0
         return {"fid": fid, "matched": matched, "total": total, "pct": round(matched/total*100,1) if total else 0, "misses": misses, "secs": round(dt,1), "skipped": skipped}
     except Exception as e:
