@@ -1910,6 +1910,16 @@ class KrdantaEngine:
                                     _ydt.append(_g)
                     if _ydt:
                         new_v += _ydt
+                # cAy-yang redup-grade twins (cekIyamAna alongside cAcAyyamAna; cAyf~ 01.1023 surveyed,
+                # apa/upa — prefixed yang-SAnac takes cekI-grade redup (apacekIyamAnaH) while engine voices
+                # cAcA-grade (apacAcAyyamAnaH); unprefixed carries both grades and passes via cAcA already
+                # (prefix-gated so untouched); additive, cAy + yananta + SAnac).
+                if upasarga and dhatu == "cAy" and sanadi == "yananta" and pratyaya == "SAnac":
+                    _cyt = [c.replace("cAcAyyamAna", "cekIyamAna").replace("cAcAyyamAnA", "cekIyamAnA") for c in list(new_v)
+                            if isinstance(c, str) and ("cAcAyyamAna" in c or "cAcAyyamAnA" in c)]
+                    _cyt = [c for c in _cyt if c not in new_v]
+                    if _cyt:
+                        new_v += _cyt
                 # hras/ras-nich ay-retention twins (hrAsayamAna alongside hrAsyamAna; hrasa~/rasa~ 0808/0810
                 # surveyed, nir/prati — nich-SAnac keeps causative -ay- (hrAsayamAna/rAsayamAna, dental)
                 # while engine voices y-drop (hrAsyamAna) + natva-R (hrAsayamARa); same ay-retention theme
@@ -2268,6 +2278,13 @@ class KrdantaEngine:
                                     _ydt.append(_g)
                     if _ydt:
                         _all += _ydt
+                # cAy-yang redup-grade twins (mirrors list branch; cAy + yananta + SAnac; additive).
+                if upasarga and dhatu == "cAy" and sanadi == "yananta" and pratyaya == "SAnac":
+                    _cyt = [c.replace("cAcAyyamAna", "cekIyamAna").replace("cAcAyyamAnA", "cekIyamAnA") for c in list(_all)
+                            if isinstance(c, str) and ("cAcAyyamAna" in c or "cAcAyyamAnA" in c)]
+                    _cyt = [c for c in _cyt if c not in _all]
+                    if _cyt:
+                        _all += _cyt
                 # hras/ras-nich ay-retention twins (mirrors list branch; hras/ras + nijanta + SAnac; additive).
                 if upasarga and dhatu in ("hras", "ras") and sanadi == "nijanta" and pratyaya == "SAnac":
                     _hrt = []
