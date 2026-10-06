@@ -1841,6 +1841,13 @@ class KrdantaEngine:
                                     _kvt.append(_g)
                     if _kvt:
                         new_v += _kvt
+                # Ced-san I-fusion twins (mirrors tinanta; Ced + sannanta; additive).
+                if upasarga and dhatu == "Ced" and sanadi == "sannanta":
+                    _cdt = [c.replace("vicicC", "vIcC") for c in list(new_v)
+                            if isinstance(c, str) and "vicicC" in c]
+                    _cdt = [c for c in _cdt if c not in new_v]
+                    if _cdt:
+                        new_v += _cdt
                 # mAn-family dental twins (mirrors tinanta; mAn-shape; additive; SAnac suffix-mARa
                 # preserved — pre-suffix occurrences dentalize (pramimARayizamARaH keeps amARaH), other
                 # pratyayas dentalize fully (pramARitaH has no suffix-mARa).
@@ -2236,6 +2243,13 @@ class KrdantaEngine:
                                     _kvt.append(_g)
                     if _kvt:
                         _all += _kvt
+                # Ced-san I-fusion twins (mirrors tinanta; Ced + sannanta; additive).
+                if upasarga and dhatu == "Ced" and sanadi == "sannanta":
+                    _cdt = [c.replace("vicicC", "vIcC") for c in list(_all)
+                            if isinstance(c, str) and "vicicC" in c]
+                    _cdt = [c for c in _cdt if c not in _all]
+                    if _cdt:
+                        _all += _cdt
                 # mAn-family dental twins (mirrors tinanta; mAn-shape; additive; SAnac suffix-mARa
                 # preserved — pre-suffix occurrences dentalize (pramimARayizamARaH keeps amARaH), other
                 # pratyayas dentalize fully (pramARitaH has no suffix-mARa).

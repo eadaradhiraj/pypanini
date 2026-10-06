@@ -2155,6 +2155,39 @@ class TinantaDerivationEngine:
                 _uht = [c for c in _uht if c not in cands]
                 if _uht:
                     cands = list(dict.fromkeys(cands + _uht))
+            # Ced-san I-fusion twins (vIcCedayizate alongside vicCiCedizate; Ceda 10.0480 surveyed, sole vi —
+            # prefixed san takes I-fused cCe-grade ay-stem (vIcCedayiz-) while engine voices short-vi +
+            # i-redup (vicCiCediz-/vicicCediz-); unprefixed keeps CiCe-redup and passes (prefix-gated so
+            # untouched); krdanta clean here (tinanta-only first pass; san_krut queued next); additive,
+            # Ced + sannanta).
+            if upasarga and dhatu == "Ced" and sanadi == "sannanta":
+                _cdt = [c.replace("vicicC", "vIcC") for c in cands if "vicicC" in c]
+                _cdt = [c for c in _cdt if c not in cands]
+                if _cdt:
+                    cands = list(dict.fromkeys(cands + _cdt))
+            # Ced-san augmented twins (vIcCedayizat/vyEcCedayizizwa alongside vyacCiCedizat/vyacicCedizIt;
+            # same task — laN takes augmentless I-fusion (yacCiC→IcC) while luN/lfN take E-grade redup with
+            # iz-retention (yacicCediz→yEcCedayiz); sibling augmented patterns verified per-lakara in tokens;
+            # additive, Ced + sannanta + augmented).
+            if upasarga and dhatu == "Ced" and sanadi == "sannanta" and lakara in ("laN", "luN", "lfN"):
+                _cdt2 = []
+                for c in cands:
+                    for _o, _n in (("yacCiC", "IcC"), ("yacicCediz", "yEcCedayiz")):
+                        if _o in c:
+                            _g = c.replace(_o, _n)
+                            if _g not in cands and _g not in _cdt2:
+                                _cdt2.append(_g)
+                if _cdt2:
+                    cands = list(dict.fromkeys(cands + _cdt2))
+            # Ced-nich-luN E-grade twins (vyEcCedayizizwa alongside vyacCedayizwa; same task, sole nich-luN eka —
+            # luN eka takes E-grade redup with iz-retention (vyEcCedayizizwa, structured alung) while engine
+            # voices a-grade without iz (vyacCedayizwa); other luN slots pass already; unprefixed untouched
+            # (prefix-gated); additive, Ced + nijanta + luN).
+            if upasarga and dhatu == "Ced" and sanadi == "nijanta" and lakara == "luN":
+                _cdt3 = [c.replace("yacCedayizwa", "yEcCedayizizwa") for c in cands if "yacCedayizwa" in c]
+                _cdt3 = [c for c in _cdt3 if c not in cands]
+                if _cdt3:
+                    cands = list(dict.fromkeys(cands + _cdt3))
             # mAn-family dental twins (pramAnayate alongside pramARati; mAna~ 10.0381 surveyed, sole pra —
             # root-internal n (mAn, like van) blocks natva after r-prefixes (1322 mAn vs 9 suffix-mARa tokens)
             # while engine voices; prati saved by t-blocker (no twin needed), apa/ava lack r (unaffected);
