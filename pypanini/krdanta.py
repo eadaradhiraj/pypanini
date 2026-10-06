@@ -1920,6 +1920,23 @@ class KrdantaEngine:
                     _cyt = [c for c in _cyt if c not in new_v]
                     if _cyt:
                         new_v += _cyt
+                # dA-SAnac yacC-stem twins (samAyacCamAnaH alongside samAdAamAnaH; dAR 01.1079 surveyed,
+                # sam;A/sam;pra — sam-outer SAnac takes suppletive yacC-stem (samAyacCamAna/saMprayacCamAna
+                # with M/m) while engine voices dAamAna; other prefixes pass via dAamAna already (twins
+                # inert-or-bonus there); unprefixed untouched (prefix-gated); additive, dA + SAnac +
+                # sam-chain).
+                if upasarga and dhatu == "dA" and pratyaya == "SAnac" and "sam" in upasarga.split(";"):
+                    _dct = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("AdAamAn", "AyacCamAn"), ("pradAamAn", "prayacCamAn")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _dct:
+                                    _dct.append(_g)
+                    if _dct:
+                        new_v += _dct
                 # hras/ras-nich ay-retention twins (hrAsayamAna alongside hrAsyamAna; hrasa~/rasa~ 0808/0810
                 # surveyed, nir/prati — nich-SAnac keeps causative -ay- (hrAsayamAna/rAsayamAna, dental)
                 # while engine voices y-drop (hrAsyamAna) + natva-R (hrAsayamARa); same ay-retention theme
@@ -2285,6 +2302,19 @@ class KrdantaEngine:
                     _cyt = [c for c in _cyt if c not in _all]
                     if _cyt:
                         _all += _cyt
+                # dA-SAnac yacC-stem twins (mirrors list branch; dA + SAnac + sam-chain; additive).
+                if upasarga and dhatu == "dA" and pratyaya == "SAnac" and "sam" in upasarga.split(";"):
+                    _dct = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("AdAamAn", "AyacCamAn"), ("pradAamAn", "prayacCamAn")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _dct:
+                                    _dct.append(_g)
+                    if _dct:
+                        _all += _dct
                 # hras/ras-nich ay-retention twins (mirrors list branch; hras/ras + nijanta + SAnac; additive).
                 if upasarga and dhatu in ("hras", "ras") and sanadi == "nijanta" and pratyaya == "SAnac":
                     _hrt = []
@@ -8828,6 +8858,10 @@ class KrdantaEngine:
             # kr+T blocks yat entirely when exp is - (kraTa->-, general shape kr+T); kr otherwise no-vriddhi (krapya, pure generative kr-onset)
             # ts/km/kz-onset blocks yat entirely (tsara->-, kmara->-, kzara->-)
             # except poradupadhAt (Panini 3.1.98: u-upadhA + pu-coda like kzuB->kzoBya)
+            # plus kzam carve-out (kzamyaH attested 01.0510; surveyed all 19 kz-cleans in 01: only
+            # kzi/kzE (vowel-final, outside block) and kzam carry yat keys; other 16 yat-less).
+            if clean == "kzam" and sanadi is None:
+                return tri_linga("kzamya")
             if clean.startswith(("ts", "km", "kz")) and not (clean.endswith(("p", "P", "b", "B", "m")) and "u" in clean) and not (clean[-1] in SLP1_VOWELS):
                 return {"M": "-", "F": "-", "N": "-"}
             if clean.startswith("kr") and clean[-1:] in ("w", "W", "q", "Q", "t", "T", "d", "D", "n"):
