@@ -2095,6 +2095,35 @@ class TinantaDerivationEngine:
                 _aot = [c for c in _aot if c not in cands]
                 if _aot:
                     cands = list(dict.fromkeys(cands + _aot))
+            # vipra augmentless twins (vipravadat alongside viprAvadat; vada~ 10.0379 surveyed, sole vipra —
+            # block has ZERO augmented tokens; all augmented lakaras (laN/luN/lfN) across all antas take
+            # augmentless (vipra + plain stems); sibling stacks keep augment and already pass; unprefixed
+            # untouched (prefix-gated); additive, vipra + augmented).
+            if upasarga == "vipra" and lakara in ("laN", "luN", "lfN"):
+                _vpt = [c.replace("viprA", "vipra") for c in cands if "viprA" in c]
+                _vpt = [c for c in _vpt if c not in cands]
+                if _vpt:
+                    cands = list(dict.fromkeys(cands + _vpt))
+            # vipra-luN/lfN leading-augment twins (avipravadizyat alongside viprAvadizyat; same task —
+            # luN/lfN (unlike laN) take leading augment before the prefix (a + vipra + vadizyat/…) while
+            # engine voices internal augment only (viprAvadizyat); laN stays augmentless (above), except
+            # karmani-laN which also takes leading-augment (avipravivadizyata/avipravAdyata/… for yak/
+            # san_yak/nich_yak/yang_yak); additive, vipra + (luN/lfN any, laN karmani-only)).
+            if upasarga == "vipra" and (lakara in ("luN", "lfN") or (lakara == "laN" and prayoga == "karmani")):
+                _vpa = ["a" + c for c in cands if c.startswith("vipr") and ("a" + c) not in cands]
+                if _vpa:
+                    cands = list(dict.fromkeys(cands + _vpa))
+            # vipra-yak-laN leading-augment + avAdya twins (avipravAdyata alongside viprOdyata; same task —
+            # yak-laN takes leading augment + avAdya-stem (avipravAdyata/...) while engine voices O-grade
+            # without it (viprOdyata/...); other antas pass augmentless already; additive, vipra + yak + laN).
+            if upasarga == "vipra" and lakara == "laN" and sanadi is None and prayoga == "karmani":
+                _vpy = []
+                for c in cands:
+                    _g = ("a" + c).replace("prOdya", "pravAdya")
+                    if _g not in cands and _g not in _vpy:
+                        _vpy.append(_g)
+                if _vpy:
+                    cands = list(dict.fromkeys(cands + _vpy))
             # ramu-upa luN Atmane twins (upAraMsta alongside upAramt; ramu~ 01.0989 surveyed, sole upa —
             # upa-luN takes Atmane sic-endings (upAraMsta/upAraMsAtAm/upAraMsata/upAraMsTAH/upAraMsATAm/
             # upAranDvam/upAraMsi/upAraMsvahi/upAraMsmahi, structured alung) while engine voices
