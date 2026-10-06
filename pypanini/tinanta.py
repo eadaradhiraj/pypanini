@@ -2124,6 +2124,41 @@ class TinantaDerivationEngine:
                         _vpy.append(_g)
                 if _vpy:
                     cands = list(dict.fromkeys(cands + _vpy))
+            # hyphen-chain spelling + augmentless twins (sole '-' chains 02.0040/
+            # 03.0010 sam;aBi-AN surveyed: data mixes hyphenated (samaBi-ANdatta)
+            # and fused (samaBiANdattA) plus samABi capital-A spellings, and
+            # augmented lakaras take augmentless (samaBi-ANdatta, samABi-ANet);
+            # unprefixed untouched (hyphen-gated); additive).
+            if upasarga and "-" in upasarga:
+                _hdt = []
+                for c in cands:
+                    if "-" in c:
+                        _g = c.replace("-", "")
+                        if _g not in cands and _g not in _hdt:
+                            _hdt.append(_g)
+                    if "samaBi" in c:
+                        _g1 = c.replace("samaBi", "samABi")
+                        if _g1 not in cands and _g1 not in _hdt:
+                            _hdt.append(_g1)
+                        if "-" in _g1:
+                            _g2 = _g1.replace("-", "")
+                            if _g2 not in cands and _g2 not in _hdt:
+                                _hdt.append(_g2)
+                if _hdt:
+                    cands = list(dict.fromkeys(cands + _hdt))
+                if lakara in ("laN", "luN", "lfN"):
+                    _hat = []
+                    for c in cands:
+                        if "ANa" in c:
+                            _g = c.replace("ANa", "AN")
+                            if _g not in cands and _g not in _hat:
+                                _hat.append(_g)
+                        if "ANA" in c:
+                            _g = c.replace("ANA", "AN")
+                            if _g not in cands and _g not in _hat:
+                                _hat.append(_g)
+                    if _hat:
+                        cands = list(dict.fromkeys(cands + _hat))
             # ramu-upa luN Atmane twins (upAraMsta alongside upAramt; ramu~ 01.0989 surveyed, sole upa —
             # upa-luN takes Atmane sic-endings (upAraMsta/upAraMsAtAm/upAraMsata/upAraMsTAH/upAraMsATAm/
             # upAranDvam/upAraMsi/upAraMsvahi/upAraMsmahi, structured alung) while engine voices

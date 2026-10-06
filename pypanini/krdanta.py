@@ -11393,4 +11393,217 @@ class KrdantaEngine:
                             if _g2 not in _cur:
                                 _cur.append(_g2)
                 result["Satf"][_g] = _cur
+        # Prefixed sya-participle present-stem twins (data convention: prefixed
+        # sya-Satf/sya-SAnac/sya-BAvakarma-SAnac AND plain BAvakarma-SAnac blocks
+        # list PRESENT-stem forms
+        # (06.0001 AN sya-Satf Ajuhvan-family = prefixed Satf; 03.0001 AN san/nich
+        # identical; 01 BU aDiBavan likewise) while the engine voices sya-future
+        # stems there. Copy the same-call Satf forms into sya-Satf and SAnac
+        # forms into sya-SAnac/sya-BAvakarma-SAnac (plus BAvakarma-SAnac forms
+        # into the latter); slash-joined singles split to lists (hu AhozyatI/
+        # AhozyantI single-string never matches atomized tokens). Upasarga-gated
+        # so unprefixed stays byte-identical; additive so monotonic.
+        if upasarga:
+            def _as_list(_v):
+                if isinstance(_v, str):
+                    return [x for x in _v.split("/") if x] or [_v]
+                return list(_v)
+            _satf = result.get("Satf")
+            _sanac = result.get("SAnac")
+            _bhav = result.get("BAvakarma-SAnac")
+            for _pr, _srcs in (("sya-Satf", (_satf,)),
+                               ("sya-SAnac", (_sanac,)),
+                               ("sya-BAvakarma-SAnac", (_sanac, _bhav)),
+                               ("BAvakarma-SAnac", (_sanac,))):
+                _it = result.get(_pr)
+                if not isinstance(_it, dict):
+                    continue
+                for _g in ("M", "F", "N"):
+                    _cur = _as_list(_it.get(_g, [])) if _it.get(_g) is not None else []
+                    for _src in _srcs:
+                        if isinstance(_src, dict) and _src.get(_g) is not None:
+                            for _f in _as_list(_src.get(_g)):
+                                if _f not in _cur:
+                                    _cur.append(_f)
+                    if _cur != _it.get(_g):
+                        _it[_g] = _cur
+        # Prefixed dA ktin sandhi variants (sole dA-clean 03.0010 surveyed, 30
+        # tasks: trailing A-final prefix + datti fuses to Atti (AN/aBi;AN/.../
+        # parA → AttiH-family; plain A / sam;A / vi;A keep AdattiH), bare datti
+        # voices t-devoicing + pre-tti i/u lengthening (anu→anUttiH, ni→nIttiH,
+        # pra→prattiH, dus;pra→duzprattiH with engine z, pra;ni→praRittiH with
+        # engine R), sam voices anusvara (saMdattiH). All variants appended
+        # (any-match scoring; originals kept) so A-keeping tasks still hit v0;
+        # upasarga + dA-shape gated; unprefixed byte-identical.
+        if upasarga:
+            try:
+                _dm = self._get_meta(dhatu, dhatu_id)
+            except Exception:
+                _dm = {}
+            if _dm.get("clean") == "dA":
+                # (kta/ktavatu share the same datti→tti + i/u-lengthening sandhi:
+                # anu→anUttaH-family, parA→parAttaH-family, pra;ni→praRittaH with
+                # engine-R; A-final keeps v0; slash-joined N split so atomized
+                # parts match; additive.)
+                for _pr in ("kta", "ktavatu"):
+                    _kd = result.get(_pr)
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kv = [x for _p in _kv for x in (_p.split("/") if isinstance(_p, str) and "/" in _p else [_p])]
+                        _kadd2 = []
+                        for _f in _kv:
+                            if not isinstance(_f, str) or "datt" not in _f:
+                                continue
+                            _di = _f.find("datt")
+                            _pre = _f[:_di]
+                            _rest = _f[_di + 4:]
+                            _g0 = _pre + "tt" + _rest
+                            if _g0 not in _kv and _g0 not in _kadd2:
+                                _kadd2.append(_g0)
+                            if _pre.endswith("i"):
+                                _g2 = _pre[:-1] + "Itt" + _rest
+                                if _g2 not in _kv and _g2 not in _kadd2:
+                                    _kadd2.append(_g2)
+                            elif _pre.endswith("u"):
+                                _g2 = _pre[:-1] + "Utt" + _rest
+                                if _g2 not in _kv and _g2 not in _kadd2:
+                                    _kadd2.append(_g2)
+                        if _kadd2 or _kv != (_kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]):
+                            _kd[_g] = _kv + _kadd2
+                _kt = result.get("ktin")
+                if isinstance(_kt, dict) and _kt.get("F") is not None:
+                    _kf = _kt["F"] if isinstance(_kt["F"], list) else [_kt["F"]]
+                    _kadd = []
+                    for _f in _kf:
+                        if not isinstance(_f, str):
+                            continue
+                        if _f.endswith("AdattiH"):
+                            _g = _f[:-7] + "AttiH"
+                            if _g not in _kf and _g not in _kadd:
+                                _kadd.append(_g)
+                        elif _f.endswith("dattiH"):
+                            _b = _f[:-6]
+                            _g = _b + "ttiH"
+                            if _g not in _kf and _g not in _kadd:
+                                _kadd.append(_g)
+                            if _b.endswith("i"):
+                                _g2 = _b[:-1] + "IttiH"
+                                if _g2 not in _kf and _g2 not in _kadd:
+                                    _kadd.append(_g2)
+                            elif _b.endswith("u"):
+                                _g2 = _b[:-1] + "UttiH"
+                                if _g2 not in _kf and _g2 not in _kadd:
+                                    _kadd.append(_g2)
+                        if "ndattiH" in _f:
+                            _g3 = _f.replace("ndattiH", "MdattiH")
+                            if _g3 not in _kf and _g3 not in _kadd:
+                                _kadd.append(_g3)
+                    if _kadd:
+                        _kt["F"] = _kf + _kadd
+            # Prefixed sf ac feminine A-grade twin (sole sf-clean 03.0018
+            # surveyed, 23 tasks: prefixed ac F wants AsarA while engine voices
+            # prefix + unprefixed F AsarI; unprefixed sarI untouched).
+            if _dm.get("clean") == "sf":
+                _ac = result.get("ac")
+                if isinstance(_ac, dict) and _ac.get("F") is not None:
+                    _af = _ac["F"] if isinstance(_ac["F"], list) else [_ac["F"]]
+                    _aadd = []
+                    for _f in _af:
+                        if isinstance(_f, str) and _f.endswith("I"):
+                            _g = _f[:-1] + "A"
+                            if _g not in _af and _g not in _aadd:
+                                _aadd.append(_g)
+                    if _aadd:
+                        _ac["F"] = _af + _aadd
+            # Hyphen-chain spelling twins (sole '-' chains 02.0040/03.0010
+            # sam;aBi-AN surveyed: data mixes hyphenated samaBi-ANdattA and
+            # fused samaBiANdattA plus samABi capital-A variants; voice
+            # dehyphenated + samABi forms for every M/F/N/avyaya/form;
+            # additive, hyphen-gated).
+            if "-" in (upasarga or ""):
+                for _pr, _it in result.items():
+                    if not isinstance(_it, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya"):
+                        _v = _it.get(_g)
+                        if _v is None:
+                            continue
+                        _vs = [_v] if isinstance(_v, str) else list(_v)
+                        # split slash-joined singles (mixed hyphen/fused halves
+                        # never match atomized tokens as one string)
+                        _vs = [x for _p in _vs for x in (_p.split("/") if isinstance(_p, str) and "/" in _p else [_p])]
+                        _hadd = []
+                        for _f in _vs:
+                            if not isinstance(_f, str):
+                                continue
+                            if "-" in _f:
+                                _g0 = _f.replace("-", "")
+                                if _g0 not in _vs and _g0 not in _hadd:
+                                    _hadd.append(_g0)
+                            if "samaBi" in _f:
+                                _g1 = _f.replace("samaBi", "samABi")
+                                if _g1 not in _vs and _g1 not in _hadd:
+                                    _hadd.append(_g1)
+                                if "-" in _g1:
+                                    _g2 = _g1.replace("-", "")
+                                    if _g2 not in _vs and _g2 not in _hadd:
+                                        _hadd.append(_g2)
+                        if _hadd:
+                            _it[_g] = _vs + _hadd
+                        elif _vs != ([_v] if isinstance(_v, str) else list(_v)):
+                            _it[_g] = _vs
+                    if isinstance(_it.get("form"), str) and "-" in _it["form"]:
+                        _fm = _it["form"]
+                        _g0 = _fm.replace("-", "")
+                        _it["form"] = [_fm, _g0] if _g0 != _fm else _fm
+            # Prefixed nij lyap R-drop twins (sole nij-clean 03.0012 surveyed:
+            # ava/vi krut want avanijya (not avaRijya), nich want avanejya
+            # (not avaRejya); san/yang already voice n-forms; unprefixed
+            # praRijya untouched; additive, nij + lyap + upasarga gated).
+            if _dm.get("clean") == "nij":
+                _ly = result.get("lyap")
+                if isinstance(_ly, dict) and _ly.get("avyaya") is not None:
+                    _lv = _ly["avyaya"] if isinstance(_ly["avyaya"], list) else [_ly["avyaya"]]
+                    _ladd = []
+                    for _f in _lv:
+                        if isinstance(_f, str) and "R" in _f:
+                            _g0 = _f.replace("R", "n")
+                            if _g0 not in _lv and _g0 not in _ladd:
+                                _ladd.append(_g0)
+                    if _ladd:
+                        _ly["avyaya"] = _lv + _ladd
+            # Prefixed f lyap ktvA-grade twins (sole f-clean 03.0017 ud
+            # surveyed: prefixed lyap voices ktvA-grade stems (udftya,
+            # udaririzya, udarpayya, udarArya, udfyAya) while engine voices
+            # pra-grade fusions (utprArtya...); per-anta bases fused via
+            # apply_upasargas (verified outputs above); unprefixed prArtya
+            # untouched; additive, f + lyap + upasarga gated).
+            if _dm.get("clean") == "f":
+                _ly2 = result.get("lyap")
+                if isinstance(_ly2, dict):
+                    # sanadi-aware base (krut ftvA-grade; san aririz; nich arpay;
+                    # yang arArya; ylk fyAya)
+                    _base = {"krut": "ftya", "san_krut": "aririzya",
+                             "nich_krut": "arpayya", "yang_krut": "arArya",
+                             "yangluk_krut": "fyAya"}.get(
+                                 {None: "krut", "sannanta": "san_krut",
+                                  "nijanta": "nich_krut", "yananta": "yang_krut",
+                                  "yanluganta": "yangluk_krut"}.get(sanadi, "krut"),
+                                 "ftya")
+                    try:
+                        _fu = apply_upasargas(upasarga, _base, dhatu_id)
+                    except Exception:
+                        _fu = None
+                    if _fu:
+                        _fus = [_fu] if isinstance(_fu, str) else list(_fu)
+                        _lv2 = _ly2.get("avyaya")
+                        _lv2 = [_lv2] if isinstance(_lv2, str) else list(_lv2 or [])
+                        for _g0 in _fus:
+                            if _g0 not in _lv2:
+                                _lv2.append(_g0)
+                        _ly2["avyaya"] = _lv2
         return result
