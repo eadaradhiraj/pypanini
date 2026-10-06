@@ -1877,6 +1877,22 @@ class KrdantaEngine:
                     _fyl = [c for c in _fyl if c not in new_v]
                     if _fyl:
                         new_v += _fyl
+                # cam-Satf A/M-grade twins (paryAcAman + paryAcaMcaman alongside paryAcaman; camu~ 01.0540
+                # surveyed, sole pari;AN — AN-inner Satf takes A-grade (cAman, 11) + M-grade (caMcaman, 26)
+                # while engine voices plain caman; ni-inner keeps plain and already passes; unprefixed
+                # untouched (prefix-gated); additive, cam + Satf + AN-inner).
+                if upasarga and dhatu == "cam" and pratyaya == "Satf" and upasarga.split(";")[-1] == "AN":
+                    _cmt = []
+                    for c in list(new_v):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("cama", "cAma"), ("cama", "caMcama")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in new_v and _g not in _cmt:
+                                    _cmt.append(_g)
+                    if _cmt:
+                        new_v += _cmt
                 # ram-yangluk-Satf M twins (uparaMraman alongside uparaman; ramu~ 01.0989 surveyed, sole upa —
                 # yangluk Satf takes M-nasal redup stem (uparaMraman/uparaMramantI/...) while engine voices
                 # plain raman; A;upa;vi passes via raman already (twin inert-or-bonus there); unprefixed
@@ -2164,6 +2180,19 @@ class KrdantaEngine:
                     _rmt = [c for c in _rmt if c not in _all]
                     if _rmt:
                         _all += _rmt
+                # cam-Satf A/M-grade twins (mirrors list branch; cam + Satf + AN-inner; additive).
+                if upasarga and dhatu == "cam" and pratyaya == "Satf" and upasarga.split(";")[-1] == "AN":
+                    _cmt = []
+                    for c in list(_all):
+                        if not isinstance(c, str):
+                            continue
+                        for _o, _n in (("cama", "cAma"), ("cama", "caMcama")):
+                            if _o in c:
+                                _g = c.replace(_o, _n)
+                                if _g not in _all and _g not in _cmt:
+                                    _cmt.append(_g)
+                    if _cmt:
+                        _all += _cmt
                 # glE-nich A-grade twins (mirrors list branch; nijanta + glE; additive).
                 if upasarga and sanadi == "nijanta" and dhatu == "glE":
                     _glt = []
