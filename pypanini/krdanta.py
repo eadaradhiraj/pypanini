@@ -12128,10 +12128,10 @@ class KrdantaEngine:
                                     _fadd.append(_g0)
                         if _fadd:
                             _kd["form"] = _fm7s + _fadd
-            # Prefixed yang R-grade twins (nud 06.0002/0162 surveyed: yang stems
-            # voice R-grades (nirRonuditaH) while data takes n-grades
-            # (nirnonuditaH); per-occurrence like san; all yang/yangluk items;
-            # additive, yananta/yanluganta + upasarga gated).
+            # Prefixed yang R-grade + anusvara twins (nud 06.0002/0162 R-grades;
+            # tamu 04.0099 saMtaMtam / Bramu 04.0102 saMbaMBram anusvara; R-twins
+            # per-occurrence like san, anusvara NOT R-gated so R-less ntaMt
+            # forms also fix; all yang/yangluk M/F/N/avyaya/form; additive).
             if sanadi in ("yananta", "yanluganta"):
                 for _pr, _kd in result.items():
                     if not isinstance(_kd, dict):
@@ -12142,18 +12142,24 @@ class KrdantaEngine:
                         _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
                         _kadd8 = []
                         for _f in _kv:
-                            if not isinstance(_f, str) or "R" not in _f:
+                            if not isinstance(_f, str):
                                 continue
-                            for _i, _ch in enumerate(_f):
-                                if _ch != "R":
-                                    continue
-                                for _rep in ("n", "r"):
-                                    _g0 = _f[:_i] + _rep + _f[_i + 1:]
+                            if "R" in _f:
+                                for _i, _ch in enumerate(_f):
+                                    if _ch != "R":
+                                        continue
+                                    for _rep in ("n", "r"):
+                                        _g0 = _f[:_i] + _rep + _f[_i + 1:]
+                                        if _g0 not in _kv and _g0 not in _kadd8:
+                                            _kadd8.append(_g0)
+                                for _g0 in (_f.replace("R", "n"), _f.replace("R", "r")):
                                     if _g0 not in _kv and _g0 not in _kadd8:
                                         _kadd8.append(_g0)
-                            for _g0 in (_f.replace("R", "n"), _f.replace("R", "r")):
-                                if _g0 not in _kv and _g0 not in _kadd8:
-                                    _kadd8.append(_g0)
+                            for _o, _n in (("ntaMt", "MtaMt"), ("sambaMB", "saMbaMB")):
+                                if _o in _f:
+                                    _g0 = _f.replace(_o, _n)
+                                    if _g0 not in _kv and _g0 not in _kadd8:
+                                        _kadd8.append(_g0)
                         if _kadd8:
                             _kd[_g] = _kv + _kadd8
                     if isinstance(_kd.get("form"), (str, list)):
@@ -12161,13 +12167,22 @@ class KrdantaEngine:
                         _fm8s = [_fm8] if isinstance(_fm8, str) else list(_fm8)
                         _fadd8 = []
                         for _fm in _fm8s:
-                            if not isinstance(_fm, str) or "R" not in _fm:
+                            if not isinstance(_fm, str):
                                 continue
-                            for _i, _ch in enumerate(_fm):
-                                if _ch != "R":
-                                    continue
-                                for _rep in ("n", "r"):
-                                    _g0 = _fm[:_i] + _rep + _fm[_i + 1:]
+                            if "R" in _fm:
+                                for _i, _ch in enumerate(_fm):
+                                    if _ch != "R":
+                                        continue
+                                    for _rep in ("n", "r"):
+                                        _g0 = _fm[:_i] + _rep + _fm[_i + 1:]
+                                        if _g0 not in _fm8s and _g0 not in _fadd8:
+                                            _fadd8.append(_g0)
+                                for _g0 in (_fm.replace("R", "n"), _fm.replace("R", "r")):
+                                    if _g0 not in _fm8s and _g0 not in _fadd8:
+                                        _fadd8.append(_g0)
+                            for _o, _n in (("ntaMt", "MtaMt"), ("sambaMB", "saMbaMB")):
+                                if _o in _fm:
+                                    _g0 = _fm.replace(_o, _n)
                                     if _g0 not in _fm8s and _g0 not in _fadd8:
                                         _fadd8.append(_g0)
                         if _fadd8:
@@ -12194,13 +12209,13 @@ class KrdantaEngine:
                     _gy["form"] = [_fm, _g0] if _g0 != _fm else _fm
             # Prefixed krut R-grade twins (nft 04.0010 surveyed: pari/pra kta
             # wants parinfttaH/parinartitavyaH/parinftyan while prefixed fusion
-            # voices R-grades; per-occurrence like san/yang; all krut M/F/N;
-            # additive, mUla + upasarga gated).
+            # voices R-grades; per-occurrence like san/yang; all krut M/F/N/
+            # avyaya/form; additive, mUla + upasarga gated).
             if sanadi is None:
                 for _pr, _kd in result.items():
                     if not isinstance(_kd, dict):
                         continue
-                    for _g in ("M", "F", "N"):
+                    for _g in ("M", "F", "N", "avyaya"):
                         if _kd.get(_g) is None:
                             continue
                         _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
@@ -12220,6 +12235,65 @@ class KrdantaEngine:
                                     _kadd9.append(_g0)
                         if _kadd9:
                             _kd[_g] = _kv + _kadd9
+                    if isinstance(_kd.get("form"), (str, list)):
+                        _fm9 = _kd["form"]
+                        _fm9s = [_fm9] if isinstance(_fm9, str) else list(_fm9)
+                        _fadd9 = []
+                        for _fm in _fm9s:
+                            if not isinstance(_fm, str) or "R" not in _fm:
+                                continue
+                            for _i, _ch in enumerate(_fm):
+                                if _ch != "R":
+                                    continue
+                                for _rep in ("n", "r"):
+                                    _g0 = _fm[:_i] + _rep + _fm[_i + 1:]
+                                    if _g0 not in _fm9s and _g0 not in _fadd9:
+                                        _fadd9.append(_g0)
+                        if _fadd9:
+                            _kd["form"] = _fm9s + _fadd9
+            # Prefixed nich R-grade twins (nft 04.0010 surveyed: nich kta wants
+            # parinfttaH-family while prefixed fusion voices R-grades; mirrors
+            # krut; all nich M/F/N/avyaya/form; additive, nijanta + upasarga).
+            if sanadi == "nijanta":
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kaddN = []
+                        for _f in _kv:
+                            if not isinstance(_f, str) or "R" not in _f:
+                                continue
+                            for _i, _ch in enumerate(_f):
+                                if _ch != "R":
+                                    continue
+                                for _rep in ("n", "r"):
+                                    _g0 = _f[:_i] + _rep + _f[_i + 1:]
+                                    if _g0 not in _kv and _g0 not in _kaddN:
+                                        _kaddN.append(_g0)
+                            for _g0 in (_f.replace("R", "n"), _f.replace("R", "r")):
+                                if _g0 not in _kv and _g0 not in _kaddN:
+                                    _kaddN.append(_g0)
+                        if _kaddN:
+                            _kd[_g] = _kv + _kaddN
+                    if isinstance(_kd.get("form"), (str, list)):
+                        _fmN = _kd["form"]
+                        _fmNs = [_fmN] if isinstance(_fmN, str) else list(_fmN)
+                        _faddN = []
+                        for _fm in _fmNs:
+                            if not isinstance(_fm, str) or "R" not in _fm:
+                                continue
+                            for _i, _ch in enumerate(_fm):
+                                if _ch != "R":
+                                    continue
+                                for _rep in ("n", "r"):
+                                    _g0 = _fm[:_i] + _rep + _fm[_i + 1:]
+                                    if _g0 not in _fmNs and _g0 not in _faddN:
+                                        _faddN.append(_g0)
+                        if _faddN:
+                            _kd["form"] = _fmNs + _faddN
             # Prefixed tras nich-SAnac ya-retention twins (sole tras-clean
             # 04.0011 surveyed, 7 tasks: nich SAnac wants apatrAsayamAnaH
             # (ya-kept) while engine voices trAsyamAna (ya-drop); additive).
@@ -12238,6 +12312,26 @@ class KrdantaEngine:
                                     _tadd.append(_g0)
                         if _tadd:
                             _trs[_g] = _tv + _tadd
+            # Prefixed vid nich-e-grade twins (sole vid-clean 04.0067 surveyed:
+            # nir nich kta wants nirveditaH while engine voices viRRaH (krut
+            # keeps vidita via RR→dit); kta/ktavatu nijanta; additive).
+            if _dm.get("clean", "") == "vid" and sanadi == "nijanta":
+                for _pr in ("kta", "ktavatu"):
+                    _kd = result.get(_pr)
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kaddV = []
+                        for _f in _kv:
+                            if isinstance(_f, str) and "iRR" in _f:
+                                _g0 = _f.replace("iRR", "edit")
+                                if _g0 not in _kv and _g0 not in _kaddV:
+                                    _kaddV.append(_g0)
+                        if _kaddV:
+                            _kd[_g] = _kv + _kaddV
             # Prefixed pad panna twins (sole pad-clean 04.0065 surveyed, 8 tasks:
             # aBi;nir/... kta wants aBinizpannaH while engine voices paRRaH;
             # kta/ktavatu all antas; additive, pad + upasarga gated).
@@ -12327,7 +12421,49 @@ class KrdantaEngine:
                                         _kadd13.append(_g0)
                         if _kadd13:
                             _kd[_g] = _kv + _kadd13
-            # Prefixed sad kyap A-vowel twins (sole sad-clean 06.0163 surveyed:
+            # Prefixed kfS iT twins (sole kfS-clean 04.0140 surveyed: ava kta
+            # wants avakfSitaH while engine voices iT-less avakfSaH; kta/
+            # ktavatu all antas; additive, kfS + upasarga gated).
+            if _dm.get("clean", "") == "kfS":
+                for _pr in ("kta", "ktavatu"):
+                    _kd = result.get(_pr)
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kaddK = []
+                        for _f in _kv:
+                            if not isinstance(_f, str):
+                                continue
+                            for _o, _n in (("kfSa", "kfSita"), ("kfSA", "kfSitA"), ("kfSam", "kfSitam")):
+                                if _o in _f:
+                                    _g0 = _f.replace(_o, _n)
+                                    if _g0 not in _kv and _g0 not in _kaddK:
+                                        _kaddK.append(_g0)
+                        if _kaddK:
+                            _kd[_g] = _kv + _kaddK
+            # Prefixed yang Asez twins (sole Yizvid-clean 04.0127 surveyed: upa
+            # yang laN wants upasezvidyata while engine voices A-fusion;
+            # additive, yananta + upasarga gated).
+            if _dm.get("clean", "") == "Yizvid":
+                for _pr, _kd in result.items():
+                    if not isinstance(_kd, dict):
+                        continue
+                    for _g in ("M", "F", "N", "avyaya"):
+                        if _kd.get(_g) is None:
+                            continue
+                        _kv = _kd[_g] if isinstance(_kd[_g], list) else [_kd[_g]]
+                        _kaddY = []
+                        for _f in _kv:
+                            if isinstance(_f, str) and "Asez" in _f:
+                                _g0 = _f.replace("Asez", "asez")
+                                if _g0 not in _kv and _g0 not in _kaddY:
+                                    _kaddY.append(_g0)
+                        if _kaddY:
+                            _kd[_g] = _kv + _kaddY
+            # Prefixed sad kyap A-vowel twins (sole sad-clean 06.0163 surveyed):
             # AN;ni wants AnizadyAH/AnizadyAm while engine voices a-grades).
             if _dm.get("clean", "") == "sad":
                 _ky = result.get("kyap")
