@@ -8,6 +8,7 @@ Verbs: 01.0015–01.0120 all 100% (106 consecutive; +01.0101–01.0120 20/20 gre
 Ganas 02–10 spot-check: first dhātu of each green (02.0001 626 → 10.0001 634, all 100%).
 Gana 02 result: 76/76 scored green + 1 skipped-dataless (02.0076 ganasutra, unscored 0/0).
 Gana 03 full sweep (26 files) running.
+Gana 03 result: 26/26 green, zero misses.
 Sweep-01: **1156/1156 100%** — held, fid-diff 0/0.
 Sweep-02: **76/76 zero-miss** — held.
 Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
