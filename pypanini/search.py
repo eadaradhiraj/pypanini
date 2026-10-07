@@ -121,21 +121,48 @@ def _len_variants(s: str) -> List[str]:
     return out
 
 
-# abhyasa onset un-mutation (inverse of 7.4.62 kuhoScuH + deaspiration)
+# abhyasa onset un-mutation (inverse of 7.4.62 kuhoScuH + deaspiration).
+# Given the reduplicant onset, the root onset is one of the list.
+# Order matters: mutated sources first (class-3 presents reduplicate
+# j- almost only from h (juhoti), b- from B (bibhar), d- stays d-first
+# since dadAti and dadhAti are both common).
 _ABHYASA_ONSET = {
-    "c": ["k"], "C": ["K"], "j": ["g", "h"], "J": ["G"],
-    "k": ["k"], "K": ["K"], "g": ["g"], "G": ["G"], "N": ["N"],
-    "t": ["t"], "d": ["d"], "n": ["n"], "p": ["p"], "P": ["P"],
-    "b": ["b", "B"], "B": ["B"], "m": ["m"], "y": ["y"], "r": ["r"],
-    "l": ["l"], "v": ["v"], "s": ["s"], "S": ["S"], "h": ["h"],
+    "c": ["c", "k"], "C": ["C", "K"], "j": ["h", "g", "G", "j", "J"],
+    "J": ["G", "J"], "Y": ["Y", "N"],
+    "k": ["k"], "K": ["K"], "g": ["g", "G"], "G": ["G"], "N": ["N"],
+    "w": ["w"], "W": ["W"], "t": ["t"], "T": ["T"],
+    "d": ["d", "D"], "D": ["D"], "n": ["n"],
+    "p": ["p"], "P": ["P"], "b": ["B", "b"], "B": ["B"], "m": ["m"],
+    "y": ["y"], "r": ["r"], "l": ["l"], "v": ["v"],
+    "s": ["s"], "S": ["S"], "z": ["z"], "h": ["h"],
 }
 _ABHYASA_GRADE = {"a": "A", "i": "I", "u": "U"}
 
 
+def _deyan(s: str) -> str:
+    """Reverse yaN desandhi (juhv + at <- juhu + at): final y/v -> i/u."""
+    if s.endswith("y"):
+        return s[:-1] + "i"
+    if s.endswith("v"):
+        return s[:-1] + "u"
+    return s
+
+
+def _desamprasarana(s: str) -> str:
+    """Reverse samprasarana (bibhr <- bibhar): re-insert a before r/l
+    when the cluster has no vowel."""
+    if any(_c in SLP1_VOWELS for _c in s):
+        return s
+    for _i, _c in enumerate(s):
+        if _c in ("r", "l"):
+            return s[:_i] + "a" + s[_i:]
+    return s
+
+
 def _abhyasa_reverse(core: str) -> List[str]:
-    """Undo class-3 reduplication (dadaA <- dA, jahA <- hA).
-    Returns candidate roots (usually 1-2). Empty when shape is not a
-    simple C1a-reduplicant (juhoti/bibhar types need fuller phonology)."""
+    """Undo class-3 reduplication (dadA <- dA, juhu <- hu, bibhar <- Bf).
+    Returns candidate roots. Only the reduplicant shape is constrained;
+    every candidate must still hit the root lexicon to count."""
     if len(core) < 3 or core[1] not in _ABHYASA_GRADE:
         return []
     _ab, _rest = core[:2], core[2:]
@@ -144,16 +171,27 @@ def _abhyasa_reverse(core: str) -> List[str]:
     if _rest[0] not in _ABHYASA_ONSET[_ab[0]]:
         return []
     _long = _ABHYASA_GRADE[core[1]]
-    if _rest[-1] in "aiu":
-        _bases = [_rest[:-1] + {"a": "A", "i": "I", "u": "U"}[_rest[-1]]]
-    elif _rest[-1] in "AIU":
-        _bases = [_rest]
-    else:
-        _bases = [_rest + _long]
+    # graded root-portion variants (de-glide/guna/vrddhi, yaN, samprasarana)
+    _graded = [_rest]
+    for _fn in (_deglide, _deyan, _desamprasarana):
+        _v = _fn(_rest)
+        if _v != _rest and _v not in _graded:
+            _graded.append(_v)
+    _more: List[str] = []
+    for _g in list(_graded):
+        for _fn in (_deguna, _devrddhi):
+            _v = _fn(_g)
+            if _v != _g and _v not in _graded and _v not in _more:
+                _more.append(_v)
+    _graded += _more
+    if len(_rest) == 1 and _rest not in SLP1_VOWELS:
+        _graded.append(_rest + _long)  # bare onset: dad -> dA
     out: List[str] = []
     for _o in _ABHYASA_ONSET[_ab[0]]:
-        for _b in _bases:
-            _cand = _o + _b[1:] if _b.startswith(_rest[0]) else _o + _b
+        for _gr in _graded:
+            if not _gr or _gr[0] != _rest[0]:
+                continue
+            _cand = _o + _gr[1:]
             if _cand not in out:
                 out.append(_cand)
     return out
@@ -395,7 +433,13 @@ def _subanta_open(word: str) -> List[dict]:
             except Exception:
                 continue
             if word in _forms:
-                _conf = 0.5 if (_vib, _vac) == (8, "eka") and _stem == word else 0.75
+                # bare-stem vocatives are the weakest open evidence:
+                # same-shape self-readings (foreign stems) 0.5, grade-changed
+                # ones (dadAti -> dadAtI) 0.6, real inflections 0.75
+                if (_vib, _vac) == (8, "eka"):
+                    _conf = 0.5 if _stem == word else 0.6
+                else:
+                    _conf = 0.75
                 out.append({"kind": "subanta", "stem": _stem, "linga": _li,
                             "vibhakti": _vib, "vacana": _vac,
                             "confidence": _conf, "lexicon": False})
@@ -486,8 +530,9 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         if _hit is not None:
             _rt, _m, _via = _hit
             _emit("tfc", _rt, _m, 0.85, f"root via {_via}")
-    # Satf present stem (abhyasa-reversible class-3 links; rest unresolved)
-    if stem.endswith("ant") or (stem.endswith("at") and not stem.endswith(("vat", "mat"))):
+    # Satf present stem (abhyasa-reversible class-3 links; rest unresolved).
+    # Guard excludes ktavatu (-tavat); juhvat-type (-hvat) stays eligible.
+    if stem.endswith("ant") or (stem.endswith("at") and not stem.endswith("tavat")):
         _core = stem[:-3] if stem.endswith("ant") else stem[:-2]
         for _cand in _abhyasa_reverse(_core):
             _hit = _lookup_root(_cand)
@@ -584,8 +629,17 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
             _core = word[:-len(_end)]
             _aug = (_lak == "laN")
             _hit = None
+            _via_extra = ""
             for _cand in _tin_candidates(_core, _lak, _aug):
                 _hit = _lookup_root(_cand)
+                if _hit is not None:
+                    break
+                # class-3 reduplicated stems (dadA/juhu/biBar + ti)
+                for _ab in _abhyasa_reverse(_cand):
+                    _hit = _lookup_root(_ab)
+                    if _hit is not None:
+                        _via_extra = "abhyasa"
+                        break
                 if _hit is not None:
                     break
             # classical laN needs the a- augment (adadat, not *dadan)
@@ -596,6 +650,9 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                 # so guna is near-deterministic (outranks coincidental nouns)
                 _conf = {"exact": 1.0, "glide": 0.95, "guna": 0.92,
                          "vrddhi": 0.8}.get(_via, 0.6)
+                if _via_extra == "abhyasa":
+                    _via = "abhyasa"
+                    _conf = 0.7
                 if _no_aug:
                     _conf *= 0.6
                 _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
