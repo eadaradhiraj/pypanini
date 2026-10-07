@@ -216,6 +216,10 @@ class TestSubantaGenerative(unittest.TestCase):
         self.assertEqual(stri_pratipadika("aja"), "ajA")
         self.assertEqual(stri_pratipadika("kartf", "RIp"), "kartrI")
         self.assertEqual(stri_pratipadika("Bavat", "RIp"), "BavatI")
+        self.assertEqual(stri_pratipadika("sUrya", "RIp"), "sUrI")
+        self.assertEqual(stri_pratipadika("matsya", "RIp"), "matsI")
+        self.assertEqual(stri_pratipadika("manuzya", "RIp"), "manuzI")
+        self.assertEqual(stri_pratipadika("rAjan", "RIp"), "rAjYI")
 
 
 if __name__ == "__main__":

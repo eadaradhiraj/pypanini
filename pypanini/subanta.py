@@ -221,7 +221,10 @@ class SubantaEngine:
                  "masc": "puM", "fem": "strI", "neut": "napuMsaka"}.get(linga, linga)
         extra = extra or {}
         if sarvanAman is None:
-            sarvanAman = stem in SARVA_LIST
+            # feminine A-stems of pronouns (sarvA <- sarva) count as sarvanAman
+            sarvanAman = stem in SARVA_LIST or (
+                linga == "strI" and stem.endswith("A") and stem[:-1] + "a" in SARVA_LIST
+            )
         # dispatch special suppletive pronouns first
         if stem in ("asmad", "yuzmad"):
             return self._decline_yuzmad_asmad(stem)
@@ -906,10 +909,24 @@ class SubantaEngine:
             return self._fin(b + "o" + s)
         if s == "su":
             b = stem[:-2]
-            return apply_zatva_s(b + "aHsu" if False else b + "aH" + "su")
+            v = stem[-2] if len(stem) >= 2 else "a"  # mana/havi/cakzu -> a/i/u
+            vlong = {"a": "a", "i": "i", "u": "u"}.get(v, "a")
+            return apply_zatva_s(b + vlong + "H" + "su")
         if s in ("O", "as", "Am", "os"):
-            # as->as? manas+O -> manasO
-            return self._fin(stem + ("O" if s == "O" else s))
+            # zatva on stem-final s after iN/ku (havis+Am -> havizAm; manas stays)
+            add = "O" if s == "O" else s
+            w = stem + add
+            idx = len(stem) - 1  # stem-final s position
+            if w[idx] == "s" and stem[-2] in set("iufxeoEOyvrlhkKgGN"):
+                w = w[:idx] + "z" + w[idx + 1:]
+            return self._fin(w)
+        # other vowel-initial (A/e/i): same zatva (havis+A -> havizA)
+        if s and s[0] in SLP1_VOWELS:
+            w = stem + s
+            idx = len(stem) - 1
+            if w[idx] == "s" and stem[-2] in set("iufxeoEOyvrlhkKgGN"):
+                w = w[:idx] + "z" + w[idx + 1:]
+            return self._fin(w)
         return self._fin(stem + s)
 
     def _Iyas_form(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str) -> str:
@@ -1199,9 +1216,9 @@ class SubantaEngine:
             (2, "eka"): ["krozwAram"], (2, "dvi"): ["krozwArO"], (2, "bahu"): ["krozwUn", "krozwFn"],
             (3, "eka"): ["krozwA", "krozwunA"], (3, "dvi"): ["krozwuByAm"], (3, "bahu"): ["krozwuBiH"],
             (4, "eka"): ["krozwe", "krozwave"], (4, "dvi"): ["krozwuByAm"], (4, "bahu"): ["krozwuByaH"],
-            (5, "eka"): ["krozwuH", "krozwuH"], (5, "dvi"): ["krozwuByAm"], (5, "bahu"): ["krozwuByaH"],
-            (6, "eka"): ["krozwuH", "krozwuH"], (6, "dvi"): ["krozwvoH", "krozwroH"], (6, "bahu"): ["krozwUnAm", "krozwFRam"],
-            (7, "eka"): ["krozwO", "krozwO"], (7, "dvi"): ["krozwvoH", "krozwroH"], (7, "bahu"): ["krozwuzu"],
+            (5, "eka"): ["krozwuH"], (5, "dvi"): ["krozwuByAm"], (5, "bahu"): ["krozwuByaH"],
+            (6, "eka"): ["krozwuH"], (6, "dvi"): ["krozwvoH", "krozwroH"], (6, "bahu"): ["krozwUnAm", "krozwFRam"],
+            (7, "eka"): ["krozwO"], (7, "dvi"): ["krozwvoH", "krozwroH"], (7, "bahu"): ["krozwuzu"],
             (8, "eka"): ["krozwo"], (8, "dvi"): ["krozwArO"], (8, "bahu"): ["krozwAraH"],
         }
         return T
@@ -1477,11 +1494,15 @@ class SubantaEngine:
         out[(1, "dvi")] = []
         out[(2, "eka")] = []
         out[(2, "dvi")] = []
-        mid = "zad" if stem == "zaz" else (stem[:-1] if stem.endswith("n") else stem)
+        mid = "zaq" if stem == "zaz" else (stem[:-1] if stem.endswith("n") else stem)
         out[(3, "bahu")] = [_join_pada(mid, "BiH")]
         out[(4, "bahu")] = [_join_pada(mid, "ByaH")]
         out[(5, "bahu")] = [_join_pada(mid, "ByaH")]
-        out[(6, "bahu")] = [apply_natva(((stem if stem.endswith("n") else mid) + "Am"))]
+        # zaz gen pl geminates (zaRRam); n-finals keep n (paYcanAm)
+        if stem == "zaz":
+            out[(6, "bahu")] = ["zaRRam"]
+        else:
+            out[(6, "bahu")] = [apply_natva(((stem if stem.endswith("n") else mid) + "Am"))]
         out[(7, "bahu")] = [apply_zatva_s(_join_pada(mid, "su"))]
         for k in [(3, "eka"), (3, "dvi"), (4, "eka"), (4, "dvi"), (5, "eka"), (5, "dvi"),
                   (6, "eka"), (6, "dvi"), (7, "eka"), (7, "dvi"),
@@ -1831,10 +1852,15 @@ def stri_pratipadika(masc_stem: str, kind: str = "wAp", gana: str = "BvAdi") -> 
     wAp (A, 4.1.4 ajAdyatazWAp): aja-adi + a-final -> A (aja->ajA; by shape
     all a-stems take A since jAti/vayas semantics is caller-side);
     RIp (I): f->rI (kartf->kartrI), an-weak+I (rAjan->rAjYI), at via
-    satf_feminine optionality (gacCat->gacCantI), tavat/vas weak+I;
+    satf_feminine optionality (gacCat->gacCantI), tavat/vas weak+I,
+    yopadha ya-lopa (sUrya->sUrI);
     uN (U): laghu-u -> U. Generative by shape (+gana for at)."""
     AJA_ADI = {"aja", "aSva", "edaka", "cawaka", "mUzika", "kukkuwa",
                "Suka", "baka", "kAka"}  # representative; shape rule covers rest
+    # yopadha RIp with ya-lopa (sUrya->sUrI, matsya->matsI, manuzya->manuzI)
+    YOPADHA = {"sUrya", "matsya", "manuzya"}
+    if kind == "RIp" and masc_stem in YOPADHA and masc_stem.endswith("ya"):
+        return masc_stem[:-2] + "I"
     if kind == "wAp":
         if masc_stem.endswith("a"):
             return masc_stem[:-1] + "A"

@@ -412,13 +412,126 @@ GOLDENS3 = {
     },
 }
 
+GOLDENS4 = {
+    ("pitf", "puM"): {
+        (1, "eka"): ["pitA"], (1, "dvi"): ["pitarO"], (1, "bahu"): ["pitaraH"],
+        (2, "eka"): ["pitaram"], (2, "dvi"): ["pitarO"], (2, "bahu"): ["pitFRaH"],
+        (3, "eka"): ["pitrA"], (3, "dvi"): ["pitfByAm"], (3, "bahu"): ["pitfBiH"],
+        (4, "eka"): ["pitre"], (4, "dvi"): ["pitfByAm"], (4, "bahu"): ["pitfByaH"],
+        (5, "eka"): ["pituH"], (5, "dvi"): ["pitfByAm"], (5, "bahu"): ["pitfByaH"],
+        (6, "eka"): ["pituH"], (6, "dvi"): ["pitroH"], (6, "bahu"): ["pitFRAm"],
+        (7, "eka"): ["pitari"], (7, "dvi"): ["pitroH"], (7, "bahu"): ["pitfzu"],
+        (8, "eka"): ["pitar"], (8, "dvi"): ["pitarO"], (8, "bahu"): ["pitaraH"],
+    },
+    ("madhu", "napuMsaka"): {
+        (1, "eka"): ["madhu"], (1, "dvi"): ["madhunI"], (1, "bahu"): ["madhURi"],
+        (2, "eka"): ["madhu"], (2, "dvi"): ["madhunI"], (2, "bahu"): ["madhURi"],
+        (3, "eka"): ["madhunA"], (3, "dvi"): ["madhuByAm"], (3, "bahu"): ["madhuBiH"],
+        (4, "eka"): ["madhune"], (4, "dvi"): ["madhuByAm"], (4, "bahu"): ["madhuByaH"],
+        (5, "eka"): ["madhunaH"], (5, "dvi"): ["madhuByAm"], (5, "bahu"): ["madhuByaH"],
+        (6, "eka"): ["madhunaH"], (6, "dvi"): ["madhunoH"], (6, "bahu"): ["madhURAm"],
+        (7, "eka"): ["madhuni"], (7, "dvi"): ["madhunoH"], (7, "bahu"): ["madhuzu"],
+        (8, "eka"): ["madhu"], (8, "dvi"): ["madhunI"], (8, "bahu"): ["madhURi"],
+    },
+    ("havis", "napuMsaka"): {
+        (1, "eka"): ["haviH"], (1, "dvi"): ["havisI"], (1, "bahu"): ["havIMsi"],
+        (2, "eka"): ["haviH"], (2, "dvi"): ["havisI"], (2, "bahu"): ["havIMsi"],
+        (3, "eka"): ["havizA"], (3, "dvi"): ["havoByAm"], (3, "bahu"): ["havoBiH"],
+        (4, "eka"): ["havize"], (4, "dvi"): ["havoByAm"], (4, "bahu"): ["havoByaH"],
+        (5, "eka"): ["havizaH"], (5, "dvi"): ["havoByAm"], (5, "bahu"): ["havoByaH"],
+        (6, "eka"): ["havizaH"], (6, "dvi"): ["havizoH"], (6, "bahu"): ["havizAm"],
+        (7, "eka"): ["havizi"], (7, "dvi"): ["havizoH"], (7, "bahu"): ["haviHsu"],
+        (8, "eka"): ["haviH"], (8, "dvi"): ["havisI"], (8, "bahu"): ["havIMsi"],
+    },
+    ("sarvA", "strI"): {
+        (1, "eka"): ["sarvA"], (1, "dvi"): ["sarve"], (1, "bahu"): ["sarvAH"],
+        (2, "eka"): ["sarvAm"], (2, "dvi"): ["sarve"], (2, "bahu"): ["sarvAH"],
+        (3, "eka"): ["sarvayA"], (3, "dvi"): ["sarvAByAm"], (3, "bahu"): ["sarvABiH"],
+        (4, "eka"): ["sarvasyE"], (4, "dvi"): ["sarvAByAm"], (4, "bahu"): ["sarvAByaH"],
+        (5, "eka"): ["sarvasyAH"], (5, "dvi"): ["sarvAByAm"], (5, "bahu"): ["sarvAByaH"],
+        (6, "eka"): ["sarvasyAH"], (6, "dvi"): ["sarvayoH"], (6, "bahu"): ["sarvAsAm"],
+        (7, "eka"): ["sarvasyAm"], (7, "dvi"): ["sarvayoH"], (7, "bahu"): ["sarvAsu"],
+        (8, "eka"): ["sarve"], (8, "dvi"): ["sarve"], (8, "bahu"): ["sarvAH"],
+    },
+    ("zaz", "puM"): {
+        (1, "eka"): [], (1, "dvi"): [], (1, "bahu"): ["zaw"],
+        (2, "eka"): [], (2, "dvi"): [], (2, "bahu"): ["zaw"],
+        (3, "eka"): [], (3, "dvi"): [], (3, "bahu"): ["zaqBiH"],
+        (4, "eka"): [], (4, "dvi"): [], (4, "bahu"): ["zaqByaH"],
+        (5, "eka"): [], (5, "dvi"): [], (5, "bahu"): ["zaqByaH"],
+        (6, "eka"): [], (6, "dvi"): [], (6, "bahu"): ["zaRRam"],
+        (7, "eka"): [], (7, "dvi"): [], (7, "bahu"): ["zawsu"],
+        (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): ["zaw"],
+    },
+    ("azwan", "puM"): {
+        (1, "eka"): [], (1, "dvi"): [], (1, "bahu"): ["azwO", "azwa"],
+        (2, "eka"): [], (2, "dvi"): [], (2, "bahu"): ["azwO", "azwa"],
+        (3, "eka"): [], (3, "dvi"): [], (3, "bahu"): ["azwaBiH"],
+        (4, "eka"): [], (4, "dvi"): [], (4, "bahu"): ["azwaByaH"],
+        (5, "eka"): [], (5, "dvi"): [], (5, "bahu"): ["azwaByaH"],
+        (6, "eka"): [], (6, "dvi"): [], (6, "bahu"): ["azwanAm"],
+        (7, "eka"): [], (7, "dvi"): [], (7, "bahu"): ["azwasu"],
+        (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): ["azwO", "azwa"],
+    },
+    ("upAnah", "puM"): {
+        (1, "eka"): ["upAnat"], (1, "dvi"): ["upAnahO"], (1, "bahu"): ["upAnahaH"],
+        (2, "eka"): ["upAnaham"], (2, "dvi"): ["upAnahO"], (2, "bahu"): ["upAnahaH"],
+        (3, "eka"): ["upAnahA"], (3, "dvi"): ["upAnadByAm"], (3, "bahu"): ["upAnadBiH"],
+        (4, "eka"): ["upAnahe"], (4, "dvi"): ["upAnadByAm"], (4, "bahu"): ["upAnadByaH"],
+        (5, "eka"): ["upAnahaH"], (5, "dvi"): ["upAnadByAm"], (5, "bahu"): ["upAnadByaH"],
+        (6, "eka"): ["upAnahaH"], (6, "dvi"): ["upAnahoH"], (6, "bahu"): ["upAnahAm"],
+        (7, "eka"): ["upAnahi"], (7, "dvi"): ["upAnahoH"], (7, "bahu"): ["upAnatsu"],
+        (8, "eka"): ["upAnat"], (8, "dvi"): ["upAnahO"], (8, "bahu"): ["upAnahaH"],
+    },
+    ("jarA", "strI"): {
+        (1, "eka"): ["jarA"], (1, "dvi"): ["jare", "jarasO"], (1, "bahu"): ["jarAH", "jarasaH"],
+        (2, "eka"): ["jarAm"], (2, "dvi"): ["jare", "jarasO"], (2, "bahu"): ["jarAH", "jarasaH"],
+        (3, "eka"): ["jarayA", "jarasA"], (3, "dvi"): ["jarAByAm"], (3, "bahu"): ["jarABiH"],
+        (4, "eka"): ["jarAyE", "jarase"], (4, "dvi"): ["jarAByAm"], (4, "bahu"): ["jarAByaH"],
+        (5, "eka"): ["jarAyAH", "jarasaH"], (5, "dvi"): ["jarAByAm"], (5, "bahu"): ["jarAByaH"],
+        (6, "eka"): ["jarAyAH", "jarasaH"], (6, "dvi"): ["jarayoH"], (6, "bahu"): ["jarARAm"],
+        (7, "eka"): ["jarAyAm", "jarasi"], (7, "dvi"): ["jarayoH"], (7, "bahu"): ["jarAsu"],
+        (8, "eka"): ["jare", "jarasi"], (8, "dvi"): ["jare", "jarasO"], (8, "bahu"): ["jarAH", "jarasaH"],
+    },
+    ("krozwu", "puM"): {
+        (1, "eka"): ["krozwA"], (1, "dvi"): ["krozwArO"], (1, "bahu"): ["krozwAraH"],
+        (2, "eka"): ["krozwAram"], (2, "dvi"): ["krozwArO"], (2, "bahu"): ["krozwUn", "krozwFn"],
+        (3, "eka"): ["krozwA", "krozwunA"], (3, "dvi"): ["krozwuByAm"], (3, "bahu"): ["krozwuBiH"],
+        (4, "eka"): ["krozwe", "krozwave"], (4, "dvi"): ["krozwuByAm"], (4, "bahu"): ["krozwuByaH"],
+        (5, "eka"): ["krozwuH"], (5, "dvi"): ["krozwuByAm"], (5, "bahu"): ["krozwuByaH"],
+        (6, "eka"): ["krozwuH"], (6, "dvi"): ["krozwvoH", "krozwroH"], (6, "bahu"): ["krozwUnAm", "krozwFRam"],
+        (7, "eka"): ["krozwO"], (7, "dvi"): ["krozwvoH", "krozwroH"], (7, "bahu"): ["krozwuzu"],
+        (8, "eka"): ["krozwo"], (8, "dvi"): ["krozwArO"], (8, "bahu"): ["krozwAraH"],
+    },
+    ("ap", "strI"): {
+        (1, "eka"): [], (1, "dvi"): [], (1, "bahu"): ["ApaH"],
+        (2, "eka"): [], (2, "dvi"): [], (2, "bahu"): ["apaH"],
+        (3, "eka"): [], (3, "dvi"): [], (3, "bahu"): ["adBiH"],
+        (4, "eka"): [], (4, "dvi"): [], (4, "bahu"): ["adByaH"],
+        (5, "eka"): [], (5, "dvi"): [], (5, "bahu"): ["adByaH"],
+        (6, "eka"): [], (6, "dvi"): [], (6, "bahu"): ["apAm"],
+        (7, "eka"): [], (7, "dvi"): [], (7, "bahu"): ["apsu"],
+        (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): ["ApaH"],
+    },
+    ("anaQuh", "puM"): {
+        (1, "eka"): ["anaQvAn"], (1, "dvi"): ["anaQvAMsO"], (1, "bahu"): ["anaQuhaH"],
+        (2, "eka"): ["anaQvAMsam"], (2, "dvi"): ["anaQvAMsO"], (2, "bahu"): ["anaQuhaH"],
+        (3, "eka"): ["anaQuhA"], (3, "dvi"): ["anaQudByAm"], (3, "bahu"): ["anaQudBiH"],
+        (4, "eka"): ["anaQuhe"], (4, "dvi"): ["anaQudByAm"], (4, "bahu"): ["anaQudByaH"],
+        (5, "eka"): ["anaQuhaH"], (5, "dvi"): ["anaQudByAm"], (5, "bahu"): ["anaQudByaH"],
+        (6, "eka"): ["anaQuhaH"], (6, "dvi"): ["anaQuhoH"], (6, "bahu"): ["anaQuhAm"],
+        (7, "eka"): ["anaQuhi"], (7, "dvi"): ["anaQuhoH"], (7, "bahu"): ["anaQutsu"],
+        (8, "eka"): ["anaQvan"], (8, "dvi"): ["anaQvAMsO"], (8, "bahu"): ["anaQuhaH"],
+    },
+}
+
 
 class TestSubantaFullAudit(unittest.TestCase):
     def test_full_tables(self):
         e = SubantaEngine()
         total = 0
         misses = []
-        for (stem, linga), golden in {**GOLDENS, **GOLDENS2, **GOLDENS3}.items():
+        for (stem, linga), golden in {**GOLDENS, **GOLDENS2, **GOLDENS3, **GOLDENS4}.items():
             got = e.decline(stem, linga)
             for key, exp_list in golden.items():
                 total += 1
