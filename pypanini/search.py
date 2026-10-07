@@ -150,7 +150,7 @@ def _lookup_root(cand: str):
 
 
 def _root_details(meta: dict) -> dict:
-    return {"dhatu": meta.get("clean"), "pada": meta.get("pada"),
+    return {"dhatu": meta.get("clean"), "dhAtu_pada": meta.get("pada"),
             "sew": meta.get("sew"), "gana": meta.get("gana")}
 
 
@@ -163,8 +163,9 @@ def _root_details(meta: dict) -> dict:
 _INV: List[tuple] = []
 
 
-def _add(strip: str, append: str, finals, restore, linga: str, vib: int, vac: str) -> None:
-    _INV.append((strip, append, finals, restore, linga, vib, vac))
+def _add(strip: str, append: str, finals, restore, linga: str, vib: int, vac: str,
+         extra=None) -> None:
+    _INV.append((strip, append, finals, restore, linga, vib, vac, extra or {}))
 
 
 def _build_inv() -> None:
@@ -318,6 +319,9 @@ def _build_inv() -> None:
                        ("gByAm", 5, "dvi"), ("gByaH", 5, "bahu"),
                        ("kzu", 7, "bahu")]:
         _add(_s, "c", _A, None, "strI", _v, _c)
+    # bare at-final nominatives: abhyasta (dadat, 7.1.78, no num) + neuter
+    _add("", "", {"t"}, None, "puM", 1, "eka", {"abhyasta": True})
+    _add("", "", {"t"}, None, "napuMsaka", 1, "eka")
 
 
 def _subanta_open(word: str) -> List[dict]:
@@ -325,7 +329,7 @@ def _subanta_open(word: str) -> List[dict]:
     se = SubantaEngine()
     out: List[dict] = []
     seen = set()
-    for (_strip, _append, _finals, _restore, _li, _vib, _vac) in _INV:
+    for (_strip, _append, _finals, _restore, _li, _vib, _vac, _ex) in _INV:
         if not word.endswith(_strip):
             continue
         _core = word[:-len(_strip)] if _strip else word
@@ -349,7 +353,7 @@ def _subanta_open(word: str) -> List[dict]:
                 continue
             seen.add(_key)
             try:
-                _forms = se.decline(_stem, _li).get((_vib, _vac), [])
+                _forms = se.decline(_stem, _li, extra=_ex).get((_vib, _vac), [])
             except Exception:
                 continue
             if word in _forms:
@@ -538,18 +542,24 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                 _hit = _lookup_root(_cand)
                 if _hit is not None:
                     break
+            # classical laN needs the a- augment (adadat, not *dadan)
+            _no_aug = _aug and _core[:1] not in ("a", "A")
             if _hit is not None:
                 _rt, _m, _via = _hit
                 # thematic grade-reversal is the regular BvAdi formation,
                 # so guna is near-deterministic (outranks coincidental nouns)
                 _conf = {"exact": 1.0, "glide": 0.95, "guna": 0.92,
                          "vrddhi": 0.8}.get(_via, 0.6)
+                if _no_aug:
+                    _conf *= 0.6
                 _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
                       "pada": _pada, "prayoga": "kartari", "lakara": _lak,
                       "confidence": _conf, "ending": _end}
                 _d.update(_root_details(_m))
                 if _via != "exact":
                     _d["note"] = f"root via {_via} from stem '{_core}'"
+                if _no_aug:
+                    _d["note"] = (_d.get("note", "") + "; augment a- missing").strip("; ")
                 if upasarga:
                     _d["upasarga"] = upasarga
                 out.append(_d)

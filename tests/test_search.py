@@ -104,6 +104,27 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(analyze(""), [])
         self.assertEqual(subanta_search("xyz"), [])
 
+    def test_dadan(self):
+        # dadan: participle nominative (default num-paradigm) + dad/laN
+        # with missing-augment note + honest Satf-unresolved tail
+        res = analyze("dadan")
+        self.assertTrue(has_sub(res, "dadat", 1, "eka", "puM"))
+        _laN = [r for r in res if r["kind"] == "tinanta" and r.get("dhatu") == "dad"
+                and r.get("lakara") == "laN"]
+        self.assertTrue(_laN, res[:5])
+        self.assertIn("augment", _laN[0].get("note", ""))
+        self.assertEqual(_laN[0].get("pada"), "parasmaipada")
+        self.assertEqual(_laN[0].get("dhAtu_pada"), "Atmanepadi")
+
+    def test_dadat_abhyasta(self):
+        # class-3 dadat bans num (7.1.78): bare form is the nominative
+        from pypanini.subanta import SubantaEngine
+        se = SubantaEngine()
+        self.assertEqual(se.decline("dadat", "puM", extra={"abhyasta": True})[(1, "eka")],
+                         ["dadat"])
+        res = analyze("dadat")
+        self.assertTrue(has_sub(res, "dadat", 1, "eka", "puM"))
+
 
 if __name__ == "__main__":
     unittest.main()

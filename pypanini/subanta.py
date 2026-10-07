@@ -824,12 +824,15 @@ class SubantaEngine:
         # plain jagat/marut keep at (no num) in masc strong sg? Neuter handled earlier.
         # NOTE: "Bavat" is ambiguous (pronoun BavAn vs BU-Satf participle Bavan);
         # default long (pronoun); pass extra={'satf': True} for participle short.
+        # Abhyasta (class 3, dadat) bans num altogether (7.1.78): behaves
+        # like plain at. Pass extra={'abhyasta': True} for reduplicated stems.
+        abhyasta = bool(extra.get("abhyasta"))
         is_long_Ant = (stem == "mahat" or extra.get("mahat")
                        or stem.endswith("tavat")  # ktavatu
                        or (stem in ("Bavat", "bagavat") and not extra.get("satf"))
                        or extra.get("long_Ant"))
         # plain at nouns (jagat, marut, sarit) do not take num in strong
-        plain_at = stem in ("jagat", "marut", "sarit", "vidyut", "Sakaw")
+        plain_at = abhyasta or stem in ("jagat", "marut", "sarit", "vidyut", "Sakaw")
         if strong:
             if plain_at:
                 if (vib, vac) == (1, "eka"):
