@@ -84,5 +84,30 @@ def main():
     print_subanta("Bavat", "puM", "respect pronoun (3rd-person noun): Bavat -> BavAn")
 
 
+def print_search(word):
+    from pypanini.search import analyze
+    print(f"\n=== search: {word} ===")
+    for r in analyze(word, limit=6):
+        if r["kind"] == "subanta":
+            print(f"  subanta  stem={r['stem']} vib={r['vibhakti']} vac={r['vacana']} "
+                  f"linga={r['linga']} conf={r['confidence']}")
+        elif r["kind"] == "krdanta":
+            print(f"  krdanta  dhatu={r.get('dhatu')} pratyaya={r['pratyaya']} "
+                  f"stem={r['stem']} conf={r['confidence']}")
+        else:
+            print(f"  tinanta  dhatu={r.get('dhatu')} lakara={r.get('lakara')} "
+                  f"{r.get('purusha')}/{r.get('vacana')}/{r.get('pada')} "
+                  f"conf={r['confidence']}")
+
+
+def main_search_demo():
+    print("\n" + "=" * 70)
+    print("4. SEARCH (subanta / krdanta / tinanta / global)")
+    print("=" * 70)
+    for w in ["wrampeRa", "wramPa", "rAmaH", "Bavati", "kftaH", "kartavyaH"]:
+        print_search(w)
+
+
 if __name__ == "__main__":
     main()
+    main_search_demo()

@@ -85,6 +85,13 @@ Generative nominal declension: 21 `sup` (4.1.2) × 8 vibhakti × 3 vacana × 3 l
 - **Pronouns/numerals**: `tad/kim/idam/adas/asmad/yuzmad/sarva/pUrva/prathama`, `dvi/tri/catur/paYcan/zaz/azwan`, `ekaSeza/pumvatBAva/satf-fem/stri` helpers.
 - **Tests**: `tests/test_subanta.py` (19) + `tests/test_subanta_full.py` (12×24 goldens, 288 forms).
 
+### 6. Search (`pypanini/search.py`)
+Morphological analyser over all three engines (SLP1 in, ranked guesses out):
+
+- `subanta_search(word)` → stem + vibhakti + vacana + linga (open vocabulary, forward-verified; e.g. `wrampeRa` → `wrampa`, tṛtīyā eka; dental `*wrampena` correctly rejected by Ṇatva).
+- `krdanta_search(word)` → dhātu + pratyaya (e.g. `kartavyaH` → `kf` + `tavya`).
+- `tinanta_search(word)` → dhātu + lakāra + puruṣa + vacana + pada, with upasarga stripping (e.g. `praBavati` → `pra` + `BU`).
+- `analyze(word)` → global ranking across all three (`tests/test_search.py`, 10 tests).
 ---
 
 ## Project Structure
@@ -98,6 +105,7 @@ pypanini/
 │   ├── tinanta.py            # Verbal derivation engine (10 Lakāras, Sanādi, Voices)
 │   ├── krdanta.py            # Primary verbal affixes across genders and antas
 │   └── subanta.py            # Nominal declension engine (21 sup, stri, ekaSeza)
+│   └── search.py             # Morphological analyser (subanta/krdanta/tinanta/global)
 ├── tests/
 │   ├── test_dhatu.py         # Generative validation (tinanta+krdanta)
 │   ├── test_subanta.py       # Subanta spot tests (19)

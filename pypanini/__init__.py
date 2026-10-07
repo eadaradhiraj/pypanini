@@ -12,6 +12,7 @@ from .phonetics import (
 from .tinanta import TinantaDerivationEngine, clean_dhatu_op
 from .krdanta import KrdantaEngine
 from .subanta import SubantaEngine, decline_all, ekaSeza, pumvatBAva, avyaya_pada, saH_sulopa, satf_feminine, stri_pratipadika
+from .search import analyze, best, subanta_search, krdanta_search, tinanta_search
 
 __all__ = [
     "MaheshvaraSutrasSLP1",
@@ -30,5 +31,10 @@ __all__ = [
     "saH_sulopa",
     "satf_feminine",
     "stri_pratipadika",
+    "analyze",
+    "best",
+    "subanta_search",
+    "krdanta_search",
+    "tinanta_search",
     "clean_dhatu_op",
 ]

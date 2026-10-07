@@ -44,8 +44,9 @@
 - **Progress — tinanta/krdanta (expanded 10 antas, SLP1-only)**:
   - `tinanta` + `krdanta` **done (100% expanded)**: `14/1166` BvAdi — `01.0001 BU (895/895)`, `01.0002 eD (627/627)`, `01.0003 sparD (883/883)`, `01.0004 gAD (883/883)`, `01.0005 bAD (883/883)`, `01.0006 nAD (883/883)`, `01.0007 nAT (883/883)`, `01.0008 daD (883/883)`, `01.0009 skudi (883/883)`, `01.0010 Svidi (883/883)`, `01.0011 vadi (883/883)`, `01.0012 Badi (883/883)`, `01.0013 madi (883/883)`, `01.0014 spadi (883/883)`
   - `tinanta`/`krdanta` **pending**: `1152/1166` BvAdi (`01.0015 klidi~ 0/895` homonym Ātman vs `01.0076` parasm, `01.0016 muda~` vowel-final)
-  - `subanta` **done v4 full audit (21/21, ~960 goldens)**:
-    `GOLDENS` 12×24 + `GOLDENS2` 11×24 + `GOLDENS3` 16×24 (rE/nO/pati/puMs/div/ahan/paTin/Svan/mahat/jagat/duh/lih/parivrAj/tri/catur/paYcan) + emptiness checks (bahu-only/dual-only) + `zaw` n-lopa fix (`paYcaBiH`) + `stri` AJA_ADI + `krdanta→subanta` pipeline test
+  - `subanta` **done v8 full audit (21/21, ~2000 goldens)**:
+    `GOLDENS`–`GOLDENS8` (rAma…yad/etad dual-only uBa/dvi) + emptiness checks + `zaw` n-lopa + `stri` AJA_ADI/yopadha + `krdanta→subanta` pipeline test
+  - `search` **done v1**: `pypanini/search.py` — `subanta_search` / `krdanta_search` / `tinanta_search` / `analyze` (global) + `tests/test_search.py` (10)
   - Sweep target: all `1166` `01.*` BvAdi at `100%` expanded for `tinanta`+`krdanta`, then `subanta` for nominal declension.
 
 - **Stats**: `tests/STATS.md` — `Engine: wholly generative` + `Run: ...` + per-dhātu `GRAND` blocks, updated after each sweep (`-W ignore::ResourceWarning`).
