@@ -82,9 +82,17 @@ class TestSearch(unittest.TestCase):
 
     def test_unadi_boundary(self):
         # sTira is uNAdi (kira), outside the 14-krt engine: no krdanta reading,
-        # even with prati- split + reverse zatva. Subanta still analyses it.
+        # even with prati- split + reverse sandhi. Subanta still analyses it.
         self.assertEqual(krdanta_search("pratizWira"), [])
         self.assertTrue(has_sub(subanta_search("pratizWireRa"), "pratizWira", 3, "eka"))
+
+    def test_prefix_double_sandhi(self):
+        # prati + sTita (kta of sTA): zatva + zwutva reversed, root linked
+        from pypanini.search import _rev_prefix_sandhi
+        self.assertEqual(_rev_prefix_sandhi("zWira"), ["zWira", "sWira", "sTira"])
+        res = krdanta_search("pratizWitaH")
+        self.assertTrue(any(r.get("dhatu") == "sTA" and r.get("pratyaya") == "kta"
+                            and r.get("upasarga") == "prati" for r in res), res[:5])
 
     def test_global_ranking(self):
         # exact tinanta root reading outranks open-vocabulary noise

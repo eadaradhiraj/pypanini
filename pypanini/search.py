@@ -569,6 +569,20 @@ _UPASARGAS = ["parA", "antar", "nir", "nis", "dus", "dur", "anu", "ava",
               "apa", "api", "aDi", "ati", "aBi", "ud", "upa", "pari",
               "prati", "pra", "sam", "vi", "ni", "su", "A"]
 
+# retroflex -> dental (reverse zwunA zwuH: surface W hides underlying T)
+_RETRO_DENTAL = {"w": "t", "W": "T", "q": "d", "Q": "D", "R": "n"}
+
+
+def _rev_prefix_sandhi(rest: str) -> List[str]:
+    """Undo upasarga sandhi on a split remainder (8.3.59 zatva, 8.2.41 zwutva).
+    prati + sTira -> pratizWira, so 'zWira' retries as 'sWira' and 'sTira'."""
+    _vars = [rest]
+    if rest[:1] in ("z", "S"):
+        _vars.append("s" + rest[1:])
+        if len(rest) > 1 and rest[1] in _RETRO_DENTAL:
+            _vars.append("s" + _RETRO_DENTAL[rest[1]] + rest[2:])
+    return _vars
+
 
 # ---------------------------------------------------------------------------
 # public API
@@ -627,14 +641,12 @@ def krdanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> Li
     _stems.sort(key=lambda t: (not t[0], t[1]))
     _from_stems(_stems)
     if with_upasarga:
-        # prati + sTira -> pratizWira: prefix sandhi voices s->z/S,
-        # so retry the remainder with dental s (reverse zatva)
+        # prati + sTira -> pratizWira: prefix sandhi voices s->z/S and
+        # retroflexes the following stop, so retry reversed variants
         for _p in sorted(_UPASARGAS, key=len, reverse=True):
             if word.startswith(_p) and len(word) - len(_p) >= 3:
                 _rest = word[len(_p):]
-                _variants = [_rest]
-                if _rest[:1] in ("z", "S"):
-                    _variants.append("s" + _rest[1:])
+                _variants = _rev_prefix_sandhi(_rest)
                 _rstems = []
                 for _v in _variants:
                     for _a in subanta_search(_v, limit=50):
@@ -673,8 +685,9 @@ def tinanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> Li
     if with_upasarga:
         for _p in sorted(_UPASARGAS, key=len, reverse=True):
             if word.startswith(_p) and len(word) - len(_p) >= 3:
-                for _t in _tinanta_analyze(word[len(_p):], upasarga=_p):
-                    _add(_t, _penalty=0.1)
+                for _v in _rev_prefix_sandhi(word[len(_p):]):
+                    for _t in _tinanta_analyze(_v, upasarga=_p):
+                        _add(_t, _penalty=0.1)
                 break
     out.sort(key=lambda d: d["confidence"], reverse=True)
     return out[:limit]
