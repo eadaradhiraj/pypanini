@@ -7,6 +7,7 @@ Subanta: **21/21 (~960 goldens)** — v1 engine + v2 gaps + full audit v4 (see i
 Verbs: 01.0015–01.0100 all 100% (86 consecutive; +01.0081–01.0100 20/20 green).
 Ganas 02–10 spot-check: first dhātu of each green (02.0001 626 → 10.0001 634, all 100%).
 Gana 02 full sweep (77 files) running.
+Gana 02 result: 76/76 scored green + 1 skipped-dataless (02.0076 ganasutra, unscored 0/0).
 Sweep-01: **1156/1156 100%** — held, fid-diff 0/0.
 Sweep-02: **76/76 zero-miss** — held.
 Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.

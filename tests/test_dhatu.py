@@ -136,6 +136,11 @@ def validate_dhatu(arg: str, verbose: bool = True, prefix: str = None) -> tuple[
     json_path = resolve_json_path(arg)
     dhatu = resolve_dhatu_slp(json_path, arg)
     data = json.load(open(json_path, encoding="utf-8"))
+    if data.get("skipped"):
+        # ganasutra/dataless roots are unscorable by data absence (never engine failure)
+        if verbose:
+            print(f"SKIP  {json_path}  |  {data.get('skip_reason', 'skipped')} — unscored (0/0)")
+        return 0, 0
     info = {x["name"]: x["value"] for x in data.get("info", [])}
     dhatu_label = info.get("OpadeSikasvarUpam", dhatu)
     artha = info.get("arTaH", "")
