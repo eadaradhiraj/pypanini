@@ -819,8 +819,12 @@ class SubantaEngine:
         strong = key in SARVANAMASTHANA
         # Bavat/baGavat/mahat take lengthened Ant; Satf (gacCat) takes short ant;
         # plain jagat/marut keep at (no num) in masc strong sg? Neuter handled earlier.
-        is_long_Ant = (stem == "mahat" or stem == "Bavat" or extra.get("mahat")
-                       or stem.endswith("vat") and stem not in ("jagat",))
+        # NOTE: "Bavat" is ambiguous (pronoun BavAn vs BU-Satf participle Bavan);
+        # default long (pronoun); pass extra={'satf': True} for participle short.
+        is_long_Ant = (stem == "mahat" or extra.get("mahat")
+                       or stem.endswith("tavat")  # ktavatu
+                       or (stem in ("Bavat", "bagavat") and not extra.get("satf"))
+                       or extra.get("long_Ant"))
         # plain at nouns (jagat, marut, sarit) do not take num in strong
         plain_at = stem in ("jagat", "marut", "sarit", "vidyut", "Sakaw")
         if strong:
@@ -1397,7 +1401,7 @@ class SubantaEngine:
         out[(1, "bahu")] = [strong + "aH"]
         out[(2, "eka")] = [strong + "am"]
         out[(2, "dvi")] = [strong + "O"]
-        out[(2, "bahu")] = [apply_natva(mid + "a" + "n")]
+        out[(2, "bahu")] = [self._fin(weak_b + "aH")]
         out[(3, "eka")] = [weak_b + "A"]
         out[(3, "dvi")] = [_join_pada(mid, "ByAm")]
         out[(3, "bahu")] = [_join_pada(mid, "BiH")]
@@ -1822,10 +1826,11 @@ def satf_feminine(weak_base: str, gana: str = "BvAdi") -> List[str]:
     return [weak_base + "I"]
 
 
-def stri_pratipadika(masc_stem: str, kind: str = "wAp") -> str:
+def stri_pratipadika(masc_stem: str, kind: str = "wAp", gana: str = "BvAdi") -> str:
     """Stri-pratyaya (4.1.3-4.1.81): masculine pratipadika -> feminine stem.
-    wAp (A): aja->ajA, a->A; RIp (I): at->atI (Bavat->BavatI), an->anI,
-    as->asI, f->rI (kartf->kartrI); uN (U): laghu-u -> U. Generative by shape."""
+    wAp (A): aja->ajA, a->A; RIp (I): f->rI (kartf->kartrI), an-weak+I
+    (rAjan->rAjYI), at via satf_feminine optionality (gacCat->gacCantI);
+    uN (U): laghu-u -> U. Generative by shape (+gana for at)."""
     if kind == "wAp":
         if masc_stem.endswith("a"):
             return masc_stem[:-1] + "A"
@@ -1835,8 +1840,23 @@ def stri_pratipadika(masc_stem: str, kind: str = "wAp") -> str:
     if kind == "RIp":
         if masc_stem.endswith("f"):
             return masc_stem[:-1] + "rI"  # kartf->kartrI
-        if masc_stem.endswith(("at", "an", "as", "vas", "vat")):
-            # Bavat->BavatI, rAjan->rAjanI (kept n, declined as nadI-type)
+        if masc_stem.endswith("vas"):
+            return masc_stem[:-3] + "uzI"  # cakfvas->cakfuzI (weak samprasarana)
+        if masc_stem.endswith("tavat") or masc_stem.endswith("vat"):
+            return masc_stem + "I"  # BUtavat->BUtavatI (weak + I)
+        if masc_stem.endswith("at") or masc_stem.endswith("ant"):
+            # at-nouns (Bavat/mahat/jagat) take weak + I; true Satf participles
+            # take strong/optional via gana (gacCat->gacCantI)
+            if masc_stem in ("Bavat", "mahat", "jagat", "marut", "sarit", "vidyut"):
+                return masc_stem + "I"
+            base = masc_stem[:-3] + "at" if masc_stem.endswith("ant") else masc_stem
+            return satf_feminine(base, gana)[0]
+        if masc_stem.endswith("an"):
+            b = masc_stem[:-2]
+            if b.endswith("j"):
+                return b + "YI"  # rAjan->rAjYI
+            return b + "nI"  # Atman->AtmanI
+        if masc_stem.endswith("as"):
             return masc_stem + "I"
         if masc_stem.endswith("a"):
             return masc_stem[:-1] + "I"
