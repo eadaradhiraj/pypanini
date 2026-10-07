@@ -1,6 +1,8 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-10-02
+Date: 2026-10-07
+Subanta: **19/19 (288/288 goldens)** — v1 engine + v2 gaps + full audit (see instructions.MD).
+  Commits: 3882dcd (v1) → f693f6f (v2) → c60f307 (audit). Tests: test_subanta (18) + test_subanta_full (12×24).
 Sweep-01: **1156/1156 100%** — held, fid-diff 0/0.
 Sweep-02: **76/76 zero-miss** — held.
 Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
