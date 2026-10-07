@@ -507,10 +507,15 @@ class SubantaEngine:
             if s == "s":
                 return [self._fin(stem)]
             if (vib, vac) == (6, "bahu"):
-                return [apply_natva(stem + "nAm")]
+                # vArIRAm (lengthened)
+                long_v = SLP1_SHORT2LONG.get(stem[-1], stem[-1])
+                return [self._fin(apply_natva(stem[:-1] + long_v + "RAm"))]
             if (vib, vac) == (7, "bahu"):
                 return [apply_zatva_s(stem + "zu")]
-            return [apply_natva(w)]
+            if vac == "bahu" or (vib, vac) in ((5, "eka"), (6, "eka")):
+                # Abl/Gen sg and Acc pl end in visarga: vAriRaH
+                return [self._fin(apply_natva(w))]
+            return [self._fin(apply_natva(w))]
         # neuter handled before; here masc/fem
         is_fem = (linga == "strI")
         nadi = is_fem and (long or extra.get("nadI"))
@@ -605,10 +610,13 @@ class SubantaEngine:
             if s == "s":
                 return [self._fin(stem)]
             if (vib, vac) == (6, "bahu"):
-                return [apply_natva(stem + "nAm")]
+                long_v = SLP1_SHORT2LONG.get(stem[-1], stem[-1])
+                return [self._fin(apply_natva(stem[:-1] + long_v + "RAm"))]
             if (vib, vac) == (7, "bahu"):
                 return [apply_zatva_s(stem + "zu")]
-            return [apply_natva(w)]
+            if vac == "bahu" or (vib, vac) in ((5, "eka"), (6, "eka")):
+                return [self._fin(apply_natva(w))]
+            return [self._fin(apply_natva(w))]
         is_fem = (linga == "strI")
         nadi = is_fem and (long or extra.get("nadI"))
         Nit = (sup in ("Ne", "Nasi", "Nas", "Ni"))
@@ -698,7 +706,8 @@ class SubantaEngine:
             # weak: f -> r/ur before vowel; B/pada before consonant
             pass
         if (vib, vac) == (2, "bahu"):
-            return apply_natva(b + "Fn")
+            # kartfRaH / pitfRaH (F retained, n->R, visarga)
+            return self._fin(apply_natva(b + "FRa") + "s")
         if (vib, vac) == (3, "eka"):
             return b + "rA"
         if (vib, vac) == (3, "dvi"):
@@ -792,7 +801,7 @@ class SubantaEngine:
                 return self._fin(_final_devoice(pada[-1]) and pada or pada)
             if s == "s":
                 return pada
-            return _join_pada(pada, s if s not in ("s",) else "")
+            return self._fin(_join_pada(pada, s if s not in ("s",) else ""))
         # vowel suffix
         w = weak(b)
         # join: rAjY + A -> rAjYA; nAmn + A -> nAmnA
@@ -850,7 +859,7 @@ class SubantaEngine:
         if s == "s":
             return self._fin(base[:-1] + "n" if False else base)
         if s and s[0] in ("B",):
-            return _join_pada(base, s)
+            return self._fin(_join_pada(base, s))
         if s == "su":
             return apply_zatva_s(_join_pada(base, "su"))
         return self._fin(base + s) if False else self._fin(base + ("" if False else s) if True else "")
@@ -871,7 +880,7 @@ class SubantaEngine:
         if s == "s":
             return self._fin(b + "I")
         if s and s[0] == "B":
-            return _join_pada(stem, s)
+            return self._fin(_join_pada(stem, s))
         if s == "su":
             return apply_zatva_s(_join_pada(stem, "su"))
         if s == "as" and (vib, vac) == (2, "bahu"):
@@ -890,7 +899,7 @@ class SubantaEngine:
         if s and s[0] == "B":
             # s->H? No: manas+ByAm -> manoByAm (as->o before B)
             b = stem[:-2]  # mana
-            return b + "o" + s
+            return self._fin(b + "o" + s)
         if s == "su":
             b = stem[:-2]
             return apply_zatva_s(b + "aHsu" if False else b + "aH" + "su")
@@ -920,7 +929,7 @@ class SubantaEngine:
                 return b + "vAMsam"
         # middle (consonant)
         if s and s[0] == "B":
-            return _join_pada(b + "vat", s)
+            return self._fin(_join_pada(b + "vat", s))
         if s == "su":
             return apply_zatva_s(_join_pada(b + "vat", "su"))
         if s == "s":
@@ -945,7 +954,7 @@ class SubantaEngine:
         if s == "s":
             return self._fin(b + "vAn")
         if s and s[0] == "B":
-            return _join_pada(b + "vat", s)
+            return self._fin(_join_pada(b + "vat", s))
         if s == "su":
             return apply_zatva_s(_join_pada(b + "vat", "su"))
         if s == "as" and (vib, vac) == (2, "bahu"):
@@ -1089,12 +1098,15 @@ class SubantaEngine:
             # ambA->amba handled via A branch? ambA ends A but rule says hrasva: he amba
             return [stem[:-1] + short]
         if last in ("i", "u"):
-            # sambuddhi guNa: hare / guro (6.4.146 not needed; direct)
+            # neuter vocative = nominative (vAri, madhu), no guNa
+            if linga == "napuMsaka":
+                return [self._fin(stem)]
+            # sambuddhi guNa: hare / guro
             if last == "i":
                 return [b + "e"]
             return [b + "o"]
         if last == "f":
-            return [self._fin(stem[:-1] + "aH")]  # he kartaH? Actually kartf->kartar? voc = kartar? Keep simple: kartar
+            return [stem[:-1] + "ar"]  # he kartar / pitar
         if last == "A" and stem in ("ambA",):
             return ["amba"]
         # halanta: = prathama eka
@@ -1574,12 +1586,13 @@ class SubantaEngine:
             return T
         # puM
         if linga == "puM":
+            base = pre[:-1] if pre.endswith("a") else pre  # t/et/y
             T = {
                 (1, "eka"): ["saH"], (1, "dvi"): ["tO"], (1, "bahu"): ["te"],
                 (2, "eka"): ["tam"], (2, "dvi"): ["tO"], (2, "bahu"): ["tAn"],
-                (3, "eka"): ["tena"], (3, "dvi"): [pre + "AByAm"], (3, "bahu"): ["tEH"],
-                (4, "eka"): [pre + "smE"], (4, "dvi"): [pre + "AByAm"], (4, "bahu"): ["teByaH"],
-                (5, "eka"): [pre + "smAt"], (5, "dvi"): [pre + "AByAm"], (5, "bahu"): ["teByaH"],
+                (3, "eka"): ["tena"], (3, "dvi"): [base + "AByAm"], (3, "bahu"): ["tEH"],
+                (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4, "bahu"): ["teByaH"],
+                (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5, "bahu"): ["teByaH"],
                 (6, "eka"): [pre + "sya"], (6, "dvi"): ["tayoH"], (6, "bahu"): ["tezAm"],
                 (7, "eka"): [pre + "smin"], (7, "dvi"): ["tayoH"], (7, "bahu"): ["tezu"],
                 (8, "eka"): ["saH"], (8, "dvi"): ["tO"], (8, "bahu"): ["te"],
@@ -1600,15 +1613,16 @@ class SubantaEngine:
             T[(7, "bahu")] = [apply_zatva_s("tezu")]
             return T
         # napuMsaka: 1/2 eka tat/etat/yat, rest like puM
+        base = pre[:-1] if pre.endswith("a") else pre
         T = {
-            (1, "eka"): [pre + "t"], (1, "dvi"): [pre + "e"], (1, "bahu"): [pre + "ni"],
-            (2, "eka"): [pre + "t"], (2, "dvi"): [pre + "e"], (2, "bahu"): [pre + "ni"],
-            (3, "eka"): [apply_natva(pre + "ena")], (3, "dvi"): [pre + "AByAm"], (3, "bahu"): ["tEH"],
-            (4, "eka"): [pre + "smE"], (4, "dvi"): [pre + "AByAm"], (4, "bahu"): ["teByaH"],
-            (5, "eka"): [pre + "smAt"], (5, "dvi"): [pre + "AByAm"], (5, "bahu"): ["teByaH"],
+            (1, "eka"): [pre + "t"], (1, "dvi"): [base + "e"], (1, "bahu"): [base + "Ani"],
+            (2, "eka"): [pre + "t"], (2, "dvi"): [base + "e"], (2, "bahu"): [base + "Ani"],
+            (3, "eka"): [apply_natva(base + "ena")], (3, "dvi"): [base + "AByAm"], (3, "bahu"): ["tEH"],
+            (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4, "bahu"): ["teByaH"],
+            (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5, "bahu"): ["teByaH"],
             (6, "eka"): [pre + "sya"], (6, "dvi"): ["tayoH"], (6, "bahu"): ["tezAm"],
             (7, "eka"): [pre + "smin"], (7, "dvi"): ["tayoH"], (7, "bahu"): ["tezu"],
-            (8, "eka"): [pre + "t"], (8, "dvi"): [pre + "e"], (8, "bahu"): [pre + "ni"],
+            (8, "eka"): [pre + "t"], (8, "dvi"): [base + "e"], (8, "bahu"): [base + "Ani"],
         }
         if stem == "etad":
             for k in [(3, "dvi"), (4, "dvi"), (5, "dvi")]:
