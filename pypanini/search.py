@@ -126,6 +126,14 @@ def _lookup_root(cand: str):
     for _c in _len_variants(cand):
         if _c in _ROOTS:
             return _c, _ROOTS[_c], "exact"
+    # Natva reversal (praRamati -> nam): R could hide dental n
+    if "R" in cand:
+        _hit = _lookup_root(cand.replace("R", "n"))
+        if _hit is not None:
+            return _hit[0], _hit[1], "natva+" + _hit[2]
+    for _c in _len_variants(cand):
+        if _c in _ROOTS:
+            return _c, _ROOTS[_c], "exact"
     _g = _deglide(cand)
     for _c in _len_variants(_g):
         if _c in _ROOTS:
@@ -587,7 +595,7 @@ def subanta_search(word: str, limit: int = 20) -> List[dict]:
     return out[:limit]
 
 
-def krdanta_search(word: str, limit: int = 20) -> List[dict]:
+def krdanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> List[dict]:
     """Krdanta-only search: dhatu + pratyaya (+ inflection) readings."""
     _ensure_ready()
     word = (word or "").strip()
@@ -595,18 +603,46 @@ def krdanta_search(word: str, limit: int = 20) -> List[dict]:
         return []
     out: List[dict] = []
     seen = set()
+
+    def _from_stems(stem_list: List[tuple], penalty: float = 0.0,
+                    upasarga: str | None = None) -> None:
+        for (_lex, _st, _li, _vib, _vac) in stem_list:
+            for _k in _krdanta_from_stem(_st, _li, _vib, _vac):
+                _kk = (_k.get("dhatu"), _k["pratyaya"], _st, _li, _vib, _vac,
+                       upasarga)
+                if _kk in seen:
+                    continue
+                seen.add(_kk)
+                _k = dict(_k)
+                if penalty:
+                    _k["confidence"] = max(0.1, _k["confidence"] - penalty)
+                if upasarga:
+                    _k["upasarga"] = upasarga
+                out.append(_k)
+
     _stems = []
     for _a in subanta_search(word, limit=50):
         _stems.append((_a.get("lexicon", False),
                        _a["stem"], _a["linga"], _a["vibhakti"], _a["vacana"]))
     _stems.sort(key=lambda t: (not t[0], t[1]))
-    for (_lex, _st, _li, _vib, _vac) in _stems:
-        for _k in _krdanta_from_stem(_st, _li, _vib, _vac):
-            _kk = (_k.get("dhatu"), _k["pratyaya"], _st, _li, _vib, _vac)
-            if _kk in seen:
-                continue
-            seen.add(_kk)
-            out.append(_k)
+    _from_stems(_stems)
+    if with_upasarga:
+        # prati + sTira -> pratizWira: prefix sandhi voices s->z/S,
+        # so retry the remainder with dental s (reverse zatva)
+        for _p in sorted(_UPASARGAS, key=len, reverse=True):
+            if word.startswith(_p) and len(word) - len(_p) >= 3:
+                _rest = word[len(_p):]
+                _variants = [_rest]
+                if _rest[:1] in ("z", "S"):
+                    _variants.append("s" + _rest[1:])
+                _rstems = []
+                for _v in _variants:
+                    for _a in subanta_search(_v, limit=50):
+                        _rstems.append((_a.get("lexicon", False), _a["stem"],
+                                        _a["linga"], _a["vibhakti"], _a["vacana"]))
+                _rstems.sort(key=lambda t: (not t[0], t[1]))
+                _from_stems(_rstems, penalty=0.1, upasarga=_p)
+                break
     out.sort(key=lambda d: d["confidence"], reverse=True)
     return out[:limit]
 

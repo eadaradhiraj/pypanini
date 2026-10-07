@@ -68,6 +68,24 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(any(r.get("dhatu") == "BU" and r.get("upasarga") == "pra"
                             for r in res), res[:5])
 
+    def test_upasarga_krdanta(self):
+        # pra + kfta: prefixed participle splits and root-links
+        res = krdanta_search("prakftaH")
+        self.assertTrue(any(r.get("dhatu") == "kf" and r.get("pratyaya") == "kta"
+                            and r.get("upasarga") == "pra" for r in res), res[:5])
+
+    def test_natva_reversal(self):
+        # praRamati: R hides dental n of root nam
+        res = tinanta_search("praRamati")
+        self.assertTrue(any(r.get("dhatu") == "nam" and r.get("upasarga") == "pra"
+                            for r in res), res[:5])
+
+    def test_unadi_boundary(self):
+        # sTira is uNAdi (kira), outside the 14-krt engine: no krdanta reading,
+        # even with prati- split + reverse zatva. Subanta still analyses it.
+        self.assertEqual(krdanta_search("pratizWira"), [])
+        self.assertTrue(has_sub(subanta_search("pratizWireRa"), "pratizWira", 3, "eka"))
+
     def test_global_ranking(self):
         # exact tinanta root reading outranks open-vocabulary noise
         res = analyze("Bavati")
