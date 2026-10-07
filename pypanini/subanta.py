@@ -1108,6 +1108,9 @@ class SubantaEngine:
         last = stem[-1] if stem else ""
         b = stem[:-1] if stem else ""
         if last == "a":
+            # neuter vocative = nominative (Palam, not Pala)
+            if linga == "napuMsaka":
+                return [self._neuter_form(stem, "eka", extra)]
             return [b + "a"]  # he rAma (su-lopa)
         if last == "A":
             # sItA -> sIte
@@ -1666,7 +1669,7 @@ class SubantaEngine:
         for k, vs in out.items():
             nv = []
             for v in vs:
-                if linga == "napuMsaka" and k in ((1, "eka"), (2, "eka")):
+                if linga == "napuMsaka" and k in ((1, "eka"), (2, "eka"), (8, "eka")):
                     nv.append("kim")
                     continue
                 # ka- for ko/ke/kam/kAn/kena/kEH/kasmE...: only initial t/s->k
