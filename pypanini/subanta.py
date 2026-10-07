@@ -1256,7 +1256,7 @@ class SubantaEngine:
             (4, "eka"): ["puMse"], (4, "dvi"): ["pumByAm"], (4, "bahu"): ["pumByaH"],
             (5, "eka"): ["puMsaH"], (5, "dvi"): ["pumByAm"], (5, "bahu"): ["pumByaH"],
             (6, "eka"): ["puMsaH"], (6, "dvi"): ["puMsoH"], (6, "bahu"): ["puMsAm"],
-            (7, "eka"): ["puMsi"], (7, "dvi"): ["puMsoH"], (7, "bahu"): ["pumsu"],
+            (7, "eka"): ["puMsi"], (7, "dvi"): ["puMsoH"], (7, "bahu"): ["puMsu"],
             (8, "eka"): ["puman"], (8, "dvi"): ["pumAMsO"], (8, "bahu"): ["pumAMsaH"],
         }
         return T
@@ -1278,7 +1278,7 @@ class SubantaEngine:
         T = {
             (1, "eka"): ["ahaH"], (1, "dvi"): ["ahanI"], (1, "bahu"): ["ahAni"],
             (2, "eka"): ["ahaH"], (2, "dvi"): ["ahanI"], (2, "bahu"): ["ahAni"],
-            (3, "eka"): ["ahnA"], (3, "dvi"): ["ahoByAm"], (3, "bahu"): ["ahobBiH", "ahorBiH"],
+            (3, "eka"): ["ahnA"], (3, "dvi"): ["ahoByAm"], (3, "bahu"): ["ahobhiH"],
             (4, "eka"): ["ahne"], (4, "dvi"): ["ahoByAm"], (4, "bahu"): ["ahoByaH"],
             (5, "eka"): ["ahnaH"], (5, "dvi"): ["ahoByAm"], (5, "bahu"): ["ahoByaH"],
             (6, "eka"): ["ahnaH"], (6, "dvi"): ["ahnoH"], (6, "bahu"): ["ahnAm"],
@@ -1477,11 +1477,11 @@ class SubantaEngine:
         out[(1, "dvi")] = []
         out[(2, "eka")] = []
         out[(2, "dvi")] = []
-        mid = "zad" if stem == "zaz" else stem
+        mid = "zad" if stem == "zaz" else (stem[:-1] if stem.endswith("n") else stem)
         out[(3, "bahu")] = [_join_pada(mid, "BiH")]
         out[(4, "bahu")] = [_join_pada(mid, "ByaH")]
         out[(5, "bahu")] = [_join_pada(mid, "ByaH")]
-        out[(6, "bahu")] = [apply_natva((mid + "Am"))]
+        out[(6, "bahu")] = [apply_natva(((stem if stem.endswith("n") else mid) + "Am"))]
         out[(7, "bahu")] = [apply_zatva_s(_join_pada(mid, "su"))]
         for k in [(3, "eka"), (3, "dvi"), (4, "eka"), (4, "dvi"), (5, "eka"), (5, "dvi"),
                   (6, "eka"), (6, "dvi"), (7, "eka"), (7, "dvi"),
@@ -1828,9 +1828,13 @@ def satf_feminine(weak_base: str, gana: str = "BvAdi") -> List[str]:
 
 def stri_pratipadika(masc_stem: str, kind: str = "wAp", gana: str = "BvAdi") -> str:
     """Stri-pratyaya (4.1.3-4.1.81): masculine pratipadika -> feminine stem.
-    wAp (A): aja->ajA, a->A; RIp (I): f->rI (kartf->kartrI), an-weak+I
-    (rAjan->rAjYI), at via satf_feminine optionality (gacCat->gacCantI);
+    wAp (A, 4.1.4 ajAdyatazWAp): aja-adi + a-final -> A (aja->ajA; by shape
+    all a-stems take A since jAti/vayas semantics is caller-side);
+    RIp (I): f->rI (kartf->kartrI), an-weak+I (rAjan->rAjYI), at via
+    satf_feminine optionality (gacCat->gacCantI), tavat/vas weak+I;
     uN (U): laghu-u -> U. Generative by shape (+gana for at)."""
+    AJA_ADI = {"aja", "aSva", "edaka", "cawaka", "mUzika", "kukkuwa",
+               "Suka", "baka", "kAka"}  # representative; shape rule covers rest
     if kind == "wAp":
         if masc_stem.endswith("a"):
             return masc_stem[:-1] + "A"
