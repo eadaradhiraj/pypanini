@@ -160,9 +160,9 @@ def apply_zatva_s(word: str) -> str:
     """zatva 8.3.59 for suffix -su: s->z after k/iR cohort.
     Minimal: sup plural locative -su -> -zu after vowels/velars etc.
     Caller passes full word; only trailing su/su-adjacent handled."""
-    # generic: s after i/u/f/x/e/o/E/O/y/v/r/l/h/k/K/g/G/N -> z
+    # generic: s after iN/ku cohort (long vowels included) -> z
     # implemented as single pass for 's' not word-initial
-    trig = set("iufxeoEOyvrlhkKgGN")
+    trig = set("iIuUfFxXeoEOyvrlhkKgGN")
     chars = list(word)
     for i in range(1, len(chars)):
         if chars[i] == "s" and chars[i - 1] in trig:
@@ -889,7 +889,8 @@ class SubantaEngine:
         if s and s[0] == "B":
             return self._fin(_join_pada(stem, s))
         if s == "su":
-            return apply_zatva_s(_join_pada(stem, "su"))
+            # n-lopa + I + zatva: Danin+su -> DanIzu
+            return apply_zatva_s(b + "I" + "su")
         if s == "as" and (vib, vac) == (2, "bahu"):
             return self._fin(b + "inaH")
         return self._fin(stem + s if s not in ("O",) else b + "inO")
@@ -917,14 +918,14 @@ class SubantaEngine:
             add = "O" if s == "O" else s
             w = stem + add
             idx = len(stem) - 1  # stem-final s position
-            if w[idx] == "s" and stem[-2] in set("iufxeoEOyvrlhkKgGN"):
+            if w[idx] == "s" and stem[-2] in set("iIuUfFxXeoEOyvrlhkKgGN"):
                 w = w[:idx] + "z" + w[idx + 1:]
             return self._fin(w)
         # other vowel-initial (A/e/i): same zatva (havis+A -> havizA)
         if s and s[0] in SLP1_VOWELS:
             w = stem + s
             idx = len(stem) - 1
-            if w[idx] == "s" and stem[-2] in set("iufxeoEOyvrlhkKgGN"):
+            if w[idx] == "s" and stem[-2] in set("iIuUfFxXeoEOyvrlhkKgGN"):
                 w = w[:idx] + "z" + w[idx + 1:]
             return self._fin(w)
         return self._fin(stem + s)
@@ -1130,6 +1131,9 @@ class SubantaEngine:
             return [stem[:-1] + "ar"]  # he kartar / pitar
         if last == "A" and stem in ("ambA",):
             return ["amba"]
+        # neuter vocative = nominative (karma, not karmA)
+        if linga == "napuMsaka":
+            return [self._neuter_form(stem, "eka", extra)]
         # halanta: = prathama eka
         g = self._noun_form(stem, linga, "sU", (1, "eka"), sarvanAman=False, extra=extra)
         return g
@@ -1550,7 +1554,7 @@ class SubantaEngine:
                 out[(3, "bahu")] = ["tisfBiH"]
                 out[(4, "bahu")] = ["tisfByaH"]
                 out[(5, "bahu")] = ["tisfByaH"]
-                out[(6, "bahu")] = [apply_natva("tisf" + "Am")]
+                out[(6, "bahu")] = ["tisfRAm"]  # tisFRam (num n->R after f)
                 out[(7, "bahu")] = ["tisfzu"]
             else:
                 out[(1, "bahu")] = ["trayaH"]
@@ -1574,7 +1578,7 @@ class SubantaEngine:
             out[(3, "bahu")] = ["catasfBiH"]
             out[(4, "bahu")] = ["catasfByaH"]
             out[(5, "bahu")] = ["catasfByaH"]
-            out[(6, "bahu")] = [apply_natva("catasf" + "Am")]
+            out[(6, "bahu")] = ["catasfRAm"]  # num n->R after f
             out[(7, "bahu")] = ["catasfzu"]
         else:
             out[(1, "bahu")] = ["catvAraH"]
@@ -1655,7 +1659,7 @@ class SubantaEngine:
         return T
 
     def _decline_kim(self, linga: str) -> Dict[Tuple[int, str], List[str]]:
-        # kim->ka (7.2.103), neuter 1/2 eka stays kim
+        # kim->ka (7.2.103), neuter 1/2 eka stays kim; only stem-initial t/s->k
         out = self._decline_tad("tad", linga)
         # replace t->k, s->k where applicable
         repl: Dict[Tuple[int, str], List[str]] = {}
@@ -1665,9 +1669,9 @@ class SubantaEngine:
                 if linga == "napuMsaka" and k in ((1, "eka"), (2, "eka")):
                     nv.append("kim")
                     continue
-                # ta->ka, sa->ka, te->ke, tayo->kayo, tez->kez, etc.
-                w = v.replace("t", "k").replace("s", "k")
-                # fix: kaH (not kaH? yes), kO, ke, kam, kAn, kena, kEH, kasmE...
+                # ka- for ko/ke/kam/kAn/kena/kEH/kasmE...: only initial t/s->k
+                # (tasmE->kasmE keeps s; saH->kaH; tayoH->kayoH; tezAm->kezAm)
+                w = ("k" + v[1:]) if v[:1] in ("t", "s") else v
                 nv.append(w)
             repl[k] = nv
         # fix known: 1eka puM kaH (w is saH->kaH correct)
