@@ -774,8 +774,8 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             else:
                 _emit("SAnac", None, None, 0.5, "present stem; root unresolved")
             break
-    # lyuw action noun (-ana): Bavana <- BU
-    if stem.endswith("ana") and len(stem) > 4:
+    # lyuw action noun (-ana): Bavana <- BU; Natva-R twin (-aRa): vidaRa <- vid
+    if (stem.endswith("ana") or stem.endswith("aRa")) and len(stem) > 4:
         _hit = _lookup_root(stem[:-3])
         if _hit is not None:
             _rt, _m, _via = _hit
@@ -787,6 +787,10 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         _fem = stem.endswith("A")
         _b = stem[:-1]
         _hit = _lookup_root(_b)
+        if _hit is None and _b.endswith("R") and len(_b) > 2:
+            # Natva-R stem (vidaRa <- vid + lyuw): R hides the root
+            # coda, so retry without it (vida -> vid via thematic)
+            _hit = _lookup_root(_b[:-1])
         if _hit is not None:
             _rt, _m, _via = _hit
             _vrddhi = ("A" in _b or "Ay" in _b or "Av" in _b or "E" in _b
@@ -1299,7 +1303,7 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
         for (_end, _lak, _pur, _vac) in _table:
             if not word.endswith(_end) or len(word) <= len(_end):
                 continue
-            _core = word[:-len(_end)]
+            _core = word[:-len(_end)] if _end else word
             _aug = (_lak == "laN")
             _hit = None
             _via_extra = ""
@@ -1336,6 +1340,20 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         break
                 if _hit is not None:
                     break
+                # viDiliN e-grade of A-final roots (det <- dA: the ending
+                # table segments d+et, swallowing the stem vowel, while
+                # exact lookup finds only the e-final root deN)
+                if _hit is None and _lak == "viDiliN" and _cand.endswith("e"):
+                    _hit = _lookup_root(_cand[:-1] + "A")
+                    if _hit is not None:
+                        _via_extra = "egrade"
+                        break
+                if (_hit is None and _lak == "viDiliN" and len(_cand) == 1
+                        and _cand not in SLP1_VOWELS):
+                    _hit = _lookup_root(_cand + "A")
+                    if _hit is not None:
+                        _via_extra = "egrade"
+                        break
             # classical laN needs the a- augment (adadat, not *dadan)
             _no_aug = _aug and _core[:1] not in ("a", "A")
             # liT always reduplicates (Asa-type a-initial stems excepted):
@@ -1372,6 +1390,9 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                     _conf = 0.7
                 elif _via_extra == "san":
                     _via = "san"
+                    _conf = 0.65
+                elif _via_extra == "egrade":
+                    _via = "egrade"
                     _conf = 0.65
                 if _no_aug:
                     _conf *= 0.6
@@ -1424,7 +1445,30 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         _ed["confidence"] = max(0.1, _ed["confidence"] * 0.5)
                         _ed["note"] += "; unverified"
                     out.append(_ed)
-            else:
+            if _hit is not None and _liw_plain and _extra_hits:
+                # liw plain-grade hits are noun-coincidences (rAma), but
+                # reduplication-derived twins (dad -> dA) are genuine verbs
+                for (_ert, _em, _evia) in _extra_hits:
+                    _ed = {"kind": "tinanta", "purusha": _pur,
+                           "vacana": _vac, "pada": _pada,
+                           "prayoga": "kartari", "lakara": _lak,
+                           "confidence": 0.7, "ending": _end}
+                    _ed.update(_root_details(_em))
+                    _ed["pada"] = _pada
+                    _ed["note"] = f"root via abhyasa from stem '{_core}'"
+                    if _no_aug:
+                        _ed["confidence"] *= 0.6
+                        _ed["note"] += "; augment a- missing"
+                    if upasarga:
+                        _ed["upasarga"] = upasarga
+                    _eids = _ed.get("ids") or [None]
+                    _eok = _verify_tin(word, _ert, _lak, _pur, _vac,
+                                       "kartari", None, _eids[0], upasarga)
+                    if not _eok:
+                        _ed["confidence"] = max(0.1, _ed["confidence"] * 0.5)
+                        _ed["note"] += "; unverified"
+                    out.append(_ed)
+            if _hit is None or _liw_plain:
                 _d = {"kind": "tinanta", "dhatu": None, "purusha": _pur,
                       "vacana": _vac, "pada": _pada, "prayoga": "kartari",
                       "lakara": _lak, "confidence": 0.4,
@@ -1562,8 +1606,10 @@ def krdanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> Li
                 continue
             seen.add(_kk)
             out.append(_k)
-    # indeclinable krdantas have no sup stem: tumun (-tum), ktvA (-tvA)
-    for _suf, _prat in (("tum", "tumun"), ("tvA", "ktvA")):
+    # indeclinable krdantas have no sup stem: tumun (-tum), ktvA (-tvA),
+    # Ramul (-am, low confidence: -am is usually the accusative ending)
+    for _suf, _prat, _conf in (("tum", "tumun", 0.85), ("tvA", "ktvA", 0.85),
+                               ("am", "Ramul", 0.5)):
         if word.endswith(_suf) and len(word) > len(_suf) + 1:
             _core = word[:-len(_suf)]
             _cands = [_core]
@@ -1582,10 +1628,25 @@ def krdanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> Li
                 _rt, _m, _via = _hit
                 out.append({"kind": "krdanta", "pratyaya": _prat,
                             "stem": word, "linga": "avyaya", "vibhakti": None,
-                            "vacana": None, "confidence": 0.85,
+                            "vacana": None, "confidence": _conf,
                             "note": f"root via {_via} from '{_core}'",
                             **_root_details(_m)})
                 break
+    # prefixless -ya absolutive (BUya <- BU): lyap needs an upasarga, so this
+    # reading is weak — but the engine overgenerates unprefixed twins
+    if word.endswith("ya") and len(word) > 3:
+        _hit = _lookup_root(_devrddhi(word[:-2]))
+        if _hit is not None:
+            _rt, _m, _via = _hit
+            _kk = (_rt, "lyap", word, None)
+            if _kk not in seen:
+                seen.add(_kk)
+                out.append({"kind": "krdanta", "pratyaya": "lyap",
+                            "stem": word, "linga": "avyaya",
+                            "vibhakti": None, "vacana": None,
+                            "confidence": 0.45,
+                            "note": f"root via {_via}; prefix missing",
+                            **_root_details(_m)})
     if with_upasarga:
         # prati + sTira -> pratizWira: prefix sandhi voices s->z/S and
         # retroflexes the following stop, so retry reversed variants

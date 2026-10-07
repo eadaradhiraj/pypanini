@@ -2,7 +2,8 @@
 
 Date: 2026-10-07
 Subanta: **21/21 (~2000 goldens)** — engine + audits + pipeline (see instructions.MD).
-Search: **10/10 + round-trip green** — `pypanini/search.py` (subanta/krdanta/tinanta/analyze) + demo §4.
+Search: **10/10 + round-trip perfect** — `pypanini/search.py` (subanta/krdanta/tinanta/analyze) + demo §4.
+  Round-trips: tinanta slot 540/540 + root 540/540; krdanta 185/185 (was 539/172).
   Tests: test_subanta + test_subanta_full (GOLDENS–GOLDENS7) + test_krdanta_subanta pipeline.
 Lint: **strict gate green** (`tests.test_lint` 2/2); F-class smells removed from helpers
   (test_dhatu dead accumulators, sweep_gana/sweep_upasargas_fast/test_gana05 unused imports).
@@ -27,6 +28,17 @@ Sweeps (prefixed): fresh CSVs (10/6) show 150 fails in 04–10; **all 150 pass
 - Search correctness: luN `adAm` vowel-restoration + longest-first suffixes;
   abhyasta `ati` 3pl ending (dadati) + twin emission; sya path skips `ati`.
   Round-trip: slot 540/540 (was 539/540), root 526/540.
+- Search depth (this turn): `-ending core fix (gama->gam); viDiliN e-grade
+  fallback det->dA (single-consonant core + A-root); liw_plain twin emission
+  (dadaTuH->dA); lyuw -aRa twin (vidaRa->vid); Ramul -am handler (todam->tud);
+  prefixless-lyap hypothesis (BUya->BU, 0.45 + prefix-missing note).
+  Round-trips now perfect: tinanta root 540/540, krdanta 185/185. Analyzer-only,
+  zero generation impact.
+- Perf: startup cache-load ~10s/process (2 x 5s JSON scans) dominates; derive +
+  analyze are microseconds warm. Single-scan shared loader queued (halves startup).
+- Triage: 10.0014/0105/0028/0021/0038/0242/0190 + 06.0159 all PASS live;
+  04.0162/163 correctly skipped (0/0). Gana-04 full refresh: 161/161, fid-diff
+  0/0 vs HEAD (perfect hold, CSV not rewritten).
 - Subanta: `_infer_h_class` dedup, `_an_stem` dead-branch removal (behavior-identical).
 - Krdanta: duplicate `sya-SAnac`/`sya-BAvakarma-SAnac` dict keys removed.
 - Full gate green: lint 2/2 + search/subanta/krdanta/dhatu suites (43 + 4 tests) OK.
