@@ -5,6 +5,7 @@ Subanta: **21/21 (~960 goldens)** — v1 engine + v2 gaps + full audit v4 (see i
   Commits: 3882dcd (v1) → f693f6f (v2) → c60f307 (audit 288) → 727ed31 (showcase+stri) → 1851ba2 (audit ~960).
   Tests: test_subanta (19 incl. pipeline via test_krdanta_subanta) + test_subanta_full (GOLDENS/GOLDENS2/GOLDENS3).
 Verbs: 01.0015–01.0080 all 100% (66 consecutive; +01.0061–01.0080 20/20 green).
+Ganas 02–10 spot-check: first dhātu of each green (02.0001 626 → 10.0001 634, all 100%).
 Sweep-01: **1156/1156 100%** — held, fid-diff 0/0.
 Sweep-02: **76/76 zero-miss** — held.
 Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
