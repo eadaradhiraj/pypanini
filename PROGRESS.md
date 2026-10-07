@@ -1,8 +1,10 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-10-07
-Subanta: **19/19 (288/288 goldens)** — v1 engine + v2 gaps + full audit (see instructions.MD).
-  Commits: 3882dcd (v1) → f693f6f (v2) → c60f307 (audit). Tests: test_subanta (18) + test_subanta_full (12×24).
+Subanta: **21/21 (~960 goldens)** — v1 engine + v2 gaps + full audit v4 (see instructions.MD).
+  Commits: 3882dcd (v1) → f693f6f (v2) → c60f307 (audit 288) → 727ed31 (showcase+stri) → 1851ba2 (audit ~960).
+  Tests: test_subanta (19 incl. pipeline via test_krdanta_subanta) + test_subanta_full (GOLDENS/GOLDENS2/GOLDENS3).
+Verbs: 01.0015–01.0029+ green at 100% (background sweep 01.0022–01.0040 running).
 Sweep-01: **1156/1156 100%** — held, fid-diff 0/0.
 Sweep-02: **76/76 zero-miss** — held.
 Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
