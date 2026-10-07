@@ -84,18 +84,14 @@ def _infer_h_class(stem: str) -> str:
     -> g (velar); else d."""
     if stem.endswith("nah"):
         return "d"
-    if stem in ("lih", "mih", "ruh", "snih", "snuh", "muh", "ruh"):
-        # lih/mih/snih take retroflex q; muh/snuh Ruh take g — split by vowel
-        if stem in ("lih", "mih", "snih"):
-            return "q"
-        if stem in ("muh", "snuh", "druh"):
-            return "g"
+    if stem in ("lih", "mih", "snih"):
+        return "q"
+    if stem in ("muh", "snuh", "druh", "duh"):
+        return "g"
     # shape rule: i-final-h -> q, u-final-h -> g
     if len(stem) >= 2 and stem[-2] == "i" and stem[-1] == "h":
         return "q"
     if len(stem) >= 2 and stem[-2] == "u" and stem[-1] == "h":
-        return "g"
-    if stem in ("duh",):
         return "g"
     return "d"
 
@@ -818,10 +814,8 @@ class SubantaEngine:
             # pada: n-lopa: rAja + ByAm/Bis etc.
             pada = b + "a"
             if s == "s":
-                return self._fin(_final_devoice(pada[-1]) and pada or pada)
-            if s == "s":
-                return pada
-            return self._fin(_join_pada(pada, s if s not in ("s",) else ""))
+                return self._fin(pada)
+            return self._fin(_join_pada(pada, s))
         # vowel suffix
         w = weak(b)
         # join: rAjY + A -> rAjYA; nAmn + A -> nAmnA

@@ -1,12 +1,12 @@
 import glob, json
-import tests.sweep_gana as S
 import pypanini.tinanta as T
 
 TE = T.TinantaDerivationEngine()
 
 roots = []
 for jf in sorted(glob.glob('skt-morph-data/05/*.json')):
-    d = json.load(open(jf))
+    with open(jf, encoding="utf-8") as _fh:
+        d = json.load(_fh)
     fid = d.get('id')
     op = ''
     for it in d.get('info', []):

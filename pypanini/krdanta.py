@@ -1,4 +1,3 @@
-from pypanini.pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
 """
 Generative Kṛdanta Engine - no per-dhatu form dictionaries.
 Derives from dhatu properties (sew, pada, vowel-final etc.)
@@ -9,6 +8,7 @@ import json
 import glob
 import re
 from pathlib import Path
+from .pada_rules import PADA_MAP_CLEAN, PADA_MAP_ID
 from .phonetics import apply_guna, apply_vriddhi, apply_sandhi_eco_ayavayavah, apply_upasargas
 
 SLP1_VOWELS = set(list("aAiIuUfFxXeEoO"))
@@ -165,6 +165,9 @@ def _get_juhotyadi_krdanta(key: str):
 
 
 class KrdantaEngine:
+    _SHARED_CACHE = None
+    _SHARED_BY_ID = None
+
     def __init__(self):
         self.krdanta_metadata = {
             "kta": ("Past Passive Participle (क्त)", "participle"),
@@ -188,8 +191,6 @@ class KrdantaEngine:
             "sya-Satf": ("Future Active Participle (स्य-शतृ)", "participle"),
             "sya-SAnac": ("Future Middle Participle (स्य-शानच्)", "participle"),
             "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
-            "sya-SAnac": ("Future Middle Participle (स्य-शानच्)", "participle"),
-            "sya-BAvakarma-SAnac": ("Future Bhava-karman Participle", "participle"),
             "cAnaS": ("Atmanepada Present Participle (चानश्)", "participle"),
             "ac": ("Agent Noun in -a (अच्)", "agent_noun"),
             "lyu": ("Neuter Verbal Noun in -ana (ल्यु)", "neuter_noun"),
@@ -210,17 +211,22 @@ class KrdantaEngine:
     def _load_cache(self):
         if self._cache is not None:
             return
+        if KrdantaEngine._SHARED_CACHE is not None:
+            self._cache = KrdantaEngine._SHARED_CACHE
+            self._cache_by_id = KrdantaEngine._SHARED_BY_ID
+            return
         self._cache = {}
         self._cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True, "is_idit": False, "op": "BU"}
         self._cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True, "is_idit": False, "op": "eD"}
         self._cache_by_id = {}
         try:
             _bases = [Path("skt-morph-data") / _g for _g in ("02", "03", "04", "05", "06", "07", "08", "09", "10", "01")]
-            _jfs = [jf for _b in _bases if _b.exists() for jf in glob.glob(str(_b / "*.json"))]
+            _jfs = [jf for _b in _bases if _b.exists() for jf in sorted(glob.glob(str(_b / "*.json")))]
             if _jfs:
                 for jf in _jfs:
                     try:
-                        d = json.load(open(jf, encoding="utf-8"))
+                        with open(jf, encoding="utf-8") as _jf_h:
+                            d = json.load(_jf_h)
                         info = {x["name"]: x["value"] for x in d.get("info", [])}
                         op = info.get("OpadeSikasvarUpam", "")
                         if not op:
@@ -258,11 +264,13 @@ class KrdantaEngine:
                             self._cache_by_id[id_val] = entry
                             self._cache_by_id[clean + "_" + id_val] = entry
                             self._cache_by_id[op + "_" + id_val] = entry
-                        except: pass
+                        except Exception: pass
                     except Exception:
                         continue
         except Exception:
             pass
+        KrdantaEngine._SHARED_CACHE = self._cache
+        KrdantaEngine._SHARED_BY_ID = self._cache_by_id
 
     def _get_meta(self, dhatu: str, dhatu_id: str = None) -> Dict:
         self._load_cache()

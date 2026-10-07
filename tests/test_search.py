@@ -159,7 +159,8 @@ class TestSearch(unittest.TestCase):
         _jf = _Path("skt-morph-data/01/01.1079.json")
         if not _jf.exists():
             _jf = _Path("/home/edhiraj/Documents/projs/skt-morph-data/data/01/01.1079.json")
-        _data = _json.load(open(_jf, encoding="utf-8"))
+        with open(_jf, encoding="utf-8") as _fh:
+            _data = _json.load(_fh)
 
         def _toks(_o):
             _s = set()

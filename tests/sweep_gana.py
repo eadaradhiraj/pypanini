@@ -4,7 +4,7 @@ Usage:
   python tests/sweep_gana.py --all --workers 8 --out sweep.csv
 JSON is read-only cross-check, never used for generation.
 """
-import argparse, glob, json, os, sys, time
+import argparse, glob, json, sys, time
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -34,7 +34,8 @@ def validate_one(fid: str):
     try:
         jp = resolve_json_path(fid)
         dhatu = resolve_dhatu_slp(jp, fid)
-        data = json.load(open(jp, encoding="utf-8"))
+        with open(jp, encoding="utf-8") as _fh:
+            data = json.load(_fh)
         if data.get("skipped"):
             return {"fid": fid, "matched": 0, "total": 0, "pct": 0.0, "misses": ["SKIPPED:" + str(data.get("skip_reason", ""))], "secs": 0.0}
         toks = extract_all_text_tokens(data)

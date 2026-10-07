@@ -28,7 +28,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from pypanini import TinantaDerivationEngine, KrdantaEngine
-from tests.test_dhatu import DATA_ROOT, resolve_json_path, resolve_dhatu_slp, extract_all_text_tokens
+from tests.test_dhatu import resolve_json_path, resolve_dhatu_slp, extract_all_text_tokens
 
 TE = TinantaDerivationEngine()
 KE = KrdantaEngine()
@@ -65,7 +65,8 @@ def validate_one_prefixed(task: str):
         fid, prefix = task.rsplit(":", 1)
         jp = resolve_json_path(fid)
         dhatu = resolve_dhatu_slp(jp, fid)
-        data = json.load(open(jp, encoding="utf-8"))
+        with open(jp, encoding="utf-8") as _fh:
+            data = json.load(_fh)
         if "upasarga_forms" not in data or prefix not in data["upasarga_forms"]:
             return {"fid": task, "matched": 0, "total": 0, "pct": "0.0",
                     "secs": 0.0, "misses": "SKIPPED:no_data", "skipped": 0}
@@ -196,7 +197,8 @@ def gather_tasks(gana: str):
         if jp is None:
             continue
         try:
-            data = json.load(open(jp, encoding="utf-8"))
+            with open(jp, encoding="utf-8") as _fh:
+                data = json.load(_fh)
         except Exception:
             continue
         for prefix in sorted(data.get("upasarga_forms", {}).keys()):

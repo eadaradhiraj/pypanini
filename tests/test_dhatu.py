@@ -98,14 +98,13 @@ def resolve_json_path(arg: str) -> Path:
     # also handle trailing 'a' stripping as engine does
     for jf in glob.glob(str(DATA_ROOT / "**" / "*.json"), recursive=True):
         try:
-            d = json.load(open(jf, encoding="utf-8"))
+            with open(jf, encoding="utf-8") as _fh:
+                d = json.load(_fh)
             info = {x["name"]: x["value"] for x in d.get("info", [])}
             op = info.get("OpadeSikasvarUpam", "").replace("~", "").strip()
             # same cleaning as engine: strip f/F anubandha and trailing a
             raw = op
             if raw and raw[-1] in "fFxX" and len(raw) > 2:
-                # crude: if ends with anubandha
-                import re
                 # only strip if preceding char not vowel
                 if raw[-2] not in "aAiIuUfFxXeEoO":
                     raw = raw[:-1]
@@ -122,7 +121,8 @@ def resolve_dhatu_slp(json_path: Path, arg: str) -> str:
     if "." not in arg and "/" not in arg and not Path(arg).exists():
         return clean_dhatu_op(arg)
     # read from JSON
-    d = json.load(open(json_path, encoding="utf-8"))
+    with open(json_path, encoding="utf-8") as _fh:
+        d = json.load(_fh)
     info = {x["name"]: x["value"] for x in d.get("info", [])}
     op = info.get("OpadeSikasvarUpam", "")
     return clean_dhatu_op(op)
@@ -135,7 +135,8 @@ def validate_dhatu(arg: str, verbose: bool = True, prefix: str = None) -> tuple[
     """
     json_path = resolve_json_path(arg)
     dhatu = resolve_dhatu_slp(json_path, arg)
-    data = json.load(open(json_path, encoding="utf-8"))
+    with open(json_path, encoding="utf-8") as _fh:
+        data = json.load(_fh)
     if data.get("skipped"):
         # ganasutra/dataless roots are unscorable by data absence (never engine failure)
         if verbose:
@@ -257,8 +258,6 @@ def validate_dhatu(arg: str, verbose: bool = True, prefix: str = None) -> tuple[
     # absence (key missing), never by engine failure. Skipped counts are printed, never hidden.
     n_skipped = 0
     # we will count krdanta for each anta
-    all_krd_tot = 0
-    all_krd_mat = 0
     for krut_key in krut_antas:
         sanadi_k = krut_map[krut_key]
         krd_anta = ke.derive_all_krdantas(dhatu, sanadi=sanadi_k, upasarga=prefix, dhatu_id=dhatu_id)
@@ -304,8 +303,6 @@ def validate_dhatu(arg: str, verbose: bool = True, prefix: str = None) -> tuple[
                 cand = _f if isinstance(_f, list) else [_f]
                 if check_slot(cand):
                     loc_mat += 1
-        all_krd_tot += loc_tot
-        all_krd_mat += loc_mat
         if verbose:
             status = "✓" if loc_mat == loc_tot else "⚠"
             print(f"  {status} {krut_key:12s} ({sanadi_k or 'mUla':10s}) {loc_mat:2d}/{loc_tot:2d}")

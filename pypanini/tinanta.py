@@ -1,5 +1,3 @@
-from pypanini.pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
-from pypanini.pada_rules import PADA_MAP_ID, PADA_MAP_CLEAN
 """
 Generative Tiṅanta Derivation Engine
 - No hardcoded per-dhatu form dictionaries
@@ -14,6 +12,7 @@ import re
 from pathlib import Path
 
 from .pratyahara import MaheshvaraSutrasSLP1
+from .pada_rules import PADA_MAP_CLEAN, PADA_MAP_ID
 from .phonetics import (
     apply_guna,
     apply_vriddhi,
@@ -137,6 +136,9 @@ def _get_juhotyadi_tinanta(key: str):
 
 
 class TinantaDerivationEngine:
+    _SHARED_CACHE = None
+    _SHARED_BY_ID = None
+
     def __init__(self):
         self.ms = MaheshvaraSutrasSLP1()
         self.pratyayas_parasmai = {
@@ -151,6 +153,10 @@ class TinantaDerivationEngine:
     def _load_cache(self):
         if self._dhatu_cache is not None:
             return
+        if TinantaDerivationEngine._SHARED_CACHE is not None:
+            self._dhatu_cache = TinantaDerivationEngine._SHARED_CACHE
+            self._dhatu_cache_by_id = TinantaDerivationEngine._SHARED_BY_ID
+            return
         self._dhatu_cache = {}
         self._dhatu_cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True, "gana": "BvAdiH", "is_idit": False, "op": "BU"}
         self._dhatu_cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True, "gana": "BvAdiH", "is_idit": False, "op": "eD"}
@@ -160,11 +166,12 @@ class TinantaDerivationEngine:
         # clean/op key collisions with homonymous cleans in other gaNas; by_id keys never collide)
         try:
             _bases = [Path("skt-morph-data") / _g for _g in ("02", "03", "04", "05", "06", "07", "08", "09", "10", "01")]
-            _jfs = [jf for _b in _bases if _b.exists() for jf in glob.glob(str(_b / "*.json"))]
+            _jfs = [jf for _b in _bases if _b.exists() for jf in sorted(glob.glob(str(_b / "*.json")))]
             if _jfs:
                 for jf in _jfs:
                     try:
-                        d = json.load(open(jf, encoding="utf-8"))
+                        with open(jf, encoding="utf-8") as _jf_h:
+                            d = json.load(_jf_h)
                         info = {x["name"]: x["value"] for x in d.get("info", [])}
                         op = info.get("OpadeSikasvarUpam", "")
                         if not op:
@@ -206,11 +213,13 @@ class TinantaDerivationEngine:
                             self._dhatu_cache_by_id[id_val] = entry
                             self._dhatu_cache_by_id[clean + "_" + id_val] = entry
                             self._dhatu_cache_by_id[op + "_" + id_val] = entry
-                        except: pass
+                        except Exception: pass
                     except Exception:
                         continue
         except Exception:
             pass
+        TinantaDerivationEngine._SHARED_CACHE = self._dhatu_cache
+        TinantaDerivationEngine._SHARED_BY_ID = self._dhatu_cache_by_id
 
     def _get_meta(self, dhatu: str, dhatu_id: str = None) -> Dict:
         self._load_cache()
@@ -834,7 +843,7 @@ class TinantaDerivationEngine:
             pass
         # e->i, o->u samprasAraNa for aorist base (tej->tij, heW->hiW, 6.1.??): over-generate both
         _eo_vars: set = set()
-        for b in list(bases):
+        for b in sorted(bases):
             if "e" in b:
                 _eo_vars.add(b.replace("e", "i", 1))
             if "o" in b:
@@ -846,7 +855,7 @@ class TinantaDerivationEngine:
             bases.add("sup")
         # ur/Ur/or alternation (7.4.?? samprasAraNa/guNa): kurda->kUrda, etc. — phonological, not per-dhatu
         _ur_vars: set = set()
-        for b in list(bases):
+        for b in sorted(bases):
             if "ur" in b:
                 _ur_vars.add(b.replace("ur", "Ur", 1))
                 _ur_vars.add(b.replace("ur", "or", 1))
@@ -866,7 +875,7 @@ class TinantaDerivationEngine:
                 if _fc == "v":
                     bases.add(_core0[:-1] + "R" + _fc)  # zivi/rivi R-variant alongside n
         expanded: set = set(bases)
-        for b in list(bases):
+        for b in sorted(bases):
             if b.startswith("s"):
                 expanded.add("z" + b[1:])
         bases = expanded
@@ -893,7 +902,7 @@ class TinantaDerivationEngine:
         cands: list = []
         for r in rcs:
             for rv in ("a", "A", "i", "I", "u", "U"):
-                for base in bases:
+                for base in sorted(bases):
                     tuk = "c" if rv in ("a", "i", "u") and base.startswith("C") else ""
                     stem = r + rv + tuk + base
                     aug = self._add_augment(stem, stem[0] in SLP1_VOWELS if stem else False)
@@ -1707,20 +1716,6 @@ class TinantaDerivationEngine:
         _force_pada: Optional[str] = None,
         _cakz_bypass: bool = False,
     ) -> Tuple[List[str], List[str]]:
-        if prayoga == "kartari" and upasarga and not _force_pada:
-            if dhatu_id and dhatu_id in PADA_MAP_ID and upasarga in PADA_MAP_ID[dhatu_id]:
-                _force_pada = PADA_MAP_ID[dhatu_id][upasarga]
-            else:
-                try:
-                    meta = self._get_meta(dhatu, dhatu_id)
-                    cl = meta.get("clean")
-                    if cl and cl in PADA_MAP_CLEAN and upasarga in PADA_MAP_CLEAN[cl]:
-                        _force_pada = PADA_MAP_CLEAN[cl][upasarga]
-                except Exception: pass
-        cands, log = self._derive_inner(
-            dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path,
-            _force_pada, _cakz_bypass
-        )
         if upasarga and not _force_pada:
             if dhatu_id and dhatu_id in PADA_MAP_ID and upasarga in PADA_MAP_ID[dhatu_id]:
                 _force_pada = PADA_MAP_ID[dhatu_id][upasarga]
@@ -1730,8 +1725,8 @@ class TinantaDerivationEngine:
                     cl = meta.get("clean")
                     if cl and cl in PADA_MAP_CLEAN and upasarga in PADA_MAP_CLEAN[cl]:
                         _force_pada = PADA_MAP_CLEAN[cl][upasarga]
-                except Exception: pass
-
+                except Exception:
+                    pass
         cands, log = self._derive_inner(
             dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path,
             _force_pada, _cakz_bypass
@@ -3071,7 +3066,7 @@ class TinantaDerivationEngine:
                 jp = _P(str(json_path))
                 if jp.suffix == ".json":
                     dhatu_id = jp.stem
-            except: pass
+            except Exception: pass
         meta = self._get_meta(dhatu, dhatu_id)
         clean = meta["clean"]
         op = meta.get("op", "")
@@ -4814,7 +4809,7 @@ class TinantaDerivationEngine:
                     cands = ["SiSvindvaH", "SeSvindvaH", "SiSvindIvaH"] + cands
                 elif purusha == "uttama" and vacana == "bahu":
                     cands = ["SiSvindmaH", "SeSvindmaH", "SiSvindImaH", "SeSvindAmahi"] + cands
-            return list(set(cands)), log
+            return list(dict.fromkeys(cands)), log
         # yanluganta: only lw is validated, keep BU map, generic for others
         if sanadi == "yanluganta":
             if clean == "BU":
@@ -5011,7 +5006,7 @@ class TinantaDerivationEngine:
                 else:
                     _ylfzk = {("prathama","eka"):["AYcakAra","AmAsa","ambaBUva"],("prathama","dvi"):["AYcakratuH","AmAsatuH","ambaBUvatuH"],("prathama","bahu"):["AYcakruH","AmAsuH","ambaBUvuH"],("madhyama","eka"):["AYcakarTa","AmAsiTa","ambaBUviTa"],("madhyama","dvi"):["AYcakraTuH","AmAsaTuH","ambaBUvaTuH"],("madhyama","bahu"):["AYcakra","AmAsa","ambaBUva"],("uttama","eka"):["AYcakara","AYcakAra","AmAsa","ambaBUva"],("uttama","dvi"):["AYcakfva","AmAsiva","ambaBUviva"],("uttama","bahu"):["AYcakfma","AmAsima","ambaBUvima"]}
                 extra += [_st + _ax for _ax in _ylfzk.get((purusha, vacana), [])]
-            return list(set(cands + extra)), log
+            return list(dict.fromkeys(cands + extra)), log
         if sanadi == "yananta":
             ys = _yan_stem(clean)
             _cakz_yan_alt = []
@@ -7419,11 +7414,11 @@ class TinantaDerivationEngine:
                 if "ur" in clean:
                     try:
                         table[(purusha,vacana)].append(alt_aug + suffixes[(purusha,vacana)])
-                    except: pass
+                    except Exception: pass
                 if "Ud" in clean:
                     try:
                         table[(purusha,vacana)].append(alt_aug2 + suffixes[(purusha,vacana)])
-                    except:
+                    except Exception:
                         pass
                     if (purusha,vacana) not in table:
                         table[(purusha,vacana)] = [alt_aug2 + suffixes[(purusha,vacana)]]
@@ -7599,7 +7594,7 @@ class TinantaDerivationEngine:
                     gen = _sannanta_stem(alt_c)
                     if gen not in [s_stem]+alt_sann:
                         alt_sann.append(gen)
-                except: pass
+                except Exception: pass
             if clean.endswith("rzy"):
                 for _zst in (clean + "iyiz", clean + "iziz"):
                     if _zst not in [s_stem] + alt_sann:
@@ -7816,7 +7811,7 @@ class TinantaDerivationEngine:
                     cands_all += self._conjugate_at_stem_parasmai(st, lakara, purusha, vacana)
                     if lakara=="low" and purusha=="uttama" and vacana=="eka":
                         cands_all += [s + "ARi", s + "Ani"]
-                return list(set(cands_all)), log
+                return list(dict.fromkeys(cands_all)), log
             if lakara in ("lfw", "lfN"):
                 cands_all=[]
                 for s in s_stems:
@@ -7874,7 +7869,7 @@ class TinantaDerivationEngine:
                     cands += self._conjugate_at_stem_atmane(s, lakara, purusha, vacana)
                 else:
                     cands += self._conjugate_at_stem_parasmai(s, lakara, purusha, vacana)
-            return list(set(cands)), log
+            return list(dict.fromkeys(cands)), log
         if sanadi == "nijanta":
             n_stem = _nijanta_stem(clean)
             n_stems = [n_stem]
@@ -7972,7 +7967,7 @@ class TinantaDerivationEngine:
                 # ranh nich/nich_yak lw suppletion twins (exact alat; fid-gated, additive).
                 if dhatu_id in ("10.0397",):
                     cands += {('prathama', 'eka'): ['raNgayate'], ('prathama', 'dvi'): ['raNgayete'], ('prathama', 'bahu'): ['raNgayante'], ('madhyama', 'eka'): ['raNgayase'], ('madhyama', 'dvi'): ['raNgayeTe'], ('madhyama', 'bahu'): ['raNgayaDve'], ('uttama', 'eka'): ['raNgaye'], ('uttama', 'dvi'): ['raNgayAvahe'], ('uttama', 'bahu'): ['raNgayAmahe']}.get((purusha, vacana), [])
-                return list(set(cands)), log
+                return list(dict.fromkeys(cands)), log
             if lakara in ("lfw", "lfN"):
                 is_aug = (lakara=="lfN")
                 cands_all = []
@@ -7984,7 +7979,7 @@ class TinantaDerivationEngine:
                 # ranh nich future suppletion twins (exact attested; fid-gated, additive).
                 if dhatu_id in ("10.0397",):
                     cands_all += ['araNgayizyAma', 'araNgayizyAmahi', 'araNgayizyAva', 'araNgayizyAvahi', 'araNgayizyaDvam', 'araNgayizyaH', 'araNgayizyaTAH', 'araNgayizyad', 'araNgayizyam', 'araNgayizyan', 'araNgayizyanta', 'araNgayizyat', 'araNgayizyatAm', 'araNgayizyata', 'araNgayizyatam', 'araNgayizye', 'araNgayizyeTAm', 'araNgayizyetAm', 'raNgayizyAmaH', 'raNgayizyAmahe', 'raNgayizyAmi', 'raNgayizyAvaH', 'raNgayizyAvahe', 'raNgayizyaDve', 'raNgayizyaTa', 'raNgayizyaTaH', 'raNgayizyante', 'raNgayizyanti', 'raNgayizyase', 'raNgayizyasi', 'raNgayizyataH', 'raNgayizyate', 'raNgayizyati', 'raNgayizye', 'raNgayizyeTe', 'raNgayizyete']
-                return list(set(cands_all)), log
+                return list(dict.fromkeys(cands_all)), log
             # tudAdi fC nich-liw periphrastic paradigm (arcCay-/arCay- x AYcakre/AmAsa/
             # AmbaBUva; sole 06.0016 surveyed — short-a redup; old miss (16/18 true
             # misses); kartari replace (karmani via yak-secs above), tudAdiH-gated).
@@ -8001,7 +7996,7 @@ class TinantaDerivationEngine:
                 # ranh nich liw suppletion twins (exact attested; fid-gated, additive).
                 if dhatu_id in ("10.0397",):
                     cands += ['raNgayAYcakAra', 'raNgayAYcakarTa', 'raNgayAYcakara', 'raNgayAYcakfQve', 'raNgayAYcakfma', 'raNgayAYcakfmahe', 'raNgayAYcakfva', 'raNgayAYcakfvahe', 'raNgayAYcakfze', 'raNgayAYcakrATe', 'raNgayAYcakrAte', 'raNgayAYcakra', 'raNgayAYcakraTuH', 'raNgayAYcakratuH', 'raNgayAYcakre', 'raNgayAYcakrire', 'raNgayAYcakruH', 'raNgayAmAsa', 'raNgayAmAsaTuH', 'raNgayAmAsatuH', 'raNgayAmAsiTa', 'raNgayAmAsima', 'raNgayAmAsiva', 'raNgayAmAsuH', 'raNgayAmbaBUva', 'raNgayAmbaBUvaTuH', 'raNgayAmbaBUvatuH', 'raNgayAmbaBUviTa', 'raNgayAmbaBUvima', 'raNgayAmbaBUviva', 'raNgayAmbaBUvuH']
-                return list(set(cands)), log
+                return list(dict.fromkeys(cands)), log
             if lakara == "luw":
                 cands_all = []
                 for s in n_stems:
@@ -8012,7 +8007,7 @@ class TinantaDerivationEngine:
                 # ranh nich liw/luw suppletion twins (exact attested; fid-gated, additive).
                 if dhatu_id in ("10.0397",):
                     cands_all += ['raNgayitA', 'raNgayitADve', 'raNgayitAhe', 'raNgayitArO', 'raNgayitAraH', 'raNgayitAsATe', 'raNgayitAsTa', 'raNgayitAsTaH', 'raNgayitAse', 'raNgayitAsi', 'raNgayitAsmaH', 'raNgayitAsmahe', 'raNgayitAsmi', 'raNgayitAsvaH', 'raNgayitAsvahe', 'raNgayitA', 'raNgayitADve', 'raNgayitAhe', 'raNgayitArO', 'raNgayitAraH', 'raNgayitAsATe', 'raNgayitAse', 'raNgayitAsmahe', 'raNgayitAsvahe', 'raNgitA', 'raNgitADve', 'raNgitAhe', 'raNgitArO', 'raNgitAraH', 'raNgitAsATe', 'raNgitAse', 'raNgitAsmahe', 'raNgitAsvahe']
-                return list(set(cands_all)), log
+                return list(dict.fromkeys(cands_all)), log
             if lakara == "ASIrliN":
                 cands_all = []
                 for s in n_stems:
@@ -8026,7 +8021,7 @@ class TinantaDerivationEngine:
                 # ranh nich future suppletion twins (exact attested; fid-gated, additive).
                 if dhatu_id in ("10.0397",):
                     cands_all += ['raNgayizIDvam', 'raNgayizIQvam', 'raNgayizImahi', 'raNgayizIran', 'raNgayizIvahi', 'raNgayizIyAsTAm', 'raNgayizIyAstAm', 'raNgayizIya', 'raNgayizIzWAH', 'raNgayizIzwa', 'raNgyAH', 'raNgyAd', 'raNgyAsam', 'raNgyAsma', 'raNgyAstAm', 'raNgyAsta', 'raNgyAstam', 'raNgyAsuH', 'raNgyAsva', 'raNgyAt']
-                return list(set(cands_all)), log
+                return list(dict.fromkeys(cands_all)), log
             if lakara == "luN":
                 # algorithmic Nijanta reduplicated aorist (no per-dhatu tables):
                 # covers svAd/hlAd/hrAd/yat/yut/sUd etc. via redup+base+ending
@@ -8169,7 +8164,7 @@ class TinantaDerivationEngine:
                     if is_vowel_initial:
                         aug_redup_v = _aug(clean[0] + "di" + clean[1:])
                         cand.append(aug_redup_v + aor_map.get((purusha,vacana), "ata"))
-                except: pass
+                except Exception: pass
                 if is_vowel_initial:
                     aug_redup = _aug(clean[0] + "di" + clean[1:])
                     luN_end = {("prathama","eka"):"ata",("prathama","dvi"):"atAm",("prathama","bahu"):"anta",("madhyama","eka"):"aTAH",("madhyama","dvi"):"atAm",("madhyama","bahu"):"aDvam",("uttama","eka"):"e",("uttama","dvi"):"Avahi",("uttama","bahu"):"Amahi"}
@@ -11276,7 +11271,7 @@ class TinantaDerivationEngine:
                         for _c10x in [b for b in self._prim_bases(clean, is_idit, op, dhatu_id, sew) if b.endswith("ay")]:
                             _c10lt = {("prathama","eka"): [_c10x + "AYcakre", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("prathama","dvi"): [_c10x + "AYcakrAte", _c10x + "AmAsatuH", _c10x + "AmbaBUvatuH"], ("prathama","bahu"): [_c10x + "AYcakrire", _c10x + "AmAsuH", _c10x + "AmbaBUvuH"], ("madhyama","eka"): [_c10x + "AYcakfze", _c10x + "AmAsiTa", _c10x + "AmbaBUviTa"], ("madhyama","dvi"): [_c10x + "AYcakrATe", _c10x + "AmAsaTuH", _c10x + "AmbaBUvaTuH"], ("madhyama","bahu"): [_c10x + "AYcakfQve", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("uttama","eka"): [_c10x + "AYcakre", _c10x + "AmAsa", _c10x + "AmbaBUva"], ("uttama","dvi"): [_c10x + "AYcakfvahe", _c10x + "AmAsiva", _c10x + "AmbaBUviva"], ("uttama","bahu"): [_c10x + "AYcakfmahe", _c10x + "AmAsima", _c10x + "AmbaBUvima"]}
                             cands += _c10lt.get((purusha, vacana), [])
-                    return list(set(cands)), log
+                    return list(dict.fromkeys(cands)), log
 
         elif lakara == "ASIrliN":
             cands = []
@@ -12073,7 +12068,7 @@ class TinantaDerivationEngine:
                         _c10ur_a = {("prathama","eka"): [_c10us+"ata"], ("prathama","dvi"): [_c10us+"etAm"], ("prathama","bahu"): [_c10us+"anta"], ("madhyama","eka"): [_c10us+"aTAH"], ("madhyama","dvi"): [_c10us+"eTAm"], ("madhyama","bahu"): [_c10us+"aDvam"], ("uttama","eka"): [_c10us+"e"], ("uttama","dvi"): [_c10us+"Avahi"], ("uttama","bahu"): [_c10us+"Amahi"]}
                         cands += _c10ur_p.get((purusha, vacana), [])
                         cands += _c10ur_a.get((purusha, vacana), [])
-                return list(set(cands)), log
+                return list(dict.fromkeys(cands)), log
             else:
                 # Atmanepadi sew luN: EDizwa / amodizwa etc. Use guna base for non-idit; over-generate for vowel-initial and internal Ur
                 cands=[]
