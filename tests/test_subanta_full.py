@@ -751,13 +751,126 @@ GOLDENS6 = {
     },
 }
 
+GOLDENS7 = {
+    ("tad", "strI"): {
+        (1, "eka"): ["tA"], (1, "dvi"): ["te"], (1, "bahu"): ["tAH"],
+        (2, "eka"): ["tAm"], (2, "dvi"): ["te"], (2, "bahu"): ["tAH"],
+        (3, "eka"): ["tayA"], (3, "dvi"): ["tAByAm"], (3, "bahu"): ["tABiH"],
+        (4, "eka"): ["tasyE"], (4, "dvi"): ["tAByAm"], (4, "bahu"): ["tAByaH"],
+        (5, "eka"): ["tasyAH"], (5, "dvi"): ["tAByAm"], (5, "bahu"): ["tAByaH"],
+        (6, "eka"): ["tasyAH"], (6, "dvi"): ["tayoH"], (6, "bahu"): ["tAsAm"],
+        (7, "eka"): ["tasyAm"], (7, "dvi"): ["tayoH"], (7, "bahu"): ["tAsu"],
+        (8, "eka"): ["tA"], (8, "dvi"): ["te"], (8, "bahu"): ["tAH"],
+    },
+    ("pUrva", "puM"): {
+        (1, "eka"): ["pUrvaH"], (1, "dvi"): ["pUrvO"], (1, "bahu"): ["pUrve", "pUrvAH"],
+        (2, "eka"): ["pUrvam"], (2, "dvi"): ["pUrvO"], (2, "bahu"): ["pUrvAn"],
+        (3, "eka"): ["pUrveRa"], (3, "dvi"): ["pUrvAByAm"], (3, "bahu"): ["pUrvEH"],
+        (4, "eka"): ["pUrvasmE", "pUrvAya"], (4, "dvi"): ["pUrvAByAm"], (4, "bahu"): ["pUrveByaH"],
+        (5, "eka"): ["pUrvasmAt", "pUrvAt"], (5, "dvi"): ["pUrvAByAm"], (5, "bahu"): ["pUrveByaH"],
+        (6, "eka"): ["pUrvasya"], (6, "dvi"): ["pUrvayoH"], (6, "bahu"): ["pUrvezAm", "pUrvARAm"],
+        (7, "eka"): ["pUrvasmin", "pUrve"], (7, "dvi"): ["pUrvayoH"], (7, "bahu"): ["pUrvezu"],
+        (8, "eka"): ["pUrva"], (8, "dvi"): ["pUrvO"], (8, "bahu"): ["pUrve", "pUrvAH"],
+    },
+    ("praTama", "puM"): {
+        (1, "eka"): ["praTamaH"], (1, "dvi"): ["praTamO"], (1, "bahu"): ["praTamAH", "praTame"],
+        (2, "eka"): ["praTamam"], (2, "dvi"): ["praTamO"], (2, "bahu"): ["praTamAn"],
+        (3, "eka"): ["praTameRa"], (3, "dvi"): ["praTamAByAm"], (3, "bahu"): ["praTamEH"],
+        (4, "eka"): ["praTamAya"], (4, "dvi"): ["praTamAByAm"], (4, "bahu"): ["praTameByaH"],
+        (5, "eka"): ["praTamAt"], (5, "dvi"): ["praTamAByAm"], (5, "bahu"): ["praTameByaH"],
+        (6, "eka"): ["praTamasya"], (6, "dvi"): ["praTamayoH"], (6, "bahu"): ["praTamAnAm"],
+        (7, "eka"): ["praTame"], (7, "dvi"): ["praTamayoH"], (7, "bahu"): ["praTamezu"],
+        (8, "eka"): ["praTama"], (8, "dvi"): ["praTamO"], (8, "bahu"): ["praTamAH", "praTame"],
+    },
+    ("eka", "puM"): {
+        (1, "eka"): ["ekaH"], (1, "dvi"): ["ekO"], (1, "bahu"): ["eke"],
+        (2, "eka"): ["ekam"], (2, "dvi"): ["ekO"], (2, "bahu"): ["ekAn"],
+        (3, "eka"): ["ekeRa"], (3, "dvi"): ["ekAByAm"], (3, "bahu"): ["ekEH"],
+        (4, "eka"): ["ekasmE"], (4, "dvi"): ["ekAByAm"], (4, "bahu"): ["ekeByaH"],
+        (5, "eka"): ["ekasmAt"], (5, "dvi"): ["ekAByAm"], (5, "bahu"): ["ekeByaH"],
+        (6, "eka"): ["ekasya"], (6, "dvi"): ["ekayoH"], (6, "bahu"): ["ekezAm"],
+        (7, "eka"): ["ekasmin"], (7, "dvi"): ["ekayoH"], (7, "bahu"): ["ekezu"],
+        (8, "eka"): ["eka"], (8, "dvi"): ["ekO"], (8, "bahu"): ["eke"],
+    },
+    ("asmad", "puM"): {
+        (1, "eka"): ["aham"], (1, "dvi"): ["AvAm"], (1, "bahu"): ["vayam"],
+        (2, "eka"): ["mAm", "mA"], (2, "dvi"): ["AvAm", "vAm"], (2, "bahu"): ["asmAn", "naH"],
+        (3, "eka"): ["mayA"], (3, "dvi"): ["AvAByAm"], (3, "bahu"): ["asmABiH"],
+        (4, "eka"): ["maHyam", "me"], (4, "dvi"): ["AvAByAm"], (4, "bahu"): ["asmaByam", "naH"],
+        (5, "eka"): ["mat"], (5, "dvi"): ["AvAByAm"], (5, "bahu"): ["asmad"],
+        (6, "eka"): ["mama", "me"], (6, "dvi"): ["AvayoH", "vAm"], (6, "bahu"): ["asmAkam", "naH"],
+        (7, "eka"): ["mayi"], (7, "dvi"): ["AvayoH", "vAm"], (7, "bahu"): ["asmAsu"],
+        (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): [],
+    },
+    ("yuzmad", "puM"): {
+        (1, "eka"): ["tvam"], (1, "dvi"): ["yuvAm"], (1, "bahu"): ["yUyam"],
+        (2, "eka"): ["tvAm", "tvA"], (2, "dvi"): ["yuvAm", "vAm"], (2, "bahu"): ["yuzmAn", "vaH"],
+        (3, "eka"): ["tvayA"], (3, "dvi"): ["yuvAByAm"], (3, "bahu"): ["yuzmABiH"],
+        (4, "eka"): ["tuByam", "te"], (4, "dvi"): ["yuvAByAm"], (4, "bahu"): ["yuzmaByam", "vaH"],
+        (5, "eka"): ["tvat"], (5, "dvi"): ["yuvAByAm"], (5, "bahu"): ["yuzmad"],
+        (6, "eka"): ["tava", "te"], (6, "dvi"): ["yuvayoH", "vAm"], (6, "bahu"): ["yuzmAkam", "vaH"],
+        (7, "eka"): ["tvayi"], (7, "dvi"): ["yuvayoH", "vAm"], (7, "bahu"): ["yuzmAsu"],
+        (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): [],
+    },
+    ("sumanas", "puM"): {
+        (1, "eka"): ["sumanaH"], (1, "dvi"): ["sumanasO"], (1, "bahu"): ["sumanasaH"],
+        (2, "eka"): ["sumanasam"], (2, "dvi"): ["sumanasO"], (2, "bahu"): ["sumanasaH"],
+        (3, "eka"): ["sumanasA"], (3, "dvi"): ["sumanoByAm"], (3, "bahu"): ["sumanoBiH"],
+        (4, "eka"): ["sumanase"], (4, "dvi"): ["sumanoByAm"], (4, "bahu"): ["sumanoByaH"],
+        (5, "eka"): ["sumanasaH"], (5, "dvi"): ["sumanoByAm"], (5, "bahu"): ["sumanoByaH"],
+        (6, "eka"): ["sumanasaH"], (6, "dvi"): ["sumanasoH"], (6, "bahu"): ["sumanasAm"],
+        (7, "eka"): ["sumanasi"], (7, "dvi"): ["sumanasoH"], (7, "bahu"): ["sumanaHsu"],
+        (8, "eka"): ["sumanaH"], (8, "dvi"): ["sumanasO"], (8, "bahu"): ["sumanasaH"],
+    },
+    ("Denu", "strI"): {
+        (1, "eka"): ["DenuH"], (1, "dvi"): ["DenvO"], (1, "bahu"): ["DenavaH"],
+        (2, "eka"): ["Denum"], (2, "dvi"): ["DenvO"], (2, "bahu"): ["DenUn"],
+        (3, "eka"): ["DenvA"], (3, "dvi"): ["DenuByAm"], (3, "bahu"): ["DenuBiH"],
+        (4, "eka"): ["Denave", "DenvE"], (4, "dvi"): ["DenuByAm"], (4, "bahu"): ["DenuByaH"],
+        (5, "eka"): ["DenoH", "DenvAH"], (5, "dvi"): ["DenuByAm"], (5, "bahu"): ["DenuByaH"],
+        (6, "eka"): ["DenoH", "DenvAH"], (6, "dvi"): ["DenvoH"], (6, "bahu"): ["DenUnAm"],
+        (7, "eka"): ["DenO", "DenvAm"], (7, "dvi"): ["DenvoH"], (7, "bahu"): ["Denuzu"],
+        (8, "eka"): ["Deno"], (8, "dvi"): ["DenvO"], (8, "bahu"): ["DenavaH"],
+    },
+    ("mAtf", "strI"): {
+        (1, "eka"): ["mAtA"], (1, "dvi"): ["mAtarO"], (1, "bahu"): ["mAtaraH"],
+        (2, "eka"): ["mAtaram"], (2, "dvi"): ["mAtarO"], (2, "bahu"): ["mAtFRaH"],
+        (3, "eka"): ["mAtrA"], (3, "dvi"): ["mAtfByAm"], (3, "bahu"): ["mAtfBiH"],
+        (4, "eka"): ["mAtre"], (4, "dvi"): ["mAtfByAm"], (4, "bahu"): ["mAtfByaH"],
+        (5, "eka"): ["mAtuH"], (5, "dvi"): ["mAtfByAm"], (5, "bahu"): ["mAtfByaH"],
+        (6, "eka"): ["mAtuH"], (6, "dvi"): ["mAtroH"], (6, "bahu"): ["mAtFRAm"],
+        (7, "eka"): ["mAtari"], (7, "dvi"): ["mAtroH"], (7, "bahu"): ["mAtfzu"],
+        (8, "eka"): ["mAtar"], (8, "dvi"): ["mAtarO"], (8, "bahu"): ["mAtaraH"],
+    },
+    ("yad", "puM"): {
+        (1, "eka"): ["yaH"], (1, "dvi"): ["yO"], (1, "bahu"): ["ye"],
+        (2, "eka"): ["yam"], (2, "dvi"): ["yO"], (2, "bahu"): ["yAn"],
+        (3, "eka"): ["yena"], (3, "dvi"): ["yAByAm"], (3, "bahu"): ["yEH"],
+        (4, "eka"): ["yasmE"], (4, "dvi"): ["yAByAm"], (4, "bahu"): ["yeByaH"],
+        (5, "eka"): ["yasmAt"], (5, "dvi"): ["yAByAm"], (5, "bahu"): ["yeByaH"],
+        (6, "eka"): ["yasya"], (6, "dvi"): ["yayoH"], (6, "bahu"): ["yezAm"],
+        (7, "eka"): ["yasmin"], (7, "dvi"): ["yayoH"], (7, "bahu"): ["yezu"],
+        (8, "eka"): ["yaH"], (8, "dvi"): ["yO"], (8, "bahu"): ["ye"],
+    },
+    ("etad", "puM"): {
+        (1, "eka"): ["ezaH"], (1, "dvi"): ["etO"], (1, "bahu"): ["ete"],
+        (2, "eka"): ["etam"], (2, "dvi"): ["etO"], (2, "bahu"): ["etAn"],
+        (3, "eka"): ["etena"], (3, "dvi"): ["etAByAm"], (3, "bahu"): ["etEH"],
+        (4, "eka"): ["etasmE"], (4, "dvi"): ["etAByAm"], (4, "bahu"): ["eteByaH"],
+        (5, "eka"): ["etasmAt"], (5, "dvi"): ["etAByAm"], (5, "bahu"): ["eteByaH"],
+        (6, "eka"): ["etasya"], (6, "dvi"): ["etayoH"], (6, "bahu"): ["etezAm"],
+        (7, "eka"): ["etasmin"], (7, "dvi"): ["etayoH"], (7, "bahu"): ["etezu"],
+        (8, "eka"): ["ezaH"], (8, "dvi"): ["etO"], (8, "bahu"): ["ete"],
+    },
+}
+
 
 class TestSubantaFullAudit(unittest.TestCase):
     def test_full_tables(self):
         e = SubantaEngine()
         total = 0
         misses = []
-        for (stem, linga), golden in {**GOLDENS, **GOLDENS2, **GOLDENS3, **GOLDENS4, **GOLDENS5, **GOLDENS6}.items():
+        for (stem, linga), golden in {**GOLDENS, **GOLDENS2, **GOLDENS3, **GOLDENS4, **GOLDENS5, **GOLDENS6, **GOLDENS7}.items():
             got = e.decline(stem, linga)
             for key, exp_list in golden.items():
                 total += 1

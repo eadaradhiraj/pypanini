@@ -1616,49 +1616,33 @@ class SubantaEngine:
                 (8, "eka"): [pre], (8, "dvi"): [b + "e"], (8, "bahu"): [b + "AH"],
             }
             return T
-        # puM
+        # puM (fully parametric in base t/y/et; only 1/8eka differ)
         if linga == "puM":
             base = pre[:-1] if pre.endswith("a") else pre  # t/et/y
+            sa = {"tad": "saH", "etad": "ezaH", "yad": "yaH"}[stem]
             T = {
-                (1, "eka"): ["saH"], (1, "dvi"): ["tO"], (1, "bahu"): ["te"],
-                (2, "eka"): ["tam"], (2, "dvi"): ["tO"], (2, "bahu"): ["tAn"],
-                (3, "eka"): ["tena"], (3, "dvi"): [base + "AByAm"], (3, "bahu"): ["tEH"],
-                (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4, "bahu"): ["teByaH"],
-                (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5, "bahu"): ["teByaH"],
-                (6, "eka"): [pre + "sya"], (6, "dvi"): ["tayoH"], (6, "bahu"): ["tezAm"],
-                (7, "eka"): [pre + "smin"], (7, "dvi"): ["tayoH"], (7, "bahu"): ["tezu"],
-                (8, "eka"): ["saH"], (8, "dvi"): ["tO"], (8, "bahu"): ["te"],
+                (1, "eka"): [sa], (1, "dvi"): [base + "O"], (1, "bahu"): [base + "e"],
+                (2, "eka"): [base + "am"], (2, "dvi"): [base + "O"], (2, "bahu"): [base + "An"],
+                (3, "eka"): [apply_natva(base + "ena")], (3, "dvi"): [base + "AByAm"], (3, "bahu"): [base + "EH"],
+                (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4, "bahu"): [base + "eByaH"],
+                (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5, "bahu"): [base + "eByaH"],
+                (6, "eka"): [pre + "sya"], (6, "dvi"): [base + "ayoH"], (6, "bahu"): [apply_natva(base + "ezAm")],
+                (7, "eka"): [pre + "smin"], (7, "dvi"): [base + "ayoH"], (7, "bahu"): [apply_zatva_s(base + "ezu")],
+                (8, "eka"): [sa], (8, "dvi"): [base + "O"], (8, "bahu"): [base + "e"],
             }
-            if stem != "tad":
-                # etad/yad keep ta-base saH only for tad; etad->ezaH, yad->yaH
-                sa = {"etad": "ezaH", "yad": "yaH"}[stem]
-                T[(1, "eka")] = [sa]
-                T[(8, "eka")] = [sa]
-            # fix eta-base: etaAByAm etc -> etAByAm
-            if stem == "etad":
-                for k in [(3, "dvi"), (4, "dvi"), (5, "dvi")]:
-                    T[k] = ["etAByAm"]
-            T[(1, "eka")] = [apply_natva(x) if "ena" in x else x for x in T[(1, "eka")]]
-            # tena natva
-            T[(3, "eka")] = [apply_natva("tena")]
-            T[(6, "bahu")] = [apply_natva("tezAm")]
-            T[(7, "bahu")] = [apply_zatva_s("tezu")]
             return T
-        # napuMsaka: 1/2 eka tat/etat/yat, rest like puM
+        # napuMsaka: 1/2 eka tat/etat/yat, rest like puM (parametric)
         base = pre[:-1] if pre.endswith("a") else pre
         T = {
             (1, "eka"): [pre + "t"], (1, "dvi"): [base + "e"], (1, "bahu"): [base + "Ani"],
             (2, "eka"): [pre + "t"], (2, "dvi"): [base + "e"], (2, "bahu"): [base + "Ani"],
-            (3, "eka"): [apply_natva(base + "ena")], (3, "dvi"): [base + "AByAm"], (3, "bahu"): ["tEH"],
-            (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4, "bahu"): ["teByaH"],
-            (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5, "bahu"): ["teByaH"],
-            (6, "eka"): [pre + "sya"], (6, "dvi"): ["tayoH"], (6, "bahu"): ["tezAm"],
-            (7, "eka"): [pre + "smin"], (7, "dvi"): ["tayoH"], (7, "bahu"): ["tezu"],
+            (3, "eka"): [apply_natva(base + "ena")], (3, "dvi"): [base + "AByAm"], (3, "bahu"): [base + "EH"],
+            (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4, "bahu"): [base + "eByaH"],
+            (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5, "bahu"): [base + "eByaH"],
+            (6, "eka"): [pre + "sya"], (6, "dvi"): [base + "ayoH"], (6, "bahu"): [apply_natva(base + "ezAm")],
+            (7, "eka"): [pre + "smin"], (7, "dvi"): [base + "ayoH"], (7, "bahu"): [apply_zatva_s(base + "ezu")],
             (8, "eka"): [pre + "t"], (8, "dvi"): [base + "e"], (8, "bahu"): [base + "Ani"],
         }
-        if stem == "etad":
-            for k in [(3, "dvi"), (4, "dvi"), (5, "dvi")]:
-                T[k] = ["etAByAm"]
         return T
 
     def _decline_kim(self, linga: str) -> Dict[Tuple[int, str], List[str]]:
