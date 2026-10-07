@@ -203,7 +203,8 @@ class TestSubantaGenerative(unittest.TestCase):
         # eka is sarvanAman (eke)
         self.assertForm("eka", "puM", (1, "bahu"), "eke")
         # supplementary ops
-        from pypanini.subanta import ekaSeza, pumvatBAva, avyaya_pada, saH_sulopa, satf_feminine, stri_pratipadika
+        from pypanini.subanta import (ekaSeza, pumvatBAva, avyaya_pada,
+                                       saH_sulopa, satf_feminine, stri_pratipadika)
         self.assertEqual(ekaSeza(["mAtf", "pitf"]), "pitf")
         self.assertEqual(ekaSeza(["rAma", "rAma"]), "rAma")
         self.assertEqual(pumvatBAva("kalyARI"), "kalyARa")

@@ -27,7 +27,7 @@ Public API: :func:`analyze`.
 """
 from __future__ import annotations
 
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 from .subanta import SubantaEngine, SLP1_VOWELS
 
@@ -755,7 +755,6 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             _rt, _m, _via = _hit
             _emit("yat", _rt, _m, 0.85, f"root via {_via}")
     # SAnac (muk -mAna-, plain -Ana, natva -ARa-, passive -yak-)
-    _sAnac_hit = False
     for _suf, _cut in (("mARa", 4), ("ARa", 3), ("mAna", 4), ("Ana", 3)):
         if stem.endswith(_suf):
             _b = stem[:-_cut]
@@ -777,7 +776,6 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
                 _emit("SAnac", _rt, _m, 0.8, f"root via {_via}")
             else:
                 _emit("SAnac", None, None, 0.5, "present stem; root unresolved")
-            _sAnac_hit = True
             break
     # lyuw action noun (-ana): Bavana <- BU
     if stem.endswith("ana") and len(stem) > 4:

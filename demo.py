@@ -11,13 +11,15 @@ def print_table(table, title):
     print(f"{'Puruṣa':<10} | {'Ekavacana':<22} | {'Dvivacana':<14} | {'Bahuvacana':<14}")
     print("-" * 68)
     for p in ["prathama", "madhyama", "uttama"]:
-        print(f"{p:<10} | {table[(p, 'eka')]:<22} | {table[(p, 'dvi')]:<14} | {table[(p, 'bahu')]:<14}")
+        print(f"{p:<10} | {table[(p, 'eka')]:<22} | "
+              f"{table[(p, 'dvi')]:<14} | {table[(p, 'bahu')]:<14}")
 
 
 def print_krdanta_gender_table(krd_dict, title):
     ke = KrdantaEngine()
     print(f"\n=== {title} ===")
-    print(f"{'Affix':<8} | {'Description':<38} | {'Masculine':<14} | {'Feminine':<16} | {'Neuter / Avyaya'}")
+    print(f"{'Affix':<8} | {'Description':<38} | {'Masculine':<14} | "
+          f"{'Feminine':<16} | {'Neuter / Avyaya'}")
     print("-" * 95)
     for code, data in krd_dict.items():
         desc, kind = ke.krdanta_metadata[code]
@@ -54,13 +56,15 @@ def main():
     print("1. ALTERNATIVE TIṄANTA FORMS (VIKALPA / VIBHĀṢĀ)")
     print("=" * 70)
     print_table(te.derive_all("BU", "low"), "Imperative: 'low' with tātaṅ option (7.1.35)")
-    print_table(te.derive_all("BU", "lw", sanadi="yanluganta"), "Yaṅluganta with Iq-Agama option (7.3.94)")
+    print_table(te.derive_all("BU", "lw", sanadi="yanluganta"),
+        "Yaṅluganta with Iq-Agama option (7.3.94)")
 
     print("\n" + "=" * 70)
     print("2. COMPLETE KṚDANTAS PER ANTA WITH FULL GENDERS (TRI-LIṄGA)")
     print("=" * 70)
     print_krdanta_gender_table(ke.derive_all_krdantas("BU"), "A. Primitive Kṛdantas: 'BU'")
-    print_krdanta_gender_table(ke.derive_all_krdantas("BU", sanadi="sannanta"), "B. Sannanta overrides")
+    print_krdanta_gender_table(ke.derive_all_krdantas("BU", sanadi="sannanta"),
+        "B. Sannanta overrides")
 
     print("\n" + "=" * 70)
     print("3. SUBANTA DECLENSION (21 sup, 8 vibhakti x 3 vacana, SLP1)")

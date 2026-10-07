@@ -57,7 +57,8 @@ SUP_KEYS: List[Tuple[int, str]] = [
 ]
 
 SARVANAMASTHANA = {(1, "eka"), (1, "dvi"), (1, "bahu"), (2, "eka"), (2, "dvi")}
-VOWEL_SUP = {"O", "Ow", "Am", "os", "Ne", "Nasi", "Nas", "Ni"}  # Ba contexts (vowel-initial after strip)
+VOWEL_SUP = {"O", "Ow", "Am", "os", "Ne", "Nasi", "Nas",
+    "Ni"}  # Ba contexts (vowel-initial after strip)
 
 SARVA_LIST = {
     "sarva", "viSva", "uBa", "uBaya", "katara", "katama",
@@ -184,7 +185,7 @@ def _coh_kuh(final: str) -> str:
 def _final_devoice(cc: str) -> str:
     devo = {"g": "k", "G": "k", "j": "k", "J": "k", "q": "w",
             "Q": "w", "d": "t", "D": "t", "b": "p", "B": "p",
-            "G": "k", "z": "w", "S": "w", "s": "t", "h": "w"}
+            "z": "w", "S": "w", "s": "t", "h": "w"}
     return devo.get(cc, cc)
 
 
@@ -309,7 +310,6 @@ class SubantaEngine:
                       sarvanAman: bool = False, extra: dict | None = None) -> List[str]:
         extra = extra or {}
         vib, vac = key
-        s = strip_sup(sup)
         # --- neuter 1/2 replacements (7.1.19-23): am->am(eka stays), O/Ow->I, as->i ---
         if linga == "napuMsaka" and vib in (1, 2):
             return [self._neuter_form(stem, vac, extra)]
@@ -338,7 +338,8 @@ class SubantaEngine:
             return merged
         return self._noun_form(stem, linga, sup, key, sarvanAman=False, extra=extra)
 
-    def _sarva_adesa(self, stem: str, linga: str, sup: str, key: Tuple[int, str]) -> List[str] | None:
+    def _sarva_adesa(self, stem: str, linga: str, sup: str, key: Tuple[int,
+        str]) -> List[str] | None:
         vib, vac = key
         # only singular smai/smat/smin + jas->e + Am->sAm + Ni->smin + os->zAm?
         # base: a-stem sarva -> sarva + ...
@@ -452,7 +453,8 @@ class SubantaEngine:
             return apply_zatva_s(b + "ezu")
         raise AssertionError(key)
 
-    def _A_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str, extra: dict) -> str:
+    def _A_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str,
+        extra: dict) -> str:
         vib, vac = key
         b = stem[:-1]  # sIt
         if (vib, vac) == (1, "eka"):
@@ -498,7 +500,8 @@ class SubantaEngine:
         raise AssertionError(key)
 
     # ---------------- i / u (gI/nadI/vibhazA/num) ----------------
-    def _i_stem(self, stem: str, linga: str, s: str, sup: str, key: Tuple[int, str], extra: dict) -> List[str]:
+    def _i_stem(self, stem: str, linga: str, s: str, sup: str, key: Tuple[int, str],
+        extra: dict) -> List[str]:
         vib, vac = key
         long = stem.endswith("I")
         b = stem[:-1]
@@ -542,12 +545,15 @@ class SubantaEngine:
         if (vib, vac) == (2, "bahu"):
             if long:
                 return [b + "IH"]
-            # masc i: harIn? No: harIn only neuter. masc: harIn? Actually harIR? -> harIn? check: 2pl masc i = harIn (n→R): harIR? No, Sas->n->R: harIn->harIR? Let: hari+as -> harIn -> harIR (natva? no r trigger unless stem has r). hari has r! h-a-r-i: r triggers n->R: harIR.
+            # masc i: harIn? No: harIn only neuter. masc: harIn? Actually harIR? -> harIn? check:
+            # 2pl masc i = harIn (n→R): harIR? No, Sas->n->R: harIn->harIR? Let: hari+as -> harIn ->
+            # harIR (natva? no r trigger unless stem has r). hari has r! h-a-r-i: r triggers n->R:
+            # harIR.
             w = b + "In"
             return [apply_natva(w)]
         if (vib, vac) == (3, "eka"):
             if nadi:
-                return [b + ("yA" if True else "")]
+                return [b + "yA"]
             # ghi: i->yA? hari+TA: haryA? Actually i->y + A: haryA
             if monosyllabic:
                 return [b + "iyA"]
@@ -601,7 +607,8 @@ class SubantaEngine:
             return [apply_zatva_s(stem + "zu")]
         raise AssertionError((stem, key))
 
-    def _u_stem(self, stem: str, linga: str, s: str, sup: str, key: Tuple[int, str], extra: dict) -> List[str]:
+    def _u_stem(self, stem: str, linga: str, s: str, sup: str, key: Tuple[int, str],
+        extra: dict) -> List[str]:
         # mirror of i-stem with u/v alternation
         vib, vac = key
         long = stem.endswith("U")
@@ -685,7 +692,8 @@ class SubantaEngine:
         raise AssertionError((stem, key))
 
     # ---------------- f ----------------
-    def _f_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str, extra: dict) -> str:
+    def _f_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str,
+        extra: dict) -> str:
         vib, vac = key
         # default kind: kinship short-ar vs agent long-Ar; svasf forced agent
         KIN = {"pitf", "mAtf", "BrAtf", "duhitf", "yAtf", "nanAndf", "naptf"}
@@ -746,7 +754,8 @@ class SubantaEngine:
         raise AssertionError((stem, key))
 
     # ---------------- halanta ----------------
-    def _halanta(self, stem: str, linga: str, s: str, sup: str, key: Tuple[int, str], extra: dict) -> str:
+    def _halanta(self, stem: str, linga: str, s: str, sup: str, key: Tuple[int, str],
+        extra: dict) -> str:
         vib, vac = key
         # an/in stems
         if stem.endswith("an"):
@@ -769,19 +778,22 @@ class SubantaEngine:
             return self._c_stem(stem, s, sup, key)
         if stem[-1] == "h":
             return self._h_stem(stem, s, sup, key, extra)
-        if stem[-1] in ("d", "D", "t", "T", "p", "P", "b", "B", "k", "K", "g", "G", "m", "y", "r", "l", "v", "n", "s", "S", "z"):
+        if stem[-1] in ("d", "D", "t", "T", "p", "P", "b", "B", "k", "K", "g", "G", "m", "y", "r",
+            "l", "v", "n", "s", "S", "z"):
             return self._pada_consonant(stem, s, sup, key)
         return self._fin(stem + s)
 
-    def _an_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str, extra: dict) -> str:
+    def _an_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str,
+        extra: dict) -> str:
         vib, vac = key
         # rAjan/atman/brahman/karman/nAman + neuter optionality
         # strong: rAjA; weak vowel: rAjY (a-lopa -> jY); pada: rAja + B
         b = stem[:-2]  # rAj
-        heavy = len(b) >= 2 and b[-1] not in SLP1_VOWELS and b[-2] not in SLP1_VOWELS
         # Actually cluster test: Atman (tm), brahman (hm): heavy -> no lopa
         is_heavy_cluster = (stem in ("Atman", "brahman", "karman") or
-                            (len(stem) >= 4 and stem[-4] not in SLP1_VOWELS and stem[-3] not in SLP1_VOWELS))
+                            (len(stem) >= 4 and
+                             stem[-4] not in SLP1_VOWELS and
+                             stem[-3] not in SLP1_VOWELS))
         strong = key in SARVANAMASTHANA
         if strong:
             if (vib, vac) == (1, "eka"):
@@ -813,11 +825,13 @@ class SubantaEngine:
         # vowel suffix
         w = weak(b)
         # join: rAjY + A -> rAjYA; nAmn + A -> nAmnA
-        if w.endswith(("n", "Y")) and s.startswith(("A", "e", "o", "O", "as", "Am", "os", "a", "i")):
+        if w.endswith(("n", "Y")) and s.startswith(("A", "e", "o", "O", "as", "Am", "os", "a",
+            "i")):
             return self._fin(w + s)
         return self._fin(w + s)
 
-    def _at_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str, extra: dict) -> str:
+    def _at_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str,
+        extra: dict) -> str:
         vib, vac = key
         # normalize base: gacCat / jagat / mahat / Bavat
         base = stem
@@ -872,12 +886,12 @@ class SubantaEngine:
                 return nform + "am"
         # weak/middle
         if s == "s":
-            return self._fin(base[:-1] + "n" if False else base)
+            return self._fin(base)
         if s and s[0] in ("B",):
             return self._fin(_join_pada(base, s))
         if s == "su":
             return apply_zatva_s(_join_pada(base, "su"))
-        return self._fin(base + s) if False else self._fin(base + ("" if False else s) if True else "")
+        return self._fin(base + s)
 
     def _in_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str) -> str:
         vib, vac = key
@@ -903,7 +917,8 @@ class SubantaEngine:
             return self._fin(b + "inaH")
         return self._fin(stem + s if s not in ("O",) else b + "inO")
 
-    def _as_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str, extra: dict) -> str:
+    def _as_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str,
+        extra: dict) -> str:
         vib, vac = key
         # manas/havis/cakzus/Sreyas handled; strong neuter num+lengthen handled in _neuter_form
         if linga == "napuMsaka" and vib in (1, 2):
@@ -942,7 +957,8 @@ class SubantaEngine:
         # delegate to full Iyasu table (generative, same as _decline_Iyas)
         return self._decline_Iyas(stem, linga)[key][0]
 
-    def _vas_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str) -> str:
+    def _vas_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str],
+                    linga: str, extra: dict | None = None) -> str:
         # kvasu: cakfvas: strong -vAMs, weak -uz, middle -vat
         vib, vac = key
         # recover root base: assume stem ends vas
@@ -968,7 +984,7 @@ class SubantaEngine:
         return self._fin(b + "uz" + s)
 
     def _vat_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], linga: str) -> str:
-        # ktavatu/bagavat: strong -vAn, else -vat
+        # ktavatu/bagavat: strong -vAn, else -vat (7.1.70 num + dIrgha: -vAnt-)
         vib, vac = key
         b = stem[:-3] if stem.endswith("vat") else stem
         strong = key in SARVANAMASTHANA
@@ -976,11 +992,11 @@ class SubantaEngine:
             if (vib, vac) == (1, "eka"):
                 return self._fin(b + "vAn")
             if (vib, vac) in ((1, "dvi"), (2, "dvi")):
-                return b + "vantO"
+                return b + "vAntO"
             if (vib, vac) == (1, "bahu"):
-                return b + "vantaH"
+                return b + "vAntaH"
             if (vib, vac) == (2, "eka"):
-                return b + "vantam"
+                return b + "vAntam"
         if s == "s":
             return self._fin(b + "vAn")
         if s and s[0] == "B":
@@ -989,7 +1005,7 @@ class SubantaEngine:
             return apply_zatva_s(_join_pada(b + "vat", "su"))
         if s == "as" and (vib, vac) == (2, "bahu"):
             return self._fin(b + "vataH")
-        return self._fin(b + "vat" + s if s not in ("O",) else b + "vantO")
+        return self._fin(b + "vat" + s if s not in ("O",) else b + "vAntO")
 
     def _c_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str]) -> str:
         # vAc/ftvij: vowel: keep c; consonant/padanta: c->k/g + join; su: kzu
@@ -1063,7 +1079,8 @@ class SubantaEngine:
             if last == "a":
                 return stem[:-1] + "e"
             if last in ("i", "u", "I", "U"):
-                # vAriRI? Actually vAriRI: nI? vAri + I with num? No: dvi is I: vAriRI? Standard: vAriRI.
+                # vAriRI? Actually vAriRI: nI? vAri + I with num? No: dvi is I: vAriRI? Standard:
+                # vAriRI.
                 # vAri + I -> vAriRI (num)
                 return apply_natva(stem + "nI")
             if stem.endswith("an"):
@@ -1157,7 +1174,10 @@ class SubantaEngine:
 
     # ================= special paradigms =================
     def _decline_go(self, linga: str) -> Dict[Tuple[int, str], List[str]]:
-        # go (o-stem): gOH/gAvO/gAvaH/gAm/gAvO/gAH/gavA/gAByAm/goBiH/gave/gAByAm/goByaH/goH/gAByAm/goByaH/goH/gavoH/gavAm/gavi/gavoH/gozu + he gOH
+        # go (o-stem):
+        # gOH/gAvO/gAvaH/gAm/gAvO/gAH/gavA/gAByAm/goBiH/gave/gAByAm
+        # goByaH/goH/gAByAm/goByaH/goH/gavoH/gavAm/gavi/gavoH/gozu
+        # + he gOH
         T: Dict[Tuple[int, str], str] = {
             (1, "eka"): "gOH", (1, "dvi"): "gAvO", (1, "bahu"): "gAvaH",
             (2, "eka"): "gAm", (2, "dvi"): "gAvO", (2, "bahu"): "gAH",
@@ -1228,11 +1248,15 @@ class SubantaEngine:
         # strong krozwf; weak krozwu/krozwf optional
         T: Dict[Tuple[int, str], List[str]] = {
             (1, "eka"): ["krozwA"], (1, "dvi"): ["krozwArO"], (1, "bahu"): ["krozwAraH"],
-            (2, "eka"): ["krozwAram"], (2, "dvi"): ["krozwArO"], (2, "bahu"): ["krozwUn", "krozwFn"],
-            (3, "eka"): ["krozwA", "krozwunA"], (3, "dvi"): ["krozwuByAm"], (3, "bahu"): ["krozwuBiH"],
-            (4, "eka"): ["krozwe", "krozwave"], (4, "dvi"): ["krozwuByAm"], (4, "bahu"): ["krozwuByaH"],
+            (2, "eka"): ["krozwAram"], (2, "dvi"): ["krozwArO"], (2, "bahu"): ["krozwUn",
+                "krozwFn"],
+            (3, "eka"): ["krozwA", "krozwunA"], (3, "dvi"): ["krozwuByAm"], (3,
+                "bahu"): ["krozwuBiH"],
+            (4, "eka"): ["krozwe", "krozwave"], (4, "dvi"): ["krozwuByAm"], (4,
+                "bahu"): ["krozwuByaH"],
             (5, "eka"): ["krozwuH"], (5, "dvi"): ["krozwuByAm"], (5, "bahu"): ["krozwuByaH"],
-            (6, "eka"): ["krozwuH"], (6, "dvi"): ["krozwvoH", "krozwroH"], (6, "bahu"): ["krozwUnAm", "krozwFRam"],
+            (6, "eka"): ["krozwuH"], (6, "dvi"): ["krozwvoH", "krozwroH"], (6,
+                "bahu"): ["krozwUnAm", "krozwFRam"],
             (7, "eka"): ["krozwO"], (7, "dvi"): ["krozwvoH", "krozwroH"], (7, "bahu"): ["krozwuzu"],
             (8, "eka"): ["krozwo"], (8, "dvi"): ["krozwArO"], (8, "bahu"): ["krozwAraH"],
         }
@@ -1247,8 +1271,10 @@ class SubantaEngine:
             (3, "eka"): [cap + "nA"], (3, "dvi"): [stem + "ByAm"], (3, "bahu"): [stem + "BiH"],
             (4, "eka"): [cap + "ne"], (4, "dvi"): [stem + "ByAm"], (4, "bahu"): [stem + "ByaH"],
             (5, "eka"): [cap + "naH"], (5, "dvi"): [stem + "ByAm"], (5, "bahu"): [stem + "ByaH"],
-            (6, "eka"): [cap + "naH"], (6, "dvi"): [cap + "noH"], (6, "bahu"): [apply_natva(cap + "nAm")],
-            (7, "eka"): [cap + "ni"], (7, "dvi"): [cap + "noH"], (7, "bahu"): [apply_zatva_s(stem + "zu")],
+            (6, "eka"): [cap + "naH"], (6, "dvi"): [cap + "noH"], (6,
+                "bahu"): [apply_natva(cap + "nAm")],
+            (7, "eka"): [cap + "ni"], (7, "dvi"): [cap + "noH"], (7,
+                "bahu"): [apply_zatva_s(stem + "zu")],
             (8, "eka"): [stem], (8, "dvi"): [stem + "nI"], (8, "bahu"): [stem + "ni"],
         }
         return T
@@ -1329,8 +1355,10 @@ class SubantaEngine:
             (3, "eka"): [cap + "A"], (3, "dvi"): [stem + "ByAm"], (3, "bahu"): [stem + "BiH"],
             (4, "eka"): [cap + "e"], (4, "dvi"): [stem + "ByAm"], (4, "bahu"): [stem + "ByaH"],
             (5, "eka"): [cap + "aH"], (5, "dvi"): [stem + "ByAm"], (5, "bahu"): [stem + "ByaH"],
-            (6, "eka"): [cap + "aH"], (6, "dvi"): [cap + "oH"], (6, "bahu"): [apply_natva(cap + "Am")],
-            (7, "eka"): [cap + "i"], (7, "dvi"): [cap + "oH"], (7, "bahu"): [apply_zatva_s(stem + "zu")],
+            (6, "eka"): [cap + "aH"], (6, "dvi"): [cap + "oH"], (6,
+                "bahu"): [apply_natva(cap + "Am")],
+            (7, "eka"): [cap + "i"], (7, "dvi"): [cap + "oH"], (7,
+                "bahu"): [apply_zatva_s(stem + "zu")],
             (8, "eka"): [pre + "AH"], (8, "dvi"): [pre + "AnO"], (8, "bahu"): [pre + "AnaH"],
         }
         return T
@@ -1345,15 +1373,17 @@ class SubantaEngine:
             (3, "eka"): [weak + "A"], (3, "dvi"): [stem + "ByAm"], (3, "bahu"): [stem + "BiH"],
             (4, "eka"): [weak + "e"], (4, "dvi"): [stem + "ByAm"], (4, "bahu"): [stem + "ByaH"],
             (5, "eka"): [weak + "aH"], (5, "dvi"): [stem + "ByAm"], (5, "bahu"): [stem + "ByaH"],
-            (6, "eka"): [weak + "aH"], (6, "dvi"): [weak + "oH"], (6, "bahu"): [apply_natva(weak + "Am")],
-            (7, "eka"): [weak + "i"], (7, "dvi"): [weak + "oH"], (7, "bahu"): [apply_zatva_s(stem + "zu")],
+            (6, "eka"): [weak + "aH"], (6, "dvi"): [weak + "oH"], (6,
+                "bahu"): [apply_natva(weak + "Am")],
+            (7, "eka"): [weak + "i"], (7, "dvi"): [weak + "oH"], (7,
+                "bahu"): [apply_zatva_s(stem + "zu")],
             (8, "eka"): [strong1], (8, "dvi"): [strong1 + "nO"], (8, "bahu"): [strong1 + "naH"],
         }
         return T
 
     def _decline_jarA(self) -> Dict[Tuple[int, str], List[str]]:
-        # optional jaras before vowel
-        base = self._A_stem  # reuse A paradigm then add twins
+        # optional jaras before vowel (reuses the A-stem paradigm shape,
+        # computed inline below, then adds twins)
         out: Dict[Tuple[int, str], List[str]] = {}
         for sup, key in zip(SUP_RAW, SUP_KEYS):
             v = self._A_stem("jarA", strip_sup(sup), sup, key, "strI", {})
@@ -1377,8 +1407,7 @@ class SubantaEngine:
     def _decline_SrI_BU(self, stem: str) -> Dict[Tuple[int, str], List[str]]:
         # monosyllabic I/U fem: iy/uv before vowel (6.4.77)
         is_I = stem.endswith("I")
-        glide = "iy" if is_I else "uv"
-        b = stem  # SrI
+        glide = "iy" if is_I else "uv"  # SrI stem
         out: Dict[Tuple[int, str], List[str]] = {}
         out[(1, "eka")] = [self._fin(stem + "H")]
         out[(1, "dvi")] = [stem[:-1] + glide + "O"]
@@ -1488,7 +1517,6 @@ class SubantaEngine:
 
     def _decline_zaw(self, stem: str, linga: str) -> Dict[Tuple[int, str], List[str]]:
         #zaw (1.1.24): paYcan/zaz: jas/Sas luk -> paYca/zaw; rest plural
-        base = stem
         if stem == "paYcan":
             nom = "paYca"
         elif stem == "zaz":
@@ -1573,7 +1601,6 @@ class SubantaEngine:
                 out[(3, "bahu")] = ["triBiH"]
                 out[(4, "bahu")] = ["triByaH"]
                 out[(5, "bahu")] = ["triByaH"]
-                out[(6, "bahu")] = [apply_natva("trayARAm" if False else "trayARAm")]
                 out[(6, "bahu")] = ["trayARAm"]
                 out[(7, "bahu")] = ["trizu"]
             for k in [(1, "eka"), (1, "dvi"), (2, "eka"), (2, "dvi"), (3, "eka"), (3, "dvi"),
@@ -1619,8 +1646,10 @@ class SubantaEngine:
                 (3, "eka"): [b + "ayA"], (3, "dvi"): [b + "AByAm"], (3, "bahu"): [b + "ABiH"],
                 (4, "eka"): [b + "asyE"], (4, "dvi"): [b + "AByAm"], (4, "bahu"): [b + "AByaH"],
                 (5, "eka"): [b + "asyAH"], (5, "dvi"): [b + "AByAm"], (5, "bahu"): [b + "AByaH"],
-                (6, "eka"): [b + "asyAH"], (6, "dvi"): [b + "ayoH"], (6, "bahu"): [apply_natva(b + "AsAm")],
-                (7, "eka"): [b + "asyAm"], (7, "dvi"): [b + "ayoH"], (7, "bahu"): [apply_zatva_s(b + "Asu")],
+                (6, "eka"): [b + "asyAH"], (6, "dvi"): [b + "ayoH"], (6,
+                    "bahu"): [apply_natva(b + "AsAm")],
+                (7, "eka"): [b + "asyAm"], (7, "dvi"): [b + "ayoH"], (7,
+                    "bahu"): [apply_zatva_s(b + "Asu")],
                 (8, "eka"): [pre], (8, "dvi"): [b + "e"], (8, "bahu"): [b + "AH"],
             }
             return T
@@ -1631,11 +1660,16 @@ class SubantaEngine:
             T = {
                 (1, "eka"): [sa], (1, "dvi"): [base + "O"], (1, "bahu"): [base + "e"],
                 (2, "eka"): [base + "am"], (2, "dvi"): [base + "O"], (2, "bahu"): [base + "An"],
-                (3, "eka"): [apply_natva(base + "ena")], (3, "dvi"): [base + "AByAm"], (3, "bahu"): [base + "EH"],
-                (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4, "bahu"): [base + "eByaH"],
-                (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5, "bahu"): [base + "eByaH"],
-                (6, "eka"): [pre + "sya"], (6, "dvi"): [base + "ayoH"], (6, "bahu"): [apply_natva(base + "ezAm")],
-                (7, "eka"): [pre + "smin"], (7, "dvi"): [base + "ayoH"], (7, "bahu"): [apply_zatva_s(base + "ezu")],
+                (3, "eka"): [apply_natva(base + "ena")], (3, "dvi"): [base + "AByAm"], (3,
+                    "bahu"): [base + "EH"],
+                (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4,
+                    "bahu"): [base + "eByaH"],
+                (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5,
+                    "bahu"): [base + "eByaH"],
+                (6, "eka"): [pre + "sya"], (6, "dvi"): [base + "ayoH"], (6,
+                    "bahu"): [apply_natva(base + "ezAm")],
+                (7, "eka"): [pre + "smin"], (7, "dvi"): [base + "ayoH"], (7,
+                    "bahu"): [apply_zatva_s(base + "ezu")],
                 (8, "eka"): [sa], (8, "dvi"): [base + "O"], (8, "bahu"): [base + "e"],
             }
             return T
@@ -1644,11 +1678,14 @@ class SubantaEngine:
         T = {
             (1, "eka"): [pre + "t"], (1, "dvi"): [base + "e"], (1, "bahu"): [base + "Ani"],
             (2, "eka"): [pre + "t"], (2, "dvi"): [base + "e"], (2, "bahu"): [base + "Ani"],
-            (3, "eka"): [apply_natva(base + "ena")], (3, "dvi"): [base + "AByAm"], (3, "bahu"): [base + "EH"],
+            (3, "eka"): [apply_natva(base + "ena")], (3, "dvi"): [base + "AByAm"], (3,
+                "bahu"): [base + "EH"],
             (4, "eka"): [pre + "smE"], (4, "dvi"): [base + "AByAm"], (4, "bahu"): [base + "eByaH"],
             (5, "eka"): [pre + "smAt"], (5, "dvi"): [base + "AByAm"], (5, "bahu"): [base + "eByaH"],
-            (6, "eka"): [pre + "sya"], (6, "dvi"): [base + "ayoH"], (6, "bahu"): [apply_natva(base + "ezAm")],
-            (7, "eka"): [pre + "smin"], (7, "dvi"): [base + "ayoH"], (7, "bahu"): [apply_zatva_s(base + "ezu")],
+            (6, "eka"): [pre + "sya"], (6, "dvi"): [base + "ayoH"], (6,
+                "bahu"): [apply_natva(base + "ezAm")],
+            (7, "eka"): [pre + "smin"], (7, "dvi"): [base + "ayoH"], (7,
+                "bahu"): [apply_zatva_s(base + "ezu")],
             (8, "eka"): [pre + "t"], (8, "dvi"): [base + "e"], (8, "bahu"): [base + "Ani"],
         }
         return T
@@ -1733,7 +1770,8 @@ class SubantaEngine:
                 (1, "eka"): ["asO"], (1, "dvi"): ["amU"], (1, "bahu"): ["amUH"],
                 (2, "eka"): ["amUm"], (2, "dvi"): ["amU"], (2, "bahu"): ["amUH"],
                 (3, "eka"): ["amuyA"], (3, "dvi"): ["amUByAm"], (3, "bahu"): ["amUBiH"],
-                (4, "eka"): ["amuzmE"] if False else ["amuzyE"], (4, "dvi"): ["amUByAm"], (4, "bahu"): ["amUByaH"],
+                (4, "eka"): ["amuzyE"], (4, "dvi"): ["amUByAm"], (4,
+                    "bahu"): ["amUByaH"],
                 (5, "eka"): ["amuzyAH"], (5, "dvi"): ["amUByAm"], (5, "bahu"): ["amUByaH"],
                 (6, "eka"): ["amuzyAH"], (6, "dvi"): ["amuyoH"], (6, "bahu"): ["amUzAm"],
                 (7, "eka"): ["amuzyAm"], (7, "dvi"): ["amuyoH"], (7, "bahu"): ["amUzu"],
@@ -1760,27 +1798,29 @@ class SubantaEngine:
         if stem == "asmad":
             T = {
                 (1, "eka"): ["aham"], (1, "dvi"): ["AvAm"], (1, "bahu"): ["vayam"],
-                (2, "eka"): ["mAm", "mA"], (2, "dvi"): ["AvAm", "vAm"], (2, "bahu"): ["asmAn", "naH"],
+                (2, "eka"): ["mAm", "mA"], (2, "dvi"): ["AvAm", "vAm"], (2, "bahu"): ["asmAn",
+                    "naH"],
                 (3, "eka"): ["mayA"], (3, "dvi"): ["AvAByAm"], (3, "bahu"): ["asmABiH"],
-                (4, "eka"): ["maHyam", "me"], (4, "dvi"): ["AvAByAm"], (4, "bahu"): ["asmaByam", "naH"],
-                (5, "eka"): ["mat"], (5, "dvi"): ["AvAByAm"], (5, "bahu"): ["asmaByam", "naH"] if False else ["asmad", "naH"],
-                (6, "eka"): ["mama", "me"], (6, "dvi"): ["AvayoH", "vAm"], (6, "bahu"): ["asmAkam", "naH"],
+                (4, "eka"): ["maHyam", "me"], (4, "dvi"): ["AvAByAm"], (4, "bahu"): ["asmaByam",
+                    "naH"],
+                (5, "eka"): ["mat"], (5, "dvi"): ["AvAByAm"], (5, "bahu"): ["asmad"],
+                (6, "eka"): ["mama", "me"], (6, "dvi"): ["AvayoH", "vAm"], (6, "bahu"): ["asmAkam",
+                    "naH"],
                 (7, "eka"): ["mayi"], (7, "dvi"): ["AvayoH", "vAm"], (7, "bahu"): ["asmAsu"],
                 (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): [],
             }
-            T[(5, "bahu")] = ["mat", "asmad"] if False else ["asmad", "naH"]
-            # correct 5bahu: asmad
-            T[(5, "bahu")] = ["asmad", "naH"] if False else ["asmad"]
-            # Actually 5pl = asmad (+naH enclitic only for 2/4/6). Keep single.
-            T[(5, "bahu")] = ["asmad"]
+            T[(5, "bahu")] = ["asmat"]  # 5pl = asmat (no enclitic twin here)
             return T
         T = {
             (1, "eka"): ["tvam"], (1, "dvi"): ["yuvAm"], (1, "bahu"): ["yUyam"],
-            (2, "eka"): ["tvAm", "tvA"], (2, "dvi"): ["yuvAm", "vAm"], (2, "bahu"): ["yuzmAn", "vaH"],
+            (2, "eka"): ["tvAm", "tvA"], (2, "dvi"): ["yuvAm", "vAm"], (2, "bahu"): ["yuzmAn",
+                "vaH"],
             (3, "eka"): ["tvayA"], (3, "dvi"): ["yuvAByAm"], (3, "bahu"): ["yuzmABiH"],
-            (4, "eka"): ["tuByam", "te"], (4, "dvi"): ["yuvAByAm"], (4, "bahu"): ["yuzmaByam", "vaH"],
-            (5, "eka"): ["tvat"], (5, "dvi"): ["yuvAByAm"], (5, "bahu"): ["yuzmad"],
-            (6, "eka"): ["tava", "te"], (6, "dvi"): ["yuvayoH", "vAm"], (6, "bahu"): ["yuzmAkam", "vaH"],
+            (4, "eka"): ["tuByam", "te"], (4, "dvi"): ["yuvAByAm"], (4, "bahu"): ["yuzmaByam",
+                "vaH"],
+            (5, "eka"): ["tvat"], (5, "dvi"): ["yuvAByAm"], (5, "bahu"): ["yuzmat"],
+            (6, "eka"): ["tava", "te"], (6, "dvi"): ["yuvayoH", "vAm"], (6, "bahu"): ["yuzmAkam",
+                "vaH"],
             (7, "eka"): ["tvayi"], (7, "dvi"): ["yuvayoH", "vAm"], (7, "bahu"): ["yuzmAsu"],
             (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): [],
         }
@@ -1861,8 +1901,8 @@ def stri_pratipadika(masc_stem: str, kind: str = "wAp", gana: str = "BvAdi") -> 
     if kind == "RIp" and masc_stem in YOPADHA and masc_stem.endswith("ya"):
         return masc_stem[:-2] + "I"
     if kind == "wAp":
-        if masc_stem.endswith("a"):
-            return masc_stem[:-1] + "A"
+        if masc_stem in AJA_ADI or masc_stem.endswith("a"):
+            return masc_stem[:-1] + "A" if masc_stem.endswith("a") else masc_stem + "A"
         if masc_stem.endswith("at"):
             return masc_stem + "I"  # at + I? caller prefers satf_feminine for optionality
         return masc_stem + "A"

@@ -103,6 +103,8 @@ class TestSearch(unittest.TestCase):
     def test_empty_unknown(self):
         self.assertEqual(analyze(""), [])
         self.assertEqual(subanta_search("xyz"), [])
+        self.assertIsNone(best(""))
+        self.assertEqual(best("wrampeRa")["stem"], "wrampa")
 
     def test_dadan(self):
         # dadan: participle nominative (default num-paradigm) + dad/laN

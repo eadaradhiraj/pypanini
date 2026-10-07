@@ -3096,7 +3096,7 @@ class KrdantaEngine:
             return self.derive_krdanta("vac", pratyaya, None, upasarga, "02.0058")
         clean = meta["clean"]
         if str(dhatu_id) == "01.1166" and sanadi is None: clean = "ftIy"
-        
+
         pada = _force_pada or meta["pada"]
         padam = meta.get("padam", "")
         is_idit = meta.get("is_idit", False)
@@ -3350,7 +3350,7 @@ class KrdantaEngine:
                     return "vAyay"
                 if c in ("hve", "hvA") or orig_clean == "hve": return "hvAyay"
                 if c in ("vye", "vyA") or orig_clean == "vye": return "vyAyay"
-                
+
                 if c in ("sA", "sE", "SA", "SE", "pE") or orig_clean in ("sE", "SE", "pE") or op in ("pE", "zE", "sE", "SE", "zo") or (op and any(op.startswith(x) for x in ("zE~", "sE~", "SE~", "pE~", "zo~"))):
                     _yb = "pA" if (c in ("pE", "pA") or orig_clean == "pE" or op == "pE" or (op and op.startswith("pE~"))) else ("sA" if (c in ("sA", "sE") or orig_clean in ("sE", "zE") or op in ("sE", "zE", "zo") or (op and any(op.startswith(x) for x in ("zE~", "sE~", "zo~")))) else "SA")
                     return _yb + "yay"
@@ -4326,7 +4326,7 @@ class KrdantaEngine:
                 if (root_vowel in ("a", "f") or (len(c) >= 2 and c[-2] in ("a", "f"))) and (c.endswith("n") or c.endswith("R") or c.endswith("m")):
                     yan_vowel = "aM"
                 # Panini 7.4.86 japajabhadahadaSabhaYjapaSAM ca:
-                if (clean in ("jap", "dah") or 
+                if (clean in ("jap", "dah") or
                     (clean == "jaB" and (op == "jaBI~" or "1.453" in str(meta.get("kOmudIDAtukramANkaH", "")))) or
                     (clean in ("daS", "danS") and op.startswith("danS")) or
                     (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
@@ -4805,19 +4805,19 @@ class KrdantaEngine:
                     m = base+"H"
                     f = base[:-1]+"A" if base.endswith("a") else base+"A"
                     n = base+"m"
-                    
+
                     _ay_base = sec + "amAna"
                     if (_natva_applies(orig_clean) or _natva_applies(sec)) and _ay_base.endswith("amAna"):
                         _ay_base = _ay_base[:-5] + "amARa"
-                        
+
                     _ay_m = _ay_base + "H"
                     _ay_f = _ay_base[:-1]+"A" if _ay_base.endswith("a") else _ay_base+"A"
                     _ay_n = _ay_base + "m"
-                    
+
                     m = [m, _ay_m]
                     f = [f, _ay_f]
                     n = [n, _ay_n]
-                    
+
                     # curAdi nich SAnac mUla-delegation (mUla grades + base + ay-twin; additive).
                     if sanadi == "nijanta" and meta.get("gana") == "curAdiH":
                         try:

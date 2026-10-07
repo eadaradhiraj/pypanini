@@ -491,7 +491,8 @@ GOLDENS4 = {
         (5, "eka"): ["jarAyAH", "jarasaH"], (5, "dvi"): ["jarAByAm"], (5, "bahu"): ["jarAByaH"],
         (6, "eka"): ["jarAyAH", "jarasaH"], (6, "dvi"): ["jarayoH"], (6, "bahu"): ["jarARAm"],
         (7, "eka"): ["jarAyAm", "jarasi"], (7, "dvi"): ["jarayoH"], (7, "bahu"): ["jarAsu"],
-        (8, "eka"): ["jare", "jarasi"], (8, "dvi"): ["jare", "jarasO"], (8, "bahu"): ["jarAH", "jarasaH"],
+        (8, "eka"): ["jare", "jarasi"], (8, "dvi"): ["jare", "jarasO"], (8, "bahu"): ["jarAH",
+            "jarasaH"],
     },
     ("krozwu", "puM"): {
         (1, "eka"): ["krozwA"], (1, "dvi"): ["krozwArO"], (1, "bahu"): ["krozwAraH"],
@@ -499,7 +500,8 @@ GOLDENS4 = {
         (3, "eka"): ["krozwA", "krozwunA"], (3, "dvi"): ["krozwuByAm"], (3, "bahu"): ["krozwuBiH"],
         (4, "eka"): ["krozwe", "krozwave"], (4, "dvi"): ["krozwuByAm"], (4, "bahu"): ["krozwuByaH"],
         (5, "eka"): ["krozwuH"], (5, "dvi"): ["krozwuByAm"], (5, "bahu"): ["krozwuByaH"],
-        (6, "eka"): ["krozwuH"], (6, "dvi"): ["krozwvoH", "krozwroH"], (6, "bahu"): ["krozwUnAm", "krozwFRam"],
+        (6, "eka"): ["krozwuH"], (6, "dvi"): ["krozwvoH", "krozwroH"], (6, "bahu"): ["krozwUnAm",
+            "krozwFRam"],
         (7, "eka"): ["krozwO"], (7, "dvi"): ["krozwvoH", "krozwroH"], (7, "bahu"): ["krozwuzu"],
         (8, "eka"): ["krozwo"], (8, "dvi"): ["krozwArO"], (8, "bahu"): ["krozwAraH"],
     },
@@ -797,7 +799,7 @@ GOLDENS7 = {
         (2, "eka"): ["mAm", "mA"], (2, "dvi"): ["AvAm", "vAm"], (2, "bahu"): ["asmAn", "naH"],
         (3, "eka"): ["mayA"], (3, "dvi"): ["AvAByAm"], (3, "bahu"): ["asmABiH"],
         (4, "eka"): ["maHyam", "me"], (4, "dvi"): ["AvAByAm"], (4, "bahu"): ["asmaByam", "naH"],
-        (5, "eka"): ["mat"], (5, "dvi"): ["AvAByAm"], (5, "bahu"): ["asmad"],
+        (5, "eka"): ["mat"], (5, "dvi"): ["AvAByAm"], (5, "bahu"): ["asmat"],
         (6, "eka"): ["mama", "me"], (6, "dvi"): ["AvayoH", "vAm"], (6, "bahu"): ["asmAkam", "naH"],
         (7, "eka"): ["mayi"], (7, "dvi"): ["AvayoH", "vAm"], (7, "bahu"): ["asmAsu"],
         (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): [],
@@ -807,8 +809,9 @@ GOLDENS7 = {
         (2, "eka"): ["tvAm", "tvA"], (2, "dvi"): ["yuvAm", "vAm"], (2, "bahu"): ["yuzmAn", "vaH"],
         (3, "eka"): ["tvayA"], (3, "dvi"): ["yuvAByAm"], (3, "bahu"): ["yuzmABiH"],
         (4, "eka"): ["tuByam", "te"], (4, "dvi"): ["yuvAByAm"], (4, "bahu"): ["yuzmaByam", "vaH"],
-        (5, "eka"): ["tvat"], (5, "dvi"): ["yuvAByAm"], (5, "bahu"): ["yuzmad"],
-        (6, "eka"): ["tava", "te"], (6, "dvi"): ["yuvayoH", "vAm"], (6, "bahu"): ["yuzmAkam", "vaH"],
+        (5, "eka"): ["tvat"], (5, "dvi"): ["yuvAByAm"], (5, "bahu"): ["yuzmat"],
+        (6, "eka"): ["tava", "te"], (6, "dvi"): ["yuvayoH", "vAm"], (6, "bahu"): ["yuzmAkam",
+            "vaH"],
         (7, "eka"): ["tvayi"], (7, "dvi"): ["yuvayoH", "vAm"], (7, "bahu"): ["yuzmAsu"],
         (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): [],
     },
@@ -903,7 +906,8 @@ class TestSubantaFullAudit(unittest.TestCase):
         e = SubantaEngine()
         total = 0
         misses = []
-        for (stem, linga), golden in {**GOLDENS, **GOLDENS2, **GOLDENS3, **GOLDENS4, **GOLDENS5, **GOLDENS6, **GOLDENS7, **GOLDENS8}.items():
+        for (stem, linga), golden in {**GOLDENS, **GOLDENS2, **GOLDENS3, **GOLDENS4, **GOLDENS5,
+            **GOLDENS6, **GOLDENS7, **GOLDENS8}.items():
             got = e.decline(stem, linga)
             for key, exp_list in golden.items():
                 total += 1

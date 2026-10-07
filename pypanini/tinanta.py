@@ -1731,7 +1731,7 @@ class TinantaDerivationEngine:
                     if cl and cl in PADA_MAP_CLEAN and upasarga in PADA_MAP_CLEAN[cl]:
                         _force_pada = PADA_MAP_CLEAN[cl][upasarga]
                 except Exception: pass
-        
+
         cands, log = self._derive_inner(
             dhatu, lakara, purusha, vacana, prayoga, sanadi, dhatu_id, json_path,
             _force_pada, _cakz_bypass
@@ -4587,7 +4587,7 @@ class TinantaDerivationEngine:
                 yan_vowel = "aM"
             # Panini 7.4.86 japajabhadahadaSabhaYjapaSAM ca:
             # nuk augment (redup-aM) for jap, jaB, dah, daS, BaYj, paS in yaN
-            if (clean in ("jap", "dah") or 
+            if (clean in ("jap", "dah") or
                 (clean == "jaB" and (op == "jaBI~" or "1.453" in str(meta.get("kOmudIDAtukramANkaH", "")))) or
                 (clean in ("daS", "danS") and op.startswith("danS")) or
                 (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
@@ -4749,7 +4749,7 @@ class TinantaDerivationEngine:
             if (root_vowel in ("a", "f") or (len(c) >= 2 and c[-2] in ("a", "f"))) and (c.endswith(("n", "R", "m")) or c_eff.endswith(("n", "R", "m"))):
                 yan_vowel = "aM"
             # Panini 7.4.86 japajabhadahadaSabhaYjapaSAM ca:
-            if (clean in ("jap", "dah") or 
+            if (clean in ("jap", "dah") or
                 (clean == "jaB" and (op == "jaBI~" or "1.453" in str(meta.get("kOmudIDAtukramANkaH", "")))) or
                 (clean in ("daS", "danS") and op.startswith("danS")) or
                 (op and any(op.startswith(x) for x in ("japa", "daha", "jaBI", "danSa")))):
@@ -5217,7 +5217,7 @@ class TinantaDerivationEngine:
                         n_stems_all.extend(["KyAy", "kSAy"])
                     else:
                         n_stems_all = ["KyAy", "kSAy"]
-                        n_stem = "KyAy" 
+                        n_stem = "KyAy"
                 # yak stems list from all n_stems
                 yak_stems_all = [s[:-2] + "y" if s.endswith("ay") else s + "y" for s in n_stems_all]
                 # SI nich_yak ay-grade (Sayyate; sole 02.0026 surveyed — nich_yak takes yak stem).
@@ -5817,7 +5817,7 @@ class TinantaDerivationEngine:
                         if lakara == "lfN": _e_y, _e_i = _aug(_e_y), _aug(_e_i)
                         cands+=self._conjugate_at_stem_atmane(_e_y, "lw" if lakara=="lfw" else "laN", purusha, vacana)
                         cands+=self._conjugate_at_stem_atmane(_e_i, "lw" if lakara=="lfw" else "laN", purusha, vacana)
-                        
+
                         _b_y = base_cmp + "yi" + apply_satva("i","s") + "y" if base_cmp.endswith("A") else base_cmp + "i" + apply_satva("i","s") + "y"
                         _b_i = base_cmp[:-1] + "i" + apply_satva("i","s") + "y" if base_cmp.endswith("A") else base_cmp + "i" + apply_satva("i","s") + "y"
                         if lakara == "lfN": _b_y, _b_i = _aug(_b_y), _aug(_b_i)
