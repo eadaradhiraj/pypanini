@@ -36,6 +36,7 @@ from .subanta import SubantaEngine, SLP1_VOWELS
 # ---------------------------------------------------------------------------
 
 _ROOTS: Dict[str, dict] = {}
+_IDS: Dict[str, List[str]] = {}
 _KTA_MAP: Dict[str, str] = {}
 _LEXICON: Dict[str, List[dict]] = {}
 _READY = False
@@ -64,6 +65,15 @@ def _ensure_ready() -> None:
             continue
         if _kta and _kta not in _KTA_MAP:
             _KTA_MAP[_kta] = _clean
+    import re as _re
+    for _k, _m in ke._cache_by_id.items():
+        if (isinstance(_m, dict) and "clean" in _m
+                and _re.fullmatch(r"\d\d\.\d+", _k or "")):
+            _IDS.setdefault(_m["clean"], [])
+            if _k not in _IDS[_m["clean"]]:
+                _IDS[_m["clean"]].append(_k)
+    for _v in _IDS.values():
+        _v.sort()
     # closed lexicon: common + special stems x 3 lingas (exact forms)
     se = SubantaEngine()
     _lex = [
@@ -280,8 +290,11 @@ def _lookup_root(cand: str):
 
 
 def _root_details(meta: dict) -> dict:
-    return {"dhatu": meta.get("clean"), "dhAtu_pada": meta.get("pada"),
-            "sew": meta.get("sew"), "gana": meta.get("gana")}
+    _d = {"dhatu": meta.get("clean"), "dhAtu_pada": meta.get("pada"),
+          "sew": meta.get("sew"), "gana": meta.get("gana")}
+    if meta.get("clean") in _IDS:
+        _d["ids"] = list(_IDS[meta["clean"]])
+    return _d
 
 
 # ---------------------------------------------------------------------------

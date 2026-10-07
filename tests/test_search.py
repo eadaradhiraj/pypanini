@@ -141,6 +141,40 @@ class TestSearch(unittest.TestCase):
                     and r.get("dhatu")]
             self.assertTrue(_res and _res[0].get("dhatu") == _rt, (_w, _res[:3]))
 
+    def test_ditsanti_grounded_011079(self):
+        # ditsanti must be the attested sannanta-kartari-laW of 01.1079 (dAR):
+        # analysis triple + dhAtu ID + JSON attestation all agree
+        _res = [r for r in analyze("ditsanti") if r["kind"] == "tinanta"
+                and r.get("dhatu") == "dA"]
+        self.assertTrue(_res, "no dA reading")
+        _top = _res[0]
+        self.assertEqual((_top.get("lakara"), _top.get("purusha"),
+                          _top.get("vacana"), _top.get("prayoga")),
+                         ("lw", "prathama", "bahu", "kartari"))
+        self.assertIn("01.1079", _top.get("ids", []), _top)
+        import json as _json
+        from pathlib import Path as _Path
+        _jf = _Path("skt-morph-data/01/01.1079.json")
+        if not _jf.exists():
+            _jf = _Path("/home/edhiraj/Documents/projs/skt-morph-data/data/01/01.1079.json")
+        _data = _json.load(open(_jf, encoding="utf-8"))
+
+        def _toks(_o):
+            _s = set()
+            if isinstance(_o, str):
+                for _p in _o.split("/"):
+                    _p = _p.strip()
+                    if _p:
+                        _s.add(_p)
+            elif isinstance(_o, list):
+                for _i in _o:
+                    _s |= _toks(_i)
+            elif isinstance(_o, dict):
+                for _v in _o.values():
+                    _s |= _toks(_v)
+            return _s
+        self.assertIn("ditsanti", _toks(_data.get("conjugations", {}).get("san", {})))
+
 
 if __name__ == "__main__":
     unittest.main()
