@@ -126,12 +126,20 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(has_sub(res, "dadat", 1, "eka", "puM"))
 
     def test_satf_abhyasa_root(self):
-        # dadat/dadan: abhyasa reversal links dA (simple C1a-type only;
-        # juhoti/bibhar types stay honestly unresolved)
+        # dadan/dadat: abhyasa reversal links dA (now full: juhoti/biBar too)
         for _w in ("dadan", "dadat"):
             _res = analyze(_w)
             self.assertTrue(any(r["kind"] == "krdanta" and r.get("dhatu") == "dA"
                                 and r.get("pratyaya") == "Satf" for r in _res), _w)
+
+    def test_san_desiderative(self):
+        # contracted (dA->dits, DA->Dits) vs full (vid->vividiz) types;
+        # reduplicant aspiration picks dA over DA and vice versa
+        for _w, _rt in (("ditsanti", "dA"), ("Ditsati", "DA"),
+                        ("vividizati", "vid")):
+            _res = [r for r in analyze(_w) if r["kind"] == "tinanta"
+                    and r.get("dhatu")]
+            self.assertTrue(_res and _res[0].get("dhatu") == _rt, (_w, _res[:3]))
 
 
 if __name__ == "__main__":

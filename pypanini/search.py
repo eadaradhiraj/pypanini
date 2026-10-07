@@ -159,6 +159,60 @@ def _desamprasarana(s: str) -> str:
     return s
 
 
+# san-s de-voicing (inverse of d+s -> ts fusion): contracted desideratives
+_SAN_UNVOICE = {
+    "t": ["t", "d", "D"], "T": ["T", "D"], "p": ["p", "b", "B"],
+    "P": ["P", "B"], "k": ["k", "g", "G"], "K": ["K", "G"],
+    "c": ["c", "j"], "C": ["C", "J"], "s": ["s"],
+}
+
+
+def _san_reverse(core: str) -> List[str]:
+    """Undo desiderative formation (ditsa <- dA, vividiza <- vid).
+    Full type keeps the root (vi-vid-i-za); contracted type fuses it
+    (di-tsa <- dA + sa, d devoiced before san-s). Returns root candidates."""
+    _w = core[:-1] if core.endswith("a") and len(core) > 1 else core
+    if len(_w) < 4 or _w[1] not in ("i", "u"):
+        return []
+    out: List[str] = []
+    # strip san sibilant (z after i/u by zatva, else s)
+    if _w[-1] not in ("s", "z", "S"):
+        return []
+    _body = _w[:-1]
+    _red, _mid = _w[:2], _body[2:]
+    if len(_mid) < 1:
+        return []
+    # iT augment variants (vidi/wid both tried; lookup gates)
+    _mids = [_mid]
+    if _mid.endswith("i") and len(_mid) > 1:
+        _mids.append(_mid[:-1])
+    for _m in _mids:
+        if not _m:
+            continue
+        if len(_m) == 1 and _m not in SLP1_VOWELS:
+            # contracted fusion: bare onset (dits-a <- dA + sa).
+            # The reduplicant keeps aspiration clues (di- vs Dhi-),
+            # so the matching onset leads (dA, not DA, for dits).
+            _cands = list(_SAN_UNVOICE.get(_m, [_m]))
+            if _red[0] in _cands:
+                _cands.remove(_red[0])
+                _cands.insert(0, _red[0])
+            for _o in _cands:
+                for _v in ("A", "I", "U"):
+                    _cand = _o + _v
+                    if _cand not in out:
+                        out.append(_cand)
+        else:
+            # full type: root preserved (vivid <- vid; tik <- tij via kuH)
+            if _m not in out:
+                out.append(_m)
+            if _m.endswith("k"):
+                _j = _m[:-1] + "j"
+                if _j not in out:
+                    out.append(_j)
+    return out
+
+
 def _abhyasa_reverse(core: str) -> List[str]:
     """Undo class-3 reduplication (dadA <- dA, juhu <- hu, bibhar <- Bf).
     Returns candidate roots. Only the reduplicant shape is constrained;
@@ -642,6 +696,14 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         break
                 if _hit is not None:
                     break
+                # desiderative stems (ditsa/vividiza + ti)
+                for _sn in _san_reverse(_cand):
+                    _hit = _lookup_root(_sn)
+                    if _hit is not None:
+                        _via_extra = "san"
+                        break
+                if _hit is not None:
+                    break
             # classical laN needs the a- augment (adadat, not *dadan)
             _no_aug = _aug and _core[:1] not in ("a", "A")
             if _hit is not None:
@@ -653,6 +715,9 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                 if _via_extra == "abhyasa":
                     _via = "abhyasa"
                     _conf = 0.7
+                elif _via_extra == "san":
+                    _via = "san"
+                    _conf = 0.65
                 if _no_aug:
                     _conf *= 0.6
                 _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
