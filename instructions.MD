@@ -46,7 +46,7 @@
   - `tinanta`/`krdanta` **pending**: `1152/1166` BvAdi (`01.0015 klidi~ 0/895` homonym Ātman vs `01.0076` parasm, `01.0016 muda~` vowel-final)
   - `subanta` **done v8 full audit (21/21, ~2000 goldens)**:
     `GOLDENS`–`GOLDENS8` (rAma…yad/etad dual-only uBa/dvi) + emptiness checks + `zaw` n-lopa + `stri` AJA_ADI/yopadha + `krdanta→subanta` pipeline test
-  - `search` **done v1**: `pypanini/search.py` — `subanta_search` / `krdanta_search` / `tinanta_search` / `analyze` (global) + `tests/test_search.py` (10)
+  - `search` **done v2 complete**: `pypanini/search.py` — `subanta_search` / `krdanta_search` / `tinanta_search` / `analyze` + `tests/test_search.py` (19) + `tests/test_search_complete.py` (round-trip: tinanta slot 540/540 root ~97%, krdanta ~93%)
   - Sweep target: all `1166` `01.*` BvAdi at `100%` expanded for `tinanta`+`krdanta`, then `subanta` for nominal declension.
 
 - **Stats**: `tests/STATS.md` — `Engine: wholly generative` + `Run: ...` + per-dhātu `GRAND` blocks, updated after each sweep (`-W ignore::ResourceWarning`).

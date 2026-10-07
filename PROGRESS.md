@@ -2,7 +2,7 @@
 
 Date: 2026-10-07
 Subanta: **21/21 (~2000 goldens)** — engine + audits + pipeline (see instructions.MD).
-Search: **10/10** — `pypanini/search.py` (subanta/krdanta/tinanta/analyze) + demo §4.
+Search: **10/10 + round-trip green** — `pypanini/search.py` (subanta/krdanta/tinanta/analyze) + demo §4.
   Commits: 3882dcd (v1) → f693f6f (v2) → c60f307 (288) → 727ed31 (showcase+stri) → 1851ba2 (~960) → ea9b86f → 84caf7d → f21ef2a (yad/etad).
   Tests: test_subanta + test_subanta_full (GOLDENS–GOLDENS7) + test_krdanta_subanta pipeline.
 Verbs: 01.0015–01.0140 all 100% (126 consecutive; +01.0121–01.0140 20/20 green).
