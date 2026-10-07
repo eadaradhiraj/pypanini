@@ -125,6 +125,14 @@ class TestSearch(unittest.TestCase):
         res = analyze("dadat")
         self.assertTrue(has_sub(res, "dadat", 1, "eka", "puM"))
 
+    def test_satf_abhyasa_root(self):
+        # dadat/dadan: abhyasa reversal links dA (simple C1a-type only;
+        # juhoti/bibhar types stay honestly unresolved)
+        for _w in ("dadan", "dadat"):
+            _res = analyze(_w)
+            self.assertTrue(any(r["kind"] == "krdanta" and r.get("dhatu") == "dA"
+                                and r.get("pratyaya") == "Satf" for r in _res), _w)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -121,6 +121,44 @@ def _len_variants(s: str) -> List[str]:
     return out
 
 
+# abhyasa onset un-mutation (inverse of 7.4.62 kuhoScuH + deaspiration)
+_ABHYASA_ONSET = {
+    "c": ["k"], "C": ["K"], "j": ["g", "h"], "J": ["G"],
+    "k": ["k"], "K": ["K"], "g": ["g"], "G": ["G"], "N": ["N"],
+    "t": ["t"], "d": ["d"], "n": ["n"], "p": ["p"], "P": ["P"],
+    "b": ["b", "B"], "B": ["B"], "m": ["m"], "y": ["y"], "r": ["r"],
+    "l": ["l"], "v": ["v"], "s": ["s"], "S": ["S"], "h": ["h"],
+}
+_ABHYASA_GRADE = {"a": "A", "i": "I", "u": "U"}
+
+
+def _abhyasa_reverse(core: str) -> List[str]:
+    """Undo class-3 reduplication (dadaA <- dA, jahA <- hA).
+    Returns candidate roots (usually 1-2). Empty when shape is not a
+    simple C1a-reduplicant (juhoti/bibhar types need fuller phonology)."""
+    if len(core) < 3 or core[1] not in _ABHYASA_GRADE:
+        return []
+    _ab, _rest = core[:2], core[2:]
+    if _ab[0] not in _ABHYASA_ONSET or not _rest:
+        return []
+    if _rest[0] not in _ABHYASA_ONSET[_ab[0]]:
+        return []
+    _long = _ABHYASA_GRADE[core[1]]
+    if _rest[-1] in "aiu":
+        _bases = [_rest[:-1] + {"a": "A", "i": "I", "u": "U"}[_rest[-1]]]
+    elif _rest[-1] in "AIU":
+        _bases = [_rest]
+    else:
+        _bases = [_rest + _long]
+    out: List[str] = []
+    for _o in _ABHYASA_ONSET[_ab[0]]:
+        for _b in _bases:
+            _cand = _o + _b[1:] if _b.startswith(_rest[0]) else _o + _b
+            if _cand not in out:
+                out.append(_cand)
+    return out
+
+
 def _lookup_root(cand: str):
     """Exact + graded root lookup. Returns (clean, meta, via) or None."""
     for _c in _len_variants(cand):
@@ -448,12 +486,20 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         if _hit is not None:
             _rt, _m, _via = _hit
             _emit("tfc", _rt, _m, 0.85, f"root via {_via}")
-    # Satf present stem (root linking out of reach in v1, still informative)
+    # Satf present stem (abhyasa-reversible class-3 links; rest unresolved)
     if stem.endswith("ant") or (stem.endswith("at") and not stem.endswith(("vat", "mat"))):
-        out.append({"kind": "krdanta", "pratyaya": "Satf", "stem": stem,
-                    "dhatu": None, "linga": linga, "vibhakti": vib,
-                    "vacana": vac, "confidence": 0.45,
-                    "note": "present stem; root unresolved in v1"})
+        _core = stem[:-3] if stem.endswith("ant") else stem[:-2]
+        for _cand in _abhyasa_reverse(_core):
+            _hit = _lookup_root(_cand)
+            if _hit is not None:
+                _rt, _m, _via = _hit
+                _emit("Satf", _rt, _m, 0.7, "root via abhyasa")
+                break
+        else:
+            out.append({"kind": "krdanta", "pratyaya": "Satf", "stem": stem,
+                        "dhatu": None, "linga": linga, "vibhakti": vib,
+                        "vacana": vac, "confidence": 0.45,
+                        "note": "present stem; root unresolved in v1"})
     # kvasu weak/middle without kta link
     if stem.endswith("uz") or stem.endswith("uzI"):
         out.append({"kind": "krdanta", "pratyaya": "kvasu", "stem": stem,
