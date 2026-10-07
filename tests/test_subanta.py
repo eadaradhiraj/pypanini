@@ -220,6 +220,16 @@ class TestSubantaGenerative(unittest.TestCase):
         self.assertEqual(stri_pratipadika("matsya", "RIp"), "matsI")
         self.assertEqual(stri_pratipadika("manuzya", "RIp"), "manuzI")
         self.assertEqual(stri_pratipadika("rAjan", "RIp"), "rAjYI")
+        self.assertEqual(stri_pratipadika("Danin", "RIp"), "DaninI")
+        self.assertIn("DaninIH", self.e.decline("DaninI", "strI")[(1, "eka")])
+        # pati in compounds is Ghi (pataye), alone it is not (patye)
+        self.assertForm("pati", "puM", (4, "eka"), "patye")
+        self.assertEqual(
+            self.e.decline("pati", "puM", extra={"compound": True})[(4, "eka")], ["pataye"])
+        # second fractional + uBaya spot checks
+        for exp in ("caramAH", "carame"):
+            self.assertIn(exp, self.e.decline("carama", "puM")[(1, "bahu")])
+        self.assertForm("uBaya", "puM", (4, "eka"), "uBayasmE")
 
 
 if __name__ == "__main__":

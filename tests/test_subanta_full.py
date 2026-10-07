@@ -864,13 +864,46 @@ GOLDENS7 = {
     },
 }
 
+GOLDENS8 = {
+    ("uBa", "puM"): {
+        (1, "eka"): [], (1, "dvi"): ["uBO"], (1, "bahu"): [],
+        (2, "eka"): [], (2, "dvi"): ["uBO"], (2, "bahu"): [],
+        (3, "eka"): [], (3, "dvi"): ["uBAByAm"], (3, "bahu"): [],
+        (4, "eka"): [], (4, "dvi"): ["uBAByAm"], (4, "bahu"): [],
+        (5, "eka"): [], (5, "dvi"): ["uBAByAm"], (5, "bahu"): [],
+        (6, "eka"): [], (6, "dvi"): ["uBayoH"], (6, "bahu"): [],
+        (7, "eka"): [], (7, "dvi"): ["uBayoH"], (7, "bahu"): [],
+        (8, "eka"): [], (8, "dvi"): ["uBO"], (8, "bahu"): [],
+    },
+    ("dvi", "puM"): {
+        (1, "eka"): [], (1, "dvi"): ["dvO"], (1, "bahu"): [],
+        (2, "eka"): [], (2, "dvi"): ["dvO"], (2, "bahu"): [],
+        (3, "eka"): [], (3, "dvi"): ["dvAByAm"], (3, "bahu"): [],
+        (4, "eka"): [], (4, "dvi"): ["dvAByAm"], (4, "bahu"): [],
+        (5, "eka"): [], (5, "dvi"): ["dvAByAm"], (5, "bahu"): [],
+        (6, "eka"): [], (6, "dvi"): ["dvayoH"], (6, "bahu"): [],
+        (7, "eka"): [], (7, "dvi"): ["dvayoH"], (7, "bahu"): [],
+        (8, "eka"): [], (8, "dvi"): ["dvO"], (8, "bahu"): [],
+    },
+    ("dvi", "strI"): {
+        (1, "eka"): [], (1, "dvi"): ["dve"], (1, "bahu"): [],
+        (2, "eka"): [], (2, "dvi"): ["dve"], (2, "bahu"): [],
+        (3, "eka"): [], (3, "dvi"): ["dvAByAm"], (3, "bahu"): [],
+        (4, "eka"): [], (4, "dvi"): ["dvAByAm"], (4, "bahu"): [],
+        (5, "eka"): [], (5, "dvi"): ["dvAByAm"], (5, "bahu"): [],
+        (6, "eka"): [], (6, "dvi"): ["dvayoH"], (6, "bahu"): [],
+        (7, "eka"): [], (7, "dvi"): ["dvayoH"], (7, "bahu"): [],
+        (8, "eka"): [], (8, "dvi"): ["dve"], (8, "bahu"): [],
+    },
+}
+
 
 class TestSubantaFullAudit(unittest.TestCase):
     def test_full_tables(self):
         e = SubantaEngine()
         total = 0
         misses = []
-        for (stem, linga), golden in {**GOLDENS, **GOLDENS2, **GOLDENS3, **GOLDENS4, **GOLDENS5, **GOLDENS6, **GOLDENS7}.items():
+        for (stem, linga), golden in {**GOLDENS, **GOLDENS2, **GOLDENS3, **GOLDENS4, **GOLDENS5, **GOLDENS6, **GOLDENS7, **GOLDENS8}.items():
             got = e.decline(stem, linga)
             for key, exp_list in golden.items():
                 total += 1
