@@ -5,7 +5,6 @@ Supports primitive (mUla) for any BvAdi dhatu; sanAdi with overrides still uses 
 """
 from typing import Dict, List, Optional
 import json
-import glob
 import re
 from pathlib import Path
 from .pada_rules import PADA_MAP_CLEAN, PADA_MAP_ID
@@ -219,54 +218,50 @@ class KrdantaEngine:
         self._cache["BU"] = {"clean": "BU", "pada": "parasmEpadi", "sew": True, "is_idit": False, "op": "BU"}
         self._cache["eD"] = {"clean": "eD", "pada": "Atmanepadi", "sew": True, "is_idit": False, "op": "eD"}
         self._cache_by_id = {}
+        # file I/O happens once in pypanini.dhatu_meta (shared with tinanta); entry logic below verbatim
         try:
-            _bases = [Path("skt-morph-data") / _g for _g in ("02", "03", "04", "05", "06", "07", "08", "09", "10", "01")]
-            _jfs = [jf for _b in _bases if _b.exists() for jf in sorted(glob.glob(str(_b / "*.json")))]
-            if _jfs:
-                for jf in _jfs:
-                    try:
-                        with open(jf, encoding="utf-8") as _jf_h:
-                            d = json.load(_jf_h)
-                        info = {x["name"]: x["value"] for x in d.get("info", [])}
-                        op = info.get("OpadeSikasvarUpam", "")
-                        if not op:
-                            continue
-                        clean = clean_dhatu_op(op)
-                        no_num_r = ("~r" in op)
-                        padam = info.get("padam", "")
-                        if "Atman" in padam:
-                            pada = "Atmanepadi"
-                        elif "parasm" in padam.lower():
-                            pada = "parasmEpadi"
-                        else:
-                            pada = "parasmEpadi"
-                        sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
-                        sew_raw = info.get("iqAgamayogyatA", "sew").lower().strip()
-                        is_idit = (("i~" in op) or (op.endswith("~") and op.replace("~","").replace("`","").endswith("i"))) and not no_num_r and ("I~" not in op)
-                        antara = info.get("antargaRaH", "")
-                        comm = info.get("DAturUpanandinIwippaRI", "")
-                        gana = info.get("gaRaH", "BvAdiH")
-                        _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
-                        # mit denial respected: notes stating "mit nAsti" (lowered: "mit nasti"; kamu/ama/camu via na kamyamicamAm) are NOT mit;
-                        # other niziDyate-notes (Samo/yama conditional denials) stay mit via antara or plain-mit text
-                        _is_gawadi = (("GawAdi" in antara) or ("GawAdikAryArTam" in comm)) and ("PaRAdi" not in antara)
-                        _is_sk2354 = (info.get("kOmudIsUtrakramANkaH") == "2354") and ("PaRAdi" not in antara) and (not antara)
-                        # amanta (short-a + m final) roots are mit by gaNa-sUtra 1.934 janIjFzknasuraYjo'mantASca
-                        # (kram/ram/syam keep short niC stem); kam/am/cam denied by 1.937 carry "mit nasti" so stay non-mit
-                        _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
-                        is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
-                        entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit, "padam": padam, "gana": gana}
-                        self._cache[clean] = entry
-                        self._cache[op] = entry
-                        self._cache[op.replace("~","").replace("`","").strip()] = entry
-                        try:
-                            id_val = d.get("id", "") or Path(jf).stem
-                            self._cache_by_id[id_val] = entry
-                            self._cache_by_id[clean + "_" + id_val] = entry
-                            self._cache_by_id[op + "_" + id_val] = entry
-                        except Exception: pass
-                    except Exception:
+            from .dhatu_meta import scan_dhatu_jsons
+            for jf, info, _id_val in scan_dhatu_jsons():
+                try:
+                    op = info.get("OpadeSikasvarUpam", "")
+                    if not op:
                         continue
+                    clean = clean_dhatu_op(op)
+                    no_num_r = ("~r" in op)
+                    padam = info.get("padam", "")
+                    if "Atman" in padam:
+                        pada = "Atmanepadi"
+                    elif "parasm" in padam.lower():
+                        pada = "parasmEpadi"
+                    else:
+                        pada = "parasmEpadi"
+                    sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
+                    sew_raw = info.get("iqAgamayogyatA", "sew").lower().strip()
+                    is_idit = (("i~" in op) or (op.endswith("~") and op.replace("~","").replace("`","").endswith("i"))) and not no_num_r and ("I~" not in op)
+                    antara = info.get("antargaRaH", "")
+                    comm = info.get("DAturUpanandinIwippaRI", "")
+                    gana = info.get("gaRaH", "BvAdiH")
+                    _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
+                    # mit denial respected: notes stating "mit nAsti" (lowered: "mit nasti"; kamu/ama/camu via na kamyamicamAm) are NOT mit;
+                    # other niziDyate-notes (Samo/yama conditional denials) stay mit via antara or plain-mit text
+                    _is_gawadi = (("GawAdi" in antara) or ("GawAdikAryArTam" in comm)) and ("PaRAdi" not in antara)
+                    _is_sk2354 = (info.get("kOmudIsUtrakramANkaH") == "2354") and ("PaRAdi" not in antara) and (not antara)
+                    # amanta (short-a + m final) roots are mit by gaNa-sUtra 1.934 janIjFzknasuraYjo'mantASca
+                    # (kram/ram/syam keep short niC stem); kam/am/cam denied by 1.937 carry "mit nasti" so stay non-mit
+                    _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
+                    is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
+                    entry = {"clean": clean, "pada": pada, "sew": sew, "sew_raw": sew_raw, "is_idit": is_idit, "op": op, "antara": antara, "is_mit": is_mit, "padam": padam, "gana": gana}
+                    self._cache[clean] = entry
+                    self._cache[op] = entry
+                    self._cache[op.replace("~","").replace("`","").strip()] = entry
+                    try:
+                        id_val = _id_val or Path(jf).stem
+                        self._cache_by_id[id_val] = entry
+                        self._cache_by_id[clean + "_" + id_val] = entry
+                        self._cache_by_id[op + "_" + id_val] = entry
+                    except Exception: pass
+                except Exception:
+                    continue
         except Exception:
             pass
         KrdantaEngine._SHARED_CACHE = self._cache

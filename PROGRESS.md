@@ -39,6 +39,15 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   time). Hoisted constants (`_NATVA_VAN_IDS`, `_NATVA_ALLOWED`, prefix pairs,
   root-start tuples) + cheap `in`-gates: hotspot tottime 0.157s -> 0.076s (2x),
   byte-identical output over 1367 prefixed forms. All 49 tests green.
+- Scoring review (this turn): honest-scorer probe (unattested slots as misses)
+  on 03/05/07/08 reads 98.9-99.2% vs 100% attested-only; gap is unattested data
+  only, engine still generates the forms. Primary gate stays attested-only.
+- Single-scan loader (this turn): new `pypanini/dhatu_meta.py` parses the ~2.3k
+  JSONs once; both engines build entries verbatim from pre-parsed rows. Fresh-
+  process startup ~10.2s -> ~5.2s; all four caches byte-identical (keys + order
+  + values) vs pre-change pickle. Dropped now-unused `glob` imports.
+- CI (this turn): `.github/workflows/ci.yml` runs lint gate + 49-test gate on
+  push/PR (sweeps stay loop-driver: too slow for CI).
 - Triage: 10.0014/0105/0028/0021/0038/0242/0190 + 06.0159 all PASS live;
   04.0162/163 correctly skipped (0/0). Gana-04 full refresh: 161/161, fid-diff
   0/0 vs HEAD (perfect hold, CSV not rewritten).

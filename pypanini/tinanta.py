@@ -7,7 +7,6 @@ Generative Tiṅanta Derivation Engine
 
 from typing import Dict, List, Optional, Tuple
 import json
-import glob
 import re
 from pathlib import Path
 
@@ -164,58 +163,54 @@ class TinantaDerivationEngine:
         self._dhatu_cache_by_id = {}
         # try auto-load from skt-morph-data (all gaNas; 01 last so validated BvAdi entries win
         # clean/op key collisions with homonymous cleans in other gaNas; by_id keys never collide)
+        # file I/O happens once in pypanini.dhatu_meta (shared with krdanta); entry logic below verbatim
         try:
-            _bases = [Path("skt-morph-data") / _g for _g in ("02", "03", "04", "05", "06", "07", "08", "09", "10", "01")]
-            _jfs = [jf for _b in _bases if _b.exists() for jf in sorted(glob.glob(str(_b / "*.json")))]
-            if _jfs:
-                for jf in _jfs:
-                    try:
-                        with open(jf, encoding="utf-8") as _jf_h:
-                            d = json.load(_jf_h)
-                        info = {x["name"]: x["value"] for x in d.get("info", [])}
-                        op = info.get("OpadeSikasvarUpam", "")
-                        if not op:
-                            continue
-                        clean = clean_dhatu_op(op)
-                        no_num_r = ("~r" in op)
-                        padam = info.get("padam", "")
-                        # normalize padam: parasmEpadI / AtmanepadI (with capital E)
-                        if "Atman" in padam:
-                            pada = "Atmanepadi"
-                        elif "uBay" in padam.lower() or "ubhay" in padam.lower():
-                            pada = "uBayapadi"
-                        elif "parasm" in padam.lower():
-                            pada = "parasmEpadi"
-                        else:
-                            pada = "uBayapadi" if (op.endswith("Y") or op.endswith("Y~") or op.endswith("N")) else "parasmEpadi"
-                        sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
-                        sew_raw = info.get("iqAgamayogyatA", "sew").lower().strip()
-                        gana = info.get("gaRaH", "BvAdiH")
-                        # idit=num only for lowercase i~ (klidi~->klind, blocks guNa); I~ strips without num, allows guNa (citI~->cit->cet)
-                        is_idit = ("i~" in op) and not no_num_r
-                        # also fallback: if clean endswith i and op endswith ~ and raw endswith i
-                        if not is_idit and not no_num_r and ("I~" not in op) and op.endswith("~") and op.replace("~","").replace("`","").endswith("i"):
-                            is_idit = True
-                        antara = info.get("antargaRaH", "")
-                        comm = info.get("DAturUpanandinIwippaRI", "")
-                        _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
-                        _is_gawadi = (("GawAdi" in antara) or ("GawAdikAryArTam" in comm)) and ("PaRAdi" not in antara)
-                        _is_sk2354 = (info.get("kOmudIsUtrakramANkaH") == "2354") and ("PaRAdi" not in antara) and (not antara)
-                        _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
-                        is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
-                        entry = {"clean": clean, "pada": pada, "padam": padam, "sew": sew, "sew_raw": sew_raw, "gana": gana, "is_idit": is_idit, "op": op, "is_mit": is_mit, "antara": antara}
-                        self._dhatu_cache[clean] = entry
-                        self._dhatu_cache[op] = entry
-                        self._dhatu_cache[op.replace("~","").replace("`","").strip()] = entry
-                        # also store by id for homonyms
-                        try:
-                            id_val = d.get("id", "") or Path(jf).stem
-                            self._dhatu_cache_by_id[id_val] = entry
-                            self._dhatu_cache_by_id[clean + "_" + id_val] = entry
-                            self._dhatu_cache_by_id[op + "_" + id_val] = entry
-                        except Exception: pass
-                    except Exception:
+            from .dhatu_meta import scan_dhatu_jsons
+            for jf, info, _id_val in scan_dhatu_jsons():
+                try:
+                    op = info.get("OpadeSikasvarUpam", "")
+                    if not op:
                         continue
+                    clean = clean_dhatu_op(op)
+                    no_num_r = ("~r" in op)
+                    padam = info.get("padam", "")
+                    # normalize padam: parasmEpadI / AtmanepadI (with capital E)
+                    if "Atman" in padam:
+                        pada = "Atmanepadi"
+                    elif "uBay" in padam.lower() or "ubhay" in padam.lower():
+                        pada = "uBayapadi"
+                    elif "parasm" in padam.lower():
+                        pada = "parasmEpadi"
+                    else:
+                        pada = "uBayapadi" if (op.endswith("Y") or op.endswith("Y~") or op.endswith("N")) else "parasmEpadi"
+                    sew = info.get("iqAgamayogyatA", "sew").lower().strip() == "sew"
+                    sew_raw = info.get("iqAgamayogyatA", "sew").lower().strip()
+                    gana = info.get("gaRaH", "BvAdiH")
+                    # idit=num only for lowercase i~ (klidi~->klind, blocks guNa); I~ strips without num, allows guNa (citI~->cit->cet)
+                    is_idit = ("i~" in op) and not no_num_r
+                    # also fallback: if clean endswith i and op endswith ~ and raw endswith i
+                    if not is_idit and not no_num_r and ("I~" not in op) and op.endswith("~") and op.replace("~","").replace("`","").endswith("i"):
+                        is_idit = True
+                    antara = info.get("antargaRaH", "")
+                    comm = info.get("DAturUpanandinIwippaRI", "")
+                    _mit_txt = (info.get("DAtuviSezaH", "") + " " + info.get("anubanDaviSezaH", "")).lower()
+                    _is_gawadi = (("GawAdi" in antara) or ("GawAdikAryArTam" in comm)) and ("PaRAdi" not in antara)
+                    _is_sk2354 = (info.get("kOmudIsUtrakramANkaH") == "2354") and ("PaRAdi" not in antara) and (not antara)
+                    _is_amanta = clean.endswith("am") and ("mit nasti" not in _mit_txt)
+                    is_mit = _is_gawadi or _is_sk2354 or _is_amanta or (("mit" in _mit_txt) and ("mit nasti" not in _mit_txt))
+                    entry = {"clean": clean, "pada": pada, "padam": padam, "sew": sew, "sew_raw": sew_raw, "gana": gana, "is_idit": is_idit, "op": op, "is_mit": is_mit, "antara": antara}
+                    self._dhatu_cache[clean] = entry
+                    self._dhatu_cache[op] = entry
+                    self._dhatu_cache[op.replace("~","").replace("`","").strip()] = entry
+                    # also store by id for homonyms
+                    try:
+                        id_val = _id_val or Path(jf).stem
+                        self._dhatu_cache_by_id[id_val] = entry
+                        self._dhatu_cache_by_id[clean + "_" + id_val] = entry
+                        self._dhatu_cache_by_id[op + "_" + id_val] = entry
+                    except Exception: pass
+                except Exception:
+                    continue
         except Exception:
             pass
         TinantaDerivationEngine._SHARED_CACHE = self._dhatu_cache
