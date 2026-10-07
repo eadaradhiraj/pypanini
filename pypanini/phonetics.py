@@ -322,75 +322,96 @@ def _fuse_prefix_chain(prefixes: list[str]) -> str:
     return base
 
 
+# Hoisted hot-path constants for apply_natva_prefix_aware (13k+ calls per
+# prefixed sweep task): per-call set/tuple construction dominated its profile.
+_NATVA_VAN_IDS = frozenset({
+    "01.0216", "01.0219", "01.0533", "01.0534", "01.0858", "01.0915",
+    "01.0928", "01.0932", "01.0951", "01.0961", "01.0962", "01.1131",
+    "08.0008", "10.0227", "10.0431",
+})
+_NATVA_ALLOWED = frozenset("aAiIuUfFeEoOyvhHkKgGNpPbBmM")
+_NATVA_ABHYASA_HEADS = ("nin", "nen", "nan", "nIn", "naMnam", "nannam")
+_NATVA_ROOT_STARTS = ("and", "anand", "inand", "inind", "aw", "An", "fd",
+                      "rt", "ind", "fc", "ard", "ARand", "iRand", "aRand",
+                      "aR", "AR", "iR")
+
+
+def _natva_prefix_pairs() -> tuple:
+    """Precompute (sandhi-prefix, augmented-prefix) pairs (constant fold)."""
+    pairs = []
+    for _p in ("pra", "parA", "nir", "antar", "pari", "dur", "dus", "nis"):
+        _sandhi = _p[:-1] + "r" if _p.endswith("s") else _p
+        if _p.endswith("i"):
+            _aug = _p[:-1] + "ya"
+        elif _p.endswith("a") or _p.endswith("A"):
+            _aug = _p[:-1] + "A"
+        elif _p.endswith("r") or _p.endswith("s"):
+            _aug = _sandhi + "a"
+        else:
+            _aug = _p + "a"
+        pairs.append((_sandhi, _aug))
+    return tuple(pairs)
+
+
+_NATVA_PREFIX_PAIRS = _natva_prefix_pairs()
+
+
 def apply_natva_prefix_aware(fused: str, chain_len: int, dhatu_id: str | None = None, inner: str | None = None) -> str:
     """Like apply_natva but n's inside prefix region (first chain_len chars)
     are blockers (never convert), only root/suffix n's convert.
     Exception: inner 'ni' (n-initial, no trailing r) allows conversion
     (pra;ni->praRi, pari;ni->pariRi), while nir/anu stay protected."""
-    _VAN_IDS = {"01.0216", "01.0219", "01.0533", "01.0534", "01.0858", "01.0915", "01.0928", "01.0932", "01.0951", "01.0961", "01.0962", "01.1131", "08.0008", "10.0227", "10.0431"}
     _prot_len = chain_len - 2 if inner == "ni" else chain_len
+    _flen = len(fused)
     out: list[str] = []
     cause_seen = False
-    allowed = set("aAiIuUfFeEoOyvhHkKgGNpPbBmM")
     for i, c in enumerate(fused):
-        protected = i < _prot_len
-        if c in ("r", "z", "f", "F"):
+        if c in "rzfF":
             cause_seen = True
             out.append(c)
         elif c == "n":
-            if protected:
+            if i < _prot_len:
                 cause_seen = False
                 out.append("n")
             elif cause_seen:
                 # Panini 8.4.21 abhyAsasya ca & 8.4.39 kzuBnAdiSu ca: abhyAsa n and Kan (01.1020)
                 # never undergo Natva; dental n blocks subsequent Natva from preceding cause.
                 rem = fused[i:]
-                if (rem.startswith(("nin", "nen", "nan", "nIn", "naMnam", "nannam")) and not rem.startswith("nant")) or (dhatu_id == "01.1020" and fused[:i+1].endswith(("Kan", "KAn"))):
+                if (rem.startswith(_NATVA_ABHYASA_HEADS) and not rem.startswith("nant")) or (dhatu_id == "01.1020" and fused[:i+1].endswith(("Kan", "KAn"))):
                     cause_seen = False
                     out.append("n")
                 else:
-                    is_padanta = (i == len(fused) - 1)
-                    is_illegal = (i + 1 < len(fused) and fused[i+1] in "tTdDscCjJSwWqQz")
+                    is_padanta = (i == _flen - 1)
+                    is_illegal = (i + 1 < _flen and fused[i+1] in "tTdDscCjJSwWqQz")
                     if is_padanta or is_illegal:
                         out.append("n")
                     else:
                         out.append("R")
                         # If part of geminate nn, maintain cause_seen for the 2nd n (nizanna->nizaRRa);
                         # otherwise 8.4.2: intervening R is tavarga (not in at-ku-pu-AN-num) and blocks further Natva.
-                        if i + 1 < len(fused) and fused[i+1] == "n":
-                            pass
-                        else:
+                        if not (i + 1 < _flen and fused[i+1] == "n"):
                             cause_seen = False
             else:
                 out.append("n")
-        elif c in allowed:
+        elif c in _NATVA_ALLOWED:
             out.append(c)
         else:
             cause_seen = False
             out.append(c)
     final_word = "".join(out)
-    if dhatu_id is None or dhatu_id in _VAN_IDS:
+    if (dhatu_id is None or dhatu_id in _NATVA_VAN_IDS) and "vaR" in final_word:
         final_word = final_word.replace("rivaR", "rivan").replace("ravaR", "ravan").replace("rvaR", "rvan")
     # Panini 8.4.14 non-nopadeza patx~ (01.0979) yanganta substitute panIpat never undergoes Natva
     if "paRIpat" in final_word:
         final_word = final_word.replace("paRIpat", "panIpat")
-    for p in ("pra", "parA", "nir", "antar", "pari", "dur", "dus", "nis"):
-        p_sandhi = p[:-1] + "r" if p.endswith("s") else p
+    for p_sandhi, p_aug in _NATVA_PREFIX_PAIRS:
         if final_word.startswith(p_sandhi + "R"):
             root_start = final_word[len(p_sandhi)+1:]
-            if root_start.startswith(("and", "anand", "inand", "inind", "aw", "An", "fd", "rt", "ind", "fc", "ard", "ARand", "iRand", "aRand", "aR", "AR", "iR")):
+            if root_start.startswith(_NATVA_ROOT_STARTS):
                 final_word = p_sandhi + "n" + root_start.replace("aRand", "anand").replace("iRand", "inand").replace("ARand", "Anand").replace("aRaw", "anaw").replace("iRind", "inind").replace("aRard", "anard").replace("aRfc", "anfc").replace("aRrt", "anrt")
-        if p.endswith("i"):
-            p_aug = p[:-1] + "ya"
-        elif p.endswith("a") or p.endswith("A"):
-            p_aug = p[:-1] + "A"
-        elif p.endswith("r") or p.endswith("s"):
-            p_aug = p_sandhi + "a"
-        else:
-            p_aug = p + "a"
         if final_word.startswith(p_aug + "R"):
             root_start = final_word[len(p_aug)+1:]
-            if root_start.startswith(("and", "anand", "inand", "inind", "aw", "An", "fd", "rt", "ind", "fc", "ard", "ARand", "iRand", "aRand", "aR", "AR", "iR")):
+            if root_start.startswith(_NATVA_ROOT_STARTS):
                 final_word = p_aug + "n" + root_start.replace("aRand", "anand").replace("iRand", "inand").replace("ARand", "Anand").replace("aRaw", "anaw").replace("iRind", "inind").replace("aRard", "anard").replace("aRfc", "anfc").replace("aRrt", "anrt")
     return final_word
 

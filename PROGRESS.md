@@ -36,6 +36,11 @@ Sweeps (prefixed): fresh CSVs (10/6) show 150 fails in 04–10; **all 150 pass
   zero generation impact.
 - Perf: startup cache-load ~10s/process (2 x 5s JSON scans) dominates; derive +
   analyze are microseconds warm. Single-scan shared loader queued (halves startup).
+- Engine perf (this turn): profiled at sweep scale — generation is ~30us/derive;
+  the real hotspot is `apply_natva_prefix_aware` (13k calls, 28% of prefixed-task
+  time). Hoisted constants (`_NATVA_VAN_IDS`, `_NATVA_ALLOWED`, prefix pairs,
+  root-start tuples) + cheap `in`-gates: hotspot tottime 0.157s -> 0.076s (2x),
+  byte-identical output over 1367 prefixed forms. All 49 tests green.
 - Triage: 10.0014/0105/0028/0021/0038/0242/0190 + 06.0159 all PASS live;
   04.0162/163 correctly skipped (0/0). Gana-04 full refresh: 161/161, fid-diff
   0/0 vs HEAD (perfect hold, CSV not rewritten).
