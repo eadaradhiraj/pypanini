@@ -84,6 +84,11 @@ Generative nominal declension: 21 `sup` (4.1.2) × 8 vibhakti × 3 vacana × 3 l
 - **NipAtana**: `go/rE/nO/saKi/pati/krozwu/asTi/ap/anaQuh/puMs/div/ahan/paTin/Svan/jarA/SrI`.
 - **Pronouns/numerals**: `tad/kim/idam/adas/asmad/yuzmad/sarva/pUrva/prathama`, `dvi/tri/catur/paYcan/zaz/azwan`, `ekaSeza/pumvatBAva/satf-fem/stri` helpers.
 - **Tests**: `tests/test_subanta.py` (19) + `tests/test_subanta_full.py` (12×24 goldens, 288 forms).
+- **Scope**: declension of given prātipadikas only. Out of scope by design —
+  `samāsa` formation (compounding; only the `pati`-compound flag + `ekaSeza`
+  helper), `taddhita` secondary derivation (adhyāyas 4–5 second half),
+  full `strī-pratyaya` derivation (only a stem-mapping helper), `svara`/accent
+  (SLP1 carries no pitch), Vedic forms, and external (sentence-level) sandhi.
 
 ### 6. Search (`pypanini/search.py`)
 Morphological analyser over all three engines (SLP1 in, ranked guesses out):
