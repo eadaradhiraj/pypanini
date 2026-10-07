@@ -1,13 +1,13 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
 Date: 2026-10-07
-Subanta: **21/21 (~960 goldens)** — v1 engine + v2 gaps + full audit v4 (see instructions.MD).
-  Commits: 3882dcd (v1) → f693f6f (v2) → c60f307 (audit 288) → 727ed31 (showcase+stri) → 1851ba2 (audit ~960).
-  Tests: test_subanta (19 incl. pipeline via test_krdanta_subanta) + test_subanta_full (GOLDENS/GOLDENS2/GOLDENS3).
-Verbs: 01.0015–01.0100 all 100% (86 consecutive; +01.0081–01.0100 20/20 green).
+Subanta: **21/21 (~2000 goldens)** — v1 engine + v2 gaps + audits v4–v7 (see instructions.MD).
+  Commits: 3882dcd (v1) → f693f6f (v2) → c60f307 (288) → 727ed31 (showcase+stri) → 1851ba2 (~960) → ea9b86f → 84caf7d → f21ef2a (yad/etad).
+  Tests: test_subanta + test_subanta_full (GOLDENS–GOLDENS7) + test_krdanta_subanta pipeline.
+Verbs: 01.0015–01.0120 all 100% (106 consecutive; +01.0101–01.0120 20/20 green).
 Ganas 02–10 spot-check: first dhātu of each green (02.0001 626 → 10.0001 634, all 100%).
-Gana 02 full sweep (77 files) running.
 Gana 02 result: 76/76 scored green + 1 skipped-dataless (02.0076 ganasutra, unscored 0/0).
+Gana 03 full sweep (26 files) running.
 Sweep-01: **1156/1156 100%** — held, fid-diff 0/0.
 Sweep-02: **76/76 zero-miss** — held.
 Sweep-03: **26/26 100%** — held. Sweep-05: **38/38 100%** — held.
