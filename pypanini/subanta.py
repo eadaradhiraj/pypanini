@@ -696,6 +696,9 @@ class SubantaEngine:
             kind = "agent"
         b = stem[:-1]
         strong = key in SARVANAMASTHANA
+        # neuter Nom/Acc sg is the bare stem (kartf)
+        if linga == "napuMsaka" and (vib, vac) in ((1, "eka"), (2, "eka")):
+            return self._fin(stem)
         if strong:
             if (vib, vac) == (1, "eka"):
                 return self._fin(b + "A")
@@ -748,14 +751,16 @@ class SubantaEngine:
         # an/in stems
         if stem.endswith("an"):
             return self._an_stem(stem, s, sup, key, linga, extra)
+        # -vat (ktavatu/Bavat) before generic -at: same outputs, right stem.
+        # satf-extra forces the short-ant paradigm (participles, not pronouns)
+        if (stem.endswith("vat") and not extra.get("satf")) or extra.get("ktavatu"):
+            return self._vat_stem(stem, s, sup, key, linga)
         if stem.endswith(("at", "ant")) or extra.get("Satf") or stem in ("Bavat", "mahat", "jagat"):
             return self._at_stem(stem, s, sup, key, linga, extra)
         if stem.endswith(("in",)) and len(stem) > 2 and stem not in ("paTin",):
             return self._in_stem(stem, s, sup, key, linga)
         if stem.endswith(("vas", "vAMs", "uz")) or extra.get("kvasu"):
-            return self._vas_stem(stem, s, sup, key, linga)
-        if stem.endswith(("vat", "tavat")) or extra.get("ktavatu"):
-            return self._vat_stem(stem, s, sup, key, linga)
+            return self._vas_stem(stem, s, sup, key, linga, extra)
         if stem.endswith(("as", "is", "us")):
             return self._as_stem(stem, s, sup, key, linga, extra)
         if stem.endswith(("Iyas",)):
