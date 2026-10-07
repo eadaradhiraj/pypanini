@@ -1,141 +1,141 @@
 fid,matched,total,pct,secs,misses,skipped
-05.0001:AN,838,882,95.0,1.5,yang/laN/prathama/eka:AsozUyata | yang/laN/prathama/bahu:AsozUyanta | yang/laN/madhyama/eka:AsozUyaTAH | yang/laN/uttama/dvi:AsozUyAvahi | yang/laN/uttama/bahu:AsozUyAmahi,10
-05.0001:aBi,814,882,92.3,0.5,ting/luN/prathama/eka:aByasavzIt | ting/luN/prathama/dvi:aByasuzizwAm | ting/luN/prathama/bahu:aByasavzuH | ting/luN/madhyama/eka:aByasavzIH | ting/luN/madhyama/dvi:aByasutam,10
-05.0001:aBi;sam,828,882,93.9,2.2,yang/laN/prathama/eka:aBisamasozUyata | yang/laN/prathama/dvi:aBisamasozUyetAm | yang/laN/prathama/bahu:aBisamasozUyanta | yang/laN/madhyama/eka:aBisamasozUyaTAH | yang/laN/madhyama/dvi:aBisamasozUyeTAm,10
-05.0001:pra,828,882,93.9,1.8,yang/laN/prathama/eka:prAsozUyata | yang/laN/prathama/dvi:prAsozUyetAm | yang/laN/prathama/bahu:prAsozUyanta | yang/laN/madhyama/eka:prAsozUyaTAH | yang/laN/madhyama/dvi:prAsozUyeTAm,10
-05.0001:sam,828,882,93.9,2.6,yang/laN/prathama/eka:samasozUyata | yang/laN/prathama/dvi:samasozUyetAm | yang/laN/prathama/bahu:samasozUyanta | yang/laN/madhyama/eka:samasozUyaTAH | yang/laN/madhyama/dvi:samasozUyeTAm,10
-05.0002:aBi,828,882,93.9,2.8,yang/laN/prathama/eka:aByasezIyata | yang/laN/prathama/dvi:aByasezIyetAm | yang/laN/prathama/bahu:aByasezIyanta | yang/laN/madhyama/eka:aByasezIyaTAH | yang/laN/madhyama/dvi:aByasezIyeTAm,10
-05.0002:anu;vi,828,882,93.9,1.1,yang/laN/prathama/eka:anuvyasezIyata | yang/laN/prathama/dvi:anuvyasezIyetAm | yang/laN/prathama/bahu:anuvyasezIyanta | yang/laN/madhyama/eka:anuvyasezIyaTAH | yang/laN/madhyama/dvi:anuvyasezIyeTAm,10
-05.0002:pra,828,882,93.9,0.9,yang/laN/prathama/eka:prAsezIyata | yang/laN/prathama/dvi:prAsezIyetAm | yang/laN/prathama/bahu:prAsezIyanta | yang/laN/madhyama/eka:prAsezIyaTAH | yang/laN/madhyama/dvi:prAsezIyeTAm,10
-05.0002:ud,828,882,93.9,2.7,yang/laN/prathama/eka:udasezIyata | yang/laN/prathama/dvi:udasezIyetAm | yang/laN/prathama/bahu:udasezIyanta | yang/laN/madhyama/eka:udasezIyaTAH | yang/laN/madhyama/dvi:udasezIyeTAm,10
-05.0002:vi,828,882,93.9,2.9,yang/laN/prathama/eka:vyasezIyata | yang/laN/prathama/dvi:vyasezIyetAm | yang/laN/prathama/bahu:vyasezIyanta | yang/laN/madhyama/eka:vyasezIyaTAH | yang/laN/madhyama/dvi:vyasezIyeTAm,10
-05.0004:dur;ni,894,894,100.0,2.8,,16
-05.0004:ni,894,894,100.0,2.8,,16
-05.0004:sam,894,894,100.0,2.7,,16
-05.0004:ud,894,894,100.0,2.8,,16
-05.0004:vi,894,894,100.0,2.9,,16
-05.0005:AN,883,883,100.0,2.4,,9
-05.0005:aBi;ud,883,883,100.0,2.7,,9
-05.0005:apa,883,883,100.0,2.6,,9
-05.0005:ava,883,883,100.0,2.7,,9
-05.0005:ava;AN,883,883,100.0,2.8,,9
-05.0005:ni,883,883,100.0,2.8,,9
-05.0005:nir,883,883,100.0,3.0,,9
-05.0005:pari,883,883,100.0,2.9,,9
-05.0005:pra,883,883,100.0,2.9,,9
-05.0005:prati,883,883,100.0,2.8,,9
-05.0005:sam,883,883,100.0,2.9,,9
-05.0005:sam;aBi;ud,883,883,100.0,2.9,,9
-05.0005:sam;ava,883,883,100.0,2.9,,9
-05.0005:ud,883,883,100.0,3.0,,9
-05.0005:upa,883,883,100.0,2.8,,9
-05.0005:vi,883,883,100.0,3.1,,9
-05.0005:vi;nir,883,883,100.0,3.8,,9
-05.0006:AN,880,880,100.0,2.6,,12
-05.0006:pra,880,880,100.0,3.2,,12
-05.0006:sam,880,880,100.0,2.5,,12
-05.0006:vi,880,880,100.0,3.2,,12
-05.0008:A,879,879,100.0,5.3,,13
-05.0008:AN,879,879,100.0,4.5,,13
-05.0008:aBi,879,879,100.0,4.3,,13
-05.0008:aBi;AN,879,879,100.0,2.2,,13
-05.0008:apa,879,879,100.0,2.2,,13
-05.0008:apa;AN,879,879,100.0,4.4,,13
-05.0008:api,879,879,100.0,3.4,,13
-05.0008:ni,880,880,100.0,4.2,,12
-05.0008:nir,879,879,100.0,3.9,,13
-05.0008:pari,879,879,100.0,3.9,,13
-05.0008:pari;AN,879,879,100.0,4.1,,13
-05.0008:pra;AN,879,879,100.0,4.0,,13
-05.0008:sam,879,879,100.0,4.4,,13
-05.0008:sam;A,879,879,100.0,2.5,,13
-05.0008:ud,879,879,100.0,3.9,,13
-05.0008:vi,879,879,100.0,4.3,,13
-05.0008:vi;AN,879,879,100.0,3.4,,13
-05.0008:vi;ni,880,880,100.0,3.9,,12
-05.0009:ni,882,882,100.0,3.7,,10
-05.0009:ud,882,882,100.0,3.0,,10
-05.0009:vi,882,882,100.0,4.4,,10
-05.0009:vi;AN,882,882,100.0,3.6,,10
-05.0010:AN,882,882,100.0,2.4,,10
-05.0010:ava,882,882,100.0,2.8,,10
-05.0010:sam;ud,882,882,100.0,3.1,,10
-05.0010:vi,882,882,100.0,2.4,,10
-05.0010:vi;ava,882,882,100.0,2.9,,10
-05.0010:vi;nis,882,882,100.0,3.0,,10
-05.0011:AN,876,876,100.0,2.9,,16
-05.0011:vi,876,876,100.0,3.1,,16
-05.0012:AN,876,876,100.0,2.4,,16
-05.0012:apa,876,876,100.0,3.1,,16
-05.0012:ati,876,876,100.0,2.1,,16
-05.0012:pra,876,876,100.0,3.0,,16
-05.0012:prati;pra,876,876,100.0,2.3,,16
-05.0012:sam,876,876,100.0,2.9,,16
-05.0012:upa;AN,876,876,100.0,2.5,,16
-05.0012:upa;pra,876,876,100.0,2.6,,16
-05.0014:AN,874,874,100.0,2.7,,18
-05.0016:aBi,623,623,100.0,2.8,,13
-05.0016:aBi;AN,623,623,100.0,2.8,,13
-05.0016:aBi;vi,623,623,100.0,2.0,,13
-05.0016:anu,623,623,100.0,2.5,,13
-05.0016:anu;sam;pra,620,623,99.5,1.8,"krut/Satf/M:['anusamprApRuvan', 'anusaMprApRuvan'] | krut/Satf/F:['anusamprApRuvatI', 'anusaMprApRuvatI'] | krut/Satf/N:['anusamprApRuvat', 'anusamprApRuvad', 'anusaMprApRuvat', 'anusaMprApRuvad']",13
-05.0016:ati,623,623,100.0,2.2,,13
-05.0016:ati;vi,623,623,100.0,1.8,,13
-05.0016:ava,623,623,100.0,1.7,,13
-05.0016:dus;pra,620,623,99.5,1.7,"krut/Satf/M:duzprApRuvan | krut/Satf/F:duzprApRuvatI | krut/Satf/N:['duzprApRuvat', 'duzprApRuvad']",13
-05.0016:pari,620,623,99.5,1.7,"krut/Satf/M:paryApRuvan | krut/Satf/F:paryApRuvatI | krut/Satf/N:['paryApRuvat', 'paryApRuvad']",13
-05.0016:pari;AN,620,623,99.5,2.0,"krut/Satf/M:paryApRuvan | krut/Satf/F:paryApRuvatI | krut/Satf/N:['paryApRuvat', 'paryApRuvad']",13
-05.0016:pari;pra,620,623,99.5,1.6,"krut/Satf/M:pariprApRuvan | krut/Satf/F:pariprApRuvatI | krut/Satf/N:['pariprApRuvat', 'pariprApRuvad']",13
-05.0016:pari;sam,623,623,100.0,1.3,,13
-05.0016:pari;vi,620,623,99.5,1.5,"krut/Satf/M:parivyApRuvan | krut/Satf/F:parivyApRuvatI | krut/Satf/N:['parivyApRuvat', 'parivyApRuvad']",13
-05.0016:pra,620,623,99.5,1.6,"krut/Satf/M:prApRuvan | krut/Satf/F:prApRuvatI | krut/Satf/N:['prApRuvat', 'prApRuvad']",13
-05.0016:sam,623,623,100.0,1.6,,13
-05.0016:sam;aBi;sam;pra,620,623,99.5,1.6,"krut/Satf/M:['samaBisamprApRuvan', 'samaBisaMprApRuvan'] | krut/Satf/F:['samaBisamprApRuvatI', 'samaBisaMprApRuvatI'] | krut/Satf/N:['samaBisamprApRuvat', 'samaBisamprApRuvad', 'samaBisaMprApRuvat', 'samaBisaMprApRuvad']",13
-05.0016:sam;anu,623,623,100.0,1.8,,13
-05.0016:sam;pari,620,623,99.5,1.8,"krut/Satf/M:['samparyApRuvan', 'saMparyApRuvan'] | krut/Satf/F:['samparyApRuvatI', 'saMparyApRuvatI'] | krut/Satf/N:['samparyApRuvat', 'samparyApRuvad', 'saMparyApRuvat', 'saMparyApRuvad']",13
-05.0016:sam;pra,620,623,99.5,1.4,"krut/Satf/M:['samprApRuvan', 'saMprApRuvan'] | krut/Satf/F:['samprApRuvatI', 'saMprApRuvatI'] | krut/Satf/N:['samprApRuvat', 'samprApRuvad', 'saMprApRuvat', 'saMprApRuvad']",13
-05.0016:sam;vi,623,623,100.0,2.0,,13
-05.0016:ud,623,623,100.0,1.4,,13
-05.0016:upa,623,623,100.0,1.8,,13
-05.0016:upa;sam,623,623,100.0,1.2,,13
-05.0016:upa;sam;pra,620,623,99.5,1.6,"krut/Satf/M:['upasamprApRuvan', 'upasaMprApRuvan'] | krut/Satf/F:['upasamprApRuvatI', 'upasaMprApRuvatI'] | krut/Satf/N:['upasamprApRuvat', 'upasamprApRuvad', 'upasaMprApRuvat', 'upasaMprApRuvad']",13
-05.0016:vi,623,623,100.0,1.9,,13
-05.0016:vi;AN,623,623,100.0,1.4,,13
-05.0016:vi;pra,620,623,99.5,1.8,"krut/Satf/M:viprApRuvan | krut/Satf/F:viprApRuvatI | krut/Satf/N:['viprApRuvat', 'viprApRuvad']",13
-05.0016:vi;sam,623,623,100.0,1.2,,13
-05.0017:AN,877,877,100.0,1.7,,15
-05.0017:prati,877,877,100.0,2.4,,15
-05.0017:sam,877,877,100.0,2.0,,15
-05.0017:upa,877,877,100.0,1.6,,15
-05.0018:A,874,874,100.0,2.1,,18
-05.0018:AN,874,874,100.0,2.2,,18
-05.0018:aBi,874,874,100.0,2.4,,18
-05.0018:apa,874,874,100.0,2.5,,18
-05.0018:ava,874,874,100.0,2.4,,18
-05.0018:prati,874,874,100.0,2.3,,18
-05.0018:sam,874,874,100.0,2.4,,18
-05.0018:vi,874,874,100.0,2.5,,18
-05.0019:pra,874,874,100.0,2.5,,18
-05.0019:sam,874,874,100.0,2.5,,18
-05.0020:aBi,871,871,100.0,3.0,,12
-05.0020:aBi;AN,871,871,100.0,3.1,,12
-05.0020:pra,871,871,100.0,1.8,,12
-05.0020:sam,871,871,100.0,1.8,,12
-05.0020:ud,871,871,100.0,2.5,,12
-05.0020:upa,871,871,100.0,3.1,,12
-05.0020:vi,871,871,100.0,2.2,,12
-05.0025:AN,874,874,100.0,2.2,,18
-05.0025:aBi,874,874,100.0,2.9,,18
-05.0025:pra,874,874,100.0,2.6,,18
-05.0025:upa,874,874,100.0,2.7,,18
-05.0027:sam,623,623,100.0,2.6,,13
-05.0027:upa,623,623,100.0,3.1,,13
-05.0027:vi,623,623,100.0,2.2,,13
-05.0028:AN,871,874,99.7,2.2,"krut/Satf/M:AtfpRuvan | krut/Satf/F:AtfpRuvatI | krut/Satf/N:['AtfpRuvat', 'AtfpRuvad']",18
-05.0028:apa,871,874,99.7,3.1,"krut/Satf/M:apatfpRuvan | krut/Satf/F:apatfpRuvatI | krut/Satf/N:['apatfpRuvat', 'apatfpRuvad']",18
-05.0028:ni,871,874,99.7,1.8,"krut/Satf/M:nitfpRuvan | krut/Satf/F:nitfpRuvatI | krut/Satf/N:['nitfpRuvat', 'nitfpRuvad']",18
-05.0028:sam,871,874,99.7,2.1,"krut/Satf/M:santfpRuvan | krut/Satf/F:santfpRuvatI | krut/Satf/N:['santfpRuvat', 'santfpRuvad']",18
-05.0028:vi,871,874,99.7,2.9,"krut/Satf/M:vitfpRuvan | krut/Satf/F:vitfpRuvatI | krut/Satf/N:['vitfpRuvat', 'vitfpRuvad']",18
-05.0031:AN,838,874,95.9,2.3,"ting/lw/prathama/eka:Acamnoti | ting/lw/prathama/dvi:AcamnutaH | ting/lw/prathama/bahu:Acamnuvanti | ting/lw/madhyama/eka:Acamnozi | ting/lw/madhyama/dvi:AcamnuTaH | krut/Satf/M:Acamnuvan | krut/Satf/F:AcamnuvatI | krut/Satf/N:['Acamnuvat', 'Acamnuvad']",18
-05.0033:ava,876,876,100.0,2.6,,16
-05.0033:vi,876,876,100.0,2.4,,16
+05.0001:AN,882,882,100.0,0.2,,10
+05.0001:aBi,882,882,100.0,1.6,,10
+05.0001:aBi;sam,882,882,100.0,1.6,,10
+05.0001:pra,882,882,100.0,1.3,,10
+05.0001:sam,882,882,100.0,1.9,,10
+05.0002:aBi,882,882,100.0,1.2,,10
+05.0002:anu;vi,882,882,100.0,1.7,,10
+05.0002:pra,882,882,100.0,1.1,,10
+05.0002:ud,882,882,100.0,1.8,,10
+05.0002:vi,882,882,100.0,2.2,,10
+05.0004:dur;ni,894,894,100.0,2.0,,16
+05.0004:ni,894,894,100.0,1.1,,16
+05.0004:sam,894,894,100.0,1.2,,16
+05.0004:ud,894,894,100.0,1.8,,16
+05.0004:vi,894,894,100.0,1.8,,16
+05.0005:AN,883,883,100.0,0.9,,9
+05.0005:aBi;ud,883,883,100.0,2.0,,9
+05.0005:apa,883,883,100.0,2.4,,9
+05.0005:ava,883,883,100.0,1.1,,9
+05.0005:ava;AN,883,883,100.0,1.4,,9
+05.0005:ni,883,883,100.0,2.0,,9
+05.0005:nir,883,883,100.0,2.1,,9
+05.0005:pari,883,883,100.0,1.4,,9
+05.0005:pra,883,883,100.0,1.8,,9
+05.0005:prati,883,883,100.0,1.7,,9
+05.0005:sam,883,883,100.0,2.4,,9
+05.0005:sam;aBi;ud,883,883,100.0,1.8,,9
+05.0005:sam;ava,883,883,100.0,2.3,,9
+05.0005:ud,883,883,100.0,2.5,,9
+05.0005:upa,883,883,100.0,1.9,,9
+05.0005:vi,883,883,100.0,2.5,,9
+05.0005:vi;nir,883,883,100.0,2.8,,9
+05.0006:AN,880,880,100.0,1.5,,12
+05.0006:pra,880,880,100.0,1.6,,12
+05.0006:sam,880,880,100.0,2.4,,12
+05.0006:vi,880,880,100.0,2.4,,12
+05.0008:A,879,879,100.0,2.8,,13
+05.0008:AN,879,879,100.0,1.3,,13
+05.0008:aBi,879,879,100.0,3.0,,13
+05.0008:aBi;AN,879,879,100.0,2.4,,13
+05.0008:apa,879,879,100.0,2.1,,13
+05.0008:apa;AN,879,879,100.0,2.9,,13
+05.0008:api,879,879,100.0,2.2,,13
+05.0008:ni,880,880,100.0,3.5,,12
+05.0008:nir,879,879,100.0,2.5,,13
+05.0008:pari,879,879,100.0,3.7,,13
+05.0008:pari;AN,879,879,100.0,2.3,,13
+05.0008:pra;AN,879,879,100.0,2.4,,13
+05.0008:sam,879,879,100.0,3.3,,13
+05.0008:sam;A,879,879,100.0,2.7,,13
+05.0008:ud,879,879,100.0,2.7,,13
+05.0008:vi,879,879,100.0,3.5,,13
+05.0008:vi;AN,879,879,100.0,2.0,,13
+05.0008:vi;ni,880,880,100.0,3.2,,12
+05.0009:ni,882,882,100.0,3.1,,10
+05.0009:ud,882,882,100.0,0.6,,10
+05.0009:vi,882,882,100.0,2.7,,10
+05.0009:vi;AN,882,882,100.0,2.5,,10
+05.0010:AN,882,882,100.0,2.6,,10
+05.0010:ava,882,882,100.0,1.5,,10
+05.0010:sam;ud,882,882,100.0,2.2,,10
+05.0010:vi,882,882,100.0,1.7,,10
+05.0010:vi;ava,882,882,100.0,1.2,,10
+05.0010:vi;nis,882,882,100.0,1.9,,10
+05.0011:AN,876,876,100.0,1.6,,16
+05.0011:vi,876,876,100.0,1.5,,16
+05.0012:AN,876,876,100.0,1.7,,16
+05.0012:apa,876,876,100.0,1.4,,16
+05.0012:ati,876,876,100.0,1.7,,16
+05.0012:pra,876,876,100.0,1.7,,16
+05.0012:prati;pra,876,876,100.0,2.1,,16
+05.0012:sam,876,876,100.0,2.3,,16
+05.0012:upa;AN,876,876,100.0,2.0,,16
+05.0012:upa;pra,876,876,100.0,1.7,,16
+05.0014:AN,874,874,100.0,2.1,,18
+05.0016:aBi,623,623,100.0,1.7,,13
+05.0016:aBi;AN,623,623,100.0,0.9,,13
+05.0016:aBi;vi,623,623,100.0,1.8,,13
+05.0016:anu,623,623,100.0,1.4,,13
+05.0016:anu;sam;pra,623,623,100.0,1.2,,13
+05.0016:ati,623,623,100.0,1.3,,13
+05.0016:ati;vi,623,623,100.0,0.7,,13
+05.0016:ava,623,623,100.0,0.5,,13
+05.0016:dus;pra,623,623,100.0,1.2,,13
+05.0016:pari,623,623,100.0,0.9,,13
+05.0016:pari;AN,623,623,100.0,1.3,,13
+05.0016:pari;pra,623,623,100.0,1.0,,13
+05.0016:pari;sam,623,623,100.0,1.1,,13
+05.0016:pari;vi,623,623,100.0,1.3,,13
+05.0016:pra,623,623,100.0,1.0,,13
+05.0016:sam,623,623,100.0,0.8,,13
+05.0016:sam;aBi;sam;pra,623,623,100.0,1.1,,13
+05.0016:sam;anu,623,623,100.0,1.1,,13
+05.0016:sam;pari,623,623,100.0,1.2,,13
+05.0016:sam;pra,623,623,100.0,1.1,,13
+05.0016:sam;vi,623,623,100.0,0.9,,13
+05.0016:ud,623,623,100.0,1.2,,13
+05.0016:upa,623,623,100.0,1.1,,13
+05.0016:upa;sam,623,623,100.0,1.3,,13
+05.0016:upa;sam;pra,623,623,100.0,0.9,,13
+05.0016:vi,623,623,100.0,1.1,,13
+05.0016:vi;AN,623,623,100.0,1.1,,13
+05.0016:vi;pra,623,623,100.0,1.1,,13
+05.0016:vi;sam,623,623,100.0,1.6,,13
+05.0017:AN,877,877,100.0,1.1,,15
+05.0017:prati,877,877,100.0,1.3,,15
+05.0017:sam,877,877,100.0,0.9,,15
+05.0017:upa,877,877,100.0,1.2,,15
+05.0018:A,874,874,100.0,1.4,,18
+05.0018:AN,874,874,100.0,1.7,,18
+05.0018:aBi,874,874,100.0,1.9,,18
+05.0018:apa,874,874,100.0,1.2,,18
+05.0018:ava,874,874,100.0,1.4,,18
+05.0018:prati,874,874,100.0,1.5,,18
+05.0018:sam,874,874,100.0,1.7,,18
+05.0018:vi,874,874,100.0,2.1,,18
+05.0019:pra,874,874,100.0,1.7,,18
+05.0019:sam,874,874,100.0,1.3,,18
+05.0020:aBi,871,871,100.0,2.1,,12
+05.0020:aBi;AN,871,871,100.0,1.7,,12
+05.0020:pra,871,871,100.0,1.9,,12
+05.0020:sam,871,871,100.0,1.2,,12
+05.0020:ud,871,871,100.0,1.7,,12
+05.0020:upa,871,871,100.0,1.7,,12
+05.0020:vi,871,871,100.0,1.5,,12
+05.0025:AN,874,874,100.0,2.1,,18
+05.0025:aBi,874,874,100.0,1.6,,18
+05.0025:pra,874,874,100.0,1.3,,18
+05.0025:upa,874,874,100.0,1.8,,18
+05.0027:sam,623,623,100.0,1.6,,13
+05.0027:upa,623,623,100.0,1.9,,13
+05.0027:vi,623,623,100.0,1.4,,13
+05.0028:AN,874,874,100.0,1.3,,18
+05.0028:apa,874,874,100.0,1.5,,18
+05.0028:ni,874,874,100.0,1.7,,18
+05.0028:sam,874,874,100.0,1.6,,18
+05.0028:vi,874,874,100.0,1.8,,18
+05.0031:AN,874,874,100.0,1.5,,18
+05.0033:ava,876,876,100.0,1.9,,16
+05.0033:vi,876,876,100.0,1.7,,16

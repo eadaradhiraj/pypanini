@@ -8,14 +8,12 @@ Search: **10/10 + round-trip perfect** — `pypanini/search.py` (subanta/krdanta
 Lint: **strict gate green** (`tests.test_lint` 2/2); F-class smells removed from helpers
   (test_dhatu dead accumulators, sweep_gana/sweep_upasargas_fast/test_gana05 unused imports).
   Engines stay grandfathered (tinanta ~1925 + krdanta ~1290 E501s, deliberate per test_lint.py).
-Sweeps (unprefixed, tests/sweep_*_fresh.csv 2026-10-06): **100% all ganas**
+Sweeps (unprefixed, regenerated 2026-10-07): **2229/2229 100% all ganas**
   (01:1156/1156, 02:76/76, 03:26/26, 04:161/161, 05:38/38,
-  06:174/174, 07:25/25, 08:10/10, 09:71/71, 10:492/492).
-Sweeps (prefixed): fresh CSVs (10/6) show 150 fails in 04–10; **all 150 pass
-  on live tree** (revalidated 2026-10-07 via sweep_upasargas_fast --tasks,
-  Total: 126178/126178 100.00%) + 32/32 pass-sample green, 0 regressions.
-  Prefixed CSVs are stale — full refresh queued for the loop driver (not run here;
-  full prefixed-01 alone exceeds 10 min; LOOP.md hygiene: one driver only).
+  06:174/174, 07:25/25, 08:10/10, 09:71/71, 10:492/492; 30 skipped-dataless).
+Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
+  4146964/4146964 tokens 100%** (01:2198, 02:522, 03:198, 04:511, 05:140,
+  06:501, 07:160, 08:67, 09:240, 10:323). Fid-diff vs HEAD: 150 up, 0 worsened.
 
 ## Done — this session (cleanup + determinism + search, zero behavior drift in scoring)
 - ResourceWarning fixes: `json.load(open(...))` → `with open(...)` in tinanta/krdanta
@@ -49,8 +47,8 @@ Sweeps (prefixed): fresh CSVs (10/6) show 150 fails in 04–10; **all 150 pass
 - Full gate green: lint 2/2 + search/subanta/krdanta/dhatu suites (43 + 4 tests) OK.
 
 ## Next
-1. Loop driver: full unprefixed + prefixed CSV refresh (all ganas) + fid-diff gate
-   vs HEAD; rebuild STATS.md numbers from that sweep output only.
+1. Loop driver: sweeps are freshly green (2026-10-07 refresh above); next engine
+   change re-runs the same two commands + fid-diff gate before commit.
 2. Gana-10 residuals + gana-04 ceiling audit per prior landscape (now unblocked:
    unprefixed already 100% in fresh CSVs; prefixed fails clear on live tree).
    Queued irregulars: sad Asad-suppletion (Asanna/Asatta/AsIda), ci-cap extras.
