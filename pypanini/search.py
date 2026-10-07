@@ -933,6 +933,13 @@ _TIN_A: List[tuple] = [
     ("i", "liw", "uttama", "eka"), ("vahe", "liw", "uttama", "dvi"),
     ("mahe", "liw", "uttama", "bahu"),
 ]
+# t/d voicing twins (BavatAt/BavatAd, aBavat/aBavad: final -t voices to -d;
+# JSON finals show exact t/d symmetry, 4432/4432, with no D-forms, so only
+# dental twins are added, sharing the base ending's slot)
+for _t, _pada in ((_TIN_P, None), (_TIN_A, None)):
+    for (_end, _lak, _pur, _vac) in list(_t):
+        if _end.endswith("t"):
+            _t.append((_end[:-1] + "d", _lak, _pur, _vac))
 
 
 def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
@@ -1067,6 +1074,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             ("yAstam", "madhyama", "dvi"), ("yAsta", "madhyama", "bahu"),
             ("yAsam", "uttama", "eka"), ("yAsva", "uttama", "dvi"),
             ("yAsma", "uttama", "bahu"), ("yAt", "prathama", "eka"),
+            ("yAd", "prathama", "eka"),
             ("yAH", "madhyama", "eka")]
     # ASIrliN Atmanepada s-forms (-sIy-): vedizIzwa, vedizIran (+z twins)
     for _suf, _pur, _vac in _ASI:
@@ -1119,8 +1127,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
     # root aorist aBUt. Endings carry their OWN slots (dual -tAm etc.
     # differ from laN); Atmanepada twins ride along.
     _LUN_ENDS = ["It", "TAm", "uH", "IH", "Tam", "ta", "izam", "Ava",
-                 "Ama", "t", "tAm", "an", "am", "Am", "Im", "Um", "va", "ma",
-                 "s", "a", "tam", "ad", "wam", "Id", "H", "sva", "sma"]
+                 "Ama", "t", "d", "tAm", "an", "am", "Am", "Im", "Um", "va",
+                 "ma", "s", "a", "tam", "ad", "wam", "Id", "H", "sva", "sma"]
     # Atmanepada aorist twins (gam Atm: agAMsTAm, agAMsizwa...)
     _LUN_ATM = ["zwA", "zwa", "zuH", "wAm", "zWAH", "zWam", "Dvam",
                 "zi", "zvahi", "zmahi", "AtAm", "TAm", "swa"]
@@ -1136,6 +1144,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
         "Ava": [("uttama", "dvi", "parasmaipada")],
         "Ama": [("uttama", "bahu", "parasmaipada")],
         "t": [("prathama", "eka", "parasmaipada")],
+        "d": [("prathama", "eka", "parasmaipada")],
         "tAm": [("prathama", "dvi", "parasmaipada")],
         "an": [("prathama", "bahu", "parasmaipada")],
         "am": [("uttama", "eka", "parasmaipada")],
@@ -1287,11 +1296,21 @@ def _verify_tin(word: str, dhatu: str, lak: str, pur: str, vac: str,
         if _TIN_ENG is None:
             from .tinanta import TinantaDerivationEngine
             _TIN_ENG = TinantaDerivationEngine()
-        _cands, _log = _TIN_ENG.derive(
-            dhatu, lak, pur, vac,
-            prayoga=prayoga or "kartari", sanadi=sanadi, dhatu_id=dhatu_id,
-            upasarga=upasarga)
-        return word in _cands
+
+        def _gen(_w: str) -> bool:
+            _cands, _log = _TIN_ENG.derive(
+                dhatu, lak, pur, vac,
+                prayoga=prayoga or "kartari", sanadi=sanadi, dhatu_id=dhatu_id,
+                upasarga=upasarga)
+            return _w in _cands
+
+        if _gen(word):
+            return True
+        # t/d voicing twins (BavatAd <- BavatAt): the engine emits -t, so
+        # confirm a -d surface against its -t twin (same formation)
+        if word.endswith("d"):
+            return _gen(word[:-1] + "t")
+        return False
     except Exception:
         return True  # engine gap: never punish on errors
 
@@ -1322,7 +1341,14 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         _ah = _lookup_root(_ab)
                         if _ah is not None and _ah[0] != _hit[0]:
                             if _ah[0] not in [h[0] for h in _extra_hits]:
-                                _extra_hits.append(_ah)
+                                _extra_hits.append((_ah[0], _ah[1], "abhyasa"))
+                    # also keep desiderative twin (buBUzati is BUz + BU:
+                    # exact lookup finds only the san-shaped root BUz)
+                    for _sn in _san_reverse(_cand):
+                        _sh = _lookup_root(_sn)
+                        if _sh is not None and _sh[0] != _hit[0]:
+                            if _sh[0] not in [h[0] for h in _extra_hits]:
+                                _extra_hits.append((_sh[0], _sh[1], "san"))
                     break
                 # class-3 reduplicated stems (dadA/juhu/biBar + ti)
                 for _ab in _abhyasa_reverse(_cand):
@@ -1331,6 +1357,13 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         _via_extra = "abhyasa"
                         break
                 if _hit is not None:
+                    # primary came via abhyasa (buBUz -> BUz): san twins
+                    # (buBUz -> BU) still count as extra readings
+                    for _sn in _san_reverse(_cand):
+                        _sh = _lookup_root(_sn)
+                        if _sh is not None and _sh[0] != _hit[0]:
+                            if _sh[0] not in [h[0] for h in _extra_hits]:
+                                _extra_hits.append((_sh[0], _sh[1], "san"))
                     break
                 # desiderative stems (ditsa/vividiza + ti)
                 for _sn in _san_reverse(_cand):
@@ -1339,6 +1372,12 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         _via_extra = "san"
                         break
                 if _hit is not None:
+                    # primary came via san: abhyasa twins still count
+                    for _ab in _abhyasa_reverse(_cand):
+                        _ah = _lookup_root(_ab)
+                        if _ah is not None and _ah[0] != _hit[0]:
+                            if _ah[0] not in [h[0] for h in _extra_hits]:
+                                _extra_hits.append((_ah[0], _ah[1], "abhyasa"))
                     break
                 # viDiliN e-grade of A-final roots (det <- dA: the ending
                 # table segments d+et, swallowing the stem vowel, while
@@ -1432,7 +1471,7 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                            "confidence": 0.7, "ending": _end}
                     _ed.update(_root_details(_em))
                     _ed["pada"] = _pada
-                    _ed["note"] = f"root via abhyasa from stem '{_core}'"
+                    _ed["note"] = f"root via {_evia} from stem '{_core}'"
                     if _no_aug:
                         _ed["confidence"] *= 0.6
                         _ed["note"] += "; augment a- missing"
@@ -1440,7 +1479,9 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         _ed["upasarga"] = upasarga
                     _eids = _ed.get("ids") or [None]
                     _eok = _verify_tin(word, _ert, _lak, _pur, _vac,
-                                       "kartari", None, _eids[0], upasarga)
+                                       "kartari",
+                                       "sannanta" if _evia == "san" else None,
+                                       _eids[0], upasarga)
                     if not _eok:
                         _ed["confidence"] = max(0.1, _ed["confidence"] * 0.5)
                         _ed["note"] += "; unverified"
@@ -1455,7 +1496,7 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                            "confidence": 0.7, "ending": _end}
                     _ed.update(_root_details(_em))
                     _ed["pada"] = _pada
-                    _ed["note"] = f"root via abhyasa from stem '{_core}'"
+                    _ed["note"] = f"root via {_evia} from stem '{_core}'"
                     if _no_aug:
                         _ed["confidence"] *= 0.6
                         _ed["note"] += "; augment a- missing"
@@ -1463,7 +1504,9 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         _ed["upasarga"] = upasarga
                     _eids = _ed.get("ids") or [None]
                     _eok = _verify_tin(word, _ert, _lak, _pur, _vac,
-                                       "kartari", None, _eids[0], upasarga)
+                                       "kartari",
+                                       "sannanta" if _evia == "san" else None,
+                                       _eids[0], upasarga)
                     if not _eok:
                         _ed["confidence"] = max(0.1, _ed["confidence"] * 0.5)
                         _ed["note"] += "; unverified"

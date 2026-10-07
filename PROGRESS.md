@@ -48,6 +48,11 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   + values) vs pre-change pickle. Dropped now-unused `glob` imports.
 - CI (this turn): `.github/workflows/ci.yml` runs lint gate + 49-test gate on
   push/PR (sweeps stay loop-driver: too slow for CI).
+- JSON->analyze audit (this turn, 20 fids x ting/yak/san/nich/yang, 5220 forms):
+  root+lakara 33.9% -> 38.2% (+d-twin endings et/d/tAd/yAd/luN-d, san twin
+  emission incl. abhyasa-primary branch, sanadi-aware twin verify, t-twin
+  verify fallback). Remainder: periphrastic multi-pada liT (design boundary)
+  + per-root san/nich stem variety (open grammar work). Round-trips perfect.
 - Triage: 10.0014/0105/0028/0021/0038/0242/0190 + 06.0159 all PASS live;
   04.0162/163 correctly skipped (0/0). Gana-04 full refresh: 161/161, fid-diff
   0/0 vs HEAD (perfect hold, CSV not rewritten).
