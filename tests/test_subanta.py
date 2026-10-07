@@ -182,6 +182,38 @@ class TestSubantaGenerative(unittest.TestCase):
         self.assertIn("jarayA", got)
         self.assertIn("jarasA", got)
 
+    def test_all_v2(self):
+        # parivrAj exception 8.2.36
+        self.assertForm("parivrAj", "puM", (1, "eka"), "parivrAw")
+        self.assertForm("parivrAj", "puM", (7, "bahu"), "parivrAwzu")
+        # h-class auto (no extra needed)
+        self.assertForm("duh", "puM", (3, "bahu"), "dugBiH")
+        self.assertForm("lih", "puM", (3, "bahu"), "liqBiH")
+        self.assertForm("upAnah", "puM", (3, "bahu"), "upAnadBiH")
+        # mahat neut
+        self.assertForm("mahat", "napuMsaka", (1, "bahu"), "mahAnti")
+        # prathama-class: Nom pl both, Dat sg noun-only
+        got = self.e.decline("praTama", "puM")[(1, "bahu")]
+        self.assertIn("praTamAH", got)
+        self.assertIn("praTame", got)
+        self.assertForm("praTama", "puM", (4, "eka"), "praTamAya")
+        # uBa dual-only
+        self.assertEqual(self.e.decline("uBa", "puM")[(1, "eka")], [])
+        self.assertForm("uBa", "puM", (1, "dvi"), "uBO")
+        # eka is sarvanAman (eke)
+        self.assertForm("eka", "puM", (1, "bahu"), "eke")
+        # supplementary ops
+        from pypanini.subanta import ekaSeza, pumvatBAva, avyaya_pada, saH_sulopa, satf_feminine
+        self.assertEqual(ekaSeza(["mAtf", "pitf"]), "pitf")
+        self.assertEqual(ekaSeza(["rAma", "rAma"]), "rAma")
+        self.assertEqual(pumvatBAva("kalyARI"), "kalyARa")
+        self.assertEqual(avyaya_pada("ca"), "ca")
+        self.assertEqual(saH_sulopa("p"), "sa")
+        self.assertEqual(saH_sulopa("a"), "saH")
+        self.assertIn("gacCantI", satf_feminine("gacCat", "BvAdi"))
+        self.assertIn("tudatI", satf_feminine("tudat", "tudAdi"))
+        self.assertEqual(satf_feminine("dadat", "adAdi"), ["dadatI"])
+
 
 if __name__ == "__main__":
     unittest.main()

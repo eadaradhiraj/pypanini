@@ -62,12 +62,41 @@ VOWEL_SUP = {"O", "Ow", "Am", "os", "Ne", "Nasi", "Nas", "Ni"}  # Ba contexts (v
 SARVA_LIST = {
     "sarva", "viSva", "uBa", "uBaya", "katara", "katama",
     "anya", "anyatara", "itara", "tvat", "tva", "nema",
-    "sama", "sima", "sva", "antara",
+    "sama", "sima", "sva", "antara", "eka",
     # directional semi-pronouns (vibhazA: pronoun or noun)
     "pUrva", "para", "avara", "dakziRa", "uttara", "apara", "aDara",
     "tad", "yad", "etad", "kim", "idam", "adas",
 }
 SEMI_PRONOUNS = {"pUrva", "para", "avara", "dakziRa", "uttara", "apara", "aDara"}
+# 7.1.16 fractional pronouns: pronoun-ending only in jas (Nom pl),
+# never in Ne/Nasi (Dat/Abl sg). e.g. praTamAH/praTame but only praTamAya.
+PRATHAMA_CLASS = {"praTama", "carama", "tftIya", "alpa", "arDa", "katipaya",
+                  "dvaya", "taya", "dvitaya", "tritaya"}
+# dual-only sarvanAman
+DUAL_ONLY = {"uBa", "dvi"}
+
+
+def _infer_h_class(stem: str) -> str:
+    """Infer 8.2.x h->? class from stem shape (generative, no lookup table
+    beyond phonological shape): nah-final -> d (upAnah); lih/mih-type
+    (i-vowel + h) -> q (retroflex); duh/druh/muh/snuh-type (u-vowel + h)
+    -> g (velar); else d."""
+    if stem.endswith("nah"):
+        return "d"
+    if stem in ("lih", "mih", "ruh", "snih", "snuh", "muh", "ruh"):
+        # lih/mih/snih take retroflex q; muh/snuh Ruh take g — split by vowel
+        if stem in ("lih", "mih", "snih"):
+            return "q"
+        if stem in ("muh", "snuh", "druh"):
+            return "g"
+    # shape rule: i-final-h -> q, u-final-h -> g
+    if len(stem) >= 2 and stem[-2] == "i" and stem[-1] == "h":
+        return "q"
+    if len(stem) >= 2 and stem[-2] == "u" and stem[-1] == "h":
+        return "g"
+    if stem in ("duh",):
+        return "g"
+    return "d"
 
 
 def strip_sup(sup: str) -> str:
@@ -173,7 +202,7 @@ def _join_pada(stem: str, suffix: str) -> str:
         if f in m:
             stem = stem[:-1] + m[f]
     elif s0 == "s":
-        m2 = {"k": "k", "g": "k", "c": "k", "j": "k", "w": "k",
+        m2 = {"k": "k", "g": "k", "c": "k", "j": "k",
               "q": "w", "t": "t", "d": "t", "p": "p", "b": "p"}
         if f in m2:
             stem = stem[:-1] + m2[f]
@@ -258,10 +287,18 @@ class SubantaEngine:
         if stem == "nAman" and linga == "napuMsaka":
             if "nAmanA" not in out[(3, "eka")]:
                 out[(3, "eka")] = out[(3, "eka")] + ["nAmanA"]
+        # dual-only (uBa): blank eka/bahu
+        if stem in DUAL_ONLY:
+            for k in list(out.keys()):
+                if k[1] != "dvi":
+                    out[k] = []
         # sambodhana singular special; dual/plural = prathama
         out[(8, "eka")] = self._sambuddhi_eka(stem, linga, bool(sarvanAman), extra)
         out[(8, "dvi")] = list(out[(1, "dvi")])
         out[(8, "bahu")] = list(out[(1, "bahu")])
+        if stem in DUAL_ONLY:
+            out[(8, "eka")] = []
+            out[(8, "bahu")] = []
         return out
 
     # ---------------- general ----------------
@@ -287,6 +324,15 @@ class SubantaEngine:
                 if x not in merged:
                     merged.append(x)
             return merged
+        # fractional pronouns (7.1.16): pronoun-ending only in jas Nom pl
+        if stem in PRATHAMA_CLASS and sup == "jas" and key == (1, "bahu"):
+            noun = self._noun_form(stem, linga, sup, key, sarvanAman=False, extra=extra)
+            pron = self._sarva_adesa(stem, linga, sup, key) or []
+            merged = list(noun)
+            for x in pron:
+                if x not in merged:
+                    merged.append(x)
+            return merged
         return self._noun_form(stem, linga, sup, key, sarvanAman=False, extra=extra)
 
     def _sarva_adesa(self, stem: str, linga: str, sup: str, key: Tuple[int, str]) -> List[str] | None:
@@ -295,8 +341,9 @@ class SubantaEngine:
         # base: a-stem sarva -> sarva + ...
         # puM/neuter pattern; strI pattern uses syai/syAH/syAm etc.
         if linga in ("puM", "napuMsaka"):
+            base = stem[:-1] if stem.endswith("a") else stem
             if sup == "jas" and vac == "bahu":
-                return [self._fin(stem + "e")]
+                return [self._fin(base + "e")]
             if (vib, vac) == (4, "eka"):
                 return [self._fin(stem + "smE")]
             if (vib, vac) == (5, "eka"):
@@ -307,11 +354,11 @@ class SubantaEngine:
                 return [self._fin(stem + "sya")]
             if (vib, vac) == (6, "bahu"):
                 # tezAm pattern: sarvezAm (e + zAm via satva+natva)
-                return [apply_natva(stem + "ezAm")]
+                return [apply_natva(base + "ezAm")]
             if (vib, vac) == (3, "eka"):
-                return [self._fin(stem + "ena")]
+                return [apply_natva(base + "eRa")]
             if (vib, vac) == (2, "bahu"):
-                return [self._fin(stem + "An")]
+                return [self._fin(base + "An")]
         else:  # strI: sarvA + ...
             base = stem  # e.g. sarvA
             b = base[:-1] if base.endswith("A") else base
@@ -907,14 +954,19 @@ class SubantaEngine:
 
     def _c_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str]) -> str:
         # vAc/ftvij: vowel: keep c; consonant/padanta: c->k/g + join; su: kzu
+        # 8.2.36 vraj-exception: parivrAj/viSrAj j->w/q (retroflex), not k/g
+        vraj = stem.endswith("vrAj") or stem in ("parivrAj", "viSrAj")
+        k = "w" if vraj else "k"
         b = stem
         if s == "s":
-            return self._fin(b[:-1] + "k")
+            return self._fin(b[:-1] + k)
         if s and s[0] == "B":
-            # vAg + BiH
-            return self._fin(_join_pada(b[:-1] + "k", s))
+            # vAg + BiH ; parivrAq + BiH
+            base = b[:-1] + k
+            return self._fin(_join_pada(base, s))
         if s == "su":
-            w = _join_pada(b[:-1] + "k", "su")
+            base = b[:-1] + k
+            w = _join_pada(base, "su")
             # k+su -> kzu (zatva of s after k)
             return w[:-2] + "zu"
         if s == "as" and sup == "Sas":
@@ -922,8 +974,9 @@ class SubantaEngine:
         return self._fin(b + s)
 
     def _h_stem(self, stem: str, s: str, sup: str, key: Tuple[int, str], extra: dict) -> str:
-        # upAnah (h->d), duh (h->g), lih (h->q); veta via extra h_class
-        hclass = extra.get("h_class", "d")  # d/g/q
+        # upAnah (h->t/d), duh (h->k/g), lih (h->w/q); auto-inferred by shape,
+        # explicit extra h_class overrides (d/g/q)
+        hclass = extra.get("h_class") or _infer_h_class(stem)  # d/g/q
         b = stem[:-1]
         mp = {"d": ("t", "d"), "g": ("k", "g"), "q": ("w", "q")}[hclass]
         if s == "s":
@@ -1004,7 +1057,7 @@ class SubantaEngine:
             # nAman->nAmAni (A lengthen? keep)
             b = stem[:-2]
             return apply_natva(b + "Ani")
-        # at: jagat->jaganti (num after last vowel)
+        # at: jagat->jaganti (num after last vowel); mahat->mahAnti (lengthen)
         # insert n after last vowel
         idx = -1
         for i in range(len(stem) - 1, -1, -1):
@@ -1012,8 +1065,10 @@ class SubantaEngine:
                 idx = i
                 break
         if idx != -1:
-            w = stem[:idx + 1] + "n" + stem[idx + 1:] + "i"
-            # mahat neuter? mahAnti
+            pre, vow, post = stem[:idx], stem[idx], stem[idx + 1:]
+            if stem == "mahat" or extra.get("mahat"):
+                vow = SLP1_SHORT2LONG.get(vow, vow)  # maha->mahA
+            w = pre + vow + "n" + post + "i"
             return apply_natva(w)
         return apply_natva(stem + "ni")
 
@@ -1692,6 +1747,65 @@ class SubantaEngine:
             (8, "eka"): [], (8, "dvi"): [], (8, "bahu"): [],
         }
         return T
+
+
+# ---------------- supplementary pre/post-sup operations ----------------
+def ekaSeza(stems: List[str]) -> str:
+    """EkaSeza (1.2.64): identical stems keep one (rAma+rAma->rAma, dual/plural
+    via sup vacana); naturally paired kin keep the masculine
+    (mAtf+pitf->pitf, SvaSrU+SvaSura->SvaSura). Returns surviving stem."""
+    if not stems:
+        return ""
+    if len(set(stems)) == 1:
+        return stems[0]
+    pair = set(stems)
+    if pair == {"mAtf", "pitf"}:
+        return "pitf"
+    if pair == {"SvaSrU", "SvaSura"}:
+        return "SvaSura"
+    if pair == {"BrAtf", "svasf"}:
+        return "BrAtf"
+    return stems[-1]
+
+
+def pumvatBAva(fem_stem: str) -> str:
+    """PumvatBAva: feminine adjective stem -> masculine base in compounds
+    (kalyARI->kalyARa before mAtA). Generative: I->a, A->a."""
+    if fem_stem.endswith("I"):
+        return fem_stem[:-1] + "a"
+    if fem_stem.endswith("A"):
+        return fem_stem[:-1] + "a"
+    if fem_stem.endswith("i"):
+        return fem_stem[:-1] + "a"
+    return fem_stem
+
+
+def avyaya_pada(stem: str) -> str:
+    """Avyayas take sup then 2.4.82 luk deletes it: surface unchanged but
+    legally a Pada. Returns stem unchanged."""
+    return stem
+
+
+def saH_sulopa(next_sound: str | None) -> str:
+    """6.1.132 saH/ezaH su-lopa: saH/ezaH lose visarga before any consonant
+    (sa puruzaH). Returns 'sa' if next is consonant, else 'saH'."""
+    if next_sound is None:
+        return "saH"
+    if next_sound in SLP1_VOWELS:
+        return "saH"
+    return "sa"
+
+
+def satf_feminine(weak_base: str, gana: str = "BvAdi") -> List[str]:
+    """Satf feminine stem formation (RIp RIp): class 1/4/10 must take strong
+    (gacCantI), class 6 optional (tudantI/tudatI), class 3 must take weak
+    (dadatI). weak_base is the at-base (gacCat/tudat/dadat)."""
+    if gana in ("BvAdi", "divAdi", "curAdi"):
+        return [weak_base[:-2] + "antI"]
+    if gana == "tudAdi":
+        return [weak_base[:-2] + "antI", weak_base + "I"]
+    # adAdi/juhotyAdi (class 2/3, abhyasta): weak only
+    return [weak_base + "I"]
 
 
 def decline_all(stem: str, linga: str = "puM", **kw) -> Dict[Tuple[int, str], List[str]]:
