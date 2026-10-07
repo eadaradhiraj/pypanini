@@ -1822,5 +1822,31 @@ def satf_feminine(weak_base: str, gana: str = "BvAdi") -> List[str]:
     return [weak_base + "I"]
 
 
+def stri_pratipadika(masc_stem: str, kind: str = "wAp") -> str:
+    """Stri-pratyaya (4.1.3-4.1.81): masculine pratipadika -> feminine stem.
+    wAp (A): aja->ajA, a->A; RIp (I): at->atI (Bavat->BavatI), an->anI,
+    as->asI, f->rI (kartf->kartrI); uN (U): laghu-u -> U. Generative by shape."""
+    if kind == "wAp":
+        if masc_stem.endswith("a"):
+            return masc_stem[:-1] + "A"
+        if masc_stem.endswith("at"):
+            return masc_stem + "I"  # at + I? caller prefers satf_feminine for optionality
+        return masc_stem + "A"
+    if kind == "RIp":
+        if masc_stem.endswith("f"):
+            return masc_stem[:-1] + "rI"  # kartf->kartrI
+        if masc_stem.endswith(("at", "an", "as", "vas", "vat")):
+            # Bavat->BavatI, rAjan->rAjanI (kept n, declined as nadI-type)
+            return masc_stem + "I"
+        if masc_stem.endswith("a"):
+            return masc_stem[:-1] + "I"
+        return masc_stem + "I"
+    if kind == "uN":
+        if masc_stem.endswith("u"):
+            return masc_stem[:-1] + "U"
+        return masc_stem + "U"
+    return masc_stem
+
+
 def decline_all(stem: str, linga: str = "puM", **kw) -> Dict[Tuple[int, str], List[str]]:
     return SubantaEngine().decline(stem, linga, **kw)

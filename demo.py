@@ -1,5 +1,10 @@
-"""Demo Runner: Displaying Alternative Tiṅantas and Full-Gender Kṛdantas"""
+"""Demo Runner: Tiṅanta, Kṛdanta (tri-liṅga) and Subanta (21 sup) showcase (SLP1)."""
 from pypanini import TinantaDerivationEngine, KrdantaEngine
+from pypanini.subanta import SubantaEngine
+
+VIBHAKTI = {1: "prathamA", 2: "dvitIyA", 3: "tftIyA", 4: "caturTI",
+            5: "paYcamI", 6: "zazWI", 7: "saptamI", 8: "sambodhana"}
+
 
 def print_table(table, title):
     print(f"\n=== {title} ===")
@@ -8,10 +13,11 @@ def print_table(table, title):
     for p in ["prathama", "madhyama", "uttama"]:
         print(f"{p:<10} | {table[(p, 'eka')]:<22} | {table[(p, 'dvi')]:<14} | {table[(p, 'bahu')]:<14}")
 
+
 def print_krdanta_gender_table(krd_dict, title):
     ke = KrdantaEngine()
     print(f"\n=== {title} ===")
-    print(f"{'Affix':<8} | {'Description':<38} | {'Masculine (पुं)':<14} | {'Feminine (स्त्री)':<16} | {'Neuter / Avyaya'}")
+    print(f"{'Affix':<8} | {'Description':<38} | {'Masculine':<14} | {'Feminine':<16} | {'Neuter / Avyaya'}")
     print("-" * 95)
     for code, data in krd_dict.items():
         desc, kind = ke.krdanta_metadata[code]
@@ -21,11 +27,24 @@ def print_krdanta_gender_table(krd_dict, title):
             n = data["N"]
             print(f"{code:<8} | {desc:<38} | {m:<14} | {f:<16} | {n}")
         elif kind == "avyaya":
-            print(f"{code:<8} | {desc:<38} | {'-':<14} | {'-':<16} | {data['avyaya']} (अव्यय)")
+            print(f"{code:<8} | {desc:<38} | {'-':<14} | {'-':<16} | {data['avyaya']}")
         else:
             g = data["gender"]
             form = data["form"]
             print(f"{code:<8} | {desc:<38} | {'-':<14} | {'-':<16} | {form} ({g})")
+
+
+def print_subanta(stem, linga, title=None):
+    e = SubantaEngine()
+    d = e.decline(stem, linga)
+    print(f"\n=== {title or (stem + ' (' + linga + ')')} ===")
+    print(f"{'Vibhakti':<12} | {'eka':<16} | {'dvi':<16} | {'bahu'}")
+    print("-" * 62)
+    for v in range(1, 9):
+        row = d.get((v, "eka"), []), d.get((v, "dvi"), []), d.get((v, "bahu"), [])
+        fmt = lambda xs: "/".join(xs) if xs else "-"
+        print(f"{VIBHAKTI[v]:<12} | {fmt(row[0]):<16} | {fmt(row[1]):<16} | {fmt(row[2])}")
+
 
 def main():
     te = TinantaDerivationEngine()
@@ -40,8 +59,30 @@ def main():
     print("\n" + "=" * 70)
     print("2. COMPLETE KṚDANTAS PER ANTA WITH FULL GENDERS (TRI-LIṄGA)")
     print("=" * 70)
-    print_krdanta_gender_table(ke.derive_all_krdantas("BU"), "A. Primitive Kṛdantas: 'BU' (भू)")
-    print_krdanta_gender_table(ke.derive_all_krdantas("BU", sanadi="sannanta"), "B. Sannanta with Pāṇinian Overrides (बुभूषु & बुभूषा)")
+    print_krdanta_gender_table(ke.derive_all_krdantas("BU"), "A. Primitive Kṛdantas: 'BU'")
+    print_krdanta_gender_table(ke.derive_all_krdantas("BU", sanadi="sannanta"), "B. Sannanta overrides")
+
+    print("\n" + "=" * 70)
+    print("3. SUBANTA DECLENSION (21 sup, 8 vibhakti x 3 vacana, SLP1)")
+    print("=" * 70)
+    print_subanta("rAma", "puM", "a-stem masc: rAma")
+    print_subanta("sItA", "strI", "A-stem fem: sItA")
+    print_subanta("hari", "puM", "i-stem masc: hari (sambuddhi hare)")
+    print_subanta("nadI", "strI", "I-stem fem NadI: nadI")
+    print_subanta("vAri", "napuMsaka", "neuter i with num: vAri -> vAriRA/vArIRi")
+    print_subanta("kartf", "puM", "f-stem agent: kartf -> kartAraH/kartrARAm")
+    print_subanta("rAjan", "puM", "an-stem: rAjan -> rAjA/rAjYA (vs AtmanA heavy)")
+    print_subanta("manas", "napuMsaka", "as-stem neut: manas -> manAMsi")
+    print_subanta("vAc", "strI", "c-stem: vAc -> vAk/vAgBiH/vAkzu")
+    print_subanta("go", "puM", "o-stem nipAtana: go -> gOH/gAm/gAH")
+    print_subanta("tad", "puM", "pronoun: tad -> saH/te/tasmE (su-lopa external not shown)")
+    print_subanta("asmad", "puM", "suppletion: asmad -> aham/maHyam/asmAkam")
+    print_subanta("wramPa", "puM", "modern loan: wramPa Instr = wramPeRa (Natva 8.4.1-2)")
+    print_subanta("gacCat", "puM", "Satf participle masc: gacCat -> gacCan")
+    print_subanta("cakfvas", "puM", "kvasu participle: cakfvas -> cakfvAn/cakfuzaH")
+    print_subanta("kftavat", "puM", "ktavatu participle: kftavat -> kftavAn")
+    print_subanta("Bavat", "puM", "respect pronoun (3rd-person noun): Bavat -> BavAn")
+
 
 if __name__ == "__main__":
     main()

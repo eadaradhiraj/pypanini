@@ -76,6 +76,15 @@ Generates 14 primary verbal affixes across all 4 stem types (Primitive, Ṇijant
   - 8.4.1/8.4.2: Retroflex Ṇatva in `buBUzaRIya` and `buBUzaRa`.
   - 1.3.12: Strict Ātmanepada compliance for Yaṅanta (excludes `Satf`, applies `SAnac`).
 
+### 5. Subanta Engine (`pypanini/subanta.py`)
+Generative nominal declension: 21 `sup` (4.1.2) × 8 vibhakti × 3 vacana × 3 liṅga, SLP1 only, internal sandhi only:
+
+- **Core**: `a/A/i/I/u/U/f` (gI/nadI, vibhAzA `mati/Denu`, neuter `num` `vAriRA`, `sambuddhi` `hare/sIte`).
+- **Halanta**: `an` (`rAjYA` vs `AtmanA`), `as` (`manAMsi`), `at/Satf/Bavat/mahat`, `kvasu`/`ktavatu`/`Iyas`, `c` (`vAk`), `h`-auto (`dugBiH/liqBiH`), `aYc` (`pratIcA`), `vraj`-exception (`parivrAw`).
+- **NipAtana**: `go/rE/nO/saKi/pati/krozwu/asTi/ap/anaQuh/puMs/div/ahan/paTin/Svan/jarA/SrI`.
+- **Pronouns/numerals**: `tad/kim/idam/adas/asmad/yuzmad/sarva/pUrva/prathama`, `dvi/tri/catur/paYcan/zaz/azwan`, `ekaSeza/pumvatBAva/satf-fem/stri` helpers.
+- **Tests**: `tests/test_subanta.py` (19) + `tests/test_subanta_full.py` (12×24 goldens, 288 forms).
+
 ---
 
 ## Project Structure
@@ -87,14 +96,13 @@ pypanini/
 │   ├── pratyahara.py         # Māheśvara Sūtras & Pratyāhāra expansion
 │   ├── phonetics.py          # Guṇa, Vṛddhi, Sandhi, Ṣatva, Visarga rules
 │   ├── tinanta.py            # Verbal derivation engine (10 Lakāras, Sanādi, Voices)
-│   └── krdanta.py            # Primary verbal affixes across genders and antas
+│   ├── krdanta.py            # Primary verbal affixes across genders and antas
+│   └── subanta.py            # Nominal declension engine (21 sup, stri, ekaSeza)
 ├── tests/
-│   ├── test_pratyahara.py    # Unit tests for Shiva Sutras
-│   ├── test_tinanta.py       # Unit tests for verbal derivations
-│   └── test_krdanta.py       # Unit tests for participles and overrides
-├── test_ashtadhyayi.py       # Validation test against scraped 01.0001 (BU) data
-├── test_01_0002.py           # Validation test against scraped 01.0002 (eD) data
-├── demo.py                   # Interactive showcase script
+│   ├── test_dhatu.py         # Generative validation (tinanta+krdanta)
+│   ├── test_subanta.py       # Subanta spot tests (19)
+│   └── test_subanta_full.py  # Subanta 12x24 golden audit (288 forms)
+├── demo.py                   # tinanta/krdanta/subanta showcase (SLP1)
 ├── LICENSE                   # MIT License
 └── README.md
 ```

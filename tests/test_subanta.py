@@ -203,7 +203,7 @@ class TestSubantaGenerative(unittest.TestCase):
         # eka is sarvanAman (eke)
         self.assertForm("eka", "puM", (1, "bahu"), "eke")
         # supplementary ops
-        from pypanini.subanta import ekaSeza, pumvatBAva, avyaya_pada, saH_sulopa, satf_feminine
+        from pypanini.subanta import ekaSeza, pumvatBAva, avyaya_pada, saH_sulopa, satf_feminine, stri_pratipadika
         self.assertEqual(ekaSeza(["mAtf", "pitf"]), "pitf")
         self.assertEqual(ekaSeza(["rAma", "rAma"]), "rAma")
         self.assertEqual(pumvatBAva("kalyARI"), "kalyARa")
@@ -213,6 +213,9 @@ class TestSubantaGenerative(unittest.TestCase):
         self.assertIn("gacCantI", satf_feminine("gacCat", "BvAdi"))
         self.assertIn("tudatI", satf_feminine("tudat", "tudAdi"))
         self.assertEqual(satf_feminine("dadat", "adAdi"), ["dadatI"])
+        self.assertEqual(stri_pratipadika("aja"), "ajA")
+        self.assertEqual(stri_pratipadika("kartf", "RIp"), "kartrI")
+        self.assertEqual(stri_pratipadika("Bavat", "RIp"), "BavatI")
 
 
 if __name__ == "__main__":
