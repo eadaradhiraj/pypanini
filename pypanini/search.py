@@ -972,7 +972,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
     out: List[dict] = []
 
     def _emit(_rt: str, _m, _lak: str, _pur: str, _vac: str, _via: str,
-              _conf: float, _stem_note: str, _pada: str = "parasmaipada") -> None:
+              _conf: float, _stem_note: str, _pada: str = "parasmaipada",
+              _sanadi=None) -> None:
         _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
               "pada": _pada, "prayoga": "kartari", "lakara": _lak,
               "confidence": _conf, "ending": "-",
@@ -983,7 +984,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _d["upasarga"] = upasarga
             _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
         _ids = _d.get("ids") or [None]
-        if not _verify_tin(word, _rt, _lak, _pur, _vac, "kartari", None,
+        if not _verify_tin(word, _rt, _lak, _pur, _vac, "kartari", _sanadi,
                            _ids[0], upasarga):
             _d["confidence"] = max(0.1, _d["confidence"] * 0.5)
             _d["note"] += "; unverified"
@@ -1011,13 +1012,25 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _cands = [_core]
             if _core.endswith("i") and len(_core) > 1:
                 _cands.append(_core[:-1])  # sew iT (Bavi -> Bav)
+            _luw_hits: list = []
             for _c in _cands:
                 _hit = _lookup_root(_c)
-                if _hit is not None:
-                    break
-            if _hit is not None:
-                _rt, _m, _via = _hit
-                _emit(_rt, _m, "luw", _pur, _vac, _via, 0.85, _core, _pada)
+                if _hit is not None and _hit[0] not in [h[0] for h in _luw_hits]:
+                    _luw_hits.append((_hit[0], _hit[1], "exact", None))
+                # secondary future stems (buBUzitA <- BU + sannanta)
+                for _ab in _abhyasa_reverse(_c):
+                    _ah = _lookup_root(_ab)
+                    if _ah is not None and _ah[0] not in [h[0] for h in _luw_hits]:
+                        _luw_hits.append((_ah[0], _ah[1], "abhyasa", None))
+                for _sn in _san_reverse(_c):
+                    _sh = _lookup_root(_sn)
+                    if _sh is not None and _sh[0] not in [h[0] for h in _luw_hits]:
+                        _luw_hits.append((_sh[0], _sh[1], "san", "sannanta"))
+            for (_rt, _m, _via, _sd) in _luw_hits:
+                _emit(_rt, _m, "luw", _pur, _vac, _via,
+                      0.85 if _via == "exact" else 0.7, _core, _pada,
+                      _sanadi=_sd)
+            if _luw_hits:
                 break
     # lfT/lfN (-sya- under a tin ending): Bavizyati, aBavizyat.
     # The stripped ending supplies purusha/vacana/pada; augment picks lfN.
@@ -1042,6 +1055,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 _cands.append(_core[:-1] + "D")
             _aug = _stem[:1] in ("a", "A")
             _hit = None
+            _san_hit = None
             for _c in _cands:
                 _try = [_c]
                 if _aug and len(_c) > 1:
@@ -1050,24 +1064,58 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     _hit = _lookup_root(_t)
                     if _hit is not None:
                         break
+                    # secondary future stems (buBUzizyati <- BU + sannanta):
+                    # undo reduplication / desiderative formation first
+                    for _ab in _abhyasa_reverse(_t):
+                        _hit = _lookup_root(_ab)
+                        if _hit is not None:
+                            _hit = (_hit[0], _hit[1], "abhyasa")
+                            break
+                    if _hit is not None:
+                        break
+                    for _sn in _san_reverse(_t):
+                        _hit = _lookup_root(_sn)
+                        if _hit is not None:
+                            _hit = (_hit[0], _hit[1], "san")
+                            break
+                    if _hit is not None:
+                        break
                 if _hit is not None:
+                    # abhyasa hits can shadow san twins (buBUz -> BUz hides
+                    # buBUz -> BU): scan every stem candidate for the twin,
+                    # not just the one that hit first
+                    for _c2 in _cands:
+                        _t2s = [_c2]
+                        if _aug and len(_c2) > 1:
+                            _t2s.append(_c2[1:])
+                        for _t2 in _t2s:
+                            for _sn in _san_reverse(_t2):
+                                _sh = _lookup_root(_sn)
+                                if _sh is not None and _sh[0] != _hit[0]:
+                                    _san_hit = (_sh[0], _sh[1], "san")
+                                    break
+                            if _san_hit is not None:
+                                break
+                        if _san_hit is not None:
+                            break
                     break
             if _hit is None:
                 continue
-            _rt, _m, _via = _hit
             _aug = _stem[:1] in ("a", "A")
-            for (_pur, _vac, _pada) in _slots:
-                _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
-                      "pada": _pada, "prayoga": "kartari",
-                      "lakara": "lfN" if _aug else "lfw",
-                      "confidence": 0.8, "ending": _end,
-                      "note": f"root via {_via} from stem '{_core}'"}
-                _d.update(_root_details(_m))
-                _d["pada"] = _pada
-                if upasarga:
-                    _d["upasarga"] = upasarga
-                    _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
-                out.append(_d)
+            _all_hits = [_hit] + ([_san_hit] if _san_hit is not None else [])
+            for (_rt, _m, _via) in _all_hits:
+                for (_pur, _vac, _pada) in _slots:
+                    _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
+                          "pada": _pada, "prayoga": "kartari",
+                          "lakara": "lfN" if _aug else "lfw",
+                          "confidence": 0.8, "ending": _end,
+                          "note": f"root via {_via} from stem '{_core}'"}
+                    _d.update(_root_details(_m))
+                    _d["pada"] = _pada
+                    if upasarga:
+                        _d["upasarga"] = upasarga
+                        _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
+                    out.append(_d)
             break
     # ASIrliN parasmaipada (-yA-): BUyAt, kuryAt
     _ASI = [("yAstAm", "prathama", "dvi"), ("yAsuH", "prathama", "bahu"),
@@ -1080,13 +1128,28 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
     for _suf, _pur, _vac in _ASI:
         if word.endswith(_suf) and len(word) > len(_suf):
             _core = word[:-len(_suf)]
+            _asi_hits: list = []
             _hit = _lookup_root(_core)
+            if _hit is not None:
+                _asi_hits.append((_hit[0], _hit[1], "exact", None))
             if _hit is None and _core.endswith("ur"):
                 # kur <- kf via u-samprasarana (kuryAt)
                 _hit = _lookup_root(_core[:-2] + "f")
-            if _hit is not None:
-                _rt, _m, _via = _hit
-                _emit(_rt, _m, "ASIrliN", _pur, _vac, _via, 0.8, _core)
+                if _hit is not None:
+                    _asi_hits.append((_hit[0], _hit[1], "exact", None))
+            # secondary benedictive stems (buBUzyAt <- BU + sannanta)
+            for _ab in _abhyasa_reverse(_core):
+                _ah = _lookup_root(_ab)
+                if _ah is not None and _ah[0] not in [h[0] for h in _asi_hits]:
+                    _asi_hits.append((_ah[0], _ah[1], "abhyasa", None))
+            for _sn in _san_reverse(_core):
+                _sh = _lookup_root(_sn)
+                if _sh is not None and _sh[0] not in [h[0] for h in _asi_hits]:
+                    _asi_hits.append((_sh[0], _sh[1], "san", "sannanta"))
+            for (_rt, _m, _via, _sd) in _asi_hits:
+                _emit(_rt, _m, "ASIrliN", _pur, _vac, _via, 0.8, _core,
+                      _sanadi=_sd)
+            if _asi_hits:
                 break
     _ASI_ATM = [("IzWam", "madhyama", "dvi"), ("IDvam", "madhyama", "bahu"),
                 ("IyA", "uttama", "eka"), ("Iya", "uttama", "eka"),
@@ -1115,10 +1178,25 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                         break
                     if _b.endswith(("s", "z")) and len(_b) > 1:
                         _front.append(_b[:-1])
+                _atm_hits: list = []
                 if _hit is not None:
-                    _rt, _m, _via = _hit
+                    _atm_hits.append((_hit[0], _hit[1], "exact", None))
+                # secondary stems (san/nich benedictives): reversals as twins
+                _stripped = ([_stem[:-1]] if _stem.endswith(("i", "I"))
+                             and len(_stem) > 1 else [])
+                for _c in [_stem] + _stripped:
+                    for _ab in _abhyasa_reverse(_c):
+                        _ah = _lookup_root(_ab)
+                        if _ah is not None and _ah[0] not in [h[0] for h in _atm_hits]:
+                            _atm_hits.append((_ah[0], _ah[1], "abhyasa", None))
+                    for _sn in _san_reverse(_c):
+                        _sh = _lookup_root(_sn)
+                        if _sh is not None and _sh[0] not in [h[0] for h in _atm_hits]:
+                            _atm_hits.append((_sh[0], _sh[1], "san", "sannanta"))
+                for (_rt, _m, _via, _sd) in _atm_hits:
                     _emit(_rt, _m, "ASIrliN", _pur, _vac, _via, 0.75, _stem,
-                          "Atmanepada")
+                          "Atmanepada", _sanadi=_sd)
+                if _atm_hits:
                     break
         else:
             continue
@@ -1213,6 +1291,17 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                         _h = _lookup_root(_c)
                         if _h is not None and _h[0] not in [x[0] for x in _hits]:
                             _hits.append(_h)
+                    # secondary stems in the aorist (san/nich reduplicated
+                    # stems: buBUzizwa <- BU + sannanta): try reversals
+                    for _c in _cands:
+                        for _ab in _abhyasa_reverse(_c):
+                            _h = _lookup_root(_ab)
+                            if _h is not None and _h[0] not in [x[0] for x in _hits]:
+                                _hits.append((_h[0], _h[1], "abhyasa"))
+                        for _sn in _san_reverse(_c):
+                            _h = _lookup_root(_sn)
+                            if _h is not None and _h[0] not in [x[0] for x in _hits]:
+                                _hits.append((_h[0], _h[1], "san"))
                     # queue stripped forms for deeper peeling (sic-s/z,
                     # iT, thematic, reduplicated -v-, aorist -t-)
                     for _sfx in ("s", "z", "i", "I", "a", "A", "v", "t", "T"):
@@ -1277,12 +1366,125 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     if _hit is not None:
                         _viax = "abhyasa"
                         break
+            if _hit is None:
+                # secondary perfect stems (san/nich reduplication)
+                for _sn in _san_reverse(_core):
+                    _hit = _lookup_root(_sn)
+                    if _hit is not None:
+                        _viax = "san"
+                        break
             if _hit is not None:
                 _rt, _m, _via = _hit
                 _emit(_rt, _m, "liw", _pur, _vac,
-                      _viax or _via, 0.7, _core)
+                      _viax or _via, 0.7, _core,
+                      _sanadi="sannanta" if _viax == "san" else None)
+                break
+    # periphrastic perfect (stem + Am + auxiliary perfect: buBUzAYcakAra
+    # <- BU + sannanta, ditsAYcakre <- dA): split the auxiliary, analyse
+    # the stem side for the lexical root (aux table built from the engine)
+    _ensure_peri_aux()
+    for _aux, _apur, _avac, _apada in _PERI_AUX:
+        if word.endswith(_aux) and len(word) > len(_aux) + 3:
+            _pre = word[:-len(_aux)]
+            # periphrastic connector Am/AY (buBUzAmAsa, buBUzAYcakAra)
+            if not (_pre.endswith("Am") or _pre.endswith("AY")) or len(_pre) < 5:
+                continue
+            _stem = _pre[:-2]
+            _lex = [_stem]
+            if _stem.endswith(("i", "I", "a", "A")) and len(_stem) > 1:
+                _lex.append(_stem[:-1])  # sew-iT / thematic
+            _phit = None
+            _pvia = ""
+            _ptwin = None
+            for _c in _lex:
+                _phit = _lookup_root(_c)
+                if _phit is not None:
+                    # exact hits can shadow twins (buBUz -> BUz hides BU):
+                    # collect the other reversals as a twin reading
+                    for _ab in _abhyasa_reverse(_c):
+                        _ah = _lookup_root(_ab)
+                        if _ah is not None and _ah[0] != _phit[0]:
+                            _ptwin = (_ah[0], _ah[1], "abhyasa")
+                            break
+                    if _ptwin is None:
+                        for _sn in _san_reverse(_c):
+                            _sh = _lookup_root(_sn)
+                            if _sh is not None and _sh[0] != _phit[0]:
+                                _ptwin = (_sh[0], _sh[1], "san")
+                                break
+                    break
+                for _ab in _abhyasa_reverse(_c):
+                    _phit = _lookup_root(_ab)
+                    if _phit is not None:
+                        _pvia = "abhyasa"
+                        break
+                if _phit is not None:
+                    for _sn in _san_reverse(_c):
+                        _sh = _lookup_root(_sn)
+                        if _sh is not None and _sh[0] != _phit[0]:
+                            _ptwin = (_sh[0], _sh[1], "san")
+                            break
+                    break
+                for _sn in _san_reverse(_c):
+                    _phit = _lookup_root(_sn)
+                    if _phit is not None:
+                        _pvia = "san"
+                        break
+                if _phit is not None:
+                    for _ab in _abhyasa_reverse(_c):
+                        _ah = _lookup_root(_ab)
+                        if _ah is not None and _ah[0] != _phit[0]:
+                            _ptwin = (_ah[0], _ah[1], "abhyasa")
+                            break
+                    break
+            _readings = []
+            if _phit is not None:
+                _rt, _m, _via = _phit
+                _readings.append((_rt, _m, _pvia or _via))
+            if _ptwin is not None:
+                _readings.append(_ptwin)
+            for (_rt, _m, _via) in _readings:
+                _d = {"kind": "tinanta", "purusha": _apur, "vacana": _avac,
+                      "pada": _apada, "prayoga": "kartari", "lakara": "liw",
+                      "confidence": 0.7, "ending": _aux,
+                      "note": f"periphrastic liw: root via {_via} "
+                      f"from stem '{_stem}' + aux '{_aux}'"}
+                _d.update(_root_details(_m))
+                if upasarga:
+                    _d["upasarga"] = upasarga
+                    _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
+                out.append(_d)
+            if _phit is not None:
                 break
     return out
+
+
+_PERI_AUX: list = []
+
+
+def _ensure_peri_aux() -> None:
+    """Build (auxform, purusha, vacana, pada) table from engine perfects."""
+    global _PERI_AUX
+    if _PERI_AUX:
+        return
+    from .tinanta import TinantaDerivationEngine
+    _te = TinantaDerivationEngine()
+    _seen = set()
+    for _aux_rt in ("kf", "as", "BU"):
+        for _prayoga, _pada in (("kartari", "parasmaipada"),
+                                ("karmani", "Atmanepada")):
+            for _pur in ("prathama", "madhyama", "uttama"):
+                for _vac in ("eka", "dvi", "bahu"):
+                    try:
+                        _forms, _log = _te.derive(_aux_rt, "liw", _pur, _vac,
+                                                 prayoga=_prayoga)
+                    except Exception:
+                        continue
+                    for _f in _forms:
+                        if _f not in _seen:
+                            _seen.add(_f)
+                            _PERI_AUX.append((_f, _pur, _vac, _pada))
+    _PERI_AUX.sort(key=lambda t: -len(t[0]))
 
 
 _TIN_ENG = None
