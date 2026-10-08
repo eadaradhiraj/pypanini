@@ -3575,7 +3575,8 @@ def _attested_groups(word: str) -> List[dict]:
         return []
     if _p.returncode not in (0, 1):
         return []
-    _files = [f for f in (_p.stdout or "").splitlines() if f.strip()]
+    _files = sorted(f for f in (_p.stdout or "").splitlines()
+                    if f.strip())
     if not _files or len(_files) > 25:
         return []
     import sys

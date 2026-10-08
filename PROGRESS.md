@@ -88,9 +88,11 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
 
 ## Search 100% session log (2026-10-08, for future LLMs — do not reinvent)
 - Baseline sampled recall (seed 2, 80 fids = 8/gana, 8 tokens/fid = 640,
-  `fid_expectations(do_engine=False)` + `analyze` + `check_exp`): 70%.
-  Current after fixes below: 85.2%. Round-trips perfect throughout
-  (tinanta slot+root 540/540, krdanta 185/185). 49 tests + lint green.
+  `fid_expectations(do_engine=False)` + `analyze` + `check_exp`): 70%
+  heuristic-only → 85.2% after reversals below → 100% (640/640 seed-2
+  and 632/632 fresh seed-99) with attested fallback. Round-trips perfect
+  throughout (tinanta slot+root 540/540, krdanta 185/185). 49 tests +
+  lint green WITH fallback on (DB makes lookups ms).
 - Code (`pypanini/search.py`): `_yang_reverse` (tAtay->tay, beBrI->BrI,
   barIBar->Bar, lAlarb->larb, boBU->BU; long-A/e/o + arI/ar/aM/anI/alI redups,
   ya-strip, vowel-initial fallback) wired into `_krd_hits`, `_tinanta_analyze`
@@ -129,25 +131,24 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   low/lw, yang_yak liw, san luw, yangluk laN/low; tavya/ac; yangluk
   non-lw ENGINE gap (tAtayyAt not generated; heuristic emits unverified,
   attested emits 1.0).
-- Perf blocker (measured): `_ensure_ready` ~5s/process; heuristic fast
-  analyze ~0.012-0.018s/surface (Bavati first call 4.6s incl. warmup);
-  live-grep fallback ~0.25s/query + 0.5-5s per newly seen fid (per-fid
-  exp cache) — correct but too slow as default (unit suite timed out).
-  Fix: prebuilt SQLite index (`build_attested_index.py --jobs 8` ->
-  `pypanini/attested_index.db`, gitignored; 3-fid pilot: 45k rows,
-  37k surfaces, 4.9MB). Search prefers DB (ms exact lookups), then
-  live grep, then heuristic. Full-DB build running in background;
-  until it lands, unit gate runs with `PYPANINI_NO_ATTESTED=1`.
-  100% guarantee is constructional (index holds every exp surface) +
-  sampled verification (36/36 fresh seed-7; 40/40 prior heuristic
-  misses rescued), since full per-surface re-audit is infeasible at
-  any per-query speed (8M surfaces).
-- Repro: `python -m pypanini.search Bavati --fast`;
-  `python tests/audit_search_full.py --fid 01.0001 --fast --no-engine`
-  (still slow — prefer sampled snippet in session); unit gate:
+- Attested fallback (`pypanini/search.py:_attested_groups`, DB-first):
+  prebuilt `attested_index.db` (10,095,197 rows, 5,941,389 unique
+  surfaces, 1.1GB, gitignored; built by `build_attested_index.py
+  --jobs 8` in ~background) preferred at ms/query; live grep + per-fid
+  exp cache only when no DB. 1.0-confidence grouped entries; heuristic
+  never removed. `PYPANINI_NO_ATTESTED=1` kill switch (heuristic-only
+  85.2%, used to isolate the 40/40 rescue proof). Grep file list
+  sorted (determinism); >25-file and len<3 skips documented.
+- Test fix (`tests/test_search.py:test_san_desiderative`): top-1 → top-3
+  membership — Ditsati is data-true for BOTH DA (03.0011) and Dew
+  (01.1050 san/plat[0]); verified in JSON, not an index artifact.
+- Repro: `python -m pypanini.search Bavati [--fast]` (full analyze,
+  subanta included); unit gate WITH fallback (needs the DB):
   `python -W ignore::ResourceWarning -m unittest discover -s tests -p
-  "test_*.py"`.
+  "test_*.py"`; heuristic-only isolation: prepend
+  `PYPANINI_NO_ATTESTED=1`. Index rebuild:
+  `python build_attested_index.py --jobs 8`.
 - Commits this session: yang/nich/yak/kvasu fixes (231b6e6), Q&A doc
   (791d4ef), CLI+fast-audit (163adca), satva/yang-onset SAnac (653cc38),
   kvasu lit/deasp (c211253), sam-san/yang-velar/cache/ud (6f97e5e),
-  subanta-unignore + attested fallback + index builder (this commit).
+  subanta-unignore + attested fallback + builder (3f370b8).
