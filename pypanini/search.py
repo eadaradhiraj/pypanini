@@ -159,10 +159,17 @@ def _denu(s: str) -> str:
 def _dethem(s: str) -> str:
     """Reverse medial thematic -a- (yuaj <- yuYaj + ...: class-7 stem
     after infix-strip leaves root + thematic fused mid-string;
-    Cfad <- Cfd + a)."""
+    Cfad <- Cfd + a, unad <- und + a)."""
     import re as _re
-    return _re.sub(r"([iIuUfFxX])a(?=[kKgGcCjJtTwWqQdDNpPbBsSzZ])", r"\1",
+    return _re.sub(r"([iIuUfFxXnN])a(?=[kKgGcCjJtTwWqQdDNpPbBsSzZ])", r"\1",
                    s, count=1)
+
+
+def _deriF(s: str) -> str:
+    """Reverse ri-grade (pf <- priya + ...: ri hides vocalic F)."""
+    if len(s) > 1 and s.endswith("ri"):
+        return s[:-2] + "F"
+    return s
 
 
 def _deit(s: str) -> str:
@@ -174,11 +181,18 @@ def _deit(s: str) -> str:
 
 
 def _demeta9(s: str) -> str:
-    """Reverse class-9 n-metathesis (stunB <- stuBn + A: stop + n flips
-    back to n + stop)."""
+    """Reverse class-9 n-metathesis (stunB <- stuBn + A, skanB <- skaBn):
+    stop + n flips back to n + stop."""
     import re as _re
-    return _re.sub(r"([uU])([kKgGcCjJtTwWqQdDNpPbB])(n)$", r"\1n\2",
+    return _re.sub(r"([aAiIuU])([kKgGcCjJtTwWqQdDNpPbB])(n)$", r"\1n\2",
                    s, count=1)
+
+
+def _deap(s: str) -> str:
+    """Reverse ap-pratyaya (ci <- cap + aya <- capayati: strip -ap-)."""
+    if len(s) > 2 and (s.endswith("ap") or s.endswith("Ap")):
+        return s[:-2]
+    return s
 
 
 def _demrestore(s: str) -> str:
@@ -363,7 +377,8 @@ def _san_reverse(core: str) -> List[str]:
     for _m in _mids:
         if not _m:
             continue
-        if len(_m) == 1 and _m not in SLP1_VOWELS:            # contracted fusion: bare onset (dits-a <- dA + sa).
+        # contracted fusion: bare onset (dits-a <- dA + sa).
+        if len(_m) == 1 and _m not in SLP1_VOWELS:
             # The reduplicant keeps aspiration clues (di- vs Dhi-),
             # so the matching onset leads (dA, not DA, for dits).
             _cands = list(_SAN_UNVOICE.get(_m, [_m]))
@@ -533,7 +548,7 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
         ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
         ("ks_k", _deks_k), ("deY", _deY), ("nalo", _denalo), ("deM", _deM),
-        ("aspire", _deaspire)]
+        ("ap", _deap), ("riF", _deriF), ("aspire", _deaspire)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "cha": 0.8, "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
@@ -541,8 +556,8 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
             "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
-            "ks_k": 0.6, "deY": 0.6, "nalo": 0.6, "deM": 0.6,
-            "aspire": 0.55}
+            "ks_k": 0.6, "deY": 0.6, "nalo": 0.6, "deM": 0.6, "ap": 0.6,
+            "riF": 0.65, "aspire": 0.55}
 
 
 def _via_conf(via: str) -> float:
@@ -1321,6 +1336,7 @@ _TIN_P: List[tuple] = [
     ("tam", "laN", "madhyama", "dvi"), ("ta", "laN", "madhyama", "bahu"),
     ("am", "laN", "uttama", "eka"), ("va", "laN", "uttama", "dvi"),
     ("ma", "laN", "uttama", "bahu"),
+    ("Am", "laN", "uttama", "eka"),
     ("antu", "low", "prathama", "bahu"), ("tAm", "low", "prathama", "dvi"),
     ("tAt", "low", "prathama", "eka"), ("tu", "low", "prathama", "eka"),
     ("tam", "low", "madhyama", "dvi"), ("ta", "low", "madhyama", "bahu"),
@@ -2030,8 +2046,6 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _lex = [_stem]
             if _stem.endswith(("i", "I", "a", "A")) and len(_stem) > 1:
                 _lex.append(_stem[:-1])  # sew-iT / thematic
-            _phit = None
-            _pvia = ""
             _preadings: list = []
             for _c in _lex:
                 for (_rc, _rm, _rv) in _lookup_all(_c):
@@ -2043,10 +2057,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     _acc_hits(_preadings, [_sn], "san")
             _readings = []
             if _preadings:
-                _rt, _m, _via = _preadings[0]
-                _readings.append((_rt, _m, _pvia or _via))
-                for (_rr, _rm, _rv) in _preadings[1:]:
-                    _readings.append((_rr, _rm, _rv))
+                _readings.extend(_preadings)
             # every slot sharing this aux string counts (cakAra is both
             # prathama eka and uttama eka): cross product, then stop —
             # longest aux wins, but all its slots emit
@@ -2258,8 +2269,6 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                     # liT always reduplicates (Asa-type a-initial stems excepted):
                     # plain grade-hits on bare-a endings (rAma) are nouns, not verbs.
                     # (Unresolved fallbacks still emit below.)
-                    _liw_plain = (_lak == "liw" and not _via_extra and _multi is None
-                                  and _core[:1] not in ("a", "A"))
                     if _multi is not None:
                         for (_m, _c) in _multi:
                             _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
