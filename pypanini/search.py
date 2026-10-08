@@ -201,6 +201,23 @@ def _desam_u(s: str) -> str:
     return _re.sub(r"(Iry|iry|Ury|ury)$", "F", s, count=1)
 
 
+def _denalo(s: str) -> str:
+    """Reverse na-lopa (tan <- tA + yak: vowel-final base regains -n-)."""
+    if len(s) > 1 and s[-1] == "A":
+        return s[:-1] + "an"
+    if len(s) > 1 and s[-1] == "I":
+        return s[:-1] + "in"
+    if len(s) > 1 and s[-1] == "U":
+        return s[:-1] + "un"
+    return s
+
+
+def _deM(s: str) -> str:
+    """Reverse M-epenthesis/agama (sasanya <- saMsanya: drop M)."""
+    import re as _re
+    return _re.sub(r"M(?=[hHkKgGcCjJtTwWqQdDpPbBsSzZ])", "", s, count=1)
+
+
 def _deY(s: str) -> str:
     """Reverse Y-coalescence (piYjaya <- pij + ya: j + y -> Y)."""
     import re as _re
@@ -515,7 +532,8 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("nu", _denu), ("na", _dena), ("them", _dethem), ("long", _delong),
         ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
         ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
-        ("ks_k", _deks_k), ("deY", _deY), ("aspire", _deaspire)]
+        ("ks_k", _deks_k), ("deY", _deY), ("nalo", _denalo), ("deM", _deM),
+        ("aspire", _deaspire)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "cha": 0.8, "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
@@ -523,7 +541,8 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
             "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
-            "ks_k": 0.6, "deY": 0.6, "aspire": 0.55}
+            "ks_k": 0.6, "deY": 0.6, "nalo": 0.6, "deM": 0.6,
+            "aspire": 0.55}
 
 
 def _via_conf(via: str) -> float:
@@ -1364,20 +1383,24 @@ _TIN_A: List[tuple] = [
     ("mahe", "liw", "uttama", "bahu"),
 ]
 # t/d voicing twins (BavatAt/BavatAd, aBavat/aBavad: final -t voices to -d)
-# plus systematic zwutva twins (8.4.41: dental -> retroflex): every tin
-# ending fans out over dental/retroflex spellings (tAm/TAm, Dvam/Qvam,
-# THAH/WAH, nti/nTi...). Matching is endswith-based, so twins only fire
-# on words that actually show the surface; lookup + forward-verify gate.
+# plus systematic zwutva twins (8.4.41: dental -> retroflex) and zatva
+# twins (s -> z after i/u: tanuzva <- tanu + sva): every tin ending
+# fans out over dental/retroflex/sibilant spellings. Matching is
+# endswith-based, so twins only fire on words that actually show the
+# surface; lookup + forward-verify gate.
 _DENT_MAP = {"t": ("t", "T", "w"), "T": ("T", "W"), "d": ("d", "D", "q"),
-             "D": ("D", "Q"), "n": ("n", "N", "R")}
+             "D": ("D", "Q"), "n": ("n", "N", "R"), "s": ("s", "z", "S")}
 
 
 def _dent_variants(end: str) -> set:
     out = {end}
     for _i, _ch in enumerate(end):
         if _ch in _DENT_MAP:
+            # s-twins only initially (zatva: tanuzva <- tanu + sva);
+            # medial s stays put
+            _alts = _DENT_MAP[_ch] if (_ch != "s" or _i == 0) else (_ch,)
             out |= {_v[:_i] + _alt + _v[_i + 1:]
-                    for _v in list(out) for _alt in _DENT_MAP[_ch]}
+                    for _v in list(out) for _alt in _alts}
     return out
 
 
@@ -1550,6 +1573,9 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _cands = [_core]
             if _core.endswith("i") and len(_core) > 1:
                 _cands.append(_core[:-1])  # sew iT (Bavi -> Bav)
+            _mstrip = _deM(_core)
+            if _mstrip != _core and _mstrip not in _cands:
+                _cands.append(_mstrip)  # M-epenthesis (titAMsi)
             _luw_hits: list = []
             for _c in _cands:
                 for (_rc, _rm, _rv) in _lookup_all(_c):
@@ -1742,6 +1768,9 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     _bvars.append(_b[:-3])  # Rejanta -aya-
                 elif _b.endswith(("ay", "Ay")) and len(_b) > 3:
                     _bvars.append(_b[:-2])
+                _mstrip = _deM(_b)
+                if _mstrip != _b and _mstrip not in _bvars:
+                    _bvars.append(_mstrip)  # M-epenthesis (titAMs)
                 for _c in _bvars:
                     _hit = _lookup_root(_c)
                     if _hit is not None:
@@ -1750,6 +1779,11 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     break
                 if _b.endswith(("s", "z")) and len(_b) > 1:
                     _front.append(_b[:-1])
+                # queue stripped variants for deeper peeling (tAnayizIzwa:
+                # tAnayiz -> tAnay -> tAn -> tan)
+                for _bv in _bvars[1:]:
+                    if _bv not in _seen2 and _bv not in _front:
+                        _front.append(_bv)
             _atm_hits: list = []
             if _hit is not None:
                 _atm_hits.append((_hit[0], _hit[1], "exact", None))
@@ -1883,11 +1917,15 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                         for _sn in _san_reverse(_c):
                             _acc_hits(_hits, [_sn], "san")
                     # queue stripped forms for deeper peeling (sic-s/z,
-                    # iT, thematic, reduplicated -v-, aorist -t-, Rejanta -aya-)
+                    # iT, thematic, reduplicated -v-, aorist -t-, Rejanta -aya-,
+                    # M-epenthesis)
                     for _sfx in ("s", "z", "i", "I", "a", "A", "v", "t", "T"):
                         if _b.endswith(_sfx) and len(_b) > 2 and \
                                 _b[:-1] not in _seen_bases:
                             _frontier.append(_b[:-1])
+                    _mstrip = _deM(_b)
+                    if _mstrip != _b and _mstrip not in _seen_bases:
+                        _frontier.append(_mstrip)
                     if _b.endswith(("aya", "Aya")) and len(_b) > 4 and \
                             _b[:-3] not in _seen_bases:
                         _frontier.append(_b[:-3])
