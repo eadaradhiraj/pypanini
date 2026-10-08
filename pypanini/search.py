@@ -1349,6 +1349,10 @@ def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
     if core.endswith("A") and len(core) > 1:
         cands.append(core[:-1])  # thematic -A- (uttama Ami/AvaH/AmaH twins)
     cands.append(core)
+    if len(core) == 1 and core not in SLP1_VOWELS:
+        # athematic elision (santi <- as + anti, 2.4.52 asor allopa):
+        # restore the dropped root vowel
+        cands.append("a" + core)
     if core.endswith("y") and len(core) > 2:
         # buried yak/thematic vowel (BAvy <- BAva + yak + e, buBUzy <-
         # buBUz + yak + a): restore -a- so the yak strip below can fire
@@ -1832,6 +1836,10 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
         if word.endswith(_suf) and len(word) > len(_suf) + 1:
             _core = word[:-len(_suf)] if _suf != "a" else word[:-1]
             _lit_hits: list = []
+            if _core in ("ah", "Ah"):
+                # brU perfect suppletion (Aha <- brU, 2.4.53): stem ah
+                for (_rc, _rm, _rv) in _lookup_all("brU"):
+                    _lit_hits.append((_rc, _rm, "suppletion", None))
             for (_rc, _rm, _rv) in _lookup_all(_core):
                 _lit_hits.append((_rc, _rm, _rv, None))
             if not _lit_hits:
