@@ -3872,6 +3872,9 @@ def main(argv=None) -> int:
     ap.add_argument("words", nargs="*", help="SLP1 word(s) to analyse")
     ap.add_argument("--recall", action="store_true",
                     help="full recall output (audit mode)")
+    ap.add_argument("--exact", action="store_true",
+                    help="1.0 readings only (attested or exact; "
+                    "novel words may return nothing)")
     ap.add_argument("--fast", action="store_true",
                     help="skip engine verification (recall only)")
     ap.add_argument("--limit", type=int, default=6)
@@ -3884,8 +3887,21 @@ def main(argv=None) -> int:
         return 2
     for w in args.words:
         print(f"=== {w} ===")
-        for g in analyze(w, limit=args.limit,
-                         precise=not args.recall):
+        _res = analyze(w, limit=None, precise=not args.recall)
+        if args.exact and not args.recall:
+            _trimmed = []
+            for _g in _res:
+                if _g.get("confidence", 0.0) < 1.0:
+                    continue
+                _rs = [r for r in _g.get("readings", [])
+                       if r.get("confidence", 0.0) >= 1.0]
+                if not _rs:
+                    continue
+                _g = dict(_g)
+                _g["readings"] = _rs
+                _trimmed.append(_g)
+            _res = _trimmed
+        for g in _res[:args.limit]:
             if g["kind"] == "subanta":
                 _r = "; ".join(
                     f"{r['linga']}/{r['vibhakti']}/{r['vacana']}"
