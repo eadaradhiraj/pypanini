@@ -176,10 +176,19 @@ def _deriF(s: str) -> str:
 
 def _deit(s: str) -> str:
     """Reverse lost iT/i-grade (pij <- piji + ...: pik <- pij + te needs
-    +i; bfha <- bfhi + a needs +i after thematic strip; mida <- midi)."""
-    if len(s) > 1 and s[-1] in ("j", "h", "w", "y", "c", "s", "z", "d",
-                                "t"):
+    +i; bfha <- bfhi + a needs +i after thematic strip; mida <- midi;
+    ci <- cap + aya via ap-strip)."""
+    if len(s) >= 1 and s[-1] in ("j", "h", "w", "y", "c", "s", "z", "d",
+                                 "t", "k", "p"):
         return s + "i"
+    return s
+
+
+def _dea(s: str) -> str:
+    """Reverse dropped root vowel (as <- s + ...: single-consonant
+    remainder regains a-)."""
+    if len(s) == 1 and s not in SLP1_VOWELS:
+        return "a" + s
     return s
 
 
@@ -206,6 +215,12 @@ def _deap(s: str) -> str:
     if len(s) > 2 and (s.endswith("ap") or s.endswith("Ap")):
         return s[:-2]
     return s
+
+
+def _depagama(s: str) -> str:
+    """Reverse p-agama (lI <- lApay + ...: Ap/Apay/Apaya hide I)."""
+    import re as _re
+    return _re.sub(r"Ap(ay|aya)?$", "I", s, count=1)
 
 
 def _demrestore(s: str) -> str:
@@ -395,6 +410,22 @@ def _san_reverse(core: str) -> List[str]:
     Full type keeps the root (vi-vid-i-za); contracted type fuses it
     (di-tsa <- dA + sa, d devoiced before san-s). Returns root candidates."""
     _w = core[:-1] if core.endswith("a") and len(core) > 1 else core
+    out: List[str] = []
+    if len(_w) >= 6 and _w[0] in SLP1_VOWELS and _w[2] in SLP1_VOWELS:
+        # vowel-initial roots reduplicate VCV (asisiz <- as + san):
+        # reduplicant V + C + V, remainder follows (si -> s -> as)
+        _body = _w[:-1] if _w[-1] in ("s", "z", "S") else None
+        if _body is not None:
+            _mid = _body[3:]
+            if len(_mid) >= 1:
+                _mids = [_mid]
+                if _mid.endswith("i") and len(_mid) > 1:
+                    _mids.append(_mid[:-1])
+                for _m in _mids:
+                    if _m and _m not in out:
+                        out.append(_m)
+                return out
+        return []
     if len(_w) < 4 or _w[1] not in ("i", "u"):
         return []
     out: List[str] = []
@@ -454,7 +485,8 @@ def _yanluk_reverse(core: str) -> List[str]:
     out: List[str] = []
     if len(core) >= 6:
         _red, _rest = core[:4], core[4:]
-        if _rest and _rest[0] == _red[0] and _red[0] not in SLP1_VOWELS:
+        _onsets = _ABHYASA_ONSET.get(_red[0], [_red[0]])
+        if _rest and _rest[0] in _onsets and _red[0] not in SLP1_VOWELS:
             if _red[1] in "aAiIeEoO" and _red[3] in "aAiIeEoO":
                 if _rest not in out:
                     out.append(_rest)
@@ -498,6 +530,13 @@ def _abhyasa_reverse(core: str) -> List[str]:
             _cand = _o + _gr[1:]
             if _cand not in out:
                 out.append(_cand)
+    # yaN infix after the reduplicant (panIpad <- pad + yaN:
+    # reduplicant pa + infix nI + pad)
+    if len(_rest) > 3 and _rest[:2] in (
+            "nI", "ni", "nU", "nu", "rI", "ri", "rU", "ru"):
+        _stripped = _rest[2:]
+        if _stripped not in out:
+            out.append(_stripped)
     return out
 
 
@@ -621,7 +660,8 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
         ("ks_k", _deks_k), ("deY", _deY), ("nalo", _denalo),
         ("naloR", _denaloR), ("deM", _deM), ("derot", _derot),
-        ("denfin", _denfin), ("deGhn", _deGhn),
+        ("denfin", _denfin), ("deGhn", _deGhn), ("dea", _dea),
+        ("depagama", _depagama),
         ("ap", _deap), ("riF", _deriF), ("vonset", _devoice_onset),
         ("async", _deasyncope), ("dentn", _dental_n),
         ("aspire", _deaspire)]
@@ -633,7 +673,8 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
             "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
             "ks_k": 0.6, "deY": 0.6, "nalo": 0.6, "naloR": 0.6, "deM": 0.6,
-            "derot": 0.6, "denfin": 0.6, "deGhn": 0.65,
+            "derot": 0.6, "denfin": 0.6, "deGhn": 0.65, "dea": 0.6,
+            "depagama": 0.6,
             "ap": 0.6, "riF": 0.65, "vonset": 0.55, "async": 0.55,
             "dentn": 0.6, "aspire": 0.55}
 
