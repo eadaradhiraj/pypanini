@@ -1179,8 +1179,31 @@ def _build_inv() -> None:
     for _s, _v, _c in [("An", 1, "eka"), ("AntO", 1, "dvi"), ("AntaH", 1, "bahu"),
                        ("Antam", 2, "eka"), ("AntO", 2, "dvi")]:
         _add(_s, "at", _A, None, "puM", _v, _c)
+    # at-stem obliques (weak dadata-: dadatA/dadate/dadataH/dadati/dadatsu;
+    # dual dadadByAm; verify-gated via satf declension)
+    for _s, _v, _c in [("atA", 3, "eka"), ("ate", 4, "eka"),
+                       ("ataH", 5, "eka"), ("ataH", 6, "eka"),
+                       ("atOH", 6, "dvi"), ("atAm", 6, "bahu"),
+                       ("ati", 7, "eka"), ("atOH", 7, "dvi"),
+                       ("atsu", 7, "bahu")]:
+        _add(_s, "at", _A, None, "puM", _v, _c)
+    for _s, _v, _c in [("adByAm", 3, "dvi"), ("adBiH", 3, "bahu"),
+                       ("adByAm", 4, "dvi"), ("adByaH", 4, "bahu"),
+                       ("adByAm", 5, "dvi"), ("adByaH", 5, "bahu")]:
+        _add(_s, "at", _A, None, "puM", _v, _c)
     for _s, _v, _c in [("vAn", 1, "eka"), ("vantO", 1, "dvi"), ("vantaH", 1, "bahu"),
                        ("vantam", 2, "eka"), ("vantO", 2, "dvi"), ("vataH", 2, "bahu")]:
+        _add(_s, "vat", _A, None, "puM", _v, _c)
+    # vat-stem (ktavatu) obliques, parallel to at-stems above
+    for _s, _v, _c in [("vatA", 3, "eka"), ("vate", 4, "eka"),
+                       ("vataH", 5, "eka"), ("vataH", 6, "eka"),
+                       ("vatoH", 6, "dvi"), ("vatAm", 6, "bahu"),
+                       ("vati", 7, "eka"), ("vatoH", 7, "dvi"),
+                       ("vatsu", 7, "bahu")]:
+        _add(_s, "vat", _A, None, "puM", _v, _c)
+    for _s, _v, _c in [("vadByAm", 3, "dvi"), ("vadBiH", 3, "bahu"),
+                       ("vadByAm", 4, "dvi"), ("vadByaH", 4, "bahu"),
+                       ("vadByAm", 5, "dvi"), ("vadByaH", 5, "bahu")]:
         _add(_s, "vat", _A, None, "puM", _v, _c)
     for _s, _v, _c in [("vAn", 1, "eka"), ("vAMsO", 1, "dvi"), ("vAMsaH", 1, "bahu"),
                        ("vAMsam", 2, "eka"), ("vAMsO", 2, "dvi"),
@@ -1550,12 +1573,14 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
                         _emit("Satf", _c, _m, 0.9, "irregular present stem")
                         _seen_rt.add(_c)
                 _done = True
-            # plain closure AND secondaries: dadat is genuinely dad-Satf
-            # and dA-Satf at once
+            # plain closure AND secondaries: dadat is dA-Satf via abhyasa
+            # (class-3 reduplication is the primary formation here, like
+            # guna for tinanta); dad/daD twins ride only in recall mode —
+            # precise engine-verify drops them (dad 01.0017 forms no Satf)
             for (_rt, _m, _via) in _krd_hits(_base):
                 if _rt not in _seen_rt:
                     _emit("Satf", _rt, _m,
-                          0.85 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
+                          0.85 if _via in ("exact", "abhyasa") else 0.7,
                           f"root via {_via}")
                     _seen_rt.add(_rt)
                 _done = True
@@ -3011,7 +3036,7 @@ def subanta_search(word: str, limit: int | None = None,
     """Subanta-only search: one entry per stem with a readings list."""
     _g = _group_subanta(_subanta_flat(word, limit=500))
     if precise:
-        _g = _precise_filter(_g)
+        _g = _precise_filter(_g, word)
     return _g[:limit] if limit is not None else _g
 
 
@@ -3089,6 +3114,32 @@ def _krdanta_flat(word: str, limit: int = 50,
         if _mw:
             for _k in _krdanta_from_stem(_mw, "strI", 1, "eka"):
                 _kk = (_k.get("dhatu"), _k["pratyaya"], _mw, "strI", 1,
+                       "eka", _ch)
+                if _kk in seen:
+                    continue
+                seen.add(_kk)
+                _k = dict(_k)
+                _k["confidence"] = _penal(_k.get("confidence", 0.5))
+                if _ch:
+                    _k["upasarga"] = _ch
+                out.append(_k)
+        # masculine at-dual/plural ride the bare stem (dadatO/dadataH and
+        # strong dadantO/dadantaH/dadantam <- dadat: the abhyasta weak
+        # paradigm has no -n-, so subanta stems miss them; recover dadat
+        # and analyse it, keeping a nominative slot)
+        _mm = None
+        if _w.endswith("atO") and len(_w) > 3:
+            _mm = _w[:-1]
+        elif _w.endswith("ataH") and len(_w) > 4:
+            _mm = _w[:-2]
+        elif _w.endswith("antO") and len(_w) > 4:
+            _mm = _w[:-3] + "t"
+        elif (_w.endswith("antaH") or _w.endswith("antam")) \
+                and len(_w) > 5:
+            _mm = _w[:-4] + "t"
+        if _mm:
+            for _k in _krdanta_from_stem(_mm, "puM", 1, "eka"):
+                _kk = (_k.get("dhatu"), _k["pratyaya"], _mm, "puM", 1,
                        "eka", _ch)
                 if _kk in seen:
                     continue
@@ -3350,7 +3401,7 @@ def krdanta_search(word: str, limit: int | None = None,
     _flat = _krdanta_flat(word, limit=500, with_upasarga=with_upasarga)
     _g = _group_krdanta(_flat)
     if precise:
-        _g = _precise_filter(_g)
+        _g = _precise_filter(_g, word)
     return _g[:limit] if limit is not None else _g
 
 
@@ -3427,15 +3478,98 @@ def _group_tinanta(flat: List[dict]) -> List[dict]:
     return out
 
 
-def _precise_filter(groups: List[dict]) -> List[dict]:
+_KRD_ENG = None
+_KRD_VERIFY_CACHE: Dict[tuple, object] = {}
+
+# search pratyaya -> engine krdanta codes (audit PRAT_FAMILY + sya- twins)
+_KRD_FAMILY = {
+    "kta": ["kta"], "ktavatu": ["ktavatu"], "Satf": ["Satf", "sya-Satf"],
+    "SAnac": ["SAnac", "cAnaS", "BAvakarma-SAnac", "sya-SAnac",
+               "sya-BAvakarma-SAnac"],
+    "tavya": ["tavya"], "anIyar": ["anIyar"],
+    "yat": ["yat", "Ryat", "kyap"], "Rvul": ["Rvul", "vun"],
+    "ukaY": ["ukaY"], "tfc": ["tfc", "zwran"], "lyuw": ["lyuw", "lyu"],
+    "GaY": ["GaY"], "ac": ["ac"], "ap": ["ap"], "a": ["a"],
+    "ktin": ["ktin"], "u": ["u"], "gsnu": ["gsnu"], "kvasu": ["kvasu"],
+    "tumun": ["tumun"], "ktvA": ["ktvA"], "lyap": ["lyap"],
+    "Ramul": ["Ramul"],
+}
+
+
+def _krd_engine_forms(dhatu: str, sanadi, dhatu_id, upasarga) -> dict:
+    """Cached engine krdanta table for one (dhatu, sanadi, id, prefix)."""
+    global _KRD_ENG
+    _ck = (dhatu, sanadi, dhatu_id, upasarga)
+    if _ck in _KRD_VERIFY_CACHE:
+        return _KRD_VERIFY_CACHE[_ck]
+    try:
+        if _KRD_ENG is None:
+            from .krdanta import KrdantaEngine
+            _KRD_ENG = KrdantaEngine()
+        _d = _KRD_ENG.derive_all_krdantas(
+            dhatu, sanadi=sanadi, dhatu_id=dhatu_id, upasarga=upasarga)
+    except Exception:
+        _d = {}
+    _KRD_VERIFY_CACHE[_ck] = _d
+    return _d
+
+
+def _verify_krd(word: str, stem: str | None, dhatu: str, pratyaya: str,
+                via: str, ids, upasarga) -> bool:
+    """Engine-verify one krdanta reading (precision mode only).
+
+    True when the engine derives ``word`` or ``stem`` under the
+    pratyaya family for a plausible sanadi/dhatu_id. Abstains (True)
+    only for families the engine never emits anywhere
+    (kvasu/u/gsnu/ukaY) — otherwise silence means refuted, so drop.
+    """
+    if pratyaya in ("kvasu", "u", "gsnu", "ukaY"):
+        return True
+    _fams = _KRD_FAMILY.get(pratyaya, [pratyaya])
+    if via == "san":
+        _sans = ["sannanta"]
+    elif via == "yang":
+        _sans = ["yananta", "yanluganta"]
+    elif via == "yanluk":
+        _sans = ["yanluganta"]
+    elif via in ("exact", "abhyasa"):
+        _sans = [None]
+    else:
+        _sans = [None, "nijanta", "sannanta", "yananta", "yanluganta"]
+    _ids = [i for i in (ids or [None]) if i] or [None]
+    for _sd in _sans:
+        for _did in _ids:
+            _d = _krd_engine_forms(dhatu, _sd, _did, upasarga)
+            for _code in _fams:
+                _item = _d.get(_code)
+                if not isinstance(_item, dict):
+                    continue
+                _forms = set()
+                for _k in ("M", "F", "N", "avyaya", "form", "base"):
+                    _v = _item.get(_k)
+                    if isinstance(_v, str):
+                        _forms.add(_v)
+                        _forms.update(_v.split("/"))
+                    elif isinstance(_v, list):
+                        for _x in _v:
+                            if isinstance(_x, str):
+                                _forms.add(_x)
+                                _forms.update(_x.split("/"))
+                if word in _forms or (stem and stem in _forms):
+                    return True
+    return False
+
+
+def _precise_filter(groups: List[dict], word: str | None = None) -> List[dict]:
     """Precision filter for end-user output (recall stays in the library).
 
     Keeps: attested groups whole (data-true, ending ``attested``);
-    heuristic tinanta/krdanta readings that are verified (>= 0.8, no
-    "; unverified"); subanta lexicon (0.9) and real inflections (>= 0.7).
-    Drops single-consonant-grade guesses (dI/ad for dadat, 0.7) and
-    unverified ghosts. Audit/``analyze`` default (``precise=False``)
-    is unaffected — 100% recall lives there.
+    verified heuristic tinanta readings (>= 0.8, no "; unverified");
+    engine-verified krdanta readings (>= 0.8; abstains when the engine
+    never emits that family); subanta lexicon (0.9) and real
+    inflections (>= 0.7). Drops engine-refuted krdanta (dad-Satf for
+    dadat) and unverified ghosts. Audit/``analyze`` default
+    (``precise=False``) is unaffected — 100% recall lives there.
     """
     out: List[dict] = []
     for _g in groups:
@@ -3448,6 +3582,18 @@ def _precise_filter(groups: List[dict]) -> List[dict]:
         if _g.get("kind") == "subanta":
             _keep = [r for r in _rs
                      if r.get("confidence", 0.0) >= 0.7]
+        elif _g.get("kind") == "krdanta" and word:
+            _keep = []
+            for r in _rs:
+                if r.get("confidence", 0.0) < 0.8:
+                    continue
+                _via = (r.get("note", "").split("root via ")
+                        [-1].split(" ")[0].rstrip(";")
+                        if "root via " in r.get("note", "") else "exact")
+                if _verify_krd(word, r.get("stem"), _g.get("dhatu"),
+                               r.get("pratyaya"), _via,
+                               _g.get("ids"), _g.get("upasarga")):
+                    _keep.append(r)
         else:
             _keep = [r for r in _rs
                      if r.get("confidence", 0.0) >= 0.8
@@ -3469,7 +3615,7 @@ def tinanta_search(word: str, limit: int | None = None,
     _flat = _tinanta_flat(word, limit=500, with_upasarga=with_upasarga)
     _g = _group_tinanta(_flat)
     if precise:
-        _g = _precise_filter(_g)
+        _g = _precise_filter(_g, word)
     return _g[:limit] if limit is not None else _g
 
 
@@ -3681,7 +3827,7 @@ def analyze(word: str, limit: int | None = None,
     out.extend(_attested_groups(word))
     out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
     if precise:
-        out = _precise_filter(out)
+        out = _precise_filter(out, word)
     return out[:limit] if limit is not None else out
 
 
@@ -3703,7 +3849,7 @@ def analyze_tin_krd(word: str, limit: int | None = None,
     out.extend(_attested_groups(word))
     out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
     if precise:
-        out = _precise_filter(out)
+        out = _precise_filter(out, word)
     return out[:limit] if limit is not None else out
 
 
