@@ -84,3 +84,54 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   A: Fix them (miss CSV); generally the CLI should deliver results to the
   end user as part of the grand plan. Ignore subanta search for now
   (tinanta/krdanta only).
+- No other open questions; scope is locked as above.
+
+## Search 100% session log (2026-10-08, for future LLMs — do not reinvent)
+- Baseline sampled recall (seed 2, 80 fids = 8/gana, 8 tokens/fid = 640,
+  `fid_expectations(do_engine=False)` + `analyze` + `check_exp`): 70%.
+  Current after fixes below: 81%. Round-trips perfect throughout
+  (tinanta slot+root 540/540, krdanta 185/185). 49 tests + lint green.
+- Code (`pypanini/search.py`): `_yang_reverse` (tAtay->tay, beBrI->BrI,
+  barIBar->Bar, lAlarb->larb, boBU->BU; long-A/e/o + arI/ar/aM/anI/alI redups,
+  ya-strip, vowel-initial fallback) wired into `_krd_hits`, `_tinanta_analyze`
+  (lookup/abhyasa/san branches, `via_extra` yang/yanluk 0.7), all
+  `_infix_reverse` branches (luT/lfT/ASIrliN/ASI_VIDHI/ASI_ATM/luN/liT/
+  periphrastic; yang outside `for _ab` loops — inside never fires when
+  `_abhyasa_reverse` is []); `_deIr` (rI/ri/rU/ru/Ur/Ir->f), `_deApE`
+  (Ap->E: styAp->styE for 01.1058), `_deSamInit` (U->va, I->ya:
+  UcivAn->vac); `_sec_expand` (nijanta -aya-/-ay-, yak -ya-, -p- augment
+  arp->ar->f) applied to luT/lfT/liT; confidence tuples extended with
+  yang/yanluk; `_KVASU_AUX` += `AsuzI` (pozayAmAsuzI->puz);
+  `_prefix_splits` saY/saN->sam (saYcikamp-, saNkamp-); `_emit` no longer
+  forces parasmaipada (honors caller pada); `_SKIP_VERIFY` fast flag;
+  `analyze_tin_krd()` (no subanta groups; note `_krdanta_flat` still needs
+  `_subanta_flat` stems internally); CLI `main()` (`python -m
+  pypanini.search WORD [--fast]`, tinanta/krdanta only).
+- Exports (`pypanini/__init__.py`): `analyze_tin_krd`.
+- Audit (`tests/audit_search_full.py`): `positional_slots_list` m==18 pairs
+  + m==19 pairs+ma.bahu-triple (fixes yak ASIrliN/luw walk-fallback:
+  viprAyizIDvam->ma.bahu, GArizIzWAH->ma.eka); `audit_fid(..., fast)` +
+  `--fast` (uses `analyze_tin_krd`, sets `_SKIP_VERIFY`).
+- Proven fixes (verify before touching): tAtayyAt->tay ASIrliN/viDiliN,
+  tAtayizIzwa->tay, barIBarati->Bf lw, lAlarbati->larb, beBrIyate->Bf,
+  boBUyate->BU, nAwayitA->naw luw, arpayitAsmaH->f luw (low-ranked 0.35
+  unverified, still a hit), SAkayitAsmi->Sak, styApayeta->styE,
+  pozayAmAsuzI->puz, UcivAn->vac, saYcikampizitA/saNkampayeta hits.
+- Known gaps (fix next, do not re-diagnose): kvasu lit stems beD->banD
+  (abhyasa onset D not in b-set + n-loss + e->a; 09.0044) and
+  biBants->banD (san B-onset vs b-root + -nts- vs -nD); san/nich
+  secondaries; SAnac sya-stems (sezIyamARam->si, tezwiGizyamARA->stiG);
+  tavya/ac; yangluk non-lw is an ENGINE gap (tAtayyAt not generated for
+  tay yangluk ASIrliN/viDiliN; test_dhatu skips yangluk non-lw, so search
+  can only emit unverified readings there).
+- Perf blocker (measured): `_ensure_ready` ~5s/process; fast analyze
+  ~0.012-0.018s/surface (Bavati first call 4.6s incl. warmup); one big fid
+  (01.0001, 29k unique surfaces) ~7min; full 2259-file audit = hours-days
+  even with `--jobs 8`. Use per-gana SAMPLED audits for iteration, not full.
+- Repro: `python -m pypanini.search Bavati --fast`;
+  `python tests/audit_search_full.py --fid 01.0001 --fast --no-engine`
+  (still slow — prefer sampled snippet in session); unit gate:
+  `python -W ignore::ResourceWarning -m unittest discover -s tests -p
+  "test_*.py"`.
+- Commits this session: yang/nich/yak/kvasu fixes (231b6e6), Q&A doc
+  (791d4ef), CLI+fast-audit (163adca).
