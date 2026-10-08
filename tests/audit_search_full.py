@@ -138,6 +138,66 @@ def ending_slots(item, lakara, pada):
     return {(pur, vac) for (e, pur, vac) in cands if len(e) == maxlen}
 
 
+def _asirlin_atm_slot(item):
+    """Slot for an ASIrliN Atmanepada item via ending identity.
+
+    Suffix -> slot (twins included: z/s satva, D/Q + T/W zwutva).
+    Returns None when no suffix matches. Independent of search code
+    (data-driven ending identity, like ending_slots for lw/low/laN)."""
+    _table = [
+        ("IyAstAm", ("prathama", "dvi")),
+        ("IyAsTAm", ("madhyama", "dvi")),
+        ("IzWAH", ("madhyama", "eka")),
+        ("IyAsTAm", ("madhyama", "dvi")),
+        ("Izwa", ("prathama", "eka")),
+        ("Iran", ("prathama", "bahu")),
+        ("IQvam", ("madhyama", "bahu")),
+        ("IDvam", ("madhyama", "bahu")),
+        ("Ivahi", ("uttama", "dvi")),
+        ("Imahi", ("uttama", "bahu")),
+        ("IyA", ("uttama", "eka")),
+        ("Iya", ("uttama", "eka")),
+        ("IzWam", ("madhyama", "dvi")),
+        ("IDvam", ("madhyama", "bahu")),
+    ]
+    for _suf, _slot in sorted(_table, key=lambda kv: -len(kv[0])):
+        if item.endswith(_suf) and len(item) > len(_suf):
+            return _slot
+        # z/s + dental twins (BIzayizIzwa, BApayizIQvam/IDvam)
+        for _tw in (_suf.replace("z", "s"), _suf.replace("s", "z"),
+                    _suf.replace("Q", "D"), _suf.replace("D", "Q"),
+                    _suf.replace("W", "T"), _suf.replace("T", "W")):
+            if _tw != _suf and item.endswith(_tw) and len(item) > len(_tw):
+                return _slot
+    return None
+
+
+def _asirlin_para_slot(item):
+    """Slot for an ASIrliN parasmaipada item via ending identity.
+
+    yAt/yAd share prath-eka; the rest map 1:1. Twins: t/d voicing."""
+    _table = [
+        ("yAstAm", ("prathama", "dvi")),
+        ("yAsuH", ("prathama", "bahu")),
+        ("yAstam", ("madhyama", "dvi")),
+        ("yAsta", ("madhyama", "bahu")),
+        ("yAsam", ("uttama", "eka")),
+        ("yAsva", ("uttama", "dvi")),
+        ("yAsma", ("uttama", "bahu")),
+        ("yAt", ("prathama", "eka")),
+        ("yAd", ("prathama", "eka")),
+        ("yAH", ("madhyama", "eka")),
+    ]
+    for _suf, _slot in sorted(_table, key=lambda kv: -len(kv[0])):
+        if item.endswith(_suf) and len(item) > len(_suf):
+            return _slot
+        _tw = _suf[:-1] + ("d" if _suf.endswith("t") else (
+            "t" if _suf.endswith("d") else _suf[-1]))
+        if _tw != _suf and item.endswith(_tw) and len(item) > len(_tw):
+            return _slot
+    return None
+
+
 def positional_slots_list(items, lakara):
     """Slot per list item via dedupe-then-fixed-table.
 
@@ -189,6 +249,39 @@ def positional_slots_list(items, lakara):
         # 13-18 three pairs (slots 6-8)
         _patslots = [SLOTS9[i // 2] for i in range(10)] + [SLOTS9[5]] * 3 \
             + [SLOTS9[6 + (i - 13) // 2] for i in range(13, 19)]
+    elif lakara == "ASIrliN" and all(
+            _asirlin_atm_slot(_t) is not None for _t in dedup):
+        # ASIrliN Atmanepada interleave (BI 30-item: 3 variants/slot,
+        # madh-bahu Q/D twin makes 6): ending identity per item, exact
+        # like ending_slots (search emits the same suffix->slot).
+        _patslots = [_asirlin_atm_slot(_t) for _t in dedup]
+    elif lakara == "ASIrliN" and all(
+            _asirlin_para_slot(_t) is not None for _t in dedup):
+        # ASIrliN parasmaipada interleave (snA 20-item: snAy-/sney-
+        # grades x 10 suffixes, yAt/yAd share prath-eka): ending
+        # identity per item.
+        _patslots = [_asirlin_para_slot(_t) for _t in dedup]
+    elif m == 27:
+        # 3-variant interleave per slot (9 slots x 3)
+        _patslots = [SLOTS9[i // 3] for i in range(27)]
+    elif m == 30:
+        # 3/slot with one Q/D-twin slot doubled (BI ASIrliN: 3x5 +
+        # 6 + 3x3 = 30). Detect the 6-run by suffix: the doubled slot
+        # is where Q/D twins share ending identity; fallback assumes
+        # slot 5 (madh-bahu, the only Q/D ending) when ambiguous.
+        _slots30 = [_asirlin_atm_slot(_t) for _t in dedup]
+        if lakara == "ASIrliN" and all(_s is not None for _s in _slots30):
+            _patslots = _slots30
+        else:
+            _patslots = [SLOTS9[i] for i in
+                         (0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4,
+                          5, 5, 5, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8)]
+    elif m == 36:
+        # 4-variant interleave per slot (jugupsitA-type, 9 x 4)
+        _patslots = [SLOTS9[i // 4] for i in range(36)]
+    elif m == 54:
+        # 6-variant interleave per slot (saMtitarIzi-type, 9 x 6)
+        _patslots = [SLOTS9[i // 6] for i in range(54)]
     else:
         # sequential group assignment with overflow pin
         _patslots = [SLOTS9[min(i, 8)] for i in range(m)]

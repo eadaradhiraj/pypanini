@@ -1,6 +1,6 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-10-07
+Date: 2026-10-08
 Subanta: **21/21 (~2000 goldens)** — engine + audits + pipeline (see instructions.MD).
 Search: **10/10 + round-trip perfect** — `pypanini/search.py` (subanta/krdanta/tinanta/analyze) + demo §4.
   Round-trips: tinanta slot 540/540 + root 540/540; krdanta 185/185 (was 539/172).
@@ -67,7 +67,18 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   caMcur->car, jegil->gF, abariBaH->Bf, atAtat->tay (deep), jiGats->ad,
   jiGAMs->han, jigamiz->i, vivakz->brU (+vac kept), ediDiz->eD, urdidiz->urd,
   cikalp->kfp, juGukz->guh, unmimandiz->madi. Precise-safe (new twins <0.8
-  unless suppletion-verified). Left: nich+ting (owner), audit interleave tables,
+  unless suppletion-verified).
+- Heuristics nich+ting (this turn, analyzer-only, 49/49 green, round-trips 540/540 + 185/185):
+  `_NICH_SUPPLETION` (gamay->i, GAtay->han, eray->Ir, hApay->hAk, BApay->BI,
+  arpay->f, +aDyApay/jApay/pAlay/vAyay twins, 0.8 iff verified) + `_nich_reverse`
+  wired all 12 san sites (luT/lfT/ASI/ASI-VIDHI/ASI-ATM/luN/liT/periph/tinanta/krdanta);
+  `_tin_candidates` p-strip + low-A restore (sn->snA) + s-restore (SA->SAs) + yak
+  y-len relax (Iy->Iya); luT single-vowel guard (etA->i); `_dej` g->j (vfg->vfj).
+  Audit: ASIrliN Atmane+para ending-identity + 27/30/36/54 interleave tables
+  (BI 30-item, snA 20-item). Probes heuristic-only HIT: gamayati->i, erayati->Ir,
+  GAtayati->han, hApayati->hAk, arpayati->f, etA->i luw, ASADvam->SAs, snAni->snA.
+  Seed-2 heuristic-only 85.2% -> 89.7%; nich/low/luw probes 0 misses.
+  Left: ting slot tails (TAm prath/madh-dvi ambiguity, H-final laN, asnAn),
   yangluk non-lw + sannanta-ac engine gaps (attested carries).
 
 ## Next
