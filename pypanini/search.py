@@ -144,9 +144,10 @@ def _dekhari(s: str) -> str:
 
 def _deinfix(s: str) -> str:
     """Reverse class-7 nasal infix (runD <- rundh + ...: infix n/N/Y/M/R
-    between vowel-or-fricative and following consonant/thematic drops)."""
+    between vowel-or-fricative and following consonant drops; Danv <-
+    Davi + tum needs n before v too)."""
     import re as _re
-    _v = _re.sub(r"([aAiIuUfFxX])([nNYMR])(?=[aA]?[kKgGcCjJtTwWqQdDNpPbBsSzZh])",
+    _v = _re.sub(r"([aAiIuUfFxX])([nNYMR])(?=[aA]?[kKgGcCjJtTwWqQdDNpPbBsSzZvy])",
                  r"\1", s, count=1)
     return _v
 
@@ -177,9 +178,8 @@ def _deriF(s: str) -> str:
 def _deit(s: str) -> str:
     """Reverse lost iT/i-grade (pij <- piji + ...: pik <- pij + te needs
     +i; bfha <- bfhi + a needs +i after thematic strip; mida <- midi;
-    ci <- cap + aya via ap-strip)."""
-    if len(s) >= 1 and s[-1] in ("j", "h", "w", "y", "c", "s", "z", "d",
-                                 "t", "k", "p"):
+    ci <- cap + aya via ap-strip; dIDI <- dID + ya). Lookup-gated."""
+    if len(s) >= 1 and s[-1] not in SLP1_VOWELS:
         return s + "i"
     return s
 
@@ -268,6 +268,23 @@ def _deM(s: str) -> str:
     """Reverse M-epenthesis/agama (sasanya <- saMsanya: drop M)."""
     import re as _re
     return _re.sub(r"M(?=[hHkKgGcCjJtTwWqQdDpPbBsSzZ])", "", s, count=1)
+
+
+def _deMplace(s: str) -> str:
+    """Reverse M-assimilation (saNgacCati <- saMgacCati: M regains N
+    before velars, Y before palatals)."""
+    import re as _re
+    _v = _re.sub(r"M(?=[kKgGN])", "N", s, count=1)
+    if _v != s:
+        return _v
+    return _re.sub(r"M(?=[cCjJY])", "Y", s, count=1)
+
+
+def _demlabial(s: str) -> str:
+    """Reverse m-assimilation (trunp <- trump + itum: m regains n
+    before labials)."""
+    import re as _re
+    return _re.sub(r"m(?=[pPbB])", "n", s, count=1)
 
 
 def _deY(s: str) -> str:
@@ -679,7 +696,8 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
         ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
         ("ks_k", _deks_k), ("deY", _deY), ("nalo", _denalo),
-        ("naloR", _denaloR), ("deM", _deM), ("derot", _derot),
+        ("naloR", _denaloR), ("deM", _deM), ("deMplace", _deMplace),
+        ("demlab", _demlabial), ("derot", _derot),
         ("denfin", _denfin), ("deGhn", _deGhn), ("dea", _dea),
         ("depagama", _depagama),
         ("ap", _deap), ("riF", _deriF), ("vonset", _devoice_onset),
@@ -693,7 +711,8 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
             "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
             "ks_k": 0.6, "deY": 0.6, "nalo": 0.6, "naloR": 0.6, "deM": 0.6,
-            "derot": 0.6, "denfin": 0.6, "deGhn": 0.65, "dea": 0.6,
+            "deMplace": 0.6, "demlab": 0.6, "derot": 0.6, "denfin": 0.6,
+            "deGhn": 0.65, "dea": 0.6,
             "depagama": 0.6,
             "ap": 0.6, "riF": 0.65, "vonset": 0.55, "async": 0.55,
             "dentn": 0.6, "aspire": 0.55, "aspire0": 0.55}
@@ -2930,6 +2949,8 @@ def _krdanta_flat(word: str, limit: int = 50,
                 _cands = [_core]
                 if _core.endswith("i") and len(_core) > 1:
                     _cands.append(_core[:-1])  # sew iT (Bavi -> Bav)
+                    if _core.endswith("it") and len(_core) > 2:
+                        _cands.append(_core[:-2])  # buried iT (trumpit -> trump)
                 if _prat == "ktvA" and _core[:1] in ("u", "i") \
                         and len(_core) > 1:
                     # samprasarana absolutives (uktvA <- vac): va/ya + cutva
@@ -2994,26 +3015,31 @@ def _krdanta_flat(word: str, limit: int = 50,
                 if _preadings:
                     break
         # -ya absolutive: lyap needs an upasarga (prefixless reading is
-        # weak — but the engine overgenerates unprefixed twins)
+        # weak — but the engine overgenerates unprefixed twins).
+        # -tya- allomorph (kutya <- ku + tya) strips one more.
         if _w.endswith("ya") and len(_w) > 3:
-            for (_rt, _m, _via) in _krd_hits(_devrddhi(_w[:-2])):
-                if _ch:
-                    _kk = (_rt, "lyap", _w, _ch)
-                    _lyconf, _lynote = max(0.1, 0.75 - _pen + 0.1), \
-                        f"root via {_via}"
-                else:
-                    _kk = (_rt, "lyap", _w, None)
-                    _lyconf, _lynote = 0.45, f"root via {_via}; prefix missing"
-                if _kk not in seen:
-                    seen.add(_kk)
-                    _k = {"kind": "krdanta", "pratyaya": "lyap",
-                          "stem": _w, "linga": "avyaya",
-                          "vibhakti": None, "vacana": None,
-                          "confidence": _lyconf, "note": _lynote,
-                          **_root_details(_m)}
+            _lyb = [_devrddhi(_w[:-2])]
+            if _w.endswith("tya") and len(_w) > 4:
+                _lyb.append(_w[:-3])
+            for _lb in _lyb:
+                for (_rt, _m, _via) in _krd_hits(_lb):
                     if _ch:
-                        _k["upasarga"] = _ch
-                    out.append(_k)
+                        _kk = (_rt, "lyap", _w, _ch)
+                        _lyconf, _lynote = max(0.1, 0.75 - _pen + 0.1), \
+                            f"root via {_via}"
+                    else:
+                        _kk = (_rt, "lyap", _w, None)
+                        _lyconf, _lynote = 0.45, f"root via {_via}; prefix missing"
+                    if _kk not in seen:
+                        seen.add(_kk)
+                        _k = {"kind": "krdanta", "pratyaya": "lyap",
+                              "stem": _w, "linga": "avyaya",
+                              "vibhakti": None, "vacana": None,
+                              "confidence": _lyconf, "note": _lynote,
+                              **_root_details(_m)}
+                        if _ch:
+                            _k["upasarga"] = _ch
+                        out.append(_k)
         return _stems
 
     _level(word, None, 0.0)
