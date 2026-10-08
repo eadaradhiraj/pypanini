@@ -130,6 +130,55 @@ def _decutva(s: str) -> str:
     return s
 
 
+def _dekhari(s: str) -> str:
+    """Reverse khari ca devoicing before t (yukta <- yuj + ta,
+    Bhokzyati <- Buz + sya): final k/K -> j/J."""
+    if s.endswith("k"):
+        return s[:-1] + "j"
+    if s.endswith("K"):
+        return s[:-1] + "J"
+    return s
+
+
+def _deinfix(s: str) -> str:
+    """Reverse class-7 nasal infix (runD <- rundh + ...: infix n/N/Y
+    between vowel and following consonant/thematic drops)."""
+    import re as _re
+    _v = _re.sub(r"([aAiIuU])([nNY])(?=[aA]?[kKgGcCjJtTwWqQdDNpPbBsSzZh])",
+                 r"\1", s, count=1)
+    return _v
+
+
+def _denu(s: str) -> str:
+    """Reverse class-5 -nu- vikaraNa (sun <- su + nu)."""
+    if s.endswith(("nu", "no")) and len(s) > 2:
+        return s[:-2]
+    return s
+
+
+def _dethem(s: str) -> str:
+    """Reverse medial thematic -a- (yuaj <- yuYaj + ...: class-7 stem
+    after infix-strip leaves root + thematic fused mid-string)."""
+    import re as _re
+    return _re.sub(r"([iIuU])a(?=[kKgGcCjJtTwWqQdDNpPbB])", r"\1",
+                   s, count=1)
+
+
+def _dena(s: str) -> str:
+    """Reverse class-9 -nA- vikaraNa (krI <- krI + nA)."""
+    if s.endswith(("nA", "nI")) and len(s) > 2:
+        return s[:-2]
+    return s
+
+
+def _deaspire(s: str) -> str:
+    """Reverse final aspiration loss (lab <- laB + ...): media -> aspirate."""
+    _map = {"b": "B", "d": "D", "g": "G", "j": "J"}
+    if len(s) > 1 and s[-1] in _map:
+        return s[:-1] + _map[s[-1]]
+    return s
+
+
 def _len_variants(s: str) -> List[str]:
     out = [s]
     if s and s[-1] in "iIuUfFxXaA":
@@ -202,6 +251,14 @@ _SAN_UNVOICE = {
     "P": ["P", "B"], "k": ["k", "g", "G"], "K": ["K", "G"],
     "c": ["c", "j"], "C": ["C", "J"], "s": ["s"],
 }
+# root-final deaspiration/devoicing before san-s (dh + s -> ts):
+# full-type middles (rut <- rudh + sa) regain voiced/aspirate codas
+_SAN_CODA = {
+    "t": ["t", "d", "D", "dh", "Dh"], "T": ["T", "D", "Dh"],
+    "p": ["p", "b", "B", "bh", "Bh"], "k": ["k", "g", "G", "gh", "Gh"],
+    "c": ["c", "j", "J", "jh", "Jh"], "C": ["C", "J", "Jh"],
+    "s": ["s"],
+}
 
 
 def _san_reverse(core: str) -> List[str]:
@@ -223,11 +280,14 @@ def _san_reverse(core: str) -> List[str]:
     _mids = [_mid]
     if _mid.endswith("i") and len(_mid) > 1:
         _mids.append(_mid[:-1])
+    if _mid.endswith(("si", "zi", "Si", "sI", "zI", "SI")) and len(_mid) > 3:
+        # iT + san-s fusion (buBUziz <- bu + BU + i + sa): the trailing
+        # sibilant is the desiderative -sa-, so strip both to reach BU
+        _mids.append(_mid[:-2])
     for _m in _mids:
         if not _m:
             continue
-        if len(_m) == 1 and _m not in SLP1_VOWELS:
-            # contracted fusion: bare onset (dits-a <- dA + sa).
+        if len(_m) == 1 and _m not in SLP1_VOWELS:            # contracted fusion: bare onset (dits-a <- dA + sa).
             # The reduplicant keeps aspiration clues (di- vs Dhi-),
             # so the matching onset leads (dA, not DA, for dits).
             _cands = list(_SAN_UNVOICE.get(_m, [_m]))
@@ -247,6 +307,13 @@ def _san_reverse(core: str) -> List[str]:
                 _j = _m[:-1] + "j"
                 if _j not in out:
                     out.append(_j)
+            # root-final stop devoiced/deaspirated before san-s
+            # (rut <- rudh + sa, lips <- laB + sa)
+            if len(_m) > 1 and _m[-1] in _SAN_CODA:
+                for _cc in _SAN_CODA[_m[-1]][1:]:
+                    _c2 = _m[:-1] + _cc
+                    if _c2 not in out:
+                        out.append(_c2)
     return out
 
 
@@ -288,6 +355,19 @@ def _abhyasa_reverse(core: str) -> List[str]:
             if _cand not in out:
                 out.append(_cand)
     return out
+
+
+_sentinel = object()
+
+
+def _acc_hits(acc: list, revs: list, label: str, extra=_sentinel) -> None:
+    """Append every distinct root from reversal candidates (collect-all
+    graded homographs: rod -> rud + ruD, devi -> dev + div)."""
+    for _r in revs:
+        for (_rc, _rm, _rv) in _lookup_all(_r):
+            if all(_rc != _h[0] for _h in acc):
+                acc.append((_rc, _rm, label) if extra is _sentinel
+                           else (_rc, _rm, label, extra))
 
 
 def _deur(s: str) -> str:
@@ -363,11 +443,15 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("cutva", _decutva), ("thematic", _dethematic), ("double", _dedouble),
         ("nasal", _denasal), ("nasaln", _denasal_n), ("ur", _deur),
         ("urv", _deurv), ("ovo", _devo), ("uv", _deuv), ("yan", _deyan),
-        ("devoice", _devoice)]
+        ("devoice", _devoice), ("khari", _dekhari), ("infix", _deinfix),
+        ("nu", _denu), ("na", _dena), ("them", _dethem),
+        ("aspire", _deaspire)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "cha": 0.8, "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
-            "ovo": 0.7, "uv": 0.6, "yan": 0.75, "devoice": 0.6}
+            "ovo": 0.7, "uv": 0.6, "yan": 0.75, "devoice": 0.6,
+            "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
+            "them": 0.6, "aspire": 0.55}
 
 
 def _via_conf(via: str) -> float:
@@ -378,6 +462,83 @@ def _via_conf(via: str) -> float:
 
 
 _LOOKUP_CACHE: Dict[str, object] = {}
+
+
+def _lookup_all(cand: str) -> list:
+    """Graded-closure root lookup, all distinct roots.
+
+    Same BFS as :func:`_lookup_root` but collects every reachable root
+    (graded homographs: rod -> rud via guna and ruD via aspire+guna,
+    devi -> dev via uv and div via uv+guna). Ordered by (depth,
+    discovery), so element 0 always equals :func:`_lookup_root`.
+    Each entry is (clean, meta, via)."""
+    if not cand or len(cand) > 12:
+        return []
+    if cand in _LOOKUP_ALL_CACHE:
+        return _LOOKUP_ALL_CACHE[cand]
+
+    def _try(_s: str):
+        for _c in _len_variants(_s):
+            if _c in _ROOTS:
+                return _c
+        return None
+
+    out = []
+    _seen_roots = set()
+
+    def _add(_hit, _via):
+        if _hit not in _seen_roots:
+            _seen_roots.add(_hit)
+            out.append((_hit, _ROOTS[_hit], _via))
+
+    _seen = {cand}
+    _hit = _try(cand)
+    if _hit is not None:
+        _add(_hit, "exact")
+    # Natva reversal (praRamati -> nam): R could hide dental n
+    if "R" in cand:
+        for (_rc, _rm, _rv) in _lookup_all(cand.replace("R", "n")):
+            if _rc not in _seen_roots:
+                _seen_roots.add(_rc)
+                out.append((_rc, _rm, "natva+" + _rv))
+    # irregular presents (gacCha <- gam, yacCha <- yam/dA)
+    _irr = _irreg_pres(cand)
+    if _irr is not None:
+        for (_m, _c) in _irr:
+            if _c not in _seen_roots:
+                _seen_roots.add(_c)
+                out.append((_c, _m, "irreg"))
+    _level = [(cand, "")]
+    for _depth in (1, 2, 3):
+        _nxt: List[tuple] = []
+        for (_s, _v0) in _level:
+            for (_name, _fn) in _OPS:
+                try:
+                    _v = _fn(_s)
+                except Exception:
+                    continue
+                if _v != _s and _v not in _seen:
+                    _seen.add(_v)
+                    _nxt.append((_v, _v0 + "+" + _name if _v0 else _name))
+        for (_s, _vv) in _nxt:
+            _hit = _try(_s)
+            if _hit is not None and _hit not in _seen_roots:
+                _seen_roots.add(_hit)
+                out.append((_hit, _ROOTS[_hit], _vv))
+        _level = _nxt
+        if not _level:
+            break
+    # -cCha- presents (gacCati <- gam, yacCati <- yam)
+    if cand.endswith("cC") and len(cand) > 2:
+        for _c in _len_variants(cand[:-2] + "m"):
+            if _c in _ROOTS and _c not in _seen_roots:
+                _seen_roots.add(_c)
+                out.append((_c, _ROOTS[_c], "cha"))
+    _LOOKUP_ALL_CACHE[cand] = out
+    return out
+
+
+_LOOKUP_ALL_CACHE: Dict[str, list] = {}
 
 
 def _lookup_root(cand: str):
@@ -700,6 +861,40 @@ def _subanta_open(word: str) -> List[dict]:
 # krdanta analysis (affix signature + root lookup)
 # ---------------------------------------------------------------------------
 
+# periphrastic-kvasu auxiliaries: kvasu nominatives of the three universal
+# auxiliaries kf/as/BU (cakfvAn/cakruzI, AsivAn/AsyuzI, baBUvAn/baBUzI +
+# neuters). Closed inventory like the liT aux table; the lexical stem
+# side stays fully generative (buBUzAmbaBUvAn <- BU + sannanta).
+_KVASU_AUX = ("cakfvAn", "cakfvad", "cakfvas", "cakfvat", "cakruzI",
+              "AsivAn", "Asivad", "Asivas", "Asivat", "AsyuzI",
+              "baBUvAn", "baBUvad", "baBUvas", "baBUvat", "baBUzI")
+
+
+def _krd_hits(base: str) -> list:
+    """Root candidates for a krdanta stem-base: graded closure first, then
+    abhyasa (yaN/class-3: boBUy -> BU) and san (buBUz -> BU) reversals,
+    every distinct root kept (rod -> rud + ruD)."""
+    out = []
+
+    def _try(_b: str) -> None:
+        for (_rc, _rm, _rv) in _lookup_all(_b):
+            if all(_rc != o[0] for o in out):
+                out.append((_rc, _rm, _rv))
+        for _ab in _abhyasa_reverse(_b):
+            for (_rc, _rm, _rv) in _lookup_all(_ab):
+                if all(_rc != o[0] for o in out):
+                    out.append((_rc, _rm, "abhyasa"))
+        for _sn in _san_reverse(_b):
+            for (_rc, _rm, _rv) in _lookup_all(_sn):
+                if all(_rc != o[0] for o in out):
+                    out.append((_rc, _rm, "san"))
+
+    _try(base)
+    if base.endswith(("i", "I")) and len(base) > 2:
+        _try(base[:-1])  # sew-iT before the affix (buBUzi -> buBUz -> BU)
+    return out
+
+
 def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
     out: List[dict] = []
 
@@ -717,41 +912,76 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
 
     # kta / ktavatu via exact kta-stem map (handles all sandhi irregulars)
     _core = stem[:-1] + "a" if stem.endswith("A") else stem
+    _kta_exact = False
     if _core in _KTA_MAP:
         _rt = _KTA_MAP[_core]
         _emit("kta", _rt, _ROOTS[_rt], 0.95)
+        _kta_exact = True
     if stem.endswith("vat") and stem[:-3] in _KTA_MAP:
         _rt = _KTA_MAP[stem[:-3]]
         _emit("ktavatu", _rt, _ROOTS[_rt], 0.95)
+        _kta_exact = True
     if stem.endswith("vAn") and stem[:-3] in _KTA_MAP:
         _rt = _KTA_MAP[stem[:-3]]
         _emit("ktavatu", _rt, _ROOTS[_rt], 0.95)
+        _kta_exact = True
+    if not _kta_exact:
+        # kta/ktavatu of secondary stems (san/nich/yang: buBUzita,
+        # BAvita, boBUyita <- BU): strip the -ta- and reverse the stem
+        _kb = None
+        if _core.endswith("ita") and len(_core) > 4:
+            _kb = _core[:-3]
+        elif _core.endswith("ta") and len(_core) > 3:
+            _kb = _core[:-2]
+        elif _core.endswith("na") and len(_core) > 3:
+            _kb = _core[:-2]
+        if _kb is not None:
+            for (_rt, _m, _via) in _krd_hits(_kb):
+                _emit("kta", _rt, _m, 0.8, f"root via {_via}")
+        _kv = None
+        if stem.endswith("vat") and len(stem) > 5:
+            _kv = stem[:-3]
+        elif stem.endswith("vAn") and len(stem) > 5:
+            _kv = stem[:-3]
+        if _kv is not None:
+            _kvb = _kv[:-3] if _kv.endswith("ita") and len(_kv) > 4 \
+                else (_kv[:-2] if _kv.endswith("ta") and len(_kv) > 3
+                      else None)
+            if _kvb is not None:
+                for (_rt, _m, _via) in _krd_hits(_kvb):
+                    _emit("ktavatu", _rt, _m, 0.8, f"root via {_via}")
     # tavya / anIyar / yat via graded closure (iT, natva, geminates inside)
     if stem.endswith("tavya"):
-        _hit = _lookup_root(stem[:-5])
-        if _hit is None and stem.endswith("itavya"):
-            _hit = _lookup_root(stem[:-6])  # sew iT (Bavi -> Bav)
-        if _hit is not None:
-            _rt, _m, _via = _hit
-            _emit("tavya", _rt, _m, 0.85, f"root via {_via}")
+        _tb = stem[:-5]
+        _hits = _krd_hits(_tb)
+        if not _hits and stem.endswith("itavya"):
+            _hits = _krd_hits(stem[:-6])  # sew iT (Bavi -> Bav)
+        if _hits:
+            for (_rt, _m, _via) in _hits:
+                _emit("tavya", _rt, _m,
+                      0.85 if _via not in ("abhyasa", "san") else 0.7,
+                      f"root via {_via}")
         else:
             _emit("tavya", None, None, 0.5, "root unresolved")
     for _suf, _restore in (("anIya", ""), ("RIya", ""), ("AnIya", "A")):
         if stem.endswith(_suf):
             # natva/vrddhi sit inside the suffix (karaRIya, dAnIya)
-            _hit = _lookup_root(stem[:-len(_suf)] + _restore)
-            if _hit is not None:
-                _rt, _m, _via = _hit
-                _emit("anIyar", _rt, _m, 0.85, f"root via {_via}")
+            _hits = _krd_hits(stem[:-len(_suf)] + _restore)
+            if _hits:
+                for (_rt, _m, _via) in _hits:
+                    _emit("anIyar", _rt, _m,
+                          0.85 if _via not in ("abhyasa", "san") else 0.7,
+                          f"root via {_via}")
             else:
                 _emit("anIyar", None, None, 0.5, "root unresolved")
             break
     if stem.endswith("ya") and len(stem) > 3:
-        _hit = _lookup_root(_devrddhi(stem[:-2]))
-        if _hit is not None:
-            _rt, _m, _via = _hit
-            _emit("yat", _rt, _m, 0.85, f"root via {_via}")
-    # SAnac (muk -mAna-, plain -Ana, natva -ARa-, passive -yak-)
+        for (_rt, _m, _via) in _krd_hits(_devrddhi(stem[:-2])):
+            _emit("yat", _rt, _m,
+                  0.85 if _via not in ("abhyasa", "san") else 0.7,
+                  f"root via {_via}")
+    # SAnac (muk -mAna-, plain -Ana, natva -ARa-, passive -yak-,
+    # future -sya- + muk: BAvizyamaRa <- BU + i + sya)
     for _suf, _cut in (("mARa", 4), ("ARa", 3), ("mAna", 4), ("Ana", 3)):
         if stem.endswith(_suf):
             _b = stem[:-_cut]
@@ -764,104 +994,223 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
                     _cands.append(_b[:-2])
             if _b.endswith("ya") and len(_b) > 2:
                 _cands.append(_b[:-2])  # yak (BUya -> BU)
+            if _b.endswith(("sya", "zya")) and len(_b) > 4:
+                _cands.append(_b[:-3])  # future -sya- (BAvizya -> BAviz)
+                _t = _b[:-3]
+                # iT + san-s fusion (BAviz <- BAv + i + sa)
+                if _t.endswith(("si", "zi", "Si", "sI", "zI", "SI")) \
+                        and len(_t) > 3:
+                    _cands.append(_t[:-2])
+                elif _t.endswith(("i", "I")) and len(_t) > 2:
+                    _cands.append(_t[:-1])
+            _hits = []
+            _seen_rt = set()
             for _c in _cands:
-                _hit = _lookup_root(_c)
-                if _hit is not None:
-                    break
-            if _hit is not None:
-                _rt, _m, _via = _hit
-                _emit("SAnac", _rt, _m, 0.8, f"root via {_via}")
+                for (_rt, _m, _via) in _krd_hits(_c):
+                    if _rt not in _seen_rt:
+                        _seen_rt.add(_rt)
+                        _hits.append((_rt, _m, _via))
+            if _hits:
+                for (_rt, _m, _via) in _hits:
+                    _emit("SAnac", _rt, _m,
+                          0.8 if _via not in ("abhyasa", "san") else 0.7,
+                          f"root via {_via}")
             else:
                 _emit("SAnac", None, None, 0.5, "present stem; root unresolved")
             break
     # lyuw action noun (-ana): Bavana <- BU; Natva-R twin (-aRa): vidaRa <- vid
     if (stem.endswith("ana") or stem.endswith("aRa")) and len(stem) > 4:
-        _hit = _lookup_root(stem[:-3])
-        if _hit is not None:
-            _rt, _m, _via = _hit
-            _emit("lyuw", _rt, _m, 0.8, f"root via {_via}")
+        for (_rt, _m, _via) in _krd_hits(stem[:-3]):
+            _emit("lyuw", _rt, _m,
+                  0.8 if _via not in ("abhyasa", "san") else 0.7,
+                  f"root via {_via}")
     # GaY (vrddhi + a: BAva <- BU) vs ac (guNa + a: toda <- tud);
     # feminine -A forms take the "a" label (todA)
     if (stem.endswith("a") and len(stem) > 2) or \
             (stem.endswith("A") and len(stem) > 2):
         _fem = stem.endswith("A")
         _b = stem[:-1]
-        _hit = _lookup_root(_b)
-        if _hit is None and _b.endswith("R") and len(_b) > 2:
+        _hits = _krd_hits(_b)
+        if not _hits and _b.endswith("R") and len(_b) > 2:
             # Natva-R stem (vidaRa <- vid + lyuw): R hides the root
             # coda, so retry without it (vida -> vid via thematic)
-            _hit = _lookup_root(_b[:-1])
-        if _hit is not None:
-            _rt, _m, _via = _hit
+            _hits = _krd_hits(_b[:-1])
+        for (_rt, _m, _via) in _hits:
             _vrddhi = ("A" in _b or "Ay" in _b or "Av" in _b or "E" in _b
                        or "O" in _b)
+            _secondary = _via in ("abhyasa", "san")
+            _conf = 0.7 if _fem or _vrddhi else 0.6
+            if _secondary:
+                _conf = min(_conf, 0.6)
             if _fem:
-                _emit("a", _rt, _m, 0.7, f"root via {_via}")
+                _emit("a", _rt, _m, _conf, f"root via {_via}")
             elif _vrddhi:
-                _emit("GaY", _rt, _m, 0.7, f"root via {_via}")
+                # GaY and ac share the vrddhi-a surface across antas
+                # (BAvaH is krut-GaY but nich_krut-ac): list both
+                _emit("GaY", _rt, _m, _conf, f"root via {_via}")
+                _emit("ac", _rt, _m, max(0.1, _conf - 0.05),
+                      f"root via {_via}; ac/GaY same surface")
             else:
-                _emit("ac", _rt, _m, 0.6, f"root via {_via}")
-    # Rvul / tfc
+                _emit("ac", _rt, _m, _conf, f"root via {_via}")
+                _emit("ap", _rt, _m, max(0.1, _conf - 0.05),
+                      f"root via {_via}; ap/ac same surface")
+            if _secondary:
+                # reduplicated/desiderative action nouns (buBUza) carry no
+                # vrddhi grade, but the data files them under GaY as well
+                _emit("GaY", _rt, _m, 0.6,
+                      f"root via {_via}; secondary-stem GaY twin")
+    # Rvul / tfc (+ ukaY agent noun: BAvuka <- BU)
     if stem.endswith("aka") or stem.endswith("ikA"):
         _b = stem[:-3]
-        _hit = _lookup_root(_devrddhi(_b))
-        if _hit is not None:
-            _rt, _m, _via = _hit
-            _emit("Rvul", _rt, _m, 0.85, f"root via {_via}")
+        for (_rt, _m, _via) in _krd_hits(_devrddhi(_b)):
+            _emit("Rvul", _rt, _m,
+                  0.85 if _via not in ("abhyasa", "san") else 0.7,
+                  f"root via {_via}")
+    if stem.endswith("uka") or stem.endswith("ukA"):
+        _b = stem[:-3]
+        for (_rt, _m, _via) in _krd_hits(_devrddhi(_b)):
+            _emit("ukaY", _rt, _m,
+                  0.8 if _via not in ("abhyasa", "san") else 0.7,
+                  f"root via {_via}")
     if stem.endswith("tf") or stem.endswith("trI"):
         # vowel base (Bavi + tf) vs consonant base (tott + f, d devoiced+geminated)
         _b = stem[:-2] if stem.endswith("tf") else stem[:-3]
         _cands = [_b, stem[:-1]]
         if _b.endswith("i") and len(_b) > 1:
             _cands.append(_b[:-1])  # sew iT (Bavi -> Bav)
+        _tseen = set()
         for _c in _cands:
-            _hit = _lookup_root(_c)
-            if _hit is not None:
-                break
-        if _hit is not None:
-            _rt, _m, _via = _hit
-            _emit("tfc", _rt, _m, 0.85, f"root via {_via}")
-    # Satf present stem: irregulars (multi-root) first, then abhyasa,
-    # then plain closure (Bav/tud regulars, gacCh via cha).
+            for (_rt, _m, _via) in _krd_hits(_c):
+                if _rt in _tseen:
+                    continue
+                _tseen.add(_rt)
+                _emit("tfc", _rt, _m,
+                      0.85 if _via not in ("abhyasa", "san") else 0.7,
+                      f"root via {_via}")
+    # Satf present stem: irregulars (multi-root) first, then graded
+    # closure (Bav/tud regulars, gacCh via cha, Bavizya via sya-strip),
+    # abhyasa (dadat <- dA) and san (buBUzat <- BU) secondaries.
     # Guard excludes ktavatu (-tavat); juhvat-type (-hvat) stays eligible.
     if stem.endswith("ant") or (stem.endswith("at") and not stem.endswith("tavat")):
         _core = stem[:-3] if stem.endswith("ant") else stem[:-2]
         _done = False
         _seen_rt = set()
-        _irr = _irreg_pres(_core)
-        if _irr is not None:
-            for (_m, _c) in _irr:
-                _emit("Satf", _c, _m, 0.9, "irregular present stem")
-                _seen_rt.add(_c)
-            _done = True
-        # plain closure (Bav/tud regulars, gacCh via cha) AND abhyasa
-        # both emit: dadat is genuinely dad-Satf and dA-Satf at once
-        _hit = _lookup_root(_core)
-        if _hit is not None:
-            _rt, _m, _via = _hit
-            if _rt not in _seen_rt:
-                _emit("Satf", _rt, _m, 0.85, f"root via {_via}")
-                _seen_rt.add(_rt)
-            _done = True
-        for _cand in _abhyasa_reverse(_core):
-            _hit = _lookup_root(_cand)
-            if _hit is not None:
-                _rt, _m, _via = _hit
+        _satf_bases = [_core]
+        if _core.endswith(("sy", "zy")) and len(_core) > 3:
+            # future stem (Bavizyat <- Bav + i + sya + t: the Satf -t-
+            # split above ate sya's vowel, leaving -sy-): strip sya + iT
+            _satf_bases.append(_core[:-2])
+            if _core[:-2].endswith("i") and len(_core[:-2]) > 1:
+                _satf_bases.append(_core[:-3])
+        for _base in _satf_bases:
+            _irr = _irreg_pres(_base)
+            if _irr is not None:
+                for (_m, _c) in _irr:
+                    if _c not in _seen_rt:
+                        _emit("Satf", _c, _m, 0.9, "irregular present stem")
+                        _seen_rt.add(_c)
+                _done = True
+            # plain closure AND secondaries: dadat is genuinely dad-Satf
+            # and dA-Satf at once
+            for (_rt, _m, _via) in _krd_hits(_base):
                 if _rt not in _seen_rt:
-                    _emit("Satf", _rt, _m, 0.7, "root via abhyasa")
+                    _emit("Satf", _rt, _m,
+                          0.85 if _via not in ("abhyasa", "san") else 0.7,
+                          f"root via {_via}")
                     _seen_rt.add(_rt)
                 _done = True
+            for _cand in _abhyasa_reverse(_base):
+                _hit = _lookup_root(_cand)
+                if _hit is not None:
+                    _rt, _m, _via = _hit
+                    if _rt not in _seen_rt:
+                        _emit("Satf", _rt, _m, 0.7, "root via abhyasa")
+                        _seen_rt.add(_rt)
+                    _done = True
         if not _done:
             out.append({"kind": "krdanta", "pratyaya": "Satf", "stem": stem,
                         "dhatu": None, "linga": linga, "vibhakti": vib,
                         "vacana": vac, "confidence": 0.45,
                         "note": "present stem; root unresolved in v1"})
-    # kvasu weak/middle without kta link
-    if stem.endswith("uz") or stem.endswith("uzI"):
+    # ktin action noun, strI-only (BUtiH <- BU, BAtiH <- BU + Ric
+    # with ay-lopa): base + ti, plus Ava-restored base for Rejanta loss
+    if linga == "strI" and stem.endswith("ti") and len(stem) > 3:
+        _ktb = [stem[:-2]]
+        if stem[:-2].endswith("A") and len(stem[:-2]) > 1:
+            _ktb.append(stem[:-3] + "Ava")
+        for _kb in _ktb:
+            for (_rt, _m, _via) in _krd_hits(_kb):
+                _emit("ktin", _rt, _m,
+                      0.7 if _via not in ("abhyasa", "san") else 0.6,
+                      f"root via {_via}")
+    # u-pratyaya agent noun (buBUzu <- BU + san): only via secondary
+    # stems, so plain u-final nouns (guru) stay silent
+    if stem.endswith("zu") and len(stem) > 3:
+        _ub = stem[:-2] if stem.endswith("uzu") and len(stem) > 4 else stem[:-1]
+        _uhits = []
+        for _ab in _abhyasa_reverse(_ub):
+            _acc_hits(_uhits, [_ab], "abhyasa")
+        for _sn in _san_reverse(_ub):
+            _acc_hits(_uhits, [_sn], "san")
+        for (_rt, _m, _via) in _uhits:
+            _emit("u", _rt, _m, 0.65, f"root via {_via}")
+    # kvasu perfect participle: weak -uz- stem + strong -vas- stem.
+    # Resolve the root via samprasarana/v-strip + abhyasa/san
+    # (baBUvAn/baBUzI/baBUvat <- BU); keep the unresolved tail.
+    _kvasu_done = False
+    _kvbases = []
+    if stem.endswith("uzI") or stem.endswith("UzI"):
+        _kvbases.append(stem[:-3])
+    elif stem.endswith("uz"):
+        _kvbases.append(stem[:-2])
+    elif stem.endswith("Uz"):
+        _kvbases.append(stem)  # weak stem proper (baBUz)
+    if stem.endswith("vas") or stem.endswith("vAMs"):
+        _kvbases.append(stem[:-3] if stem.endswith("vas") else stem[:-4])
+    if (stem.endswith("at") or stem.endswith("ad")) and "v" in stem \
+            and len(stem) > 4:
+        # strong neuter kvasu (baBUvat) collides with Satf: only admit
+        # perfect-reduplicated bases (abhyasa/san), never plain ones
+        _kvbases.append(("neuter-at", stem[:-2]))
+    for _kb in _kvbases:
+        _neuter_at = isinstance(_kb, tuple)
+        if _neuter_at:
+            _kb = _kb[1]
+        _kc = [_kb]
+        if _kb.endswith("v") and len(_kb) > 2:
+            _kc.append(_kb[:-1])  # perfect -va- (baBUva -> baBU)
+        if _kb.endswith(("z", "Z")) and len(_kb) > 3:
+            _kc.append(_kb[:-1])  # weak -z- (baBUz -> baBU)
+        for _c in _kc:
+            _khits = _krd_hits(_c)
+            if _neuter_at:
+                # plain-lookup hits are Satf, not kvasu: keep only
+                # reduplication-derived (abhyasa/san) roots
+                _khits = [h for h in _khits if h[2] in ("abhyasa", "san")]
+            for (_rt, _m, _via) in _khits:
+                _emit("kvasu", _rt, _m,
+                      0.75 if _via not in ("abhyasa", "san") else 0.65,
+                      f"root via {_via}")
+                _kvasu_done = True
+        if _kvasu_done:
+            break
+    if stem.endswith(("uz", "Uz", "uzI", "UzI")) and not _kvasu_done:
         out.append({"kind": "krdanta", "pratyaya": "kvasu", "stem": stem,
                     "dhatu": None, "linga": linga, "vibhakti": vib,
                     "vacana": vac, "confidence": 0.45,
                     "note": "samprasarana stem; root unresolved in v1"})
+    # gsnu desiderative adjective (BUzRuH <- BU + snu: snu -s- voices to
+    # -z- by zatva, -nu- retroflexes to -Ru by natva): strip -Ru, undo
+    # zatva (z->s), drop the snu -s-
+    if stem.endswith("Ru") and len(stem) > 3:
+        _gb = stem[:-2]
+        if _gb.endswith("z"):
+            _gb = _gb[:-1] + "s"
+        if _gb.endswith("s") and len(_gb) > 2:
+            for (_rt, _m, _via) in _krd_hits(_gb[:-1]):
+                _emit("gsnu", _rt, _m,
+                      0.7 if _via not in ("abhyasa", "san") else 0.6,
+                      f"root via {_via}")
     return out
 
 
@@ -910,13 +1259,18 @@ _TIN_A: List[tuple] = [
     ("ze", "lw", "madhyama", "eka"),
     ("e", "lw", "uttama", "eka"), ("e", "laN", "uttama", "eka"),
     ("eTe", "lw", "madhyama", "dvi"), ("Dve", "lw", "madhyama", "bahu"),
+    ("Qve", "lw", "madhyama", "bahu"),
     ("e", "lw", "uttama", "eka"), ("vahe", "lw", "uttama", "dvi"),
+    ("Avahe", "lw", "uttama", "dvi"),
     ("mahe", "lw", "uttama", "bahu"),
+    ("Amahe", "lw", "uttama", "bahu"),
     ("anta", "laN", "prathama", "bahu"), ("etAm", "laN", "prathama", "dvi"),
     ("ta", "laN", "prathama", "eka"), ("TAH", "laN", "madhyama", "eka"),
     ("eTAm", "laN", "madhyama", "dvi"), ("Dvam", "laN", "madhyama", "bahu"),
     ("i", "laN", "uttama", "eka"), ("vahi", "laN", "uttama", "dvi"),
+    ("Avahi", "laN", "uttama", "dvi"),
     ("mahi", "laN", "uttama", "bahu"),
+    ("Amahi", "laN", "uttama", "bahu"),
     ("antAm", "low", "prathama", "bahu"), ("etAm", "low", "prathama", "dvi"),
     ("tAm", "low", "prathama", "eka"), ("sva", "low", "madhyama", "eka"),
     ("eTAm", "low", "madhyama", "dvi"), ("Dvam", "low", "madhyama", "bahu"),
@@ -933,13 +1287,58 @@ _TIN_A: List[tuple] = [
     ("i", "liw", "uttama", "eka"), ("vahe", "liw", "uttama", "dvi"),
     ("mahe", "liw", "uttama", "bahu"),
 ]
-# t/d voicing twins (BavatAt/BavatAd, aBavat/aBavad: final -t voices to -d;
-# JSON finals show exact t/d symmetry, 4432/4432, with no D-forms, so only
-# dental twins are added, sharing the base ending's slot)
+# t/d voicing twins (BavatAt/BavatAd, aBavat/aBavad: final -t voices to -d)
+# plus systematic zwutva twins (8.4.41: dental -> retroflex): every tin
+# ending fans out over dental/retroflex spellings (tAm/TAm, Dvam/Qvam,
+# THAH/WAH, nti/nTi...). Matching is endswith-based, so twins only fire
+# on words that actually show the surface; lookup + forward-verify gate.
+_DENT_MAP = {"t": ("t", "T", "w"), "T": ("T", "W"), "d": ("d", "D", "q"),
+             "D": ("D", "Q"), "n": ("n", "N", "R")}
+
+
+def _dent_variants(end: str) -> set:
+    out = {end}
+    for _i, _ch in enumerate(end):
+        if _ch in _DENT_MAP:
+            out |= {_v[:_i] + _alt + _v[_i + 1:]
+                    for _v in list(out) for _alt in _DENT_MAP[_ch]}
+    return out
+
+
 for _t, _pada in ((_TIN_P, None), (_TIN_A, None)):
     for (_end, _lak, _pur, _vac) in list(_t):
         if _end.endswith("t"):
             _t.append((_end[:-1] + "d", _lak, _pur, _vac))
+    _have = set(e for (e, _, _, _) in _t)
+    for (_end, _lak, _pur, _vac) in list(_t):
+        for _re in _dent_variants(_end):
+            if _re != _end and _re not in _have:
+                _t.append((_re, _lak, _pur, _vac))
+                _have.add(_re)
+if ("THAH", "laN", "madhyama", "eka") not in _TIN_A:
+    _TIN_A.append(("THAH", "laN", "madhyama", "eka"))
+    _TIN_A.append(("WAH", "laN", "madhyama", "eka"))
+
+
+def _stem_desandhi(word: str) -> List[str]:
+    """Stem-final t-absorption variants (analysis-only extra surfaces).
+
+    dh/j + tin-t fuse (rundDAm <- rundh + tAm, yuYakti <- yuYaj + ti):
+    restore the absorbed t (and voice the palatal) so ending tables
+    match. Regex-gated: only fires on infix/amalgam signatures.
+    """
+    import re as _re
+    out = []
+    for _m in _re.finditer(r"([nNY])([dD]?)([DT])(?=A)", word):
+        _v = word[:_m.start()] + _m.group(1) + _m.group(3) + "t" \
+            + word[_m.end():]
+        if _v != word and _v not in out:
+            out.append(_v)
+    for _m in _re.finditer(r"([bdgGjJcC])([DT])(?=A)", word):
+        _v = word[:_m.start()] + _m.group(1) + "t" + word[_m.end():]
+        if _v != word and _v not in out:
+            out.append(_v)
+    return out
 
 
 def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
@@ -950,10 +1349,32 @@ def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
     if core.endswith("A") and len(core) > 1:
         cands.append(core[:-1])  # thematic -A- (uttama Ami/AvaH/AmaH twins)
     cands.append(core)
+    if core.endswith("y") and len(core) > 2:
+        # buried yak/thematic vowel (BAvy <- BAva + yak + e, buBUzy <-
+        # buBUz + yak + a): restore -a- so the yak strip below can fire
+        _plus = core + "a"
+        if _plus not in cands:
+            cands.append(_plus)
     for _c in list(cands):
         # karmani/passive -ya- (BUyate <- BU + yak)
         if _c.endswith("ya") and len(_c) > 2 and _c[:-2] not in cands:
             cands.append(_c[:-2])
+    for _c in list(cands):
+        # Rejanta causative -aya- (BAvayati <- BU + Ric): strip the
+        # affix so graded closure (Av -> o -> u) can reach the root
+        if _c.endswith("aya") and len(_c) > 3 and _c[:-3] not in cands:
+            cands.append(_c[:-3])
+        elif _c.endswith("Aya") and len(_c) > 3 and _c[:-3] not in cands:
+            cands.append(_c[:-3])
+        elif _c.endswith(("ay", "Ay")) and len(_c) > 3 \
+                and _c[:-2] not in cands:
+            cands.append(_c[:-2])  # nichay without thematic (BAvay)
+    for _c in list(cands):
+        # short thematic vowel (boBavI <- yangluk boBav + I): strip so
+        # abhyasa reversal can reach the root
+        if _c.endswith(("i", "I")) and len(_c) > 2 \
+                and _c[:-1] not in cands:
+            cands.append(_c[:-1])
     if aug:
         _stripped = []
         for _c in cands:
@@ -961,6 +1382,14 @@ def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
                 _stripped.append(_c[1:])  # laN augment a-
             elif _c.startswith("A") and len(_c) > 1:
                 _stripped.append(_c[1:])
+            elif _c.startswith("E") and len(_c) > 2:
+                # augment fused with a-initial root vowel (a + eD -> ED):
+                # restore a + e, the plain strip eats the root vowel
+                _stripped.append("ae" + _c[1:])
+                _stripped.append("e" + _c[1:])
+            elif _c.startswith("O") and len(_c) > 2:
+                _stripped.append("ao" + _c[1:])
+                _stripped.append("o" + _c[1:])
         cands += _stripped
     return cands
 
@@ -990,7 +1419,9 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _d["note"] += "; unverified"
         out.append(_d)
 
-    # luT periphrastic future (-tA-): BavitA, vaktA, kartA
+    # luT periphrastic future (-tA-): BavitA, vaktA, kartA.
+    # tA voices/aspirates after root-final voiced/aspirate
+    # (roDDA <- ruD + tA): d/DA twins share each slot.
     _LUT = [("tArO", "prathama", "dvi", "parasmaipada"),
             ("tAraH", "prathama", "bahu", "parasmaipada"),
             ("tAsi", "madhyama", "eka", "parasmaipada"),
@@ -1006,6 +1437,10 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             ("tAsvahe", "uttama", "dvi", "Atmanepada"),
             ("tAsmahe", "uttama", "bahu", "Atmanepada"),
             ("tA", "prathama", "eka", "parasmaipada")]
+    _LUT = _LUT + [(_suf, _pur, _vac, _pada)
+                   for (_suf, _pur, _vac, _pada) in
+                   [(s.replace("t", "d", 1), p, v, pa) for (s, p, v, pa) in _LUT]
+                   + [(s.replace("t", "D", 1), p, v, pa) for (s, p, v, pa) in _LUT]]
     for _suf, _pur, _vac, _pada in _LUT:
         if word.endswith(_suf) and len(word) > len(_suf) + 1:
             _core = word[:-len(_suf)]
@@ -1014,18 +1449,14 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 _cands.append(_core[:-1])  # sew iT (Bavi -> Bav)
             _luw_hits: list = []
             for _c in _cands:
-                _hit = _lookup_root(_c)
-                if _hit is not None and _hit[0] not in [h[0] for h in _luw_hits]:
-                    _luw_hits.append((_hit[0], _hit[1], "exact", None))
+                for (_rc, _rm, _rv) in _lookup_all(_c):
+                    if _rc not in [h[0] for h in _luw_hits]:
+                        _luw_hits.append((_rc, _rm, _rv, None))
                 # secondary future stems (buBUzitA <- BU + sannanta)
                 for _ab in _abhyasa_reverse(_c):
-                    _ah = _lookup_root(_ab)
-                    if _ah is not None and _ah[0] not in [h[0] for h in _luw_hits]:
-                        _luw_hits.append((_ah[0], _ah[1], "abhyasa", None))
+                    _acc_hits(_luw_hits, [_ab], "abhyasa", None)
                 for _sn in _san_reverse(_c):
-                    _sh = _lookup_root(_sn)
-                    if _sh is not None and _sh[0] not in [h[0] for h in _luw_hits]:
-                        _luw_hits.append((_sh[0], _sh[1], "san", "sannanta"))
+                    _acc_hits(_luw_hits, [_sn], "san", "sannanta")
             for (_rt, _m, _via, _sd) in _luw_hits:
                 _emit(_rt, _m, "luw", _pur, _vac, _via,
                       0.85 if _via == "exact" else 0.7, _core, _pada,
@@ -1054,55 +1485,28 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 _cands.append(_core[:-1] + "d")
                 _cands.append(_core[:-1] + "D")
             _aug = _stem[:1] in ("a", "A")
-            _hit = None
-            _san_hit = None
+            _lfthits: list = []
             for _c in _cands:
                 _try = [_c]
                 if _aug and len(_c) > 1:
                     _try.append(_c[1:])  # lfN augment
                 for _t in _try:
-                    _hit = _lookup_root(_t)
-                    if _hit is not None:
-                        break
+                    for (_rc, _rm, _rv) in _lookup_all(_t):
+                        if _rc not in [h[0] for h in _lfthits]:
+                            _lfthits.append((_rc, _rm, _rv))
                     # secondary future stems (buBUzizyati <- BU + sannanta):
                     # undo reduplication / desiderative formation first
                     for _ab in _abhyasa_reverse(_t):
-                        _hit = _lookup_root(_ab)
-                        if _hit is not None:
-                            _hit = (_hit[0], _hit[1], "abhyasa")
-                            break
-                    if _hit is not None:
-                        break
+                        _acc_hits(_lfthits, [_ab], "abhyasa")
                     for _sn in _san_reverse(_t):
-                        _hit = _lookup_root(_sn)
-                        if _hit is not None:
-                            _hit = (_hit[0], _hit[1], "san")
-                            break
-                    if _hit is not None:
-                        break
-                if _hit is not None:
-                    # abhyasa hits can shadow san twins (buBUz -> BUz hides
-                    # buBUz -> BU): scan every stem candidate for the twin,
-                    # not just the one that hit first
-                    for _c2 in _cands:
-                        _t2s = [_c2]
-                        if _aug and len(_c2) > 1:
-                            _t2s.append(_c2[1:])
-                        for _t2 in _t2s:
-                            for _sn in _san_reverse(_t2):
-                                _sh = _lookup_root(_sn)
-                                if _sh is not None and _sh[0] != _hit[0]:
-                                    _san_hit = (_sh[0], _sh[1], "san")
-                                    break
-                            if _san_hit is not None:
-                                break
-                        if _san_hit is not None:
-                            break
-                    break
+                        _acc_hits(_lfthits, [_sn], "san")
+            _hit = _lfthits[0] if _lfthits else None
+            # every non-primary root rides along (abhyasa hits can shadow
+            # san twins: buBUz -> BUz hides buBUz -> BU)
             if _hit is None:
                 continue
             _aug = _stem[:1] in ("a", "A")
-            _all_hits = [_hit] + ([_san_hit] if _san_hit is not None else [])
+            _all_hits = _lfthits
             for (_rt, _m, _via) in _all_hits:
                 for (_pur, _vac, _pada) in _slots:
                     _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
@@ -1117,39 +1521,84 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                         _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
                     out.append(_d)
             break
-    # ASIrliN parasmaipada (-yA-): BUyAt, kuryAt
+    # ASIrliN parasmaipada (-yA-): BUyAt, kuryAt.
+    # The same -yA- formation fills yangluk/san/nich viDiliN slots in
+    # the data (boBUyAt is yangluk pvidhiling): emit the viDiliN twin
+    # alongside every ASIrliN reading.
     _ASI = [("yAstAm", "prathama", "dvi"), ("yAsuH", "prathama", "bahu"),
             ("yAstam", "madhyama", "dvi"), ("yAsta", "madhyama", "bahu"),
             ("yAsam", "uttama", "eka"), ("yAsva", "uttama", "dvi"),
             ("yAsma", "uttama", "bahu"), ("yAt", "prathama", "eka"),
             ("yAd", "prathama", "eka"),
             ("yAH", "madhyama", "eka")]
+    # yangluk viDiliN uttama triple without -s- (boBUyAm/yAva/yAma)
+    # plus s-less dvi/bahu (yAtAm/yuH/yAtam/yAta): viDiliN-only
+    # formations, never ASIrliN
+    _ASI_VIDHI = [("yAm", "uttama", "eka"), ("yAva", "uttama", "dvi"),
+                  ("yAma", "uttama", "bahu"), ("yAtAm", "prathama", "dvi"),
+                  ("yuH", "prathama", "bahu"),
+                  ("yAtam", "madhyama", "dvi"),
+                  ("yAta", "madhyama", "bahu")]
     # ASIrliN Atmanepada s-forms (-sIy-): vedizIzwa, vedizIran (+z twins)
     for _suf, _pur, _vac in _ASI:
         if word.endswith(_suf) and len(word) > len(_suf):
             _core = word[:-len(_suf)]
+            # stem candidates: plain, thematic, restored yak vowel
+            # (BAvy <- BAva + yak), yak-strip, Rejanta-strip
+            _ascc = [_core]
+            if _core.endswith(("a", "A")) and len(_core) > 1:
+                _ascc.append(_core[:-1])
+            if _core.endswith("y") and len(_core) > 2:
+                _ascc.append(_core + "a")
             _asi_hits: list = []
-            _hit = _lookup_root(_core)
-            if _hit is not None:
-                _asi_hits.append((_hit[0], _hit[1], "exact", None))
-            if _hit is None and _core.endswith("ur"):
-                # kur <- kf via u-samprasarana (kuryAt)
-                _hit = _lookup_root(_core[:-2] + "f")
-                if _hit is not None:
-                    _asi_hits.append((_hit[0], _hit[1], "exact", None))
+            _seen_as = set()
+            for _ac in _ascc:
+                _ac2 = [_ac]
+                if _ac.endswith("ya") and len(_ac) > 2:
+                    _ac2.append(_ac[:-2])
+                if _ac.endswith(("aya", "Aya")) and len(_ac) > 4:
+                    _ac2.append(_ac[:-3])
+                for _c in _ac2:
+                    if _c in _seen_as:
+                        continue
+                    _seen_as.add(_c)
+                    for (_rc, _rm, _rv) in _lookup_all(_c):
+                        if _rc not in [h[0] for h in _asi_hits]:
+                            _asi_hits.append((_rc, _rm, "exact", None))
+                    if _c.endswith("ur") and len(_c) > 2:
+                        # kur <- kf via u-samprasarana (kuryAt)
+                        for (_rc, _rm, _rv) in _lookup_all(_c[:-2] + "f"):
+                            if _rc not in [h[0] for h in _asi_hits]:
+                                _asi_hits.append((_rc, _rm, "exact", None))
             # secondary benedictive stems (buBUzyAt <- BU + sannanta)
             for _ab in _abhyasa_reverse(_core):
-                _ah = _lookup_root(_ab)
-                if _ah is not None and _ah[0] not in [h[0] for h in _asi_hits]:
-                    _asi_hits.append((_ah[0], _ah[1], "abhyasa", None))
+                _acc_hits(_asi_hits, [_ab], "abhyasa", None)
             for _sn in _san_reverse(_core):
-                _sh = _lookup_root(_sn)
-                if _sh is not None and _sh[0] not in [h[0] for h in _asi_hits]:
-                    _asi_hits.append((_sh[0], _sh[1], "san", "sannanta"))
+                _acc_hits(_asi_hits, [_sn], "san", "sannanta")
             for (_rt, _m, _via, _sd) in _asi_hits:
                 _emit(_rt, _m, "ASIrliN", _pur, _vac, _via, 0.8, _core,
                       _sanadi=_sd)
+                _emit(_rt, _m, "viDiliN", _pur, _vac, _via, 0.7,
+                      _core + " (vidhi-twin of -yA- formation)",
+                      _sanadi=_sd)
             if _asi_hits:
+                break
+    for (_suf, _pur, _vac) in _ASI_VIDHI:
+        if word.endswith(_suf) and len(word) > len(_suf) + 1:
+            _core = word[:-len(_suf)]
+            _vhits: list = []
+            for _c in _tin_candidates(_core, "viDiliN", False):
+                for (_rc, _rm, _rv) in _lookup_all(_c):
+                    if _rc not in [h[0] for h in _vhits]:
+                        _vhits.append((_rc, _rm, "exact", None))
+                for _ab in _abhyasa_reverse(_c):
+                    _acc_hits(_vhits, [_ab], "abhyasa", None)
+                for _sn in _san_reverse(_c):
+                    _acc_hits(_vhits, [_sn], "san", "sannanta")
+            for (_rt, _m, _via, _sd) in _vhits:
+                _emit(_rt, _m, "viDiliN", _pur, _vac, _via, 0.75, _core,
+                      _sanadi=_sd)
+            if _vhits:
                 break
     _ASI_ATM = [("IzWam", "madhyama", "dvi"), ("IDvam", "madhyama", "bahu"),
                 ("IyA", "uttama", "eka"), ("Iya", "uttama", "eka"),
@@ -1157,64 +1606,90 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 ("Iran", "prathama", "bahu"), ("IyAstAm", "prathama", "dvi"),
                 ("IyAsTAm", "madhyama", "dvi"), ("Izwa", "prathama", "eka"),
                 ("IzWAH", "madhyama", "eka")]
-    for _suf, _pur, _vac in _ASI_ATM:
+    # two-phase: literal suffixes first (an exact dental match always
+    # outranks a twin: IyAsTAm is madhyama-dvi, not the IyAstAm twin),
+    # then z/s + dental twins
+    _atm_cands: list = []
+    for (_suf, _pur, _vac) in _ASI_ATM:
+        _atm_cands.append((_suf, _pur, _vac, True))
+    for (_suf, _pur, _vac) in _ASI_ATM:
         # z/s twins (satva after i, dental elsewhere: vedizI- vs dasI-)
-        _twins = {_suf, _suf.replace("z", "s"), _suf.replace("s", "z")}
+        # plus dental twins (zwutva: IDvam/IQvam, iDve/iQve, IzWAH)
+        _twins = {_suf.replace("z", "s"), _suf.replace("s", "z")}
+        _twins |= _dent_variants(_suf)
+        for _base in list(_twins):
+            _twins |= {_base.replace("z", "s"), _base.replace("s", "z")}
         for _zsuf in sorted(_twins, key=lambda s: (len(s), s), reverse=True):
-            if word.endswith(_zsuf) and len(word) > len(_zsuf) + 2:
-                _stem = word[:-len(_zsuf)]
-                _seen2, _front = set(), [_stem]
-                _hit = None
-                while _front:
-                    _b = _front.pop(0)
-                    if _b in _seen2:
-                        continue
-                    _seen2.add(_b)
-                    for _c in [_b] + ([_b[:-1]] if _b.endswith(("i", "I")) and len(_b) > 1 else []):
-                        _hit = _lookup_root(_c)
-                        if _hit is not None:
-                            break
+            if _zsuf != _suf:
+                _atm_cands.append((_zsuf, _pur, _vac, False))
+    for (_zsuf, _pur, _vac, _lit) in _atm_cands:
+        if word.endswith(_zsuf) and len(word) > len(_zsuf) + 2:
+            _stem = word[:-len(_zsuf)]
+            _seen2, _front = set(), [_stem]
+            _hit = None
+            while _front:
+                _b = _front.pop(0)
+                if _b in _seen2:
+                    continue
+                _seen2.add(_b)
+                _bvars = [_b]
+                if _b.endswith(("i", "I")) and len(_b) > 1:
+                    _bvars.append(_b[:-1])  # sew-iT / thematic
+                if _b.endswith(("aya", "Aya")) and len(_b) > 4:
+                    _bvars.append(_b[:-3])  # Rejanta -aya-
+                elif _b.endswith(("ay", "Ay")) and len(_b) > 3:
+                    _bvars.append(_b[:-2])
+                for _c in _bvars:
+                    _hit = _lookup_root(_c)
                     if _hit is not None:
                         break
-                    if _b.endswith(("s", "z")) and len(_b) > 1:
-                        _front.append(_b[:-1])
-                _atm_hits: list = []
                 if _hit is not None:
-                    _atm_hits.append((_hit[0], _hit[1], "exact", None))
-                # secondary stems (san/nich benedictives): reversals as twins
-                _stripped = ([_stem[:-1]] if _stem.endswith(("i", "I"))
-                             and len(_stem) > 1 else [])
-                for _c in [_stem] + _stripped:
-                    for _ab in _abhyasa_reverse(_c):
-                        _ah = _lookup_root(_ab)
-                        if _ah is not None and _ah[0] not in [h[0] for h in _atm_hits]:
-                            _atm_hits.append((_ah[0], _ah[1], "abhyasa", None))
-                    for _sn in _san_reverse(_c):
-                        _sh = _lookup_root(_sn)
-                        if _sh is not None and _sh[0] not in [h[0] for h in _atm_hits]:
-                            _atm_hits.append((_sh[0], _sh[1], "san", "sannanta"))
-                for (_rt, _m, _via, _sd) in _atm_hits:
-                    _emit(_rt, _m, "ASIrliN", _pur, _vac, _via, 0.75, _stem,
-                          "Atmanepada", _sanadi=_sd)
-                if _atm_hits:
                     break
+                if _b.endswith(("s", "z")) and len(_b) > 1:
+                    _front.append(_b[:-1])
+            _atm_hits: list = []
+            if _hit is not None:
+                _atm_hits.append((_hit[0], _hit[1], "exact", None))
+                # graded alternates at the primary base (rod -> rud + ruD)
+                for (_rc, _rm, _rv) in _lookup_all(_c):
+                    if _rc != _hit[0] and _rc not in \
+                            [h[0] for h in _atm_hits]:
+                        _atm_hits.append((_rc, _rm, "exact", None))
+            # secondary stems (san/nich/yang benedictives: buBUzizwa,
+            # boBUyizIzwa <- BU): reversals over every BFS-visited
+            # base, not just the raw stem (boBUyiz -> boBUy -> BU)
+            _bfsbases = list(_seen2)
+            if _stem.endswith(("i", "I")) and len(_stem) > 1 and \
+                    _stem[:-1] not in _bfsbases:
+                _bfsbases.append(_stem[:-1])
+            for _c in _bfsbases:
+                for _ab in _abhyasa_reverse(_c):
+                    _acc_hits(_atm_hits, [_ab], "abhyasa", None)
+                for _sn in _san_reverse(_c):
+                    _acc_hits(_atm_hits, [_sn], "san", "sannanta")
+            for (_rt, _m, _via, _sd) in _atm_hits:
+                _emit(_rt, _m, "ASIrliN", _pur, _vac, _via, 0.75, _stem,
+                      "Atmanepada", _sanadi=_sd)
+            if _atm_hits:
+                break
         else:
             continue
         break
     # luN aorist (augment required): s-aorist akArzIt (sic stripped),
     # root aorist aBUt. Endings carry their OWN slots (dual -tAm etc.
     # differ from laN); Atmanepada twins ride along.
-    _LUN_ENDS = ["It", "TAm", "uH", "IH", "Tam", "ta", "izam", "Ava",
+    _LUN_ENDS = ["It", "TAm", "uH", "IH", "oH", "Tam", "ta", "izam", "Ava",
                  "Ama", "t", "d", "tAm", "an", "am", "Am", "Im", "Um", "va",
                  "ma", "s", "a", "tam", "ad", "wam", "Id", "H", "sva", "sma"]
     # Atmanepada aorist twins (gam Atm: agAMsTAm, agAMsizwa...)
-    _LUN_ATM = ["zwA", "zwa", "zuH", "wAm", "zWAH", "zWam", "Dvam",
-                "zi", "zvahi", "zmahi", "AtAm", "TAm", "swa"]
+    _LUN_ATM = ["zwA", "zwa", "zuH", "wAm", "zWAH", "zWam", "Dvam", "Qvam",
+                "zi", "zvahi", "zmahi", "AtAm", "TAm", "WAm", "swa"]
     _LUN_SLOTS = {
         "It": [("prathama", "eka", "parasmaipada")],
         "TAm": [("prathama", "dvi", "parasmaipada")],
         "uH": [("prathama", "bahu", "parasmaipada")],
         "IH": [("madhyama", "eka", "parasmaipada")],
+        "oH": [("madhyama", "dvi", "parasmaipada")],
         "Tam": [("madhyama", "dvi", "parasmaipada")],
         "ta": [("madhyama", "bahu", "parasmaipada"),
                ("prathama", "eka", "Atmanepada")],
@@ -1249,14 +1724,16 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
         "zWAH": [("madhyama", "eka", "Atmanepada")],
         "zWam": [("madhyama", "dvi", "Atmanepada")],
         "Dvam": [("madhyama", "bahu", "Atmanepada")],
+        "Qvam": [("madhyama", "bahu", "Atmanepada")],
         "zi": [("uttama", "eka", "Atmanepada")],
         "zvahi": [("uttama", "dvi", "Atmanepada")],
         "zmahi": [("uttama", "bahu", "Atmanepada")],
         "AtAm": [("prathama", "dvi", "Atmanepada")],
         "TAm": [("madhyama", "dvi", "Atmanepada")],
+        "WAm": [("madhyama", "dvi", "Atmanepada")],
         "swa": [("madhyama", "bahu", "parasmaipada")],
     }
-    if word[:1] in ("a", "A") and len(word) > 3:
+    if word[:1] in ("a", "A", "E", "O") and len(word) > 3:
         for _suf in sorted(_LUN_ENDS + _LUN_ATM, key=len, reverse=True):
             if word.endswith(_suf) and len(word) > len(_suf) + 1:
                 _stem = word[:-len(_suf)] if _suf else word
@@ -1268,6 +1745,10 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 # aBAvvam: BAvv->BAv->BU)
                 _seen_bases = set()
                 _frontier = [_stem[1:]]  # strip augment
+                if _stem[:1] in ("E", "O") and len(_stem) > 2:
+                    # fused augment (a + eD -> ED): restore the root vowel
+                    _frontier.append(("e" if _stem[:1] == "E" else "o")
+                                     + _stem[1:])
                 _hit = None
                 _hits = []
                 while _frontier:
@@ -1288,26 +1769,25 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                         if _b.endswith(_sfx) and len(_b) > 1:
                             _cands.append(_b[:-1])
                     for _c in _cands:
-                        _h = _lookup_root(_c)
-                        if _h is not None and _h[0] not in [x[0] for x in _hits]:
-                            _hits.append(_h)
+                        for (_rc, _rm, _rv) in _lookup_all(_c):
+                            if _rc not in [x[0] for x in _hits]:
+                                _hits.append((_rc, _rm, _rv))
                     # secondary stems in the aorist (san/nich reduplicated
                     # stems: buBUzizwa <- BU + sannanta): try reversals
                     for _c in _cands:
                         for _ab in _abhyasa_reverse(_c):
-                            _h = _lookup_root(_ab)
-                            if _h is not None and _h[0] not in [x[0] for x in _hits]:
-                                _hits.append((_h[0], _h[1], "abhyasa"))
+                            _acc_hits(_hits, [_ab], "abhyasa")
                         for _sn in _san_reverse(_c):
-                            _h = _lookup_root(_sn)
-                            if _h is not None and _h[0] not in [x[0] for x in _hits]:
-                                _hits.append((_h[0], _h[1], "san"))
+                            _acc_hits(_hits, [_sn], "san")
                     # queue stripped forms for deeper peeling (sic-s/z,
-                    # iT, thematic, reduplicated -v-, aorist -t-)
+                    # iT, thematic, reduplicated -v-, aorist -t-, Rejanta -aya-)
                     for _sfx in ("s", "z", "i", "I", "a", "A", "v", "t", "T"):
                         if _b.endswith(_sfx) and len(_b) > 2 and \
                                 _b[:-1] not in _seen_bases:
                             _frontier.append(_b[:-1])
+                    if _b.endswith(("aya", "Aya")) and len(_b) > 4 and \
+                            _b[:-3] not in _seen_bases:
+                        _frontier.append(_b[:-3])
                 if not _hits:
                     continue
                 for (_rt, _m, _via) in _hits:
@@ -1322,6 +1802,24 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                             _d["upasarga"] = upasarga
                             _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
                         out.append(_d)
+                        if _via in ("abhyasa", "san", "infix", "nu", "na"):
+                            # reduplicated/infixed/secondary stems fill
+                            # yangluk/class-7/san laN slots in the data
+                            # (aboBavIt, rundDAm, abuBUzat are also plang):
+                            # the same sic-looking formation doubles as laN
+                            _d2 = {"kind": "tinanta", "purusha": _pur,
+                                   "vacana": _vac, "pada": _pada,
+                                   "prayoga": "kartari", "lakara": "laN",
+                                   "confidence": 0.65, "ending": _suf,
+                                   "note": f"root via {_via} from stem "
+                                   f"'{_stem}' (laN-twin of aorist shape)"}
+                            _d2.update(_root_details(_m))
+                            _d2["pada"] = _pada
+                            if upasarga:
+                                _d2["upasarga"] = upasarga
+                                _d2["confidence"] = max(
+                                    0.1, _d2["confidence"] - 0.1)
+                            out.append(_d2)
                 break
     # liT perfect: strip personal ending, undo reduplication + grades
     _LIT = [("atuH", "prathama", "dvi"), ("uH", "prathama", "bahu"),
@@ -1333,9 +1831,10 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
     for _suf, _pur, _vac in _LIT:
         if word.endswith(_suf) and len(word) > len(_suf) + 1:
             _core = word[:-len(_suf)] if _suf != "a" else word[:-1]
-            _hit = _lookup_root(_core)
-            _viax = ""
-            if _hit is None:
+            _lit_hits: list = []
+            for (_rc, _rm, _rv) in _lookup_all(_core):
+                _lit_hits.append((_rc, _rm, _rv, None))
+            if not _lit_hits:
                 # samprasarana perfects (uvAca <- vac, iyAja <- yaj):
                 # drop reduplicant, restore semivowel, shorten A
                 _sp = None
@@ -1349,35 +1848,27 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     _sp = "ya" + _core[1:]  # Ij <- ya + ij
                 if _sp is not None:
                     for _cand in (_sp, _devrddhi(_sp)):
-                        _hit = _lookup_root(_cand)
-                        if _hit is not None:
-                            _viax = "samprasarana"
+                        for (_rc, _rm, _rv) in _lookup_all(_cand):
+                            if _rc not in [h[0] for h in _lit_hits]:
+                                _lit_hits.append(
+                                    (_rc, _rm, "samprasarana", None))
+                        if _lit_hits:
                             break
-            if _hit is None:
-                for _ab in _abhyasa_reverse(_core):
-                    _hit = _lookup_root(_ab)
-                    if _hit is not None:
-                        _viax = "abhyasa"
-                        break
-            if _hit is None and _core.endswith("v"):
+            if not _lit_hits:
+                _acc_hits(_lit_hits, _abhyasa_reverse(_core), "abhyasa",
+                          None)
+            if not _lit_hits and _core.endswith("v"):
                 # -va- augment stems (baBUva): strip v, retry abhyasa
-                for _ab in _abhyasa_reverse(_core[:-1]):
-                    _hit = _lookup_root(_ab)
-                    if _hit is not None:
-                        _viax = "abhyasa"
-                        break
-            if _hit is None:
+                _acc_hits(_lit_hits, _abhyasa_reverse(_core[:-1]),
+                          "abhyasa", None)
+            if not _lit_hits:
                 # secondary perfect stems (san/nich reduplication)
                 for _sn in _san_reverse(_core):
-                    _hit = _lookup_root(_sn)
-                    if _hit is not None:
-                        _viax = "san"
-                        break
-            if _hit is not None:
-                _rt, _m, _via = _hit
-                _emit(_rt, _m, "liw", _pur, _vac,
-                      _viax or _via, 0.7, _core,
-                      _sanadi="sannanta" if _viax == "san" else None)
+                    _acc_hits(_lit_hits, [_sn], "san", "sannanta")
+            for (_rt, _m, _via, _sd) in _lit_hits:
+                _emit(_rt, _m, "liw", _pur, _vac, _via, 0.7, _core,
+                      _sanadi=_sd)
+            if _lit_hits:
                 break
     # periphrastic perfect (stem + Am + auxiliary perfect: buBUzAYcakAra
     # <- BU + sannanta, ditsAYcakre <- dA): split the auxiliary, analyse
@@ -1386,8 +1877,9 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
     for _aux, _apur, _avac, _apada in _PERI_AUX:
         if word.endswith(_aux) and len(word) > len(_aux) + 3:
             _pre = word[:-len(_aux)]
-            # periphrastic connector Am/AY (buBUzAmAsa, buBUzAYcakAra)
-            if not (_pre.endswith("Am") or _pre.endswith("AY")) or len(_pre) < 5:
+            # periphrastic connector Am/AY (buBUzAmAsa, buBUzAYcakAra;
+            # short stems: eD + AY + cakre needs pre len 4, not 5)
+            if not (_pre.endswith("Am") or _pre.endswith("AY")) or len(_pre) < 4:
                 continue
             _stem = _pre[:-2]
             _lex = [_stem]
@@ -1395,66 +1887,40 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 _lex.append(_stem[:-1])  # sew-iT / thematic
             _phit = None
             _pvia = ""
-            _ptwin = None
+            _preadings: list = []
             for _c in _lex:
-                _phit = _lookup_root(_c)
-                if _phit is not None:
-                    # exact hits can shadow twins (buBUz -> BUz hides BU):
-                    # collect the other reversals as a twin reading
-                    for _ab in _abhyasa_reverse(_c):
-                        _ah = _lookup_root(_ab)
-                        if _ah is not None and _ah[0] != _phit[0]:
-                            _ptwin = (_ah[0], _ah[1], "abhyasa")
-                            break
-                    if _ptwin is None:
-                        for _sn in _san_reverse(_c):
-                            _sh = _lookup_root(_sn)
-                            if _sh is not None and _sh[0] != _phit[0]:
-                                _ptwin = (_sh[0], _sh[1], "san")
-                                break
-                    break
+                for (_rc, _rm, _rv) in _lookup_all(_c):
+                    if _rc not in [r[0] for r in _preadings]:
+                        _preadings.append((_rc, _rm, _rv or "exact"))
                 for _ab in _abhyasa_reverse(_c):
-                    _phit = _lookup_root(_ab)
-                    if _phit is not None:
-                        _pvia = "abhyasa"
-                        break
-                if _phit is not None:
-                    for _sn in _san_reverse(_c):
-                        _sh = _lookup_root(_sn)
-                        if _sh is not None and _sh[0] != _phit[0]:
-                            _ptwin = (_sh[0], _sh[1], "san")
-                            break
-                    break
+                    _acc_hits(_preadings, [_ab], "abhyasa")
                 for _sn in _san_reverse(_c):
-                    _phit = _lookup_root(_sn)
-                    if _phit is not None:
-                        _pvia = "san"
-                        break
-                if _phit is not None:
-                    for _ab in _abhyasa_reverse(_c):
-                        _ah = _lookup_root(_ab)
-                        if _ah is not None and _ah[0] != _phit[0]:
-                            _ptwin = (_ah[0], _ah[1], "abhyasa")
-                            break
-                    break
+                    _acc_hits(_preadings, [_sn], "san")
             _readings = []
-            if _phit is not None:
-                _rt, _m, _via = _phit
+            if _preadings:
+                _rt, _m, _via = _preadings[0]
                 _readings.append((_rt, _m, _pvia or _via))
-            if _ptwin is not None:
-                _readings.append(_ptwin)
+                for (_rr, _rm, _rv) in _preadings[1:]:
+                    _readings.append((_rr, _rm, _rv))
+            # every slot sharing this aux string counts (cakAra is both
+            # prathama eka and uttama eka): cross product, then stop —
+            # longest aux wins, but all its slots emit
+            _aux_slots = [(p, v, pa) for (a, p, v, pa) in _PERI_AUX
+                          if a == _aux]
             for (_rt, _m, _via) in _readings:
-                _d = {"kind": "tinanta", "purusha": _apur, "vacana": _avac,
-                      "pada": _apada, "prayoga": "kartari", "lakara": "liw",
-                      "confidence": 0.7, "ending": _aux,
-                      "note": f"periphrastic liw: root via {_via} "
-                      f"from stem '{_stem}' + aux '{_aux}'"}
-                _d.update(_root_details(_m))
-                if upasarga:
-                    _d["upasarga"] = upasarga
-                    _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
-                out.append(_d)
-            if _phit is not None:
+                for (_apur2, _avac2, _apada2) in _aux_slots:
+                    _d = {"kind": "tinanta", "purusha": _apur2,
+                          "vacana": _avac2, "pada": _apada2,
+                          "prayoga": "kartari", "lakara": "liw",
+                          "confidence": 0.7, "ending": _aux,
+                          "note": f"periphrastic liw: root via {_via} "
+                          f"from stem '{_stem}' + aux '{_aux}'"}
+                    _d.update(_root_details(_m))
+                    if upasarga:
+                        _d["upasarga"] = upasarga
+                        _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
+                    out.append(_d)
+            if _preadings:
                 break
     return out
 
@@ -1463,7 +1929,12 @@ _PERI_AUX: list = []
 
 
 def _ensure_peri_aux() -> None:
-    """Build (auxform, purusha, vacana, pada) table from engine perfects."""
+    """Build (auxform, purusha, vacana, pada) table from engine perfects.
+
+    One aux string can serve several slots (cakAra is both prathama eka
+    and uttama eka of kf): keep every slot so periphrastic search emits
+    the full collision set instead of the first slot only.
+    """
     global _PERI_AUX
     if _PERI_AUX:
         return
@@ -1481,19 +1952,40 @@ def _ensure_peri_aux() -> None:
                     except Exception:
                         continue
                     for _f in _forms:
-                        if _f not in _seen:
-                            _seen.add(_f)
-                            _PERI_AUX.append((_f, _pur, _vac, _pada))
+                        _k = (_f, _pur, _vac, _pada)
+                        if _k not in _seen:
+                            _seen.add(_k)
+                            _PERI_AUX.append(_k)
+                        # retroflex aux twins (cakfQve <- cakfDve, zwutva):
+                        # same slots, retroflex surface
+                        for _twin in _dent_variants(_f):
+                            if _twin != _f:
+                                _kt = (_twin, _pur, _vac, _pada)
+                                if _kt not in _seen:
+                                    _seen.add(_kt)
+                                    _PERI_AUX.append(_kt)
+    # data-attested aux outside engine liT inventory (buBUzAmAhe is
+    # san_yak alit utt eka): Ahe fills Ase's slots
+    for (_f, _pur, _vac, _pada) in list(_PERI_AUX):
+        if _f == "Ase":
+            _kt = ("Ahe", _pur, _vac, _pada)
+            if _kt not in _seen:
+                _seen.add(_kt)
+                _PERI_AUX.append(_kt)
     _PERI_AUX.sort(key=lambda t: -len(t[0]))
 
 
 _TIN_ENG = None
+_VERIFY_CACHE: Dict[tuple, bool] = {}
 
 
 def _verify_tin(word: str, dhatu: str, lak: str, pur: str, vac: str,
                 prayoga: str, sanadi, dhatu_id, upasarga) -> bool:
     """Forward-verify a tinanta reading with the generative engine."""
     global _TIN_ENG
+    _ck = (word, dhatu, lak, pur, vac, prayoga, sanadi, dhatu_id, upasarga)
+    if _ck in _VERIFY_CACHE:
+        return _VERIFY_CACHE[_ck]
     try:
         if _TIN_ENG is None:
             from .tinanta import TinantaDerivationEngine
@@ -1507,11 +1999,15 @@ def _verify_tin(word: str, dhatu: str, lak: str, pur: str, vac: str,
             return _w in _cands
 
         if _gen(word):
+            _VERIFY_CACHE[_ck] = True
             return True
         # t/d voicing twins (BavatAd <- BavatAt): the engine emits -t, so
         # confirm a -d surface against its -t twin (same formation)
         if word.endswith("d"):
-            return _gen(word[:-1] + "t")
+            _r = _gen(word[:-1] + "t")
+            _VERIFY_CACHE[_ck] = _r
+            return _r
+        _VERIFY_CACHE[_ck] = False
         return False
     except Exception:
         return True  # engine gap: never punish on errors
@@ -1519,209 +2015,216 @@ def _verify_tin(word: str, dhatu: str, lak: str, pur: str, vac: str,
 
 def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
     out: List[dict] = []
-    out += _infix_reverse(word, upasarga)
-    for _table, _pada in ((_TIN_P, "parasmaipada"), (_TIN_A, "Atmanepada")):
-        for (_end, _lak, _pur, _vac) in _table:
-            if not word.endswith(_end) or len(word) <= len(_end):
-                continue
-            _core = word[:-len(_end)] if _end else word
-            _aug = (_lak == "laN")
-            _hit = None
-            _via_extra = ""
-            _multi = None
-            _extra_hits: List[tuple] = []
-            for _cand in _tin_candidates(_core, _lak, _aug):
-                # irregular presents first (multi-root: yacCa <- yam + dA)
-                _irr = _irreg_pres(_cand)
-                if _irr is not None:
-                    _multi = _irr
-                    break
-                _hit = _lookup_root(_cand)
-                if _hit is not None:
-                    # also keep abhyasa twin (dadati is dad + dA at once)
-                    for _ab in _abhyasa_reverse(_cand):
-                        _ah = _lookup_root(_ab)
-                        if _ah is not None and _ah[0] != _hit[0]:
-                            if _ah[0] not in [h[0] for h in _extra_hits]:
-                                _extra_hits.append((_ah[0], _ah[1], "abhyasa"))
-                    # also keep desiderative twin (buBUzati is BUz + BU:
-                    # exact lookup finds only the san-shaped root BUz)
-                    for _sn in _san_reverse(_cand):
-                        _sh = _lookup_root(_sn)
-                        if _sh is not None and _sh[0] != _hit[0]:
-                            if _sh[0] not in [h[0] for h in _extra_hits]:
-                                _extra_hits.append((_sh[0], _sh[1], "san"))
-                    break
-                # class-3 reduplicated stems (dadA/juhu/biBar + ti)
-                for _ab in _abhyasa_reverse(_cand):
-                    _hit = _lookup_root(_ab)
-                    if _hit is not None:
-                        _via_extra = "abhyasa"
-                        break
-                if _hit is not None:
-                    # primary came via abhyasa (buBUz -> BUz): san twins
-                    # (buBUz -> BU) still count as extra readings
-                    for _sn in _san_reverse(_cand):
-                        _sh = _lookup_root(_sn)
-                        if _sh is not None and _sh[0] != _hit[0]:
-                            if _sh[0] not in [h[0] for h in _extra_hits]:
-                                _extra_hits.append((_sh[0], _sh[1], "san"))
-                    break
-                # desiderative stems (ditsa/vividiza + ti)
-                for _sn in _san_reverse(_cand):
-                    _hit = _lookup_root(_sn)
-                    if _hit is not None:
-                        _via_extra = "san"
-                        break
-                if _hit is not None:
-                    # primary came via san: abhyasa twins still count
-                    for _ab in _abhyasa_reverse(_cand):
-                        _ah = _lookup_root(_ab)
-                        if _ah is not None and _ah[0] != _hit[0]:
-                            if _ah[0] not in [h[0] for h in _extra_hits]:
-                                _extra_hits.append((_ah[0], _ah[1], "abhyasa"))
-                    break
-                # viDiliN e-grade of A-final roots (det <- dA: the ending
-                # table segments d+et, swallowing the stem vowel, while
-                # exact lookup finds only the e-final root deN)
-                if _hit is None and _lak == "viDiliN" and _cand.endswith("e"):
-                    _hit = _lookup_root(_cand[:-1] + "A")
-                    if _hit is not None:
-                        _via_extra = "egrade"
-                        break
-                if (_hit is None and _lak == "viDiliN" and len(_cand) == 1
-                        and _cand not in SLP1_VOWELS):
-                    _hit = _lookup_root(_cand + "A")
-                    if _hit is not None:
-                        _via_extra = "egrade"
-                        break
-            # classical laN needs the a- augment (adadat, not *dadan)
-            _no_aug = _aug and _core[:1] not in ("a", "A")
-            # liT always reduplicates (Asa-type a-initial stems excepted):
-            # plain grade-hits on bare-a endings (rAma) are nouns, not verbs.
-            # (Unresolved fallbacks still emit below.)
-            _liw_plain = (_lak == "liw" and not _via_extra and _multi is None
-                          and _core[:1] not in ("a", "A"))
-            if _multi is not None:
-                for (_m, _c) in _multi:
-                    _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
-                          "pada": _pada, "prayoga": "kartari", "lakara": _lak,
-                          "confidence": 0.95, "ending": _end}
-                    _d.update(_root_details(_m))
-                    _d["pada"] = _pada
-                    _d["note"] = f"irregular present stem '{_core}'"
-                    if _no_aug:
-                        _d["confidence"] *= 0.6
-                        _d["note"] += "; augment a- missing"
-                    if upasarga:
-                        _d["upasarga"] = upasarga
-                    _ids = _d.get("ids") or [None]
-                    if not _verify_tin(word, _c, _lak, _pur, _vac, "kartari",
-                                       None, _ids[0], upasarga):
-                        _d["confidence"] = max(0.1, _d["confidence"] * 0.5)
-                        _d["note"] += "; unverified"
-                    out.append(_d)
-            if _hit is not None and not _liw_plain:
-                _rt, _m, _via = _hit
-                # thematic grade-reversal is the regular BvAdi formation,
-                # so guna is near-deterministic (outranks coincidental nouns)
-                _conf = _via_conf(_via)
-                if _via_extra == "abhyasa":
-                    _via = "abhyasa"
-                    _conf = 0.7
-                elif _via_extra == "san":
-                    _via = "san"
-                    _conf = 0.65
-                elif _via_extra == "egrade":
-                    _via = "egrade"
-                    _conf = 0.65
-                if _no_aug:
-                    _conf *= 0.6
-                _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
-                      "pada": _pada, "prayoga": "kartari", "lakara": _lak,
-                      "confidence": _conf, "ending": _end}
-                _d.update(_root_details(_m))
-                _d["pada"] = _pada
-                if _via != "exact":
-                    _d["note"] = f"root via {_via} from stem '{_core}'"
-                if _no_aug:
-                    _d["note"] = (_d.get("note", "") + "; augment a- missing").strip("; ")
-                if upasarga:
-                    _d["upasarga"] = upasarga
-                # analysis by synthesis: keep full score only if the engine
-                # regenerates the word (kills e.g. augmentless-laN ghosts);
-                # Atmanepada forms fall back to karmani before demotion
-                _ids = _d.get("ids") or [None]
-                _ok = _verify_tin(word, _rt, _lak, _pur, _vac, "kartari",
-                                  "sannanta" if _via == "san" else None,
-                                  _ids[0], upasarga)
-                if not _ok and _pada == "Atmanepada":
-                    _ok = _verify_tin(word, _rt, _lak, _pur, _vac, "karmani",
-                                      "sannanta" if _via == "san" else None,
-                                      _ids[0], upasarga)
-                    if _ok:
-                        _d["prayoga"] = "karmani"
-                        _d["note"] = (_d.get("note", "") + "; karmani").strip("; ")
-                if not _ok:
-                    _d["confidence"] = max(0.1, _d["confidence"] * 0.5)
-                    _d["note"] = (_d.get("note", "") + "; unverified").strip("; ")
-                out.append(_d)
-                for (_ert, _em, _evia) in _extra_hits:
-                    _ed = {"kind": "tinanta", "purusha": _pur,
-                           "vacana": _vac, "pada": _pada,
-                           "prayoga": "kartari", "lakara": _lak,
-                           "confidence": 0.7, "ending": _end}
-                    _ed.update(_root_details(_em))
-                    _ed["pada"] = _pada
-                    _ed["note"] = f"root via {_evia} from stem '{_core}'"
-                    if _no_aug:
-                        _ed["confidence"] *= 0.6
-                        _ed["note"] += "; augment a- missing"
-                    if upasarga:
-                        _ed["upasarga"] = upasarga
-                    _eids = _ed.get("ids") or [None]
-                    _eok = _verify_tin(word, _ert, _lak, _pur, _vac,
-                                       "kartari",
-                                       "sannanta" if _evia == "san" else None,
-                                       _eids[0], upasarga)
-                    if not _eok:
-                        _ed["confidence"] = max(0.1, _ed["confidence"] * 0.5)
-                        _ed["note"] += "; unverified"
-                    out.append(_ed)
-            if _hit is not None and _liw_plain and _extra_hits:
-                # liw plain-grade hits are noun-coincidences (rAma), but
-                # reduplication-derived twins (dad -> dA) are genuine verbs
-                for (_ert, _em, _evia) in _extra_hits:
-                    _ed = {"kind": "tinanta", "purusha": _pur,
-                           "vacana": _vac, "pada": _pada,
-                           "prayoga": "kartari", "lakara": _lak,
-                           "confidence": 0.7, "ending": _end}
-                    _ed.update(_root_details(_em))
-                    _ed["pada"] = _pada
-                    _ed["note"] = f"root via {_evia} from stem '{_core}'"
-                    if _no_aug:
-                        _ed["confidence"] *= 0.6
-                        _ed["note"] += "; augment a- missing"
-                    if upasarga:
-                        _ed["upasarga"] = upasarga
-                    _eids = _ed.get("ids") or [None]
-                    _eok = _verify_tin(word, _ert, _lak, _pur, _vac,
-                                       "kartari",
-                                       "sannanta" if _evia == "san" else None,
-                                       _eids[0], upasarga)
-                    if not _eok:
-                        _ed["confidence"] = max(0.1, _ed["confidence"] * 0.5)
-                        _ed["note"] += "; unverified"
-                    out.append(_ed)
-            if _hit is None or _liw_plain:
-                _d = {"kind": "tinanta", "dhatu": None, "purusha": _pur,
-                      "vacana": _vac, "pada": _pada, "prayoga": "kartari",
-                      "lakara": _lak, "confidence": 0.4,
-                      "ending": _end,
-                      "note": f"stem '{_core}' matched no known root"}
-                if upasarga:
-                    _d["upasarga"] = upasarga
-                out.append(_d)
+    for _ww in [word] + _stem_desandhi(word):
+            out += _infix_reverse(_ww, upasarga)
+            for _table, _pada in ((_TIN_P, "parasmaipada"), (_TIN_A, "Atmanepada")):
+                for (_end, _lak, _pur, _vac) in _table:
+                    if not _ww.endswith(_end) or len(_ww) <= len(_end):
+                        continue
+                    _core = _ww[:-len(_end)] if _end else _ww
+                    _aug = (_lak == "laN")
+                    # Collect hits across ALL stem candidates (no early break):
+                    # an early stripped variant may hit an incidental root while a
+                    # later one carries the true analysis (abuBUzya: 'buBUzy' hits
+                    # BUz via abhyasa before 'buBUz' yields the BU san twin).
+                    # Emission stays in candidate order so stripped-exact readings
+                    # keep their ranking; flat-level dedup collapses repeats.
+                    _found: List[tuple] = []  # (via_extra, hit, extra_hits, multi)
+                    for _cand in _tin_candidates(_core, _lak, _aug):
+                        _hit = None
+                        _via_extra = ""
+                        _multi = None
+                        _extra_hits: List[tuple] = []
+                        # irregular presents first (multi-root: yacCa <- yam + dA)
+                        _irr = _irreg_pres(_cand)
+                        if _irr is not None:
+                            _found.append(("", None, [], _irr))
+                            continue
+                        _hit = _lookup_root(_cand)
+                        if _hit is not None:
+                            # also keep abhyasa twin (dadati is dad + dA at once)
+                            for _ab in _abhyasa_reverse(_cand):
+                                _acc_hits(_extra_hits, [_ab], "abhyasa")
+                            # also keep desiderative twin (buBUzati is BUz + BU:
+                            # exact lookup finds only the san-shaped root BUz)
+                            for _sn in _san_reverse(_cand):
+                                _acc_hits(_extra_hits, [_sn], "san")
+                            # graded alternates of the primary itself
+                            # (rod -> rud + ruD)
+                            for (_rc, _rm, _rv) in _lookup_all(_cand)[1:]:
+                                if _rc != _hit[0] and _rc not in \
+                                        [h[0] for h in _extra_hits]:
+                                    _extra_hits.append((_rc, _rm, _rv))
+                            _found.append(("", _hit, _extra_hits, None))
+                            continue
+                        # class-3 reduplicated stems (dadA/juhu/biBar + ti)
+                        for _ab in _abhyasa_reverse(_cand):
+                            _acc_hits(_extra_hits, [_ab], "abhyasa")
+                        if _extra_hits:
+                            _rt0, _m0, _vx0 = _extra_hits.pop(0)
+                            _hit = (_rt0, _m0, "abhyasa")
+                            _via_extra = "abhyasa"
+                        if _hit is not None:
+                            # primary came via abhyasa (buBUz -> BUz): san twins
+                            # (buBUz -> BU) still count as extra readings
+                            for _sn in _san_reverse(_cand):
+                                _acc_hits(_extra_hits, [_sn], "san")
+                            _found.append((_via_extra, _hit, _extra_hits, None))
+                            continue
+                        # desiderative stems (ditsa/vividiza + ti)
+                        for _sn in _san_reverse(_cand):
+                            _acc_hits(_extra_hits, [_sn], "san")
+                        if _extra_hits:
+                            _rt0, _m0, _vx0 = _extra_hits.pop(0)
+                            _hit = (_rt0, _m0, "san")
+                            _via_extra = "san"
+                        if _hit is not None:
+                            # primary came via san: abhyasa twins still count
+                            for _ab in _abhyasa_reverse(_cand):
+                                _acc_hits(_extra_hits, [_ab], "abhyasa")
+                            _found.append((_via_extra, _hit, _extra_hits, None))
+                            continue
+                        # viDiliN e-grade of A-final roots (det <- dA: the ending
+                        # table segments d+et, swallowing the stem vowel, while
+                        # exact lookup finds only the e-final root deN)
+                        if _lak == "viDiliN" and _cand.endswith("e"):
+                            _hit = _lookup_root(_cand[:-1] + "A")
+                            if _hit is not None:
+                                _found.append(("egrade", _hit, [], None))
+                                continue
+                        if (_lak == "viDiliN" and len(_cand) == 1
+                                and _cand not in SLP1_VOWELS):
+                            _hit = _lookup_root(_cand + "A")
+                            if _hit is not None:
+                                _found.append(("egrade", _hit, [], None))
+                                continue
+                    _multi = None
+                    _hit = None
+                    _via_extra = ""
+                    _extra_hits = []
+                    _emit_queue: List[tuple] = []
+                    for (_vx, _h, _eh, _mu) in _found:
+                        if _mu is not None:
+                            _multi = _mu  # last multi wins below (same slot anyway)
+                        if _h is not None:
+                            _emit_queue.append((_vx, _h, _eh))
+                    # classical laN needs the a- augment (adadat, not *dadan)
+                    _no_aug = _aug and _core[:1] not in ("a", "A")
+                    # liT always reduplicates (Asa-type a-initial stems excepted):
+                    # plain grade-hits on bare-a endings (rAma) are nouns, not verbs.
+                    # (Unresolved fallbacks still emit below.)
+                    _liw_plain = (_lak == "liw" and not _via_extra and _multi is None
+                                  and _core[:1] not in ("a", "A"))
+                    if _multi is not None:
+                        for (_m, _c) in _multi:
+                            _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
+                                  "pada": _pada, "prayoga": "kartari", "lakara": _lak,
+                                  "confidence": 0.95, "ending": _end}
+                            _d.update(_root_details(_m))
+                            _d["pada"] = _pada
+                            _d["note"] = f"irregular present stem '{_core}'"
+                            if _no_aug:
+                                _d["confidence"] *= 0.6
+                                _d["note"] += "; augment a- missing"
+                            if upasarga:
+                                _d["upasarga"] = upasarga
+                            _ids = _d.get("ids") or [None]
+                            if not _verify_tin(_ww, _c, _lak, _pur, _vac, "kartari",
+                                               None, _ids[0], upasarga):
+                                _d["confidence"] = max(0.1, _d["confidence"] * 0.5)
+                                _d["note"] += "; unverified"
+                            out.append(_d)
+                    _liw_plain_base = (_lak == "liw" and _multi is None
+                                       and _core[:1] not in ("a", "A"))
+                    def _emit_extra(_ert, _em, _evia) -> None:
+                        _ed = {"kind": "tinanta", "purusha": _pur,
+                               "vacana": _vac, "pada": _pada,
+                               "prayoga": "kartari", "lakara": _lak,
+                               "confidence": 0.7, "ending": _end}
+                        _ed.update(_root_details(_em))
+                        _ed["pada"] = _pada
+                        _ed["note"] = f"root via {_evia} from stem '{_core}'"
+                        if _no_aug:
+                            _ed["confidence"] *= 0.6
+                            _ed["note"] += "; augment a- missing"
+                        if upasarga:
+                            _ed["upasarga"] = upasarga
+                        _eids = _ed.get("ids") or [None]
+                        _eok = _verify_tin(_ww, _ert, _lak, _pur, _vac,
+                                           "kartari",
+                                           "sannanta" if _evia == "san" else None,
+                                           _eids[0], upasarga)
+                        if not _eok:
+                            _ed["confidence"] = max(0.1, _ed["confidence"] * 0.5)
+                            _ed["note"] += "; unverified"
+                        out.append(_ed)
+
+                    _emitted_primary = False
+                    for (_via_extra, _hit, _extra_hits) in _emit_queue:
+                        _plain = _liw_plain_base and not _via_extra
+                        if _plain:
+                            # liw plain-grade hits are noun-coincidences (rAma),
+                            # but reduplication-derived twins (dad -> dA) are
+                            # genuine verbs
+                            for (_ert, _em, _evia) in _extra_hits:
+                                _emit_extra(_ert, _em, _evia)
+                            continue
+                        _rt, _m, _via = _hit
+                        # thematic grade-reversal is the regular BvAdi formation,
+                        # so guna is near-deterministic (outranks coincidental nouns)
+                        _conf = _via_conf(_via)
+                        if _via_extra == "abhyasa":
+                            _via = "abhyasa"
+                            _conf = 0.7
+                        elif _via_extra == "san":
+                            _via = "san"
+                            _conf = 0.65
+                        elif _via_extra == "egrade":
+                            _via = "egrade"
+                            _conf = 0.65
+                        if _no_aug:
+                            _conf *= 0.6
+                        _d = {"kind": "tinanta", "purusha": _pur, "vacana": _vac,
+                              "pada": _pada, "prayoga": "kartari", "lakara": _lak,
+                              "confidence": _conf, "ending": _end}
+                        _d.update(_root_details(_m))
+                        _d["pada"] = _pada
+                        if _via != "exact":
+                            _d["note"] = f"root via {_via} from stem '{_core}'"
+                        if _no_aug:
+                            _d["note"] = (_d.get("note", "") + "; augment a- missing").strip("; ")
+                        if upasarga:
+                            _d["upasarga"] = upasarga
+                        # analysis by synthesis: keep full score only if the engine
+                        # regenerates the _ww (kills e.g. augmentless-laN ghosts);
+                        # Atmanepada forms fall back to karmani before demotion
+                        _ids = _d.get("ids") or [None]
+                        _ok = _verify_tin(_ww, _rt, _lak, _pur, _vac, "kartari",
+                                          "sannanta" if _via == "san" else None,
+                                          _ids[0], upasarga)
+                        if not _ok and _pada == "Atmanepada":
+                            _ok = _verify_tin(_ww, _rt, _lak, _pur, _vac, "karmani",
+                                              "sannanta" if _via == "san" else None,
+                                              _ids[0], upasarga)
+                            if _ok:
+                                _d["prayoga"] = "karmani"
+                                _d["note"] = (_d.get("note", "") + "; karmani").strip("; ")
+                        if not _ok:
+                            _d["confidence"] = max(0.1, _d["confidence"] * 0.5)
+                            _d["note"] = (_d.get("note", "") + "; unverified").strip("; ")
+                        out.append(_d)
+                        _emitted_primary = True
+                        for (_ert, _em, _evia) in _extra_hits:
+                            _emit_extra(_ert, _em, _evia)
+                    if not _emitted_primary:
+                        _d = {"kind": "tinanta", "dhatu": None, "purusha": _pur,
+                              "vacana": _vac, "pada": _pada, "prayoga": "kartari",
+                              "lakara": _lak, "confidence": 0.4,
+                              "ending": _end,
+                              "note": f"stem '{_core}' matched no known root"}
+                        if upasarga:
+                            _d["upasarga"] = upasarga
+                        out.append(_d)
     return out
 
 
@@ -1749,6 +2252,83 @@ _UPASARGAS = ["parA", "antar", "nir", "nis", "dus", "dur", "anu", "ava",
               "apa", "api", "aDi", "ati", "aBi", "ud", "upa", "pari",
               "prati", "pra", "sam", "vi", "ni", "su", "A"]
 
+def _prefix_splits(word: str) -> List[tuple]:
+    """Longest-first (upasarga, rest) splits incl. sandhi rules.
+
+    AN (AN) surfaces as A before vowels but Am/An before consonants
+    (AmbuBUz <- AN + buBUz): the nasal belongs to the prefix, so the
+    rest drops it. sam + consonant -> saM likewise.
+    Prefix-stem sandhi: yaN (vi + ati -> vyati: i/u + vowel -> y/v +
+    vowel) and guNa (A + i/u/e/o -> E/O) fuse the boundary, so desandhied
+    rests are offered alongside literal splits.
+    """
+    from .subanta import SLP1_VOWELS as _V
+    cands = []
+    if len(word) > 4 and word[:2] in ("Am", "An") and word[2] not in _V:
+        cands.append(("AN", word[2:]))
+    if len(word) > 4 and word[:2] in ("am", "an") and word[2] not in _V:
+        # inner-AN with shortened vowel (aDyan- <- aDi + AN + ...):
+        # the nasal still marks the prefix boundary
+        cands.append(("AN", word[2:]))
+    if len(word) > 5 and word[:3] == "saM" and word[3] not in _V:
+        # sam + consonant -> saM (anusvara): the nasal is the prefix
+        # coda (saMboBavitA <- sam + boBavitA)
+        cands.append(("sam", word[3:]))
+    for _p in sorted(_UPASARGAS, key=lambda s: (len(s), s), reverse=True):
+        if word.startswith(_p) and len(word) - len(_p) >= 3:
+            cands.append((_p, word[len(_p):]))
+            # no break: nirX can be nir + X or ni + rX (ruruts- stems);
+            # pratiX can be prati + X or pra + tiX. Garbage rests fail
+            # lookup; dedup collapses repeats.
+    # augment fusion: prefix + laN/luN/lfN augment a- fuse
+    # (pra + aBavata -> prABavata: a + a -> A; parA + a -> parA,
+    # invisible). The rest restores the augment vowel for table matching.
+    for _p in sorted(_UPASARGAS, key=lambda s: (len(s), s), reverse=True):
+        if _p.endswith("A"):
+            _fused = _p
+        elif _p.endswith("a"):
+            _fused = _p[:-1] + "A"
+        else:
+            _fused = _p + "A"
+        if len(word) <= len(_fused) + 2:
+            continue
+        if word.startswith(_fused):
+            _rest = "a" + word[len(_fused):]
+            if all(_r != _rest for (_, _r) in cands):
+                cands.append((_p, _rest))
+            break
+    # bare-A split is ambiguous A/AN (data writes bare A for AN +
+    # consonant too): analyse the rest under both chains
+    for (_p, _rest) in list(cands):
+        if _p == "A" and ("AN", _rest) not in cands:
+            cands.append(("AN", _rest))
+    # yaN boundary: prefix-final i/I/u/U + stem-initial vowel fuse to
+    # y/v + vowel (vyati <- vi + ati). Only when no literal split fired
+    # on the same span (literal 'vi' never matches surface 'vya').
+    for _p in _UPASARGAS:
+        if _p[-1] in ("i", "I", "u", "U") and len(word) > len(_p) + 2:
+            _glide = "y" if _p[-1] in ("i", "I") else "v"
+            if word.startswith(_p[:-1] + _glide) and word[len(_p)] in _V:
+                _rest = word[len(_p):]
+                if all(_r != _rest for (_, _r) in cands):
+                    cands.append((_p, _rest))
+    # guNa boundary: A-final prefix + i/u/e/o -> E/O. Rest restores the
+    # stem-initial vowel (E <- A + i/e, O <- A + u/o).
+    if word[:1] in ("E", "O") and len(word) > 4:
+        _vows = ("i", "e") if word[:1] == "E" else ("u", "o")
+        for _p in [p for p in _UPASARGAS if p.endswith("A")]:
+            for _vw in _vows:
+                _rest = _vw + word[1:]
+                if len(_rest) >= 3 and \
+                        all(_r != _rest for (_, _r) in cands):
+                    cands.append((_p, _rest))
+    return cands
+
+
+def _chain(pre: str | None, p: str) -> str:
+    return p if not pre else pre + ";" + p
+
+
 # retroflex -> dental (reverse zwunA zwuH: surface W hides underlying T)
 _RETRO_DENTAL = {"w": "t", "W": "T", "q": "d", "Q": "D", "R": "n"}
 
@@ -1768,8 +2348,8 @@ def _rev_prefix_sandhi(rest: str) -> List[str]:
 # public API
 # ---------------------------------------------------------------------------
 
-def subanta_search(word: str, limit: int = 20) -> List[dict]:
-    """Subanta-only search: stem + vibhakti + vacana + linga readings."""
+def _subanta_flat(word: str, limit: int = 50) -> List[dict]:
+    """Flat subanta readings (internal; public subanta_search groups these)."""
     _ensure_ready()
     word = (word or "").strip()
     if not word:
@@ -1786,11 +2366,43 @@ def subanta_search(word: str, limit: int = 20) -> List[dict]:
         seen.add(_k)
         out.append(_a)
     out.sort(key=lambda d: d["confidence"], reverse=True)
-    return out[:limit]
+    return out[:limit] if limit is not None else out
 
 
-def krdanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> List[dict]:
-    """Krdanta-only search: dhatu + pratyaya (+ inflection) readings."""
+def _group_subanta(flat: List[dict]) -> List[dict]:
+    """One entry per stem with a readings list (linga/vibhakti/vacana)."""
+    _groups: Dict[tuple, dict] = {}
+    for _a in flat:
+        _k = (_a.get("stem"),)
+        _g = _groups.get(_k)
+        if _g is None:
+            _g = {"kind": "subanta", "stem": _a.get("stem"), "readings": [],
+                  "_conf": 0.0}
+            _groups[_k] = _g
+        _g["readings"].append({"linga": _a.get("linga"),
+                               "vibhakti": _a.get("vibhakti"),
+                               "vacana": _a.get("vacana"),
+                               "confidence": _a.get("confidence", 0.0),
+                               "lexicon": _a.get("lexicon", False)})
+        _g["_conf"] = max(_g["_conf"], _a.get("confidence", 0.0))
+    out = list(_groups.values())
+    for _g in out:
+        _g["readings"].sort(key=lambda d: d["confidence"], reverse=True)
+        _g["confidence"] = _g.pop("_conf")
+    out.sort(key=lambda d: d["confidence"], reverse=True)
+    return out
+
+
+def subanta_search(word: str, limit: int | None = None) -> List[dict]:
+    """Subanta-only search: one entry per stem with a readings list."""
+    return (_group_subanta(_subanta_flat(word, limit=500))[:limit]
+            if limit is not None
+            else _group_subanta(_subanta_flat(word, limit=500)))
+
+
+def _krdanta_flat(word: str, limit: int = 50,
+                  with_upasarga: bool = True) -> List[dict]:
+    """Flat krdanta readings (internal; public krdanta_search groups these)."""
     _ensure_ready()
     word = (word or "").strip()
     if not word:
@@ -1814,123 +2426,309 @@ def krdanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> Li
                     _k["upasarga"] = upasarga
                 out.append(_k)
 
-    _stems = []
-    for _a in subanta_search(word, limit=50):
-        _stems.append((_a.get("lexicon", False),
-                       _a["stem"], _a["linga"], _a["vibhakti"], _a["vacana"]))
-    # feminine krdanta forms ride masculine stems (BavitavyA <- Bavitavya)
-    _more = []
-    for (_lex, _st, _li, _vib, _vac) in _stems:
-        if _st.endswith("A") and len(_st) > 2:
-            _more.append((False, _st[:-1] + "a", _li, _vib, _vac))
-        if _st.endswith("ntI") and len(_st) > 3:
-            _more.append((False, _st[:-3] + "at", _li, _vib, _vac))
-        if _st.endswith("vatI") and len(_st) > 4:
-            _more.append((False, _st[:-1], _li, _vib, _vac))
-    _stems += _more
-    _stems.sort(key=lambda t: (not t[0], t[1]))
-    _from_stems(_stems)
-    # feminine krdanta forms ride masculine stems (BavitavyA <- Bavitavya,
-    # BavantI <- Bavat, BUtavatI <- BUtavat, cakruzI <- cakfuz weak):
-    # recover the masculine word, analyse it, keep the feminine slot
-    _mw = None
-    if word.endswith("A") and len(word) > 2:
-        _mw = word[:-1] + "a"
-    elif word.endswith("ntI") and len(word) > 3:
-        _mw = word[:-3] + "at"
-    elif word.endswith("vatI") and len(word) > 4:
-        _mw = word[:-1]
-    elif word.endswith("trI") and len(word) > 3:
-        _mw = word[:-3] + "tf"
-    elif word.endswith("zI") and len(word) > 2:
-        _mw = word[:-1]
-    if _mw:
-        for _k in _krdanta_from_stem(_mw, "strI", 1, "eka"):
-            _kk = (_k.get("dhatu"), _k["pratyaya"], _mw, "strI", 1, "eka")
-            if _kk in seen:
-                continue
-            seen.add(_kk)
-            out.append(_k)
-    # indeclinable krdantas have no sup stem: tumun (-tum), ktvA (-tvA),
-    # Ramul (-am, low confidence: -am is usually the accusative ending)
-    for _suf, _prat, _conf in (("tum", "tumun", 0.85), ("tvA", "ktvA", 0.85),
-                               ("am", "Ramul", 0.5)):
-        if word.endswith(_suf) and len(word) > len(_suf) + 1:
-            _core = word[:-len(_suf)]
-            _cands = [_core]
-            if _core.endswith("i") and len(_core) > 1:
-                _cands.append(_core[:-1])  # sew iT (Bavi -> Bav)
-            if _prat == "ktvA" and _core[:1] in ("u", "i") and len(_core) > 1:
-                # samprasarana absolutives (uktvA <- vac): va/ya + cutva
-                _rest = _core[1:]
-                _cut = _decutva(_rest)
-                _cands.append(("va" if _core[:1] == "u" else "ya") + _cut)
-            for _c in _cands:
-                _hit = _lookup_root(_c)
-                if _hit is not None:
-                    break
-            if _hit is not None:
-                _rt, _m, _via = _hit
-                out.append({"kind": "krdanta", "pratyaya": _prat,
-                            "stem": word, "linga": "avyaya", "vibhakti": None,
-                            "vacana": None, "confidence": _conf,
-                            "note": f"root via {_via} from '{_core}'",
-                            **_root_details(_m)})
-                break
-    # prefixless -ya absolutive (BUya <- BU): lyap needs an upasarga, so this
-    # reading is weak — but the engine overgenerates unprefixed twins
-    if word.endswith("ya") and len(word) > 3:
-        _hit = _lookup_root(_devrddhi(word[:-2]))
-        if _hit is not None:
-            _rt, _m, _via = _hit
-            _kk = (_rt, "lyap", word, None)
-            if _kk not in seen:
+    def _level(_w: str, _ch: str | None, _pen: float) -> list:
+        """All stem + word-level krdanta analyses of one word-slice."""
+        def _penal(_c: float) -> float:
+            return max(0.1, _c - _pen)
+
+        _stems = []
+        for _a in _subanta_flat(_w, limit=50):
+            _stems.append((_a.get("lexicon", False),
+                           _a["stem"], _a["linga"], _a["vibhakti"], _a["vacana"]))
+        if _w.endswith("d") and len(_w) > 3:
+            # padAnta voicing twin (BUtavad <- BUtavat, baBUvad, Bavad):
+            # the engine emits -t, so recover stems from the -t surface
+            for _a in _subanta_flat(_w[:-1] + "t", limit=50):
+                _stems.append((_a.get("lexicon", False),
+                               _a["stem"], _a["linga"], _a["vibhakti"],
+                               _a["vacana"]))
+        # indeclinable krdanta forms ride masculine stems (BavitavyA <- Bavitavya)
+        _more = []
+        for (_lex, _st, _li, _vib, _vac) in _stems:
+            if _st.endswith("A") and len(_st) > 2:
+                _more.append((False, _st[:-1] + "a", _li, _vib, _vac))
+            if _st.endswith("ntI") and len(_st) > 3:
+                _more.append((False, _st[:-3] + "t", _li, _vib, _vac))
+            if _st.endswith("vatI") and len(_st) > 4:
+                _more.append((False, _st[:-1], _li, _vib, _vac))
+        _stems += _more
+        _stems.sort(key=lambda t: (not t[0], t[1]))
+        _from_stems(_stems, penalty=_pen, upasarga=_ch)
+        # feminine krdanta forms ride masculine stems (BavitavyA <- Bavitavya,
+        # BavantI <- Bavat, BUtavatI <- BUtavat, cakruzI <- cakfuz weak,
+        # BavizyatI <- Bavizyat): recover the masculine word, analyse it,
+        # keep the feminine slot
+        _mw = None
+        if _w.endswith("A") and len(_w) > 2:
+            _mw = _w[:-1] + "a"
+        elif _w.endswith("ntI") and len(_w) > 3:
+            _mw = _w[:-3] + "t"
+        elif _w.endswith("vatI") and len(_w) > 4:
+            _mw = _w[:-1]
+        elif _w.endswith("trI") and len(_w) > 3:
+            _mw = _w[:-3] + "tf"
+        elif _w.endswith("tI") and len(_w) > 3:
+            _mw = _w[:-1]
+        elif _w.endswith("zI") and len(_w) > 2:
+            _mw = _w[:-1]
+        if _mw:
+            for _k in _krdanta_from_stem(_mw, "strI", 1, "eka"):
+                _kk = (_k.get("dhatu"), _k["pratyaya"], _mw, "strI", 1,
+                       "eka", _ch)
+                if _kk in seen:
+                    continue
                 seen.add(_kk)
-                out.append({"kind": "krdanta", "pratyaya": "lyap",
-                            "stem": word, "linga": "avyaya",
-                            "vibhakti": None, "vacana": None,
-                            "confidence": 0.45,
-                            "note": f"root via {_via}; prefix missing",
-                            **_root_details(_m)})
+                _k = dict(_k)
+                _k["confidence"] = _penal(_k.get("confidence", 0.5))
+                if _ch:
+                    _k["upasarga"] = _ch
+                out.append(_k)
+        # ktin word-level recovery (BUtiH/buBUzwiH): short-i feminines
+        # have no subanta paradigm, so analyse the nominative directly
+        # (stem-level branch in _krdanta_from_stem covers forms that inflect)
+        if (_w.endswith("tiH") or _w.endswith("wiH")) and len(_w) > 3:
+            _wktb = [_w[:-3]]
+            if _w[:-3].endswith("A") and len(_w[:-3]) > 1:
+                _wktb.append(_w[:-4] + "Ava")
+            _wkhits = []
+            _seenkt = set()
+            for _wkb in _wktb:
+                for (_rt, _m, _via) in _krd_hits(_wkb):
+                    if _rt not in _seenkt:
+                        _seenkt.add(_rt)
+                        _wkhits.append((_rt, _m, _via))
+            for (_rt, _m, _via) in _wkhits:
+                _kk = (_rt, "ktin", _w[:-3] + "ti", "strI", 1, "eka", _ch)
+                if _kk in seen:
+                    continue
+                seen.add(_kk)
+                _k = {"kind": "krdanta", "pratyaya": "ktin",
+                      "stem": _w[:-3] + "ti", "linga": "strI",
+                      "vibhakti": 1, "vacana": "eka",
+                      "confidence": _penal(0.65),
+                      "note": f"root via {_via}",
+                      **_root_details(_m)}
+                if _ch:
+                    _k["upasarga"] = _ch
+                out.append(_k)
+        # bare-stem word-level recovery for consonant-final krdantas whose
+        # stems never surface in subanta (u: buBUzu, gsnu: BUzRu)
+        if _w.endswith("zu") and len(_w) > 3:
+            _uw = _w[:-1] if not _w.endswith("uzu") else _w[:-2]
+            _uhits: list = []
+            for _ab in _abhyasa_reverse(_uw):
+                _acc_hits(_uhits, [_ab], "abhyasa")
+            for _sn in _san_reverse(_uw):
+                _acc_hits(_uhits, [_sn], "san")
+            for (_ah0, _ahm, _ahv) in _uhits:
+                _kk = (_ah0, "u", _uw + "u", None, None, None, _ch)
+                if _kk not in seen:
+                    seen.add(_kk)
+                    _k = {"kind": "krdanta", "pratyaya": "u",
+                          "stem": _uw + "u", "linga": None,
+                          "vibhakti": None, "vacana": None,
+                          "confidence": _penal(0.6),
+                          "note": f"root via {_ahv}",
+                          **_root_details(_ahm)}
+                    if _ch:
+                        _k["upasarga"] = _ch
+                    out.append(_k)
+        if _w.endswith(("Ru", "RuH")) and len(_w) > 4:
+            _stemw = _w[:-1] if _w.endswith("RuH") else _w
+            _gb = _stemw[:-2]
+            if _gb.endswith("z"):
+                _gb = _gb[:-1] + "s"
+            if _gb.endswith("s") and len(_gb) > 2:
+                for (_rt, _m, _via) in _krd_hits(_gb[:-1]):
+                    _kk = (_rt, "gsnu", _stemw, None, None, None, _ch)
+                    if _kk in seen:
+                        continue
+                    seen.add(_kk)
+                    _k = {"kind": "krdanta", "pratyaya": "gsnu",
+                          "stem": _stemw, "linga": None,
+                          "vibhakti": None, "vacana": None,
+                          "confidence": _penal(0.65),
+                          "note": f"root via {_via}",
+                          **_root_details(_m)}
+                    if _ch:
+                        _k["upasarga"] = _ch
+                    out.append(_k)
+        # indeclinable krdantas have no sup stem: tumun (-tum), ktvA (-tvA),
+        # Ramul (-am, low confidence: -am is usually the accusative ending)
+        for _suf, _prat, _conf in (("tum", "tumun", 0.85),
+                                   ("tvA", "ktvA", 0.85),
+                                   ("am", "Ramul", 0.5)):
+            if _w.endswith(_suf) and len(_w) > len(_suf) + 1:
+                _core = _w[:-len(_suf)]
+                _cands = [_core]
+                if _core.endswith("i") and len(_core) > 1:
+                    _cands.append(_core[:-1])  # sew iT (Bavi -> Bav)
+                if _prat == "ktvA" and _core[:1] in ("u", "i") \
+                        and len(_core) > 1:
+                    # samprasarana absolutives (uktvA <- vac): va/ya + cutva
+                    _rest = _core[1:]
+                    _cut = _decutva(_rest)
+                    _cands.append(("va" if _core[:1] == "u" else "ya") + _cut)
+                for _c in _cands:
+                    _hits = _krd_hits(_c)
+                    if _hits:
+                        break
+                if _hits:
+                    for (_rt, _m, _via) in _hits:
+                        _kk = (_rt, _prat, _w, "avyaya", None, None, _ch)
+                        if _kk in seen:
+                            continue
+                        seen.add(_kk)
+                        _k = {"kind": "krdanta", "pratyaya": _prat,
+                              "stem": _w, "linga": "avyaya",
+                              "vibhakti": None, "vacana": None,
+                              "confidence": _penal(_conf) if _via not in
+                              ("abhyasa", "san") else max(
+                                  0.1, _penal(_conf) - 0.1),
+                              "note": f"root via {_via} from '{_core}'",
+                              **_root_details(_m)}
+                        if _ch:
+                            _k["upasarga"] = _ch
+                        out.append(_k)
+                    break
+        # periphrastic kvasu (stem + Am/AY + kvasu-aux: buBUzAmbaBUvAn
+        # <- BU + sannanta): split the auxiliary, reverse the stem side
+        for _aux in sorted(_KVASU_AUX, key=len, reverse=True):
+            if _w.endswith(_aux) and len(_w) > len(_aux) + 3:
+                _pre = _w[:-len(_aux)]
+                if not (_pre.endswith("Am") or _pre.endswith("AY")) \
+                        or len(_pre) < 4:
+                    continue
+                _pstem = _pre[:-2]
+                _plex = [_pstem]
+                if _pstem.endswith(("i", "I", "a", "A")) and len(_pstem) > 1:
+                    _plex.append(_pstem[:-1])
+                _preadings = []
+                for _c in _plex:
+                    for (_rt, _m, _via) in _krd_hits(_c):
+                        if _rt not in [r[0] for r in _preadings]:
+                            _preadings.append((_rt, _m, _via))
+                for (_rt, _m, _via) in _preadings:
+                    _kk = (_rt, "kvasu", _pstem + "Am" + _aux, None, None,
+                           None, _ch)
+                    if _kk in seen:
+                        continue
+                    seen.add(_kk)
+                    _k = {"kind": "krdanta", "pratyaya": "kvasu",
+                          "stem": _pstem + "Am" + _aux, "linga": None,
+                          "vibhakti": None, "vacana": None,
+                          "confidence": _penal(0.7),
+                          "note": f"periphrastic kvasu: root via {_via} "
+                          f"from stem '{_pstem}' + aux '{_aux}'",
+                          **_root_details(_m)}
+                    if _ch:
+                        _k["upasarga"] = _ch
+                    out.append(_k)
+                if _preadings:
+                    break
+        # -ya absolutive: lyap needs an upasarga (prefixless reading is
+        # weak — but the engine overgenerates unprefixed twins)
+        if _w.endswith("ya") and len(_w) > 3:
+            for (_rt, _m, _via) in _krd_hits(_devrddhi(_w[:-2])):
+                if _ch:
+                    _kk = (_rt, "lyap", _w, _ch)
+                    _lyconf, _lynote = max(0.1, 0.75 - _pen + 0.1), \
+                        f"root via {_via}"
+                else:
+                    _kk = (_rt, "lyap", _w, None)
+                    _lyconf, _lynote = 0.45, f"root via {_via}; prefix missing"
+                if _kk not in seen:
+                    seen.add(_kk)
+                    _k = {"kind": "krdanta", "pratyaya": "lyap",
+                          "stem": _w, "linga": "avyaya",
+                          "vibhakti": None, "vacana": None,
+                          "confidence": _lyconf, "note": _lynote,
+                          **_root_details(_m)}
+                    if _ch:
+                        _k["upasarga"] = _ch
+                    out.append(_k)
+        return _stems
+
+    _level(word, None, 0.0)
     if with_upasarga:
         # prati + sTira -> pratizWira: prefix sandhi voices s->z/S and
-        # retroflexes the following stop, so retry reversed variants
-        for _p in sorted(_UPASARGAS, key=lambda s: (len(s), s), reverse=True):
-            if word.startswith(_p) and len(word) - len(_p) >= 3:
-                _rest = word[len(_p):]
-                _variants = _rev_prefix_sandhi(_rest)
-                _rstems = []
-                for _v in _variants:
-                    for _a in subanta_search(_v, limit=50):
-                        _rstems.append((_a.get("lexicon", False), _a["stem"],
-                                        _a["linga"], _a["vibhakti"], _a["vacana"]))
-                _rstems.sort(key=lambda t: (not t[0], t[1]))
-                _from_stems(_rstems, penalty=0.1, upasarga=_p)
-                # lyap absolutive needs a prefix: remainder-ya + upasarga
-                for (_lex, _st, _li, _vib, _vac) in _rstems:
-                    if _st.endswith("ya") and len(_st) > 3:
-                        _hit = _lookup_root(_devrddhi(_st[:-2]))
-                        if _hit is not None:
-                            _rt, _m, _via = _hit
-                            _kk = (_rt, "lyap", _st, _p)
-                            if _kk in seen:
-                                continue
-                            seen.add(_kk)
-                            out.append({"kind": "krdanta", "pratyaya": "lyap",
-                                        "stem": _st, "linga": "avyaya",
-                                        "vibhakti": None, "vacana": None,
-                                        "confidence": 0.75,
-                                        "upasarga": _p,
-                                        "note": f"root via {_via}",
-                                        **_root_details(_m)})
-                            break
-                break
+        # retroflexes the following stop, so retry reversed variants.
+        # Recursive: compounds (sam;pari) split outer-first, then inner.
+        def _rec(_w: str, _pre: str | None, _depth: int) -> None:
+            if _depth > 3:
+                return
+            for (_p, _rest) in _prefix_splits(_w):
+                _ch = _chain(_pre, _p)
+                _pen = 0.1 * len(_ch.split(";"))
+                for _v in _rev_prefix_sandhi(_rest):
+                    _vstems = _level(_v, _ch, _pen)
+                    # lyap on remainder stems (feminine -yA forms differ
+                    # from the remainder word itself)
+                    for (_lex, _st, _li, _vib, _vac) in _vstems:
+                        if _st.endswith("ya") and len(_st) > 3:
+                            for (_rt, _m, _via) in _krd_hits(
+                                    _devrddhi(_st[:-2])):
+                                _kk = (_rt, "lyap", _st, _li, _vib, _vac,
+                                       _ch)
+                                if _kk in seen:
+                                    continue
+                                seen.add(_kk)
+                                _k = {"kind": "krdanta", "pratyaya": "lyap",
+                                      "stem": _st, "linga": "avyaya",
+                                      "vibhakti": None, "vacana": None,
+                                      "confidence": max(0.1, 0.75 - _pen),
+                                      "upasarga": _ch,
+                                      "note": f"root via {_via}",
+                                      **_root_details(_m)}
+                                out.append(_k)
+                                break
+                    _rec(_v, _ch, _depth + 1)
+        _rec(word, None, 0)
     out.sort(key=lambda d: d["confidence"], reverse=True)
-    return out[:limit]
+    return out[:limit] if limit is not None else out
 
 
-def tinanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> List[dict]:
-    """Tinanta-only search: dhatu + lakara + purusha + vacana + pada readings."""
+def _group_krdanta(flat: List[dict]) -> List[dict]:
+    """One entry per dhatu (+upasarga) with a readings list incl. pratyaya."""
+    _groups: Dict[tuple, dict] = {}
+    for _k in flat:
+        _key = (_k.get("dhatu"), _k.get("upasarga"))
+        _g = _groups.get(_key)
+        if _g is None:
+            _g = {"kind": "krdanta", "dhatu": _k.get("dhatu"),
+                  "upasarga": _k.get("upasarga"), "readings": [],
+                  "_conf": 0.0}
+            for _f in ("ids", "dhAtu_pada", "sew", "gana"):
+                if _f in _k:
+                    _g[_f] = _k[_f]
+            _groups[_key] = _g
+        _g["readings"].append({"pratyaya": _k.get("pratyaya"),
+                               "stem": _k.get("stem"),
+                               "linga": _k.get("linga"),
+                               "vibhakti": _k.get("vibhakti"),
+                               "vacana": _k.get("vacana"),
+                               "confidence": _k.get("confidence", 0.0),
+                               "note": _k.get("note", "")})
+        _g["_conf"] = max(_g["_conf"], _k.get("confidence", 0.0))
+    out = list(_groups.values())
+    for _g in out:
+        _g["readings"].sort(key=lambda d: d["confidence"], reverse=True)
+        _g["confidence"] = _g.pop("_conf")
+    out.sort(key=lambda d: d["confidence"], reverse=True)
+    return out
+
+
+def krdanta_search(word: str, limit: int | None = None,
+                   with_upasarga: bool = True) -> List[dict]:
+    """Krdanta-only search: one entry per dhatu with a readings list."""
+    _flat = _krdanta_flat(word, limit=500, with_upasarga=with_upasarga)
+    _g = _group_krdanta(_flat)
+    return _g[:limit] if limit is not None else _g
+
+
+def _tinanta_flat(word: str, limit: int = 500,
+                 with_upasarga: bool = True) -> List[dict]:
+    """Flat tinanta readings (internal; public tinanta_search groups these)."""
     _ensure_ready()
     word = (word or "").strip()
     if not word:
@@ -1953,54 +2751,82 @@ def tinanta_search(word: str, limit: int = 20, with_upasarga: bool = True) -> Li
     for _t in _tinanta_analyze(word):
         _add(_t)
     if with_upasarga:
-        for _p in sorted(_UPASARGAS, key=lambda s: (len(s), s), reverse=True):
-            if word.startswith(_p) and len(word) - len(_p) >= 3:
-                for _v in _rev_prefix_sandhi(word[len(_p):]):
-                    for _t in _tinanta_analyze(_v, upasarga=_p):
-                        _add(_t, _penalty=0.1)
-                break
+        # recursive compound splitting (sam;pari + BavatI): outer split
+        # first, then inner splits on the remainder; chains join with ';'
+        def _rec(_w: str, _pre: str | None, _depth: int) -> None:
+            if _depth > 3:
+                return
+            for (_p, _rest) in _prefix_splits(_w):
+                _ch = _chain(_pre, _p)
+                for _v in _rev_prefix_sandhi(_rest):
+                    for _t in _tinanta_analyze(_v, upasarga=_ch):
+                        _add(_t, _penalty=0.1 * len(_ch.split(";")))
+                    _rec(_v, _ch, _depth + 1)
+        _rec(word, None, 0)
     out.sort(key=lambda d: d["confidence"], reverse=True)
-    return out[:limit]
+    return out[:limit] if limit is not None else out
 
 
-def analyze(word: str, limit: int = 20) -> List[dict]:
-    """Global search across subanta/krdanta/tinanta (highest confidence first).
+def _group_tinanta(flat: List[dict]) -> List[dict]:
+    """One entry per dhatu (+upasarga) with a list of lakara-readings."""
+    _groups: Dict[tuple, dict] = {}
+    for _t in flat:
+        _key = (_t.get("dhatu"), _t.get("upasarga"))
+        _g = _groups.get(_key)
+        if _g is None:
+            _g = {"kind": "tinanta", "dhatu": _t.get("dhatu"),
+                  "upasarga": _t.get("upasarga"), "readings": [],
+                  "_conf": 0.0}
+            for _f in ("ids", "dhAtu_pada", "sew", "gana"):
+                if _f in _t:
+                    _g[_f] = _t[_f]
+            _groups[_key] = _g
+        _g["readings"].append({"lakara": _t.get("lakara"),
+                               "purusha": _t.get("purusha"),
+                               "vacana": _t.get("vacana"),
+                               "pada": _t.get("pada"),
+                               "prayoga": _t.get("prayoga"),
+                               "sanadi": _t.get("sanadi"),
+                               "ending": _t.get("ending"),
+                               "confidence": _t.get("confidence", 0.0),
+                               "note": _t.get("note", "")})
+        _g["_conf"] = max(_g["_conf"], _t.get("confidence", 0.0))
+    out = list(_groups.values())
+    for _g in out:
+        _g["readings"].sort(key=lambda d: d["confidence"], reverse=True)
+        _g["confidence"] = _g.pop("_conf")
+    out.sort(key=lambda d: d["confidence"], reverse=True)
+    return out
 
-    Subanta readings always forward-verify; krdanta/tinanta readings
-    resolve the dhatu heuristically (``dhatu=None`` when unresolved).
+
+def tinanta_search(word: str, limit: int | None = None,
+                   with_upasarga: bool = True) -> List[dict]:
+    """Tinanta-only search: one entry per dhatu with lakara-readings list."""
+    _flat = _tinanta_flat(word, limit=500, with_upasarga=with_upasarga)
+    _g = _group_tinanta(_flat)
+    return _g[:limit] if limit is not None else _g
+
+
+def analyze(word: str, limit: int | None = None) -> List[dict]:
+    """Global search: grouped per-dhatu/per-stem entries, best first.
+
+    Tinanta groups carry ``readings`` (lakara list), krdanta groups carry
+    ``readings`` (pratyaya list), subanta groups carry ``readings``
+    (vibhakti list). No truncation by default; ``limit`` slices groups.
     """
     _ensure_ready()
     word = (word or "").strip()
     if not word:
         return []
     out: List[dict] = []
-    seen = set()
-    for _a in subanta_search(word, limit=50):
-        _k = ("s", _a["stem"], _a["linga"], _a["vibhakti"], _a["vacana"])
-        if _k in seen:
-            continue
-        seen.add(_k)
-        out.append(_a)
-    for _k in krdanta_search(word, limit=50):
-        _kk = ("k", _k.get("dhatu"), _k["pratyaya"], _k["stem"],
-               _k["linga"], _k["vibhakti"], _k["vacana"])
-        if _kk in seen:
-            continue
-        seen.add(_kk)
-        out.append(_k)
-    for _t in tinanta_search(word, limit=50):
-        _kk = ("t", _t.get("dhatu"), _t.get("lakara"), _t.get("purusha"),
-               _t.get("vacana"), _t.get("pada"), _t.get("ending"),
-               _t.get("upasarga"))
-        if _kk in seen:
-            continue
-        seen.add(_kk)
-        out.append(_t)
-    out.sort(key=lambda d: d["confidence"], reverse=True)
-    return out[:limit]
+    out.extend(_group_subanta(_subanta_flat(word, limit=500)))
+    out.extend(_group_krdanta(_krdanta_flat(word, limit=500)))
+    out.extend(_group_tinanta(_tinanta_flat(word, limit=500)))
+    out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
+    return out[:limit] if limit is not None else out
 
 
 def best(word: str) -> dict | None:
-    """Top-ranked analysis, or None."""
+    """Top-ranked grouped analysis, or None."""
     _r = analyze(word, limit=1)
     return _r[0] if _r else None

@@ -4,6 +4,8 @@ Tinanta: sample roots x all 10 lakaras x all slots -> analyze() must
 contain the (lakara, purusha, vacana) slot, and usually the dhatu.
 Krdanta: participles/gerundives/avyayas -> (dhatu, pratyaya).
 Subanta obscure: lakzmI et al must read correctly.
+
+Grouped output: groups carry readings lists; helpers expand them.
 """
 import sys
 import unittest
@@ -27,6 +29,22 @@ KRD_FAMILY = {"cAnaS": "SAnac", "BAvakarma-SAnac": "SAnac",
               "lyuw": "lyuw"}
 
 
+def _tin_readings(groups):
+    for g in groups:
+        if g.get("kind") != "tinanta":
+            continue
+        for r in g.get("readings", []):
+            yield g, r
+
+
+def _krd_readings(groups):
+    for g in groups:
+        if g.get("kind") != "krdanta":
+            continue
+        for r in g.get("readings", []):
+            yield g, r
+
+
 class TestSearchComplete(unittest.TestCase):
     def test_tinanta_roundtrip(self):
         te = TinantaDerivationEngine()
@@ -43,22 +61,24 @@ class TestSearchComplete(unittest.TestCase):
                         # primary form only: twins legitimately recur across slots
                         for surf in cands[:1]:
                             total += 1
-                            rs = [r for r in analyze(surf, limit=40)
-                                  if r["kind"] == "tinanta"]
+                            rs = [g for g in analyze(surf)
+                                  if g["kind"] == "tinanta"]
                             if lak in ("luN", "liw"):
                                 # twin-exploded lakaras: surfaces recur across
                                 # slots (aBAvIt), so assert lakara only
-                                ok_slot = any(r.get("lakara") == lak for r in rs)
-                                ok_root = any(r.get("lakara") == lak and r.get("dhatu")
-                                              for r in rs)
+                                ok_slot = any(r.get("lakara") == lak
+                                              for _, r in _tin_readings(rs))
+                                ok_root = any(r.get("lakara") == lak and g.get("dhatu")
+                                              for g, r in _tin_readings(rs))
                             else:
                                 ok_slot = any(
                                     r.get("lakara") == lak and r.get("purusha") == pur
-                                    and r.get("vacana") == vac for r in rs)
+                                    and r.get("vacana") == vac
+                                    for _, r in _tin_readings(rs))
                                 ok_root = any(
                                     r.get("lakara") == lak and r.get("purusha") == pur
-                                    and r.get("vacana") == vac and r.get("dhatu")
-                                    for r in rs)
+                                    and r.get("vacana") == vac and g.get("dhatu")
+                                    for g, r in _tin_readings(rs))
                             if ok_slot:
                                 slot_hit += 1
                             else:
@@ -95,11 +115,11 @@ class TestSearchComplete(unittest.TestCase):
                         forms += [x for x in av if isinstance(x, str)]
                 for surf in forms[:3]:
                     total += 1
-                    rs = [r for r in analyze(surf, limit=30)
-                          if r["kind"] == "krdanta"]
+                    rs = [g for g in analyze(surf)
+                          if g["kind"] == "krdanta"]
                     want = {prat, KRD_FAMILY.get(prat, prat)}
-                    if any(r.get("pratyaya") in want and r.get("dhatu")
-                           for r in rs):
+                    if any(r.get("pratyaya") in want and g.get("dhatu")
+                           for g, r in _krd_readings(rs)):
                         hit += 1
                     else:
                         misses.append((dh, prat, surf))
@@ -111,9 +131,13 @@ class TestSearchComplete(unittest.TestCase):
         from pypanini.search import subanta_search
 
         def _has(word, stem, vib, vac):
-            return any(r["stem"] == stem and r["vibhakti"] == vib
-                       and r["vacana"] == vac
-                       for r in subanta_search(word, limit=30))
+            for g in subanta_search(word):
+                if g.get("stem") != stem:
+                    continue
+                for r in g.get("readings", []):
+                    if r.get("vibhakti") == vib and r.get("vacana") == vac:
+                        return True
+            return False
 
         self.assertTrue(_has("lakzmIH", "lakzmI", 1, "eka"))
         self.assertTrue(_has("lakzmyA", "lakzmI", 3, "eka"))

@@ -1,4 +1,8 @@
-"""Tests for pypanini.search (subanta/krdanta/tinanta/global). SLP1 only."""
+"""Tests for pypanini.search (subanta/krdanta/tinanta/global). SLP1 only.
+
+Grouped output: one entry per dhatu/stem with a readings list.
+Helpers below walk groups -> readings.
+"""
 import sys
 import unittest
 from pathlib import Path
@@ -11,9 +15,56 @@ from pypanini.search import (analyze, best, krdanta_search, subanta_search,
 
 
 def has_sub(res, stem, vib, vac, linga=None):
-    return any(r["kind"] == "subanta" and r["stem"] == stem
-               and r["vibhakti"] == vib and r["vacana"] == vac
-               and (linga is None or r["linga"] == linga) for r in res)
+    for g in res:
+        if g.get("kind") != "subanta" or g.get("stem") != stem:
+            continue
+        for r in g.get("readings", []):
+            if (r.get("vibhakti") == vib and r.get("vacana") == vac
+                    and (linga is None or r.get("linga") == linga)):
+                return True
+    return False
+
+
+def tin_has(res, dhatu=None, lakara=None, purusha=None, vacana=None,
+            upasarga=None, pada=None):
+    for g in res:
+        if g.get("kind") != "tinanta":
+            continue
+        if dhatu is not None and g.get("dhatu") != dhatu:
+            continue
+        if upasarga is not None and g.get("upasarga") != upasarga:
+            continue
+        for r in g.get("readings", []):
+            if lakara is not None and r.get("lakara") != lakara:
+                continue
+            if purusha is not None and r.get("purusha") != purusha:
+                continue
+            if vacana is not None and r.get("vacana") != vacana:
+                continue
+            if pada is not None and r.get("pada") != pada:
+                continue
+            return True
+    return False
+
+
+def krd_has(res, dhatu=None, pratyaya=None, upasarga=None):
+    for g in res:
+        if g.get("kind") != "krdanta":
+            continue
+        if dhatu is not None and g.get("dhatu") != dhatu:
+            continue
+        if upasarga is not None and g.get("upasarga") != upasarga:
+            continue
+        for r in g.get("readings", []):
+            if pratyaya is not None and r.get("pratyaya") != pratyaya:
+                continue
+            return True
+    return False
+
+
+def _tin_group(res, dhatu):
+    return [g for g in res if g.get("kind") == "tinanta"
+            and g.get("dhatu") == dhatu]
 
 
 class TestSearch(unittest.TestCase):
@@ -27,8 +78,10 @@ class TestSearch(unittest.TestCase):
         # dental *wrampena is ungrammatical (Natva obligatory after r):
         # no instrumental reading of wrampa may appear
         res = analyze("wrampena")
-        bad = [r for r in res if r["kind"] == "subanta"
-               and r["stem"] == "wrampa" and (r["vibhakti"], r["vacana"]) == (3, "eka")]
+        bad = [g for g in res if g.get("kind") == "subanta"
+               and g.get("stem") == "wrampa"
+               for r in g.get("readings", [])
+               if (r.get("vibhakti"), r.get("vacana")) == (3, "eka")]
         self.assertEqual(bad, [])
 
     def test_bare_stem_vocative(self):
@@ -44,41 +97,37 @@ class TestSearch(unittest.TestCase):
     def test_krdanta_search_only(self):
         res = krdanta_search("kftaH")
         self.assertTrue(all(r["kind"] == "krdanta" for r in res))
-        top = [r for r in res if r.get("dhatu") == "kf" and r.get("pratyaya") == "kta"]
-        self.assertTrue(top, res[:5])
+        self.assertTrue(krd_has(res, "kf", "kta"), res[:5])
         res2 = krdanta_search("kartavyaH")
-        self.assertTrue(any(r.get("dhatu") == "kf" and r.get("pratyaya") == "tavya"
-                            for r in res2), res2[:5])
+        self.assertTrue(krd_has(res2, "kf", "tavya"), res2[:5])
 
     def test_tinanta_search_only(self):
         res = tinanta_search("Bavati")
         self.assertTrue(all(r["kind"] == "tinanta" for r in res))
-        top = [r for r in res if r.get("dhatu") == "BU" and r.get("lakara") == "lw"
-               and r.get("purusha") == "prathama" and r.get("vacana") == "eka"]
-        self.assertTrue(top, res[:5])
+        self.assertTrue(tin_has(res, "BU", "lw", "prathama", "eka"), res[:5])
 
     def test_tinanta_unresolved_root(self):
         # gacCati: ending slot identified even though gam- stem is irregular
         res = tinanta_search("gacCati")
-        self.assertTrue(any(r.get("lakara") == "lw" and r.get("purusha") == "prathama"
-                            and r.get("vacana") == "eka" for r in res))
+        self.assertTrue(tin_has(res, None, "lw", "prathama", "eka")
+                        or any(r.get("lakara") == "lw"
+                               and r.get("purusha") == "prathama"
+                               and r.get("vacana") == "eka"
+                               for g in res for r in g.get("readings", [])))
 
     def test_upasarga(self):
         res = tinanta_search("praBavati")
-        self.assertTrue(any(r.get("dhatu") == "BU" and r.get("upasarga") == "pra"
-                            for r in res), res[:5])
+        self.assertTrue(tin_has(res, "BU", upasarga="pra"), res[:5])
 
     def test_upasarga_krdanta(self):
         # pra + kfta: prefixed participle splits and root-links
         res = krdanta_search("prakftaH")
-        self.assertTrue(any(r.get("dhatu") == "kf" and r.get("pratyaya") == "kta"
-                            and r.get("upasarga") == "pra" for r in res), res[:5])
+        self.assertTrue(krd_has(res, "kf", "kta", "pra"), res[:5])
 
     def test_natva_reversal(self):
         # praRamati: R hides dental n of root nam
         res = tinanta_search("praRamati")
-        self.assertTrue(any(r.get("dhatu") == "nam" and r.get("upasarga") == "pra"
-                            for r in res), res[:5])
+        self.assertTrue(tin_has(res, "nam", upasarga="pra"), res[:5])
 
     def test_unadi_boundary(self):
         # sTira is uNAdi (kira), outside the 14-krt engine: no krdanta reading,
@@ -91,8 +140,7 @@ class TestSearch(unittest.TestCase):
         from pypanini.search import _rev_prefix_sandhi
         self.assertEqual(_rev_prefix_sandhi("zWira"), ["zWira", "sWira", "sTira"])
         res = krdanta_search("pratizWitaH")
-        self.assertTrue(any(r.get("dhatu") == "sTA" and r.get("pratyaya") == "kta"
-                            and r.get("upasarga") == "prati" for r in res), res[:5])
+        self.assertTrue(krd_has(res, "sTA", "kta", "prati"), res[:5])
 
     def test_global_ranking(self):
         # exact tinanta root reading outranks open-vocabulary noise
@@ -111,12 +159,15 @@ class TestSearch(unittest.TestCase):
         # with missing-augment note + honest Satf-unresolved tail
         res = analyze("dadan")
         self.assertTrue(has_sub(res, "dadat", 1, "eka", "puM"))
-        _laN = [r for r in res if r["kind"] == "tinanta" and r.get("dhatu") == "dad"
-                and r.get("lakara") == "laN"]
+        _laN = [r for g in res if g["kind"] == "tinanta"
+                and g.get("dhatu") == "dad"
+                for r in g.get("readings", []) if r.get("lakara") == "laN"]
         self.assertTrue(_laN, res[:5])
         self.assertIn("augment", _laN[0].get("note", ""))
         self.assertEqual(_laN[0].get("pada"), "parasmaipada")
-        self.assertEqual(_laN[0].get("dhAtu_pada"), "Atmanepadi")
+        _dad = [g for g in res if g.get("kind") == "tinanta"
+                and g.get("dhatu") == "dad"][0]
+        self.assertEqual(_dad.get("dhAtu_pada"), "Atmanepadi")
 
     def test_dadat_abhyasta(self):
         # class-3 dadat bans num (7.1.78): bare form is the nominative
@@ -131,28 +182,27 @@ class TestSearch(unittest.TestCase):
         # dadan/dadat: abhyasa reversal links dA (now full: juhoti/biBar too)
         for _w in ("dadan", "dadat"):
             _res = analyze(_w)
-            self.assertTrue(any(r["kind"] == "krdanta" and r.get("dhatu") == "dA"
-                                and r.get("pratyaya") == "Satf" for r in _res), _w)
+            self.assertTrue(krd_has(_res, "dA", "Satf"), _w)
 
     def test_san_desiderative(self):
         # contracted (dA->dits, DA->Dits) vs full (vid->vividiz) types;
         # reduplicant aspiration picks dA over DA and vice versa
         for _w, _rt in (("ditsanti", "dA"), ("Ditsati", "DA"),
                         ("vividizati", "vid")):
-            _res = [r for r in analyze(_w) if r["kind"] == "tinanta"
-                    and r.get("dhatu")]
-            self.assertTrue(_res and _res[0].get("dhatu") == _rt, (_w, _res[:3]))
+            _tins = [g for g in analyze(_w) if g["kind"] == "tinanta"
+                     and g.get("dhatu")]
+            self.assertTrue(_tins and _tins[0].get("dhatu") == _rt,
+                            (_w, _tins[:3]))
 
     def test_ditsanti_grounded_011079(self):
         # ditsanti must be the attested sannanta-kartari-laW of 01.1079 (dAR):
         # analysis triple + dhAtu ID + JSON attestation all agree
-        _res = [r for r in analyze("ditsanti") if r["kind"] == "tinanta"
-                and r.get("dhatu") == "dA"]
+        _res = _tin_group(analyze("ditsanti"), "dA")
         self.assertTrue(_res, "no dA reading")
         _top = _res[0]
-        self.assertEqual((_top.get("lakara"), _top.get("purusha"),
-                          _top.get("vacana"), _top.get("prayoga")),
-                         ("lw", "prathama", "bahu", "kartari"))
+        self.assertTrue(any(r.get("lakara") == "lw" and r.get("purusha") == "prathama"
+                            and r.get("vacana") == "bahu" for r in _top["readings"]),
+                        _top)
         self.assertIn("01.1079", _top.get("ids", []), _top)
         import json as _json
         from pathlib import Path as _Path

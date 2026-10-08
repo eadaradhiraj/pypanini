@@ -91,17 +91,21 @@ def main():
 def print_search(word):
     from pypanini.search import analyze
     print(f"\n=== search: {word} ===")
-    for r in analyze(word, limit=6):
-        if r["kind"] == "subanta":
-            print(f"  subanta  stem={r['stem']} vib={r['vibhakti']} vac={r['vacana']} "
-                  f"linga={r['linga']} conf={r['confidence']}")
-        elif r["kind"] == "krdanta":
-            print(f"  krdanta  dhatu={r.get('dhatu')} pratyaya={r['pratyaya']} "
-                  f"stem={r['stem']} conf={r['confidence']}")
+    for g in analyze(word, limit=6):
+        if g["kind"] == "subanta":
+            _r = "; ".join(f"{r['linga']}/{r['vibhakti']}/{r['vacana']}"
+                           for r in g["readings"][:4])
+            print(f"  subanta  stem={g['stem']} [{_r}] conf={g['confidence']}")
+        elif g["kind"] == "krdanta":
+            _r = "; ".join(f"{r['pratyaya']}/{r['stem']}"
+                           for r in g["readings"][:4])
+            print(f"  krdanta  dhatu={g.get('dhatu')} [{_r}] "
+                  f"conf={g['confidence']}")
         else:
-            print(f"  tinanta  dhatu={r.get('dhatu')} lakara={r.get('lakara')} "
-                  f"{r.get('purusha')}/{r.get('vacana')}/{r.get('pada')} "
-                  f"conf={r['confidence']}")
+            _r = "; ".join(f"{r['lakara']}/{r['purusha']}/{r['vacana']}"
+                           for r in g["readings"][:4])
+            print(f"  tinanta  dhatu={g.get('dhatu')} [{_r}] "
+                  f"conf={g['confidence']}")
 
 
 def main_search_demo():
