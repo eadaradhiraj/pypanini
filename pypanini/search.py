@@ -586,10 +586,16 @@ def _yang_reverse(core: str) -> List[str]:
     """Undo yaN (yang) reduplication with long-vowel/abhyasa grades.
 
     Covers tAtay- <- tay (long-A redup), beBrI- <- Bf (e-redup + Ir-grade),
-    barIBar- <- Bf (arI-redup, yangluk), lAlarb- <- larb, boBU- <- BU.
+    barIBar- <- Bf (arI-redup, yangluk), lAlarb- <- larb, boBU- <- BU,
+    sezI- <- si (e-redup + satva z-retention).
     Strips the yaN -ya-/-y- first, then the reduplicant; grading is left
-    to lookup (guna/deIr close the Ir/Ur grades). Permissive by design:
+    to lookup (guna/deIr/desatva close the grades). Permissive by design:
     every candidate must still hit the root lexicon to count."""
+    # satva twin in the onset (se- + zI-: reduplicant s, remainder z)
+    _YANG_ONSET = dict(_ABHYASA_ONSET)
+    _YANG_ONSET["s"] = sorted(set(_YANG_ONSET.get("s", ["s"]) + ["z", "S"]))
+    _YANG_ONSET["z"] = sorted(set(_YANG_ONSET.get("z", ["z"]) + ["s"]))
+    _YANG_ONSET["S"] = sorted(set(_YANG_ONSET.get("S", ["S"]) + ["s"]))
     out: List[str] = []
     _bases = [core]
     if core.endswith("ya") and len(core) > 3:
@@ -597,10 +603,10 @@ def _yang_reverse(core: str) -> List[str]:
     if core.endswith("y") and len(core) > 2:
         _bases.append(core[:-1])
     for _base in _bases:
-        # 2-char reduplicant (tA-/be-/bo-/ve- + remainder)
+        # 2-char reduplicant (tA-/be-/bo-/ve-/se- + remainder)
         if len(_base) >= 4 and _base[0] not in SLP1_VOWELS:
             _ab, _rest = _base[:2], _base[2:]
-            if _rest and _rest[0] in _ABHYASA_ONSET.get(_ab[0], [_ab[0]]):
+            if _rest and _rest[0] in _YANG_ONSET.get(_ab[0], [_ab[0]]):
                 if _ab[1] in "aAiIeEoOUu":
                     if _rest not in out:
                         out.append(_rest)
@@ -612,7 +618,7 @@ def _yang_reverse(core: str) -> List[str]:
             _red, _rest = _base[:_rlen], _base[_rlen:]
             if not _rest or _red[0] in SLP1_VOWELS:
                 continue
-            if _rest[0] not in _ABHYASA_ONSET.get(_red[0], [_red[0]]):
+            if _rest[0] not in _YANG_ONSET.get(_red[0], [_red[0]]):
                 continue
             _vp = _red[1:]
             if _vp in ("arI", "ari", "ar", "aM", "am", "anI", "ani",
@@ -710,6 +716,15 @@ def _deSamInit(s: str) -> str:
     return s
 
 
+def _desatva(s: str) -> str:
+    """Reverse satva (z <- s after i/u: siz <- si + sa)."""
+    if "z" in s:
+        return s.replace("z", "s")
+    if "S" in s:
+        return s.replace("S", "s")
+    return s
+
+
 def _devo(s: str) -> str:
     """Reverse o-vikaraNa (karo <- kf, class 8): o -> u, then strip."""
     if s.endswith("o") and len(s) > 1:
@@ -799,7 +814,7 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("cutva", _decutva), ("thematic", _dethematic), ("double", _dedouble),
         ("nasal", _denasal), ("nasaln", _denasal_n), ("ur", _deur),
         ("urv", _deurv), ("deIr", _deIr), ("deApE", _deApE),
-        ("deSamInit", _deSamInit),
+        ("deSamInit", _deSamInit), ("desatva", _desatva),
         ("ovo", _devo), ("uv", _deuv), ("yan", _deyan),
         ("devoice", _devoice), ("khari", _dekhari), ("infix", _deinfix),
         ("nu", _denu), ("na", _dena), ("them", _dethem), ("long", _delong),
@@ -817,7 +832,7 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "vrddhia": 0.75, "cha": 0.8,
             "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "deIr": 0.65, "deApE": 0.6,
-            "deSamInit": 0.6, "double": 0.7, "nasal": 0.7,
+            "deSamInit": 0.6, "desatva": 0.6, "double": 0.7, "nasal": 0.7,
             "nasaln": 0.65,
             "ovo": 0.7, "uv": 0.6, "yan": 0.75, "devoice": 0.6,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
