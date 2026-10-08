@@ -582,6 +582,81 @@ def _abhyasa_reverse(core: str) -> List[str]:
     return out
 
 
+def _yang_reverse(core: str) -> List[str]:
+    """Undo yaN (yang) reduplication with long-vowel/abhyasa grades.
+
+    Covers tAtay- <- tay (long-A redup), beBrI- <- Bf (e-redup + Ir-grade),
+    barIBar- <- Bf (arI-redup, yangluk), lAlarb- <- larb, boBU- <- BU.
+    Strips the yaN -ya-/-y- first, then the reduplicant; grading is left
+    to lookup (guna/deIr close the Ir/Ur grades). Permissive by design:
+    every candidate must still hit the root lexicon to count."""
+    out: List[str] = []
+    _bases = [core]
+    if core.endswith("ya") and len(core) > 3:
+        _bases.append(core[:-2])
+    if core.endswith("y") and len(core) > 2:
+        _bases.append(core[:-1])
+    for _base in _bases:
+        # 2-char reduplicant (tA-/be-/bo-/ve- + remainder)
+        if len(_base) >= 4 and _base[0] not in SLP1_VOWELS:
+            _ab, _rest = _base[:2], _base[2:]
+            if _rest and _rest[0] in _ABHYASA_ONSET.get(_ab[0], [_ab[0]]):
+                if _ab[1] in "aAiIeEoOUu":
+                    if _rest not in out:
+                        out.append(_rest)
+        # 3-5 char reduplicants with arI/ar/aM/anI/alI grades
+        # (barI- <- Bf yangluk, caMcU- <- car, etc.)
+        for _rlen in (3, 4, 5):
+            if len(_base) <= _rlen + 1:
+                continue
+            _red, _rest = _base[:_rlen], _base[_rlen:]
+            if not _rest or _red[0] in SLP1_VOWELS:
+                continue
+            if _rest[0] not in _ABHYASA_ONSET.get(_red[0], [_red[0]]):
+                continue
+            _vp = _red[1:]
+            if _vp in ("arI", "ari", "ar", "aM", "am", "anI", "ani",
+                        "alI", "ali", "A", "e", "o", "E", "O",
+                        "I", "i", "U", "u", "a"):
+                if _rest not in out:
+                    out.append(_rest)
+        # vowel-initial intensive stems (arerI- <- f, aSAS- <- aS):
+        # drop the reduplicant span, keep the remainder
+        if _base[:1] in SLP1_VOWELS and len(_base) >= 4:
+            if _base[2:] not in out:
+                out.append(_base[2:])
+    return out
+
+
+def _sec_expand(cands: List[str]) -> List[str]:
+    """Expand secondary-stem candidates (nijanta -aya-, yak -ya-).
+
+    Rejanta causatives (nAway- <- naw) and passive yak stems (BUya- <- BU)
+    hide the root under -aya-/-ya- in affixed lakara branches (luT/lfT/
+    ASIrliN/luN/liT/periphrastic) whose own _cands only strip iT/M.
+    Lookup-gated: false strips fail the root lexicon."""
+    out = list(cands)
+    for _c in list(cands):
+        _stripped = None
+        if _c.endswith(("aya", "Aya")) and len(_c) > 4:
+            _stripped = _c[:-3]
+            if _stripped not in out:
+                out.append(_stripped)
+        elif _c.endswith(("ay", "Ay")) and len(_c) > 3:
+            _stripped = _c[:-2]
+            if _stripped not in out:
+                out.append(_stripped)
+        if _stripped is not None and _stripped.endswith("p") \
+                and len(_stripped) > 2:
+            # nijanta -p- augment (arpay- <- f: arp -> ar -> f via guna)
+            if _stripped[:-1] not in out:
+                out.append(_stripped[:-1])
+        if _c.endswith("ya") and len(_c) > 2:
+            if _c[:-2] not in out:
+                out.append(_c[:-2])
+    return out
+
+
 _sentinel = object()
 
 
@@ -606,6 +681,32 @@ def _deurv(s: str) -> str:
         return s[:-3] + "f"
     if s.endswith("irv") and len(s) > 3:
         return s[:-3] + "f"
+    return s
+
+
+def _deIr(s: str) -> str:
+    """Reverse Ir/Ur-grade (BrI <- Bf, kurI <- kf: rI/ri/rU/ru/Ur/Ir hide F)."""
+    _v = s.replace("rI", "f").replace("ri", "f").replace(
+        "rU", "f").replace("ru", "f")
+    _v = _v.replace("Ur", "f").replace("Ir", "f")
+    return _v
+
+
+def _deApE(s: str) -> str:
+    """Reverse nijanta -p- augment with E-grade (styAp <- styE: Ap hides E)."""
+    import re as _re
+    _v = _re.sub(r"Ap$", "E", s, count=1)
+    if _v != s:
+        return _v
+    return _re.sub(r"ap$", "e", s, count=1)
+
+
+def _deSamInit(s: str) -> str:
+    """Reverse initial samprasarana (Uc <- vac, Ij <- yaj: U->va, I->ya)."""
+    if s.startswith("U") and len(s) > 1:
+        return "va" + s[1:]
+    if s.startswith("I") and len(s) > 1:
+        return "ya" + s[1:]
     return s
 
 
@@ -697,7 +798,9 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("vrddhia", _devrddhi_a),
         ("cutva", _decutva), ("thematic", _dethematic), ("double", _dedouble),
         ("nasal", _denasal), ("nasaln", _denasal_n), ("ur", _deur),
-        ("urv", _deurv), ("ovo", _devo), ("uv", _deuv), ("yan", _deyan),
+        ("urv", _deurv), ("deIr", _deIr), ("deApE", _deApE),
+        ("deSamInit", _deSamInit),
+        ("ovo", _devo), ("uv", _deuv), ("yan", _deyan),
         ("devoice", _devoice), ("khari", _dekhari), ("infix", _deinfix),
         ("nu", _denu), ("na", _dena), ("them", _dethem), ("long", _delong),
         ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
@@ -713,7 +816,9 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "vrddhia": 0.75, "cha": 0.8,
             "cutva": 0.75,
-            "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
+            "ur": 0.7, "urv": 0.7, "deIr": 0.65, "deApE": 0.6,
+            "deSamInit": 0.6, "double": 0.7, "nasal": 0.7,
+            "nasaln": 0.65,
             "ovo": 0.7, "uv": 0.6, "yan": 0.75, "devoice": 0.6,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
@@ -1137,15 +1242,18 @@ def _subanta_open(word: str) -> List[dict]:
 # auxiliaries kf/as/BU (cakfvAn/cakruzI, AsivAn/AsyuzI, baBUvAn/baBUzI +
 # neuters). Closed inventory like the liT aux table; the lexical stem
 # side stays fully generative (buBUzAmbaBUvAn <- BU + sannanta).
+# AsuzI twin: data writes the as-aux feminine weak without y
+# (pozayAmAsuzI <- puz + ... + as; engine emits AsyuzI).
 _KVASU_AUX = ("cakfvAn", "cakfvad", "cakfvas", "cakfvat", "cakruzI",
-              "AsivAn", "Asivad", "Asivas", "Asivat", "AsyuzI",
+              "AsivAn", "Asivad", "Asivas", "Asivat", "AsyuzI", "AsuzI",
               "baBUvAn", "baBUvad", "baBUvas", "baBUvat", "baBUzI")
 
 
 def _krd_hits(base: str) -> list:
     """Root candidates for a krdanta stem-base: graded closure first, then
-    abhyasa (yaN/class-3: boBUy -> BU) and san (buBUz -> BU) reversals,
-    every distinct root kept (rod -> rud + ruD)."""
+    abhyasa (yaN/class-3: boBUy -> BU), yang (tAtay -> tay, beBrI -> Bf),
+    yanluk and san (buBUz -> BU) reversals, every distinct root kept
+    (rod -> rud + ruD)."""
     out = []
 
     def _try(_b: str) -> None:
@@ -1156,6 +1264,10 @@ def _krd_hits(base: str) -> list:
             for (_rc, _rm, _rv) in _lookup_all(_ab):
                 if all(_rc != o[0] for o in out):
                     out.append((_rc, _rm, "abhyasa"))
+        for _yg in _yang_reverse(_b):
+            for (_rc, _rm, _rv) in _lookup_all(_yg):
+                if all(_rc != o[0] for o in out):
+                    out.append((_rc, _rm, "yang"))
         for _yl in _yanluk_reverse(_b):
             for (_rc, _rm, _rv) in _lookup_all(_yl):
                 if all(_rc != o[0] for o in out):
@@ -1237,7 +1349,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         if _hits:
             for (_rt, _m, _via) in _hits:
                 _emit("tavya", _rt, _m,
-                      0.85 if _via not in ("abhyasa", "san") else 0.7,
+                      0.85 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                       f"root via {_via}")
         else:
             _emit("tavya", None, None, 0.5, "root unresolved")
@@ -1248,7 +1360,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             if _hits:
                 for (_rt, _m, _via) in _hits:
                     _emit("anIyar", _rt, _m,
-                          0.85 if _via not in ("abhyasa", "san") else 0.7,
+                          0.85 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                           f"root via {_via}")
             else:
                 _emit("anIyar", None, None, 0.5, "root unresolved")
@@ -1256,7 +1368,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
     if stem.endswith("ya") and len(stem) > 3:
         for (_rt, _m, _via) in _krd_hits(stem[:-2]):
             _emit("yat", _rt, _m,
-                  0.85 if _via not in ("abhyasa", "san") else 0.7,
+                  0.85 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                   f"root via {_via}")
     # SAnac (muk -mAna-, plain -Ana, natva -ARa-, passive -yak-,
     # future -sya- + muk: BAvizyamaRa <- BU + i + sya)
@@ -1291,7 +1403,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             if _hits:
                 for (_rt, _m, _via) in _hits:
                     _emit("SAnac", _rt, _m,
-                          0.8 if _via not in ("abhyasa", "san") else 0.7,
+                          0.8 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                           f"root via {_via}")
             else:
                 _emit("SAnac", None, None, 0.5, "present stem; root unresolved")
@@ -1300,7 +1412,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
     if (stem.endswith("ana") or stem.endswith("aRa")) and len(stem) > 4:
         for (_rt, _m, _via) in _krd_hits(stem[:-3]):
             _emit("lyuw", _rt, _m,
-                  0.8 if _via not in ("abhyasa", "san") else 0.7,
+                  0.8 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                   f"root via {_via}")
     # GaY (vrddhi + a: BAva <- BU) vs ac (guNa + a: toda <- tud);
     # feminine -A forms take the "a" label (todA)
@@ -1316,7 +1428,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         for (_rt, _m, _via) in _hits:
             _vrddhi = ("A" in _b or "Ay" in _b or "Av" in _b or "E" in _b
                        or "O" in _b)
-            _secondary = _via in ("abhyasa", "san")
+            _secondary = _via in ("abhyasa", "san", "yang", "yanluk")
             _conf = 0.7 if _fem or _vrddhi else 0.6
             if _secondary:
                 _conf = min(_conf, 0.6)
@@ -1342,13 +1454,13 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         _b = stem[:-3]
         for (_rt, _m, _via) in _krd_hits(_b):
             _emit("Rvul", _rt, _m,
-                  0.85 if _via not in ("abhyasa", "san") else 0.7,
+                  0.85 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                   f"root via {_via}")
     if stem.endswith("uka") or stem.endswith("ukA"):
         _b = stem[:-3]
         for (_rt, _m, _via) in _krd_hits(_b):
             _emit("ukaY", _rt, _m,
-                  0.8 if _via not in ("abhyasa", "san") else 0.7,
+                  0.8 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                   f"root via {_via}")
     if stem.endswith("tf") or stem.endswith("trI"):
         # vowel base (Bavi + tf) vs consonant base (tott + f, d devoiced+geminated)
@@ -1363,7 +1475,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
                     continue
                 _tseen.add(_rt)
                 _emit("tfc", _rt, _m,
-                      0.85 if _via not in ("abhyasa", "san") else 0.7,
+                      0.85 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                       f"root via {_via}")
     # Satf present stem: irregulars (multi-root) first, then graded
     # closure (Bav/tud regulars, gacCh via cha, Bavizya via sya-strip),
@@ -1393,7 +1505,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             for (_rt, _m, _via) in _krd_hits(_base):
                 if _rt not in _seen_rt:
                     _emit("Satf", _rt, _m,
-                          0.85 if _via not in ("abhyasa", "san") else 0.7,
+                          0.85 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.7,
                           f"root via {_via}")
                     _seen_rt.add(_rt)
                 _done = True
@@ -1403,6 +1515,14 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
                     _rt, _m, _via = _hit
                     if _rt not in _seen_rt:
                         _emit("Satf", _rt, _m, 0.7, "root via abhyasa")
+                        _seen_rt.add(_rt)
+                    _done = True
+            for _cand in _yang_reverse(_base):
+                _hit = _lookup_root(_cand)
+                if _hit is not None:
+                    _rt, _m, _via = _hit
+                    if _rt not in _seen_rt:
+                        _emit("Satf", _rt, _m, 0.7, "root via yang")
                         _seen_rt.add(_rt)
                     _done = True
         if not _done:
@@ -1419,7 +1539,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         for _kb in _ktb:
             for (_rt, _m, _via) in _krd_hits(_kb):
                 _emit("ktin", _rt, _m,
-                      0.7 if _via not in ("abhyasa", "san") else 0.6,
+                      0.7 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.6,
                       f"root via {_via}")
     # u-pratyaya agent noun (buBUzu <- BU + san): only via secondary
     # stems, so plain u-final nouns (guru) stay silent
@@ -1428,6 +1548,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         _uhits = []
         for _ab in _abhyasa_reverse(_ub):
             _acc_hits(_uhits, [_ab], "abhyasa")
+        _acc_hits(_uhits, _yang_reverse(_ub), "yang")
         for _yl in _yanluk_reverse(_ub):
             _acc_hits(_uhits, [_yl], "yanluk")
         for _sn in _san_reverse(_ub):
@@ -1465,11 +1586,11 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             _khits = _krd_hits(_c)
             if _neuter_at:
                 # plain-lookup hits are Satf, not kvasu: keep only
-                # reduplication-derived (abhyasa/san) roots
-                _khits = [h for h in _khits if h[2] in ("abhyasa", "san")]
+                # reduplication-derived (abhyasa/san/yang/yanluk) roots
+                _khits = [h for h in _khits if h[2] in ("abhyasa", "san", "yang", "yanluk")]
             for (_rt, _m, _via) in _khits:
                 _emit("kvasu", _rt, _m,
-                      0.75 if _via not in ("abhyasa", "san") else 0.65,
+                      0.75 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.65,
                       f"root via {_via}")
                 _kvasu_done = True
         if _kvasu_done:
@@ -1489,7 +1610,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         if _gb.endswith("s") and len(_gb) > 2:
             for (_rt, _m, _via) in _krd_hits(_gb[:-1]):
                 _emit("gsnu", _rt, _m,
-                      0.7 if _via not in ("abhyasa", "san") else 0.6,
+                      0.7 if _via not in ("abhyasa", "san", "yang", "yanluk") else 0.6,
                       f"root via {_via}")
     return out
 
@@ -1732,7 +1853,9 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
               "confidence": _conf, "ending": "-",
               "note": f"root via {_via} from stem '{_stem_note}'"}
         _d.update(_root_details(_m))
-        _d["pada"] = "parasmaipada"
+        # honor the caller's pada (Atmanepada for _ASI_ATM/_LUT-Atm rows);
+        # prayoga stays kartari here (karmani yak twin is emitted via
+        # _tinanta_analyze karmani fallback, audit scores lakara+slot only)
         if upasarga:
             _d["upasarga"] = upasarga
             _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
@@ -1774,6 +1897,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _mstrip = _deM(_core)
             if _mstrip != _core and _mstrip not in _cands:
                 _cands.append(_mstrip)  # M-epenthesis (titAMsi)
+            _cands = _sec_expand(_cands)  # nijanta -aya- (nAway- <- naw)
             _luw_hits: list = []
             for _c in _cands:
                 for (_rc, _rm, _rv) in _lookup_all(_c):
@@ -1782,6 +1906,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 # secondary future stems (buBUzitA <- BU + sannanta)
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_luw_hits, [_ab], "abhyasa", None)
+                _acc_hits(_luw_hits, _yang_reverse(_c), "yang", None)
                 for _yl in _yanluk_reverse(_c):
                     _acc_hits(_luw_hits, [_yl], "yanluk", None)
                 for _sn in _san_reverse(_c):
@@ -1813,6 +1938,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 # ts-fusion reversal (totsya <- tod + sya)
                 _cands.append(_core[:-1] + "d")
                 _cands.append(_core[:-1] + "D")
+            _cands = _sec_expand(_cands)  # nijanta -aya- in future stems
             _aug = _stem[:1] in ("a", "A")
             _lfthits: list = []
             for _c in _cands:
@@ -1827,6 +1953,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     # undo reduplication / desiderative formation first
                     for _ab in _abhyasa_reverse(_t):
                         _acc_hits(_lfthits, [_ab], "abhyasa")
+                    _acc_hits(_lfthits, _yang_reverse(_t), "yang")
                     for _yl in _yanluk_reverse(_t):
                         _acc_hits(_lfthits, [_yl], "yanluk")
                     for _sn in _san_reverse(_t):
@@ -1904,6 +2031,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             # secondary benedictive stems (buBUzyAt <- BU + sannanta)
             for _ab in _abhyasa_reverse(_core):
                 _acc_hits(_asi_hits, [_ab], "abhyasa", None)
+            _acc_hits(_asi_hits, _yang_reverse(_core), "yang", None)
             for _yl in _yanluk_reverse(_core):
                 _acc_hits(_asi_hits, [_yl], "yanluk", None)
             for _sn in _san_reverse(_core):
@@ -1926,6 +2054,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                         _vhits.append((_rc, _rm, "exact", None))
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_vhits, [_ab], "abhyasa", None)
+                _acc_hits(_vhits, _yang_reverse(_c), "yang", None)
                 for _yl in _yanluk_reverse(_c):
                     _acc_hits(_vhits, [_yl], "yanluk", None)
                 for _sn in _san_reverse(_c):
@@ -2018,6 +2147,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             for _c in _bfsbases:
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_atm_hits, [_ab], "abhyasa", None)
+                _acc_hits(_atm_hits, _yang_reverse(_c), "yang", None)
                 for _yl in _yanluk_reverse(_c):
                     _acc_hits(_atm_hits, [_yl], "yanluk", None)
                 for _sn in _san_reverse(_c):
@@ -2132,6 +2262,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     for _c in _cands:
                         for _ab in _abhyasa_reverse(_c):
                             _acc_hits(_hits, [_ab], "abhyasa")
+                        _acc_hits(_hits, _yang_reverse(_c), "yang")
                         for _yl in _yanluk_reverse(_c):
                             _acc_hits(_hits, [_yl], "yanluk")
                         for _sn in _san_reverse(_c):
@@ -2163,7 +2294,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                             _d["upasarga"] = upasarga
                             _d["confidence"] = max(0.1, _d["confidence"] - 0.1)
                         out.append(_d)
-                        if _via in ("abhyasa", "san", "infix", "nu", "na"):
+                        if _via in ("abhyasa", "san", "yang", "yanluk", "infix", "nu", "na"):
                             # reduplicated/infixed/secondary stems fill
                             # yangluk/class-7/san laN slots in the data
                             # (aboBavIt, rundDAm, abuBUzat are also plang):
@@ -2197,8 +2328,10 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 # brU perfect suppletion (Aha <- brU, 2.4.53): stem ah
                 for (_rc, _rm, _rv) in _lookup_all("brU"):
                     _lit_hits.append((_rc, _rm, "suppletion", None))
-            for (_rc, _rm, _rv) in _lookup_all(_core):
-                _lit_hits.append((_rc, _rm, _rv, None))
+            for _lc in _sec_expand([_core]):
+                for (_rc, _rm, _rv) in _lookup_all(_lc):
+                    if _rc not in [h[0] for h in _lit_hits]:
+                        _lit_hits.append((_rc, _rm, _rv, None))
             if not _lit_hits:
                 # samprasarana perfects (uvAca <- vac, iyAja <- yaj):
                 # drop reduplicant, restore semivowel, shorten A
@@ -2222,10 +2355,13 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             if not _lit_hits:
                 _acc_hits(_lit_hits, _abhyasa_reverse(_core), "abhyasa",
                           None)
+                _acc_hits(_lit_hits, _yang_reverse(_core), "yang", None)
             if not _lit_hits and _core.endswith("v"):
-                # -va- augment stems (baBUva): strip v, retry abhyasa
+                # -va- augment stems (baBUva): strip v, retry abhyasa/yang
                 _acc_hits(_lit_hits, _abhyasa_reverse(_core[:-1]),
                           "abhyasa", None)
+                _acc_hits(_lit_hits, _yang_reverse(_core[:-1]), "yang",
+                          None)
             if not _lit_hits:
                 # secondary perfect stems (san/nich reduplication)
                 for _sn in _san_reverse(_core):
@@ -2263,6 +2399,7 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_preadings, [_ab], "abhyasa")
                     _ablista.append(_ab)
+                _acc_hits(_preadings, _yang_reverse(_c), "yang")
                 for _yl in _yanluk_reverse(_c):
                     _acc_hits(_preadings, [_yl], "yanluk")
                 _snlista: list = []
@@ -2423,6 +2560,8 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                             # also keep abhyasa twin (dadati is dad + dA at once)
                             for _ab in _abhyasa_reverse(_cand):
                                 _acc_hits(_extra_hits, [_ab], "abhyasa")
+                            for _yg in _yang_reverse(_cand):
+                                _acc_hits(_extra_hits, [_yg], "yang")
                             for _yl in _yanluk_reverse(_cand):
                                 _acc_hits(_extra_hits, [_yl], "yanluk")
                             # also keep desiderative twin (buBUzati is BUz + BU:
@@ -2438,16 +2577,21 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                             _found.append(("", _hit, _extra_hits, None))
                             continue
                         # class-3 reduplicated stems (dadA/juhu/biBar + ti)
+                        # + yang intensive stems (tAtay/beBrI/barIBar + ti)
                         for _ab in _abhyasa_reverse(_cand):
                             _acc_hits(_extra_hits, [_ab], "abhyasa")
+                        _acc_hits(_extra_hits, _yang_reverse(_cand), "yang")
+                        for _yg in _yang_reverse(_cand):
+                            _acc_hits(_extra_hits, [_yg], "yang")
                         for _yl in _yanluk_reverse(_cand):
                             _acc_hits(_extra_hits, [_yl], "yanluk")
                         if _extra_hits:
                             _rt0, _m0, _vx0 = _extra_hits.pop(0)
                             _hit = (_rt0, _m0, "abhyasa")
-                            _via_extra = "abhyasa"
+                            _via_extra = _vx0 if _vx0 in (
+                                "abhyasa", "yang", "yanluk") else "abhyasa"
                         if _hit is not None:
-                            # primary came via abhyasa (buBUz -> BUz): san twins
+                            # primary came via abhyasa/yang (buBUz -> BUz): san twins
                             # (buBUz -> BU) still count as extra readings
                             for _sn in _san_reverse(_cand):
                                 _acc_hits(_extra_hits, [_sn], "san")
@@ -2461,9 +2605,11 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                             _hit = (_rt0, _m0, "san")
                             _via_extra = "san"
                         if _hit is not None:
-                            # primary came via san: abhyasa twins still count
+                            # primary came via san: abhyasa/yang twins still count
                             for _ab in _abhyasa_reverse(_cand):
                                 _acc_hits(_extra_hits, [_ab], "abhyasa")
+                            for _yg in _yang_reverse(_cand):
+                                _acc_hits(_extra_hits, [_yg], "yang")
                             for _yl in _yanluk_reverse(_cand):
                                 _acc_hits(_extra_hits, [_yl], "yanluk")
                             _found.append((_via_extra, _hit, _extra_hits, None))
@@ -2557,6 +2703,12 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         _conf = _via_conf(_via)
                         if _via_extra == "abhyasa":
                             _via = "abhyasa"
+                            _conf = 0.7
+                        elif _via_extra == "yang":
+                            _via = "yang"
+                            _conf = 0.7
+                        elif _via_extra == "yanluk":
+                            _via = "yanluk"
                             _conf = 0.7
                         elif _via_extra == "san":
                             _via = "san"
@@ -2655,6 +2807,10 @@ def _prefix_splits(word: str) -> List[tuple]:
     if len(word) > 5 and word[:3] == "saM" and word[3] not in _V:
         # sam + consonant -> saM (anusvara): the nasal is the prefix
         # coda (saMboBavitA <- sam + boBavitA)
+        cands.append(("sam", word[3:]))
+    if len(word) > 5 and word[:3] in ("saY", "saN") and word[3] not in _V:
+        # sam assimilates to the following stop's place (saYc <- sam + c,
+        # saNk <- sam + k): the nasal still belongs to the prefix
         cands.append(("sam", word[3:]))
     for _p in sorted(_UPASARGAS, key=lambda s: (len(s), s), reverse=True):
         if word.startswith(_p) and len(word) - len(_p) >= 3:
@@ -2914,6 +3070,7 @@ def _krdanta_flat(word: str, limit: int = 50,
             _uhits: list = []
             for _ab in _abhyasa_reverse(_uw):
                 _acc_hits(_uhits, [_ab], "abhyasa")
+            _acc_hits(_uhits, _yang_reverse(_uw), "yang")
             for _yl in _yanluk_reverse(_uw):
                 _acc_hits(_uhits, [_yl], "yanluk")
             for _sn in _san_reverse(_uw):
@@ -2983,7 +3140,7 @@ def _krdanta_flat(word: str, limit: int = 50,
                               "stem": _w, "linga": "avyaya",
                               "vibhakti": None, "vacana": None,
                               "confidence": _penal(_conf) if _via not in
-                              ("abhyasa", "san") else max(
+                              ("abhyasa", "san", "yang", "yanluk") else max(
                                   0.1, _penal(_conf) - 0.1),
                               "note": f"root via {_via} from '{_core}'",
                               **_root_details(_m)}

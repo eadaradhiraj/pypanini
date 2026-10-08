@@ -180,6 +180,15 @@ def positional_slots_list(items, lakara):
         _patslots = [SLOTS9[i] for i in (0, 0, 0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8)]
     elif m == 10 and _same_slot_variant(dedup[0], dedup[1]):
         _patslots = [SLOTS9[i] for i in (0, 0, 1, 2, 3, 4, 5, 6, 7, 8)]
+    elif m == 18:
+        # yak seT/aniT grade pairs (prAyiz/prAs x 9 slots): even/odd share
+        _patslots = [SLOTS9[i // 2] for i in range(18)]
+    elif m == 19:
+        # yak pairs + ma.bahu Q/D triple (GArizIQvam/GArizIDvam/GfzIQvam):
+        # indices 0-9 five pairs (slots 0-4), 10-12 triple slot 5,
+        # 13-18 three pairs (slots 6-8)
+        _patslots = [SLOTS9[i // 2] for i in range(10)] + [SLOTS9[5]] * 3 \
+            + [SLOTS9[6 + (i - 13) // 2] for i in range(13, 19)]
     else:
         # sequential group assignment with overflow pin
         _patslots = [SLOTS9[min(i, 8)] for i in range(m)]
