@@ -172,3 +172,6 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   (791d4ef), CLI+fast-audit (163adca), satva/yang-onset SAnac (653cc38),
   kvasu lit/deasp (c211253), sam-san/yang-velar/cache/ud (6f97e5e),
   subanta-unignore + attested fallback + builder (3f370b8).
+
+NExt work
+ Order locked: heuristics first, full subanta overhaul after, no fixed gate — pushing continuously. Dispatching two investigators on the harder families while I take nich+ting myself.
