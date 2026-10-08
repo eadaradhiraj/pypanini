@@ -725,6 +725,24 @@ def _desatva(s: str) -> str:
     return s
 
 
+def _deEa(s: str) -> str:
+    """Reverse e-grade of a (beD <- banD lit/kvasu: e hides a)."""
+    if "e" in s:
+        return s.replace("e", "a")
+    if "E" in s:
+        return s.replace("E", "A")
+    return s
+
+
+def _deDeaspireInit(s: str) -> str:
+    """Reverse initial aspiration (Band <- banD san: B hides b)."""
+    _map = {"B": "b", "D": "d", "G": "g", "J": "j", "C": "c",
+            "K": "k", "T": "t", "P": "p", "Q": "q"}
+    if len(s) > 1 and s[0] in _map:
+        return _map[s[0]] + s[1:]
+    return s
+
+
 def _devo(s: str) -> str:
     """Reverse o-vikaraNa (karo <- kf, class 8): o -> u, then strip."""
     if s.endswith("o") and len(s) > 1:
@@ -788,9 +806,13 @@ def _deasyncope(s: str) -> str:
 
 
 def _dental_n(s: str) -> str:
-    """Reverse nd-amalgam (und <- ut + ta <- ud + ta: restore lost n)."""
+    """Reverse nd-amalgam (und <- ut + ta <- ud + ta: restore lost n;
+    banD <- baD lit/kvasu n-loss)."""
     import re as _re
-    return _re.sub(r"([aAiIuU])d$", r"\1nd", s, count=1)
+    _v = _re.sub(r"([aAiIuU])d$", r"\1nd", s, count=1)
+    if _v != s:
+        return _v
+    return _re.sub(r"([aAiIuU])D$", r"\1nD", s, count=1)
 
 
 def _denasal(s: str) -> str:
@@ -815,6 +837,7 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("nasal", _denasal), ("nasaln", _denasal_n), ("ur", _deur),
         ("urv", _deurv), ("deIr", _deIr), ("deApE", _deApE),
         ("deSamInit", _deSamInit), ("desatva", _desatva),
+        ("deEa", _deEa), ("deDeasp", _deDeaspireInit),
         ("ovo", _devo), ("uv", _deuv), ("yan", _deyan),
         ("devoice", _devoice), ("khari", _dekhari), ("infix", _deinfix),
         ("nu", _denu), ("na", _dena), ("them", _dethem), ("long", _delong),
@@ -832,7 +855,8 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "vrddhia": 0.75, "cha": 0.8,
             "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "deIr": 0.65, "deApE": 0.6,
-            "deSamInit": 0.6, "desatva": 0.6, "double": 0.7, "nasal": 0.7,
+            "deSamInit": 0.6, "desatva": 0.6, "deEa": 0.55,
+            "deDeasp": 0.55, "double": 0.7, "nasal": 0.7,
             "nasaln": 0.65,
             "ovo": 0.7, "uv": 0.6, "yan": 0.75, "devoice": 0.6,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
