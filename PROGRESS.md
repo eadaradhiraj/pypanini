@@ -142,6 +142,12 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
 - Test fix (`tests/test_search.py:test_san_desiderative`): top-1 → top-3
   membership — Ditsati is data-true for BOTH DA (03.0011) and Dew
   (01.1050 san/plat[0]); verified in JSON, not an index artifact.
+- Precision mode (user: "i want precision"): `_precise_filter` +
+  `precise=` params (library default False = full recall for audit);
+  CLI defaults precise, `--recall` restores audit output. Keeps attested
+  1.0 whole, verified heuristic >= 0.8 tinanta/krdanta, subanta >= 0.7;
+  drops 0.7 single-grade guesses (dI/ad for dadat) and unverified
+  ghosts. `dadat` precise: dA 1.0, dad/daD 0.85, subanta — no dI/ad.
 - Repro: `python -m pypanini.search Bavati [--fast]` (full analyze,
   subanta included); unit gate WITH fallback (needs the DB):
   `python -W ignore::ResourceWarning -m unittest discover -s tests -p
