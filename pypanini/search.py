@@ -37,7 +37,7 @@ from .subanta import SubantaEngine, SLP1_VOWELS
 
 _ROOTS: Dict[str, dict] = {}
 _IDS: Dict[str, List[str]] = {}
-_KTA_MAP: Dict[str, str] = {}
+_KTA_MAP: Dict[str, List[str]] = {}
 _LEXICON: Dict[str, List[dict]] = {}
 _READY = False
 
@@ -63,8 +63,10 @@ def _ensure_ready() -> None:
             )
         except Exception:
             continue
-        if _kta and _kta not in _KTA_MAP:
-            _KTA_MAP[_kta] = _clean
+        if _kta:
+            _KTA_MAP.setdefault(_kta, [])
+            if _clean not in _KTA_MAP[_kta]:
+                _KTA_MAP[_kta].append(_clean)
     import re as _re
     for _k, _m in ke._cache_by_id.items():
         if (isinstance(_m, dict) and "clean" in _m
@@ -216,13 +218,23 @@ def _desam_u(s: str) -> str:
 
 
 def _denalo(s: str) -> str:
-    """Reverse na-lopa (tan <- tA + yak: vowel-final base regains -n-)."""
+    """Reverse na-lopa (tan <- tA + yak, van <- va + ta: vowel-final
+    base regains -n-)."""
     if len(s) > 1 and s[-1] == "A":
         return s[:-1] + "an"
     if len(s) > 1 and s[-1] == "I":
         return s[:-1] + "in"
     if len(s) > 1 and s[-1] == "U":
         return s[:-1] + "un"
+    if len(s) > 1 and s[-1] == "a":
+        return s + "n"
+    return s
+
+
+def _denaloR(s: str) -> str:
+    """Reverse R-loss with lengthening (saR <- sA + ta: A regains aR)."""
+    if len(s) > 1 and s[-1] == "A":
+        return s[:-1] + "aR"
     return s
 
 
@@ -258,10 +270,13 @@ def _dena(s: str) -> str:
 
 
 def _deaspire(s: str) -> str:
-    """Reverse final aspiration loss (lab <- laB + ...): media -> aspirate."""
+    """Reverse aspiration loss (lab <- laB + ...; Bas <- bs + ita):
+    unaspirated media regains aspiration, finally or initially."""
     _map = {"b": "B", "d": "D", "g": "G", "j": "J"}
     if len(s) > 1 and s[-1] in _map:
         return s[:-1] + _map[s[-1]]
+    if len(s) > 1 and s[0] in _map:
+        return _map[s[0]] + s[1:]
     return s
 
 
@@ -523,6 +538,25 @@ def _devoice(s: str) -> str:
     return s
 
 
+def _devoice_onset(s: str) -> str:
+    """Reverse onset devoicing (bsita <- Bhas + ita: khari devoices
+    the root onset before voiceless affixes)."""
+    import re as _re
+    return _re.sub(r"^([ptkc])", lambda m: _VOICE[m.group(1)], s, count=1)
+
+
+def _deasyncope(s: str) -> str:
+    """Reverse a-syncope in khari clusters (Bas <- bs + ita <- Bhas)."""
+    import re as _re
+    return _re.sub(r"^([pPbB])(s)$", r"\1as", s, count=1)
+
+
+def _dental_n(s: str) -> str:
+    """Reverse nd-amalgam (und <- ut + ta <- ud + ta: restore lost n)."""
+    import re as _re
+    return _re.sub(r"([aAiIuU])d$", r"\1nd", s, count=1)
+
+
 def _denasal(s: str) -> str:
     """Reverse nasal place-shift (gan <- gam + tf, gaM <- gam + sa)."""
     if s.endswith("n") and len(s) > 1:
@@ -547,8 +581,11 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("nu", _denu), ("na", _dena), ("them", _dethem), ("long", _delong),
         ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
         ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
-        ("ks_k", _deks_k), ("deY", _deY), ("nalo", _denalo), ("deM", _deM),
-        ("ap", _deap), ("riF", _deriF), ("aspire", _deaspire)]
+        ("ks_k", _deks_k), ("deY", _deY), ("nalo", _denalo),
+        ("naloR", _denaloR), ("deM", _deM),
+        ("ap", _deap), ("riF", _deriF), ("vonset", _devoice_onset),
+        ("async", _deasyncope), ("dentn", _dental_n),
+        ("aspire", _deaspire)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "cha": 0.8, "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
@@ -556,8 +593,9 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
             "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
-            "ks_k": 0.6, "deY": 0.6, "nalo": 0.6, "deM": 0.6, "ap": 0.6,
-            "riF": 0.65, "aspire": 0.55}
+            "ks_k": 0.6, "deY": 0.6, "nalo": 0.6, "naloR": 0.6, "deM": 0.6,
+            "ap": 0.6, "riF": 0.65, "vonset": 0.55, "async": 0.55,
+            "dentn": 0.6, "aspire": 0.55}
 
 
 def _via_conf(via: str) -> float:
@@ -1016,46 +1054,44 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             _d["note"] = note
         out.append(_d)
 
-    # kta / ktavatu via exact kta-stem map (handles all sandhi irregulars)
+    # kta / ktavatu via exact kta-stem map (handles all sandhi irregulars;
+    # one stem can serve several roots: BfzwaH is Brajj + BfS at once)
     _core = stem[:-1] + "a" if stem.endswith("A") else stem
-    _kta_exact = False
-    if _core in _KTA_MAP:
-        _rt = _KTA_MAP[_core]
+    for _rt in _KTA_MAP.get(_core, []):
         _emit("kta", _rt, _ROOTS[_rt], 0.95)
-        _kta_exact = True
-    if stem.endswith("vat") and stem[:-3] in _KTA_MAP:
-        _rt = _KTA_MAP[stem[:-3]]
-        _emit("ktavatu", _rt, _ROOTS[_rt], 0.95)
-        _kta_exact = True
-    if stem.endswith("vAn") and stem[:-3] in _KTA_MAP:
-        _rt = _KTA_MAP[stem[:-3]]
-        _emit("ktavatu", _rt, _ROOTS[_rt], 0.95)
-        _kta_exact = True
-    if not _kta_exact:
-        # kta/ktavatu of secondary stems (san/nich/yang: buBUzita,
-        # BAvita, boBUyita <- BU): strip the -ta- and reverse the stem
-        _kb = None
-        if _core.endswith("ita") and len(_core) > 4:
-            _kb = _core[:-3]
-        elif _core.endswith("ta") and len(_core) > 3:
-            _kb = _core[:-2]
-        elif _core.endswith("na") and len(_core) > 3:
-            _kb = _core[:-2]
-        if _kb is not None:
-            for (_rt, _m, _via) in _krd_hits(_kb):
-                _emit("kta", _rt, _m, 0.8, f"root via {_via}")
-        _kv = None
-        if stem.endswith("vat") and len(stem) > 5:
-            _kv = stem[:-3]
-        elif stem.endswith("vAn") and len(stem) > 5:
-            _kv = stem[:-3]
-        if _kv is not None:
-            _kvb = _kv[:-3] if _kv.endswith("ita") and len(_kv) > 4 \
-                else (_kv[:-2] if _kv.endswith("ta") and len(_kv) > 3
-                      else None)
-            if _kvb is not None:
-                for (_rt, _m, _via) in _krd_hits(_kvb):
-                    _emit("ktavatu", _rt, _m, 0.8, f"root via {_via}")
+    if stem.endswith("vat"):
+        for _rt in _KTA_MAP.get(stem[:-3], []):
+            _emit("ktavatu", _rt, _ROOTS[_rt], 0.95)
+    if stem.endswith("vAn"):
+        for _rt in _KTA_MAP.get(stem[:-3], []):
+            _emit("ktavatu", _rt, _ROOTS[_rt], 0.95)
+    # secondary stems always run too (exact map misses alternate kta
+    # allomorphs: sAtaH is saR + ta but maps only to sE; dedup keeps
+    # exact winners on ties)
+    # kta/ktavatu of secondary stems (san/nich/yang: buBUzita,
+    # BAvita, boBUyita <- BU): strip the -ta- and reverse the stem
+    _kb = None
+    if _core.endswith("ita") and len(_core) > 4:
+        _kb = _core[:-3]
+    elif _core.endswith("ta") and len(_core) > 3:
+        _kb = _core[:-2]
+    elif _core.endswith("na") and len(_core) > 3:
+        _kb = _core[:-2]
+    if _kb is not None:
+        for (_rt, _m, _via) in _krd_hits(_kb):
+            _emit("kta", _rt, _m, 0.8, f"root via {_via}")
+    _kv = None
+    if stem.endswith("vat") and len(stem) > 5:
+        _kv = stem[:-3]
+    elif stem.endswith("vAn") and len(stem) > 5:
+        _kv = stem[:-3]
+    if _kv is not None:
+        _kvb = _kv[:-3] if _kv.endswith("ita") and len(_kv) > 4 \
+            else (_kv[:-2] if _kv.endswith("ta") and len(_kv) > 3
+                  else None)
+        if _kvb is not None:
+            for (_rt, _m, _via) in _krd_hits(_kvb):
+                _emit("ktavatu", _rt, _m, 0.8, f"root via {_via}")
     # tavya / anIyar / yat via graded closure (iT, natva, geminates inside)
     if stem.endswith("tavya"):
         _tb = stem[:-5]
