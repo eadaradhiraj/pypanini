@@ -141,10 +141,10 @@ def _dekhari(s: str) -> str:
 
 
 def _deinfix(s: str) -> str:
-    """Reverse class-7 nasal infix (runD <- rundh + ...: infix n/N/Y
-    between vowel and following consonant/thematic drops)."""
+    """Reverse class-7 nasal infix (runD <- rundh + ...: infix n/N/Y/M/R
+    between vowel-or-fricative and following consonant/thematic drops)."""
     import re as _re
-    _v = _re.sub(r"([aAiIuU])([nNY])(?=[aA]?[kKgGcCjJtTwWqQdDNpPbBsSzZh])",
+    _v = _re.sub(r"([aAiIuUfFxX])([nNYMR])(?=[aA]?[kKgGcCjJtTwWqQdDNpPbBsSzZh])",
                  r"\1", s, count=1)
     return _v
 
@@ -158,10 +158,59 @@ def _denu(s: str) -> str:
 
 def _dethem(s: str) -> str:
     """Reverse medial thematic -a- (yuaj <- yuYaj + ...: class-7 stem
-    after infix-strip leaves root + thematic fused mid-string)."""
+    after infix-strip leaves root + thematic fused mid-string;
+    Cfad <- Cfd + a)."""
     import re as _re
-    return _re.sub(r"([iIuU])a(?=[kKgGcCjJtTwWqQdDNpPbB])", r"\1",
+    return _re.sub(r"([iIuUfFxX])a(?=[kKgGcCjJtTwWqQdDNpPbBsSzZ])", r"\1",
                    s, count=1)
+
+
+def _deit(s: str) -> str:
+    """Reverse lost iT/i-grade (pij <- piji + ...: pik <- pij + te needs
+    +i; bfha <- bfhi + a needs +i after thematic strip)."""
+    if len(s) > 1 and s[-1] in ("j", "h", "w", "y", "c", "s", "z"):
+        return s + "i"
+    return s
+
+
+def _demeta9(s: str) -> str:
+    """Reverse class-9 n-metathesis (stunB <- stuBn + A: stop + n flips
+    back to n + stop)."""
+    import re as _re
+    return _re.sub(r"([uU])([kKgGcCjJtTwWqQdDNpPbB])(n)$", r"\1n\2",
+                   s, count=1)
+
+
+def _demrestore(s: str) -> str:
+    """Reverse M-loss before sibilants (BraMS <- BraS + ya: M dropped)."""
+    if len(s) > 1 and s[-1] in ("s", "S", "z"):
+        return s[:-1] + "M" + s[-1:]
+    return s
+
+
+def _desam_y(s: str) -> str:
+    """Reverse y-grade samprasarana with z-coda (jFz <- jIrya + ...:
+    Iry/iry/Ury/ury hide F + z)."""
+    import re as _re
+    return _re.sub(r"(Iry|iry|Ury|ury)$", "Fz", s, count=1)
+
+
+def _desam_u(s: str) -> str:
+    """Reverse y-grade samprasarana, z-less roots (pF <- pUrya + ...)."""
+    import re as _re
+    return _re.sub(r"(Iry|iry|Ury|ury)$", "F", s, count=1)
+
+
+def _deks_z(s: str) -> str:
+    """Reverse kSaya fusion keeping sibilant (Sikz <- Siz + sa: kz -> z)."""
+    import re as _re
+    return _re.sub(r"([kKgG])z$", "z", s, count=1)
+
+
+def _deks_k(s: str) -> str:
+    """Reverse kSaya fusion keeping stop (vakz <- vac + sya: kz -> k)."""
+    import re as _re
+    return _re.sub(r"([kKgG])z$", r"\1", s, count=1)
 
 
 def _dena(s: str) -> str:
@@ -185,6 +234,10 @@ def _len_variants(s: str) -> List[str]:
         swap = {"i": "I", "I": "i", "u": "U", "U": "u", "f": "F", "F": "f",
                 "x": "X", "X": "x", "a": "A", "A": "a"}
         out.append(s[:-1] + swap[s[-1]])
+    if s and s[-1] == "n":
+        # nasal-coda roots (saR <- sano + ...: dental n hides N/R)
+        out.append(s[:-1] + "N")
+        out.append(s[:-1] + "R")
     return out
 
 
@@ -405,11 +458,20 @@ def _dethematic(s: str) -> str:
 
 
 def _dedouble(s: str) -> str:
-    """Reverse stop gemination (tott <- tod + tf)."""
-    for _gem, _sg in (("tt", "d"), ("nn", "n"), ("cc", "c"), ("YY", "Y")):
+    """Reverse stop gemination (tott <- tod + tf, rudD <- rundh + ...)."""
+    for _gem, _sg in (("tt", "d"), ("nn", "n"), ("cc", "c"), ("YY", "Y"),
+                      ("dD", "D"), ("DD", "D"), ("bB", "B"), ("gG", "G"),
+                      ("jJ", "J"), ("tT", "T")):
         if _gem in s:
             return s.replace(_gem, _sg, 1)
     return s
+
+
+def _delong(s: str) -> str:
+    """Reverse vrddhi-length grades (dIv <- div + ya, class-4 -ya-)."""
+    _v = s.replace("I", "i").replace("U", "u").replace("F", "f").replace(
+        "X", "x")
+    return _v
 
 
 _VOICE = {"t": "d", "T": "D", "p": "b", "P": "B", "k": "g", "K": "G",
@@ -444,14 +506,18 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("nasal", _denasal), ("nasaln", _denasal_n), ("ur", _deur),
         ("urv", _deurv), ("ovo", _devo), ("uv", _deuv), ("yan", _deyan),
         ("devoice", _devoice), ("khari", _dekhari), ("infix", _deinfix),
-        ("nu", _denu), ("na", _dena), ("them", _dethem),
-        ("aspire", _deaspire)]
+        ("nu", _denu), ("na", _dena), ("them", _dethem), ("long", _delong),
+        ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
+        ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
+        ("ks_k", _deks_k), ("aspire", _deaspire)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "cha": 0.8, "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
             "ovo": 0.7, "uv": 0.6, "yan": 0.75, "devoice": 0.6,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
-            "them": 0.6, "aspire": 0.55}
+            "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
+            "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
+            "ks_k": 0.6, "aspire": 0.55}
 
 
 def _via_conf(via: str) -> float:
@@ -492,9 +558,9 @@ def _lookup_all(cand: str) -> list:
             out.append((_hit, _ROOTS[_hit], _via))
 
     _seen = {cand}
-    _hit = _try(cand)
-    if _hit is not None:
-        _add(_hit, "exact")
+    for _c in _len_variants(cand):
+        if _c in _ROOTS:
+            _add(_c, "exact")
     # Natva reversal (praRamati -> nam): R could hide dental n
     if "R" in cand:
         for (_rc, _rm, _rv) in _lookup_all(cand.replace("R", "n")):
@@ -521,10 +587,10 @@ def _lookup_all(cand: str) -> list:
                     _seen.add(_v)
                     _nxt.append((_v, _v0 + "+" + _name if _v0 else _name))
         for (_s, _vv) in _nxt:
-            _hit = _try(_s)
-            if _hit is not None and _hit not in _seen_roots:
-                _seen_roots.add(_hit)
-                out.append((_hit, _ROOTS[_hit], _vv))
+            for _c in _len_variants(_s):
+                if _c in _ROOTS and _c not in _seen_roots:
+                    _seen_roots.add(_c)
+                    out.append((_c, _ROOTS[_c], _vv))
         _level = _nxt
         if not _level:
             break
@@ -1240,6 +1306,10 @@ _TIN_P: List[tuple] = [
     ("tAt", "low", "prathama", "eka"),
     ("nti", "lw", "prathama", "bahu"),
     ("ati", "lw", "prathama", "bahu"),
+    # z-fused athematic variants (Sinazwi <- Siz + na + z + ti,
+    # Sinakzi <- ... + kzi): strip to the z-ful stem below
+    ("wi", "lw", "prathama", "eka"),
+    ("kzi", "lw", "prathama", "bahu"),
     ("zi", "lw", "madhyama", "eka"),
     ("eyuH", "viDiliN", "prathama", "bahu"), ("etAm", "viDiliN", "prathama", "dvi"),
     ("et", "viDiliN", "prathama", "eka"), ("eH", "viDiliN", "madhyama", "eka"),
@@ -1379,6 +1449,28 @@ def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
         if _c.endswith(("i", "I")) and len(_c) > 2 \
                 and _c[:-1] not in cands:
             cands.append(_c[:-1])
+    for _c in list(cands):
+        # R-uttva before semivowel/grade (puRwati <- puwi + ...,
+        # DfRAti <- DF + ...): drop the epenthetic R
+        import re as _re
+        _nor = _re.sub(r"([fFxXuU])R(?=[Aawy]|$)", r"\1", _c)
+        if _nor != _c and _nor not in cands:
+            cands.append(_nor)
+    for _c in list(cands):
+        # M-agama before h/stops (bfMhati <- bfhi + M): drop it
+        import re as _re
+        for _m in _re.finditer(r"M(?=[hHkKgGcCjJtTwWqQdDpPbB])", _c):
+            _v = _c[:_m.start()] + _c[_m.end():]
+            if _v not in cands:
+                cands.append(_v)
+    for _c in list(cands):
+        # z-less class-7 stems (Sina <- Siz + na + ...: root coda lost
+        # before dental endings): restore z/s
+        import re as _re
+        if _re.search(r"[iIuU](na|Na)$", _c) and len(_c) > 3:
+            for _sib in ("z", "s"):
+                if _c + _sib not in cands:
+                    cands.append(_c + _sib)
     if aug:
         _stripped = []
         for _c in cands:
