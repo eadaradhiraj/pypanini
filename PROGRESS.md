@@ -89,7 +89,7 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
 ## Search 100% session log (2026-10-08, for future LLMs — do not reinvent)
 - Baseline sampled recall (seed 2, 80 fids = 8/gana, 8 tokens/fid = 640,
   `fid_expectations(do_engine=False)` + `analyze` + `check_exp`): 70%.
-  Current after fixes below: 81%. Round-trips perfect throughout
+  Current after fixes below: 81.9%. Round-trips perfect throughout
   (tinanta slot+root 540/540, krdanta 185/185). 49 tests + lint green.
 - Code (`pypanini/search.py`): `_yang_reverse` (tAtay->tay, beBrI->BrI,
   barIBar->Bar, lAlarb->larb, boBU->BU; long-A/e/o + arI/ar/aM/anI/alI redups,
@@ -106,7 +106,9 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   forces parasmaipada (honors caller pada); `_SKIP_VERIFY` fast flag;
   `analyze_tin_krd()` (no subanta groups; note `_krdanta_flat` still needs
   `_subanta_flat` stems internally); CLI `main()` (`python -m
-  pypanini.search WORD [--fast]`, tinanta/krdanta only).
+  pypanini.search WORD [--fast]`, tinanta/krdanta only); `_desatva`
+  (z/S->s: zI->si) + `_YANG_ONSET` s/z/S twins (se- + zI- for si yang:
+  sezIyamARam->si SAnac).
 - Exports (`pypanini/__init__.py`): `analyze_tin_krd`.
 - Audit (`tests/audit_search_full.py`): `positional_slots_list` m==18 pairs
   + m==19 pairs+ma.bahu-triple (fixes yak ASIrliN/luw walk-fallback:
@@ -116,11 +118,12 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   tAtayizIzwa->tay, barIBarati->Bf lw, lAlarbati->larb, beBrIyate->Bf,
   boBUyate->BU, nAwayitA->naw luw, arpayitAsmaH->f luw (low-ranked 0.35
   unverified, still a hit), SAkayitAsmi->Sak, styApayeta->styE,
-  pozayAmAsuzI->puz, UcivAn->vac, saYcikampizitA/saNkampayeta hits.
+  pozayAmAsuzI->puz, UcivAn->vac, saYcikampizitA/saNkampayeta hits,
+  sezIyamARam->si SAnac (yang s/z + desatva).
 - Known gaps (fix next, do not re-diagnose): kvasu lit stems beD->banD
   (abhyasa onset D not in b-set + n-loss + e->a; 09.0044) and
   biBants->banD (san B-onset vs b-root + -nts- vs -nD); san/nich
-  secondaries; SAnac sya-stems (sezIyamARam->si, tezwiGizyamARA->stiG);
+  secondaries; SAnac sya-stems remainder (tezwiGizyamARA->stiG);
   tavya/ac; yangluk non-lw is an ENGINE gap (tAtayyAt not generated for
   tay yangluk ASIrliN/viDiliN; test_dhatu skips yangluk non-lw, so search
   can only emit unverified readings there).
@@ -134,4 +137,4 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   `python -W ignore::ResourceWarning -m unittest discover -s tests -p
   "test_*.py"`.
 - Commits this session: yang/nich/yak/kvasu fixes (231b6e6), Q&A doc
-  (791d4ef), CLI+fast-audit (163adca).
+  (791d4ef), CLI+fast-audit (163adca), satva/yang-onset SAnac (653cc38).
