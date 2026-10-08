@@ -176,10 +176,21 @@ def _deriF(s: str) -> str:
 
 def _deit(s: str) -> str:
     """Reverse lost iT/i-grade (pij <- piji + ...: pik <- pij + te needs
-    +i; bfha <- bfhi + a needs +i after thematic strip)."""
-    if len(s) > 1 and s[-1] in ("j", "h", "w", "y", "c", "s", "z"):
+    +i; bfha <- bfhi + a needs +i after thematic strip; mida <- midi)."""
+    if len(s) > 1 and s[-1] in ("j", "h", "w", "y", "c", "s", "z", "d",
+                                "t"):
         return s + "i"
     return s
+
+
+def _deGhn(s: str) -> str:
+    """Reverse Ghn-cluster (han <- Gnan/Ghnanti + ...: Gh onset with
+    following n reduces to han)."""
+    import re as _re
+    _v = _re.sub(r"^Gn$", "Ghn", s, count=1)
+    if _v != s:
+        return _v
+    return _re.sub(r"^Ghn(an)?$", "han", s, count=1)
 
 
 def _demeta9(s: str) -> str:
@@ -248,6 +259,19 @@ def _deY(s: str) -> str:
     """Reverse Y-coalescence (piYjaya <- pij + ya: j + y -> Y)."""
     import re as _re
     return _re.sub(r"Y(?=[kKgGcCjJtTwWqQdDNpPbBsSzZ])", "", s, count=1)
+
+
+def _derot(s: str) -> str:
+    """Reverse R-uttva (jfR <- jF + ...: drop epenthetic R)."""
+    import re as _re
+    return _re.sub(r"([fFxXuU])R", r"\1", s, count=1)
+
+
+def _denfin(s: str) -> str:
+    """Reverse final-n stems (lU <- lun + Ana: strip stem-final n)."""
+    if len(s) > 2 and s[-1] in ("n", "N"):
+        return s[:-1]
+    return s
 
 
 def _deks_z(s: str) -> str:
@@ -596,7 +620,8 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
         ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
         ("ks_k", _deks_k), ("deY", _deY), ("nalo", _denalo),
-        ("naloR", _denaloR), ("deM", _deM),
+        ("naloR", _denaloR), ("deM", _deM), ("derot", _derot),
+        ("denfin", _denfin), ("deGhn", _deGhn),
         ("ap", _deap), ("riF", _deriF), ("vonset", _devoice_onset),
         ("async", _deasyncope), ("dentn", _dental_n),
         ("aspire", _deaspire)]
@@ -608,6 +633,7 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
             "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
             "ks_k": 0.6, "deY": 0.6, "nalo": 0.6, "naloR": 0.6, "deM": 0.6,
+            "derot": 0.6, "denfin": 0.6, "deGhn": 0.65,
             "ap": 0.6, "riF": 0.65, "vonset": 0.55, "async": 0.55,
             "dentn": 0.6, "aspire": 0.55}
 
