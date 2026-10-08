@@ -437,19 +437,25 @@ def check_exp(exp, groups):
         return False, "pratyaya_missing"
 
 
-def audit_fid(jpath, do_engine=True):
+def audit_fid(jpath, do_engine=True, fast=False):
     from pypanini import TinantaDerivationEngine
     te = TinantaDerivationEngine()
     exps = fid_expectations(jpath, te=te, do_engine=do_engine)
-    # one search per unique surface
+    # one search per unique surface (tinanta/krdanta only; subanta ignored
+    # per 2026-10-08 scope; fast skips engine verification for speed)
     by_surf = defaultdict(list)
     for e in exps:
         by_surf[e["surface"]].append(e)
-    from pypanini.search import analyze
+    if fast:
+        import pypanini.search as _S
+        _S._SKIP_VERIFY = True
+        from pypanini.search import analyze_tin_krd as _analyze
+    else:
+        from pypanini.search import analyze as _analyze
     rows = []
     for surf, es in by_surf.items():
         try:
-            groups = analyze(surf)
+            groups = _analyze(surf)
         except Exception as ex:
             groups = []
             for e in es:
@@ -471,6 +477,8 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--no-engine", action="store_true")
     ap.add_argument("--max-fids", type=int, default=0)
+    ap.add_argument("--fast", action="store_true",
+                    help="tinanta/krdanta only, skip verification")
     args = ap.parse_args()
 
     if args.fid:
@@ -490,6 +498,10 @@ def main():
     print(f"fids: {len(files)}", flush=True)
 
     do_engine = not args.no_engine
+
+    if args.fast:
+        import pypanini.search as _S
+        _S._SKIP_VERIFY = True
     tot = 0
     hit = 0
     miss_counter = Counter()
@@ -513,7 +525,8 @@ def main():
     if args.jobs > 1:
         from concurrent.futures import ProcessPoolExecutor
         with ProcessPoolExecutor(max_workers=args.jobs) as ex:
-            futs = {ex.submit(audit_fid, f, do_engine): f for f in files}
+            futs = {ex.submit(audit_fid, f, do_engine, args.fast): f
+                    for f in files}
             for i, fut in enumerate(futs):
                 try:
                     _handle(fut.result())
@@ -526,7 +539,7 @@ def main():
     else:
         for i, f in enumerate(files):
             try:
-                _handle(audit_fid(f, do_engine))
+                _handle(audit_fid(f, do_engine, args.fast))
             except Exception as e:
                 print(f"FID-ERROR {f}: {e}", flush=True)
                 continue

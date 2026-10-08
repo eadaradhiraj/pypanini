@@ -2492,12 +2492,18 @@ def _ensure_peri_aux() -> None:
 
 _TIN_ENG = None
 _VERIFY_CACHE: Dict[tuple, bool] = {}
+# Fast audit mode: skip engine forward-verification (provenance recall
+# unaffected — unverified readings are still emitted, only confidence
+# demotion is skipped). Set via CLI --fast or audit --fast.
+_SKIP_VERIFY = False
 
 
 def _verify_tin(word: str, dhatu: str, lak: str, pur: str, vac: str,
                 prayoga: str, sanadi, dhatu_id, upasarga) -> bool:
     """Forward-verify a tinanta reading with the generative engine."""
     global _TIN_ENG
+    if _SKIP_VERIFY:
+        return True
     _ck = (word, dhatu, lak, pur, vac, prayoga, sanadi, dhatu_id, upasarga)
     if _ck in _VERIFY_CACHE:
         return _VERIFY_CACHE[_ck]
@@ -3388,7 +3394,68 @@ def analyze(word: str, limit: int | None = None) -> List[dict]:
     return out[:limit] if limit is not None else out
 
 
+def analyze_tin_krd(word: str, limit: int | None = None) -> List[dict]:
+    """Tinanta+krdanta only (subanta ignored per 2026-10-08 scope).
+
+    Same grouping as :func:`analyze` minus subanta — used by the CLI
+    and the fast JSON audit.
+    """
+    _ensure_ready()
+    word = (word or "").strip()
+    if not word:
+        return []
+    out: List[dict] = []
+    out.extend(_group_krdanta(_krdanta_flat(word, limit=500)))
+    out.extend(_group_tinanta(_tinanta_flat(word, limit=500)))
+    out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
+    return out[:limit] if limit is not None else out
+
+
 def best(word: str) -> dict | None:
     """Top-ranked grouped analysis, or None."""
     _r = analyze(word, limit=1)
     return _r[0] if _r else None
+
+
+def main(argv=None) -> int:
+    """CLI: deliver tinanta/krdanta results to the end user.
+
+    Usage: python -m pypanini.search Bavati [--fast] [word ...]
+    Subanta ignored per 2026-10-08 scope.
+    """
+    import argparse
+    ap = argparse.ArgumentParser(description="PyPanini search (SLP1)")
+    ap.add_argument("words", nargs="*", help="SLP1 word(s) to analyse")
+    ap.add_argument("--fast", action="store_true",
+                    help="skip engine verification (recall only)")
+    ap.add_argument("--limit", type=int, default=6)
+    args = ap.parse_args(argv)
+    global _SKIP_VERIFY
+    if args.fast:
+        _SKIP_VERIFY = True
+    if not args.words:
+        ap.print_help()
+        return 2
+    for w in args.words:
+        print(f"=== {w} ===")
+        for g in analyze_tin_krd(w, limit=args.limit):
+            if g["kind"] == "krdanta":
+                _r = "; ".join(
+                    f"{r['pratyaya']}/{r['stem']}"
+                    for r in g["readings"][:4])
+                print(f"  krdanta dhatu={g.get('dhatu')} "
+                      f"upasarga={g.get('upasarga')} [{_r}] "
+                      f"conf={g['confidence']:.2f}")
+            else:
+                _r = "; ".join(
+                    f"{r['lakara']}/{r['purusha']}/{r['vacana']}"
+                    for r in g["readings"][:4])
+                print(f"  tinanta dhatu={g.get('dhatu')} "
+                      f"upasarga={g.get('upasarga')} [{_r}] "
+                      f"conf={g['confidence']:.2f}")
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main())
