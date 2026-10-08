@@ -59,6 +59,16 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
 - Subanta: `_infer_h_class` dedup, `_an_stem` dead-branch removal (behavior-identical).
 - Krdanta: duplicate `sya-SAnac`/`sya-BAvakarma-SAnac` dict keys removed.
 - Full gate green: lint 2/2 + search/subanta/krdanta/dhatu suites (43 + 4 tests) OK.
+- Heuristics yang+san (this turn, analyzer-only, 49/49 green, round-trips 540/540 + 185/185):
+  yang `_yang_trunc` + t+=s,z,S + vp aY,aN wired 17 sites, periph augment strip,
+  low Di/dhi + final-p desandhi; san `_SAN_SUPPLETION` (27 stems, 0.8 iff verified)
+  + VCV red[0]+onset + r/l-medial + grade twins (al->f, k->h, zw->st, W->T, n->N/R)
+  + ud+nasal/niH splits. Probes heuristic-only HIT: dedIyAmAse->dA,
+  caMcur->car, jegil->gF, abariBaH->Bf, atAtat->tay (deep), jiGats->ad,
+  jiGAMs->han, jigamiz->i, vivakz->brU (+vac kept), ediDiz->eD, urdidiz->urd,
+  cikalp->kfp, juGukz->guh, unmimandiz->madi. Precise-safe (new twins <0.8
+  unless suppletion-verified). Left: nich+ting (owner), audit interleave tables,
+  yangluk non-lw + sannanta-ac engine gaps (attested carries).
 
 ## Next
 1. Loop driver: sweeps are freshly green (2026-10-07 refresh above); next engine
