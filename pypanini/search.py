@@ -201,6 +201,12 @@ def _desam_u(s: str) -> str:
     return _re.sub(r"(Iry|iry|Ury|ury)$", "F", s, count=1)
 
 
+def _deY(s: str) -> str:
+    """Reverse Y-coalescence (piYjaya <- pij + ya: j + y -> Y)."""
+    import re as _re
+    return _re.sub(r"Y(?=[kKgGcCjJtTwWqQdDNpPbBsSzZ])", "", s, count=1)
+
+
 def _deks_z(s: str) -> str:
     """Reverse kSaya fusion keeping sibilant (Sikz <- Siz + sa: kz -> z)."""
     import re as _re
@@ -509,7 +515,7 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("nu", _denu), ("na", _dena), ("them", _dethem), ("long", _delong),
         ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
         ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
-        ("ks_k", _deks_k), ("aspire", _deaspire)]
+        ("ks_k", _deks_k), ("deY", _deY), ("aspire", _deaspire)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "cha": 0.8, "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
@@ -517,7 +523,7 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
             "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
-            "ks_k": 0.6, "aspire": 0.55}
+            "ks_k": 0.6, "deY": 0.6, "aspire": 0.55}
 
 
 def _via_conf(via: str) -> float:
@@ -1457,9 +1463,10 @@ def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
         if _nor != _c and _nor not in cands:
             cands.append(_nor)
     for _c in list(cands):
-        # M-agama before h/stops (bfMhati <- bfhi + M): drop it
+        # M-agama / epenthesis (bfMhati <- bfhi + M, saMsanya <- sasanya):
+        # drop M before consonants
         import re as _re
-        for _m in _re.finditer(r"M(?=[hHkKgGcCjJtTwWqQdDpPbB])", _c):
+        for _m in _re.finditer(r"M(?=[hHkKgGcCjJtTwWqQdDpPbBsSzZ])", _c):
             _v = _c[:_m.start()] + _c[_m.end():]
             if _v not in cands:
                 cands.append(_v)
@@ -2402,7 +2409,21 @@ def _prefix_splits(word: str) -> List[tuple]:
     for (_p, _rest) in list(cands):
         if _p == "A" and ("AN", _rest) not in cands:
             cands.append(("AN", _rest))
-    # yaN boundary: prefix-final i/I/u/U + stem-initial vowel fuse to
+    # prefix-coda sandhi (mirror of _rev_prefix_sandhi, which handles
+    # remainder-onset): ud + piY... -> utpiY... (d devoices before
+    # voiceless), dus + pra -> duzpra... (s voices before voiced).
+    # The coda belongs to the prefix; the rest starts after it.
+    _CADA_TWIN = {"d": ("t",), "b": ("p",), "g": ("k",), "j": ("c",),
+                  "D": ("T",), "B": ("P",), "G": ("K",), "J": ("C",),
+                  "s": ("z", "S")}
+    for _p in _UPASARGAS:
+        if not _p or _p[-1] not in _CADA_TWIN or len(word) <= len(_p) + 2:
+            continue
+        if word[:len(_p) - 1] == _p[:-1] and \
+                word[len(_p) - 1] in _CADA_TWIN[_p[-1]]:
+            _rest = word[len(_p):]
+            if _rest and all(_r != _rest for (_, _r) in cands):
+                cands.append((_p, _rest))
     # y/v + vowel (vyati <- vi + ati). Only when no literal split fired
     # on the same span (literal 'vi' never matches surface 'vya').
     for _p in _UPASARGAS:
