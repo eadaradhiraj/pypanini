@@ -423,6 +423,20 @@ def _san_reverse(core: str) -> List[str]:
     return out
 
 
+def _yanluk_reverse(core: str) -> List[str]:
+    """Undo yaNluganta reduplication (varivar <- vf + yaNluk, boBUzitA
+    stem boBUz <- BU + ...). Intensive reduplicant is CVCV (vari + var);
+    the remainder keeps the root onset. Grading is left to lookup."""
+    out: List[str] = []
+    if len(core) >= 6:
+        _red, _rest = core[:4], core[4:]
+        if _rest and _rest[0] == _red[0] and _red[0] not in SLP1_VOWELS:
+            if _red[1] in "aAiIeEoO" and _red[3] in "aAiIeEoO":
+                if _rest not in out:
+                    out.append(_rest)
+    return out
+
+
 def _abhyasa_reverse(core: str) -> List[str]:
     """Undo class-3 reduplication (dadA <- dA, juhu <- hu, bibhar <- Bf).
     Returns candidate roots. Only the reduplicant shape is constrained;
@@ -1028,6 +1042,10 @@ def _krd_hits(base: str) -> list:
             for (_rc, _rm, _rv) in _lookup_all(_ab):
                 if all(_rc != o[0] for o in out):
                     out.append((_rc, _rm, "abhyasa"))
+        for _yl in _yanluk_reverse(_b):
+            for (_rc, _rm, _rv) in _lookup_all(_yl):
+                if all(_rc != o[0] for o in out):
+                    out.append((_rc, _rm, "yanluk"))
         for _sn in _san_reverse(_b):
             for (_rc, _rm, _rv) in _lookup_all(_sn):
                 if all(_rc != o[0] for o in out):
@@ -1292,6 +1310,8 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         _uhits = []
         for _ab in _abhyasa_reverse(_ub):
             _acc_hits(_uhits, [_ab], "abhyasa")
+        for _yl in _yanluk_reverse(_ub):
+            _acc_hits(_uhits, [_yl], "yanluk")
         for _sn in _san_reverse(_ub):
             _acc_hits(_uhits, [_sn], "san")
         for (_rt, _m, _via) in _uhits:
@@ -1636,6 +1656,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 # secondary future stems (buBUzitA <- BU + sannanta)
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_luw_hits, [_ab], "abhyasa", None)
+                for _yl in _yanluk_reverse(_c):
+                    _acc_hits(_luw_hits, [_yl], "yanluk", None)
                 for _sn in _san_reverse(_c):
                     _acc_hits(_luw_hits, [_sn], "san", "sannanta")
             for (_rt, _m, _via, _sd) in _luw_hits:
@@ -1679,6 +1701,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     # undo reduplication / desiderative formation first
                     for _ab in _abhyasa_reverse(_t):
                         _acc_hits(_lfthits, [_ab], "abhyasa")
+                    for _yl in _yanluk_reverse(_t):
+                        _acc_hits(_lfthits, [_yl], "yanluk")
                     for _sn in _san_reverse(_t):
                         _acc_hits(_lfthits, [_sn], "san")
             _hit = _lfthits[0] if _lfthits else None
@@ -1754,6 +1778,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             # secondary benedictive stems (buBUzyAt <- BU + sannanta)
             for _ab in _abhyasa_reverse(_core):
                 _acc_hits(_asi_hits, [_ab], "abhyasa", None)
+            for _yl in _yanluk_reverse(_core):
+                _acc_hits(_asi_hits, [_yl], "yanluk", None)
             for _sn in _san_reverse(_core):
                 _acc_hits(_asi_hits, [_sn], "san", "sannanta")
             for (_rt, _m, _via, _sd) in _asi_hits:
@@ -1774,6 +1800,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                         _vhits.append((_rc, _rm, "exact", None))
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_vhits, [_ab], "abhyasa", None)
+                for _yl in _yanluk_reverse(_c):
+                    _acc_hits(_vhits, [_yl], "yanluk", None)
                 for _sn in _san_reverse(_c):
                     _acc_hits(_vhits, [_sn], "san", "sannanta")
             for (_rt, _m, _via, _sd) in _vhits:
@@ -1854,6 +1882,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             for _c in _bfsbases:
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_atm_hits, [_ab], "abhyasa", None)
+                for _yl in _yanluk_reverse(_c):
+                    _acc_hits(_atm_hits, [_yl], "yanluk", None)
                 for _sn in _san_reverse(_c):
                     _acc_hits(_atm_hits, [_sn], "san", "sannanta")
             for (_rt, _m, _via, _sd) in _atm_hits:
@@ -1966,6 +1996,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     for _c in _cands:
                         for _ab in _abhyasa_reverse(_c):
                             _acc_hits(_hits, [_ab], "abhyasa")
+                        for _yl in _yanluk_reverse(_c):
+                            _acc_hits(_hits, [_yl], "yanluk")
                         for _sn in _san_reverse(_c):
                             _acc_hits(_hits, [_sn], "san")
                     # queue stripped forms for deeper peeling (sic-s/z,
@@ -2089,6 +2121,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                         _preadings.append((_rc, _rm, _rv or "exact"))
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_preadings, [_ab], "abhyasa")
+                for _yl in _yanluk_reverse(_c):
+                    _acc_hits(_preadings, [_yl], "yanluk")
                 for _sn in _san_reverse(_c):
                     _acc_hits(_preadings, [_sn], "san")
             _readings = []
@@ -2237,6 +2271,8 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                             # also keep abhyasa twin (dadati is dad + dA at once)
                             for _ab in _abhyasa_reverse(_cand):
                                 _acc_hits(_extra_hits, [_ab], "abhyasa")
+                            for _yl in _yanluk_reverse(_cand):
+                                _acc_hits(_extra_hits, [_yl], "yanluk")
                             # also keep desiderative twin (buBUzati is BUz + BU:
                             # exact lookup finds only the san-shaped root BUz)
                             for _sn in _san_reverse(_cand):
@@ -2252,6 +2288,8 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         # class-3 reduplicated stems (dadA/juhu/biBar + ti)
                         for _ab in _abhyasa_reverse(_cand):
                             _acc_hits(_extra_hits, [_ab], "abhyasa")
+                        for _yl in _yanluk_reverse(_cand):
+                            _acc_hits(_extra_hits, [_yl], "yanluk")
                         if _extra_hits:
                             _rt0, _m0, _vx0 = _extra_hits.pop(0)
                             _hit = (_rt0, _m0, "abhyasa")
@@ -2274,6 +2312,8 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                             # primary came via san: abhyasa twins still count
                             for _ab in _abhyasa_reverse(_cand):
                                 _acc_hits(_extra_hits, [_ab], "abhyasa")
+                            for _yl in _yanluk_reverse(_cand):
+                                _acc_hits(_extra_hits, [_yl], "yanluk")
                             _found.append((_via_extra, _hit, _extra_hits, None))
                             continue
                         # viDiliN e-grade of A-final roots (det <- dA: the ending
@@ -2722,6 +2762,8 @@ def _krdanta_flat(word: str, limit: int = 50,
             _uhits: list = []
             for _ab in _abhyasa_reverse(_uw):
                 _acc_hits(_uhits, [_ab], "abhyasa")
+            for _yl in _yanluk_reverse(_uw):
+                _acc_hits(_uhits, [_yl], "yanluk")
             for _sn in _san_reverse(_uw):
                 _acc_hits(_uhits, [_sn], "san")
             for (_ah0, _ahm, _ahv) in _uhits:
