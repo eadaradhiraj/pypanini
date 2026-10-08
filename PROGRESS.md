@@ -70,3 +70,17 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
    e-grade twins; (c) tumun/lyap jYAp twins; (d) san jYAp grade;
    (e) nich-Atmane ciY cayay-twin (0124 already passes). All zero-gain, reverted.
 3. Cross-gana guards (01 + all-100% ganas) before every commit; PYTHONHASHSEED=0.
+
+## Search 100% — user Q&A (2026-10-08, for future LLMs)
+- Q: Which JSON should reach 100% search recall?
+  A: All skt-morph-data (all 2259 JSONs).
+- Q: Which JSON entries must search hit for 100%?
+  A: All JSON tokens — every slash-split single-word token from
+  conjugations + participles + upasarga_forms, as audit_search_full does.
+- Q: What counts as search working on an entry?
+  A: Provenance present — correct dhatu/fid + lakara/pratyaya +
+  slot/upasarga present anywhere in analyze() groups (current audit rule).
+- Q: How should results be delivered?
+  A: Fix them (miss CSV); generally the CLI should deliver results to the
+  end user as part of the grand plan. Ignore subanta search for now
+  (tinanta/krdanta only).
