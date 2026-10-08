@@ -77,6 +77,9 @@ def _ensure_ready() -> None:
     for _v in _IDS.values():
         _v.sort()
     _ensure_end_slots()
+    # drop any lookups cached before roots existed (empty-lexicon hits)
+    _LOOKUP_CACHE.clear()
+    _LOOKUP_ALL_CACHE.clear()
     # closed lexicon: common + special stems x 3 lingas (exact forms)
     se = SubantaEngine()
     _lex = [
@@ -592,10 +595,18 @@ def _yang_reverse(core: str) -> List[str]:
     to lookup (guna/deIr/desatva close the grades). Permissive by design:
     every candidate must still hit the root lexicon to count."""
     # satva twin in the onset (se- + zI-: reduplicant s, remainder z)
+    # + cutva/deaspiration twins for yang (co- + Kol-: reduplicant c
+    # from velar K via cutva + deaspiration)
     _YANG_ONSET = dict(_ABHYASA_ONSET)
     _YANG_ONSET["s"] = sorted(set(_YANG_ONSET.get("s", ["s"]) + ["z", "S"]))
     _YANG_ONSET["z"] = sorted(set(_YANG_ONSET.get("z", ["z"]) + ["s"]))
     _YANG_ONSET["S"] = sorted(set(_YANG_ONSET.get("S", ["S"]) + ["s"]))
+    _YANG_ONSET["c"] = sorted(
+        set(_YANG_ONSET.get("c", ["c"]) + ["K", "g", "G"]))
+    _YANG_ONSET["C"] = sorted(
+        set(_YANG_ONSET.get("C", ["C"]) + ["K", "g", "G"]))
+    _YANG_ONSET["j"] = sorted(
+        set(_YANG_ONSET.get("j", ["j"]) + ["g", "G", "k", "K"]))
     out: List[str] = []
     _bases = [core]
     if core.endswith("ya") and len(core) > 3:
@@ -2857,6 +2868,9 @@ def _prefix_splits(word: str) -> List[tuple]:
         # sam assimilates to the following stop's place (saYc <- sam + c,
         # saNk <- sam + k): the nasal still belongs to the prefix
         cands.append(("sam", word[3:]))
+    if len(word) > 5 and word[:3] in ("san",) and word[3] not in _V:
+        # sam + dental -> san (sand- <- sam + d): dental nasal marks sam
+        cands.append(("sam", word[3:]))
     for _p in sorted(_UPASARGAS, key=lambda s: (len(s), s), reverse=True):
         if word.startswith(_p) and len(word) - len(_p) >= 3:
             cands.append((_p, word[len(_p):]))
@@ -2889,7 +2903,9 @@ def _prefix_splits(word: str) -> List[tuple]:
     # remainder-onset): ud + piY... -> utpiY... (d devoices before
     # voiceless), dus + pra -> duzpra... (s voices before voiced).
     # The coda belongs to the prefix; the rest starts after it.
-    _CADA_TWIN = {"d": ("t",), "b": ("p",), "g": ("k",), "j": ("c",),
+    # ud + palatal assimilates (ucc- <- ud + c: d voices/devoiced then
+    # cut to c).
+    _CADA_TWIN = {"d": ("t", "c"), "b": ("p",), "g": ("k",), "j": ("c",),
                   "D": ("T",), "B": ("P",), "G": ("K",), "J": ("C",),
                   "s": ("z", "S")}
     for _p in _UPASARGAS:
