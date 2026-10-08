@@ -309,11 +309,19 @@ def _dena(s: str) -> str:
 
 
 def _deaspire(s: str) -> str:
-    """Reverse aspiration loss (lab <- laB + ...; Bas <- bs + ita):
-    unaspirated media regains aspiration, finally or initially."""
-    _map = {"b": "B", "d": "D", "g": "G", "j": "J"}
+    """Reverse final aspiration loss (lab <- laB + ...): final stop
+    regains aspiration."""
+    _map = {"b": "B", "d": "D", "g": "G", "j": "J", "c": "C", "k": "K",
+            "t": "T", "p": "P"}
     if len(s) > 1 and s[-1] in _map:
         return s[:-1] + _map[s[-1]]
+    return s
+
+
+def _deaspire_init(s: str) -> str:
+    """Reverse initial aspiration loss (Bas <- bs + ita <- Bhas)."""
+    _map = {"b": "B", "d": "D", "g": "G", "j": "J", "c": "C", "k": "K",
+            "t": "T", "p": "P"}
     if len(s) > 1 and s[0] in _map:
         return _map[s[0]] + s[1:]
     return s
@@ -460,6 +468,11 @@ def _san_reverse(core: str) -> List[str]:
                     _cand = _o + _v
                     if _cand not in out:
                         out.append(_cand)
+            # full-coda twin (cits <- Cid + sa: reduplicant + voiced coda)
+            for _cc in _SAN_CODA.get(_m, [_m])[1:]:
+                _c2 = _red + _cc
+                if _c2 not in out:
+                    out.append(_c2)
         else:
             # full type: root preserved (vivid <- vid; tik <- tij via kuH)
             if _m not in out:
@@ -594,10 +607,11 @@ def _dethematic(s: str) -> str:
 
 
 def _dedouble(s: str) -> str:
-    """Reverse stop gemination (tott <- tod + tf, rudD <- rundh + ...)."""
+    """Reverse stop gemination (tott <- tod + tf, rudD <- rundh + ...,
+    cCits <- Cid + san + ...)."""
     for _gem, _sg in (("tt", "d"), ("nn", "n"), ("cc", "c"), ("YY", "Y"),
                       ("dD", "D"), ("DD", "D"), ("bB", "B"), ("gG", "G"),
-                      ("jJ", "J"), ("tT", "T")):
+                      ("jJ", "J"), ("tT", "T"), ("cC", "c"), ("CC", "C")):
         if _gem in s:
             return s.replace(_gem, _sg, 1)
     return s
@@ -670,7 +684,7 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("depagama", _depagama),
         ("ap", _deap), ("riF", _deriF), ("vonset", _devoice_onset),
         ("async", _deasyncope), ("dentn", _dental_n),
-        ("aspire", _deaspire)]
+        ("aspire", _deaspire), ("aspire0", _deaspire_init)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "cha": 0.8, "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
@@ -682,7 +696,7 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
             "derot": 0.6, "denfin": 0.6, "deGhn": 0.65, "dea": 0.6,
             "depagama": 0.6,
             "ap": 0.6, "riF": 0.65, "vonset": 0.55, "async": 0.55,
-            "dentn": 0.6, "aspire": 0.55}
+            "dentn": 0.6, "aspire": 0.55, "aspire0": 0.55}
 
 
 def _via_conf(via: str) -> float:
@@ -2205,17 +2219,33 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _lex = [_stem]
             if _stem.endswith(("i", "I", "a", "A")) and len(_stem) > 1:
                 _lex.append(_stem[:-1])  # sew-iT / thematic
+            if _stem.endswith(("aya", "Aya")) and len(_stem) > 4:
+                _lex.append(_stem[:-3])  # Rejanta -aya- (tAnay)
+            elif _stem.endswith(("ay", "Ay")) and len(_stem) > 3:
+                _lex.append(_stem[:-2])
             _preadings: list = []
             for _c in _lex:
                 for (_rc, _rm, _rv) in _lookup_all(_c):
                     if _rc not in [r[0] for r in _preadings]:
                         _preadings.append((_rc, _rm, _rv or "exact"))
+                _ablista: list = []
                 for _ab in _abhyasa_reverse(_c):
                     _acc_hits(_preadings, [_ab], "abhyasa")
+                    _ablista.append(_ab)
                 for _yl in _yanluk_reverse(_c):
                     _acc_hits(_preadings, [_yl], "yanluk")
+                _snlista: list = []
                 for _sn in _san_reverse(_c):
                     _acc_hits(_preadings, [_sn], "san")
+                    _snlista.append(_sn)
+                # composed reversals (cicCits <- Cid + san: abhyasa gives
+                # cCits whose san-mid cid still hides Cid)
+                for _ab in _ablista:
+                    for _sn2 in _san_reverse(_ab):
+                        _acc_hits(_preadings, [_sn2], "san")
+                for _sn in _snlista:
+                    for _ab2 in _abhyasa_reverse(_sn):
+                        _acc_hits(_preadings, [_ab2], "abhyasa")
             _readings = []
             if _preadings:
                 _readings.extend(_preadings)
