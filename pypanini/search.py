@@ -479,9 +479,9 @@ def _san_reverse(core: str) -> List[str]:
 
 
 def _yanluk_reverse(core: str) -> List[str]:
-    """Undo yaNluganta reduplication (varivar <- vf + yaNluk, boBUzitA
-    stem boBUz <- BU + ...). Intensive reduplicant is CVCV (vari + var);
-    the remainder keeps the root onset. Grading is left to lookup."""
+    """Undo yaNluganta reduplication (varivar <- vf + yaNluk: CVCV +
+    onset-kept remainder; devdev <- div + ...: exact-copy halves).
+    Grading is left to lookup."""
     out: List[str] = []
     if len(core) >= 6:
         _red, _rest = core[:4], core[4:]
@@ -490,6 +490,12 @@ def _yanluk_reverse(core: str) -> List[str]:
             if _red[1] in "aAiIeEoO" and _red[3] in "aAiIeEoO":
                 if _rest not in out:
                     out.append(_rest)
+    if len(core) >= 6:
+        # exact-copy halves (devdev <- div + ... intensive doubling)
+        _k = len(core) // 2
+        if len(core) == 2 * _k and core[:_k] == core[_k:]:
+            if core[_k:] not in out:
+                out.append(core[_k:])
     return out
 
 
@@ -1617,6 +1623,30 @@ def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
         if _c.endswith(("i", "I")) and len(_c) > 2 \
                 and _c[:-1] not in cands:
             cands.append(_c[:-1])
+    if aug:
+        _stripped = []
+        for _c in cands:
+            if _c.startswith("a") and len(_c) > 1:
+                _stripped.append(_c[1:])  # laN augment a-
+            elif _c.startswith("A") and len(_c) > 1:
+                _stripped.append(_c[1:])
+            elif _c.startswith("E") and len(_c) > 2:
+                # augment fused with a-initial root vowel (a + eD -> ED):
+                # restore a + e, the plain strip eats the root vowel
+                _stripped.append("ae" + _c[1:])
+                _stripped.append("e" + _c[1:])
+            elif _c.startswith("O") and len(_c) > 2:
+                _stripped.append("ao" + _c[1:])
+                _stripped.append("o" + _c[1:])
+        cands += _stripped
+    for _c in list(cands):
+        # v-loss in reduplicated stems (dede <- devdev + ...: yangluk
+        # laN adedet): restore v after each e-grade vowel
+        import re as _re
+        _vr = _re.sub(r"^([^aAiIuUeEoO])e([^aAiIuUeEoO])e$",
+                      r"\1ev\2ev", _c)
+        if _vr != _c and _vr not in cands:
+            cands.append(_vr)
     for _c in list(cands):
         # R-uttva before semivowel/grade (puRwati <- puwi + ...,
         # DfRAti <- DF + ...): drop the epenthetic R
@@ -1640,22 +1670,6 @@ def _tin_candidates(core: str, lakara: str, aug: bool) -> List[str]:
             for _sib in ("z", "s"):
                 if _c + _sib not in cands:
                     cands.append(_c + _sib)
-    if aug:
-        _stripped = []
-        for _c in cands:
-            if _c.startswith("a") and len(_c) > 1:
-                _stripped.append(_c[1:])  # laN augment a-
-            elif _c.startswith("A") and len(_c) > 1:
-                _stripped.append(_c[1:])
-            elif _c.startswith("E") and len(_c) > 2:
-                # augment fused with a-initial root vowel (a + eD -> ED):
-                # restore a + e, the plain strip eats the root vowel
-                _stripped.append("ae" + _c[1:])
-                _stripped.append("e" + _c[1:])
-            elif _c.startswith("O") and len(_c) > 2:
-                _stripped.append("ao" + _c[1:])
-                _stripped.append("o" + _c[1:])
-        cands += _stripped
     return cands
 
 
@@ -1903,6 +1917,8 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _stem = word[:-len(_zsuf)]
             _seen2, _front = set(), [_stem]
             _hit = None
+            _hit_base = None
+            _bfsextra: list = []
             while _front:
                 _b = _front.pop(0)
                 if _b in _seen2:
@@ -1919,11 +1935,13 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 if _mstrip != _b and _mstrip not in _bvars:
                     _bvars.append(_mstrip)  # M-epenthesis (titAMs)
                 for _c in _bvars:
-                    _hit = _lookup_root(_c)
-                    if _hit is not None:
-                        break
-                if _hit is not None:
-                    break
+                    for (_rc, _rm, _rv) in _lookup_all(_c):
+                        if _hit is None:
+                            _hit = (_rc, _rm, _rv)
+                            _hit_base = _c
+                        elif _rc != _hit[0] and _rc not in \
+                                [h[0] for h in _bfsextra]:
+                            _bfsextra.append((_rc, _rm, "exact", None))
                 if _b.endswith(("s", "z")) and len(_b) > 1:
                     _front.append(_b[:-1])
                 # queue stripped variants for deeper peeling (tAnayizIzwa:
@@ -1934,8 +1952,14 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             _atm_hits: list = []
             if _hit is not None:
                 _atm_hits.append((_hit[0], _hit[1], "exact", None))
+                # graded alternates anywhere in the peel (devayizIzwa hits
+                # divi early via devayi but div via dev hides deeper)
+                for (_rc, _rm, _rv, _sd) in _bfsextra:
+                    if _rc != _hit[0] and _rc not in \
+                            [h[0] for h in _atm_hits]:
+                        _atm_hits.append((_rc, _rm, "exact", None))
                 # graded alternates at the primary base (rod -> rud + ruD)
-                for (_rc, _rm, _rv) in _lookup_all(_c):
+                for (_rc, _rm, _rv) in _lookup_all(_hit_base):
                     if _rc != _hit[0] and _rc not in \
                             [h[0] for h in _atm_hits]:
                         _atm_hits.append((_rc, _rm, "exact", None))
