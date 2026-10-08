@@ -6,3 +6,5 @@ __pycache__/
 env/
 *.egg-info/
 skt-morph-data/
+pypanini/attested_index.db
+pypanini/attested_index.db-*

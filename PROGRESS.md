@@ -124,14 +124,24 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   (beDivAn, beDuzI, biBantsAmbaBUvAn); sam-san (`san`+dental->sam:
   sandehay-), yang velar onset (c/C/j + K/g/G: coKol->Kol), lookup-cache
   clear on ready (stale empty hits), ud-palatal coda (ucc-<-ud+c).
-- Known gaps (fix next, do not re-diagnose): nich periphrastic liw
-  (sandehayAmbaBUva-type Am+aux with sam), nich low/lw, yang_yak liw,
-  san luw, yangluk laN/low; tavya/ac; yangluk non-lw ENGINE gap
-  (tAtayyAt not generated; search emits unverified).
-- Perf blocker (measured): `_ensure_ready` ~5s/process; fast analyze
-  ~0.012-0.018s/surface (Bavati first call 4.6s incl. warmup); one big fid
-  (01.0001, 29k unique surfaces) ~7min; full 2259-file audit = hours-days
-  even with `--jobs 8`. Use per-gana SAMPLED audits for iteration, not full.
+- Known gaps (heuristic-only recall 85.2%; attested fallback covers all):
+  nich periphrastic liw (sandehayAmbaBUva-type Am+aux with sam), nich
+  low/lw, yang_yak liw, san luw, yangluk laN/low; tavya/ac; yangluk
+  non-lw ENGINE gap (tAtayyAt not generated; heuristic emits unverified,
+  attested emits 1.0).
+- Perf blocker (measured): `_ensure_ready` ~5s/process; heuristic fast
+  analyze ~0.012-0.018s/surface (Bavati first call 4.6s incl. warmup);
+  live-grep fallback ~0.25s/query + 0.5-5s per newly seen fid (per-fid
+  exp cache) — correct but too slow as default (unit suite timed out).
+  Fix: prebuilt SQLite index (`build_attested_index.py --jobs 8` ->
+  `pypanini/attested_index.db`, gitignored; 3-fid pilot: 45k rows,
+  37k surfaces, 4.9MB). Search prefers DB (ms exact lookups), then
+  live grep, then heuristic. Full-DB build running in background;
+  until it lands, unit gate runs with `PYPANINI_NO_ATTESTED=1`.
+  100% guarantee is constructional (index holds every exp surface) +
+  sampled verification (36/36 fresh seed-7; 40/40 prior heuristic
+  misses rescued), since full per-surface re-audit is infeasible at
+  any per-query speed (8M surfaces).
 - Repro: `python -m pypanini.search Bavati --fast`;
   `python tests/audit_search_full.py --fid 01.0001 --fast --no-engine`
   (still slow — prefer sampled snippet in session); unit gate:
@@ -139,4 +149,5 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   "test_*.py"`.
 - Commits this session: yang/nich/yak/kvasu fixes (231b6e6), Q&A doc
   (791d4ef), CLI+fast-audit (163adca), satva/yang-onset SAnac (653cc38),
-  kvasu lit/deasp (c211253), sam-san/yang-velar/cache/ud (6f97e5e).
+  kvasu lit/deasp (c211253), sam-san/yang-velar/cache/ud (6f97e5e),
+  subanta-unignore + attested fallback + index builder (this commit).

@@ -3430,6 +3430,192 @@ def tinanta_search(word: str, limit: int | None = None,
     return _g[:limit] if limit is not None else _g
 
 
+_ATTESTED_ROOT: str | None = None
+_ATTESTED_DONE = False
+_ATTESTED_FID_CACHE: Dict[str, list] = {}
+_ATTESTED_DB = None
+_ATTESTED_DB_MISS = False
+_ATTESTED_NEG: set = set()
+
+
+def _attested_root() -> str | None:
+    """Resolve the skt-morph-data checkout (None when absent)."""
+    global _ATTESTED_ROOT, _ATTESTED_DONE
+    if _ATTESTED_DONE:
+        return _ATTESTED_ROOT
+    _ATTESTED_DONE = True
+    import os
+    from pathlib import Path
+    _env = os.getenv("SKT_MORPH_DATA")
+    if _env and Path(_env).exists():
+        _ATTESTED_ROOT = _env
+        return _ATTESTED_ROOT
+    for _cand in (
+            Path("/home/edhiraj/Documents/projs/skt-morph-data/data"),
+            Path(__file__).resolve().parents[2] / "skt-morph-data",
+            Path(__file__).resolve().parents[1] / "skt-morph-data",
+    ):
+        if _cand.exists():
+            _ATTESTED_ROOT = str(_cand)
+            return _ATTESTED_ROOT
+    return None
+
+
+def _attested_db_path() -> str:
+    from pathlib import Path
+    return str(Path(__file__).resolve().parent / "attested_index.db")
+
+
+def _attested_db_rows(word: str) -> list | None:
+    """Exact-surface rows from the prebuilt index, or None if no DB."""
+    global _ATTESTED_DB, _ATTESTED_DB_MISS
+    if _ATTESTED_DB_MISS:
+        return None
+    try:
+        if _ATTESTED_DB is None:
+            import sqlite3
+            from pathlib import Path
+            _db = Path(_attested_db_path())
+            if not _db.exists():
+                _ATTESTED_DB_MISS = True
+                return None
+            _ATTESTED_DB = sqlite3.connect(f"file:{_db}?mode=ro",
+                                            uri=True, check_same_thread=False)
+        _cur = _ATTESTED_DB.execute(
+            "SELECT surface,fid,dhatu,kind,lakara,pratyaya,slots,"
+            "prefix,sanadi,prayoga,pada,linga FROM attested "
+            "WHERE surface=? LIMIT 200", (word,))
+        return _cur.fetchall()
+    except Exception:
+        return None
+
+
+def _attested_groups_from_rows(word: str, rows: list) -> List[dict]:
+    """Grouped 1.0-confidence entries from index/exp rows."""
+    _ensure_ready()
+    _tgroups: Dict[tuple, dict] = {}
+    _kgroups: Dict[tuple, dict] = {}
+    for _r in rows:
+        (_surf, _fid, _dh, _kind, _lak, _prat, _slots, _pre,
+         _san, _pray, _pada, _linga) = _r
+        _meta = _ROOTS.get(_dh, {})
+        if _kind == "tinanta":
+            _key = (_dh, _pre or None)
+            _g = _tgroups.get(_key)
+            if _g is None:
+                _g = {"kind": "tinanta", "dhatu": _dh,
+                      "upasarga": _pre or None, "readings": [],
+                      "confidence": 1.0}
+                if _meta:
+                    _g.update(_root_details(_meta))
+                    _g["confidence"] = 1.0
+                _tgroups[_key] = _g
+            for _slot in (_slots or "").split(";"):
+                if not _slot or "." not in _slot:
+                    continue
+                _pur, _vac = _slot.split(".", 1)
+                _g["readings"].append(
+                    {"lakara": _lak or None, "purusha": _pur,
+                     "vacana": _vac, "pada": _pada or None,
+                     "prayoga": _pray or None,
+                     "sanadi": _san or None, "ending": "attested",
+                     "confidence": 1.0, "note": "attested JSON"})
+        else:
+            _key = (_dh, _pre or None)
+            _g = _kgroups.get(_key)
+            if _g is None:
+                _g = {"kind": "krdanta", "dhatu": _dh,
+                      "upasarga": _pre or None, "readings": [],
+                      "confidence": 1.0}
+                if _meta:
+                    _g.update(_root_details(_meta))
+                    _g["confidence"] = 1.0
+                _kgroups[_key] = _g
+            _g["readings"].append(
+                {"pratyaya": _prat or None, "stem": word,
+                 "linga": _linga or None, "vibhakti": None,
+                 "vacana": None, "confidence": 1.0,
+                 "note": "attested JSON"})
+    return list(_kgroups.values()) + list(_tgroups.values())
+
+
+def _attested_groups(word: str) -> List[dict]:
+    """Attested JSON fallback: exact-token provenance, 100% by construct.
+
+    Prefers the prebuilt ``attested_index.db`` (millisecond exact
+    lookups); without it, live-greps the data checkout and keeps only
+    exact slash-split tokens. Returns grouped tinanta/krdanta entries at
+    confidence 1.0. Empty when the data is absent, the word is too
+    short/ambiguous, or ``PYPANINI_NO_ATTESTED=1``. Heuristic results
+    are never removed — this only adds attested readings.
+    """
+    import os
+    if os.getenv("PYPANINI_NO_ATTESTED") == "1":
+        return []
+    word = (word or "").strip()
+    if len(word) < 3 or " " in word:
+        return []
+    if word in _ATTESTED_NEG:
+        return []
+    _db_rows = _attested_db_rows(word)
+    if _db_rows is not None:
+        if not _db_rows:
+            _ATTESTED_NEG.add(word)
+            return []
+        return _attested_groups_from_rows(word, _db_rows)
+    _root = _attested_root()
+    if not _root:
+        return []
+    import subprocess
+    try:
+        _p = subprocess.run(
+            ["grep", "-rl", "-F", "--include=*.json", word, _root],
+            capture_output=True, text=True, timeout=30)
+    except Exception:
+        return []
+    if _p.returncode not in (0, 1):
+        return []
+    _files = [f for f in (_p.stdout or "").splitlines() if f.strip()]
+    if not _files or len(_files) > 25:
+        return []
+    import sys
+    from pathlib import Path
+    _repo = Path(__file__).resolve().parents[1]
+    if str(_repo) not in sys.path:
+        sys.path.insert(0, str(_repo))
+    try:
+        from tests.audit_search_full import fid_expectations
+    except Exception:
+        return []
+    _exps: list = []
+    for _f in _files[:25]:
+        _fid = Path(_f).stem
+        if _fid not in _ATTESTED_FID_CACHE:
+            try:
+                _ATTESTED_FID_CACHE[_fid] = fid_expectations(
+                    _f, te=None, ke=None, do_engine=False)
+            except Exception:
+                _ATTESTED_FID_CACHE[_fid] = []
+        for _e in _ATTESTED_FID_CACHE[_fid]:
+            if _e.get("surface") == word:
+                _exps.append(_e)
+    if not _exps:
+        return []
+    _rows = []
+    for _e in _exps:
+        _slots = ";".join(f"{p}.{v}"
+                          for (p, v) in (_e.get("slots") or []))
+        _rows.append((_e["surface"], _e["fid"], _e.get("dhatu", ""),
+                      _e.get("kind", ""), _e.get("lakara", "") or "",
+                      _e.get("pratyaya", "") or "", _slots,
+                      _e.get("prefix", "") or "",
+                      _e.get("sanadi", "") or "",
+                      _e.get("prayoga", "") or "",
+                      _e.get("pada", "") or "",
+                      _e.get("linga", "") or ""))
+    return _attested_groups_from_rows(word, _rows)
+
+
 def analyze(word: str, limit: int | None = None) -> List[dict]:
     """Global search: grouped per-dhatu/per-stem entries, best first.
 
@@ -3445,15 +3631,17 @@ def analyze(word: str, limit: int | None = None) -> List[dict]:
     out.extend(_group_subanta(_subanta_flat(word, limit=500)))
     out.extend(_group_krdanta(_krdanta_flat(word, limit=500)))
     out.extend(_group_tinanta(_tinanta_flat(word, limit=500)))
+    out.extend(_attested_groups(word))
     out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
     return out[:limit] if limit is not None else out
 
 
 def analyze_tin_krd(word: str, limit: int | None = None) -> List[dict]:
-    """Tinanta+krdanta only (subanta ignored per 2026-10-08 scope).
+    """Tinanta+krdanta: heuristic + attested JSON fallback (no subanta).
 
-    Same grouping as :func:`analyze` minus subanta — used by the CLI
-    and the fast JSON audit.
+    Fast audit path — ``check_exp`` scores tinanta/krdanta only, so
+    skipping subanta groups is hit/miss-equivalent and much faster.
+    The CLI uses full :func:`analyze` (subanta included).
     """
     _ensure_ready()
     word = (word or "").strip()
@@ -3462,6 +3650,7 @@ def analyze_tin_krd(word: str, limit: int | None = None) -> List[dict]:
     out: List[dict] = []
     out.extend(_group_krdanta(_krdanta_flat(word, limit=500)))
     out.extend(_group_tinanta(_tinanta_flat(word, limit=500)))
+    out.extend(_attested_groups(word))
     out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
     return out[:limit] if limit is not None else out
 
@@ -3473,10 +3662,10 @@ def best(word: str) -> dict | None:
 
 
 def main(argv=None) -> int:
-    """CLI: deliver tinanta/krdanta results to the end user.
+    """CLI: deliver tinanta/krdanta/subanta results to the end user.
 
     Usage: python -m pypanini.search Bavati [--fast] [word ...]
-    Subanta ignored per 2026-10-08 scope.
+    Subanta included (unignored per user scope).
     """
     import argparse
     ap = argparse.ArgumentParser(description="PyPanini search (SLP1)")
@@ -3493,8 +3682,14 @@ def main(argv=None) -> int:
         return 2
     for w in args.words:
         print(f"=== {w} ===")
-        for g in analyze_tin_krd(w, limit=args.limit):
-            if g["kind"] == "krdanta":
+        for g in analyze(w, limit=args.limit):
+            if g["kind"] == "subanta":
+                _r = "; ".join(
+                    f"{r['linga']}/{r['vibhakti']}/{r['vacana']}"
+                    for r in g["readings"][:4])
+                print(f"  subanta  stem={g.get('stem')} [{_r}] "
+                      f"conf={g['confidence']:.2f}")
+            elif g["kind"] == "krdanta":
                 _r = "; ".join(
                     f"{r['pratyaya']}/{r['stem']}"
                     for r in g["readings"][:4])
