@@ -3006,11 +3006,13 @@ def _group_subanta(flat: List[dict]) -> List[dict]:
     return out
 
 
-def subanta_search(word: str, limit: int | None = None) -> List[dict]:
+def subanta_search(word: str, limit: int | None = None,
+                   precise: bool = False) -> List[dict]:
     """Subanta-only search: one entry per stem with a readings list."""
-    return (_group_subanta(_subanta_flat(word, limit=500))[:limit]
-            if limit is not None
-            else _group_subanta(_subanta_flat(word, limit=500)))
+    _g = _group_subanta(_subanta_flat(word, limit=500))
+    if precise:
+        _g = _precise_filter(_g)
+    return _g[:limit] if limit is not None else _g
 
 
 def _krdanta_flat(word: str, limit: int = 50,
@@ -3342,10 +3344,13 @@ def _group_krdanta(flat: List[dict]) -> List[dict]:
 
 
 def krdanta_search(word: str, limit: int | None = None,
-                   with_upasarga: bool = True) -> List[dict]:
+                   with_upasarga: bool = True,
+                   precise: bool = False) -> List[dict]:
     """Krdanta-only search: one entry per dhatu with a readings list."""
     _flat = _krdanta_flat(word, limit=500, with_upasarga=with_upasarga)
     _g = _group_krdanta(_flat)
+    if precise:
+        _g = _precise_filter(_g)
     return _g[:limit] if limit is not None else _g
 
 
@@ -3422,11 +3427,49 @@ def _group_tinanta(flat: List[dict]) -> List[dict]:
     return out
 
 
+def _precise_filter(groups: List[dict]) -> List[dict]:
+    """Precision filter for end-user output (recall stays in the library).
+
+    Keeps: attested groups whole (data-true, ending ``attested``);
+    heuristic tinanta/krdanta readings that are verified (>= 0.8, no
+    "; unverified"); subanta lexicon (0.9) and real inflections (>= 0.7).
+    Drops single-consonant-grade guesses (dI/ad for dadat, 0.7) and
+    unverified ghosts. Audit/``analyze`` default (``precise=False``)
+    is unaffected — 100% recall lives there.
+    """
+    out: List[dict] = []
+    for _g in groups:
+        _rs = _g.get("readings", [])
+        _att = [r for _rs in [_rs] for r in _rs
+                if r.get("ending") == "attested"]
+        if _att:
+            out.append(_g)
+            continue
+        if _g.get("kind") == "subanta":
+            _keep = [r for r in _rs
+                     if r.get("confidence", 0.0) >= 0.7]
+        else:
+            _keep = [r for r in _rs
+                     if r.get("confidence", 0.0) >= 0.8
+                     and "; unverified" not in r.get("note", "")]
+        if not _keep:
+            continue
+        _g = dict(_g)
+        _g["readings"] = _keep
+        _g["confidence"] = max(r.get("confidence", 0.0) for r in _keep)
+        out.append(_g)
+    out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
+    return out
+
+
 def tinanta_search(word: str, limit: int | None = None,
-                   with_upasarga: bool = True) -> List[dict]:
+                   with_upasarga: bool = True,
+                   precise: bool = False) -> List[dict]:
     """Tinanta-only search: one entry per dhatu with lakara-readings list."""
     _flat = _tinanta_flat(word, limit=500, with_upasarga=with_upasarga)
     _g = _group_tinanta(_flat)
+    if precise:
+        _g = _precise_filter(_g)
     return _g[:limit] if limit is not None else _g
 
 
@@ -3617,12 +3660,15 @@ def _attested_groups(word: str) -> List[dict]:
     return _attested_groups_from_rows(word, _rows)
 
 
-def analyze(word: str, limit: int | None = None) -> List[dict]:
+def analyze(word: str, limit: int | None = None,
+            precise: bool = False) -> List[dict]:
     """Global search: grouped per-dhatu/per-stem entries, best first.
 
     Tinanta groups carry ``readings`` (lakara list), krdanta groups carry
     ``readings`` (pratyaya list), subanta groups carry ``readings``
     (vibhakti list). No truncation by default; ``limit`` slices groups.
+    ``precise=True`` applies :func:`_precise_filter` (end-user mode);
+    default ``False`` keeps full recall for audit.
     """
     _ensure_ready()
     word = (word or "").strip()
@@ -3634,10 +3680,13 @@ def analyze(word: str, limit: int | None = None) -> List[dict]:
     out.extend(_group_tinanta(_tinanta_flat(word, limit=500)))
     out.extend(_attested_groups(word))
     out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
+    if precise:
+        out = _precise_filter(out)
     return out[:limit] if limit is not None else out
 
 
-def analyze_tin_krd(word: str, limit: int | None = None) -> List[dict]:
+def analyze_tin_krd(word: str, limit: int | None = None,
+                    precise: bool = False) -> List[dict]:
     """Tinanta+krdanta: heuristic + attested JSON fallback (no subanta).
 
     Fast audit path — ``check_exp`` scores tinanta/krdanta only, so
@@ -3653,24 +3702,30 @@ def analyze_tin_krd(word: str, limit: int | None = None) -> List[dict]:
     out.extend(_group_tinanta(_tinanta_flat(word, limit=500)))
     out.extend(_attested_groups(word))
     out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
+    if precise:
+        out = _precise_filter(out)
     return out[:limit] if limit is not None else out
 
 
-def best(word: str) -> dict | None:
+def best(word: str, precise: bool = False) -> dict | None:
     """Top-ranked grouped analysis, or None."""
-    _r = analyze(word, limit=1)
+    _r = analyze(word, limit=1, precise=precise)
     return _r[0] if _r else None
 
 
 def main(argv=None) -> int:
-    """CLI: deliver tinanta/krdanta/subanta results to the end user.
+    """CLI: precise tinanta/krdanta/subanta results for the end user.
 
-    Usage: python -m pypanini.search Bavati [--fast] [word ...]
-    Subanta included (unignored per user scope).
+    Usage: python -m pypanini.search Bavati [--recall] [--fast] [word ...]
+    Default is precision mode (verified, >= 0.8 tinanta/krdanta,
+    >= 0.7 subanta, attested always kept); ``--recall`` shows the full
+    heuristic + attested output that the 100% audit scores.
     """
     import argparse
     ap = argparse.ArgumentParser(description="PyPanini search (SLP1)")
     ap.add_argument("words", nargs="*", help="SLP1 word(s) to analyse")
+    ap.add_argument("--recall", action="store_true",
+                    help="full recall output (audit mode)")
     ap.add_argument("--fast", action="store_true",
                     help="skip engine verification (recall only)")
     ap.add_argument("--limit", type=int, default=6)
@@ -3683,7 +3738,8 @@ def main(argv=None) -> int:
         return 2
     for w in args.words:
         print(f"=== {w} ===")
-        for g in analyze(w, limit=args.limit):
+        for g in analyze(w, limit=args.limit,
+                         precise=not args.recall):
             if g["kind"] == "subanta":
                 _r = "; ".join(
                     f"{r['linga']}/{r['vibhakti']}/{r['vacana']}"
