@@ -89,7 +89,7 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
 ## Search 100% session log (2026-10-08, for future LLMs — do not reinvent)
 - Baseline sampled recall (seed 2, 80 fids = 8/gana, 8 tokens/fid = 640,
   `fid_expectations(do_engine=False)` + `analyze` + `check_exp`): 70%.
-  Current after fixes below: 84.1%. Round-trips perfect throughout
+  Current after fixes below: 85.2%. Round-trips perfect throughout
   (tinanta slot+root 540/540, krdanta 185/185). 49 tests + lint green.
 - Code (`pypanini/search.py`): `_yang_reverse` (tAtay->tay, beBrI->BrI,
   barIBar->Bar, lAlarb->larb, boBU->BU; long-A/e/o + arI/ar/aM/anI/alI redups,
@@ -121,11 +121,13 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   pozayAmAsuzI->puz, UcivAn->vac, saYcikampizitA/saNkampayeta hits,
   sezIyamARam->si SAnac (yang s/z + desatva); kvasu lit `_deEa` (e->a)
   + `_dental_n` D + `_deDeaspireInit` (B->b): beD/Band/Bant->banD
-  (beDivAn, beDuzI, biBantsAmbaBUvAn).
-- Known gaps (fix next, do not re-diagnose): san/nich secondaries
-  (nich liw/low/lw, yang_yak liw, yangluk laN); SAnac remainder
-  (tezwiGizyamARA->stiG); tavya/ac; yangluk non-lw ENGINE gap (tAtayyAt
-  not generated; search emits unverified).
+  (beDivAn, beDuzI, biBantsAmbaBUvAn); sam-san (`san`+dental->sam:
+  sandehay-), yang velar onset (c/C/j + K/g/G: coKol->Kol), lookup-cache
+  clear on ready (stale empty hits), ud-palatal coda (ucc-<-ud+c).
+- Known gaps (fix next, do not re-diagnose): nich periphrastic liw
+  (sandehayAmbaBUva-type Am+aux with sam), nich low/lw, yang_yak liw,
+  san luw, yangluk laN/low; tavya/ac; yangluk non-lw ENGINE gap
+  (tAtayyAt not generated; search emits unverified).
 - Perf blocker (measured): `_ensure_ready` ~5s/process; fast analyze
   ~0.012-0.018s/surface (Bavati first call 4.6s incl. warmup); one big fid
   (01.0001, 29k unique surfaces) ~7min; full 2259-file audit = hours-days
@@ -137,4 +139,4 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   "test_*.py"`.
 - Commits this session: yang/nich/yak/kvasu fixes (231b6e6), Q&A doc
   (791d4ef), CLI+fast-audit (163adca), satva/yang-onset SAnac (653cc38),
-  kvasu lit/deasp (c211253).
+  kvasu lit/deasp (c211253), sam-san/yang-velar/cache/ud (6f97e5e).
