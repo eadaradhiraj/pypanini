@@ -125,6 +125,12 @@ def _devrddhi(s: str) -> str:
              .replace("E", "i").replace("O", "u").replace("A", "a"))
 
 
+def _devrddhi_a(s: str) -> str:
+    """Reverse plain A-grade (tal <- tAl + aka: A -> a without consuming
+    a following r/l as vocalic R/L)."""
+    return s.replace("A", "a")
+
+
 def _decutva(s: str) -> str:
     """Reverse coH kuH (vaktA <- vac + tA): final k -> c."""
     if s.endswith("k"):
@@ -688,6 +694,7 @@ def _denasal_n(s: str) -> str:
 
 
 _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
+        ("vrddhia", _devrddhi_a),
         ("cutva", _decutva), ("thematic", _dethematic), ("double", _dedouble),
         ("nasal", _denasal), ("nasaln", _denasal_n), ("ur", _deur),
         ("urv", _deurv), ("ovo", _devo), ("uv", _deuv), ("yan", _deyan),
@@ -704,7 +711,8 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("vrddhi", _devrddhi),
         ("async", _deasyncope), ("dentn", _dental_n),
         ("aspire", _deaspire), ("aspire0", _deaspire_init)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "thematic": 0.9,
-            "irreg": 0.95, "vrddhi": 0.8, "cha": 0.8, "cutva": 0.75,
+            "irreg": 0.95, "vrddhi": 0.8, "vrddhia": 0.75, "cha": 0.8,
+            "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "double": 0.7, "nasal": 0.7, "nasaln": 0.65,
             "ovo": 0.7, "uv": 0.6, "yan": 0.75, "devoice": 0.6,
             "khari": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
@@ -1160,6 +1168,10 @@ def _krd_hits(base: str) -> list:
     _try(base)
     if base.endswith(("i", "I")) and len(base) > 2:
         _try(base[:-1])  # sew-iT before the affix (buBUzi -> buBUz -> BU)
+    if base.endswith(("aya", "Aya")) and len(base) > 4:
+        _try(base[:-3])  # Rejanta -aya- (tAlay -> tAl -> tal)
+    elif base.endswith(("ay", "Ay")) and len(base) > 3:
+        _try(base[:-2])
     return out
 
 
@@ -1242,7 +1254,7 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
                 _emit("anIyar", None, None, 0.5, "root unresolved")
             break
     if stem.endswith("ya") and len(stem) > 3:
-        for (_rt, _m, _via) in _krd_hits(_devrddhi(stem[:-2])):
+        for (_rt, _m, _via) in _krd_hits(stem[:-2]):
             _emit("yat", _rt, _m,
                   0.85 if _via not in ("abhyasa", "san") else 0.7,
                   f"root via {_via}")
@@ -1328,13 +1340,13 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
     # Rvul / tfc (+ ukaY agent noun: BAvuka <- BU)
     if stem.endswith("aka") or stem.endswith("ikA"):
         _b = stem[:-3]
-        for (_rt, _m, _via) in _krd_hits(_devrddhi(_b)):
+        for (_rt, _m, _via) in _krd_hits(_b):
             _emit("Rvul", _rt, _m,
                   0.85 if _via not in ("abhyasa", "san") else 0.7,
                   f"root via {_via}")
     if stem.endswith("uka") or stem.endswith("ukA"):
         _b = stem[:-3]
-        for (_rt, _m, _via) in _krd_hits(_devrddhi(_b)):
+        for (_rt, _m, _via) in _krd_hits(_b):
             _emit("ukaY", _rt, _m,
                   0.8 if _via not in ("abhyasa", "san") else 0.7,
                   f"root via {_via}")
