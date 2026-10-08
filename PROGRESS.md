@@ -148,6 +148,18 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   1.0 whole, verified heuristic >= 0.8 tinanta/krdanta, subanta >= 0.7;
   drops 0.7 single-grade guesses (dI/ad for dadat) and unverified
   ghosts. `dadat` precise: dA 1.0, dad/daD 0.85, subanta — no dI/ad.
+- dadat answers (image: 03.0010 dA+Satf): dad (01.0017, Atmanepadi)
+  forms NO Satf (engine Satf key absent; Satf is P-only) — heuristic
+  dad reading was overgeneration, now engine-refuted in precise via
+  `_verify_krd`/`_krd_engine_forms` (abstains only for kvasu/u/gsnu/ukaY
+  families the engine never emits). At-stem obliques added to _INV
+  (atA/ate/ataH/atOH/atAm/ati/atsu + dual adByAm/adBiH/adByaH, same for
+  vat; verify-gated): dadatsu->dadat 7.bahu, dadati->7.eka,
+  dadataH->2.bahu all resolve. Masculine at-dual/plural word recovery
+  (atO/ataH/antO/antaH/antam->dadat, mirroring the feminine branch):
+  dadatO->dA Satf. Satf abhyasa bumped to 0.85 (class-3 reduplication
+  is primary, like guna). Known SLP1-O wart: O-final dual au collides
+  with loc.sg o, so dadatO also shows coincidental a-stem readings.
 - Repro: `python -m pypanini.search Bavati [--fast]` (full analyze,
   subanta included); unit gate WITH fallback (needs the DB):
   `python -W ignore::ResourceWarning -m unittest discover -s tests -p
