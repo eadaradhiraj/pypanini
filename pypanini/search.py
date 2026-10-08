@@ -566,13 +566,14 @@ def _nich_reverse(core: str, suppletion_only: bool = False) -> List[str]:
             if _b and _b not in _keys:
                 _keys.append(_b)
             break
-    # thematic -a- and sew-iT variants of each key
+    # thematic -a-/-A- and sew-iT variants of each key
     for _k in list(_keys):
-        _a = _k[:-1] if _k.endswith("a") and len(_k) > 1 else _k
-        if _a not in _keys:
-            _keys.append(_a)
-        if _a.endswith(("i", "I")) and len(_a) > 1 and _a[:-1] not in _keys:
-            _keys.append(_a[:-1])
+        for _sfx in ("a", "A"):
+            _a = _k[:-1] if _k.endswith(_sfx) and len(_k) > 1 else _k
+            if _a not in _keys:
+                _keys.append(_a)
+            if _a.endswith(("i", "I")) and len(_a) > 1 and _a[:-1] not in _keys:
+                _keys.append(_a[:-1])
     out: List[str] = []
     for _k in _keys:
         for _o in _NICH_SUPPLETION.get(_k, []):
@@ -2036,6 +2037,11 @@ _TIN_P: List[tuple] = [
     ("an", "laN", "prathama", "bahu"), ("tAm", "laN", "prathama", "dvi"),
     ("t", "laN", "prathama", "eka"), ("aH", "laN", "madhyama", "eka"),
     ("tam", "laN", "madhyama", "dvi"), ("ta", "laN", "madhyama", "bahu"),
+    # length-grade twins (ErATAm <- Ir + laN madh-dvi with long-A stem
+    # vowel; EH <- i + laN madh-eka fused augment; asnAn <- snA prath-
+    # bahu): same slot as the short twin, engine-verified to keep >=0.8
+    ("TAm", "laN", "madhyama", "dvi"), ("H", "laN", "madhyama", "eka"),
+    ("An", "laN", "prathama", "bahu"),
     ("am", "laN", "uttama", "eka"), ("va", "laN", "uttama", "dvi"),
     ("ma", "laN", "uttama", "bahu"),
     ("Am", "laN", "uttama", "eka"),
@@ -2449,7 +2455,10 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                   ("yAma", "uttama", "bahu"), ("yAtAm", "prathama", "dvi"),
                   ("yuH", "prathama", "bahu"),
                   ("yAtam", "madhyama", "dvi"),
-                  ("yAta", "madhyama", "bahu")]
+                  ("yAta", "madhyama", "bahu"),
+                  # long-A retroflex twin (BindIyATAm <- Bid + viDiliN
+                  # madh-dvi; engine spells m-dvi yATAm vs p-dvi yAtAm)
+                  ("yATAm", "madhyama", "dvi")]
     # ASIrliN Atmanepada s-forms (-sIy-): vedizIzwa, vedizIran (+z twins)
     for _suf, _pur, _vac in _ASI:
         if word.endswith(_suf) and len(word) > len(_suf):
@@ -2622,6 +2631,12 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     _acc_hits(_atm_hits, [_o], "nich-suppletion", "nijanta")
             for (_rt, _m, _via, _sd) in _atm_hits:
                 _emit(_rt, _m, "ASIrliN", _pur, _vac, _via, 0.75, _stem,
+                      "Atmanepada", _sanadi=_sd)
+                # -Iya-/-Ivahi shapes double as viDiliN (pratanvIvahi <-
+                # tan + viDiliN utt-dvi, engine-verified; mirrors the -yA-
+                # vidhi-twin in the parasmaipada branch above)
+                _emit(_rt, _m, "viDiliN", _pur, _vac, _via, 0.65,
+                      _stem + " (vidhi-twin of -Iya- formation)",
                       "Atmanepada", _sanadi=_sd)
             if _atm_hits:
                 break
@@ -3307,6 +3322,62 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                             _d["note"] = (_d.get("note", "") + "; unverified").strip("; ")
                         out.append(_d)
                         _emitted_primary = True
+                        # luw twin of Atmanepada lw (samazwADve <- aS + luw:
+                        # the -tA- fuses into the stem, surfacing under the
+                        # lw ending; engine-verified to keep >=0.8, else
+                        # recall-only like other twins)
+                        if _lak == "lw" and _pada == "Atmanepada":
+                            _ld = {"kind": "tinanta", "purusha": _pur,
+                                   "vacana": _vac, "pada": _pada,
+                                   "prayoga": _d.get("prayoga", "kartari"),
+                                   "lakara": "luw", "confidence": 0.7,
+                                   "ending": _end}
+                            _ld.update(_root_details(_m))
+                            _ld["pada"] = _pada
+                            _ld["note"] = (f"root via {_via} from stem "
+                                           f"'{_core}' (luw-twin of lw shape)")
+                            if _no_aug:
+                                _ld["confidence"] *= 0.6
+                                _ld["note"] += "; augment a- missing"
+                            if upasarga:
+                                _ld["upasarga"] = upasarga
+                            _lok = _verify_tin(_ww, _rt, "luw", _pur, _vac,
+                                                _ld["prayoga"], _vsan,
+                                                _ids[0], upasarga)
+                            if not _lok:
+                                _ld["confidence"] = max(
+                                    0.1, _ld["confidence"] * 0.5)
+                                _ld["note"] += "; unverified"
+                            out.append(_ld)
+                        # viDiliN twin of Atmanepada laN on I-stems
+                        # (parAvfjITAH <- vfj + viDiliN: I-stems take
+                        # laN-shaped TAH/ta endings; engine-verified to
+                        # keep >=0.8, else recall-only like other twins)
+                        if _lak == "laN" and _pada == "Atmanepada" and \
+                                _core.endswith(("i", "I")):
+                            _vd = {"kind": "tinanta", "purusha": _pur,
+                                   "vacana": _vac, "pada": _pada,
+                                   "prayoga": _d.get("prayoga", "kartari"),
+                                   "lakara": "viDiliN", "confidence": 0.7,
+                                   "ending": _end}
+                            _vd.update(_root_details(_m))
+                            _vd["pada"] = _pada
+                            _vd["note"] = (f"root via {_via} from stem "
+                                           f"'{_core}' (vidhi-twin of "
+                                           f"laN-I-stem shape)")
+                            if _no_aug:
+                                _vd["confidence"] *= 0.6
+                                _vd["note"] += "; augment a- missing"
+                            if upasarga:
+                                _vd["upasarga"] = upasarga
+                            _vok = _verify_tin(_ww, _rt, "viDiliN", _pur,
+                                                _vac, _vd["prayoga"], _vsan,
+                                                _ids[0], upasarga)
+                            if not _vok:
+                                _vd["confidence"] = max(
+                                    0.1, _vd["confidence"] * 0.5)
+                                _vd["note"] += "; unverified"
+                            out.append(_vd)
                         for (_ert, _em, _evia) in _extra_hits:
                             _emit_extra(_ert, _em, _evia)
                     if not _emitted_primary:
@@ -3388,6 +3459,22 @@ def _prefix_splits(word: str) -> List[tuple]:
             # no break: nirX can be nir + X or ni + rX (ruruts- stems);
             # pratiX can be prati + X or pra + tiX. Garbage rests fail
             # lookup; dedup collapses repeats.
+    # boundary length-fusion: prefix-final short vowel lengthens before a
+    # vowel-initial rest (api + Iza -> apIza, i + I -> I; upa + U- -> upU-).
+    # The rest keeps its long vowel (lookup de-lengthens: Iza -> iz).
+    # Only fires when the literal split missed (else duplicates).
+    _LEN_FUSE = {"a": ("A",), "i": ("I",), "u": ("U",)}
+    for _p in sorted(_UPASARGAS, key=lambda s: (len(s), s), reverse=True):
+        if not _p or _p[-1] not in _LEN_FUSE:
+            continue
+        _stem = _p[:-1]
+        for _lv in _LEN_FUSE[_p[-1]]:
+            if word.startswith(_stem + _lv) and \
+                    len(word) - len(_stem) >= 3:
+                _rest = _lv + word[len(_stem) + 1:]
+                if _rest and all(_r != _rest for (_, _r) in cands):
+                    cands.append((_p, _rest))
+                break
     # augment fusion: prefix + laN/luN/lfN augment a- fuse
     # (pra + aBavata -> prABavata: a + a -> A; parA + a -> parA,
     # invisible). The rest restores the augment vowel for table matching.

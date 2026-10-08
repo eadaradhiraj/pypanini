@@ -184,6 +184,13 @@ def _asirlin_para_slot(item):
         ("yAsam", ("uttama", "eka")),
         ("yAsva", ("uttama", "dvi")),
         ("yAsma", ("uttama", "bahu")),
+        ("yAtAm", ("prathama", "dvi")),
+        ("yuH", ("prathama", "bahu")),
+        ("yAtam", ("madhyama", "dvi")),
+        ("yAta", ("madhyama", "bahu")),
+        ("yAm", ("uttama", "eka")),
+        ("yAva", ("uttama", "dvi")),
+        ("yAma", ("uttama", "bahu")),
         ("yAt", ("prathama", "eka")),
         ("yAd", ("prathama", "eka")),
         ("yAH", ("madhyama", "eka")),
@@ -240,6 +247,11 @@ def positional_slots_list(items, lakara):
         _patslots = [SLOTS9[i] for i in (0, 0, 0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8)]
     elif m == 10 and _same_slot_variant(dedup[0], dedup[1]):
         _patslots = [SLOTS9[i] for i in (0, 0, 1, 2, 3, 4, 5, 6, 7, 8)]
+    elif m == 11 and _same_slot_variant(dedup[0], dedup[1]):
+        # t/d-twin head + uH sharing prath-bahu (snA plang 11-item:
+        # asnAt/asnAd slot0, asnAtAm 1, asnAn/asnuH slot2, asnAH 3, ...).
+        # uH is prath-bahu in luN/liT; in a laN list it fills slot2.
+        _patslots = [SLOTS9[i] for i in (0, 0, 1, 2, 2, 3, 4, 5, 6, 7, 8)]
     elif m == 18:
         # yak seT/aniT grade pairs (prAyiz/prAs x 9 slots): even/odd share
         _patslots = [SLOTS9[i // 2] for i in range(18)]
@@ -255,11 +267,11 @@ def positional_slots_list(items, lakara):
         # madh-bahu Q/D twin makes 6): ending identity per item, exact
         # like ending_slots (search emits the same suffix->slot).
         _patslots = [_asirlin_atm_slot(_t) for _t in dedup]
-    elif lakara == "ASIrliN" and all(
+    elif lakara in ("ASIrliN", "viDiliN") and all(
             _asirlin_para_slot(_t) is not None for _t in dedup):
-        # ASIrliN parasmaipada interleave (snA 20-item: snAy-/sney-
-        # grades x 10 suffixes, yAt/yAd share prath-eka): ending
-        # identity per item.
+        # parasmaipada yA/vidhi interleave (snA 20-item snAy-/sney-,
+        # AN-ru 20-item ruy-/ruvIy- t/d twins: yAt/yAd share prath-eka):
+        # ending identity per item (search emits the same + viDiliN twin).
         _patslots = [_asirlin_para_slot(_t) for _t in dedup]
     elif m == 27:
         # 3-variant interleave per slot (9 slots x 3)
@@ -282,6 +294,13 @@ def positional_slots_list(items, lakara):
     elif m == 54:
         # 6-variant interleave per slot (saMtitarIzi-type, 9 x 6)
         _patslots = [SLOTS9[i // 6] for i in range(54)]
+    elif m == 22:
+        # 2-per-slot with u-grade 4-tails (kziR alang 22-item: ta/vAtAm/
+        # vata/uTAH/vATAm/uDvam/Rvi pairs, vahi/mahi quads) — engine +
+        # search endings agree (vAtAm prath-dvi, vATAm madh-dvi).
+        _patslots = [SLOTS9[i] for i in
+                     (0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6,
+                      7, 7, 7, 7, 8, 8, 8, 8)]
     else:
         # sequential group assignment with overflow pin
         _patslots = [SLOTS9[min(i, 8)] for i in range(m)]
