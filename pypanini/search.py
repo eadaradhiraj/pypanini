@@ -439,6 +439,15 @@ def _deND(s: str) -> str:
     return _re.sub(r"([iIfFuU])n$", r"\1d", s, count=1)
 
 
+def _desmobile(s: str) -> str:
+    """Reverse s-mobile (skar <- kf + ... with initial s before a stop
+    + a-grade: s-dropped twin closes via guna; sole kf surveyed).
+    i/u-grades excluded (sTira stays uNAdi kira: no krdanta reading
+    per test_unadi_boundary); lookup-gated narrow twin."""
+    import re as _re
+    return _re.sub(r"^s(?=[kKgGcCjJtTdDpPbB][aA])", "", s, count=1)
+
+
 def _deaspire(s: str) -> str:
     """Reverse final aspiration loss (lab <- laB + ...): final stop
     regains aspiration."""
@@ -1029,7 +1038,26 @@ def _yanluk_reverse(core: str) -> List[str]:
 def _abhyasa_reverse(core: str) -> List[str]:
     """Undo class-3 reduplication (dadA <- dA, juhu <- hu, bibhar <- Bf).
     Returns candidate roots. Only the reduplicant shape is constrained;
-    every candidate must still hit the root lexicon to count."""
+    every candidate must still hit the root lexicon to count.
+    s-mobile twins ride along (cakar <- caskar + ... with s before a
+    stop; sole kf surveyed): the s-dropped base reduplicates normally.
+    Lookup-gated by callers."""
+    import re as _re
+    _bases = [core]
+    _sm = _re.sub(r"s(?=[kKgGcCjJtTdDpPbB])", "", core, count=1)
+    if _sm != core and len(_sm) >= 3 and _sm not in _bases and \
+            not core.startswith("s"):
+        _bases.append(_sm)
+    out: List[str] = []
+    for _base in _bases:
+        _hit = _abhyasa_inner(_base)
+        for _h in _hit:
+            if _h not in out:
+                out.append(_h)
+    return out
+
+
+def _abhyasa_inner(core: str) -> List[str]:
     if len(core) < 3 or core[1] not in _ABHYASA_GRADE:
         return []
     _ab, _rest = core[:2], core[2:]
@@ -1264,7 +1292,9 @@ def _sec_expand(cands: List[str]) -> List[str]:
     Rejanta causatives (nAway- <- naw) and passive yak stems (BUya- <- BU)
     hide the root under -aya-/-ya- in affixed lakara branches (luT/lfT/
     ASIrliN/luN/liT/periphrastic) whose own _cands only strip iT/M.
-    Lookup-gated: false strips fail the root lexicon."""
+    s-mobile stems (skar <- kf + luw with s-mobile; sole 08.0010
+    surveyed) drop the s before stops. Lookup-gated: false strips
+    fail the root lexicon."""
     out = list(cands)
     for _c in list(cands):
         _stripped = None
@@ -1281,6 +1311,10 @@ def _sec_expand(cands: List[str]) -> List[str]:
             # nijanta -p- augment (arpay- <- f: arp -> ar -> f via guna)
             if _stripped[:-1] not in out:
                 out.append(_stripped[:-1])
+        import re as _re
+        _sm = _re.sub(r"s(?=[kKgGcCjJtTdDpPbB])", "", _c, count=1)
+        if _sm != _c and _sm not in out:
+            out.append(_sm)
         if _c.endswith("ya") and len(_c) > 2:
             if _c[:-2] not in out:
                 out.append(_c[:-2])
@@ -1563,6 +1597,7 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("gunaf", _deguna_f),
         ("naloR", _denaloR), ("deM", _deM), ("deMplace", _deMplace),
         ("demlab", _demlabial), ("derot", _derot),
         ("denfin", _denfin), ("denaNa", _denaNa), ("deND", _deND),
+        ("smobile", _desmobile),
         ("deGhn", _deGhn), ("dea", _dea),
         ("depagama", _depagama),
         ("ap", _deap), ("riF", _deriF), ("vonset", _devoice_onset),
@@ -1586,7 +1621,7 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "gunaf": 0.6,
             "samy": 0.65, "samu": 0.65, "samF": 0.65, "ks_z": 0.6,
             "ks_k": 0.6, "ks_kh": 0.6, "deY": 0.6, "nalo": 0.6, "naloR": 0.6, "deM": 0.6,
             "deMplace": 0.6, "demlab": 0.6, "derot": 0.6, "denfin": 0.6,
-            "denaNa": 0.6, "deND": 0.6,
+            "denaNa": 0.6, "deND": 0.6, "smobile": 0.6,
             "deGhn": 0.65, "dea": 0.6,
             "depagama": 0.6,
             "ap": 0.6, "riF": 0.65, "vonset": 0.55, "async": 0.55,
@@ -2378,6 +2413,11 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
     elif stem.endswith("wA") and len(stem) > 3:
         # zwutva -wA- allomorph (pezwA <- piz + tfc with z + tfc
         # fusing; sole 07.0015 surveyed); lookup-gated as above
+        _tfc_cands = [stem[:-2]]
+    elif stem.endswith("rtA") and len(stem) > 4:
+        # luw-shaped tfc filing (skartA <- kf + ... filed under tfc;
+        # sole 08.0010 surveyed); s-mobile + graded closure below,
+        # engine-verify gates precision
         _tfc_cands = [stem[:-2]]
     if _tfc_cands:
         _tseen = set()
