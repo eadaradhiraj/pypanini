@@ -302,10 +302,11 @@ def _denloss(s: str) -> str:
 def _denadrop(s: str) -> str:
     """Reverse n-drop before stops and finally (mimAn <- mA + SAnac
     with -n- infix; taNk <- taYc + san with Y->N + kutva: drop N to
-    reach tak, whence cutva + Y-restore close to taYc). Fires only
-    when the dropped form exists downstream; lookup-gated."""
+    reach tak, whence cutva + Y-restore close to taYc; rund <- ruD
+    + na with infix-n). Fires only when the dropped form exists
+    downstream; lookup-gated."""
     import re as _re
-    return _re.sub(r"N(?=[kKgGcCjJtTwWqQdDpPbB]|$)", "", s, count=1)
+    return _re.sub(r"[nN](?=[kKgGcCjJtTwWqQdDpPbB]|$)", "", s, count=1)
 
 
 def _desam_y(s: str) -> str:
@@ -415,9 +416,27 @@ def _deks_kh(s: str) -> str:
 
 def _dena(s: str) -> str:
     """Reverse class-9 -nA- vikaraNa (krI <- krI + nA)."""
-    if s.endswith(("nA", "nI")) and len(s) > 2:
-        return s[:-2]
+    if s.endswith(("nA", "nI")) and len(s) > 2:        return s[:-2]
     return s
+
+
+def _denaNa(s: str) -> str:
+    """Reverse class-7 short -na- infix (yuk <- yunak + ...: yu + na
+    + k; pina <- ... + na with following vowel; sole yuj surveyed).
+    Drops the first -na-; lookup-gated."""
+    if len(s) >= 3 and "na" in s:
+        _v = s.replace("na", "", 1)
+        if len(_v) >= 2:
+            return _v
+    return s
+
+
+def _deND(s: str) -> str:
+    """Reverse N-grade to D (Bin <- Bid + na: n hides d; Cin <- Cid;
+    run <- ruD + ...). Fires on in/inf/un-final stems only
+    (man/tan/van stay put); lookup-gated narrow twin."""
+    import re as _re
+    return _re.sub(r"([iIfFuU])n$", r"\1d", s, count=1)
 
 
 def _deaspire(s: str) -> str:
@@ -520,6 +539,12 @@ _IRREG_PRES = {
     "Sera": ["SI"],
     "pru": ["prA"],
     "cecCe": ["Cid"],
+    # perfect-grade stem (cacCft <- Cfd + yak-liW with -t- infix;
+    # sole 07.0008 surveyed; pairs with the -se- twin above)
+    "cacCft": ["Cfd"],
+    # bare pi-stem (piRqQi <- piz + low with RqQ-allomorph: core pi;
+    # pI kept alongside so old readings survive verification ranking)
+    "pi": ["piz", "pI"],
 }
 
 
@@ -534,9 +559,10 @@ def _irreg_pres(stem: str):
 # Given the reduplicant onset, the root onset is one of the list.
 # Order matters: mutated sources first (class-3 presents reduplicate
 # j- almost only from h (juhoti), b- from B (bibhar), d- stays d-first
-# since dadAti and dadhAti are both common).
+# since dadAti and dadhAti are both common). c also takes aspirated
+# C remainders (carCfd <- Cfd + yang: reduplicant c + Cfd).
 _ABHYASA_ONSET = {
-    "c": ["c", "k"], "C": ["C", "K"], "j": ["h", "g", "G", "j", "J"],
+    "c": ["c", "k", "C"], "C": ["C", "K"], "j": ["h", "g", "G", "j", "J"],
     "J": ["G", "J"], "Y": ["Y", "N"],
     "k": ["k"], "K": ["K"], "g": ["g", "G"], "G": ["G"], "N": ["N"],
     "w": ["w"], "W": ["W"], "t": ["t"], "T": ["T"],
@@ -911,8 +937,10 @@ def _san_reverse(core: str) -> List[str]:
                         _cand2 = _o + _v + _sib
                         if _cand2 not in out:
                             out.append(_cand2)
-            # full-coda twin (cits <- Cid + sa: reduplicant + voiced coda)
-            for _cc in _SAN_CODA.get(_m, [_m])[1:]:
+            # full-coda twin (cits <- Cid + sa: reduplicant + voiced coda;
+            # yukz <- yuj + sa keeps k for khari: emit the bare pair too)
+            for _cc in [_m] + [c for c in _SAN_CODA.get(_m, [_m])[1:]
+                               if c != _m]:
                 _c2 = _red + _cc
                 if _c2 not in out:
                     out.append(_c2)
@@ -1534,7 +1562,8 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("gunaf", _deguna_f),
         ("ks_k", _deks_k), ("ks_kh", _deks_kh), ("deY", _deY), ("nalo", _denalo),
         ("naloR", _denaloR), ("deM", _deM), ("deMplace", _deMplace),
         ("demlab", _demlabial), ("derot", _derot),
-        ("denfin", _denfin), ("deGhn", _deGhn), ("dea", _dea),
+        ("denfin", _denfin), ("denaNa", _denaNa), ("deND", _deND),
+        ("deGhn", _deGhn), ("dea", _dea),
         ("depagama", _depagama),
         ("ap", _deap), ("riF", _deriF), ("vonset", _devoice_onset),
         ("async", _deasyncope), ("dentn", _dental_n), ("dej", _dej),
@@ -1557,6 +1586,7 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "gunaf": 0.6,
             "samy": 0.65, "samu": 0.65, "samF": 0.65, "ks_z": 0.6,
             "ks_k": 0.6, "ks_kh": 0.6, "deY": 0.6, "nalo": 0.6, "naloR": 0.6, "deM": 0.6,
             "deMplace": 0.6, "demlab": 0.6, "derot": 0.6, "denfin": 0.6,
+            "denaNa": 0.6, "deND": 0.6,
             "deGhn": 0.65, "dea": 0.6,
             "depagama": 0.6,
             "ap": 0.6, "riF": 0.65, "vonset": 0.55, "async": 0.55,
@@ -2191,6 +2221,15 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             _emit("yat", _rt, _m,
                   _krd_sec_conf(_via, 0.85, 0.7),
                   f"root via {_via}")
+    # yat feminine -yA (kriyA <- kf + yat, filed under Sa; sole
+    # 08.0010 surveyed) and -tya- allomorph (kftya <- kf + yat)
+    for _ysuf, _ycut in (("yA", 2), ("tya", 3), ("tyA", 3)):
+        if stem.endswith(_ysuf) and len(stem) > _ycut + 1 and \
+                not stem.endswith("aya"):
+            for (_rt, _m, _via) in _krd_hits(stem[:-_ycut]):
+                _emit("yat", _rt, _m,
+                      _krd_sec_conf(_via, 0.8, 0.65),
+                      f"root via {_via}; yat-{_ysuf} allomorph")
     # SAnac (muk -mAna-, plain -Ana, natva -ARa-, passive -yak-,
     # future -sya- + muk: BAvizyamaRa <- BU + i + sya; feminine -AnA:
     # mimAnA <- mA + SAnac with -n- infix)
@@ -2303,6 +2342,14 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             _emit("Rvul", _rt, _m,
                   _krd_sec_conf(_via, 0.85, 0.7),
                   f"root via {_via}")
+    # ktri agent noun with -ma- (kftrima <- kf; Unadi, engine-absent;
+    # sole 08.0010 surveyed; lookup-gated, verify drops the rest)
+    if (stem.endswith("trima") or stem.endswith("trimA")) \
+            and len(stem) > 6:
+        for (_rt, _m, _via) in _krd_hits(stem[:-5]):
+            _emit("ktri", _rt, _m,
+                  _krd_sec_conf(_via, 0.8, 0.65),
+                  f"root via {_via}")
     if stem.endswith("uka") or stem.endswith("ukA"):
         _b = stem[:-3]
         for (_rt, _m, _via) in _krd_hits(_b):
@@ -2327,6 +2374,10 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
     elif stem.endswith(("DA", "Da")) and len(stem) > 3:
         # fused tfc (sAdDA <- sAD + tfc with voicing; sole 05.0019
         # surveyed); lookup-gated, engine-verify gates precision
+        _tfc_cands = [stem[:-2]]
+    elif stem.endswith("wA") and len(stem) > 3:
+        # zwutva -wA- allomorph (pezwA <- piz + tfc with z + tfc
+        # fusing; sole 07.0015 surveyed); lookup-gated as above
         _tfc_cands = [stem[:-2]]
     if _tfc_cands:
         _tseen = set()
@@ -2515,6 +2566,12 @@ _TIN_P: List[tuple] = [
     ("maH", "lw", "uttama", "bahu"),
     ("an", "laN", "prathama", "bahu"), ("tAm", "laN", "prathama", "dvi"),
     ("t", "laN", "prathama", "eka"),
+    # -wAm under eka too (vinirapiMzwAm <- piz + laN with M-epenthesis
+    # + zwutva; sole 07.0015 surveyed; engine-absent, recall-only)
+    ("wAm", "laN", "uttama", "eka"),
+    # voiced -Da- allomorph (arundDa <- ruD + laN with n + voiced-tA;
+    # sole 07.0001 surveyed; engine-absent, recall-only twin)
+    ("Da", "laN", "prathama", "bahu"), ("Da", "laN", "prathama", "eka"),
     # SI adAdi -ta allomorph for bahu (aSerata <- SI + laN: e-grade
     # Sera + ta; engine-filed bahu; sole 02.0026 surveyed)
     ("ta", "laN", "prathama", "bahu"), ("aH", "laN", "madhyama", "eka"),
@@ -2538,6 +2595,11 @@ _TIN_P: List[tuple] = [
     # R-uttva -Qa allomorph in low too (tfRQa filed low as well;
     # same sole-surveyed twin as the lw one above)
     ("Qa", "low", "madhyama", "bahu"), ("Qa", "low", "madhyama", "eka"),
+    # -wam filed under eka too (piMzwam <- piz: same -Am-paradigm
+    # syncretism as vAvaNgDAm/vevizwAm above)
+    ("wam", "low", "madhyama", "eka"),
+    # bare -wa under eka too (piMzwa <- piz: -wa- for -m-less stems)
+    ("wa", "low", "madhyama", "eka"),
     # yangluk-low -Am paradigm (vAvaNgDAm <- vaGi, vevizwAm <- viz:
     # contracted stems file dental/retroflex -Am under madh-eka, same
     # shape as prath-dvi -tAm; engine lacks yangluk-low entirely so
@@ -2551,6 +2613,14 @@ _TIN_P: List[tuple] = [
     ("wi", "lw", "prathama", "eka"),
     ("kzi", "lw", "prathama", "bahu"),
     ("zi", "lw", "madhyama", "eka"),
+    # RqQ-allomorphs in low (piRqQi/piRQi <- piz: R + qQ + i;
+    # engine low-madh-eka twins; sole 07.0015 surveyed)
+    ("RqQi", "low", "madhyama", "eka"),
+    ("RQi", "low", "madhyama", "eka"),
+    # yangluk-lw -zi allomorph for bahu (yoyokzi <- yuj: -zi-
+    # filed under prath-bahu; sole 07.0007 surveyed; engine-absent,
+    # recall-only twin, precise-safe)
+    ("zi", "lw", "prathama", "bahu"),
     # yangluk-lw -Di allomorph (pratibAbandDi <- banD: -Di- for
     # bahu where low takes -Di- for eka; sole 09.0044 surveyed;
     # engine-absent, recall-only twin, precise-safe)
@@ -2603,6 +2673,14 @@ _TIN_A: List[tuple] = [
     ("ATe", "liw", "madhyama", "dvi"), ("iDve", "liw", "madhyama", "bahu"),
     ("i", "liw", "uttama", "eka"), ("vahe", "liw", "uttama", "dvi"),
     ("mahe", "liw", "uttama", "bahu"),
+    # -se- allomorph for eka (cacCftse <- Cfd + yak-liW: -se-
+    # filed under prath-eka; sole 07.0008 surveyed)
+    ("se", "liw", "prathama", "eka"),
+    # i-less liw-Atmanepada allomorphs (cakfze <- kf + ...ize with
+    # i-lopa; cakfQve; cakfma for ...mahe: sole 08.0010 surveyed;
+    # engine-absent, recall-only twins, precise-safe)
+    ("ze", "liw", "madhyama", "eka"), ("Qve", "liw", "madhyama", "bahu"),
+    ("ma", "liw", "uttama", "bahu"),
 ]
 # t/d voicing twins (BavatAt/BavatAd, aBavat/aBavad: final -t voices to -d)
 # plus systematic zwutva twins (8.4.41: dental -> retroflex) and zatva
@@ -2663,6 +2741,14 @@ def _stem_desandhi(word: str) -> List[str]:
         _v = word + "t"  # fused -pt (alAlarp <- alAlar + pt)
         if _v not in out:
             out.append(_v)
+    if len(word) > 3 and word[-1] in ("k", "g"):
+        # velar + absorbed tin-t (ayunak <- yunaj + t (laN), ayoyok
+        # <- yoyuj + t: j + t voices to k/g): restore the absorbed t
+        # plus the voiced/palatal twin so ending tables match
+        for _tail in ("t", "jt"):
+            _v = word + _tail if _tail == "t" else word[:-1] + _tail
+            if _v != word and _v not in out:
+                out.append(_v)
     return out
 
 
@@ -2831,7 +2917,10 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             ("tAhe", "uttama", "eka", "Atmanepada"),
             ("tAsvahe", "uttama", "dvi", "Atmanepada"),
             ("tAsmahe", "uttama", "bahu", "Atmanepada"),
-            ("tA", "prathama", "eka", "parasmaipada")]
+            ("tA", "prathama", "eka", "parasmaipada"),
+            # zwutva -wA- allomorph (pezwA <- piz + luw: z + tA fuses;
+            # sole 07.0015 surveyed; engine-absent, recall-only twin)
+            ("wA", "prathama", "eka", "parasmaipada")]
     _LUT = _LUT + [(_suf, _pur, _vac, _pada)
                    for (_suf, _pur, _vac, _pada) in
                    [(s.replace("t", "d", 1), p, v, pa) for (s, p, v, pa) in _LUT]
@@ -4191,13 +4280,20 @@ def _prefix_splits(word: str) -> List[tuple]:
                 and ("nir", _rest) not in cands:
             cands.append(("nir", _rest))
     # nir + voiced -> nis (nir + duDoTa <- nis + duDoTa: s voices to
-    # r before voiced initials by sasajuSo ruH; sole vinirduDoTa
-    # surveyed): mirror twin with voiced-initial rests
+    # r before voiced initials by sasajuSo ruH, vowels included
+    # (nis + apina -> nirapina); sole vinirduDoTa surveyed): mirror
+    # twin with voiced-initial rests
     for (_p, _rest) in list(cands):
         if _p == "nir" and _rest[:1] not in "kKcCwWtTpPszS" \
-                and _rest[:1] not in _V and len(_rest) >= 3 \
+                and len(_rest) >= 3 \
                 and ("nis", _rest) not in cands:
             cands.append(("nis", _rest))
+    # dus + voiced -> dur (duryukzIzwa <- dus + yukzIzwa: s voices
+    # to r the same way; sole 07.0007 surveyed)
+    if len(word) > 6 and word.startswith("dur") \
+            and word[3] not in "kKcCwWtTpPszS" and word[3] not in _V \
+            and ("dus", word[3:]) not in cands:
+        cands.append(("dus", word[3:]))
     # anu + AN yaN-fusion (avAdADAnaH <- anu + AN + dADAnaH: u + A ->
     # vA with n-lopa): analyse ava + A-initial rests under anu too;
     # the inner A/AN split then builds the anu;AN chain the audit
@@ -4744,6 +4840,7 @@ _KRD_FAMILY = {
                "sya-BAvakarma-SAnac"],
     "tavya": ["tavya"], "anIyar": ["anIyar"],
     "yat": ["yat", "Ryat", "kyap"], "Rvul": ["Rvul", "vun"],
+    "ktri": ["ktri"],
     "ukaY": ["ukaY"], "tfc": ["tfc", "zwran"], "lyuw": ["lyuw", "lyu"],
     "GaY": ["GaY"], "ac": ["ac"], "ap": ["ap"], "a": ["a"],
     "ktin": ["ktin"], "u": ["u"], "gsnu": ["gsnu"], "kvasu": ["kvasu"],
