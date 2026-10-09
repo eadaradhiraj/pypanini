@@ -62,7 +62,10 @@ PRAT_FAMILY = {"cAnaS": "SAnac", "BAvakarma-SAnac": "SAnac",
                "sya-SAnac": "SAnac", "sya-BAvakarma-SAnac": "SAnac",
                "sya-Satf": "Satf",
                "Ryat": "yat", "kyap": "yat", "vun": "Rvul",
-               "zwran": "tfc"}
+               "zwran": "tfc",
+               # Unadi -Aka agent noun (varAka <- vf) files under the
+               # search-side aka label Rvul (engine-absent formation)
+               "zAkan": "Rvul"}
 BASE_LAKARA = {"lat": "lw", "lang": "laN", "lot": "low",
                "vidhiling": "viDiliN", "lit": "liw", "lut": "luw",
                "rut": "lfw", "rung": "lfN", "ung": "luN",

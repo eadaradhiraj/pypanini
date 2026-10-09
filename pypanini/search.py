@@ -73,7 +73,8 @@ def _ensure_ready() -> None:
     # lookup-gated graded closure never reaches sad from Asanna either).
     # ktavatu rides along (Asannavat <- Asanna stem strip in
     # _krdanta_from_stem). Analyzer-only; zero generation impact.
-    for _sup, _owner in (("Asanna", "sad"),):
+    # ukta <- vac + ta (samprasarana; _kta_stem yields vakta instead).
+    for _sup, _owner in (("Asanna", "sad"), ("ukta", "vac")):
         if _owner in _ROOTS:
             _KTA_MAP.setdefault(_sup, [])
             if _owner not in _KTA_MAP[_sup]:
@@ -279,6 +280,26 @@ def _demrestore(s: str) -> str:
     return s
 
 
+def _denloss(s: str) -> str:
+    """Reverse n-loss before final stops (graT <- granT yang: n dropped).
+
+    Nasal-infix roots lose the nasal in secondary grades; fires only
+    when the restored form exists in the lexicon (17 root pairs).
+    Lookup-gated narrow twin."""
+    if len(s) > 2 and s[-1] in "tTdDpPbBkKgGcCjJ":
+        return s[:-1] + "n" + s[-1:]
+    return s
+
+
+def _denadrop(s: str) -> str:
+    """Reverse n-drop before stops and finally (mimAn <- mA + SAnac
+    with -n- infix; taNk <- taYc + san with Y->N + kutva: drop N to
+    reach tak, whence cutva + Y-restore close to taYc). Fires only
+    when the dropped form exists downstream; lookup-gated."""
+    import re as _re
+    return _re.sub(r"N(?=[kKgGcCjJtTwWqQdDpPbB]|$)", "", s, count=1)
+
+
 def _desam_y(s: str) -> str:
     """Reverse y-grade samprasarana with z-coda (jFz <- jIrya + ...:
     Iry/iry/Ury/ury hide F + z)."""
@@ -401,6 +422,38 @@ def _deaspire_init(s: str) -> str:
     return s
 
 
+def _homonym_twins(clean: str) -> List[str]:
+    """Generative homonym twins for a lexicon root (no per-root lists).
+
+    Productive alternations create same-surface roots that no grade
+    reversal can tell apart (only attested fid knowledge can): seT
+    iT-augmentation (Suc/ISuc: identical nich/yang/yangluk paradigms),
+    o-grade convergence (dA/do: dAtavya, dAdA-), and nasal infixation
+    (SuB/SunB, baD/banD, rah/ranh: 23 lexicon pairs). Each fires only
+    when the twin exists in the root lexicon. Callers keep them
+    recall-only (via ``homonym``)."""
+    out: List[str] = []
+    if len(clean) >= 2 and ("I" + clean) in _ROOTS \
+            and ("I" + clean) != clean:
+        out.append("I" + clean)
+    if len(clean) >= 2 and clean[-1] in "aA":
+        # o-grade twin (dA/do: do + tavya -> dAtavya, yangluk dAdA-;
+        # convergent surfaces no grade reversal distinguishes)
+        _o = clean[:-1] + "o"
+        if _o in _ROOTS and _o != clean and _o not in out:
+            out.append(_o)
+    if len(clean) >= 3 and clean[-1] not in "aAiIuUeEoO":
+        _n = clean[:-1] + "n" + clean[-1]
+        if _n in _ROOTS and _n != clean and _n not in out:
+            out.append(_n)
+    if len(clean) >= 4 and clean[-2] == "n" \
+            and clean[-1] not in "aAiIuUeEoO":
+        _d = clean[:-2] + clean[-1]
+        if _d in _ROOTS and _d != clean and _d not in out:
+            out.append(_d)
+    return out
+
+
 def _len_variants(s: str) -> List[str]:
     out = [s]
     if s and s[-1] in "iIuUfFxXaA":
@@ -416,6 +469,8 @@ def _len_variants(s: str) -> List[str]:
 
 # famous irregular present stems (gam/yam -cCha-, dRS -paSya-,
 # sad -sIda-, sTA -tizWa-, pA -piba-): stem -> [roots]
+# Sera <- SI + laN (e-grade Sera + ta allomorph; sole 02.0026;
+# SF keeps riding via graded lookup, verified per reading)
 _IRREG_PRES = {
     "gacCa": ["gam"], "gacC": ["gam"],
     "yacCa": ["yam", "dA"], "yacCh": ["yam", "dA"],
@@ -423,6 +478,7 @@ _IRREG_PRES = {
     "sIda": ["sad"], "sId": ["sad"],
     "tizWa": ["sTA"], "tizW": ["sTA"],
     "piba": ["pA"], "pib": ["pA"],
+    "Sera": ["SI"],
 }
 
 
@@ -487,6 +543,24 @@ _SAN_CODA = {
 }
 
 
+# intensive (yangluk) suppletion stems -> owner roots. f takes
+# rAma-/rarma- intensive stems sharing nothing compositional with f
+# (rAmavAmbaBUvATe <- f + yangluk_yak + liw); the engine lacks
+# f-yangluk-liw entirely, so these ride recall-only. Wired ONLY in the
+# periphrastic-liw branch (Am/aux words) to keep the blast radius nil.
+_YANG_SUPPLETION: Dict[str, List[str]] = {
+    "rAmav": ["f"], "rAm": ["f"], "rarmav": ["f"], "rarm": ["f"],
+}
+
+
+# perfect suppletion stems -> owner roots (synthetic liW allomorphs
+# sharing nothing compositional: reDiD/reD <- rAD + yak-liW, e-grade
+# doubled-D perfect; sole 05.0018 surveyed; engine-absent, recall-only).
+_LIW_SUPPLETION: Dict[str, List[str]] = {
+    "reDiD": ["rAD"], "reD": ["rAD"],
+}
+
+
 # desiderative suppletion stems -> owner roots (closed inventory mirroring
 # the engine's san-stem survey in tinanta.py:3960-4040,5336-41). Generic
 # reversal never yields the owner (the donor wins: jigamiz -> gam, vivakz
@@ -502,7 +576,17 @@ _SAN_SUPPLETION: Dict[str, List[str]] = {
     "mimArjiz": ["mfj"], "jiGfkz": ["grah"],
     "Sikz": ["Sak"], "rits": ["rAD"], "sisAts": ["sAD"],
     "jiGIz": ["hi"], "cicakz": ["cakz"], "qiqayiz": ["qI"],
-    "iyftIyiz": ["ftIy"],
+    "iyftIyiz": ["ftIy"], "jihAs": ["hAk"],
+    # samprasarana-onset san (uYcicCiz <- uCi: u + Y + ci + cCiz;
+    # generic VCV/standard gates skip Y-second stems)
+    "uYcicCiz": ["uCi"],
+    # curAdi -Aya- + san with Y-glide (aYjihayiz <- ahi)
+    "aYjihayiz": ["ahi"],
+    # nasal + kutva fusion (titaNkz <- taYc + san: Y->N, c->k)
+    "titaNkz": ["taYc"],
+    # contracted-A san with devoiced onset (Dips <- danB + san;
+    # generic reversal yields only p/b/B onsets, never D + n)
+    "Dips": ["danB"],
 }
 
 
@@ -556,6 +640,8 @@ _NICH_SUPPLETION: Dict[str, List[str]] = {
     "BIzay": ["BI"], "BIz": ["BI"],
     "arpay": ["f"], "arp": ["f"], "Aray": ["f"], "Ar": ["f"],
     "vAyay": ["aj"], "vAy": ["aj"],
+    # samprasarana-onset nich (uYcAy <- uCi + Ric, cf. GAtay)
+    "uYcAy": ["uCi"], "uYc": ["uCi"],
     "pAyay": ["pA"], "pAy": ["pA"],
     "Ayay": ["i"], "Ay": ["i"],
 }
@@ -611,8 +697,39 @@ def _san_reverse(core: str) -> List[str]:
     for _o in _san_suppletion(_w):
         if _o not in out:
             out.append(_o)
-    if len(_w) >= 6 and _w[0] in SLP1_VOWELS and _w[2] in SLP1_VOWELS:
-        # vowel-initial roots reduplicate VCV (asisiz <- as + san):
+    if len(_w) >= 7 and (_w[0] not in SLP1_VOWELS
+            or _w[0] in ("f", "F", "x", "X")) \
+            and _w[1] not in SLP1_VOWELS and _w[2] in ("i", "u"):
+        # consonant-cluster roots reduplicate past the onset
+        # (fcikzayiz <- fkzi + san: f + ci [k->c via kuhoScuH] + kzayiz):
+        # root = onset + remainder (kzay -> fkzi via glide+guna+uv).
+        # f/F/x/X count as onsets here (vocalic-r/l liquids): san
+        # stems of f-roots reduplicate with p- (pipfz), so an
+        # f-initial stem is a cluster root, never VCV reduplication.
+        # Onset-gated + lookup-gated; runs before the VCV branch so
+        # f-cluster stems are not misread as vowel reduplication.
+        # The standard gate below only accepts vowel-second stems,
+        # so no overlap there.
+        if _w[-1] in ("s", "z", "S"):
+            _red3, _mid3 = _w[1:3], _w[:-1][3:]
+            if _mid3 and _mid3[0] in _ABHYASA_ONSET.get(
+                    _red3[0], [_red3[0]]):
+                _m3s = [_mid3]
+                if _mid3.endswith("i") and len(_mid3) > 1:
+                    _m3s.append(_mid3[:-1])
+                for _m3 in _m3s:
+                    if not _m3:
+                        continue
+                    _g3 = _w[0] + _m3
+                    if _g3 not in out:
+                        out.append(_g3)
+                    _v3 = _devrddhi_a(_g3)
+                    if _v3 != _g3 and _v3 not in out:
+                        out.append(_v3)
+                return out
+    if len(_w) >= 4 and _w[0] in SLP1_VOWELS and _w[2] in SLP1_VOWELS:
+        # vowel-initial roots reduplicate VCV (asisiz <- as + san;
+        # short stems Eziz/iziz <- iz + san work the same, only smaller):
         # reduplicant V + C + V, remainder follows (si -> s -> as)
         _body = _w[:-1] if _w[-1] in ("s", "z", "S") else None
         if _body is not None:
@@ -647,7 +764,29 @@ def _san_reverse(core: str) -> List[str]:
                 if _g2 not in out:
                     out.append(_g2)
         return out
-    if len(_w) < 4 or _w[1] not in ("i", "u"):
+    if len(_w) >= 7 and _w[0] in SLP1_VOWELS and _w[1] in ("n", "m", "N") \
+            and _w[2] not in SLP1_VOWELS and _w[3] in ("i", "u"):
+        # nasal-onset roots reduplicate past the nasal (undidiz <- und
+        # + san: un + di + diz): root = nasal onset + remainder after
+        # the reduplicant (diz -> di -> d with iT strips); iT/san
+        # variants share the onset. Lookup-gated.
+        if _w[-1] in ("s", "z", "S"):
+            _mid3 = _w[:-1][4:]
+            _m3s = [_mid3] if _mid3 else []
+            if _mid3.endswith("i") and len(_mid3) > 1:
+                _m3s.append(_mid3[:-1])
+            for _m3 in _m3s:
+                if not _m3:
+                    continue
+                _g3 = _w[:2] + _m3
+                if _g3 not in out:
+                    out.append(_g3)
+                if _g3.endswith(("i", "I")) and len(_g3) > 3 \
+                        and _g3[:-1] not in out:
+                    out.append(_g3[:-1])
+            if _m3s:
+                return out
+    if len(_w) < 4 or _w[1] not in ("i", "u", "A"):
         return out
     # strip san sibilant (z after i/u by zatva, else s)
     if _w[-1] not in ("s", "z", "S"):
@@ -667,7 +806,8 @@ def _san_reverse(core: str) -> List[str]:
     for _m in _mids:
         if not _m:
             continue
-        # contracted fusion: bare onset (dits-a <- dA + sa).
+        # contracted fusion: bare onset (dits-a <- dA + sa;
+        # bAps-a <- Bas + sa keeps the root coda s: o + V + sib twins).
         if len(_m) == 1 and _m not in SLP1_VOWELS:
             # The reduplicant keeps aspiration clues (di- vs Dhi-),
             # so the matching onset leads (dA, not DA, for dits).
@@ -680,6 +820,13 @@ def _san_reverse(core: str) -> List[str]:
                     _cand = _o + _v
                     if _cand not in out:
                         out.append(_cand)
+                    # coda-final roots (Bas, juhotyAdi): the san-s was
+                    # stripped above but the root keeps its sibilant;
+                    # lookup-gated (BAs closes to Bas via vrddhia)
+                    for _sib in ("s", "S", "z"):
+                        _cand2 = _o + _v + _sib
+                        if _cand2 not in out:
+                            out.append(_cand2)
             # full-coda twin (cits <- Cid + sa: reduplicant + voiced coda)
             for _cc in _SAN_CODA.get(_m, [_m])[1:]:
                 _c2 = _red + _cc
@@ -689,6 +836,35 @@ def _san_reverse(core: str) -> List[str]:
             # full type: root preserved (vivid <- vid; tik <- tij via kuH)
             if _m not in out:
                 out.append(_m)
+            # i-grade twin (daridri <- daridrA + san: re-reduplicated
+            # adAdi root takes i-grade; the A-grade hides below.
+            # Lookup-gated.)
+            if _m.endswith(("i", "I")) and len(_m) > 1:
+                _ia = _m[:-1] + "A"
+                if _ia not in out:
+                    out.append(_ia)
+            # satva-s agama drop (pariciskIrzA <- pari + cikIrzA:
+            # the s after the reduplicant vowel voices c; genuine
+            # san-sibilants surface as z/S by zatva, so an s-initial
+            # remainder hides a stop-initial root; lookup-gated)
+            if _m[:1] == "s" and len(_m) > 1 and _m[1:] not in out:
+                out.append(_m[1:])
+            # kutva fusion (ririkz <- riS + san: S + s -> kz; the
+            # san-sibilant is already stripped, leaving k-final _m).
+            # Genuine k-final roots twin S-roots here too, but
+            # lookup + forward-verify gate (recall-only when wrong).
+            if len(_m) > 1 and _m[-1] == "k":
+                for _sib in ("S", "s", "z"):
+                    _c2 = _m[:-1] + _sib
+                    if _c2 not in out:
+                        out.append(_c2)
+            # curAdi vrddhi-grade twin (lilAkay <- lak + san via the
+            # -Aya- base: the medial A hides short a; lAkay alone only
+            # reaches lAk-noise, while lakay closes to lak via the
+            # standard glide+guna+uv chain. Lookup-gated below.)
+            _vu = _devrddhi_a(_m)
+            if _vu != _m and _vu not in out:
+                out.append(_vu)
             if _m.endswith("k"):
                 _j = _m[:-1] + "j"
                 if _j not in out:
@@ -808,6 +984,31 @@ def _yang_reverse(core: str) -> List[str]:
         _bases.append(core[:-2])
     if core.endswith("y") and len(core) > 2:
         _bases.append(core[:-1])
+
+    def _pushY(_r: str) -> None:
+        # Y-coalescence twin (tac <- taYc + yangluk: Y drops before
+        # the stop; sole taYc surveyed): restore Y before a final
+        # consonant; lookup-gated by callers.
+        if len(_r) >= 2 and _r[-1] in "kKgGcCjJtTwWqQdDNpPbBsSzZ" \
+                and _r[-2] != "Y":
+            _y = _r[:-1] + "Y" + _r[-1:]
+            if _y not in out:
+                out.append(_y)
+
+    def _pushSV(_r: str) -> None:
+        # samprasarana + satva twin (zup <- svap + yang: u->va with
+        # z->s in one hop; sole svap surveyed; lookup-gated by callers)
+        if "u" in _r and len(_r) > 2:
+            _v = _r.replace("u", "va", 1).replace("z", "s").replace(
+                "S", "s")
+            if _v != _r and _v not in out:
+                out.append(_v)
+        if "U" in _r and len(_r) > 2:
+            _v = _r.replace("U", "vA", 1).replace("z", "s").replace(
+                "S", "s")
+            if _v != _r and _v not in out:
+                out.append(_v)
+
     for _base in _bases:
         # 2-char reduplicant (tA-/be-/bo-/ve-/se- + remainder)
         if len(_base) >= 4 and _base[0] not in SLP1_VOWELS:
@@ -816,6 +1017,8 @@ def _yang_reverse(core: str) -> List[str]:
                 if _ab[1] in "aAiIeEoOUu":
                     if _rest not in out:
                         out.append(_rest)
+                    _pushY(_rest)
+                    _pushSV(_rest)
         # 3-5 char reduplicants with arI/ar/aM/anI/alI grades
         # (barI- <- Bf yangluk, caMcU- <- car, etc.)
         for _rlen in (3, 4, 5):
@@ -827,11 +1030,16 @@ def _yang_reverse(core: str) -> List[str]:
             if _rest[0] not in _YANG_ONSET.get(_red[0], [_red[0]]):
                 continue
             _vp = _red[1:]
-            if _vp in ("arI", "ari", "ar", "aM", "am", "anI", "ani",
+            # danDan <- Dan + yangluk (an-reduplicant; sole 03.0024
+            # surveyed): bare an/aN ride with the arI/ari grades below
+            if _vp in ("arI", "ari", "ar", "aM", "am", "an", "aN",
+                        "anI", "ani",
                         "alI", "ali", "A", "e", "o", "E", "O",
-                        "I", "i", "U", "u", "a", "aY", "aN"):
+                        "I", "i", "U", "u", "a", "aY"):
                 if _rest not in out:
                     out.append(_rest)
+                _pushY(_rest)
+                _pushSV(_rest)
         # vowel-initial intensive stems (arerI- <- f, aSAS- <- aS):
         # drop the reduplicant span, keep the remainder
         if _base[:1] in SLP1_VOWELS and len(_base) >= 4:
@@ -879,9 +1087,9 @@ def _yang_trunc(core: str) -> List[str]:
         set(_onset.get("j", ["j"]) + ["g", "G", "k", "K"]))
     _onset["t"] = sorted(
         set(_onset.get("t", ["t"]) + ["s", "z", "S"]))
-    _vps = ("arI", "ari", "ar", "aM", "am", "anI", "ani",
+    _vps = ("arI", "ari", "ar", "aM", "am", "an", "aN", "anI", "ani",
             "alI", "ali", "A", "e", "o", "E", "O",
-            "I", "i", "U", "u", "a", "aY", "aN")
+            "I", "i", "U", "u", "a", "aY")
     for _base in _bases:
         if len(_base) < 3:
             continue
@@ -896,6 +1104,13 @@ def _yang_trunc(core: str) -> List[str]:
                     continue
             elif _red[1:] not in _vps:
                 continue
+            if _rlen == 2 and _red[1] in ("o", "O") \
+                    and _R[:1] in ("s", "z", "S") and len(_R) <= 3:
+                # contracted o-grade coda (vozwa <- vaS + yangluk:
+                # vo + z with fused -ta- tail; root = onset + a + S).
+                # Runs before the onset gate (the coda never matches
+                # the reduplicant onset); lookup-gated below.
+                _push(_red[0] + "a" + "S")
             if _R[0] not in _onset.get(_red[0], [_red[0]]):
                 continue
             if 1 <= len(_R) <= 2 and all(
@@ -952,8 +1167,17 @@ _sentinel = object()
 
 def _acc_hits(acc: list, revs: list, label: str, extra=_sentinel) -> None:
     """Append every distinct root from reversal candidates (collect-all
-    graded homographs: rod -> rud + ruD, devi -> dev + div)."""
-    for _r in revs:
+    graded homographs: rod -> rud + ruD, devi -> dev + div).
+
+    Nasal-infix twins ride along (mAn <- mA + SAnac via -n-: the
+    N-dropped twin is tried for every reversal output; lookup-gated,
+    same label/confidence as its sibling)."""
+    _all = list(revs)
+    for _r in list(revs):
+        _nd = _denadrop(_r)
+        if _nd != _r and _nd not in _all:
+            _all.append(_nd)
+    for _r in _all:
         for (_rc, _rm, _rv) in _lookup_all(_r):
             if all(_rc != _h[0] for _h in acc):
                 acc.append((_rc, _rm, label) if extra is _sentinel
@@ -1011,10 +1235,19 @@ def _deApO(s: str) -> str:
 
 
 def _deSamInit(s: str) -> str:
-    """Reverse initial samprasarana (Uc <- vac, Ij <- yaj: U->va, I->ya)."""
+    """Reverse initial samprasarana (Uc <- vac, Ij <- yaj: U->va, I->ya;
+    OSya <- vaS + yak O-grade: O->va; ucyate <- vac + yak: u->va,
+    ijya <- yaj: i->ya). Lowercase twins are lookup-gated (exact
+    u/i-roots like uc/ucita still win first)."""
     if s.startswith("U") and len(s) > 1:
         return "va" + s[1:]
     if s.startswith("I") and len(s) > 1:
+        return "ya" + s[1:]
+    if s.startswith("O") and len(s) > 1:
+        return "va" + s[1:]
+    if s.startswith("u") and len(s) > 1:
+        return "va" + s[1:]
+    if s.startswith("i") and len(s) > 1:
         return "ya" + s[1:]
     return s
 
@@ -1049,6 +1282,41 @@ def _deEa(s: str) -> str:
         return s.replace("e", "a")
     if "E" in s:
         return s.replace("E", "A")
+    return s
+
+
+def _degunal(s: str) -> str:
+    """Reverse guna grade preserving vowel length (Ez <- Iz + nich:
+    E hides I, O hides U). Companion to :func:`_deguna` (which
+    collapses to short i/u and so shadows length-graded roots like
+    Iz behind iz). Lookup-gated narrow twin."""
+    return s.replace("E", "I").replace("O", "U")
+
+
+def _deIz(s: str) -> str:
+    """Reverse z-drop I-grade (kzI <- kzIz yak/yang/nich: I hides Iz).
+
+    kryAdi kzIz drops root-final z in secondary grades (yak kzIyate,
+    yang cekzIya, nich kzAyay- via kzAy). The guna leg (E->i)
+    lowercases the vowel, so both I and i normalize to Iz.
+    Lookup-gated narrow twin."""
+    if s.endswith("I") and len(s) > 2:
+        return s + "z"
+    if s.endswith("i") and len(s) > 2:
+        return s[:-1] + "Iz"
+    return s
+
+
+def _deIk(s: str) -> str:
+    """Reverse k-drop I-grade (hI <- hAk yak/abhyasa: I hides Ak).
+
+    o~hAk takes Iy-grades that drop root-final k (yak hIyate,
+    abhyasa jahI-); parallel to :func:`_deIz` (kzI <- kzIz).
+    Lookup-gated narrow twin."""
+    if s.endswith("I") and len(s) > 1:
+        return s[:-1] + "Ak"
+    if s.endswith("i") and len(s) > 1:
+        return s[:-1] + "Ak"
     return s
 
 
@@ -1150,7 +1418,7 @@ def _denasal_n(s: str) -> str:
 
 
 _OPS = [("glide", _deglide), ("guna", _deguna), ("gunaf", _deguna_f),
-        ("vrddhi", _devrddhi),
+        ("gunal", _degunal), ("vrddhi", _devrddhi),
         ("vrddhia", _devrddhi_a),
         ("cutva", _decutva), ("thematic", _dethematic), ("double", _dedouble),
         ("nasal", _denasal), ("nasaln", _denasal_n), ("ur", _deur),
@@ -1158,12 +1426,13 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("gunaf", _deguna_f),
         ("deApO", _deApO),
         ("deSamInit", _deSamInit), ("desatva", _desatva),
         ("stutva", _destutva), ("dental", _dedental),
-        ("deEa", _deEa), ("deDeasp", _deDeaspireInit),
+        ("deEa", _deEa), ("deIz", _deIz), ("deIk", _deIk), ("deDeasp", _deDeaspireInit),
         ("ovo", _devo), ("uv", _deuv), ("yan", _deyan),
         ("devoice", _devoice), ("khari", _dekhari), ("kharih", _dekhari_h),
         ("infix", _deinfix),
         ("nu", _denu), ("na", _dena), ("them", _dethem), ("long", _delong),
         ("it", _deit), ("meta9", _demeta9), ("mrest", _demrestore),
+        ("nloss", _denloss), ("ndrop", _denadrop),
         ("samy", _desam_y), ("samu", _desam_u), ("ks_z", _deks_z),
         ("ks_k", _deks_k), ("ks_kh", _deks_kh), ("deY", _deY), ("nalo", _denalo),
         ("naloR", _denaloR), ("deM", _deM), ("deMplace", _deMplace),
@@ -1174,19 +1443,20 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("gunaf", _deguna_f),
         ("async", _deasyncope), ("dentn", _dental_n), ("dej", _dej),
         ("aspire", _deaspire), ("aspire0", _deaspire_init)]
 _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "gunaf": 0.6,
+            "gunal": 0.6,
             "thematic": 0.9,
             "irreg": 0.95, "vrddhi": 0.8, "vrddhia": 0.75, "cha": 0.8,
             "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "deIr": 0.65, "deApE": 0.6,
             "deApO": 0.6,
             "deSamInit": 0.6, "desatva": 0.6, "stutva": 0.6, "dental": 0.6,
-            "deEa": 0.55,
+            "deEa": 0.55, "deIz": 0.55, "deIk": 0.55,
             "deDeasp": 0.55, "double": 0.7, "nasal": 0.7,
             "nasaln": 0.65,
             "ovo": 0.7, "uv": 0.6, "yan": 0.75, "devoice": 0.6,
             "khari": 0.6, "kharih": 0.6, "dej": 0.6, "infix": 0.65, "nu": 0.65, "na": 0.65,
             "them": 0.6, "long": 0.65, "it": 0.6, "meta9": 0.65,
-            "mrest": 0.6, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
+            "mrest": 0.6, "nloss": 0.55, "ndrop": 0.55, "samy": 0.65, "samu": 0.65, "ks_z": 0.6,
             "ks_k": 0.6, "ks_kh": 0.6, "deY": 0.6, "nalo": 0.6, "naloR": 0.6, "deM": 0.6,
             "deMplace": 0.6, "demlab": 0.6, "derot": 0.6, "denfin": 0.6,
             "deGhn": 0.65, "dea": 0.6,
@@ -1275,6 +1545,14 @@ def _lookup_all(cand: str) -> list:
             if _c in _ROOTS and _c not in _seen_roots:
                 _seen_roots.add(_c)
                 out.append((_c, _ROOTS[_c], "cha"))
+    # homonym twins (Suc/ISuc, SuB/SunB): same-surface roots no grade
+    # reversal distinguishes; lexicon-gated, appended last so element
+    # 0 still equals _lookup_root. Via "homonym" (recall-only).
+    for (_rc, _rm, _rv) in list(out):
+        for _t in _homonym_twins(_rc):
+            if _t not in _seen_roots:
+                _seen_roots.add(_t)
+                out.append((_t, _ROOTS[_t], "homonym"))
     _LOOKUP_ALL_CACHE[cand] = out
     return out
 
@@ -1659,6 +1937,16 @@ def _krd_hits(base: str) -> list:
     out = []
 
     def _try(_b: str) -> None:
+        def _N(_revs):
+            # nasal-infix twins (mAn <- mA + SAnac via -n-): N-dropped
+            # variants ride every reversal output; lookup-gated below
+            _all = list(_revs)
+            for _r in list(_revs):
+                _nd = _denadrop(_r)
+                if _nd != _r and _nd not in _all:
+                    _all.append(_nd)
+            return _all
+
         for (_rc, _rm, _rv) in _lookup_all(_b):
             if all(_rc != o[0] for o in out):
                 out.append((_rc, _rm, _rv))
@@ -1668,23 +1956,23 @@ def _krd_hits(base: str) -> list:
             for (_rc, _rm, _rv) in _lookup_all(_o):
                 if all(_rc != o[0] for o in out):
                     out.append((_rc, _rm, "san-suppletion"))
-        for _ab in _abhyasa_reverse(_b):
+        for _ab in _N(_abhyasa_reverse(_b)):
             for (_rc, _rm, _rv) in _lookup_all(_ab):
                 if all(_rc != o[0] for o in out):
                     out.append((_rc, _rm, "abhyasa"))
-        for _yg in _yang_reverse(_b):
+        for _yg in _N(_yang_reverse(_b)):
             for (_rc, _rm, _rv) in _lookup_all(_yg):
                 if all(_rc != o[0] for o in out):
                     out.append((_rc, _rm, "yang"))
-        for _yg in _yang_trunc(_b):
+        for _yg in _N(_yang_trunc(_b)):
             for (_rc, _rm, _rv) in _lookup_all(_yg):
                 if all(_rc != o[0] for o in out):
                     out.append((_rc, _rm, "yang"))
-        for _yl in _yanluk_reverse(_b):
+        for _yl in _N(_yanluk_reverse(_b)):
             for (_rc, _rm, _rv) in _lookup_all(_yl):
                 if all(_rc != o[0] for o in out):
                     out.append((_rc, _rm, "yanluk"))
-        for _sn in _san_reverse(_b):
+        for _sn in _N(_san_reverse(_b)):
             for (_rc, _rm, _rv) in _lookup_all(_sn):
                 if all(_rc != o[0] for o in out):
                     out.append((_rc, _rm, "san"))
@@ -1745,6 +2033,11 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
         _kb = _core[:-2]
     elif _core.endswith("na") and len(_core) > 3:
         _kb = _core[:-2]
+    elif _core.endswith("wa") and len(_core) > 3 \
+            and _core[-3] in "sSzZ":
+        # -ta- allomorph -wa- after sibilants (rerizwa <- riz + ta):
+        # stem keeps the sibilant for yang/abhyasa reversal below
+        _kb = _core[:-2]
     if _kb is not None:
         for (_rt, _m, _via) in _krd_hits(_kb):
             _emit("kta", _rt, _m, 0.8, f"root via {_via}")
@@ -1761,11 +2054,17 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
             for (_rt, _m, _via) in _krd_hits(_kvb):
                 _emit("ktavatu", _rt, _m, 0.8, f"root via {_via}")
     # tavya / anIyar / yat via graded closure (iT, natva, geminates inside)
-    if stem.endswith("tavya"):
-        _tb = stem[:-5]
+    # -tavya voices to -Davya after vowels/sonorants (kzodDavya <- kzuD)
+    _tav = stem
+    if _tav.endswith("tavya"):
+        pass
+    elif _tav.endswith("Davya") and len(_tav) > 6:
+        _tav = _tav[:-5] + "tavya"
+    if _tav.endswith("tavya"):
+        _tb = _tav[:-5]
         _hits = _krd_hits(_tb)
-        if not _hits and stem.endswith("itavya"):
-            _hits = _krd_hits(stem[:-6])  # sew iT (Bavi -> Bav)
+        if not _hits and _tav.endswith("itavya"):
+            _hits = _krd_hits(_tav[:-6])  # sew iT (Bavi -> Bav)
         if _hits:
             for (_rt, _m, _via) in _hits:
                 _emit("tavya", _rt, _m,
@@ -1791,11 +2090,18 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
                   _krd_sec_conf(_via, 0.85, 0.7),
                   f"root via {_via}")
     # SAnac (muk -mAna-, plain -Ana, natva -ARa-, passive -yak-,
-    # future -sya- + muk: BAvizyamaRa <- BU + i + sya)
-    for _suf, _cut in (("mARa", 4), ("ARa", 3), ("mAna", 4), ("Ana", 3)):
+    # future -sya- + muk: BAvizyamaRa <- BU + i + sya; feminine -AnA:
+    # mimAnA <- mA + SAnac with -n- infix)
+    for _suf, _cut in (("mARa", 4), ("ARa", 3), ("mAna", 4), ("Ana", 3),
+                       ("mAnA", 4), ("AnA", 3)):
         if stem.endswith(_suf):
             _b = stem[:-_cut]
             _cands = [_b]
+            if stem.endswith("A") and len(stem) > 4:
+                # feminine -A base kept whole (mimAnA <- mA + SAnac
+                # with -n- infix: -mAnA- is muk + na, not -m + Ana)
+                if stem[:-1] not in _cands:
+                    _cands.append(stem[:-1])
             if _b.endswith("a") and len(_b) > 1:
                 _cands.append(_b[:-1])  # thematic (labha -> labh)
             if _b.endswith("m") and len(_b) > 1:
@@ -1871,7 +2177,9 @@ def _krdanta_from_stem(stem: str, linga: str, vib: int, vac: str) -> List[dict]:
                 _emit("GaY", _rt, _m, 0.6,
                       f"root via {_via}; secondary-stem GaY twin")
     # Rvul / tfc (+ ukaY agent noun: BAvuka <- BU)
-    if stem.endswith("aka") or stem.endswith("ikA"):
+    # -Aka- stems included (zAkan varAka <- vf, short-a grade unlike
+    # Rvul vAraka; feminine -AkI alongside -ikA)
+    if stem.endswith(("aka", "Aka")) or stem.endswith(("ikA", "AkI")):
         _b = stem[:-3]
         for (_rt, _m, _via) in _krd_hits(_b):
             _emit("Rvul", _rt, _m,
@@ -2067,7 +2375,10 @@ _TIN_P: List[tuple] = [
     ("mi", "lw", "uttama", "eka"), ("vaH", "lw", "uttama", "dvi"),
     ("maH", "lw", "uttama", "bahu"),
     ("an", "laN", "prathama", "bahu"), ("tAm", "laN", "prathama", "dvi"),
-    ("t", "laN", "prathama", "eka"), ("aH", "laN", "madhyama", "eka"),
+    ("t", "laN", "prathama", "eka"),
+    # SI adAdi -ta allomorph for bahu (aSerata <- SI + laN: e-grade
+    # Sera + ta; engine-filed bahu; sole 02.0026 surveyed)
+    ("ta", "laN", "prathama", "bahu"), ("aH", "laN", "madhyama", "eka"),
     ("tam", "laN", "madhyama", "dvi"), ("ta", "laN", "madhyama", "bahu"),
     # length-grade twins (ErATAm <- Ir + laN madh-dvi with long-A stem
     # vowel; EH <- i + laN madh-eka fused augment; asnAn <- snA prath-
@@ -2085,6 +2396,11 @@ _TIN_P: List[tuple] = [
     ("Ava", "low", "uttama", "dvi"), ("Ama", "low", "uttama", "bahu"),
     ("", "low", "madhyama", "eka"), ("tAt", "low", "madhyama", "eka"),
     ("tAt", "low", "prathama", "eka"),
+    # yangluk-low -Am paradigm (vAvaNgDAm <- vaGi, vevizwAm <- viz:
+    # contracted stems file dental/retroflex -Am under madh-eka, same
+    # shape as prath-dvi -tAm; engine lacks yangluk-low entirely so
+    # these stay recall-only twins, precise-safe)
+    ("DAm", "low", "madhyama", "eka"), ("wAm", "low", "madhyama", "eka"),
     ("Di", "low", "madhyama", "eka"), ("dhi", "low", "madhyama", "eka"),
     ("nti", "lw", "prathama", "bahu"),
     ("ati", "lw", "prathama", "bahu"),
@@ -2541,6 +2857,40 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 _emit(_rt, _m, "viDiliN", _pur, _vac, _via, 0.7,
                       _core + " (vidhi-twin of -yA- formation)",
                       _sanadi=_sd)
+                # contracted benedictive allomorphs (hApyAstAm <- hAk +
+                # nich and jihAsyAstAm <- hAk + san file -yAstAm under
+                # bahu; hAvyAsam <- hu + nich files -yAsam under dvi;
+                # cikIzyAsuH <- ki + san files -yAsuH under madh-eka):
+                # twin slots at 0.7, gated on contracted cores (no
+                # -yiz-/-yaz- infix); forward-verify keeps only the
+                # true slot.
+                _contracted = not any(
+                    _mk in _core for _mk in
+                    ("yiz", "yaz", "izI", "azI", "izW", "ayiz"))
+                if _suf == "yAstAm" and _contracted:
+                    _emit(_rt, _m, "ASIrliN", "prathama", "bahu",
+                          _via, 0.7,
+                          _core + " (bahu-twin of -yAstAm formation)",
+                          _sanadi=_sd)
+                if _suf == "yAsam" and _contracted:
+                    _emit(_rt, _m, "ASIrliN", "uttama", "dvi",
+                          _via, 0.7,
+                          _core + " (dvi-twin of -yAsam formation)",
+                          _sanadi=_sd)
+                if _suf == "yAsuH" and _contracted:
+                    _emit(_rt, _m, "ASIrliN", "madhyama", "eka",
+                          _via, 0.7,
+                          _core + " (eka-twin of -yAsuH formation)",
+                          _sanadi=_sd)
+                    _emit(_rt, _m, "viDiliN", "madhyama", "eka",
+                          _via, 0.65,
+                          _core + " (eka-twin of -yAsuH formation)",
+                          _sanadi=_sd)
+                if _suf == "yAsva" and _contracted:
+                    _emit(_rt, _m, "ASIrliN", "uttama", "bahu",
+                          _via, 0.7,
+                          _core + " (bahu-twin of -yAsva formation)",
+                          _sanadi=_sd)
             if _asi_hits:
                 break
     for (_suf, _pur, _vac) in _ASI_VIDHI:
@@ -2566,6 +2916,16 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
             for (_rt, _m, _via, _sd) in _vhits:
                 _emit(_rt, _m, "viDiliN", _pur, _vac, _via, 0.75, _core,
                       _sanadi=_sd)
+                # contracted -yAta allomorph (cikiyAta <- ki + ting:
+                # engine files -yAta under utt-eka, not madh-bahu),
+                # gated as the -yAstAm twins above
+                if _suf == "yAta" and not any(
+                        _mk in _core for _mk in
+                        ("yiz", "yaz", "izI", "azI", "izW", "ayiz")):
+                    _emit(_rt, _m, "viDiliN", "uttama", "eka",
+                          _via, 0.7,
+                          _core + " (eka-twin of -yAta formation)",
+                          _sanadi=_sd)
             if _vhits:
                 break
     _ASI_ATM = [("IzWam", "madhyama", "dvi"), ("IDvam", "madhyama", "bahu"),
@@ -2670,6 +3030,25 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 _emit(_rt, _m, "viDiliN", _pur, _vac, _via, 0.65,
                       _stem + " (vidhi-twin of -Iya- formation)",
                       "Atmanepada", _sanadi=_sd)
+                if _zsuf == "Ivahi":
+                    # -Ivahi allomorph for bahu (aBijohUyizIvahi <- hu +
+                    # yang-yak, engine-filed bahu): twin slot at 0.65;
+                    # forward-verify keeps only the true one
+                    _emit(_rt, _m, "ASIrliN", "uttama", "bahu",
+                          _via, 0.65,
+                          _stem + " (bahu-twin of -Ivahi formation)",
+                          "Atmanepada", _sanadi=_sd)
+                if _zsuf == "Iya":
+                    # contracted -Iya allomorph (Rejiz + Iya <- nij +
+                    # nich_yak, engine-filed dvi): twin slot at 0.65,
+                    # gated as the parasmaipada contracted twins
+                    if not any(_mk in _stem for _mk in
+                               ("yiz", "yaz", "izI", "azI", "izW",
+                                "ayiz")):
+                        _emit(_rt, _m, "ASIrliN", "uttama", "dvi",
+                              _via, 0.65,
+                              _stem + " (dvi-twin of -Iya formation)",
+                              "Atmanepada", _sanadi=_sd)
             if _atm_hits:
                 break
         else:
@@ -2911,6 +3290,10 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                 continue
             _stem = _pre[:-2]
             _lex = [_stem]
+            # A-final stems fuse with the connector (daridrA + Am ->
+            # daridrAm): keep the single-A strip too; lookup-gated
+            if _pre.endswith("Am") and _pre[:-1] not in _lex:
+                _lex.append(_pre[:-1])
             if _stem.endswith(("i", "I", "a", "A")) and len(_stem) > 1:
                 _lex.append(_stem[:-1])  # sew-iT / thematic
             if _stem.endswith(("aya", "Aya")) and len(_stem) > 4:
@@ -2945,6 +3328,9 @@ def _infix_reverse(word: str, upasarga: str | None = None) -> List[dict]:
                     _snlista.append(_sn)
                 for _o in _nich_suppletion(_c):
                     _acc_hits(_preadings, [_o], "nich-suppletion")
+                # intensive suppletion stems (rAmav <- f + yangluk)
+                for _fc in _YANG_SUPPLETION.get(_c, []):
+                    _acc_hits(_preadings, [_fc], "yang-suppletion")
                 # composed reversals (cicCits <- Cid + san: abhyasa gives
                 # cCits whose san-mid cid still hides Cid)
                 for _ab in _ablista:
@@ -3119,6 +3505,11 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                                 _acc_hits(_extra_hits, [_sn], "san")
                             for _o in _nich_suppletion(_cand):
                                 _acc_hits(_extra_hits, [_o], "nich-suppletion")
+                            # perfect suppletion stems (reD <- rAD + yak-liW)
+                            if _lak == "liw":
+                                for _o in _LIW_SUPPLETION.get(_cand, []):
+                                    _acc_hits(_extra_hits, [_o],
+                                              "liw-suppletion")
                             # graded alternates of the primary itself
                             # (rod -> rud + ruD)
                             for (_rc, _rm, _rv) in _lookup_all(_cand)[1:]:
@@ -3199,6 +3590,19 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                                 _acc_hits(_extra_hits, [_yl], "yanluk")
                             _found.append((_via_extra, _hit, _extra_hits, None))
                             continue
+                        # perfect suppletion stems (reDiD <- rAD + yak-liW:
+                        # e-grade doubled-D perfect shares nothing
+                        # compositional with rAD; sole 05.0018 surveyed)
+                        if _lak == "liw":
+                            for _o in _LIW_SUPPLETION.get(_cand, []):
+                                _acc_hits(_extra_hits, [_o], "liw-suppletion")
+                        if _extra_hits and _hit is None:
+                            _rt0, _m0, _vx0 = _extra_hits.pop(0)
+                            _hit = (_rt0, _m0, "liw-suppletion")
+                            _via_extra = "liw-suppletion"
+                        if _hit is not None and _via_extra == "liw-suppletion":
+                            _found.append((_via_extra, _hit, _extra_hits, None))
+                            continue
                         # viDiliN e-grade of A-final roots (det <- dA: the ending
                         # table segments d+et, swallowing the stem vowel, while
                         # exact lookup finds only the e-final root deN)
@@ -3227,6 +3631,8 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                     _no_aug = _aug and _core[:1] not in ("a", "A")
                     # liT always reduplicates (Asa-type a-initial stems excepted):
                     # plain grade-hits on bare-a endings (rAma) are nouns, not verbs.
+                    # Overt endings (ize, ire, uH, O) never coincide with nouns,
+                    # so plain hits stay allowed there (tesize <- tas + yak-liT).
                     # (Unresolved fallbacks still emit below.)
                     if _multi is not None:
                         for (_m, _c) in _multi:
@@ -3248,7 +3654,8 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                                 _d["note"] += "; unverified"
                             out.append(_d)
                     _liw_plain_base = (_lak == "liw" and _multi is None
-                                       and _core[:1] not in ("a", "A"))
+                                       and _core[:1] not in ("a", "A")
+                                       and _end == "a")
                     def _emit_extra(_ert, _em, _evia) -> None:
                         # suppletion twins (closed engine-verified inventory)
                         # emit at 0.8; _verify_tin below demotes unverified
@@ -3315,6 +3722,11 @@ def _tinanta_analyze(word: str, upasarga: str | None = None) -> List[dict]:
                         elif _via_extra in ("nich", "nich-suppletion"):
                             _via = _via_extra
                             _conf = 0.8 if _via_extra == "nich-suppletion" else 0.65
+                        elif _via_extra == "liw-suppletion":
+                            # closed perfect-suppletion inventory (reDiD);
+                            # verify below demotes engine-absent ones
+                            _via = "liw-suppletion"
+                            _conf = 0.7
                         elif _via_extra == "egrade":
                             _via = "egrade"
                             _conf = 0.65
@@ -3482,6 +3894,10 @@ def _prefix_splits(word: str) -> List[tuple]:
         # is the prefix coda assimilated to the stem onset (penalty
         # 0.1/level as existing, applied by the callers)
         cands.append(("ud", word[2:]))
+    if len(word) > 5 and word[:2] == "ul" and word[2] not in _V:
+        # ud + l -> ul (ulleKay- <- ud + leKay-): lateral assimilation
+        # mirrors the nasal rule above
+        cands.append(("ud", word[2:]))
     if len(word) > 6 and word[:3] == "niH":
         # nis + sibilant with visarga (niHsisiDiz- <- nis + sisiDiz-)
         cands.append(("nis", word[3:]))
@@ -3565,6 +3981,39 @@ def _prefix_splits(word: str) -> List[tuple]:
                 if len(_rest) >= 3 and \
                         all(_r != _rest for (_, _r) in cands):
                     cands.append((_p, _rest))
+    # guNa boundary with a-final prefixes (pra + ezitam -> prezitam:
+    # a + e/i -> e; upa + uttavad -> upottavad, upa + Ond- -> upOnd-:
+    # a + o/u -> o; capitals preserved (prEzayata, upOndyetAm). Rest
+    # restores both grades of the surface case; engine verification
+    # downstream keeps only the true one.
+    for _p in [p for p in _UPASARGAS if p.endswith("a") and len(p) > 1]:
+        _stem = _p[:-1]
+        if len(word) <= len(_stem) + 3:
+            continue
+        for (_fused, _vows) in (("e", ("e", "i")), ("E", ("E", "I")),
+                                ("o", ("o", "u")), ("O", ("O", "U"))):
+            if word.startswith(_stem + _fused):
+                for _vw in _vows:
+                    _rest = _vw + word[len(_stem) + 1:]
+                    if len(_rest) >= 3 and \
+                            all(_r != _rest for (_, _r) in cands):
+                        cands.append((_p, _rest))
+    # nir + voiceless -> nis (nir + srota -> nissrota, nir + parca ->
+    # nizparca via zatva): the sibilant coda belongs to nir, the rest
+    # is unchanged. Runs last so cada-twins (niz- <- nis-) are covered.
+    for (_p, _rest) in list(cands):
+        if _p == "nis" and _rest[:1] in "kKcCwWtTpPszS" \
+                and ("nir", _rest) not in cands:
+            cands.append(("nir", _rest))
+    # anu + AN yaN-fusion (avAdADAnaH <- anu + AN + dADAnaH: u + A ->
+    # vA with n-lopa): analyse ava + A-initial rests under anu too;
+    # the inner A/AN split then builds the anu;AN chain the audit
+    # accepts (exact compound, head, or member). Verify-gated
+    # downstream (recall-safe when wrong).
+    for (_p, _rest) in list(cands):
+        if _p == "ava" and _rest[:1] == "A" and len(_rest) >= 4 \
+                and ("anu", _rest) not in cands:
+            cands.append(("anu", _rest))
     return cands
 
 
@@ -3832,6 +4281,9 @@ def _krdanta_flat(word: str, limit: int = 50,
         # Ramul (-am, low confidence: -am is usually the accusative ending)
         for _suf, _prat, _conf in (("tum", "tumun", 0.85),
                                    ("tvA", "ktvA", 0.85),
+                                   # -tvA allomorph -wvA after sibilants
+                                   # (vizwvA <- viz + tvA)
+                                   ("wvA", "ktvA", 0.8),
                                    ("am", "Ramul", 0.5)):
             if _w.endswith(_suf) and len(_w) > len(_suf) + 1:
                 _core = _w[:-len(_suf)]
@@ -3879,6 +4331,10 @@ def _krdanta_flat(word: str, limit: int = 50,
                     continue
                 _pstem = _pre[:-2]
                 _plex = [_pstem]
+                # A-final stems fuse with the connector (daridrA + Am ->
+                # daridrAm, cf. the liw-periphrastic branch above)
+                if _pre.endswith("Am") and _pre[:-1] not in _plex:
+                    _plex.append(_pre[:-1])
                 if _pstem.endswith(("i", "I", "a", "A")) and len(_pstem) > 1:
                     _plex.append(_pstem[:-1])
                 _preadings = []
@@ -4449,14 +4905,18 @@ def analyze_tin_krd(word: str, limit: int | None = None,
     Fast audit path — ``check_exp`` scores tinanta/krdanta only, so
     skipping subanta groups is hit/miss-equivalent and much faster.
     The CLI uses full :func:`analyze` (subanta included).
+    Flat cap is 2000 (not 500): generation always runs fully and the
+    cap only slices output, so a tight cap silently drops valid
+    low-confidence readings (ASAkam Sak-Ramul ranks below a 0.85
+    donor-declension flood). Grouping cost stays linear.
     """
     _ensure_ready()
     word = (word or "").strip()
     if not word:
         return []
     out: List[dict] = []
-    out.extend(_group_krdanta(_krdanta_flat(word, limit=500)))
-    out.extend(_group_tinanta(_tinanta_flat(word, limit=500)))
+    out.extend(_group_krdanta(_krdanta_flat(word, limit=2000)))
+    out.extend(_group_tinanta(_tinanta_flat(word, limit=2000)))
     out.extend(_attested_groups(word))
     out.sort(key=lambda d: d.get("confidence", 0.0), reverse=True)
     if precise:
