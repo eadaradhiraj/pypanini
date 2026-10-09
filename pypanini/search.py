@@ -67,6 +67,17 @@ def _ensure_ready() -> None:
             _KTA_MAP.setdefault(_kta, [])
             if _clean not in _KTA_MAP[_kta]:
                 _KTA_MAP[_kta].append(_clean)
+    # suppletive kta stems (sad Asad-suppletion: Asanna/AsannA/Asannam
+    # <- sad; engine emits them for 10.0368 kta/ktavatu but the regular
+    # _kta_stem above only yields sadita, so the exact map misses them;
+    # lookup-gated graded closure never reaches sad from Asanna either).
+    # ktavatu rides along (Asannavat <- Asanna stem strip in
+    # _krdanta_from_stem). Analyzer-only; zero generation impact.
+    for _sup, _owner in (("Asanna", "sad"),):
+        if _owner in _ROOTS:
+            _KTA_MAP.setdefault(_sup, [])
+            if _owner not in _KTA_MAP[_sup]:
+                _KTA_MAP[_sup].append(_owner)
     import re as _re
     for _k, _m in ke._cache_by_id.items():
         if (isinstance(_m, dict) and "clean" in _m
@@ -980,6 +991,25 @@ def _deApE(s: str) -> str:
     return _re.sub(r"ap$", "e", s, count=1)
 
 
+def _deApO(s: str) -> str:
+    """Reverse nijanta -p- augment with o-grade (dAp <- do: Ap hides o).
+
+    o-final roots (do, So, Co, jo) take -Apay- in nijanta alongside
+    the -Avay- glide twin (engine: dApayati + dAvayati + doayati).
+    Lookup-gated narrow twin of :func:`_deApE` (which maps Ap -> E)."""
+    import re as _re
+    _v = _re.sub(r"Ap$", "o", s, count=1)
+    if _v != s:
+        return _v
+    _v = _re.sub(r"ap$", "o", s, count=1)
+    if _v != s:
+        return _v
+    _v = _re.sub(r"Av$", "o", s, count=1)
+    if _v != s:
+        return _v
+    return _re.sub(r"av$", "o", s, count=1)
+
+
 def _deSamInit(s: str) -> str:
     """Reverse initial samprasarana (Uc <- vac, Ij <- yaj: U->va, I->ya)."""
     if s.startswith("U") and len(s) > 1:
@@ -1125,6 +1155,7 @@ _OPS = [("glide", _deglide), ("guna", _deguna), ("gunaf", _deguna_f),
         ("cutva", _decutva), ("thematic", _dethematic), ("double", _dedouble),
         ("nasal", _denasal), ("nasaln", _denasal_n), ("ur", _deur),
         ("urv", _deurv), ("deIr", _deIr), ("deApE", _deApE),
+        ("deApO", _deApO),
         ("deSamInit", _deSamInit), ("desatva", _desatva),
         ("stutva", _destutva), ("dental", _dedental),
         ("deEa", _deEa), ("deDeasp", _deDeaspireInit),
@@ -1147,6 +1178,7 @@ _OP_CONF = {"exact": 1.0, "glide": 0.95, "guna": 0.92, "gunaf": 0.6,
             "irreg": 0.95, "vrddhi": 0.8, "vrddhia": 0.75, "cha": 0.8,
             "cutva": 0.75,
             "ur": 0.7, "urv": 0.7, "deIr": 0.65, "deApE": 0.6,
+            "deApO": 0.6,
             "deSamInit": 0.6, "desatva": 0.6, "stutva": 0.6, "dental": 0.6,
             "deEa": 0.55,
             "deDeasp": 0.55, "double": 0.7, "nasal": 0.7,

@@ -84,11 +84,8 @@ def _infer_h_class(stem: str) -> str:
     -> g (velar); else d."""
     if stem.endswith("nah"):
         return "d"
-    if stem in ("lih", "mih", "snih"):
-        return "q"
-    if stem in ("muh", "snuh", "druh", "duh"):
-        return "g"
-    # shape rule: i-final-h -> q, u-final-h -> g
+    # shape rule: i-final-h -> q, u-final-h -> g (covers lih/mih/snih
+    # and muh/snuh/druh/duh with no per-word list).
     if len(stem) >= 2 and stem[-2] == "i" and stem[-1] == "h":
         return "q"
     if len(stem) >= 2 and stem[-2] == "u" and stem[-1] == "h":

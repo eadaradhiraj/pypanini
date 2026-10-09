@@ -1,6 +1,6 @@
 # Progress — Done / Next (overwritten each iteration, not appended)
 
-Date: 2026-10-08
+Date: 2026-10-09
 Subanta: **21/21 (~2000 goldens)** — engine + audits + pipeline (see instructions.MD).
 Search: **10/10 + round-trip perfect** — `pypanini/search.py` (subanta/krdanta/tinanta/analyze) + demo §4.
   Round-trips: tinanta slot 540/540 + root 540/540; krdanta 185/185 (was 539/172).
@@ -15,7 +15,13 @@ Sweeps (prefixed, regenerated 2026-10-07): **4860/4860 tasks,
   4146964/4146964 tokens 100%** (01:2198, 02:522, 03:198, 04:511, 05:140,
   06:501, 07:160, 08:67, 09:240, 10:323). Fid-diff vs HEAD: 150 up, 0 worsened.
 
-## Done — this session (cleanup + determinism + search, zero behavior drift in scoring)
+## Done — this session (all 4 tracks; analyzer-only + behavior-identical, 49/49 + lint 2/2 green, round-trips 540/540 + 185/185)
+- Track 1 heuristics (heuristic-only `PYPANINI_NO_ATTESTED=1`, seed-2 80-fid/640-token sample, engine-align audit): **90.6% -> 91.4%** (+5; dhatu_missing 42->37). Remaining ~8.6% is mostly homonym-clean convergence (ISuc/Suc, hA/hAk, SuB/SunB, dA/do shared stems) + yangluk non-lw engine gaps — attested fallback still carries 100%.
+- Track 1 fix `do` o-grade (search.py `_deApO`: Ap/ap/Av/av$ -> o, `_OPS` 0.6, lookup+verify gated, precise-safe): dApay-nich cluster 5/8 rescued (samavadApayatAd/samavadApanIyA/samavadApayAYcakfma/samavadApizIDvam/uddApyAvahe now HIT; engine confirms do+nich = dApayati/dAvayati/doayati). Left: dAdA/dAtavya homonyms (saMdAdAti/AdAdAH/aByavadAtavyam, donor-identical).
+- Track 2 sad (search.py `_ensure_ready` suppletive `_KTA_MAP['Asanna'] -> sad`; ktavatu rides stem-strip): AsannaH/Asannam/AsannA/AsannavAn top-1 sad (was As/as/an). Engine 5/5 sad+ci fids 100% (01.0990/06.0163/10.0368/10.0124/10.0325); prefixed spot 3542/3542 100% (10.0368:upa;AN 883/883, 06.0163:AN 891/891 — stale-CSV residuals clear on live tree).
+- Track 3 subanta (behavior-identical, 21/21 + STRICT lint green): `_infer_h_class` literal lists (lih/mih/snih, muh/snuh/druh/duh) removed as subsumed by i/u+h shape rules. Full table/flag -> anga-karya overhaul still queued (no TODOs in file; sandhi minimal by design per header).
+- Track 4 guards: full gate `PYTHONHASHSEED=0` 49/49 OK + lint 2/2 + round-trips perfect; cross-gana 12-fid guard (pilots 01.0001-03 + 02/03/04.0043/05/06.0163/07/08/09/10.0368) all 100%.
+- NOT changed (deliberate): TAm/madh-dvi ranking (audit ending_slots already ambiguous-by-design, both emitted); sannanta-ac twin-verify (precise intentionally keeps GaY twin only); broad dA->do / Suc->ISuc homonym twins (precision risk, attested covers).
 - ResourceWarning fixes: `json.load(open(...))` → `with open(...)` in tinanta/krdanta
   caches, test_dhatu, sweep_gana, sweep_upasargas_fast, test_search, test_gana05.
 - Determinism: `list(set(...))` (11×, tinanta) → `list(dict.fromkeys(...))`;
