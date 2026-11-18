@@ -410,6 +410,8 @@ test('kṛdanta: iṣṇuc (-iṣṇu, 3.2.136/138)', () => {
 
 test('kṛdanta: yuc (-ana) and ruḥ (-ru) suffixes', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kruD', krt: Krt.yuc })[0].text(), 'kroDana');
+  assert.equal(deriveKrdantas({ dhatu: 'As', krt: Krt.yuc })[0].text(), 'Asana');
+  assert.equal(deriveKrdantas({ dhatu: 'vid', krt: Krt.yuc })[0].text(), 'vedana');
   assert.equal(deriveKrdantas({ dhatu: 'cal', krt: Krt.yuc })[0].text(), 'calana');
   assert.equal(deriveKrdantas({ dhatu: 'Sabd', krt: Krt.yuc })[0].text(), 'Sabdana');
   assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.ruH2 })[0].text(), 'dAru');

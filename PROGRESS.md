@@ -550,3 +550,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 51 (continued):** Added kṛt suffix aṇ (3.3.105, -ā feminine):
   `cint`→`cintA`, `pUj`→`pUjA`, `kath`→`kathA`, `carc`→`carcA`. Registered 3.3.105.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 52 (continued):** Extended yuc (3.3.107, feminine -anā):
+  `As`→`Asana` (āsanā), `vid`→`vedana` (vedanā). Registered 3.3.107.
+  `npm test` passes. Pushed to GitHub master.
