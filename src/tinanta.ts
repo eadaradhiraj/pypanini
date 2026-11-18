@@ -202,6 +202,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'pf:lan:parasmai:prathama:eka': 'apfNot',
   'tanu:lan:parasmai:prathama:eka': 'atanot',
   'mIY:lan:parasmai:prathama:eka': 'aminAt',
+  'Asa:lat:atmane:prathama:eka': 'Aste', // āste (√ās 2Ā)
   // class 2 (adādi): bravīti, brūte
   'brU:lat:parasmai:prathama:eka': 'bravIti',
   'brU:lat:parasmai:madhyama:eka': 'bravIZi', // bravīṣi
