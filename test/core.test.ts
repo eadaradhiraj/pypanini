@@ -739,6 +739,11 @@ test('upasargas (prefixes, 1.4.58–1.4.60)', () => {
     deriveTinantas({ ...baseArgs, dhatu: 'ay', upasarga: 'anu' })[0].text(),
     'anvayati', // anvayati
   );
+  // 6.1.101 akaḥ savarṇe dīrghaḥ: pra + ay → plāyati (8.2.19 pra→pla)
+  assert.equal(
+    deriveTinantas({ ...baseArgs, dhatu: 'ay', upasarga: 'pra' })[0].text(),
+    'plAyati', // plāyati
+  );
 });
 
 test('bulk smoke test: all Dhātupāṭha roots × lakāras × padas', () => {

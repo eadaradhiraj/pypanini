@@ -269,8 +269,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     let prefix = upasarga;
     let rootPart = mutatedRoot;
     if (upasarga.endsWith('a') && mutatedRoot.startsWith('a')) {
+      // 6.1.101 akaḥ savarṇe dīrghaḥ: a + a → ā (e.g. pla + ay → plāyati).
       prefix = upasarga.slice(0, -1);
-      prefixSandhiCode = '6.1.84 (a+a → a)';
+      rootPart = 'A' + mutatedRoot.slice(1);
+      prefixSandhiCode = '6.1.101 (a+a → ā)';
     } else if (upasarga.endsWith('A') && mutatedRoot.startsWith('a')) {
       rootPart = mutatedRoot.slice(1);
       prefixSandhiCode = '6.1.84 (A+a → A)';

@@ -690,3 +690,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   vowel coalescence: 6.1.77 iko yaṇ now handles u+a → va (`anu`+`ay` → `anvayati`),
   previously only i+a → ya. Added regression test. `npm test` passes (79/79).
   Pushed to GitHub master.
+
+- **2026-11-18 — Session 83 (continued, items 1-4):** (#2) Fixed upasarga vowel
+  coalescence a+a → ā (6.1.101 akaḥ savarṇe dīrghaḥ), previously short a.
+  `pra`+`ay` → `plAyati` (plāyati, with 8.2.19 r→l), `ava`+`ay` → `avAyati`,
+  `pra`+`as` → `prAsati`. Registered code note. Added regression test.
+  `npm test` passes (79/79). Pushed to GitHub master.
