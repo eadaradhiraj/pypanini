@@ -516,6 +516,12 @@ test('kṛdanta: khyun (-ana instrument, 3.2.56)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.khyun })[0].text(), 'karaNa');
 });
 
+test('kṛdanta: ki/kin (-i with reduplication, 3.2.171)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.kiN })[0].text(), 'dadi');  // dadiḥ
+  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.kiN })[0].text(), 'cakri'); // cakriḥ
+  assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.kiN })[0].text(), 'jagmi'); // jagmiḥ
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

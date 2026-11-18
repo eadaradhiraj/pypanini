@@ -651,3 +651,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   after jānapada-ādi stems): `kuND`→`kuNDI`, `goRa`→`goRI`, `sthala`→`sthalI`,
   `kAla`→`kAlI`, `nIla`→`nIlI`, `kabara`→`kabarI`. Registered 4.1.42.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 75 (continued, items 1-4):** Added kṛt suffix ki/kin
+  (3.2.171, -i with liṭ-style reduplication): `dA`→`dadi`, `kf`→`cakri`,
+  `sf`→`sasri`, `gam`→`jagmi`, `nam`→`nemi`. Registered 3.2.171.
+  `npm test` passes. Pushed to GitHub master.
