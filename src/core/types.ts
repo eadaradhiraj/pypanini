@@ -149,6 +149,7 @@ export enum Krt {
   kaN = 'kaN', // कञ् → -śa (tādṛśa/yādṛśa/sadṛśa, 3.2.60)
   kvin = 'kvin', // क्विन् → zero-suffix agent (ṛtvik/dadhṛk/srak/dik, 3.2.59)
   khuKN = 'khuKN', // खुकञ् → -uka (bhāvuka, 3.2.57)
+  khyun = 'khyun', // ख्युन् → -ana instrument (karaṇa, 3.2.56)
 }
 
 export interface KrdantaArgs {
