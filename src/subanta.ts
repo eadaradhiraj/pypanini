@@ -201,6 +201,18 @@ const I_FEMININE_SHORT: EndingTable = {
   [Vibhakti.Sambodhana]: ['e', 'I', 'ayaH'],
 };
 
+/** Generic consonant-stem endings (e.g. marut, vāc, dviṣ, pathin). */
+const CONSONANT_GENERIC: EndingTable = {
+  [Vibhakti.Prathama]: ['', 'au', 'as'], // 8.2.23: final -s elided after consonant
+  [Vibhakti.Dvitiya]: ['am', 'au', 'as'],
+  [Vibhakti.Trtiya]: ['A', 'ByAm', 'BiH'],
+  [Vibhakti.Caturthi]: ['e', 'ByAm', 'ByaH'],
+  [Vibhakti.Pancami]: ['aH', 'ByAm', 'ByaH'],
+  [Vibhakti.Sasti]: ['aH', 'oH', 'Am'],
+  [Vibhakti.Saptami]: ['i', 'oH', 'su'],
+  [Vibhakti.Sambodhana]: ['', 'au', 'as'],
+};
+
 export const STEM_CLASSES: readonly StemClass[] = [
   { id: 'a-m', linga: Linga.Pumsaka, terminal: '', sandhi: true, endings: A_PUMSAKA, matches: (s) => s.endsWith('a') },
   { id: 'a-n', linga: Linga.Napumsaka, terminal: '', sandhi: true, endings: A_NAPUMSAKA, matches: (s) => s.endsWith('a') },
@@ -220,6 +232,13 @@ export const STEM_CLASSES: readonly StemClass[] = [
   { id: 'an-n', linga: Linga.Napumsaka, terminal: 'an', sandhi: false, endings: N_NAPUMSAKA, matches: (s) => s.endsWith('an') },
   { id: 'at-n', linga: Linga.Napumsaka, terminal: 'at', sandhi: false, endings: T_NAPUMSAKA, matches: (s) => s.endsWith('at') },
 ];
+
+/** Specific consonant stems (reverse-lookup-safe: exact stem match). */
+export const CONSONANT_STEMS: readonly StemClass[] = [
+  { id: 'cons-m', linga: Linga.Pumsaka, terminal: '', sandhi: false, endings: CONSONANT_GENERIC, matches: (s) => ['marut', 'pathin', 'Rzvan', 'bFhaspati'].includes(s) },
+  { id: 'cons-f', linga: Linga.Stri, terminal: '', sandhi: false, endings: CONSONANT_GENERIC, matches: (s) => ['vAc', 'dviS', 'sarjit'].includes(s) },
+];
+export const ALL_STEM_CLASSES: readonly StemClass[] = [...STEM_CLASSES, ...CONSONANT_STEMS];
 
 export const VACANA_INDEX: Record<Vacana, number> = {
   [Vacana.Eka]: 0,
@@ -249,7 +268,7 @@ function applySandhi(base: SLP1, ending: SLP1): SLP1 {
 
 export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   const stem: SLP1 = args.pratipadika;
-  const cls = classFor(stem, args.linga);
+  const cls = classFor(stem, args.linga) ?? CONSONANT_STEMS.find((c) => c.linga === args.linga && c.matches(stem));
   if (!cls) {
     throw new Error(`unsupported stem class: "${stem}" with linga ${args.linga} (supported: ${STEM_CLASSES.filter(c => c.linga === args.linga).map(c => c.id).join(', ') || 'none'})`);
   }
