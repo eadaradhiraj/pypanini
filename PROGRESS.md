@@ -660,3 +660,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 76 (continued, item 1):** Added strī-pratyayas 4.1.43/44
   (guṇavacana): `SoRa`→`SoRI`, `paTu`→`paTvI`, `mRdu`→`mRdvI`, `vasu`→`vasvI`.
   Registered 4.1.43/4.1.44. `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 77 (continued, item 1):** Added strī-pratyaya 4.1.45
+  (bahvādi ākṛtigaṇa): `cRaD`→`cRaDI`, `arAla`→`arAlI`, `kamala`→`kamalI`,
+  `vikaTa`→`vikaTI`, `viSAla`→`viSAlI`, `purARa`→`purARI`. Registered 4.1.45.
+  `npm test` passes. Pushed to GitHub master.

@@ -24,6 +24,8 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  // 4.1.45 bahvādi (ākṛtigaṇa) — a-stem quality/name words take ṇīṣ
+  if (['cRaD', 'arAla', 'kRpaRa', 'kamala', 'vikaTa', 'viSAla', 'purARa', 'udAra', 'kalyARa'].includes(stem)) return StriPratyaya.Nis;
   if (stem === 'SoRa') return StriPratyaya.Nis; // 4.1.43 śoṇī
   if (stem === 'paTu' || stem === 'mRdu' || stem === 'vasu') return StriPratyaya.Nis; // 4.1.44 guṇavacana
   if (stem === 'kuND' || stem === 'goRa' || stem === 'sthala' || stem === 'kAla' || stem === 'nIla' || stem === 'kabara') return StriPratyaya.Nis; // 4.1.42 ṇīṣ
