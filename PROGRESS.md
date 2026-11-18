@@ -1014,3 +1014,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.3.121 (lekha/veṣa/mārga/rāma), 3.3.174 (śakti/bhakti/mūrti). Fixed kheya
   vowel length and mūrti vṛddhi. `npm test` passes (85/85). Pushed to master.
   Coverage 227/2703 (228/3983).
+
+- **2026-11-18 — Session 144 (continued, toward 2703/2703):** Registered 2 ghañ
+  sūtras: 3.3.16 (pāda/roga/veśa/sparśa), 3.3.17 (sāra). Fixed pāda/roga/sparśa
+  vṛddhi/guṇa. `npm test` passes (85/85). Pushed to master. Coverage 229/2703
+  (230/3983).
