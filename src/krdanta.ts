@@ -487,6 +487,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     if (['bft', 'bfY'].includes(dhatu.text)) {
       spec.code = "3.1.112 (bhṛño 'sañjñāyām — bhṛtya)";
     }
+    if (dhatu.text === 'mfj') spec.code = '3.1.113 (mṛjer vibhāṣā — mṛjya/mārjya)';
   }
   if (args.krt === Krt.kSnu && KSNU_SUFFIX[dhatu.text]) spec.suffix = KSNU_SUFFIX[dhatu.text];
   if (args.krt === Krt.SanaC && rFinal) spec.suffix = 'ARa'; // kṛ → kurvāṇa
