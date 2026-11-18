@@ -1036,3 +1036,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   mislabeled "liṭ reduplication" in traces. 0 anomalies across 120 roots × all
   8 lakāras + all kṛts. `npm test` passes (85/85). Pushed to master.
   Coverage 234/2703 (235/3983).
+
+- **2026-11-18 — Session 148 (continued, toward 2703/2703):** Registered 3.1.25
+  (ṇic for satyādi roots), 3.1.24 (san for lupādi roots). `npm test` passes
+  (85/85). Pushed to master. Coverage 236/2703 (237/3983).
