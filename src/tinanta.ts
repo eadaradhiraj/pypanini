@@ -174,6 +174,8 @@ const FUTURE_STEMS: Record<string, string> = {
   yaj: 'yakzya', // yak-ṣya-
   ni: 'nezya',   // ne-ṣya-
   han: 'hanizya',// haniṣya-
+  vid: 'vedizya',// vediṣya-
+  diS: 'dekzya', // dekṣya-
 };
 function futureStem(root: string): string {
   return FUTURE_STEMS[root] ?? gunafy(root).text + 'izya'; // fallback: guṇa + i + ṣya

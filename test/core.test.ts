@@ -192,6 +192,8 @@ test('laṅ/lṛṅ ātmanepada 1st person dīrgha', () => {
   assert.equal(fut(Lakara.Lrt, 'pac'), 'pakzyati'); // pakṣyati
   assert.equal(fut(Lakara.Lrt, 'yaj'), 'yakzyati'); // yakṣyati
   assert.equal(fut(Lakara.Lng, 'dA'), 'adAsyat');  // adāsyat
+  assert.equal(fut(Lakara.Lrt, 'vid'), 'vedizyati'); // vediṣyati
+  assert.equal(fut(Lakara.Lrt, 'diS'), 'dekzyati');  // dekṣyati
 });
 
 test('aorist (luN): root / a / s / iṣ varieties', () => {
