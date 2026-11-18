@@ -316,6 +316,7 @@ const KSNU_SUFFIX: Record<string, string> = {
   ji: 'zRu',  // jiṣṇu
   sTA: 'snu', // sthāsnu
   BU: 'zRu',  // bhūṣṇu
+  vid: 'vedzRu', // vediṣṇu (guṇa + ṣṇu)
 };
 
 /** Suffixes that take the iṭ augment after a u-final root (7.2.35). */
