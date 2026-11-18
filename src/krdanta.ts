@@ -239,9 +239,14 @@ const KVIN_FORMS: Record<string, string> = {
   ftu: 'ftvik',  // ṛtvik
   DFz: 'dadfzk', // dadhṛk
   sfj: 'srak',   // srak
-  dfS: 'dik',    // dik
+  dfS: 'dik',    // dik (√diś)
   yuj: 'yuj',    // yuj
   spfS: 'spfk',  // spṛk (3.2.58 spṛśo'nudake kvin)
+  dviS: 'dviT',  // dviṭ (3.2.61)
+  druh: 'druk',  // druk (3.2.61)
+  duh: 'duk',    // duk (3.2.61)
+  Bid: 'Bit',    // bhit (3.2.61)
+  Cid: 'Cit',    // chit (3.2.61)
 };
 
 /** ṣṭran (3.2.182) stems: the suffix is -tra on these roots (guṇa/vṛddhi varies). */
