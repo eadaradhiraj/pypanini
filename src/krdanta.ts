@@ -277,6 +277,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.ac]: { ci: 'cay', i: 'ay', ji: 'jay', kzi: 'kzay', sf: 'sar' }, // caya, aya, jaya, kṣaya, sara (3.3.56)
   [Krt.naN]: { yaj: 'yajY' }, // yaj + ṇa → yajña (jñ)
   [Krt.kSnu]: { vid: 'ved' }, // vediṣṇu (guṇa before ṣṇu)
+  [Krt.Ani]: { ni: 'nay' },  // nī → nayanīya (e+a → ya)
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga' }, // gam→gati (nasal lopa); ūti… (3.3.97)
   [Krt.KtvA]: { gam: 'ga', dA: 'dat' }, // gam → gatvā, dā → dattvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez' }, // vedana, deśana (guṇa)
