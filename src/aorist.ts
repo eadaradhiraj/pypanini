@@ -192,9 +192,14 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
 
   if (kind === 'a') {
     p.insert(p.length, stem, ['dhatu']);
-    const ending = args.pada === Pada.Atmane
+    let ending = args.pada === Pada.Atmane
       ? THEMATIC_ATMANE[args.purusha][idx]
       : THEMATIC_PARASMAI[args.purusha][idx];
+    // 3.4.109: jus (uḥ) for 3p of vid a-aorist
+    if (args.root === 'vid' && args.purusha === Purusha.Prathama &&
+        args.vacana === Vacana.Bahu && args.pada === Pada.Parasmai) {
+      ending = 'uH';
+    }
     if (!/[aAiIuUfFxXeEoO]/.test(ending[0] ?? '')) {
       p.insert(p.length, 'a', ['vikarana']); // thematic a (drop before vowel-initial ending)
       p.record('3.1.68 (Sap)');
