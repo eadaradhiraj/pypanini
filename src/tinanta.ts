@@ -205,12 +205,41 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'dA:lot:parasmai:uttama:eka': 'dadAni',
   // √kṛ (5P/8P) — karoti, karoṣi, karomi; kuru; karotu
   'kf:lat:parasmai:prathama:eka': 'karoti',
-  'kf:lat:parasmai:madhyama:eka': 'karozi',  // karoṣi
-  'kf:lat:parasmai:uttama:eka': 'karomi',
+  'kf:lat:parasmai:prathama:dvi': 'kurutaH',    // kurutaḥ
   'kf:lat:parasmai:prathama:bahu': 'kurvanti',
+  'kf:lat:parasmai:madhyama:eka': 'karozi',     // karoṣi
+  'kf:lat:parasmai:madhyama:dvi': 'kuruTaH',    // kuruthaḥ
+  'kf:lat:parasmai:madhyama:bahu': 'kuruTa',    // kurutha
+  'kf:lat:parasmai:uttama:eka': 'karomi',
+  'kf:lat:parasmai:uttama:dvi': 'kurvaH',       // kurvaḥ
+  'kf:lat:parasmai:uttama:bahu': 'kurmaH',      // kurmaḥ
   'kf:lot:parasmai:prathama:eka': 'karotu',
+  'kf:lot:parasmai:prathama:dvi': 'kurutAm',
+  'kf:lot:parasmai:prathama:bahu': 'kurvantu',
   'kf:lot:parasmai:madhyama:eka': 'kuru',
+  'kf:lot:parasmai:madhyama:dvi': 'kurutam',
+  'kf:lot:parasmai:madhyama:bahu': 'kuruta',
   'kf:lot:parasmai:uttama:eka': 'karavANi',
+  'kf:lot:parasmai:uttama:dvi': 'karavAva',
+  'kf:lot:parasmai:uttama:bahu': 'karavAma',
+  'kf:lin:parasmai:prathama:eka': 'kuryAt',     // kuryāt
+  'kf:lin:parasmai:prathama:dvi': 'kuryAtAm',
+  'kf:lin:parasmai:prathama:bahu': 'kuryuH',
+  'kf:lin:parasmai:madhyama:eka': 'kuryAH',
+  'kf:lin:parasmai:madhyama:dvi': 'kuryAtam',
+  'kf:lin:parasmai:madhyama:bahu': 'kuryAta',
+  'kf:lin:parasmai:uttama:eka': 'kuryAm',
+  'kf:lin:parasmai:uttama:dvi': 'kuryAva',
+  'kf:lin:parasmai:uttama:bahu': 'kuryAma',
+  'kf:lan:parasmai:prathama:eka': 'aKarot',    // akarot
+  'kf:lan:parasmai:prathama:dvi': 'akurutAm',
+  'kf:lan:parasmai:prathama:bahu': 'akurvan',
+  'kf:lan:parasmai:madhyama:eka': 'akaroH',
+  'kf:lan:parasmai:madhyama:dvi': 'akurutam',
+  'kf:lan:parasmai:madhyama:bahu': 'akuruta',
+  'kf:lan:parasmai:uttama:eka': 'akaravam',
+  'kf:lan:parasmai:uttama:dvi': 'akurva',
+  'kf:lan:parasmai:uttama:bahu': 'akurma',
   // √han (2P) — hanti, haṃsi; jahi; hantu
   'han:lat:parasmai:prathama:eka': 'hanti',
   'han:lat:parasmai:madhyama:eka': 'haMsi',  // haṃsi
@@ -219,12 +248,29 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'han:lot:parasmai:madhyama:eka': 'jahi',
   // √kṛ (8P/5Ā) — ātmane kurute, kuruṣe, kurve
   'kf:lat:atmane:prathama:eka': 'kurute',
-  'kf:lat:atmane:madhyama:eka': 'kuruze',  // kuruṣe
-  'kf:lat:atmane:uttama:eka': 'kurvE',     // kurve
+  'kf:lat:atmane:prathama:dvi': 'kurvAte',
   'kf:lat:atmane:prathama:bahu': 'kurvate',
+  'kf:lat:atmane:madhyama:eka': 'kuruze',   // kuruṣe
+  'kf:lat:atmane:madhyama:dvi': 'kurvATe',  // kurvāthe
+  'kf:lat:atmane:madhyama:bahu': 'kuruDve', // kurudhve
+  'kf:lat:atmane:uttama:eka': 'kurvE',      // kurve
+  'kf:lat:atmane:uttama:dvi': 'kurvahe',
+  'kf:lat:atmane:uttama:bahu': 'kurmahe',
   'kf:lot:atmane:prathama:eka': 'kurutAm',
-  'kf:lot:atmane:madhyama:eka': 'kuruzva', // kuruṣva
-  'kf:lin:atmane:prathama:eka': 'kurvIta', // kurvīta
+  'kf:lot:atmane:prathama:dvi': 'kurvAtAm',
+  'kf:lot:atmane:prathama:bahu': 'kurvatAm',
+  'kf:lot:atmane:madhyama:eka': 'kuruzva',  // kuruṣva
+  'kf:lot:atmane:madhyama:dvi': 'kurvAthAm',
+  'kf:lot:atmane:madhyama:bahu': 'kuruDvam', // kurudhvam
+  'kf:lot:atmane:uttama:eka': 'karavai',
+  'kf:lin:atmane:prathama:eka': 'kurvIta',  // kurvīta
+  'kf:lin:atmane:prathama:dvi': 'kurvIyAtAm',
+  'kf:lin:atmane:prathama:bahu': 'kurvIran',
+  'kf:lin:atmane:madhyama:eka': 'kurvITHaH', // kurvīthāḥ
+  'kf:lin:atmane:uttama:eka': 'kurvIya',
+  'kf:lan:atmane:prathama:eka': 'akuruta',
+  'kf:lan:atmane:prathama:dvi': 'akurvAtAm',
+  'kf:lan:atmane:prathama:bahu': 'akurvata',
   // √i (2P) — eti, eṣi, emi; etu/ehi
   'i:lat:parasmai:prathama:eka': 'eti',
   'i:lat:parasmai:madhyama:eka': 'ezi',    // eṣi

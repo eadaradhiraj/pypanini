@@ -38,7 +38,10 @@ export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
   if (stem === 'pUtakratu' || stem === 'manu') return StriPratyaya.Nip; // 4.1.36/38 (wife of)
   if (stem === 'antarvat' || stem === 'pativat') return StriPratyaya.Nip; // 4.1.32 nuk + ṅīp
   if (stem === 'brAhmaRa' || stem === 'kzatriya' || stem === 'vaiSya' || stem === 'sUdra') return StriPratyaya.Nis; // 4.1.41 jāti
-  if (stem === 'sakhA' || stem === 'sakhin') return StriPratyaya.Nip; // sakhā/sakhin → sakhī
+  if (stem === 'yuvan') return StriPratyaya.Nip; // 4.1.77 yuvan → yuvatī
+  if (stem === 'BavAn') return StriPratyaya.Nip; // 4.1.87 bhavān → bhavatī
+  if (stem === 'aSiSu') return StriPratyaya.Nip; // 4.1.62 aśiśu → aśiśvī
+  if (stem === 'sakhA' || stem === 'sakhin') return StriPratyaya.Nip; // 4.1.62 sakhā → sakhī
   if (stem === 'bahu' || stem === 'prabhu' || stem === 'bahula' || stem === 'vahu') return StriPratyaya.Nis; // 4.1.45 bahvādi
   if (stem === 'kumAra' || stem === 'kiSora' || stem === 'bArkara') return StriPratyaya.Nip; // 4.1.20 vayasi prathame (a-stem → ī)
   if (stem.endsWith('vara') || stem.endsWith('kAra') || stem.endsWith('cara')) return StriPratyaya.Nip; // 4.1.15 ṭiḍ-aṇ-kvarap
@@ -83,12 +86,18 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     p.record('4.1.41/45 (ṇīṣ — jāti/bahvādi)');
   } else {
     // ṅīp: ṛ/n → ī (kartṛ → kartrī, daṇḍin → daṇḍinī)
-    if (args.stem.endsWith('f')) {
+    if (args.stem === 'yuvan') {
+      feminine = 'yuvatI'; // yuvatī (4.1.77, overrides 4.1.7 van→var)
+    } else if (args.stem.endsWith('f')) {
       feminine = args.stem.slice(0, -1) + 'rI'; // kṛ → kartrī
     } else if (args.stem.endsWith('van')) {
       feminine = args.stem.slice(0, -3) + 'varI'; // dhīvan → dhīvarī (4.1.7 van→var)
+    } else if (args.stem === 'BavAn') {
+      feminine = 'BavatI'; // bhavatī (4.1.87)
+    } else if (args.stem === 'aSiSu') {
+      feminine = 'aSivI'; // aśiśvī (4.1.62)
     } else if (args.stem === 'sakhin' || args.stem === 'sakhA') {
-      feminine = 'sakhI'; // sakhā/sakhin → sakhī (n-lopa)
+      feminine = 'sakhI'; // 4.1.62 sakhā → sakhī (n-lopa)
     } else if (args.stem.endsWith('in')) {
       feminine = args.stem.slice(0, -2) + 'inI'; // daṇḍin → daṇḍinī
     } else if (args.stem === 'harita') {
@@ -115,7 +124,10 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     } else {
       feminine = args.stem.slice(0, -1) + 'I'; // n → ī
     }
-    p.record(args.stem === 'harita' ? '4.1.39 (varṇa: t→n, ṅīp)' :
+    p.record(args.stem === 'yuvan' ? '4.1.77 (yuvan → yuvatī)' :
+      args.stem === 'BavAn' ? '4.1.87 (bhavān → bhavatī)' :
+      args.stem === 'aSiSu' || args.stem === 'sakhA' || args.stem === 'sakhin' ? '4.1.62 (sakhī/aśiśvī)' :
+      args.stem === 'harita' ? '4.1.39 (varṇa: t→n, ṅīp)' :
       args.stem === 'Syeza' || args.stem === 'pizag' ? '4.1.40 (varṇa ṅīṣ)' :
         args.stem === 'pUtakratu' ? '4.1.36 (ai for pūtakratu)' :
       args.stem === 'manu' ? '4.1.38 (ai/au for manu)' :
