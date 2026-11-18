@@ -494,6 +494,7 @@ test('kṛdanta: uḥ (-u) and ghaḥ (-a) suffixes', () => {
   assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.ghaH })[0].text(), 'jaya');   // jaya
   assert.equal(deriveKrdantas({ dhatu: 'vid', krt: Krt.ghaH })[0].text(), 'veda');  // veda
   assert.equal(deriveKrdantas({ dhatu: 'nam', krt: Krt.ghaH })[0].text(), 'nAma');  // nāma
+  assert.equal(deriveKrdantas({ dhatu: 'vid', krt: Krt.LyuT })[0].text(), 'vedana'); // vedana (guṇa)
   assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.Ktin })[0].text(), 'gati');  // gati (nasal lopa)
 });
 
