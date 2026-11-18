@@ -273,7 +273,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay' }, // vidyā, manyā, ityā, śayyā
   [Krt.Sa]: { kf: 'kriy', iz: 'icC' }, // kriyā (3.3.100), icchā (3.3.101)
   [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv', vid: 'ved', diS: 'dez', car: 'cAr', nI: 'nAy' }, // ṇini vṛddhi
-  [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh' }, // pācaka, yājaka, dāyaka, vāhaka
+  [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh', nI: 'nAy' }, // pācaka, yājaka, dāyaka, vāhaka, nāyaka
   [Krt.ac]: { ci: 'cay', i: 'ay', ji: 'jay', kzi: 'kzay', sf: 'sar', nI: 'nay' }, // caya, aya, jaya, kṣaya, naya (3.3.56)
   [Krt.naN]: { yaj: 'yajY' }, // yaj + ṇa → yajña (jñ)
   [Krt.kSnu]: { vid: 'ved' }, // vediṣṇu (guṇa before ṣṇu)
