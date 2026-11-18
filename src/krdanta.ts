@@ -363,8 +363,8 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Yat) spec.grade = rFinal ? 'vrddhi' : 'guna';
   if (args.krt === Krt.kSnu && KSNU_SUFFIX[dhatu.text]) spec.suffix = KSNU_SUFFIX[dhatu.text];
   if (args.krt === Krt.SanaC && rFinal) spec.suffix = 'ARa'; // kṛ → kurvāṇa
-  if (args.krt === Krt.Sanan && dhatu.text === 'kf') { spec.suffix = 'ARa'; spec.infix = ''; } // kṛ → kurvāṇa
   if (args.krt === Krt.Sanan) spec.infix = 'a'; // pava/yaja + māna (thematic a)
+  if (args.krt === Krt.Sanan && dhatu.text === 'kf') { spec.suffix = 'ARa'; spec.infix = ''; } // kṛ → kurvāṇa
   if (args.krt === Krt.TRn && (dhatu.text === 'ni' || dhatu.text === 'tviz')) {
     spec.suffix = 'Tf'; // ṣṭṛ / tvaṣṭṛ: retroflex ṭ after ṣ
   }
