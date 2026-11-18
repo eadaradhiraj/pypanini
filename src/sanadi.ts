@@ -103,6 +103,9 @@ const DESIDERATIVE_STEMS: Record<string, string> = {
   iS: 'iSiza',      // iṣ → iṣiṣa-
   dA: 'dIdAsa',     // dā → dīdāsa (3.1.6 dīrgha of abhyāsa)
   mA: 'mImAMsa',    // mā → mīmāṃsa (3.1.6)
+  gup: 'jugupza',   // gup → jugupṣa (3.1.5)
+  tij: 'titikza',   // tij → titikṣa (3.1.5)
+  kit: 'cikitsa',   // kit → cikitsa (3.1.5)
 };
 
 function desiderativeStem(root: SLP1): SLP1 {
@@ -137,11 +140,13 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
       return {
         root: desiderativeStem(root),
         extra: [],
-        pada: Pada.Parasmai,
+        pada: ['gup', 'tij', 'kit'].includes(root) ? Pada.Atmane : Pada.Parasmai,
         vikarana: { label: '', surface: '' },
         doGuna: false,
         doOAtoAv: false,
-        code: '3.1.7 (san), 6.1.9 (abhyāsa), 7.4.79 (reduplicate changes)',
+        code: ['gup', 'tij', 'kit'].includes(root)
+          ? '3.1.5 (gup-tij-kitbhyo san — jugupsā/titikṣā/cikitsā)'
+          : '3.1.7 (san), 6.1.9 (abhyāsa), 7.4.79 (reduplicate changes)',
       };
     }
 
