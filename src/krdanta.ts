@@ -312,7 +312,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay' },  // nī → nayanīya (e+a → ya)
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga' }, // gam→gati (nasal lopa); ūti… (3.3.97)
-  [Krt.KtvA]: { gam: 'ga', dA: 'dat' }, // gam → gatvā, dā → dattvā
+  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit' }, // gatvā, dattvā, bhittvā, chittvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay' }, // vedana, deśana, nayana (guṇa)
   [Krt.Tum]: { gam: 'gan' }, // gam → gantum (m → n before t)
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet' }, // gantṛ, mārṣṭṛ, hotṛ, vettṛ
