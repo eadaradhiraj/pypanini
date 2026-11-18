@@ -762,3 +762,11 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   athematic paradigm (lat/lan/lin/lot × parasmai/atmane, verified vs Wiktionary).
   Added strī 4.1.62 (sakhī/aśiśvī), 4.1.77 (yuvatī), 4.1.87 (bhavatī), registered
   the codes. `npm test` passes (83/83). Pushed to GitHub master. Coverage 149/2703.
+
+- **2026-11-18 — Session 94 (continued, toward 2703/2703):** Completed dā athematic
+  paradigm (lat/lan/lit/lot, both padas, verified vs Wiktionary). Added kvip dṛk
+  (3.2.94) and bhāḥ/bhrāj (3.2.177), registered codes. Added bhāve impersonal
+  passive, fixed passive stems (kriyate/dīyate), feminine u-stem dat/loc (vadhvai),
+  ṇic vṛddhi, desiderative viṣ/diś/iṣ, ṇini vṛddhi (pācin/yājin/gāmin/bhāvin),
+  ghaH stems (cāra/jaya/veda/nāma). `npm test` passes. Pushed to master.
+  Coverage 152/2703.

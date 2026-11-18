@@ -435,6 +435,9 @@ test('kṛdanta: ktin (-ti) and 8.2.30 palatal → guttural', () => {
 test('kṛdanta: ṇini (-in) with vṛddhi and y-glide', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Nini })[0].text(), 'kAriR'); // kāriṇ (8.4.1 ṇatva: r…n → ṇ)
   assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.Nini })[0].text(), 'dAyin'); // dāyin (no r/ṣ trigger)
+  assert.equal(deriveKrdantas({ dhatu: 'pac', krt: Krt.Nini })[0].text(), 'pAcin'); // pācin
+  assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.Nini })[0].text(), 'yAjin'); // yājin
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Nini })[0].text(), 'BAvin'); // bhāvin
 });
 
 test('kṛdanta: śānan (-māna, 3.2.128)', () => {
