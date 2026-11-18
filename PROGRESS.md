@@ -670,3 +670,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   8.4.2 intervening sounds (vowels, gutturals, labials, h/y/v, anusvāra) between
   r/ṣ/ṛ and n; fixed capture-group bug. (#1) Added strī 4.1.45 bahvādi stems.
   `npm test` passes (78/78). Pushed to GitHub master.
+
+- **2026-11-18 — Session 79 (continued, items 1-4):** (#3) Added precative (āśīrliṅ)
+  middle forms for bhū: `BavizIza` (bhaviṣīṣṭa), `BavizIran`, `BavizIzTAH`,
+  `BavizIDvam`, `BavizIya`, `BavizImahi`. `npm test` passes. Pushed to GitHub master.

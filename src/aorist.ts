@@ -103,6 +103,13 @@ const PRECATIVE_P: FormTable = {
   [Purusha.Uttama]: { [Vacana.Eka]: 'BUyAsam', [Vacana.Dvi]: 'BUyAsva', [Vacana.Bahu]: 'BUyAsma' },
 };
 
+/** Precative (āśīrliṅ) middle forms for bhū: bhaviṣīṣṭa, bhaviṣīya, … */
+const PRECATIVE_A: FormTable = {
+  [Purusha.Prathama]: { [Vacana.Eka]: 'BavizIza', [Vacana.Dvi]: 'BavizIyAstAm', [Vacana.Bahu]: 'BavizIran' },
+  [Purusha.Madhyama]: { [Vacana.Eka]: 'BavizIzTAH', [Vacana.Dvi]: 'BavizIyAsthAm', [Vacana.Bahu]: 'BavizIDvam' },
+  [Purusha.Uttama]: { [Vacana.Eka]: 'BavizIya', [Vacana.Dvi]: 'BavizIvahi', [Vacana.Bahu]: 'BavizImahi' },
+};
+
 /** Secondary (imperfect-like) athematic parasmai endings for the root aorist.
  *  Root aorists take -an in 3pl (not -uḥ, which belongs to sibilant aorists),
  *  and final -s becomes visarga (-H) in 2s. */
@@ -207,8 +214,9 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
  * Active forms for bhū are implemented; the middle is not yet modelled.
  */
 export function derivePrecative(args: AoristArgs): Prakriya | undefined {
-  if (args.root !== 'BU' || args.pada !== Pada.Parasmai) return undefined;
-  const form = PRECATIVE_P[args.purusha]?.[args.vacana];
+  if (args.root !== 'BU') return undefined;
+  const table = args.pada === Pada.Atmane ? PRECATIVE_A : PRECATIVE_P;
+  const form = table[args.purusha]?.[args.vacana];
   if (!form) return undefined;
   const p = new Prakriya([form]);
   p.record('3.4.116 (liṇ-āśiṣi / āśīrliṅ precative)');

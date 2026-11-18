@@ -206,6 +206,11 @@ test('aorist ātmanepada (s/iṣ-aorist middle)', () => {
   assert.equal(aor('budh', Purusha.Uttama, Vacana.Eka), 'abozizi');   // abodhiṣi
 });
 
+test('precative (āśīrliṅ) middle of bhū', () => {
+  assert.equal(derivePrecative({ root: 'BU', pada: Pada.Atmane, purusha: Purusha.Prathama, vacana: Vacana.Eka })?.text(), 'BavizIza'); // bhaviṣīṣṭa
+  assert.equal(derivePrecative({ root: 'BU', pada: Pada.Atmane, purusha: Purusha.Uttama, vacana: Vacana.Eka })?.text(), 'BavizIya');  // bhaviṣīya
+});
+
 test('karmani passive: pac → pacyate', () => {
   const p = deriveTinantas({
     ...baseArgs,
