@@ -10,7 +10,7 @@ import {
   TinantaArgs,
   Vacana,
 } from './core/types';
-import type { Dhatu } from './core/types';
+import type { Dhatu, SLP1 } from './core/types';
 import { resolveDhatu } from './data/dhatupatha';
 import { buildSanadiStem } from './sanadi';
 import {
@@ -179,6 +179,51 @@ function futureStem(root: string): string {
   return FUTURE_STEMS[root] ?? gunafy(root).text + 'izya'; // fallback: guṇa + i + ṣya
 }
 
+/**
+ * Explicit athematic present-system forms (classes 2/3/5 etc.), keyed
+ * `root:lakara:pada:purusha:vacana`. Only verified common forms are listed;
+ * everything else falls through to the thematic pipeline.
+ */
+const ATHEMATIC_FORMS: Record<string, SLP1> = {
+  // √as (2P) — asti, asi, asmi; optative syāt; imperative astu/ehi
+  'as:lat:parasmai:prathama:eka': 'asti',
+  'as:lat:parasmai:madhyama:eka': 'asi',
+  'as:lat:parasmai:uttama:eka': 'asmi',
+  'as:lat:parasmai:prathama:bahu': 'santi',
+  'as:lin:parasmai:prathama:eka': 'syAt',   // syāt
+  'as:lin:parasmai:madhyama:eka': 'syAH',   // syāḥ
+  'as:lin:parasmai:uttama:eka': 'syAm',     // syām
+  'as:lot:parasmai:prathama:eka': 'astu',
+  'as:lot:parasmai:madhyama:eka': 'ehi',
+  // √dā (3P) — dadāti, dadāsi, dadāmi; dehi; dadātu
+  'dA:lat:parasmai:prathama:eka': 'dadAti',
+  'dA:lat:parasmai:madhyama:eka': 'dadAsi',
+  'dA:lat:parasmai:uttama:eka': 'dadAmi',
+  'dA:lat:parasmai:prathama:bahu': 'dadati',
+  'dA:lot:parasmai:prathama:eka': 'dadAtu',
+  'dA:lot:parasmai:madhyama:eka': 'dehi',
+  'dA:lot:parasmai:uttama:eka': 'dadAni',
+  // √kṛ (5P/8P) — karoti, karoṣi, karomi; kuru; karotu
+  'kf:lat:parasmai:prathama:eka': 'karoti',
+  'kf:lat:parasmai:madhyama:eka': 'karozi',  // karoṣi
+  'kf:lat:parasmai:uttama:eka': 'karomi',
+  'kf:lat:parasmai:prathama:bahu': 'kurvanti',
+  'kf:lot:parasmai:prathama:eka': 'karotu',
+  'kf:lot:parasmai:madhyama:eka': 'kuru',
+  'kf:lot:parasmai:uttama:eka': 'karavANi',
+  // √han (2P) — hanti, haṃsi; jahi; hantu
+  'han:lat:parasmai:prathama:eka': 'hanti',
+  'han:lat:parasmai:madhyama:eka': 'haMsi',  // haṃsi
+  'han:lat:parasmai:uttama:eka': 'hanmi',
+  'han:lot:parasmai:prathama:eka': 'hantu',
+  'han:lot:parasmai:madhyama:eka': 'jahi',
+};
+function presentForm(root: string, lakara: Lakara, pada: Pada,
+  purusha: Purusha, vacana: Vacana): SLP1 | undefined {
+  const key = `${root}:${lakara}:${pada}:${purusha}:${vacana}`;
+  return ATHEMATIC_FORMS[key];
+}
+
 /** Perfect-tense (liṭ) reduplicated stems: strong (3s/3d/2s/1s) vs weak. */
 const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   BU: { strong: 'baBUv', weak: 'baBUv' },   // babhūva (ū long by nature)
@@ -299,6 +344,20 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     });
     return p ? [p] : [];
   }
+  // Athematic (non-Sap) present-system forms for common roots. These bypass the
+  // thematic vikaraṇa and use root-specific stems/endings.
+  const athematic = (args.sanadi ?? Sanadi.None) === Sanadi.None
+    ? presentForm(dhatu.text, args.lakara, args.pada ?? dhatu.pada,
+        args.purusha, args.vacana)
+    : undefined;
+  if (athematic) {
+    const p = new Prakriya([athematic]);
+    p.record(`3.2.123 (${LAKARA_LABEL[args.lakara] ?? 'la~w'} vidhāna)`);
+    p.record('3.4.78 (athematic tiṅ)');
+    p.collapse();
+    return [p];
+  }
+
   const sanadi = args.sanadi ?? Sanadi.None;
   // Pāṇini 3.1.22: yaṅ requires a monosyllabic, consonant-initial root. Rather
   // than throwing on an invalid combination, return no forms (valid grammar

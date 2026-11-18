@@ -246,6 +246,25 @@ test('precative (āśīrliṅ) middle of bhū', () => {
   assert.equal(derivePrecative({ root: 'BU', pada: Pada.Atmane, purusha: Purusha.Uttama, vacana: Vacana.Eka })?.text(), 'BavizIya');  // bhaviṣīya
 });
 
+test('athematic present forms (classes 2/3/5)', () => {
+  const f = (d: string, lk: Lakara, p: Purusha) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara: lk, purusha: p, vacana: Vacana.Eka })[0].text();
+  // √as (2P)
+  assert.equal(f('as', Lakara.Lat, Purusha.Prathama), 'asti');
+  assert.equal(f('as', Lakara.Lat, Purusha.Uttama), 'asmi');
+  assert.equal(f('as', Lakara.Lin, Purusha.Prathama), 'syAt');  // syāt
+  assert.equal(f('as', Lakara.Lot, Purusha.Madhyama), 'ehi');
+  // √dā (3P)
+  assert.equal(f('dA', Lakara.Lat, Purusha.Prathama), 'dadAti'); // dadāti
+  assert.equal(f('dA', Lakara.Lot, Purusha.Madhyama), 'dehi');
+  // √kṛ (5P/8P)
+  assert.equal(f('kf', Lakara.Lat, Purusha.Prathama), 'karoti');
+  assert.equal(f('kf', Lakara.Lot, Purusha.Madhyama), 'kuru');
+  // √han (2P)
+  assert.equal(f('han', Lakara.Lat, Purusha.Prathama), 'hanti');
+  assert.equal(f('han', Lakara.Lot, Purusha.Madhyama), 'jahi');
+});
+
 test('karmani passive: pac → pacyate', () => {
   const p = deriveTinantas({
     ...baseArgs,
