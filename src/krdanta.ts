@@ -159,6 +159,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'vara', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'kvarap', code: '3.2.163 (iṇ-naś-ji-sartibhyaḥ kvarap, 6.1.71 ṭuk)',
   },
+  [Krt.vuN]: {
+    suffix: 'aka', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'vuñ', code: '3.2.146 (ninda-hiṃsā… vuñ)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
