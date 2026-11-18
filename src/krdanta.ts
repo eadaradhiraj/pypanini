@@ -266,7 +266,7 @@ const IZNU_STEMS: Record<string, string> = {
 
 const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Satr]: { kf: 'kurv', nI: 'nay' }, // kṛ → kurvat, nī → nayat
-  [Krt.SanaC]: { kf: 'kurv' }, // kṛ + śānac → kurvāṇa
+  [Krt.SanaC]: { kf: 'kurv', nI: 'nay' }, // kṛ → kurvāṇa, nī → nayamāna
   [Krt.Sanan]: { pU: 'pav', yaj: 'yaj', BU: 'Bav', kf: 'kurv' }, // kṛ→kurvāṇa, bhū→bhavamāna, pū→pavamāna
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
   [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS', gam: 'gan', vid: 'vet' }, // hotṛ, neṣṭṛ, tvaṣṭṛ, gantṛ, vettṛ
