@@ -770,3 +770,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ṇic vṛddhi, desiderative viṣ/diś/iṣ, ṇini vṛddhi (pācin/yājin/gāmin/bhāvin),
   ghaH stems (cāra/jaya/veda/nāma). `npm test` passes. Pushed to master.
   Coverage 152/2703.
+
+- **2026-11-18 — Session 95 (continued, toward 2703/2703):** Added ṇvul vṛddhi
+  (pācaka/yājaka), 8.3.66 sadir aprateḥ (niṣīdati/viṣīdati/pratisīdati),
+  8.3.23 mo'nusvāraḥ (saṃgamati/saṃyamati/saṃpacati) with applyAnusvara helper,
+  registered the codes. `npm test` passes. Pushed to GitHub master. Coverage 154/2703.
