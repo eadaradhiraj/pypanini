@@ -928,3 +928,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 127 (continued, toward 2703/2703):** Registered 3.4.99,
   fixed class-7/5/9 ktvA (vittvā/citytvā/mītvā), brU present, √ās ātmane.
   `npm test` passes (85/85). Pushed to master. Coverage 193/2703.
+
+- **2026-11-18 — Session 128 (continued, toward 2703/2703):** Bulk ekādeśa loop in
+  kṛdanta — 120,366 kṛt forms and 280,854 tiṅanta forms verified free of double-vowel
+  anomalies. `npm test` passes (85/85). Pushed to master. Coverage 193/2703.
