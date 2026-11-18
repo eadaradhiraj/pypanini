@@ -508,6 +508,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     const p = new Prakriya([athematic]);
     p.record(`3.2.123 (${LAKARA_LABEL[args.lakara] ?? 'la~w'} vidhāna)`);
     p.record('3.4.78 (athematic tiṅ)');
+    if (args.lakara === Lakara.Lin) {
+      p.record(args.pada === Pada.Parasmai
+        ? '3.4.103 (yāsuṭ parasmaipadeṣu)' : '3.4.102 (liNassIyuw)');
+    }
     p.collapse();
     return [p];
   }
