@@ -712,7 +712,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     postRoot: config.postRoot,
     postRootCode: config.postRoot ? '7.2.35 (iṭ before future vikaraṇa)' : undefined,
     rootOverride,
-    rootOverrideCode: rootOverride ? '6.1.8 (abhyāsa; liṭ reduplication)' : undefined,
+    rootOverrideCode: rootOverride
+      ? args.lakara === Lakara.Lit && dhatu.text === 'kf'
+        ? '6.1.8 (abhyāsa), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)'
+        : rootOverride ? '6.1.8 (abhyāsa; liṭ reduplication)' : undefined
+      : undefined,
   };
 
   return [runTinantaPipeline(prakriya, ctx, suffix.steps)];
