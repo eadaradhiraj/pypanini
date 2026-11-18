@@ -643,7 +643,7 @@ test('kṛdanta: khukañ (-uka, 3.2.57)', () => {
 });
 
 test('kṛdanta: khyun (-ana instrument, 3.2.56)', () => {
-  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.khyun })[0].text(), 'karaNa');
+  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.khyun })[0].text(), 'karaRa'); // karaṇa (ṇ = R)
 });
 
 test('kṛdanta: ki/kin (-i with reduplication, 3.2.171)', () => {

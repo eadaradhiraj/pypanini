@@ -196,7 +196,7 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     pratyaya: 'khukañ', code: '3.2.57 (kartari bhuvaḥ khiṣṇuc-khukañau)',
   },
   [Krt.khyun]: {
-    suffix: 'aNa', grade: 'none', prayoga: Prayoga.Karmani,
+    suffix: 'aRa', grade: 'none', prayoga: Prayoga.Karmani,
     pratyaya: 'khyun', code: '3.2.56 (kṛñaḥ karaṇe khyun)',
   },
   [Krt.kiN]: {
@@ -293,7 +293,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.ap]: { svan: 'svAn', has: 'hAs' }, // +a → svāna/hāsa
   [Krt.kaN]: { tad: 'tAdf', yad: 'yAdf', sa: 'sadf', anya: 'anyAdf' }, // +za → tādṛśa/yādṛśa/sadṛśa
   [Krt.khuKN]: { BU: 'bAv' }, // +uka → bhāvuka
-  [Krt.khyun]: { kf: 'kar' }, // +aNa → karaNa (karaṇa)
+  [Krt.khyun]: { kf: 'kar' }, // +aRa → karaRa (karaṇa)
   [Krt.kiN]: { dA: 'dad', kf: 'cakr', sf: 'sasr', gam: 'jagm', nam: 'nem' }, // +i → dadiH/cakriH/…
   [Krt.najiN]: { svap: 'svap', tfza: 'tfz', Dfza: 'Dfz' }, // +na → svapna / tṛṣṇa / dhṛṣṇa
 };
