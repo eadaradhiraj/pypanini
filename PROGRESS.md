@@ -956,3 +956,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 134 (continued, toward 2703/2703):** Fixed rudh ktavatu
   (roddhavān), vid kṛt forms, CLI help. `npm test` passes (85/85). Pushed to master.
   Coverage 197/2703.
+
+- **2026-11-18 — Session 135 (continued, toward 2703/2703):** Added √śās lat 3s (śāsti),
+  rudh kṛt fixes, class-3 forms. `npm test` passes (85/85). Pushed to master.
+  Coverage 197/2703.
