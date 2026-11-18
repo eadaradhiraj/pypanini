@@ -24,6 +24,7 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  if (stem === 'kuND' || stem === 'goRa' || stem === 'sthala' || stem === 'kAla' || stem === 'nIla' || stem === 'kabara') return StriPratyaya.Nis; // 4.1.42 ṇīṣ
   if (stem === 'harita' || stem === 'Syeza' || stem === 'pizag') return StriPratyaya.Nip; // 4.1.39/40 colour
   if (stem === 'pati') return StriPratyaya.Nip; // 4.1.33 pati → patnī (i → n)
   if (stem === 'pUtakratu' || stem === 'manu') return StriPratyaya.Nip; // 4.1.36/38 (wife of)
