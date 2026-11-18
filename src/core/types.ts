@@ -148,6 +148,7 @@ export enum Krt {
   ap = 'ap', // अप् → -a action noun (svāna/hāsa, 3.3.61/62)
   kaN = 'kaN', // कञ् → -śa (tādṛśa/yādṛśa/sadṛśa, 3.2.60)
   kvin = 'kvin', // क्विन् → zero-suffix agent (ṛtvik/dadhṛk/srak/dik, 3.2.59)
+  khuKN = 'khuKN', // खुकञ् → -uka (bhāvuka, 3.2.57)
 }
 
 export interface KrdantaArgs {

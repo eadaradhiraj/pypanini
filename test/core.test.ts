@@ -495,6 +495,10 @@ test('kṛdanta: kvin irregular agent nouns (3.2.59)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'dfS', krt: Krt.kvin })[0].text(), 'dik');
 });
 
+test('kṛdanta: khukañ (-uka, 3.2.57)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.khuKN })[0].text(), 'bAvuka');
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

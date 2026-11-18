@@ -606,3 +606,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 64 (continued):** Added kṛt suffix kvin (3.2.59, irregular
   zero-suffix agents): `ftu`→`ftvik` (ṛtvik), `DFz`→`dadfzk`, `sfj`→`srak`, `dfS`→`dik`.
   Registered 3.2.59. `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 65 (continued):** Added kṛt suffix khukañ (3.2.57, -uka):
+  `BU`→`bAvuka` (bhāvuka). Registered 3.2.57. `npm test` passes. Pushed to GitHub master.
