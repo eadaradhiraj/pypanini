@@ -8,6 +8,8 @@ export enum NamadhatuPratyaya {
   Kyac = 'kyac',
   /** 3.1.9 kāmyacca — "desires X" (putrakāmyati). */
   Kamyac = 'kAmyac',
+  /** 3.1.10 upamānād ācāre — "treats X as" (putrīyati). */
+  KyacAcara = 'kyacAcara',
   /** 3.1.11 kartuḥ kyaṅ salopaś ca — "treats as X" (śyenāyate). */
   KyaN = 'kyaN',
   /** 3.1.21 muṇḍamiśra…bhyo ṇic — "makes X" (muṇḍayati). */
@@ -49,6 +51,10 @@ export const NAMADHATU_INFO: Record<NamadhatuPratyaya, NamadhatuInfo> = {
   [NamadhatuPratyaya.Kamyac]: {
     pratyaya: NamadhatuPratyaya.Kamyac, sutra: '3.1.9',
     meaning: 'desires', pada: Pada.Parasmai, stemSuffix: 'kAmya',
+  },
+  [NamadhatuPratyaya.KyacAcara]: {
+    pratyaya: NamadhatuPratyaya.KyacAcara, sutra: '3.1.10',
+    meaning: 'treats as / behaves toward (upamāna)', pada: Pada.Parasmai, stemSuffix: 'Iya',
   },
   [NamadhatuPratyaya.KyaN]: {
     pratyaya: NamadhatuPratyaya.KyaN, sutra: '3.1.11',
