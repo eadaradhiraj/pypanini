@@ -12,6 +12,8 @@ export enum StriPratyaya {
   Nip = 'Nip',
   /** 4.1.13 ḍāp: -an stem → -ā after dropping -an (pāman → pāmā). */
   Dap = 'Dap',
+  /** 4.1.41/45 ṇīṣ: jāti/bahvādi → -ī (brāhmaṇa → brāhmaṇī, bahu → bahvī). */
+  Nis = 'Nis',
 }
 
 export interface StriArgs {
@@ -22,6 +24,8 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  if (stem === 'brAhmaRa' || stem === 'kzatriya' || stem === 'vaiSya' || stem === 'sUdra') return StriPratyaya.Nis; // 4.1.41 jāti
+  if (stem === 'bahu' || stem === 'prabhu' || stem === 'bahula') return StriPratyaya.Nis; // 4.1.45 bahvādi
   if (stem === 'kumAra' || stem === 'kiSora' || stem === 'bArkara') return StriPratyaya.Nip; // 4.1.20 vayasi prathame (a-stem → ī)
   if (stem.endsWith('vara') || stem.endsWith('kAra') || stem.endsWith('cara')) return StriPratyaya.Nip; // 4.1.15 ṭiḍ-aṇ-kvarap
   if ((stem.endsWith('an') || stem.endsWith('An')) && !stem.endsWith('van') && !stem.endsWith('in')) return StriPratyaya.Dap; // 4.1.13
@@ -46,6 +50,13 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     // ḍāp: drop final -an, add -ā
     feminine = args.stem.slice(0, -2) + 'A'; // pāman → pāmā, sīmān → sīmā
     p.record('4.1.13 (ḍāp ubhābhyām anyatarasyām)');
+  } else if (pratyaya === StriPratyaya.Nis) {
+    // ṇīṣ: jāti/bahvādi → -ī; brāhmaṇa → brāhmaṇī, bahu → bahvī
+    if (args.stem === 'bahu') feminine = 'bahvI';
+    else if (args.stem === 'prabhu') feminine = 'prabhvI';
+    else if (args.stem.endsWith('a')) feminine = args.stem.slice(0, -1) + 'I';
+    else feminine = args.stem + 'I';
+    p.record('4.1.41/45 (ṇīṣ — jāti/bahvādi)');
   } else {
     // ṅīp: ṛ/n → ī (kartṛ → kartrī, daṇḍin → daṇḍinī)
     if (args.stem.endsWith('f')) {
