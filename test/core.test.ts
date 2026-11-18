@@ -680,6 +680,11 @@ test('kṛdanta: ac (-a action noun after i/ī roots, 3.3.56)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kzi', krt: Krt.ac })[0].text(), 'kzaya'); // kṣaya
 });
 
+test('kṛdanta: ṇa (3.3.90 yajña/praśna)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.naN })[0].text(), 'yajYa');  // yajña
+  assert.equal(deriveKrdantas({ dhatu: 'praS', krt: Krt.naN })[0].text(), 'prazRa'); // praśna
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

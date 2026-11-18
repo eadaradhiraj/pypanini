@@ -211,6 +211,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'a', grade: 'none', prayoga: Prayoga.Bhave,
     pratyaya: 'ac', code: '3.3.56 (er ac — action noun after i/ī-final roots)',
   },
+  [Krt.naN]: {
+    suffix: 'na', grade: 'none', prayoga: Prayoga.Bhave,
+    pratyaya: 'ṇa', code: '3.3.90 (yajayācayataviccha... ṇa)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
@@ -267,6 +271,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv', vid: 'ved', diS: 'dez', car: 'cAr' }, // ṇini vṛddhi
   [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh' }, // pācaka, yājaka, dāyaka, vāhaka
   [Krt.ac]: { ci: 'cay', i: 'ay', ji: 'jay', kzi: 'kzay', sf: 'sar' }, // caya, aya, jaya, kṣaya, sara (3.3.56)
+  [Krt.naN]: { yaj: 'yajY' }, // yaj + ṇa → yajña (jñ)
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga' }, // gam→gati (nasal lopa); ūti… (3.3.97)
   [Krt.KtvA]: { gam: 'ga', dA: 'dat' }, // gam → gatvā, dā → dattvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez' }, // vedana, deśana (guṇa)
@@ -351,6 +356,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Ani) spec.suffix = rFinal ? 'aRIya' : 'anIya';
   if (args.krt === Krt.LyuT) spec.suffix = rFinal ? 'aRa' : 'ana';
   if (args.krt === Krt.Nvul) spec.grade = rFinal ? 'vrddhi' : 'guna';
+  if (args.krt === Krt.naN && dhatu.text === 'yaj') spec.suffix = 'a'; // yajY + a → yajña
   if (args.krt === Krt.Yat) spec.grade = rFinal ? 'vrddhi' : 'guna';
   if (args.krt === Krt.kSnu && KSNU_SUFFIX[dhatu.text]) spec.suffix = KSNU_SUFFIX[dhatu.text];
   if (args.krt === Krt.SanaC && rFinal) spec.suffix = 'ARa'; // kṛ → kurvāṇa

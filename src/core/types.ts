@@ -153,6 +153,7 @@ export enum Krt {
   kiN = 'kiN', // कि/किन् → -i agent with reduplication (dadiḥ/cakriḥ, 3.2.171)
   najiN = 'najiN', // नजिङ् → -na habitual agent (svapna/tṛṣṇa/dhṛṣṇa, 3.2.172)
   ac = 'ac', // अच् → -a action noun after i/ī-final roots (caya/jaya/kṣaya, 3.3.56)
+  naN = 'naN', // ण → -na noun (yajña/praśna, 3.3.90)
 }
 
 export interface KrdantaArgs {
