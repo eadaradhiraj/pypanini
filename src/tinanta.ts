@@ -342,6 +342,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'yA:lat:parasmai:prathama:eka': 'yAti',
   'yA:lat:parasmai:madhyama:eka': 'yAsi',
   'yA:lat:parasmai:uttama:eka': 'yAmi',
+  'yA:lat:parasmai:prathama:bahu': 'yAnti', // yānti (ā+a → ā)
   'yA:lot:parasmai:madhyama:eka': 'yAhi',
 };
 function presentForm(root: string, lakara: Lakara, pada: Pada,
