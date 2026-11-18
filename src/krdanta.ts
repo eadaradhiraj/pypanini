@@ -426,15 +426,25 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   // Grade the root. For u-final roots before consonant-initial suffixes, guṇa
   // yields o and 6.1.78 turns it into av (bhav-); handled after grading below.
   let root = STEM_OVERRIDE[args.krt]?.[dhatu.text] ?? sanadi.root;
+  let gradeCode: string | undefined;
   if (!STEM_OVERRIDE[args.krt]?.[dhatu.text]) {
-    if (spec.grade === 'guna') root = gunafy(root).text;
-    if (spec.grade === 'vrddhi') root = vrddhify(root).text;
+    if (spec.grade === 'guna') {
+      const g = gunafy(root);
+      if (g.changed) gradeCode = "1.1.52 (alo'ntyasya), 1.1.2 (guṇa: aṇudīdhṛtasya)";
+      root = g.text;
+    }
+    if (spec.grade === 'vrddhi') {
+      const v = vrddhify(root);
+      if (v.changed) gradeCode = "1.1.52 (alo'ntyasya), 1.1.1 (vṛddhirādaic)";
+      root = v.text;
+    }
   }
 
   const initial = [root, ...sanadi.extra];
   const p = new Prakriya(initial);
   p.record('1.3.1');
   if (sanadi.code) p.record(sanadi.code);
+  if (gradeCode) p.record(gradeCode);
 
   // 6.1.78: o + suffix-initial consonant → av (bhū + tṛ → bhavtṛ → kartṛ-like).
   // ṣṭran stems like sto-/yo- are already final o and must keep it.
