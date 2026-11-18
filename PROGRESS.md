@@ -792,3 +792,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   bugs (karavARi, khyun karaRa, izRu/zRu), perfect stems (yayāja, veda, jaghāna,
   cacāra), ghaH/nvul/ṇini/LyuT vṛddhi stems, strī rājñī/bhagavatī/taruṇī,
   namadhatu final-a (citrayati). `npm test` passes. Pushed to master. Coverage 155/2703.
+
+- **2026-11-18 — Session 99 (continued, toward 2703/2703):** Fixed 3.1.6 dā/mā
+  desiderative dīrgha (dīdāsati/mīmāṃsati), ṣṭran hotra/astra, perfect stems
+  (yayāja/veda/jaghāna/cacāra), SLP1 karavāṇi, strī taruṇī. Registered 3.1.6.
+  `npm test` passes. Pushed to GitHub master. Coverage 156/2703.
