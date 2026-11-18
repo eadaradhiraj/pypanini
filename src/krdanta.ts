@@ -417,6 +417,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     }
   }
 
+  // 6.1.84 ekādeśa: ā + a → ā (dā + anīya → dānīya).
+  if (p.textAt(p.length - 1).endsWith('A') && spec.suffix.startsWith('a')) {
+    spec.suffix = spec.suffix.slice(1); // ā + a → ā (single long vowel)
+    p.record('6.1.84 (ekādeśa: ā + a → ā)');
+  }
   p.insert(p.length, spec.suffix, ['krt']);
   p.record(spec.code);
 
