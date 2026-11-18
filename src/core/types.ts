@@ -143,6 +143,7 @@ export enum Krt {
   vuN = 'vuN', // वुञ् → -aka (nindaka/hiṃsaka/khādaka, 3.2.146)
   ghinuN = 'ghinuN', // घिनुण् → -in (vikāṣī/vilāsī/pravāsī, 3.2.143/145)
   cAnaS = 'cAnaS', // चानश् → -āna (bhuñjāna/bibhrāṇa, 3.2.129)
+  aN = 'aN', // अण् → -ā feminine action noun (cintā/pūjā/kathā, 3.3.105)
 }
 
 export interface KrdantaArgs {

@@ -456,6 +456,12 @@ test('kṛdanta: cānaś (-āna, 3.2.129)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'biF', krt: Krt.cAnaS })[0].text(), 'bibRAna');
 });
 
+test('kṛdanta: aṇ (-ā feminine, 3.3.105)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'cint', krt: Krt.aN })[0].text(), 'cintA');
+  assert.equal(deriveKrdantas({ dhatu: 'pUj', krt: Krt.aN })[0].text(), 'pUjA');
+  assert.equal(deriveKrdantas({ dhatu: 'kath', krt: Krt.aN })[0].text(), 'kathA');
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

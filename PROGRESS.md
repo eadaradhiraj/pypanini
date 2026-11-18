@@ -546,3 +546,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 50 (continued):** Added kṛt suffix cānaś (3.2.129, -āna):
   `buJ`→`buJjAna`, `biF`→`bibRAna`. Registered 3.2.129. `npm test` passes.
   Pushed to GitHub master.
+
+- **2026-11-18 — Session 51 (continued):** Added kṛt suffix aṇ (3.3.105, -ā feminine):
+  `cint`→`cintA`, `pUj`→`pUjA`, `kath`→`kathA`, `carc`→`carcA`. Registered 3.3.105.
+  `npm test` passes. Pushed to GitHub master.
