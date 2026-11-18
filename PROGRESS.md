@@ -1019,3 +1019,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   sūtras: 3.3.16 (pāda/roga/veśa/sparśa), 3.3.17 (sāra). Fixed pāda/roga/sparśa
   vṛddhi/guṇa. `npm test` passes (85/85). Pushed to master. Coverage 229/2703
   (230/3983).
+
+- **2026-11-18 — Session 145 (continued, toward 2703/2703):** Fixed consonant-stem
+  nominative singular forms (vāk/dviṭ/bhagavān) with 8.2.39 trace. Registered 8.2.39.
+  0 anomalies / 0 emitted-unregistered codes across 120 roots × all derivations.
+  `npm test` passes (85/85). Pushed to master. Coverage 230/2703 (231/3983).
