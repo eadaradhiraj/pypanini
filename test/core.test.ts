@@ -272,6 +272,12 @@ test('athematic present forms (classes 2/3/5)', () => {
   assert.equal(f('i', Lakara.Lat, Purusha.Prathama), 'eti');
   assert.equal(f('i', Lakara.Lat, Purusha.Madhyama), 'ezi');  // eṣi
   assert.equal(f('yA', Lakara.Lat, Purusha.Prathama), 'yAti');
+  // √dā full athematic paradigm (class 3)
+  assert.equal(f('dA', Lakara.Lat, Purusha.Prathama), 'dadAti');
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'dA', purusha: Purusha.Prathama, vacana: Vacana.Dvi })[0].text(), 'dattaH');
+  assert.equal(f('dA', Lakara.Lan, Purusha.Prathama), 'adadAt');
+  assert.equal(f('dA', Lakara.Lit, Purusha.Prathama), 'dadau');
+  assert.equal(a('dA', Purusha.Prathama), 'datte'); // √dā middle present
 });
 
 test('karmani passive: pac → pacyate', () => {
