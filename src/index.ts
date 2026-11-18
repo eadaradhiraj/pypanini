@@ -64,6 +64,8 @@ export {
 } from './coverage';
 export type { Topic, CoverageReport } from './coverage';
 export * as aux from './data/aux';
+export { deriveStri, striPratyayaFor, StriPratyaya } from './stri';
+export type { StriArgs } from './stri';
 export {
   UPASARGAS,
   isUpasarga,

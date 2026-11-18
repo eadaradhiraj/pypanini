@@ -34,6 +34,7 @@ import { analyzeSubanta, describeAnalysis } from './analyze';
 import { buildSanadiStem } from './sanadi';
 import { deriveNamadhatus, NamadhatuPratyaya, NAMADHATU_INFO } from './namadhatu';
 import { deriveParadigm, formatParadigm } from './paradigm';
+import { deriveStri } from './stri';
 
 type Flags = Record<string, string | boolean>;
 
@@ -81,6 +82,7 @@ Commands:
   subanta    Derive subanta forms
   paradigm   Full conjugation table (all lakāras × both padas) for a dhātu
   analyze    Analyse a declined word → base + case/number/gender
+  stri       Derive feminine stem from a masculine prātipadika
   coverage   Show sūtra coverage by focus topic
   dhatus     List/search the full Dhātupāṭha (--search <prefix> --limit <n>)
   sutras     Look up sūtra text by code (--code 3.1.20) or search (--search <text>)
@@ -151,6 +153,18 @@ function main(): void {
     console.log(`${list.length} dhātus${query ? ` matching "${query}"` : ''}`);
     for (const d of list) {
       console.log(`${(d.code ?? '').padEnd(9)} ${d.text.padEnd(12)} g${d.gana}  ${d.artha ?? ''}`);
+    }
+    return;
+  }
+
+  if (command === 'stri') {
+    const stem = str(flags, 'stem', str(flags, 'word', 'deva'));
+    const p = deriveStri({ stem });
+    if (!p) {
+      console.error(`no strī-pratyaya for stem "${stem}"`);
+      process.exitCode = 1;
+    } else {
+      console.log(p.text());
     }
     return;
   }

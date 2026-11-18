@@ -567,3 +567,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   already handles `zak`→`zakya`, `sah`→`sahya` (3.1.99), `vah`→`vahya` (3.1.102).
   Registered 3.1.99/3.1.102, added a test. Most other 3.1 suffixes are taddhita-
   dependent or Vedic. `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 56 (continued):** Added strī-pratyaya system (`src/stri.ts`):
+  ṭāp (4.1.4) `deva`→`devA`, `aja`→`ajā`; ṅīp (4.1.5) `kartf`→`kartrI`,
+  `daNDin`→`daNDinI`. New CLI command `stri`. Registered 4.1.4/4.1.5.
+  `npm test` passes. Pushed to GitHub master.

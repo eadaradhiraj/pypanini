@@ -22,6 +22,7 @@ import { SUTRAS } from '../src/data/sutras';
 import { deriveNamadhatus, NamadhatuPratyaya } from '../src/namadhatu';
 import { derivePrecative } from '../src/aorist';
 import { deriveParadigm, formatParadigm } from '../src/paradigm';
+import { deriveStri } from '../src/stri';
 import { UPASARGAS, isUpasarga, applyUpasargaSandhi, applyAyatiSandhi } from '../src/upasarga';
 
 const baseArgs = {
@@ -721,6 +722,13 @@ test('paradigm generator (full conjugation table)', () => {
   const rendered = formatParadigm(para);
   assert.ok(rendered.includes('## lat · parasmai'));
   assert.ok(rendered.includes('Bavati'));
+});
+
+test('strī-pratyayas: ṭāp (4.1.4) and ṅīp (4.1.5)', () => {
+  assert.equal(deriveStri({ stem: 'deva' })?.text(), 'devA');   // devā
+  assert.equal(deriveStri({ stem: 'aja' })?.text(), 'ajA');     // ajā
+  assert.equal(deriveStri({ stem: 'kartf' })?.text(), 'kartrI'); // kartrī
+  assert.equal(deriveStri({ stem: 'daNDin' })?.text(), 'daNDinI'); // daṇḍinī
 });
 
 test('Vyakarana facade', () => {
