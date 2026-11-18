@@ -834,3 +834,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (āsa), nI kṛt stems (nāyaka/nayana), a-aorist atmane. Bulk-audited all Krt×root,
   Lakara×pada×purusha×vacana forms for N/ङ and double-vowel anomalies — clean.
   `npm test` passes (85/85). Pushed to master. Coverage 164/2703.
+
+- **2026-11-18 — Session 107 (continued, toward 2703/2703):** Bulk-verified all
+  980 Krt×root combinations produce non-empty forms; no SLP1 N/ङ or double-vowel
+  anomalies in kṛdanta/tinanta/strī/nāmādhatu. `npm test` passes (85/85).
+  Pushed to master. Coverage 164/2703.
