@@ -446,6 +446,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.ghaH && ['pad', 'ruj', 'viS', 'spfS'].includes(dhatu.text)) {
     spec.code = '3.3.16 (pada-ruja-viśa-spṛśo ghañ — pāda/roga/veśa/sparśa)';
   }
+  if (args.krt === Krt.ghaH && dhatu.text === 'sf') spec.code = '3.3.17 (sṛ sthire — sāra)';
   if (args.krt === Krt.Ktin && ['muR', 'Sak', 'Bhak'].includes(dhatu.text)) {
     spec.code = '3.3.174 (kti-ktO ca saṃjñāyām — śakti/bhakti/mūrti)';
   }
