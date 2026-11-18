@@ -232,8 +232,11 @@ export const TINANTA_TAIL_RULES: Rule[] = [
     ctx.prakriya.collapse(); // join terms into one pada
     // 6.1.84 ekādeśa: same short vowels at a boundary merge (SLP1 long = capital)
     const t0 = ctx.prakriya.terms[0];
-    if (/(aa|ii|uu|ee|oo|Aa|Ii|Uu)/.test(t0.text)) {
+    const beforeEkadesa = t0.text;
+    while (/(aa|ii|uu|ee|oo|Aa|Ii|Uu)/.test(t0.text)) {
       t0.text = t0.text.replace(/(aa|ii|uu|ee|oo|Aa|Ii|Uu)/g, (m) => m[0]); // ekādeśa: single vowel
+    }
+    if (t0.text !== beforeEkadesa) {
       ctx.prakriya.record('6.1.84 (ekādeśa: vowel + same vowel → single)');
       ctx.prakriya.collapse();
     }
