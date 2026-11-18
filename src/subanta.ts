@@ -285,6 +285,12 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     p.insert(p.length, surface, ['sup']);
   }
   p.record(`7.1.x (vibhakti ${args.vibhakti}, ${cls.id})`);
+  if (args.vacana === Vacana.Dvi && [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
+    p.record('7.1.17 (jasaḥ śī — nom/acc dual -au)');
+  }
+  if (args.vacana === Vacana.Bahu && [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
+    p.record('7.1.20 (jaśśasoḥ siḥ — nom/acc plural)');
+  }
   if (cls.terminal === 'an' || cls.terminal === 'at') {
     p.record('8.2.7 (nalopaḥ prātipadikāntasya — n/t-stem base)');
   }
