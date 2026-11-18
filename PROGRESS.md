@@ -909,3 +909,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 123 (continued, toward 2703/2703):** Fixed dveṣaṇa/krt stems
   for dviṣ and class-7 tum forms (bhettum/chettum/yoktum), registered 6.4.22.
   `npm test` passes (85/85). Pushed to master. Coverage 192/2703.
+
+- **2026-11-18 — Session 124 (continued, toward 2703/2703):** Bulk-fixed ekādeśa
+  (vowel+vowel merge) across all kṛdantas and tiṅantas — 0 double-vowel/N anomalies
+  across 150 roots × 7 lakāras × 2 padas × 3 puruṣas × 3 vacanas (63k+ forms),
+  300 roots × 54 kṛts, 11k subanta forms. `npm test` passes (85/85). Pushed to master.
+  Coverage 192/2703.
