@@ -146,11 +146,9 @@ export function deriveNamadhatus(args: NamadhatuArgs): Prakriya[] {
   const purusha = args.purusha ?? Purusha.Prathama;
   const vacana = args.vacana ?? Vacana.Eka;
 
-  // Bare prātipadika: drop a final -a before the denominative suffix.
-  const bare = args.pratipadika.endsWith('a')
-    ? args.pratipadika.slice(0, -1)
-    : args.pratipadika;
-  const stem = bare + info.stemSuffix;
+  // Bare prātipadika + denominative suffix: drop final -a only before a vowel
+  // (putra + īya → putrīya), keep it before consonant-initial ya (citra + ya → citraya).
+  const stem = coalesce(args.pratipadika, info.stemSuffix);
   const suffix = suffixes(pada, purusha, vacana);
   const surface = coalesce(stem, suffix);
 

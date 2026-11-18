@@ -848,7 +848,7 @@ test('nāmādhatu (denominative) derivations', () => {
   const form = (pratipadika: string, pratyaya: NamadhatuPratyaya) =>
     deriveNamadhatus({ pratipadika, pratyaya })[0].text();
   assert.equal(form('putra', NamadhatuPratyaya.Kyac), 'putrIyati');
-  assert.equal(form('putra', NamadhatuPratyaya.Kamyac), 'putrkAmyati');
+  assert.equal(form('putra', NamadhatuPratyaya.Kamyac), 'putrakAmyati'); // putrakāmyati
   assert.equal(form('putra', NamadhatuPratyaya.KyacAcara), 'putrIyati'); // 3.1.10 upamānād ācāre
   assert.equal(form('putra', NamadhatuPratyaya.KyaN), 'putrAyate');
   assert.equal(form('Syena', NamadhatuPratyaya.KyaN), 'SyenAyate');
@@ -859,6 +859,7 @@ test('nāmādhatu (denominative) derivations', () => {
   assert.equal(form('roma', NamadhatuPratyaya.Varticara), 'romAyate');
   assert.equal(form('bAzpa', NamadhatuPratyaya.Udvamana), 'bAzpAyate');
   assert.equal(form('namas', NamadhatuPratyaya.KyacNama), 'namasyati');
+  assert.equal(form('citra', NamadhatuPratyaya.KyacNama), 'citrayati'); // citra + ya → citraya (final a kept)
   assert.equal(form('pucCa', NamadhatuPratyaya.NiN), 'pucCayate'); // 3.1.20
 });
 
