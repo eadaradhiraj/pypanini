@@ -400,6 +400,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Tac && ['bhid', 'Cid'].includes(dhatu.text)) spec.suffix = 'na'; // bhin+na → bhinna
   if (args.krt === Krt.Tac && dhatu.text === 'rudh') spec.suffix = 'a'; // rudD+a → ruddha
   if (args.krt === Krt.Tum && dhatu.text === 'rudh') spec.suffix = 'um'; // roDD+um → roddhum
+  if (args.krt === Krt.Tfc && dhatu.text === 'rudh') spec.suffix = 'f'; // roDD+f → roddhṛ
   if (args.krt === Krt.Tac && dhatu.text === 'dviza') spec.suffix = 'wa'; // dviz+wa → dviṣṭa
   if (args.krt === Krt.KtvA && dhatu.text === 'rudh') spec.suffix = 'vA'; // rudD+vA → ruddhvā
   if (args.krt === Krt.Ktin && ['rudh', 'bhid', 'Cid'].includes(dhatu.text)) spec.suffix = 'i'; // ruddhi/bhitti/chitti
