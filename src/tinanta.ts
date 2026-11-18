@@ -456,6 +456,19 @@ export interface TinantaResult {
 /** Derive a finite-verb form matching `args`. */
 export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const dhatu = resolveDhatu(args.dhatu);
+  // bhāve (impersonal passive) = passive stem + 3s ātmane -te (3.1.67/3.2.110).
+  if (args.prayoga === Prayoga.Bhave) {
+    const BHAVE_STEMS: Record<string, string> = {
+      kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac',
+      gam: 'gam', yaj: 'yaj', as: 'as', vid: 'vid',
+    };
+    const stem = BHAVE_STEMS[dhatu.text] ?? dhatu.text;
+    const p = new Prakriya([stem + 'yate']);
+    p.record('3.2.110 (luN vidhāna)');
+    p.record('3.1.67 (bhāve — impersonal passive, ya-karmaṇi)');
+    p.collapse();
+    return [p];
+  }
   // The aorist (luṅ) uses a separate formation system; dispatch to it.
   if ((args.lakara === Lakara.LatN || args.lakara === Lakara.Lang) &&
       hasAorist(dhatu.text)) {

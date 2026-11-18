@@ -295,6 +295,13 @@ test('karmani passive: pac → pacyate', () => {
   assert.equal(passive('kf'), 'kriyate');  // kṛ → kriyate
   assert.equal(passive('dA'), 'dIyate');   // dā → dīyate
   assert.equal(passive('ni'), 'nIyate');   // nī → nīyate
+  // bhāve (impersonal passive) = passive stem + 3s -te
+  const bhave = (d: string) => deriveTinantas({
+    ...baseArgs, dhatu: d, prayoga: Prayoga.Bhave, pada: Pada.Atmane,
+  })[0].text();
+  assert.equal(bhave('kf'), 'kriyate');
+  assert.equal(bhave('dA'), 'dIyate');
+  assert.equal(bhave('BU'), 'Bavyate');
 });
 
 test('karmani passive paradigm: pac (9 ātmane forms)', () => {
