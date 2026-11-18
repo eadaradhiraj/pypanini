@@ -125,7 +125,9 @@ export const TINANTA_TAIL_RULES: Rule[] = [
 
   rule('3.1.68', 'insert the vikaraṇa (Sap/yak) before the tiṅ suffix', (ctx) => {
     const i = ctx.prakriya.findTag('tin');
-    ctx.prakriya.insert(i, ctx.vikaranaLabel, ['vikarana']);
+    if (ctx.vikaranaLabel) {
+      ctx.prakriya.insert(i, ctx.vikaranaLabel, ['vikarana']);
+    }
     ctx.prakriya.record('3.1.68');
   }, (ctx) => ctx.prakriya.findTag('tin') >= 0),
 

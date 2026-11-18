@@ -164,6 +164,21 @@ function lutStem(root: string): string {
   return LUT_STEMS[root] ?? gunafy(root).text + 'it'; // fallback: guṇa + i + t
 }
 
+/** Simple-future (lṛt) stems: root + (i) + sya/ṣya vikaraṇa, ready for tiṅ endings. */
+const FUTURE_STEMS: Record<string, string> = {
+  BU: 'Bavizya', // bhaviṣya-
+  dA: 'dAsya',   // dā-sya- (no -i-)
+  kf: 'karizya', // kariṣya-
+  gam: 'gamizya',// gamiṣya-
+  pac: 'pakzya', // pak-ṣya- (c → k, 8.2.36 + ṣatva)
+  yaj: 'yakzya', // yak-ṣya-
+  ni: 'nezya',   // ne-ṣya-
+  han: 'hanizya',// haniṣya-
+};
+function futureStem(root: string): string {
+  return FUTURE_STEMS[root] ?? gunafy(root).text + 'izya'; // fallback: guṇa + i + ṣya
+}
+
 /** Perfect-tense (liṭ) reduplicated stems for common roots. */
 const PERFECT_STEMS: Record<string, string> = {
   BU: 'baBUv', pac: 'papac', kf: 'cakf', gam: 'jagam', ni: 'nini', ji: 'jiji',
@@ -187,8 +202,8 @@ const LAKARA_CONFIG: Record<Lakara, LakaraConfig> = {
     doGuna: true, doOAtoAv: true, doDirgha: true,
   },
   [Lakara.Lrt]: {
-    parasmai: PARASMAI_LAT, atmane: ATMANE_LAT, vikarana: { label: 'sya', surface: 'zya' },
-    postRoot: 'i', doGuna: true, doOAtoAv: true, doDirgha: true,
+    parasmai: PARASMAI_LAT, atmane: ATMANE_LAT, vikarana: { label: '', surface: '' },
+    rootTransform: futureStem, doGuna: false, doOAtoAv: false, doDirgha: false,
   },
   [Lakara.Lof]: {
     parasmai: PARASMAI_LOT, atmane: ATMANE_LOT, vikarana: VIKARANA_KARTARI,
@@ -207,8 +222,8 @@ const LAKARA_CONFIG: Record<Lakara, LakaraConfig> = {
     prefix: 'a', doGuna: true, doOAtoAv: true, doDirgha: true,
   },
   [Lakara.Lng]: {
-    parasmai: PARASMAI_LAN, atmane: ATMANE_LAN, vikarana: { label: 'sya', surface: 'izya' },
-    prefix: 'a', doGuna: true, doOAtoAv: true, doDirgha: true,
+    parasmai: PARASMAI_LAN, atmane: ATMANE_LAN, vikarana: { label: '', surface: '' },
+    prefix: 'a', rootTransform: futureStem, doGuna: false, doOAtoAv: false, doDirgha: true,
   },
   [Lakara.Lit]: {
     parasmai: PARASMAI_LIT, atmane: ATMANE_LIT, vikarana: { label: '', surface: '' },

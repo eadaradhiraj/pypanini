@@ -165,6 +165,14 @@ test('laṅ/lṛṅ ātmanepada 1st person dīrgha', () => {
   assert.equal(form(Lakara.Lan, Vacana.Bahu), 'aBavAmahe');
   assert.equal(form(Lakara.Lng, Vacana.Dvi), 'aBavizyAvahi');
   assert.equal(form(Lakara.Lng, Vacana.Bahu), 'aBavizyAmahe');
+  // root-specific future stems (no spurious -i-, proper ṣatva / jhal→k)
+  const fut = (lakara: Lakara, d: string) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara,
+      purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(fut(Lakara.Lrt, 'dA'), 'dAsyati');  // dāsyati
+  assert.equal(fut(Lakara.Lrt, 'pac'), 'pakzyati'); // pakṣyati
+  assert.equal(fut(Lakara.Lrt, 'yaj'), 'yakzyati'); // yakṣyati
+  assert.equal(fut(Lakara.Lng, 'dA'), 'adAsyat');  // adāsyat
 });
 
 test('aorist (luN): root / a / s / iṣ varieties', () => {

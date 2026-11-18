@@ -709,3 +709,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   `LUT_STEMS` map (`dA`→`dAtA`, `kf`→`kartA`, `gam`→`gantA`, `pac`→`paktA`,
   `yaj`→`yaStA`, `ni`→`netA`), with guṇa fallback. Verified ātmane paradigm.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 86 (continued, items 2-3):** (#3) Fixed simple future (lṛt)
+  and conditional (lṛṅ) stems: replaced baked-in postRoot 'i' with root-specific
+  `FUTURE_STEMS` map (`dA`→`dAsyati`, `pac`→`pakṣyati`, `yaj`→`yakṣyati`,
+  `ni`→`neṣyati`). Fixed 3.1.68 to skip inserting an empty vikaraṇa term, which
+  had broken 7.3.101 dīrgha (`abhaviṣyāvahi`). `npm test` passes. Pushed to master.
