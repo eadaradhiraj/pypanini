@@ -915,3 +915,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   across 150 roots × 7 lakāras × 2 padas × 3 puruṣas × 3 vacanas (63k+ forms),
   300 roots × 54 kṛts, 11k subanta forms. `npm test` passes (85/85). Pushed to master.
   Coverage 192/2703.
+
+- **2026-11-18 — Session 125 (continued, toward 2703/2703):** Bulk-fixed ekādeśa loop
+  across tiṅantas; class-7 kṛt forms (bhinna/bhittvā/bhettavya/bhettum/bhitti/yukti,
+  chhinna/chittvā/chettavya/chet-tum/chitti, ruddhvā/ruddhi, yoktum/yoktavya/yukti).
+  `npm test` passes (85/85). Pushed to master. Coverage 192/2703.
