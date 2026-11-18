@@ -977,3 +977,12 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Re-verified 0 double-vowel/N anomalies across 120 roots × 7 lakāras × 2 padas ×
   3 puruṣas × 3 vacanas and all kṛts. `npm test` passes (85/85). Pushed to master.
   Coverage 205/2703 (206/3983).
+
+- **2026-11-18 — Session 139 (continued, toward 2703/2703):** Registered 11 sūtras
+  with real traces: 8.2.31/8.2.40/8.3.13 (ho ḍhaḥ — soḍhā/voḍhum), 3.1.27
+  (kaṇḍvy yak — kaṇḍūyati), 3.1.28 (gupū āyaḥ — gopāyati), 3.1.29 (ṛter īyaṅ
+  — ṛtīyate), 3.1.30 (kamer ṇiṅ — kāmayate), 3.1.48 (caṅ aorist —
+  aśiśriyat/adudruvat/asusruvat), 3.1.135 (ka kṛt — budha/vikṣipa/priya/jña),
+  3.1.45 (kṣa aorist — adukṣat/alikṣat). 0 double-vowel/N anomalies across 150
+  roots × 7 lakāras × all persons + all kṛts + all nāmādhatus. `npm test` passes
+  (85/85). Pushed to master. Coverage 215/2703 (216/3983).
