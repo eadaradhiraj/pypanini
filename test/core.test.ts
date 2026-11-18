@@ -263,6 +263,15 @@ test('athematic present forms (classes 2/3/5)', () => {
   // √han (2P)
   assert.equal(f('han', Lakara.Lat, Purusha.Prathama), 'hanti');
   assert.equal(f('han', Lakara.Lot, Purusha.Madhyama), 'jahi');
+  // √kṛ ātmane (8P/5Ā), √i (2P), √yā (2P)
+  const a = (d: string, p: Purusha) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, pada: Pada.Atmane,
+      purusha: p, vacana: Vacana.Eka })[0].text();
+  assert.equal(a('kf', Purusha.Prathama), 'kurute');
+  assert.equal(a('kf', Purusha.Uttama), 'kurvE');    // kurve
+  assert.equal(f('i', Lakara.Lat, Purusha.Prathama), 'eti');
+  assert.equal(f('i', Lakara.Lat, Purusha.Madhyama), 'ezi');  // eṣi
+  assert.equal(f('yA', Lakara.Lat, Purusha.Prathama), 'yAti');
 });
 
 test('karmani passive: pac → pacyate', () => {

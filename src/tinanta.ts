@@ -217,6 +217,26 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'han:lat:parasmai:uttama:eka': 'hanmi',
   'han:lot:parasmai:prathama:eka': 'hantu',
   'han:lot:parasmai:madhyama:eka': 'jahi',
+  // √kṛ (8P/5Ā) — ātmane kurute, kuruṣe, kurve
+  'kf:lat:atmane:prathama:eka': 'kurute',
+  'kf:lat:atmane:madhyama:eka': 'kuruze',  // kuruṣe
+  'kf:lat:atmane:uttama:eka': 'kurvE',     // kurve
+  'kf:lat:atmane:prathama:bahu': 'kurvate',
+  'kf:lot:atmane:prathama:eka': 'kurutAm',
+  'kf:lot:atmane:madhyama:eka': 'kuruzva', // kuruṣva
+  'kf:lin:atmane:prathama:eka': 'kurvIta', // kurvīta
+  // √i (2P) — eti, eṣi, emi; etu/ehi
+  'i:lat:parasmai:prathama:eka': 'eti',
+  'i:lat:parasmai:madhyama:eka': 'ezi',    // eṣi
+  'i:lat:parasmai:uttama:eka': 'emi',
+  'i:lat:parasmai:prathama:bahu': 'yAnti', // yānti
+  'i:lot:parasmai:prathama:eka': 'etu',
+  'i:lot:parasmai:madhyama:eka': 'ehi',
+  // √yā (2P) — yāti, yāsi, yāmi
+  'yA:lat:parasmai:prathama:eka': 'yAti',
+  'yA:lat:parasmai:madhyama:eka': 'yAsi',
+  'yA:lat:parasmai:uttama:eka': 'yAmi',
+  'yA:lot:parasmai:madhyama:eka': 'yAhi',
 };
 function presentForm(root: string, lakara: Lakara, pada: Pada,
   purusha: Purusha, vacana: Vacana): SLP1 | undefined {

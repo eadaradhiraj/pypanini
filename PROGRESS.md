@@ -732,3 +732,11 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   the user. Continue advancing coverage every session; report only at that milestone.
   Note: the focus set (ch. 1, 3.1–3.4, 4.1, 6–8, 7) includes many Vedic/upapada/
   accent/nipātana sūtras, so this is a multi-session target.
+
+- **2026-11-18 — Session 89 (continued, toward 2703/2703):** Fixed perfect (liṭ)
+  strong/weak stems (`cakāra/papāca/jagāma`, `cakruḥ`), 1d/1p endings; fixed
+  kvarap `iṇ→itvara` (6.1.71, registered). Added subanta short-i (`mati`) and
+  ṛ-stem (`dātṛ`) feminine classes and fixed analyze strong-ending shadowing.
+  Fixed kṛdanta 8.2.36 (yaj→yaṣṭa, diś→diṣṭa; registered 8.4.41). Added
+  athematic present forms for as/dā/kṛ/han/i/yā (incl. kṛ ātmane kurute).
+  `npm test` passes (82/82). Pushed to GitHub master. Coverage 145/2703.
