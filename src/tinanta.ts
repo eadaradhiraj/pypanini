@@ -470,7 +470,8 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   // Athematic (non-Sap) present-system forms for common roots. These bypass the
   // thematic vikaraṇa and use root-specific stems/endings.
-  const athematic = (args.sanadi ?? Sanadi.None) === Sanadi.None
+  const athematic = (args.sanadi ?? Sanadi.None) === Sanadi.None &&
+    (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari
     ? presentForm(dhatu.text, args.lakara, args.pada ?? dhatu.pada,
         args.purusha, args.vacana)
     : undefined;
@@ -548,7 +549,13 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   if (sanadiResult.code) prakriya.record(sanadiResult.code);
 
-  const rootOverride = config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana);
+  // 6.1.65 etc.: roots with special passive stems (kṛ→kriyate, dā→dīyate).
+  const PASSIVE_STEMS: Record<string, string> = {
+    kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac', gam: 'gam', yaj: 'yaj', as: 'as',
+  };
+  const rootOverride = args.prayoga === Prayoga.Karmani
+    ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
+    : config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana);
   const ctx: RuleContext = {
     prakriya,
     args: { ...args, dhatu },
@@ -556,7 +563,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     suffixLabel: suffix.label,
     vikaranaLabel: vikarana.label,
     vikaranaSurface: vikarana.surface,
-    doGuna: sanadiResult.doGuna ?? config.doGuna,
+    doGuna: args.prayoga === Prayoga.Karmani ? false : (sanadiResult.doGuna ?? config.doGuna),
     doOAtoAv: sanadiResult.doOAtoAv ?? config.doOAtoAv,
     doDirgha: config.doDirgha,
     prefix: config.prefix,

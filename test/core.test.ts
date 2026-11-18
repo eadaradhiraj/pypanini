@@ -288,6 +288,13 @@ test('karmani passive: pac → pacyate', () => {
     pada: Pada.Atmane,
   })[0];
   assert.equal(p.text(), 'pacyate');
+  // special passive stems (samprasāraṇa / ā→ī)
+  const passive = (d: string) => deriveTinantas({
+    ...baseArgs, dhatu: d, prayoga: Prayoga.Karmani, pada: Pada.Atmane,
+  })[0].text();
+  assert.equal(passive('kf'), 'kriyate');  // kṛ → kriyate
+  assert.equal(passive('dA'), 'dIyate');   // dā → dīyate
+  assert.equal(passive('ni'), 'nIyate');   // nī → nīyate
 });
 
 test('karmani passive paradigm: pac (9 ātmane forms)', () => {
