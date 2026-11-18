@@ -110,6 +110,15 @@ const AORIST: Record<string, AoristEntry> = {
     kind: 'redup', stem: 'susru', code: '3.1.48 (ṇi-śri-dru-srubhyaḥ kartari caṅ)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asusruvat' } },
   },
+  // kṣa-aorist (3.1.45 śala ig-upadhād aniṭaḥ kṣaḥ)
+  duha: {
+    kind: 'sa', stem: 'duk', code: '3.1.45 (śala ig-upadhād aniṭaḥ kṣaḥ)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'adukzat' } },
+  },
+  liha: {
+    kind: 'sa', stem: 'lik', code: '3.1.45 (śala ig-upadhād aniṭaḥ kṣaḥ)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'alikzat' } },
+  },
 };
 
 /** Passive aorist 3rd singular (bhāve): anāyi, avāci, adāyi. */
