@@ -24,6 +24,8 @@ interface AoristEntry {
   /** Explicit surface forms for rare varieties (parasmai / atmane). */
   formsP?: FormTable;
   formsA?: FormTable;
+  /** Override sūtra code for the formation. */
+  code?: string;
 }
 
 const AORIST: Record<string, AoristEntry> = {
@@ -35,6 +37,8 @@ const AORIST: Record<string, AoristEntry> = {
   gam: { kind: 'a', stem: 'gam' },
   // s-aorist of kṛ: akārṣīt (a + kār + ṣ + īt)
   kf: { kind: 's', stem: 'kAr' },
+  // a-aorist of bhid: abhidat (3.1.57 vārttika)
+  bhid: { kind: 'a', stem: 'bhid', code: '3.1.57 (iritaḥ vā — bhid a-aorist)' },
   // s-aorist (vṛddhi final vowel + s → ṣ)
   ni: {
     kind: 's', stem: 'nE', // nī → nai + ṣ (active)
@@ -174,15 +178,19 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
     return p;
   }
 
-  p.record(`3.2.110 (luN; ${kind}-aorist)`);
+  p.record(entry.code ?? `3.2.110 (luN; ${kind}-aorist)`);
   p.insert(p.length, 'a', ['augment']); // 6.4.71 a-āgama
   p.record('6.4.71 (a-āgama)');
 
   if (kind === 'a') {
     p.insert(p.length, stem, ['dhatu']);
-    p.insert(p.length, 'a', ['vikarana']); // thematic a
-    p.record('3.1.68 (Sap)');
     const ending = THEMATIC_PARASMAI[args.purusha][idx];
+    if (!/^[aA]/.test(ending)) {
+      p.insert(p.length, 'a', ['vikarana']); // thematic a (drop before vowel-initial ending)
+      p.record('3.1.68 (Sap)');
+    } else {
+      p.record('6.1.84 (ekādeśa: a+a → a)');
+    }
     p.insert(p.length, ending, ['tin']);
     p.record(`3.4.101 (secondary ending ${ending})`);
   } else {
