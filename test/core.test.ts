@@ -136,6 +136,8 @@ test('perfect (liṭ): strong/weak stems and endings', () => {
   assert.equal(f('pac', Purusha.Prathama, Vacana.Eka), 'papAca');  // papāca
   assert.equal(f('gam', Purusha.Prathama, Vacana.Eka), 'jagAma');  // jagāma
   assert.equal(f('ni', Purusha.Prathama, Vacana.Eka), 'ninAya');   // nināya
+  assert.equal(f('yaj', Purusha.Prathama, Vacana.Eka), 'yayAja');  // yayāja
+  assert.equal(f('vid', Purusha.Prathama, Vacana.Eka), 'veda');    // veda (perfect of √vid)
   // weak stems in 3p / 1d / 1p
   assert.equal(f('kf', Purusha.Prathama, Vacana.Bahu), 'cakruH');  // cakruḥ
   assert.equal(f('pac', Purusha.Uttama, Vacana.Dvi), 'papacva');   // papaciva

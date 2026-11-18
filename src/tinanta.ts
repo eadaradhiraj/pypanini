@@ -356,6 +356,8 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   gam: { strong: 'jagAm', weak: 'jagam' },  // jagāma / jagamuḥ
   ni: { strong: 'ninAy', weak: 'niniy' },   // nināya / niniyuḥ
   ji: { strong: 'jijAy', weak: 'jijiy' },   // jijāya / jijiyuḥ
+  yaj: { strong: 'yayAj', weak: 'yayaj' },  // yayāja / yayajuḥ
+  vid: { strong: 'ved', weak: 'vid' },       // veda (perfect of √vid 'know')
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   // Strong stem in 3s, 3d, 2s, 1s; weak elsewhere (7.1.3ff guṇa/niyama).
