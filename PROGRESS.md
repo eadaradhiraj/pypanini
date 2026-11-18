@@ -721,3 +721,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   `akArzm` (akārṣam) with full parasmai paradigm. Kept dā passive aorist (adāyi)
   intact by not adding an active form that would shadow the bhāve fallback.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 88 (continued, item 1):** (#1) Fixed common kṛdantas:
+  `gam`+ktin → `gati` (nasal lopa), `BU`+śānan → `BavamAna` (bhavamāna),
+  ghaH roots now vṛddhi: `pac`→`pAca` (pāka), `tyj`→`tyAja`, `raj`→`rAja`,
+  `yuj`→`yoja`, `BU`→`BAva` (bhāva). Added regression tests.
+  `npm test` passes. Pushed to GitHub master.

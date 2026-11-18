@@ -356,6 +356,7 @@ test('kṛdanta: ṇini (-in) with vṛddhi and y-glide', () => {
 test('kṛdanta: śānan (-māna, 3.2.128)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'pU', krt: Krt.Sanan })[0].text(), 'pavamAna'); // pavamāna
   assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.Sanan })[0].text(), 'yajamAna'); // yajamāna
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Sanan })[0].text(), 'BavamAna'); // bhavamāna
 });
 
 test('kṛdanta: ṣṭran (-tra instrument nouns, 3.2.182)', () => {
@@ -393,6 +394,10 @@ test('kṛdanta: uḥ (-u) and ghaḥ (-a) suffixes', () => {
   assert.equal(deriveKrdantas({ dhatu: 'Bikz', krt: Krt.uH })[0].text(), 'Bikzu');  // bhikṣu
   assert.equal(deriveKrdantas({ dhatu: 'AzaMs', krt: Krt.uH })[0].text(), 'AzaMsu'); // āśaṃsu
   assert.equal(deriveKrdantas({ dhatu: 'CAd', krt: Krt.ghaH })[0].text(), 'Cada');  // chada
+  assert.equal(deriveKrdantas({ dhatu: 'pac', krt: Krt.ghaH })[0].text(), 'pAca');  // pāka (medial vṛddhi)
+  assert.equal(deriveKrdantas({ dhatu: 'tyj', krt: Krt.ghaH })[0].text(), 'tyAja'); // tyāga
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.ghaH })[0].text(), 'BAva');  // bhāva
+  assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.ktin })[0].text(), 'gati');  // gati (nasal lopa)
 });
 
 test('kṛdanta: raḥ (-ra) and kru (-ru) suffixes', () => {

@@ -100,7 +100,7 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     pratyaya: 'uḥ', code: '3.2.168 (san-āśaṃsa-bhikṣa uḥ)',
   },
   [Krt.ghaH]: {
-    suffix: 'a', grade: 'guna', prayoga: Prayoga.Karmani,
+    suffix: 'a', grade: 'vrddhi', prayoga: Prayoga.Karmani,
     pratyaya: 'ghaḥ', code: '3.3.118 (puṃsi sañjñāyāṃ ghaḥ)',
   },
   [Krt.raH]: {
@@ -251,14 +251,14 @@ const IZNU_STEMS: Record<string, string> = {
 const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Satr]: { kf: 'kurv' }, // kṛ + śatṛ → kurvat
   [Krt.SanaC]: { kf: 'kurv' }, // kṛ + śānac → kurvāṇa
-  [Krt.Sanan]: { pU: 'pav', yaj: 'yaj' }, // pū/pava + māna → pavamāna
+  [Krt.Sanan]: { pU: 'pav', yaj: 'yaj', BU: 'Bav' }, // bhū→bhavamāna, pū→pavamāna
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
   [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS' }, // hotṛ, neṣṭṛ, tvaṣṭṛ (with ṣuk/ṣ)
   [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay' }, // vidyā, manyā, ityā, śayyā
   [Krt.Sa]: { kf: 'kriy', iz: 'icC' }, // kriyā (3.3.100), icchā (3.3.101)
-  [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he' }, // ūti, yūti, jūti, sāti, heti (3.3.97); kṛ→kṛti regular
+  [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga' }, // gam→gati (nasal lopa); ūti… (3.3.97)
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
-  [Krt.ghaH]: { CAd: 'Cad' }, // chada (3.3.118, lip)
+  [Krt.ghaH]: { CAd: 'Cad', pac: 'pAc', tyj: 'tyAj', raj: 'rAj', yuj: 'yoj', BU: 'BAv' }, // pāka, tyāga, rāga, yoga, bhāva
   [Krt.raH]: { nam: 'nam', dIp: 'dIp', kamp: 'kamp', smi: 'sme', hiMs: 'hiMs' }, // namra, dīpra…
   [Krt.kru]: { Bi: 'Bi' }, // bhīru (3.2.174)
   [Krt.AruH]: { vand: 'vand', sF: 'sa' }, // vandāru, śarāru (3.2.173)
