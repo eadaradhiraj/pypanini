@@ -554,3 +554,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 52 (continued):** Extended yuc (3.3.107, feminine -anā):
   `As`→`Asana` (āsanā), `vid`→`vedana` (vedanā). Registered 3.3.107.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 53 (continued):** Added kṛt suffix ghañ (3.3.18, -a action
+  noun with vṛddhi): `pac`→`pAka`, `tyaj`→`tyAga`, `rAj`→`rAga`. Registered 3.3.18.
+  `npm test` passes. Pushed to GitHub master.
