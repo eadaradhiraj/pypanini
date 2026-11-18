@@ -187,6 +187,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'za', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'kañ', code: "3.2.60 (tyadādiṣu dṛśo 'nālocane kañ)",
   },
+  [Krt.kvin]: {
+    suffix: '', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'kvin', code: '3.2.59 (ṛtvig-dadhṛk-srag-dig-uṣṇig… kvin)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
@@ -198,6 +202,15 @@ const KVIP_FORMS: Record<string, string> = {
   gam: 'jagat', // jagat (world — reduplicated)
   dyut: 'vidyut', // vidyut (lightning — reduplicated)
   zrI: 'zrI',   // śrī
+};
+
+/** kvin (3.2.59): irregular zero-suffix agent nouns. */
+const KVIN_FORMS: Record<string, string> = {
+  ftu: 'ftvik',  // ṛtvik
+  DFz: 'dadfzk', // dadhṛk
+  sfj: 'srak',   // srak
+  dfS: 'dik',    // dik
+  yuj: 'yuj',    // yuj
 };
 
 /** ṣṭran (3.2.182) stems: the suffix is -tra on these roots (guṇa/vṛddhi varies). */
@@ -277,6 +290,15 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     p.record("3.2.178 (anyebhyo 'pi dṛśyate — kvip)");
     if (form) p.insert(0, form, ['krt']);
     else p.insert(0, dhatu.text, ['krt']);
+    p.collapse();
+    return [p];
+  }
+  // kvin (3.2.59): irregular zero-suffix agent nouns.
+  if (args.krt === Krt.kvin) {
+    const form = KVIN_FORMS[dhatu.text] ?? dhatu.text;
+    const p = new Prakriya([]);
+    p.record('3.2.59 (kvin — irregular agent nouns)');
+    p.insert(0, form, ['krt']);
     p.collapse();
     return [p];
   }

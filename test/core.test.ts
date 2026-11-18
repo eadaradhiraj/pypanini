@@ -488,6 +488,13 @@ test('kṛdanta: kañ (-śa, 3.2.60)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'sa', krt: Krt.kaN })[0].text(), 'sadfza');
 });
 
+test('kṛdanta: kvin irregular agent nouns (3.2.59)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'ftu', krt: Krt.kvin })[0].text(), 'ftvik');
+  assert.equal(deriveKrdantas({ dhatu: 'DFz', krt: Krt.kvin })[0].text(), 'dadfzk');
+  assert.equal(deriveKrdantas({ dhatu: 'sfj', krt: Krt.kvin })[0].text(), 'srak');
+  assert.equal(deriveKrdantas({ dhatu: 'dfS', krt: Krt.kvin })[0].text(), 'dik');
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');
