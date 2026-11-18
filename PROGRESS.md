@@ -703,3 +703,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   two prior golden values now confirmed by 3.2.140 commentary: `DFzi+knu`→`DFzRu`
   (dhṛṣṇu, धृष्णुः) and `kf+Nini`→`kAriR` (kāriṇ). Registered 3.2.172/8.4.1.
   `npm test` passes (80/80). Pushed to GitHub master.
+
+- **2026-11-18 — Session 85 (continued, item 3):** (#3) Fixed luṭ (periphrastic
+  future) formation: replaced baked-in `-i-` endings with a root-specific
+  `LUT_STEMS` map (`dA`→`dAtA`, `kf`→`kartA`, `gam`→`gantA`, `pac`→`paktA`,
+  `yaj`→`yaStA`, `ni`→`netA`), with guṇa fallback. Verified ātmane paradigm.
+  `npm test` passes. Pushed to GitHub master.

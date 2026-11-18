@@ -20,6 +20,7 @@ import {
   needsSatva,
 } from './upasarga';
 import { aoristKind, deriveAorist, hasAorist } from './aorist';
+import { gunafy } from './core/slp1';
 
 /** A tiṅ pratyaya label plus the it-lopa steps that turn it into its surface form. */
 interface SuffixInfo {
@@ -138,12 +139,30 @@ const ATMANE_LIN = table(
 );
 // luṭ (periphrastic future): -tṛ agent noun + auxiliary "as". 3rd person uses
 // the noun's own nominative endings; 1st/2nd use the sg. noun + "as" endings.
+// The endings begin at -tā (the -i belongs to the stem for roots like bhū).
 const PARASMAI_LUT = table(
-  ['itA', 'itArau', 'itAraH'], ['itAsi', 'itAsTaH', 'itAsTa'], ['itAsmi', 'itAsvaH', 'itAsmaH'],
+  ['A', 'Arau', 'AraH'], ['Asi', 'AsTaH', 'AsTa'], ['Asmi', 'AsvaH', 'AsmaH'],
 );
 const ATMANE_LUT = table(
-  ['itA', 'itArau', 'itAraH'], ['itAse', 'itAsAthe', 'itAdhve'], ['itAhe', 'itAvahe', 'itAmahe'],
+  ['A', 'Arau', 'AraH'], ['Ase', 'AsAthe', 'Adhve'], ['Ahe', 'Avahe', 'Amahe'],
 );
+
+/** Periphrastic-future (luṭ) stems: -tṛ agent noun minus the nominative ending. */
+const LUT_STEMS: Record<string, string> = {
+  BU: 'Bavit',  // bhavitā
+  dA: 'dAt',    // dātā (no -i-)
+  kf: 'kart',   // kartā
+  gam: 'gant',  // gantā (m → n before t)
+  pac: 'pakt',  // paktā (c → k, 8.2.36)
+  yaj: 'yaSt',  // yaṣṭā (j → ṣ, ṣṭ)
+  ni: 'net',    // netā
+  stu: 'stot',  // stotā
+  han: 'hant',  // hantā
+  nam: 'nant',  // nantā (m → n)
+};
+function lutStem(root: string): string {
+  return LUT_STEMS[root] ?? gunafy(root).text + 'it'; // fallback: guṇa + i + t
+}
 
 /** Perfect-tense (liṭ) reduplicated stems for common roots. */
 const PERFECT_STEMS: Record<string, string> = {
@@ -198,7 +217,7 @@ const LAKARA_CONFIG: Record<Lakara, LakaraConfig> = {
   },
   [Lakara.Lut]: {
     parasmai: PARASMAI_LUT, atmane: ATMANE_LUT, vikarana: { label: '', surface: '' },
-    doGuna: true, doOAtoAv: true, doDirgha: false,
+    rootTransform: lutStem, doGuna: false, doOAtoAv: false, doDirgha: false,
   },
   [Lakara.Lin]: {
     parasmai: PARASMAI_LIN, atmane: ATMANE_LIN, vikarana: VIKARANA_KARTARI,

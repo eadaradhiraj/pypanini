@@ -144,6 +144,15 @@ test('luṭ (periphrastic future) audited — parasmai + atmane', () => {
   // ātmane (rare)
   assert.equal(form(Purusha.Madhyama, Vacana.Eka, Pada.Atmane), 'BavitAse');
   assert.equal(form(Purusha.Uttama, Vacana.Bahu, Pada.Atmane), 'BavitAmahe');
+  // root-specific -tṛ stems (no spurious -i-, proper sandhi)
+  const stem = (d: string) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lut,
+      purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(stem('dA'), 'dAtA');   // dātā (not *dāitā)
+  assert.equal(stem('kf'), 'kartA');  // kartā (not *karitā)
+  assert.equal(stem('gam'), 'gantA'); // gantā
+  assert.equal(stem('pac'), 'paktA'); // paktā (c → k)
+  assert.equal(stem('yaj'), 'yaStA'); // yaṣṭā (j → ṣ, ṣṭ)
 });
 
 test('laṅ/lṛṅ ātmanepada 1st person dīrgha', () => {
