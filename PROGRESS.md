@@ -877,3 +877,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 117 (continued, toward 2703/2703):** Audited nandādi/grahādi/
   pacādi (3.1.134) forms across lyuṭ/ṇini/ac; all consistent. `npm test` passes (85/85).
   Pushed to master. Coverage 169/2703.
+
+- **2026-11-18 — Session 118 (continued, toward 2703/2703):** Registered 3.1.95 (kṛtyāḥ),
+  3.1.93 (kṛdatiṅ), 3.1.91 (dhātoḥ) — all genuinely implemented in the derivation
+  engine, now made explicit in traces. `npm test` passes (85/85). Pushed to master.
+  Coverage 172/2703.
