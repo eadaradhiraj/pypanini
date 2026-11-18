@@ -843,3 +843,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 108 (continued, toward 2703/2703):** Added 3.2.187 mid→minna,
   fixed BU khyun (bhavaṇa). Bulk-verified all paradigms have consistent structure.
   `npm test` passes (85/85). Pushed to master. Coverage 165/2703.
+
+- **2026-11-18 — Session 109 (continued, toward 2703/2703):** Fixed yācñā (3.3.90),
+  registered 3.2.187. `npm test` passes (85/85). Pushed to master. Coverage 165/2703.
