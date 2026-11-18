@@ -68,7 +68,7 @@ export const TINANTA_HEAD_RULES: Rule[] = [
   }),
 
   rule('3.1.1', 'pratyayaḥ paraś ca — affixes are placed after the root', (ctx) => {
-    ctx.prakriya.record('3.1.1/3.1.2 (pratyayaḥ paraś ca), 3.1.93 (kṛdatiṅ)');
+    ctx.prakriya.record('3.1.1/3.1.2 (pratyayaḥ paraś ca), 3.1.91 (dhātoḥ), 3.1.93 (kṛdatiṅ)');
   }),
 
   rule('6.4.71 (a-āgama)', 'augment before the root for laṅ / lṛṅ', (ctx) => {
