@@ -21,7 +21,7 @@ export interface StemClass {
 const A_PUMSAKA: EndingTable = {
   [Vibhakti.Prathama]: ['H', 'au', 'AH'],
   [Vibhakti.Dvitiya]: ['am', 'au', 'An'],
-  [Vibhakti.Trtiya]: ['ena', 'AByAm', 'aiH'],
+  [Vibhakti.Trtiya]: ['ena', 'AByAm', 'EH'], // 7.1.9 ato bhisa ais (a + ais → ais = SLP1 "EH")
   [Vibhakti.Caturthi]: ['Aya', 'AByAm', 'ebyaH'],
   [Vibhakti.Pancami]: ['At', 'AByAm', 'ebyaH'],
   [Vibhakti.Sasti]: ['asya', 'ayoH', 'AnAm'],
@@ -32,7 +32,7 @@ const A_PUMSAKA: EndingTable = {
 const A_NAPUMSAKA: EndingTable = {
   [Vibhakti.Prathama]: ['am', 'e', 'Ani'],
   [Vibhakti.Dvitiya]: ['am', 'e', 'Ani'],
-  [Vibhakti.Trtiya]: ['ena', 'AByAm', 'aiH'],
+  [Vibhakti.Trtiya]: ['ena', 'AByAm', 'EH'], // 7.1.9 ato bhisa ais (a + ais → ais = SLP1 "EH")
   [Vibhakti.Caturthi]: ['Aya', 'AByAm', 'ebyaH'],
   [Vibhakti.Pancami]: ['At', 'AByAm', 'ebyaH'],
   [Vibhakti.Sasti]: ['asya', 'ayoH', 'AnAm'],

@@ -529,7 +529,7 @@ test('subanta: a-stem napumsaka instrumental plural', () => {
     vibhakti: Vibhakti.Trtiya,
     vacana: Vacana.Bahu,
   })[0];
-  assert.equal(p.text(), 'balaiH');
+  assert.equal(p.text(), 'balEH'); // balaiḥ, 7.1.9 ato bhisa ais
 });
 
 test('subanta: i-, u-, ā- and ī-stems', () => {

@@ -613,3 +613,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 66 (continued):** Added kṛt suffix khyun (3.2.56, -ana
   instrument): `kf`→`karaNa` (karaṇa). Registered 3.2.56. `npm test` passes.
   Pushed to GitHub master.
+
+- **2026-11-18 — Session 67 (continued):** Fixed a real SLP1 bug found via 7.1.9
+  (ato bhisa ais): a-stem instrumental plural was `aiH` (अइः, wrong) → now `EH`
+  (ऐः), e.g. `vFkzEH` (vṛkṣaiḥ), `balEH`. Updated golden test, registered 7.1.9.
+  `npm test` passes (73/73). Pushed to GitHub master.
