@@ -36,6 +36,10 @@ export enum NamadhatuPratyaya {
   Yak = 'yak',
   /** 3.1.28 gupū-dhūpa-vicchi-paṇi-panibhya āyaḥ — gopāyati. */
   Aya = 'Aya',
+  /** 3.1.29 ṛter īyaṅ — ṛtīyate. */
+  IyaN = 'IyaN',
+  /** 3.1.30 kamer ṇiṅ — kāmayate. */
+  KamerNiN = 'KamerNiN',
 }
 
 export interface NamadhatuInfo {
@@ -112,6 +116,14 @@ export const NAMADHATU_INFO: Record<NamadhatuPratyaya, NamadhatuInfo> = {
     pratyaya: NamadhatuPratyaya.Aya, sutra: '3.1.28',
     meaning: 'protects / heats (gopāyati)', pada: Pada.Parasmai, stemSuffix: 'Aya',
   },
+  [NamadhatuPratyaya.IyaN]: {
+    pratyaya: NamadhatuPratyaya.IyaN, sutra: '3.1.29',
+    meaning: 'pities / reproaches (ṛtīyate)', pada: Pada.Atmane, stemSuffix: 'Iya',
+  },
+  [NamadhatuPratyaya.KamerNiN]: {
+    pratyaya: NamadhatuPratyaya.KamerNiN, sutra: '3.1.30',
+    meaning: 'desires (kāmayate)', pada: Pada.Atmane, stemSuffix: 'aya',
+  },
 };
 
 export interface NamadhatuArgs {
@@ -184,6 +196,14 @@ export function deriveNamadhatus(args: NamadhatuArgs): Prakriya[] {
       const i = base.lastIndexOf('u');
       base = base.slice(0, i) + 'o' + base.slice(i + 1);
     }
+  }
+  // 3.1.29 īyaṅ: final i of the prātipadika merges with ī (ṛti → ṛtīya).
+  if (info.pratyaya === NamadhatuPratyaya.IyaN && base.endsWith('i')) {
+    base = base.slice(0, -1);
+  }
+  // 3.1.30 ṇiṅ: vṛddhi of the final vowel (kama → kāma).
+  if (info.pratyaya === NamadhatuPratyaya.KamerNiN) {
+    if (base.endsWith('a')) base = base.slice(0, -1) + 'A';
   }
   const stem = coalesce(base, effectiveSuffix);
   const suffix = suffixes(pada, purusha, vacana);
