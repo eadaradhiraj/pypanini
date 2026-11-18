@@ -971,3 +971,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (gen/loc dual). Added class-5 śnu presents (sunoti/śinoti/stṛṇoti). Corrected
   mis-emitted vikaraṇa codes (tanu was 3.1.71→3.1.79; class-9 was 3.1.75→3.1.81).
   `npm test` passes (85/85). Pushed to master. Coverage 203/2703 (204/3983).
+
+- **2026-11-18 — Session 138 (continued, toward 2703/2703):** Registered 1.1.1/1.1.52
+  (vṛddhi/guṇa substitutes — emitted when the final-vowel grade actually applies).
+  Re-verified 0 double-vowel/N anomalies across 120 roots × 7 lakāras × 2 padas ×
+  3 puruṣas × 3 vacanas and all kṛts. `npm test` passes (85/85). Pushed to master.
+  Coverage 205/2703 (206/3983).
