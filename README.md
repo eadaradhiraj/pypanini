@@ -49,7 +49,7 @@ npm run cli -- tinanta --dhatu pac --sanadi yang
 npm run cli -- tinanta --dhatu BU --sanadi yangLuk
 npm run cli -- tinanta --dhatu pac --sanadi yangLuk
 
-# kṛdanta (12 kṛt suffixes: tac, tfc, satr, ani, tum, tavya, lyuT, ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa)
+# kṛdanta (12 kṛt suffixes: tac, tfc, satr, ani, tum, tavya, lyuT, ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa, uH, ghaH)
 npm run cli -- krdanta --dhatu kf --krt tac     # kfta  (past passive participle)
 npm run cli -- krdanta --dhatu kf --krt tfc     # kartf (agent noun)
 npm run cli -- krdanta --dhatu kf --krt tavya   # kartavya (gerundive)
@@ -166,7 +166,7 @@ original spelling in the reported base.
   for mutual invisibility of asiddha `when`-conditions. Ātmanepada audited for
   lat/lit/luṭ/laṅ/lṛṅ + aorist (luN, all varieties); 15 subanta stem classes.
 - **Implemented:** tiṅanta for all major lakāras, parasmai + karmani; saṇādi
-  (san/ṇic/yaṅ/yaṅluk); nineteen kṛdanta suffixes; subanta for 15 stem classes; nāmādhatu
+  (san/ṇic/yaṅ/yaṅluk); twenty-one kṛdanta suffixes; subanta for 15 stem classes; nāmādhatu
   (kyac/kāmyac/kyaṅ/ṇic + 3.1.12–18 kyaṅ types); upasargas (19 prefixes, 8.4.14
   ṇatva + 8.3.65 ṣatva); reverse declension.
   Each with prakriyā traces.

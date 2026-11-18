@@ -349,6 +349,12 @@ test('kṛdanta: śa (-ā/-iyā feminine) and 3.3.97 ktin variants', () => {
   assert.equal(deriveKrdantas({ dhatu: 'san', krt: Krt.Ktin })[0].text(), 'sAti'); // sāti
 });
 
+test('kṛdanta: uḥ (-u) and ghaḥ (-a) suffixes', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'Bikz', krt: Krt.uH })[0].text(), 'Bikzu');  // bhikṣu
+  assert.equal(deriveKrdantas({ dhatu: 'AzaMs', krt: Krt.uH })[0].text(), 'AzaMsu'); // āśaṃsu
+  assert.equal(deriveKrdantas({ dhatu: 'CAd', krt: Krt.ghaH })[0].text(), 'Cada');  // chada
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');
