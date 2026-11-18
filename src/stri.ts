@@ -38,7 +38,8 @@ export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
   if (stem === 'pUtakratu' || stem === 'manu') return StriPratyaya.Nip; // 4.1.36/38 (wife of)
   if (stem === 'antarvat' || stem === 'pativat') return StriPratyaya.Nip; // 4.1.32 nuk + ṅīp
   if (stem === 'brAhmaRa' || stem === 'kzatriya' || stem === 'vaiSya' || stem === 'sUdra') return StriPratyaya.Nis; // 4.1.41 jāti
-  if (stem === 'bahu' || stem === 'prabhu' || stem === 'bahula') return StriPratyaya.Nis; // 4.1.45 bahvādi
+  if (stem === 'sakhA' || stem === 'sakhin') return StriPratyaya.Nip; // sakhā/sakhin → sakhī
+  if (stem === 'bahu' || stem === 'prabhu' || stem === 'bahula' || stem === 'vahu') return StriPratyaya.Nis; // 4.1.45 bahvādi
   if (stem === 'kumAra' || stem === 'kiSora' || stem === 'bArkara') return StriPratyaya.Nip; // 4.1.20 vayasi prathame (a-stem → ī)
   if (stem.endsWith('vara') || stem.endsWith('kAra') || stem.endsWith('cara')) return StriPratyaya.Nip; // 4.1.15 ṭiḍ-aṇ-kvarap
   if ((stem.endsWith('an') || stem.endsWith('An')) && !stem.endsWith('van') && !stem.endsWith('in')) return StriPratyaya.Dap; // 4.1.13
@@ -72,6 +73,8 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     // ṇīṣ: jāti/bahvādi → -ī; brāhmaṇa → brāhmaṇī, bahu → bahvī
     if (args.stem === 'bahu') feminine = 'bahvI';
     else if (args.stem === 'prabhu') feminine = 'prabhvI';
+    else if (args.stem === 'vahu') feminine = 'vahvI';
+    else if (args.stem === 'sakhA' || args.stem === 'sakhin') feminine = 'sakhI';
     else if (args.stem === 'paTu') feminine = 'paTvI';
     else if (args.stem === 'mRdu') feminine = 'mRdvI';
     else if (args.stem === 'vasu') feminine = 'vasvI';
@@ -84,6 +87,8 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
       feminine = args.stem.slice(0, -1) + 'rI'; // kṛ → kartrī
     } else if (args.stem.endsWith('van')) {
       feminine = args.stem.slice(0, -3) + 'varI'; // dhīvan → dhīvarī (4.1.7 van→var)
+    } else if (args.stem === 'sakhin' || args.stem === 'sakhA') {
+      feminine = 'sakhI'; // sakhā/sakhin → sakhī (n-lopa)
     } else if (args.stem.endsWith('in')) {
       feminine = args.stem.slice(0, -2) + 'inI'; // daṇḍin → daṇḍinī
     } else if (args.stem === 'harita') {

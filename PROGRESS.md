@@ -740,3 +740,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Fixed kṛdanta 8.2.36 (yaj→yaṣṭa, diś→diṣṭa; registered 8.4.41). Added
   athematic present forms for as/dā/kṛ/han/i/yā (incl. kṛ ātmane kurute).
   `npm test` passes (82/82). Pushed to GitHub master. Coverage 145/2703.
+
+- **2026-11-18 — Session 90 (continued, toward 2703/2703):** Fixed ṇic causative
+  vṛddhi stems (`pācayati`, `kārayati`, `dāpayati`, `ghātayati`; registered 7.2.116),
+  desiderative yaj/han (`yiyakṣati`, `jighāṃsati`), strī `sakhī`/`vahvī`.
+  `npm test` passes (83/83). Pushed to GitHub master. Coverage 146/2703.
