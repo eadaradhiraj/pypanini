@@ -146,6 +146,7 @@ export enum Krt {
   aN = 'aN', // अण् → -ā feminine action noun (cintā/pūjā/kathā, 3.3.105)
   gaNa = 'gaNa', // घञ् → -a action noun with vṛddhi (pāka/tyāga/rāga, 3.3.18)
   ap = 'ap', // अप् → -a action noun (svāna/hāsa, 3.3.61/62)
+  kaN = 'kaN', // कञ् → -śa (tādṛśa/yādṛśa/sadṛśa, 3.2.60)
 }
 
 export interface KrdantaArgs {

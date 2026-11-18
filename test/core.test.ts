@@ -482,6 +482,12 @@ test('kṛdanta: yat gerundive roots (3.1.97/99/102)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'vah', krt: Krt.Yat })[0].text(), 'vahya');
 });
 
+test('kṛdanta: kañ (-śa, 3.2.60)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'tad', krt: Krt.kaN })[0].text(), 'tAdfza');
+  assert.equal(deriveKrdantas({ dhatu: 'yad', krt: Krt.kaN })[0].text(), 'yAdfza');
+  assert.equal(deriveKrdantas({ dhatu: 'sa', krt: Krt.kaN })[0].text(), 'sadfza');
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

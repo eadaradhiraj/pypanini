@@ -597,3 +597,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   jāti, 4.1.45 bahvādi) `brAhmaRa`→`brAhmaRI`, `kzatriya`→`kzatriyI`,
   `bahu`→`bahvI`, `prabhu`→`prabhvI`. Registered 4.1.41/4.1.45. `npm test` passes.
   Pushed to GitHub master.
+
+- **2026-11-18 — Session 63 (continued):** User asked why I stopped again; continuing
+  without check-ins. Added kṛt suffix kañ (3.2.60, -śa): `tad`→`tAdfza` (tādṛśa),
+  `yad`→`yAdfza`, `sa`→`sadfza`. Fixed quote-escaping bug. Registered 3.2.60.
+  `npm test` passes. Pushed to GitHub master.
