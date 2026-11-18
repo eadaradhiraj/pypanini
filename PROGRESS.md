@@ -685,3 +685,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ānuk + ṇīṣ: `indra`→`indrARi` (indrāṇī), `varuRa`→`varuRARi`, `rudra`→`rudrARi`,
   `Bava`→`BavARi`, `hima`→`himARi`. Registered 4.1.49. `npm test` passes.
   Pushed to GitHub master.
+
+- **2026-11-18 — Session 82 (continued, items 1-4):** (#2) Fixed upasarga/root
+  vowel coalescence: 6.1.77 iko yaṇ now handles u+a → va (`anu`+`ay` → `anvayati`),
+  previously only i+a → ya. Added regression test. `npm test` passes (79/79).
+  Pushed to GitHub master.

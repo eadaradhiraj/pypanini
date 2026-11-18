@@ -278,6 +278,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       prefix = upasarga.slice(0, -1); // i → y (yaṇ)
       rootPart = 'y' + mutatedRoot;
       prefixSandhiCode = '6.1.77 (iko yaṇ aci: i+a → ya)';
+    } else if (upasarga.endsWith('u') && mutatedRoot.startsWith('a')) {
+      prefix = upasarga.slice(0, -1); // u → v (yaṇ)
+      rootPart = 'v' + mutatedRoot;
+      prefixSandhiCode = '6.1.77 (iko yaṇ aci: u+a → va)';
     }
     rootText = prefix + rootPart;
   }

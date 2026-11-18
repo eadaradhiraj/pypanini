@@ -734,6 +734,11 @@ test('upasargas (prefixes, 1.4.58–1.4.60)', () => {
     deriveTinantas({ ...baseArgs, dhatu: 'nam', upasarga: 'pra' })[0].text(),
     'praRamati', // praṇamati
   );
+  // 6.1.77 iko yaṇ aci: u + a → va (anu + ay → anvayati)
+  assert.equal(
+    deriveTinantas({ ...baseArgs, dhatu: 'ay', upasarga: 'anu' })[0].text(),
+    'anvayati', // anvayati
+  );
 });
 
 test('bulk smoke test: all Dhātupāṭha roots × lakāras × padas', () => {
