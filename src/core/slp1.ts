@@ -163,6 +163,9 @@ export function isSLP1(s: string): boolean {
  * intervene, but we keep the simple adjacent trigger here.
  */
 export function applyNatva(s: string): string {
-  return s.replace(/([rfz])([aAiIuUfFxXeEoO]*)n/g,
+  // 8.4.2: vowels, h/y/v, gutturals (kKgGN), labials (pPbBm), and anusvāra (M)
+  // may intervene between the trigger (r/ṣ/ṛ) and the n.
+  const between = '[aAiIuUfFxXeEoOhYvkKgGNpPbBmM]*';
+  return s.replace(new RegExp('([rfz])(' + between + ')n', 'g'),
     (_m: string, trigger: string, mid: string) => trigger + mid + 'R');
 }

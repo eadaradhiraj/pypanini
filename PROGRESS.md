@@ -665,3 +665,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (bahvādi ākṛtigaṇa): `cRaD`→`cRaDI`, `arAla`→`arAlI`, `kamala`→`kamalI`,
   `vikaTa`→`vikaTI`, `viSAla`→`viSAlI`, `purARa`→`purARI`. Registered 4.1.45.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 78 (continued, items 1-4):** (#2) Extended 8.4.1 ṇatva with
+  8.4.2 intervening sounds (vowels, gutturals, labials, h/y/v, anusvāra) between
+  r/ṣ/ṛ and n; fixed capture-group bug. (#1) Added strī 4.1.45 bahvādi stems.
+  `npm test` passes (78/78). Pushed to GitHub master.

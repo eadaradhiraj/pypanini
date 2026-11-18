@@ -807,6 +807,8 @@ test('8.4.1 ṇatva (n → ṇ after r/ṣ/ṛ in a pada)', () => {
   assert.equal(applyNatva('puzna'), 'puzRa');  // puṣṇa
   assert.equal(applyNatva('mAtfna'), 'mAtfRa'); // mātṛṇā
   assert.equal(applyNatva('agni'), 'agni');     // no r/ṣ before n
+  assert.equal(applyNatva('arKeRa'), 'arKeRa'); // 8.4.2: guttural intervenes, n→ṇ applied
+  assert.equal(applyNatva('darpRa'), 'darpRa'); // 8.4.2: labial intervenes
 });
 
 test('Vyakarana facade', () => {
