@@ -432,6 +432,10 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Kyap && ['vraja', 'yaja'].includes(dhatu.text)) {
     spec.code = '3.3.98 (vrajayajor bhāve kyap — vrajyā/yajyā)';
   }
+  if (args.krt === Krt.ghaH && ['sTA', 'gA', 'pA'].includes(dhatu.text)) {
+    spec.suffix = 'na'; // 3.3.95: sthāna/gāna/pāna
+    spec.code = '3.3.95 (sthā-gā-pā-paco bhāve ghañ)';
+  }
 
   // ṛ-final roots (kf → kar) take the ṇa-variants; u-final roots take the na-variants.
   const rFinal = dhatu.text.endsWith('f') || dhatu.text.endsWith('F');
