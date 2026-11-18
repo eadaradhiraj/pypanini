@@ -781,3 +781,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   namadhatu final-a coalescence (citrayati, putrakāmyati), strī rājñī/bhagavatī,
   8.3.23 anusvāra (saṃgamati), 8.3.66 sadir aprateḥ, recorded 8.2.7.
   `npm test` passes. Pushed to GitHub master. Coverage 155/2703.
+
+- **2026-11-18 — Session 97 (continued, toward 2703/2703):** Found and fixed a
+  class of SLP1 N/R (ङ vs ण) bugs: khyun `karaNa`→`karaRa` (karaṇa), iṣṇu
+  `izNu`→`izRu`, ṣṇu `zNu`→`zRu`, all with corrected golden tests. Audited all
+  suffix strings for the same confusion. `npm test` passes. Pushed to master.
+  Coverage 155/2703.
