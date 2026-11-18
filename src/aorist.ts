@@ -207,7 +207,7 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
       p.record('6.1.84 (ekādeśa: a+a → a)');
     }
     p.insert(p.length, ending, ['tin']);
-    p.record(`3.4.100 (itaś ca), 3.4.101 (secondary ending ${ending})`);
+    p.record(`3.4.99 (nityaṃ ḍitaḥ), 3.4.100 (itaś ca), 3.4.101 (secondary ending ${ending})`);
   } else {
     p.insert(p.length, stem, ['dhatu']);
     const sibilant = kind === 's' ? 'z' : kind === 'is' ? 'iz' : '';
@@ -227,7 +227,7 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
       ending = args.purusha === Purusha.Prathama ? 'It' : 'Ih';
     }
     p.insert(p.length, ending, ['tin']);
-    p.record(`3.4.100 (itaś ca), 3.4.101 (secondary ending ${ending})`);
+    p.record(`3.4.99 (nityaṃ ḍitaḥ), 3.4.100 (itaś ca), 3.4.101 (secondary ending ${ending})`);
   }
 
   p.collapse();
