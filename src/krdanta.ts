@@ -302,7 +302,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.cAnaS]: { buJ: 'buJj', biF: 'bibR', muND: 'muND', Buz: 'BuZ' }, // +Ana → bhuñjāna/bibhrāṇa
   [Krt.aN]: { cint: 'cint', pUj: 'pUj', kath: 'kath', kumb: 'kumb', carc: 'carc', bhid: 'bhed' }, // cintā/pūjā; bheda (3.3.104)
   [Krt.gaNa]: { pac: 'pAk', tyaj: 'tyAg', rAj: 'rAg', bId: 'bEd', bif: 'bEd', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm' }, // ghañ vṛddhi
-  [Krt.ap]: { svan: 'svAn', has: 'hAs' }, // +a → svāna/hāsa
+  [Krt.ap]: { svan: 'svAn', has: 'hAs', kf: 'kar', gF: 'gar', sf: 'sar', yu: 'yav', lU: 'lav', pU: 'pav' }, // 3.3.57 kara/śara/yava/lava/pava
   [Krt.kaN]: { tad: 'tAdf', yad: 'yAdf', sa: 'sadf', anya: 'anyAdf' }, // +za → tādṛśa/yādṛśa/sadṛśa
   [Krt.khuKN]: { BU: 'bAv' }, // +uka → bhāvuka
   [Krt.khyun]: { kf: 'kar' }, // +aRa → karaRa (karaṇa)

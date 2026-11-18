@@ -633,6 +633,10 @@ test('kṛdanta: ghañ (-a action noun, 3.3.18)', () => {
 test('kṛdanta: ap (-a action noun, 3.3.61/62)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'svan', krt: Krt.ap })[0].text(), 'svAna');
   assert.equal(deriveKrdantas({ dhatu: 'has', krt: Krt.ap })[0].text(), 'hAsa');
+  // 3.3.57 ṛdor ap: kara/śara/yava/lava
+  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.ap })[0].text(), 'kara');
+  assert.equal(deriveKrdantas({ dhatu: 'sf', krt: Krt.ap })[0].text(), 'sara');
+  assert.equal(deriveKrdantas({ dhatu: 'yu', krt: Krt.ap })[0].text(), 'yava');
 });
 
 test('kṛdanta: yat gerundive roots (3.1.97/99/102)', () => {
