@@ -313,6 +313,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.atRn]: { jF: 'jar', jf: 'jar' },    // jarant (3.2.104)
   [Krt.NyuT]: { gAI: 'gAy' },              // gāyana (3.1.147)
   [Krt.thakan]: { gAI: 'gA' },             // gāthaka (3.1.146)
+  [Krt.Yat]: { gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam' }, // gadyam/madyam/caryam (3.1.100)
   [Krt.ka]: { jYA: 'jY', prIY: 'priy', kF: 'kir' }, // jña (6.4.64), priya (prī+ka 6.1.77), kira (kṝ→kir)
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
@@ -438,7 +439,12 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.KtvA && dhatu.text === 'gA') spec.suffix = 'vA'; // gIt+vA → gītvā
   if (args.krt === Krt.naN && dhatu.text === 'yAc') spec.suffix = 'A'; // yācñā (fem.)
   if (args.krt === Krt.aN && dhatu.text === 'bhid') { spec.suffix = 'a'; spec.code = '3.3.104 (śid-bhidādiṣv aṇ)'; } // bheda
-  if (args.krt === Krt.Yat) spec.grade = rFinal ? 'vrddhi' : 'guna';
+  if (args.krt === Krt.Yat) {
+    spec.grade = rFinal ? 'vrddhi' : 'guna';
+    if (['gada', 'mada', 'cara', 'yama'].includes(dhatu.text)) {
+      spec.code = '3.1.100 (gada-mada-cara-yamāś cānupasarge — yat)';
+    }
+  }
   if (args.krt === Krt.kSnu && KSNU_SUFFIX[dhatu.text]) spec.suffix = KSNU_SUFFIX[dhatu.text];
   if (args.krt === Krt.SanaC && rFinal) spec.suffix = 'ARa'; // kṛ → kurvāṇa
   if (args.krt === Krt.Sanan) spec.infix = 'a'; // pava/yaja + māna (thematic a)
