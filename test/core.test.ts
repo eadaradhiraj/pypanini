@@ -378,6 +378,8 @@ test('kṛdanta: karmani -ta and kartari -tṛ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.Tac })[0].text(), 'yazwa');  // yaṣṭa
   assert.equal(deriveKrdantas({ dhatu: 'diS', krt: Krt.Tac })[0].text(), 'dizwa');  // diṣṭa
   assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.KtvA })[0].text(), 'yazwvA'); // yaṣṭvā
+  assert.equal(deriveKrdantas({ dhatu: 'mfj', krt: Krt.Tfc })[0].text(), 'mArzwf'); // mārṣṭṛ
+  assert.equal(deriveKrdantas({ dhatu: 'sfj', krt: Krt.Tfc })[0].text(), 'sfzwf');  // sraṣṭṛ
   // 6.1.84 ekādeśa: dā + anīya → dānīya (ā + a → ā)
   assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.Ani })[0].text(), 'dAnIya');
   assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.KtvA })[0].text(), 'gatvA'); // gatvā (nasal lopa)

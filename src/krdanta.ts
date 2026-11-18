@@ -259,7 +259,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga' }, // gam→gati (nasal lopa); ūti… (3.3.97)
   [Krt.KtvA]: { gam: 'ga' }, // gam → gatvā (nasal lopa before -tvā)
   [Krt.Tum]: { gam: 'gan' }, // gam → gantum (m → n before t)
-  [Krt.Tfc]: { gam: 'gan' }, // gam → gantṛ
+  [Krt.Tfc]: { gam: 'gan', mfj: 'mArz' }, // gam → gantṛ, mṛj → mārṣṭṛ
   [Krt.Tac]: { gam: 'ga' },  // gam → gata (m-lopa before kta)
   [Krt.Tavya]: { gam: 'gan' },// gam → gantavya
   [Krt.Ktavatu]: { gam: 'gan' },// gam → gantavān
@@ -387,7 +387,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   // 8.2.36 (vraśca-bhrasja-sṛja-mṛja-yaja-rāja-bhrāja-ccha-śāṃ ṣaḥ): these
   // roots (and any ś-final root) take ṣ before a jhal kṛt suffix, overriding
   // 8.2.30. Then 8.4.41 (ṣṭunā ṣṭuḥ) makes a following dental t → ṭ (ṣṭ).
-  const SATVA_ROOTS = new Set(['vraSc', 'Brasz', 'sfj', 'mFj', 'mrf', 'yaj', 'rAj', 'BrAj', 'praC', 'liS', 'viS']);
+  const SATVA_ROOTS = new Set(['vraSc', 'Brasz', 'sfj', 'mfj', 'mFj', 'mrf', 'yaj', 'rAj', 'BrAj', 'praC', 'liS', 'viS']);
   if (spec.suffix.length > 0 && /[kKgGcCjJYtTdDn pPbBm]/.test(spec.suffix[0])) {
     const lastIdx = p.length - 1;
     const tail = p.textAt(lastIdx); // the root is the last term (suffix not yet inserted)
@@ -395,11 +395,6 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     if (SATVA_ROOTS.has(tail) || c === 'S') {
       p.setText(lastIdx, tail.slice(0, -1) + 'z'); // → ṣ
       p.record('8.2.36 (j/ś → ṣ before jhal suffix)');
-      // 8.4.41 ṣṭunā ṣṭuḥ: a dental t starting the suffix → ṭ (w) after ṣ
-      if (spec.suffix.startsWith('t')) {
-        spec.suffix = 'w' + spec.suffix.slice(1);
-        p.record('8.4.41 (ṣṭunā ṣṭuḥ: t → ṭ after ṣ)');
-      }
     } else {
       // 8.2.30 (coḥ kuḥ): a final palatal becomes its guttural before a jhal suffix.
       const palatalToGuttural: Record<string, string> = {
@@ -409,6 +404,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
         p.setText(lastIdx, tail.slice(0, -1) + palatalToGuttural[c]);
         p.record('8.2.30 (jhalo jhali: palatal → guttural)');
       }
+    }
+    // 8.4.41 ṣṭunā ṣṭuḥ: a dental t starting the suffix → ṭ (w) after ṣ
+    if (p.textAt(lastIdx).endsWith('z') && spec.suffix.startsWith('t')) {
+      spec.suffix = 'w' + spec.suffix.slice(1);
+      p.record('8.4.41 (ṣṭunā ṣṭuḥ: t → ṭ after ṣ)');
     }
   }
 
