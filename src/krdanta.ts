@@ -163,6 +163,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'aka', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'vuñ', code: '3.2.146 (ninda-hiṃsā… vuñ)',
   },
+  [Krt.ghinuN]: {
+    suffix: 'I', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'ghinuṇ', code: '3.2.143/145 (vau/pre ghinuṇ)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
@@ -218,6 +222,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.kurac]: { vid: 'vid', Bid: 'Bid', cid: 'cid', vyD: 'viD' }, // +ura → vidura/bhidura/chidura/vidhura
   [Krt.ghurac]: { baNj: 'baNg', BAs: 'BAs', mid: 'med' }, // +ura → bhaṅgura/bhāsura/medura
   [Krt.kvarap]: { i: 'it', naS: 'naS', ji: 'jit', sf: 'sf' }, // +vara → itvara/naśvara/jitvara/sṛvara
+  [Krt.ghinuN]: { vikaS: 'vikAS', vilas: 'vilAs', pralap: 'pralAp', pradru: 'pradrAv', pravas: 'pravAs' }, // +in → vikāṣī/vilāsī/pravāsī
 };
 
 const KSNU_SUFFIX: Record<string, string> = {

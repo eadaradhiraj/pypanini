@@ -141,6 +141,7 @@ export enum Krt {
   ghurac = 'ghurac', // घुरच् → -ura (bhaṅgura/bhāsura/medura, 3.2.161)
   kvarap = 'kvarap', // क्वरप् → -vara with ṭuk (itvara/naśvara/jitvara, 3.2.163)
   vuN = 'vuN', // वुञ् → -aka (nindaka/hiṃsaka/khādaka, 3.2.146)
+  ghinuN = 'ghinuN', // घिनुण् → -in (vikāṣī/vilāsī/pravāsī, 3.2.143/145)
 }
 
 export interface KrdantaArgs {

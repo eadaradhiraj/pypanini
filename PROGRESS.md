@@ -158,9 +158,9 @@ pypanini/
       irregular ṛ-final intensive stems) AND the desiderative `san` (3.1.7):
   `BU` → `buBUzati`, `pac` → `pipakzati`, `kf` → `cikIzati`, `gam` → `jigamizati`.
       yaṅluk beyond 3rd singular remains unaudited.
-- [x] Kṛdanta — **thirty-six kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
+- [x] Kṛdanta — **thirty-seven kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
       ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa,
-      uH, ghaH, raH, kru, AruH, varac, kvip, Du, knu, kSnu, izNuc, yuc, ruH2, kurac, ghurac, kvarap, vuN`) with root-dependent allomorphs (ṛ-final vs
+      uH, ghaH, raH, kru, AruH, varac, kvip, Du, knu, kSnu, izNuc, yuc, ruH2, kurac, ghurac, kvarap, vuN, ghinuN`) with root-dependent allomorphs (ṛ-final vs
       u-final), iṭ handling, and śatṛ/śānac overrides (`kurvat`/`kurvARa`);
       golden paradigms for kf and BU verified. Sūtra codes audited.
 - [x] Subanta — **thirteen stem classes**: a- (m/n), i- (m/n), u- (m/n), ā- (f),
@@ -534,3 +534,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 47 (continued):** Added kṛt suffix vuñ (3.2.146, -aka):
   `nind`→`nindaka`, `hiMs`→`hiMsaka`, `KAd`→`KAdaka`. Registered 3.2.146.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 48 (continued):** Added kṛt suffix ghinuṇ (3.2.143/145,
+  -ī): `vikaS`→`vikASI`, `vilas`→`vilAsI`, `pralap`→`pralApI`, `pravas`→`pravAsI`.
+  Registered 3.2.143/3.2.145. `npm test` passes. Pushed to GitHub master.
