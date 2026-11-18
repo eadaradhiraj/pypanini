@@ -540,16 +540,16 @@ test('kṛdanta: knu (-nu habitual agent, 3.2.140)', () => {
 
 test('kṛdanta: kṣnu (-snu/-ṣṇu, 3.2.139)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'glA', krt: Krt.kSnu })[0].text(), 'glAsnu');
-  assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.kSnu })[0].text(), 'jizNu');
+  assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.kSnu })[0].text(), 'jizRu');
   assert.equal(deriveKrdantas({ dhatu: 'sTA', krt: Krt.kSnu })[0].text(), 'sTAsnu');
-  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.kSnu })[0].text(), 'BUzNu');
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.kSnu })[0].text(), 'BUzRu');
 });
 
 test('kṛdanta: iṣṇuc (-iṣṇu, 3.2.136/138)', () => {
-  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.izNuc })[0].text(), 'BavizNu'); // bhaviṣṇu
-  assert.equal(deriveKrdantas({ dhatu: 'ruc', krt: Krt.izNuc })[0].text(), 'rocizNu'); // rociṣṇu
-  assert.equal(deriveKrdantas({ dhatu: 'saha', krt: Krt.izNuc })[0].text(), 'sahizNu'); // sahiṣṇu
-  assert.equal(deriveKrdantas({ dhatu: 'car', krt: Krt.izNuc })[0].text(), 'carizNu'); // cariṣṇu
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.izNuc })[0].text(), 'BavizRu'); // bhaviṣṇu
+  assert.equal(deriveKrdantas({ dhatu: 'ruc', krt: Krt.izNuc })[0].text(), 'rocizRu'); // rociṣṇu
+  assert.equal(deriveKrdantas({ dhatu: 'saha', krt: Krt.izNuc })[0].text(), 'sahizRu'); // sahiṣṇu
+  assert.equal(deriveKrdantas({ dhatu: 'car', krt: Krt.izNuc })[0].text(), 'carizRu'); // cariṣṇu
 });
 
 test('kṛdanta: yuc (-ana) and ruḥ (-ru) suffixes', () => {

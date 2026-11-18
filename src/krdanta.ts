@@ -132,11 +132,11 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     pratyaya: 'knu', code: '3.2.140 (trasi-gṛdhi-dhṛṣi-kṣipeḥ knuḥ)',
   },
   [Krt.kSnu]: {
-    suffix: 'zNu', grade: 'none', prayoga: Prayoga.Kartari,
+    suffix: 'zRu', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'kṣnu', code: '3.2.139 (glā-ji-sthaś ca kṣnuḥ)',
   },
   [Krt.izNuc]: {
-    suffix: 'izNu', grade: 'guna', prayoga: Prayoga.Kartari,
+    suffix: 'izRu', grade: 'guna', prayoga: Prayoga.Kartari,
     pratyaya: 'iṣṇuc', code: '3.2.138 (bhuvaś ca — iṣṇuc)',
   },
   [Krt.yuc]: {
@@ -300,9 +300,9 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
 
 const KSNU_SUFFIX: Record<string, string> = {
   glA: 'snu', // glāsnu
-  ji: 'zNu',  // jiṣṇu
+  ji: 'zRu',  // jiṣṇu
   sTA: 'snu', // sthāsnu
-  BU: 'zNu',  // bhūṣṇu
+  BU: 'zRu',  // bhūṣṇu
 };
 
 /** Suffixes that take the iṭ augment after a u-final root (7.2.35). */
