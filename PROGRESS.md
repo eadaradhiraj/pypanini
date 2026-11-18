@@ -899,3 +899,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   vāc, dviṣ, bhagavāt, mahātman), upasarga handling for athematic forms, and
   registered 3.1.71/73/75/78, 3.4.100/102/103/105/108, 8.2.23.
   `npm test` passes (85/85). Pushed to master. Coverage 189/2703.
+
+- **2026-11-18 — Session 122 (continued, toward 2703/2703):** Added class-2/7 athematic
+  forms (vā/pā/rā/dviṣ/bhā/mā, bhid/chid/rudh/yuj), consonant-stem declensions,
+  aorist vid jus (3.4.109), dviṣ imperfect (3.4.112), upasarga coalescence.
+  Registered 3.4.106/109/112, 8.2.23. `npm test` passes (85/85). Pushed to master.
+  Coverage 192/2703.
