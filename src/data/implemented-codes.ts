@@ -29,4 +29,5 @@ export const IMPLEMENTED_CODES: ReadonlySet<string> = new Set([
   '3.4.18', '3.4.78', '3.4.101', '3.4.113', '3.4.116',
   // subanta
   '4.1.2', '4.1.4', '4.1.5', '4.1.6', '4.1.7', '4.1.13', '4.1.15', '4.1.20', '4.1.41', '4.1.45',
+  '7.1.9', // a-stem inst pl ais (fixed aiH→EH)
 ]);

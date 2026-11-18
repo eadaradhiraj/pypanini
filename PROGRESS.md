@@ -618,3 +618,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (ato bhisa ais): a-stem instrumental plural was `aiH` (अइः, wrong) → now `EH`
   (ऐः), e.g. `vFkzEH` (vṛkṣaiḥ), `balEH`. Updated golden test, registered 7.1.9.
   `npm test` passes (73/73). Pushed to GitHub master.
+
+- **2026-11-18 — Session 68 (continued):** Found and fixed systematic SLP1 bugs in
+  the feminine (ā/ī) declension tables that earlier tests (2 vibhaktis only) missed:
+  ऐ was written `ai` instead of `E`, and ī-stem dat/abl/gen/loc carried an extra `yA`.
+  Now correct: `sItAyE` (sītāyai), `nadyE`, `nadyAH`, `nadyAm`, `nadIH`, `nadizu`.
+  Added 6 assertions. `npm test` passes (73/73). Pushed to GitHub master.

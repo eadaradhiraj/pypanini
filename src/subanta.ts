@@ -88,7 +88,7 @@ const A_FEMININE: EndingTable = {
   [Vibhakti.Prathama]: ['A', 'e', 'AH'],
   [Vibhakti.Dvitiya]: ['Am', 'e', 'AH'],
   [Vibhakti.Trtiya]: ['ayA', 'AByAm', 'ABiH'],
-  [Vibhakti.Caturthi]: ['Ayai', 'AByAm', 'AByaH'],
+  [Vibhakti.Caturthi]: ['AyE', 'AByAm', 'AByaH'], // sītāyai = sItAyE (SLP1 ऐ=E)
   [Vibhakti.Pancami]: ['AyAH', 'AByAm', 'AByaH'],
   [Vibhakti.Sasti]: ['AyAH', 'ayoH', 'AnAm'],
   [Vibhakti.Saptami]: ['AyAm', 'ayoH', 'Asu'],
@@ -97,12 +97,12 @@ const A_FEMININE: EndingTable = {
 
 const I_FEMININE: EndingTable = {
   [Vibhakti.Prathama]: ['I', 'yau', 'yaH'],
-  [Vibhakti.Dvitiya]: ['Im', 'yau', 'yIH'],
+  [Vibhakti.Dvitiya]: ['Im', 'yau', 'IH'],
   [Vibhakti.Trtiya]: ['yA', 'yaByAm', 'yaBiH'],
-  [Vibhakti.Caturthi]: ['yAyai', 'yaByAm', 'yaByaH'],
-  [Vibhakti.Pancami]: ['yAyAH', 'yaByAm', 'yaByaH'],
-  [Vibhakti.Sasti]: ['yAyAH', 'yoH', 'InAm'],
-  [Vibhakti.Saptami]: ['yAyAm', 'yoH', 'yAsu'],
+  [Vibhakti.Caturthi]: ['yE', 'yaByAm', 'yaByaH'],
+  [Vibhakti.Pancami]: ['yAH', 'yaByAm', 'yaByaH'],
+  [Vibhakti.Sasti]: ['yAH', 'yoH', 'InAm'],
+  [Vibhakti.Saptami]: ['yAm', 'yoH', 'izu'],
   [Vibhakti.Sambodhana]: ['I', 'yau', 'yaH'],
 };
 
