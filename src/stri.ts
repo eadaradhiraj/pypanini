@@ -14,6 +14,8 @@ export enum StriPratyaya {
   Dap = 'Dap',
   /** 4.1.41/45 ṇīṣ: jāti/bahvādi → -ī (brāhmaṇa → brāhmaṇī, bahu → bahvī). */
   Nis = 'Nis',
+  /** 4.1.49 ānuk + ṇīṣ: indra → indrāṇī (wife of). */
+  Anuk = 'Anuk',
 }
 
 export interface StriArgs {
@@ -24,6 +26,8 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  // 4.1.49 ānuk: proper names + common nouns (wife of / greatness)
+  if (['indra', 'varuRa', 'Bava', 'Sarva', 'rudra', 'mfqa', 'hima', 'araRya', 'yava', 'yavana', 'mAtula', 'AcArya'].includes(stem)) return StriPratyaya.Anuk;
   // 4.1.45 bahvādi (ākṛtigaṇa) — a-stem quality/name words take ṇīṣ
   if (['cRaD', 'arAla', 'kRpaRa', 'kamala', 'vikaTa', 'viSAla', 'purARa', 'udAra', 'kalyARa'].includes(stem)) return StriPratyaya.Nis;
   if (stem === 'SoRa') return StriPratyaya.Nis; // 4.1.43 śoṇī
@@ -59,6 +63,11 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     // ḍāp: drop final -an, add -ā
     feminine = args.stem.slice(0, -2) + 'A'; // pāman → pāmā, sīmān → sīmā
     p.record('4.1.13 (ḍāp ubhābhyām anyatarasyām)');
+  } else if (pratyaya === StriPratyaya.Anuk) {
+    // ānuk (ān) inserted before ṇīṣ: indra → indrāṇī (indr + ān + ī)
+    const base = args.stem.endsWith('a') ? args.stem.slice(0, -1) : args.stem;
+    feminine = base + 'ARi'; // ān + ī = āṇī in SLP1
+    p.record('4.1.49 (ānuk + ṇīṣ — wife of)');
   } else if (pratyaya === StriPratyaya.Nis) {
     // ṇīṣ: jāti/bahvādi → -ī; brāhmaṇa → brāhmaṇī, bahu → bahvī
     if (args.stem === 'bahu') feminine = 'bahvI';
