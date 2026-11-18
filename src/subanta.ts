@@ -110,10 +110,10 @@ const U_FEMININE: EndingTable = {
   [Vibhakti.Prathama]: ['uH', 'U', 'avaH'],
   [Vibhakti.Dvitiya]: ['um', 'U', 'Us'],
   [Vibhakti.Trtiya]: ['vA', 'uByAm', 'uBiH'],
-  [Vibhakti.Caturthi]: ['ave', 'uByAm', 'uByaH'],
-  [Vibhakti.Pancami]: ['oH', 'uByAm', 'uByaH'],
-  [Vibhakti.Sasti]: ['oH', 'voH', 'UnAm'],
-  [Vibhakti.Saptami]: ['au', 'voH', 'uzu'],
+  [Vibhakti.Caturthi]: ['vai', 'uByAm', 'uByaH'], // vadhvai
+  [Vibhakti.Pancami]: ['vAH', 'uByAm', 'uByaH'],
+  [Vibhakti.Sasti]: ['vAH', 'voH', 'UnAm'],
+  [Vibhakti.Saptami]: ['vAm', 'voH', 'uzu'],      // vadhvām
   [Vibhakti.Sambodhana]: ['o', 'U', 'avaH'],
 };
 
