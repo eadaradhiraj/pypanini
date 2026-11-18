@@ -229,6 +229,11 @@ test('rare aorists (reduplicating / siṣ / sa / passive) + precative', () => {
   assert.equal(aorist('kf', Purusha.Prathama, Vacana.Eka), 'akArzIt');  // akārṣīt
   assert.equal(aorist('kf', Purusha.Prathama, Vacana.Bahu), 'akArzan'); // akārṣuḥ
   assert.equal(aorist('kf', Purusha.Uttama, Vacana.Eka), 'akArzm');    // akārṣam
+  // 3.1.57 bhid a-aorist; 3p ekādeśa and 1d/1p dīrgha
+  assert.equal(aorist('bhid', Purusha.Prathama, Vacana.Eka), 'abhidat');
+  assert.equal(aorist('bhid', Purusha.Prathama, Vacana.Bahu), 'abhidan');
+  assert.equal(aorist('bhid', Purusha.Uttama, Vacana.Dvi), 'abhidAva');
+  assert.equal(aorist('pac', Purusha.Prathama, Vacana.Bahu), 'apacan');
   // passive aorist 3s
   assert.equal(aorist('vac', Purusha.Prathama, Vacana.Eka), 'avAci');
   assert.equal(aorist('dA', Purusha.Prathama, Vacana.Eka), 'adAyi');

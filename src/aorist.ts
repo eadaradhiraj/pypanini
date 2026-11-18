@@ -128,7 +128,7 @@ const SEC_PARASMAI: Record<Purusha, [string, string, string]> = {
 const THEMATIC_PARASMAI: Record<Purusha, [string, string, string]> = {
   [Purusha.Prathama]: ['t', 'tAm', 'an'],
   [Purusha.Madhyama]: ['H', 'tam', 'ta'],
-  [Purusha.Uttama]: ['m', 'vaH', 'maH'],
+  [Purusha.Uttama]: ['m', 'Ava', 'Ama'], // 1d/1p -āva/-āma (7.3.x dīrgha)
 };
 const SEC_ATMANE: Record<Purusha, [string, string, string]> = {
   [Purusha.Prathama]: ['ta', 'tAm', 'anta'],
