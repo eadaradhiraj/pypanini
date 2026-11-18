@@ -372,6 +372,15 @@ test('kṛdanta: varac (-vara, 3.2.175)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'IS', krt: Krt.varac })[0].text(), 'ISvara');   // īśvara
 });
 
+test('kṛdanta: kvip zero-suffix agent nouns (3.2.178)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'yuj', krt: Krt.kvip })[0].text(), 'yuk');      // yuk
+  assert.equal(deriveKrdantas({ dhatu: 'cid', krt: Krt.kvip })[0].text(), 'cit');      // chit
+  assert.equal(deriveKrdantas({ dhatu: 'Bid', krt: Krt.kvip })[0].text(), 'Bit');      // bhit
+  assert.equal(deriveKrdantas({ dhatu: 'vac', krt: Krt.kvip })[0].text(), 'vAk');      // vāk
+  assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.kvip })[0].text(), 'jagat');    // jagat
+  assert.equal(deriveKrdantas({ dhatu: 'dyut', krt: Krt.kvip })[0].text(), 'vidyut');  // vidyut
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

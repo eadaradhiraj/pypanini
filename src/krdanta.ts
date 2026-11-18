@@ -119,6 +119,21 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'vara', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'varac', code: '3.2.175 (sthā-īśa-bhāsa-pisa-kaso varac)',
   },
+  [Krt.kvip]: {
+    suffix: '', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'kvip', code: '3.2.178 (anyebhyo\'pi dṛśyate — kvip)',
+  },
+};
+
+/** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
+const KVIP_FORMS: Record<string, string> = {
+  yuj: 'yuk',   // yuk (joining)
+  cid: 'cit',   // chit (piercing)
+  Bid: 'Bit',   // bhit (dividing)
+  vac: 'vAk',   // vāk (voice)
+  gam: 'jagat', // jagat (world — reduplicated)
+  dyut: 'vidyut', // vidyut (lightning — reduplicated)
+  zrI: 'zrI',   // śrī
 };
 
 /** ṣṭran (3.2.182) stems: the suffix is -tra on these roots (guṇa/vṛddhi varies). */
@@ -157,6 +172,16 @@ const IT_SUFFIXES = new Set<Krt>([Krt.Tum, Krt.Tavya, Krt.Tfc]);
  */
 export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   const dhatu = resolveDhatu(args.dhatu);
+  // kvip (3.2.178): zero suffix with root-specific surface forms.
+  if (args.krt === Krt.kvip) {
+    const form = KVIP_FORMS[dhatu.text];
+    const p = new Prakriya([]);
+    p.record("3.2.178 (anyebhyo 'pi dṛśyate — kvip)");
+    if (form) p.insert(0, form, ['krt']);
+    else p.insert(0, dhatu.text, ['krt']);
+    p.collapse();
+    return [p];
+  }
   const sanadi = buildSanadiStem(dhatu.text, args.sanadi ?? Sanadi.None);
   const spec = { ...KRT_SPECS[args.krt] };
 
