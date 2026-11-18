@@ -436,7 +436,9 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
     (purusha === Purusha.Madhyama && vacana === Vacana.Eka) ||
     (purusha === Purusha.Uttama && vacana === Vacana.Eka);
   const entry = PERFECT_STEMS[root];
-  const stem = entry ? (isStrong ? entry.strong : entry.weak) : root[0] + 'a' + root;
+  // 7.1.6ff: liṭ reduplication — vowel-initial roots lengthen the reduplicate.
+  const redv = root[0] === 'a' ? 'A' : root[0];
+  const stem = entry ? (isStrong ? entry.strong : entry.weak) : redv + 'a' + root;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
   // (babhūv + va → babhūva, not *babhūvva).
   if (purusha === Purusha.Uttama && vacana === Vacana.Dvi && stem.endsWith('v')) {

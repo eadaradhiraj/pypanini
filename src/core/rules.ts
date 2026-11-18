@@ -230,6 +230,13 @@ export const TINANTA_TAIL_RULES: Rule[] = [
 
   rule('8.4.68', 'final consolidation', (ctx) => {
     ctx.prakriya.collapse(); // join terms into one pada
+    // 6.1.84 ekādeśa: same short vowels at a boundary merge (SLP1 long = capital)
+    const t0 = ctx.prakriya.terms[0];
+    if (/(aa|ii|uu|ee|oo|Aa|Ii|Uu)/.test(t0.text)) {
+      t0.text = t0.text.replace(/(aa|ii|uu|ee|oo|Aa|Ii|Uu)/g, (m) => m[0]); // ekādeśa: single vowel
+      ctx.prakriya.record('6.1.84 (ekādeśa: vowel + same vowel → single)');
+      ctx.prakriya.collapse();
+    }
     // ṇatva must see the whole pada (may span what were separate terms).
     const t = ctx.prakriya.terms[0];
     const changed = applyNatva(t.text);
