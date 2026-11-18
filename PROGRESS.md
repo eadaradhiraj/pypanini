@@ -538,3 +538,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 48 (continued):** Added kṛt suffix ghinuṇ (3.2.143/145,
   -ī): `vikaS`→`vikASI`, `vilas`→`vilAsI`, `pralap`→`pralApI`, `pravas`→`pravAsI`.
   Registered 3.2.143/3.2.145. `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 49 (continued):** Extended ghinuṇ (3.2.141/142) to more
+  roots: `duz`→`dozI`, `dviS`→`dvezI`, `yuj`→`yogI`, `tyaj`→`tyAgI`, `Sram`→`SrAmI`.
+  Registered 3.2.141/3.2.142. `npm test` passes. Pushed to GitHub master.

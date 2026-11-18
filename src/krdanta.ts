@@ -222,7 +222,11 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.kurac]: { vid: 'vid', Bid: 'Bid', cid: 'cid', vyD: 'viD' }, // +ura → vidura/bhidura/chidura/vidhura
   [Krt.ghurac]: { baNj: 'baNg', BAs: 'BAs', mid: 'med' }, // +ura → bhaṅgura/bhāsura/medura
   [Krt.kvarap]: { i: 'it', naS: 'naS', ji: 'jit', sf: 'sf' }, // +vara → itvara/naśvara/jitvara/sṛvara
-  [Krt.ghinuN]: { vikaS: 'vikAS', vilas: 'vilAs', pralap: 'pralAp', pradru: 'pradrAv', pravas: 'pravAs' }, // +in → vikāṣī/vilāsī/pravāsī
+  [Krt.ghinuN]: {
+    vikaS: 'vikAS', vilas: 'vilAs', pralap: 'pralAp', pradru: 'pradrAv', pravas: 'pravAs',
+    duz: 'doz', dviS: 'dvez', yuj: 'yog', tyaj: 'tyAg', raj: 'rAg', Baj: 'BAG',
+    Sram: 'SrAm', Bram: 'BrAm', klam: 'klAm',ksam: 'kzAm', tyag: 'tyAg',
+  }, // +I → vikāṣī/vilāsī/doṣī/dveṣī/yogī/tyāgī/…
 };
 
 const KSNU_SUFFIX: Record<string, string> = {

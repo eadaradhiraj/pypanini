@@ -446,6 +446,9 @@ test('kṛdanta: ghinuṇ (-ī, 3.2.143/145)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'vikaS', krt: Krt.ghinuN })[0].text(), 'vikASI');
   assert.equal(deriveKrdantas({ dhatu: 'vilas', krt: Krt.ghinuN })[0].text(), 'vilAsI');
   assert.equal(deriveKrdantas({ dhatu: 'pralap', krt: Krt.ghinuN })[0].text(), 'pralApI');
+  assert.equal(deriveKrdantas({ dhatu: 'duz', krt: Krt.ghinuN })[0].text(), 'dozI');
+  assert.equal(deriveKrdantas({ dhatu: 'dviS', krt: Krt.ghinuN })[0].text(), 'dvezI');
+  assert.equal(deriveKrdantas({ dhatu: 'yuj', krt: Krt.ghinuN })[0].text(), 'yogI');
 });
 
 test('kṛdanta: bhū forms with iṭ', () => {
