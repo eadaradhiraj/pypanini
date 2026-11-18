@@ -152,9 +152,12 @@ export function deriveNamadhatus(args: NamadhatuArgs): Prakriya[] {
   const purusha = args.purusha ?? Purusha.Prathama;
   const vacana = args.vacana ?? Vacana.Eka;
 
-  // Bare prātipadika + denominative suffix: drop final -a only before a vowel
-  // (putra + īya → putrīya), keep it before consonant-initial ya (citra + ya → citraya).
-  const stem = coalesce(args.pratipadika, info.stemSuffix);
+  // Bare prātipadika + denominative suffix. After long ā, kyac takes -ya
+  // (vidyā + ya → vidyāya), not the -īya used after short-a stems (putrīya).
+  const effectiveSuffix = (info.pratyaya === NamadhatuPratyaya.Kyac ||
+    info.pratyaya === NamadhatuPratyaya.KyacAcara) &&
+    args.pratipadika.endsWith('A') ? 'ya' : info.stemSuffix;
+  const stem = coalesce(args.pratipadika, effectiveSuffix);
   const suffix = suffixes(pada, purusha, vacana);
   const surface = coalesce(stem, suffix);
 
