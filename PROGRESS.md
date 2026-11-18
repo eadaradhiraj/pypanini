@@ -887,3 +887,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.1.43 (cli luṅi), 3.3.12 (aṇ karmaṇi), 3.1.95, 3.1.93, 3.1.91 — all genuinely
   implemented, now explicit in traces. `npm test` passes (85/85). Pushed to master.
   Coverage 175/2703.
+
+- **2026-11-18 — Session 120 (continued, toward 2703/2703):** Added 3.1.145 ṣvun
+  (nartaka/khanaka/rajaka), 3.1.146 thakan (gāthaka), 3.1.147 ṇyuṭ (gāyana),
+  registered 3.1.145/146/147. `npm test` passes (85/85). Pushed to master.
+  Coverage 178/2703.
