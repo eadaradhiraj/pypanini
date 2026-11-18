@@ -291,6 +291,9 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   if (args.vacana === Vacana.Bahu && [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
     p.record('7.1.20 (jaśśasoḥ siḥ — nom/acc plural)');
   }
+  if (args.vacana === Vacana.Dvi && [Vibhakti.Sasti, Vibhakti.Saptami].includes(args.vibhakti)) {
+    p.record('7.1.21 (aṣṭābhyaḥ os — genitive/locative dual)');
+  }
   if (cls.terminal === 'an' || cls.terminal === 'at') {
     p.record('8.2.7 (nalopaḥ prātipadikāntasya — n/t-stem base)');
   }
