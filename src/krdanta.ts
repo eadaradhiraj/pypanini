@@ -317,7 +317,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.ka]: { jYA: 'jY', prIY: 'priy', kF: 'kir' }, // jña (6.4.64), priya (prī+ka 6.1.77), kira (kṝ→kir)
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
-  [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit' }, // yukti/ruddhi/bhitti/chitti/vitti
+  [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit', muR: 'mUr' }, // mūrti (3.3.174)
   [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt' }, // vittvā, citytvā, mītvā, gītvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet' }, // vettum
@@ -438,6 +438,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   }
   if (args.krt === Krt.ghaH && ['likh', 'viS', 'mfj', 'ram'].includes(dhatu.text)) {
     spec.code = '3.3.121 (halaś ca — lekhā/vedā/veṣā/bandhā/mārgā/rāmā)';
+  }
+  if (args.krt === Krt.Ktin && ['muR', 'Sak', 'Bhak'].includes(dhatu.text)) {
+    spec.code = '3.3.174 (kti-ktO ca saṃjñāyām — śakti/bhakti/mūrti)';
   }
 
   // ṛ-final roots (kf → kar) take the ṇa-variants; u-final roots take the na-variants.
