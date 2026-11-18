@@ -119,6 +119,7 @@ export const TINANTA_HEAD_RULES: Rule[] = [
     if (ctx.lakaraLabel === 'liN') {
       ctx.prakriya.record(ctx.suffixLabel === 'eyuH'
         ? '3.4.105 (jhasya ran), 3.4.108 (jerjus)' : '3.4.103 (yāsuṭ parasmaipadeṣu)');
+      if (ctx.suffixLabel === 'e') ctx.prakriya.record('3.4.106 (iṭo\'t — ātmane 1s)');
     }
   }, (ctx) => ctx.prakriya.findTag('lakara') >= 0),
 ];
