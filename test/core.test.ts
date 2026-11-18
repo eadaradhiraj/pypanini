@@ -867,6 +867,7 @@ test('nāmādhatu (denominative) derivations', () => {
   assert.equal(form('putra', NamadhatuPratyaya.KyaN), 'putrAyate');
   assert.equal(form('Syena', NamadhatuPratyaya.KyaN), 'SyenAyate');
   assert.equal(form('putra', NamadhatuPratyaya.Nic), 'putrayati');
+  assert.equal(form('vidyA', NamadhatuPratyaya.Nic), 'vidyAyati'); // vidyāyati (ā+a→ā)
   assert.equal(form('kazwa', NamadhatuPratyaya.KyaNKa), 'kazwAyate'); // kaṣṭāyate
   assert.equal(form('lohita', NamadhatuPratyaya.KyaS), 'lohitAyate');
   // 3.1.15 / 3.1.16 / 3.1.19

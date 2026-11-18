@@ -134,7 +134,10 @@ function suffixes(pada: Pada, purusha: Purusha, vacana: Vacana): string {
 function coalesce(stem: SLP1, suffix: SLP1): SLP1 {
   const vowels = 'aAiIuUfFxXeEoO';
   if (stem.endsWith('a') && suffix.length && vowels.includes(suffix[0])) {
-    return stem.slice(0, -1) + suffix;
+    return stem.slice(0, -1) + suffix; // a + vowel → long vowel (6.1.101)
+  }
+  if (stem.endsWith('A') && suffix.startsWith('a')) {
+    return stem + suffix.slice(1); // ā + a → ā (6.1.84)
   }
   return stem + suffix;
 }
