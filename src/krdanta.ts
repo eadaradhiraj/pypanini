@@ -397,6 +397,14 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     p.collapse();
     return [p];
   }
+  // 3.1.101 (avadya-paṇya-varyāḥ): irregular yat-form nipātanas.
+  if (args.krt === Krt.Yat && ['avad', 'avada', 'paNya', 'varyA'].includes(dhatu.text)) {
+    const nipatana: Record<string, string> = { avad: 'avadya', avada: 'avadya', paNya: 'paNya', varyA: 'varyA' };
+    const p = new Prakriya([nipatana[dhatu.text]]);
+    p.record('3.1.101 (avadya-paṇya-varyāḥ — nipātana)');
+    p.collapse();
+    return [p];
+  }
   // 8.2.31 (ho ḍhaḥ) with 8.2.40/8.4.41/8.3.13: √sah/√vah before a jhal-initial
   // kṛt affix; the h becomes ḍh, the affix t becomes ḍh, and the first ḍh drops.
   if (['sah', 'vah'].includes(dhatu.text)) {
