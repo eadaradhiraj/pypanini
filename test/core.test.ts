@@ -403,6 +403,10 @@ test('kṛdanta: karmani -ta and kartari -tṛ', () => {
   // 6.1.84 ekādeśa: dā + anīya → dānīya (ā + a → ā)
   assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.Ani })[0].text(), 'dAnIya');
   assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.KtvA })[0].text(), 'gatvA'); // gatvā (nasal lopa)
+  // dā: datta/dattavān/dattvā (6.4.64 ā-lopa), but dātavya (gerundive)
+  assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.Tac })[0].text(), 'datta');
+  assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.KtvA })[0].text(), 'dattvA');
+  assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.Tavya })[0].text(), 'dAtavya');
   // gam: m→n before dentals, m-lopa before kta, retained before -aka
   assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.Tac })[0].text(), 'gata');   // gata
   assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.Tum })[0].text(), 'gantum'); // gantum

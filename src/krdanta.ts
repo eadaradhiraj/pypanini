@@ -262,12 +262,12 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv' }, // ṇini vṛddhi: pācin, yājin, gāmin, bhāvin
   [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj' }, // ṇvul vṛddhi: pācaka, yājaka
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga' }, // gam→gati (nasal lopa); ūti… (3.3.97)
-  [Krt.KtvA]: { gam: 'ga' }, // gam → gatvā (nasal lopa before -tvā)
+  [Krt.KtvA]: { gam: 'ga', dA: 'dat' }, // gam → gatvā, dā → dattvā
   [Krt.Tum]: { gam: 'gan' }, // gam → gantum (m → n before t)
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz' }, // gam → gantṛ, mṛj → mārṣṭṛ
-  [Krt.Tac]: { gam: 'ga' },  // gam → gata (m-lopa before kta)
+  [Krt.Tac]: { gam: 'ga', dA: 'dat' },  // gam → gata, dā → datta
   [Krt.Tavya]: { gam: 'gan' },// gam → gantavya
-  [Krt.Ktavatu]: { gam: 'gan' },// gam → gantavān
+  [Krt.Ktavatu]: { gam: 'gan', dA: 'dat' },// gam → gantavān, dā → dattavān
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
   [Krt.ghaH]: { CAd: 'Cad', pac: 'pAc', tyj: 'tyAj', raj: 'rAj', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm' }, // pāka, yoga, bhāva, cāra, jaya, veda, nāma
   [Krt.raH]: { nam: 'nam', dIp: 'dIp', kamp: 'kamp', smi: 'sme', hiMs: 'hiMs' }, // namra, dīpra…
