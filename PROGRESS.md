@@ -1007,3 +1007,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.3.121 (lekha/veṣa/mārga/rāma), 3.3.174 (śakti/bhakti/mūrti). Fixed mūrti
   vṛddhi. 0 double-vowel/N anomalies across 150 roots × all derivations.
   `npm test` passes (85/85). Pushed to master. Coverage 223/2703 (224/3983).
+
+- **2026-11-18 — Session 143 (continued, toward 2703/2703):** Registered 8 sūtras
+  with genuine traces: 3.1.110 (vṛtya/vṛdhya), 3.1.111 (kheya), 3.1.112 (bhṛtya),
+  3.1.113 (mṛjya), 3.3.95 (sthāna/gāna/pāna), 3.3.98 (vrajyā/yajyā),
+  3.3.121 (lekha/veṣa/mārga/rāma), 3.3.174 (śakti/bhakti/mūrti). Fixed kheya
+  vowel length and mūrti vṛddhi. `npm test` passes (85/85). Pushed to master.
+  Coverage 227/2703 (228/3983).
