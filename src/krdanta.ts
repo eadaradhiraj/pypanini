@@ -316,7 +316,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay' }, // vedana, deśana, nayana (guṇa)
   [Krt.Tum]: { gam: 'gan' }, // gam → gantum (m → n before t)
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok' }, // bhettṛ, chettṛ, roddhṛ, yoktṛ
-  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk' },  // ruddha, yukta
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz' },  // ruddha, yukta, dviṣṭa
   [Krt.Tavya]: { gam: 'gan' },// gam → gantavya
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat' },// gam → gantavān, dā → dattavān
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
@@ -399,6 +399,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Tac && dhatu.text === 'mid') spec.suffix = 'a'; // minn + a → minna (3.2.187)
   if (args.krt === Krt.Tac && ['bhid', 'Cid'].includes(dhatu.text)) spec.suffix = 'na'; // bhin+na → bhinna
   if (args.krt === Krt.Tac && dhatu.text === 'rudh') spec.suffix = 'a'; // rudD+a → ruddha
+  if (args.krt === Krt.Tac && dhatu.text === 'dviza') spec.suffix = 'wa'; // dviz+wa → dviṣṭa
   if (args.krt === Krt.KtvA && dhatu.text === 'rudh') spec.suffix = 'vA'; // rudD+vA → ruddhvā
   if (args.krt === Krt.naN && dhatu.text === 'yAc') spec.suffix = 'A'; // yācñā (fem.)
   if (args.krt === Krt.aN && dhatu.text === 'bhid') { spec.suffix = 'a'; spec.code = '3.3.104 (śid-bhidādiṣv aṇ)'; } // bheda
