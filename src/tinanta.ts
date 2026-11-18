@@ -239,6 +239,8 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'dA:lan:parasmai:prathama:bahu': 'adaduH',
   'dA:lan:parasmai:madhyama:eka': 'adadAH',
   'dA:lan:parasmai:uttama:eka': 'adadAm',
+  'dA:lan:parasmai:madhyama:bahu': 'adatta',
+  'dA:lan:parasmai:uttama:bahu': 'adadma',
   'dA:lan:atmane:prathama:eka': 'adatta',
   'dA:lan:atmane:prathama:dvi': 'adadAtAm',
   'dA:lan:atmane:prathama:bahu': 'adadata',
