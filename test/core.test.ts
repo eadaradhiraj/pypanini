@@ -983,6 +983,7 @@ test('strī-pratyayas: ṭāp (4.1.4) and ṅīp (4.1.5)', () => {
   assert.equal(deriveStri({ stem: 'aSiSu' })?.text(), 'aSivI');        // aśiśvī (4.1.62)
   assert.equal(deriveStri({ stem: 'yuvan' })?.text(), 'yuvatI');       // yuvatī (4.1.77)
   assert.equal(deriveStri({ stem: 'BavAn' })?.text(), 'BavatI');       // bhavatī (4.1.87)
+  assert.equal(deriveStri({ stem: 'rAjan' })?.text(), 'rAjYI');        // rājñī
 });
 
 test('8.4.1 ṇatva (n → ṇ after r/ṣ/ṛ in a pada)', () => {

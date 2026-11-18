@@ -38,6 +38,7 @@ export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
   if (stem === 'pUtakratu' || stem === 'manu') return StriPratyaya.Nip; // 4.1.36/38 (wife of)
   if (stem === 'antarvat' || stem === 'pativat') return StriPratyaya.Nip; // 4.1.32 nuk + ṅīp
   if (stem === 'brAhmaRa' || stem === 'kzatriya' || stem === 'vaiSya' || stem === 'sUdra') return StriPratyaya.Nis; // 4.1.41 jāti
+  if (stem === 'rAjan') return StriPratyaya.Nip; // rājan → rājñī
   if (stem === 'yuvan') return StriPratyaya.Nip; // 4.1.77 yuvan → yuvatī
   if (stem === 'BavAn') return StriPratyaya.Nip; // 4.1.87 bhavān → bhavatī
   if (stem === 'aSiSu') return StriPratyaya.Nip; // 4.1.62 aśiśu → aśiśvī
@@ -86,7 +87,9 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     p.record('4.1.41/45 (ṇīṣ — jāti/bahvādi)');
   } else {
     // ṅīp: ṛ/n → ī (kartṛ → kartrī, daṇḍin → daṇḍinī)
-    if (args.stem === 'yuvan') {
+    if (args.stem === 'rAjan') {
+      feminine = 'rAjYI'; // rājñī
+    } else if (args.stem === 'yuvan') {
       feminine = 'yuvatI'; // yuvatī (4.1.77, overrides 4.1.7 van→var)
     } else if (args.stem.endsWith('f')) {
       feminine = args.stem.slice(0, -1) + 'rI'; // kṛ → kartrī
