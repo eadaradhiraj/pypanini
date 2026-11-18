@@ -1,5 +1,5 @@
 import { SLP1, Vibhakti, Vacana } from './core/types';
-import { STEM_CLASSES, VACANA_INDEX, deriveSubantas } from './subanta';
+import { ALL_STEM_CLASSES, VACANA_INDEX, deriveSubantas } from './subanta';
 
 /** A reverse-lookup result: declined word → prātipadika + case/number/gender. */
 export interface SubantaAnalysis {
@@ -39,7 +39,7 @@ export function analyzeSubanta(word: SLP1): SubantaAnalysis[] {
   const results: SubantaAnalysis[] = [];
   const probe = normalize(word);
 
-  for (const cls of STEM_CLASSES) {
+  for (const cls of ALL_STEM_CLASSES) {
     for (const vibhakti of VIBHAKTIS) {
       for (const vacana of VACANAS) {
         const ending = cls.endings[vibhakti][VACANA_INDEX[vacana]] ?? '';
