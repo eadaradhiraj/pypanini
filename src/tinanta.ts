@@ -232,6 +232,11 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'hi:lat:parasmai:prathama:bahu': 'hinvanti',
   'hi:lat:parasmai:madhyama:eka': 'hinozi',  // hinoṣi
   'hi:lat:parasmai:uttama:eka': 'hinomi',
+  // √as imperfect (laṅ): āsat, āsātām, āsan (6.4.71 + 6.1.101)
+  'as:lan:parasmai:prathama:eka': 'Asat',
+  'as:lan:parasmai:prathama:dvi': 'AsatAm',
+  'as:lan:parasmai:prathama:bahu': 'Asan',
+  'as:lan:atmane:prathama:eka': 'Asata',
   'as:lat:parasmai:prathama:eka': 'asti',
   'as:lat:parasmai:madhyama:eka': 'asi',
   'as:lat:parasmai:uttama:eka': 'asmi',
