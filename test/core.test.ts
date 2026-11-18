@@ -498,7 +498,7 @@ test('kṛdanta: uḥ (-u) and ghaḥ (-a) suffixes', () => {
   assert.equal(deriveKrdantas({ dhatu: 'Bikz', krt: Krt.uH })[0].text(), 'Bikzu');  // bhikṣu
   assert.equal(deriveKrdantas({ dhatu: 'AzaMs', krt: Krt.uH })[0].text(), 'AzaMsu'); // āśaṃsu
   assert.equal(deriveKrdantas({ dhatu: 'CAd', krt: Krt.ghaH })[0].text(), 'Cada');  // chada
-  assert.equal(deriveKrdantas({ dhatu: 'pac', krt: Krt.ghaH })[0].text(), 'pAca');  // pāka (medial vṛddhi)
+  assert.equal(deriveKrdantas({ dhatu: 'pac', krt: Krt.ghaH })[0].text(), 'pAka');  // pāka (vṛddhi + jhal→k)
   assert.equal(deriveKrdantas({ dhatu: 'tyj', krt: Krt.ghaH })[0].text(), 'tyAja'); // tyāga
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.ghaH })[0].text(), 'BAva');  // bhāva
   assert.equal(deriveKrdantas({ dhatu: 'car', krt: Krt.ghaH })[0].text(), 'cAra');  // cāra
