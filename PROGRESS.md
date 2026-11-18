@@ -775,3 +775,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (pācaka/yājaka), 8.3.66 sadir aprateḥ (niṣīdati/viṣīdati/pratisīdati),
   8.3.23 mo'nusvāraḥ (saṃgamati/saṃyamati/saṃpacati) with applyAnusvara helper,
   registered the codes. `npm test` passes. Pushed to GitHub master. Coverage 154/2703.
+
+- **2026-11-18 — Session 96 (continued, toward 2703/2703):** Fixed dā kṛdantas
+  (datta/dattavān/dattvā via 6.4.64 ā-lopa, kept dātavya), ṇvul vṛddhi (pācaka/yājaka),
+  namadhatu final-a coalescence (citrayati, putrakāmyati), strī rājñī/bhagavatī,
+  8.3.23 anusvāra (saṃgamati), 8.3.66 sadir aprateḥ, recorded 8.2.7.
+  `npm test` passes. Pushed to GitHub master. Coverage 155/2703.
