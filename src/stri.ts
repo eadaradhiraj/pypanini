@@ -24,6 +24,7 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  if (stem === 'antarvat' || stem === 'pativat') return StriPratyaya.Nip; // 4.1.32 nuk + ṅīp
   if (stem === 'brAhmaRa' || stem === 'kzatriya' || stem === 'vaiSya' || stem === 'sUdra') return StriPratyaya.Nis; // 4.1.41 jāti
   if (stem === 'bahu' || stem === 'prabhu' || stem === 'bahula') return StriPratyaya.Nis; // 4.1.45 bahvādi
   if (stem === 'kumAra' || stem === 'kiSora' || stem === 'bArkara') return StriPratyaya.Nip; // 4.1.20 vayasi prathame (a-stem → ī)
@@ -65,6 +66,8 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
       feminine = args.stem.slice(0, -3) + 'varI'; // dhīvan → dhīvarī (4.1.7 van→var)
     } else if (args.stem.endsWith('in')) {
       feminine = args.stem.slice(0, -2) + 'inI'; // daṇḍin → daṇḍinī
+    } else if (args.stem === 'antarvat' || args.stem === 'pativat') {
+      feminine = args.stem + 'nI'; // 4.1.32 nuk: antarvatnī, pativatnī
     } else if (args.stem.endsWith('at')) {
       // ugita (4.1.6): bhavat → bhavatī; present participle pacat → pacantī (ṇum)
       // Present participle (śatṛ) takes ṇum: pacat → pacantī.
@@ -75,7 +78,8 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     } else {
       feminine = args.stem.slice(0, -1) + 'I'; // n → ī
     }
-    p.record(args.stem.endsWith('van') ? '4.1.7 (vano ra ca ṅīp)' :
+    p.record(args.stem === 'antarvat' || args.stem === 'pativat' ? '4.1.32 (nuk + ṅīp)' :
+      args.stem.endsWith('van') ? '4.1.7 (vano ra ca ṅīp)' :
       args.stem.endsWith('at') ? '4.1.6 (ugitaś ca ṅīp)' :
         /[aA]$/.test(args.stem) ? '4.1.15 (ṭiḍ-aṇ-kvarap ṅīp)' : '4.1.5 (ṛn-nebhyo ṅīp)');
   }

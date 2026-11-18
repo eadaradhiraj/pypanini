@@ -630,3 +630,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (#2) Added 8.4.1 ṇatva (n→R after r/ṣ/ṛ within pada) to core/slp1.ts + the pipeline's
   asiddha phase; verified no double-apply with upasarga 8.4.14. Added tests.
   `npm test` passes (75/75). Pushed to GitHub master.
+
+- **2026-11-18 — Session 70 (continued, items 1-4):** (#4) Added asiddha-phase mutual-
+  invisibility and phase-ordering tests. (#1) Added strī-pratyaya 4.1.32 (nuk):
+  `antarvat`→`antarvatnI`, `pativat`→`pativatnI`. Registered 4.1.32.
+  `npm test` passes (77/77). Pushed to GitHub master.
