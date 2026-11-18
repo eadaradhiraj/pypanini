@@ -406,6 +406,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.KtvA && dhatu.text === 'rudh') spec.suffix = 'vA'; // rudD+vA → ruddhvā
   if (args.krt === Krt.Ktin && ['rudh', 'bhid', 'Cid'].includes(dhatu.text)) spec.suffix = 'i'; // ruddhi/bhitti/chitti
   if (args.krt === Krt.Tac && dhatu.text === 'gA') spec.suffix = 'a'; // gIt+a → gīta
+  if (args.krt === Krt.Tac && dhatu.text === 'duha') spec.suffix = 'a'; // dugD+a → dugdha
   if (args.krt === Krt.KtvA && dhatu.text === 'gA') spec.suffix = 'vA'; // gIt+vA → gītvā
   if (args.krt === Krt.naN && dhatu.text === 'yAc') spec.suffix = 'A'; // yācñā (fem.)
   if (args.krt === Krt.aN && dhatu.text === 'bhid') { spec.suffix = 'a'; spec.code = '3.3.104 (śid-bhidādiṣv aṇ)'; } // bheda
