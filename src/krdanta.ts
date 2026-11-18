@@ -115,6 +115,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'Aru', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'āruḥ', code: '3.2.173 (śṝ-vandyor āruḥ)',
   },
+  [Krt.varac]: {
+    suffix: 'vara', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'varac', code: '3.2.175 (sthā-īśa-bhāsa-pisa-kaso varac)',
+  },
 };
 
 /** ṣṭran (3.2.182) stems: the suffix is -tra on these roots (guṇa/vṛddhi varies). */
@@ -141,6 +145,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.raH]: { nam: 'nam', dIp: 'dIp', kamp: 'kamp', smi: 'sme', hiMs: 'hiMs' }, // namra, dīpra…
   [Krt.kru]: { Bi: 'Bi' }, // bhīru (3.2.174)
   [Krt.AruH]: { vand: 'vand', sF: 'sa' }, // vandāru, śarāru (3.2.173)
+  [Krt.varac]: { sTA: 'sTA', IS: 'IS' }, // sthāvara, īśvara (3.2.175)
 };
 
 /** Suffixes that take the iṭ augment after a u-final root (7.2.35). */

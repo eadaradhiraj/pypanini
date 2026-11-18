@@ -129,6 +129,7 @@ export enum Krt {
   raH = 'raH', // रः → -ra habitual agent (namra/dīpra, 3.2.167)
   kru = 'kru', // क्रु → -ru (bhīru, 3.2.174)
   AruH = 'AruH', // आरुः → -āru (vandāru, 3.2.173)
+  varac = 'varac', // वरच् → -vara (sthāvara/īśvara, 3.2.175)
 }
 
 export interface KrdantaArgs {

@@ -151,16 +151,16 @@ pypanini/
       yaṅ/yaṅ alias (`bhū` → `BoBUyate`, `pac` → `pApacyate`),
       yaṅluk (`bhū` → `BoBavIti`, `pac` → `pApacIti`). Used by both tinanta and krdanta.
 - [x] Library exports (`src/index.ts`) and CLI (`src/cli.ts`).
-- [x] Tests (**51 total** across `core.test.ts`, `scheduler.test.ts`,
+- [x] Tests (**52 total** across `core.test.ts`, `scheduler.test.ts`,
       `invisibility.test.ts`) — all passing (`npm test`).
 - [x] Karmani prayoga — 9-form ātmane paradigm verified (`pac` → `pacyate … pacyAmAhe`).
 - [x] Saṇādi — yaṅ/yaṅluk golden forms verified for BU, pac and kf (including the
       irregular ṛ-final intensive stems) AND the desiderative `san` (3.1.7):
   `BU` → `buBUzati`, `pac` → `pipakzati`, `kf` → `cikIzati`, `gam` → `jigamizati`.
       yaṅluk beyond 3rd singular remains unaudited.
-- [x] Kṛdanta — **twenty-four kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
+- [x] Kṛdanta — **twenty-five kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
       ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa,
-      uH, ghaH, raH, kru, AruH`) with root-dependent allomorphs (ṛ-final vs
+      uH, ghaH, raH, kru, AruH, varac`) with root-dependent allomorphs (ṛ-final vs
       u-final), iṭ handling, and śatṛ/śānac overrides (`kurvat`/`kurvARa`);
       golden paradigms for kf and BU verified. Sūtra codes audited.
 - [x] Subanta — **thirteen stem classes**: a- (m/n), i- (m/n), u- (m/n), ā- (f),
@@ -476,3 +476,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (3.2.173, -āru): `vand`→`vandAru`; added icchu (3.2.169) variant to uḥ:
   `iz`→`icCu`. Merged duplicate uH override keys. Added 1 test.
   `npm test` passes (51/51). Pushed to GitHub master.
+
+- **2026-11-18 — Session 35 (continued):** User said "keep going". Added kṛt suffix
+  varac (3.2.175, -vara): `sTA`→`sTAvara` (sthāvara), `IS`→`ISvara` (īśvara).
+  Added 1 test. `npm test` passes (52/52). Pushed to GitHub master.
