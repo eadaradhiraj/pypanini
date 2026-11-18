@@ -159,10 +159,13 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
       let r = CAUSATIVE_STEMS[root] ?? root;
       const c = r.slice(-1);
       if (!CAUSATIVE_STEMS[root] && (c === 'u' || c === 'U')) r = r.slice(0, -1) + 'Av';
+      const NIC_25_ROOTS = ['satya', 'pApa', 'SarUpa', 'vIra', 'tUla', 'sloka', 'senA', 'loman', 'tvac', 'varman', 'varcas', 'curA'];
       return {
         root: r,
         extra: ['ay'],
-        code: '3.1.26 (ṇic), 7.2.116 (vṛddhi)',
+        code: NIC_25_ROOTS.includes(root)
+          ? '3.1.25 (satyādi-bhyo ṇic), 7.2.116 (vṛddhi)'
+          : '3.1.26 (ṇic), 7.2.116 (vṛddhi)',
       };
     }
 
