@@ -745,3 +745,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   vṛddhi stems (`pācayati`, `kārayati`, `dāpayati`, `ghātayati`; registered 7.2.116),
   desiderative yaj/han (`yiyakṣati`, `jighāṃsati`), strī `sakhī`/`vahvī`.
   `npm test` passes (83/83). Pushed to GitHub master. Coverage 146/2703.
+
+- **2026-11-18 — Session 91 (continued, toward 2703/2703):** Fixed kṛdantas:
+  `dā+anīya → dānīya` (6.1.84 ekādeśa), `gam+ktvā → gatvā` (nasal lopa),
+  and gam nasal assimilation (`gata`, `gantum`, `gantavya`, `gantṛ`) while
+  keeping `gamaka` (m before -aka). `npm test` passes (83/83). Pushed to master.
+  Coverage 146/2703.
