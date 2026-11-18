@@ -433,6 +433,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.code = '3.3.98 (vrajayajor bhāve kyap — vrajyā/yajyā)';
   }
   if (args.krt === Krt.Kyap && dhatu.text === 'khan') {
+    spec.suffix = 'ya'; // khan → khe + ya (3.1.111 kheya)
     spec.code = '3.1.111 (ī ca khanaḥ — kheya)';
   }
   if (args.krt === Krt.ghaH && ['sTA', 'gA', 'pA'].includes(dhatu.text)) {
