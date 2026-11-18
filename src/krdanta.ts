@@ -326,7 +326,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet' },// vettavya
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', rudh: 'roDD' },// roddhavān
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
-  [Krt.ghaH]: { CAd: 'Cad', pac: 'pAk', tyj: 'tyAj', raj: 'rAj', tyaj: 'tyAg', rAj: 'rAg', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm', nI: 'nay' }, // pāka, tyāga, rāga, yoga, bhāva, cāra, jaya, veda, nāma, naya
+  [Krt.ghaH]: { CAd: 'Cad', pac: 'pAk', tyj: 'tyAj', raj: 'rAj', tyaj: 'tyAg', rAj: 'rAg', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm', nI: 'nay', likh: 'lek', viS: 'vez', mfj: 'mArg', ram: 'rAm' }, // leka/veṣa/mārga/rāma (3.3.121)
   [Krt.raH]: { nam: 'nam', dIp: 'dIp', kamp: 'kamp', smi: 'sme', hiMs: 'hiMs' }, // namra, dīpra…
   [Krt.kru]: { Bi: 'Bi' }, // bhīru (3.2.174)
   [Krt.AruH]: { vand: 'vand', sF: 'sar' }, // vandāru, śarāru (3.2.173)
@@ -435,6 +435,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.ghaH && ['sTA', 'gA', 'pA'].includes(dhatu.text)) {
     spec.suffix = 'na'; // 3.3.95: sthāna/gāna/pāna
     spec.code = '3.3.95 (sthā-gā-pā-paco bhāve ghañ)';
+  }
+  if (args.krt === Krt.ghaH && ['likh', 'viS', 'mfj', 'ram'].includes(dhatu.text)) {
+    spec.code = '3.3.121 (halaś ca — lekhā/vedā/veṣā/bandhā/mārgā/rāmā)';
   }
 
   // ṛ-final roots (kf → kar) take the ṇa-variants; u-final roots take the na-variants.
