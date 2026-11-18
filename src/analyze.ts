@@ -44,7 +44,7 @@ export function analyzeSubanta(word: SLP1): SubantaAnalysis[] {
       for (const vacana of VACANAS) {
         const ending = cls.endings[vibhakti][VACANA_INDEX[vacana]] ?? '';
 
-        if (ending === '') continue; // bare stem: too weak to be useful in reverse
+        if (ending === '' && !cls.id.startsWith('cons-')) continue; // bare stem too weak; consonant nom/voc sg is valid
 
         if (!probe.endsWith(ending)) continue;
         const prefix = word.slice(0, word.length - ending.length);
