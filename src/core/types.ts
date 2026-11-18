@@ -159,6 +159,7 @@ export enum Krt {
   NyuT = 'NyuT', // ण्युट् → -ana artist noun (gāyana, 3.1.147)
   thakan = 'thakan', // थकन् → -thaka artist noun (gāthaka, 3.1.146)
   Svun = 'Svun', // ष्वुन् → -aka artist noun (nartaka/khanaka/rajaka, 3.1.145)
+  ka = 'ka', // क → -a agent noun (budha/vikṣipa/priya, 3.1.135)
 }
 
 export interface KrdantaArgs {

@@ -19,6 +19,10 @@ interface KrtSpec {
 }
 
 const KRT_SPECS: Record<Krt, KrtSpec> = {
+  [Krt.ka]: {
+    suffix: 'a', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'ka', code: '3.1.135 (igupadhā-jñā-prī-kiraḥ kaḥ)',
+  },
   [Krt.Tac]: {
     suffix: 'ta', grade: 'none', prayoga: Prayoga.Karmani,
     pratyaya: 'kta', code: '3.2.102 (niṣṭhā: kta)',
@@ -309,6 +313,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.atRn]: { jF: 'jar', jf: 'jar' },    // jarant (3.2.104)
   [Krt.NyuT]: { gAI: 'gAy' },              // gāyana (3.1.147)
   [Krt.thakan]: { gAI: 'gA' },             // gāthaka (3.1.146)
+  [Krt.ka]: { jYA: 'jY', prIY: 'priy', kF: 'kir' }, // jña (6.4.64), priya (prī+ka 6.1.77), kira (kṝ→kir)
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit' }, // yukti/ruddhi/bhitti/chitti/vitti
