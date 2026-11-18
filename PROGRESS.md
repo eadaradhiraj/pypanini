@@ -797,3 +797,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   desiderative dīrgha (dīdāsati/mīmāṃsati), ṣṭran hotra/astra, perfect stems
   (yayāja/veda/jaghāna/cacāra), SLP1 karavāṇi, strī taruṇī. Registered 3.1.6.
   `npm test` passes. Pushed to GitHub master. Coverage 156/2703.
+
+- **2026-11-18 — Session 100 (continued, toward 2703/2703):** Registered 3.1.1/3.1.2
+  pratyaya definitions with trace records. Aligned ghaH/gaNa ghañ stems (pāka, tyāga,
+  rāga) and added hotra/astra, dāyaka/vāhaka, vedana. `npm test` passes.
+  Pushed to GitHub master. Coverage 158/2703.
