@@ -806,3 +806,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 101 (continued, toward 2703/2703):** Fixed vid/diS future
   stems (vediṣyati/dekṣyati), ghaH/gaNa alignment, registered 3.1.1/3.1.2.
   `npm test` passes. Pushed to GitHub master. Coverage 158/2703.
+
+- **2026-11-18 — Session 102 (continued, toward 2703/2703):** Fixed namadhatu
+  ā-coalescence (vidyāyati/vidyāyate) and ā-stem kyac -ya, ṇini vṛddhi for
+  vid/diś/car, future stems vid/diś. `npm test` passes. Pushed to master.
+  Coverage 158/2703.
