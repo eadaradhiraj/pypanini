@@ -204,6 +204,8 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'mIY:lan:parasmai:prathama:eka': 'aminAt',
   'Asa:lat:atmane:prathama:eka': 'Aste', // āste (√ās 2Ā)
   // class 3 (hu etc.): juhoti, jigāti
+  'hu:lan:parasmai:prathama:eka': 'ajuhot',
+  'hu:lot:parasmai:prathama:eka': 'juhotu',
   'hu:lat:parasmai:prathama:eka': 'juhoti',
   'hu:lat:parasmai:prathama:bahu': 'juhvanti',
   'gA:lat:parasmai:prathama:eka': 'jigAti',
