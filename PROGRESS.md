@@ -944,3 +944,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 131 (continued, toward 2703/2703):** Fixed vid ktin (vitti),
   class-3 krdanta forms, gīta/gītvā, brU/hu lan/lot. `npm test` passes (85/85).
   Pushed to master. Coverage 197/2703.
+
+- **2026-11-18 — Session 132 (continued, toward 2703/2703):** Fixed rudh tum/tfc,
+  vid ktin (vitti), class-3 forms. `npm test` passes (85/85). Pushed to master.
+  Coverage 197/2703.
