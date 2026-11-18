@@ -173,7 +173,7 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
   },
   [Krt.aN]: {
     suffix: 'A', grade: 'none', prayoga: Prayoga.Karmani,
-    pratyaya: 'aṇ', code: '3.3.105 (cinti-pūji-kathi-kumbi-carcaś ca)',
+    pratyaya: 'aṇ', code: '3.3.12 (aṇ karmaṇi ca), 3.3.105 (cinti-pūji-kathi-kumbi-carcaś ca)',
   },
   [Krt.gaNa]: {
     suffix: 'a', grade: 'vrddhi', prayoga: Prayoga.Karmani,
