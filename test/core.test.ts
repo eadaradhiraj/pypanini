@@ -783,6 +783,11 @@ test('subanta: feminine u-stem and -as neuter consonant stem', () => {
   assert.equal(form('vadhu', Linga.Stri, Vibhakti.Caturthi, Vacana.Eka), 'vadhvai'); // vadhvai
   assert.equal(form('vadhu', Linga.Stri, Vibhakti.Saptami, Vacana.Eka), 'vadhvAm'); // vadhvām
 
+  // consonant stems (marut, vāc)
+  assert.equal(form('marut', Linga.Pumsaka, Vibhakti.Prathama, Vacana.Eka), 'marut');
+  assert.equal(form('marut', Linga.Pumsaka, Vibhakti.Trtiya, Vacana.Eka), 'marutA');
+  assert.equal(form('vAc', Linga.Stri, Vibhakti.Trtiya, Vacana.Eka), 'vAcA');
+
   // manas (n), -as consonant stem
   assert.equal(form('manas', Linga.Napumsaka, Vibhakti.Prathama, Vacana.Eka), 'manas');
   assert.equal(form('manas', Linga.Napumsaka, Vibhakti.Trtiya, Vacana.Bahu), 'manoBiH');
