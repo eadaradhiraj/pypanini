@@ -165,7 +165,7 @@ export function isSLP1(s: string): boolean {
 export function applyNatva(s: string): string {
   // 8.4.2: vowels, h/y/v, gutturals (kKgGN), labials (pPbBm), and anusvāra (M)
   // may intervene between the trigger (r/ṣ/ṛ) and the n.
-  const between = '[aAiIuUfFxXeEoOhYvkKgGNpPbBmM]*';
+  const between = '[aAiIuUfFxXeEoOhYyvkKgGNpPbBmM]*'; // y = semivowel ya
   return s.replace(new RegExp('([rfz])(' + between + ')n', 'g'),
     (_m: string, trigger: string, mid: string) => trigger + mid + 'R');
 }

@@ -674,3 +674,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 79 (continued, items 1-4):** (#3) Added precative (āśīrliṅ)
   middle forms for bhū: `BavizIza` (bhaviṣīṣṭa), `BavizIran`, `BavizIzTAH`,
   `BavizIDvam`, `BavizIya`, `BavizImahi`. `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 80 (continued, items 1-4):** (#2) Fixed ṇatva ordering — now
+  applied after consolidation so it sees the whole pada. Added 8.4.16 (imperative
+  1s -āni → -āṇi after upasarga ṇatva trigger): `pra+vap`→`pravapARi`,
+  `pra+ya`→`prayaARi`. Added lowercase y to 8.4.2 intervening class. Registered
+  8.4.16. `npm test` passes. Pushed to GitHub master.

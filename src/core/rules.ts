@@ -206,21 +206,28 @@ export const TINANTA_TAIL_RULES: Rule[] = [
   }),
 
   rule('8.4.1', 'raṣābhyāṃ no ṇaḥ — ṇatva after r/ṣ/ṛ within a pada', (ctx) => {
+    // Applied at consolidation (8.4.68) where the whole pada is visible — here
+    // we only handle ṇatva within a single already-collapsed term.
     let applied = false;
-    for (const t of ctx.prakriya.terms) {
+    if (ctx.prakriya.length === 1) {
+      const t = ctx.prakriya.terms[0];
       const changed = applyNatva(t.text);
-      if (changed !== t.text) {
-        t.text = changed;
-        applied = true;
-      }
+      if (changed !== t.text) { t.text = changed; applied = true; }
     }
-    // Record only when a change actually occurred (matches other asiddha rules).
-    if (applied) ctx.prakriya.record('8.4.1 (ṇatva: n → ṣ after r/ṣ/ṛ)');
+    if (applied) ctx.prakriya.record('8.4.1 (ṇatva: n → ṇ after r/ṣ/ṛ)');
   }),
 
   rule('8.4.68', 'final consolidation', (ctx) => {
+    ctx.prakriya.collapse(); // join terms into one pada
+    // ṇatva must see the whole pada (may span what were separate terms).
+    const t = ctx.prakriya.terms[0];
+    const changed = applyNatva(t.text);
+    if (changed !== t.text) {
+      t.text = changed;
+      ctx.prakriya.record('8.4.1 (ṇatva: n → ṇ after r/ṣ/ṛ)');
+      ctx.prakriya.collapse();
+    }
     ctx.prakriya.record('8.4.68');
-    ctx.prakriya.collapse();
   }),
 ];
 

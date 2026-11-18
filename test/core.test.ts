@@ -83,7 +83,7 @@ test('golden trace preserved exactly after condition/mutation refactor', () => {
     '6.1.78|Bav + a + ti',
     '7.3.101|Bav + a + ti',
     '6.1.84 (ekādeśa: a + a/e/A → a/e/A)|Bav + a + ti',
-    '8.4.68|Bav + a + ti',
+    '8.4.68|Bavati',
   ]);
 });
 
@@ -814,6 +814,13 @@ test('8.4.1 ṇatva (n → ṇ after r/ṣ/ṛ in a pada)', () => {
   assert.equal(applyNatva('agni'), 'agni');     // no r/ṣ before n
   assert.equal(applyNatva('arKeRa'), 'arKeRa'); // 8.4.2: guttural intervenes, n→ṇ applied
   assert.equal(applyNatva('darpRa'), 'darpRa'); // 8.4.2: labial intervenes
+  assert.equal(applyNatva('prayaAni'), 'prayaARi'); // 8.4.16: y intervenes (semivowel)
+  // 8.4.16 in a real derivation: pra+vap lot 1s → prava-pā-ṇi
+  assert.equal(
+    deriveTinantas({ ...baseArgs, dhatu: 'vap', upasarga: 'pra', lakara: Lakara.Lot,
+      purusha: Purusha.Uttama, vacana: Vacana.Eka })[0].text(),
+    'pravapARi',
+  );
 });
 
 test('Vyakarana facade', () => {
