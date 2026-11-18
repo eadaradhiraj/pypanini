@@ -802,3 +802,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   pratyaya definitions with trace records. Aligned ghaH/gaNa ghañ stems (pāka, tyāga,
   rāga) and added hotra/astra, dāyaka/vāhaka, vedana. `npm test` passes.
   Pushed to GitHub master. Coverage 158/2703.
+
+- **2026-11-18 — Session 101 (continued, toward 2703/2703):** Fixed vid/diS future
+  stems (vediṣyati/dekṣyati), ghaH/gaNa alignment, registered 3.1.1/3.1.2.
+  `npm test` passes. Pushed to GitHub master. Coverage 158/2703.
