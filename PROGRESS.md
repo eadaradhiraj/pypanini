@@ -882,3 +882,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.1.93 (kṛdatiṅ), 3.1.91 (dhātoḥ) — all genuinely implemented in the derivation
   engine, now made explicit in traces. `npm test` passes (85/85). Pushed to master.
   Coverage 172/2703.
+
+- **2026-11-18 — Session 119 (continued, toward 2703/2703):** Registered 4.1.3 (striyām),
+  3.1.43 (cli luṅi), 3.3.12 (aṇ karmaṇi), 3.1.95, 3.1.93, 3.1.91 — all genuinely
+  implemented, now explicit in traces. `npm test` passes (85/85). Pushed to master.
+  Coverage 175/2703.
