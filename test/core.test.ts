@@ -674,6 +674,12 @@ test('kṛdanta: najiṅ (-na habitual agent, 3.2.172)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'Dfza', krt: Krt.najiN })[0].text(), 'DfzRa'); // dhṛṣṇa
 });
 
+test('kṛdanta: ac (-a action noun after i/ī roots, 3.3.56)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'ci', krt: Krt.ac })[0].text(), 'caya');  // caya
+  assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.ac })[0].text(), 'jaya');  // jaya
+  assert.equal(deriveKrdantas({ dhatu: 'kzi', krt: Krt.ac })[0].text(), 'kzaya'); // kṣaya
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');
