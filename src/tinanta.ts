@@ -277,7 +277,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'kf:lot:parasmai:madhyama:eka': 'kuru',
   'kf:lot:parasmai:madhyama:dvi': 'kurutam',
   'kf:lot:parasmai:madhyama:bahu': 'kuruta',
-  'kf:lot:parasmai:uttama:eka': 'karavANi',
+  'kf:lot:parasmai:uttama:eka': 'karavARi',
   'kf:lot:parasmai:uttama:dvi': 'karavAva',
   'kf:lot:parasmai:uttama:bahu': 'karavAma',
   'kf:lin:parasmai:prathama:eka': 'kuryAt',     // kuryāt
