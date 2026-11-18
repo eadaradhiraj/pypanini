@@ -491,7 +491,7 @@ test('kṛdanta: ghurac (-ura, 3.2.161)', () => {
 });
 
 test('kṛdanta: kvarap (-vara with ṭuk, 3.2.163)', () => {
-  assert.equal(deriveKrdantas({ dhatu: 'i', krt: Krt.kvarap })[0].text(), 'itvara');
+  assert.equal(deriveKrdantas({ dhatu: 'iR', krt: Krt.kvarap })[0].text(), 'itvara'); // 6.1.71 ṭuk: iṇ → it
   assert.equal(deriveKrdantas({ dhatu: 'naS', krt: Krt.kvarap })[0].text(), 'naSvara');
   assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.kvarap })[0].text(), 'jitvara');
   assert.equal(deriveKrdantas({ dhatu: 'sf', krt: Krt.kvarap })[0].text(), 'sfvara');
