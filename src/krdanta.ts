@@ -227,6 +227,8 @@ const KVIP_FORMS: Record<string, string> = {
   dyut: 'vidyut', // vidyut (lightning — reduplicated)
   zrI: 'zrI',   // śrī
   dfSir: 'dfk', // dṛś → dṛk (3.2.94 dṛśeḥ kvanip)
+  sad: 'sat',   // sat (3.2.61 satsu kvip)
+  vid: 'vit',   // vit (3.2.61)
   BAs: 'BAs',   // bhās → bhāḥ (3.2.177)
   BrAj: 'BrAj', // bhrāj → vibhrāj (3.2.177)
   dhurv: 'dhur', // dhūḥ (3.2.177)
