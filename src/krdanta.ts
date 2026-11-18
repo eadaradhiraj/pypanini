@@ -33,7 +33,7 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
   },
   [Krt.Ani]: {
     suffix: 'aRIya', grade: 'guna', prayoga: Prayoga.Karmani,
-    pratyaya: 'anīyar', code: '3.1.96 (tavyattavyānīyaraḥ)',
+    pratyaya: 'anīyar', code: '3.1.95 (kṛtyāḥ), 3.1.96 (tavyattavyānīyaraḥ)',
   },
   [Krt.Tum]: {
     suffix: 'tum', grade: 'guna', prayoga: Prayoga.Karmani,
@@ -41,7 +41,7 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
   },
   [Krt.Tavya]: {
     suffix: 'tavya', grade: 'guna', prayoga: Prayoga.Karmani,
-    pratyaya: 'tavyat', code: '3.1.96 (tavyattavyānīyaraḥ), 7.2.10 (no iṭ for kṛ)',
+    pratyaya: 'tavyat', code: '3.1.95 (kṛtyāḥ), 3.1.96 (tavyattavyānīyaraḥ), 7.2.10 (no iṭ for kṛ)',
   },
   [Krt.LyuT]: {
     suffix: 'aRa', grade: 'guna', prayoga: Prayoga.Karmani,
@@ -65,7 +65,7 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
   },
   [Krt.Yat]: {
     suffix: 'ya', grade: 'vrddhi', prayoga: Prayoga.Karmani,
-    pratyaya: 'yat', code: '3.1.97 (aco yat)',
+    pratyaya: 'yat', code: '3.1.95 (kṛtyāḥ), 3.1.97 (aco yat)',
   },
   [Krt.Ktin]: {
     suffix: 'ti', grade: 'none', prayoga: Prayoga.Karmani,
