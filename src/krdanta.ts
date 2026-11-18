@@ -311,7 +311,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.ap]: { svan: 'svAn', has: 'hAs', kf: 'kar', gF: 'gar', sf: 'sar', yu: 'yav', lU: 'lav', pU: 'pav' }, // 3.3.57 kara/śara/yava/lava/pava
   [Krt.kaN]: { tad: 'tAdf', yad: 'yAdf', sa: 'sadf', anya: 'anyAdf' }, // +za → tādṛśa/yādṛśa/sadṛśa
   [Krt.khuKN]: { BU: 'bAv' }, // +uka → bhāvuka
-  [Krt.khyun]: { kf: 'kar' }, // +aRa → karaRa (karaṇa)
+  [Krt.khyun]: { kf: 'kar', BU: 'Bav' }, // karaRa (karaṇa), BavaRa (bhavaṇa)
   [Krt.kiN]: { dA: 'dad', kf: 'cakr', sf: 'sasr', gam: 'jagm', nam: 'nem' }, // +i → dadiH/cakriH/…
   [Krt.najiN]: { svap: 'svap', tfza: 'tfz', Dfza: 'Dfz' }, // +na → svapna / tṛṣṇa / dhṛṣṇa
 };
