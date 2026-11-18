@@ -269,7 +269,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.SanaC]: { kf: 'kurv' }, // kṛ + śānac → kurvāṇa
   [Krt.Sanan]: { pU: 'pav', yaj: 'yaj', BU: 'Bav', kf: 'kurv' }, // kṛ→kurvāṇa, bhū→bhavamāna, pū→pavamāna
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
-  [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS', gam: 'gan' }, // hotṛ, neṣṭṛ, tvaṣṭṛ, gantṛ
+  [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS', gam: 'gan', vid: 'vet' }, // hotṛ, neṣṭṛ, tvaṣṭṛ, gantṛ, vettṛ
   [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay' }, // vidyā, manyā, ityā, śayyā
   [Krt.Sa]: { kf: 'kriy', iz: 'icC' }, // kriyā (3.3.100), icchā (3.3.101)
   [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv', vid: 'ved', diS: 'dez', car: 'cAr', nI: 'nAy' }, // ṇini vṛddhi
