@@ -258,6 +258,7 @@ const IZNU_STEMS: Record<string, string> = {
   saha: 'sah',  // sahiṣṇu
   car: 'car',   // cariṣṇu
   vFt: 'vart',  // vartiṣṇu
+  vid: 'ved',   // vediṣṇu
 };
 
 const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
