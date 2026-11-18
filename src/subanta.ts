@@ -265,6 +265,9 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     p.insert(p.length, surface, ['sup']);
   }
   p.record(`7.1.x (vibhakti ${args.vibhakti}, ${cls.id})`);
+  if (cls.terminal === 'an' || cls.terminal === 'at') {
+    p.record('8.2.7 (nalopaḥ prātipadikāntasya — n/t-stem base)');
+  }
   if (ending.includes('H')) p.record('8.3.15 (visarjanīyaḥ)');
   p.record('8.2.1 (final consolidation)');
   p.collapse();
