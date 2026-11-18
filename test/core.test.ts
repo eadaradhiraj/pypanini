@@ -429,6 +429,13 @@ test('kṛdanta: ghurac (-ura, 3.2.161)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'mid', krt: Krt.ghurac })[0].text(), 'medura');
 });
 
+test('kṛdanta: kvarap (-vara with ṭuk, 3.2.163)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'i', krt: Krt.kvarap })[0].text(), 'itvara');
+  assert.equal(deriveKrdantas({ dhatu: 'naS', krt: Krt.kvarap })[0].text(), 'naSvara');
+  assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.kvarap })[0].text(), 'jitvara');
+  assert.equal(deriveKrdantas({ dhatu: 'sf', krt: Krt.kvarap })[0].text(), 'sfvara');
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');
