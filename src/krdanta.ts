@@ -372,7 +372,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     p.record(dhatu.text === 'dfSir' ? '3.2.94 (dṛśeḥ kvanip — kvip)' :
       ['BAs', 'BrAj', 'dyut'].includes(dhatu.text)
         ? '3.2.177 (bhrājādiṣu kvip)'
-        : "3.2.178 (anyebhyo 'pi dṛśyate — kvip)");
+        : ['sad', 'vid', 'yuj', 'ji', 'rAj'].includes(dhatu.text)
+          ? '3.2.61 (satsu dviṣādi-kvip)'
+          : "3.2.178 (anyebhyo 'pi dṛśyate — kvip)");
     if (form) p.insert(0, form, ['krt']);
     else p.insert(0, dhatu.text, ['krt']);
     p.collapse();
@@ -382,7 +384,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.kvin) {
     const form = KVIN_FORMS[dhatu.text] ?? dhatu.text;
     const p = new Prakriya([]);
-    p.record('3.2.59 (kvin — irregular agent nouns)');
+    p.record(['dviS', 'druh', 'duh', 'Bid', 'Cid'].includes(dhatu.text)
+      ? '3.2.61 (dviṣādi-kvip — dviṭ/druk/duk)' 
+      : '3.2.59 (kvin — irregular agent nouns)');
     p.insert(0, form, ['krt']);
     p.collapse();
     return [p];
