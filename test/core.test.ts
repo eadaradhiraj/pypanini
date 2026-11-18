@@ -294,6 +294,9 @@ test('athematic present forms (classes 2/3/5)', () => {
   assert.equal(f('hi', Lakara.Lat, Purusha.Prathama), 'hinoti');
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'hi', upasarga: 'pra',
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'prahiRoti'); // prahiṇoti
+  // class 7 (śnam): bhinatti, chinatti
+  assert.equal(f('bhid', Lakara.Lat, Purusha.Prathama), 'bhinatti');
+  assert.equal(f('Cid', Lakara.Lat, Purusha.Prathama), 'chinatti');
 });
 
 test('karmani passive: pac → pacyate', () => {
