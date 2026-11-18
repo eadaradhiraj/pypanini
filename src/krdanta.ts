@@ -229,6 +229,9 @@ const KVIP_FORMS: Record<string, string> = {
   dfSir: 'dfk', // dṛś → dṛk (3.2.94 dṛśeḥ kvanip)
   BAs: 'BAs',   // bhās → bhāḥ (3.2.177)
   BrAj: 'BrAj', // bhrāj → vibhrāj (3.2.177)
+  dhurv: 'dhur', // dhūḥ (3.2.177)
+  ppF: 'pUr',   // pūḥ (3.2.177)
+  ju: 'jU',     // jūḥ (3.2.177)
 };
 
 /** kvin (3.2.59): irregular zero-suffix agent nouns. */
