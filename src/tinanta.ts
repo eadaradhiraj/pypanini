@@ -197,6 +197,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lin:parasmai:uttama:eka': 'syAm',     // syām
   'as:lin:parasmai:prathama:bahu': 'syuH',  // syūḥ
   'as:lot:parasmai:prathama:eka': 'astu',
+  'as:lot:parasmai:prathama:bahu': 'santu', // santu
   'as:lot:parasmai:madhyama:eka': 'ehi',
   // √dā (3P) — dadāti, dadāsi, dadāmi; dehi; dadātu
   'dA:lat:parasmai:prathama:eka': 'dadAti',
@@ -338,12 +339,14 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'i:lat:parasmai:uttama:eka': 'emi',
   'i:lat:parasmai:prathama:bahu': 'yAnti', // yānti
   'i:lot:parasmai:prathama:eka': 'etu',
+  'i:lot:parasmai:prathama:bahu': 'yAntu', // yāntu
   'i:lot:parasmai:madhyama:eka': 'ehi',
   // √yā (2P) — yāti, yāsi, yāmi
   'yA:lat:parasmai:prathama:eka': 'yAti',
   'yA:lat:parasmai:madhyama:eka': 'yAsi',
   'yA:lat:parasmai:uttama:eka': 'yAmi',
   'yA:lat:parasmai:prathama:bahu': 'yAnti', // yānti (ā+a → ā)
+  'yA:lot:parasmai:prathama:bahu': 'yAntu', // yāntu
   'yA:lot:parasmai:madhyama:eka': 'yAhi',
 };
 function presentForm(root: string, lakara: Lakara, pada: Pada,
