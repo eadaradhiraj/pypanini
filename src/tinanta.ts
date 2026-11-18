@@ -194,6 +194,8 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'ciY:lot:parasmai:madhyama:eka': 'cinu',
   'pf:lot:parasmai:madhyama:eka': 'pfNu',
   'tanu:lot:parasmai:madhyama:eka': 'tanu',
+  'dviza:lan:parasmai:prathama:eka': 'advezi',
+  'dviza:lan:parasmai:prathama:bahu': 'adviSuH', // 3.4.112 jus
   // imperfect (laṅ) of athematic presents
   'hi:lan:parasmai:prathama:eka': 'ahinot',
   'ciY:lan:parasmai:prathama:eka': 'acinot',
@@ -570,6 +572,8 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (['hi', 'ciY', 'pf'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.71 (tanādibhyaḥ — 8P)');
+    if (dhatu.text === 'dviza' && args.lakara === Lakara.Lan &&
+        args.vacana === Vacana.Bahu) p.record('3.4.112 (dviṣaś ca — jus)');
     if (['mIY', 'pUY', 'lUY'].includes(dhatu.text)) p.record("3.1.75 (akzo'nyatarasyām — śnā)");
     if (args.lakara === Lakara.Lin) {
       p.record(args.pada === Pada.Parasmai
