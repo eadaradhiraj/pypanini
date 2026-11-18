@@ -239,6 +239,7 @@ const STRAN_STEMS: Record<string, string> = {
   stu: 'sto',  // stotra (praise)
   yu: 'yo',    // yotra
   dhA: 'dA',   // dhātra (nurse, 3.2.181)
+  hu: 'ho',    // hotra (oblation, 3.2.182)
 };
 
 /** Stem overrides for roots with an irregular kṛt formation (nipātana). */

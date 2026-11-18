@@ -463,6 +463,8 @@ test('kṛdanta: ṣṭran (-tra instrument nouns, 3.2.182)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'ni', krt: Krt.STran })[0].text(), 'netra'); // netra
   assert.equal(deriveKrdantas({ dhatu: 'stu', krt: Krt.STran })[0].text(), 'stotra'); // stotra
   assert.equal(deriveKrdantas({ dhatu: 'yu', krt: Krt.STran })[0].text(), 'yotra'); // yotra
+  assert.equal(deriveKrdantas({ dhatu: 'hu', krt: Krt.STran })[0].text(), 'hotra'); // hotra
+  assert.equal(deriveKrdantas({ dhatu: 'as', krt: Krt.STran })[0].text(), 'astra'); // astra
 });
 
 test('kṛdanta: tṛn (-tṛ habitual agent, 3.2.135)', () => {
