@@ -635,3 +635,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   invisibility and phase-ordering tests. (#1) Added strī-pratyaya 4.1.32 (nuk):
   `antarvat`→`antarvatnI`, `pativat`→`pativatnI`. Registered 4.1.32.
   `npm test` passes (77/77). Pushed to GitHub master.
+
+- **2026-11-18 — Session 71 (continued, item 1):** Added strī-pratyaya 4.1.33:
+  `pati`→`patnI` (patnī). Registered 4.1.33. `npm test` passes. Pushed to GitHub master.
