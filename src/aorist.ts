@@ -39,6 +39,8 @@ const AORIST: Record<string, AoristEntry> = {
   kf: { kind: 's', stem: 'kAr' },
   // a-aorist of bhid: abhidat (3.1.57 vārttika)
   bhid: { kind: 'a', stem: 'bhid', code: '3.1.57 (iritaḥ vā — bhid a-aorist)' },
+  // a-aorist of vid (3.4.109 jus: aviduḥ)
+  vid: { kind: 'a', stem: 'vid', code: '3.4.109 (sij-abhyasta-vidibhyaś ca — jus)' },
   // s-aorist (vṛddhi final vowel + s → ṣ)
   ni: {
     kind: 's', stem: 'nE', // nī → nai + ṣ (active)
