@@ -20,6 +20,7 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  if (stem.endsWith('van')) return StriPratyaya.Nip; // 4.1.7 vano ra ca
   if (stem.endsWith('at') || stem.endsWith('f') || stem.endsWith('n') || stem.endsWith('in')) return StriPratyaya.Nip; // 4.1.5/6
   if (stem.endsWith('a')) return StriPratyaya.Tap;
   return undefined;
@@ -40,6 +41,8 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     // ṅīp: ṛ/n → ī (kartṛ → kartrī, daṇḍin → daṇḍinī)
     if (args.stem.endsWith('f')) {
       feminine = args.stem.slice(0, -1) + 'rI'; // kṛ → kartrī
+    } else if (args.stem.endsWith('van')) {
+      feminine = args.stem.slice(0, -3) + 'varI'; // dhīvan → dhīvarī (4.1.7 van→var)
     } else if (args.stem.endsWith('in')) {
       feminine = args.stem.slice(0, -2) + 'inI'; // daṇḍin → daṇḍinī
     } else if (args.stem.endsWith('at')) {
@@ -49,7 +52,8 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     } else {
       feminine = args.stem.slice(0, -1) + 'I'; // n → ī
     }
-    p.record(args.stem.endsWith('at') ? '4.1.6 (ugitaś ca ṅīp)' : '4.1.5 (ṛn-nebhyo ṅīp)');
+    p.record(args.stem.endsWith('van') ? '4.1.7 (vano ra ca ṅīp)' :
+      args.stem.endsWith('at') ? '4.1.6 (ugitaś ca ṅīp)' : '4.1.5 (ṛn-nebhyo ṅīp)');
   }
 
   p.setText(0, feminine);
