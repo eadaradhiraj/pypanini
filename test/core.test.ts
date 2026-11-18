@@ -736,6 +736,8 @@ test('strī-pratyayas: ṭāp (4.1.4) and ṅīp (4.1.5)', () => {
   assert.equal(deriveStri({ stem: 'sImAn' })?.text(), 'sImA');     // sīmā (4.1.13)
   assert.equal(deriveStri({ stem: 'kurucara' })?.text(), 'kurucarI'); // kurucarī (4.1.15)
   assert.equal(deriveStri({ stem: 'itvara' })?.text(), 'itvarI');   // itvarī (4.1.15)
+  assert.equal(deriveStri({ stem: 'kumAra' })?.text(), 'kumArI');   // kumārī (4.1.20)
+  assert.equal(deriveStri({ stem: 'kiSora' })?.text(), 'kiSorI');   // kiśorī (4.1.20)
 });
 
 test('Vyakarana facade', () => {

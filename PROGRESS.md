@@ -588,3 +588,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 60 (continued):** Extended strī-pratyayas: ṭiḍ-aṇ-kvarap
   ṅīp (4.1.15) `kurucara`→`kurucarI`, `kumbhAkAra`→`kumbhAkArI`, `itvara`→`itvarI`.
   Registered 4.1.15. `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 61 (continued):** Extended strī-pratyayas: vayasi prathame
+  (4.1.20) `kumAra`→`kumArI` (kumārī), `kiSora`→`kiSorI` (kiśorī). Skipped 4.1.16/17
+  as taddhita (out of scope). Registered 4.1.20. `npm test` passes. Pushed to GitHub master.
