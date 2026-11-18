@@ -1,5 +1,5 @@
 import { Prakriya } from './core/prakriya';
-import { gunafy, vrddhify } from './core/slp1';
+import { gunafy, vrddhify, applyNatva } from './core/slp1';
 import { KrdantaArgs, Krt, Prayoga, Sanadi } from './core/types';
 import { resolveDhatu } from './data/dhatupatha';
 import { buildSanadiStem } from './sanadi';
@@ -203,6 +203,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'i', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'ki/kin', code: '3.2.171 (ād-ṛ-gama-hana-janaḥ ki-kinau liṭ ca)',
   },
+  [Krt.najiN]: {
+    suffix: 'na', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'najiṅ', code: '3.2.172 (svapitṛṣornajiṅ)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
@@ -280,6 +284,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.khuKN]: { BU: 'bAv' }, // +uka → bhāvuka
   [Krt.khyun]: { kf: 'kar' }, // +aNa → karaNa (karaṇa)
   [Krt.kiN]: { dA: 'dad', kf: 'cakr', sf: 'sasr', gam: 'jagm', nam: 'nem' }, // +i → dadiH/cakriH/…
+  [Krt.najiN]: { svap: 'svap', tfza: 'tfz', Dfza: 'Dfz' }, // +na → svapna / tṛṣṇa / dhṛṣṇa
 };
 
 const KSNU_SUFFIX: Record<string, string> = {
@@ -404,5 +409,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
 
   p.record(`kṛt-prayoga: ${args.prayoga ?? spec.prayoga} (kāraka-vivakṣā)`);
   p.collapse();
+  // ṇatva (8.4.1) must see the whole pada: tṛṣ + na → tṛṣṇa.
+  const t = p.terms[0];
+  const natva = applyNatva(t.text);
+  if (natva !== t.text) { t.text = natva; p.record('8.4.1 (ṇatva: n → ṇ after r/ṣ/ṛ)'); }
   return [p];
 }

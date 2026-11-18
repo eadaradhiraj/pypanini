@@ -696,3 +696,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   `pra`+`ay` → `plAyati` (plāyati, with 8.2.19 r→l), `ava`+`ay` → `avAyati`,
   `pra`+`as` → `prAsati`. Registered code note. Added regression test.
   `npm test` passes (79/79). Pushed to GitHub master.
+
+- **2026-11-18 — Session 84 (continued, items 1-4):** (#1) Added kṛt suffix najiṅ
+  (3.2.172, -na): `svap`→`svapna`, `tfza`→`tfzRa` (tṛṣṇa), `Dfza`→`DfzRa`
+  (dhṛṣṇa). Applied 8.4.1 ṇatva in kṛdanta finalization, which CORRECTED
+  two prior golden values now confirmed by 3.2.140 commentary: `DFzi+knu`→`DFzRu`
+  (dhṛṣṇu, धृष्णुः) and `kf+Nini`→`kAriR` (kāriṇ). Registered 3.2.172/8.4.1.
+  `npm test` passes (80/80). Pushed to GitHub master.

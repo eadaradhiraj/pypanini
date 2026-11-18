@@ -151,6 +151,7 @@ export enum Krt {
   khuKN = 'khuKN', // खुकञ् → -uka (bhāvuka, 3.2.57)
   khyun = 'khyun', // ख्युन् → -ana instrument (karaṇa, 3.2.56)
   kiN = 'kiN', // कि/किन् → -i agent with reduplication (dadiḥ/cakriḥ, 3.2.171)
+  najiN = 'najiN', // नजिङ् → -na habitual agent (svapna/tṛṣṇa/dhṛṣṇa, 3.2.172)
 }
 
 export interface KrdantaArgs {

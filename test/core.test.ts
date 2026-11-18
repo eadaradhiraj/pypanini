@@ -328,8 +328,8 @@ test('kṛdanta: ktin (-ti) and 8.2.30 palatal → guttural', () => {
 });
 
 test('kṛdanta: ṇini (-in) with vṛddhi and y-glide', () => {
-  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Nini })[0].text(), 'kArin'); // kārin
-  assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.Nini })[0].text(), 'dAyin'); // dāyin
+  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Nini })[0].text(), 'kAriR'); // kāriṇ (8.4.1 ṇatva: r…n → ṇ)
+  assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.Nini })[0].text(), 'dAyin'); // dāyin (no r/ṣ trigger)
 });
 
 test('kṛdanta: śānan (-māna, 3.2.128)', () => {
@@ -409,8 +409,8 @@ test('kṛdanta: ḍu (-u after upasarga+bhū, 3.2.180)', () => {
 test('kṛdanta: knu (-nu habitual agent, 3.2.140)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'tras', krt: Krt.knu })[0].text(), 'trasnu');
   assert.equal(deriveKrdantas({ dhatu: 'gFDi', krt: Krt.knu })[0].text(), 'gFdnu');
-  assert.equal(deriveKrdantas({ dhatu: 'DFzi', krt: Krt.knu })[0].text(), 'DFznu');
-  assert.equal(deriveKrdantas({ dhatu: 'kzip', krt: Krt.knu })[0].text(), 'kziNnu');
+  assert.equal(deriveKrdantas({ dhatu: 'DFzi', krt: Krt.knu })[0].text(), 'DFzRu'); // dhṛṣṇu (8.4.1 ṇatva)
+  assert.equal(deriveKrdantas({ dhatu: 'kzip', krt: Krt.knu })[0].text(), 'kziNRu'); // kṣiṇṇu (ṇ + ṇ)
 });
 
 test('kṛdanta: kṣnu (-snu/-ṣṇu, 3.2.139)', () => {
@@ -525,6 +525,12 @@ test('kṛdanta: ki/kin (-i with reduplication, 3.2.171)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'dA', krt: Krt.kiN })[0].text(), 'dadi');  // dadiḥ
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.kiN })[0].text(), 'cakri'); // cakriḥ
   assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.kiN })[0].text(), 'jagmi'); // jagmiḥ
+});
+
+test('kṛdanta: najiṅ (-na habitual agent, 3.2.172)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'svap', krt: Krt.najiN })[0].text(), 'svapna');  // svapna (dream)
+  assert.equal(deriveKrdantas({ dhatu: 'tfza', krt: Krt.najiN })[0].text(), 'tfzRa'); // tṛṣṇa
+  assert.equal(deriveKrdantas({ dhatu: 'Dfza', krt: Krt.najiN })[0].text(), 'DfzRa'); // dhṛṣṇa
 });
 
 test('kṛdanta: bhū forms with iṭ', () => {
