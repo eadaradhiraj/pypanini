@@ -994,3 +994,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Fixed grahādi ṇini (grāhin). 0 double-vowel/N anomalies across 150 roots ×
   all derivations; 0 emitted-but-unregistered codes. `npm test` passes (85/85).
   Pushed to master. Coverage 223/2703 (224/3983).
+
+- **2026-11-18 — Session 141 (continued, toward 2703/2703):** Registered 7.4.62
+  (kuhoś cuḥ in liṭ reduplication). Audited the registry against every emitted
+  trace across all 2229 dhātus + special roots: removed 6 codes that were
+  registered but never emitted (1.1.3, 6.4.51, 3.1.102, 3.3.62, 3.3.107, 1.1.3).
+  0 emitted-but-unregistered codes remain. `npm test` passes (85/85). Pushed to
+  master. Coverage 219/2703 (220/3983).
