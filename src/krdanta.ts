@@ -312,11 +312,11 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez' },  // dveṣaṇīya
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT' }, // yukti/ruddhi/bhitti/chitti
-  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI' }, // vittvā, citytvā, mītvā
+  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt' }, // vittvā, citytvā, mītvā, gītvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok' }, // bhettum/chettum/roddhum/yoktum
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok' }, // bhettṛ, chettṛ, roddhṛ, yoktṛ
-  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz' },  // ruddha, yukta, dviṣṭa
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt' },  // ruddha, yukta, dviṣṭa, gīta
   [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok' },// gantavya/bhettavya/chettavya/yoktavya
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok' },// class7 ktavatu
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
