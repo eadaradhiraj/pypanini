@@ -307,6 +307,10 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
       (args.vacana === Vacana.Eka || args.vacana === Vacana.Dvi)) {
     p.record('8.2.23 (saṃyogāntasya lopaḥ — final -s elided)');
   }
+  if (cls.id.startsWith('cons-') && args.vibhakti === Vibhakti.Prathama && args.vacana === Vacana.Eka &&
+      ['vAc', 'dviS', 'BagavAt', 'bhagavAt'].includes(stem)) {
+    p.record("8.2.39 (jhalāṃ jaśo 'nte), 8.4.41 (ṣṭunā ṣṭuḥ — consonant nom sg)");
+  }
   if (ending.includes('H')) p.record('8.3.15 (visarjanīyaḥ)');
   p.record('8.2.1 (final consolidation)');
   p.collapse();
