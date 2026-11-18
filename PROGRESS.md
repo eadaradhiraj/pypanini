@@ -811,3 +811,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ā-coalescence (vidyāyati/vidyāyate) and ā-stem kyac -ya, ṇini vṛddhi for
   vid/diś/car, future stems vid/diś. `npm test` passes. Pushed to master.
   Coverage 158/2703.
+
+- **2026-11-18 — Session 103 (continued, toward 2703/2703):** Added kṛt ac (3.3.56
+  caya/jaya/kṣaya), naN (3.3.90 yajña/praśna), aN bheda (3.3.104), ap (3.3.57
+  kara/śara/yava/lava), kvip dhur/pūr/jū, registered 4.1.1/3.3.56/3.3.90/3.3.104/3.3.57.
+  Fixed kurvāṇa, vediṣṇu, vid kṣṇu, vid/diś futures. `npm test` passes.
+  Pushed to GitHub master. Coverage 163/2703.
