@@ -258,6 +258,7 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   const surface = cls.sandhi ? applySandhi(base, ending) : base + ending;
 
   const p = new Prakriya([base]);
+  p.record('4.1.1 (sup — case-ending pratyayas)');
   p.record(`4.1.2 (prātipadikād su; ${cls.id})`);
 
   if (surface !== base) {
