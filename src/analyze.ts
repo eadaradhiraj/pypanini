@@ -61,18 +61,25 @@ export function analyzeSubanta(word: SLP1): SubantaAnalysis[] {
         const pratipadika = cls.terminal ? base + cls.terminal : base;
 
         if (!verify(pratipadika, cls.linga, vibhakti, vacana, word)) continue;
-        if (results.some((r) =>
-          r.pratipadika === pratipadika && r.linga === cls.linga &&
-          r.vibhakti === vibhakti && r.vacana === vacana)) continue;
 
         const reportedBase = cls.terminal
           ? base
           : base.endsWith('a') ? base.slice(0, -1) : base;
-        results.push({
+        const candidate: SubantaAnalysis = {
           word, pratipadika, base: reportedBase,
           linga: cls.linga, stemClass: cls.id,
           vibhakti, vacana, ending,
-        });
+        };
+        // Keep the strongest (longest) ending per prātipadika+linga+case+number.
+        // A weak `H` from a-m must not shadow the strong `iH` from i-m.
+        const dupIdx = results.findIndex((r) =>
+          r.pratipadika === pratipadika && r.linga === cls.linga &&
+          r.vibhakti === vibhakti && r.vacana === vacana);
+        if (dupIdx >= 0) {
+          if (ending.length > results[dupIdx].ending.length) results[dupIdx] = candidate;
+        } else {
+          results.push(candidate);
+        }
       }
     }
   }

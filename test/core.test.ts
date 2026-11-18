@@ -713,6 +713,13 @@ test('reverse declension across stem classes', () => {
   check('pitfzu', 'pitf', Vibhakti.Saptami);
 });
 
+test('reverse declension: strong ending must not be shadowed by weak a-m H', () => {
+  const r = analyzeSubanta('agniH');
+  // a-m would reconstruct agni with a weak H; i-m/i-f have the strong iH.
+  assert.ok(r.some((x) => x.stemClass === 'i-m' && x.linga === Linga.Pumsaka
+    && x.pratipadika === 'agni' && x.ending === 'iH'));
+});
+
 test('reverse declension: WrampaH and WrampeNa → base Wramp', () => {
   const nom = analyzeSubanta('WrampaH');
   assert.equal(nom.length, 1);
