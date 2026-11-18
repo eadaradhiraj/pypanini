@@ -50,6 +50,37 @@ test('asiddhavat rules with when-conditions see the phase-entry state', () => {
   assert.deepEqual(ctx.log, ['a', 'b', 'c']);
 });
 
+test('asiddha-phase rules see only the phase-entry state in their conditions', () => {
+  const scheduler = new RuleScheduler<Ctx>().withSnapshots({ snapshot, restore });
+  // siddha rule first (chapter 1) sets value to 5.
+  scheduler.add(scheduled('s1', '1.1.1', 10, (ctx) => { ctx.value = 5; ctx.log.push('s1'); }));
+  // asiddha rule (8.2.1+) — condition sees entry value 5, adds 100.
+  scheduler.add(scheduled('a1', '8.2.1', 10, (ctx) => { ctx.value += 100; ctx.log.push('a1'); }, {
+    when: (ctx) => ctx.value === 5,
+  }));
+  // another asiddha rule — must see entry value 5, NOT 105 (a1's change).
+  scheduler.add(scheduled('a2', '8.2.2', 20, (ctx) => { ctx.value += 200; ctx.log.push('a2'); }, {
+    when: (ctx) => ctx.value === 5,
+  }));
+  const ctx: Ctx = { value: 0, log: [] };
+  const report = scheduler.run(ctx);
+  assert.ok(report.fired.includes('a1') && report.fired.includes('a2'));
+  assert.deepEqual(ctx.log, ['s1', 'a1', 'a2']); // siddha before asiddha
+  assert.equal(ctx.value, 305); // 5 + 100 + 200 — a2 added despite a1's +100
+});
+
+test('mutual invisibility is scoped to a phase, not global', () => {
+  const scheduler = new RuleScheduler<Ctx>().withSnapshots({ snapshot, restore });
+  // Two asiddhavat rules, then a later siddha rule (lower priority but same phase
+  // rank? no — siddha runs first). Verify phase order regardless of insertion order.
+  scheduler.add(scheduled('as1', '8.3.1', 10, (ctx) => { ctx.value += 1; }, { when: () => true }));
+  scheduler.add(scheduled('si1', '3.1.1', 10, (ctx) => { ctx.value = 10; }));
+  const ctx: Ctx = { value: 0, log: [] };
+  scheduler.run(ctx);
+  // siddha (si1) must run before asiddha (as1): final = 11.
+  assert.equal(ctx.value, 11);
+});
+
 test('without snapshots, a later rule sees accumulated state', () => {
   const scheduler = new RuleScheduler<Ctx>(); // no snapshots
   scheduler.add(scheduled('a', '1.1.1', 10, (ctx) => { ctx.value = 1; }));
