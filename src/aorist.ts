@@ -206,7 +206,7 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
     const sibilant = kind === 's' ? 'z' : kind === 'is' ? 'iz' : '';
     if (sibilant) {
       p.insert(p.length, sibilant, ['sibilant']);
-      p.record(kind === 's' ? '8.2.36 (s → ṣ)' : '3.1.44 (iṣ)');
+      p.record(kind === 's' ? '3.1.43 (cli luṅi), 8.2.36 (s → ṣ)' : '3.1.43 (cli luṅi), 3.1.44 (iṣ)');
     }
     const table = args.pada === Pada.Atmane ? SEC_ATMANE : SEC_PARASMAI;
     let ending = table[args.purusha][idx];
