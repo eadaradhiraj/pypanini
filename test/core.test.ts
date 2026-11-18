@@ -375,6 +375,8 @@ test('saṇādi: san (desiderative, 3.1.7)', () => {
   assert.equal(desiderative('vid'), 'vivizati');   // vividiṣati
   assert.equal(desiderative('yaj'), 'yiyakzati');  // yiyakṣati
   assert.equal(desiderative('han'), 'jighAmsati'); // jighāṃsati
+  assert.equal(desiderative('dA'), 'dIdAsati');    // dīdāsati (3.1.6 dīrgha)
+  assert.equal(desiderative('mA'), 'mImAMsati');   // mīmāṃsati (3.1.6)
 });
 
 test('heavy reduplication', () => {

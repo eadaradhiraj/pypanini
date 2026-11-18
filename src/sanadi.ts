@@ -101,6 +101,8 @@ const DESIDERATIVE_STEMS: Record<string, string> = {
   viz: 'viviza',    // viṣ → viviṣa-
   diS: 'didiza',    // diś → didiṣa- (ś→ṣ, 8.2.36)
   iS: 'iSiza',      // iṣ → iṣiṣa-
+  dA: 'dIdAsa',     // dā → dīdāsa (3.1.6 dīrgha of abhyāsa)
+  mA: 'mImAMsa',    // mā → mīmāṃsa (3.1.6)
 };
 
 function desiderativeStem(root: SLP1): SLP1 {
