@@ -141,6 +141,15 @@ const AORIST: Record<string, AoristEntry> = {
     kind: 'a', stem: 'ar', code: '3.1.56 (sarti-śāsty-artibhyaś ca)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'Arat' } },
   },
+  // aṅ-aorist (3.1.55 puṣādi-dyutādy-ḷditaḥ parasmaipadeṣu)
+  puza: {
+    kind: 'a', stem: 'puz', code: '3.1.55 (puṣādi-dyutādy-ḷditaḥ parasmaipadeṣu)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apuzat' } },
+  },
+  dyut: {
+    kind: 'a', stem: 'dyut', code: '3.1.55 (puṣādi-dyutādy-ḷditaḥ parasmaipadeṣu)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'adyutat' } },
+  },
 };
 
 /** Passive aorist 3rd singular (bhāve): anāyi, avāci, adāyi. */
