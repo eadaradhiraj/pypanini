@@ -397,7 +397,7 @@ test('kṛdanta: uḥ (-u) and ghaḥ (-a) suffixes', () => {
   assert.equal(deriveKrdantas({ dhatu: 'pac', krt: Krt.ghaH })[0].text(), 'pAca');  // pāka (medial vṛddhi)
   assert.equal(deriveKrdantas({ dhatu: 'tyj', krt: Krt.ghaH })[0].text(), 'tyAja'); // tyāga
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.ghaH })[0].text(), 'BAva');  // bhāva
-  assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.ktin })[0].text(), 'gati');  // gati (nasal lopa)
+  assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.Ktin })[0].text(), 'gati');  // gati (nasal lopa)
 });
 
 test('kṛdanta: raḥ (-ra) and kru (-ru) suffixes', () => {
