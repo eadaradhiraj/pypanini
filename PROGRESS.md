@@ -892,3 +892,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (nartaka/khanaka/rajaka), 3.1.146 thakan (gāthaka), 3.1.147 ṇyuṭ (gāyana),
   registered 3.1.145/146/147. `npm test` passes (85/85). Pushed to master.
   Coverage 178/2703.
+
+- **2026-11-18 — Session 121 (continued, toward 2703/2703):** Added athematic present/
+  imperfect/imperative forms for class 2/5/7/8/9 roots (hi, ci, pṛ, tan, mī, bhid,
+  chid, rudh, yuj, vā, pā, rā, dviṣ, bhā, mā), consonant-stem declensions (marut,
+  vāc, dviṣ, bhagavāt, mahātman), upasarga handling for athematic forms, and
+  registered 3.1.71/73/75/78, 3.4.100/102/103/105/108, 8.2.23.
+  `npm test` passes (85/85). Pushed to master. Coverage 189/2703.
