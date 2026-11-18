@@ -384,6 +384,11 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'yA:lot:parasmai:prathama:bahu': 'yAntu', // yāntu
   'yA:lot:parasmai:madhyama:eka': 'yAhi',
 };
+/** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
+function coalesceUpasarga(upa: string, form: string): SLP1 {
+  if (upa.endsWith('a') && form.startsWith('a')) return upa.slice(0, -1) + 'A' + form.slice(1);
+  return upa + form;
+}
 function presentForm(root: string, lakara: Lakara, pada: Pada,
   purusha: Purusha, vacana: Vacana): SLP1 | undefined {
   const key = `${root}:${lakara}:${pada}:${purusha}:${vacana}`;
@@ -537,9 +542,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     : undefined;
   if (athematic) {
     const upa = args.upasarga && isUpasarga(args.upasarga) ? args.upasarga : '';
-    const athemForm = upa && dhatu.text === 'hi'
-      ? upa + athematic.replace(/n/g, 'R') // 8.4.15 hinumīnā: n → ṇ after upasarga
-      : athematic;
+    const athemForm = !upa ? athematic
+      : dhatu.text === 'hi' ? upa + athematic.replace(/n/g, 'R') // 8.4.15
+      : coalesceUpasarga(upa, athematic); // 6.1.101 a+a → ā (prāsti)
     const p = new Prakriya([athemForm]);
     p.record(`3.2.123 (${LAKARA_LABEL[args.lakara] ?? 'la~w'} vidhāna)`);
     p.record('3.4.78 (athematic tiṅ)');
