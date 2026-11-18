@@ -401,6 +401,10 @@ test('kṛdanta: kṣnu (-snu/-ṣṇu, 3.2.139)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.kSnu })[0].text(), 'BUzNu');
 });
 
+test('kṛdanta: iṣṇuc (-iṣṇu, 3.2.138)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.izNuc })[0].text(), 'BavizNu'); // bhaviṣṇu
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

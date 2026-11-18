@@ -135,6 +135,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'zNu', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'kṣnu', code: '3.2.139 (glā-ji-sthaś ca kṣnuḥ)',
   },
+  [Krt.izNuc]: {
+    suffix: 'izNu', grade: 'guna', prayoga: Prayoga.Kartari,
+    pratyaya: 'iṣṇuc', code: '3.2.138 (bhuvaś ca — iṣṇuc)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
