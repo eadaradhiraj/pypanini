@@ -97,6 +97,19 @@ const AORIST: Record<string, AoristEntry> = {
       [Purusha.Uttama]: { [Vacana.Eka]: 'adikzi', [Vacana.Dvi]: 'adikzAvahi', [Vacana.Bahu]: 'adikzAmahi' },
     },
   },
+  // caṅ-aorist (3.1.48 ṇi-śri-dru-srubhyaḥ kartari caṅ)
+  Sri: {
+    kind: 'redup', stem: 'SiSri', code: '3.1.48 (ṇi-śri-dru-srubhyaḥ kartari caṅ)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'aSiSriyat' } },
+  },
+  dru: {
+    kind: 'redup', stem: 'dudru', code: '3.1.48 (ṇi-śri-dru-srubhyaḥ kartari caṅ)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'adudruvat' } },
+  },
+  sru: {
+    kind: 'redup', stem: 'susru', code: '3.1.48 (ṇi-śri-dru-srubhyaḥ kartari caṅ)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asusruvat' } },
+  },
 };
 
 /** Passive aorist 3rd singular (bhāve): anāyi, avāci, adāyi. */
@@ -180,6 +193,7 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
   const explicit = forms?.[args.purusha]?.[args.vacana];
   if (explicit) {
     p.insert(0, explicit, ['form']);
+    if (entry.code) p.record(entry.code);
     p.record(`3.2.110 (luN; ${kind}-aorist)`);
     p.record(`3.4.101 (${kind} endings)`);
     p.collapse();
