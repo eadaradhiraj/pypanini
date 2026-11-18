@@ -138,6 +138,7 @@ export enum Krt {
   yuc = 'yuc', // युच् → -ana (calana/śabdana, 3.2.148)
   ruH2 = 'ruH2', // रुः → -ru (dāru/saru/sadru, 3.2.159)
   kurac = 'kurac', // कुरच् → -ura (vidura/bhidura/chidura, 3.2.162)
+  ghurac = 'ghurac', // घुरच् → -ura (bhaṅgura/bhāsura/medura, 3.2.161)
 }
 
 export interface KrdantaArgs {

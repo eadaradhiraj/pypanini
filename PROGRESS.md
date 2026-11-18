@@ -158,9 +158,9 @@ pypanini/
       irregular ṛ-final intensive stems) AND the desiderative `san` (3.1.7):
   `BU` → `buBUzati`, `pac` → `pipakzati`, `kf` → `cikIzati`, `gam` → `jigamizati`.
       yaṅluk beyond 3rd singular remains unaudited.
-- [x] Kṛdanta — **thirty-three kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
+- [x] Kṛdanta — **thirty-four kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
       ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa,
-      uH, ghaH, raH, kru, AruH, varac, kvip, Du, knu, kSnu, izNuc, yuc, ruH2, kurac`) with root-dependent allomorphs (ṛ-final vs
+      uH, ghaH, raH, kru, AruH, varac, kvip, Du, knu, kSnu, izNuc, yuc, ruH2, kurac, ghurac`) with root-dependent allomorphs (ṛ-final vs
       u-final), iṭ handling, and śatṛ/śānac overrides (`kurvat`/`kurvARa`);
       golden paradigms for kf and BU verified. Sūtra codes audited.
 - [x] Subanta — **thirteen stem classes**: a- (m/n), i- (m/n), u- (m/n), ā- (f),
@@ -521,4 +521,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-18 — Session 44 (continued):** Added kṛt suffix kurac (3.2.162, -ura):
   `vid`→`vidura`, `Bid`→`Bidura`, `cid`→`cidura`, `vyD`→`viDura`. Registered 3.2.162.
+  `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 45 (continued):** Added kṛt suffix ghurac (3.2.161, -ura):
+  `baNj`→`baNgura`, `BAs`→`BAsura`, `mid`→`medura`. Registered 3.2.161.
   `npm test` passes. Pushed to GitHub master.
