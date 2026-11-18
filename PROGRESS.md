@@ -817,3 +817,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   kara/śara/yava/lava), kvip dhur/pūr/jū, registered 4.1.1/3.3.56/3.3.90/3.3.104/3.3.57.
   Fixed kurvāṇa, vediṣṇu, vid kṣṇu, vid/diś futures. `npm test` passes.
   Pushed to GitHub master. Coverage 163/2703.
+
+- **2026-11-18 — Session 104 (continued, toward 2703/2703):** Added bhid a-aorist
+  (3.1.57), fixed a-aorist ātmane endings, ekādeśa, 3p and 1d/1p dīrgha; completed
+  more athematic present forms (as 2p/1p/3p, dā lan 2p/1p, yā/i lot 3p, as lin 3p);
+  fixed nī kṛt stems (nayin/nayaniya/naya/nayat), śarāru, vettṛ/hotṛ.
+  `npm test` passes (85/85). Pushed to master. Coverage 164/2703.
