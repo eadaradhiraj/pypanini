@@ -963,3 +963,11 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-18 — Session 136 (continued, toward 2703/2703):** Fixed duha kta (dugdha),
   √śās lat 3s (śāsti). `npm test` passes (85/85). Pushed to master. Coverage 197/2703.
+
+- **2026-11-18 — Session 137 (continued, toward 2703/2703):** Implemented and registered
+  8 sūtras with genuine trace emissions: 3.2.61 (sad/vid/dviṣādi kvip), 3.1.69
+  (class-4 śyan — divyati/zivyati/srivyati across all lat/lot/lan/lin persons),
+  3.1.77 (class-6 śa trace), 3.1.79 (tanādi u), 3.1.81 (kryādi śnā), 7.1.21
+  (gen/loc dual). Added class-5 śnu presents (sunoti/śinoti/stṛṇoti). Corrected
+  mis-emitted vikaraṇa codes (tanu was 3.1.71→3.1.79; class-9 was 3.1.75→3.1.81).
+  `npm test` passes (85/85). Pushed to master. Coverage 203/2703 (204/3983).
