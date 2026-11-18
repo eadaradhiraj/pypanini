@@ -638,3 +638,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-18 — Session 71 (continued, item 1):** Added strī-pratyaya 4.1.33:
   `pati`→`patnI` (patnī). Registered 4.1.33. `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 72 (continued, item 1):** Added strī-pratyayas 4.1.36/38:
+  `pUtakratu`→`pUtakratAyI`, `manu`→`manAyI`. Registered 4.1.36/4.1.38.
+  `npm test` passes. Pushed to GitHub master.
