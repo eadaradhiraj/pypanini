@@ -32,6 +32,10 @@ export enum NamadhatuPratyaya {
   KyacNama = 'kyacNama',
   /** 3.1.20 puccha-bhāṇḍa-cīvarāṇ ṇiṅ — utpucchayate. */
   NiN = 'NiN',
+  /** 3.1.27 kaṇḍvādibhyo yak — kaṇḍūyati. */
+  Yak = 'yak',
+  /** 3.1.28 gupū-dhūpa-vicchi-paṇi-panibhya āyaḥ — gopāyati. */
+  Aya = 'Aya',
 }
 
 export interface NamadhatuInfo {
@@ -100,6 +104,14 @@ export const NAMADHATU_INFO: Record<NamadhatuPratyaya, NamadhatuInfo> = {
     pratyaya: NamadhatuPratyaya.NiN, sutra: '3.1.20',
     meaning: 'makes / handles (utpucchayate)', pada: Pada.Atmane, stemSuffix: 'aya',
   },
+  [NamadhatuPratyaya.Yak]: {
+    pratyaya: NamadhatuPratyaya.Yak, sutra: '3.1.27',
+    meaning: 'itches / scratches (kaṇḍūyati)', pada: Pada.Parasmai, stemSuffix: 'Uya',
+  },
+  [NamadhatuPratyaya.Aya]: {
+    pratyaya: NamadhatuPratyaya.Aya, sutra: '3.1.28',
+    meaning: 'protects / heats (gopāyati)', pada: Pada.Parasmai, stemSuffix: 'Aya',
+  },
 };
 
 export interface NamadhatuArgs {
@@ -154,10 +166,26 @@ export function deriveNamadhatus(args: NamadhatuArgs): Prakriya[] {
 
   // Bare prātipadika + denominative suffix. After long ā, kyac takes -ya
   // (vidyā + ya → vidyāya), not the -īya used after short-a stems (putrīya).
-  const effectiveSuffix = (info.pratyaya === NamadhatuPratyaya.Kyac ||
+  let effectiveSuffix = (info.pratyaya === NamadhatuPratyaya.Kyac ||
     info.pratyaya === NamadhatuPratyaya.KyacAcara) &&
     args.pratipadika.endsWith('A') ? 'ya' : info.stemSuffix;
-  const stem = coalesce(args.pratipadika, effectiveSuffix);
+  let base = args.pratipadika;
+  // 3.1.27 yak: final u lengthens before the ya vikaraṇa (kaṇḍu → kaṇḍūya).
+  if (info.pratyaya === NamadhatuPratyaya.Yak && base.endsWith('u')) {
+    base = base.slice(0, -1) + 'U';
+    effectiveSuffix = 'ya';
+  }
+  // 3.1.28 āya: drop the dhātupāṭha anubandha vowel, then guṇa a short u
+  // before a final consonant (gupū → gup → gopāya); long vowels stay.
+  if (info.pratyaya === NamadhatuPratyaya.Aya) {
+    const vowels = 'aAiIuUfFxXeEoO';
+    if (vowels.includes(base.slice(-1))) base = base.slice(0, -1);
+    if (/u[^aAiIuUfFxXeEoO]$/.test(base)) {
+      const i = base.lastIndexOf('u');
+      base = base.slice(0, i) + 'o' + base.slice(i + 1);
+    }
+  }
+  const stem = coalesce(base, effectiveSuffix);
   const suffix = suffixes(pada, purusha, vacana);
   const surface = coalesce(stem, suffix);
 
