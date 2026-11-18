@@ -823,3 +823,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   more athematic present forms (as 2p/1p/3p, dā lan 2p/1p, yā/i lot 3p, as lin 3p);
   fixed nī kṛt stems (nayin/nayaniya/naya/nayat), śarāru, vettṛ/hotṛ.
   `npm test` passes (85/85). Pushed to master. Coverage 164/2703.
+
+- **2026-11-18 — Session 105 (continued, toward 2703/2703):** Fixed a-aorist atmane
+  endings/ekādeśa/3p dīrgha, athematic lat/lan/lin/lot paradigm gaps (as, dā, yā, i),
+  nī kṛt stems (nāyaka/nayana/nayat/nayamāna), śarāru, vettṛ/hotṛ, bhid a-aorist
+  (3.1.57). Added 3.1.57 registration. `npm test` passes (85/85). Pushed to master.
+  Coverage 164/2703.
