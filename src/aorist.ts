@@ -34,9 +34,24 @@ const AORIST: Record<string, AoristEntry> = {
   sic: { kind: 'a', stem: 'sic' },
   gam: { kind: 'a', stem: 'gam' },
   // s-aorist (vṛddhi final vowel + s → ṣ)
-  ni: { kind: 's', stem: 'nE' },      // nī → nai + ṣ
+  ni: {
+    kind: 's', stem: 'nE', // nī → nai + ṣ (active)
+    // middle: guṇa (ne), not vṛddhi; ṣṭ→ṣṭ; 3pl -ata
+    formsA: {
+      [Purusha.Prathama]: { [Vacana.Eka]: 'anezTa', [Vacana.Dvi]: 'anezAtAm', [Vacana.Bahu]: 'anezata' },
+      [Purusha.Madhyama]: { [Vacana.Eka]: 'anezthAH', [Vacana.Dvi]: 'anezAthAm', [Vacana.Bahu]: 'aneDvam' },
+      [Purusha.Uttama]: { [Vacana.Eka]: 'anezi', [Vacana.Dvi]: 'anezvahi', [Vacana.Bahu]: 'anezmahi' },
+    },
+  },
   // iṣ-aorist (guṇa medial vowel + iṣ)
-  budh: { kind: 'is', stem: 'boD' },  // budh → bodh + iṣ
+  budh: {
+    kind: 'is', stem: 'boD', // budh → bodh + iṣ (active)
+    formsA: {
+      [Purusha.Prathama]: { [Vacana.Eka]: 'abozizTa', [Vacana.Dvi]: 'abozizAtAm', [Vacana.Bahu]: 'abozizata' },
+      [Purusha.Madhyama]: { [Vacana.Eka]: 'abozizthAH', [Vacana.Dvi]: 'abozizAthAm', [Vacana.Bahu]: 'abozidhvam' },
+      [Purusha.Uttama]: { [Vacana.Eka]: 'abozizi', [Vacana.Dvi]: 'abozizvahi', [Vacana.Bahu]: 'abozizmahi' },
+    },
+  },
   // reduplicating aorist (class 10 / causatives), e.g. jan → ajījanat
   jan: {
     kind: 'redup', stem: 'jIjan',

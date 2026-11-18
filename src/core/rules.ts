@@ -1,5 +1,6 @@
 import { Prakriya } from './prakriya';
 import { RuleScheduler, phaseFromCode } from './scheduler';
+import { applyNatva } from './slp1';
 import type { TinantaArgs } from './types';
 
 /** One data-driven transformation of the tiṅ suffix label → surface form. */
@@ -202,6 +203,19 @@ export const TINANTA_TAIL_RULES: Rule[] = [
       }
     }
     ctx.prakriya.record('6.1.84 (ekādeśa: a + a/e/A → a/e/A)');
+  }),
+
+  rule('8.4.1', 'raṣābhyāṃ no ṇaḥ — ṇatva after r/ṣ/ṛ within a pada', (ctx) => {
+    let applied = false;
+    for (const t of ctx.prakriya.terms) {
+      const changed = applyNatva(t.text);
+      if (changed !== t.text) {
+        t.text = changed;
+        applied = true;
+      }
+    }
+    // Record only when a change actually occurred (matches other asiddha rules).
+    if (applied) ctx.prakriya.record('8.4.1 (ṇatva: n → ṣ after r/ṣ/ṛ)');
   }),
 
   rule('8.4.68', 'final consolidation', (ctx) => {

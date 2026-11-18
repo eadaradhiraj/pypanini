@@ -23,6 +23,7 @@ import { deriveNamadhatus, NamadhatuPratyaya } from '../src/namadhatu';
 import { derivePrecative } from '../src/aorist';
 import { deriveParadigm, formatParadigm } from '../src/paradigm';
 import { deriveStri } from '../src/stri';
+import { applyNatva } from '../src/core/slp1';
 import { UPASARGAS, isUpasarga, applyUpasargaSandhi, applyAyatiSandhi } from '../src/upasarga';
 
 const baseArgs = {
@@ -191,6 +192,18 @@ test('rare aorists (reduplicating / siṣ / sa / passive) + precative', () => {
   assert.equal(aorist('dA', Purusha.Prathama, Vacana.Eka), 'adAyi');
   // precative active (bhū → bhūyāt)
   assert.equal(derivePrecative({ root: 'BU', pada: Pada.Parasmai, purusha: Purusha.Prathama, vacana: Vacana.Eka })?.text(), 'BUyAt');
+});
+
+test('aorist ātmanepada (s/iṣ-aorist middle)', () => {
+  const aor = (d: string, p: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.LatN, pada: Pada.Atmane, purusha: p, vacana: v })[0]?.text();
+  // s-aorist middle of nī: guṇa (ne), ṣṭ, 3pl -ata
+  assert.equal(aor('ni', Purusha.Prathama, Vacana.Eka), 'anezTa');   // aneṣṭa
+  assert.equal(aor('ni', Purusha.Prathama, Vacana.Bahu), 'anezata'); // aneṣata
+  assert.equal(aor('ni', Purusha.Uttama, Vacana.Eka), 'anezi');     // aneṣi
+  // iṣ-aorist middle of budh
+  assert.equal(aor('budh', Purusha.Prathama, Vacana.Eka), 'abozizTa'); // abodhiṣṭa
+  assert.equal(aor('budh', Purusha.Uttama, Vacana.Eka), 'abozizi');   // abodhiṣi
 });
 
 test('karmani passive: pac → pacyate', () => {
@@ -766,6 +779,13 @@ test('strī-pratyayas: ṭāp (4.1.4) and ṅīp (4.1.5)', () => {
   assert.equal(deriveStri({ stem: 'kiSora' })?.text(), 'kiSorI');   // kiśorī (4.1.20)
   assert.equal(deriveStri({ stem: 'brAhmaRa' })?.text(), 'brAhmaRI'); // brāhmaṇī (4.1.41)
   assert.equal(deriveStri({ stem: 'bahu' })?.text(), 'bahvI');      // bahvī (4.1.45)
+});
+
+test('8.4.1 ṇatva (n → ṇ after r/ṣ/ṛ in a pada)', () => {
+  assert.equal(applyNatva('kRzna'), 'kRzRa');  // kṛṣṇa (n → ṇ after ṣ)
+  assert.equal(applyNatva('puzna'), 'puzRa');  // puṣṇa
+  assert.equal(applyNatva('mAtfna'), 'mAtfRa'); // mātṛṇā
+  assert.equal(applyNatva('agni'), 'agni');     // no r/ṣ before n
 });
 
 test('Vyakarana facade', () => {

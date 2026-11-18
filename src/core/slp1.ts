@@ -156,3 +156,13 @@ export function toDevanagari(s: string): string {
 export function isSLP1(s: string): boolean {
   return [...s].every((c) => SLP1_CHARS.includes(c));
 }
+
+/**
+ * 8.4.1 `raṣābhyāṃ no ṇaḥ samānapade`: within a pada, `n` → `ṇ` (SLP1 `R`)
+ * after `r`, `ṣ` (z), or vocalic `ṛ` (f). 8.4.2 allows certain sounds to
+ * intervene, but we keep the simple adjacent trigger here.
+ */
+export function applyNatva(s: string): string {
+  return s.replace(/([rfz])([aAiIuUfFxXeEoO]*)n/g,
+    (_m: string, trigger: string, mid: string) => trigger + mid + 'R');
+}
