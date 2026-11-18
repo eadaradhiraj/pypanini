@@ -131,6 +131,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'nu', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'knu', code: '3.2.140 (trasi-gṛdhi-dhṛṣi-kṣipeḥ knuḥ)',
   },
+  [Krt.kSnu]: {
+    suffix: 'zNu', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'kṣnu', code: '3.2.139 (glā-ji-sthaś ca kṣnuḥ)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
@@ -171,6 +175,14 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.varac]: { sTA: 'sTA', IS: 'IS' }, // sthāvara, īśvara (3.2.175)
   [Krt.Du]: { viBU: 'viB', praBU: 'praB', samBU: 'samB' }, // vibhu/prabhu/sambhu (3.2.180)
   [Krt.knu]: { tras: 'tras', gFDi: 'gFd', DFzi: 'DFz', kzip: 'kziN' }, // trasnu/gṛdhnu/dhṛṣṇu/kṣiṇṇu
+  // kṣnu (3.2.139): per-root -snu/-ṣṇu allomorph.
+};
+
+const KSNU_SUFFIX: Record<string, string> = {
+  glA: 'snu', // glāsnu
+  ji: 'zNu',  // jiṣṇu
+  sTA: 'snu', // sthāsnu
+  BU: 'zNu',  // bhūṣṇu
 };
 
 /** Suffixes that take the iṭ augment after a u-final root (7.2.35). */
@@ -201,6 +213,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.LyuT) spec.suffix = rFinal ? 'aRa' : 'ana';
   if (args.krt === Krt.Nvul) spec.grade = rFinal ? 'vrddhi' : 'guna';
   if (args.krt === Krt.Yat) spec.grade = rFinal ? 'vrddhi' : 'guna';
+  if (args.krt === Krt.kSnu && KSNU_SUFFIX[dhatu.text]) spec.suffix = KSNU_SUFFIX[dhatu.text];
   if (args.krt === Krt.SanaC && rFinal) spec.suffix = 'ARa'; // kṛ → kurvāṇa
   if (args.krt === Krt.Sanan) spec.infix = 'a'; // pava/yaja + māna (thematic a)
   if (args.krt === Krt.TRn && (dhatu.text === 'ni' || dhatu.text === 'tviz')) {

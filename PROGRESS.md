@@ -151,16 +151,16 @@ pypanini/
       yaṅ/yaṅ alias (`bhū` → `BoBUyate`, `pac` → `pApacyate`),
       yaṅluk (`bhū` → `BoBavIti`, `pac` → `pApacIti`). Used by both tinanta and krdanta.
 - [x] Library exports (`src/index.ts`) and CLI (`src/cli.ts`).
-- [x] Tests (**55 total** across `core.test.ts`, `scheduler.test.ts`,
+- [x] Tests (**56 total** across `core.test.ts`, `scheduler.test.ts`,
       `invisibility.test.ts`) — all passing (`npm test`).
 - [x] Karmani prayoga — 9-form ātmane paradigm verified (`pac` → `pacyate … pacyAmAhe`).
 - [x] Saṇādi — yaṅ/yaṅluk golden forms verified for BU, pac and kf (including the
       irregular ṛ-final intensive stems) AND the desiderative `san` (3.1.7):
   `BU` → `buBUzati`, `pac` → `pipakzati`, `kf` → `cikIzati`, `gam` → `jigamizati`.
       yaṅluk beyond 3rd singular remains unaudited.
-- [x] Kṛdanta — **twenty-eight kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
+- [x] Kṛdanta — **twenty-nine kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
       ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa,
-      uH, ghaH, raH, kru, AruH, varac, kvip, Du, knu`) with root-dependent allomorphs (ṛ-final vs
+      uH, ghaH, raH, kru, AruH, varac, kvip, Du, knu, kSnu`) with root-dependent allomorphs (ṛ-final vs
       u-final), iṭ handling, and śatṛ/śānac overrides (`kurvat`/`kurvARa`);
       golden paradigms for kf and BU verified. Sūtra codes audited.
 - [x] Subanta — **thirteen stem classes**: a- (m/n), i- (m/n), u- (m/n), ā- (f),
@@ -499,3 +499,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Fixed stale codes (6.1.104→6.1.84, 6.4.51 removed). Added kṛt suffix knu
   (3.2.140, -nu): `tras`→`trasnu`, `gFDi`→`gFdnu`, `DFzi`→`DFznu`, `kzip`→`kziNnu`.
   `npm test` passes (55/55). Pushed to GitHub master.
+
+- **2026-11-18 — Session 40 (continued):** User asked why I kept stopping; acknowledged
+  and continued without asking. Added kṛt suffix kṣnu (3.2.139, -snu/-ṣṇu per root):
+  `glA`→`glAsnu`, `ji`→`jizNu`, `sTA`→`sTAsnu`, `BU`→`BUzNu`. Added 1 test,
+  registered 3.2.139. `npm test` passes (56/56). Pushed to GitHub master.

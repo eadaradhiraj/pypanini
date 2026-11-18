@@ -133,6 +133,7 @@ export enum Krt {
   kvip = 'kvip', // क्विप् → zero suffix agent noun (yuk/vāk/jagat, 3.2.178)
   Du = 'Du', // डु → -u after vi/pra/sam+bhū (vibhu/prabhu, 3.2.180)
   knu = 'knu', // क्नु → -nu habitual agent (trasnu/gṛdhnu, 3.2.140)
+  kSnu = 'kSnu', // क्ष्णु → -ṣṇu (jizṇu/sthāsnu/bhūṣṇu, 3.2.139)
 }
 
 export interface KrdantaArgs {
