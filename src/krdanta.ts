@@ -261,7 +261,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay' }, // vidyā, manyā, ityā, śayyā
   [Krt.Sa]: { kf: 'kriy', iz: 'icC' }, // kriyā (3.3.100), icchā (3.3.101)
   [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv' }, // ṇini vṛddhi: pācin, yājin, gāmin, bhāvin
-  [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj' }, // ṇvul vṛddhi: pācaka, yājaka
+  [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh' }, // pācaka, yājaka, dāyaka, vāhaka
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga' }, // gam→gati (nasal lopa); ūti… (3.3.97)
   [Krt.KtvA]: { gam: 'ga', dA: 'dat' }, // gam → gatvā, dā → dattvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez' }, // vedana, deśana (guṇa)
