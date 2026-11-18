@@ -1,6 +1,7 @@
 import { Prakriya } from './core/prakriya';
 import { runTinantaPipeline, RuleContext, SuffixStep } from './core/rules';
 import {
+  Gana,
   Lakara,
   LAKARA_LABEL,
   Pada,
@@ -641,6 +642,13 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     }
     rootText = applyAnusvara(prefix + rootPart); // 8.3.23 mo'nusvāraḥ (saṃ + gam → saṃgam)
   }
+  // 3.1.69 divādibhyaḥ śyan — class-4 roots take the śyan (ya) vikaraṇa and
+  // drop the dhātupāṭha final -u marker in the present system.
+  const class4 = dhatu.gana === Gana.Divadi &&
+    (args.sanadi ?? Sanadi.None) === Sanadi.None &&
+    (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
+    [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara);
+  if (class4 && rootText.endsWith('u')) rootText = rootText.slice(0, -1);
   const sanadiResult = buildSanadiStem(rootText, sanadi);
   const pada = sanadiResult.pada ?? args.pada ?? dhatu.pada;
   const config = LAKARA_CONFIG[args.lakara] ?? LAKARA_CONFIG[Lakara.Lat];
@@ -648,7 +656,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const suffix = suffixTable[args.purusha][args.vacana];
 
   const kartariVikarana =
-    args.prayoga === Prayoga.Karmani ? VIKARANA_KARMANI : config.vikarana;
+    args.prayoga === Prayoga.Karmani ? VIKARANA_KARMANI
+      : class4 ? { label: 'Syan', surface: 'ya' }
+        : config.vikarana;
   const vikarana = sanadiResult.vikarana ?? kartariVikarana;
 
   const initial = [sanadiResult.root, ...sanadiResult.extra];
@@ -665,6 +675,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (prefixSandhiCode) prakriya.record(prefixSandhiCode);
   }
   if (sanadiResult.code) prakriya.record(sanadiResult.code);
+  if (class4) prakriya.record('3.1.69 (divādibhyaḥ śyan — class-4 ya vikaraṇa)');
 
   // 6.1.65 etc.: roots with special passive stems (kṛ→kriyate, dā→dīyate).
   const PASSIVE_STEMS: Record<string, string> = {
