@@ -986,3 +986,11 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.1.45 (kṣa aorist — adukṣat/alikṣat). 0 double-vowel/N anomalies across 150
   roots × 7 lakāras × all persons + all kṛts + all nāmādhatus. `npm test` passes
   (85/85). Pushed to master. Coverage 215/2703 (216/3983).
+
+- **2026-11-18 — Session 140 (continued, toward 2703/2703):** Added aṅ-aorists
+  (3.1.52 avocat/ākhyat, 3.1.55 apuṣat/adyutat, 3.1.56 asarat/aśiṣat/ārat),
+  3.1.100/101/103 yat (gadyam/avadya/arya), 3.1.109 kyap (itya/stutya/śiṣya/
+  vṛtya/juṣya), 3.1.134 lyu/ṇini (nandana/grāhin), and 3.1.135 ka kṛt — 9 sūtras.
+  Fixed grahādi ṇini (grāhin). 0 double-vowel/N anomalies across 150 roots ×
+  all derivations; 0 emitted-but-unregistered codes. `npm test` passes (85/85).
+  Pushed to master. Coverage 223/2703 (224/3983).
