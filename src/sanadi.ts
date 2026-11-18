@@ -139,14 +139,18 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
     }
 
     case Sanadi.Nic: {
-      // कृ + णिच् → कारि-/भावय-. For u/ū-final roots: final vowel → "Av", add "ay".
-      let r = root;
+      // कृ + णिच् → कारयati (vṛddhi); भू → भावयati (u/ū → Av); दा → दापयati (puk).
+      const CAUSATIVE_STEMS: Record<string, string> = {
+        pac: 'pAc', kf: 'kAr', yaj: 'yAj', ni: 'nAy', vid: 'ved',
+        dA: 'dAp', jFA: 'jFAp', han: 'GAt', car: 'cAr', kram: 'krAm',
+      };
+      let r = CAUSATIVE_STEMS[root] ?? root;
       const c = r.slice(-1);
-      if (c === 'u' || c === 'U') r = r.slice(0, -1) + 'Av';
+      if (!CAUSATIVE_STEMS[root] && (c === 'u' || c === 'U')) r = r.slice(0, -1) + 'Av';
       return {
         root: r,
         extra: ['ay'],
-        code: '3.1.26 (ṇic)',
+        code: '3.1.26 (ṇic), 7.2.116 (vṛddhi)',
       };
     }
 

@@ -310,6 +310,13 @@ test('karmani passive paradigm: pac (9 ātmane forms)', () => {
 test('ṇic causative: bhū → bhāvayati (BAvayati)', () => {
   const p = deriveTinantas({ ...baseArgs, dhatu: 'BU', sanadi: Sanadi.Nic })[0];
   assert.equal(p.text(), 'BAvayati');
+  // vṛddhi (7.2.116) and special stems
+  const c = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, sanadi: Sanadi.Nic })[0].text();
+  assert.equal(c('pac'), 'pAcayati');  // pācayati
+  assert.equal(c('kf'), 'kArayati');   // kārayati
+  assert.equal(c('ni'), 'nAyayati');   // nāyayati
+  assert.equal(c('dA'), 'dApayati');   // dāpayati (puk)
+  assert.equal(c('han'), 'GAtayati');  // ghātayati
 });
 
 test('saṇādi: yaṅ / yāṅ (thematic intensive, ātmanepada)', () => {
