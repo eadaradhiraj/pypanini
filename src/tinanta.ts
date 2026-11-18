@@ -126,10 +126,10 @@ const ATMANE_LAN = table(
   ['ta', 'tAm', 'anta'], ['thAH', 'AvAm', 'Dvam'], ['e', 'vahi', 'mahe'],
 );
 const PARASMAI_LIT = table(
-  ['a', 'atuH', 'uH'], ['ita', 'atuH', 'a'], ['a', 'vaH', 'maH'],
+  ['a', 'atuH', 'uH'], ['ita', 'atuH', 'a'], ['a', 'va', 'ma'],
 );
 const ATMANE_LIT = table(
-  ['e', 'Ate', 'ire'], ['ise', 'Athe', 'aDve'], ['e', 'ahe', 'mahe'],
+  ['e', 'Ate', 'ire'], ['ise', 'Athe', 'aDve'], ['e', 'vahe', 'mahe'],
 );
 const PARASMAI_LIN = table(
   ['et', 'etAm', 'eyuH'], ['eH', 'etam', 'eta'], ['eyam', 'evaH', 'ema'],
@@ -179,10 +179,29 @@ function futureStem(root: string): string {
   return FUTURE_STEMS[root] ?? gunafy(root).text + 'izya'; // fallback: guṇa + i + ṣya
 }
 
-/** Perfect-tense (liṭ) reduplicated stems for common roots. */
-const PERFECT_STEMS: Record<string, string> = {
-  BU: 'baBUv', pac: 'papac', kf: 'cakf', gam: 'jagam', ni: 'nini', ji: 'jiji',
+/** Perfect-tense (liṭ) reduplicated stems: strong (3s/3d/2s/1s) vs weak. */
+const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
+  BU: { strong: 'baBUv', weak: 'baBUv' },   // babhūva (ū long by nature)
+  pac: { strong: 'papAc', weak: 'papac' },  // papāca / papacuḥ
+  kf: { strong: 'cakAr', weak: 'cakr' },    // cakāra / cakruḥ
+  gam: { strong: 'jagAm', weak: 'jagam' },  // jagāma / jagamuḥ
+  ni: { strong: 'ninAy', weak: 'niniy' },   // nināya / niniyuḥ
+  ji: { strong: 'jijAy', weak: 'jijiy' },   // jijāya / jijiyuḥ
 };
+function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
+  // Strong stem in 3s, 3d, 2s, 1s; weak elsewhere (7.1.3ff guṇa/niyama).
+  const isStrong = (purusha === Purusha.Prathama && vacana !== Vacana.Bahu) ||
+    (purusha === Purusha.Madhyama && vacana === Vacana.Eka) ||
+    (purusha === Purusha.Uttama && vacana === Vacana.Eka);
+  const entry = PERFECT_STEMS[root];
+  const stem = entry ? (isStrong ? entry.strong : entry.weak) : root[0] + 'a' + root;
+  // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
+  // (babhūv + va → babhūva, not *babhūvva).
+  if (purusha === Purusha.Uttama && vacana === Vacana.Dvi && stem.endsWith('v')) {
+    return stem.slice(0, -1);
+  }
+  return stem;
+}
 
 interface LakaraConfig {
   parasmai: SuffixTable;
@@ -190,7 +209,7 @@ interface LakaraConfig {
   vikarana: { label: string; surface: string };
   prefix?: string;
   postRoot?: string;
-  rootTransform?: (root: string) => string;
+  rootTransform?: (root: string, purusha: Purusha, vacana: Vacana) => string;
   doGuna: boolean;
   doOAtoAv: boolean;
   doDirgha: boolean;
@@ -227,7 +246,7 @@ const LAKARA_CONFIG: Record<Lakara, LakaraConfig> = {
   },
   [Lakara.Lit]: {
     parasmai: PARASMAI_LIT, atmane: ATMANE_LIT, vikarana: { label: '', surface: '' },
-    rootTransform: (root) => PERFECT_STEMS[root] ?? root[0] + 'a' + root,
+    rootTransform: perfectStem,
     doGuna: false, doOAtoAv: false, doDirgha: false,
   },
   [Lakara.Lut]: {
@@ -346,7 +365,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   if (sanadiResult.code) prakriya.record(sanadiResult.code);
 
-  const rootOverride = config.rootTransform?.(sanadiResult.root);
+  const rootOverride = config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana);
   const ctx: RuleContext = {
     prakriya,
     args: { ...args, dhatu },

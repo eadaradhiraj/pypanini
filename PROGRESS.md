@@ -727,3 +727,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ghaH roots now vṛddhi: `pac`→`pAca` (pāka), `tyj`→`tyAja`, `raj`→`rAja`,
   `yuj`→`yoja`, `BU`→`BAva` (bhāva). Added regression tests.
   `npm test` passes. Pushed to GitHub master.
+
+- **Long-run goal (user directive):** reach full focus coverage — 2703/2703 — before pinging
+  the user. Continue advancing coverage every session; report only at that milestone.
+  Note: the focus set (ch. 1, 3.1–3.4, 4.1, 6–8, 7) includes many Vedic/upapada/
+  accent/nipātana sūtras, so this is a multi-session target.

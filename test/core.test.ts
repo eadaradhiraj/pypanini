@@ -128,6 +128,20 @@ test('ātmanepada endings audited (lat/lit)', () => {
   assert.equal(form(Lakara.Lit, Purusha.Uttama, Vacana.Dvi), 'baBUvahe');
 });
 
+test('perfect (liṭ): strong/weak stems and endings', () => {
+  const f = (d: string, p: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lit, purusha: p, vacana: v })[0].text();
+  // strong stems (root-vowel vṛddhi) in 3s/3d/2s/1s
+  assert.equal(f('kf', Purusha.Prathama, Vacana.Eka), 'cakAra');   // cakāra
+  assert.equal(f('pac', Purusha.Prathama, Vacana.Eka), 'papAca');  // papāca
+  assert.equal(f('gam', Purusha.Prathama, Vacana.Eka), 'jagAma');  // jagāma
+  assert.equal(f('ni', Purusha.Prathama, Vacana.Eka), 'ninAya');   // nināya
+  // weak stems in 3p / 1d / 1p
+  assert.equal(f('kf', Purusha.Prathama, Vacana.Bahu), 'cakruH');  // cakruḥ
+  assert.equal(f('pac', Purusha.Uttama, Vacana.Dvi), 'papacva');   // papaciva
+  assert.equal(f('kf', Purusha.Uttama, Vacana.Bahu), 'cakrma');    // cakṛma
+});
+
 test('luṭ (periphrastic future) audited — parasmai + atmane', () => {
   const form = (p: Purusha, v: Vacana, pada = Pada.Parasmai) =>
     deriveTinantas({ ...baseArgs, dhatu: 'BU', lakara: Lakara.Lut, purusha: p, vacana: v, pada })[0].text();
