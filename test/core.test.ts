@@ -630,6 +630,16 @@ test('subanta: i-, u-, ā- and ī-stems', () => {
   assert.equal(form('nadI', Linga.Stri, Vibhakti.Sasti, Vacana.Eka), 'nadyAH');   // nadyāḥ
   assert.equal(form('nadI', Linga.Stri, Vibhakti.Dvitiya, Vacana.Bahu), 'nadIH');  // nadīḥ
   assert.equal(form('nadI', Linga.Stri, Vibhakti.Saptami, Vacana.Bahu), 'nadizu'); // nadīṣu
+
+  // mati (f), short-i stem
+  assert.equal(form('mati', Linga.Stri, Vibhakti.Prathama, Vacana.Eka), 'matiH');
+  assert.equal(form('mati', Linga.Stri, Vibhakti.Trtiya, Vacana.Eka), 'matyA');  // matyā
+  assert.equal(form('mati', Linga.Stri, Vibhakti.Caturthi, Vacana.Eka), 'matyai'); // matyai
+  assert.equal(form('mati', Linga.Stri, Vibhakti.Saptami, Vacana.Eka), 'matyAm'); // matyām
+
+  // dātṛ (f), ṛ-stem
+  assert.equal(form('dAtf', Linga.Stri, Vibhakti.Prathama, Vacana.Eka), 'dAtA');  // dātā
+  assert.equal(form('dAtf', Linga.Stri, Vibhakti.Trtiya, Vacana.Eka), 'dAtrA');  // dātrā
 });
 
 test('subanta: feminine u-stem and -as neuter consonant stem', () => {

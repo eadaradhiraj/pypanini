@@ -189,6 +189,18 @@ const R_MASCULINE: EndingTable = {
   [Vibhakti.Sambodhana]: ['ar', 'rau', 'araH'],
 };
 
+/** Short-i feminine (mati, nadi): like i-m, but yā/yai/yām in the singular. */
+const I_FEMININE_SHORT: EndingTable = {
+  [Vibhakti.Prathama]: ['iH', 'I', 'ayaH'],
+  [Vibhakti.Dvitiya]: ['im', 'I', 'In'],
+  [Vibhakti.Trtiya]: ['yA', 'iByAm', 'iBiH'],
+  [Vibhakti.Caturthi]: ['yai', 'iByAm', 'iByaH'],
+  [Vibhakti.Pancami]: ['eH', 'iByAm', 'iByaH'],
+  [Vibhakti.Sasti]: ['eH', 'yoH', 'InAm'],
+  [Vibhakti.Saptami]: ['yAm', 'yoH', 'izu'],
+  [Vibhakti.Sambodhana]: ['e', 'I', 'ayaH'],
+};
+
 export const STEM_CLASSES: readonly StemClass[] = [
   { id: 'a-m', linga: Linga.Pumsaka, terminal: '', sandhi: true, endings: A_PUMSAKA, matches: (s) => s.endsWith('a') },
   { id: 'a-n', linga: Linga.Napumsaka, terminal: '', sandhi: true, endings: A_NAPUMSAKA, matches: (s) => s.endsWith('a') },
@@ -198,7 +210,9 @@ export const STEM_CLASSES: readonly StemClass[] = [
   { id: 'u-n', linga: Linga.Napumsaka, terminal: 'u', sandhi: false, endings: U_NAPUMSAKA, matches: (s) => s.endsWith('u') },
   { id: 'A-f', linga: Linga.Stri, terminal: 'A', sandhi: false, endings: A_FEMININE, matches: (s) => s.endsWith('A') },
   { id: 'I-f', linga: Linga.Stri, terminal: 'I', sandhi: false, endings: I_FEMININE, matches: (s) => s.endsWith('I') },
+  { id: 'i-f', linga: Linga.Stri, terminal: 'i', sandhi: false, endings: I_FEMININE_SHORT, matches: (s) => s.endsWith('i') },
   { id: 'u-f', linga: Linga.Stri, terminal: 'u', sandhi: false, endings: U_FEMININE, matches: (s) => s.endsWith('u') },
+  { id: 'f-f', linga: Linga.Stri, terminal: 'f', sandhi: false, endings: R_MASCULINE, matches: (s) => s.endsWith('f') },
   { id: 's-n', linga: Linga.Napumsaka, terminal: 's', sandhi: true, endings: S_NAPUMSAKA, matches: (s) => s.endsWith('s') },
   { id: 'n-m', linga: Linga.Pumsaka, terminal: 'an', sandhi: false, endings: N_MASCULINE, matches: (s) => s.endsWith('an') },
   { id: 't-m', linga: Linga.Pumsaka, terminal: 'at', sandhi: false, endings: T_MASCULINE, matches: (s) => s.endsWith('at') },
