@@ -494,6 +494,7 @@ test('kṛdanta: kvip zero-suffix agent nouns (3.2.178)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'vac', krt: Krt.kvip })[0].text(), 'vAk');      // vāk
   assert.equal(deriveKrdantas({ dhatu: 'gam', krt: Krt.kvip })[0].text(), 'jagat');    // jagat
   assert.equal(deriveKrdantas({ dhatu: 'dyut', krt: Krt.kvip })[0].text(), 'vidyut');  // vidyut
+  assert.equal(deriveKrdantas({ dhatu: 'dfSir', krt: Krt.kvip })[0].text(), 'dfk');    // dṛk (3.2.94)
 });
 
 test('kṛdanta: ḍu (-u after upasarga+bhū, 3.2.180)', () => {
