@@ -130,6 +130,12 @@ const THEMATIC_PARASMAI: Record<Purusha, [string, string, string]> = {
   [Purusha.Madhyama]: ['H', 'tam', 'ta'],
   [Purusha.Uttama]: ['m', 'Ava', 'Ama'], // 1d/1p -āva/-āma (7.3.x dīrgha)
 };
+/** Thematic (a-aorist) ātmane endings. */
+const THEMATIC_ATMANE: Record<Purusha, [string, string, string]> = {
+  [Purusha.Prathama]: ['ata', 'AtAm', 'anta'],
+  [Purusha.Madhyama]: ['athAH', 'AthAm', 'advam'],
+  [Purusha.Uttama]: ['e', 'Avahe', 'Amahe'],
+};
 const SEC_ATMANE: Record<Purusha, [string, string, string]> = {
   [Purusha.Prathama]: ['ta', 'tAm', 'anta'],
   [Purusha.Madhyama]: ['thAH', 'AvAm', 'Dvam'],
@@ -184,8 +190,10 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
 
   if (kind === 'a') {
     p.insert(p.length, stem, ['dhatu']);
-    const ending = THEMATIC_PARASMAI[args.purusha][idx];
-    if (!/^[aA]/.test(ending)) {
+    const ending = args.pada === Pada.Atmane
+      ? THEMATIC_ATMANE[args.purusha][idx]
+      : THEMATIC_PARASMAI[args.purusha][idx];
+    if (!/[aAiIuUfFxXeEoO]/.test(ending[0] ?? '')) {
       p.insert(p.length, 'a', ['vikarana']); // thematic a (drop before vowel-initial ending)
       p.record('3.1.68 (Sap)');
     } else {
