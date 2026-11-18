@@ -470,6 +470,11 @@ test('kṛdanta: ghañ (-a action noun, 3.3.18)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'rAj', krt: Krt.gaNa })[0].text(), 'rAga');
 });
 
+test('kṛdanta: ap (-a action noun, 3.3.61/62)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'svan', krt: Krt.ap })[0].text(), 'svAna');
+  assert.equal(deriveKrdantas({ dhatu: 'has', krt: Krt.ap })[0].text(), 'hAsa');
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

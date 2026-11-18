@@ -558,3 +558,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 53 (continued):** Added kṛt suffix ghañ (3.3.18, -a action
   noun with vṛddhi): `pac`→`pAka`, `tyaj`→`tyAga`, `rAj`→`rAga`. Registered 3.3.18.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 54 (continued):** Added kṛt suffix ap (3.3.61/62, -a action
+  noun): `svan`→`svAna`, `has`→`hAsa`. Registered 3.3.61/3.3.62. `npm test` passes.
+  Pushed to GitHub master.
