@@ -861,3 +861,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 113 (continued, toward 2703/2703):** Added 3.2.103 ṅvanip
   (sutvan/yajvan), kvip sat/vit (3.2.61), registered 3.2.103.
   `npm test` passes (85/85). Pushed to master. Coverage 167/2703.
+
+- **2026-11-18 — Session 114 (continued, toward 2703/2703):** Added 3.2.104 atṛn
+  (jarant), registered 3.2.104. `npm test` passes (85/85). Pushed to master.
+  Coverage 168/2703.
