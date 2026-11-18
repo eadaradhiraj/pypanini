@@ -873,3 +873,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   sūtra bands; remaining unimplemented rules are upapada-dependent, Vedic, or external
   sandhi (out of scope for a word generator). `npm test` passes (85/85). Pushed to master.
   Coverage 169/2703.
+
+- **2026-11-18 — Session 117 (continued, toward 2703/2703):** Audited nandādi/grahādi/
+  pacādi (3.1.134) forms across lyuṭ/ṇini/ac; all consistent. `npm test` passes (85/85).
+  Pushed to master. Coverage 169/2703.
