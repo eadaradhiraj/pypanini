@@ -288,6 +288,10 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   if (cls.terminal === 'an' || cls.terminal === 'at') {
     p.record('8.2.7 (nalopaḥ prātipadikāntasya — n/t-stem base)');
   }
+  if (cls.id.startsWith('cons-') && args.vibhakti === Vibhakti.Prathama &&
+      (args.vacana === Vacana.Eka || args.vacana === Vacana.Dvi)) {
+    p.record('8.2.23 (saṃyogāntasya lopaḥ — final -s elided)');
+  }
   if (ending.includes('H')) p.record('8.3.15 (visarjanīyaḥ)');
   p.record('8.2.1 (final consolidation)');
   p.collapse();
