@@ -572,3 +572,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ṭāp (4.1.4) `deva`→`devA`, `aja`→`ajā`; ṅīp (4.1.5) `kartf`→`kartrI`,
   `daNDin`→`daNDinI`. New CLI command `stri`. Registered 4.1.4/4.1.5.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 57 (continued):** Extended strī-pratyayas: ugita ṅīp
+  (4.1.6) `Bavat`→`BavatI` (bhavatī), `pacat`→`pacanti` (pacantī, ṇum).
+  Registered 4.1.6. `npm test` passes. Pushed to GitHub master.
