@@ -920,3 +920,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   across tiṅantas; class-7 kṛt forms (bhinna/bhittvā/bhettavya/bhettum/bhitti/yukti,
   chhinna/chittvā/chettavya/chet-tum/chitti, ruddhvā/ruddhi, yoktum/yoktavya/yukti).
   `npm test` passes (85/85). Pushed to master. Coverage 192/2703.
+
+- **2026-11-18 — Session 126 (continued, toward 2703/2703):** Added brU class-2 present
+  (bravīti/brūte/bruvanti), √ās ātmane (āste), class-7 kṛt fixes (ktin/tavya/ktavatu).
+  `npm test` passes (85/85). Pushed to master. Coverage 192/2703.
