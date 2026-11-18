@@ -126,6 +126,8 @@ export enum Krt {
   Sa = 'Sa', // श → -ā/-iyā feminine (kriyā, 3.3.100; icchā 3.3.101)
   uH = 'uH', // उः → -u habitual agent (bhikṣu, 3.2.168)
   ghaH = 'ghaH', // घः → -a instrument/location name (chada, 3.3.118)
+  raH = 'raH', // रः → -ra habitual agent (namra/dīpra, 3.2.167)
+  kru = 'kru', // क्रु → -ru (bhīru, 3.2.174)
 }
 
 export interface KrdantaArgs {

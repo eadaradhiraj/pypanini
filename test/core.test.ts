@@ -355,6 +355,13 @@ test('kṛdanta: uḥ (-u) and ghaḥ (-a) suffixes', () => {
   assert.equal(deriveKrdantas({ dhatu: 'CAd', krt: Krt.ghaH })[0].text(), 'Cada');  // chada
 });
 
+test('kṛdanta: raḥ (-ra) and kru (-ru) suffixes', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'nam', krt: Krt.raH })[0].text(), 'namra');  // namra
+  assert.equal(deriveKrdantas({ dhatu: 'dIp', krt: Krt.raH })[0].text(), 'dIpra');  // dīpra
+  assert.equal(deriveKrdantas({ dhatu: 'smi', krt: Krt.raH })[0].text(), 'smera');  // smera
+  assert.equal(deriveKrdantas({ dhatu: 'Bi', krt: Krt.kru })[0].text(), 'Biru');   // bhīru
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

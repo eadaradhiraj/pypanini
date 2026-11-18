@@ -94,7 +94,7 @@ Common options:
   --vacana <name>    eka, dvi, bahu
   --sanadi <name>    none, san, nic, yan, yang, yangLuk
   --upasarga <s>     pra, sam, pari, anu, vi, aBi, ... (1.4.58)
-  --krt <name>       tac, tfc, satr, ani, tum, tavya, lyuT, ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa, uH, ghaH
+  --krt <name>       tac, tfc, satr, ani, tum, tavya, lyuT, ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa, uH, ghaH, raH, kru
   --pratyaya <name>  kyac, kAmyac, kyaN, Nic, Buvyac, kyaS, kyaNKa, kyaNKara, kyaNSukha,
                      varticara, udvamana, kyacNama, NiN
   --pratipadika <s>  Nominal stem, e.g. bala (a), agni (i), guru (u), sItA (ā), nadI (ī)
