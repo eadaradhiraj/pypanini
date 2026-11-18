@@ -496,11 +496,22 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.suffix = spec.suffix.slice(1); // ā + a → ā (single long vowel)
     p.record('6.1.84 (ekādeśa: ā + a → ā)');
   }
+  if (p.textAt(p.length - 1).endsWith('a') && spec.suffix.startsWith('a')) {
+    spec.suffix = spec.suffix.slice(1); // a + a → a (6.1.84)
+    p.record('6.1.84 (ekādeśa: a + a → a)');
+  }
   p.insert(p.length, spec.suffix, ['krt']);
   p.record(spec.code);
 
   p.record(`kṛt-prayoga: ${args.prayoga ?? spec.prayoga} (kāraka-vivakṣā)`);
   p.collapse();
+  // 6.1.84 ekādeśa for infix boundaries (e.g. eDa + a + mAna → eDamAna).
+  if (/(aa|ii|uu|ee|oo)/.test(p.terms[0].text)) {
+    p.terms[0].text = p.terms[0].text.replace(/(aa|ii|uu|ee|oo)/g,
+      (m) => m[0]); // 6.1.84 ekādeśa: same short vowels merge (SLP1 long = capital)
+    p.record('6.1.84 (ekādeśa: vowel + same vowel → single)');
+    p.collapse();
+  }
   // ṇatva (8.4.1) must see the whole pada: tṛṣ + na → tṛṣṇa.
   const t = p.terms[0];
   const natva = applyNatva(t.text);
