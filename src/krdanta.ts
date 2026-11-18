@@ -283,7 +283,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay' }, // vedana, deśana, nayana (guṇa)
   [Krt.Tum]: { gam: 'gan' }, // gam → gantum (m → n before t)
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet' }, // gantṛ, mārṣṭṛ, hotṛ, vettṛ
-  [Krt.Tac]: { gam: 'ga', dA: 'dat' },  // gam → gata, dā → datta
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn' },  // gata, datta, minna (3.2.187 ñi-marked)
   [Krt.Tavya]: { gam: 'gan' },// gam → gantavya
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat' },// gam → gantavān, dā → dattavān
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
