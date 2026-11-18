@@ -398,6 +398,8 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.naN && dhatu.text === 'yaj') spec.suffix = 'a'; // yajY + a → yajña
   if (args.krt === Krt.Tac && dhatu.text === 'mid') spec.suffix = 'a'; // minn + a → minna (3.2.187)
   if (args.krt === Krt.Tac && ['bhid', 'Cid'].includes(dhatu.text)) spec.suffix = 'na'; // bhin+na → bhinna
+  if (args.krt === Krt.Tac && dhatu.text === 'rudh') spec.suffix = 'a'; // rudD+a → ruddha
+  if (args.krt === Krt.KtvA && dhatu.text === 'rudh') spec.suffix = 'vA'; // rudD+vA → ruddhvā
   if (args.krt === Krt.naN && dhatu.text === 'yAc') spec.suffix = 'A'; // yācñā (fem.)
   if (args.krt === Krt.aN && dhatu.text === 'bhid') { spec.suffix = 'a'; spec.code = '3.3.104 (śid-bhidādiṣv aṇ)'; } // bheda
   if (args.krt === Krt.Yat) spec.grade = rFinal ? 'vrddhi' : 'guna';
