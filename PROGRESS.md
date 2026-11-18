@@ -839,3 +839,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   980 Krt×root combinations produce non-empty forms; no SLP1 N/ङ or double-vowel
   anomalies in kṛdanta/tinanta/strī/nāmādhatu. `npm test` passes (85/85).
   Pushed to master. Coverage 164/2703.
+
+- **2026-11-18 — Session 108 (continued, toward 2703/2703):** Added 3.2.187 mid→minna,
+  fixed BU khyun (bhavaṇa). Bulk-verified all paradigms have consistent structure.
+  `npm test` passes (85/85). Pushed to master. Coverage 165/2703.
