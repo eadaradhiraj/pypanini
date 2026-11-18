@@ -201,9 +201,14 @@ export function deriveNamadhatus(args: NamadhatuArgs): Prakriya[] {
   if (info.pratyaya === NamadhatuPratyaya.IyaN && base.endsWith('i')) {
     base = base.slice(0, -1);
   }
-  // 3.1.30 ṇiṅ: vṛddhi of the final vowel (kama → kāma).
+  // 3.1.30 ṇiṅ: drop anubandha, then vṛddhi the last vowel (kama → kam → kām).
   if (info.pratyaya === NamadhatuPratyaya.KamerNiN) {
-    if (base.endsWith('a')) base = base.slice(0, -1) + 'A';
+    const vowels = 'aAiIuUfFxXeEoO';
+    if (vowels.includes(base.slice(-1))) base = base.slice(0, -1);
+    const vrddhi: Record<string, string> = { a: 'A', i: 'E', I: 'E', u: 'O', U: 'O', f: 'Ar', F: 'Ar' };
+    for (let i = base.length - 1; i >= 0; i--) {
+      if (vrddhi[base[i]]) { base = base.slice(0, i) + vrddhi[base[i]] + base.slice(i + 1); break; }
+    }
   }
   const stem = coalesce(base, effectiveSuffix);
   const suffix = suffixes(pada, purusha, vacana);
