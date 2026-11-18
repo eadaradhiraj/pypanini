@@ -787,3 +787,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   `izNu`→`izRu`, ṣṇu `zNu`→`zRu`, all with corrected golden tests. Audited all
   suffix strings for the same confusion. `npm test` passes. Pushed to master.
   Coverage 155/2703.
+
+- **2026-11-18 — Session 98 (continued, toward 2703/2703):** Fixed more SLP1 surface
+  bugs (karavARi, khyun karaRa, izRu/zRu), perfect stems (yayāja, veda, jaghāna,
+  cacāra), ghaH/nvul/ṇini/LyuT vṛddhi stems, strī rājñī/bhagavatī/taruṇī,
+  namadhatu final-a (citrayati). `npm test` passes. Pushed to master. Coverage 155/2703.
