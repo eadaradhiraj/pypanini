@@ -227,6 +227,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'ana', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'ṇyuṭ', code: '3.1.147 (ṇyuṭ ca — gāyana)',
   },
+  [Krt.thakan]: {
+    suffix: 'Taka', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'thakan', code: '3.1.146 (gāḥ thakan — gāthaka)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
@@ -300,6 +304,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Nvanip]: { su: 'sut', yaj: 'yaj' }, // sutvan, yajvan (ṭuk 6.1.71)
   [Krt.atRn]: { jF: 'jar', jf: 'jar' },    // jarant (3.2.104)
   [Krt.NyuT]: { gAI: 'gAy' },              // gāyana (3.1.147)
+  [Krt.thakan]: { gAI: 'gA' },             // gāthaka (3.1.146)
   [Krt.Ani]: { ni: 'nay', nI: 'nay' },  // nī → nayanīya (e+a → ya)
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga' }, // gam→gati (nasal lopa); ūti… (3.3.97)
   [Krt.KtvA]: { gam: 'ga', dA: 'dat' }, // gam → gatvā, dā → dattvā

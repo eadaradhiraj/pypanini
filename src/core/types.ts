@@ -157,6 +157,7 @@ export enum Krt {
   Nvanip = 'Nvanip', // ङ्वनिप् → -van agent (sutvan/yajvan, 3.2.103)
   atRn = 'atRn', // अतृन् → -at past part. (jarant, 3.2.104)
   NyuT = 'NyuT', // ण्युट् → -ana artist noun (gāyana, 3.1.147)
+  thakan = 'thakan', // थकन् → -thaka artist noun (gāthaka, 3.1.146)
 }
 
 export interface KrdantaArgs {
