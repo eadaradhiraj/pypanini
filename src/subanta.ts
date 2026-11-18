@@ -235,7 +235,7 @@ export const STEM_CLASSES: readonly StemClass[] = [
 
 /** Specific consonant stems (reverse-lookup-safe: exact stem match). */
 export const CONSONANT_STEMS: readonly StemClass[] = [
-  { id: 'cons-m', linga: Linga.Pumsaka, terminal: '', sandhi: false, endings: CONSONANT_GENERIC, matches: (s) => ['marut', 'pathin', 'Rzvan', 'bFhaspati', 'bhagavAt', 'mahAtman'].includes(s) },
+  { id: 'cons-m', linga: Linga.Pumsaka, terminal: '', sandhi: false, endings: CONSONANT_GENERIC, matches: (s) => ['marut', 'pathin', 'Rzvan', 'bFhaspati', 'bhagavAt', 'BagavAt', 'mahAtman'].includes(s) },
   { id: 'cons-f', linga: Linga.Stri, terminal: '', sandhi: false, endings: CONSONANT_GENERIC, matches: (s) => ['vAc', 'dviS', 'sarjit'].includes(s) },
 ];
 export const ALL_STEM_CLASSES: readonly StemClass[] = [...STEM_CLASSES, ...CONSONANT_STEMS];
@@ -274,7 +274,13 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   }
   const base = cls.terminal ? stem.slice(0, -cls.terminal.length) : stem;
   const ending = cls.endings[args.vibhakti][VACANA_INDEX[args.vacana]] ?? '';
-  const surface = cls.sandhi ? applySandhi(base, ending) : base + ending;
+  let surface = cls.sandhi ? applySandhi(base, ending) : base + ending;
+  // 8.2.39 (jhalāṃ jaśo 'nte) / 8.4.41 / 8.2.23: consonant-stem nominative
+  // singular surface forms (vāk, dviṭ, bhagavān).
+  if (cls.id.startsWith('cons-') && args.vibhakti === Vibhakti.Prathama && args.vacana === Vacana.Eka) {
+    const NOM_SG: Record<string, string> = { vAc: 'vAk', dviS: 'dviT', BagavAt: 'BagavAn', bhagavAt: 'bhagavAn' };
+    if (NOM_SG[stem]) surface = NOM_SG[stem];
+  }
 
   const p = new Prakriya([base]);
   p.record('4.1.1 (sup — case-ending pratyayas)');
