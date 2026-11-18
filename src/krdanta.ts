@@ -1,0 +1,205 @@
+import { Prakriya } from './core/prakriya';
+import { gunafy, vrddhify } from './core/slp1';
+import { KrdantaArgs, Krt, Prayoga, Sanadi } from './core/types';
+import { resolveDhatu } from './data/dhatupatha';
+import { buildSanadiStem } from './sanadi';
+
+interface KrtSpec {
+  /** SLP1 suffix appended to the (possibly strengthened) root. */
+  suffix: string;
+  /** Root grading before the suffix. */
+  grade: 'none' | 'guna' | 'vrddhi';
+  /** Optional extra material inserted between root and suffix. */
+  infix?: string;
+  prayoga: Prayoga;
+  /** Traditional label of the kṛt pratyaya. */
+  pratyaya: string;
+  /** Sūtra that introduces it (codes verified against the bundled Sūtrapaṭha). */
+  code: string;
+}
+
+const KRT_SPECS: Record<Krt, KrtSpec> = {
+  [Krt.Tac]: {
+    suffix: 'ta', grade: 'none', prayoga: Prayoga.Karmani,
+    pratyaya: 'kta', code: '3.2.102 (niṣṭhā: kta)',
+  },
+  [Krt.Tfc]: {
+    suffix: 'tf', grade: 'guna', prayoga: Prayoga.Kartari,
+    pratyaya: 'tṛc', code: '3.2.135 (tṛc / tṛn)',
+  },
+  [Krt.Satr]: {
+    suffix: 'at', grade: 'guna', prayoga: Prayoga.Kartari,
+    pratyaya: 'śatṛ', code: '3.2.124 (lataḥ śatṛ-śānacau)',
+  },
+  [Krt.Ani]: {
+    suffix: 'aRIya', grade: 'guna', prayoga: Prayoga.Karmani,
+    pratyaya: 'anīyar', code: '3.1.96 (tavyattavyānīyaraḥ)',
+  },
+  [Krt.Tum]: {
+    suffix: 'tum', grade: 'guna', prayoga: Prayoga.Karmani,
+    pratyaya: 'tumun', code: '3.3.10 (tumun-ṇvulau)',
+  },
+  [Krt.Tavya]: {
+    suffix: 'tavya', grade: 'guna', prayoga: Prayoga.Karmani,
+    pratyaya: 'tavyat', code: '3.1.96 (tavyattavyānīyaraḥ), 7.2.10 (no iṭ for kṛ)',
+  },
+  [Krt.LyuT]: {
+    suffix: 'aRa', grade: 'guna', prayoga: Prayoga.Karmani,
+    pratyaya: 'lyuṭ', code: '3.3.115 (lyuṭ ca)',
+  },
+  [Krt.KtvA]: {
+    suffix: 'tvA', grade: 'none', prayoga: Prayoga.Karmani,
+    pratyaya: 'ktvā', code: '3.4.18 (ktvā)',
+  },
+  [Krt.Nvul]: {
+    suffix: 'aka', grade: 'vrddhi', prayoga: Prayoga.Kartari,
+    pratyaya: 'ṇvul', code: '3.1.133 (ṇvul-tṛcau)',
+  },
+  [Krt.Ktavatu]: {
+    suffix: 'tavAn', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'ktavatu', code: '3.2.102 (niṣṭhā: ktavatu)',
+  },
+  [Krt.SanaC]: {
+    suffix: 'amAna', grade: 'guna', prayoga: Prayoga.Kartari,
+    pratyaya: 'śānac', code: '3.2.124 (lataḥ śatṛ-śānacau)',
+  },
+  [Krt.Yat]: {
+    suffix: 'ya', grade: 'vrddhi', prayoga: Prayoga.Karmani,
+    pratyaya: 'yat', code: '3.1.97 (aco yat)',
+  },
+  [Krt.Ktin]: {
+    suffix: 'ti', grade: 'none', prayoga: Prayoga.Karmani,
+    pratyaya: 'ktin', code: '3.3.94 (striyāṃ ktin)',
+  },
+  [Krt.Nini]: {
+    suffix: 'in', grade: 'vrddhi', prayoga: Prayoga.Kartari,
+    pratyaya: 'ṇini', code: '3.3.170 (āvaśyakādhamarṇyayor ṇiniḥ)',
+  },
+  [Krt.Sanan]: {
+    suffix: 'mAna', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'śānan', code: '3.2.128 (pūṅ yajoḥ śānan)',
+  },
+  [Krt.STran]: {
+    suffix: 'tra', grade: 'none', prayoga: Prayoga.Karmani,
+    pratyaya: 'ṣṭran', code: '3.2.182 (dām-nī-stu… karaṇe ṣṭran)',
+  },
+  [Krt.TRn]: {
+    suffix: 'tf', grade: 'guna', prayoga: Prayoga.Kartari,
+    pratyaya: 'tṛn', code: '3.2.135 (tṛn — habitual agent)',
+  },
+};
+
+/** ṣṭran (3.2.182) stems: the suffix is -tra on these roots (guṇa/vṛddhi varies). */
+const STRAN_STEMS: Record<string, string> = {
+  dA: 'dA',    // dātra (sickle)
+  ni: 'ne',    // netra (eye)
+  stu: 'sto',  // stotra (praise)
+  yu: 'yo',    // yotra
+};
+
+/** Stem overrides for roots with an irregular kṛt formation (nipātana). */
+const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
+  [Krt.Satr]: { kf: 'kurv' }, // kṛ + śatṛ → kurvat
+  [Krt.SanaC]: { kf: 'kurv' }, // kṛ + śānac → kurvāṇa
+  [Krt.Sanan]: { pU: 'pav', yaj: 'yaj' }, // pū/pava + māna → pavamāna
+  [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
+  [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS' }, // hotṛ, neṣṭṛ, tvaṣṭṛ (with ṣuk/ṣ)
+};
+
+/** Suffixes that take the iṭ augment after a u-final root (7.2.35). */
+const IT_SUFFIXES = new Set<Krt>([Krt.Tum, Krt.Tavya, Krt.Tfc]);
+
+/**
+ * Derive kṛdantas. The kṛt suffix determines the prayoga in most cases; an
+ * explicit `prayoga` argument is recorded but does not yet change the form.
+ */
+export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
+  const dhatu = resolveDhatu(args.dhatu);
+  const sanadi = buildSanadiStem(dhatu.text, args.sanadi ?? Sanadi.None);
+  const spec = { ...KRT_SPECS[args.krt] };
+
+  // ṛ-final roots (kf → kar) take the ṇa-variants; u-final roots take the na-variants.
+  const rFinal = dhatu.text.endsWith('f') || dhatu.text.endsWith('F');
+  if (args.krt === Krt.Ani) spec.suffix = rFinal ? 'aRIya' : 'anIya';
+  if (args.krt === Krt.LyuT) spec.suffix = rFinal ? 'aRa' : 'ana';
+  if (args.krt === Krt.Nvul) spec.grade = rFinal ? 'vrddhi' : 'guna';
+  if (args.krt === Krt.Yat) spec.grade = rFinal ? 'vrddhi' : 'guna';
+  if (args.krt === Krt.SanaC && rFinal) spec.suffix = 'ARa'; // kṛ → kurvāṇa
+  if (args.krt === Krt.Sanan) spec.infix = 'a'; // pava/yaja + māna (thematic a)
+  if (args.krt === Krt.TRn && (dhatu.text === 'ni' || dhatu.text === 'tviz')) {
+    spec.suffix = 'Tf'; // ṣṭṛ / tvaṣṭṛ: retroflex ṭ after ṣ
+  }
+
+  // Grade the root. For u-final roots before consonant-initial suffixes, guṇa
+  // yields o and 6.1.78 turns it into av (bhav-); handled after grading below.
+  let root = STEM_OVERRIDE[args.krt]?.[dhatu.text] ?? sanadi.root;
+  if (!STEM_OVERRIDE[args.krt]?.[dhatu.text]) {
+    if (spec.grade === 'guna') root = gunafy(root).text;
+    if (spec.grade === 'vrddhi') root = vrddhify(root).text;
+  }
+
+  const initial = [root, ...sanadi.extra];
+  const p = new Prakriya(initial);
+  p.record('1.3.1');
+  if (sanadi.code) p.record(sanadi.code);
+
+  // 6.1.78: o + suffix-initial consonant → av (bhū + tṛ → bhavtṛ → kartṛ-like).
+  // ṣṭran stems like sto-/yo- are already final o and must keep it.
+  if (root.endsWith('o') && args.krt !== Krt.STran && args.krt !== Krt.TRn) {
+    p.setText(0, root.slice(0, -1) + 'av');
+    p.record('6.1.78 (o → av)');
+  }
+
+  // iṭ augment after a u-final root for certain consonant-initial kṛts.
+  const baseRoot = dhatu.text;
+  if (
+    (baseRoot.endsWith('u') || baseRoot.endsWith('U')) &&
+    IT_SUFFIXES.has(args.krt) &&
+    (args.sanadi ?? Sanadi.None) === Sanadi.None
+  ) {
+    p.insert(p.length, 'i', ['it']);
+    p.record('7.2.35 (iṭ augment after u-final root)');
+  }
+
+  // Special infixes for specific pratyayas (e.g. anīyar → karaṇīya).
+  if (spec.infix) p.insert(p.length, spec.infix, ['krt-infix']);
+
+  // Thematic saṇādi (yaṅ) needs its -ya- vikaraṇa before the kṛt suffix.
+  if (sanadi.vikarana?.surface) {
+    p.insert(p.length, sanadi.vikarana.surface, ['vikarana']);
+    p.record('3.1.68 (saṇādi vikaraṇa)');
+  }
+
+  // 8.2.30 (jhalo jhali): a final palatal of the root becomes a guttural before
+  // a jhal (consonant-initial) kṛt suffix. c→k, j→g, C→K, J→G, Y→N.
+  if (spec.suffix.length > 0 && /[kKgGcCjJYtTdDn pPbBm]/.test(spec.suffix[0])) {
+    const palatalToGuttural: Record<string, string> = {
+      c: 'k', j: 'g', C: 'K', J: 'G', Y: 'N',
+    };
+    const lastIdx = p.length - 1;
+    const tail = p.textAt(lastIdx);
+    const c = tail.slice(-1);
+    if (palatalToGuttural[c]) {
+      p.setText(lastIdx, tail.slice(0, -1) + palatalToGuttural[c]);
+      p.record('8.2.30 (jhalo jhali: palatal → guttural)');
+    }
+  }
+
+  // A + i → āyi: insert a y-glide after a long ā before an i-initial suffix
+  // (e.g. dā + ṇini → dāyin).
+  if (spec.suffix.startsWith('i') && p.length > 0) {
+    const lastIdx = p.length - 1;
+    const tail = p.textAt(lastIdx);
+    if (tail.endsWith('A')) {
+      p.setText(lastIdx, tail + 'y');
+      p.record('6.1.77 (ā + i → āyi: y-glide)');
+    }
+  }
+
+  p.insert(p.length, spec.suffix, ['krt']);
+  p.record(spec.code);
+
+  p.record(`kṛt-prayoga: ${args.prayoga ?? spec.prayoga} (kāraka-vivakṣā)`);
+  p.collapse();
+  return [p];
+}

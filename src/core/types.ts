@@ -1,0 +1,157 @@
+/** Core grammatical value types. All textual values are SLP1. */
+
+export type SLP1 = string;
+
+export enum Lakara {
+  Lat = 'lat', // present
+  Lit = 'lit', // perfect
+  Lut = 'lut', // future (1st)
+  Lrt = 'lrt', // future (2nd)
+  LatN = 'latN', // aorist (luN) — root/a/s/iṣ varieties via aorist.ts
+  Lin = 'lin', // optative
+  Lof = 'lof', // imperative (legacy alias)
+  Lot = 'lot', // imperative (conventional)
+  Lan = 'lan', // imperfect
+  Lang = 'lang', // aorist
+  LanN = 'lanN', // conditional (legacy alias)
+  Lng = 'lng', // conditional (conventional)
+}
+
+/** Conventional ashtadhyayi.com-style SLP1 labels for the lakāras we support. */
+export const LAKARA_LABEL: Partial<Record<Lakara, SLP1>> = {
+  [Lakara.Lat]: 'la~w',
+  [Lakara.Lit]: 'liw',
+  [Lakara.Lut]: 'luw',
+  [Lakara.Lrt]: 'lfw',
+  [Lakara.Lin]: 'liN',
+  [Lakara.Lof]: 'low',
+  [Lakara.Lot]: 'low',
+  [Lakara.Lan]: 'laN',
+  [Lakara.Lang]: 'lfN',
+  [Lakara.LanN]: 'lfN',
+  [Lakara.Lng]: 'lfN',
+};
+
+export enum Prayoga {
+  Kartari = 'kartari', // active
+  Karmani = 'karmani', // passive
+  Bhave = 'bhave', // impersonal
+}
+
+export enum Purusha {
+  Prathama = 'prathama',
+  Madhyama = 'madhyama',
+  Uttama = 'uttama',
+}
+
+export enum Vacana {
+  Eka = 'eka',
+  Dvi = 'dvi',
+  Bahu = 'bahu',
+}
+
+export enum Gana {
+  Bhvadi = 1,
+  Adadi = 2,
+  Juhotyadi = 3,
+  Divadi = 4,
+  Svadi = 5,
+  Tudadi = 6,
+  Rudhadi = 7,
+  Tanadi = 8,
+  Kryadi = 9,
+  Curadi = 10,
+}
+
+export enum Pada {
+  Parasmai = 'parasmai',
+  Atmane = 'atmane',
+}
+
+/** Saṇādi pratyayas attached to the dhātu before tiṅ/kṛt. */
+export enum Sanadi {
+  None = 'none',
+  San = 'san', // desiderative (सन्)
+  Nic = 'nic', // causative (णिच्)
+  Yan = 'yan', // intensive (यङ्)
+  Yang = 'yang', // याङ्
+  YangLuk = 'yangLuk', // यङ्लुक्
+}
+
+/** A verb root from the Dhātupāṭha. */
+export interface Dhatu {
+  /** SLP1 form, e.g. "BU" (भू). */
+  text: SLP1;
+  gana: Gana;
+  pada: Pada;
+  /** Optional meaning gloss. */
+  artha?: string;
+  /** Optional Dhātupāṭha code (ashtadhyayi.com-style). */
+  code?: string;
+}
+
+/** Arguments for deriving a finite verb (tiṅanta). */
+export interface TinantaArgs {
+  dhatu: Dhatu | string;
+  lakara: Lakara;
+  prayoga: Prayoga;
+  purusha: Purusha;
+  vacana: Vacana;
+  pada?: Pada; // defaults to dhatu.pada
+  sanadi?: Sanadi;
+  /** Upasarga (prefix) from Pāṇini 1.4.58, e.g. "pra", "sam", "pari". */
+  upasarga?: string;
+}
+
+/** Kṛt pratyayas we model (SLP1 labels). */
+export enum Krt {
+  Tac = 'tac', // क्त → -ta (karmani participle)
+  Tfc = 'tfc', // क्तृ → -tṛ (agent noun)
+  Satr = 'satr', // शतृ → -at (present participle, kartari)
+  Ani = 'ani', // अनीयर् → -anIya (gerundive/karmani)
+  Tum = 'tum', // तुम् → -tum (infinitive)
+  Tavya = 'tavya', // तव्यत् → -tavya (gerundive)
+  LyuT = 'lyuT', // ल्युट् → -ana (action noun)
+  KtvA = 'ktvA', // क्त्वा → -tvā (gerund)
+  Nvul = 'nvul', // ण्वुल् → -aka (agent noun)
+  Ktavatu = 'ktavatu', // क्तवतु → -tavān (kartari past participle)
+  SanaC = 'sanaC', // शानच् → -amāna (ātmanepada present participle)
+  Yat = 'yat', // यत् → -ya (karmani gerundive, 3.1.97)
+  Ktin = 'ktin', // क्तिन् → -ti (feminine action noun, 3.3.94)
+  Nini = 'Nini', // णिनि → -in (obligation agent, 3.3.170)
+  Sanan = 'Sanan', // शानन् → -māna (pavamāna/yajamāna, 3.2.128)
+  STran = 'STran', // ष्ट्रन् → -tra instrument noun (dātra/netra/stotra, 3.2.182)
+  TRn = 'TRn', // तृन् → -tṛ habitual agent (kartṛ/hotṛ/neṣṭṛ, 3.2.135)
+}
+
+export interface KrdantaArgs {
+  dhatu: Dhatu | string;
+  krt: Krt;
+  prayoga?: Prayoga; // defaults kartari, except where krt implies karmani
+  sanadi?: Sanadi;
+}
+
+export interface SubantaArgs {
+  /** SLP1 prātipadika, e.g. "bala" (बल). */
+  pratipadika: SLP1;
+  linga: Linga;
+  vibhakti: Vibhakti;
+  vacana: Vacana;
+}
+
+export enum Linga {
+  Pumsaka = 'pumsaka',
+  Stri = 'stri',
+  Napumsaka = 'napumsaka',
+}
+
+export enum Vibhakti {
+  Prathama = 1,
+  Dvitiya = 2,
+  Trtiya = 3,
+  Caturthi = 4,
+  Pancami = 5,
+  Sasti = 6,
+  Saptami = 7,
+  Sambodhana = 8,
+}

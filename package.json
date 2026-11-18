@@ -1,0 +1,22 @@
+{
+  "name": "pypanini",
+  "version": "0.1.0",
+  "description": "Pure TypeScript Pāṇinian word generator (subset) with SLP1 I/O and prakriyā traces",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "bin": {
+    "pypanini": "dist/src/cli.js"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "cli": "npm run build && node dist/src/cli.js"
+  },
+  "keywords": ["sanskrit", "panini", "ashtadhyayi", "slp1", "prakriya", "vyakarana"],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0"
+  }
+}
