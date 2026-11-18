@@ -1029,3 +1029,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (lvādi niṣṭhā t→n: lūna/pūna/jīna/kīrṇa) and 8.2.51 (śuṣka). Fixed the
   corresponding forms. `npm test` passes (85/85). Pushed to master.
   Coverage 232/2703 (233/3983).
+
+- **2026-11-18 — Session 147 (continued, toward 2703/2703):** Implemented 3.1.5
+  san desideratives (jugupsate/titikṣate/cikitsate — includes fixed ātmane pada).
+  Registered 3.1.33 (sya/tāsi future vikaraṇas) and fixed future forms being
+  mislabeled "liṭ reduplication" in traces. 0 anomalies across 120 roots × all
+  8 lakāras + all kṛts. `npm test` passes (85/85). Pushed to master.
+  Coverage 234/2703 (235/3983).
