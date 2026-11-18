@@ -241,6 +241,7 @@ const KVIN_FORMS: Record<string, string> = {
   sfj: 'srak',   // srak
   dfS: 'dik',    // dik
   yuj: 'yuj',    // yuj
+  spfS: 'spfk',  // spṛk (3.2.58 spṛśo'nudake kvin)
 };
 
 /** ṣṭran (3.2.182) stems: the suffix is -tra on these roots (guṇa/vṛddhi varies). */
