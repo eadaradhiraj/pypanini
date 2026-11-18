@@ -905,3 +905,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   aorist vid jus (3.4.109), dviṣ imperfect (3.4.112), upasarga coalescence.
   Registered 3.4.106/109/112, 8.2.23. `npm test` passes (85/85). Pushed to master.
   Coverage 192/2703.
+
+- **2026-11-18 — Session 123 (continued, toward 2703/2703):** Fixed dveṣaṇa/krt stems
+  for dviṣ and class-7 tum forms (bhettum/chettum/yoktum), registered 6.4.22.
+  `npm test` passes (85/85). Pushed to master. Coverage 192/2703.
