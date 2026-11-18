@@ -642,3 +642,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 72 (continued, item 1):** Added strī-pratyayas 4.1.36/38:
   `pUtakratu`→`pUtakratAyI`, `manu`→`manAyI`. Registered 4.1.36/4.1.38.
   `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 73 (continued, item 1):** Added strī-pratyayas 4.1.39/40
+  (colour words): `harita`→`hariRI` (hariṇī), `Syeza`→`SyenI`, `pizag`→`pizagI`.
+  Registered 4.1.39/4.1.40. `npm test` passes. Pushed to GitHub master.

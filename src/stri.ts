@@ -24,6 +24,7 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  if (stem === 'harita' || stem === 'Syeza' || stem === 'pizag') return StriPratyaya.Nip; // 4.1.39/40 colour
   if (stem === 'pati') return StriPratyaya.Nip; // 4.1.33 pati → patnī (i → n)
   if (stem === 'pUtakratu' || stem === 'manu') return StriPratyaya.Nip; // 4.1.36/38 (wife of)
   if (stem === 'antarvat' || stem === 'pativat') return StriPratyaya.Nip; // 4.1.32 nuk + ṅīp
@@ -68,6 +69,12 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
       feminine = args.stem.slice(0, -3) + 'varI'; // dhīvan → dhīvarī (4.1.7 van→var)
     } else if (args.stem.endsWith('in')) {
       feminine = args.stem.slice(0, -2) + 'inI'; // daṇḍin → daṇḍinī
+    } else if (args.stem === 'harita') {
+      feminine = 'hariRI'; // hariṇī (4.1.39 t→n)
+    } else if (args.stem === 'Syeza') {
+      feminine = 'SyenI'; // śyenī (4.1.40)
+    } else if (args.stem === 'pizag') {
+      feminine = 'pizagI'; // piśaṅgī (4.1.40)
     } else if (args.stem === 'pati') {
       feminine = 'patnI'; // 4.1.33: pati → patnī (wife)
     } else if (args.stem === 'pUtakratu') {
@@ -86,7 +93,9 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     } else {
       feminine = args.stem.slice(0, -1) + 'I'; // n → ī
     }
-    p.record(args.stem === 'pUtakratu' ? '4.1.36 (ai for pūtakratu)' :
+    p.record(args.stem === 'harita' ? '4.1.39 (varṇa: t→n, ṅīp)' :
+      args.stem === 'Syeza' || args.stem === 'pizag' ? '4.1.40 (varṇa ṅīṣ)' :
+        args.stem === 'pUtakratu' ? '4.1.36 (ai for pūtakratu)' :
       args.stem === 'manu' ? '4.1.38 (ai/au for manu)' :
         args.stem === 'pati' ? '4.1.33 (pati → patnī)' :
       args.stem === 'antarvat' || args.stem === 'pativat' ? '4.1.32 (nuk + ṅīp)' :
