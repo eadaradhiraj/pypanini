@@ -562,3 +562,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 54 (continued):** Added kṛt suffix ap (3.3.61/62, -a action
   noun): `svan`→`svAna`, `has`→`hAsa`. Registered 3.3.61/3.3.62. `npm test` passes.
   Pushed to GitHub master.
+
+- **2026-11-18 — Session 55 (continued):** Audited 3.1 kṛtya suffixes: yat (3.1.97)
+  already handles `zak`→`zakya`, `sah`→`sahya` (3.1.99), `vah`→`vahya` (3.1.102).
+  Registered 3.1.99/3.1.102, added a test. Most other 3.1 suffixes are taddhita-
+  dependent or Vedic. `npm test` passes. Pushed to GitHub master.
