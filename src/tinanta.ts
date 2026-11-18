@@ -426,6 +426,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   han: { strong: 'jaghAn', weak: 'jaghan' }, // jaghāna / jaghnuḥ
   car: { strong: 'cacAr', weak: 'cacar' },   // cacāra / cacaruḥ
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
+  i: { strong: 'iyAy', weak: 'iy' },         // iyāya (perfect of √i 'go')
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   // Strong stem in 3s, 3d, 2s, 1s; weak elsewhere (7.1.3ff guṇa/niyama).
