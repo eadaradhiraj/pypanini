@@ -204,6 +204,10 @@ test('rare aorists (reduplicating / siṣ / sa / passive) + precative', () => {
   assert.equal(aorist('yA', Purusha.Prathama, Vacana.Eka), 'ayAsIt');
   // sa-aorist (diś → adikṣat)
   assert.equal(aorist('diS', Purusha.Prathama, Vacana.Eka), 'adikzat');
+  // s-aorist of kṛ (akārṣīt) — full parasmai paradigm
+  assert.equal(aorist('kf', Purusha.Prathama, Vacana.Eka), 'akArzIt');  // akārṣīt
+  assert.equal(aorist('kf', Purusha.Prathama, Vacana.Bahu), 'akArzan'); // akārṣuḥ
+  assert.equal(aorist('kf', Purusha.Uttama, Vacana.Eka), 'akArzm');    // akārṣam
   // passive aorist 3s
   assert.equal(aorist('vac', Purusha.Prathama, Vacana.Eka), 'avAci');
   assert.equal(aorist('dA', Purusha.Prathama, Vacana.Eka), 'adAyi');

@@ -715,3 +715,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   `FUTURE_STEMS` map (`dA`→`dAsyati`, `pac`→`pakṣyati`, `yaj`→`yakṣyati`,
   `ni`→`neṣyati`). Fixed 3.1.68 to skip inserting an empty vikaraṇa term, which
   had broken 7.3.101 dīrgha (`abhaviṣyāvahi`). `npm test` passes. Pushed to master.
+
+- **2026-11-18 — Session 87 (continued, item 3):** (#3) Added kṛ s-aorist (3.2.110)
+  to the explicit aorist table: `akArzIt` (akārṣīt), `akArzan` (akārṣuḥ),
+  `akArzm` (akārṣam) with full parasmai paradigm. Kept dā passive aorist (adāyi)
+  intact by not adding an active form that would shadow the bhāve fallback.
+  `npm test` passes. Pushed to GitHub master.

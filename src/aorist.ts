@@ -33,6 +33,8 @@ const AORIST: Record<string, AoristEntry> = {
   pac: { kind: 'a', stem: 'pac' },
   sic: { kind: 'a', stem: 'sic' },
   gam: { kind: 'a', stem: 'gam' },
+  // s-aorist of kṛ: akārṣīt (a + kār + ṣ + īt)
+  kf: { kind: 's', stem: 'kAr' },
   // s-aorist (vṛddhi final vowel + s → ṣ)
   ni: {
     kind: 's', stem: 'nE', // nī → nai + ṣ (active)
