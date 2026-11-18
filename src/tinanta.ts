@@ -195,6 +195,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lin:parasmai:prathama:eka': 'syAt',   // syāt
   'as:lin:parasmai:madhyama:eka': 'syAH',   // syāḥ
   'as:lin:parasmai:uttama:eka': 'syAm',     // syām
+  'as:lin:parasmai:prathama:bahu': 'syuH',  // syūḥ
   'as:lot:parasmai:prathama:eka': 'astu',
   'as:lot:parasmai:madhyama:eka': 'ehi',
   // √dā (3P) — dadāti, dadāsi, dadāmi; dehi; dadātu
