@@ -20,7 +20,7 @@ import {
   needsSatva,
 } from './upasarga';
 import { aoristKind, deriveAorist, hasAorist } from './aorist';
-import { gunafy } from './core/slp1';
+import { gunafy, applyAnusvara } from './core/slp1';
 
 /** A tiṅ pratyaya label plus the it-lopa steps that turn it into its surface form. */
 interface SuffixInfo {
@@ -535,7 +535,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       rootPart = 'v' + mutatedRoot;
       prefixSandhiCode = '6.1.77 (iko yaṇ aci: u+a → va)';
     }
-    rootText = prefix + rootPart;
+    rootText = applyAnusvara(prefix + rootPart); // 8.3.23 mo'nusvāraḥ (saṃ + gam → saṃgam)
   }
   const sanadiResult = buildSanadiStem(rootText, sanadi);
   const pada = sanadiResult.pada ?? args.pada ?? dhatu.pada;

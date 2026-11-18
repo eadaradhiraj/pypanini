@@ -162,6 +162,13 @@ export function isSLP1(s: string): boolean {
  * after `r`, `ṣ` (z), or vocalic `ṛ` (f). 8.4.2 allows certain sounds to
  * intervene, but we keep the simple adjacent trigger here.
  */
+/**
+ * 8.3.23 `mo'nusvāraḥ`: final `m` → anusvāra (M) before a consonant.
+ */
+export function applyAnusvara(s: string): string {
+  return s.replace(/m(?=[kKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzsh])/g, 'M');
+}
+
 export function applyNatva(s: string): string {
   // 8.4.2: vowels, h/y/v, gutturals (kKgGN), labials (pPbBm), and anusvāra (M)
   // may intervene between the trigger (r/ṣ/ṛ) and the n.

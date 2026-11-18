@@ -23,7 +23,7 @@ import { deriveNamadhatus, NamadhatuPratyaya } from '../src/namadhatu';
 import { derivePrecative } from '../src/aorist';
 import { deriveParadigm, formatParadigm } from '../src/paradigm';
 import { deriveStri } from '../src/stri';
-import { applyNatva } from '../src/core/slp1';
+import { applyNatva, applyAnusvara } from '../src/core/slp1';
 import { UPASARGAS, isUpasarga, applyUpasargaSandhi, applyAyatiSandhi } from '../src/upasarga';
 
 const baseArgs = {
@@ -989,6 +989,12 @@ test('8.4.1 ṇatva (n → ṇ after r/ṣ/ṛ in a pada)', () => {
   assert.equal(applyNatva('arKeRa'), 'arKeRa'); // 8.4.2: guttural intervenes, n→ṇ applied
   assert.equal(applyNatva('darpRa'), 'darpRa'); // 8.4.2: labial intervenes
   assert.equal(applyNatva('prayaAni'), 'prayaARi'); // 8.4.16: y intervenes (semivowel)
+  // 8.3.23 mo'nusvāraḥ: m → M before a consonant
+  assert.equal(applyAnusvara('samgamati'), 'saMgamati');
+  assert.equal(
+    deriveTinantas({ ...baseArgs, dhatu: 'gam', upasarga: 'sam' })[0].text(),
+    'saMgamati', // saṃgamati
+  );
   // 8.4.16 in a real derivation: pra+vap lot 1s → prava-pā-ṇi
   assert.equal(
     deriveTinantas({ ...baseArgs, dhatu: 'vap', upasarga: 'pra', lakara: Lakara.Lot,
