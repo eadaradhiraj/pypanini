@@ -829,3 +829,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   nī kṛt stems (nāyaka/nayana/nayat/nayamāna), śarāru, vettṛ/hotṛ, bhid a-aorist
   (3.1.57). Added 3.1.57 registration. `npm test` passes (85/85). Pushed to master.
   Coverage 164/2703.
+
+- **2026-11-18 — Session 106 (continued, toward 2703/2703):** Fixed as perfect stem
+  (āsa), nI kṛt stems (nāyaka/nayana), a-aorist atmane. Bulk-audited all Krt×root,
+  Lakara×pada×purusha×vacana forms for N/ङ and double-vowel anomalies — clean.
+  `npm test` passes (85/85). Pushed to master. Coverage 164/2703.
