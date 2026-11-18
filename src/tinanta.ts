@@ -713,9 +713,13 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     postRootCode: config.postRoot ? '7.2.35 (iṭ before future vikaraṇa)' : undefined,
     rootOverride,
     rootOverrideCode: rootOverride
-      ? args.lakara === Lakara.Lit && dhatu.text === 'kf'
-        ? '6.1.8 (abhyāsa), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)'
-        : rootOverride ? '6.1.8 (abhyāsa; liṭ reduplication)' : undefined
+      ? args.lakara === Lakara.Lit
+        ? dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (abhyāsa; liṭ reduplication)'
+        : [Lakara.Lrt, Lakara.Lng].includes(args.lakara)
+          ? '3.1.33 (syatāsī lṛluṭoḥ — sya vikaraṇa)'
+          : args.lakara === Lakara.Lut
+            ? '3.1.33 (syatāsī lṛluṭoḥ — tāsi vikaraṇa)'
+            : '6.1.8 (abhyāsa)'
       : undefined,
   };
 
