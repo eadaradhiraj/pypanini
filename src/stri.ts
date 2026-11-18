@@ -10,6 +10,8 @@ export enum StriPratyaya {
   Tap = 'Tap',
   /** 4.1.5 -ṛ/-n stem → -ī (kartṛ → kartrī, daṇḍin → daṇḍinī). */
   Nip = 'Nip',
+  /** 4.1.13 ḍāp: -an stem → -ā after dropping -an (pāman → pāmā). */
+  Dap = 'Dap',
 }
 
 export interface StriArgs {
@@ -20,6 +22,7 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  if ((stem.endsWith('an') || stem.endsWith('An')) && !stem.endsWith('van') && !stem.endsWith('in')) return StriPratyaya.Dap; // 4.1.13
   if (stem.endsWith('van')) return StriPratyaya.Nip; // 4.1.7 vano ra ca
   if (stem.endsWith('at') || stem.endsWith('f') || stem.endsWith('n') || stem.endsWith('in')) return StriPratyaya.Nip; // 4.1.5/6
   if (stem.endsWith('a')) return StriPratyaya.Tap;
@@ -37,6 +40,10 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     // ṭāp: short a → ā
     feminine = args.stem.slice(0, -1) + 'A';
     p.record('4.1.4 (ajādy-ataṣ ṭāp)');
+  } else if (pratyaya === StriPratyaya.Dap) {
+    // ḍāp: drop final -an, add -ā
+    feminine = args.stem.slice(0, -2) + 'A'; // pāman → pāmā, sīmān → sīmā
+    p.record('4.1.13 (ḍāp ubhābhyām anyatarasyām)');
   } else {
     // ṅīp: ṛ/n → ī (kartṛ → kartrī, daṇḍin → daṇḍinī)
     if (args.stem.endsWith('f')) {

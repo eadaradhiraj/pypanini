@@ -580,3 +580,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 58 (continued):** Extended strī-pratyayas: vano ra ca
   (4.1.7) `dIvan`→`dIvarI` (dhīvarī), `pIvan`→`pIvarI`, `Sarvan`→`SarvarI`.
   Registered 4.1.7. `npm test` passes. Pushed to GitHub master.
+
+- **2026-11-18 — Session 59 (continued):** Added strī-pratyaya ḍāp (4.1.13):
+  `pAman`→`pAmA` (pāmā), `sImAn`→`sImA` (sīmā). Registered 4.1.13.
+  `npm test` passes. Pushed to GitHub master.
