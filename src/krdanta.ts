@@ -302,7 +302,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Sanan]: { pU: 'pav', yaj: 'yaj', BU: 'Bav', kf: 'kurv' }, // kṛ→kurvāṇa, bhū→bhavamāna, pū→pavamāna
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
   [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS', gam: 'gan', vid: 'vet' }, // hotṛ, neṣṭṛ, tvaṣṭṛ, gantṛ, vettṛ
-  [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay', vraja: 'vraj', yaja: 'yaj' }, // vrajyā/yajyā (3.3.98)
+  [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay', vraja: 'vraj', yaja: 'yaj', khan: 'khe' }, // kheya (3.1.111)
   [Krt.Sa]: { kf: 'kriy', iz: 'icC' }, // kriyā (3.3.100), icchā (3.3.101)
   [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv', vid: 'ved', diS: 'dez', car: 'cAr', nI: 'nAy', grah: 'grAh', gfhm: 'grAh' }, // ṇini vṛddhi (3.1.134 grahādi)
   [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh', nI: 'nAy' }, // pācaka, yājaka, dāyaka, vāhaka, nāyaka
@@ -431,6 +431,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   }
   if (args.krt === Krt.Kyap && ['vraja', 'yaja'].includes(dhatu.text)) {
     spec.code = '3.3.98 (vrajayajor bhāve kyap — vrajyā/yajyā)';
+  }
+  if (args.krt === Krt.Kyap && dhatu.text === 'khan') {
+    spec.code = '3.1.111 (ī ca khanaḥ — kheya)';
   }
   if (args.krt === Krt.ghaH && ['sTA', 'gA', 'pA'].includes(dhatu.text)) {
     spec.suffix = 'na'; // 3.3.95: sthāna/gāna/pāna
