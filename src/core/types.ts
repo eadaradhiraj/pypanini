@@ -142,6 +142,7 @@ export enum Krt {
   kvarap = 'kvarap', // क्वरप् → -vara with ṭuk (itvara/naśvara/jitvara, 3.2.163)
   vuN = 'vuN', // वुञ् → -aka (nindaka/hiṃsaka/khādaka, 3.2.146)
   ghinuN = 'ghinuN', // घिनुण् → -in (vikāṣī/vilāsī/pravāsī, 3.2.143/145)
+  cAnaS = 'cAnaS', // चानश् → -āna (bhuñjāna/bibhrāṇa, 3.2.129)
 }
 
 export interface KrdantaArgs {
