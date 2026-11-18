@@ -24,6 +24,8 @@ export interface StriArgs {
 
 /** Choose the feminine pratyaya based on the stem ending. */
 export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
+  if (stem === 'SoRa') return StriPratyaya.Nis; // 4.1.43 śoṇī
+  if (stem === 'paTu' || stem === 'mRdu' || stem === 'vasu') return StriPratyaya.Nis; // 4.1.44 guṇavacana
   if (stem === 'kuND' || stem === 'goRa' || stem === 'sthala' || stem === 'kAla' || stem === 'nIla' || stem === 'kabara') return StriPratyaya.Nis; // 4.1.42 ṇīṣ
   if (stem === 'harita' || stem === 'Syeza' || stem === 'pizag') return StriPratyaya.Nip; // 4.1.39/40 colour
   if (stem === 'pati') return StriPratyaya.Nip; // 4.1.33 pati → patnī (i → n)
@@ -59,6 +61,9 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     // ṇīṣ: jāti/bahvādi → -ī; brāhmaṇa → brāhmaṇī, bahu → bahvī
     if (args.stem === 'bahu') feminine = 'bahvI';
     else if (args.stem === 'prabhu') feminine = 'prabhvI';
+    else if (args.stem === 'paTu') feminine = 'paTvI';
+    else if (args.stem === 'mRdu') feminine = 'mRdvI';
+    else if (args.stem === 'vasu') feminine = 'vasvI';
     else if (args.stem.endsWith('a')) feminine = args.stem.slice(0, -1) + 'I';
     else feminine = args.stem + 'I';
     p.record('4.1.41/45 (ṇīṣ — jāti/bahvādi)');
