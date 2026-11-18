@@ -155,7 +155,7 @@ export function deriveNamadhatus(args: NamadhatuArgs): Prakriya[] {
   p.record(`3.2.123 (${args.lakara ?? Lakara.Lat} vidhāna)`);
   p.record(`3.4.78 (tiṅ: ${suffix})`);
   p.setText(0, surface);
-  if (surface !== stem + suffix) p.record('6.1.104 (ekādeśa)');
+  if (surface !== stem + suffix) p.record('6.1.84 (ekādeśa)');
   p.record('8.2.1 (final consolidation)');
   p.collapse();
   return [p];

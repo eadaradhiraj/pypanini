@@ -127,6 +127,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'u', grade: 'none', prayoga: Prayoga.Kartari,
     pratyaya: 'ḍu', code: '3.2.180 (vi-pra-sambhyo ḍu)',
   },
+  [Krt.knu]: {
+    suffix: 'nu', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'knu', code: '3.2.140 (trasi-gṛdhi-dhṛṣi-kṣipeḥ knuḥ)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
@@ -166,6 +170,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.AruH]: { vand: 'vand', sF: 'sa' }, // vandāru, śarāru (3.2.173)
   [Krt.varac]: { sTA: 'sTA', IS: 'IS' }, // sthāvara, īśvara (3.2.175)
   [Krt.Du]: { viBU: 'viB', praBU: 'praB', samBU: 'samB' }, // vibhu/prabhu/sambhu (3.2.180)
+  [Krt.knu]: { tras: 'tras', gFDi: 'gFd', DFzi: 'DFz', kzip: 'kziN' }, // trasnu/gṛdhnu/dhṛṣṇu/kṣiṇṇu
 };
 
 /** Suffixes that take the iṭ augment after a u-final root (7.2.35). */

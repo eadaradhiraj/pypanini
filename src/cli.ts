@@ -81,6 +81,7 @@ Commands:
   subanta    Derive subanta forms
   paradigm   Full conjugation table (all lakāras × both padas) for a dhātu
   analyze    Analyse a declined word → base + case/number/gender
+  coverage   Show sūtra coverage by focus topic
   dhatus     List/search the full Dhātupāṭha (--search <prefix> --limit <n>)
   sutras     Look up sūtra text by code (--code 3.1.20) or search (--search <text>)
 
@@ -94,7 +95,7 @@ Common options:
   --vacana <name>    eka, dvi, bahu
   --sanadi <name>    none, san, nic, yan, yang, yangLuk
   --upasarga <s>     pra, sam, pari, anu, vi, aBi, ... (1.4.58)
-  --krt <name>       tac, tfc, satr, ani, tum, tavya, lyuT, ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa, uH, ghaH, raH, kru, AruH, varac, kvip, Du
+  --krt <name>       tac, tfc, satr, ani, tum, tavya, lyuT, ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa, uH, ghaH, raH, kru, AruH, varac, kvip, Du, knu
   --pratyaya <name>  kyac, kAmyac, kyaN, Nic, Buvyac, kyaS, kyaNKa, kyaNKara, kyaNSukha,
                      varticara, udvamana, kyacNama, NiN
   --pratipadika <s>  Nominal stem, e.g. bala (a), agni (i), guru (u), sItA (ā), nadI (ī)
@@ -151,6 +152,13 @@ function main(): void {
     for (const d of list) {
       console.log(`${(d.code ?? '').padEnd(9)} ${d.text.padEnd(12)} g${d.gana}  ${d.artha ?? ''}`);
     }
+    return;
+  }
+
+  if (command === 'coverage') {
+    const { buildCoverage, formatCoverage } = require('./coverage');
+    const { IMPLEMENTED_CODES } = require('./data/implemented-codes');
+    console.log(formatCoverage(buildCoverage(IMPLEMENTED_CODES)));
     return;
   }
 

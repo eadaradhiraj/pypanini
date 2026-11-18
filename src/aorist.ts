@@ -196,7 +196,7 @@ export function derivePrecative(args: AoristArgs): Prakriya | undefined {
   const form = PRECATIVE_P[args.purusha]?.[args.vacana];
   if (!form) return undefined;
   const p = new Prakriya([form]);
-  p.record('3.4.116 (āśīrliṅ), 6.4.51 (precative endings)');
+  p.record('3.4.116 (liṇ-āśiṣi / āśīrliṅ precative)');
   p.collapse();
   return p;
 }

@@ -55,6 +55,15 @@ export {
 } from './data/dhatupatha';
 export { DHATUPATHA_FULL } from './data/dhatupatha.full';
 export { SUTRAS } from './data/sutras';
+export { IMPLEMENTED_CODES } from './data/implemented-codes';
+export {
+  buildCoverage,
+  formatCoverage,
+  topicOf,
+  FOCUS_TOPICS,
+} from './coverage';
+export type { Topic, CoverageReport } from './coverage';
+export * as aux from './data/aux';
 export {
   UPASARGAS,
   isUpasarga,

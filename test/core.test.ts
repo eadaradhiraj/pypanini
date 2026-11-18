@@ -387,6 +387,13 @@ test('kṛdanta: ḍu (-u after upasarga+bhū, 3.2.180)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'samBU', krt: Krt.Du })[0].text(), 'samBu'); // sambhu
 });
 
+test('kṛdanta: knu (-nu habitual agent, 3.2.140)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'tras', krt: Krt.knu })[0].text(), 'trasnu');
+  assert.equal(deriveKrdantas({ dhatu: 'gFDi', krt: Krt.knu })[0].text(), 'gFdnu');
+  assert.equal(deriveKrdantas({ dhatu: 'DFzi', krt: Krt.knu })[0].text(), 'DFznu');
+  assert.equal(deriveKrdantas({ dhatu: 'kzip', krt: Krt.knu })[0].text(), 'kziNnu');
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');
