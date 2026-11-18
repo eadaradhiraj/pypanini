@@ -60,6 +60,7 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
   const pratyaya = args.pratyaya ?? striPratyayaFor(args.stem);
   if (!pratyaya) return undefined;
   const p = new Prakriya([args.stem]);
+  p.record('4.1.3 (striyām — feminine pratyaya)');
   let feminine: SLP1;
 
   if (pratyaya === StriPratyaya.Tap) {
