@@ -135,6 +135,8 @@ export enum Krt {
   knu = 'knu', // क्नु → -nu habitual agent (trasnu/gṛdhnu, 3.2.140)
   kSnu = 'kSnu', // क्ष्णु → -ṣṇu (jizṇu/sthāsnu/bhūṣṇu, 3.2.139)
   izNuc = 'izNuc', // इष्णुच् → -iṣṇu (bhaviṣṇu, 3.2.138)
+  yuc = 'yuc', // युच् → -ana (calana/śabdana, 3.2.148)
+  ruH2 = 'ruH2', // रुः → -ru (dāru/saru/sadru, 3.2.159)
 }
 
 export interface KrdantaArgs {

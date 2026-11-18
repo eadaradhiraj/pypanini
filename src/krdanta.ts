@@ -139,6 +139,14 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'izNu', grade: 'guna', prayoga: Prayoga.Kartari,
     pratyaya: 'iṣṇuc', code: '3.2.138 (bhuvaś ca — iṣṇuc)',
   },
+  [Krt.yuc]: {
+    suffix: 'ana', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'yuc', code: '3.2.148 (calana-śabdārthād akarmakād yuc)',
+  },
+  [Krt.ruH2]: {
+    suffix: 'ru', grade: 'none', prayoga: Prayoga.Kartari,
+    pratyaya: 'ruḥ', code: '3.2.159 (dā-dheṭ-si-śada-sado ruḥ)',
+  },
 };
 
 /** kvip (3.2.178): zero-suffix agent nouns; final consonant adjusts per root. */
@@ -189,6 +197,8 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Du]: { viBU: 'viB', praBU: 'praB', samBU: 'samB' }, // vibhu/prabhu/sambhu (3.2.180)
   [Krt.knu]: { tras: 'tras', gFDi: 'gFd', DFzi: 'DFz', kzip: 'kziN' }, // trasnu/gṛdhnu/dhṛṣṇu/kṣiṇṇu
   [Krt.izNuc]: IZNU_STEMS, // bhaviṣṇu/rociṣṇu/sahiṣṇu/… (3.2.136/138)
+  [Krt.yuc]: { cal: 'cal', Sabd: 'Sabd', rav: 'rav', COP: 'Cop' }, // +ana → calana/śabdana/ravaṇa
+  [Krt.ruH2]: { dA: 'dA', si: 'sa', sad: 'sad', saD: 'saD' }, // +ru → dāru/saru/sadru
 };
 
 const KSNU_SUFFIX: Record<string, string> = {
