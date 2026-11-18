@@ -91,15 +91,15 @@ Common options:
   --trace            Print the prakriyā (sūtra-by-sūtra derivation)
   --dhatu <SLP1>     Verb root, e.g. BU, pac, kf
   --lakara <name>    lat (default), lit, lut, lrt, lot, lan, lng, lin, latN (aorist)
-  --prayoga <name>   kartari (default), karmani
+  --prayoga <name>   kartari (default), karmani, bhave
   --pada <name>      parasmai, atmane (default: from dhātu)
   --purusha <name>   prathama, madhyama, uttama
   --vacana <name>    eka, dvi, bahu
   --sanadi <name>    none, san, nic, yan, yang, yangLuk
   --upasarga <s>     pra, sam, pari, anu, vi, aBi, ... (1.4.58)
   --krt <name>       tac, tfc, satr, ani, tum, tavya, lyuT, ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa, uH, ghaH, raH, kru, AruH, varac, kvip, Du, knu, kSnu, izNuc, yuc, ruH2, kurac, ghurac, kvarap, vuN, ghinuN, cAnaS, aN, gaNa, ap, kaN, kvin, khuKN, khyun, kiN, najiN, ac, naN, Nvanip, atRn, NyuT, thakan, Svun
-  --pratyaya <name>  kyac, kAmyac, kyaN, Nic, Buvyac, kyaS, kyaNKa, kyaNKara, kyaNSukha,
-                     varticara, udvamana, kyacNama, NiN
+  --pratyaya <name>  kyac, kyacAcara, kAmyac, kyaN, Nic, Buvyac, kyaS, kyaNKa, kyaNKara,
+                     kyaNSukha, varticara, udvamana, kyacNama, NiN
   --pratipadika <s>  Nominal stem, e.g. bala (a), agni (i), guru (u), sItA (ā), nadI (ī)
   --linga <name>     pumsaka, stri, napumsaka
   --vibhakti <1..8>  Case ending number
