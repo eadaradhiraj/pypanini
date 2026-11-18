@@ -155,6 +155,7 @@ export enum Krt {
   ac = 'ac', // अच् → -a action noun after i/ī-final roots (caya/jaya/kṣaya, 3.3.56)
   naN = 'naN', // ण → -na noun (yajña/praśna, 3.3.90)
   Nvanip = 'Nvanip', // ङ्वनिप् → -van agent (sutvan/yajvan, 3.2.103)
+  atRn = 'atRn', // अतृन् → -at past part. (jarant, 3.2.104)
 }
 
 export interface KrdantaArgs {
