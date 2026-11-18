@@ -210,6 +210,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'hu:lat:parasmai:prathama:bahu': 'juhvanti',
   'gA:lat:parasmai:prathama:eka': 'jigAti',
   'gA:lat:parasmai:prathama:bahu': 'jiganti',
+  'SAsu:lat:parasmai:prathama:eka': 'SAsti', // śāsti
   // class 2 (adādi): bravīti, brūte
   'brU:lat:parasmai:prathama:eka': 'bravIti',
   'brU:lat:parasmai:madhyama:eka': 'bravIZi', // bravīṣi
