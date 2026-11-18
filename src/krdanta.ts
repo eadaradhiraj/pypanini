@@ -450,6 +450,10 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Ktin && ['muR', 'Sak', 'Bhak'].includes(dhatu.text)) {
     spec.code = '3.3.174 (kti-ktO ca saṃjñāyām — śakti/bhakti/mūrti)';
   }
+  if (args.krt === Krt.ka && dhatu.text === 'Suz') {
+    spec.suffix = 'ka'; // 8.2.51: śuṣ + ka → śuṣka
+    spec.code = '8.2.51 (śuṣaḥ kaḥ — śuṣka)';
+  }
 
   // ṛ-final roots (kf → kar) take the ṇa-variants; u-final roots take the na-variants.
   const rFinal = dhatu.text.endsWith('f') || dhatu.text.endsWith('F');
