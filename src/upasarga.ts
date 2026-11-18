@@ -60,6 +60,12 @@ export function applyAyatiSandhi(upasarga: SLP1, root: SLP1): { upasarga: SLP1; 
  */
 export function applyUpasargaSandhi(upasarga: SLP1, root: SLP1): SLP1 {
   if (!isUpasarga(upasarga)) return root;
+  // 8.3.66 sadir aprateḥ: √sad → sīd after an upasarga in i/u (not prati),
+  // with ṣa for the initial s. ni+sad → niṣīdati, vi+sad → viṣīdati.
+  if (root === 'sad') {
+    const satva = /[iu]$/.test(upasarga) && upasarga !== 'prati';
+    return (satva ? 'z' : 's') + 'Id';
+  }
   if (root.startsWith('n')) return 'R' + root.slice(1); // 8.4.14 ṇatva
   if (needsSatva(upasarga, root)) return 'z' + root.slice(1); // 8.3.65 ṣatva
   return root;
