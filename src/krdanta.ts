@@ -391,6 +391,25 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     p.collapse();
     return [p];
   }
+  // 8.2.31 (ho ḍhaḥ) with 8.2.40/8.4.41/8.3.13: √sah/√vah before a jhal-initial
+  // kṛt affix; the h becomes ḍh, the affix t becomes ḍh, and the first ḍh drops.
+  if (['sah', 'vah'].includes(dhatu.text)) {
+    const base = dhatu.text === 'sah' ? 'soQ' : 'voQ';
+    const form: Partial<Record<Krt, string>> = {
+      [Krt.Tfc]: base + 'A',       // soḍhā / voḍhā
+      [Krt.Tum]: base + 'um',      // soḍhum / voḍhum
+      [Krt.Tavya]: base + 'avyam', // soḍhavyam / voḍhavyam
+      [Krt.Ktavatu]: base + 'avAn',// soḍhavān / voḍhavān
+      [Krt.Ani]: base + 'AnIya',   // soḍhanīya / voḍhanīya
+      [Krt.Tac]: base + 'a',       // soḍha / voḍha
+    };
+    if (form[args.krt]) {
+      const p = new Prakriya([form[args.krt]!]);
+      p.record('8.2.31 (ho ḍhaḥ), 8.2.40 (t → dh), 8.4.41 (dh → ḍh), 8.3.13 (ḍho ḍhe lopaḥ)');
+      p.collapse();
+      return [p];
+    }
+  }
   const sanadi = buildSanadiStem(dhatu.text, args.sanadi ?? Sanadi.None);
   const spec = { ...KRT_SPECS[args.krt] };
 
