@@ -188,6 +188,12 @@ function futureStem(root: string): string {
  */
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // √as (2P) — asti, asi, asmi; optative syāt; imperative astu/ehi
+  // √hi (5P, śnu vikaraṇa 3.1.73): hinoti, hinutaḥ, hinvanti
+  'hi:lat:parasmai:prathama:eka': 'hinoti',
+  'hi:lat:parasmai:prathama:dvi': 'hinutaH',
+  'hi:lat:parasmai:prathama:bahu': 'hinvanti',
+  'hi:lat:parasmai:madhyama:eka': 'hinozi',  // hinoṣi
+  'hi:lat:parasmai:uttama:eka': 'hinomi',
   'as:lat:parasmai:prathama:eka': 'asti',
   'as:lat:parasmai:madhyama:eka': 'asi',
   'as:lat:parasmai:uttama:eka': 'asmi',
@@ -505,9 +511,14 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
         args.purusha, args.vacana)
     : undefined;
   if (athematic) {
-    const p = new Prakriya([athematic]);
+    const upa = args.upasarga && isUpasarga(args.upasarga) ? args.upasarga : '';
+    const athemForm = upa && dhatu.text === 'hi'
+      ? upa + athematic.replace(/n/g, 'R') // 8.4.15 hinumīnā: n → ṇ after upasarga
+      : athematic;
+    const p = new Prakriya([athemForm]);
     p.record(`3.2.123 (${LAKARA_LABEL[args.lakara] ?? 'la~w'} vidhāna)`);
     p.record('3.4.78 (athematic tiṅ)');
+    if (dhatu.text === 'hi') p.record(upa ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (args.lakara === Lakara.Lin) {
       p.record(args.pada === Pada.Parasmai
         ? '3.4.103 (yāsuṭ parasmaipadeṣu)' : '3.4.102 (liNassIyuw)');

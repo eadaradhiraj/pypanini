@@ -290,6 +290,10 @@ test('athematic present forms (classes 2/3/5)', () => {
   assert.equal(f('dA', Lakara.Lan, Purusha.Prathama), 'adadAt');
   assert.equal(f('dA', Lakara.Lit, Purusha.Prathama), 'dadau');
   assert.equal(a('dA', Purusha.Prathama), 'datte'); // √dā middle present
+  // √hi (5P, śnu): hinoti; with upasarga 8.4.15 ṇatva
+  assert.equal(f('hi', Lakara.Lat, Purusha.Prathama), 'hinoti');
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'hi', upasarga: 'pra',
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'prahiRoti'); // prahiṇoti
 });
 
 test('karmani passive: pac → pacyate', () => {
