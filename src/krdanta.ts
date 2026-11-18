@@ -304,7 +304,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS', gam: 'gan', vid: 'vet' }, // hotṛ, neṣṭṛ, tvaṣṭṛ, gantṛ, vettṛ
   [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay' }, // vidyā, manyā, ityā, śayyā
   [Krt.Sa]: { kf: 'kriy', iz: 'icC' }, // kriyā (3.3.100), icchā (3.3.101)
-  [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv', vid: 'ved', diS: 'dez', car: 'cAr', nI: 'nAy' }, // ṇini vṛddhi
+  [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv', vid: 'ved', diS: 'dez', car: 'cAr', nI: 'nAy', grah: 'grAh', gfhm: 'grAh' }, // ṇini vṛddhi (3.1.134 grahādi)
   [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh', nI: 'nAy' }, // pācaka, yājaka, dāyaka, vāhaka, nāyaka
   [Krt.ac]: { ci: 'cay', i: 'ay', ji: 'jay', kzi: 'kzay', sf: 'sar', nI: 'nay' }, // caya, aya, jaya, kṣaya, naya (3.3.56)
   [Krt.naN]: { yaj: 'yajY', yAc: 'yAcY' }, // yajña, yācñā (jñ/ñ)
@@ -426,6 +426,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   }
   const sanadi = buildSanadiStem(dhatu.text, args.sanadi ?? Sanadi.None);
   const spec = { ...KRT_SPECS[args.krt] };
+  if (args.krt === Krt.Nini && ['grah', 'gfhm'].includes(dhatu.text)) {
+    spec.code = '3.1.134 (grahādiṣu ṇini — grāhin)';
+  }
 
   // ṛ-final roots (kf → kar) take the ṇa-variants; u-final roots take the na-variants.
   const rFinal = dhatu.text.endsWith('f') || dhatu.text.endsWith('F');
