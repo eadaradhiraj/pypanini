@@ -362,6 +362,11 @@ test('kṛdanta: raḥ (-ra) and kru (-ru) suffixes', () => {
   assert.equal(deriveKrdantas({ dhatu: 'Bi', krt: Krt.kru })[0].text(), 'Biru');   // bhīru
 });
 
+test('kṛdanta: āruḥ (-āru) and icchu suffix variants', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'vand', krt: Krt.AruH })[0].text(), 'vandAru'); // vandāru
+  assert.equal(deriveKrdantas({ dhatu: 'iz', krt: Krt.uH })[0].text(), 'icCu');       // icchu
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

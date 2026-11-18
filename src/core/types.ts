@@ -128,6 +128,7 @@ export enum Krt {
   ghaH = 'ghaH', // घः → -a instrument/location name (chada, 3.3.118)
   raH = 'raH', // रः → -ra habitual agent (namra/dīpra, 3.2.167)
   kru = 'kru', // क्रु → -ru (bhīru, 3.2.174)
+  AruH = 'AruH', // आरुः → -āru (vandāru, 3.2.173)
 }
 
 export interface KrdantaArgs {
