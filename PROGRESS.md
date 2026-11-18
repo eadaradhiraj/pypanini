@@ -854,3 +854,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 111 (continued, toward 2703/2703):** Added kvin forms
   (3.2.58 spṛk, 3.2.61 dviṭ/druk/duk/bhit/chit), registered 3.2.58.
   `npm test` passes (85/85). Pushed to master. Coverage 166/2703.
+
+- **2026-11-18 — Session 112 (continued, toward 2703/2703):** Audited kvip/kvin forms
+  across additional roots; `npm test` passes (85/85). Pushed to master. Coverage 166/2703.
