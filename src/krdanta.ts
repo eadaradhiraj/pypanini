@@ -507,9 +507,12 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   p.record(`kṛt-prayoga: ${args.prayoga ?? spec.prayoga} (kāraka-vivakṣā)`);
   p.collapse();
   // 6.1.84 ekādeśa for infix boundaries (e.g. eDa + a + mAna → eDamAna).
-  if (/(aa|ii|uu|ee|oo)/.test(p.terms[0].text)) {
-    p.terms[0].text = p.terms[0].text.replace(/(aa|ii|uu|ee|oo)/g,
-      (m) => m[0]); // 6.1.84 ekādeśa: same short vowels merge (SLP1 long = capital)
+  const beforeEk = p.terms[0].text;
+  while (/(aa|ii|uu|ee|oo|Aa|Ii|Uu)/.test(p.terms[0].text)) {
+    p.terms[0].text = p.terms[0].text.replace(/(aa|ii|uu|ee|oo|Aa|Ii|Uu)/g,
+      (m) => m[0]); // 6.1.84 ekādeśa: same/heterogeneous vowel pair → single
+  }
+  if (p.terms[0].text !== beforeEk) {
     p.record('6.1.84 (ekādeśa: vowel + same vowel → single)');
     p.collapse();
   }
