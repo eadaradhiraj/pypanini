@@ -438,6 +438,8 @@ test('kṛdanta: ṇini (-in) with vṛddhi and y-glide', () => {
   assert.equal(deriveKrdantas({ dhatu: 'pac', krt: Krt.Nini })[0].text(), 'pAcin'); // pācin
   assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.Nini })[0].text(), 'yAjin'); // yājin
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Nini })[0].text(), 'BAvin'); // bhāvin
+  assert.equal(deriveKrdantas({ dhatu: 'pac', krt: Krt.Nvul })[0].text(), 'pAcaka'); // pācaka
+  assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.Nvul })[0].text(), 'yAjaka'); // yājaka
 });
 
 test('kṛdanta: śānan (-māna, 3.2.128)', () => {
