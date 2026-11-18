@@ -213,6 +213,8 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'tanu:lat:parasmai:prathama:bahu': 'tanvanti',
   'tanu:lat:parasmai:uttama:eka': 'tanomi',
   // class 7 (śnam 3.1.78): √bhid→bhinatti, √chid→chinatti
+  'rudh:lat:parasmai:prathama:eka': 'rundDi',   // runddhi
+  'yuj:lat:atmane:prathama:eka': 'yuMkte',      // yuṅkte
   'bhid:lat:parasmai:prathama:eka': 'bhinatti',
   'bhid:lat:parasmai:prathama:bahu': 'bhindanti',
   'Cid:lat:parasmai:prathama:eka': 'chinatti',
@@ -560,7 +562,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     p.record(`3.2.123 (${LAKARA_LABEL[args.lakara] ?? 'la~w'} vidhāna)`);
     p.record('3.4.78 (athematic tiṅ)');
     if (['hi', 'ciY', 'pf'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
-    if (['bhid', 'Cid'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
+    if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.71 (tanādibhyaḥ — 8P)');
     if (['mIY', 'pUY', 'lUY'].includes(dhatu.text)) p.record("3.1.75 (akzo'nyatarasyām — śnā)");
     if (args.lakara === Lakara.Lin) {
