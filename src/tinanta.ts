@@ -189,6 +189,11 @@ function futureStem(root: string): string {
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // √as (2P) — asti, asi, asmi; optative syāt; imperative astu/ehi
   // class 9 (śnā 3.1.75): √mī→mināti, √pū→punāti, √lū→lunāti
+  // class 2 (adādi): vāti, pāti, rāti, dveṣṭi
+  'vA:lat:parasmai:prathama:eka': 'vAti',
+  'pA:lat:parasmai:prathama:eka': 'pAti',
+  'rA:lat:parasmai:prathama:eka': 'rAti',
+  'dviza:lat:parasmai:prathama:eka': 'dvezwi', // dveṣṭi
   // class 8 (tanādi): √tan→tanoti, tanutaḥ, tanvanti
   'tanu:lat:parasmai:prathama:eka': 'tanoti',
   'tanu:lat:parasmai:prathama:dvi': 'tanutaH',
