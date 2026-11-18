@@ -87,6 +87,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'tf', grade: 'guna', prayoga: Prayoga.Kartari,
     pratyaya: 'tṛn', code: '3.2.135 (tṛn — habitual agent)',
   },
+  [Krt.Kyap]: {
+    suffix: 'yA', grade: 'none', prayoga: Prayoga.Karmani,
+    pratyaya: 'kyap', code: '3.3.99 (sañjñāyāṃ … kyap)',
+  },
 };
 
 /** ṣṭran (3.2.182) stems: the suffix is -tra on these roots (guṇa/vṛddhi varies). */
@@ -95,6 +99,7 @@ const STRAN_STEMS: Record<string, string> = {
   ni: 'ne',    // netra (eye)
   stu: 'sto',  // stotra (praise)
   yu: 'yo',    // yotra
+  dhA: 'dA',   // dhātra (nurse, 3.2.181)
 };
 
 /** Stem overrides for roots with an irregular kṛt formation (nipātana). */
@@ -104,6 +109,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Sanan]: { pU: 'pav', yaj: 'yaj' }, // pū/pava + māna → pavamāna
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
   [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS' }, // hotṛ, neṣṭṛ, tvaṣṭṛ (with ṣuk/ṣ)
+  [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay' }, // vidyā, manyā, ityā, śayyā
 };
 
 /** Suffixes that take the iṭ augment after a u-final root (7.2.35). */

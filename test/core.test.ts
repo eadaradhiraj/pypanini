@@ -332,6 +332,13 @@ test('kṛdanta: tṛn (-tṛ habitual agent, 3.2.135)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'tviz', krt: Krt.TRn })[0].text(), 'tvaSTf'); // tvaṣṭṛ
 });
 
+test('kṛdanta: kyap (-yā feminine, 3.3.99)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'vid', krt: Krt.Kyap })[0].text(), 'vidyA'); // vidyā
+  assert.equal(deriveKrdantas({ dhatu: 'man', krt: Krt.Kyap })[0].text(), 'manyA'); // manyā
+  assert.equal(deriveKrdantas({ dhatu: 'i', krt: Krt.Kyap })[0].text(), 'ityA');   // ityā
+  assert.equal(deriveKrdantas({ dhatu: 'zi', krt: Krt.Kyap })[0].text(), 'zayyA'); // śayyā
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');
