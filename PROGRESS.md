@@ -751,3 +751,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   and gam nasal assimilation (`gata`, `gantum`, `gantavya`, `gantṛ`) while
   keeping `gamaka` (m before -aka). `npm test` passes (83/83). Pushed to master.
   Coverage 146/2703.
+
+- **2026-11-18 — Session 92 (continued, toward 2703/2703):** Fixed mfj/sfj agent
+  nouns (`mārṣṭṛ`, `sraṣṭṛ`) — generalized 8.4.41 ṣṭuḥ after ṣ. Noted remaining
+  gap: paradigm generator mixes explicit athematic singulars with thematic
+  duals/plurals (needs full athematic paradigm tables). `npm test` passes (83/83).
+  Pushed to GitHub master. Coverage 146/2703.
