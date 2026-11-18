@@ -401,8 +401,11 @@ test('kṛdanta: kṣnu (-snu/-ṣṇu, 3.2.139)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.kSnu })[0].text(), 'BUzNu');
 });
 
-test('kṛdanta: iṣṇuc (-iṣṇu, 3.2.138)', () => {
+test('kṛdanta: iṣṇuc (-iṣṇu, 3.2.136/138)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.izNuc })[0].text(), 'BavizNu'); // bhaviṣṇu
+  assert.equal(deriveKrdantas({ dhatu: 'ruc', krt: Krt.izNuc })[0].text(), 'rocizNu'); // rociṣṇu
+  assert.equal(deriveKrdantas({ dhatu: 'saha', krt: Krt.izNuc })[0].text(), 'sahizNu'); // sahiṣṇu
+  assert.equal(deriveKrdantas({ dhatu: 'car', krt: Krt.izNuc })[0].text(), 'carizNu'); // cariṣṇu
 });
 
 test('kṛdanta: bhū forms with iṭ', () => {

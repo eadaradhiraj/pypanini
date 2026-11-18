@@ -162,6 +162,15 @@ const STRAN_STEMS: Record<string, string> = {
 };
 
 /** Stem overrides for roots with an irregular kṛt formation (nipātana). */
+/** iṣṇuc (3.2.136/138): per-root stems (guṇa/vṛddhi already applied). */
+const IZNU_STEMS: Record<string, string> = {
+  BU: 'Bav',    // bhaviṣṇu
+  ruc: 'roc',   // rociṣṇu
+  saha: 'sah',  // sahiṣṇu
+  car: 'car',   // cariṣṇu
+  vFt: 'vart',  // vartiṣṇu
+};
+
 const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Satr]: { kf: 'kurv' }, // kṛ + śatṛ → kurvat
   [Krt.SanaC]: { kf: 'kurv' }, // kṛ + śānac → kurvāṇa
@@ -179,7 +188,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.varac]: { sTA: 'sTA', IS: 'IS' }, // sthāvara, īśvara (3.2.175)
   [Krt.Du]: { viBU: 'viB', praBU: 'praB', samBU: 'samB' }, // vibhu/prabhu/sambhu (3.2.180)
   [Krt.knu]: { tras: 'tras', gFDi: 'gFd', DFzi: 'DFz', kzip: 'kziN' }, // trasnu/gṛdhnu/dhṛṣṇu/kṣiṇṇu
-  // kṣnu (3.2.139): per-root -snu/-ṣṇu allomorph.
+  [Krt.izNuc]: IZNU_STEMS, // bhaviṣṇu/rociṣṇu/sahiṣṇu/… (3.2.136/138)
 };
 
 const KSNU_SUFFIX: Record<string, string> = {

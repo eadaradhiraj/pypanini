@@ -151,7 +151,7 @@ pypanini/
       yaṅ/yaṅ alias (`bhū` → `BoBUyate`, `pac` → `pApacyate`),
       yaṅluk (`bhū` → `BoBavIti`, `pac` → `pApacIti`). Used by both tinanta and krdanta.
 - [x] Library exports (`src/index.ts`) and CLI (`src/cli.ts`).
-- [x] Tests (**57 total** across `core.test.ts`, `scheduler.test.ts`,
+- [x] Tests (**59 total** across `core.test.ts`, `scheduler.test.ts`,
       `invisibility.test.ts`) — all passing (`npm test`).
 - [x] Karmani prayoga — 9-form ātmane paradigm verified (`pac` → `pacyate … pacyAmAhe`).
 - [x] Saṇādi — yaṅ/yaṅluk golden forms verified for BU, pac and kf (including the
@@ -508,3 +508,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 41 (continued):** Added kṛt suffix iṣṇuc (3.2.138, -iṣṇu):
   `BU`→`BavizNu` (bhaviṣṇu). Added 1 test, registered 3.2.138. `npm test` passes
   (57/57). Pushed to GitHub master.
+
+- **2026-11-18 — Session 42 (continued):** Extended iṣṇuc (3.2.136) to more roots:
+  `ruc`→`rocizNu`, `saha`→`sahizNu`, `car`→`carizNu`, `vFt`→`vartizNu`, via a
+  per-root stem map. Fixed declaration order for the map. Added assertions,
+  registered 3.2.136. `npm test` passes (59/59). Pushed to GitHub master.
