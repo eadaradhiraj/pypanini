@@ -139,6 +139,9 @@ function coalesce(stem: SLP1, suffix: SLP1): SLP1 {
   if (stem.endsWith('A') && suffix.startsWith('a')) {
     return stem + suffix.slice(1); // ā + a → ā (6.1.84)
   }
+  if (stem.endsWith('A') && suffix.startsWith('A')) {
+    return stem + suffix.slice(1); // ā + ā → ā (ekādeśa)
+  }
   return stem + suffix;
 }
 
