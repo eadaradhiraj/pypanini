@@ -197,7 +197,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Du]: { viBU: 'viB', praBU: 'praB', samBU: 'samB' }, // vibhu/prabhu/sambhu (3.2.180)
   [Krt.knu]: { tras: 'tras', gFDi: 'gFd', DFzi: 'DFz', kzip: 'kziN' }, // trasnu/gṛdhnu/dhṛṣṇu/kṣiṇṇu
   [Krt.izNuc]: IZNU_STEMS, // bhaviṣṇu/rociṣṇu/sahiṣṇu/… (3.2.136/138)
-  [Krt.yuc]: { cal: 'cal', Sabd: 'Sabd', rav: 'rav', COP: 'Cop' }, // +ana → calana/śabdana/ravaṇa
+  [Krt.yuc]: { cal: 'cal', Sabd: 'Sabd', rav: 'rav', COP: 'Cop', kruD: 'kroD', maND: 'maND' }, // +ana → calana/krodhana/maṇḍana
   [Krt.ruH2]: { dA: 'dA', si: 'sa', sad: 'sad', saD: 'saD' }, // +ru → dāru/saru/sadru
 };
 
