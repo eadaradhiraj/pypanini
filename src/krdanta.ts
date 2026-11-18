@@ -481,6 +481,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     if (['i', 'stu', 'SAsu', 'vR', 'juza'].includes(dhatu.text)) {
       spec.code = '3.1.109 (eti-stu-śās-vṛ-juṣaḥ kyap, 6.1.71 ṭuk)';
     }
+    if (['vft', 'vfD'].includes(dhatu.text)) {
+      spec.code = '3.1.110 (ṛdupadhāt kyap — vṛtya/vṛdhya)';
+    }
   }
   if (args.krt === Krt.kSnu && KSNU_SUFFIX[dhatu.text]) spec.suffix = KSNU_SUFFIX[dhatu.text];
   if (args.krt === Krt.SanaC && rFinal) spec.suffix = 'ARa'; // kṛ → kurvāṇa
