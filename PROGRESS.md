@@ -151,15 +151,15 @@ pypanini/
       yaṅ/yaṅ alias (`bhū` → `BoBUyate`, `pac` → `pApacyate`),
       yaṅluk (`bhū` → `BoBavIti`, `pac` → `pApacIti`). Used by both tinanta and krdanta.
 - [x] Library exports (`src/index.ts`) and CLI (`src/cli.ts`).
-- [x] Tests (**47 total** across `core.test.ts`, `scheduler.test.ts`,
+- [x] Tests (**48 total** across `core.test.ts`, `scheduler.test.ts`,
       `invisibility.test.ts`) — all passing (`npm test`).
 - [x] Karmani prayoga — 9-form ātmane paradigm verified (`pac` → `pacyate … pacyAmAhe`).
 - [x] Saṇādi — yaṅ/yaṅluk golden forms verified for BU, pac and kf (including the
       irregular ṛ-final intensive stems) AND the desiderative `san` (3.1.7):
   `BU` → `buBUzati`, `pac` → `pipakzati`, `kf` → `cikIzati`, `gam` → `jigamizati`.
       yaṅluk beyond 3rd singular remains unaudited.
-- [x] Kṛdanta — **eighteen kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
-      ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap`) with root-dependent allomorphs (ṛ-final vs
+- [x] Kṛdanta — **nineteen kṛt suffixes** (`tac, tfc, satr, ani, tum, tavya, lyuT,
+      ktvA, nvul, ktavatu, sanaC, yat, ktin, Nini, Sanan, STran, TRn, Kyap, Sa`) with root-dependent allomorphs (ṛ-final vs
       u-final), iṭ handling, and śatṛ/śānac overrides (`kurvat`/`kurvARa`);
       golden paradigms for kf and BU verified. Sūtra codes audited.
 - [x] Subanta — **thirteen stem classes**: a- (m/n), i- (m/n), u- (m/n), ā- (f),
@@ -455,3 +455,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   everything (commit `557c844`), and pushed to `master`. Then added kṛt suffix kyap
   (3.3.99, feminine -yā): `vid`→`vidyA`, `man`→`manyA`, `i`→`ityA`, `zi`→`zayyA`.
   Added 1 test. `npm test` passes (47/47).
+
+- **2026-11-18 — Session 31 (continued):** User said "keep going". Added kṛt suffix
+  śa (3.3.100/101, feminine -ā/-iyā): `kṛ`→`kriyA`, `iṣ`→`icCA`; added the 3.3.97
+  irregular ktin stems (ūti/yūti/jūti/sāti/heti) to ktin's override map. Added 1
+  test. `npm test` passes (48/48). Pushed to GitHub master.

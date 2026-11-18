@@ -339,6 +339,16 @@ test('kṛdanta: kyap (-yā feminine, 3.3.99)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'zi', krt: Krt.Kyap })[0].text(), 'zayyA'); // śayyā
 });
 
+test('kṛdanta: śa (-ā/-iyā feminine) and 3.3.97 ktin variants', () => {
+  // śa (3.3.100/101): kṛ → kriyā, iṣ → icchā
+  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Sa })[0].text(), 'kriyA');
+  assert.equal(deriveKrdantas({ dhatu: 'iz', krt: Krt.Sa })[0].text(), 'icCA');
+  // 3.3.97 irregular ktin forms
+  assert.equal(deriveKrdantas({ dhatu: 'av', krt: Krt.Ktin })[0].text(), 'Uti');   // ūti
+  assert.equal(deriveKrdantas({ dhatu: 'han', krt: Krt.Ktin })[0].text(), 'heti'); // heti
+  assert.equal(deriveKrdantas({ dhatu: 'san', krt: Krt.Ktin })[0].text(), 'sAti'); // sāti
+});
+
 test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');

@@ -123,6 +123,7 @@ export enum Krt {
   STran = 'STran', // ष्ट्रन् → -tra instrument noun (dātra/netra/stotra, 3.2.182)
   TRn = 'TRn', // तृन् → -tṛ habitual agent (kartṛ/hotṛ/neṣṭṛ, 3.2.135)
   Kyap = 'Kyap', // क्यप् → -yā feminine appellative (vidyā/manyā, 3.3.99)
+  Sa = 'Sa', // श → -ā/-iyā feminine (kriyā, 3.3.100; icchā 3.3.101)
 }
 
 export interface KrdantaArgs {

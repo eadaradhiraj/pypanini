@@ -69,7 +69,7 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
   },
   [Krt.Ktin]: {
     suffix: 'ti', grade: 'none', prayoga: Prayoga.Karmani,
-    pratyaya: 'ktin', code: '3.3.94 (striyāṃ ktin)',
+    pratyaya: 'ktin', code: '3.3.94 (striyāṃ ktin), 3.3.97 (ūti-yūti-jūti-sāti-heti-kīrti)',
   },
   [Krt.Nini]: {
     suffix: 'in', grade: 'vrddhi', prayoga: Prayoga.Kartari,
@@ -91,6 +91,10 @@ const KRT_SPECS: Record<Krt, KrtSpec> = {
     suffix: 'yA', grade: 'none', prayoga: Prayoga.Karmani,
     pratyaya: 'kyap', code: '3.3.99 (sañjñāyāṃ … kyap)',
   },
+  [Krt.Sa]: {
+    suffix: 'A', grade: 'none', prayoga: Prayoga.Karmani,
+    pratyaya: 'śa', code: '3.3.100 (kṛñaḥ śa ca) / 3.3.101 (iccyā)',
+  },
 };
 
 /** ṣṭran (3.2.182) stems: the suffix is -tra on these roots (guṇa/vṛddhi varies). */
@@ -110,6 +114,8 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
   [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS' }, // hotṛ, neṣṭṛ, tvaṣṭṛ (with ṣuk/ṣ)
   [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay' }, // vidyā, manyā, ityā, śayyā
+  [Krt.Sa]: { kf: 'kriy', iz: 'icC' }, // kriyā (3.3.100), icchā (3.3.101)
+  [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he' }, // ūti, yūti, jūti, sāti, heti (3.3.97); kṛ→kṛti regular
 };
 
 /** Suffixes that take the iṭ augment after a u-final root (7.2.35). */
