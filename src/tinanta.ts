@@ -685,6 +685,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   if (sanadiResult.code) prakriya.record(sanadiResult.code);
   if (class4) prakriya.record('3.1.69 (divādibhyaḥ śyan — class-4 ya vikaraṇa)');
+  if (dhatu.gana === Gana.Tudadi && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
+      (args.sanadi ?? Sanadi.None) === Sanadi.None) {
+    prakriya.record('3.1.77 (tudādibhyaḥ śa — class-6 a vikaraṇa)');
+  }
 
   // 6.1.65 etc.: roots with special passive stems (kṛ→kriyate, dā→dīyate).
   const PASSIVE_STEMS: Record<string, string> = {
