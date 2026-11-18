@@ -337,6 +337,10 @@ test('saṇādi: ṛ-final root kṛ', () => {
 test('kṛdanta: karmani -ta and kartari -tṛ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Tac })[0].text(), 'kfta');
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Tfc })[0].text(), 'kartf');
+  // 8.2.36 j/ś → ṣ, 8.4.41 ṣṭ: yaj → yaṣṭa, diś → diṣṭa
+  assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.Tac })[0].text(), 'yazwa');  // yaṣṭa
+  assert.equal(deriveKrdantas({ dhatu: 'diS', krt: Krt.Tac })[0].text(), 'dizwa');  // diṣṭa
+  assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.KtvA })[0].text(), 'yazwvA'); // yaṣṭvā
 });
 
 test('kṛdanta: full kṛ paradigm', () => {
@@ -383,8 +387,8 @@ test('kṛdanta: ṣṭran (-tra instrument nouns, 3.2.182)', () => {
 test('kṛdanta: tṛn (-tṛ habitual agent, 3.2.135)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.TRn })[0].text(), 'kartf'); // kartṛ
   assert.equal(deriveKrdantas({ dhatu: 'hu', krt: Krt.TRn })[0].text(), 'hotf');  // hotṛ
-  assert.equal(deriveKrdantas({ dhatu: 'ni', krt: Krt.TRn })[0].text(), 'neSTf'); // neṣṭṛ
-  assert.equal(deriveKrdantas({ dhatu: 'tviz', krt: Krt.TRn })[0].text(), 'tvaSTf'); // tvaṣṭṛ
+  assert.equal(deriveKrdantas({ dhatu: 'ni', krt: Krt.TRn })[0].text(), 'nezTf');  // neṣṭṛ (8.2.36 ś→ṣ)
+  assert.equal(deriveKrdantas({ dhatu: 'tviz', krt: Krt.TRn })[0].text(), 'tvazTf'); // tvaṣṭṛ
 });
 
 test('kṛdanta: kyap (-yā feminine, 3.3.99)', () => {
