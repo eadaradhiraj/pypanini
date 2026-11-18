@@ -267,7 +267,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Tavya]: { gam: 'gan' },// gam → gantavya
   [Krt.Ktavatu]: { gam: 'gan' },// gam → gantavān
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
-  [Krt.ghaH]: { CAd: 'Cad', pac: 'pAc', tyj: 'tyAj', raj: 'rAj', yuj: 'yoj', BU: 'BAv' }, // pāka, tyāga, rāga, yoga, bhāva
+  [Krt.ghaH]: { CAd: 'Cad', pac: 'pAc', tyj: 'tyAj', raj: 'rAj', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm' }, // pāka, yoga, bhāva, cāra, jaya, veda, nāma
   [Krt.raH]: { nam: 'nam', dIp: 'dIp', kamp: 'kamp', smi: 'sme', hiMs: 'hiMs' }, // namra, dīpra…
   [Krt.kru]: { Bi: 'Bi' }, // bhīru (3.2.174)
   [Krt.AruH]: { vand: 'vand', sF: 'sa' }, // vandāru, śarāru (3.2.173)
