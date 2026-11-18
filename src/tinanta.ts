@@ -189,6 +189,12 @@ function futureStem(root: string): string {
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // √as (2P) — asti, asi, asmi; optative syāt; imperative astu/ehi
   // class 9 (śnā 3.1.75): √mī→mināti, √pū→punāti, √lū→lunāti
+  // imperfect (laṅ) of athematic presents
+  'hi:lan:parasmai:prathama:eka': 'ahinot',
+  'ciY:lan:parasmai:prathama:eka': 'acinot',
+  'pf:lan:parasmai:prathama:eka': 'apfNot',
+  'tanu:lan:parasmai:prathama:eka': 'atanot',
+  'mIY:lan:parasmai:prathama:eka': 'aminAt',
   // class 2 (adādi): vāti, pāti, rāti, dveṣṭi
   'BA:lat:parasmai:prathama:eka': 'BAti',   // bhāti
   'mA:lat:parasmai:prathama:eka': 'mAti',   // māti
