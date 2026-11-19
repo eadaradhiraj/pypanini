@@ -30,6 +30,8 @@ export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
   if (['indra', 'varuRa', 'Bava', 'Sarva', 'rudra', 'mfqa', 'hima', 'araRya', 'yava', 'yavana', 'mAtula', 'AcArya'].includes(stem)) return StriPratyaya.Anuk;
   // 4.1.45 bahvādi (ākṛtigaṇa) — a-stem quality/name words take ṇīṣ
   if (['cRaD', 'arAla', 'kRpaRa', 'kamala', 'vikaTa', 'viSAla', 'purARa', 'udAra', 'kalyARa'].includes(stem)) return StriPratyaya.Nis;
+  // 4.1.55: ṇīṣ (ī) optionally after nāsikā/udara/oṣṭha/jaṅghā/danta/karṇa/śṛṅga
+  if (['nAsikA', 'udara', 'uzWa', 'jaNgA', 'danta', 'karRa', 'zfNga', 'pucCa'].includes(stem)) return StriPratyaya.Nis;
   if (stem === 'taruNa') return StriPratyaya.Nis; // taruṇa → taruṇī
   if (stem === 'SoRa') return StriPratyaya.Nis; // 4.1.43 śoṇī
   if (stem === 'paTu' || stem === 'mRdu' || stem === 'vasu') return StriPratyaya.Nis; // 4.1.44 guṇavacana
@@ -86,8 +88,12 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
     else if (args.stem === 'mRdu') feminine = 'mRdvI';
     else if (args.stem === 'vasu') feminine = 'vasvI';
     else if (args.stem.endsWith('a')) feminine = args.stem.slice(0, -1) + 'I';
+    else if (args.stem.endsWith('A')) feminine = args.stem.slice(0, -1) + 'I'; // 4.1.55 nāsikī/jaṅghī
     else feminine = args.stem + 'I';
-    p.record('4.1.41/45 (ṇīṣ — jāti/bahvādi)');
+    const body55 = ['nAsikA', 'udara', 'uzWa', 'jaNgA', 'danta', 'karRa', 'zfNga', 'pucCa'];
+    p.record(body55.includes(args.stem)
+      ? '4.1.55 (nāsikā-udara-oṣṭha-jaṅghā-danta-karṇa-śṛṅgāc ca — ṇīṣ)'
+      : '4.1.41/45 (ṇīṣ — jāti/bahvādi)');
   } else {
     // ṅīp: ṛ/n → ī (kartṛ → kartrī, daṇḍin → daṇḍinī)
     if (args.stem === 'BagavAt' || args.stem === 'bhagavAt') {
