@@ -668,6 +668,10 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (['vach', 'vacha'].includes(dhatu.text) && [Krt.Tac, Krt.Tfc, Krt.Tum, Krt.Tavya, Krt.KtvA].includes(args.krt)) {
     spec.code = '8.2.30 (coḥ kuḥ — vakta/vaktā/vaktum)';
   }
+  // 8.2.32 (dāder dhātor ghaḥ): dhātu dā → gh before niṣṭhā / ktvā — datta, dattvā.
+  if (dhatu.text === 'dA' && [Krt.Tac, Krt.Ktavatu, Krt.KtvA].includes(args.krt)) {
+    spec.code = '8.2.32 (dāder dhātor ghaḥ — datta/dattvā)';
+  }
   if (args.krt === Krt.Tac && ['vaca', 'svap', 'yaj', 'vap', 'vas', 'vada'].includes(dhatu.text)) {
     spec.code = dhatu.text === 'yaj'
       ? '6.1.15 (vaci-svapi-yajādīnāṃ kiti — iṣṭa), 8.2.36 (yajaḥ ṣaḥ)'
