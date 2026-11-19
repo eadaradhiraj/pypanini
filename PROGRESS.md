@@ -1172,3 +1172,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (mider guṇaḥ — medati). Verified 0 anomalies across 150 roots × 8 lakāras +
   all kṛts. `npm test` passes (85/85). Pushed to master. Coverage 276/2703
   (286/3983).
+
+- **2026-11-19 — Session 175 (continued, toward 2703/2703):** Registered 7.3.89
+  (uto vṛddhir luki hali — yauti/nauti/stauti/rauti) with class-2 u-final root
+  present forms. `npm test` passes (85/85). Pushed to master.
+  Coverage 277/2703 (287/3983).

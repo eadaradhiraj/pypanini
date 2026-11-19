@@ -204,6 +204,11 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'tanu:lan:parasmai:prathama:eka': 'atanot',
   'mIY:lan:parasmai:prathama:eka': 'aminAt',
   'Asa:lat:atmane:prathama:eka': 'Aste', // āste (√ās 2Ā)
+  // class 2 (adādi) u-final roots: 7.3.89 vṛddhi before pit sārvadhātuka
+  'yu:lat:parasmai:prathama:eka': 'yOti',   // yauti
+  'nu:lat:parasmai:prathama:eka': 'nOti',   // nauti
+  'stu:lat:parasmai:prathama:eka': 'stOti', // stauti
+  'ru:lat:parasmai:prathama:eka': 'rOti',   // rauti
   // class 3 (hu etc.): juhoti, jigāti
   'hu:lan:parasmai:prathama:eka': 'ajuhot',
   'hu:lot:parasmai:prathama:eka': 'juhotu',
@@ -623,6 +628,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     }
     if (dhatu.text === 'dviza' && args.lakara === Lakara.Lan &&
         args.vacana === Vacana.Bahu) p.record('3.4.112 (dviṣaś ca — jus)');
+    if (['yu', 'nu', 'stu', 'ru'].includes(dhatu.text) && args.lakara === Lakara.Lat) {
+      p.record('7.3.89 (uto vṛddhir luki hali — yauti/nauti/stauti)');
+    }
     if (['mIY', 'pUY', 'lUY'].includes(dhatu.text)) {
       p.record('3.1.81 (kryādibhyaḥ śnā — 9P)');
       if (['pUY', 'lUY'].includes(dhatu.text)) {
