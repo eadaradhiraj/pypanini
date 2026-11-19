@@ -1337,3 +1337,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (gamer iṭ parasmaipadeṣu). Verified 0 anomalies / 0 unregistered codes across
   150 roots. `npm test` passes (85/85). Pushed to master.
   Coverage 328/2703 (342/3983).
+
+- **2026-11-19 — Session 207 (continued, toward 2703/2703):** Registered 7.1.77
+  (ī ca dvivacane — i/u-neuter nom/acc dual). `npm test` passes (85/85).
+  Pushed to master. Coverage 329/2703 (343/3983).
