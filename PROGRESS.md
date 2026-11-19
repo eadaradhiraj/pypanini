@@ -1299,3 +1299,11 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 199 (continued, toward 2703/2703):** Implemented 8.2.30
   (coḥ kuḥ — vakta/vaktā/vaktum/vaktavyam/vaktvā) for √vac. `npm test` passes
   (85/85). Pushed to master. Coverage 317/2703 (331/3983).
+
+- **2026-11-19 — Session 200 (continued, toward 2703/2703):** Implemented 6.1.65
+  (ṇo naḥ — root-initial ṇ → n, ṇam→namati) and 6.1.64 (dhātvādeḥ ṣaḥ saḥ —
+  root-initial ṣ → s, ṣaha→sahate) in tinanta/krdanta, gated to real
+  dhātupāṭha roots (with `code`) so fallback ad-hoc roots are unaffected;
+  ṣṭhiv/ṣvaṣka exceptions preserved. Added shared helpers `initialNati` /
+  `initialShatva` in `core/slp1.ts`. `npm test` passes (85/85); 0 anomalies /
+  0 unregistered codes. Pushed to master. Coverage 319/2703 (333/3983).
