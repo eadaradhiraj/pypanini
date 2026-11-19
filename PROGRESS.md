@@ -1272,3 +1272,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (harater ac), 3.2.12 (arhaḥ), 3.2.13 (stamba-karṇayo rami-japoḥ) as ac-kṛt
   derivation traces. `npm test` passes (85/85). Pushed to master.
   Coverage 317/2703 (331/3983).
+
+- **2026-11-19 — Session 194 (continued, toward 2703/2703):** Registered 8.4.53
+  (jhalaṃ jaś jhaśi) in subanta consonant-stem instrumental plural — marudbhiḥ.
+  `npm test` passes (85/85). Pushed to master. Coverage 317/2703 (331/3983).
