@@ -1133,3 +1133,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (mati-buddhi-pūjārthebhyaś ca — buddha/jñāta/pūjita/iṣṭa). Fixed jñā (jYA)
   vs jyā (jyA) root distinction. `npm test` passes (85/85). Pushed to master.
   Coverage 263/2703 (271/3983).
+
+- **2026-11-19 — Session 167 (continued, toward 2703/2703):** Registered 7.1.34
+  (āta au ṇalaḥ — papau/tasthau/jaglau), 7.1.36 (videḥ śatur vasuḥ — vidvān),
+  3.1.44 (cleḥ sic trace). Extended ekādeśa to diphthong+a (Oa→O). Fixed ā-final
+  perfect strong/weak stems. `npm test` passes (85/85). Pushed to master.
+  Coverage 265/2703 (273/3983).
