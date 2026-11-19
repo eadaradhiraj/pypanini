@@ -190,7 +190,9 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
         vikarana: { label: 'yak', surface: 'ya' },
         doGuna: false,
         doOAtoAv: false,
-        code: '3.1.22 (yaṅ), 6.1.1 (ekāco dve prathamasya), 6.1.9 (abhyāsa), 7.4.82–83 (guṇa/dīrgha of abhyāsa)',
+        code: root === 'tuj'
+          ? '3.1.22 (yaṅ), 6.1.7 (tujādīnāṃ dīrgho\'bhyāsasya — totujyate)'
+          : '3.1.22 (yaṅ), 6.1.1 (ekāco dve prathamasya), 6.1.9 (abhyāsa), 7.4.82–83 (guṇa/dīrgha of abhyāsa)',
       };
     }
 
