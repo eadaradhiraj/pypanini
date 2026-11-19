@@ -479,8 +479,12 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Ktin && dhatu.text === 'san') {
     spec.code = '6.4.45 (sanaḥ ktici — sāti/santi/sati)';
   }
-  if (args.krt === Krt.ac && dhatu.text === 'har') {
-    spec.code = "3.2.9 (harater anudyamane 'c — hara)";
+  if (args.krt === Krt.ac && ['har', 'arh', 'ram', 'jap'].includes(dhatu.text)) {
+    spec.code = dhatu.text === 'har'
+      ? "3.2.9 (harater anudyamane 'c — hara)"
+      : dhatu.text === 'arh'
+        ? '3.2.12 (arhaḥ — arha)'
+        : '3.2.13 (stamba-karṇayo rami-japoḥ — Rama/japa)';
   }
   if (args.krt === Krt.ka && dhatu.text === 'Suz') {
     spec.suffix = 'ka'; // 8.2.51: śuṣ + ka → śuṣka
