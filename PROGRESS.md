@@ -1084,3 +1084,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   6.4.34 (śāsa idaNhaloḥ — śiṣṭa/śiṣṭvā/śāstum), 6.4.35 (śā hau — śādhi),
   6.4.36 (hanter jaḥ — jahi), plus anubandha-u iṭ fix for śāstum. `npm test`
   passes (85/85). Pushed to master. Coverage 255/2703 (256/3983).
+
+- **2026-11-19 — Session 157 (continued, toward 2703/2703):** Registered 6.4.42
+  (jāta/sāta/khāta). Verified 0 anomalies across 150 roots × 8 lakāras + all kṛts.
+  `npm test` passes (85/85). Pushed to master. Coverage 256/2703 (257/3983).
