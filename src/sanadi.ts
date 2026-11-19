@@ -157,6 +157,7 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
       const CAUSATIVE_STEMS: Record<string, string> = {
         pac: 'pAc', kf: 'kAr', yaj: 'yAj', ni: 'nAy', vid: 'ved',
         dA: 'dAp', jFA: 'jFAp', han: 'GAt', car: 'cAr', kram: 'krAm',
+        i: 'gam', // 2.4.46 (ṇau gamir abodhane — gamayati)
       };
       let r = CAUSATIVE_STEMS[root] ?? root;
       const c = r.slice(-1);
@@ -165,9 +166,11 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
       return {
         root: r,
         extra: ['ay'],
-        code: NIC_25_ROOTS.includes(root)
-          ? '3.1.25 (satyādi-bhyo ṇic), 7.2.116 (vṛddhi)'
-          : '3.1.26 (ṇic), 7.2.116 (vṛddhi)',
+        code: root === 'i'
+          ? '2.4.46 (ṇau gamir abodhane — gamayati)'
+          : NIC_25_ROOTS.includes(root)
+            ? '3.1.25 (satyādi-bhyo ṇic), 7.2.116 (vṛddhi)'
+            : '3.1.26 (ṇic), 7.2.116 (vṛddhi)',
       };
     }
 
