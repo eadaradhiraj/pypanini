@@ -541,6 +541,14 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.suffix = ['kF', 'gF', 'SF'].includes(dhatu.text) ? 'Ra' : 'na';
     spec.code = '8.2.44 (lvādibhyaḥ — lūna/pūna/jīna/kīrṇa)';
   }
+  // 8.2.43 (saṃyogāder āto dhātor yaṇvataḥ): niṣṭhā t → n after an ā-final
+  // root beginning with a semivowel-bearing conjunct — drā → drāṇa, glā → glāna.
+  if (['drA', 'glA'].includes(dhatu.text) && [Krt.Tac, Krt.Ktavatu].includes(args.krt)) {
+    spec.suffix = args.krt === Krt.Tac
+      ? (dhatu.text === 'drA' ? 'Ra' : 'na')
+      : (dhatu.text === 'drA' ? 'RavAn' : 'navAn');
+    spec.code = '8.2.43 (saṃyogāder āto dhātor yaṇvataḥ — drāṇa/glāna)';
+  }
   if (args.krt === Krt.Tac && ['sf', 'stf', 'gf'].includes(dhatu.text)) {
     spec.suffix = 'a'; // 8.2.42: ra-dābhyāṃ niṣṭhātaḥ naḥ — śīrṇa/stīrṇa/gīrṇa
     spec.code = '8.2.42 (radābhyāṃ niṣṭhāto naḥ — śīrṇa/stīrṇa/gīrṇa)';
