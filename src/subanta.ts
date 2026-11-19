@@ -337,6 +337,11 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     p.record("8.2.39 (jhalāṃ jaśo 'nte), 8.4.41 (ṣṭunā ṣṭuḥ — consonant nom sg)");
   }
   if (ending.includes('H')) p.record('8.3.15 (visarjanīyaḥ)');
+  // 8.3.16 (roḥ supi): ru → visarga before the locative-plural ending su
+  // (payas + su → payaḥsu).
+  if (cls.id === 's-n' && args.vibhakti === Vibhakti.Saptami && args.vacana === Vacana.Bahu) {
+    p.record('8.3.16 (roḥ supi — payaḥsu/sarpiḥṣu)');
+  }
   if (cls.id.startsWith('cons-') && /^[bBdDgGjJqQ]/.test(ending)) {
     p.record('8.4.53 (jhalaṃ jaś jhaśi — marudbhiḥ)');
   }
