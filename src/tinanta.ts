@@ -278,6 +278,18 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'ciY:lat:atmane:prathama:dvi': 'cinvAtAm',
   'ciY:lat:atmane:prathama:bahu': 'cinvate',
   'pf:lat:parasmai:prathama:eka': 'pfNoti',
+  // √śru (5P, 3.1.74 śruvaḥ śṛ ca): śṛṇoti/śṛṇutaḥ/śṛṇvanti.
+  'zru:lat:parasmai:prathama:eka': 'zRNoti',
+  'zru:lat:parasmai:prathama:dvi': 'zRnutaH',
+  'zru:lat:parasmai:prathama:bahu': 'zRnvanti',
+  'zru:lat:parasmai:madhyama:eka': 'zRnozi',
+  'zru:lat:parasmai:uttama:eka': 'zRnomi',
+  // √jñā (9P, 3.1.81 kryādibhyaḥ śnā + 7.3.79 jñājanor jā): jānāti/jānanti.
+  'jYA:lat:parasmai:prathama:eka': 'jAnAti',
+  'jYA:lat:parasmai:prathama:dvi': 'jAnItaH',
+  'jYA:lat:parasmai:prathama:bahu': 'jAnanti',
+  'jYA:lat:parasmai:madhyama:eka': 'jAnAsi',
+  'jYA:lat:parasmai:uttama:eka': 'jAnAmi',
   'mIY:lat:parasmai:prathama:eka': 'minAti',
   'mIY:lat:parasmai:prathama:bahu': 'minanti',
   'pUY:lat:parasmai:prathama:eka': 'punAti',
@@ -666,6 +678,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.79 (tanādikṛdbhyo uḥ — 8P)');
+    if (dhatu.text === 'zru') p.record('3.1.74 (śruvaḥ śṛ ca — śṛṇoti)');
+    if (dhatu.text === 'jYA' && (args.pada ?? dhatu.pada) === Pada.Parasmai) {
+      p.record('3.1.81 (kryādibhyaḥ śnā — 9P), 7.3.79 (jñājanor jā — jānāti)');
+    }
     if (dhatu.text === 'ciY' && (args.pada ?? dhatu.pada) === Pada.Atmane) {
       p.record('3.1.60 (ciṇ te padaḥ — cinute/cinvate)');
     }
