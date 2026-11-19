@@ -177,11 +177,14 @@ export const TINANTA_TAIL_RULES: Rule[] = [
     ctx.prakriya.record('1.4.14');
   }),
 
-  rule('6.1.78', 'o + a → av + a (ekādeśa at the root/vikaraṇa boundary)', (ctx) => {
+  rule('6.1.78', 'eco\'yavāyāvaḥ — e→ay, o→av before a vowel (guṇa of ī/ū-final roots)', (ctx) => {
     if (ctx.doOAtoAv) {
       const rootIdx = ctx.prakriya.findTag('dhatu');
       const root = ctx.prakriya.textAt(rootIdx);
+      // e → ay, o → av (6.1.78); needed after guṇa of i/ī- and u/ū-final
+      // roots before a vowel-initial vikaraṇa — nī → ne → nayati, śru → śro → śravati.
       if (root.endsWith('o')) ctx.prakriya.setText(rootIdx, root.slice(0, -1) + 'av');
+      else if (root.endsWith('e')) ctx.prakriya.setText(rootIdx, root.slice(0, -1) + 'ay');
     }
     ctx.prakriya.record('6.1.78');
   }),
