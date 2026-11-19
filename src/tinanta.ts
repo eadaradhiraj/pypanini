@@ -772,11 +772,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const initial = [sanadiResult.root, ...sanadiResult.extra];
   const prakriya = new Prakriya(initial);
 
-  if (upasarga && isUpasarga(upasarga)) {
+  if (upasargaArg && isUpasarga(upasargaArg)) {
     const ayati = applyAyatiSandhi(upasargaArg!, dhatu.text);
     const sandhi = ayati.upasarga !== upasargaArg
       ? ', 8.2.19 (r→l before ayati)'
-      : rootText !== upasarga + dhatu.text
+      : rootText !== upasargaArg + dhatu.text
         ? needsSatva(upasargaArg!, dhatu.text) ? ', 8.3.65 ṣatva' : ', 8.4.14 ṇatva'
         : '';
     prakriya.record(`1.4.59 (upasarga: ${upasarga}${sandhi})`);
