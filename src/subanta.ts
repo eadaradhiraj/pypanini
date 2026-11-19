@@ -281,6 +281,13 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     const NOM_SG: Record<string, string> = { vAc: 'vAk', dviS: 'dviT', BagavAt: 'BagavAn', bhagavAt: 'bhagavAn' };
     if (NOM_SG[stem]) surface = NOM_SG[stem];
   }
+  // 8.4.53 (jhalaṃ jaś jhaśi): voice a stem-final jhal before a jhaś-initial
+  // sup ending — marut + bhiḥ → marudbhiḥ (marudBiH).
+  if (cls.id.startsWith('cons-') && /^[bBdDgGjJqQ]/.test(ending)) {
+    const voice: Record<string, string> = { t: 'd', T: 'D', k: 'g', K: 'G', c: 'j', C: 'J', z: 'z' };
+    const last = base.slice(-1);
+    if (voice[last]) surface = base.slice(0, -1) + voice[last] + ending;
+  }
 
   const p = new Prakriya([base]);
   p.record('1.4.103 (supaḥ), 1.4.104 (vibhaktiś ca)');
@@ -329,6 +336,9 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     p.record("8.2.39 (jhalāṃ jaśo 'nte), 8.4.41 (ṣṭunā ṣṭuḥ — consonant nom sg)");
   }
   if (ending.includes('H')) p.record('8.3.15 (visarjanīyaḥ)');
+  if (cls.id.startsWith('cons-') && /^[bBdDgGjJqQ]/.test(ending)) {
+    p.record('8.4.53 (jhalaṃ jaś jhaśi — marudbhiḥ)');
+  }
   p.record('8.2.1 (final consolidation)');
   p.collapse();
   return [p];
