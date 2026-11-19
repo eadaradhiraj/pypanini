@@ -321,6 +321,11 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   }
   if (args.vacana === Vacana.Bahu && [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
     p.record('7.1.20 (jaśśasoḥ siḥ — nom/acc plural)');
+    // 7.1.72 (napuṃsakasya jhal-acaḥ): num augment yields -āni for a-stem
+    // neuters, -āṃsi for consonant-stem neuters ( vanāni, payāṃsi).
+    if (args.linga === Linga.Napumsaka) {
+      p.record('7.1.72 (napuṃsakasya jhal-acaḥ — num in strong cases)');
+    }
   }
   if (args.vacana === Vacana.Dvi && [Vibhakti.Sasti, Vibhakti.Saptami].includes(args.vibhakti)) {
     p.record('7.1.21 (aṣṭābhyaḥ os — genitive/locative dual)');
