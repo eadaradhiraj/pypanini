@@ -641,6 +641,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     p.record((args.pada ?? dhatu.pada) === Pada.Atmane
       ? '1.3.12 (anudāttaṅita ātmanepadam), 1.4.100 (taṅānāvātmanepadam)'
       : '1.4.99 (laḥ parasmaipadam)');
+    if (upa && args.upasarga) {
+      const satva = needsSatva(args.upasarga, dhatu.text);
+      p.record(`1.4.59 (upasarga: ${upa}${satva ? ', 8.3.65 ṣatva' : ''})`);
+    }
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.79 (tanādikṛdbhyo uḥ — 8P)');
