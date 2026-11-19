@@ -1182,3 +1182,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (kṣayya/jayya) and 6.1.82 (krayya). Verified 0 kṛt anomalies / 0 unregistered
   codes. `npm test` passes (85/85). Pushed to master. Coverage 279/2703
   (289/3983).
+
+- **2026-11-19 — Session 177 (continued, toward 2703/2703):** Registered 6.4.48
+  (ato lopaḥ — sat). Fixed śatṛ present-participle stems (sat/vidvān/dadat/yat/
+  śāsat/rundhat/yuñjat/bhinDat) and ṇatva blocking before dh. `npm test` passes
+  (85/85). Pushed to master. Coverage 280/2703 (290/3983).
