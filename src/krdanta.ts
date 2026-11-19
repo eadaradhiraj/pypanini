@@ -505,6 +505,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.KtvA && dhatu.text === 'rudh') spec.suffix = 'vA'; // rudD+vA → ruddhvā
   if (args.krt === Krt.Ktin && ['rudh', 'bhid', 'Cid'].includes(dhatu.text)) spec.suffix = 'i'; // ruddhi/bhitti/chitti
   if (args.krt === Krt.Tac && dhatu.text === 'gA') spec.suffix = 'a'; // gIt+a → gīta
+  if (args.krt === Krt.Tfc && ['bhid', 'Cid'].includes(dhatu.text)) {
+    spec.code = '8.4.55 (khari ca — bhettṛ/chettṛ: d → t before t)';
+  }
   if (args.krt === Krt.Tac && dhatu.text === 'duha') spec.suffix = 'a'; // dugD+a → dugdha
   // 8.2.44 (lvādibhyaḥ): niṣṭhā t → n after lū/pū/jyā/kṛ/gṛ/śṛ.
   if (args.krt === Krt.Tac && ['lUY', 'pUY', 'jyA', 'kF', 'gF', 'SF'].includes(dhatu.text)) {
