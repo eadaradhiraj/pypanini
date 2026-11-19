@@ -322,9 +322,9 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet' }, // vettum
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok' }, // bhettṛ, chettṛ, roddhṛ, yoktṛ
-  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jYA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat' },  // pūrta/mūrta/matta (8.2.57)
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jYA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat' },  // trāṇa/pūrta/matta (8.2.56/57)
   [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet' },// vettavya
-  [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', rudh: 'roDD', pac: 'pakv' },// pakvavān (8.2.52)
+  [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vit', rudh: 'roDD', pac: 'pakv', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', kF: 'kIr', gF: 'gIr', SF: 'SIr', nud: 'nunn', trA: 'trAR', ghrA: 'ghrAR', hrI: 'hIR', uza: 'unn', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat' },// niṣṭhā ktavatu (8.2.42–57)
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
   [Krt.ghaH]: { CAd: 'Cad', pac: 'pAk', tyj: 'tyAj', raj: 'rAj', tyaj: 'tyAg', rAj: 'rAg', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm', nI: 'nay', likh: 'lek', viS: 'vez', mfj: 'mArg', ram: 'rAm', pad: 'pAd', ruj: 'rog', spfS: 'sparS' }, // pāda/roga/veśa/sparśa (3.3.16)
   [Krt.raH]: { nam: 'nam', dIp: 'dIp', kamp: 'kamp', smi: 'sme', hiMs: 'hiMs' }, // namra, dīpra…
@@ -490,9 +490,16 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.suffix = 'a'; // 8.2.52: paco vaḥ — pakva
     spec.code = '8.2.52 (paco vaḥ — pakva)';
   }
-  if (args.krt === Krt.Ktavatu && dhatu.text === 'pac') {
-    spec.suffix = 'avAn'; // pakv + avAn → pakvavān
-    spec.code = '8.2.52 (paco vaḥ — pakvavān)';
+  if (args.krt === Krt.Ktavatu) {
+    // niṣṭhā ktavatu: stems ending in a consonant take tavAn; those with
+    // the kta suffix replaced (ma/na/Ra) take avAn.
+    if (['pac', 'sf', 'stf', 'gf', 'kF', 'gF', 'SF', 'nud', 'trA', 'ghrA', 'hrI', 'uza'].includes(dhatu.text)) {
+      spec.suffix = 'avAn';
+    }
+    if (dhatu.text === 'pac') spec.code = '8.2.52 (paco vaḥ — pakvavān)';
+    if (['sf', 'stf', 'gf'].includes(dhatu.text)) spec.code = '8.2.42 (śīrṇa/stīrṇa/gīrṇavān)';
+    if (['nud', 'trA', 'ghrA', 'hrI', 'uza'].includes(dhatu.text)) spec.code = '8.2.56 (nunna/trāṇavān)';
+    if (['pF', 'mUrcC', 'mada', 'mad'].includes(dhatu.text)) spec.code = '8.2.57 (pūrta/mūrta/mattavān)';
   }
   if (args.krt === Krt.Tac && dhatu.text === 'kzi') {
     spec.suffix = 'a'; // 8.2.53: kṣāyo maḥ — kṣāma
@@ -503,7 +510,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.code = '8.2.58 (vitto bhoga-pratyayayoḥ — vitta)';
   }
   if (args.krt === Krt.Tac && ['nud', 'trA', 'ghrA', 'hrI', 'uza'].includes(dhatu.text)) {
-    spec.suffix = ['trA', 'ghrA', 'hrI'].includes(dhatu.text) ? 'Na' : 'na'; // 8.2.56
+    spec.suffix = ['trA', 'ghrA', 'hrI'].includes(dhatu.text) ? 'Ra' : 'na'; // 8.2.56 (R=ण)
     spec.code = '8.2.56 (nudādiṣv anyatarasyām — nunna/trāṇa/ghrāṇa/hrīṇa)';
   }
   if (args.krt === Krt.Tac && ['dhyA', 'KyA', 'pF', 'mUrcC', 'mada', 'mad'].includes(dhatu.text)) {
