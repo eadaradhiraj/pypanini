@@ -1123,3 +1123,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (ṇau gamir abodhane — gamayati). Verified 0 anomalies across 150 roots × 8
   lakāras + all kṛts (with/without causative). `npm test` passes (85/85).
   Pushed to master. Coverage 262/2703 (268/3983).
+
+- **2026-11-19 — Session 165 (continued, toward 2703/2703):** Registered 2.4.45
+  (iRo gA luNi) and 2.4.77 (sic-lopa in parasmai aorist — agāt/asthāt/apāt)
+  with root-aorist entries for i/sTā/pā. `npm test` passes (85/85). Pushed to
+  master. Coverage 262/2703 (270/3983).
