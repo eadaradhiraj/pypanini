@@ -596,6 +596,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     const p = new Prakriya([stem + 'yate']);
     p.record('3.2.110 (luN vidhāna)');
     p.record('3.1.67 (bhāve — impersonal passive, ya-karmaṇi)');
+    p.record('1.3.13 (bhāvakarmaṇoḥ — ātmane-pada in impersonal)');
     if (['yaj', 'vac'].includes(dhatu.text)) {
       p.record('1.1.45 (igyaṇaḥ samprasāraṇam — ijyate/ucyate)');
     }
@@ -781,8 +782,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     prakriya.record('1.1.45 (igyaṇaḥ samprasāraṇam — ucyate/ijyate)');
   }
   // 1.4.99 / 1.4.100: the lakāra affix takes parasmai / ātmane pada.
+  const karmaBhave = (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani;
   prakriya.record(pada === Pada.Atmane
-    ? '1.3.12 (anudāttaṅita ātmanepadam), 1.4.100 (taṅānāvātmanepadam), 1.4.101 (tiṇas trīṇi), 1.4.102 (ekavacanādi)'
+    ? karmaBhave
+      ? '1.3.13 (bhāvakarmaṇoḥ — ātmane-pada in passive), 1.4.100 (taṅānāvātmanepadam), 1.4.101 (tiṇas trīṇi), 1.4.102 (ekavacanādi)'
+      : '1.3.12 (anudāttaṅita ātmanepadam), 1.4.100 (taṅānāvātmanepadam), 1.4.101 (tiṇas trīṇi), 1.4.102 (ekavacanādi)'
     : '1.4.99 (laḥ parasmaipadam — parasmai-pada), 1.4.101 (tiṇas trīṇi), 1.4.102 (ekavacanādi)');
   if (sapNasalLopa) prakriya.record(dhatu.text === 'raYj'
     ? '6.4.26 (rañjeś ca — rajati)'
