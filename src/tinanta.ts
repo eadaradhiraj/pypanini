@@ -118,7 +118,7 @@ const PARASMAI_LOT = table(
   ['tu', 'tAm', 'antu'], ['', 'tam', 'ta'], ['Ani', 'AvaH', 'Ama'],
 );
 const ATMANE_LOT = table(
-  ['tAm', 'AtAm', 'antAm'], ['sva', 'AvAm', 'Dvam'], ['e', 'Avahai', 'Amahe'],
+  ['tAm', 'AtAm', 'antAm'], ['sva', 'AvAm', 'Dvam'], ['E', 'Avahai', 'Amahe'], // 3.4.93 eta ai (1s)
 );
 const PARASMAI_LAN = table(
   ['t', 'tAm', 'an'], ['H', 'tam', 'ta'], ['m', 'vaH', 'maH'],
@@ -650,6 +650,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     }
     if (dhatu.text === 'AH' && args.purusha === Purusha.Madhyama && args.vacana === Vacana.Eka) {
       p.record('8.2.35 (āhasthaḥ — āttha)');
+    }
+    if (args.lakara === Lakara.Lot && args.pada === Pada.Atmane &&
+        args.purusha === Purusha.Uttama && args.vacana === Vacana.Eka) {
+      p.record('3.4.93 (eta ai — 1s ātmane -ai)');
     }
     if (dhatu.text === 'DA' && args.lakara === Lakara.Lat && ['dvi', 'bahu'].includes(String(args.vacana)) &&
         args.purusha !== Purusha.Uttama) {
