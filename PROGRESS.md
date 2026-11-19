@@ -1112,3 +1112,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   kārita/kāritum/kāritavān/gaṇita/lakṣita). Fixed causative kṛt stems across
   iṭ and anit classes. `npm test` passes (85/85). Pushed to master.
   Coverage 262/2703 (263/3983).
+
+- **2026-11-19 — Session 163 (continued, toward 2703/2703):** Registered 2.4.42
+  (hano vada liNi — vadet), 2.4.49 (gāṃ liwi — jagāma/jagmuḥ + 3d fix),
+  2.4.53 (bruvo vaciḥ — ukta/vaktum/vaktavya), 2.4.54 (cakṣiṇaḥ khyāñ —
+  ākhyāta/ākhyātum). `npm test` passes (85/85). Pushed to master.
+  Coverage 262/2703 (267/3983).
