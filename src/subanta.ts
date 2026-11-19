@@ -236,7 +236,7 @@ export const STEM_CLASSES: readonly StemClass[] = [
 /** Specific consonant stems (reverse-lookup-safe: exact stem match). */
 export const CONSONANT_STEMS: readonly StemClass[] = [
   { id: 'cons-m', linga: Linga.Pumsaka, terminal: '', sandhi: false, endings: CONSONANT_GENERIC, matches: (s) => ['marut', 'pathin', 'Rzvan', 'bFhaspati', 'bhagavAt', 'BagavAt', 'mahAtman'].includes(s) },
-  { id: 'cons-f', linga: Linga.Stri, terminal: '', sandhi: false, endings: CONSONANT_GENERIC, matches: (s) => ['vAc', 'dviS', 'sarjit'].includes(s) },
+  { id: 'cons-f', linga: Linga.Stri, terminal: '', sandhi: false, endings: CONSONANT_GENERIC, matches: (s) => ['vAc', 'dviS', 'sarjit', 'sakhin', 'rAjan'].includes(s) },
 ];
 export const ALL_STEM_CLASSES: readonly StemClass[] = [...STEM_CLASSES, ...CONSONANT_STEMS];
 
