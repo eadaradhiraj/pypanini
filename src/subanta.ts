@@ -292,6 +292,10 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     p.insert(p.length, surface, ['sup']);
   }
   p.record(`7.1.x (vibhakti ${args.vibhakti}, ${cls.id})`);
+  if (cls.id === 'a-m' && args.vacana === Vacana.Eka &&
+      [Vibhakti.Trtiya, Vibhakti.Pancami, Vibhakti.Sasti].includes(args.vibhakti)) {
+    p.record('7.1.12 (ṭāṅasiṅasām ina-āt-syāḥ — devena/devāt/devasya)');
+  }
   if (args.vacana === Vacana.Dvi && [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
     p.record('7.1.17 (jasaḥ śī — nom/acc dual -au)');
   }
