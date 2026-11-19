@@ -1058,3 +1058,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   praśān/pratān/pradān). Fixed ktavatu ṇatva blocking for ṛ-final roots. All
   derivations anomaly-free / all emitted codes registered. `npm test` passes
   (85/85). Pushed to master. Coverage 244/2703 (245/3983).
+
+- **2026-11-19 — Session 152 (continued, toward 2703/2703):** Registered 8.4.22
+  (hanter atpūrvasya — ṇatva in pra+han passive). Verified 0 anomalies across
+  all derivations / 0 emitted-unregistered codes. `npm test` passes (85/85).
+  Pushed to master. Coverage 245/2703 (246/3983).
