@@ -1267,3 +1267,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (ato 'm — neuter nom/acc sg), 7.1.23 (sv-amor napuṃsakāt). Fixed yāga ghañ
   form. `npm test` passes (85/85). Pushed to master. Coverage 314/2703
   (328/3983).
+
+- **2026-11-19 — Session 193 (continued, toward 2703/2703):** Registered 3.2.9
+  (harater ac), 3.2.12 (arhaḥ), 3.2.13 (stamba-karṇayo rami-japoḥ) as ac-kṛt
+  derivation traces. `npm test` passes (85/85). Pushed to master.
+  Coverage 317/2703 (331/3983).
