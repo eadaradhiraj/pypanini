@@ -1158,3 +1158,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 171 (continued, toward 2703/2703):** Registered 2.4.52
   (aster bhūḥ — bhavitā/bhavitum/bhavitavyam). `npm test` passes (85/85).
   Pushed to master. Coverage 274/2703 (283/3983).
+
+- **2026-11-19 — Session 172 (continued, toward 2703/2703):** Registered 2.4.40
+  (liṭy anyatarasyām — āda/jakṣatuḥ) and 2.4.52 (aster bhūḥ — bhavitā/bhavitum/
+  bhavitavyam). `npm test` passes (85/85). Pushed to master. Coverage 274/2703
+  (284/3983).
