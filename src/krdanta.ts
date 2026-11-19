@@ -322,7 +322,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet' }, // vettum
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok' }, // bhettṛ, chettṛ, roddhṛ, yoktṛ
-  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jYA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr' },  // lūna/kīrṇa (8.2.44)
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jYA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR' },  // śīrṇa/stīrṇa/gīrṇa (8.2.42)
   [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet' },// vettavya
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', rudh: 'roDD' },// roddhavān
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
@@ -481,6 +481,10 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Tac && ['lUY', 'pUY', 'jYA', 'kF', 'gF', 'SF'].includes(dhatu.text)) {
     spec.suffix = ['kF', 'gF', 'SF'].includes(dhatu.text) ? 'Ra' : 'na';
     spec.code = '8.2.44 (lvādibhyaḥ — lūna/pūna/jīna/kīrṇa)';
+  }
+  if (args.krt === Krt.Tac && ['sf', 'stf', 'gf'].includes(dhatu.text)) {
+    spec.suffix = 'a'; // 8.2.42: ra-dābhyāṃ niṣṭhātaḥ naḥ — śīrṇa/stīrṇa/gīrṇa
+    spec.code = '8.2.42 (radābhyāṃ niṣṭhāto naḥ — śīrṇa/stīrṇa/gīrṇa)';
   }
   if (args.krt === Krt.KtvA && dhatu.text === 'gA') spec.suffix = 'vA'; // gIt+vA → gītvā
   if (args.krt === Krt.naN && dhatu.text === 'yAc') spec.suffix = 'A'; // yācñā (fem.)
