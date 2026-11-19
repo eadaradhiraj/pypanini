@@ -477,6 +477,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   pA: { strong: 'papO', weak: 'pap' },       // papau (7.1.34 āta au ṇalaḥ)
   sTA: { strong: 'tasTO', weak: 'tasth' },   // tasthau
   gAi: { strong: 'jaglO', weak: 'jagl' },    // jaglau
+  jYA: { strong: 'jajYO', weak: 'jajY' },    // jajñau/jajñuḥ (7.1.34)
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   // Strong stem in 3s, 3d, 2s, 1s; weak elsewhere (7.1.3ff guṇa/niyama).
@@ -488,7 +489,7 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   const redv = root[0] === 'a' ? 'A' : root[0];
   // gam takes the weak stem in the 3rd-person dual (jagmatuḥ, 2.4.49).
   // ā-final roots (pā/sthā/glai) take the au(au ṇal) form only in 1s/3s (7.1.34).
-  const auRoots = ['pA', 'sTA', 'gAi'];
+  const auRoots = ['pA', 'sTA', 'gAi', 'jYA'];
   const auForm = auRoots.includes(root) &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
   const weakDual = ['gam', 'han', 'khan'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
@@ -836,7 +837,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
           ? '6.4.98 (gamahanādīnāṃ lopaḥ — jagmuḥ/jaghnuḥ)'
           : dhatu.text === 'gam' && args.lakara === Lakara.Lit
             ? '2.4.49 (gāṃ liwi — jagāma/jagmuḥ)'
-          : ['pA', 'sTA', 'gAi'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
+          : ['pA', 'sTA', 'gAi', 'jYA'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
             (args.purusha === Purusha.Prathama || args.purusha === Purusha.Uttama) && args.vacana === Vacana.Eka
             ? '7.1.34 (āta au ṇalaḥ — papau/tasthau/jaglau)'
             : args.lakara === Lakara.Lit
