@@ -1154,3 +1154,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (śīṅaḥ sārvadhātuke guṇaḥ — śete), 7.4.20 (vaca um — avocat), 7.4.17
   (asyates thuk — āsthat). `npm test` passes (85/85). Pushed to master.
   Coverage 274/2703 (282/3983).
+
+- **2026-11-19 — Session 171 (continued, toward 2703/2703):** Registered 2.4.52
+  (aster bhūḥ — bhavitā/bhavitum/bhavitavyam). `npm test` passes (85/85).
+  Pushed to master. Coverage 274/2703 (283/3983).
