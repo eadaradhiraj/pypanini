@@ -1246,3 +1246,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   athematic/thematic/bhāve traces; 3.1.6 dīrgha trace for dā/mā desiderative.
   Fixed jñā perfect (jajñau/jajñatuḥ/jajñuḥ). `npm test` passes (85/85).
   Pushed to master. Coverage 310/2703 (320/3983).
+
+- **2026-11-19 — Session 189 (continued, toward 2703/2703):** Registered 3.4.109
+  (jus in sibilant aorist 3p), 3.4.93 (eta ai — 1s ātmane imperative), 2.4.37
+  (ghasḷ aorist — aghasat), 2.4.38 (ghañ-apoś ca — ghāsa/praghasa), 2.4.41
+  (veño vayiḥ — vavau/vavuḥ). Fixed lot-ātmane 1s (-ai), ekādeśa a+E→E, jñā/vī
+  perfects. `npm test` passes (85/85). Pushed to master. Coverage 312/2703
+  (325/3983).
