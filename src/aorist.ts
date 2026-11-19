@@ -124,7 +124,7 @@ const AORIST: Record<string, AoristEntry> = {
   },
   // aṅ-aorist (3.1.52 asyati-vakti-khyātibhyo 'ṅ)
   vaca: {
-    kind: 'a', stem: 'voc', code: '3.1.52 (asyati-vakti-khyātibhyo \'ṅ)',
+    kind: 'a', stem: 'voc', code: '3.1.52 (asyati-vakti-khyātibhyo \'ṅ), 7.4.20 (vaca um — avocat)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'avocat' } },
   },
   KyA: {

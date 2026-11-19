@@ -165,7 +165,9 @@ export const TINANTA_TAIL_RULES: Rule[] = [
       i: 'e', I: 'e', u: 'o', U: 'o', f: 'ar', F: 'ar', x: 'al', X: 'al',
     };
     if (gunas[c]) ctx.prakriya.setText(rootIdx, root.slice(0, -1) + gunas[c]);
-    ctx.prakriya.record('7.3.84');
+    const dhatuText = typeof ctx.args.dhatu === 'string' ? ctx.args.dhatu : ctx.args.dhatu?.text;
+    ctx.prakriya.record(dhatuText === 'SI'
+      ? '7.4.21 (śīṅaḥ sārvadhātuke guṇaḥ — śete)' : '7.3.84');
   }),
 
   rule('1.4.14', 'mark the result as an aṅga (no surface change)', (ctx) => {
