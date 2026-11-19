@@ -1128,3 +1128,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (iRo gA luNi) and 2.4.77 (sic-lopa in parasmai aorist — agāt/asthāt/apāt)
   with root-aorist entries for i/sTā/pā. `npm test` passes (85/85). Pushed to
   master. Coverage 262/2703 (270/3983).
+
+- **2026-11-19 — Session 166 (continued, toward 2703/2703):** Registered 3.2.188
+  (mati-buddhi-pūjārthebhyaś ca — buddha/jñāta/pūjita/iṣṭa). Fixed jñā (jYA)
+  vs jyā (jyA) root distinction. `npm test` passes (85/85). Pushed to master.
+  Coverage 263/2703 (271/3983).
