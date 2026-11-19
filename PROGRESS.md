@@ -1144,3 +1144,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (bruva īṭ), 6.4.92 (mitāṃ hrasvaḥ), 6.4.98 (gamahanādīnāṃ lopaḥ —
   jaghnatuḥ/jaghnuḥ). Fixed han/gam perfect weak stems. `npm test` passes
   (85/85). Pushed to master. Coverage 268/2703 (276/3983).
+
+- **2026-11-19 — Session 169 (continued, toward 2703/2703):** Registered 6.4.64/65
+  (yat: deya/dheya/heya/steya) and 6.4.90 (doṣo ṇau — dūṣayati). Verified 0
+  anomalies across 150 roots × 8 lakāras + all kṛts (incl. causative).
+  `npm test` passes (85/85). Pushed to master. Coverage 271/2703 (279/3983).
