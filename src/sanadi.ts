@@ -144,8 +144,10 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
         vikarana: { label: '', surface: '' },
         doGuna: false,
         doOAtoAv: false,
-        code: ['dA', 'mA'].includes(root)
-          ? '3.1.6 (dā-mābhyāṃ san — dīdāsa/mīmāṃsa dīrgha)'
+        code: root === 'han'
+          ? '2.4.47 (sani ca — han→vad, jighāṃsa)'
+          : ['dA', 'mA'].includes(root)
+            ? '3.1.6 (dā-mābhyāṃ san — dīdāsa/mīmāṃsa dīrgha)'
           : ['gup', 'tij', 'kit'].includes(root)
             ? '3.1.5 (gup-tij-kitbhyo san — jugupsā/titikṣā/cikitsā)'
           : ['lupa', 'sada', 'cara', 'japa', 'ja', 'badha', 'hada', 'sf'].includes(root)
