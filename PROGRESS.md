@@ -1045,3 +1045,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   sandhi sūtras with corrected forms: 8.2.42 (śīrṇa/stīrṇa/gīrṇa), 8.2.52
   (pakva/pakvavān), 8.2.53 (kṣāma), 8.2.58 (vitta). 0 anomalies/unregistered codes.
   `npm test` passes (85/85). Pushed to master. Coverage 240/2703 (241/3983).
+
+- **2026-11-19 — Session 150 (continued, toward 2703/2703):** Registered 5 niṣṭhā
+  sandhi sūtras with corrected kta/ktavatu forms: 8.2.42 (śīrṇa/stīrṇa/gīrṇa),
+  8.2.52 (pakva/pakvavān), 8.2.53 (kṣāma), 8.2.56 (nunna/trāṇa/ghrāṇa),
+  8.2.57 (pūrta/mūrta/matta), 8.2.58 (vitta). Fixed ktavatu ṇatva blocking and
+  SLP1 N(ङ)/R(ण) confusions in trāṇa/ghrāṇa/hīṇa. `npm test` passes (85/85).
+  Pushed to master. Coverage 242/2703 (243/3983).
