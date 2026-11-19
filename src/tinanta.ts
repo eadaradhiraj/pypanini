@@ -781,6 +781,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
         : '';
     prakriya.record(`1.4.59 (upasarga: ${upasarga}${sandhi})`);
     if (prefixSandhiCode) prakriya.record(prefixSandhiCode);
+    if (dhatu.text === 'sad' && /[iu]$/.test(upasargaArg) && upasargaArg !== 'prati') {
+      prakriya.record('8.3.66 (sadir aprateḥ — viṣīdati)');
+    }
     if (dhatu.text === 'han' && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani) {
       prakriya.record('8.4.22 (hanter atpūrvasya — ṇatva after upasarga)');
     }
