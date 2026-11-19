@@ -1357,3 +1357,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   roots (nī→nayati, hlādi→hlādayati, vī→vayati, śru→śravati). Verified full
   derivation trace. `npm test` passes (85/85). Pushed to master.
   Coverage 330/2703 (344/3983).
+
+- **2026-11-19 — Session 211 (continued, toward 2703/2703):** Fixed present forms
+  for √śru (zRNoti/zRnutaH/zRnvanti, 3.1.74) and √jñā (jAnAti/jAnanti,
+  3.1.81 + 7.3.79) via athematic forms with trace codes. `npm test` passes
+  (85/85). Pushed to master. Coverage 332/2703 (346/3983).
