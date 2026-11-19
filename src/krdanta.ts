@@ -261,6 +261,7 @@ const KVIP_FORMS: Record<string, string> = {
   Sam: 'SAn',  // praśān (8.2.64: mo no dhātoḥ)
   tam: 'tAn',  // pratān (8.2.64)
   dam: 'dAn',  // pradān (8.2.64)
+  naS: 'nak',  // jīvanak (8.2.63 naśer vā)
 };
 
 /** kvin (3.2.59): irregular zero-suffix agent nouns. */
@@ -378,7 +379,8 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.kvip) {
     const form = KVIP_FORMS[dhatu.text];
     const p = new Prakriya([]);
-    p.record(['Sam', 'tam', 'dam'].includes(dhatu.text) ? '8.2.64 (mo no dhātoḥ — praśān/pratān/pradān)' :
+    p.record(dhatu.text === 'naS' ? '8.2.63 (naśer vā — jīvanak)' :
+      ['Sam', 'tam', 'dam'].includes(dhatu.text) ? '8.2.64 (mo no dhātoḥ — praśān/pratān/pradān)' :
       dhatu.text === 'dfSir' ? '3.2.94 (dṛśeḥ kvanip — kvip)' :
       ['BAs', 'BrAj', 'dyut'].includes(dhatu.text)
         ? '3.2.177 (bhrājādiṣu kvip)'
