@@ -479,6 +479,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Ktin && dhatu.text === 'san') {
     spec.code = '6.4.45 (sanaḥ ktici — sāti/santi/sati)';
   }
+  if (args.krt === Krt.ac && dhatu.text === 'har') {
+    spec.code = "3.2.9 (harater anudyamane 'c — hara)";
+  }
   if (args.krt === Krt.ka && dhatu.text === 'Suz') {
     spec.suffix = 'ka'; // 8.2.51: śuṣ + ka → śuṣka
     spec.code = '8.2.51 (śuṣaḥ kaḥ — śuṣka)';
