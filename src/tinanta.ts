@@ -833,6 +833,14 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     ? '6.4.26 (rañjeś ca — rajati)'
     : '6.4.25 (daṃśa-sañja-svañjāṃ śapi — daśati/sajati/svajati)');
   if (midGuna) prakriya.record('7.3.82 (mider guṇaḥ — medati)');
+  // 8.4.16 (āni loṭ): after a ṇatva-causing upasarga, the ṇ of the lot 1s
+  // ending -āni remains ṇ (pravapāṇi, parivapāṇi).
+  if (args.lakara === Lakara.Lot && args.pada !== Pada.Atmane &&
+      args.purusha === Purusha.Uttama && args.vacana === Vacana.Eka &&
+      upasargaArg && /[rfz]/.test(upasargaArg) &&
+      suffix.label === 'Ani') {
+    prakriya.record('8.4.16 (āni loṭ — ṇi in loṭ 1s after r/ṣ/ṛ upasarga)');
+  }
   if (dhatu.gana === Gana.Tudadi && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
       (args.sanadi ?? Sanadi.None) === Sanadi.None) {
     prakriya.record('3.1.77 (tudādibhyaḥ śa — class-6 a vikaraṇa)');
