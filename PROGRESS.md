@@ -1317,3 +1317,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (oditaś ca — mīna/prīṇa/śrīṇa) with stem overrides for mIY/prIY/SrIY/RIY.
   Fixed drā/GLā ktavatu forms. `npm test` passes (85/85). Pushed to master.
   Coverage 324/2703 (338/3983).
+
+- **2026-11-19 — Session 203 (continued, toward 2703/2703):** Emitted 8.4.16
+  (āni loṭ — ṇi in loṭ 1s after r/ṣ/ṛ upasarga). Verified 0 anomalies /
+  0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
+  master. Coverage 324/2703 (338/3983).
