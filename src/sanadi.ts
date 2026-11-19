@@ -168,7 +168,9 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
         extra: ['ay'],
         code: root === 'i'
           ? '2.4.46 (ṇau gamir abodhane — gamayati)'
-          : NIC_25_ROOTS.includes(root)
+          : ['gaT', 'jana', 'raj', 'Sam', 'tam', 'jFA'].includes(root)
+            ? '6.4.92 (mitāṃ hrasvaḥ — ghaṭayati/janayati/śamayati)'
+            : NIC_25_ROOTS.includes(root)
             ? '3.1.25 (satyādi-bhyo ṇic), 7.2.116 (vṛddhi)'
             : '3.1.26 (ṇic), 7.2.116 (vṛddhi)',
       };
