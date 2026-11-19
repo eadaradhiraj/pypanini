@@ -693,6 +693,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara) &&
     NASAL_LOPA_SAP[dhatu.text];
   if (sapNasalLopa) rootText = sapNasalLopa;
+  // 7.3.82 (mider guṇaḥ): mid → med before śit affixes in the present system.
+  const midGuna = dhatu.text === 'mid' && (args.sanadi ?? Sanadi.None) === Sanadi.None &&
+    (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
+    [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara);
+  if (midGuna) rootText = 'med';
   const sanadiResult = buildSanadiStem(rootText, sanadi);
   const pada = sanadiResult.pada ?? args.pada ?? dhatu.pada;
   const config = LAKARA_CONFIG[args.lakara] ?? LAKARA_CONFIG[Lakara.Lat];
@@ -729,6 +734,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   if (sapNasalLopa) prakriya.record(dhatu.text === 'raYj'
     ? '6.4.26 (rañjeś ca — rajati)'
     : '6.4.25 (daṃśa-sañja-svañjāṃ śapi — daśati/sajati/svajati)');
+  if (midGuna) prakriya.record('7.3.82 (mider guṇaḥ — medati)');
   if (dhatu.gana === Gana.Tudadi && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
       (args.sanadi ?? Sanadi.None) === Sanadi.None) {
     prakriya.record('3.1.77 (tudādibhyaḥ śa — class-6 a vikaraṇa)');
