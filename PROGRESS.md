@@ -1149,3 +1149,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (yat: deya/dheya/heya/steya) and 6.4.90 (doṣo ṇau — dūṣayati). Verified 0
   anomalies across 150 roots × 8 lakāras + all kṛts (incl. causative).
   `npm test` passes (85/85). Pushed to master. Coverage 271/2703 (279/3983).
+
+- **2026-11-19 — Session 170 (continued, toward 2703/2703):** Registered 7.4.21
+  (śīṅaḥ sārvadhātuke guṇaḥ — śete), 7.4.20 (vaca um — avocat), 7.4.17
+  (asyates thuk — āsthat). `npm test` passes (85/85). Pushed to master.
+  Coverage 274/2703 (282/3983).
