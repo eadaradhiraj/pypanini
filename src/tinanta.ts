@@ -461,7 +461,8 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {
   if (upa.endsWith('a') && form.startsWith('a')) return upa.slice(0, -1) + 'A' + form.slice(1);
-  return upa + form;
+  // 8.3.23 (mo'nusvāraḥ): m → anusvāra (M) before a consonant.
+  return applyAnusvara(upa + form);
 }
 function presentForm(root: string, lakara: Lakara, pada: Pada,
   purusha: Purusha, vacana: Vacana): SLP1 | undefined {
@@ -655,7 +656,8 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       : '1.4.99 (laḥ parasmaipadam)');
     if (upa && args.upasarga) {
       const satva = needsSatva(args.upasarga, dhatu.text);
-      p.record(`1.4.59 (upasarga: ${upa}${satva ? ', 8.3.65 ṣatva' : ''})`);
+      const anusvara = athemForm.includes('M') ? ', 8.3.23 (mo\'nusvāraḥ)' : '';
+      p.record(`1.4.59 (upasarga: ${upa}${satva ? ', 8.3.65 ṣatva' : ''}${anusvara})`);
     }
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
@@ -758,7 +760,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       rootPart = 'v' + mutatedRoot;
       prefixSandhiCode = '6.1.77 (iko yaṇ aci: u+a → va)';
     }
-    rootText = applyAnusvara(prefix + rootPart); // 8.3.23 mo'nusvāraḥ (saṃ + gam → saṃgam)
+    const anusvaraText = applyAnusvara(prefix + rootPart); // 8.3.23 mo'nusvāraḥ
+    if (anusvaraText.includes('M') && !prefix.includes('M')) {
+      prefixSandhiCode = `${prefixSandhiCode ?? ''} 8.3.23 (mo'nusvāraḥ: saṃ + gam → saṃgam)`;
+    }
+    rootText = anusvaraText;
   }
   // 3.1.69 divādibhyaḥ śyan — class-4 roots take the śyan (ya) vikaraṇa and
   // drop the dhātupāṭha final -u marker in the present system.
