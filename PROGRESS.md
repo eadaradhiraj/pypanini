@@ -1341,3 +1341,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 207 (continued, toward 2703/2703):** Registered 7.1.77
   (ī ca dvivacane — i/u-neuter nom/acc dual). `npm test` passes (85/85).
   Pushed to master. Coverage 329/2703 (343/3983).
+
+- **2026-11-19 — Session 208 (continued, toward 2703/2703):** Registered 8.3.23
+  (mo'nusvāraḥ) with traces in both athematic (sam+yāti) and thematic
+  (sam+gamati) upasarga paths; fixed athematic upasarga anusvāra (samyāti →
+  saṃyāti). `npm test` passes (85/85). Pushed to master.
+  Coverage 329/2703 (343/3983).
