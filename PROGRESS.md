@@ -1197,3 +1197,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (igyaṇaḥ samprasāraṇam — ucyate/ijyate) with passive root overrides. Fixed
   karmāṇi prayoga to always take ātmane-pada endings (ucyate/pacyate/kriyate).
   `npm test` passes (85/85). Pushed to master. Coverage 281/2703 (291/3983).
+
+- **2026-11-19 — Session 180 (continued, toward 2703/2703):** Registered 6.1.15
+  (vaci-svapi-yajādīnāṃ kiti — ukta/supta/iṣṭa/upta/ūṣita/udita). Updated golden
+  test for iṣṭa. `npm test` passes (85/85). Pushed to master.
+  Coverage 282/2703 (292/3983).
