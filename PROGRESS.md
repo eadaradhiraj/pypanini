@@ -1295,3 +1295,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 198 (continued, toward 2703/2703):** Emitted 8.2.36
   (ṣatva) trace for jhal-final roots in kta (yaj → iṣṭa). `npm test` passes
   (85/85). Pushed to master. Coverage 317/2703 (331/3983).
+
+- **2026-11-19 — Session 199 (continued, toward 2703/2703):** Implemented 8.2.30
+  (coḥ kuḥ — vakta/vaktā/vaktum/vaktavyam/vaktvā) for √vac. `npm test` passes
+  (85/85). Pushed to master. Coverage 317/2703 (331/3983).
