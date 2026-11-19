@@ -1221,3 +1221,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (vṝto vā — varītā), 1.1.46 (ādyantau ṭakitau — iṭ placement), and 1.4.99/1.4.100
   (parasmai/ātmane pada selection). Updated golden trace for pada code. `npm test`
   passes (85/85). Pushed to master. Coverage 289/2703 (299/3983).
+
+- **2026-11-19 — Session 185 (continued, toward 2703/2703):** Registered 1.4.101/1.4.102
+  (tiṇas trīṇi / ekavacanādi) and 1.4.103/1.4.104 (supaḥ / vibhaktiś ca) as
+  genuine definition traces in tiṅanta/subanta pipelines. `npm test` passes
+  (85/85). Pushed to master. Coverage 293/2703 (303/3983).
