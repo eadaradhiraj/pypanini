@@ -1216,3 +1216,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 183 (continued, toward 2703/2703):** Registered 7.2.37
   (graho 'liṭi dīrghaḥ — grāhītā/grāhītum/grāhītavya/grāhītavān). `npm test`
   passes (85/85). Pushed to master. Coverage 285/2703 (295/3983).
+
+- **2026-11-19 — Session 184 (continued, toward 2703/2703):** Registered 7.2.38
+  (vṝto vā — varītā), 1.1.46 (ādyantau ṭakitau — iṭ placement), and 1.4.99/1.4.100
+  (parasmai/ātmane pada selection). Updated golden trace for pada code. `npm test`
+  passes (85/85). Pushed to master. Coverage 289/2703 (299/3983).
