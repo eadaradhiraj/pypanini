@@ -1177,3 +1177,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (uto vṛddhir luki hali — yauti/nauti/stauti/rauti) with class-2 u-final root
   present forms. `npm test` passes (85/85). Pushed to master.
   Coverage 277/2703 (287/3983).
+
+- **2026-11-19 — Session 176 (continued, toward 2703/2703):** Registered 6.1.81
+  (kṣayya/jayya) and 6.1.82 (krayya). Verified 0 kṛt anomalies / 0 unregistered
+  codes. `npm test` passes (85/85). Pushed to master. Coverage 279/2703
+  (289/3983).
