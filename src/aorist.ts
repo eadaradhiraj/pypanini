@@ -239,6 +239,9 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
     p.insert(0, explicit, ['form']);
     if (entry.code) p.record(entry.code);
     p.record(`3.2.110 (luN; ${kind}-aorist)`);
+    if (args.purusha === Purusha.Prathama && args.vacana === Vacana.Bahu && kind === 's') {
+      p.record('3.4.109 (sij-abhyasta-vidibhyaś ca — jus)');
+    }
     p.record(`3.4.101 (${kind} endings)`);
     p.collapse();
     return p;
@@ -286,6 +289,9 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
     }
     p.insert(p.length, ending, ['tin']);
     p.record(`3.4.99 (nityaṃ ḍitaḥ), 3.4.100 (itaś ca), 3.4.101 (secondary ending ${ending})`);
+    if (sibilant && args.purusha === Purusha.Prathama && args.vacana === Vacana.Bahu) {
+      p.record('3.4.109 (sij-abhyasta-vidibhyaś ca — jus)');
+    }
   }
 
   p.collapse();
