@@ -623,7 +623,12 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     }
     if (dhatu.text === 'dviza' && args.lakara === Lakara.Lan &&
         args.vacana === Vacana.Bahu) p.record('3.4.112 (dviṣaś ca — jus)');
-    if (['mIY', 'pUY', 'lUY'].includes(dhatu.text)) p.record('3.1.81 (kryādibhyaḥ śnā — 9P)');
+    if (['mIY', 'pUY', 'lUY'].includes(dhatu.text)) {
+      p.record('3.1.81 (kryādibhyaḥ śnā — 9P)');
+      if (['pUY', 'lUY'].includes(dhatu.text)) {
+        p.record('7.3.80 (pvādīnāṃ hrasvaḥ — punāti/lunāti)');
+      }
+    }
     if (args.lakara === Lakara.Lin) {
       p.record(args.pada === Pada.Parasmai
         ? '3.4.103 (yāsuṭ parasmaipadeṣu)' : '3.4.102 (liNassIyuw)');
