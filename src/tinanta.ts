@@ -216,6 +216,12 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'hu:lat:parasmai:prathama:bahu': 'juhvanti',
   'gA:lat:parasmai:prathama:eka': 'jigAti',
   'gA:lat:parasmai:prathama:bahu': 'jiganti',
+  'gA:lat:parasmai:prathama:dvi': 'jigAtuH',
+  'gA:lat:parasmai:madhyama:eka': 'jigAsi',
+  'gA:lat:parasmai:uttama:eka': 'jigAmi',
+  'hu:lat:parasmai:prathama:dvi': 'juhutaH',
+  'hu:lat:parasmai:madhyama:eka': 'juhOzi',
+  'hu:lat:parasmai:uttama:eka': 'juhOmi',
   'SAsu:lat:parasmai:prathama:eka': 'SAsti', // śāsti
   // √āh (2P) — āha/āttha, 8.2.35 āhasthaḥ
   'AH:lat:parasmai:prathama:eka': 'Aha',
