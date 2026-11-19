@@ -1307,3 +1307,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ṣṭhiv/ṣvaṣka exceptions preserved. Added shared helpers `initialNati` /
   `initialShatva` in `core/slp1.ts`. `npm test` passes (85/85); 0 anomalies /
   0 unregistered codes. Pushed to master. Coverage 319/2703 (333/3983).
+
+- **2026-11-19 — Session 201 (continued, toward 2703/2703):** Registered 8.3.16
+  (roḥ supi — s-stem loc plural payaḥsu) and 6.1.4 (pūrvo'bhyāsaḥ — emitted
+  alongside liṭ reduplication 6.1.8). `npm test` passes (85/85). Pushed to
+  master. Coverage 321/2703 (335/3983).
