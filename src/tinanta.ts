@@ -221,6 +221,16 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'AH:lat:parasmai:prathama:eka': 'Aha',
   'AH:lat:parasmai:madhyama:eka': 'AtTa',
   'AH:lat:parasmai:uttama:eka': 'Aha',
+  // √dhā (3P, juhotyādi) — dadhāti/dhattaḥ; 8.2.38 dadhas ta-thoś ca
+  'DA:lat:parasmai:prathama:eka': 'daDAti',
+  'DA:lat:parasmai:prathama:dvi': 'dattaH',
+  'DA:lat:parasmai:prathama:bahu': 'daDanti',
+  'DA:lat:parasmai:madhyama:eka': 'daDAsi',
+  'DA:lat:parasmai:madhyama:dvi': 'datTHaH',
+  'DA:lat:parasmai:madhyama:bahu': 'daDAtha',
+  'DA:lat:parasmai:uttama:eka': 'daDAmi',
+  'DA:lat:parasmai:uttama:dvi': 'daDAvaH',
+  'DA:lat:parasmai:uttama:bahu': 'daDAmaH',
   // class 2 (adādi): bravīti, brūte
   'brU:lat:parasmai:prathama:eka': 'bravIti',
   'brU:lat:parasmai:madhyama:eka': 'bravIZi', // bravīṣi
@@ -635,6 +645,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     }
     if (dhatu.text === 'AH' && args.purusha === Purusha.Madhyama && args.vacana === Vacana.Eka) {
       p.record('8.2.35 (āhasthaḥ — āttha)');
+    }
+    if (dhatu.text === 'DA' && args.lakara === Lakara.Lat && ['dvi', 'bahu'].includes(String(args.vacana)) &&
+        args.purusha !== Purusha.Uttama) {
+      p.record('8.2.38 (dadhas ta-thoś ca — dhattaḥ/dhatthaḥ)');
     }
     if (dhatu.text === 'dviza' && args.lakara === Lakara.Lan &&
         args.vacana === Vacana.Bahu) p.record('3.4.112 (dviṣaś ca — jus)');
