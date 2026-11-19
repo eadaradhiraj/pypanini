@@ -388,6 +388,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'han:lat:parasmai:uttama:eka': 'hanmi',
   'han:lot:parasmai:prathama:eka': 'hantu',
   'han:lot:parasmai:madhyama:eka': 'jahi',
+  'SAsu:lot:parasmai:madhyama:eka': 'SAdhi', // 6.4.35 śā hau — śādhi
   // √kṛ (8P/5Ā) — ātmane kurute, kuruṣe, kurve
   'kf:lat:atmane:prathama:eka': 'kurute',
   'kf:lat:atmane:prathama:dvi': 'kurvAte',
@@ -602,6 +603,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (dhatu.text === 'han' && args.lakara === Lakara.Lot &&
         args.purusha === Purusha.Madhyama && args.vacana === Vacana.Eka) {
       p.record('6.4.36 (hanter jaḥ — jahi)');
+    }
+    if (dhatu.text === 'SAsu' && args.lakara === Lakara.Lot &&
+        args.purusha === Purusha.Madhyama && args.vacana === Vacana.Eka) {
+      p.record('6.4.35 (śā hau — śādhi)');
     }
     if (dhatu.text === 'dviza' && args.lakara === Lakara.Lan &&
         args.vacana === Vacana.Bahu) p.record('3.4.112 (dviṣaś ca — jus)');
