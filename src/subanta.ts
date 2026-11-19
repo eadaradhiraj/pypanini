@@ -287,6 +287,7 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     const voice: Record<string, string> = { t: 'd', T: 'D', k: 'g', K: 'G', c: 'j', C: 'J', z: 'z' };
     const last = base.slice(-1);
     if (voice[last]) surface = base.slice(0, -1) + voice[last] + ending;
+    else if (last === 'n') surface = base.slice(0, -1) + ending; // 8.2.7 nalopaḥ — pathibhiḥ
   }
 
   const p = new Prakriya([base]);
