@@ -317,7 +317,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.atRn]: { jF: 'jar', jf: 'jar' },    // jarant (3.2.104)
   [Krt.NyuT]: { gAI: 'gAy' },              // gāyana (3.1.147)
   [Krt.thakan]: { gAI: 'gA' },             // gāthaka (3.1.146)
-  [Krt.Yat]: { gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam', f: 'ar', i: 'it', stu: 'stut', SAsu: 'Siz', vR: 'vRt', juza: 'juz', fR: 'adfRt', dA: 'de', DA: 'dhe', hA: 'he', stA: 'ste', kzi: 'kzay', ji: 'jay', kri: 'kray' }, // kṣayya/jayya (6.1.81), krayya (6.1.82)
+  [Krt.Yat]: { gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam', f: 'ar', i: 'it', stu: 'stut', SAsu: 'Siz', vR: 'vRt', juza: 'juz', fR: 'adfRt', dA: 'de', DA: 'dhe', hA: 'he', stA: 'ste', kzi: 'kzay', ji: 'jay', kri: 'kray' }, // kṣayya/jayya/krayya (6.1.81/82)
   [Krt.ka]: { jYA: 'jY', prIY: 'priy', kF: 'kir' }, // jña (6.4.64), priya (prī+ka 6.1.77), kira (kṝ→kir)
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
@@ -326,7 +326,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi' }, // bhavitum (2.4.52)
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi' }, // bhavitṛ (2.4.52)
-  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jyA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', sraMs: 'sras', DvaMs: 'Dvas', SAsu: 'Siz', jan: 'jA', san: 'sA', khan: 'khA', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', kziBid: 'kzviR', buDa: 'budD', jYA: 'jYA', pUza: 'pUj', iza: 'iz' },  // buddha/jñāta/pūjita/iṣṭa (3.2.188)
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jyA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', sraMs: 'sras', DvaMs: 'Dvas', SAsu: 'Siz', jan: 'jA', san: 'sA', khan: 'khA', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', kziBid: 'kzviR', buDa: 'budD', jYA: 'jYA', pUza: 'pUj', iza: 'iz', vaca: 'uk', svap: 'sup', yaj: 'iz', vap: 'up', vas: 'Uz', vada: 'ud' },  // 6.1.15 samprasāraṇa kta forms
   [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', brU: 'vak', cakz: 'AKyA', as: 'Bavi' },// bhavitavya (2.4.52)
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vit', rudh: 'roDD', pac: 'pakv', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', kF: 'kIrR', gF: 'gIrR', SF: 'SIrR', nud: 'nunn', trA: 'trAR', ghrA: 'ghrAR', hrI: 'hIR', uza: 'unn', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat' },// niṣṭhā ktavatu (8.2.42–57)
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
@@ -613,6 +613,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
       spec.code = '6.1.81 (kṣayya-jayyau śakyārthe — kṣayya/jayya)';
     }
     if (dhatu.text === 'kri') spec.code = '6.1.82 (krayyastadarTe — krayya)';
+  }
+  if (args.krt === Krt.Tac && ['vaca', 'svap', 'yaj', 'vap', 'vas', 'vada'].includes(dhatu.text)) {
+    spec.code = '6.1.15 (vaci-svapi-yajādīnāṃ kiti — ukta/supta/iṣṭa)';
+    if (dhatu.text === 'yaj') spec.suffix = 'wa';
+    if (['vas', 'vada'].includes(dhatu.text)) spec.suffix = 'ita';
   }
   if (args.krt === Krt.kSnu && KSNU_SUFFIX[dhatu.text]) spec.suffix = KSNU_SUFFIX[dhatu.text];
   if (args.krt === Krt.SanaC && rFinal) spec.suffix = 'ARa'; // kṛ → kurvāṇa

@@ -416,7 +416,7 @@ test('kṛdanta: karmani -ta and kartari -tṛ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Tac })[0].text(), 'kfta');
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Tfc })[0].text(), 'kartf');
   // 8.2.36 j/ś → ṣ, 8.4.41 ṣṭ: yaj → yaṣṭa, diś → diṣṭa
-  assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.Tac })[0].text(), 'yazwa');  // yaṣṭa
+  assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.Tac })[0].text(), 'izwa');  // iṣṭa (6.1.15)
   assert.equal(deriveKrdantas({ dhatu: 'diS', krt: Krt.Tac })[0].text(), 'dizwa');  // diṣṭa
   assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.KtvA })[0].text(), 'yazwvA'); // yaṣṭvā
   assert.equal(deriveKrdantas({ dhatu: 'mfj', krt: Krt.Tfc })[0].text(), 'mArzwf'); // mārṣṭṛ
