@@ -317,7 +317,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.atRn]: { jF: 'jar', jf: 'jar' },    // jarant (3.2.104)
   [Krt.NyuT]: { gAI: 'gAy' },              // gāyana (3.1.147)
   [Krt.thakan]: { gAI: 'gA' },             // gāthaka (3.1.146)
-  [Krt.Yat]: { gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam', f: 'ar', i: 'it', stu: 'stut', SAsu: 'Siz', vR: 'vRt', juza: 'juz', fR: 'adfRt', dA: 'de', DA: 'dhe', hA: 'he', stA: 'ste' }, // deya/dheya/heya/steya (6.4.64/65)
+  [Krt.Yat]: { gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam', f: 'ar', i: 'it', stu: 'stut', SAsu: 'Siz', vR: 'vRt', juza: 'juz', fR: 'adfRt', dA: 'de', DA: 'dhe', hA: 'he', stA: 'ste', kzi: 'kzay', ji: 'jay' }, // kṣayya/jayya (6.1.81)
   [Krt.ka]: { jYA: 'jY', prIY: 'priy', kF: 'kir' }, // jña (6.4.64), priya (prī+ka 6.1.77), kira (kṝ→kir)
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
@@ -601,6 +601,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     if (dhatu.text === 'mfj') spec.code = '3.1.113 (mṛjer vibhāṣā — mṛjya/mārjya)';
     if (['dA', 'DA', 'hA', 'stA'].includes(dhatu.text)) {
       spec.code = '6.4.64 (āto lopa), 6.4.65 (īdyati — deya/dheya/heya/steya)';
+    }
+    if (['kzi', 'ji'].includes(dhatu.text)) {
+      spec.code = '6.1.81 (kṣayya-jayyau śakyārthe — kṣayya/jayya)';
     }
   }
   if (args.krt === Krt.kSnu && KSNU_SUFFIX[dhatu.text]) spec.suffix = KSNU_SUFFIX[dhatu.text];
