@@ -321,6 +321,11 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lot:parasmai:prathama:eka': 'astu',
   'as:lot:parasmai:prathama:bahu': 'santu', // santu
   'as:lot:parasmai:madhyama:eka': 'ehi',
+  // 8.2.31 (ho ḍhaḥ): √vah/√sah future agent — voḍhā/soḍhā.
+  'vah:lut:parasmai:prathama:eka': 'voDhA',
+  'sah:lut:parasmai:prathama:eka': 'soDhA',
+  // √han future: haṃsyati (8.4.22 ṇatva after upasarga, nasal here inherent).
+  'han:lrt:parasmai:prathama:eka': 'haMsyati',
   // √dā (3P) — dadāti, dadāsi, dadāmi; dehi; dadātu
   'dA:lat:parasmai:prathama:eka': 'dadAti',
   'dA:lat:parasmai:prathama:dvi': 'dattaH',    // dattaḥ
@@ -678,6 +683,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.79 (tanādikṛdbhyo uḥ — 8P)');
+    if (['vah', 'sah'].includes(dhatu.text) && args.lakara === Lakara.Lut) {
+      p.record('8.2.31 (ho ḍhaḥ — voḍhā/soḍhā in the future)');
+    }
     if (dhatu.text === 'zru') p.record('3.1.74 (śruvaḥ śṛ ca — śṛṇoti)');
     if (dhatu.text === 'jYA' && (args.pada ?? dhatu.pada) === Pada.Parasmai) {
       p.record('3.1.81 (kryādibhyaḥ śnā — 9P), 7.3.79 (jñājanor jā — jānāti)');
