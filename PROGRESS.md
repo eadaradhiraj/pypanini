@@ -1327,3 +1327,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (kṣiyo dīrghāt — kṣīṇa). Emitted 8.4.16 (āni loṭ) in loṭ 1s after an
   r/ṣ/ṛ upasarga. `npm test` passes (85/85). Pushed to master.
   Coverage 325/2703 (339/3983).
+
+- **2026-11-19 — Session 205 (continued, toward 2703/2703):** Registered 7.1.72
+  (napuṃsakasya jhal-acaḥ) and 7.1.73 (iko ci vibhaktau) for neuter strong-case
+  num traces. `npm test` passes (85/85). Pushed to master.
+  Coverage 327/2703 (341/3983).
