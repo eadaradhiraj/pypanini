@@ -491,6 +491,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.code = '8.2.52 (paco vaḥ — pakva)';
   }
   if (args.krt === Krt.Ktavatu && dhatu.text === 'pac') {
+    spec.suffix = 'avAn'; // pakv + avAn → pakvavān
     spec.code = '8.2.52 (paco vaḥ — pakvavān)';
   }
   if (args.krt === Krt.KtvA && dhatu.text === 'gA') spec.suffix = 'vA'; // gIt+vA → gītvā
