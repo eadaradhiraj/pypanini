@@ -1262,3 +1262,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   class-3 present paradigm (juhomi/juhutaḥ/jigāmi). Verified 0 anomalies across
   120 roots × 8 lakāras + all kṛts + subanta/strī/nāmādhatu; 0 unregistered codes.
   `npm test` passes (85/85). Pushed to master. Coverage 312/2703 (326/3983).
+
+- **2026-11-19 — Session 192 (continued, toward 2703/2703):** Registered 7.1.24
+  (ato 'm — neuter nom/acc sg), 7.1.23 (sv-amor napuṃsakāt). Fixed yāga ghañ
+  form. `npm test` passes (85/85). Pushed to master. Coverage 314/2703
+  (328/3983).
