@@ -322,12 +322,12 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit', muR: 'mUr', mUrcC: 'mUr', tUrva: 'tUr', Durva: 'dUr' }, // mūrti/tūrti (6.4.21)
-  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk' }, // uktvā (2.4.53)
+  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA' }, // ākhyātvā (2.4.54)
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
-  [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak' }, // vaktum (2.4.53)
-  [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak' }, // vaktṛ (2.4.53)
-  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jYA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', sraMs: 'sras', DvaMs: 'Dvas', SAsu: 'Siz', jan: 'jA', san: 'sA', khan: 'khA', Brasz: 'Barz', brU: 'uk' },  // ukta (2.4.53)
-  [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', brU: 'vak' },// vaktavya (2.4.53)
+  [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA' }, // ākhyātum (2.4.54)
+  [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA' }, // ākhyātṛ (2.4.54)
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jYA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', sraMs: 'sras', DvaMs: 'Dvas', SAsu: 'Siz', jan: 'jA', san: 'sA', khan: 'khA', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA' },  // ākhyāta (2.4.54)
+  [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', brU: 'vak', cakz: 'AKyA' },// ākhyātavya (2.4.54)
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vit', rudh: 'roDD', pac: 'pakv', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', kF: 'kIrR', gF: 'gIrR', SF: 'SIrR', nud: 'nunn', trA: 'trAR', ghrA: 'ghrAR', hrI: 'hIR', uza: 'unn', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat' },// niṣṭhā ktavatu (8.2.42–57)
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
   [Krt.ghaH]: { CAd: 'Cad', pac: 'pAk', tyj: 'tyAj', raj: 'rAj', tyaj: 'tyAg', rAj: 'rAg', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm', nI: 'nay', likh: 'lek', viS: 'vez', mfj: 'mArg', ram: 'rAm', pad: 'pAd', ruj: 'rog', spfS: 'sparS', syand: 'syad', indh: 'eD' }, // edha (6.4.29)
@@ -556,6 +556,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   }
   if (dhatu.text === 'brU' && [Krt.Tac, Krt.Tum, Krt.Tfc, Krt.Tavya, Krt.KtvA].includes(args.krt)) {
     spec.code = '2.4.53 (bruvo vaciḥ — ukta/vaktum/vaktavya)';
+  }
+  if (dhatu.text === 'cakz' && [Krt.Tac, Krt.Tum, Krt.Tfc, Krt.Tavya, Krt.KtvA].includes(args.krt)) {
+    spec.code = '2.4.54 (cakṣiṇaḥ khyāñ — ākhyāta/ākhyātum)';
   }
   // SAsu/brU's final u/ū is an anubandha, not a root vowel — no iṭ.
   const skipIt = dhatu.text === 'SAsu' || dhatu.text === 'brU';
