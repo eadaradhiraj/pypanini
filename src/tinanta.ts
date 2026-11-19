@@ -446,7 +446,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   BU: { strong: 'baBUv', weak: 'baBUv' },   // babhūva (ū long by nature)
   pac: { strong: 'papAc', weak: 'papac' },  // papāca / papacuḥ
   kf: { strong: 'cakAr', weak: 'cakr' },    // cakāra / cakruḥ
-  gam: { strong: 'jagAm', weak: 'jagam' },  // jagāma / jagamuḥ
+  gam: { strong: 'jagAm', weak: 'jagm' },  // jagāma / jagmuḥ (2.4.49 gāṃ liwi)
   ni: { strong: 'ninAy', weak: 'niniy' },   // nināya / niniyuḥ
   ji: { strong: 'jijAy', weak: 'jijiy' },   // jijāya / jijiyuḥ
   yaj: { strong: 'yayAj', weak: 'yayaj' },  // yayāja / yayajuḥ
@@ -464,7 +464,9 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   const entry = PERFECT_STEMS[root];
   // 7.1.6ff: liṭ reduplication — vowel-initial roots lengthen the reduplicate.
   const redv = root[0] === 'a' ? 'A' : root[0];
-  const stem = entry ? (isStrong ? entry.strong : entry.weak) : redv + 'a' + root;
+  // gam takes the weak stem in the 3rd-person dual (jagmatuḥ, 2.4.49).
+  const strong = isStrong && !(root === 'gam' && purusha === Purusha.Prathama && vacana === Vacana.Dvi);
+  const stem = entry ? (strong ? entry.strong : entry.weak) : redv + 'a' + root;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
   // (babhūv + va → babhūva, not *babhūvva).
   if (purusha === Purusha.Uttama && vacana === Vacana.Dvi && stem.endsWith('v')) {
@@ -724,7 +726,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   };
   const rootOverride = args.prayoga === Prayoga.Karmani
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
-    : config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana);
+    : args.lakara === Lakara.Lin && dhatu.text === 'han' && (args.sanadi ?? Sanadi.None) === Sanadi.None
+      ? 'vad' // 2.4.42 (hano vada liNi — vadet)
+      : config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana);
   const ctx: RuleContext = {
     prakriya,
     args: { ...args, dhatu },
@@ -741,7 +745,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     postRootCode: config.postRoot ? '7.2.35 (iṭ before future vikaraṇa)' : undefined,
     rootOverride,
     rootOverrideCode: rootOverride
-      ? args.lakara === Lakara.Lit
+      ? dhatu.text === 'han' && args.lakara === Lakara.Lin
+        ? '2.4.42 (hano vada liNi — vadet)'
+        : dhatu.text === 'gam' && args.lakara === Lakara.Lit
+          ? '2.4.49 (gāṃ liwi — jagāma/jagmuḥ)'
+          : args.lakara === Lakara.Lit
         ? dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (abhyāsa; liṭ reduplication)'
         : [Lakara.Lrt, Lakara.Lng].includes(args.lakara)
           ? '3.1.33 (syatāsī lṛluṭoḥ — sya vikaraṇa)'
