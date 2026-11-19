@@ -1202,3 +1202,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (vaci-svapi-yajādīnāṃ kiti — ukta/supta/iṣṭa/upta/ūṣita/udita). Updated golden
   test for iṣṭa. `npm test` passes (85/85). Pushed to master.
   Coverage 282/2703 (292/3983).
+
+- **2026-11-19 — Session 181 (continued, toward 2703/2703):** Registered 6.1.1
+  (ekāco dve prathamasya — abhyāsa in san/yaṅ) and 6.1.7 (tujādīnāṃ dīrgho'bhyāsasya
+  — totujyate). Verified 0 anomalies across 150 roots. `npm test` passes (85/85).
+  Pushed to master. Coverage 284/2703 (294/3983).
