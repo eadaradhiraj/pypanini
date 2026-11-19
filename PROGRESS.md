@@ -1167,3 +1167,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 173 (continued, toward 2703/2703):** Registered 7.3.80
   (pvādīnāṃ hrasvaḥ — punāti/lunāti). Verified 0 anomalies across 150 roots.
   `npm test` passes (85/85). Pushed to master. Coverage 275/2703 (285/3983).
+
+- **2026-11-19 — Session 174 (continued, toward 2703/2703):** Registered 7.3.82
+  (mider guṇaḥ — medati). Verified 0 anomalies across 150 roots × 8 lakāras +
+  all kṛts. `npm test` passes (85/85). Pushed to master. Coverage 276/2703
+  (286/3983).
