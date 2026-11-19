@@ -1163,3 +1163,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (liṭy anyatarasyām — āda/jakṣatuḥ) and 2.4.52 (aster bhūḥ — bhavitā/bhavitum/
   bhavitavyam). `npm test` passes (85/85). Pushed to master. Coverage 274/2703
   (284/3983).
+
+- **2026-11-19 — Session 173 (continued, toward 2703/2703):** Registered 7.3.80
+  (pvādīnāṃ hrasvaḥ — punāti/lunāti). Verified 0 anomalies across 150 roots.
+  `npm test` passes (85/85). Pushed to master. Coverage 275/2703 (285/3983).
