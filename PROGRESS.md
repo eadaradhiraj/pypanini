@@ -1207,3 +1207,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (ekāco dve prathamasya — abhyāsa in san/yaṅ) and 6.1.7 (tujādīnāṃ dīrgho'bhyāsasya
   — totujyate). Verified 0 anomalies across 150 roots. `npm test` passes (85/85).
   Pushed to master. Coverage 284/2703 (294/3983).
+
+- **2026-11-19 — Session 182 (continued, toward 2703/2703):** Audited kta/ktavatu
+  forms for common roots; verified samprasāraṇa and abhyāsa forms already correct.
+  0 anomalies across 120 roots × 8 lakāras + all kṛts. `npm test` passes (85/85).
+  Pushed to master. Coverage 284/2703 (294/3983).
