@@ -798,7 +798,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
         ? '2.4.42 (hano vada liNi — vadet)'
         : dhatu.text === 'ad' && args.lakara === Lakara.Lit
           ? '2.4.40 (liṭy anyatarasyām — āda/jakṣatuḥ)'
-          : ['gam', 'han'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
+          : dhatu.text === 'BU' && args.lakara === Lakara.Lit
+            ? '6.4.88 (bhuvo vug luṅliṭoḥ — babhūva)'
+            : ['gam', 'han'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
             args.vacana === Vacana.Bahu
           ? '6.4.98 (gamahanādīnāṃ lopaḥ — jagmuḥ/jaghnuḥ)'
           : dhatu.text === 'gam' && args.lakara === Lakara.Lit
