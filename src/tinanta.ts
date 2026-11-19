@@ -455,6 +455,9 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   car: { strong: 'cacAr', weak: 'cacar' },   // cacāra / cacaruḥ
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
   i: { strong: 'iyAy', weak: 'iy' },         // iyāya (perfect of √i 'go')
+  pA: { strong: 'papO', weak: 'pap' },       // papau (7.1.34 āta au ṇalaḥ)
+  sTA: { strong: 'tasTO', weak: 'tasth' },   // tasthau
+  gAi: { strong: 'jaglO', weak: 'jagl' },    // jaglau
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   // Strong stem in 3s, 3d, 2s, 1s; weak elsewhere (7.1.3ff guṇa/niyama).
@@ -465,7 +468,12 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   // 7.1.6ff: liṭ reduplication — vowel-initial roots lengthen the reduplicate.
   const redv = root[0] === 'a' ? 'A' : root[0];
   // gam takes the weak stem in the 3rd-person dual (jagmatuḥ, 2.4.49).
-  const strong = isStrong && !(root === 'gam' && purusha === Purusha.Prathama && vacana === Vacana.Dvi);
+  // ā-final roots (pā/sthā/glai) take the au(au ṇal) form only in 1s/3s (7.1.34).
+  const auRoots = ['pA', 'sTA', 'gAi'];
+  const auForm = auRoots.includes(root) &&
+    ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
+  const strong = auRoots.includes(root) ? auForm :
+    isStrong && !(root === 'gam' && purusha === Purusha.Prathama && vacana === Vacana.Dvi);
   const stem = entry ? (strong ? entry.strong : entry.weak) : redv + 'a' + root;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
   // (babhūv + va → babhūva, not *babhūvva).
@@ -749,7 +757,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
         ? '2.4.42 (hano vada liNi — vadet)'
         : dhatu.text === 'gam' && args.lakara === Lakara.Lit
           ? '2.4.49 (gāṃ liwi — jagāma/jagmuḥ)'
-          : args.lakara === Lakara.Lit
+          : ['pA', 'sTA', 'gAi'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
+            (args.purusha === Purusha.Prathama || args.purusha === Purusha.Uttama) && args.vacana === Vacana.Eka
+            ? '7.1.34 (āta au ṇalaḥ — papau/tasthau/jaglau)'
+            : args.lakara === Lakara.Lit
         ? dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (abhyāsa; liṭ reduplication)'
         : [Lakara.Lrt, Lakara.Lng].includes(args.lakara)
           ? '3.1.33 (syatāsī lṛluṭoḥ — sya vikaraṇa)'
