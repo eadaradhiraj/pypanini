@@ -451,7 +451,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   ji: { strong: 'jijAy', weak: 'jijiy' },   // jijāya / jijiyuḥ
   yaj: { strong: 'yayAj', weak: 'yayaj' },  // yayāja / yayajuḥ
   vid: { strong: 'ved', weak: 'vid' },       // veda (perfect of √vid 'know')
-  han: { strong: 'jaghAn', weak: 'jaghan' }, // jaghāna / jaghnuḥ
+  han: { strong: 'jaghAn', weak: 'jaghn' }, // jaghāna / jaghnuḥ (6.4.98)
   car: { strong: 'cacAr', weak: 'cacar' },   // cacāra / cacaruḥ
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
   i: { strong: 'iyAy', weak: 'iy' },         // iyāya (perfect of √i 'go')
@@ -472,8 +472,8 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   const auRoots = ['pA', 'sTA', 'gAi'];
   const auForm = auRoots.includes(root) &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
-  const strong = auRoots.includes(root) ? auForm :
-    isStrong && !(root === 'gam' && purusha === Purusha.Prathama && vacana === Vacana.Dvi);
+  const weakDual = ['gam', 'han', 'khan'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
+  const strong = auRoots.includes(root) ? auForm : isStrong && !weakDual;
   const stem = entry ? (strong ? entry.strong : entry.weak) : redv + 'a' + root;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
   // (babhūv + va → babhūva, not *babhūvva).
@@ -758,8 +758,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     rootOverrideCode: rootOverride
       ? dhatu.text === 'han' && args.lakara === Lakara.Lin
         ? '2.4.42 (hano vada liNi — vadet)'
-        : dhatu.text === 'gam' && args.lakara === Lakara.Lit
-          ? '2.4.49 (gāṃ liwi — jagāma/jagmuḥ)'
+        : ['gam', 'han'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
+          args.vacana === Vacana.Bahu
+          ? '6.4.98 (gamahanādīnāṃ lopaḥ — jagmuḥ/jaghnuḥ)'
+          : dhatu.text === 'gam' && args.lakara === Lakara.Lit
+            ? '2.4.49 (gāṃ liwi — jagāma/jagmuḥ)'
           : ['pA', 'sTA', 'gAi'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
             (args.purusha === Purusha.Prathama || args.purusha === Purusha.Uttama) && args.vacana === Vacana.Eka
             ? '7.1.34 (āta au ṇalaḥ — papau/tasthau/jaglau)'
