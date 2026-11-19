@@ -1362,3 +1362,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   for √śru (zRNoti/zRnutaH/zRnvanti, 3.1.74) and √jñā (jAnAti/jAnanti,
   3.1.81 + 7.3.79) via athematic forms with trace codes. `npm test` passes
   (85/85). Pushed to master. Coverage 332/2703 (346/3983).
+
+- **2026-11-19 — Session 212 (continued, toward 2703/2703):** Fixed √as laṅ/ lat
+  paradigm (āsīt, āstām, stha). `npm test` passes (85/85). Pushed to master.
+  Coverage 332/2703 (346/3983).
