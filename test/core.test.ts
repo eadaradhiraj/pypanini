@@ -698,7 +698,7 @@ test('kṛdanta: ac (-a action noun after i/ī roots, 3.3.56)', () => {
 
 test('kṛdanta: ṇa (3.3.90 yajña/praśna)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'yaj', krt: Krt.naN })[0].text(), 'yajYa');  // yajña
-  assert.equal(deriveKrdantas({ dhatu: 'praS', krt: Krt.naN })[0].text(), 'prazRa'); // praśna
+  assert.equal(deriveKrdantas({ dhatu: 'praS', krt: Krt.naN })[0].text(), 'praSna'); // praśna (8.4.44 n stays dental)
   // 3.3.104 aṇ (masculine -a, vṛddhi): bhid → bheda
   assert.equal(deriveKrdantas({ dhatu: 'bhid', krt: Krt.aN })[0].text(), 'bheda');
 });

@@ -472,6 +472,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   }
   if (args.krt === Krt.Nvul) spec.grade = rFinal ? 'vrddhi' : 'guna';
   if (args.krt === Krt.naN && dhatu.text === 'yaj') spec.suffix = 'a'; // yajY + a → yajña
+  if (args.krt === Krt.naN && dhatu.text.endsWith('S')) {
+    spec.code = '3.3.90 (naN), 8.4.44 (śāt — praśna/viśna: n stays dental)';
+  }
   if (args.krt === Krt.Tac && dhatu.text === 'mid') spec.suffix = 'a'; // minn + a → minna (3.2.187)
   if (args.krt === Krt.Tac && ['bhid', 'Cid'].includes(dhatu.text)) spec.suffix = 'na'; // bhin+na → bhinna
   if (args.krt === Krt.Tac && dhatu.text === 'rudh') spec.suffix = 'a'; // rudD+a → ruddha
@@ -609,7 +612,10 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     const lastIdx = p.length - 1;
     const tail = p.textAt(lastIdx); // the root is the last term (suffix not yet inserted)
     const c = tail.slice(-1);
-    if (SATVA_ROOTS.has(tail) || c === 'S') {
+    // 8.4.44 (śāt): a dental n after ś stays dental (praśna, viśna) — do not
+    // expose ṣatva before an n-initial suffix for a ś-final root.
+    const nafterSa = c === 'S' && spec.suffix[0] === 'n';
+    if (!nafterSa && (SATVA_ROOTS.has(tail) || c === 'S')) {
       p.setText(lastIdx, tail.slice(0, -1) + 'z'); // → ṣ
       p.record('8.2.36 (j/ś → ṣ before jhal suffix)');
     } else {
