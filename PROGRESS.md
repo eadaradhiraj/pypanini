@@ -1063,3 +1063,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (hanter atpūrvasya — ṇatva in pra+han passive). Verified 0 anomalies across
   all derivations / 0 emitted-unregistered codes. `npm test` passes (85/85).
   Pushed to master. Coverage 245/2703 (246/3983).
+
+- **2026-11-19 — Session 153 (continued, toward 2703/2703):** Registered 8.4.44
+  (śāt — praśna/viśna keep dental n); corrected the golden test that expected
+  the wrong prazRa. Fixed over-broad 8.2.36 ṣatva before n-initial suffixes.
+  `npm test` passes (85/85). Pushed to master. Coverage 246/2703 (247/3983).
