@@ -478,6 +478,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   sTA: { strong: 'tasTO', weak: 'tasth' },   // tasthau
   gAi: { strong: 'jaglO', weak: 'jagl' },    // jaglau
   jYA: { strong: 'jajYO', weak: 'jajY' },    // jajñau/jajñuḥ (7.1.34)
+  vI: { strong: 'vavO', weak: 'vav' },       // vavau/vavuḥ (2.4.41 veñ vayiḥ)
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   // Strong stem in 3s, 3d, 2s, 1s; weak elsewhere (7.1.3ff guṇa/niyama).
@@ -489,7 +490,7 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   const redv = root[0] === 'a' ? 'A' : root[0];
   // gam takes the weak stem in the 3rd-person dual (jagmatuḥ, 2.4.49).
   // ā-final roots (pā/sthā/glai) take the au(au ṇal) form only in 1s/3s (7.1.34).
-  const auRoots = ['pA', 'sTA', 'gAi', 'jYA'];
+  const auRoots = ['pA', 'sTA', 'gAi', 'jYA', 'vI'];
   const auForm = auRoots.includes(root) &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
   const weakDual = ['gam', 'han', 'khan'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
@@ -841,9 +842,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
           ? '6.4.98 (gamahanādīnāṃ lopaḥ — jagmuḥ/jaghnuḥ)'
           : dhatu.text === 'gam' && args.lakara === Lakara.Lit
             ? '2.4.49 (gāṃ liwi — jagāma/jagmuḥ)'
-          : ['pA', 'sTA', 'gAi', 'jYA'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
+          : ['pA', 'sTA', 'gAi', 'jYA', 'vI'].includes(dhatu.text) && args.lakara === Lakara.Lit &&
             (args.purusha === Purusha.Prathama || args.purusha === Purusha.Uttama) && args.vacana === Vacana.Eka
-            ? '7.1.34 (āta au ṇalaḥ — papau/tasthau/jaglau)'
+            ? dhatu.text === 'vI'
+              ? '2.4.41 (veño vayiḥ — vavau/vavuḥ)'
+              : '7.1.34 (āta au ṇalaḥ — papau/tasthau/jaglau)'
             : args.lakara === Lakara.Lit
         ? dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (abhyāsa; liṭ reduplication)'
         : [Lakara.Lrt, Lakara.Lng].includes(args.lakara)
