@@ -1101,3 +1101,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (ṇīṣ for body-part compounds — nāsikī/udarī/oṣṭhī/jaṅghī/dantī/karṇī/śṛṅgī).
   0 anomalies / 0 unregistered codes across all derivations. `npm test` passes
   (85/85). Pushed to master. Coverage 259/2703 (260/3983).
+
+- **2026-11-19 — Session 161 (continued, toward 2703/2703):** Registered 6.4.47
+  (bhrasjo ra-upadhayoḥ ram — bharṣṭa/bharṣṭum/bharṣṭṛ/bharṣṭvā). Fixed all
+  four krt forms. `npm test` passes (85/85). Pushed to master.
+  Coverage 260/2703 (261/3983).
