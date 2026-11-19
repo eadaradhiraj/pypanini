@@ -640,6 +640,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (args.lakara === Lakara.Lin) {
       p.record(args.pada === Pada.Parasmai
         ? '3.4.103 (yāsuṭ parasmaipadeṣu)' : '3.4.102 (liNassIyuw)');
+      if (args.purusha === Purusha.Uttama && args.vacana === Vacana.Eka) {
+        p.record('3.4.116 (liNAśi — 1s -am)');
+      }
     }
     p.collapse();
     return [p];
