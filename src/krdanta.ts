@@ -322,7 +322,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit', muR: 'mUr', mUrcC: 'mUr', tUrva: 'tUr', Durva: 'dUr' }, // mūrti/tūrti (6.4.21)
-  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA' }, // ākhyātvā (2.4.54)
+  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', Sam: 'Sami', tam: 'tami', dam: 'dami' }, // śamitvā (7.2.56)
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI' }, // varītum (7.2.38)
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI' }, // varītṛ (7.2.38 vṝto vā)
@@ -580,6 +580,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   }
   if (dhatu.text === 'vf' && [Krt.Tfc, Krt.Tum, Krt.Tavya, Krt.Ktavatu].includes(args.krt)) {
     spec.code = '7.2.38 (vṝto vā — varitā/varītā)';
+  }
+  if (args.krt === Krt.KtvA && ['Sam', 'tam', 'dam'].includes(dhatu.text)) {
+    spec.code = '7.2.56 (udito vā — śamitvā/tamitvā/damitvā)';
   }
   if (args.krt === Krt.Tac && ['mid', 'kziBid', 'dfz'].includes(dhatu.text)) {
     spec.code = '3.2.187 (ñītaḥ ktaḥ — minna/kṣviṇa/dhṛṣṭa)';
