@@ -1192,3 +1192,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (liNAśi — 1s -am) in both athematic and thematic liṅ traces. Removed duplicate
   registration. `npm test` passes (85/85). Pushed to master.
   Coverage 280/2703 (290/3983).
+
+- **2026-11-19 — Session 179 (continued, toward 2703/2703):** Registered 1.1.45
+  (igyaṇaḥ samprasāraṇam — ucyate/ijyate) with passive root overrides. Fixed
+  karmāṇi prayoga to always take ātmane-pada endings (ucyate/pacyate/kriyate).
+  `npm test` passes (85/85). Pushed to master. Coverage 281/2703 (291/3983).
