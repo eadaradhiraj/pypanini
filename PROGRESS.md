@@ -1092,3 +1092,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 158 (continued, toward 2703/2703):** Registered 6.4.44
   (tanoteryaki — tāyate passive). `npm test` passes (85/85). Pushed to master.
   Coverage 257/2703 (258/3983).
+
+- **2026-11-19 — Session 159 (continued, toward 2703/2703):** Registered 6.4.45
+  (sanaḥ ktici — sāti). Verified 0 anomalies / 0 unregistered codes. `npm test`
+  passes (85/85). Pushed to master. Coverage 258/2703 (259/3983).
