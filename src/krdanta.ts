@@ -325,7 +325,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', Sam: 'Sami', tam: 'tami', dam: 'dami', nah: 'nadD', laB: 'labD' }, // labdhvā (8.4.53)
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', nah: 'nadD', laB: 'labD', dah: 'dagD' }, // dagdhum (8.4.53)
-  [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', laB: 'labD' }, // labdhṛ (8.4.53)
+  [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', laB: 'labD', iZ: 'ez', luB: 'lobD', ruS: 'roz', riS: 'rez' }, // eṣṭṛ/lobdhṛ/roṣṭṛ (7.2.48)
   [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jyA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', sraMs: 'sras', DvaMs: 'Dvas', SAsu: 'Siz', jan: 'jA', san: 'sA', khan: 'khA', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', kziBid: 'kzviR', buDa: 'budD', jYA: 'jYA', pUza: 'pUj', iza: 'iz', vaca: 'uk', svap: 'sup', yaj: 'iz', vap: 'up', vas: 'Uz', vada: 'ud', nah: 'nadD', laB: 'labD', dah: 'dagD' },  // dagdha (8.4.53/8.2.31)
   [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', nah: 'nadD', laB: 'labD', dah: 'dagD' },// dagdhavyam (8.4.53)
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vit', rudh: 'roDD', pac: 'pakv', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', kF: 'kIrR', gF: 'gIrR', SF: 'SIrR', nud: 'nunn', trA: 'trAR', ghrA: 'ghrAR', hrI: 'hIR', uza: 'unn', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', grah: 'grahI', vf: 'varI', laB: 'labD' },// labdhavān (8.4.53)
@@ -516,6 +516,10 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (dhatu.text === 'dah' && [Krt.Tac, Krt.Tum, Krt.Tavya].includes(args.krt)) {
     spec.suffix = args.krt === Krt.Tac ? 'a' : args.krt === Krt.Tum ? 'um' : 'avyam';
     spec.code = '8.4.53 (jhalaṃ jaś jhaśi — dagdha/dagdhum)';
+  }
+  if (['iZ', 'luB', 'ruS', 'riS'].includes(dhatu.text) && args.krt === Krt.Tfc) {
+    spec.code = '7.2.48 (ti-iṣa-saha-lubha-ruṣa-riṣaḥ — eṣṭṛ/lobdhṛ/roṣṭṛ)';
+    if (dhatu.text === 'luB') spec.suffix = 'A'; // lobdhā
   }
   if (args.krt === Krt.Tac && dhatu.text === 'duha') spec.suffix = 'a'; // dugD+a → dugdha
   // 8.2.44 (lvādibhyaḥ): niṣṭhā t → n after lū/pū/jyā/kṛ/gṛ/śṛ.
