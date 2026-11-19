@@ -1139,3 +1139,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.1.44 (cleḥ sic trace). Extended ekādeśa to diphthong+a (Oa→O). Fixed ā-final
   perfect strong/weak stems. `npm test` passes (85/85). Pushed to master.
   Coverage 265/2703 (273/3983).
+
+- **2026-11-19 — Session 168 (continued, toward 2703/2703):** Registered 7.3.93
+  (bruva īṭ), 6.4.92 (mitāṃ hrasvaḥ), 6.4.98 (gamahanādīnāṃ lopaḥ —
+  jaghnatuḥ/jaghnuḥ). Fixed han/gam perfect weak stems. `npm test` passes
+  (85/85). Pushed to master. Coverage 268/2703 (276/3983).
