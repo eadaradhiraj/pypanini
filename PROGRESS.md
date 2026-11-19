@@ -1118,3 +1118,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   2.4.53 (bruvo vaciḥ — ukta/vaktum/vaktavya), 2.4.54 (cakṣiṇaḥ khyāñ —
   ākhyāta/ākhyātum). `npm test` passes (85/85). Pushed to master.
   Coverage 262/2703 (267/3983).
+
+- **2026-11-19 — Session 164 (continued, toward 2703/2703):** Registered 2.4.46
+  (ṇau gamir abodhane — gamayati). Verified 0 anomalies across 150 roots × 8
+  lakāras + all kṛts (with/without causative). `npm test` passes (85/85).
+  Pushed to master. Coverage 262/2703 (268/3983).
