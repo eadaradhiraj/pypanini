@@ -1351,3 +1351,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 209 (continued, toward 2703/2703):** Implemented 3.1.60
   (ciṇ te padaḥ — cinute/cinvate) with athematic ātmane forms for √ci (ciY).
   `npm test` passes (85/85). Pushed to master. Coverage 330/2703 (344/3983).
+
+- **2026-11-19 — Session 210 (continued, toward 2703/2703):** Fixed 6.1.78
+  (eco'yavāyāvaḥ) to handle e→ay in addition to o→av, correcting ī/ū-final
+  roots (nī→nayati, hlādi→hlādayati, vī→vayati, śru→śravati). Verified full
+  derivation trace. `npm test` passes (85/85). Pushed to master.
+  Coverage 330/2703 (344/3983).
