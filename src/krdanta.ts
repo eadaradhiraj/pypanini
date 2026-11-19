@@ -1,5 +1,5 @@
 import { Prakriya } from './core/prakriya';
-import { gunafy, vrddhify, applyNatva } from './core/slp1';
+import { gunafy, vrddhify, applyNatva, initialNati, initialShatva } from './core/slp1';
 import { KrdantaArgs, Krt, Prayoga, Sanadi } from './core/types';
 import { resolveDhatu } from './data/dhatupatha';
 import { buildSanadiStem } from './sanadi';
@@ -678,9 +678,15 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   // Grade the root. For u-final roots before consonant-initial suffixes, guṇa
   // yields o and 6.1.78 turns it into av (bhav-); handled after grading below.
   let root = STEM_OVERRIDE[args.krt]?.[dhatu.text] ?? sanadi.root;
-  // 6.1.65 (ṇo naḥ): a dhātupāṭha root-initial ṇ becomes n (ṇam→namati).
-  const rootInitialNati = root.startsWith('R');
-  if (rootInitialNati) root = 'n' + root.slice(1);
+  // 6.1.65 (ṇo naḥ) / 6.1.64 (dhātvādeḥ ṣaḥ saḥ): root-initial ṇ → n, ṣ → s.
+  const natiRoot = dhatu.code ? initialNati(root) : root;
+  const shatvaRoot = dhatu.code ? initialShatva(natiRoot) : natiRoot;
+  const rootInitialCode = shatvaRoot !== root
+    ? (natiRoot !== root
+      ? '6.1.65 (ṇo naḥ — root-initial ṇ → n)'
+      : '6.1.64 (dhātvādeḥ ṣaḥ saḥ — root-initial ṣ → s)')
+    : undefined;
+  root = shatvaRoot;
   let gradeCode: string | undefined;
   if (!STEM_OVERRIDE[args.krt]?.[dhatu.text]) {
     if (spec.grade === 'guna') {
@@ -705,7 +711,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   const initial = [root, ...extra];
   const p = new Prakriya(initial);
   p.record('1.3.1');
-  if (rootInitialNati) p.record('6.1.65 (ṇo naḥ — root-initial ṇ → n)');
+  if (rootInitialCode) p.record(rootInitialCode);
   if (sanadi.code) p.record(sanadi.code);
   if (gradeCode) p.record(gradeCode);
   if (causIt) p.record('6.4.52 (niṣṭhāyāṃ seṭi — ṇi-lopa, iṭ)');

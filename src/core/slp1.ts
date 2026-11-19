@@ -169,6 +169,28 @@ export function applyAnusvara(s: string): string {
   return s.replace(/m(?=[kKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzsh])/g, 'M');
 }
 
+/**
+ * 6.1.65 (ṇo naḥ): a dhātupāṭha root-initial ṇ (SLP1 `R`) is pronounced n.
+ * ṇam → namati. Called on the root stem at the start of derivation.
+ */
+export function initialNati(root: string): string {
+  return root.startsWith('R') ? 'n' + root.slice(1) : root;
+}
+
+/**
+ * 6.1.64 (dhātvādeḥ ṣaḥ saḥ): a dhātupāṭha root-initial ṣ (SLP1 `z`) becomes s.
+ * Applies when z is followed by a vowel or a dental (t/T/d/D/n), or on the
+ * five roots smi/svad/svid/svij/svap (the commentary's explicit additions).
+ * Exceptions such as ṣṭhiv (zWivu) and ṣvaṣka (zvazka) are left untouched.
+ */
+export function initialShatva(root: string): string {
+  if (!root.startsWith('z')) return root;
+  const c = root[1] ?? '';
+  const convert = 'aAiIuUfFxXeEoO'.includes(c) || 'tTdDn'.includes(c) ||
+    ['zmi', 'zvada', 'zvidA', 'zvija', 'zvap'].includes(root);
+  return convert ? 's' + root.slice(1) : root;
+}
+
 export function applyNatva(s: string): string {
   // 8.4.2: vowels, h/y/v, gutturals (kKgGN), labials (pPbBm), and anusvāra (M)
   // may intervene between the trigger (r/ṣ/ṛ) and the n.

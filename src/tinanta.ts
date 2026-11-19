@@ -21,7 +21,7 @@ import {
   needsSatva,
 } from './upasarga';
 import { aoristKind, deriveAorist, hasAorist } from './aorist';
-import { gunafy, applyAnusvara } from './core/slp1';
+import { gunafy, applyAnusvara, initialNati, initialShatva } from './core/slp1';
 
 /** A tiṅ pratyaya label plus the it-lopa steps that turn it into its surface form. */
 interface SuffixInfo {
@@ -604,10 +604,16 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       gam: 'gam', yaj: 'ij', as: 'as', vid: 'vid', vac: 'uc', // 1.1.45 samprasāraṇam
     };
     const rawStem = BHAVE_STEMS[dhatu.text] ?? dhatu.text;
-    // 6.1.65 (ṇo naḥ): a dhātupāṭha root-initial ṇ becomes n.
-    const stem = rawStem.startsWith('R') ? 'n' + rawStem.slice(1) : rawStem;
+    // 6.1.65 (ṇo naḥ) / 6.1.64 (dhātvādeḥ ṣaḥ saḥ): dhātupāṭha root-initial
+    // ṇ → n, ṣ → s (ṭham/mi exceptions per the bhāṣya are handled centrally).
+    // Both rules are "dhātvādeḥ": they apply only to roots enumerated in the
+    // dhātupāṭha (which carry a `code`), not to ad-hoc fallback root strings.
+    const natiStem = dhatu.code ? initialNati(rawStem) : rawStem;
+    const stem = dhatu.code ? initialShatva(natiStem) : natiStem;
     const p = new Prakriya([stem + 'yate']);
-    if (rawStem.startsWith('R')) p.record('6.1.65 (ṇo naḥ — root-initial ṇ → n)');
+    if (stem !== rawStem) p.record(dhatu.text.startsWith('R')
+      ? '6.1.65 (ṇo naḥ — root-initial ṇ → n)'
+      : '6.1.64 (dhātvādeḥ ṣaḥ saḥ — root-initial ṣ → s)');
     p.record('3.2.110 (luN vidhāna)');
     p.record('3.1.67 (bhāve — impersonal passive, ya-karmaṇi)');
     p.record('1.3.13 (bhāvakarmaṇoḥ — ātmane-pada in impersonal)');
@@ -718,9 +724,15 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const upasargaArg = args.upasarga;
   let upasarga = upasargaArg;
   let rootText = dhatu.text;
-  // 6.1.65 (ṇo naḥ): a dhātupāṭha root-initial ṇ becomes n (ṇam→namati).
-  const rootInitialNati = dhatu.text.startsWith('R');
-  if (rootInitialNati) rootText = 'n' + rootText.slice(1);
+  // 6.1.65 (ṇo naḥ): root-initial ṇ → n; 6.1.64 (dhātvādeḥ ṣaḥ saḥ): ṣ → s.
+  const natiText = dhatu.code ? initialNati(rootText) : rootText;
+  const shatvaText = dhatu.code ? initialShatva(natiText) : natiText;
+  const rootInitialCode = shatvaText !== rootText
+    ? (natiText !== rootText
+      ? '6.1.65 (ṇo naḥ — root-initial ṇ → n)'
+      : '6.1.64 (dhātvādeḥ ṣaḥ saḥ — root-initial ṣ → s)')
+    : undefined;
+  rootText = shatvaText;
   let prefixSandhiCode: string | undefined;
   if (upasarga && isUpasarga(upasarga)) {
     const ayati = applyAyatiSandhi(upasarga, rootText);
@@ -801,7 +813,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       prakriya.record('8.4.22 (hanter atpūrvasya — ṇatva after upasarga)');
     }
   }
-  if (rootInitialNati) prakriya.record('6.1.65 (ṇo naḥ — root-initial ṇ → n)');
+  if (rootInitialCode) prakriya.record(rootInitialCode);
   if (sanadiResult.code) prakriya.record(sanadiResult.code);
   if (class4) prakriya.record('3.1.69 (divādibhyaḥ śyan — class-4 ya vikaraṇa)');
   if (dhatu.text === 'tanu' && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani) {
