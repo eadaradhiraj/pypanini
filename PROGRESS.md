@@ -1286,3 +1286,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (sadir aprateḥ — viṣīdati) and upasarga sandhi traces (8.3.65 ṣatva) in the
   athematic path. `npm test` passes (85/85). Pushed to master.
   Coverage 317/2703 (331/3983).
+
+- **2026-11-19 — Session 197 (continued, toward 2703/2703):** Completed as (asti)
+  dual paradigm (astaḥ/sthaḥ/svaḥ); verified 0 anomalies / 0 unregistered codes
+  across 120 roots × all derivations. `npm test` passes (85/85). Pushed to master.
+  Coverage 317/2703 (331/3983).
