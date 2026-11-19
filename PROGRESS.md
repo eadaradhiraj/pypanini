@@ -1068,3 +1068,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (śāt — praśna/viśna keep dental n); corrected the golden test that expected
   the wrong prazRa. Fixed over-broad 8.2.36 ṣatva before n-initial suffixes.
   `npm test` passes (85/85). Pushed to master. Coverage 246/2703 (247/3983).
+
+- **2026-11-19 — Session 154 (continued, toward 2703/2703):** Registered 6 new sūtras:
+  6.4.21 (rāl lopaḥ — mūrti/tūrti/dhūrti), 6.4.24 (srasta/dhvasta + passive
+  srasyati), 6.4.25 (daśati/sajati/svajati), 8.4.22 (han ṇatva), 8.4.44
+  (praśna dental n), 3.3.95/121/174 earlier. Fixed over-broad ṣatva. `npm test`
+  passes (85/85). Pushed to master. Coverage 249/2703 (250/3983).
