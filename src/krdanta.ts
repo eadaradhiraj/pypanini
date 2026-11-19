@@ -322,7 +322,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet' }, // vettum
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok' }, // bhettṛ, chettṛ, roddhṛ, yoktṛ
-  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jYA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt' },  // vitta (8.2.58)
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jYA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trAN', ghrA: 'ghrAN', hrI: 'hrIN', uza: 'un' },  // nunna/trāṇa/ghrāṇa/hrīṇa (8.2.56)
   [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet' },// vettavya
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', rudh: 'roDD', pac: 'pakv' },// pakvavān (8.2.52)
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
@@ -501,6 +501,10 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (args.krt === Krt.Tac && dhatu.text === 'vid') {
     spec.suffix = 'a'; // 8.2.58: vitta
     spec.code = '8.2.58 (vitto bhoga-pratyayayoḥ — vitta)';
+  }
+  if (args.krt === Krt.Tac && ['nud', 'trA', 'ghrA', 'hrI', 'uza'].includes(dhatu.text)) {
+    spec.suffix = 'na'; // 8.2.56: ta → na (nunna/trāṇa/ghrāṇa/hrīṇa)
+    spec.code = '8.2.56 (nudādiṣv anyatarasyām — nunna/trāṇa/ghrāṇa/hrīṇa)';
   }
   if (args.krt === Krt.KtvA && dhatu.text === 'gA') spec.suffix = 'vA'; // gIt+vA → gītvā
   if (args.krt === Krt.naN && dhatu.text === 'yAc') spec.suffix = 'A'; // yācñā (fem.)
