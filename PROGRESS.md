@@ -1332,3 +1332,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (napuṃsakasya jhal-acaḥ) and 7.1.73 (iko ci vibhaktau) for neuter strong-case
   num traces. `npm test` passes (85/85). Pushed to master.
   Coverage 327/2703 (341/3983).
+
+- **2026-11-19 — Session 206 (continued, toward 2703/2703):** Registered 7.2.58
+  (gamer iṭ parasmaipadeṣu). Verified 0 anomalies / 0 unregistered codes across
+  150 roots. `npm test` passes (85/85). Pushed to master.
+  Coverage 328/2703 (342/3983).
