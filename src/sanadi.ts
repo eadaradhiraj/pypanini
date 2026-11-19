@@ -159,6 +159,7 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
         dA: 'dAp', jFA: 'jFAp', han: 'GAt', car: 'cAr', kram: 'krAm',
         i: 'gam', // 2.4.46 (ṇau gamir abodhane — gamayati)
         duS: 'dUz', // 6.4.90 (doṣo ṇau — dūṣayati)
+        bhid: 'bhed', rudh: 'rodh', yuj: 'yoj', svap: 'svAp', // 7.2.116 vṛddhi
       };
       let r = CAUSATIVE_STEMS[root] ?? root;
       const c = r.slice(-1);
