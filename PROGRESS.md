@@ -1253,3 +1253,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (veño vayiḥ — vavau/vavuḥ). Fixed lot-ātmane 1s (-ai), ekādeśa a+E→E, jñā/vī
   perfects. `npm test` passes (85/85). Pushed to master. Coverage 312/2703
   (325/3983).
+
+- **2026-11-19 — Session 190 (continued, toward 2703/2703):** Registered 2.4.47
+  (sani ca — han→vad desiderative trace). `npm test` passes (85/85). Pushed to
+  master. Coverage 312/2703 (326/3983).
