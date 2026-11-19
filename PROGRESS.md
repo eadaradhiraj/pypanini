@@ -1281,3 +1281,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   sandhi trace emission in the thematic path (8.2.19 r→l before ayati,
   8.3.65 ṣatva, 8.4.14 ṇatva). Fixed pathin inst pl (8.2.7 nalopa). `npm test`
   passes (85/85). Pushed to master. Coverage 317/2703 (331/3983).
+
+- **2026-11-19 — Session 196 (continued, toward 2703/2703):** Emitted 8.3.66
+  (sadir aprateḥ — viṣīdati) and upasarga sandhi traces (8.3.65 ṣatva) in the
+  athematic path. `npm test` passes (85/85). Pushed to master.
+  Coverage 317/2703 (331/3983).
