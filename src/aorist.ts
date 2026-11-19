@@ -36,7 +36,7 @@ const AORIST: Record<string, AoristEntry> = {
   pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt' } } },
   // a-aorist
   pac: { kind: 'a', stem: 'pac' },
-  sic: { kind: 'a', stem: 'sic' },
+  sic: { kind: 'a', stem: 'sic', code: '3.1.44 (cleḥ sic — asicat)' },
   gam: { kind: 'a', stem: 'gam' },
   // s-aorist of kṛ: akārṣīt (a + kār + ṣ + īt)
   kf: { kind: 's', stem: 'kAr' },
