@@ -273,6 +273,10 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'stfY:lat:parasmai:prathama:eka': 'stfRnoti',
   // class 5 (śnu 3.1.73): √ci→cinoti, √pṛ→pṛṇoti
   'ciY:lat:parasmai:prathama:eka': 'cinoti',
+  // 3.1.60 (ciṇ te padaḥ): √ci takes ṇa before 3s ātmane te — cinute.
+  'ciY:lat:atmane:prathama:eka': 'cinute',
+  'ciY:lat:atmane:prathama:dvi': 'cinvAtAm',
+  'ciY:lat:atmane:prathama:bahu': 'cinvate',
   'pf:lat:parasmai:prathama:eka': 'pfNoti',
   'mIY:lat:parasmai:prathama:eka': 'minAti',
   'mIY:lat:parasmai:prathama:bahu': 'minanti',
@@ -662,6 +666,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.79 (tanādikṛdbhyo uḥ — 8P)');
+    if (dhatu.text === 'ciY' && (args.pada ?? dhatu.pada) === Pada.Atmane) {
+      p.record('3.1.60 (ciṇ te padaḥ — cinute/cinvate)');
+    }
     if (dhatu.text === 'brU' && args.vacana === Vacana.Eka) {
       p.record('7.3.93 (bruva īṭ — bravīti/bravīṣi/bravīmi)');
     }
