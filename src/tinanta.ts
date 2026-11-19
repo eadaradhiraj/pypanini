@@ -710,7 +710,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara);
   if (midGuna) rootText = 'med';
   const sanadiResult = buildSanadiStem(rootText, sanadi);
-  const pada = sanadiResult.pada ?? args.pada ?? dhatu.pada;
+  // karmāṇi (passive) always takes ātmane-pada endings.
+  const pada = sanadiResult.pada ??
+    ((args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani ? Pada.Atmane : args.pada ?? dhatu.pada);
   const config = LAKARA_CONFIG[args.lakara] ?? LAKARA_CONFIG[Lakara.Lat];
   const suffixTable = pada === Pada.Atmane ? config.atmane : config.parasmai;
   const suffix = suffixTable[args.purusha][args.vacana];
@@ -742,6 +744,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   if (dhatu.text === 'tanu' && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani) {
     prakriya.record('6.4.44 (tanoteryaki — tāyate)');
   }
+  if (['vac', 'yaj'].includes(dhatu.text) && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani) {
+    prakriya.record('1.1.45 (igyaṇaḥ samprasāraṇam — ucyate/ijyate)');
+  }
   if (sapNasalLopa) prakriya.record(dhatu.text === 'raYj'
     ? '6.4.26 (rañjeś ca — rajati)'
     : '6.4.25 (daṃśa-sañja-svañjāṃ śapi — daśati/sajati/svajati)');
@@ -753,9 +758,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
 
   // 6.1.65 etc.: roots with special passive stems (kṛ→kriyate, dā→dīyate).
   const PASSIVE_STEMS: Record<string, string> = {
-    kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac', gam: 'gam', yaj: 'yaj', as: 'as',
+    kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac', gam: 'gam', as: 'as',
     sraMs: 'sras', DvaMs: 'Dvas', // 6.4.24: penultimate nasal elision before yak
     tanu: 'tA', // 6.4.44 (tanoteryaki — tāyate)
+    vac: 'uc', yaj: 'ij', // 1.1.45 (igyaṇaḥ samprasāraṇam — ucyate/ijyate)
   };
   const rootOverride = args.prayoga === Prayoga.Karmani
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
