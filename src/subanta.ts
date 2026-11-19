@@ -283,6 +283,7 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   }
 
   const p = new Prakriya([base]);
+  p.record('1.4.103 (supaḥ), 1.4.104 (vibhaktiś ca)');
   p.record('4.1.1 (sup — case-ending pratyayas)');
   p.record(`4.1.2 (prātipadikād su; ${cls.id})`);
 
