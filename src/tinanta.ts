@@ -631,6 +631,12 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (['yu', 'nu', 'stu', 'ru'].includes(dhatu.text) && args.lakara === Lakara.Lat) {
       p.record('7.3.89 (uto vṛddhir luki hali — yauti/nauti/stauti)');
     }
+    if (dhatu.text === 'i' && args.lakara === Lakara.Lat && args.vacana !== Vacana.Eka) {
+      p.record('6.4.81 (iṇo yaṇ — yanti/yantu)');
+    }
+    if (['hu', 'zuY'].includes(dhatu.text) && args.lakara === Lakara.Lat && args.vacana === Vacana.Bahu) {
+      p.record('6.4.87 (huśnuvoḥ sārvadhātuke — juhvanti/sunvanti)');
+    }
     if (['mIY', 'pUY', 'lUY'].includes(dhatu.text)) {
       p.record('3.1.81 (kryādibhyaḥ śnā — 9P)');
       if (['pUY', 'lUY'].includes(dhatu.text)) {
