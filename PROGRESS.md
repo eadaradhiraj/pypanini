@@ -1052,3 +1052,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   8.2.57 (pūrta/mūrta/matta), 8.2.58 (vitta). Fixed ktavatu ṇatva blocking and
   SLP1 N(ङ)/R(ण) confusions in trāṇa/ghrāṇa/hīṇa. `npm test` passes (85/85).
   Pushed to master. Coverage 242/2703 (243/3983).
+
+- **2026-11-19 — Session 151 (continued, toward 2703/2703):** Registered 2 kvip
+  sandhi sūtras: 8.2.63 (naśer vā — jīvanak), 8.2.64 (mo no dhātoḥ —
+  praśān/pratān/pradān). Fixed ktavatu ṇatva blocking for ṛ-final roots. All
+  derivations anomaly-free / all emitted codes registered. `npm test` passes
+  (85/85). Pushed to master. Coverage 244/2703 (245/3983).
