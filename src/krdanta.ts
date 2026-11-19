@@ -350,7 +350,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   }, // +I → vikāṣī/vilāsī/doṣī/dveṣī/yogī/tyāgī/…
   [Krt.cAnaS]: { buJ: 'buJj', biF: 'bibR', muND: 'muND', Buz: 'BuZ' }, // +Ana → bhuñjāna/bibhrāṇa
   [Krt.aN]: { cint: 'cint', pUj: 'pUj', kath: 'kath', kumb: 'kumb', carc: 'carc', bhid: 'bhed' }, // cintā/pūjā; bheda (3.3.104)
-  [Krt.gaNa]: { pac: 'pAk', tyaj: 'tyAg', rAj: 'rAg', bId: 'bEd', bif: 'bEd', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm', nI: 'nay' }, // ghañ vṛddhi
+  [Krt.gaNa]: { pac: 'pAk', tyaj: 'tyAg', rAj: 'rAg', bId: 'bEd', bif: 'bEd', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm', nI: 'nay', yaj: 'yAg' }, // yāga (3.3.18)
   [Krt.ap]: { svan: 'svAn', has: 'hAs', kf: 'kar', gF: 'gar', sf: 'sar', yu: 'yav', lU: 'lav', pU: 'pav', ad: 'Gas' }, // praghasa (2.4.38)
   [Krt.kaN]: { tad: 'tAdf', yad: 'yAdf', sa: 'sadf', anya: 'anyAdf' }, // +za → tādṛśa/yādṛśa/sadṛśa
   [Krt.khuKN]: { BU: 'bAv' }, // +uka → bhāvuka
