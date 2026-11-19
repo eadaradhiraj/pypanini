@@ -1230,3 +1230,13 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 186 (continued, toward 2703/2703):** Registered 7.1.12
   (ṭāṅasiṅasām ina-āt-syāḥ — devena/devāt/devasya) in a-stem subanta traces.
   `npm test` passes (85/85). Pushed to master. Coverage 294/2703 (304/3983).
+
+- **2026-11-19 — Session 187 (continued, toward 2703/2703):** Registered 7.1.19
+  (napuṃsakāc ca — dual -e), 6.4.81 (iṇo yaṇ — yanti), 6.4.87 (huśnuvoḥ —
+  juhvanti/sunvanti), 6.4.88 (bhuvo vug — babhūva), 7.4.73 (bhavater aḥ),
+  7.4.75 (ṇijāṃ trayāṇāṃ guṇaḥ), 7.2.56 (udito vā — śamitvā), 7.2.115
+  (acau ṇiti vṛddhiḥ), 8.2.34 (naho dhaḥ — naddha), 8.2.35 (āhasthaḥ — āttha),
+  8.2.38 (dadhas ta-thoś ca — dhā paradigm), 8.4.55 (khari ca — bhettṛ),
+  8.4.53 (jhalaṃ jaś — labdha/dagdha), 7.2.48 (eṣṭṛ/lobdhā), 3.1.6 trace.
+  Many form fixes (causative vṛddhi, bhāve samprasāraṇa). `npm test` passes
+  (85/85). Pushed to master. Coverage 308/2703 (318/3983).
