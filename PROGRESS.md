@@ -1106,3 +1106,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (bhrasjo ra-upadhayoḥ ram — bharṣṭa/bharṣṭum/bharṣṭṛ/bharṣṭvā). Fixed all
   four krt forms. `npm test` passes (85/85). Pushed to master.
   Coverage 260/2703 (261/3983).
+
+- **2026-11-19 — Session 162 (continued, toward 2703/2703):** Registered 6.4.51
+  (ṇer aniṭi — kāraka/kāraṇa/kārya) and 6.4.52 (niṣṭhāyāṃ seṭi —
+  kārita/kāritum/kāritavān/gaṇita/lakṣita). Fixed causative kṛt stems across
+  iṭ and anit classes. `npm test` passes (85/85). Pushed to master.
+  Coverage 262/2703 (263/3983).
