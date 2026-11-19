@@ -300,9 +300,9 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'hi:lat:parasmai:prathama:bahu': 'hinvanti',
   'hi:lat:parasmai:madhyama:eka': 'hinozi',  // hinoṣi
   'hi:lat:parasmai:uttama:eka': 'hinomi',
-  // √as imperfect (laṅ): āsat, āsātām, āsan (6.4.71 + 6.1.101)
-  'as:lan:parasmai:prathama:eka': 'Asat',
-  'as:lan:parasmai:prathama:dvi': 'AsatAm',
+  // √as imperfect (laṅ): āsīt, āstām, āsan (6.4.71 + 6.1.101)
+  'as:lan:parasmai:prathama:eka': 'AsIt',
+  'as:lan:parasmai:prathama:dvi': 'AstAm',
   'as:lan:parasmai:prathama:bahu': 'Asan',
   'as:lan:atmane:prathama:eka': 'Asata',
   'as:lat:parasmai:prathama:eka': 'asti',
@@ -312,7 +312,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lat:parasmai:madhyama:eka': 'asi',
   'as:lat:parasmai:uttama:eka': 'asmi',
   'as:lat:parasmai:prathama:bahu': 'santi',
-  'as:lat:parasmai:madhyama:bahu': 'astha',   // asṭha (astha)
+  'as:lat:parasmai:madhyama:bahu': 'sTHa',    // stha (स्थ)
   'as:lat:parasmai:uttama:bahu': 'asmaH',     // asmaḥ
   'as:lin:parasmai:prathama:eka': 'syAt',   // syāt
   'as:lin:parasmai:madhyama:eka': 'syAH',   // syāḥ
