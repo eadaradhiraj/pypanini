@@ -1074,3 +1074,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   srasyati), 6.4.25 (daśati/sajati/svajati), 8.4.22 (han ṇatva), 8.4.44
   (praśna dental n), 3.3.95/121/174 earlier. Fixed over-broad ṣatva. `npm test`
   passes (85/85). Pushed to master. Coverage 249/2703 (250/3983).
+
+- **2026-11-19 — Session 155 (continued, toward 2703/2703):** Registered 6.4.26
+  (rañjeś ca — rajati), 6.4.28 (syado jave — syada), 6.4.29 (edha). Verified
+  0 anomalies across 150 roots × 8 lakāras + all kṛts. `npm test` passes (85/85).
+  Pushed to master. Coverage 252/2703 (253/3983).
