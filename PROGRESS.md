@@ -1040,3 +1040,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-18 — Session 148 (continued, toward 2703/2703):** Registered 3.1.25
   (ṇic for satyādi roots), 3.1.24 (san for lupādi roots). `npm test` passes
   (85/85). Pushed to master. Coverage 236/2703 (237/3983).
+
+- **2026-11-19 — Session 149 (continued, toward 2703/2703):** Registered 4 niṣṭhā
+  sandhi sūtras with corrected forms: 8.2.42 (śīrṇa/stīrṇa/gīrṇa), 8.2.52
+  (pakva/pakvavān), 8.2.53 (kṣāma), 8.2.58 (vitta). 0 anomalies/unregistered codes.
+  `npm test` passes (85/85). Pushed to master. Coverage 240/2703 (241/3983).
