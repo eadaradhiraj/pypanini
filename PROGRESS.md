@@ -1347,3 +1347,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (sam+gamati) upasarga paths; fixed athematic upasarga anusvāra (samyāti →
   saṃyāti). `npm test` passes (85/85). Pushed to master.
   Coverage 329/2703 (343/3983).
+
+- **2026-11-19 — Session 209 (continued, toward 2703/2703):** Implemented 3.1.60
+  (ciṇ te padaḥ — cinute/cinvate) with athematic ātmane forms for √ci (ciY).
+  `npm test` passes (85/85). Pushed to master. Coverage 330/2703 (344/3983).
