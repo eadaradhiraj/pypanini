@@ -65,6 +65,7 @@ test('golden derivation: bhū → bhavati with full prakriyā', () => {
 test('golden trace preserved exactly after condition/mutation refactor', () => {
   const p = deriveTinantas({ ...baseArgs, dhatu: 'BU' })[0];
   assert.deepEqual(p.history.map((s) => `${s.rule}|${s.result}`), [
+    '1.4.99 (laḥ parasmaipadam — parasmai-pada)|BU',
     '1.3.1|BU',
     '3.1.1/3.1.2 (pratyayaḥ paraś ca), 3.1.91 (dhātoḥ), 3.1.93 (kṛdatiṅ)|BU',
     '3.2.123|BU + la~w',

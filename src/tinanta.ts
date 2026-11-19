@@ -747,6 +747,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   if (['vac', 'yaj'].includes(dhatu.text) && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani) {
     prakriya.record('1.1.45 (igyaṇaḥ samprasāraṇam — ucyate/ijyate)');
   }
+  // 1.4.99 / 1.4.100: the lakāra affix takes parasmai / ātmane pada.
+  prakriya.record(pada === Pada.Atmane
+    ? '1.4.100 (taṅānāvātmanepadam — ātmane-pada)'
+    : '1.4.99 (laḥ parasmaipadam — parasmai-pada)');
   if (sapNasalLopa) prakriya.record(dhatu.text === 'raYj'
     ? '6.4.26 (rañjeś ca — rajati)'
     : '6.4.25 (daṃśa-sañja-svañjāṃ śapi — daśati/sajati/svajati)');
