@@ -1312,3 +1312,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (roḥ supi — s-stem loc plural payaḥsu) and 6.1.4 (pūrvo'bhyāsaḥ — emitted
   alongside liṭ reduplication 6.1.8). `npm test` passes (85/85). Pushed to
   master. Coverage 321/2703 (335/3983).
+
+- **2026-11-19 — Session 202 (continued, toward 2703/2703):** Registered 8.2.45
+  (oditaś ca — mīna/prīṇa/śrīṇa) with stem overrides for mIY/prIY/SrIY/RIY.
+  Fixed drā/GLā ktavatu forms. `npm test` passes (85/85). Pushed to master.
+  Coverage 324/2703 (338/3983).
