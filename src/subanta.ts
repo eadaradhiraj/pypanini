@@ -316,7 +316,9 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   }
   if (args.vacana === Vacana.Dvi && [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
     p.record(args.linga === Linga.Napumsaka
-      ? '7.1.17 (jasaḥ śī), 7.1.19 (napuṃsakāc ca — dual -e)'
+      ? cls.id.startsWith('i-') || cls.id.startsWith('u-')
+        ? '7.1.17 (jasaḥ śī), 7.1.77 (ī ca dvivacane — dadī/madhvī)'
+        : '7.1.17 (jasaḥ śī), 7.1.19 (napuṃsakāc ca — dual -e)'
       : '7.1.17 (jasaḥ śī — nom/acc dual -au)');
   }
   if (args.vacana === Vacana.Bahu && [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
