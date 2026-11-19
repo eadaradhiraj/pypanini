@@ -604,14 +604,17 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   // 6.4.52 (niṣṭhāyāṃ seṭi): after a causative (ṇi), the ṇi/aya is elided
   // before iṭ-taking niṣṭhā/ārdhadhātuka kṛts — kārita/kāritum/kāritavān.
   const CAUS_IT_KRTS = new Set<Krt>([Krt.Tac, Krt.KtvA, Krt.Tum, Krt.Ktavatu, Krt.Tavya, Krt.Ani, Krt.Tfc]);
+  const CAUS_ANIT_KRTS = new Set<Krt>([Krt.Nvul, Krt.LyuT, Krt.Yat]);
   const causIt = args.sanadi === Sanadi.Nic && CAUS_IT_KRTS.has(args.krt);
-  const extra = causIt ? ['i'] : sanadi.extra;
+  const causAnit = args.sanadi === Sanadi.Nic && CAUS_ANIT_KRTS.has(args.krt);
+  const extra = causIt ? ['i'] : causAnit ? [] : sanadi.extra;
   const initial = [root, ...extra];
   const p = new Prakriya(initial);
   p.record('1.3.1');
   if (sanadi.code) p.record(sanadi.code);
   if (gradeCode) p.record(gradeCode);
   if (causIt) p.record('6.4.52 (niṣṭhāyāṃ seṭi — ṇi-lopa, iṭ)');
+  if (causAnit) p.record('6.4.51 (ṇer aniṭi — i-lopa: kāraka/kāraṇa/kārya)');
 
   // 6.1.78: o + suffix-initial consonant → av (bhū + tṛ → bhavtṛ → kartṛ-like).
   // ṣṭran stems like sto-/yo- are already final o and must keep it.
