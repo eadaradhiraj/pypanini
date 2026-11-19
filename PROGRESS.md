@@ -1187,3 +1187,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (ato lopaḥ — sat). Fixed śatṛ present-participle stems (sat/vidvān/dadat/yat/
   śāsat/rundhat/yuñjat/bhinDat) and ṇatva blocking before dh. `npm test` passes
   (85/85). Pushed to master. Coverage 280/2703 (290/3983).
+
+- **2026-11-19 — Session 178 (continued, toward 2703/2703):** Registered 3.4.116
+  (liNAśi — 1s -am) in both athematic and thematic liṅ traces. Removed duplicate
+  registration. `npm test` passes (85/85). Pushed to master.
+  Coverage 280/2703 (290/3983).
