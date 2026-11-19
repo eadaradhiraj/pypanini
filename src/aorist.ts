@@ -29,8 +29,11 @@ interface AoristEntry {
 }
 
 const AORIST: Record<string, AoristEntry> = {
-  // root aorist
+  // root aorist (2.4.77 gāti-sthā-ghu-pā-bhūbhyaḥ sicaḥ — sic-lopa)
   BU: { kind: 'root', stem: 'BU' },
+  i: { kind: 'root', stem: 'gA', code: '2.4.45 (iRo gA luNi), 2.4.77 (sic-lopa)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'agAt' } } },
+  sTA: { kind: 'root', stem: 'sTA', code: '2.4.77 (sic-lopa — asthāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asTAt' } } },
+  pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt' } } },
   // a-aorist
   pac: { kind: 'a', stem: 'pac' },
   sic: { kind: 'a', stem: 'sic' },
