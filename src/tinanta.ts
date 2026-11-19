@@ -833,6 +833,12 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     ? '6.4.26 (rañjeś ca — rajati)'
     : '6.4.25 (daṃśa-sañja-svañjāṃ śapi — daśati/sajati/svajati)');
   if (midGuna) prakriya.record('7.3.82 (mider guṇaḥ — medati)');
+  // 7.2.58 (gamer iṭ parasmaipadeṣu): √gam takes iṭ before s-initial
+  // ārdhadhātuka affixes (future/desiderative) in parasmaipada — gam-i-ṣyati.
+  if (dhatu.text === 'gam' && pada === Pada.Parasmai &&
+      (sanadi === Sanadi.San || [Lakara.Lrt, Lakara.Lng].includes(args.lakara))) {
+    prakriya.record('7.2.58 (gamer iṭ parasmaipadeṣu — gamiṣyati/jigamiṣati)');
+  }
   // 8.4.16 (āni loṭ): after a ṇatva-causing upasarga, the ṇ of the lot 1s
   // ending -āni remains ṇ (pravapāṇi, parivapāṇi).
   if (args.lakara === Lakara.Lot && args.pada !== Pada.Atmane &&
