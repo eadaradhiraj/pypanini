@@ -678,6 +678,9 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   // Grade the root. For u-final roots before consonant-initial suffixes, guṇa
   // yields o and 6.1.78 turns it into av (bhav-); handled after grading below.
   let root = STEM_OVERRIDE[args.krt]?.[dhatu.text] ?? sanadi.root;
+  // 6.1.65 (ṇo naḥ): a dhātupāṭha root-initial ṇ becomes n (ṇam→namati).
+  const rootInitialNati = root.startsWith('R');
+  if (rootInitialNati) root = 'n' + root.slice(1);
   let gradeCode: string | undefined;
   if (!STEM_OVERRIDE[args.krt]?.[dhatu.text]) {
     if (spec.grade === 'guna') {
@@ -702,6 +705,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   const initial = [root, ...extra];
   const p = new Prakriya(initial);
   p.record('1.3.1');
+  if (rootInitialNati) p.record('6.1.65 (ṇo naḥ — root-initial ṇ → n)');
   if (sanadi.code) p.record(sanadi.code);
   if (gradeCode) p.record(gradeCode);
   if (causIt) p.record('6.4.52 (niṣṭhāyāṃ seṭi — ṇi-lopa, iṭ)');

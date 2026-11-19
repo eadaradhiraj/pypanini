@@ -603,8 +603,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac',
       gam: 'gam', yaj: 'ij', as: 'as', vid: 'vid', vac: 'uc', // 1.1.45 samprasāraṇam
     };
-    const stem = BHAVE_STEMS[dhatu.text] ?? dhatu.text;
+    const rawStem = BHAVE_STEMS[dhatu.text] ?? dhatu.text;
+    // 6.1.65 (ṇo naḥ): a dhātupāṭha root-initial ṇ becomes n.
+    const stem = rawStem.startsWith('R') ? 'n' + rawStem.slice(1) : rawStem;
     const p = new Prakriya([stem + 'yate']);
+    if (rawStem.startsWith('R')) p.record('6.1.65 (ṇo naḥ — root-initial ṇ → n)');
     p.record('3.2.110 (luN vidhāna)');
     p.record('3.1.67 (bhāve — impersonal passive, ya-karmaṇi)');
     p.record('1.3.13 (bhāvakarmaṇoḥ — ātmane-pada in impersonal)');
@@ -715,6 +718,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const upasargaArg = args.upasarga;
   let upasarga = upasargaArg;
   let rootText = dhatu.text;
+  // 6.1.65 (ṇo naḥ): a dhātupāṭha root-initial ṇ becomes n (ṇam→namati).
+  const rootInitialNati = dhatu.text.startsWith('R');
+  if (rootInitialNati) rootText = 'n' + rootText.slice(1);
   let prefixSandhiCode: string | undefined;
   if (upasarga && isUpasarga(upasarga)) {
     const ayati = applyAyatiSandhi(upasarga, rootText);
@@ -795,6 +801,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       prakriya.record('8.4.22 (hanter atpūrvasya — ṇatva after upasarga)');
     }
   }
+  if (rootInitialNati) prakriya.record('6.1.65 (ṇo naḥ — root-initial ṇ → n)');
   if (sanadiResult.code) prakriya.record(sanadiResult.code);
   if (class4) prakriya.record('3.1.69 (divādibhyaḥ śyan — class-4 ya vikaraṇa)');
   if (dhatu.text === 'tanu' && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani) {
