@@ -705,6 +705,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   if (sanadiResult.code) prakriya.record(sanadiResult.code);
   if (class4) prakriya.record('3.1.69 (divādibhyaḥ śyan — class-4 ya vikaraṇa)');
+  if (dhatu.text === 'tanu' && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani) {
+    prakriya.record('6.4.44 (tanoteryaki — tāyate)');
+  }
   if (sapNasalLopa) prakriya.record(dhatu.text === 'raYj'
     ? '6.4.26 (rañjeś ca — rajati)'
     : '6.4.25 (daṃśa-sañja-svañjāṃ śapi — daśati/sajati/svajati)');
@@ -717,6 +720,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const PASSIVE_STEMS: Record<string, string> = {
     kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac', gam: 'gam', yaj: 'yaj', as: 'as',
     sraMs: 'sras', DvaMs: 'Dvas', // 6.4.24: penultimate nasal elision before yak
+    tanu: 'tA', // 6.4.44 (tanoteryaki — tāyate)
   };
   const rootOverride = args.prayoga === Prayoga.Karmani
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
