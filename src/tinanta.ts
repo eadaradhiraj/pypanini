@@ -629,6 +629,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     const p = new Prakriya([athemForm]);
     p.record(`3.2.123 (${LAKARA_LABEL[args.lakara] ?? 'la~w'} vidhāna)`);
     p.record('3.4.78 (athematic tiṅ)');
+    p.record((args.pada ?? dhatu.pada) === Pada.Atmane
+      ? '1.3.12 (anudāttaṅita ātmanepadam), 1.4.100 (taṅānāvātmanepadam)'
+      : '1.4.99 (laḥ parasmaipadam)');
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.79 (tanādikṛdbhyo uḥ — 8P)');
@@ -779,7 +782,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   // 1.4.99 / 1.4.100: the lakāra affix takes parasmai / ātmane pada.
   prakriya.record(pada === Pada.Atmane
-    ? '1.4.100 (taṅānāvātmanepadam — ātmane-pada), 1.4.101 (tiṇas trīṇi), 1.4.102 (ekavacanādi)'
+    ? '1.3.12 (anudāttaṅita ātmanepadam), 1.4.100 (taṅānāvātmanepadam), 1.4.101 (tiṇas trīṇi), 1.4.102 (ekavacanādi)'
     : '1.4.99 (laḥ parasmaipadam — parasmai-pada), 1.4.101 (tiṇas trīṇi), 1.4.102 (ekavacanādi)');
   if (sapNasalLopa) prakriya.record(dhatu.text === 'raYj'
     ? '6.4.26 (rañjeś ca — rajati)'
