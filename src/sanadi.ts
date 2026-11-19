@@ -169,8 +169,10 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
       return {
         root: r,
         extra: ['ay'],
-        code: root === 'i'
-          ? '2.4.46 (ṇau gamir abodhane — gamayati)'
+        code: ['pf', 'stf', 'gf'].includes(root)
+          ? '7.2.115 (acau ṇiti vṛddhiḥ — pārayati/stārayati/gārayati)'
+          : root === 'i'
+            ? '2.4.46 (ṇau gamir abodhane — gamayati)'
           : root === 'duS'
             ? '6.4.90 (doṣo ṇau — dūṣayati)'
             : ['gaT', 'jana', 'raj', 'Sam', 'tam', 'jFA'].includes(root)
