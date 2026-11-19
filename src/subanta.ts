@@ -300,6 +300,12 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
       [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
     p.record('7.1.24 (ato \'m — neuter nom/acc sg -am)');
   }
+  if (cls.id.startsWith('i-') || cls.id.startsWith('u-')) {
+    if (args.linga === Linga.Napumsaka && args.vacana === Vacana.Eka &&
+        [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
+      p.record('7.1.23 (sv-amor napuṃsakāt — i/u-neuter nom/acc sg luk)');
+    }
+  }
   if (args.vacana === Vacana.Dvi && [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
     p.record(args.linga === Linga.Napumsaka
       ? '7.1.17 (jasaḥ śī), 7.1.19 (napuṃsakāc ca — dual -e)'
