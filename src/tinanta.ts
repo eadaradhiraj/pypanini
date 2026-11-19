@@ -576,12 +576,15 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   if (args.prayoga === Prayoga.Bhave) {
     const BHAVE_STEMS: Record<string, string> = {
       kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac',
-      gam: 'gam', yaj: 'yaj', as: 'as', vid: 'vid',
+      gam: 'gam', yaj: 'ij', as: 'as', vid: 'vid', vac: 'uc', // 1.1.45 samprasāraṇam
     };
     const stem = BHAVE_STEMS[dhatu.text] ?? dhatu.text;
     const p = new Prakriya([stem + 'yate']);
     p.record('3.2.110 (luN vidhāna)');
     p.record('3.1.67 (bhāve — impersonal passive, ya-karmaṇi)');
+    if (['yaj', 'vac'].includes(dhatu.text)) {
+      p.record('1.1.45 (igyaṇaḥ samprasāraṇam — ijyate/ucyate)');
+    }
     p.collapse();
     return [p];
   }
