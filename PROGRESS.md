@@ -1257,3 +1257,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 190 (continued, toward 2703/2703):** Registered 2.4.47
   (sani ca — han→vad desiderative trace). `npm test` passes (85/85). Pushed to
   master. Coverage 312/2703 (326/3983).
+
+- **2026-11-19 — Session 191 (continued, toward 2703/2703):** Completed hu/gA
+  class-3 present paradigm (juhomi/juhutaḥ/jigāmi). Verified 0 anomalies across
+  120 roots × 8 lakāras + all kṛts + subanta/strī/nāmādhatu; 0 unregistered codes.
+  `npm test` passes (85/85). Pushed to master. Coverage 312/2703 (326/3983).
