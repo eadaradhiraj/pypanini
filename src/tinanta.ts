@@ -660,7 +660,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   if (class4 && rootText.endsWith('u')) rootText = rootText.slice(0, -1);
   // 6.4.25 (daṃśa-sañja-svañjāṃ śapi): penultimate nasal elision in the
   // present system (daśati/sajati/svajati).
-  const NASAL_LOPA_SAP: Record<string, string> = { daMs: 'das', saYj: 'saj', svaYj: 'svaj' };
+  const NASAL_LOPA_SAP: Record<string, string> = { daMs: 'das', saYj: 'saj', svaYj: 'svaj', raYj: 'raj' };
   const sapNasalLopa = (args.sanadi ?? Sanadi.None) === Sanadi.None &&
     (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
     [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara) &&
@@ -696,7 +696,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   if (sanadiResult.code) prakriya.record(sanadiResult.code);
   if (class4) prakriya.record('3.1.69 (divādibhyaḥ śyan — class-4 ya vikaraṇa)');
-  if (sapNasalLopa) prakriya.record('6.4.25 (daṃśa-sañja-svañjāṃ śapi — daśati/sajati/svajati)');
+  if (sapNasalLopa) prakriya.record(dhatu.text === 'raYj'
+    ? '6.4.26 (rañjeś ca — rajati)'
+    : '6.4.25 (daṃśa-sañja-svañjāṃ śapi — daśati/sajati/svajati)');
   if (dhatu.gana === Gana.Tudadi && (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
       (args.sanadi ?? Sanadi.None) === Sanadi.None) {
     prakriya.record('3.1.77 (tudādibhyaḥ śa — class-6 a vikaraṇa)');
