@@ -324,7 +324,9 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     // 7.1.72 (napuṃsakasya jhal-acaḥ): num augment yields -āni for a-stem
     // neuters, -āṃsi for consonant-stem neuters ( vanāni, payāṃsi).
     if (args.linga === Linga.Napumsaka) {
-      p.record('7.1.72 (napuṃsakasya jhal-acaḥ — num in strong cases)');
+      p.record(cls.id.startsWith('i-') || cls.id.startsWith('u-')
+        ? '7.1.73 (iko ci vibhaktau — num before vowel-initial ending)'
+        : '7.1.72 (napuṃsakasya jhal-acaḥ — num in strong cases)');
     }
   }
   if (args.vacana === Vacana.Dvi && [Vibhakti.Sasti, Vibhakti.Saptami].includes(args.vibhakti)) {
