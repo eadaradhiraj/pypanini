@@ -657,9 +657,6 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     }
     if (dhatu.text === 'kri') spec.code = '6.1.82 (krayyastadarTe — krayya)';
   }
-  if (args.krt === Krt.Tac && ['yaj', 'mFj', 'rAj', 'vraSc', 'Brasz', 'liS', 'viS'].includes(dhatu.text)) {
-    spec.code = '8.2.36 (vraśca-bhrasja-sṛja-yaja-rāja-śāṃ ṣaḥ — yaṣṭa/rāṣṭa)';
-  }
   if (['vach', 'vacha'].includes(dhatu.text) && [Krt.Tac, Krt.Tfc, Krt.Tum, Krt.Tavya, Krt.KtvA].includes(args.krt)) {
     spec.code = '8.2.30 (coḥ kuḥ — vakta/vaktā/vaktum)';
   }
