@@ -578,6 +578,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.suffix = 'a'; // 8.2.53: kṣāyo maḥ — kṣāma
     spec.code = '8.2.53 (kṣāyo maḥ — kṣāma)';
   }
+  // 8.2.46 (kṣiyo dīrghāt): after a long-vowel kṣī, niṣṭhā t → na — kṣīṇa.
+  if (args.krt === Krt.Tac && dhatu.text === 'kzI') {
+    spec.suffix = 'na';
+    spec.code = '8.2.46 (kṣiyo dīrghāt — kṣīṇa)';
+  }
   if (args.krt === Krt.Tac && dhatu.text === 'vid') {
     spec.suffix = 'a'; // 8.2.58: vitta
     spec.code = '8.2.58 (vitto bhoga-pratyayayoḥ — vitta)';
