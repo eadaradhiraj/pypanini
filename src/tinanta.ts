@@ -883,12 +883,12 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
               ? '2.4.41 (veño vayiḥ — vavau/vavuḥ)'
               : '7.1.34 (āta au ṇalaḥ — papau/tasthau/jaglau)'
             : args.lakara === Lakara.Lit
-        ? dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (abhyāsa; liṭ reduplication)'
+        ? dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (liṭi dhātor anabhyāsasya), 6.1.4 (pūrvo \'bhyāsaḥ)'
         : [Lakara.Lrt, Lakara.Lng].includes(args.lakara)
           ? '3.1.33 (syatāsī lṛluṭoḥ — sya vikaraṇa), 1.1.46 (ādyantau ṭakitau — iṭ placement)'
           : args.lakara === Lakara.Lut
             ? '3.1.33 (syatāsī lṛluṭoḥ — tāsi vikaraṇa)'
-            : '6.1.8 (abhyāsa)'
+            : '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ)'
       : undefined,
   };
 

@@ -82,7 +82,7 @@ export const TINANTA_HEAD_RULES: Rule[] = [
     if (ctx.rootOverride) {
       const i = ctx.prakriya.findTag('dhatu');
       ctx.prakriya.setText(i, ctx.rootOverride);
-      ctx.prakriya.record(ctx.rootOverrideCode ?? '6.1.8 (abhyāsa)');
+      ctx.prakriya.record(ctx.rootOverrideCode ?? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ)');
     }
   }),
 
