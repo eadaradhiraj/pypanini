@@ -696,6 +696,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   // 6.1.65 etc.: roots with special passive stems (kṛ→kriyate, dā→dīyate).
   const PASSIVE_STEMS: Record<string, string> = {
     kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac', gam: 'gam', yaj: 'yaj', as: 'as',
+    sraMs: 'sras', DvaMs: 'Dvas', // 6.4.24: penultimate nasal elision before yak
   };
   const rootOverride = args.prayoga === Prayoga.Karmani
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
