@@ -1240,3 +1240,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   8.4.53 (jhalaṃ jaś — labdha/dagdha), 7.2.48 (eṣṭṛ/lobdhā), 3.1.6 trace.
   Many form fixes (causative vṛddhi, bhāve samprasāraṇa). `npm test` passes
   (85/85). Pushed to master. Coverage 308/2703 (318/3983).
+
+- **2026-11-19 — Session 188 (continued, toward 2703/2703):** Registered 1.3.12
+  (anudāttaṅita ātmanepadam), 1.3.13 (bhāvakarmaṇoḥ — passive ātmane) in both
+  athematic/thematic/bhāve traces; 3.1.6 dīrgha trace for dā/mā desiderative.
+  Fixed jñā perfect (jajñau/jajñatuḥ/jajñuḥ). `npm test` passes (85/85).
+  Pushed to master. Coverage 310/2703 (320/3983).
