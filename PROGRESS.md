@@ -1212,3 +1212,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   forms for common roots; verified samprasāraṇa and abhyāsa forms already correct.
   0 anomalies across 120 roots × 8 lakāras + all kṛts. `npm test` passes (85/85).
   Pushed to master. Coverage 284/2703 (294/3983).
+
+- **2026-11-19 — Session 183 (continued, toward 2703/2703):** Registered 7.2.37
+  (graho 'liṭi dīrghaḥ — grāhītā/grāhītum/grāhītavya/grāhītavān). `npm test`
+  passes (85/85). Pushed to master. Coverage 285/2703 (295/3983).
