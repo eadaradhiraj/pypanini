@@ -173,6 +173,8 @@ export function applyNatva(s: string): string {
   // 8.4.2: vowels, h/y/v, gutturals (kKgGN), labials (pPbBm), and anusvāra (M)
   // may intervene between the trigger (r/ṣ/ṛ) and the n.
   const between = '[aAiIuUfFxXeEoOhYyvkKgGNpPbBmM]*'; // y = semivowel ya
-  return s.replace(new RegExp('([rfz])(' + between + ')n', 'g'),
+  // Do not retroflex an `n` that is followed by `dh` (rundhat, bhinDati):
+  // the dh cluster blocks ṇatva in these present-participle stems.
+  return s.replace(new RegExp('([rfz])(' + between + ')n(?!dh)', 'g'),
     (_m: string, trigger: string, mid: string) => trigger + mid + 'R');
 }

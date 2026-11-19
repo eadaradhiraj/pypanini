@@ -301,7 +301,7 @@ const IZNU_STEMS: Record<string, string> = {
 };
 
 const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
-  [Krt.Satr]: { kf: 'kurv', nI: 'nay', vid: 'vidvas' }, // vidvān (7.1.36)
+  [Krt.Satr]: { kf: 'kurv', nI: 'nay', vid: 'vidvas', as: 'sat', SAsu: 'SAs', rudh: 'rundh', yuj: 'yuNY', bhid: 'bhinD', Cid: 'CinD' }, // śatṛ present participles
   [Krt.SanaC]: { kf: 'kurv', nI: 'nay' }, // kṛ → kurvāṇa, nī → nayamāna
   [Krt.Sanan]: { pU: 'pav', yaj: 'yaj', BU: 'Bav', kf: 'kurv' }, // kṛ→kurvāṇa, bhū→bhavamāna, pū→pavamāna
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
@@ -456,6 +456,10 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     // 7.1.36 (videḥ śatur vasuḥ): vasu replaces the whole śatṛ affix.
     spec.suffix = '';
     spec.code = '7.1.36 (videḥ śatur vasuḥ — vidvas/vidvān)';
+  }
+  if (args.krt === Krt.Satr && dhatu.text === 'as') {
+    spec.suffix = ''; // 6.4.48 (ato lopaḥ): as → sat
+    spec.code = '6.4.48 (ato lopaḥ — sat/santī)';
   }
   if (args.krt === Krt.ghaH && dhatu.text === 'sf') spec.code = '3.3.17 (sṛ sthire — sāra)';
   if (args.krt === Krt.ghaH && dhatu.text === 'syand') spec.code = '6.4.28 (syado jave — syada)';
