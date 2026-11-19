@@ -599,6 +599,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.79 (tanādikṛdbhyo uḥ — 8P)');
+    if (dhatu.text === 'han' && args.lakara === Lakara.Lot &&
+        args.purusha === Purusha.Madhyama && args.vacana === Vacana.Eka) {
+      p.record('6.4.36 (hanter jaḥ — jahi)');
+    }
     if (dhatu.text === 'dviza' && args.lakara === Lakara.Lan &&
         args.vacana === Vacana.Bahu) p.record('3.4.112 (dviṣaś ca — jus)');
     if (['mIY', 'pUY', 'lUY'].includes(dhatu.text)) p.record('3.1.81 (kryādibhyaḥ śnā — 9P)');
