@@ -290,6 +290,9 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lan:parasmai:prathama:bahu': 'Asan',
   'as:lan:atmane:prathama:eka': 'Asata',
   'as:lat:parasmai:prathama:eka': 'asti',
+  'as:lat:parasmai:prathama:dvi': 'astaH',   // staḥ
+  'as:lat:parasmai:madhyama:dvi': 'asTHaH',  // sthaḥ
+  'as:lat:parasmai:uttama:dvi': 'asvaH',     // svaḥ
   'as:lat:parasmai:madhyama:eka': 'asi',
   'as:lat:parasmai:uttama:eka': 'asmi',
   'as:lat:parasmai:prathama:bahu': 'santi',
