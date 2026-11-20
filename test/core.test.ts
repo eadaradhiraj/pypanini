@@ -1127,3 +1127,10 @@ test('√vac present/aorist forms (vakti, vacanti, avocat)', () => {
   assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'vac' })[0].history
     .some((h) => h.rule.includes('8.2.30')));
 });
+
+test('√vac kṛt forms: uktvā/ukta but vaktum/vaktavya', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'vac', krt: Krt.KtvA })[0].text(), 'uktvA');
+  assert.equal(deriveKrdantas({ dhatu: 'vac', krt: Krt.Tac })[0].text(), 'ukta');
+  assert.equal(deriveKrdantas({ dhatu: 'vac', krt: Krt.Tum })[0].text(), 'vaktum');
+  assert.equal(deriveKrdantas({ dhatu: 'vac', krt: Krt.Tavya })[0].text(), 'vaktavya');
+});
