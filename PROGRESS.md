@@ -1575,3 +1575,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 251 (continued, toward 2703/2703):** Fixed ghañ of √bhid
   (bheda), u-stem inst-sg ṇatva (guruṇā vs madhunā), and added 8.4.1 subanta trace.
   `npm test` 85/85. Pushed to master. Coverage 436/2703 (451/3983).
+
+- **2026-11-22 — Session 252 (continued, toward 2703/2703):** Fixed nī causative
+  (nāyayati) and guarded yaṅ on non-CVC roots (no crash, empty result). Verified
+  subanta paradigms for guru/agni/sItA/nadI/vana. `npm test` 85/85. Pushed.
+  Coverage 436/2703 (451/3983).
