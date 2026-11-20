@@ -127,7 +127,7 @@ const ATMANE_LAN = table(
   ['ta', 'tAm', 'anta'], ['thAH', 'AvAm', 'Dvam'], ['e', 'vahi', 'mahe'],
 );
 const PARASMAI_LIT = table(
-  ['a', 'atuH', 'uH'], ['iTa', 'atuH', 'a'], ['a', 'va', 'ma'],
+  ['a', 'atuH', 'uH'], ['iTa', 'athuH', 'a'], ['a', 'va', 'ma'],
 );
 const ATMANE_LIT = table(
   ['e', 'Ate', 'ire'], ['ise', 'Athe', 'aDve'], ['e', 'vahe', 'mahe'],
