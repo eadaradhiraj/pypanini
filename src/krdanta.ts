@@ -326,7 +326,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', nah: 'nadD', laB: 'labD', dah: 'dagD', vach: 'vak', vacha: 'vak' }, // vaktum (8.2.30)
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', laB: 'labD', iZ: 'ez', luB: 'lobD', ruS: 'roz', riS: 'rez', vach: 'vak', vacha: 'vak' }, // vaktṛ (8.2.30)
-  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jyA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', sraMs: 'sras', DvaMs: 'Dvas', SAsu: 'Siz', jan: 'jA', san: 'sA', khan: 'khA', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', kziBid: 'kzviR', buDa: 'budD', jYA: 'jYA', pUza: 'pUj', iza: 'iz', vaca: 'uk', svap: 'sup', yaj: 'iz', vap: 'up', vas: 'Uz', vada: 'ud', nah: 'nadD', laB: 'labD', dah: 'dagD', ama: 'ami', am: 'ami', ruza: 'ruzi', vach: 'vak', vacha: 'vak', mIY: 'mI', prIY: 'prI', SrIY: 'SrI', RIY: 'RI', qukrIY: 'qukrI', kfpa: 'klfp', kfp: 'klfp', han: 'ha', DA: 'hi' },  // vakta (8.2.30); mīna/prīṇa (8.2.45); klṛpta (8.2.18); hata (6.4.37); hita (√dhā)
+  [Krt.Tac]: { gam: 'ga', dA: 'dat', mid: 'minn', bhid: 'bhin', Cid: 'chin', rudh: 'rudD', yuj: 'yuk', dviza: 'dviz', gA: 'gIt', duha: 'dugD', lUY: 'lU', pUY: 'pU', jyA: 'jI', kF: 'kIr', gF: 'gIr', SF: 'SIr', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', pac: 'pakv', kzi: 'kzAm', vid: 'vitt', nud: 'nun', trA: 'trA', ghrA: 'ghrA', hrI: 'hrI', uza: 'un', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', sraMs: 'sras', DvaMs: 'Dvas', SAsu: 'Siz', jan: 'jA', san: 'sA', khan: 'khA', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', kziBid: 'kzviR', buDa: 'budD', jYA: 'jYA', pUza: 'pUj', iza: 'iz', vaca: 'uk', svap: 'sup', yaj: 'iz', vap: 'up', vas: 'Uz', vada: 'ud', nah: 'nadD', laB: 'labD', dah: 'dagD', ama: 'ami', am: 'ami', ruza: 'ruzi', vach: 'vak', vacha: 'vak', mIY: 'mI', prIY: 'prI', SrIY: 'SrI', RIY: 'RI', qukrIY: 'qukrI', kfpa: 'klfp', kfp: 'klfp', han: 'ha', DA: 'hi', tana: 'ta', tanu: 'ta', tan: 'ta', vana: 'va', van: 'va', yama: 'ya', yam: 'ya', rama: 'ra', ram: 'ra', nama: 'na', nam: 'na', mana: 'ma', man: 'ma' },  // vakta (8.2.30); mīna/prīṇa (8.2.45); klṛpta (8.2.18); hata (6.4.37); hita (√dhā); tanādi n-lopa (6.4.37)
   [Krt.Tavya]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vet', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', nah: 'nadD', laB: 'labD', dah: 'dagD', vach: 'vak', vacha: 'vak' },// vaktavyam (8.2.30)
   [Krt.Ktavatu]: { gam: 'gan', dA: 'dat', bhid: 'bhet', Cid: 'Chet', yuj: 'yok', vid: 'vit', rudh: 'roDD', pac: 'pakv', sf: 'SIrR', stf: 'stIrR', gf: 'gIrR', kF: 'kIrR', gF: 'gIrR', SF: 'SIrR', nud: 'nunn', trA: 'trAR', ghrA: 'ghrAR', hrI: 'hIR', uza: 'unn', pF: 'pUr', mUrcC: 'mUr', mada: 'mat', mad: 'mat', grah: 'grahI', vf: 'varI', laB: 'labD' },// labdhavān (8.4.53)
   [Krt.uH]: { Bikz: 'Bikz', AzaMs: 'AzaMs', iz: 'icC' }, // bhikṣu, āśaṃsu (3.2.168), icchu (3.2.169)
@@ -587,9 +587,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.suffix = 'a'; // 8.2.58: vitta
     spec.code = '8.2.58 (vitto bhoga-pratyayayoḥ — vitta)';
   }
-  // 6.4.37 (anunāsika lopaḥ kṅiti): √han → hata (n elided before niṣṭhā).
-  if (args.krt === Krt.Tac && dhatu.text === 'han') {
-    spec.code = '6.4.37 (anunāsika-lopaḥ kṅiti — hata)';
+  // 6.4.37 (anunāsika lopaḥ kṅiti): final n elided before niṣṭhā —
+  // han→hata, tan→tata, van→vata, yam→yata, ram→rata, nam→nata, man→mata.
+  if (args.krt === Krt.Tac && ['han', 'tana', 'tanu', 'tan', 'vana', 'van',
+      'yama', 'yam', 'rama', 'ram', 'nama', 'nam', 'mana', 'man'].includes(dhatu.text)) {
+    spec.code = '6.4.37 (anunāsika-lopaḥ jhali kṅiti — hata/tata/vata/rata)';
   }
   // 7.2.35 (ārddhadhātukavidyayāṃ ṭit ādyantau): √car takes iṭ — carita.
   if (args.krt === Krt.Tac && dhatu.text === 'car') {
