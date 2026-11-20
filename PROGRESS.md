@@ -1618,3 +1618,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ivaH/itha, imperfect Et, optative iyAt, plus future/conditional/perfect and
   ātmanepada. Kept ehi imperative (both ehi/ihi attested). `npm test` 91/91.
   0 unregistered emissions. Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-22 — Session 260 (continued, toward 2703/2703):** Completed √ad (2P)
+  athematic paradigm from a reliable conjugation source: atti/attaH/adanti,
+  atsi/atthaH/attha, admi/advaH/admaH, plus imperfect/optative/imperative/
+  future/perfect; kept the a-aorist aghasat. `npm test` 92/92. 0 unregistered
+  emissions. Pushed. Coverage 437/2703 (452/3983).
