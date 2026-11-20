@@ -976,7 +976,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
             : args.lakara === Lakara.Lit
         ? dhatu.text === 'vac'
           ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam), 1.1.45 (igyaṇaḥ samprasāraṇam — uvāca/ūcuḥ)'
-          : dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (liṭi dhātor anabhyāsasya), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam)'
+          : dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (liṭi dhātor anabhyāsasya), 1.1.59 (dvirvacane_ci — reduplication), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam)'
         : [Lakara.Lrt, Lakara.Lng].includes(args.lakara)
           ? '3.1.33 (syatāsī lṛluṭoḥ — sya vikaraṇa), 1.1.46 (ādyantau ṭakitau — iṭ placement)'
           : args.lakara === Lakara.Lut

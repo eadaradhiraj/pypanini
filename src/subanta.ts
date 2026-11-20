@@ -293,6 +293,9 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   const p = new Prakriya([base]);
   p.record('1.4.103 (supaḥ), 1.4.104 (vibhaktiś ca)');
   p.record('4.1.1 (sup — case-ending pratyayas)');
+  p.record(args.vacana === Vacana.Bahu ? '1.4.21 (bahusu bahuvacanam)'
+    : args.vacana === Vacana.Dvi ? '1.4.22 (dvyekayordvivacanam)'
+    : '1.4.22 (dvyekayordvivacanam — ekavacanam)');
   p.record(`4.1.2 (prātipadikād su; ${cls.id})`);
 
   if (surface !== base) {
@@ -340,8 +343,13 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   if (args.vacana === Vacana.Dvi && [Vibhakti.Sasti, Vibhakti.Saptami].includes(args.vibhakti)) {
     p.record('7.1.21 (aṣṭābhyaḥ os — genitive/locative dual)');
   }
+  if (args.vacana === Vacana.Bahu && args.vibhakti === Vibhakti.Sasti) {
+    p.record(cls.id.startsWith('i-') || cls.id.startsWith('u-')
+      ? '6.4.3 (nāmi), 7.1.54 (hrasvanadyāpo nuṭ — agnīnām/gurūṇām)'
+      : '6.4.3 (nāmi — dīpānām)');
+  }
   if (cls.terminal === 'an' || cls.terminal === 'at') {
-    p.record('8.2.7 (nalopaḥ prātipadikāntasya — n/t-stem base)');
+    p.record('8.2.7 (nalopaḥ prātipadikāntasya — n/t-stem base), 1.1.60 (adarśanaṃ lopaḥ)');
   }
   if (cls.id.startsWith('cons-') && args.vibhakti === Vibhakti.Prathama &&
       (args.vacana === Vacana.Eka || args.vacana === Vacana.Dvi)) {
