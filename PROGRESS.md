@@ -1500,3 +1500,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 238 (continued, toward 2703/2703):** Completed √dhā (DA)
   laṅ/loṭ/liṅ/luṭ/lṛt paradigms via athematic forms and futureStem entry
   (DAsya). `npm test` passes (85/85). Pushed to master. Coverage 352/2703 (366/3983).
+
+- **2026-11-21 — Session 239 (continued, toward 2703/2703):** Completed √dā laṅ/liṅ
+  paradigms (adadāta/adadāmaḥ/dadyāvaḥ/dadyema) via athematic forms. Verified
+  0 anomalies / 0 unregistered codes across 150 roots. `npm test` passes (85/85).
+  Pushed to master. Coverage 352/2703 (366/3983).
