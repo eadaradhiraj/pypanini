@@ -40,6 +40,12 @@ const AORIST: Record<string, AoristEntry> = {
   pac: { kind: 'a', stem: 'pac' },
   rudh: { kind: 'a', stem: 'rudh', code: '3.1.57 (iritaḥ vā — rudh a-aorist)' },
   yuj: { kind: 'a', stem: 'yuj', code: '3.1.56 (sarti-śāsty-artibhyaś ca — yuj a-aorist)' },
+  // √ji s-aorist: ajaiṣīt (3s) — vṛddhi i→ai.
+  ji: { kind: 's', stem: 'jE', code: '3.1.44 (cleḥ sic — ji s-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajEzIt' } } },
+  // √muc root aorist with guṇa: amok (3s) — Whitney §832.
+  muc: { kind: 'root', stem: 'mok', code: '3.1.44 (mucaḥ — muc root aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'amok' } } },
   // √nī s-aorist: anaiṣīt (3s), anaiṣṭām (3d), anaiṣuḥ (3p) — 7.2.11 iṭ-naṣi.
   nI: { kind: 's', stem: 'nE', code: '3.1.44 (cleḥ sic — nī s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'anEzIt' } } },
