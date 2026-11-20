@@ -1430,3 +1430,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   the weak stem throughout (papace/papacāte/babhūve). Verified 0 anomalies /
   0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
   master. Coverage 344/2703 (358/3983).
+
+- **2026-11-20 — Session 225 (continued, toward 2703/2703):** Registered 8.4.19
+  (aniteḥ — prāṇiti/prāṇati). Fixed bhāve trace (lat vidhāna, ātmane label) and
+  karmani/bhāve paradigm to show only ātmane. `npm test` passes (85/85). Pushed
+  to master. Coverage 345/2703 (359/3983).
