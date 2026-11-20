@@ -237,6 +237,16 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'DA:lat:parasmai:uttama:eka': 'daDAmi',
   'DA:lat:parasmai:uttama:dvi': 'daDAvaH',
   'DA:lat:parasmai:uttama:bahu': 'daDAmaH',
+  // √dhā imperfect/imperative/optative/future (juhoti class).
+  'DA:lan:parasmai:prathama:eka': 'adadAt',      // adadhāt
+  'DA:lan:parasmai:prathama:dvi': 'adadataH',     // adadhātām
+  'DA:lan:parasmai:prathama:bahu': 'adadan',      // adadhān
+  'DA:lot:parasmai:prathama:eka': 'dadAtu',       // dadhātu
+  'DA:lot:parasmai:madhyama:eka': 'dehi',         // dehi
+  'DA:lot:parasmai:uttama:eka': 'dadAmi',         // dadhāmi
+  'DA:lin:parasmai:prathama:eka': 'dadhyAt',      // dadhyāt
+  'DA:lut:parasmai:prathama:eka': 'DAtA',         // dhātā
+  'DA:lrt:parasmai:prathama:eka': 'DAsyati',      // dhāsyati
   // class 2 (adādi): bravīti, brūte
   'brU:lat:parasmai:prathama:eka': 'bravIti',
   'brU:lat:parasmai:madhyama:eka': 'bravIZi', // bravīṣi
@@ -502,6 +512,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   yaj: { strong: 'yayAj', weak: 'yayaj' },  // yayāja / yayajuḥ
   vid: { strong: 'ved', weak: 'vid' },       // veda (perfect of √vid 'know')
   vac: { strong: 'uvAc', weak: 'uc' },      // uvāca/ūcuḥ (1.1.45 samprasāraṇam)
+  DA: { strong: 'daDO', weak: 'dadh' },     // dadhau (√dhā; de-aspiration of reduplicate 8.4.54)
   han: { strong: 'jaghAn', weak: 'jaghn' }, // jaghāna / jaghnuḥ (6.4.98)
   car: { strong: 'cacAr', weak: 'cacar' },   // cacāra / cacaruḥ
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
@@ -522,7 +533,7 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   const redv = root[0] === 'a' ? 'A' : root[0];
   // gam takes the weak stem in the 3rd-person dual (jagmatuḥ, 2.4.49).
   // ā-final roots (pā/sthā/glai) take the au(au ṇal) form only in 1s/3s (7.1.34).
-  const auRoots = ['pA', 'sTA', 'gAi', 'jYA', 'vI'];
+  const auRoots = ['pA', 'sTA', 'gAi', 'jYA', 'vI', 'DA'];
   const auForm = auRoots.includes(root) &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
   // vac uses the samprasāraṇa weak stem in the 3d (ucatuḥ, not uvācatuḥ).
