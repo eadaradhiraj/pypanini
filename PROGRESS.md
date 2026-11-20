@@ -1424,3 +1424,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Audited a/i/u/ṛ/an/as consonant-stem paradigms. Verified 0 anomalies /
   0 unregistered codes. `npm test` passes (85/85). Pushed to master.
   Coverage 344/2703 (358/3983).
+
+- **2026-11-20 — Session 224 (continued, toward 2703/2703):** Fixed liṭ
+  parasmai 2d ending -athuḥ (papacathuḥ/cakrathuḥ) and ātmane perfect to use
+  the weak stem throughout (papace/papacāte/babhūve). Verified 0 anomalies /
+  0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
+  master. Coverage 344/2703 (358/3983).
