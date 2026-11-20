@@ -329,7 +329,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit', muR: 'mUr', mUrcC: 'mUr', tUrva: 'tUr', Durva: 'dUr' }, // mūrti/tūrti (6.4.21)
-  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', Sam: 'Sami', tam: 'tami', dam: 'dami', nah: 'nadD', laB: 'labD', vach: 'vak', vacha: 'vak', han: 'ha', car: 'cari', cara: 'cari' }, // vaktvā (8.2.30); hatvā (6.4.37); caritvā (7.2.35)
+  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', Sam: 'Sami', tam: 'tami', dam: 'dami', nah: 'nadD', laB: 'labD', vach: 'vak', vacha: 'vak', han: 'ha', car: 'cari', cara: 'cari', arh: 'arhi', arha: 'arhi', rama: 'ra', ram: 'ra', vasu: 'uSi', vas: 'uSi', Svap: 'sup', svapa: 'sup' }, // vaktvā (8.2.30); hatvā (6.4.37); caritvā (7.2.35); arhitvā/ratvā/uṣitvā/suptvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', nah: 'nadD', laB: 'labD', dah: 'dagD', vach: 'vak', vacha: 'vak' }, // vaktum (8.2.30)
   [Krt.Tfc]: { gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', laB: 'labD', iZ: 'ez', luB: 'lobD', ruS: 'roz', riS: 'rez', vach: 'vak', vacha: 'vak' }, // vaktṛ (8.2.30)
@@ -710,6 +710,15 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   }
   if (args.krt === Krt.KtvA && ['car', 'cara'].includes(dhatu.text)) {
     spec.code = '7.2.35 (ārddhadhātukavidyayāṃ ṭit ādyantau — caritvā)';
+  }
+  if (args.krt === Krt.KtvA && ['arh', 'arha', 'vasu', 'vas'].includes(dhatu.text)) {
+    spec.code = '7.2.35 (iṭ — arhitvā/uṣitvā)';
+  }
+  if (args.krt === Krt.KtvA && ['rama', 'ram'].includes(dhatu.text)) {
+    spec.code = '6.4.37 (anunāsika-lopaḥ — ratvā)';
+  }
+  if (args.krt === Krt.KtvA && ['Svap', 'svapa'].includes(dhatu.text)) {
+    spec.code = "1.1.45 (igyaṇaḥ samprasāraṇam — suptvā)";
   }
   if (args.krt === Krt.Tac && ['vaca', 'svap', 'yaj', 'vap', 'vas', 'vada'].includes(dhatu.text)) {
     spec.code = dhatu.text === 'yaj'
