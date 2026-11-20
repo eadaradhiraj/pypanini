@@ -1482,3 +1482,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   to √jīv/√pūj/√sev/√yam (jīvitum/pūjitum/sevitum/yamitum) and fixed √man/√van
   iṭ-less kṛts (mantum/vantum). Verified 0 anomalies / 0 unregistered codes across
   150 roots. `npm test` passes (85/85). Pushed to master. Coverage 352/2703 (366/3983).
+
+- **2026-11-20 — Session 235 (continued, toward 2703/2703):** Fixed √tan iṭ-less
+  kṛts (tantum/tantavya/tata). Verified 0 anomalies / 0 unregistered codes across
+  150 roots. `npm test` passes (85/85). Pushed to master. Coverage 352/2703 (366/3983).
