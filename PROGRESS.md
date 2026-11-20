@@ -1472,3 +1472,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   forms √bhāṣ→bhāṣita/bhāṣitum/bhāṣitvā, √dīp→dīpta. Verified 0 anomalies /
   0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
   master. Coverage 350/2703 (364/3983).
+
+- **2026-11-20 — Session 233 (continued, toward 2703/2703):** Registered 6.4.16
+  (ajjhanagamāṃ sani — dīrgha in desiderative) and 7.2.49 (optional iṭ in
+  desiderative). Verified 0 anomalies / 0 unregistered codes across 150 roots.
+  `npm test` passes (85/85). Pushed to master. Coverage 352/2703 (366/3983).
