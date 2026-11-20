@@ -1370,3 +1370,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-19 — Session 213 (continued, toward 2703/2703):** Fixed future forms
   √vah→voḍhā, √sah→soḍhā (8.2.31 ho ḍhaḥ) and √han→haṃsyati. `npm test`
   passes (85/85). Pushed to master. Coverage 332/2703 (346/3983).
+
+- **2026-11-19 — Session 214 (continued, toward 2703/2703):** Fixed √vac perfect
+  (uvāca/ucatuḥ/ūcuḥ via 1.1.45 samprasāraṇam) and liṭ 2s ending -itha (-iTa);
+  fixed √dhā (DA) imperfect/imperative/optative/future/perfect; fixed √i future
+  (etā/eṣyati). `npm test` passes (85/85). Pushed to master.
+  Coverage 332/2703 (346/3983).

@@ -481,6 +481,9 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'i:lot:parasmai:prathama:eka': 'etu',
   'i:lot:parasmai:prathama:bahu': 'yAntu', // yāntu
   'i:lot:parasmai:madhyama:eka': 'ehi',
+  // √i future: etā (etA), eṣyati (ezyati) — guṇa i→e, no iṭ.
+  'i:lut:parasmai:prathama:eka': 'etA',
+  'i:lrt:parasmai:prathama:eka': 'ezyati',
   // √yā (2P) — yāti, yāsi, yāmi
   'yA:lat:parasmai:prathama:eka': 'yAti',
   'yA:lat:parasmai:madhyama:eka': 'yAsi',
