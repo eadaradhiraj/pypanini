@@ -1462,3 +1462,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (vaditum/vaditavya/vaditṛ/vaditvā/vaditavān). Verified 0 anomalies /
   0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
   master. Coverage 350/2703 (364/3983).
+
+- **2026-11-20 — Session 231 (continued, toward 2703/2703):** Fixed kta iṭ forms
+  √jīv→jīvita, √cint→cintita, √pūj→pūjita, √sev→sevita (7.2.35). Verified
+  0 anomalies / 0 unregistered codes across 150 roots. `npm test` passes (85/85).
+  Pushed to master. Coverage 350/2703 (364/3983).
