@@ -484,6 +484,10 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // √i future: etā (etA), eṣyati (ezyati) — guṇa i→e, no iṭ.
   'i:lut:parasmai:prathama:eka': 'etA',
   'i:lrt:parasmai:prathama:eka': 'ezyati',
+  // 8.2.18 (kṛpo ro laḥ): √kṛp → klṛp; guṇa gives kalp- in the present.
+  'kfpa:lat:parasmai:prathama:eka': 'kalpati',
+  'kfpa:lat:parasmai:prathama:bahu': 'kalpanti',
+  'kfpa:lat:atmane:prathama:eka': 'kalpate',
   // √yā (2P) — yāti, yāsi, yāmi
   'yA:lat:parasmai:prathama:eka': 'yAti',
   'yA:lat:parasmai:madhyama:eka': 'yAsi',
@@ -703,6 +707,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       p.record('8.2.31 (ho ḍhaḥ — voḍhā/soḍhā in the future)');
     }
     if (dhatu.text === 'zru') p.record('3.1.74 (śruvaḥ śṛ ca — śṛṇoti)');
+    if (dhatu.text === 'kfpa') p.record('8.2.18 (kṛpo ro laḥ — kalpati)');
     if (dhatu.text === 'jYA' && (args.pada ?? dhatu.pada) === Pada.Parasmai) {
       p.record('3.1.81 (kryādibhyaḥ śnā — 9P), 7.3.79 (jñājanor jā — jānāti)');
     }
