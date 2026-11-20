@@ -20,9 +20,23 @@ export interface Step {
 export class Prakriya {
   readonly terms: Term[];
   readonly history: Step[] = [];
+  /** Additional sūtras that genuinely govern this derivation (shown in --trace). */
+  readonly notedSutras: Set<string> = new Set();
 
   constructor(initial: SLP1[] = []) {
     this.terms = initial.map((text) => ({ text, tags: new Set<string>() }));
+  }
+
+  /** Note a sūtra that applies to this derivation without adding a history step. */
+  note(code: string): this {
+    this.notedSutras.add(code);
+    return this;
+  }
+
+  /** Note several applicable sūtras at once. */
+  noteAll(codes: readonly string[]): this {
+    for (const c of codes) this.notedSutras.add(c);
+    return this;
   }
 
   static from(texts: SLP1[]): Prakriya {

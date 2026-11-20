@@ -66,6 +66,9 @@ function showTrace(label: string, p: Prakriya): void {
   for (const step of p.history) {
     console.log(`  ${step.rule.padEnd(48)} | ${step.result}`);
   }
+  if (p.notedSutras.size) {
+    console.log(`  [applicable sūtras: ${[...p.notedSutras].sort().join(', ')}]`);
+  }
   console.log();
 }
 

@@ -155,5 +155,7 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
   }
 
   p.setText(0, feminine);
+  const { noteUniversal } = require('./core/sutra-notes');
+  noteUniversal(p);
   return p;
 }

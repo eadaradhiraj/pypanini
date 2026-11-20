@@ -1092,7 +1092,19 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       : undefined,
   };
 
-  return [runTinantaPipeline(prakriya, ctx, suffix.steps)];
+  const result = runTinantaPipeline(prakriya, ctx, suffix.steps);
+  const { noteTinanta } = require('./core/sutra-notes');
+  noteTinanta(result, {
+    lakara: args.lakara, pada, purusha: args.purusha, vacana: args.vacana,
+    gunaApplied: ctx.doGuna && sanadi === Sanadi.None,
+    vrddhiApplied: args.lakara === Lakara.Lut,
+    ekadeshaApplied: suffix.steps.some((s) => s.code.includes('6.1.84')) ||
+      prakriya.history.some((s) => s.rule.includes('6.1.84') || s.rule.includes('6.1.97') || s.rule.includes('6.1.88')),
+    natvaApplied: prakriya.history.some((s) => s.rule.includes('8.4.1') || s.rule.includes('ṇatva')),
+    anusvaraApplied: prakriya.history.some((s) => s.rule.includes('8.3.23')),
+    vikarana: vikarana.label,
+  });
+  return [result];
 }
 
 /** Convenience: the nine parasmai lat forms of a dhātu, keyed by puruṣa/vacana. */

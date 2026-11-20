@@ -405,6 +405,11 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   }
   p.record('8.2.1 (final consolidation)');
   p.collapse();
+  const { noteSubanta } = require('./core/sutra-notes');
+  noteSubanta(p, {
+    linga: args.linga, vibhakti: args.vibhakti, vacana: args.vacana,
+    stemEndsWith: stem.slice(-1),
+  });
   return [p];
 }
 

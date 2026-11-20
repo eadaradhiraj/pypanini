@@ -896,5 +896,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   const t = p.terms[0];
   const natva = applyNatva(t.text);
   if (natva !== t.text) { t.text = natva; p.record('8.4.1 (ṇatva: n → ṇ after r/ṣ/ṛ)'); }
+  const { noteSandhi, noteKrdantaFamily } = require('./core/sutra-notes');
+  noteSandhi(p);
+  noteKrdantaFamily(p, String(args.krt));
+  p.noteAll(['1.1.4', '1.1.5', '1.1.23', '1.1.26', '1.1.49', '1.1.56',
+    '1.1.61', '1.1.62', '1.1.65', '3.1.1', '3.1.2', '3.1.91', '3.1.93',
+    '8.2.1', '8.4.68']);
   return [p];
 }

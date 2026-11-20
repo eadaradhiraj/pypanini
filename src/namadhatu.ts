@@ -223,6 +223,8 @@ export function deriveNamadhatus(args: NamadhatuArgs): Prakriya[] {
   p.setText(0, surface);
   if (surface !== stem + suffix) p.record('6.1.84 (ekādeśa)');
   p.record('8.2.1 (final consolidation)');
+  const { noteUniversal } = require('./core/sutra-notes');
+  noteUniversal(p);
   p.collapse();
   return [p];
 }
