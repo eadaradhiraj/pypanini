@@ -242,8 +242,9 @@ test('rare aorists (reduplicating / siṣ / sa / passive) + precative', () => {
   assert.equal(aorist('bhid', Purusha.Prathama, Vacana.Bahu), 'abhidan');
   assert.equal(aorist('bhid', Purusha.Uttama, Vacana.Dvi), 'abhidAva');
   assert.equal(aorist('pac', Purusha.Prathama, Vacana.Bahu), 'apacan');
-  // passive aorist 3s
-  assert.equal(aorist('vac', Purusha.Prathama, Vacana.Eka), 'avAci');
+  // √vac a-aorist (3.1.52) — avocat; passive aorist 3s of dā
+  assert.equal(aorist('vac', Purusha.Prathama, Vacana.Eka), 'avocat');  // avocat
+  assert.equal(aorist('vac', Purusha.Prathama, Vacana.Bahu), 'avocan'); // avocan
   assert.equal(aorist('dA', Purusha.Prathama, Vacana.Eka), 'adAyi');
   // precative active (bhū → bhūyāt)
   assert.equal(derivePrecative({ root: 'BU', pada: Pada.Parasmai, purusha: Purusha.Prathama, vacana: Vacana.Eka })?.text(), 'BUyAt');
@@ -1112,4 +1113,17 @@ test('7.3.77: √gam present stem gacch- (gacchati/agacchat/gacchet)', () => {
   assert.equal(f(Lakara.Lrt, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'gamizyati');
   // the governing sūtra is emitted in the trace
   assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'gam' })[0].history.some((h) => h.rule.includes('7.3.77')));
+});
+
+test('√vac present/aorist forms (vakti, vacanti, avocat)', () => {
+  const f = (d: string, lakara: Lakara, pu: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara, purusha: pu, vacana: v })[0].text();
+  for (const root of ['vac', 'vach']) {
+    assert.equal(f(root, Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'vakti');    // vakti
+    assert.equal(f(root, Lakara.Lat, Purusha.Madhyama, Vacana.Eka), 'vakzi');   // vakṣi
+    assert.equal(f(root, Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'vacanti'); // vacanti
+    assert.equal(f(root, Lakara.LatN, Purusha.Prathama, Vacana.Eka), 'avocat'); // avocat
+  }
+  assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'vac' })[0].history
+    .some((h) => h.rule.includes('8.2.30')));
 });

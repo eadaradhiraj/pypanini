@@ -190,6 +190,22 @@ function futureStem(root: string): string {
  * everything else falls through to the thematic pipeline.
  */
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
+  // √vac (2P, adādi): vakti/vakṣi/vacanti — 8.2.30 (coḥ kuḥ: c → k).
+  // The 1d/1p and ātmanepada are defective/irregular; only attested forms are listed.
+  'vac:lat:parasmai:prathama:eka': 'vakti',
+  'vac:lat:parasmai:prathama:dvi': 'vaktaH',
+  'vac:lat:parasmai:prathama:bahu': 'vacanti',
+  'vac:lat:parasmai:madhyama:eka': 'vakzi',
+  'vac:lat:parasmai:madhyama:dvi': 'vakthAH',
+  'vac:lat:parasmai:madhyama:bahu': 'vaktha',
+  'vac:lat:parasmai:uttama:eka': 'vacmi',
+  'vach:lat:parasmai:prathama:eka': 'vakti',
+  'vach:lat:parasmai:prathama:dvi': 'vaktaH',
+  'vach:lat:parasmai:prathama:bahu': 'vacanti',
+  'vach:lat:parasmai:madhyama:eka': 'vakzi',
+  'vach:lat:parasmai:madhyama:dvi': 'vakthAH',
+  'vach:lat:parasmai:madhyama:bahu': 'vaktha',
+  'vach:lat:parasmai:uttama:eka': 'vacmi',
   // √gam present system: 7.3.77 (izugamiyamAM CaH) gam → gacch before śārvadhātuka.
   'gam:lat:parasmai:prathama:eka': 'gacchati',
   'gam:lat:parasmai:prathama:dvi': 'gacchataH',
@@ -888,6 +904,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       }
     }
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
+    if (['vac', 'vach'].includes(dhatu.text) && args.lakara === Lakara.Lat) {
+      p.record('8.2.30 (coḥ kuḥ — vac + ti → vakti)');
+    }
     if (dhatu.text === 'gam' && [Lakara.Lat, Lakara.Lan, Lakara.Lot, Lakara.Lin].includes(args.lakara)) {
       p.record('7.3.77 (izugamiyamAM CaH — gam → gacch before śārvadhātuka)');
     }

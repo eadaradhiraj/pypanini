@@ -37,6 +37,9 @@ const AORIST: Record<string, AoristEntry> = {
   sTA: { kind: 'root', stem: 'sTA', code: '2.4.77 (sic-lopa — asthāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asTAt' } } },
   pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt' } } },
   // a-aorist
+  // √vac: avocat (3.1.52 asatyativaktikhātibhyo ’ṅ), with guṇa o in the stem.
+  vac: { kind: 'a', stem: 'voc', code: '3.1.52 (asatyativaktikhātibhyo ’ṅ — avocat)' },
+  vach: { kind: 'a', stem: 'voc', code: '3.1.52 (asatyativaktikhātibhyo ’ṅ — avocat)' },
   pac: { kind: 'a', stem: 'pac' },
   rudh: { kind: 'a', stem: 'rudh', code: '3.1.57 (iritaḥ vā — rudh a-aorist)' },
   yuj: { kind: 'a', stem: 'yuj', code: '3.1.56 (sarti-śāsty-artibhyaś ca — yuj a-aorist)' },
