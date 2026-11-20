@@ -1387,3 +1387,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   8.2.30/7.2.48/8.4.55. Fixed √han kta→hata (6.4.37), √car kta→carita,
   √dhā kta→hita. `npm test` passes (85/85). Pushed to master.
   Coverage 335/2703 (349/3983).
+
+- **2026-11-20 — Session 217 (continued, toward 2703/2703):** Extended 6.4.37
+  (anunāsika-lopaḥ jhali kṅiti) to tanādi roots — tata/vata/yata/rata/nata/mata
+  via stem overrides. `npm test` passes (85/85). Pushed to master.
+  Coverage 335/2703 (349/3983).
