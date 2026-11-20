@@ -253,6 +253,13 @@ const KVIP_FORMS: Record<string, string> = {
   dfSir: 'dfk', // dṛś → dṛk (3.2.94 dṛśeḥ kvanip)
   sad: 'sat',   // sat (3.2.61 satsu kvip)
   vid: 'vit',   // vit (3.2.61)
+  dviS: 'dviT', // dviṭ (3.2.61)
+  druh: 'druk', // druk (3.2.61)
+  duh: 'duk',   // duk (3.2.61)
+  Cid: 'Cit',   // chit (3.2.61)
+  ji: 'jit',    // jit (3.2.61)
+  rAj: 'rAT',   // rāṭ (3.2.61)
+  nI: 'nI',     // nīḥ (3.2.61)
   BAs: 'BAs',   // bhās → bhāḥ (3.2.177)
   BrAj: 'BrAj', // bhrāj → vibhrāj (3.2.177)
   dhurv: 'dhur', // dhūḥ (3.2.177)
@@ -384,7 +391,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
       dhatu.text === 'dfSir' ? '3.2.94 (dṛśeḥ kvanip — kvip)' :
       ['BAs', 'BrAj', 'dyut'].includes(dhatu.text)
         ? '3.2.177 (bhrājādiṣu kvip)'
-        : ['sad', 'vid', 'yuj', 'ji', 'rAj'].includes(dhatu.text)
+        : ['sad', 'vid', 'yuj', 'ji', 'rAj', 'dviS', 'druh', 'duh', 'Cid', 'nI', 'Bid', 'cid'].includes(dhatu.text)
           ? '3.2.61 (satsu dviṣādi-kvip)'
           : "3.2.178 (anyebhyo 'pi dṛśyate — kvip)");
     if (form) p.insert(0, form, ['krt']);
