@@ -169,6 +169,7 @@ function lutStem(root: string): string {
 const FUTURE_STEMS: Record<string, string> = {
   BU: 'Bavizya', // bhaviṣya-
   dA: 'dAsya',   // dā-sya- (no -i-)
+  DA: 'DAsya',   // dhā-sya- (no -i-)
   kf: 'karizya', // kariṣya-
   gam: 'gamizya',// gamiṣya-
   pac: 'pakzya', // pak-ṣya- (c → k, 8.2.36 + ṣatva)
@@ -241,11 +242,38 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'DA:lan:parasmai:prathama:eka': 'adadAt',      // adadhāt
   'DA:lan:parasmai:prathama:dvi': 'adadataH',     // adadhātām
   'DA:lan:parasmai:prathama:bahu': 'adadan',      // adadhān
+  'DA:lan:parasmai:madhyama:eka': 'adadAH',       // adadhāḥ
+  'DA:lan:parasmai:madhyama:dvi': 'adadAtam',     // adadhātam
+  'DA:lan:parasmai:madhyama:bahu': 'adadAta',     // adadhāta
+  'DA:lan:parasmai:uttama:eka': 'adadAm',         // adadhām
+  'DA:lan:parasmai:uttama:dvi': 'adadAva',        // adadhāva
+  'DA:lan:parasmai:uttama:bahu': 'adadAmaH',      // adadhāmaḥ
   'DA:lot:parasmai:prathama:eka': 'dadAtu',       // dadhātu
+  'DA:lot:parasmai:prathama:dvi': 'dadAtAm',      // dadhātām
+  'DA:lot:parasmai:prathama:bahu': 'dadAntu',     // dadhāntu
   'DA:lot:parasmai:madhyama:eka': 'dehi',         // dehi
+  'DA:lot:parasmai:madhyama:dvi': 'dadAtam',      // dadhātam
+  'DA:lot:parasmai:madhyama:bahu': 'dadAta',      // dadhāta
   'DA:lot:parasmai:uttama:eka': 'dadAmi',         // dadhāmi
+  'DA:lot:parasmai:uttama:dvi': 'dadAva',         // dadhāva
+  'DA:lot:parasmai:uttama:bahu': 'dadAma',        // dadhāma
   'DA:lin:parasmai:prathama:eka': 'dadhyAt',      // dadhyāt
+  'DA:lin:parasmai:prathama:dvi': 'dadhyAtAm',    // dadhyātām
+  'DA:lin:parasmai:prathama:bahu': 'dadhyuH',     // dadhyuḥ
+  'DA:lin:parasmai:madhyama:eka': 'dadhyAH',      // dadhyāḥ
+  'DA:lin:parasmai:madhyama:dvi': 'dadhyAtam',    // dadhyātam
+  'DA:lin:parasmai:madhyama:bahu': 'dadhyata',    // dadhyata
+  'DA:lin:parasmai:uttama:eka': 'dadhyAm',        // dadhyām
+  'DA:lin:parasmai:uttama:bahu': 'dadhyema',      // dadhyema
   'DA:lut:parasmai:prathama:eka': 'DAtA',         // dhātā
+  'DA:lut:parasmai:prathama:dvi': 'DAtArau',
+  'DA:lut:parasmai:prathama:bahu': 'DAtAraH',
+  'DA:lut:parasmai:madhyama:eka': 'DAtAsi',
+  'DA:lut:parasmai:madhyama:dvi': 'DAtAsTaH',
+  'DA:lut:parasmai:madhyama:bahu': 'DAtAsTa',
+  'DA:lut:parasmai:uttama:eka': 'DAtAsmi',
+  'DA:lut:parasmai:uttama:dvi': 'DAtAsvaH',
+  'DA:lut:parasmai:uttama:bahu': 'DAtAsmaH',
   'DA:lrt:parasmai:prathama:eka': 'DAsyati',      // dhāsyati
   // class 2 (adādi): bravīti, brūte
   'brU:lat:parasmai:prathama:eka': 'bravIti',
