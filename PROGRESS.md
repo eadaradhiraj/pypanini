@@ -1398,3 +1398,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   1.4.21/1.4.22 (vacana), 1.1.59/1.1.60 (reduplication/lopa) subanta & liṭ
   traces. Verified 0 anomalies / 0 unregistered codes across 150 roots.
   `npm test` passes (85/85). Pushed to master. Coverage 343/2703 (357/3983).
+
+- **2026-11-20 — Session 219 (continued, toward 2703/2703):** Fixed kvip forms
+  for 3.2.61 roots (dviṭ/druk/duk/chit/jit/rāṭ/nīḥ) via KVIP_FORMS additions.
+  `npm test` passes (85/85). Pushed to master. Coverage 343/2703 (357/3983).
