@@ -1624,3 +1624,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   atsi/atthaH/attha, admi/advaH/admaH, plus imperfect/optative/imperative/
   future/perfect; kept the a-aorist aghasat. `npm test` 92/92. 0 unregistered
   emissions. Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-22 — Session 261 (continued, toward 2703/2703):** Completed √dviṣ (2P)
+  athematic paradigms from a reliable source: dveṣṭi/dviṣanti (not *dviṣati),
+  adveṭ, dviṣyāt, dviḍḍhi, plus ātmanepada and future. Overwrote two stale
+  lan overrides. `npm test` 93/93. 0 unregistered emissions. Pushed.
+  Coverage 437/2703 (452/3983).
