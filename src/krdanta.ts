@@ -752,12 +752,16 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   if (!STEM_OVERRIDE[args.krt]?.[dhatu.text]) {
     if (spec.grade === 'guna') {
       const g = gunafy(root);
-      if (g.changed) gradeCode = "1.1.52 (alo'ntyasya), 1.1.50 (sthāne'ntaratamaḥ), 1.1.2 (guṇa: aṇudīdhṛtasya)";
+      if (g.changed) gradeCode = root.endsWith('f') || root.endsWith('F')
+        ? "1.1.52 (alo'ntyasya), 1.1.51 (uraṇ raparaḥ — ṛ→ar), 1.1.2 (guṇa)"
+        : "1.1.52 (alo'ntyasya), 1.1.50 (sthāne'ntaratamaḥ), 1.1.2 (guṇa: aṇudīdhṛtasya)";
       root = g.text;
     }
     if (spec.grade === 'vrddhi') {
       const v = vrddhify(root);
-      if (v.changed) gradeCode = "1.1.52 (alo'ntyasya), 1.1.50 (sthāne'ntaratamaḥ), 1.1.1 (vṛddhirādaic)";
+      if (v.changed) gradeCode = root.endsWith('f') || root.endsWith('F')
+        ? "1.1.52 (alo'ntyasya), 1.1.51 (uraṇ raparaḥ — ṛ→ār), 1.1.1 (vṛddhirādaic)"
+        : "1.1.52 (alo'ntyasya), 1.1.50 (sthāne'ntaratamaḥ), 1.1.1 (vṛddhirādaic)";
       root = v.text;
     }
   }
