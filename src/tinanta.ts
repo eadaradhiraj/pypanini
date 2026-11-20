@@ -508,6 +508,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
 };
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {
+  if (upa.endsWith('A') && form.startsWith('a')) return upa + form.slice(1); // 6.1.84: ā+a → ā
   if (upa.endsWith('a') && form.startsWith('a')) return upa.slice(0, -1) + 'A' + form.slice(1);
   // 6.1.89 (etyedhatyūṭhsu): a/ā + e (guṇa of √i) → ai (vṛddhi) — upa+eti → upaiti.
   if ((upa.endsWith('a') || upa.endsWith('A')) && form.startsWith('e')) {
