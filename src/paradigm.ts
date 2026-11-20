@@ -59,7 +59,9 @@ export function deriveParadigm(options: {
   const sanadi = options.sanadi ?? Sanadi.None;
   const prayoga = options.prayoga ?? Prayoga.Kartari;
   const lakaras = options.lakaras ?? PARADIGM_LAKARAS;
-  const padas = options.padas ?? [Pada.Parasmai, Pada.Atmane];
+  // karmani/bhāve take ātmane-pada only; kartari shows both padas.
+  const padas = options.padas ??
+    (prayoga === Prayoga.Kartari ? [Pada.Parasmai, Pada.Atmane] : [Pada.Atmane]);
   const cells: ParadigmCell[] = [];
 
   for (const lakara of lakaras) {
