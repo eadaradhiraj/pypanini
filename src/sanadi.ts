@@ -152,6 +152,8 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
             ? '3.1.5 (gup-tij-kitbhyo san — jugupsā/titikṣā/cikitsā)'
           : ['lupa', 'sada', 'cara', 'japa', 'ja', 'badha', 'hada', 'sf'].includes(root)
             ? '3.1.24 (lupādi-bhyo bhāva-garhāyām san)'
+          : ['zri', 'yu', 'bF', 'san', 'Brasz', 'fD', 'fR'].includes(root)
+            ? '7.2.49 (sani ivant-ṛdha-bhrasja-dambhu-śri-svṛ-yu-ūrṇu-bhara-jñapi-sanām — iṭ vā)'
           : /[aiufxAEIOU]$/.test(root)
             ? '3.1.7 (san), 6.4.16 (ajjhanagamāṃ sani — dīrgha), 6.1.1 (abhyāsa), 6.1.9'
             : '3.1.7 (san), 6.1.1 (ekāco dve prathamasya), 6.1.9 (abhyāsa), 7.4.79 (reduplicate changes)',
