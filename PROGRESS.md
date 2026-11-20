@@ -1630,3 +1630,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   adveṭ, dviṣyāt, dviḍḍhi, plus ātmanepada and future. Overwrote two stale
   lan overrides. `npm test` 93/93. 0 unregistered emissions. Pushed.
   Coverage 437/2703 (452/3983).
+
+- **2026-11-22 — Session 262 (continued, toward 2703/2703):** Fixed √ad kṛt forms
+  attvā/attum/attavyam/attṛ/anna/annavān via 8.4.55 (khari ca), source-backed
+  by Wiktionary. `npm test` 94/94. 0 unregistered emissions. Pushed.
+  Coverage 437/2703 (452/3983).
