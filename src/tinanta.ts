@@ -509,11 +509,16 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {
   if (upa.endsWith('a') && form.startsWith('a')) return upa.slice(0, -1) + 'A' + form.slice(1);
-  // 6.1.89 (etyedhatyūṭhsu): a + e (guṇa of √i) → ai (vṛddhi) — upa+eti → upaiti.
-  if (upa.endsWith('a') && form.startsWith('e')) return upa.slice(0, -1) + 'E' + form.slice(1);
-  // 6.1.77 (iko yaṇ aci): u + vowel → v + vowel — anu+eti → anveti.
+  // 6.1.89 (etyedhatyūṭhsu): a/ā + e (guṇa of √i) → ai (vṛddhi) — upa+eti → upaiti.
+  if ((upa.endsWith('a') || upa.endsWith('A')) && form.startsWith('e')) {
+    return upa.slice(0, -1) + 'E' + form.slice(1);
+  }
+  // 6.1.77 (iko yaṇ aci): i/u + vowel → y/v + vowel — anu+eti → anveti, vi+eti → vyeti.
   if (upa.endsWith('u') && /[aeiouAEIOUfFxX]/.test(form[0] ?? '')) {
     return upa.slice(0, -1) + 'v' + form;
+  }
+  if (upa.endsWith('i') && /[aeiouAEIOUfFxX]/.test(form[0] ?? '')) {
+    return upa.slice(0, -1) + 'y' + form;
   }
   // 8.3.23 (mo'nusvāraḥ): m → anusvāra (M) before a consonant.
   return applyAnusvara(upa + form);
@@ -716,8 +721,8 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       const satva = needsSatva(args.upasarga, dhatu.text);
       const anusvara = athemForm.includes('M') ? ', 8.3.23 (mo\'nusvāraḥ)' : '';
       p.record(`1.4.59 (upasarga: ${upa}${satva ? ', 8.3.65 ṣatva' : ''}${anusvara})`);
-      if (upa.endsWith('u') && /[aeiouAEIOU]/.test(athematic[0] ?? '')) {
-        p.record('6.1.77 (iko yaṇ aci — u + vowel → v + vowel, anveti)');
+      if (/[iu]/.test(upa[upa.length - 1] ?? '') && /[aeiouAEIOU]/.test(athematic[0] ?? '')) {
+        p.record(`6.1.77 (iko yaṇ aci — ${upa.slice(-1)} + vowel → ${upa.endsWith('i') ? 'y' : 'v'}, vyeti/anveti)`);
       }
     }
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
