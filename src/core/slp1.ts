@@ -198,5 +198,10 @@ export function applyNatva(s: string): string {
   // Do not retroflex an `n` that is followed by `dh` (rundhat, bhinDati):
   // the dh cluster blocks ṇatva in these present-participle stems.
   return s.replace(new RegExp('([rfz])(' + between + ')n(?!dh)', 'g'),
-    (_m: string, trigger: string, mid: string) => trigger + mid + 'R');
+    (_m: string, trigger: string, mid: string, offset: number, whole: string) => {
+      // ṇatva is blocked when a ṣya- / śya- future marker intervenes (e.g.
+      // bhaviṣyanti, kariṣyanti keep the dental n of -nti).
+      if (trigger === 'z' && mid.startsWith('y')) return _m;
+      return trigger + mid + 'R';
+    });
 }

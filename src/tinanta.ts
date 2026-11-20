@@ -649,7 +649,7 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
   const auForm = auRoots.includes(root) &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
   // vac uses the samprasāraṇa weak stem in the 3d (ucatuḥ, not uvācatuḥ).
-  const weakDual = ['gam', 'han', 'khan', 'vac', 'i'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
+  const weakDual = ['gam', 'han', 'khan', 'vac', 'i', 'kf'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
   const strong = auRoots.includes(root) ? auForm : isStrong && !weakDual;
   const stem = entry ? (strong ? entry.strong : entry.weak) : redv + 'a' + root;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
