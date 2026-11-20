@@ -1510,3 +1510,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   paradigms (etārau/ezyanti/ezyāmaḥ) and liṭ 3d → iyatuḥ. Verified 0 anomalies /
   0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
   master. Coverage 352/2703 (366/3983).
+
+- **2026-11-21 — Session 241 (continued, toward 2703/2703):** Fixed √yā future/
+  optative/perfect (yāsyati/yātā/yayau/yayuḥ/yāyāt) via FUTURE_STEMS, PERFECT_STEMS
+  and athematic forms. `npm test` passes (85/85). Pushed to master.
+  Coverage 352/2703 (366/3983).
