@@ -899,7 +899,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     const vowels = 'aAiIuUfFxXeEoO';
     const cons = 'kKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzshL';
     const mono = [...r].filter((c) => vowels.includes(c)).length === 1;
-    if (!mono || !cons.includes(r[0] ?? '')) return [];
+    // 3.1.22: yaṅ requires a consonant-initial root whose vowel is in the
+    // second position (CVC shape); roots like √śri (zr-i) are excluded here
+    // rather than throwing later in heavyReduplicate.
+    const cvc = vowels.includes(r[1] ?? '');
+    if (!mono || !cons.includes(r[0] ?? '') || !cvc) return [];
   }
   const upasargaArg = args.upasarga;
   let upasarga = upasargaArg;

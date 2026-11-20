@@ -228,9 +228,10 @@ function main(): void {
           upasarga: str(flags, 'upasarga') || undefined,
         };
         const p = deriveTinantas(args)[0];
+        if (!p) continue; // no valid form for this sanadi/root combination (e.g. yaṅ on a CVC-invalid root)
         const effectivePada = prayoga === Prayoga.Karmani || prayoga === Prayoga.Bhave
           ? Pada.Atmane
-          : buildSanadiStem(dhatu.text, sanadi).pada ?? pada;
+          : (() => { try { return buildSanadiStem(dhatu.text, sanadi).pada ?? pada; } catch { return pada; } })();
         const label = `${dhatu.text} ${lakara} ${prayoga} ${effectivePada} ${purusha} ${vacana}`;
         if (trace) showTrace(label, p);
         else console.log(p.text());

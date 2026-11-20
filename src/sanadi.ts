@@ -163,7 +163,7 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
     case Sanadi.Nic: {
       // कृ + णिच् → कारयati (vṛddhi); भू → भावयati (u/ū → Av); दा → दापयati (puk).
       const CAUSATIVE_STEMS: Record<string, string> = {
-        pac: 'pAc', kf: 'kAr', yaj: 'yAj', ni: 'nAy', vid: 'ved',
+        pac: 'pAc', kf: 'kAr', yaj: 'yAj', ni: 'nAy', nI: 'nAy', vid: 'ved',
         dA: 'dAp', jFA: 'jFAp', han: 'GAt', car: 'cAr', kram: 'krAm',
         i: 'gam', // 2.4.46 (ṇau gamir abodhane — gamayati)
         duS: 'dUz', // 6.4.90 (doṣo ṇau — dūṣayati)
