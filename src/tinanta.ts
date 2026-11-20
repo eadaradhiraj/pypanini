@@ -127,7 +127,7 @@ const ATMANE_LAN = table(
   ['ta', 'tAm', 'anta'], ['thAH', 'AvAm', 'Dvam'], ['e', 'vahi', 'mahe'],
 );
 const PARASMAI_LIT = table(
-  ['a', 'atuH', 'uH'], ['ita', 'atuH', 'a'], ['a', 'va', 'ma'],
+  ['a', 'atuH', 'uH'], ['iTa', 'atuH', 'a'], ['a', 'va', 'ma'],
 );
 const ATMANE_LIT = table(
   ['e', 'Ate', 'ire'], ['ise', 'Athe', 'aDve'], ['e', 'vahe', 'mahe'],
@@ -501,6 +501,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   ji: { strong: 'jijAy', weak: 'jijiy' },   // jijāya / jijiyuḥ
   yaj: { strong: 'yayAj', weak: 'yayaj' },  // yayāja / yayajuḥ
   vid: { strong: 'ved', weak: 'vid' },       // veda (perfect of √vid 'know')
+  vac: { strong: 'uvAc', weak: 'uc' },      // uvāca/ūcuḥ (1.1.45 samprasāraṇam)
   han: { strong: 'jaghAn', weak: 'jaghn' }, // jaghāna / jaghnuḥ (6.4.98)
   car: { strong: 'cacAr', weak: 'cacar' },   // cacāra / cacaruḥ
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
@@ -524,7 +525,8 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
   const auRoots = ['pA', 'sTA', 'gAi', 'jYA', 'vI'];
   const auForm = auRoots.includes(root) &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
-  const weakDual = ['gam', 'han', 'khan'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
+  // vac uses the samprasāraṇa weak stem in the 3d (ucatuḥ, not uvācatuḥ).
+  const weakDual = ['gam', 'han', 'khan', 'vac'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
   const strong = auRoots.includes(root) ? auForm : isStrong && !weakDual;
   const stem = entry ? (strong ? entry.strong : entry.weak) : redv + 'a' + root;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
@@ -934,7 +936,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
               ? '2.4.41 (veño vayiḥ — vavau/vavuḥ)'
               : '7.1.34 (āta au ṇalaḥ — papau/tasthau/jaglau)'
             : args.lakara === Lakara.Lit
-        ? dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (liṭi dhātor anabhyāsasya), 6.1.4 (pūrvo \'bhyāsaḥ)'
+        ? dhatu.text === 'vac'
+          ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 1.1.45 (igyaṇaḥ samprasāraṇam — uvāca/ūcuḥ)'
+          : dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (liṭi dhātor anabhyāsasya), 6.1.4 (pūrvo \'bhyāsaḥ)'
         : [Lakara.Lrt, Lakara.Lng].includes(args.lakara)
           ? '3.1.33 (syatāsī lṛluṭoḥ — sya vikaraṇa), 1.1.46 (ādyantau ṭakitau — iṭ placement)'
           : args.lakara === Lakara.Lut
