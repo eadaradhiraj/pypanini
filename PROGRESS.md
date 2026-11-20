@@ -1505,3 +1505,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   paradigms (adadāta/adadāmaḥ/dadyāvaḥ/dadyema) via athematic forms. Verified
   0 anomalies / 0 unregistered codes across 150 roots. `npm test` passes (85/85).
   Pushed to master. Coverage 352/2703 (366/3983).
+
+- **2026-11-21 — Session 240 (continued, toward 2703/2703):** Completed √i luṭ/lṛt
+  paradigms (etārau/ezyanti/ezyāmaḥ) and liṭ 3d → iyatuḥ. Verified 0 anomalies /
+  0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
+  master. Coverage 352/2703 (366/3983).
