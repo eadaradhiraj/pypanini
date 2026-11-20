@@ -1171,3 +1171,15 @@ test('√ad (2P) athematic present: atti/adanti (not *adati)', () => {
   assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'adyAt');   // adyāt
   assert.equal(f(Lakara.Lot, Purusha.Prathama, Vacana.Eka), 'attu');    // attu
 });
+
+test('√dviṣ (2P) athematic present: dveṣṭi/adveṭ/dviṣyāt', () => {
+  const f = (lakara: Lakara, pada: Pada, pu: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'dviS', lakara, pada, purusha: pu, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'dvezTi');  // dveṣṭi
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'dviSanti'); // dviṣanti
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'dvezXi'); // dvekṣi
+  assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'dviSTe');  // dviṣṭe
+  assert.equal(f(Lakara.Lan, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'advET');   // adveṭ
+  assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'dviSyAt'); // dviṣyāt
+  assert.equal(f(Lakara.Lot, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'dviDDi');  // dviḍḍhi
+});
