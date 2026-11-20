@@ -1159,3 +1159,15 @@ test('√i (2P) weak-stem paradigms: itaH/ithaH/ivaH, Et, iyAt', () => {
   assert.equal(f(Lakara.Lot, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'ehi');    // ehi (come)
   assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'ite');     // ite
 });
+
+test('√ad (2P) athematic present: atti/adanti (not *adati)', () => {
+  const f = (lakara: Lakara, pu: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'ad', lakara, purusha: pu, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'atti');    // atti
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'adanti'); // adanti
+  assert.equal(f(Lakara.Lat, Purusha.Madhyama, Vacana.Eka), 'atsi');    // atsi
+  assert.equal(f(Lakara.Lat, Purusha.Uttama, Vacana.Eka), 'admi');      // admi
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'Adat');    // ādat
+  assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'adyAt');   // adyāt
+  assert.equal(f(Lakara.Lot, Purusha.Prathama, Vacana.Eka), 'attu');    // attu
+});
