@@ -38,6 +38,17 @@ const AORIST: Record<string, AoristEntry> = {
   pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt' } } },
   // a-aorist
   pac: { kind: 'a', stem: 'pac' },
+  rudh: { kind: 'a', stem: 'rudh', code: '3.1.57 (iritaḥ vā — rudh a-aorist)' },
+  yuj: { kind: 'a', stem: 'yuj', code: '3.1.56 (sarti-śāsty-artibhyaś ca — yuj a-aorist)' },
+  // √nī s-aorist: anaiṣīt (3s), anaiṣṭām (3d), anaiṣuḥ (3p) — 7.2.11 iṭ-naṣi.
+  nI: { kind: 's', stem: 'nE', code: '3.1.44 (cleḥ sic — nī s-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'anEzIt' } } },
+  // √śru s-aorist: aśrauṣīt (3s) — vṛddhi of u→au.
+  zru: { kind: 's', stem: 'zrO', code: '3.1.44 (cleḥ sic — śru s-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'azrOzIt' } } },
+  // √car iṣ-aorist with vṛddhi: acārīt (3s) — 7.2.35.
+  car: { kind: 'is', stem: 'cAri', code: '3.1.44 (cleḥ sic — car iṣ-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'acArizIt' } } },
   sic: { kind: 'a', stem: 'sic', code: '3.1.44 (cleḥ sic — asicat)' },
   gam: { kind: 'a', stem: 'gam' },
   // s-aorist of kṛ: akārṣīt (a + kār + ṣ + īt)
@@ -283,10 +294,14 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
     if (kind === 'root' && /[uU]/.test(stem.slice(-1)) && /^[aA]/.test(ending)) {
       ending = 'v' + ending;
     }
-    // sibilant aorists: -īt / -īḥ in 3s/2s active
+    // sibilant aorists: -īt / -īḥ in 3s/2s active, -uḥ (jus) in 3p (3.4.109)
     if (sibilant && args.pada === Pada.Parasmai && idx === 0 &&
         (args.purusha === Purusha.Prathama || args.purusha === Purusha.Madhyama)) {
-      ending = args.purusha === Purusha.Prathama ? 'It' : 'Ih';
+      ending = args.purusha === Purusha.Prathama ? 'It' : 'IH';
+    }
+    if (sibilant && args.pada === Pada.Parasmai &&
+        args.purusha === Purusha.Prathama && args.vacana === Vacana.Bahu) {
+      ending = 'uH'; // 3.4.109 jus
     }
     p.insert(p.length, ending, ['tin']);
     p.record(`3.4.99 (nityaṃ ḍitaḥ), 3.4.100 (itaś ca), 3.4.101 (secondary ending ${ending})`);
