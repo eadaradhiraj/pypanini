@@ -1612,3 +1612,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3p forms ghnanti/aghnan/ghnantu (strong hanti retained for 3s), source-backed
   by a study of han verb forms. `npm test` 90/90. 0 unregistered emissions.
   Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-22 — Session 259 (continued, toward 2703/2703):** Completed √i (2P)
+  athematic paradigms from a reliable conjugation source: weak-stem itaH/ithaH/
+  ivaH/itha, imperfect Et, optative iyAt, plus future/conditional/perfect and
+  ātmanepada. Kept ehi imperative (both ehi/ihi attested). `npm test` 91/91.
+  0 unregistered emissions. Pushed. Coverage 437/2703 (452/3983).
