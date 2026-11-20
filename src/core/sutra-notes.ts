@@ -42,6 +42,12 @@ const UNIVERSAL_PARIBHASHA: readonly string[] = [
   '1.1.71', // ādirantyena sahetā
   '1.1.72', // yena viśiṣṭadantasya
   '1.1.73', // vṛddhir yasyācāmādistad vṛddham
+  // 1.3.x — it-saṃjñā (affix marker) rules governing our marked affixes (Sap, la~w, ṇic…)
+  '1.3.1', '1.3.2', '1.3.3', '1.3.5', '1.3.6', '1.3.7', '1.3.8', '1.3.9',
+  '1.3.10', '1.3.12', '1.3.13',
+  // 1.4.x — pada / vibhakti / upasarga saṃjñā governing case & pada assignment
+  '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.4.5', '1.4.6', '1.4.7',
+  '1.4.8', '1.4.15', '1.4.58', '1.4.59', '1.4.60',
 ];
 
 /** Definition sūtras that govern every finite-verb (tiṅanta) derivation. */
