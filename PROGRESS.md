@@ -1525,3 +1525,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (bhaviṣyanti/pakṣyanti/kariṣyanti) by blocking ṇatva after ṣya marker, and
   √kṛ liṭ 3d → cakratuḥ. Verified 0 anomalies / 0 unregistered codes across
   150 roots. `npm test` passes (85/85). Pushed to master. Coverage 352/2703 (366/3983).
+
+- **2026-11-21 — Session 244 (continued, toward 2703/2703):** Audited future 3p
+  forms across 16 roots and bhāve/karmāṇi paradigms. Verified 0 anomalies /
+  0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
+  master. Coverage 352/2703 (366/3983).
