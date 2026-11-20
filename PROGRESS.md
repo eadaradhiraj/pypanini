@@ -1417,3 +1417,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   śānac, ṇvul, ghañ/ap, kta, kvip/kvin, and subanta consonant/ṛ/an-stem
   paradigms. Verified 0 anomalies / 0 unregistered codes across 150 roots.
   `npm test` passes (85/85). Pushed to master. Coverage 344/2703 (358/3983).
+
+- **2026-11-20 — Session 223 (continued, toward 2703/2703):** Added --trace
+  support to the stri CLI command. Fixed i/u-neuter instrumental-sg and
+  u-neuter gen-pl endings (dadinA/madunA/madUnAm — dental n, no spurious ṇatva).
+  Audited a/i/u/ṛ/an/as consonant-stem paradigms. Verified 0 anomalies /
+  0 unregistered codes. `npm test` passes (85/85). Pushed to master.
+  Coverage 344/2703 (358/3983).
