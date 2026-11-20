@@ -195,6 +195,13 @@ test('laṅ/lṛṅ ātmanepada 1st person dīrgha', () => {
   assert.equal(fut(Lakara.Lng, 'dA'), 'adAsyat');  // adāsyat
   assert.equal(fut(Lakara.Lrt, 'vid'), 'vedizyati'); // vediṣyati
   assert.equal(fut(Lakara.Lrt, 'diS'), 'dekzyati');  // dekṣyati
+  // √han future stem is haṃsya- throughout (8.3.23), not a mix of
+  // haṃsyati / haniṣyanti.
+  assert.equal(fut(Lakara.Lrt, 'han'), 'haMsyati'); // haṃsyati
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'han', lakara: Lakara.Lrt,
+    purusha: Purusha.Prathama, vacana: Vacana.Bahu })[0].text(), 'haMsyanti'); // haṃsyanti
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'han', lakara: Lakara.Lng,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'ahaMsyat'); // ahaṃsyat
 });
 
 test('aorist (luN): root / a / s / iṣ varieties', () => {
