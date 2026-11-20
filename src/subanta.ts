@@ -266,8 +266,43 @@ function applySandhi(base: SLP1, ending: SLP1): SLP1 {
   return base + ending;
 }
 
+/** Irregular declension of go- (cow), common to masculine and feminine. */
+const GO_ENDINGS: EndingTable = {
+  [Vibhakti.Prathama]: ['gauH', 'gAvau', 'gAvaH'],
+  [Vibhakti.Dvitiya]: ['gAm', 'gAvau', 'gAH'],
+  [Vibhakti.Trtiya]: ['gavA', 'goByAm', 'goBiH'],
+  [Vibhakti.Caturthi]: ['goByaH', 'goByAm', 'goByaH'],
+  [Vibhakti.Pancami]: ['goH', 'goByAm', 'goByaH'],
+  [Vibhakti.Sasti]: ['goH', 'gavoH', 'gavAm'],
+  [Vibhakti.Saptami]: ['gavi', 'gavoH', 'gozu'],
+  [Vibhakti.Sambodhana]: ['gauH', 'gAvau', 'gAvaH'],
+};
+
+/** Irregular declension of nau- (boat, feminine). */
+const NAU_ENDINGS: EndingTable = {
+  [Vibhakti.Prathama]: ['nauH', 'nAvau', 'nAvaH'],
+  [Vibhakti.Dvitiya]: ['nAm', 'nAvau', 'nAH'],
+  [Vibhakti.Trtiya]: ['nAvA', 'nAByAm', 'nABiH'],
+  [Vibhakti.Caturthi]: ['nAByaH', 'nAByAm', 'nAByaH'],
+  [Vibhakti.Pancami]: ['nAH', 'nAByAm', 'nAByaH'],
+  [Vibhakti.Sasti]: ['nAH', 'nAvoH', 'nAvAm'],
+  [Vibhakti.Saptami]: ['nAvi', 'nAvoH', 'nAsu'],
+  [Vibhakti.Sambodhana]: ['nauH', 'nAvau', 'nAvaH'],
+};
+
 export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   const stem: SLP1 = args.pratipadika;
+  const irregular: EndingTable | undefined = stem === 'go' ? GO_ENDINGS
+    : stem === 'nO' ? NAU_ENDINGS : undefined;
+  if (irregular) {
+    const form = irregular[args.vibhakti][VACANA_INDEX[args.vacana]] ?? '';
+    const p = new Prakriya([]);
+    p.record('4.1.2 (prātipadikād su; go-/nau-śabdasyāsādhāraṇam)');
+    p.insert(p.length, form, ['sup']);
+    p.record('8.2.1 (final consolidation)');
+    p.collapse();
+    return [p];
+  }
   const cls = classFor(stem, args.linga) ?? CONSONANT_STEMS.find((c) => c.linga === args.linga && c.matches(stem));
   if (!cls) {
     throw new Error(`unsupported stem class: "${stem}" with linga ${args.linga} (supported: ${STEM_CLASSES.filter(c => c.linga === args.linga).map(c => c.id).join(', ') || 'none'})`);
