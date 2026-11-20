@@ -828,6 +828,13 @@ test('subanta: n-, t- and ṛ-stem consonants', () => {
   assert.equal(form('rAjan', Vibhakti.Trtiya, Vacana.Eka), 'rAjYA');
   assert.equal(form('rAjan', Vibhakti.Sasti, Vacana.Bahu), 'rAjYAm');
 
+  // ātman (m): the n stays dental after m — only rājñā-type palatals take ñ.
+  assert.equal(form('atman', Vibhakti.Trtiya, Vacana.Eka), 'atmanA');   // ātmanā
+  assert.equal(form('atman', Vibhakti.Caturthi, Vacana.Eka), 'atmane'); // ātmane
+  assert.equal(form('atman', Vibhakti.Sasti, Vacana.Dvi), 'atmanoH');   // ātmanoḥ
+  assert.equal(form('atman', Vibhakti.Sasti, Vacana.Bahu), 'atmanAm');  // ātmanām
+  assert.equal(form('mahAtman', Vibhakti.Trtiya, Vacana.Eka), 'mahAtmanA'); // mahātmanā
+
   // bhavat (m), -at stem
   assert.equal(form('Bavat', Vibhakti.Dvitiya, Vacana.Eka), 'Bavantam');
   assert.equal(form('Bavat', Vibhakti.Trtiya, Vacana.Bahu), 'BavadBiH');

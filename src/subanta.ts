@@ -142,6 +142,21 @@ const N_MASCULINE: EndingTable = {
   [Vibhakti.Sambodhana]: ['an', 'Anau', 'AnaH'],
 };
 
+/**
+ * For -an stems whose preceding consonant is NOT palatal, the n stays dental
+ * (ātmanā, ātmanoḥ, ātmanām) — the ñ of rājñā / rājñe arises only by
+ * assimilation to a palatal j (8.4.40 stoḥ ścunā ścuḥ, by analogy).
+ * Base is still the stem minus `an`; the `an` is restored in these endings.
+ */
+const N_MASCULINE_DENTAL: EndingTable = {
+  ...N_MASCULINE,
+  [Vibhakti.Trtiya]: ['anA', 'aByAm', 'aBiH'],
+  [Vibhakti.Caturthi]: ['ane', 'aByAm', 'aByaH'],
+  [Vibhakti.Pancami]: ['anaH', 'aByAm', 'aByaH'],
+  [Vibhakti.Sasti]: ['anaH', 'anoH', 'anAm'],
+  [Vibhakti.Saptami]: ['ani', 'anoH', 'asu'],
+};
+
 /** Consonant stem: -at masculine present participle (e.g. bhavat). Base = stem minus `at`. */
 const T_MASCULINE: EndingTable = {
   [Vibhakti.Prathama]: ['at', 'antau', 'antaH'],
@@ -309,7 +324,13 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     throw new Error(`unsupported stem class: "${stem}" with linga ${args.linga} (supported: ${STEM_CLASSES.filter(c => c.linga === args.linga).map(c => c.id).join(', ') || 'none'})`);
   }
   const base = cls.terminal ? stem.slice(0, -cls.terminal.length) : stem;
-  const ending = cls.endings[args.vibhakti][VACANA_INDEX[args.vacana]] ?? '';
+  // 8.4.40 (stoḥ ścunā ścuḥ): the ñ of rājñā is an assimilation to a
+  // palatal consonant; after m/t/etc. the n of an -an stem remains dental
+  // (ātmanā, mahātmanā). Select the dental ending table accordingly.
+  const effectiveEndings = cls.id === 'n-m' && !/[cCjJYS]/.test(stem.slice(-3, -2))
+    ? N_MASCULINE_DENTAL
+    : cls.endings;
+  const ending = effectiveEndings[args.vibhakti][VACANA_INDEX[args.vacana]] ?? '';
   let natvaApplied = false;
   let surface = cls.sandhi ? applySandhi(base, ending) : base + ending;
   // 8.4.1 raṣābhyāṃ no ṇaḥ: retroflex n after r/ṣ/ṛ in the same pada —
