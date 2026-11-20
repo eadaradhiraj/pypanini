@@ -1392,3 +1392,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (anunāsika-lopaḥ jhali kṅiti) to tanādi roots — tata/vata/yata/rata/nata/mata
   via stem overrides. `npm test` passes (85/85). Pushed to master.
   Coverage 335/2703 (349/3983).
+
+- **2026-11-20 — Session 218 (continued, toward 2703/2703):** Registered
+  7.1.13/7.1.31/7.3.101 (a-stem dat/abl), 6.4.3/7.1.54 (gen-pl nāmi/nuṭ),
+  1.4.21/1.4.22 (vacana), 1.1.59/1.1.60 (reduplication/lopa) subanta & liṭ
+  traces. Verified 0 anomalies / 0 unregistered codes across 150 roots.
+  `npm test` passes (85/85). Pushed to master. Coverage 343/2703 (357/3983).
