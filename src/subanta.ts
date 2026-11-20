@@ -304,6 +304,12 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
       [Vibhakti.Trtiya, Vibhakti.Pancami, Vibhakti.Sasti].includes(args.vibhakti)) {
     p.record('7.1.12 (ṭāṅasiṅasām ina-āt-syāḥ — devena/devāt/devasya)');
   }
+  if (cls.id === 'a-m' && args.vacana === Vacana.Eka && args.vibhakti === Vibhakti.Caturthi) {
+    p.record("7.1.13 (ṅer yaḥ), 7.3.101 (ato dīrgho yañi — dative -āya, vṛkṣāya)");
+  }
+  if (cls.id === 'a-m' && args.vacana === Vacana.Eka && args.vibhakti === Vibhakti.Pancami) {
+    p.record("7.1.31 (pañcamyā at — ablative -āt, vṛkṣāt)");
+  }
   if (cls.id === 'a-n' && args.vacana === Vacana.Eka &&
       [Vibhakti.Prathama, Vibhakti.Dvitiya].includes(args.vibhakti)) {
     p.record('7.1.24 (ato \'m — neuter nom/acc sg -am)');
