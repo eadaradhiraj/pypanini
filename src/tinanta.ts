@@ -667,8 +667,8 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (stem !== rawStem) p.record(dhatu.text.startsWith('R')
       ? '6.1.65 (ṇo naḥ — root-initial ṇ → n)'
       : '6.1.64 (dhātvādeḥ ṣaḥ saḥ — root-initial ṣ → s)');
-    p.record('3.2.110 (luN vidhāna)');
-    p.record('3.1.67 (bhāve — impersonal passive, ya-karmaṇi)');
+    p.record('3.2.123 (lat vidhāna)');
+    p.record('3.1.67 (sārvaDhātuke yak — bhāve/impersonal passive)');
     p.record('1.3.13 (bhāvakarmaṇoḥ — ātmane-pada in impersonal)');
     if (['yaj', 'vac'].includes(dhatu.text)) {
       p.record('1.1.45 (igyaṇaḥ samprasāraṇam — ijyate/ucyate)');

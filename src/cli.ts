@@ -225,7 +225,9 @@ function main(): void {
           upasarga: str(flags, 'upasarga') || undefined,
         };
         const p = deriveTinantas(args)[0];
-        const effectivePada = buildSanadiStem(dhatu.text, sanadi).pada ?? pada;
+        const effectivePada = prayoga === Prayoga.Karmani || prayoga === Prayoga.Bhave
+          ? Pada.Atmane
+          : buildSanadiStem(dhatu.text, sanadi).pada ?? pada;
         const label = `${dhatu.text} ${lakara} ${prayoga} ${effectivePada} ${purusha} ${vacana}`;
         if (trace) showTrace(label, p);
         else console.log(p.text());
