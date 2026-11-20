@@ -282,6 +282,9 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'brU:lat:parasmai:uttama:eka': 'bravImi',
   'brU:lat:parasmai:prathama:bahu': 'bruvanti',
   'brU:lat:atmane:prathama:eka': 'brUte',
+  // √brū imperfect (Whitney §632): abravīt / abruvan.
+  'brU:lan:parasmai:prathama:eka': 'abravIt',
+  'brU:lan:parasmai:prathama:bahu': 'abruvan',
   // class 2 (adādi): vāti, pāti, rāti, dveṣṭi
   'BA:lat:parasmai:prathama:eka': 'BAti',   // bhāti
   'mA:lat:parasmai:prathama:eka': 'mAti',   // māti
