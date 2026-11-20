@@ -245,9 +245,11 @@ export const TINANTA_TAIL_RULES: Rule[] = [
         (m) => m === 'aE' ? 'E' : m === 'aO' ? 'O' : m[0]); // 6.1.84 ekādeśa
     }
     if (t0.text !== beforeEkadesa) {
-      ctx.prakriya.record(/(aE|aO|Ea|Oa|ea|oa)/.test(beforeEkadesa)
-        ? '6.1.97 (ato guṇe — a + guṇa vowel → guṇa)' // 6.1.84 ekādeśa for others
-        : '6.1.84 (ekādeśa: vowel + same vowel → single)');
+      ctx.prakriya.record(/(aE|aO)/.test(beforeEkadesa)
+        ? '6.1.88 (vṛddhir eci — a + diphthong → vṛddhi)'
+        : /(Ea|Oa|ea|oa)/.test(beforeEkadesa)
+          ? '6.1.97 (ato guṇe — a + guṇa vowel → guṇa)'
+          : '6.1.84 (ekādeśa: vowel + same vowel → single)');
       ctx.prakriya.collapse();
     }
     // ṇatva must see the whole pada (may span what were separate terms).
