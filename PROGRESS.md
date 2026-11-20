@@ -1580,3 +1580,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (nāyayati) and guarded yaṅ on non-CVC roots (no crash, empty result). Verified
   subanta paradigms for guru/agni/sItA/nadI/vana. `npm test` 85/85. Pushed.
   Coverage 436/2703 (451/3983).
+
+- **2026-11-22 — Session 253 (continued, toward 2703/2703):** Fixed desiderative
+  3p ṇatva via 8.2.1 pūrvatrāsiddham guard in `applyNatva` (bubhūṣanti,
+  cikīrṣanti — not *bubhūṣaṇti); corrected desiderative stems for jī/vid/nī/śru
+  (jijīṣa, vividiṣa, ninīṣa, śuśrūṣa). Added regression tests. Verified 0
+  unregistered emissions across 150 roots. `npm test` 86/86. Pushed.
+  Coverage 436/2703 (451/3983).
