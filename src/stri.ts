@@ -149,7 +149,9 @@ export function deriveStri(args: StriArgs): Prakriya | undefined {
       args.stem === 'antarvat' || args.stem === 'pativat' ? '4.1.32 (nuk + ṅīp)' :
       args.stem.endsWith('van') ? '4.1.7 (vano ra ca ṅīp)' :
       args.stem.endsWith('at') ? '4.1.6 (ugitaś ca ṅīp)' :
-        /[aA]$/.test(args.stem) ? '4.1.15 (ṭiḍ-aṇ-kvarap ṅīp)' : '4.1.5 (ṛn-nebhyo ṅīp)');
+      ['kumAra', 'kiSora', 'bArkara'].includes(args.stem)
+        ? '4.1.20 (vayasi prathame — kumārī/kiśorī), 4.1.15 (ṭiḍ-aṇ-kvarap ṅīp)'
+        : /[aA]$/.test(args.stem) ? '4.1.15 (ṭiḍ-aṇ-kvarap ṅīp)' : '4.1.5 (ṛn-nebhyo ṅīp)');
   }
 
   p.setText(0, feminine);
