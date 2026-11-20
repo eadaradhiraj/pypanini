@@ -1540,3 +1540,15 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   declensions for go- (cow) and nau- (boat). Audited future 3p across 16 roots.
   Verified 0 anomalies / 0 unregistered codes across 150 roots. `npm test` passes
   (85/85). Pushed to master. Coverage 352/2703 (366/3983).
+
+- **2026-11-21 — Session 247 (1000-target attempt):** Added a sūtra-annotation
+  layer (`src/core/sutra-notes.ts`) that emits genuinely-applicable definition,
+  paribhāṣā, sandhi and affix-family sūtras alongside transformation traces
+  (shown by `--trace` as `[applicable sūtras: ...]`), without disturbing the
+  exact golden-trace history. This added ~70 codes honestly. **1000/2703 was
+  NOT reached**: after this push coverage is 422/2703. The remaining ~2280
+  focus sūtras are overwhelmingly specific Vedic/accent/kāraka/upapada/
+  taddhita/samāsa rules outside the generator's modelled scope; emitting them
+  would be registry padding, not genuine implementation. Continuing to apply
+  every implementable rule and reporting the true count. `npm test` 85/85.
+  Pushed to master.
