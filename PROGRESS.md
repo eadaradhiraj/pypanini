@@ -1486,3 +1486,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-20 — Session 235 (continued, toward 2703/2703):** Fixed √tan iṭ-less
   kṛts (tantum/tantavya/tata). Verified 0 anomalies / 0 unregistered codes across
   150 roots. `npm test` passes (85/85). Pushed to master. Coverage 352/2703 (366/3983).
+
+- **2026-11-21 — Session 236 (continued, toward 2703/2703):** Added kṛt overrides
+  for dhātupāṭha roots Bidir/Cidir (√bhid/√chid → Binna/Cinna) and fixed √pīḍ/
+  √mīl kta → pīḍita/mīlita. Verified 0 anomalies / 0 unregistered codes across
+  150 roots. `npm test` passes (85/85). Pushed to master. Coverage 352/2703 (366/3983).
