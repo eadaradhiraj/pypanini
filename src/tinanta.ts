@@ -719,6 +719,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     }
     if (dhatu.text === 'zru') p.record('3.1.74 (śruvaḥ śṛ ca — śṛṇoti)');
     if (dhatu.text === 'kfpa') p.record('8.2.18 (kṛpo ro laḥ — kalpati)');
+    if (dhatu.text === 'an' && upa && /[rfz]/.test(upa)) {
+      p.record('8.4.19 (aniteḥ — prāṇiti/prāṇati: n → ṇ after upasarga)');
+    }
     if (dhatu.text === 'vac' && [Lakara.Lut, Lakara.Lrt].includes(args.lakara)) {
       p.record('8.2.30 (coḥ kuḥ — vaktā/vakṣyati)');
     }
@@ -883,6 +886,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
         ? needsSatva(upasargaArg!, dhatu.text) ? ', 8.3.65 ṣatva' : ', 8.4.14 ṇatva'
         : '';
     prakriya.record(`1.4.59 (upasarga: ${upasarga}${sandhi})`);
+    if (dhatu.text === 'an' && /[rfz]/.test(upasargaArg!)) {
+      prakriya.record('8.4.19 (aniteḥ — prāṇiti/prāṇati: n → ṇ after upasarga)');
+    }
     if (prefixSandhiCode) prakriya.record(prefixSandhiCode);
     if (dhatu.text === 'sad' && /[iu]$/.test(upasargaArg) && upasargaArg !== 'prati') {
       prakriya.record('8.3.66 (sadir aprateḥ — viṣīdati)');
