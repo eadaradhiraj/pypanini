@@ -1376,3 +1376,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   fixed √dhā (DA) imperfect/imperative/optative/future/perfect; fixed √i future
   (etā/eṣyati). `npm test` passes (85/85). Pushed to master.
   Coverage 332/2703 (346/3983).
+
+- **2026-11-19 — Session 215 (continued, toward 2703/2703):** Implemented 8.2.18
+  (kṛpo ro laḥ — klṛpta/kalpati for √kṛp). Fixed future forms √vac→vaktā/vakṣyati,
+  √bhid→bhettā/bhetsyati, √yuj→yoktā/yokṣyati, √bhid imperfect→abhinat.
+  `npm test` passes (85/85). Pushed to master. Coverage 333/2703 (347/3983).
