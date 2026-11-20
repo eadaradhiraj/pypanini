@@ -718,6 +718,15 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     }
     if (dhatu.text === 'zru') p.record('3.1.74 (śruvaḥ śṛ ca — śṛṇoti)');
     if (dhatu.text === 'kfpa') p.record('8.2.18 (kṛpo ro laḥ — kalpati)');
+    if (dhatu.text === 'vac' && [Lakara.Lut, Lakara.Lrt].includes(args.lakara)) {
+      p.record('8.2.30 (coḥ kuḥ — vaktā/vakṣyati)');
+    }
+    if (dhatu.text === 'bhid' && [Lakara.Lut, Lakara.Lrt].includes(args.lakara)) {
+      p.record('7.2.48 (bhidādiṣu iṭ — bhettā/bhetsyati)');
+    }
+    if (dhatu.text === 'yuj' && [Lakara.Lut, Lakara.Lrt].includes(args.lakara)) {
+      p.record('8.4.55 (khari ca — yoktā/yokṣyati)');
+    }
     if (dhatu.text === 'jYA' && (args.pada ?? dhatu.pada) === Pada.Parasmai) {
       p.record('3.1.81 (kryādibhyaḥ śnā — 9P), 7.3.79 (jñājanor jā — jānāti)');
     }
@@ -966,13 +975,13 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
               : '7.1.34 (āta au ṇalaḥ — papau/tasthau/jaglau)'
             : args.lakara === Lakara.Lit
         ? dhatu.text === 'vac'
-          ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 1.1.45 (igyaṇaḥ samprasāraṇam — uvāca/ūcuḥ)'
-          : dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (liṭi dhātor anabhyāsasya), 6.1.4 (pūrvo \'bhyāsaḥ)'
+          ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam), 1.1.45 (igyaṇaḥ samprasāraṇam — uvāca/ūcuḥ)'
+          : dhatu.text === 'kf' ? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam), 7.4.62 (kuhoś cuḥ: ku → cu — cakāra)' : '6.1.8 (liṭi dhātor anabhyāsasya), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam)'
         : [Lakara.Lrt, Lakara.Lng].includes(args.lakara)
           ? '3.1.33 (syatāsī lṛluṭoḥ — sya vikaraṇa), 1.1.46 (ādyantau ṭakitau — iṭ placement)'
           : args.lakara === Lakara.Lut
             ? '3.1.33 (syatāsī lṛluṭoḥ — tāsi vikaraṇa)'
-            : '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ)'
+            : '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam)'
       : undefined,
   };
 
