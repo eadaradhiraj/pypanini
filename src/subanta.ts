@@ -267,7 +267,7 @@ function applySandhi(base: SLP1, ending: SLP1): SLP1 {
 }
 
 /** Irregular declension of go- (cow), common to masculine and feminine. */
-const GO_ENDINGS: EndingTable = {
+export const GO_ENDINGS: EndingTable = {
   [Vibhakti.Prathama]: ['gauH', 'gAvau', 'gAvaH'],
   [Vibhakti.Dvitiya]: ['gAm', 'gAvau', 'gAH'],
   [Vibhakti.Trtiya]: ['gavA', 'goByAm', 'goBiH'],
@@ -279,7 +279,7 @@ const GO_ENDINGS: EndingTable = {
 };
 
 /** Irregular declension of nau- (boat, feminine). */
-const NAU_ENDINGS: EndingTable = {
+export const NAU_ENDINGS: EndingTable = {
   [Vibhakti.Prathama]: ['nauH', 'nAvau', 'nAvaH'],
   [Vibhakti.Dvitiya]: ['nAm', 'nAvau', 'nAH'],
   [Vibhakti.Trtiya]: ['nAvA', 'nAByAm', 'nABiH'],

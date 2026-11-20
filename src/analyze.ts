@@ -1,5 +1,5 @@
-import { SLP1, Vibhakti, Vacana } from './core/types';
-import { ALL_STEM_CLASSES, VACANA_INDEX, deriveSubantas } from './subanta';
+import { Linga, SLP1, Vibhakti, Vacana } from './core/types';
+import { ALL_STEM_CLASSES, GO_ENDINGS, NAU_ENDINGS, VACANA_INDEX, deriveSubantas } from './subanta';
 
 /** A reverse-lookup result: declined word → prātipadika + case/number/gender. */
 export interface SubantaAnalysis {
@@ -38,6 +38,23 @@ function normalize(s: SLP1): SLP1 {
 export function analyzeSubanta(word: SLP1): SubantaAnalysis[] {
   const results: SubantaAnalysis[] = [];
   const probe = normalize(word);
+
+  // Irregular go-/nau- stems: match against their dedicated ending tables.
+  for (const [stem, table, linga] of [
+    ['go', GO_ENDINGS, Linga.Pumsaka],
+    ['go', GO_ENDINGS, Linga.Stri],
+    ['nO', NAU_ENDINGS, Linga.Stri],
+  ] as const) {
+    for (const vibhakti of VIBHAKTIS) {
+      for (const vacana of VACANAS) {
+        const ending = table[vibhakti][VACANA_INDEX[vacana]] ?? '';
+        if (!probe.endsWith(ending)) continue;
+        if (deriveSubantas({ pratipadika: stem, linga, vibhakti, vacana })[0]?.text() !== word) continue;
+        results.push({ word, pratipadika: stem, base: stem, linga, stemClass: 'irregular', vibhakti, vacana, ending });
+      }
+    }
+  }
+  if (results.length) return results;
 
   for (const cls of ALL_STEM_CLASSES) {
     for (const vibhakti of VIBHAKTIS) {
