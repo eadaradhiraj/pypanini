@@ -1,4 +1,5 @@
 import { Prakriya } from './core/prakriya';
+import { applyNatva } from './core/slp1';
 import { Linga, SubantaArgs, Vibhakti, Vacana } from './core/types';
 
 type EndingTable = Record<Vibhakti, [string, string, string]>;
@@ -54,7 +55,7 @@ const I_PUMSAKA: EndingTable = {
 const U_PUMSAKA: EndingTable = {
   [Vibhakti.Prathama]: ['uH', 'U', 'avaH'],
   [Vibhakti.Dvitiya]: ['um', 'U', 'Un'],
-  [Vibhakti.Trtiya]: ['uRA', 'uByAm', 'uBiH'],
+  [Vibhakti.Trtiya]: ['unA', 'uByAm', 'uBiH'],
   [Vibhakti.Caturthi]: ['ave', 'uByAm', 'uByaH'],
   [Vibhakti.Pancami]: ['oH', 'uByAm', 'uByaH'],
   [Vibhakti.Sasti]: ['oH', 'yoH', 'URAm'],
@@ -309,7 +310,16 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   }
   const base = cls.terminal ? stem.slice(0, -cls.terminal.length) : stem;
   const ending = cls.endings[args.vibhakti][VACANA_INDEX[args.vacana]] ?? '';
+  let natvaApplied = false;
   let surface = cls.sandhi ? applySandhi(base, ending) : base + ending;
+  // 8.4.1 raṣābhyāṃ no ṇaḥ: retroflex n after r/ṣ/ṛ in the same pada —
+  // only for the u-stem inst-sg `-unā` ending, where the n directly follows
+  // the stem-internal r trigger (guru + unā → guruṇā; madhu → madhunā).
+  if (cls.id === 'u-m' && args.vibhakti === Vibhakti.Trtiya && args.vacana === Vacana.Eka) {
+    const beforeNatva = surface;
+    surface = applyNatva(surface);
+    if (surface !== beforeNatva) natvaApplied = true;
+  }
   // 8.2.39 (jhalāṃ jaśo 'nte) / 8.4.41 / 8.2.23: consonant-stem nominative
   // singular surface forms (vāk, dviṭ, bhagavān).
   if (cls.id.startsWith('cons-') && args.vibhakti === Vibhakti.Prathama && args.vacana === Vacana.Eka) {
@@ -395,6 +405,7 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
     p.record("8.2.39 (jhalāṃ jaśo 'nte), 8.4.41 (ṣṭunā ṣṭuḥ — consonant nom sg)");
   }
   if (ending.includes('H')) p.record('8.3.15 (visarjanīyaḥ)');
+  if (natvaApplied) p.record('8.4.1 (raṣābhyāṃ no ṇaḥ — guruṇā)');
   // 8.3.16 (roḥ supi): ru → visarga before the locative-plural ending su
   // (payas + su → payaḥsu).
   if (cls.id === 's-n' && args.vibhakti === Vibhakti.Saptami && args.vacana === Vacana.Bahu) {
