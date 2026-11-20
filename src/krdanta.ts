@@ -328,7 +328,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.ka]: { jYA: 'jY', prIY: 'priy', kF: 'kir' }, // jña (6.4.64), priya (prī+ka 6.1.77), kira (kṝ→kir)
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved' },  // vedanīya
-  [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit', muR: 'mUr', mUrcC: 'mUr', tUrva: 'tUr', Durva: 'dUr' }, // mūrti/tūrti (6.4.21)
+  [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit', muR: 'mUr', mUrcC: 'mUr', tUrva: 'tUr', Durva: 'dUr', man: 'ma', mana: 'ma', ram: 'ra', rama: 'ra', yam: 'ya', yama: 'ya', nam: 'na', tan: 'ta', van: 'va', kF: 'kIr' }, // mūrti/tūrti (6.4.21); mati/rati (6.4.37); kīrti (3.3.97)
   [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', Sam: 'Sami', tam: 'tami', dam: 'dami', nah: 'nadD', laB: 'labD', vach: 'vak', vacha: 'vak', han: 'ha', car: 'cari', cara: 'cari', arh: 'arhi', arha: 'arhi', rama: 'ra', ram: 'ra', vasu: 'uSi', vas: 'uSi', Svap: 'sup', svapa: 'sup' }, // vaktvā (8.2.30); hatvā (6.4.37); caritvā (7.2.35); arhitvā/ratvā/uṣitvā/suptvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez' }, // dveṣaṇa
   [Krt.Tum]: { gam: 'gan', bhid: 'bhet', Cid: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', nah: 'nadD', laB: 'labD', dah: 'dagD', vach: 'vak', vacha: 'vak' }, // vaktum (8.2.30)
@@ -485,6 +485,12 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   }
   if (args.krt === Krt.Ktin && dhatu.text === 'san') {
     spec.code = '6.4.45 (sanaḥ ktici — sāti/santi/sati)';
+  }
+  if (args.krt === Krt.Ktin && ['man', 'mana', 'ram', 'rama', 'yam', 'yama', 'nam', 'tan', 'van'].includes(dhatu.text)) {
+    spec.code = '6.4.37 (anunāsika-lopaḥ kṅiti — mati/rati/yati)';
+  }
+  if (args.krt === Krt.Ktin && dhatu.text === 'kF') {
+    spec.code = '3.3.97 (kīrti — kṛ→kīrti)';
   }
   if (args.krt === Krt.ac && ['har', 'arh', 'ram', 'jap'].includes(dhatu.text)) {
     spec.code = dhatu.text === 'har'
