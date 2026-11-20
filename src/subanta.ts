@@ -291,7 +291,7 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   }
 
   const p = new Prakriya([base]);
-  p.record('1.4.103 (supaḥ), 1.4.104 (vibhaktiś ca)');
+  p.record("1.4.103 (supaḥ), 1.4.104 (vibhaktiś ca), 1.3.4 (na vibhaktau tusmāḥ — final consonants kept)");
   p.record('4.1.1 (sup — case-ending pratyayas)');
   p.record(args.vacana === Vacana.Bahu ? '1.4.21 (bahusu bahuvacanam)'
     : args.vacana === Vacana.Dvi ? '1.4.22 (dvyekayordvivacanam)'
