@@ -484,6 +484,16 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // √i future: etā (etA), eṣyati (ezyati) — guṇa i→e, no iṭ.
   'i:lut:parasmai:prathama:eka': 'etA',
   'i:lrt:parasmai:prathama:eka': 'ezyati',
+  // √vac future: vaktā/vakṣyati (8.2.30 coḥ kuḥ).
+  'vac:lut:parasmai:prathama:eka': 'vaktA',
+  'vac:lrt:parasmai:prathama:eka': 'vakzyati',
+  // √bhid (7P) future bhettā/bhetsyati; imperfect abhinat.
+  'bhid:lan:parasmai:prathama:eka': 'abhinat',
+  'bhid:lut:parasmai:prathama:eka': 'bhettA',
+  'bhid:lrt:parasmai:prathama:eka': 'bhetsyati',
+  // √yuj (7P) future yoktā/yokṣyati.
+  'yuj:lut:parasmai:prathama:eka': 'yoktA',
+  'yuj:lrt:parasmai:prathama:eka': 'yokzyati',
   // 8.2.18 (kṛpo ro laḥ): √kṛp → klṛp; guṇa gives kalp- in the present.
   'kfpa:lat:parasmai:prathama:eka': 'kalpati',
   'kfpa:lat:parasmai:prathama:bahu': 'kalpanti',
