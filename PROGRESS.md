@@ -1530,3 +1530,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   forms across 16 roots and bhāve/karmāṇi paradigms. Verified 0 anomalies /
   0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
   master. Coverage 352/2703 (366/3983).
+
+- **2026-11-21 — Session 245 (continued, toward 2703/2703):** Added irregular
+  declensions for go- (cow) and nau- (boat) in subanta. Verified 0 anomalies /
+  0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
+  master. Coverage 352/2703 (366/3983).
