@@ -540,11 +540,12 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   jYA: { strong: 'jajYO', weak: 'jajY' },    // jajñau/jajñuḥ (7.1.34)
   vI: { strong: 'vavO', weak: 'vav' },       // vavau/vavuḥ (2.4.41 veñ vayiḥ)
 };
-function perfectStem(root: string, purusha: Purusha, vacana: Vacana): string {
-  // Strong stem in 3s, 3d, 2s, 1s; weak elsewhere (7.1.3ff guṇa/niyama).
-  const isStrong = (purusha === Purusha.Prathama && vacana !== Vacana.Bahu) ||
+function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada): string {
+  // Strong stem in 3s, 3d, 2s, 1s (parasmai); ātmane uses the weak stem throughout.
+  const isStrong = pada !== Pada.Atmane &&
+    ((purusha === Purusha.Prathama && vacana !== Vacana.Bahu) ||
     (purusha === Purusha.Madhyama && vacana === Vacana.Eka) ||
-    (purusha === Purusha.Uttama && vacana === Vacana.Eka);
+    (purusha === Purusha.Uttama && vacana === Vacana.Eka));
   const entry = PERFECT_STEMS[root];
   // 7.1.6ff: liṭ reduplication — vowel-initial roots lengthen the reduplicate.
   const redv = root[0] === 'a' ? 'A' : root[0];
@@ -571,7 +572,7 @@ interface LakaraConfig {
   vikarana: { label: string; surface: string };
   prefix?: string;
   postRoot?: string;
-  rootTransform?: (root: string, purusha: Purusha, vacana: Vacana) => string;
+  rootTransform?: (root: string, purusha: Purusha, vacana: Vacana, pada?: Pada) => string;
   doGuna: boolean;
   doOAtoAv: boolean;
   doDirgha: boolean;
@@ -940,7 +941,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
     : args.lakara === Lakara.Lin && dhatu.text === 'han' && (args.sanadi ?? Sanadi.None) === Sanadi.None
       ? 'vad' // 2.4.42 (hano vada liNi — vadet)
-      : config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana);
+      : config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana, pada);
   const ctx: RuleContext = {
     prakriya,
     args: { ...args, dhatu },
