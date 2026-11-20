@@ -1381,3 +1381,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (kṛpo ro laḥ — klṛpta/kalpati for √kṛp). Fixed future forms √vac→vaktā/vakṣyati,
   √bhid→bhettā/bhetsyati, √yuj→yoktā/yokṣyati, √bhid imperfect→abhinat.
   `npm test` passes (85/85). Pushed to master. Coverage 333/2703 (347/3983).
+
+- **2026-11-20 — Session 216 (continued, toward 2703/2703):** Registered 6.1.5
+  (ubhe abhyastam) in liṭ reduplication traces; emitted future-form sutras
+  8.2.30/7.2.48/8.4.55. Fixed √han kta→hata (6.4.37), √car kta→carita,
+  √dhā kta→hita. `npm test` passes (85/85). Pushed to master.
+  Coverage 335/2703 (349/3983).
