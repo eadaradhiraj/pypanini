@@ -1593,3 +1593,12 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   selection so ātman declines ātmanā/ātmanoḥ (dental n) while rājan keeps
   rājñā (palatal ñ). Added regression tests. Verified 0 unregistered emissions.
   `npm test` 86/86. Pushed. Coverage 436/2703 (451/3983).
+
+- **2026-11-22 — Session 255 (continued, toward 2703/2703):** Implemented √gam's
+  present stem gacch- per 7.3.77 (gacchati/agacchat/gacchet/gacchatu, plus
+  ātmanepada), registered and emitted 7.3.77; aorist/future/perfect keep gam-.
+  Coverage 437/2703. `npm test` 87/87. Pushed.
+- **2026-11-22 — Session 256 (continued, toward 2703/2703):** Fixed √vac present
+  (vakti/vakṣi/vacanti, 8.2.30) and a-aorist (avocat/avocan, 3.1.52). Added
+  regression tests. Verified 0 unregistered emissions. `npm test` 88/88.
+  Pushed. Coverage 437/2703 (452/3983).
