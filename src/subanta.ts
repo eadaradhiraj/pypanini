@@ -65,7 +65,7 @@ const U_PUMSAKA: EndingTable = {
 const I_NAPUMSAKA: EndingTable = {
   [Vibhakti.Prathama]: ['i', 'I', 'IRi'],
   [Vibhakti.Dvitiya]: ['i', 'I', 'IRi'],
-  [Vibhakti.Trtiya]: ['iRA', 'iByAm', 'iBiH'],
+  [Vibhakti.Trtiya]: ['inA', 'iByAm', 'iBiH'],
   [Vibhakti.Caturthi]: ['aye', 'iByAm', 'iByaH'],
   [Vibhakti.Pancami]: ['eH', 'iByAm', 'iByaH'],
   [Vibhakti.Sasti]: ['eH', 'yoH', 'InAm'],
@@ -76,10 +76,10 @@ const I_NAPUMSAKA: EndingTable = {
 const U_NAPUMSAKA: EndingTable = {
   [Vibhakti.Prathama]: ['u', 'U', 'Uni'],
   [Vibhakti.Dvitiya]: ['u', 'U', 'Uni'],
-  [Vibhakti.Trtiya]: ['uRA', 'uByAm', 'uBiH'],
+  [Vibhakti.Trtiya]: ['unA', 'uByAm', 'uBiH'],
   [Vibhakti.Caturthi]: ['ave', 'uByAm', 'uByaH'],
   [Vibhakti.Pancami]: ['oH', 'uByAm', 'uByaH'],
-  [Vibhakti.Sasti]: ['oH', 'yoH', 'URAm'],
+  [Vibhakti.Sasti]: ['oH', 'yoH', 'UnAm'],
   [Vibhakti.Saptami]: ['u', 'yoH', 'uzu'],
   [Vibhakti.Sambodhana]: ['u', 'U', 'Uni'],
 };
