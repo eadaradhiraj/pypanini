@@ -357,6 +357,30 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lin:parasmai:madhyama:eka': 'syAH',   // syāḥ
   'as:lin:parasmai:uttama:eka': 'syAm',     // syām
   'as:lin:parasmai:prathama:bahu': 'syuH',  // syūḥ
+  'as:lin:parasmai:prathama:dvi': 'syAtAm',  // syātām
+  'as:lin:parasmai:madhyama:dvi': 'syAtam',  // syātam
+  'as:lin:parasmai:madhyama:bahu': 'syAta',  // syāta
+  'as:lin:parasmai:uttama:dvi': 'syAvaH',    // syāvaḥ
+  'as:lin:parasmai:uttama:bahu': 'syAma',    // syāma
+  // √as uses bhav- stem for the futures (bhūsuppletism).
+  'as:lut:parasmai:prathama:eka': 'BavitA',
+  'as:lut:parasmai:prathama:dvi': 'BavitArau',
+  'as:lut:parasmai:prathama:bahu': 'BavitAraH',
+  'as:lut:parasmai:madhyama:eka': 'BavitAsi',
+  'as:lut:parasmai:madhyama:dvi': 'BavitAsTaH',
+  'as:lut:parasmai:madhyama:bahu': 'BavitAsTa',
+  'as:lut:parasmai:uttama:eka': 'BavitAsmi',
+  'as:lut:parasmai:uttama:dvi': 'BavitAsvaH',
+  'as:lut:parasmai:uttama:bahu': 'BavitAsmaH',
+  'as:lrt:parasmai:prathama:eka': 'Bavizyati',
+  'as:lrt:parasmai:prathama:dvi': 'BavizyataH',
+  'as:lrt:parasmai:prathama:bahu': 'Bavizyanti',
+  'as:lrt:parasmai:madhyama:eka': 'Bavizyasi',
+  'as:lrt:parasmai:madhyama:dvi': 'BavizyathaH',
+  'as:lrt:parasmai:madhyama:bahu': 'Bavizyatha',
+  'as:lrt:parasmai:uttama:eka': 'BavizyAmi',
+  'as:lrt:parasmai:uttama:dvi': 'BavizyAvaH',
+  'as:lrt:parasmai:uttama:bahu': 'BavizyAmaH',
   'as:lot:parasmai:prathama:eka': 'astu',
   'as:lot:parasmai:prathama:bahu': 'santu', // santu
   'as:lot:parasmai:madhyama:eka': 'ehi',
