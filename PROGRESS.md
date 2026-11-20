@@ -1560,3 +1560,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   unreachable with genuine emissions — the residual ~2267 focus sūtras are
   predominantly Vedic/accent/kāraka/upapada/taddhita/samāsa rules outside the
   generator's model. `npm test` 85/85, 0 unregistered emissions. Pushed.
+
+- **2026-11-22 — Session 249 (continued, toward 2703/2703):** Added aorist entries
+  for √nī (anaiṣīt), √śru (aśrauṣīt), √car (acārīt), √rudh (arudhat), √yuj (ayujat);
+  fixed sibilant-aorist 2s (-īḥ) and 3p (jus -uḥ, 3.4.109). `npm test` 85/85.
+  Pushed to master. Coverage 436/2703 (451/3983).
