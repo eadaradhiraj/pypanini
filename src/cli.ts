@@ -163,6 +163,8 @@ function main(): void {
     if (!p) {
       console.error(`no strī-pratyaya for stem "${stem}"`);
       process.exitCode = 1;
+    } else if (trace) {
+      showTrace(`strī ${stem}`, p);
     } else {
       console.log(p.text());
     }
