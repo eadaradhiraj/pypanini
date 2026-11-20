@@ -511,6 +511,10 @@ function coalesceUpasarga(upa: string, form: string): SLP1 {
   if (upa.endsWith('a') && form.startsWith('a')) return upa.slice(0, -1) + 'A' + form.slice(1);
   // 6.1.89 (etyedhatyūṭhsu): a + e (guṇa of √i) → ai (vṛddhi) — upa+eti → upaiti.
   if (upa.endsWith('a') && form.startsWith('e')) return upa.slice(0, -1) + 'E' + form.slice(1);
+  // 6.1.77 (iko yaṇ aci): u + vowel → v + vowel — anu+eti → anveti.
+  if (upa.endsWith('u') && /[aeiouAEIOUfFxX]/.test(form[0] ?? '')) {
+    return upa.slice(0, -1) + 'v' + form;
+  }
   // 8.3.23 (mo'nusvāraḥ): m → anusvāra (M) before a consonant.
   return applyAnusvara(upa + form);
 }
@@ -712,6 +716,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       const satva = needsSatva(args.upasarga, dhatu.text);
       const anusvara = athemForm.includes('M') ? ', 8.3.23 (mo\'nusvāraḥ)' : '';
       p.record(`1.4.59 (upasarga: ${upa}${satva ? ', 8.3.65 ṣatva' : ''}${anusvara})`);
+      if (upa.endsWith('u') && /[aeiouAEIOU]/.test(athematic[0] ?? '')) {
+        p.record('6.1.77 (iko yaṇ aci — u + vowel → v + vowel, anveti)');
+      }
     }
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
