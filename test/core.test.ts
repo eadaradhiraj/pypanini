@@ -388,11 +388,25 @@ test('saṇādi: san (desiderative, 3.1.7)', () => {
   assert.equal(desiderative('pac'), 'pipakzati'); // pipakṣati
   assert.equal(desiderative('kf'), 'cikIzati');   // cikīrṣati
   assert.equal(desiderative('gam'), 'jigamizati'); // jigamiṣati
-  assert.equal(desiderative('vid'), 'vivizati');   // vividiṣati
+  assert.equal(desiderative('vid'), 'vividizati'); // vividiṣati
+  assert.equal(desiderative('nI'), 'ninIzati');    // ninīṣati
+  assert.equal(desiderative('ji'), 'jijIzati');    // jijīṣati
+  assert.equal(desiderative('zru'), 'zuzrUzati');  // śuśrūṣati
   assert.equal(desiderative('yaj'), 'yiyakzati');  // yiyakṣati
   assert.equal(desiderative('han'), 'jighAmsati'); // jighāṃsati
   assert.equal(desiderative('dA'), 'dIdAsati');    // dīdāsati (3.1.6 dīrgha)
   assert.equal(desiderative('mA'), 'mImAMsati');   // mīmāṃsati (3.1.6)
+});
+
+test('8.2.1 asiddha: desiderative -ṣa- keeps dental n of the tiṅ ending', () => {
+  // The ṣ of -ṣa- is created by a later rule, so 8.4.1 ṇatva cannot see it.
+  const desid3p = (dhatu: string) => deriveTinantas({
+    ...baseArgs, dhatu, sanadi: Sanadi.San, purusha: Purusha.Prathama, vacana: Vacana.Bahu,
+  })[0].text();
+  assert.equal(desid3p('BU'), 'buBUzanti');   // bubhūṣanti (not *bubhūṣaṇti)
+  assert.equal(desid3p('kf'), 'cikIzanti');   // cikīrṣanti
+  assert.equal(desid3p('gam'), 'jigamizanti'); // jigamiṣanti
+  assert.equal(desid3p('ji'), 'jijIzanti');   // jijīṣanti
 });
 
 test('heavy reduplication', () => {

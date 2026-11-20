@@ -202,6 +202,13 @@ export function applyNatva(s: string): string {
       // ṇatva is blocked when a ṣya- / śya- future marker intervenes (e.g.
       // bhaviṣyanti, kariṣyanti keep the dental n of -nti).
       if (trigger === 'z' && mid.startsWith('y')) return _m;
+      // 8.2.1 pūrvatrāsiddham: in a desiderative the ṣ of -ṣa- is produced by
+      // a LATER rule (8.4.41 ṣṭunā ṣṭuḥ), so 8.4.1 cannot see it and the n of
+      // the following tiṅ ending stays dental: bubhūṣanti, cikīrṣanti,
+      // jigamiṣanti, dviṣanti (not *bubhūṣaṇti). The intervening `a` is the
+      // theme vowel, and the n begins a tiṅ ending (nti/nta/nth/…).
+      if (trigger === 'z' && mid === 'a' &&
+          /^[tTdDmvyH]/.test(whole.slice(offset + _m.length))) return _m;
       return trigger + mid + 'R';
     });
 }

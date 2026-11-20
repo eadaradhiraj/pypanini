@@ -93,14 +93,16 @@ const DESIDERATIVE_STEMS: Record<string, string> = {
   pac: 'pipakza',   // pac → pipakṣa-
   kf: 'cikIza',     // kṛ → cikīrṣa-
   gam: 'jigamiza',  // gam → jigamiṣa-
-  ni: 'niniza',     // nī → ninīṣa-
-  ji: 'jijiza',     // ji → jijīṣa-
-  vid: 'viviza',    // vid → vividiṣa-
+  ni: 'ninIza',     // nī → ninīṣa- (7.4.79 dīrgha of the abhyāsa)
+  nI: 'ninIza',     // nī → ninīṣa-
+  ji: 'jijIza',     // ji → jijīṣa- (dīrgha in the abhyāsa)
+  vid: 'vividiza',  // vid → vividiṣa-
+  zru: 'zuzrUza',   // śru → śuśrūṣa- (u in the abhyāsa, dīrgha of ū)
   yaj: 'yiyakza',   // yaj → yiyakṣa- (8.2.30/36 jhal+ṣatva)
   han: 'jighAmsa',  // han → jighāṃsa-
   viz: 'viviza',    // viṣ → viviṣa-
   diS: 'didiza',    // diś → didiṣa- (ś→ṣ, 8.2.36)
-  iS: 'iSiza',      // iṣ → iṣiṣa-
+  iS: 'iziza',      // iṣ → iṣiṣa- (8.2.36 śatva before the san ṣ)
   dA: 'dIdAsa',     // dā → dīdāsa (3.1.6 dīrgha of abhyāsa)
   mA: 'mImAMsa',    // mā → mīmāṃsa (3.1.6)
   gup: 'jugupza',   // gup → jugupṣa (3.1.5)
@@ -115,7 +117,10 @@ function desiderativeStem(root: SLP1): SLP1 {
   // vowel to i, and append -sa (with ṣ after i/u/ṛ/f).
   const first = root[0];
   const redVowel = root[1] && VOWELS.includes(root[1]) ? 'i' : 'i';
-  const sibilant = /[iufFxX]/.test(root.slice(-1)) ? 'z' : 's';
+  // 8.2.36/8.2.41: the san `sa` becomes `ṣa` after i/u/ṛ (and their long
+  // counterparts I/U/F), so dīdāsa-type roots keep dental s but śuśrūṣa-type
+  // roots take ṣ.
+  const sibilant = /[iufFxXIUF]/.test(root.slice(-1)) ? 'z' : 's';
   return first + redVowel + root + sibilant + 'a';
 }
 
