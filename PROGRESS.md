@@ -1565,3 +1565,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   for √nī (anaiṣīt), √śru (aśrauṣīt), √car (acārīt), √rudh (arudhat), √yuj (ayujat);
   fixed sibilant-aorist 2s (-īḥ) and 3p (jus -uḥ, 3.4.109). `npm test` 85/85.
   Pushed to master. Coverage 436/2703 (451/3983).
+
+- **2026-11-22 — Session 250 (continued, toward 2703/2703):** Added aorist entries
+  for √ji (ajaiṣīt) and √muc (amok); fixed √brū imperfect/participle/ktavatu
+  (abravīt/abruvan/bruvat/uktavān); added go-/nau- irregular reverse analysis.
+  Verified 0 unregistered emissions. `npm test` 85/85. Pushed to master.
+  Coverage 436/2703 (451/3983).
