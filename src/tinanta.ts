@@ -170,6 +170,7 @@ const FUTURE_STEMS: Record<string, string> = {
   BU: 'Bavizya', // bhaviṣya-
   dA: 'dAsya',   // dā-sya- (no -i-)
   DA: 'DAsya',   // dhā-sya- (no -i-)
+  yA: 'yAsya',   // yā-sya- (no -i-)
   kf: 'karizya', // kariṣya-
   gam: 'gamizya',// gamiṣya-
   pac: 'pakzya', // pak-ṣya- (c → k, 8.2.36 + ṣatva)
@@ -552,6 +553,15 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'yA:lat:parasmai:prathama:bahu': 'yAnti', // yānti (ā+a → ā)
   'yA:lot:parasmai:prathama:bahu': 'yAntu', // yāntu
   'yA:lot:parasmai:madhyama:eka': 'yAhi',
+  // √yā optative/future paradigms (yāyāt/yātā/yāsyati).
+  'yA:lin:parasmai:prathama:eka': 'yAyAt',
+  'yA:lin:parasmai:prathama:dvi': 'yAyAtAm',
+  'yA:lin:parasmai:prathama:bahu': 'yAyuH',
+  'yA:lin:parasmai:madhyama:eka': 'yAyAH',
+  'yA:lin:parasmai:uttama:eka': 'yAyAm',
+  'yA:lut:parasmai:prathama:eka': 'yAtA',
+  'yA:lrt:parasmai:prathama:eka': 'yAsyati',
+  'yA:lrt:parasmai:prathama:bahu': 'yAsyanti',
 };
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {
@@ -589,6 +599,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   vid: { strong: 'ved', weak: 'vid' },       // veda (perfect of √vid 'know')
   vac: { strong: 'uvAc', weak: 'uc' },      // uvāca/ūcuḥ (1.1.45 samprasāraṇam)
   DA: { strong: 'daDO', weak: 'dadh' },     // dadhau (√dhā; de-aspiration of reduplicate 8.4.54)
+  yA: { strong: 'yayO', weak: 'yay' },      // yayau/yayuḥ (√yā)
   han: { strong: 'jaghAn', weak: 'jaghn' }, // jaghāna / jaghnuḥ (6.4.98)
   car: { strong: 'cacAr', weak: 'cacar' },   // cacāra / cacaruḥ
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
@@ -610,7 +621,7 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
   const redv = root[0] === 'a' ? 'A' : root[0];
   // gam takes the weak stem in the 3rd-person dual (jagmatuḥ, 2.4.49).
   // ā-final roots (pā/sthā/glai) take the au(au ṇal) form only in 1s/3s (7.1.34).
-  const auRoots = ['pA', 'sTA', 'gAi', 'jYA', 'vI', 'DA'];
+  const auRoots = ['pA', 'sTA', 'gAi', 'jYA', 'vI', 'DA', 'yA'];
   const auForm = auRoots.includes(root) &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
   // vac uses the samprasāraṇa weak stem in the 3d (ucatuḥ, not uvācatuḥ).
