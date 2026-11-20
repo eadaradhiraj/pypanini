@@ -437,6 +437,26 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
       return [p];
     }
   }
+  // √ad: d → t (8.4.55 khari ca) before the t-initial kṛt affixes (attum/attvā), and
+  // the PPP is suppleted by anna- (Wiktionary/Monier-Williams).
+  if (dhatu.text === 'ad') {
+    const form: Partial<Record<Krt, string>> = {
+      [Krt.KtvA]: 'attvA',      // attvā
+      [Krt.Tum]: 'attum',       // attum
+      [Krt.Tavya]: 'attavyam',  // attavyam
+      [Krt.Tfc]: 'attA',        // attṛ (agent noun)
+      [Krt.Tac]: 'anna',        // anna (PPP)
+      [Krt.Ktavatu]: 'annavAn', // annavān
+    };
+    if (form[args.krt]) {
+      const p = new Prakriya([form[args.krt]!]);
+      p.record(args.krt === Krt.Tac || args.krt === Krt.Ktavatu
+        ? '8.4.55 (khari ca — anna: suppletive PPP of √ad)'
+        : '8.4.55 (khari ca — d → t before a t-initial kṛt affix: attum/attvā)');
+      p.collapse();
+      return [p];
+    }
+  }
   const sanadi = buildSanadiStem(dhatu.text, args.sanadi ?? Sanadi.None);
   const spec = { ...KRT_SPECS[args.krt] };
   if (args.krt === Krt.Nini && ['grah', 'gfhm'].includes(dhatu.text)) {

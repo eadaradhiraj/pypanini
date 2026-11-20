@@ -1183,3 +1183,11 @@ test('√dviṣ (2P) athematic present: dveṣṭi/adveṭ/dviṣyāt', () => {
   assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'dviSyAt'); // dviṣyāt
   assert.equal(f(Lakara.Lot, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'dviDDi');  // dviḍḍhi
 });
+
+test('√ad kṛt forms: attvā/attum/anna (8.4.55)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.KtvA })[0].text(), 'attvA');
+  assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.Tum })[0].text(), 'attum');
+  assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.Tavya })[0].text(), 'attavyam');
+  assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.Tac })[0].text(), 'anna');
+  assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.Ktavatu })[0].text(), 'annavAn');
+});
