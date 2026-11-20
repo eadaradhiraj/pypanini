@@ -1447,3 +1447,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   aci — anu+eti→anveti) in upasarga/ekādeśa paths. Verified 0 anomalies /
   0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
   master. Coverage 350/2703 (364/3983).
+
+- **2026-11-20 — Session 228 (continued, toward 2703/2703):** Extended upasarga+√i
+  sandhi (i→y yaṇ, ā+e→ai vṛddhi) and fixed parā+as→parāsti (ā+a ekādeśa).
+  Fixed ktin forms for 6.4.37 roots (mati/rati/yati/nati/tati/vati) and √kṛ→kīrti.
+  `npm test` passes (85/85). Pushed to master. Coverage 350/2703 (364/3983).
