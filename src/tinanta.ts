@@ -509,6 +509,8 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {
   if (upa.endsWith('a') && form.startsWith('a')) return upa.slice(0, -1) + 'A' + form.slice(1);
+  // 6.1.89 (etyedhatyūṭhsu): a + e (guṇa of √i) → ai (vṛddhi) — upa+eti → upaiti.
+  if (upa.endsWith('a') && form.startsWith('e')) return upa.slice(0, -1) + 'E' + form.slice(1);
   // 8.3.23 (mo'nusvāraḥ): m → anusvāra (M) before a consonant.
   return applyAnusvara(upa + form);
 }
@@ -721,6 +723,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (dhatu.text === 'kfpa') p.record('8.2.18 (kṛpo ro laḥ — kalpati)');
     if (dhatu.text === 'an' && upa && /[rfz]/.test(upa)) {
       p.record('8.4.19 (aniteḥ — prāṇiti/prāṇati: n → ṇ after upasarga)');
+    }
+    if (dhatu.text === 'i' && upa && upa.endsWith('a')) {
+      p.record('6.1.89 (etyedhatyūṭhsu — upa+eti → upaiti)');
     }
     if (dhatu.text === 'vac' && [Lakara.Lut, Lakara.Lrt].includes(args.lakara)) {
       p.record('8.2.30 (coḥ kuḥ — vaktā/vakṣyati)');
