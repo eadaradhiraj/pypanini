@@ -308,7 +308,7 @@ const IZNU_STEMS: Record<string, string> = {
 };
 
 const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
-  [Krt.Satr]: { kf: 'kurv', nI: 'nay', vid: 'vidvas', as: 'sat', SAsu: 'SAs', rudh: 'rundh', yuj: 'yuNY', bhid: 'bhinD', Cid: 'CinD', dA: 'dadA', i: 'y' }, // śatṛ present participles
+  [Krt.Satr]: { kf: 'kurv', nI: 'nay', vid: 'vidvas', as: 'sat', SAsu: 'SAs', rudh: 'rundh', yuj: 'yuNY', bhid: 'bhinD', Cid: 'CinD', dA: 'dad', DA: 'daD', i: 'y' }, // śatṛ present participles (dadat/dadhat)
   [Krt.SanaC]: { kf: 'kurv', nI: 'nay' }, // kṛ → kurvāṇa, nī → nayamāna
   [Krt.Sanan]: { pU: 'pav', yaj: 'yaj', BU: 'Bav', kf: 'kurv' }, // kṛ→kurvāṇa, bhū→bhavamāna, pū→pavamāna
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
@@ -468,8 +468,8 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     spec.suffix = ''; // 6.4.48 (ato lopaḥ): as → sat
     spec.code = '6.4.48 (ato lopaḥ — sat/santī)';
   }
-  if (args.krt === Krt.Satr && dhatu.text === 'dA') {
-    spec.suffix = 't'; // dadā + t → dadat (class 3 reduplication)
+  if (args.krt === Krt.Satr && ['dA', 'DA'].includes(dhatu.text)) {
+    spec.suffix = 'at'; // dad/dadh + at → dadat/dadhat (class 3 reduplication)
   }
   if (args.krt === Krt.ghaH && dhatu.text === 'sf') spec.code = '3.3.17 (sṛ sthire — sāra)';
   if (args.krt === Krt.ghaH && dhatu.text === 'syand') spec.code = '6.4.28 (syado jave — syada)';
