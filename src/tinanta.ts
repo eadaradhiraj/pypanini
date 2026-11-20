@@ -594,6 +594,9 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'kf:lan:parasmai:uttama:bahu': 'akurma',
   // √han (2P) — hanti, haṃsi; jahi; hantu
   'han:lat:parasmai:prathama:eka': 'hanti',
+  'han:lat:parasmai:prathama:bahu': 'ghnanti', // ghnanti — weak stem ghn- (3p)
+  'han:lan:parasmai:prathama:bahu': 'aghnan',   // aghnan — weak stem ghn- (3p imperfect)
+  'han:lot:parasmai:prathama:bahu': 'ghnantu',  // ghnantu — weak stem ghn- (3p imperative)
   'han:lat:parasmai:madhyama:eka': 'haMsi',  // haṃsi
   'han:lat:parasmai:uttama:eka': 'hanmi',
   'han:lot:parasmai:prathama:eka': 'hantu',
@@ -906,6 +909,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
     if (['vac', 'vach'].includes(dhatu.text) && args.lakara === Lakara.Lat) {
       p.record('8.2.30 (coḥ kuḥ — vac + ti → vakti)');
+    }
+    if (dhatu.text === 'han' && args.lakara === Lakara.Lat) {
+      p.record('weak stem ghn- of √han in the 3rd-person plural (ghnanti)');
     }
     if (dhatu.text === 'gam' && [Lakara.Lat, Lakara.Lan, Lakara.Lot, Lakara.Lin].includes(args.lakara)) {
       p.record('7.3.77 (izugamiyamAM CaH — gam → gacch before śārvadhātuka)');

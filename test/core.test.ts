@@ -1134,3 +1134,14 @@ test('√vac kṛt forms: uktvā/ukta but vaktum/vaktavya', () => {
   assert.equal(deriveKrdantas({ dhatu: 'vac', krt: Krt.Tum })[0].text(), 'vaktum');
   assert.equal(deriveKrdantas({ dhatu: 'vac', krt: Krt.Tavya })[0].text(), 'vaktavya');
 });
+
+test('√han weak stem ghn- in the 3rd-person plural', () => {
+  const f = (lakara: Lakara) => deriveTinantas({
+    ...baseArgs, dhatu: 'han', lakara, purusha: Purusha.Prathama, vacana: Vacana.Bahu,
+  })[0].text();
+  assert.equal(f(Lakara.Lat), 'ghnanti');  // ghnanti (not *hananti)
+  assert.equal(f(Lakara.Lan), 'aghnan');   // aghnan
+  assert.equal(f(Lakara.Lot), 'ghnantu');  // ghnantu
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'han',
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'hanti'); // strong stem retained
+});
