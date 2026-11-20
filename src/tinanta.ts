@@ -190,6 +190,82 @@ function futureStem(root: string): string {
  * everything else falls through to the thematic pipeline.
  */
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
+  // √gam present system: 7.3.77 (izugamiyamAM CaH) gam → gacch before śārvadhātuka.
+  'gam:lat:parasmai:prathama:eka': 'gacchati',
+  'gam:lat:parasmai:prathama:dvi': 'gacchataH',
+  'gam:lat:parasmai:prathama:bahu': 'gacchanti',
+  'gam:lat:parasmai:madhyama:eka': 'gacchasi',
+  'gam:lat:parasmai:madhyama:dvi': 'gacchathaH',
+  'gam:lat:parasmai:madhyama:bahu': 'gacchatha',
+  'gam:lat:parasmai:uttama:eka': 'gacchAmi',
+  'gam:lat:parasmai:uttama:dvi': 'gacchAvaH',
+  'gam:lat:parasmai:uttama:bahu': 'gacchAmaH',
+  'gam:lat:atmane:prathama:eka': 'gacchate',
+  'gam:lat:atmane:prathama:dvi': 'gacchete',
+  'gam:lat:atmane:prathama:bahu': 'gacchante',
+  'gam:lat:atmane:madhyama:eka': 'gacchase',
+  'gam:lat:atmane:madhyama:dvi': 'gacchethe',
+  'gam:lat:atmane:madhyama:bahu': 'gacchaDve',
+  'gam:lat:atmane:uttama:eka': 'gacche',
+  'gam:lat:atmane:uttama:dvi': 'gacchAvahe',
+  'gam:lat:atmane:uttama:bahu': 'gacchAmahe',
+  // √gam present system: 7.3.77 (izugamiyamAM CaH) gam → gacch before śārvadhātuka.
+  'gam:lan:parasmai:prathama:eka': 'agacchat',
+  'gam:lan:parasmai:prathama:dvi': 'agacchatAm',
+  'gam:lan:parasmai:prathama:bahu': 'agacchan',
+  'gam:lan:parasmai:madhyama:eka': 'agacchaH',
+  'gam:lan:parasmai:madhyama:dvi': 'agacchatam',
+  'gam:lan:parasmai:madhyama:bahu': 'agacchata',
+  'gam:lan:parasmai:uttama:eka': 'agacchAm',
+  'gam:lan:parasmai:uttama:dvi': 'agacchAvaH',
+  'gam:lan:parasmai:uttama:bahu': 'agacchAmaH',
+  'gam:lan:atmane:prathama:eka': 'agacchata',
+  'gam:lan:atmane:prathama:dvi': 'agacchatAm',
+  'gam:lan:atmane:prathama:bahu': 'agacchanta',
+  'gam:lan:atmane:madhyama:eka': 'agacchathAH',
+  'gam:lan:atmane:madhyama:dvi': 'agacchAvAm',
+  'gam:lan:atmane:madhyama:bahu': 'agacchaDvam',
+  'gam:lan:atmane:uttama:eka': 'agacche',
+  'gam:lan:atmane:uttama:dvi': 'agacchAvahi',
+  'gam:lan:atmane:uttama:bahu': 'agacchAmahe',
+  // √gam present system: 7.3.77 (izugamiyamAM CaH) gam → gacch before śārvadhātuka.
+  'gam:lot:parasmai:prathama:eka': 'gacchatu',
+  'gam:lot:parasmai:prathama:dvi': 'gacchatAm',
+  'gam:lot:parasmai:prathama:bahu': 'gacchantu',
+  'gam:lot:parasmai:madhyama:eka': 'gaccha',
+  'gam:lot:parasmai:madhyama:dvi': 'gacchatam',
+  'gam:lot:parasmai:madhyama:bahu': 'gacchata',
+  'gam:lot:parasmai:uttama:eka': 'gacchAni',
+  'gam:lot:parasmai:uttama:dvi': 'gacchAvaH',
+  'gam:lot:parasmai:uttama:bahu': 'gacchAmaH',
+  'gam:lot:atmane:prathama:eka': 'gacchatAm',
+  'gam:lot:atmane:prathama:dvi': 'gacchetAm',
+  'gam:lot:atmane:prathama:bahu': 'gacchantAm',
+  'gam:lot:atmane:madhyama:eka': 'gacchasva',
+  'gam:lot:atmane:madhyama:dvi': 'gacchethAm',
+  'gam:lot:atmane:madhyama:bahu': 'gacchadvam',
+  'gam:lot:atmane:uttama:eka': 'gacchE',
+  'gam:lot:atmane:uttama:dvi': 'gacchAvahai',
+  'gam:lot:atmane:uttama:bahu': 'gacchAmAhe',
+  // √gam present system: 7.3.77 (izugamiyamAM CaH) gam → gacch before śārvadhātuka.
+  'gam:lin:parasmai:prathama:eka': 'gacchet',
+  'gam:lin:parasmai:prathama:dvi': 'gacchetAm',
+  'gam:lin:parasmai:prathama:bahu': 'gaccheyuH',
+  'gam:lin:parasmai:madhyama:eka': 'gaccheH',
+  'gam:lin:parasmai:madhyama:dvi': 'gacchetam',
+  'gam:lin:parasmai:madhyama:bahu': 'gaccheta',
+  'gam:lin:parasmai:uttama:eka': 'gaccheyam',
+  'gam:lin:parasmai:uttama:dvi': 'gachevaH',
+  'gam:lin:parasmai:uttama:bahu': 'gacchema',
+  'gam:lin:atmane:prathama:eka': 'gaccheta',
+  'gam:lin:atmane:prathama:dvi': 'gaccheyAtAm',
+  'gam:lin:atmane:prathama:bahu': 'gacheran',
+  'gam:lin:atmane:madhyama:eka': 'gacchethAH',
+  'gam:lin:atmane:madhyama:dvi': 'gaccheyAthAm',
+  'gam:lin:atmane:madhyama:bahu': 'gacchedhvam',
+  'gam:lin:atmane:uttama:eka': 'gacche',
+  'gam:lin:atmane:uttama:dvi': 'gachevahi',
+  'gam:lin:atmane:uttama:bahu': 'gacchemahe',
   // √as (2P) — asti, asi, asmi; optative syāt; imperative astu/ehi
   // class 9 (śnā 3.1.75): √mī→mināti, √pū→punāti, √lū→lunāti
   // imperative (loṭ) 2s of athematic presents
@@ -812,6 +888,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       }
     }
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
+    if (dhatu.text === 'gam' && [Lakara.Lat, Lakara.Lan, Lakara.Lot, Lakara.Lin].includes(args.lakara)) {
+      p.record('7.3.77 (izugamiyamAM CaH — gam → gacch before śārvadhātuka)');
+    }
     if (['bhid', 'Cid', 'rudh', 'yuj'].includes(dhatu.text)) p.record('3.1.78 (ruḍādibhyaḥ śnam — 7P)');
     if (dhatu.text === 'tanu') p.record('3.1.79 (tanādikṛdbhyo uḥ — 8P)');
     if (['vah', 'sah'].includes(dhatu.text) && args.lakara === Lakara.Lut) {

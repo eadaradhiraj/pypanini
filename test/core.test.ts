@@ -1083,7 +1083,7 @@ test('8.4.1 ṇatva (n → ṇ after r/ṣ/ṛ in a pada)', () => {
   assert.equal(applyAnusvara('samgamati'), 'saMgamati');
   assert.equal(
     deriveTinantas({ ...baseArgs, dhatu: 'gam', upasarga: 'sam' })[0].text(),
-    'saMgamati', // saṃgamati
+    'saMgacchati', // saṃgacchati (7.3.77 gam → gacch)
   );
   // 8.4.16 in a real derivation: pra+vap lot 1s → prava-pā-ṇi
   assert.equal(
@@ -1096,4 +1096,20 @@ test('8.4.1 ṇatva (n → ṇ after r/ṣ/ṛ in a pada)', () => {
 test('Vyakarana facade', () => {
   const v = new Vyakarana();
   assert.equal(v.deriveTinantas({ ...baseArgs, dhatu: 'BU' })[0].text(), 'Bavati');
+});
+
+test('7.3.77: √gam present stem gacch- (gacchati/agacchat/gacchet)', () => {
+  const f = (lakara: Lakara, pada: Pada, purusha: Purusha, vacana: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'gam', lakara, pada, purusha, vacana })[0].text();
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'gacchati');
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'gacchanti');
+  assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'gacchate');
+  assert.equal(f(Lakara.Lan, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'agacchat');
+  assert.equal(f(Lakara.Lot, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'gacchatu');
+  assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'gacchet');
+  // non-present systems keep the bare gam- stem
+  assert.equal(f(Lakara.LatN, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'agamat');
+  assert.equal(f(Lakara.Lrt, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'gamizyati');
+  // the governing sūtra is emitted in the trace
+  assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'gam' })[0].history.some((h) => h.rule.includes('7.3.77')));
 });
