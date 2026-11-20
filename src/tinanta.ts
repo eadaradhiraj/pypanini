@@ -514,7 +514,23 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'i:lot:parasmai:madhyama:eka': 'ehi',
   // √i future: etā (etA), eṣyati (ezyati) — guṇa i→e, no iṭ.
   'i:lut:parasmai:prathama:eka': 'etA',
+  'i:lut:parasmai:prathama:dvi': 'etArau',
+  'i:lut:parasmai:prathama:bahu': 'etAraH',
+  'i:lut:parasmai:madhyama:eka': 'etAsi',
+  'i:lut:parasmai:madhyama:dvi': 'etAsTaH',
+  'i:lut:parasmai:madhyama:bahu': 'etAsTa',
+  'i:lut:parasmai:uttama:eka': 'etAsmi',
+  'i:lut:parasmai:uttama:dvi': 'etAsvaH',
+  'i:lut:parasmai:uttama:bahu': 'etAsmaH',
   'i:lrt:parasmai:prathama:eka': 'ezyati',
+  'i:lrt:parasmai:prathama:dvi': 'ezyataH',
+  'i:lrt:parasmai:prathama:bahu': 'ezyanti',
+  'i:lrt:parasmai:madhyama:eka': 'ezyasi',
+  'i:lrt:parasmai:madhyama:dvi': 'ezyathaH',
+  'i:lrt:parasmai:madhyama:bahu': 'ezyatha',
+  'i:lrt:parasmai:uttama:eka': 'ezyAmi',
+  'i:lrt:parasmai:uttama:dvi': 'ezyAvaH',
+  'i:lrt:parasmai:uttama:bahu': 'ezyAmaH',
   // √vac future: vaktā/vakṣyati (8.2.30 coḥ kuḥ).
   'vac:lut:parasmai:prathama:eka': 'vaktA',
   'vac:lrt:parasmai:prathama:eka': 'vakzyati',
@@ -598,7 +614,7 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
   const auForm = auRoots.includes(root) &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
   // vac uses the samprasāraṇa weak stem in the 3d (ucatuḥ, not uvācatuḥ).
-  const weakDual = ['gam', 'han', 'khan', 'vac'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
+  const weakDual = ['gam', 'han', 'khan', 'vac', 'i'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
   const strong = auRoots.includes(root) ? auForm : isStrong && !weakDual;
   const stem = entry ? (strong ? entry.strong : entry.weak) : redv + 'a' + root;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
