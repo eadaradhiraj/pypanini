@@ -1552,3 +1552,11 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   would be registry padding, not genuine implementation. Continuing to apply
   every implementable rule and reporting the true count. `npm test` 85/85.
   Pushed to master.
+
+- **2026-11-21 — Session 248 (second 1000-target attempt):** Extended the
+  annotation layer with it-saṃjñā (1.3.x), pada-saṃjñā (1.4.x) and additional
+  paribhāṣā/sandhi codes that genuinely govern our derivations. Coverage now
+  436/2703 (up from 352 at session start, +84 this stretch). 1000/2703 remains
+  unreachable with genuine emissions — the residual ~2267 focus sūtras are
+  predominantly Vedic/accent/kāraka/upapada/taddhita/samāsa rules outside the
+  generator's model. `npm test` 85/85, 0 unregistered emissions. Pushed.
