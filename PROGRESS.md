@@ -1607,3 +1607,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   forms uktvā/ukta (gerund, past participle) while keeping vaktum/vaktavya.
   Verified √duh duhati and √śās śāsati are attested alternates (no change).
   `npm test` 89/89. 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 258 (continued, toward 2703/2703):** Fixed √han weak-stem
+  3p forms ghnanti/aghnan/ghnantu (strong hanti retained for 3s), source-backed
+  by a study of han verb forms. `npm test` 90/90. 0 unregistered emissions.
+  Pushed. Coverage 437/2703 (452/3983).
