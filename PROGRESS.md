@@ -1441,3 +1441,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Audited liṅ/laṅ/lot paradigms for common roots. Verified 0 anomalies /
   0 unregistered codes. `npm test` passes (85/85). Pushed to master.
   Coverage 347/2703 (361/3983).
+
+- **2026-11-20 — Session 227 (continued, toward 2703/2703):** Registered 6.1.88
+  (vṛddhir eci), 6.1.89 (etyedhatyūṭhsu — upa+eti→upaiti), and 6.1.77 (iko yaṇ
+  aci — anu+eti→anveti) in upasarga/ekādeśa paths. Verified 0 anomalies /
+  0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
+  master. Coverage 350/2703 (364/3983).
