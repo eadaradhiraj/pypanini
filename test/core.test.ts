@@ -1145,3 +1145,17 @@ test('√han weak stem ghn- in the 3rd-person plural', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'han',
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'hanti'); // strong stem retained
 });
+
+test('√i (2P) weak-stem paradigms: itaH/ithaH/ivaH, Et, iyAt', () => {
+  const f = (lakara: Lakara, pada: Pada, pu: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'i', lakara, pada, purusha: pu, vacana: v })[0].text();
+  // weak stem in the dual/plural, guṇa e- in the strong singular
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Dvi), 'itaH');   // itah
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Madhyama, Vacana.Bahu), 'itha');  // itha
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Uttama, Vacana.Dvi), 'ivaH');    // ivah
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'yAnti'); // yanti
+  assert.equal(f(Lakara.Lan, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'Et');     // ait
+  assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'iyAt');   // iyat
+  assert.equal(f(Lakara.Lot, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'ehi');    // ehi (come)
+  assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'ite');     // ite
+});
