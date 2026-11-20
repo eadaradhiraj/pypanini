@@ -1491,3 +1491,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   for dhātupāṭha roots Bidir/Cidir (√bhid/√chid → Binna/Cinna) and fixed √pīḍ/
   √mīl kta → pīḍita/mīlita. Verified 0 anomalies / 0 unregistered codes across
   150 roots. `npm test` passes (85/85). Pushed to master. Coverage 352/2703 (366/3983).
+
+- **2026-11-21 — Session 237 (continued, toward 2703/2703):** Emitted 4.1.20
+  (vayasi prathame — kumārī/kiśorī) in stri traces. Verified 0 anomalies /
+  0 unregistered codes across 150 roots. `npm test` passes (85/85). Pushed to
+  master. Coverage 352/2703 (366/3983).
