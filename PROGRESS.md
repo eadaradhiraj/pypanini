@@ -1602,3 +1602,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (vakti/vakṣi/vacanti, 8.2.30) and a-aorist (avocat/avocan, 3.1.52). Added
   regression tests. Verified 0 unregistered emissions. `npm test` 88/88.
   Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-22 — Session 257 (continued, toward 2703/2703):** Fixed √vac kṛt
+  forms uktvā/ukta (gerund, past participle) while keeping vaktum/vaktavya.
+  Verified √duh duhati and √śās śāsati are attested alternates (no change).
+  `npm test` 89/89. 0 unregistered emissions. Pushed. Coverage 437/2703.
