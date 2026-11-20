@@ -1587,3 +1587,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (jijīṣa, vividiṣa, ninīṣa, śuśrūṣa). Added regression tests. Verified 0
   unregistered emissions across 150 roots. `npm test` 86/86. Pushed.
   Coverage 436/2703 (451/3983).
+
+- **2026-11-22 — Session 254 (continued, toward 2703/2703):** Made √han future
+  consistently haṃsya- (haṃsyati/haṃsyanti/ahaṃsyat); fixed -an stem nasal
+  selection so ātman declines ātmanā/ātmanoḥ (dental n) while rājan keeps
+  rājñā (palatal ñ). Added regression tests. Verified 0 unregistered emissions.
+  `npm test` 86/86. Pushed. Coverage 436/2703 (451/3983).
