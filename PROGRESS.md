@@ -1715,3 +1715,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   feminines: kṣatriyā/vaiśyā/śūdrā take ṭāp (were ṇīṣ); brāhmaṇī unchanged,
   source-backed by Wiktionary. `npm test` 110/110. 0 unregistered emissions.
   Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 279 (continued, toward 2703/2703):** Fixed √ad agent
+  noun attṛ (TRn tṛ). Audited namādhatu pratyayas, consonant-stem nouns,
+  caste-name feminines, and agent nouns. `npm test` 111/111. Pushed.
+  Coverage 437/2703.
