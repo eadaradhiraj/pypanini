@@ -1275,3 +1275,13 @@ test('√ṛ (1P) ṛcch- present, ariṣya future, āra perfect, ārat aorist',
   assert.equal(f(Lakara.Lit), 'ara');     // āra
   assert.equal(f(Lakara.LatN), 'Arat');  // ārat
 });
+
+test('present-participle stems from present stems; vidvān', () => {
+  const satr = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Satr })[0].text();
+  assert.equal(satr('gam'), 'gacchat');  // gacchat (not *gamat)
+  assert.equal(satr('pA'), 'pibat');     // pibat (not *pāt)
+  assert.equal(satr('sTA'), 'tiSThat');  // tiṣṭhat (not *sthāt)
+  assert.equal(satr('grah'), 'gfhRat');  // gṛhṇat
+  assert.equal(satr('jFnA'), 'jAnat');   // jānat
+  assert.equal(deriveKrdantas({ dhatu: 'vid', krt: Krt.Ktavatu })[0].text(), 'vidvAn'); // vidvān
+});
