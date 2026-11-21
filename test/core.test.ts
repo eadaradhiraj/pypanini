@@ -1408,3 +1408,11 @@ test('√rudh future rotsyati', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'rudh', lakara: Lakara.Lrt,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'rotsyati'); // rotsyati
 });
+
+test('iṭ-less futures for ñit-marked roots: ceṣyati/soṣyati/śeṣyati', () => {
+  const lrt = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lrt,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(lrt('ciY'), 'cezyati'); // ceṣyati
+  assert.equal(lrt('zuY'), 'sozyati'); // soṣyati
+  assert.equal(lrt('SiY'), 'Sezyati'); // śeṣyati
+});
