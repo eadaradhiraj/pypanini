@@ -1191,3 +1191,14 @@ test('√ad kṛt forms: attvā/attum/anna (8.4.55)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.Tac })[0].text(), 'anna');
   assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.Ktavatu })[0].text(), 'annavAn');
 });
+
+test('√grah (9P) gṛhṇā- present: gfhRAti/gfhRanti (not *grahati)', () => {
+  const f = (lakara: Lakara, pada: Pada, pu: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'grah', lakara, pada, purusha: pu, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'gfhRAti');  // gṛhṇāti
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'gfhRanti'); // gṛhṇanti
+  assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'gfhRIte'); // gṛhṇīte
+  assert.equal(f(Lakara.Lan, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'agfhRAt');  // agṛhṇāt
+  assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'gfhRIyAt'); // gṛhṇīyāt
+  assert.equal(f(Lakara.Lrt, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'grAhIzyati'); // grāhīṣyati
+});
