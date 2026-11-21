@@ -1391,3 +1391,10 @@ test('√śru imperfect/future without iṭ: aśṛṇot/śroṣyati', () => {
   assert.equal(f(Lakara.Lan), 'azRNot');   // aśṛṇot
   assert.equal(f(Lakara.Lrt), 'zrOzyati'); // śroṣyati (no iṭ)
 });
+
+test('iṭ-less futures neṣyati/jeṣyati', () => {
+  const lrt = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lrt,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(lrt('nI'), 'nezyati'); // neṣyati
+  assert.equal(lrt('ji'), 'jezyati'); // jeṣyati
+});

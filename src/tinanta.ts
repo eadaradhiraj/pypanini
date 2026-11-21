@@ -181,6 +181,8 @@ const FUTURE_STEMS: Record<string, string> = {
   pac: 'pakzya', // pak-ṣya- (c → k, 8.2.36 + ṣatva)
   yaj: 'yakzya', // yak-ṣya-
   ni: 'nezya',   // ne-ṣya-
+  nI: 'nezya',   // nī → neṣyati (no iṭ)
+  ji: 'jezya',   // ji → jeṣyati (no iṭ)
   han: 'haMsya', // haṃsya- (8.3.23 mo'nusvāraḥ: n → ṃ before s; cf. 3s override below)
   vid: 'vedizya',// vediṣya-
   diS: 'dekzya', // dekṣya-
