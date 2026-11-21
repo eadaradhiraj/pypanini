@@ -1676,3 +1676,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   participles (śatṛ) to use present stems: gacchat/pibat/tiṣṭhat/gṛhṇat/jānat
   (were gamat/pāt/sthāt/grahat/jñānat); √vid ktavatu → vidvān (was vittavān).
   `npm test` 102/102. 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 271 (continued, toward 2703/2703):** Fixed causative
+  (ṇic) stems for eight roots: ādayati/dveṣayati/vācayati/grāhayati/jñāpayati/
+  pāyayati/sthāpayati/arpayati (were bare/vṛddhi-less forms). `npm test`
+  103/103. 0 unregistered emissions. Pushed. Coverage 437/2703.
