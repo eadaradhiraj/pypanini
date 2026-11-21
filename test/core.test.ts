@@ -1336,3 +1336,12 @@ test('√iṣ/√mṛj aorist and mṛj desiderative (Wiktionary)', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'mfz', sanadi: Sanadi.San,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'mimArjizati'); // mimārjiṣati
 });
+
+test('high-frequency aorists: yaj/han/dhā/hu', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.LatN,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('yaj'), 'ayAkzIt'); // ayākṣīt
+  assert.equal(f('han'), 'ahAnIt');  // ahānīt
+  assert.equal(f('DA'), 'aDAt');     // adhāt
+  assert.equal(f('hu'), 'ahOzIt');   // ahauṣīt
+});
