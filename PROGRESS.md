@@ -1666,3 +1666,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   present stems (pibati/tiṣṭhati, not *pāti/*sthāti) and iṭ-less futures
   (pāsyati/sthāsyati), source-backed. `npm test` 100/100. 0 unregistered
   emissions. Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-21 — Session 269 (continued, toward 2703/2703):** Fixed √ṛ: ṛcch-
+  present (fcCati, not *ṛati), ariṣya future, āra perfect, ārat aorist,
+  source-backed. `npm test` 101/101. 0 unregistered emissions. Pushed.
+  Coverage 437/2703 (452/3983).
