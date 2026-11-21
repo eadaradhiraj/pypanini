@@ -1720,3 +1720,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   noun attṛ (TRn tṛ). Audited namādhatu pratyayas, consonant-stem nouns,
   caste-name feminines, and agent nouns. `npm test` 111/111. Pushed.
   Coverage 437/2703.
+
+- **2026-11-21 — Session 280 (continued, toward 2703/2703):** Fixed athematic
+  optatives (liṅ) bhindyāt/rundhyāt/duhyāt/śṛṇuyāt (were thematic fallbacks),
+  source-backed. `npm test` 112/112. 0 unregistered emissions. Pushed.
+  Coverage 437/2703.
