@@ -1237,3 +1237,15 @@ test('√iṣ (2P) athematic: eṣṭi/iṣanti (not *iṣati)', () => {
   assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'iSyAt'); // iṣyāt
   assert.equal(f(Lakara.Lrt, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'eziSyati'); // eṣiṣyati
 });
+
+test('√mṛj (2P) athematic: mārṣṭi/mṛjanti (not *mṛjati)', () => {
+  const f = (lakara: Lakara, pu: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'mfz', lakara, purusha: pu, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'mArzTi');   // mārṣṭi
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'mfjanti'); // mṛjanti
+  assert.equal(f(Lakara.Lat, Purusha.Madhyama, Vacana.Eka), 'mArkzi');  // mārkṣi
+  assert.equal(f(Lakara.Lat, Purusha.Uttama, Vacana.Eka), 'mArjmi');    // mārjmi
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'amArT');   // amārṭ
+  assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'mfjyAt');  // mṛjyāt
+  assert.equal(f(Lakara.Lrt, Purusha.Prathama, Vacana.Eka), 'mArjizyati'); // mārjiṣyati
+});
