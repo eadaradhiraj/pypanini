@@ -1784,3 +1784,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   śrotum/śrotavya/śrotṛ; suppressed redundant 7.2.35 iṭ when a stem override
   is present. `npm test` 124/124. 0 unregistered emissions. Pushed.
   Coverage 437/2703.
+
+- **2026-11-21 — Session 295 (continued, toward 2703/2703):** Fixed √labh verbal nouns
+  labdhum/labdhavya/labdhi/labdhṛ/lābha, source-backed by Wiktionary.
+  `npm test` 125/125. Pushed. Coverage 437/2703.
