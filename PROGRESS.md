@@ -1779,3 +1779,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 293 (continued, toward 2703/2703):** Fixed an-n instrumental
   ṇatva: karman → karmaṇā (m is a valid 8.4.2 intervener), nāman → nāmnā.
   `npm test` 123/123. 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 294 (continued, toward 2703/2703):** Fixed √śru verbal nouns
+  śrotum/śrotavya/śrotṛ; suppressed redundant 7.2.35 iṭ when a stem override
+  is present. `npm test` 124/124. 0 unregistered emissions. Pushed.
+  Coverage 437/2703.
