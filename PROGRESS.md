@@ -1757,4 +1757,4 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-21 — Session 288 (continued, toward 2703/2703):** analyze command now
   matches ṇatva-variant endings, so guruṇā/taruṇā reverse to guru/taru.
-  `npm test` 120/120. Pushed. Coverage 437/2703.
+  `npm test` 119/119. Pushed. Coverage 437/2703.
