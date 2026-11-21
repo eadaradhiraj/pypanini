@@ -1428,3 +1428,10 @@ test('8.4.2 interveners: prabhunā (not *prabhuṇā), guruṇā, taruṇā', ()
   assert.equal(inst('taru'), 'taruRA');   // taruṇā (r before u)
   assert.equal(inst('madhu'), 'madhunA'); // madhunā (no r)
 });
+
+test('lyuṭ action nouns ayana/jayana/jñāna', () => {
+  const lyuT = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.LyuT })[0].text();
+  assert.equal(lyuT('i'), 'ayana');   // ayana
+  assert.equal(lyuT('ji'), 'jayana'); // jayana
+  assert.equal(lyuT('jFnA'), 'jFAna'); // jñāna
+});
