@@ -1661,3 +1661,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   athematic paradigm: mārṣṭi/mṛjanti (not *mṛjati), amārṭ, mṛjyāt, mārṣṭu,
   mārjiṣyati, mamārja, source-backed. `npm test` 99/99. 0 unregistered
   emissions. Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-21 — Session 268 (continued, toward 2703/2703):** Fixed √pā and √sthā
+  present stems (pibati/tiṣṭhati, not *pāti/*sthāti) and iṭ-less futures
+  (pāsyati/sthāsyati), source-backed. `npm test` 100/100. 0 unregistered
+  emissions. Pushed. Coverage 437/2703 (452/3983).
