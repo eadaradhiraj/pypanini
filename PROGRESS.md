@@ -1775,3 +1775,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   plural pitṝn/kartṝn (was pitrīn), source-backed by Wiktionary. Reverted a
   vocative-sg change that broke reverse-analysis uniqueness. `npm test`
   122/122. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 293 (continued, toward 2703/2703):** Fixed an-n instrumental
+  ṇatva: karman → karmaṇā (m is a valid 8.4.2 intervener), nāman → nāmnā.
+  `npm test` 123/123. 0 unregistered emissions. Pushed. Coverage 437/2703.
