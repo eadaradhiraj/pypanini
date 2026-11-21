@@ -108,6 +108,12 @@ const DESIDERATIVE_STEMS: Record<string, string> = {
   gup: 'jugupza',   // gup → jugupṣa (3.1.5)
   tij: 'titikza',   // tij → titikṣa (3.1.5)
   kit: 'cikitsa',   // kit → cikitsa (3.1.5)
+  dviS: 'dviviza',  // dviṣ → dviviṣa (Wiktionary)
+  vac: 'vivakza',   // vac → vivakṣa (Wiktionary)
+  grah: 'jigfkza',  // grah → jighṛkṣa (conjugation source)
+  jFnA: 'jijFAsa',  // jñā → jijñāsa
+  sTA: 'tiSThAsa',  // sthā → tiṣṭhāsa
+  fR: 'aririza',    // ṛ → ari(ri)ṣa
 };
 
 function desiderativeStem(root: SLP1): SLP1 {

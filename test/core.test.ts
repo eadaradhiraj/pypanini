@@ -1298,3 +1298,14 @@ test('causative (ṇic) stems for corrected roots', () => {
   assert.equal(nic('sTA'), 'sTApayati');  // sthāpayati
   assert.equal(nic('fR'), 'arpayati');    // arpayati
 });
+
+test('desiderative (san) stems for corrected roots', () => {
+  const san = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    sanadi: Sanadi.San, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(san('dviS'), 'dvivizati');  // dviviṣati
+  assert.equal(san('vac'), 'vivakzati');   // vivakṣati
+  assert.equal(san('grah'), 'jigfkzati');  // jighṛkṣati
+  assert.equal(san('jFnA'), 'jijFAsati');  // jijñāsati
+  assert.equal(san('sTA'), 'tiSThAsati');  // tiṣṭhāsati
+  assert.equal(san('fR'), 'aririzati');    // aririṣati
+});
