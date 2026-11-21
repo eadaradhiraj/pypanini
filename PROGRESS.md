@@ -1700,3 +1700,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 275 (continued, toward 2703/2703):** Fixed √iṣ aorist
   aiṣīt, √mṛj aorist amārkṣīt and desiderative mimārjiṣati, all source-backed
   by Wiktionary. `npm test` 107/107. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 276 (continued, toward 2703/2703):** Added source-backed
+  aorists ayākṣīt (yaj), ahānīt (han), adhāt (dhā), ahauṣīt (hu), replacing
+  present-form fallbacks. Kept existing √as āsthat aorist pending verification.
+  `npm test` 108/108. 0 unregistered emissions. Pushed. Coverage 437/2703.
