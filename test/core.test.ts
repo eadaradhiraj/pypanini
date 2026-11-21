@@ -1362,3 +1362,7 @@ test('caste-name feminines: brāhmaṇī but kṣatriyā/vaiśyā/śūdrā', () 
   assert.equal(deriveStri({ stem: 'vaiSya' })?.text(), 'vaiSyA');     // vaiśyā
   assert.equal(deriveStri({ stem: 'sUdra' })?.text(), 'sUdrA');       // śūdrā
 });
+
+test('√ad agent noun attṛ', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.TRn })[0].text(), 'attf'); // attṛ
+});
