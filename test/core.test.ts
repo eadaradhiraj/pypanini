@@ -1309,3 +1309,14 @@ test('desiderative (san) stems for corrected roots', () => {
   assert.equal(san('sTA'), 'tiSThAsati');  // tiṣṭhāsati
   assert.equal(san('fR'), 'aririzati');    // aririṣati
 });
+
+test('√jñā/√dviṣ aorist, future, perfect from conjugation source', () => {
+  const f = (d: string, lk: Lakara) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara: lk,
+      purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('jFnA', Lakara.LatN), 'ajFAsIt');  // ajñāsīt
+  assert.equal(f('jFnA', Lakara.Lrt), 'jFAsyati');  // jñāsyati
+  assert.equal(f('jFnA', Lakara.Lit), 'jajFau');    // jajñau
+  assert.equal(f('dviS', Lakara.LatN), 'advikzat'); // adviKṣat
+  assert.equal(f('dviS', Lakara.Lit), 'didveza');   // didveṣa
+});

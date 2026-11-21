@@ -36,6 +36,12 @@ const AORIST: Record<string, AoristEntry> = {
   i: { kind: 'root', stem: 'gA', code: '2.4.45 (iRo gA luNi), 2.4.77 (sic-lopa)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'agAt' } } },
   sTA: { kind: 'root', stem: 'sTA', code: '2.4.77 (sic-lopa — asthāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asTAt' } } },
   pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt' } } },
+  // √jñā iṣ-aorist: ajñāsīt (ajFAsIt) — source: bhagavadgita.org.in.
+  jFnA: { kind: 's', stem: 'jFA', code: '3.1.44 (cleḥ sic — jñā iṣ-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajFAsIt' } } },
+  // √dviṣ kṣ-aorist: adviKṣat (advikzat) — source: bhagavadgita.org.in.
+  dviS: { kind: 's', stem: 'dvez', code: '3.1.45 (śal igupadhād anिटḥ kṣaḥ — adviKṣat)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'advikzat' } } },
   // √ṛ root aorist: ārat (ārāt/āran) — 2.4.77 sic-lopa after ṛ-class root.
   fR: { kind: 'root', stem: 'Ar', code: '2.4.77 (sic-lopa — ārat)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'Arat' } } },
   // a-aorist

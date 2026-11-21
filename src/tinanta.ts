@@ -176,6 +176,7 @@ const FUTURE_STEMS: Record<string, string> = {
   kf: 'karizya', // kariṣya-
   gam: 'gamizya',// gamiṣya-
   fR: 'arizya',  // ariṣya- (√ṛ)
+  jFnA: 'jFAsya', // jñāsyati (no iṭ)
   pac: 'pakzya', // pak-ṣya- (c → k, 8.2.36 + ṣatva)
   yaj: 'yakzya', // yak-ṣya-
   ni: 'nezya',   // ne-ṣya-
@@ -193,6 +194,8 @@ function futureStem(root: string): string {
  * everything else falls through to the thematic pipeline.
  */
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
+  // √jñā perfect jajñau (jajFau), aorist ajñāsīt handled in aorist.ts.
+  'jFnA:lit:parasmai:prathama:eka': 'jajFau',
   // √vac (2P, adādi): vakti/vakṣi/vacanti — 8.2.30 (coḥ kuḥ: c → k).
   // The 1d/1p and ātmanepada are defective/irregular; only attested forms are listed.
   'vac:lat:parasmai:prathama:eka': 'vakti',
@@ -1395,6 +1398,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   car: { strong: 'cacAr', weak: 'cacar' },   // cacāra / cacaruḥ
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
   fR: { strong: 'ar', weak: 'ar' },          // āra/āruḥ (perfect of √ṛ, no reduplication)
+  dviS: { strong: 'didvez', weak: 'didviz' }, // didveṣa/didviṣuḥ (perfect of √dviṣ)
   i: { strong: 'iyAy', weak: 'iy' },         // iyāya (perfect of √i 'go')
   pA: { strong: 'papO', weak: 'pap' },       // papau (7.1.34 āta au ṇalaḥ)
   sTA: { strong: 'tasTO', weak: 'tasth' },   // tasthau
