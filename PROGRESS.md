@@ -1733,3 +1733,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 282 (continued, toward 2703/2703):** Fixed √śru imperfect
   aśṛṇot and iṭ-less future śroṣyati, source-backed by bhagavadgita.org.in.
   `npm test` 114/114. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 283 (continued, toward 2703/2703):** Fixed iṭ-less futures
+  neṣyati (nī) and jeṣyati (ji) (were neizyati/jeizyati), source-backed.
+  `npm test` 115/115. Pushed. Coverage 437/2703.
