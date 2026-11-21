@@ -183,6 +183,7 @@ const FUTURE_STEMS: Record<string, string> = {
   ni: 'nezya',   // ne-ṣya-
   nI: 'nezya',   // nī → neṣyati (no iṭ)
   ji: 'jezya',   // ji → jeṣyati (no iṭ)
+  muc: 'mokzya', // muc → mokṣyati (o-grade, no iṭ)
   han: 'haMsya', // haṃsya- (8.3.23 mo'nusvāraḥ: n → ṃ before s; cf. 3s override below)
   vid: 'vedizya',// vediṣya-
   diS: 'dekzya', // dekṣya-

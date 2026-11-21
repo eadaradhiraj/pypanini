@@ -1398,3 +1398,8 @@ test('iṭ-less futures neṣyati/jeṣyati', () => {
   assert.equal(lrt('nI'), 'nezyati'); // neṣyati
   assert.equal(lrt('ji'), 'jezyati'); // jeṣyati
 });
+
+test('√muc future mokṣyati', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'muc', lakara: Lakara.Lrt,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'mokzyati'); // mokṣyati
+});
