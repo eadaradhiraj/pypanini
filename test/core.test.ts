@@ -1225,3 +1225,15 @@ test('√vid (2P “know”) athematic: vetti/vidanti (not *vidati)', () => {
   assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'vidyAt');   // vidyāt
   assert.equal(f(Lakara.Lit, Purusha.Prathama, Vacana.Eka), 'veda');     // veda
 });
+
+test('√iṣ (2P) athematic: eṣṭi/iṣanti (not *iṣati)', () => {
+  const f = (lakara: Lakara, pada: Pada, pu: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'iS', lakara, pada, purusha: pu, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'ezTi');   // eṣṭi
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'iSanti'); // iṣanti
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'ekzi');  // ekṣi
+  assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'izTe');    // iṣṭe
+  assert.equal(f(Lakara.Lan, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'ET');    // aiṭ
+  assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'iSyAt'); // iṣyāt
+  assert.equal(f(Lakara.Lrt, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'eziSyati'); // eṣiṣyati
+});
