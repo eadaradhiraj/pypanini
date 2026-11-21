@@ -196,7 +196,7 @@ const T_NAPUMSAKA: EndingTable = {
 
 const R_MASCULINE: EndingTable = {
   [Vibhakti.Prathama]: ['A', 'rau', 'araH'],
-  [Vibhakti.Dvitiya]: ['aram', 'rau', 'rIn'],
+  [Vibhakti.Dvitiya]: ['aram', 'rau', 'Fn'], // pitṛ → pitṝn (acc pl)
   [Vibhakti.Trtiya]: ['rA', 'fByAm', 'fBiH'],
   [Vibhakti.Caturthi]: ['re', 'fByAm', 'fByaH'],
   [Vibhakti.Pancami]: ['uH', 'fByAm', 'fByaH'],

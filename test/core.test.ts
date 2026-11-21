@@ -1443,3 +1443,10 @@ test('u-stem genitive plural: gurūṇām but prabhūnām/madhūnām', () => {
   assert.equal(gen('prabhu'), 'prabhUnAm'); // prabhūnām (no trigger)
   assert.equal(gen('madhu'), 'madhUnAm'); // madhūnām
 });
+
+test('ṛ-stem accusative plural pitṝn/kartṝn', () => {
+  const acc = (w: string) => deriveSubantas({ pratipadika: w, linga: Linga.Pumsaka,
+    vibhakti: Vibhakti.Dvitiya, vacana: Vacana.Bahu })[0].text();
+  assert.equal(acc('pitf'), 'pitFn');  // pitṝn
+  assert.equal(acc('kartf'), 'kartFn'); // kartṝn
+});
