@@ -1366,3 +1366,12 @@ test('caste-name feminines: brāhmaṇī but kṣatriyā/vaiśyā/śūdrā', () 
 test('√ad agent noun attṛ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'ad', krt: Krt.TRn })[0].text(), 'attf'); // attṛ
 });
+
+test('athematic optatives: bhindyāt/rundhyāt/duhyāt/śṛṇuyāt', () => {
+  const lin = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lin,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(lin('bhid'), 'bhinDyAt');  // bhindyāt
+  assert.equal(lin('rudh'), 'runDyAt');   // rundhyāt
+  assert.equal(lin('duh'), 'duhyAt');     // duhyāt
+  assert.equal(lin('zru'), 'zRuNuyAt');   // śṛṇuyāt
+});
