@@ -169,6 +169,8 @@ function lutStem(root: string): string {
 const FUTURE_STEMS: Record<string, string> = {
   BU: 'Bavizya', // bhaviṣya-
   dA: 'dAsya',   // dā-sya- (no -i-)
+  pA: 'pAsya',   // pā-sya- (no -i-)
+  sTA: 'sTAsya', // sthā-sya- (no -i-)
   DA: 'DAsya',   // dhā-sya- (no -i-)
   yA: 'yAsya',   // yā-sya- (no -i-)
   kf: 'karizya', // kariṣya-
@@ -381,7 +383,6 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'BA:lat:parasmai:prathama:eka': 'BAti',   // bhāti
   'mA:lat:parasmai:prathama:eka': 'mAti',   // māti
   'vA:lat:parasmai:prathama:eka': 'vAti',
-  'pA:lat:parasmai:prathama:eka': 'pAti',
   'rA:lat:parasmai:prathama:eka': 'rAti',
   'dviza:lat:parasmai:prathama:eka': 'dvezwi', // dveṣṭi
   // class 8 (tanādi): √tan→tanoti, tanutaḥ, tanvanti
@@ -1239,6 +1240,80 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'mfz:lit:parasmai:madhyama:eka': 'mamArjitha',
   'mfz:lit:parasmai:madhyama:dvi': 'mamfzathuH',
   'mfz:lit:parasmai:madhyama:bahu': 'mamfz',
+  // √pā / √sthā: present stems pib- / tiṣṭh- (pibati/tiṣṭhati), not *pāti/*sthāti.
+  // Source: bhagavadgita.org.in conjugation engine.
+  'pA:lat:parasmai:prathama:eka': 'pibati',
+  'pA:lat:parasmai:prathama:dvi': 'pibataH',
+  'pA:lat:parasmai:prathama:bahu': 'pibanti',
+  'pA:lat:parasmai:madhyama:eka': 'pibasi',
+  'pA:lat:parasmai:madhyama:dvi': 'pibathaH',
+  'pA:lat:parasmai:madhyama:bahu': 'pibatha',
+  'pA:lat:parasmai:uttama:eka': 'pibAmi',
+  'pA:lat:parasmai:uttama:dvi': 'pibAvaH',
+  'pA:lat:parasmai:uttama:bahu': 'pibAmaH',
+  'pA:lan:parasmai:prathama:eka': 'apibat',
+  'pA:lan:parasmai:prathama:dvi': 'apibatAm',
+  'pA:lan:parasmai:prathama:bahu': 'apiban',
+  'pA:lan:parasmai:madhyama:eka': 'apibaH',
+  'pA:lan:parasmai:madhyama:dvi': 'apibatam',
+  'pA:lan:parasmai:madhyama:bahu': 'apibata',
+  'pA:lan:parasmai:uttama:eka': 'apibAm',
+  'pA:lan:parasmai:uttama:dvi': 'apibAvaH',
+  'pA:lan:parasmai:uttama:bahu': 'apibAmaH',
+  'pA:lot:parasmai:prathama:eka': 'pibatu',
+  'pA:lot:parasmai:prathama:dvi': 'pibatAm',
+  'pA:lot:parasmai:prathama:bahu': 'pibantu',
+  'pA:lot:parasmai:madhyama:eka': 'piba',
+  'pA:lot:parasmai:madhyama:dvi': 'pibatam',
+  'pA:lot:parasmai:madhyama:bahu': 'pibata',
+  'pA:lot:parasmai:uttama:eka': 'pibAni',
+  'pA:lot:parasmai:uttama:dvi': 'pibAvaH',
+  'pA:lot:parasmai:uttama:bahu': 'pibAmaH',
+  'pA:lin:parasmai:prathama:eka': 'pibet',
+  'pA:lin:parasmai:prathama:dvi': 'pibetAm',
+  'pA:lin:parasmai:prathama:bahu': 'pibeyuH',
+  'pA:lin:parasmai:madhyama:eka': 'pibeH',
+  'pA:lin:parasmai:madhyama:dvi': 'pibetam',
+  'pA:lin:parasmai:madhyama:bahu': 'pibeta',
+  'pA:lin:parasmai:uttama:eka': 'pibeyam',
+  'pA:lin:parasmai:uttama:dvi': 'pibevaH',
+  'pA:lin:parasmai:uttama:bahu': 'pibema',
+  'sTA:lat:parasmai:prathama:eka': 'tiSThati',
+  'sTA:lat:parasmai:prathama:dvi': 'tiSThataH',
+  'sTA:lat:parasmai:prathama:bahu': 'tiSThanti',
+  'sTA:lat:parasmai:madhyama:eka': 'tiSThasi',
+  'sTA:lat:parasmai:madhyama:dvi': 'tiSThathaH',
+  'sTA:lat:parasmai:madhyama:bahu': 'tiSThatha',
+  'sTA:lat:parasmai:uttama:eka': 'tiSThAmi',
+  'sTA:lat:parasmai:uttama:dvi': 'tiSThAvaH',
+  'sTA:lat:parasmai:uttama:bahu': 'tiSThAmaH',
+  'sTA:lan:parasmai:prathama:eka': 'atiSThat',
+  'sTA:lan:parasmai:prathama:dvi': 'atiSThatAm',
+  'sTA:lan:parasmai:prathama:bahu': 'atiSThan',
+  'sTA:lan:parasmai:madhyama:eka': 'atiSThaH',
+  'sTA:lan:parasmai:madhyama:dvi': 'atiSThatam',
+  'sTA:lan:parasmai:madhyama:bahu': 'atiSThata',
+  'sTA:lan:parasmai:uttama:eka': 'atiSThAm',
+  'sTA:lan:parasmai:uttama:dvi': 'atiSThAvaH',
+  'sTA:lan:parasmai:uttama:bahu': 'atiSThAmaH',
+  'sTA:lot:parasmai:prathama:eka': 'tiSThatu',
+  'sTA:lot:parasmai:prathama:dvi': 'tiSThatAm',
+  'sTA:lot:parasmai:prathama:bahu': 'tiSThantu',
+  'sTA:lot:parasmai:madhyama:eka': 'tiSTha',
+  'sTA:lot:parasmai:madhyama:dvi': 'tiSThatam',
+  'sTA:lot:parasmai:madhyama:bahu': 'tiSThata',
+  'sTA:lot:parasmai:uttama:eka': 'tiSThAni',
+  'sTA:lot:parasmai:uttama:dvi': 'tiSThAvaH',
+  'sTA:lot:parasmai:uttama:bahu': 'tiSThAmaH',
+  'sTA:lin:parasmai:prathama:eka': 'tiSThet',
+  'sTA:lin:parasmai:prathama:dvi': 'tiSThetAm',
+  'sTA:lin:parasmai:prathama:bahu': 'tiSTheyuH',
+  'sTA:lin:parasmai:madhyama:eka': 'tiSTheH',
+  'sTA:lin:parasmai:madhyama:dvi': 'tiSThetam',
+  'sTA:lin:parasmai:madhyama:bahu': 'tiSTheta',
+  'sTA:lin:parasmai:uttama:eka': 'tiSTheyam',
+  'sTA:lin:parasmai:uttama:dvi': 'tiSThevaH',
+  'sTA:lin:parasmai:uttama:bahu': 'tiSThema',
 };
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {

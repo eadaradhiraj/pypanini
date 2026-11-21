@@ -1249,3 +1249,16 @@ test('√mṛj (2P) athematic: mārṣṭi/mṛjanti (not *mṛjati)', () => {
   assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'mfjyAt');  // mṛjyāt
   assert.equal(f(Lakara.Lrt, Purusha.Prathama, Vacana.Eka), 'mArjizyati'); // mārjiṣyati
 });
+
+test('√pā/√sthā present stems pib-/tiṣṭh- and iṭ-less futures', () => {
+  const f = (d: string, lakara: Lakara) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara,
+      purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('pA', Lakara.Lat), 'pibati');    // pibati (not *pāti)
+  assert.equal(f('pA', Lakara.Lan), 'apibat');    // apibat
+  assert.equal(f('pA', Lakara.Lin), 'pibet');     // pibet
+  assert.equal(f('pA', Lakara.Lrt), 'pAsyati');   // pāsyati (no iṭ)
+  assert.equal(f('sTA', Lakara.Lat), 'tiSThati'); // tiṣṭhati (not *sthāti)
+  assert.equal(f('sTA', Lakara.Lan), 'atiSThat'); // atiṣṭhat
+  assert.equal(f('sTA', Lakara.Lrt), 'sTAsyati'); // sthāsyati (no iṭ)
+});
