@@ -1788,3 +1788,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 295 (continued, toward 2703/2703):** Fixed √labh verbal nouns
   labdhum/labdhavya/labdhi/labdhṛ/lābha, source-backed by Wiktionary.
   `npm test` 125/125. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 296 (continued, toward 2703/2703):** Fixed √labh ktavatu
+  labdhavān (was labtavān). `npm test` 126/126. Pushed. Coverage 437/2703.
