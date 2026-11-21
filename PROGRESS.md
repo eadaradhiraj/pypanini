@@ -1646,3 +1646,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   source-backed by Wiktionary and a conjugation engine. Removed a mis-cited
   sūtra code from the new trace. `npm test` 96/96. 0 unregistered emissions.
   Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-21 — Session 265 (continued, toward 2703/2703):** Completed √vid (2P,
+  “to know”) athematic paradigm: vetti/vidanti (not *vidati), avet, vidyāt,
+  vettu, vediṣyati, veditā, veda; kept avedat aorist (valid for √vid “find”).
+  `npm test` 97/97. 0 unregistered emissions. Pushed. Coverage 437/2703.
