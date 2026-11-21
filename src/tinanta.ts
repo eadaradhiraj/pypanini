@@ -175,6 +175,7 @@ const FUTURE_STEMS: Record<string, string> = {
   yA: 'yAsya',   // yā-sya- (no -i-)
   kf: 'karizya', // kariṣya-
   gam: 'gamizya',// gamiṣya-
+  fR: 'arizya',  // ariṣya- (√ṛ)
   pac: 'pakzya', // pak-ṣya- (c → k, 8.2.36 + ṣatva)
   yaj: 'yakzya', // yak-ṣya-
   ni: 'nezya',   // ne-ṣya-
@@ -1314,6 +1315,44 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'sTA:lin:parasmai:uttama:eka': 'tiSTheyam',
   'sTA:lin:parasmai:uttama:dvi': 'tiSThevaH',
   'sTA:lin:parasmai:uttama:bahu': 'tiSThema',
+  // √ṛ (1P): ṛcch- present stem (fcCati = ṛcchati), not *ṛati.
+  // Source: bhagavadgita.org.in conjugation engine.
+  'fR:lat:parasmai:prathama:eka': 'fcCati',
+  'fR:lat:parasmai:prathama:dvi': 'fcCataH',
+  'fR:lat:parasmai:prathama:bahu': 'fcCanti',
+  'fR:lat:parasmai:madhyama:eka': 'fcCasi',
+  'fR:lat:parasmai:madhyama:dvi': 'fcCathaH',
+  'fR:lat:parasmai:madhyama:bahu': 'fcCatha',
+  'fR:lat:parasmai:uttama:eka': 'fcCAmi',
+  'fR:lat:parasmai:uttama:dvi': 'fcCAvaH',
+  'fR:lat:parasmai:uttama:bahu': 'fcCAmaH',
+  'fR:lan:parasmai:prathama:eka': 'AfcCat',
+  'fR:lan:parasmai:prathama:dvi': 'AfcCatAm',
+  'fR:lan:parasmai:prathama:bahu': 'AfcCan',
+  'fR:lan:parasmai:madhyama:eka': 'AfcCaH',
+  'fR:lan:parasmai:madhyama:dvi': 'AfcCatam',
+  'fR:lan:parasmai:madhyama:bahu': 'AfcCata',
+  'fR:lan:parasmai:uttama:eka': 'AfcCam',
+  'fR:lan:parasmai:uttama:dvi': 'AfcCAvaH',
+  'fR:lan:parasmai:uttama:bahu': 'AfcCAmaH',
+  'fR:lot:parasmai:prathama:eka': 'fcCatu',
+  'fR:lot:parasmai:prathama:dvi': 'fcCatAm',
+  'fR:lot:parasmai:prathama:bahu': 'fcCantu',
+  'fR:lot:parasmai:madhyama:eka': 'fcCa',
+  'fR:lot:parasmai:madhyama:dvi': 'fcCatam',
+  'fR:lot:parasmai:madhyama:bahu': 'fcCata',
+  'fR:lot:parasmai:uttama:eka': 'fcCAni',
+  'fR:lot:parasmai:uttama:dvi': 'fcCAvaH',
+  'fR:lot:parasmai:uttama:bahu': 'fcCAmaH',
+  'fR:lin:parasmai:prathama:eka': 'fcCet',
+  'fR:lin:parasmai:prathama:dvi': 'fcCetAm',
+  'fR:lin:parasmai:prathama:bahu': 'fcCeyuH',
+  'fR:lin:parasmai:madhyama:eka': 'fcCeH',
+  'fR:lin:parasmai:madhyama:dvi': 'fcCetam',
+  'fR:lin:parasmai:madhyama:bahu': 'fcCeta',
+  'fR:lin:parasmai:uttama:eka': 'fcCeyam',
+  'fR:lin:parasmai:uttama:dvi': 'fcCevaH',
+  'fR:lin:parasmai:uttama:bahu': 'fcCema',
 };
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {
@@ -1355,6 +1394,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   han: { strong: 'jaghAn', weak: 'jaghn' }, // jaghāna / jaghnuḥ (6.4.98)
   car: { strong: 'cacAr', weak: 'cacar' },   // cacāra / cacaruḥ
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
+  fR: { strong: 'ar', weak: 'ar' },          // āra/āruḥ (perfect of √ṛ, no reduplication)
   i: { strong: 'iyAy', weak: 'iy' },         // iyāya (perfect of √i 'go')
   pA: { strong: 'papO', weak: 'pap' },       // papau (7.1.34 āta au ṇalaḥ)
   sTA: { strong: 'tasTO', weak: 'tasth' },   // tasthau

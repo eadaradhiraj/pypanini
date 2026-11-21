@@ -1262,3 +1262,16 @@ test('√pā/√sthā present stems pib-/tiṣṭh- and iṭ-less futures', () =
   assert.equal(f('sTA', Lakara.Lan), 'atiSThat'); // atiṣṭhat
   assert.equal(f('sTA', Lakara.Lrt), 'sTAsyati'); // sthāsyati (no iṭ)
 });
+
+test('√ṛ (1P) ṛcch- present, ariṣya future, āra perfect, ārat aorist', () => {
+  const f = (lakara: Lakara) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'fR', lakara,
+      purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f(Lakara.Lat), 'fcCati');  // ṛcchati (not *ṛati)
+  assert.equal(f(Lakara.Lan), 'AfcCat');  // ārcchat
+  assert.equal(f(Lakara.Lot), 'fcCatu');  // ṛcchatu
+  assert.equal(f(Lakara.Lin), 'fcCet');   // ṛcchet
+  assert.equal(f(Lakara.Lrt), 'arizyati'); // ariṣyati
+  assert.equal(f(Lakara.Lit), 'ara');     // āra
+  assert.equal(f(Lakara.LatN), 'Arat');  // ārat
+});
