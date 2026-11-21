@@ -843,7 +843,7 @@ test('subanta: n-, t- and ṛ-stem consonants', () => {
 
   // pitṛ (m), -ṛ stem
   assert.equal(form('pitf', Vibhakti.Prathama, Vacana.Eka), 'pitA');
-  assert.equal(form('pitf', Vibhakti.Sasti, Vacana.Bahu), 'pitrIRAm');
+  assert.equal(form('pitf', Vibhakti.Sasti, Vacana.Bahu), 'pitFRAm'); // pitṝṇām
   assert.equal(form('pitf', Vibhakti.Saptami, Vacana.Bahu), 'pitfzu');
 });
 

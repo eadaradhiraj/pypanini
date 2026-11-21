@@ -200,7 +200,7 @@ const R_MASCULINE: EndingTable = {
   [Vibhakti.Trtiya]: ['rA', 'fByAm', 'fBiH'],
   [Vibhakti.Caturthi]: ['re', 'fByAm', 'fByaH'],
   [Vibhakti.Pancami]: ['uH', 'fByAm', 'fByaH'],
-  [Vibhakti.Sasti]: ['uH', 'roH', 'rIRAm'],
+  [Vibhakti.Sasti]: ['uH', 'roH', 'FRAm'], // pitṛ → pitṝṇām (SLP1 pitFRAm)
   [Vibhakti.Saptami]: ['ari', 'roH', 'fzu'],
   [Vibhakti.Sambodhana]: ['ar', 'rau', 'araH'],
 };
