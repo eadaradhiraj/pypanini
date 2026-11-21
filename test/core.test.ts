@@ -1384,3 +1384,10 @@ test('athematic imperative 3s: bhinattu/śṛṇotu/vaktu/rundhatu', () => {
   assert.equal(lot('vac'), 'vaktu');      // vaktu
   assert.equal(lot('rudh'), 'rundhatu');  // rundhatu
 });
+
+test('√śru imperfect/future without iṭ: aśṛṇot/śroṣyati', () => {
+  const f = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'zru', lakara: lk,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f(Lakara.Lan), 'azRNot');   // aśṛṇot
+  assert.equal(f(Lakara.Lrt), 'zrOzyati'); // śroṣyati (no iṭ)
+});

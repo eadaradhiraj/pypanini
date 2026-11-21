@@ -176,6 +176,7 @@ const FUTURE_STEMS: Record<string, string> = {
   kf: 'karizya', // kariṣya-
   gam: 'gamizya',// gamiṣya-
   fR: 'arizya',  // ariṣya- (√ṛ)
+  zru: 'zrOzya',  // śroṣya- (√śru, no iṭ)
   jFnA: 'jFAsya', // jñāsyati (no iṭ)
   pac: 'pakzya', // pak-ṣya- (c → k, 8.2.36 + ṣatva)
   yaj: 'yakzya', // yak-ṣya-
@@ -194,6 +195,7 @@ function futureStem(root: string): string {
  * everything else falls through to the thematic pipeline.
  */
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
+  'zru:lan:parasmai:prathama:eka': 'azRNot',  // aśṛṇot (5P imperfect)
   // Athematic imperative (loṭ) 3s forms from present stems (sources:
   // bhagavadgita.org.in / standard): bhinattu/śṛṇotu/vaktu/rundhatu.
   'bhid:lot:parasmai:prathama:eka': 'bhinattu',
