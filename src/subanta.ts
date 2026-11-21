@@ -58,7 +58,7 @@ const U_PUMSAKA: EndingTable = {
   [Vibhakti.Trtiya]: ['unA', 'uByAm', 'uBiH'],
   [Vibhakti.Caturthi]: ['ave', 'uByAm', 'uByaH'],
   [Vibhakti.Pancami]: ['oH', 'uByAm', 'uByaH'],
-  [Vibhakti.Sasti]: ['oH', 'yoH', 'URAm'],
+  [Vibhakti.Sasti]: ['oH', 'yoH', 'UnAm'],
   [Vibhakti.Saptami]: ['au', 'yoH', 'uzu'],
   [Vibhakti.Sambodhana]: ['o', 'U', 'avaH'],
 };
@@ -334,9 +334,11 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   let natvaApplied = false;
   let surface = cls.sandhi ? applySandhi(base, ending) : base + ending;
   // 8.4.1 raṣābhyāṃ no ṇaḥ: retroflex n after r/ṣ/ṛ in the same pada —
-  // only for the u-stem inst-sg `-unā` ending, where the n directly follows
-  // the stem-internal r trigger (guru + unā → guruṇā; madhu → madhunā).
-  if (cls.id === 'u-m' && args.vibhakti === Vibhakti.Trtiya && args.vacana === Vacana.Eka) {
+  // for the u-stem `-unā` (inst sg) and `-ūnām` (gen pl), where the n follows
+  // the stem-internal r trigger (guru → guruṇā/gurūṇām; madhu → madhunā/madhūnām).
+  if (cls.id === 'u-m' && (
+      (args.vibhakti === Vibhakti.Trtiya && args.vacana === Vacana.Eka) ||
+      (args.vibhakti === Vibhakti.Sasti && args.vacana === Vacana.Bahu))) {
     const beforeNatva = surface;
     surface = applyNatva(surface);
     if (surface !== beforeNatva) natvaApplied = true;

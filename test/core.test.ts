@@ -1435,3 +1435,11 @@ test('lyuṭ action nouns ayana/jayana/jñāna', () => {
   assert.equal(lyuT('ji'), 'jayana'); // jayana
   assert.equal(lyuT('jFnA'), 'jFAna'); // jñāna
 });
+
+test('u-stem genitive plural: gurūṇām but prabhūnām/madhūnām', () => {
+  const gen = (w: string) => deriveSubantas({ pratipadika: w, linga: Linga.Pumsaka,
+    vibhakti: Vibhakti.Sasti, vacana: Vacana.Bahu })[0].text();
+  assert.equal(gen('guru'), 'gurURAm');   // gurūṇām (r trigger)
+  assert.equal(gen('prabhu'), 'prabhUnAm'); // prabhūnām (no trigger)
+  assert.equal(gen('madhu'), 'madhUnAm'); // madhūnām
+});
