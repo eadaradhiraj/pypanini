@@ -1656,3 +1656,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   athematic paradigm: eṣṭi/iṣanti (not *iṣati), aiṭ, eṣṭu, iṣyāt, eṣiṣyati,
   iyeṣa, plus ātmanepada, source-backed. `npm test` 98/98. 0 unregistered
   emissions. Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-21 — Session 267 (continued, toward 2703/2703):** Completed √mṛj (2P)
+  athematic paradigm: mārṣṭi/mṛjanti (not *mṛjati), amārṭ, mṛjyāt, mārṣṭu,
+  mārjiṣyati, mamārja, source-backed. `npm test` 99/99. 0 unregistered
+  emissions. Pushed. Coverage 437/2703 (452/3983).
