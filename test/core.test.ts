@@ -1477,3 +1477,10 @@ test('√labh verbal nouns: labdhum/labdhavya/labdhi/lābha', () => {
 test('√labh ktavatu labdhavān', () => {
   assert.equal(deriveKrdantas({ dhatu: 'lab', krt: Krt.Ktavatu })[0].text(), 'labDavAn'); // labdhavān
 });
+
+test('anīyar gerundives jñānīya/ayanīya/jayanīya', () => {
+  const ani = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Ani })[0].text();
+  assert.equal(ani('jFnA'), 'jFAnIya'); // jñānīya
+  assert.equal(ani('i'), 'ayanIya');    // ayanīya
+  assert.equal(ani('ji'), 'jayanIya');  // jayanīya
+});
