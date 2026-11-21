@@ -1213,3 +1213,15 @@ test('√grah/√jñā verbal nouns and jñā present (jānāti)', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'jFnA',
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'jAnAti'); // jānāti
 });
+
+test('√vid (2P “know”) athematic: vetti/vidanti (not *vidati)', () => {
+  const f = (lakara: Lakara, pu: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'vid', lakara, purusha: pu, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'vetti');    // vetti
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'vidanti'); // vidanti
+  assert.equal(f(Lakara.Lat, Purusha.Madhyama, Vacana.Eka), 'vetsi');    // vetsi
+  assert.equal(f(Lakara.Lat, Purusha.Uttama, Vacana.Eka), 'vedmi');      // vedmi
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'avet');     // avet
+  assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'vidyAt');   // vidyāt
+  assert.equal(f(Lakara.Lit, Purusha.Prathama, Vacana.Eka), 'veda');     // veda
+});
