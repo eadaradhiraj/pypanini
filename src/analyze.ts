@@ -59,43 +59,51 @@ export function analyzeSubanta(word: SLP1): SubantaAnalysis[] {
   for (const cls of ALL_STEM_CLASSES) {
     for (const vibhakti of VIBHAKTIS) {
       for (const vacana of VACANAS) {
-        const ending = cls.endings[vibhakti][VACANA_INDEX[vacana]] ?? '';
+        const baseEnding = cls.endings[vibhakti][VACANA_INDEX[vacana]] ?? '';
 
-        if (ending === '' && !cls.id.startsWith('cons-')) continue; // bare stem too weak; consonant nom/voc sg is valid
+        if (baseEnding === '' && !cls.id.startsWith('cons-')) continue; // bare stem too weak; consonant nom/voc sg is valid
 
-        if (!probe.endsWith(ending)) continue;
-        const prefix = word.slice(0, word.length - ending.length);
-        if (!prefix) continue;
+        // 8.4.1 ṇatva may turn an ending-initial/embedded n into ṇ (guru + unā
+        // → guruṇā), so match both the citation ending and its retroflex form.
+        const endingVariants = baseEnding.includes('n')
+          ? [baseEnding, baseEnding.replace(/n/g, 'R')]
+          : [baseEnding];
 
-        // Reconstruct the base first (reverse a+vowel ekādeśa if applicable),
-        // then re-attach the class terminal to get the prātipadika.
-        let base: SLP1;
-        if (cls.sandhi && VOWELS.includes(ending[0]) && !prefix.endsWith('a')) {
-          base = prefix + 'a';
-        } else {
-          base = prefix;
-        }
-        const pratipadika = cls.terminal ? base + cls.terminal : base;
+        for (const ending of endingVariants) {
+          if (!probe.endsWith(ending)) continue;
+          const prefix = word.slice(0, word.length - ending.length);
+          if (!prefix) continue;
 
-        if (!verify(pratipadika, cls.linga, vibhakti, vacana, word)) continue;
+          // Reconstruct the base first (reverse a+vowel ekādeśa if applicable),
+          // then re-attach the class terminal to get the prātipadika.
+          let base: SLP1;
+          if (cls.sandhi && VOWELS.includes(ending[0]) && !prefix.endsWith('a')) {
+            base = prefix + 'a';
+          } else {
+            base = prefix;
+          }
+          const pratipadika = cls.terminal ? base + cls.terminal : base;
 
-        const reportedBase = cls.terminal
-          ? base
-          : base.endsWith('a') ? base.slice(0, -1) : base;
-        const candidate: SubantaAnalysis = {
-          word, pratipadika, base: reportedBase,
-          linga: cls.linga, stemClass: cls.id,
-          vibhakti, vacana, ending,
-        };
-        // Keep the strongest (longest) ending per prātipadika+linga+case+number.
-        // A weak `H` from a-m must not shadow the strong `iH` from i-m.
-        const dupIdx = results.findIndex((r) =>
-          r.pratipadika === pratipadika && r.linga === cls.linga &&
-          r.vibhakti === vibhakti && r.vacana === vacana);
-        if (dupIdx >= 0) {
-          if (ending.length > results[dupIdx].ending.length) results[dupIdx] = candidate;
-        } else {
-          results.push(candidate);
+          if (!verify(pratipadika, cls.linga, vibhakti, vacana, word)) continue;
+
+          const reportedBase = cls.terminal
+            ? base
+            : base.endsWith('a') ? base.slice(0, -1) : base;
+          const candidate: SubantaAnalysis = {
+            word, pratipadika, base: reportedBase,
+            linga: cls.linga, stemClass: cls.id,
+            vibhakti, vacana, ending,
+          };
+          // Keep the strongest (longest) ending per prātipadika+linga+case+number.
+          // A weak `H` from a-m must not shadow the strong `iH` from i-m.
+          const dupIdx = results.findIndex((r) =>
+            r.pratipadika === pratipadika && r.linga === cls.linga &&
+            r.vibhakti === vibhakti && r.vacana === vacana);
+          if (dupIdx >= 0) {
+            if (ending.length > results[dupIdx].ending.length) results[dupIdx] = candidate;
+          } else {
+            results.push(candidate);
+          }
         }
       }
     }

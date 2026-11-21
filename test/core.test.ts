@@ -878,6 +878,9 @@ test('reverse declension across stem classes', () => {
   check('DenUnAm', 'Denu', Vibhakti.Sasti);
   check('rAjYA', 'rAjan', Vibhakti.Trtiya);
   check('pitfzu', 'pitf', Vibhakti.Saptami);
+  // ṇatva surfaces (guru + unā → guruṇā) must reverse too.
+  check('guruRA', 'guru', Vibhakti.Trtiya);
+  check('taruRA', 'taru', Vibhakti.Trtiya);
 });
 
 test('reverse declension: strong ending must not be shadowed by weak a-m H', () => {
