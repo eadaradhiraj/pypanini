@@ -1705,3 +1705,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   aorists ayākṣīt (yaj), ahānīt (han), adhāt (dhā), ahauṣīt (hu), replacing
   present-form fallbacks. Kept existing √as āsthat aorist pending verification.
   `npm test` 108/108. 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 277 (continued, toward 2703/2703):** Fixed special past
+  participles/gerunds: pīta/pītvā (pā), hitvā (dhā), sthita (sthā),
+  labdha/labdhvā (labh). `npm test` 109/109. 0 unregistered emissions. Pushed.
+  Coverage 437/2703.
