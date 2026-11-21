@@ -1710,3 +1710,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   participles/gerunds: pīta/pītvā (pā), hitvā (dhā), sthita (sthā),
   labdha/labdhvā (labh). `npm test` 109/109. 0 unregistered emissions. Pushed.
   Coverage 437/2703.
+
+- **2026-11-21 — Session 278 (continued, toward 2703/2703):** Fixed caste-name
+  feminines: kṣatriyā/vaiśyā/śūdrā take ṭāp (were ṇīṣ); brāhmaṇī unchanged,
+  source-backed by Wiktionary. `npm test` 110/110. 0 unregistered emissions.
+  Pushed. Coverage 437/2703.
