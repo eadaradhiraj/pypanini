@@ -1457,3 +1457,10 @@ test('an-n instrumental ṇatva: karmaṇā but nāmnā', () => {
   assert.equal(inst('karman'), 'karmRA'); // karmaṇā (r + m intervenes)
   assert.equal(inst('nAman'), 'nAmnA');   // nāmnā (no r trigger)
 });
+
+test('√śru verbal nouns: śrotum/śrotavya/śrotṛ (no extra iṭ)', () => {
+  const f = (k: Krt) => deriveKrdantas({ dhatu: 'zru', krt: k })[0].text();
+  assert.equal(f(Krt.Tum), 'zrOtum');     // śrotum
+  assert.equal(f(Krt.Tavya), 'zrOtavya'); // śrotavya
+  assert.equal(f(Krt.Tfc), 'zrOtf');      // śrotṛ
+});
