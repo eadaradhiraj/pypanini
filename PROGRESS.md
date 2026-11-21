@@ -1725,3 +1725,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   optatives (liṅ) bhindyāt/rundhyāt/duhyāt/śṛṇuyāt (were thematic fallbacks),
   source-backed. `npm test` 112/112. 0 unregistered emissions. Pushed.
   Coverage 437/2703.
+
+- **2026-11-21 — Session 281 (continued, toward 2703/2703):** Fixed athematic
+  imperative 3s forms bhinattu/śṛṇotu/vaktu/rundhatu (were thematic fallbacks),
+  source-backed. `npm test` 113/113. Pushed. Coverage 437/2703.
