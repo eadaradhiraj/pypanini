@@ -1635,3 +1635,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   attvā/attum/attavyam/attṛ/anna/annavān via 8.4.55 (khari ca), source-backed
   by Wiktionary. `npm test` 94/94. 0 unregistered emissions. Pushed.
   Coverage 437/2703 (452/3983).
+
+- **2026-11-21 — Session 263 (continued, toward 2703/2703):** Completed √grah (9P)
+  gṛhṇā- present paradigm (gfhRAti/gfhRanti, not *grahati), imperfect,
+  imperative, optative, ātmanepada and grāhīṣya- future, source-backed.
+  `npm test` 95/95. 0 unregistered emissions. Pushed. Coverage 437/2703.
