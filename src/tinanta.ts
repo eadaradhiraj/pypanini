@@ -1399,6 +1399,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   as: { strong: 'As', weak: 'As' },          // āsa (perfect of √as)
   fR: { strong: 'ar', weak: 'ar' },          // āra/āruḥ (perfect of √ṛ, no reduplication)
   dviS: { strong: 'didvez', weak: 'didviz' }, // didveṣa/didviṣuḥ (perfect of √dviṣ)
+  grah: { strong: 'jagrAh', weak: 'jagf' },    // jagrāha/jagṛhuḥ (perfect of √grah)
   i: { strong: 'iyAy', weak: 'iy' },         // iyāya (perfect of √i 'go')
   pA: { strong: 'papO', weak: 'pap' },       // papau (7.1.34 āta au ṇalaḥ)
   sTA: { strong: 'tasTO', weak: 'tasth' },   // tasthau

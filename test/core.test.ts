@@ -1320,3 +1320,10 @@ test('√jñā/√dviṣ aorist, future, perfect from conjugation source', () =>
   assert.equal(f('dviS', Lakara.LatN), 'advikzat'); // adviKṣat
   assert.equal(f('dviS', Lakara.Lit), 'didveza');   // didveṣa
 });
+
+test('√grah aorist/perfect: ajigrahat/jagrāha', () => {
+  const f = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'grah', lakara: lk,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f(Lakara.LatN), 'ajigrahat'); // ajigrahat
+  assert.equal(f(Lakara.Lit), 'jagrAha');    // jagrāha
+});

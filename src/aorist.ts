@@ -39,6 +39,9 @@ const AORIST: Record<string, AoristEntry> = {
   // √jñā iṣ-aorist: ajñāsīt (ajFAsIt) — source: bhagavadgita.org.in.
   jFnA: { kind: 's', stem: 'jFA', code: '3.1.44 (cleḥ sic — jñā iṣ-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajFAsIt' } } },
+  // √grah reduplicating aorist: ajigrahat (ajigrahat) — source: bhagavadgita.org.in.
+  grah: { kind: 'redup', stem: 'jigrah', code: '3.1.48 (ṇiśrīdrusṛubhyaḥ kar — jigrahat)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajigrahat' } } },
   // √dviṣ kṣ-aorist: adviKṣat (advikzat) — source: bhagavadgita.org.in.
   dviS: { kind: 's', stem: 'dvez', code: '3.1.45 (śal igupadhād anिटḥ kṣaḥ — adviKṣat)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'advikzat' } } },
