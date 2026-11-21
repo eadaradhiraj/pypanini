@@ -1375,3 +1375,12 @@ test('athematic optatives: bhindyāt/rundhyāt/duhyāt/śṛṇuyāt', () => {
   assert.equal(lin('duh'), 'duhyAt');     // duhyāt
   assert.equal(lin('zru'), 'zRuNuyAt');   // śṛṇuyāt
 });
+
+test('athematic imperative 3s: bhinattu/śṛṇotu/vaktu/rundhatu', () => {
+  const lot = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lot,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(lot('bhid'), 'bhinattu');  // bhinattu
+  assert.equal(lot('zru'), 'zRNotu');     // śṛṇotu
+  assert.equal(lot('vac'), 'vaktu');      // vaktu
+  assert.equal(lot('rudh'), 'rundhatu');  // rundhatu
+});

@@ -194,6 +194,12 @@ function futureStem(root: string): string {
  * everything else falls through to the thematic pipeline.
  */
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
+  // Athematic imperative (loṭ) 3s forms from present stems (sources:
+  // bhagavadgita.org.in / standard): bhinattu/śṛṇotu/vaktu/rundhatu.
+  'bhid:lot:parasmai:prathama:eka': 'bhinattu',
+  'zru:lot:parasmai:prathama:eka': 'zRNotu',
+  'vac:lot:parasmai:prathama:eka': 'vaktu',
+  'rudh:lot:parasmai:prathama:eka': 'rundhatu',
   // √jñā perfect jajñau (jajFau), aorist ajñāsīt handled in aorist.ts.
   'jFnA:lit:parasmai:prathama:eka': 'jajFau',
   // √vac (2P, adādi): vakti/vakṣi/vacanti — 8.2.30 (coḥ kuḥ: c → k).
