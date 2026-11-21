@@ -1681,3 +1681,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (ṇic) stems for eight roots: ādayati/dveṣayati/vācayati/grāhayati/jñāpayati/
   pāyayati/sthāpayati/arpayati (were bare/vṛddhi-less forms). `npm test`
   103/103. 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 272 (continued, toward 2703/2703):** Fixed desiderative
+  (san) stems for six roots: dviviṣati/vivakṣati/jighṛkṣati/jijñāsati/
+  tiṣṭhāsati/aririṣati (were malformed). `npm test` 104/104. 0 unregistered
+  emissions. Pushed. Coverage 437/2703 (452/3983).
