@@ -1737,3 +1737,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 283 (continued, toward 2703/2703):** Fixed iṭ-less futures
   neṣyati (nī) and jeṣyati (ji) (were neizyati/jeizyati), source-backed.
   `npm test` 115/115. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 284 (continued, toward 2703/2703):** Fixed √muc future
+  mokṣyati (was muciṣyati), source-backed by Wiktionary. `npm test` 116/116.
+  Pushed. Coverage 437/2703.
