@@ -1355,3 +1355,10 @@ test('special past participles/gerunds: pīta, hitvā, sthita, labdha', () => {
   assert.equal(f('lab', Krt.Tac), 'labDa');  // labdha
   assert.equal(f('lab', Krt.KtvA), 'labDvA'); // labdhvā
 });
+
+test('caste-name feminines: brāhmaṇī but kṣatriyā/vaiśyā/śūdrā', () => {
+  assert.equal(deriveStri({ stem: 'brAhmaRa' })?.text(), 'brAhmaRI'); // brāhmaṇī
+  assert.equal(deriveStri({ stem: 'kzatriya' })?.text(), 'kzatriyA'); // kṣatriyā
+  assert.equal(deriveStri({ stem: 'vaiSya' })?.text(), 'vaiSyA');     // vaiśyā
+  assert.equal(deriveStri({ stem: 'sUdra' })?.text(), 'sUdrA');       // śūdrā
+});
