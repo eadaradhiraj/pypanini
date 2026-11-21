@@ -1729,3 +1729,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 281 (continued, toward 2703/2703):** Fixed athematic
   imperative 3s forms bhinattu/śṛṇotu/vaktu/rundhatu (were thematic fallbacks),
   source-backed. `npm test` 113/113. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 282 (continued, toward 2703/2703):** Fixed √śru imperfect
+  aśṛṇot and iṭ-less future śroṣyati, source-backed by bhagavadgita.org.in.
+  `npm test` 114/114. Pushed. Coverage 437/2703.
