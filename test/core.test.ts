@@ -1403,3 +1403,8 @@ test('√muc future mokṣyati', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'muc', lakara: Lakara.Lrt,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'mokzyati'); // mokṣyati
 });
+
+test('√rudh future rotsyati', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'rudh', lakara: Lakara.Lrt,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'rotsyati'); // rotsyati
+});
