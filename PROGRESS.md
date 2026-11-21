@@ -1686,3 +1686,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (san) stems for six roots: dviviṣati/vivakṣati/jighṛkṣati/jijñāsati/
   tiṣṭhāsati/aririṣati (were malformed). `npm test` 104/104. 0 unregistered
   emissions. Pushed. Coverage 437/2703 (452/3983).
+
+- **2026-11-21 — Session 273 (continued, toward 2703/2703):** Fixed √jñā aorist
+  ajñāsīt, future jñāsyati, perfect jajñau; √dviṣ kṣ-aorist adviKṣat and perfect
+  didveṣa, all source-backed by bhagavadgita.org.in. Left √ad desiderative
+  unchanged (no reliable source form found). `npm test` 105/105. 0 unregistered
+  emissions. Pushed. Coverage 437/2703.
