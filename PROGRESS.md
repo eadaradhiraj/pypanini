@@ -1640,3 +1640,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   gṛhṇā- present paradigm (gfhRAti/gfhRanti, not *grahati), imperfect,
   imperative, optative, ātmanepada and grāhīṣya- future, source-backed.
   `npm test` 95/95. 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 264 (continued, toward 2703/2703):** Fixed √grah verbal
+  nouns (gṛhītvā/gṛhīta/gṛhītum) and √jñā (jānāti present, jñātvā/jñāta/jñātum),
+  source-backed by Wiktionary and a conjugation engine. Removed a mis-cited
+  sūtra code from the new trace. `npm test` 96/96. 0 unregistered emissions.
+  Pushed. Coverage 437/2703 (452/3983).
