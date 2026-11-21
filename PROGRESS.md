@@ -1651,3 +1651,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   “to know”) athematic paradigm: vetti/vidanti (not *vidati), avet, vidyāt,
   vettu, vediṣyati, veditā, veda; kept avedat aorist (valid for √vid “find”).
   `npm test` 97/97. 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 266 (continued, toward 2703/2703):** Completed √iṣ (2P)
+  athematic paradigm: eṣṭi/iṣanti (not *iṣati), aiṭ, eṣṭu, iṣyāt, eṣiṣyati,
+  iyeṣa, plus ātmanepada, source-backed. `npm test` 98/98. 0 unregistered
+  emissions. Pushed. Coverage 437/2703 (452/3983).
