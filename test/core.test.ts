@@ -1416,3 +1416,12 @@ test('iṭ-less futures for ñit-marked roots: ceṣyati/soṣyati/śeṣyati', 
   assert.equal(lrt('zuY'), 'sozyati'); // soṣyati
   assert.equal(lrt('SiY'), 'Sezyati'); // śeṣyati
 });
+
+test('8.4.2 interveners: prabhunā (not *prabhuṇā), guruṇā, taruṇā', () => {
+  const inst = (w: string) => deriveSubantas({ pratipadika: w, linga: Linga.Pumsaka,
+    vibhakti: Vibhakti.Trtiya, vacana: Vacana.Eka })[0].text();
+  assert.equal(inst('guru'), 'guruRA');   // guruṇā (r directly before u)
+  assert.equal(inst('prabhu'), 'prabhunA'); // prabhunā (b blocks ṇatva)
+  assert.equal(inst('taru'), 'taruRA');   // taruṇā (r before u)
+  assert.equal(inst('madhu'), 'madhunA'); // madhunā (no r)
+});
