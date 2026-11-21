@@ -1450,3 +1450,10 @@ test('ṛ-stem accusative plural pitṝn/kartṝn', () => {
   assert.equal(acc('pitf'), 'pitFn');  // pitṝn
   assert.equal(acc('kartf'), 'kartFn'); // kartṝn
 });
+
+test('an-n instrumental ṇatva: karmaṇā but nāmnā', () => {
+  const inst = (w: string) => deriveSubantas({ pratipadika: w, linga: Linga.Napumsaka,
+    vibhakti: Vibhakti.Trtiya, vacana: Vacana.Eka })[0].text();
+  assert.equal(inst('karman'), 'karmRA'); // karmaṇā (r + m intervenes)
+  assert.equal(inst('nAman'), 'nAmnA');   // nāmnā (no r trigger)
+});

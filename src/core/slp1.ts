@@ -193,10 +193,10 @@ export function initialShatva(root: string): string {
 
 export function applyNatva(s: string): string {
   // 8.4.2 (aṭkupvāṃ numvyavāye 'pi): vowels (aṭ), gutturals (ku = kKgGN),
-  // labial p, semivowel v, h/ñ/ya, and anusvāra (M) may intervene between
-  // the trigger (r/ṣ/ṛ) and the n. Other labials (bBm) are NOT on the list,
-  // so prabhu + nā → prabhunā (not *prabhuṇā), while guru + nā → guruṇā.
-  const between = '[aAiIuUfFxXeEoOhYyvkKgGNpvM]*'; // y = semivowel ya
+  // labial p, nasal m, semivowel v, h/ñ/ya, and anusvāra (M) may intervene
+  // between the trigger (r/ṣ/ṛ) and the n. The labial b is NOT on the list,
+  // so prabhu + nā → prabhunā, but karman + nā → karmaṇā and guru → guruṇā.
+  const between = '[aAiIuUfFxXeEoOhYyvkKgGNpmvM]*'; // y = semivowel ya
   // Do not retroflex an `n` that is followed by `dh` (rundhat, bhinDati):
   // the dh cluster blocks ṇatva in these present-participle stems.
   return s.replace(new RegExp('([rfz])(' + between + ')n(?!dh)', 'g'),

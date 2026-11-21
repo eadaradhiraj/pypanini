@@ -336,9 +336,10 @@ export function deriveSubantas(args: SubantaArgs): Prakriya[] {
   // 8.4.1 raṣābhyāṃ no ṇaḥ: retroflex n after r/ṣ/ṛ in the same pada —
   // for the u-stem `-unā` (inst sg) and `-ūnām` (gen pl), where the n follows
   // the stem-internal r trigger (guru → guruṇā/gurūṇām; madhu → madhunā/madhūnām).
-  if (cls.id === 'u-m' && (
-      (args.vibhakti === Vibhakti.Trtiya && args.vacana === Vacana.Eka) ||
-      (args.vibhakti === Vibhakti.Sasti && args.vacana === Vacana.Bahu))) {
+  if ((cls.id === 'u-m' && (
+        (args.vibhakti === Vibhakti.Trtiya && args.vacana === Vacana.Eka) ||
+        (args.vibhakti === Vibhakti.Sasti && args.vacana === Vacana.Bahu))) ||
+      (cls.id === 'an-n' && args.vibhakti === Vibhakti.Trtiya && args.vacana === Vacana.Eka)) {
     const beforeNatva = surface;
     surface = applyNatva(surface);
     if (surface !== beforeNatva) natvaApplied = true;
