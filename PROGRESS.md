@@ -1671,3 +1671,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   present (fcCati, not *ṛati), ariṣya future, āra perfect, ārat aorist,
   source-backed. `npm test` 101/101. 0 unregistered emissions. Pushed.
   Coverage 437/2703 (452/3983).
+
+- **2026-11-21 — Session 270 (continued, toward 2703/2703):** Fixed present
+  participles (śatṛ) to use present stems: gacchat/pibat/tiṣṭhat/gṛhṇat/jānat
+  (were gamat/pāt/sthāt/grahat/jñānat); √vid ktavatu → vidvān (was vittavān).
+  `npm test` 102/102. 0 unregistered emissions. Pushed. Coverage 437/2703.
