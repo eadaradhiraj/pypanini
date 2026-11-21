@@ -1745,3 +1745,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 285 (continued, toward 2703/2703):** Fixed √rudh future
   rotsyati (was rudhiṣyati), source-backed by Wiktionary. `npm test` 117/117.
   Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 286 (continued, toward 2703/2703):** Fixed iṭ-less futures
+  for ñit-marked roots: ceṣyati (ci), soṣyati (su), śeṣyati (śi) — the SLP1 Y
+  marker had leaked into forms. `npm test` 118/118. Pushed. Coverage 437/2703.
