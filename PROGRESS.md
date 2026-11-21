@@ -1770,3 +1770,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 291 (continued, toward 2703/2703):** Fixed ṛ-stem genitive
   plural pitṝṇām/kartṝṇām (was pitrīṇām), source-backed by Wiktionary.
   `npm test` 121/121. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 292 (continued, toward 2703/2703):** Fixed ṛ-stem accusative
+  plural pitṝn/kartṝn (was pitrīn), source-backed by Wiktionary. Reverted a
+  vocative-sg change that broke reverse-analysis uniqueness. `npm test`
+  122/122. Pushed. Coverage 437/2703.
