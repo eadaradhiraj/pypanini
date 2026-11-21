@@ -437,6 +437,24 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
       return [p];
     }
   }
+  // √grah / √jñā: gṛhī- / jñā- stems in the verbal nouns (Wiktionary).
+  if (['grah', 'jFnA'].includes(dhatu.text)) {
+    const g = dhatu.text === 'grah';
+    const form: Partial<Record<Krt, string>> = {
+      [Krt.KtvA]: g ? 'gfhitvA' : 'jFAtvA',       // gṛhītvā / jñātvā
+      [Krt.Tum]: g ? 'gfhItum' : 'jFAtum',         // gṛhītum / jñātum
+      [Krt.Tavya]: g ? 'gfhItavya' : 'jFAtavya',   // gṛhītavya / jñātavya
+      [Krt.Tfc]: g ? 'gfhItf' : 'jFAtf',           // gṛhītṛ / jñātṛ
+      [Krt.Tac]: g ? 'gfhita' : 'jFAta',           // gṛhīta / jñāta
+      [Krt.Ktavatu]: g ? 'gfhItavAn' : 'jFAtavAn', // gṛhītavān / jñātavān
+    };
+    if (form[args.krt]) {
+      const p = new Prakriya([form[args.krt]!]);
+      p.record(g ? 'gṛhī- stem in verbal nouns of √grah' : 'jñā- stem in verbal nouns of √jñā');
+      p.collapse();
+      return [p];
+    }
+  }
   // √ad: d → t (8.4.55 khari ca) before the t-initial kṛt affixes (attum/attvā), and
   // the PPP is suppleted by anna- (Wiktionary/Monier-Williams).
   if (dhatu.text === 'ad') {

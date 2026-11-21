@@ -1202,3 +1202,14 @@ test('√grah (9P) gṛhṇā- present: gfhRAti/gfhRanti (not *grahati)', () => 
   assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'gfhRIyAt'); // gṛhṇīyāt
   assert.equal(f(Lakara.Lrt, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'grAhIzyati'); // grāhīṣyati
 });
+
+test('√grah/√jñā verbal nouns and jñā present (jānāti)', () => {
+  const f = (d: string, k: Krt) => deriveKrdantas({ dhatu: d, krt: k })[0].text();
+  assert.equal(f('grah', Krt.KtvA), 'gfhitvA');    // gṛhītvā
+  assert.equal(f('grah', Krt.Tac), 'gfhita');      // gṛhīta
+  assert.equal(f('grah', Krt.Tum), 'gfhItum');     // gṛhītum
+  assert.equal(f('jFnA', Krt.KtvA), 'jFAtvA');     // jñātvā
+  assert.equal(f('jFnA', Krt.Tac), 'jFAta');       // jñāta
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'jFnA',
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'jAnAti'); // jānāti
+});
