@@ -446,6 +446,7 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
       [Krt.Tfc]: 'labDf',       // labdhṛ
       [Krt.Ktin]: 'labDi',      // labdhi
       [Krt.ghaH]: 'lABa',       // lābha
+      [Krt.Ktavatu]: 'labDavAn', // labdhavān
     };
     if (form[args.krt]) {
       const p = new Prakriya([form[args.krt]!]);

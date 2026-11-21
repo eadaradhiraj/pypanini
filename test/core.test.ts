@@ -1473,3 +1473,7 @@ test('√labh verbal nouns: labdhum/labdhavya/labdhi/lābha', () => {
   assert.equal(f(Krt.Ktin), 'labDi');      // labdhi
   assert.equal(f(Krt.ghaH), 'lABa');       // lābha
 });
+
+test('√labh ktavatu labdhavān', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'lab', krt: Krt.Ktavatu })[0].text(), 'labDavAn'); // labdhavān
+});
