@@ -1285,3 +1285,16 @@ test('present-participle stems from present stems; vidvān', () => {
   assert.equal(satr('jFnA'), 'jAnat');   // jānat
   assert.equal(deriveKrdantas({ dhatu: 'vid', krt: Krt.Ktavatu })[0].text(), 'vidvAn'); // vidvān
 });
+
+test('causative (ṇic) stems for corrected roots', () => {
+  const nic = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    sanadi: Sanadi.Nic, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(nic('ad'), 'Adayati');    // ādayati
+  assert.equal(nic('dviS'), 'dvezayati'); // dveṣayati
+  assert.equal(nic('vac'), 'vAcayati');   // vācayati
+  assert.equal(nic('grah'), 'grAhayati'); // grāhayati
+  assert.equal(nic('jFnA'), 'jFApayati'); // jñāpayati
+  assert.equal(nic('pA'), 'pAyayati');    // pāyayati
+  assert.equal(nic('sTA'), 'sTApayati');  // sthāpayati
+  assert.equal(nic('fR'), 'arpayati');    // arpayati
+});
