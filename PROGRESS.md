@@ -1692,3 +1692,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   didveṣa, all source-backed by bhagavadgita.org.in. Left √ad desiderative
   unchanged (no reliable source form found). `npm test` 105/105. 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-21 — Session 274 (continued, toward 2703/2703):** Fixed √grah aorist
+  ajigrahat and perfect jagrāha (were present-theme fallbacks), source-backed.
+  `npm test` 106/106. 0 unregistered emissions. Pushed. Coverage 437/2703.
