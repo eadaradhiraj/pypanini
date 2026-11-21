@@ -114,6 +114,7 @@ const DESIDERATIVE_STEMS: Record<string, string> = {
   jFnA: 'jijFAsa',  // jñā → jijñāsa
   sTA: 'tiSThAsa',  // sthā → tiṣṭhāsa
   fR: 'aririza',    // ṛ → ari(ri)ṣa
+  mfz: 'mimArjiza', // mṛj → mimārjiṣa (Wiktionary)
 };
 
 function desiderativeStem(root: SLP1): SLP1 {

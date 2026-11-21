@@ -36,6 +36,12 @@ const AORIST: Record<string, AoristEntry> = {
   i: { kind: 'root', stem: 'gA', code: '2.4.45 (iRo gA luNi), 2.4.77 (sic-lopa)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'agAt' } } },
   sTA: { kind: 'root', stem: 'sTA', code: '2.4.77 (sic-lopa — asthāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asTAt' } } },
   pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt' } } },
+  // √iṣ iṣ-aorist: aiṣīt (EzIt) — source: Wiktionary.
+  iS: { kind: 's', stem: 'ez', code: '3.1.44 (cleḥ sic — iṣ iṣ-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'EzIt' } } },
+  // √mṛj s-aorist: amārkṣīt (amArkzIt) — source: Wiktionary.
+  mfz: { kind: 's', stem: 'mArkz', code: '3.1.43 (cli luṅi — mṛj s-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'amArkzIt' } } },
   // √jñā iṣ-aorist: ajñāsīt (ajFAsIt) — source: bhagavadgita.org.in.
   jFnA: { kind: 's', stem: 'jFA', code: '3.1.44 (cleḥ sic — jñā iṣ-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajFAsIt' } } },

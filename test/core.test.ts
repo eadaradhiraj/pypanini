@@ -1327,3 +1327,12 @@ test('√grah aorist/perfect: ajigrahat/jagrāha', () => {
   assert.equal(f(Lakara.LatN), 'ajigrahat'); // ajigrahat
   assert.equal(f(Lakara.Lit), 'jagrAha');    // jagrāha
 });
+
+test('√iṣ/√mṛj aorist and mṛj desiderative (Wiktionary)', () => {
+  const f = (d: string, lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: lk,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('iS', Lakara.LatN), 'EzIt');       // aiṣīt
+  assert.equal(f('mfz', Lakara.LatN), 'amArkzIt');  // amārkṣīt
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'mfz', sanadi: Sanadi.San,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'mimArjizati'); // mimārjiṣati
+});
