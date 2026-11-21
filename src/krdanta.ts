@@ -437,6 +437,23 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
       return [p];
     }
   }
+  // √labh: labdhavya/labdhi/labdhṛ/lābha (Wiktionary) — bh → dh before
+  // t-initial affixes (labdhavya, labdhi), and the lābha action noun.
+  if (dhatu.text === 'lab') {
+    const form: Partial<Record<Krt, string>> = {
+      [Krt.Tum]: 'labDum',       // labdhum
+      [Krt.Tavya]: 'labDavyam', // labdhavyam
+      [Krt.Tfc]: 'labDf',       // labdhṛ
+      [Krt.Ktin]: 'labDi',      // labdhi
+      [Krt.ghaH]: 'lABa',       // lābha
+    };
+    if (form[args.krt]) {
+      const p = new Prakriya([form[args.krt]!]);
+      p.record('8.2.40 (dāder dhātuḥ — bh → dh before t-initial affix)');
+      p.collapse();
+      return [p];
+    }
+  }
   // √vid (2P 'know') perfect active participle is vidvān (vidvāṃs), not
   // *vittavān — the root has an irregular (reduplication-less) perfect.
   if (dhatu.text === 'vid' && args.krt === Krt.Ktavatu) {

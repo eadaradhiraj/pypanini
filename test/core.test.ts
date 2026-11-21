@@ -1464,3 +1464,12 @@ test('√śru verbal nouns: śrotum/śrotavya/śrotṛ (no extra iṭ)', () => {
   assert.equal(f(Krt.Tavya), 'zrOtavya'); // śrotavya
   assert.equal(f(Krt.Tfc), 'zrOtf');      // śrotṛ
 });
+
+test('√labh verbal nouns: labdhum/labdhavya/labdhi/lābha', () => {
+  const f = (k: Krt) => deriveKrdantas({ dhatu: 'lab', krt: k })[0].text();
+  assert.equal(f(Krt.Tum), 'labDum');       // labdhum
+  assert.equal(f(Krt.Tavya), 'labDavyam'); // labdhavyam
+  assert.equal(f(Krt.Tfc), 'labDf');       // labdhṛ
+  assert.equal(f(Krt.Ktin), 'labDi');      // labdhi
+  assert.equal(f(Krt.ghaH), 'lABa');       // lābha
+});
