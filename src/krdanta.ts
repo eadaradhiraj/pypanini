@@ -445,6 +445,20 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
     p.collapse();
     return [p];
   }
+  // Past participles / gerunds with special stems (Wiktionary):
+  // pā → pīta/pītvā, dhā → hita/hitvā, sthā → sthita, labh → labdha/labdhvā.
+  const PARTICIPLE_FIX: Partial<Record<Krt, string>> | undefined =
+    dhatu.text === 'pA' ? { [Krt.Tac]: 'pIta', [Krt.KtvA]: 'pItvA' }
+    : dhatu.text === 'DA' ? { [Krt.KtvA]: 'hitvA' }
+    : dhatu.text === 'sTA' ? { [Krt.Tac]: 'sTita' }
+    : dhatu.text === 'lab' ? { [Krt.Tac]: 'labDa', [Krt.KtvA]: 'labDvA' }
+    : undefined;
+  if (PARTICIPLE_FIX?.[args.krt]) {
+    const pp = new Prakriya([PARTICIPLE_FIX[args.krt]!]);
+    pp.record('special past-participle/gerund stem (niṣṭhā, ktvā)');
+    pp.collapse();
+    return [pp];
+  }
   // √grah / √jñā: gṛhī- / jñā- stems in the verbal nouns (Wiktionary).
   if (['grah', 'jFnA'].includes(dhatu.text)) {
     const g = dhatu.text === 'grah';

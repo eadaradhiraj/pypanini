@@ -1345,3 +1345,13 @@ test('high-frequency aorists: yaj/han/dhā/hu', () => {
   assert.equal(f('DA'), 'aDAt');     // adhāt
   assert.equal(f('hu'), 'ahOzIt');   // ahauṣīt
 });
+
+test('special past participles/gerunds: pīta, hitvā, sthita, labdha', () => {
+  const f = (d: string, k: Krt) => deriveKrdantas({ dhatu: d, krt: k })[0].text();
+  assert.equal(f('pA', Krt.Tac), 'pIta');    // pīta
+  assert.equal(f('pA', Krt.KtvA), 'pItvA');  // pītvā
+  assert.equal(f('DA', Krt.KtvA), 'hitvA');  // hitvā
+  assert.equal(f('sTA', Krt.Tac), 'sTita');  // sthita
+  assert.equal(f('lab', Krt.Tac), 'labDa');  // labdha
+  assert.equal(f('lab', Krt.KtvA), 'labDvA'); // labdhvā
+});
