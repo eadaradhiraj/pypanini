@@ -1910,3 +1910,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   only in the present system, so lrt/lit/lut/lng use the ordinary lakāra stem
   (paksyate, bhavisyate, papāce, apaksyata) instead of *pacte/*Bavte.
   `npm test` 168/168, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 330 (continued, toward 2703/2703):** Fixed perfect-middle
+  (liṭ ātmane/karmani) of ā-final roots: 7.1.34 au now restricted to strong
+  parasmai; weak stems used for dhā/pā/sthā/yā/vi/jñā (dadhe, pape, tasthé,
+  jajñe, ...). Added verified jñā perfect-middle athematic forms and enabled
+  athematic lookup for karmani perfect. `npm test` 169/169, 0 unregistered
+  emissions. Pushed. Coverage 437/2703.
