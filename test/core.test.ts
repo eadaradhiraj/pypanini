@@ -1682,3 +1682,10 @@ test('ktavatu hitavān/sthitavān/pītavān', () => {
   assert.equal(f('sTA'), 'sThitavAn'); // sthitavān
   assert.equal(f('pA'), 'pItavAn');  // pītavān
 });
+
+test('śānan dāyamāna/sthātamāna/pāyamāna', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Sanan })[0].text();
+  assert.equal(f('dA'), 'dAyamAna');  // dāyamāna
+  assert.equal(f('sTA'), 'sTAtamAna'); // sthātamāna
+  assert.equal(f('pA'), 'pAyamAna');  // pāyamāna
+});
