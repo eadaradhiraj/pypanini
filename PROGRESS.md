@@ -1994,3 +1994,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   imperfect weak-stem forms (azṛṇutām/acinvat/ asunvān/aśinvat/astṛṇvat) and
   aligned √śru imperative weak stem with its optative. `npm test` 180/180, 0
   unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 346 (continued, toward 2703/2703):** Fixed √ci middle
+  present 3d to cinvā́te (was *cinvātām) per Wiktionary; aligned √śru imperative
+  weak stem with its optative (zRuNu). `npm test` 181/181, 0 unregistered
+  emissions. Pushed. Coverage 437/2703.
