@@ -1894,3 +1894,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 325 (continued, toward 2703/2703):** Fixed lyuṭ dhāna/sthāna/
   pāna/eṣaṇa/mārjana. `npm test` 164/164. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 326 (continued, toward 2703/2703):** Fixed ghaH bheda/śravaṇa.
+  `npm test` 165/165. Pushed. Coverage 437/2703.
