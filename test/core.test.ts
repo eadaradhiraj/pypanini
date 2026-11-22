@@ -1667,3 +1667,11 @@ test('source-backed causatives dhāpayati/mocayati/eṣayati/mārjayati/lambhaya
   assert.equal(nic('mfz'), 'mArjayati'); // mārjayati
   assert.equal(nic('lab'), 'lamBayati'); // lambhayati
 });
+
+test('source-backed desideratives mumukṣati/lipsati/rurutsati', () => {
+  const san = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    sanadi: Sanadi.San, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(san('muc'), 'mumukzati'); // mumukṣati
+  assert.equal(san('lab'), 'lipsati');   // lipsati
+  assert.equal(san('rudh'), 'rurutsati');// rurutsati
+});
