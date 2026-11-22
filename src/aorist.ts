@@ -266,6 +266,8 @@ export interface AoristArgs {
   purusha: Purusha;
   vacana: Vacana;
   upasarga?: SLP1;
+  /** True for karmāṇi / bhāve (passive) prayoga. */
+  passive?: boolean;
 }
 
 export function aoristKind(root: SLP1): AoristKind | undefined {
@@ -291,8 +293,9 @@ function withUpasarga(upa: SLP1 | undefined, form: SLP1): SLP1 {
 }
 
 export function deriveAorist(args: AoristArgs): Prakriya | undefined {
-  // Passive aorist 3s (bhāve) applies to roots without a regular aorist form.
-  if (!AORIST[args.root] && args.purusha === Purusha.Prathama &&
+  // Passive aorist 3s (3.1.67, bhāve/karmaṇi): anāyi, avāci, adāyi. This takes
+  // precedence over the regular active aorist when the prayoga is passive.
+  if (args.passive && args.purusha === Purusha.Prathama &&
       args.vacana === Vacana.Eka && PASSIVE_AORIST[args.root]) {
     const p = new Prakriya([PASSIVE_AORIST[args.root]]);
     p.record('3.2.110 (luN), 3.1.67 (passive aorist 3s)');

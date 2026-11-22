@@ -1611,13 +1611,17 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const aoristRoot = initialShatva(initialNati(dhatu.text)).replace(/Y$/, '');
   if ((args.lakara === Lakara.LatN || args.lakara === Lakara.Lang) &&
       hasAorist(aoristRoot)) {
-    const aoristPada = args.pada ?? dhatu.pada;
+    const passive = (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani;
+    // Passive aorists take ātmane-pada (and, for the roots listed in the
+    // passive-aorist table, the special -i/-ci 3s forms).
+    const aoristPada = passive ? Pada.Atmane : args.pada ?? dhatu.pada;
     const p = deriveAorist({
       root: aoristRoot,
       pada: aoristPada,
       purusha: args.purusha,
       vacana: args.vacana,
       upasarga: args.upasarga,
+      passive,
     });
     return p ? [p] : [];
   }

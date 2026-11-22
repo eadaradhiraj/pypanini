@@ -1822,3 +1822,16 @@ test('bhāve (impersonal) honours lakāra but stays 3s', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'pac', prayoga: Prayoga.Bhave,
     purusha: Purusha.Madhyama, vacana: Vacana.Bahu })[0].text(), 'pacyate');
 });
+
+test('passive aorists (karmani/bhāve) use ātmane and special 3s forms', () => {
+  const f = (d: string, pr: Prayoga) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.LatN, prayoga: pr,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('vac', Prayoga.Karmani), 'avAci');  // avāci
+  assert.equal(f('ni', Prayoga.Karmani), 'anAyi');   // anāyi
+  assert.equal(f('dA', Prayoga.Karmani), 'adAyi');   // adāyi
+  assert.equal(f('dA', Prayoga.Bhave), 'adAyi');
+  // Active aorist is unaffected.
+  assert.equal(f('dA', Prayoga.Kartari), 'adAt');    // adāt
+  assert.equal(f('vac', Prayoga.Kartari), 'avocat');
+});
