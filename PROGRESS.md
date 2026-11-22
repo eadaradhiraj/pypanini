@@ -1917,3 +1917,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   jajñe, ...). Added verified jñā perfect-middle athematic forms and enabled
   athematic lookup for karmani perfect. `npm test` 169/169, 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 331 (continued, toward 2703/2703):** Fixed bhāve
+  (impersonal passive) to delegate to karmani 3s so lakāras are honoured
+  (apacyata/pacyatām/pacyeta/pakṣyate) while staying 3s; corrected sthā passive
+  stem to sthīyate (was *sthātyate). `npm test` 170/170, 0 unregistered
+  emissions. Pushed. Coverage 437/2703.
