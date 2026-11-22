@@ -1934,3 +1934,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   aorists: karmani/bhāve now dispatch to ātmane pada with special 3s forms
   avāci/anāyi/adāyi (previously returned active aorists). `npm test` 171/171,
   0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 334 (continued, toward 2703/2703):** Completed √muc
+  root-aorist paradigm (active amok/amucan/amocam, middle amukta/amucata/āmuci)
+  from Wiktionary. `npm test` 172/172, 0 unregistered emissions. Pushed.
+  Coverage 437/2703.
