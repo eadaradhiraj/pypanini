@@ -1958,3 +1958,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   upasarga stem fix to luṭ/lṛt/luṅ: bare-root override tables now apply before
   prefixing (saṃpakṣyati/saṃpaktā, not *saṃpacizyati/*saṃpacitā).
   `npm test` 173/173, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 339 (continued, toward 2703/2703):** Fixed saṇādi
+  (causative/desiderative/intensive) with upasarga: stems are built from the
+  bare root then prefixed (prapipakṣati, vijigamiṣati, prabobhūyate); also
+  fixed a crash on pra+BU+yaṅ. `npm test` 174/174, 0 unregistered emissions.
+  Pushed. Coverage 437/2703.
