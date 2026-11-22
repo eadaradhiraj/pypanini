@@ -1648,3 +1648,12 @@ test('ñit marker never leaks into finite surfaces', () => {
   assert.ok(!f('SiY', Lakara.LatN).includes('Y')); // no indicatory Y
   assert.ok(!f('stfY', Lakara.LatN).includes('Y'));
 });
+
+test('ñit secondary conjugations cāyayati/sāvayati/cikīṣati', () => {
+  const f = (d: string, sd: Sanadi) => deriveTinantas({ ...baseArgs, dhatu: d,
+    sanadi: sd, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('ciY', Sanadi.Nic), 'cayayati'); // cāyayati
+  assert.equal(f('zuY', Sanadi.Nic), 'sAvayati'); // sāvayati
+  assert.equal(f('ciY', Sanadi.San), 'cicizati'); // cikīṣati
+  assert.equal(f('zuY', Sanadi.San), 'sisuzati'); // susūṣati
+});

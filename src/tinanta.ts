@@ -185,10 +185,10 @@ const FUTURE_STEMS: Record<string, string> = {
   ji: 'jezya',   // ji → jeṣyati (no iṭ)
   muc: 'mokzya', // muc → mokṣyati (o-grade, no iṭ)
   rudh: 'rotsya', // rudh → rotsyati (guṇa + t-sya, no iṭ)
-  ciY: 'cezya',   // ci → ceṣyati (guṇa i→e, ṣatva after e)
-  zuY: 'sozya',   // su → soṣyati (guṇa u→o)
+  ciY: 'cezya', ci: 'cezya',   // ci → ceṣyati (guṇa i→e, ṣatva after e)
+  zuY: 'sozya', su: 'sozya',   // su → soṣyati (guṇa u→o)
   suY: 'sozya',   // normalized form of zuY (6.1.64 ṣ→s initially)
-  SiY: 'Sezya',   // śi → śeṣyati (guṇa i→e)
+  SiY: 'Sezya', Si: 'Sezya',   // śi → śeṣyati (guṇa i→e)
   han: 'haMsya', // haṃsya- (8.3.23 mo'nusvāraḥ: n → ṃ before s; cf. 3s override below)
   vid: 'vedizya',// vediṣya-
   diS: 'dekzya', // dekṣya-

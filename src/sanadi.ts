@@ -141,6 +141,9 @@ const INTENSIVE_IRREGULAR: Record<string, { yan: string; yangLukRoot: string }> 
 
 /** Build the saṇādi stem and its derivation overrides. */
 export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
+  // Dhātupāṭha ñit marker Y (class-5 roots ciY/zuY/SiY/stfY) is indicatory
+  // only — strip it before building secondary stems.
+  if (root.endsWith('Y')) root = root.slice(0, -1);
   switch (sanadi) {
     case Sanadi.None:
     default:
