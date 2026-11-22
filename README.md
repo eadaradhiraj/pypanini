@@ -96,25 +96,27 @@ npm run cli -- subanta --word WrampeNa --declension   # --analyze also works
 ```
 $ npm run cli -- tinanta --dhatu BU --purusha prathama --vacana eka --trace
 BU lat kartari parasmai prathama eka  =>  Bavati
-  1.3.1                                     | BU
-  3.2.123                                   | BU + la~w
-  1.3.2                                     | BU + la~w
-  1.3.3                                     | BU + la~w
-  1.3.9                                     | BU + l
-  1.3.78                                    | BU + l
-  3.4.78                                    | BU + tip
-  1.3.3                                     | BU + tip
-  1.3.9                                     | BU + ti
-  3.4.113                                   | BU + ti
-  3.1.68                                    | BU + Sap + ti
-  1.3.9                                     | BU + a + ti
-  3.4.113                                   | BU + a + ti
-  7.3.84                                    | Bo + a + ti
-  1.4.14                                    | Bo + a + ti
-  6.1.78                                    | Bav + a + ti
-  7.3.101                                   | Bav + a + ti
-  6.1.104 (a+a/a+e; TODO)                   | Bav + a + ti
-  8.4.68                                    | Bav + a + ti
+  1.4.99 (laḥ parasmaipadam — parasmai-pada), 1.4.101 (tiṇas trīṇi), 1.4.102 (ekavacanādi) | BU
+  1.3.1                                            | BU
+  3.1.1/3.1.2 (pratyayaḥ paraś ca), 3.1.91 (dhātoḥ), 3.1.93 (kṛdatiṅ) | BU
+  3.2.123                                          | BU + la~w
+  1.3.2                                            | BU + la~w
+  1.3.3                                            | BU + la~w
+  1.3.9                                            | BU + l
+  1.3.78                                           | BU + l
+  3.4.78                                           | BU + tip
+  1.3.3                                            | BU + tip
+  1.3.9                                            | BU + ti
+  3.4.113                                          | BU + ti
+  3.1.68                                           | BU + Sap + ti
+  1.3.9                                            | BU + a + ti
+  3.4.113                                          | BU + a + ti
+  7.3.84                                           | Bo + a + ti
+  1.4.14                                           | Bo + a + ti
+  6.1.78                                           | Bav + a + ti
+  7.3.101                                          | Bav + a + ti
+  6.1.84 (ekādeśa: a + a/e/A → a/e/A)              | Bav + a + ti
+  8.4.68                                           | Bavati
 ```
 
 ## Library
