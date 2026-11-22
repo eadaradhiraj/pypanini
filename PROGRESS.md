@@ -1803,3 +1803,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 299 (continued, toward 2703/2703):** Fixed passive stems
   jñāyate (jñā) and śrūyate (śru), source-backed by Wiktionary.
   `npm test` 129/129. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 300 (continued, toward 2703/2703):** Fixed passive gṛhyate
+  (grah), source-backed by Wiktionary. `npm test` 130/130. Pushed.
+  Coverage 437/2703.
