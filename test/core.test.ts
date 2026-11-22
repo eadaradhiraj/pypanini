@@ -1522,3 +1522,10 @@ test('ṇini agent nouns jñāyin/jayin', () => {
 test('√jñā tṛn agent noun jñātṛ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'jFnA', krt: Krt.TRn })[0].text(), 'jFAtf'); // jñātṛ
 });
+
+test('śatṛ from present stems: jayat/śṛṇvat/ṛcchat', () => {
+  const satr = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Satr })[0].text();
+  assert.equal(satr('ji'), 'jayat');   // jayat
+  assert.equal(satr('zru'), 'zRNavat'); // śṛṇvat
+  assert.equal(satr('fR'), 'fcCat');   // ṛcchat
+});
