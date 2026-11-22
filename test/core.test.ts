@@ -1603,3 +1603,14 @@ test('ktin jñāti/śroti', () => {
   assert.equal(deriveKrdantas({ dhatu: 'jFnA', krt: Krt.Ktin })[0].text(), 'jFAti'); // jñāti
   assert.equal(deriveKrdantas({ dhatu: 'zru', krt: Krt.Ktin })[0].text(), 'zrOti');  // śroti
 });
+
+test('ṣa Feminine action nouns jñānā/śrūā/cayā/pīā/dānā/ayā/jayā', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Sa })[0].text();
+  assert.equal(f('jFnA'), 'jFAnA'); // jñānā
+  assert.equal(f('zru'), 'zrUA');   // śrūā
+  assert.equal(f('ciY'), 'cayA');   // cayā
+  assert.equal(f('pA'), 'pIA');     // pīā
+  assert.equal(f('dA'), 'dAnA');    // dānā
+  assert.equal(f('i'), 'ayA');      // ayā
+  assert.equal(f('ji'), 'jayA');    // jayā
+});
