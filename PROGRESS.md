@@ -1811,3 +1811,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 301 (continued, toward 2703/2703):** Fixed bhāve (impersonal)
   passive stems gṛhyate/jñāyate/śrūyate via BHAVE_STEMS. `npm test` 131/131.
   Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 302 (continued, toward 2703/2703):** Fixed ṇini agent nouns
+  jñāyin (jñā) and jayin (ji). `npm test` 132/132. Pushed. Coverage 437/2703.
