@@ -1518,3 +1518,7 @@ test('ṇini agent nouns jñāyin/jayin', () => {
   assert.equal(nini('jFnA'), 'jFAyin'); // jñāyin
   assert.equal(nini('ji'), 'jayin');    // jayin
 });
+
+test('√jñā tṛn agent noun jñātṛ', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'jFnA', krt: Krt.TRn })[0].text(), 'jFAtf'); // jñātṛ
+});
