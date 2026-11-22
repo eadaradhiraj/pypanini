@@ -1547,3 +1547,11 @@ test('śānan gṛhyamāṇa/jñāyamāna/śrūyamāna/iyamāna', () => {
   assert.equal(s('zru'), 'zrUyamARa');  // śrūyamāṇa
   assert.equal(s('i'), 'iyamAna');      // iyamāna
 });
+
+test('ṣṭran kartra/gantra/jñātra/śrotra', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.STran })[0].text();
+  assert.equal(f('kf'), 'kartra');   // kartra
+  assert.equal(f('gam'), 'gantra');  // gantra
+  assert.equal(f('jFnA'), 'jFAtra'); // jñātra
+  assert.equal(f('zru'), 'zrOtra');  // śrotra
+});
