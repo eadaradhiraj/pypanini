@@ -1563,3 +1563,11 @@ test('ñit-marker roots kṛt forms (Y not part of stem)', () => {
   assert.equal(f('SiY', Krt.Tac), 'Sita');   // śita
   assert.equal(f('yaj', Krt.naN), 'yajYa');  // yajña (explicit override kept)
 });
+
+test('class-5 śatṛ cinvat/sunvat/śinvat/stṛṇvat', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Satr })[0].text();
+  assert.equal(f('ciY'), 'cinvat');   // cinvat
+  assert.equal(f('zuY'), 'sunvat');   // sunvat
+  assert.equal(f('SiY'), 'Sinvat');   // śinvat
+  assert.equal(f('stfY'), 'stfRvat'); // stṛṇvat
+});
