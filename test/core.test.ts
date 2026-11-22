@@ -1571,3 +1571,7 @@ test('class-5 śatṛ cinvat/sunvat/śinvat/stṛṇvat', () => {
   assert.equal(f('SiY'), 'Sinvat');   // śinvat
   assert.equal(f('stfY'), 'stfRvat'); // stṛṇvat
 });
+
+test('lyuṭ cayana', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'ciY', krt: Krt.LyuT })[0].text(), 'cayana'); // cayana
+});
