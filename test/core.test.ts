@@ -1716,3 +1716,11 @@ test('tṛn dadhṛ/gṛhītṛ/śrotṛ/eṣṭṛ/pūjā', () => {
   assert.equal(f('zru'), 'zrOtf');   // śrotṛ
   assert.equal(f('iS'), 'ezwf');     // eṣṭṛ
 });
+
+test('tṛc dadhṛ/eṣṭṛ/mārjṭṛ/hantṛ', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Tfc })[0].text();
+  assert.equal(f('DA'), 'daDtf');   // dadhṛ
+  assert.equal(f('iS'), 'ezwf');    // eṣṭṛ
+  assert.equal(f('mfz'), 'mArgtf'); // mārjṭṛ
+  assert.equal(f('han'), 'hantf');  // hantṛ
+});
