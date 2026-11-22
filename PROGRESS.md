@@ -1897,3 +1897,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 326 (continued, toward 2703/2703):** Fixed ghaH bheda/śravaṇa.
   `npm test` 165/165. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 327 (continued, toward 2703/2703):** Fixed ṣa dhānā/sthānā/
+  vidā/eṣā/mārjā/lābhā. `npm test` 166/166. Pushed. Coverage 437/2703.
