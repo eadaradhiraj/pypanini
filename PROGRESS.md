@@ -1943,3 +1943,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 335 (continued, toward 2703/2703):** Fixed strī of deva
   to devī (ṇīṣ) instead of *devā (ṭāp). `npm test` 172/172, 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 336 (continued, toward 2703/2703):** Updated README
+  example trace to match current CLI output (6.1.84 ekādeśa replaced the stale
+  6.1.104 TODO line). `npm test` 172/172. Coverage 437/2703.
