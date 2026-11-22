@@ -242,10 +242,11 @@ test('rare aorists (reduplicating / siṣ / sa / passive) + precative', () => {
   assert.equal(aorist('bhid', Purusha.Prathama, Vacana.Bahu), 'abhidan');
   assert.equal(aorist('bhid', Purusha.Uttama, Vacana.Dvi), 'abhidAva');
   assert.equal(aorist('pac', Purusha.Prathama, Vacana.Bahu), 'apacan');
-  // √vac a-aorist (3.1.52) — avocat; passive aorist 3s of dā
+  // √vac a-aorist (3.1.52) — avocat; root aorist 3s of dā — adāt
   assert.equal(aorist('vac', Purusha.Prathama, Vacana.Eka), 'avocat');  // avocat
   assert.equal(aorist('vac', Purusha.Prathama, Vacana.Bahu), 'avocan'); // avocan
-  assert.equal(aorist('dA', Purusha.Prathama, Vacana.Eka), 'adAyi');
+  assert.equal(aorist('dA', Purusha.Prathama, Vacana.Eka), 'adAt');  // adāt
+  assert.equal(aorist('dA', Purusha.Prathama, Vacana.Bahu), 'aduH');  // aduḥ
   // precative active (bhū → bhūyāt)
   assert.equal(derivePrecative({ root: 'BU', pada: Pada.Parasmai, purusha: Purusha.Prathama, vacana: Vacana.Eka })?.text(), 'BUyAt');
 });

@@ -34,8 +34,11 @@ const AORIST: Record<string, AoristEntry> = {
   ad: { kind: 'a', stem: 'Gas', code: '2.4.37 (luṅ-sanor ghasḷ — aghasat)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'aGasat' } } },
   BU: { kind: 'root', stem: 'BU' },
   i: { kind: 'root', stem: 'gA', code: '2.4.45 (iRo gA luNi), 2.4.77 (sic-lopa)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'agAt' } } },
-  sTA: { kind: 'root', stem: 'sTA', code: '2.4.77 (sic-lopa — asthāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asTAt' } } },
-  pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt' } } },
+  sTA: { kind: 'root', stem: 'sTA', code: '2.4.77 (sic-lopa — asthāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asTAt', [Vacana.Bahu]: 'asTuH' } } },
+  pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt', [Vacana.Bahu]: 'apuH' } } },
+  // √dā (3P) root aorist: adāt (adAt), 3p aduḥ (aduH) — 6.4.108 ā-lopa
+  // before the jus ending uḥ; parallel to adhāt/adhuḥ (Wiktionary).
+  dA: { kind: 'root', stem: 'dA', code: '2.4.77 (sic-lopa — adāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'adAt', [Vacana.Bahu]: 'aduH' } } },
   // √yaj s-aorist: ayākṣīt (ayAkzIt) — source: bhagavadgita.org.in.
   yaj: { kind: 's', stem: 'yAkz', code: '3.1.43 (cli luṅi — yaj s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ayAkzIt' } } },
@@ -44,7 +47,7 @@ const AORIST: Record<string, AoristEntry> = {
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ahAnIt' } } },
   // √dhā (DA) root aorist: adhāt (aDAt) — 2.4.77 sic-lopa.
   DA: { kind: 'root', stem: 'DA', code: '2.4.77 (sic-lopa — adhāt)',
-    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'aDAt' } } },
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'aDAt', [Vacana.Bahu]: 'aDuH' } } },
   // √hu s-aorist: ahauṣīt (ahOzIt) — vṛddhi u → au.
   hu: { kind: 's', stem: 'hOz', code: '3.1.43 (cli luṅi — hu s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ahOzIt' } } },
