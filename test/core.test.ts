@@ -1492,3 +1492,10 @@ test('ghaH action nouns dāna/dhāna/jñāna/śravaṇa', () => {
   assert.equal(ghaH('jFnA'), 'jFAna'); // jñāna
   assert.equal(ghaH('zru'), 'zravRa'); // śravaṇa
 });
+
+test('passives jñāyate/śrūyate', () => {
+  const pass = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    prayoga: Prayoga.Karmani, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(pass('jFnA'), 'jFAyate'); // jñāyate
+  assert.equal(pass('zru'), 'zrUyate');  // śrūyate
+});

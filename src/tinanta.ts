@@ -1882,6 +1882,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     sraMs: 'sras', DvaMs: 'Dvas', // 6.4.24: penultimate nasal elision before yak
     tanu: 'tA', // 6.4.44 (tanoteryaki — tāyate)
     vac: 'uc', yaj: 'ij', // 1.1.45 (igyaṇaḥ samprasāraṇam — ucyate/ijyate)
+    jFnA: 'jFA', zru: 'zrU', // jñāyate / śrūyate (Wiktionary)
   };
   const rootOverride = args.prayoga === Prayoga.Karmani
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
