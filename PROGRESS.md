@@ -1900,3 +1900,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 327 (continued, toward 2703/2703):** Fixed ṣa dhānā/sthānā/
   vidā/eṣā/mārjā/lābhā. `npm test` 166/166. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 328 (continued, toward 2703/2703):** Fixed passive stems
+  dīyate/sthīyate/pīyate (dhā/sthā/pā). `npm test` 167/167. Pushed.
+  Coverage 437/2703.
