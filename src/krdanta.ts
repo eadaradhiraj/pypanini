@@ -333,7 +333,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved', jFnA: 'jFA', i: 'ay', ji: 'jay' },  // vedanīya/jñānīya/ayayanīya
   [Krt.Ktin]: { av: 'U', yu: 'yU', ju: 'jU', san: 'sA', han: 'he', gam: 'ga', yuj: 'yuk', rudh: 'rudD', bhid: 'bhitT', Cid: 'CitT', vid: 'vit', muR: 'mUr', mUrcC: 'mUr', tUrva: 'tUr', Durva: 'dUr', man: 'ma', mana: 'ma', ram: 'ra', rama: 'ra', yam: 'ya', yama: 'ya', nam: 'na', tan: 'ta', van: 'va', kF: 'kIr' }, // mūrti/tūrti (6.4.21); mati/rati (6.4.37); kīrti (3.3.97)
-  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', Bidir: 'bhit', Cidir: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'city', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', Sam: 'Sami', tam: 'tami', dam: 'dami', nah: 'nadD', laB: 'labD', vac: 'uk', vach: 'uk', vacha: 'vak', han: 'ha', car: 'cari', cara: 'cari', arh: 'arhi', arha: 'arhi', rama: 'ra', ram: 'ra', vasu: 'uSi', vas: 'uSi', Svap: 'sup', svapa: 'sup', vada: 'vadi', BAs: 'BAsi', jIv: 'jIvi', pUj: 'pUji', sev: 'sevi', seva: 'sevi', yama: 'yami', yam: 'yami', mana: 'man', man: 'man', vana: 'van', van: 'van', tana: 'tan', tan: 'tan' }, // vaktvā (8.2.30); hatvā (6.4.37); caritvā (7.2.35); arhitvā/ratvā/uṣitvā/suptvā
+  [Krt.KtvA]: { gam: 'ga', dA: 'dat', bhid: 'bhit', Cid: 'Cit', Bidir: 'bhit', Cidir: 'Cit', rudh: 'rudD', yuj: 'yuk', vid: 'vit', ciY: 'ci', mIY: 'mI', gA: 'gIt', SAsu: 'Sizw', Brasz: 'Barz', brU: 'uk', cakz: 'AKyA', Sam: 'Sami', tam: 'tami', dam: 'dami', nah: 'nadD', laB: 'labD', vac: 'uk', vach: 'uk', vacha: 'vak', han: 'ha', car: 'cari', cara: 'cari', arh: 'arhi', arha: 'arhi', rama: 'ra', ram: 'ra', vasu: 'uSi', vas: 'uSi', Svap: 'sup', svapa: 'sup', vada: 'vadi', BAs: 'BAsi', jIv: 'jIvi', pUj: 'pUji', sev: 'sevi', seva: 'sevi', yama: 'yami', yam: 'yami', mana: 'man', man: 'man', vana: 'van', van: 'van', tana: 'tan', tan: 'tan' }, // vaktvā (8.2.30); hatvā (6.4.37); caritvā (7.2.35); arhitvā/ratvā/uṣitvā/suptvā
   [Krt.LyuT]: { vid: 'ved', diS: 'dez', nI: 'nay', dviza: 'dvez', i: 'ay', ji: 'jay', jFnA: 'jFA' }, // ayana/jayana/jñāna
   [Krt.Tum]: { zru: 'zrO', gam: 'gan', bhid: 'bhet', Cid: 'Chet', Bidir: 'bhet', Cidir: 'Chet', rudh: 'roDD', yuj: 'yok', vid: 'vet', SAsu: 'SAs', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', nah: 'nadD', laB: 'labD', dah: 'dagD', vach: 'vak', vacha: 'vak', arh: 'arhi', arha: 'arhi', vada: 'vadi', BAs: 'BAsi', jIv: 'jIvi', pUj: 'pUji', sev: 'sevi', seva: 'sevi', yama: 'yami', yam: 'yami', mana: 'man', man: 'man', vana: 'van', van: 'van', tana: 'tan', tan: 'tan' }, // vaktum (8.2.30); arhitum (7.2.35)
   [Krt.Tfc]: { zru: 'zrO', gam: 'gan', mfj: 'mArz', hu: 'ho', vid: 'vet', bhid: 'bhet', Cid: 'Chet', Bidir: 'bhet', Cidir: 'Chet', rudh: 'roDD', yuj: 'yok', Brasz: 'Barz', brU: 'vak', cakz: 'AKyA', as: 'Bavi', grah: 'grahI', vf: 'varI', laB: 'labD', iZ: 'ez', luB: 'lobD', ruS: 'roz', riS: 'rez', vach: 'vak', vacha: 'vak', arh: 'arhi', arha: 'arhi', vada: 'vadi', BAs: 'BAsi', jIv: 'jIvi', pUj: 'pUji', sev: 'sevi', seva: 'sevi', yama: 'yami', yam: 'yami', mana: 'man', man: 'man', vana: 'van', van: 'van', tana: 'tan', tan: 'tan' }, // vaktṛ (8.2.30); arhitṛ (7.2.35)
@@ -839,7 +839,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
 
   // Grade the root. For u-final roots before consonant-initial suffixes, guṇa
   // yields o and 6.1.78 turns it into av (bhav-); handled after grading below.
-  let root = STEM_OVERRIDE[args.krt]?.[dhatu.text] ?? sanadi.root;
+  const override = STEM_OVERRIDE[args.krt]?.[dhatu.text];
+  // Dhātupāṭha SLP1 marker Y (ñit on class-5 roots like ciY/zuY/SiY/stfY)
+  // is an indicatory letter, not part of the stem — strip it for kṛtas.
+  // Explicit overrides (e.g. yaj→yajY for yajña) are authoritative, keep them.
+  let root = override ?? (sanadi.root.endsWith('Y') ? sanadi.root.slice(0, -1) : sanadi.root);
   // 6.1.65 (ṇo naḥ) / 6.1.64 (dhātvādeḥ ṣaḥ saḥ): root-initial ṇ → n, ṣ → s.
   const natiRoot = dhatu.code ? initialNati(root) : root;
   const shatvaRoot = dhatu.code ? initialShatva(natiRoot) : natiRoot;

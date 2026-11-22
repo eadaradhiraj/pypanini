@@ -1555,3 +1555,11 @@ test('ṣṭran kartra/gantra/jñātra/śrotra', () => {
   assert.equal(f('jFnA'), 'jFAtra'); // jñātra
   assert.equal(f('zru'), 'zrOtra');  // śrotra
 });
+
+test('ñit-marker roots kṛt forms (Y not part of stem)', () => {
+  const f = (d: string, k: Krt) => deriveKrdantas({ dhatu: d, krt: k })[0].text();
+  assert.equal(f('ciY', Krt.KtvA), 'citvA'); // citvā
+  assert.equal(f('zuY', Krt.KtvA), 'sutvA'); // sutvā
+  assert.equal(f('SiY', Krt.Tac), 'Sita');   // śita
+  assert.equal(f('yaj', Krt.naN), 'yajYa');  // yajña (explicit override kept)
+});
