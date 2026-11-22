@@ -1775,3 +1775,17 @@ test('passives dīyate/sthīyate/pīyate', () => {
   assert.equal(f('pA'), 'pIyate');   // pīyate
   assert.ok(!f('sTA').includes('yate') || f('sTA').startsWith('sT')); // sthīyate
 });
+
+test('passive non-present lakāras use the ordinary lakāra stem', () => {
+  const f = (d: string, lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: d,
+    prayoga: Prayoga.Karmani, lakara: lk,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('pac', Lakara.Lrt), 'pakzyate');  // paksyate (not *pacte)
+  assert.equal(f('BU', Lakara.Lrt), 'Bavizyate');  // bhavisyate (not *Bavte)
+  assert.equal(f('kf', Lakara.Lrt), 'karizyate');  // karisyate
+  assert.equal(f('pac', Lakara.Lit), 'papace');    // papāce
+  assert.equal(f('pac', Lakara.Lng), 'apakzyata'); // apaksyata
+  // Present-system yak is unaffected.
+  assert.equal(f('pac', Lakara.Lat), 'pacyate');
+  assert.equal(f('pac', Lakara.Lan), 'apacyata');
+});

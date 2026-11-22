@@ -1826,8 +1826,12 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const suffixTable = pada === Pada.Atmane ? config.atmane : config.parasmai;
   const suffix = suffixTable[args.purusha][args.vacana];
 
+  // The passive `ya` vikaraṇa (3.1.67) belongs to the present system only;
+  // in other lakāras the passive uses the ordinary lakāra vikaraṇa with
+  // ātmanepada endings (bhaviṣyate, babhūve, ...).
+  const passivePresent = [Lakara.Lat, Lakara.Lan, Lakara.Lot, Lakara.Lin].includes(args.lakara);
   const kartariVikarana =
-    args.prayoga === Prayoga.Karmani ? VIKARANA_KARMANI
+    args.prayoga === Prayoga.Karmani && passivePresent ? VIKARANA_KARMANI
       : class4 ? { label: 'Syan', surface: 'ya' }
         : config.vikarana;
   const vikarana = sanadiResult.vikarana ?? kartariVikarana;
@@ -1901,7 +1905,12 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     vac: 'uc', yaj: 'ij', // 1.1.45 (igyaṇaḥ samprasāraṇam — ucyate/ijyate)
     jFnA: 'jFA', zru: 'zrU', grah: 'gfh', DA: 'dI', sTA: 'sTAt', pA: 'pI', // dhā/sthā/pā passives
   };
-  const rootOverride = args.prayoga === Prayoga.Karmani
+  // In non-present lakāras the yak-vikaraṇa does not apply, so the passive
+  // uses the ordinary lakāra stem (futureStem/perfectStem/...) with ātmane-pada
+  // endings. Restrict the yak-based PASSIVE_STEMS override to the present
+  // system only; otherwise we would get *pacte /*Bavte instead of paksyate /
+  // bhavisyate (cf. 3.1.67, which requires a sārvadhātuka affix).
+  const rootOverride = args.prayoga === Prayoga.Karmani && passivePresent
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
     : args.lakara === Lakara.Lin && dhatu.text === 'han' && (args.sanadi ?? Sanadi.None) === Sanadi.None
       ? 'vad' // 2.4.42 (hano vada liNi — vadet)
