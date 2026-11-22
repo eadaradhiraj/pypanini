@@ -1845,3 +1845,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 310 (continued, toward 2703/2703):** Fixed ṣa action nouns
   and yat gerundives for jñā/śru/ci/pā/dā/i/ji. `npm test` 147/147.
   Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 311 (continued, toward 2703/2703):** Fixed ṇvanip stems
+  for śru/jñā/ci. `npm test` 148/148. Pushed. Coverage 437/2703.
