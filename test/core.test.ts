@@ -1529,3 +1529,9 @@ test('śatṛ from present stems: jayat/śṛṇvat/ṛcchat', () => {
   assert.equal(satr('zru'), 'zRNavat'); // śṛṇvat
   assert.equal(satr('fR'), 'fcCat');   // ṛcchat
 });
+
+test('śānan participles nayamāna/jayamāna', () => {
+  const s = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Sanan })[0].text();
+  assert.equal(s('nI'), 'nayamAna'); // nayamāna
+  assert.equal(s('ji'), 'jayamAna'); // jayamāna
+});
