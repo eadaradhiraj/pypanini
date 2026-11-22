@@ -1964,3 +1964,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   bare root then prefixed (prapipakṣati, vijigamiṣati, prabobhūyate); also
   fixed a crash on pra+BU+yaṅ. `npm test` 174/174, 0 unregistered emissions.
   Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 340 (continued, toward 2703/2703):** Fixed the
+  upasarga list (1.4.58 prādayaḥ): ud (उद्) replaces the incorrect ut, so
+  udeti/udgacchati now work instead of bare eti. `npm test` 175/175, 0
+  unregistered emissions. Pushed. Coverage 437/2703.
