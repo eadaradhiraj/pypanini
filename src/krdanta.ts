@@ -312,7 +312,7 @@ const IZNU_STEMS: Record<string, string> = {
 };
 
 const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
-  [Krt.Satr]: { kf: 'kurv', nI: 'nay', vid: 'vidvas', as: 'sat', SAsu: 'SAs', rudh: 'rundh', yuj: 'yuNY', bhid: 'bhinD', Cid: 'CinD', Bidir: 'bhinD', Cidir: 'CinD', dA: 'dad', DA: 'daD', i: 'y', brU: 'bruv', gam: 'gacch', grah: 'gfhR', jFnA: 'jAn', pA: 'pib', sTA: 'tiSTh', ji: 'jay', zru: 'zRNav', fR: 'fcC', ciY: 'cinv', zuY: 'sunv', SiY: 'Sinv', stfY: 'stfRv' }, // śatṛ present participles (dadat/dadhat)
+  [Krt.Satr]: { han: 'ghn', adh: 'aD', kf: 'kurv', nI: 'nay', vid: 'vidvas', as: 'sat', SAsu: 'SAs', rudh: 'rundh', yuj: 'yuNY', bhid: 'bhinD', Cid: 'CinD', Bidir: 'bhinD', Cidir: 'CinD', dA: 'dad', DA: 'daD', i: 'y', brU: 'bruv', gam: 'gacch', grah: 'gfhR', jFnA: 'jAn', pA: 'pib', sTA: 'tiSTh', ji: 'jay', zru: 'zRNav', fR: 'fcC', ciY: 'cinv', zuY: 'sunv', SiY: 'Sinv', stfY: 'stfRv' }, // śatṛ present participles (dadat/dadhat)
   [Krt.SanaC]: { kf: 'kurv', nI: 'nay' }, // kṛ → kurvāṇa, nī → nayamāna
   [Krt.Sanan]: { dA: 'dAy', sTA: 'sTAt', pA: 'pAy', pU: 'pav', yaj: 'yaj', BU: 'Bav', kf: 'kurv', nI: 'nay', ji: 'jay', grah: 'gfhy', jFnA: 'jFAy', zru: 'zrUy', i: 'iy', ciY: 'cinv', zuY: 'sunv', SiY: 'Sinv', stfY: 'stfRv' }, // kṛ→kurvāṇa, bhū→bhavamāna, pū→pavamāna
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra

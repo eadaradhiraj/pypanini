@@ -1689,3 +1689,8 @@ test('śānan dāyamāna/sthātamāna/pāyamāna', () => {
   assert.equal(f('sTA'), 'sTAtamAna'); // sthātamāna
   assert.equal(f('pA'), 'pAyamAna');  // pāyamāna
 });
+
+test('śatṛ ghnat/aDat', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'han', krt: Krt.Satr })[0].text(), 'ghnat'); // ghnat
+  assert.equal(deriveKrdantas({ dhatu: 'adh', krt: Krt.Satr })[0].text(), 'aDat');  // adhat
+});
