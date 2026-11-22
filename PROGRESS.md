@@ -1799,3 +1799,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 298 (continued, toward 2703/2703):** Fixed ghaH action nouns
   dāna/dhāna/jñāna/śravaṇa (were bare-root forms). `npm test` 128/128. Pushed.
   Coverage 437/2703.
+
+- **2026-11-22 — Session 299 (continued, toward 2703/2703):** Fixed passive stems
+  jñāyate (jñā) and śrūyate (śru), source-backed by Wiktionary.
+  `npm test` 129/129. Pushed. Coverage 437/2703.
