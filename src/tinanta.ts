@@ -212,6 +212,16 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'rudh:lot:parasmai:prathama:eka': 'rundhatu',
   // √jñā perfect jajñau (jajFau), aorist ajñāsīt handled in aorist.ts.
   'jFnA:lit:parasmai:prathama:eka': 'jajFau',
+  // √jñā perfect ātmanepada (jajñe/jajñāte/jajñire/...), used for karmani.
+  'jFnA:lit:atmane:prathama:eka': 'jajFe',
+  'jFnA:lit:atmane:prathama:dvi': 'jajFAte',
+  'jFnA:lit:atmane:prathama:bahu': 'jajFire',
+  'jFnA:lit:atmane:madhyama:eka': 'jajFize',
+  'jFnA:lit:atmane:madhyama:dvi': 'jajFAthe',
+  'jFnA:lit:atmane:madhyama:bahu': 'jajFiDve',
+  'jFnA:lit:atmane:uttama:eka': 'jajFe',
+  'jFnA:lit:atmane:uttama:dvi': 'jajFivAhe',
+  'jFnA:lit:atmane:uttama:bahu': 'jajFimAhe',
   // √vac (2P, adādi): vakti/vakṣi/vacanti — 8.2.30 (coḥ kuḥ: c → k).
   // The 1d/1p and ātmanepada are defective/irregular; only attested forms are listed.
   'vac:lat:parasmai:prathama:eka': 'vakti',
@@ -1484,9 +1494,12 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
   // 7.1.6ff: liṭ reduplication — vowel-initial roots lengthen the reduplicate.
   const redv = root[0] === 'a' ? 'A' : root[0];
   // gam takes the weak stem in the 3rd-person dual (jagmatuḥ, 2.4.49).
-  // ā-final roots (pā/sthā/glai) take the au(au ṇal) form only in 1s/3s (7.1.34).
+  // ā-final roots (pā/sthā/glai) take the au (7.1.34 āta au ṇalaḥ) form only
+  // in the strong 1s/3s *parasmai* forms. The ātmane-pada perfect uses the weak
+  // stem throughout (dadhé, papé, tasthé, ...), so exclude it here; otherwise
+  // we would derive *dadhaue / *papaue (SLP1 daDOe / papOe).
   const auRoots = ['pA', 'sTA', 'gAi', 'jYA', 'vI', 'DA', 'yA'];
-  const auForm = auRoots.includes(root) &&
+  const auForm = auRoots.includes(root) && pada !== Pada.Atmane &&
     ((purusha === Purusha.Prathama || purusha === Purusha.Uttama) && vacana === Vacana.Eka);
   // vac uses the samprasāraṇa weak stem in the 3d (ucatuḥ, not uvācatuḥ).
   const weakDual = ['gam', 'han', 'khan', 'vac', 'i', 'kf'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
@@ -1626,11 +1639,16 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     });
     return p ? [p] : [];
   }
-  // Athematic (non-Sap) present-system forms for common roots. These bypass the
-  // thematic vikaraṇa and use root-specific stems/endings.
+  // Athematic (non-Sap) forms for common roots. These bypass the thematic
+  // vikaraṇa and use root-specific stems/endings. In the perfect (liṭ) the
+  // karmani (passive) uses the same ātmane-pada forms as the middle voice, so
+  // reuse those verified forms here (e.g. dā → dade, jñā → jajñe).
+  const athematicPada = (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani
+    ? Pada.Atmane : args.pada ?? dhatu.pada;
   const athematic = (args.sanadi ?? Sanadi.None) === Sanadi.None &&
-    (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari
-    ? presentForm(dhatu.text, args.lakara, args.pada ?? dhatu.pada,
+    ((args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari ||
+      ((args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani && args.lakara === Lakara.Lit))
+    ? presentForm(dhatu.text, args.lakara, athematicPada,
         args.purusha, args.vacana)
     : undefined;
   if (athematic) {

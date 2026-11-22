@@ -1789,3 +1789,21 @@ test('passive non-present lakāras use the ordinary lakāra stem', () => {
   assert.equal(f('pac', Lakara.Lat), 'pacyate');
   assert.equal(f('pac', Lakara.Lan), 'apacyata');
 });
+
+test('perfect middle (karmani) of ā-final roots uses the weak stem', () => {
+  const f = (d: string, p: Purusha = Purusha.Prathama, v: Vacana = Vacana.Eka) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, prayoga: Prayoga.Karmani,
+      lakara: Lakara.Lit, purusha: p, vacana: v })[0].text();
+  assert.equal(f('DA'), 'dadhe');   // dadhé (not *dadhaue)
+  assert.equal(f('pA'), 'pape');    // papé (not *papaue)
+  assert.equal(f('sTA'), 'tasthe'); // tasthé
+  assert.equal(f('dA'), 'dade');    // dade
+  assert.equal(f('jFnA'), 'jajFe'); // jajñé
+  assert.equal(f('dA', Purusha.Madhyama), 'dadize'); // dadiṣé
+  assert.equal(f('jFnA', Purusha.Prathama, Vacana.Bahu), 'jajFire'); // jajñiré
+  // Parasmai strong au forms remain intact.
+  const par = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(par('DA'), 'daDO');  // dadháu
+  assert.equal(par('pA'), 'papO');  // papáu
+});
