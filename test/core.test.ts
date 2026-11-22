@@ -1729,3 +1729,10 @@ test('infinitives dhātum/sthātum', () => {
   assert.equal(deriveKrdantas({ dhatu: 'DA', krt: Krt.Tum })[0].text(), 'DAtum'); // dhātum
   assert.equal(deriveKrdantas({ dhatu: 'sTA', krt: Krt.Tum })[0].text(), 'sTAtum'); // sthātum
 });
+
+test('gerundives dhātavya/sthātavya/pātavya', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Tavya })[0].text();
+  assert.equal(f('DA'), 'DAtavya');  // dhātavya
+  assert.equal(f('sTA'), 'sTAtavya'); // sthātavya
+  assert.equal(f('pA'), 'pAtavya');  // pātavya
+});
