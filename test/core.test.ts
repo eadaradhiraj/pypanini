@@ -1905,3 +1905,16 @@ test('imperative 2s of √dhā vs √dā (dhehi / dehi)', () => {
   assert.equal(f('DA'), 'Dehi'); // dhehi (धेहि)
   assert.equal(f('dA'), 'dehi'); // dehi (देहि)
 });
+
+test('class-5 imperative paradigms (śṛṇu/cinu/sunu)', () => {
+  const f = (d: string, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: Lakara.Lot, purusha: p, vacana: v })[0].text();
+  assert.equal(f('zru', Purusha.Madhyama, Vacana.Eka), 'zRnu');       // śṛṇu
+  assert.equal(f('zru', Purusha.Prathama, Vacana.Bahu), 'zRvantu');   // śṛṇvantu
+  assert.equal(f('zru', Purusha.Uttama, Vacana.Eka), 'zRnavARi');     // śṛṇavāni
+  assert.equal(f('ciY', Purusha.Madhyama, Vacana.Eka), 'cinu');       // cinu
+  assert.equal(f('ciY', Purusha.Prathama, Vacana.Bahu), 'cinvantu');  // cinvantu
+  assert.equal(f('zuY', Purusha.Madhyama, Vacana.Eka), 'sunu');       // sunu
+  assert.equal(f('SiY', Purusha.Prathama, Vacana.Bahu), 'SInvantu');  // śinvantu
+  assert.equal(f('stfY', Purusha.Madhyama, Vacana.Eka), 'stfRnu');    // stṛṇu
+});
