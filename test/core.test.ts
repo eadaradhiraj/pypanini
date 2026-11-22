@@ -1504,3 +1504,11 @@ test('passive gṛhyate', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'grah', prayoga: Prayoga.Karmani,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'gfhyate'); // gṛhyate
 });
+
+test('bhāve (impersonal) gṛhyate/jñāyate/śrūyate', () => {
+  const bh = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    prayoga: Prayoga.Bhave, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(bh('grah'), 'gfhyate'); // gṛhyate
+  assert.equal(bh('jFnA'), 'jFAyate'); // jñāyate
+  assert.equal(bh('zru'), 'zrUyate');  // śrūyate
+});

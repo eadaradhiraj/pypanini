@@ -1576,6 +1576,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     const BHAVE_STEMS: Record<string, string> = {
       kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac',
       gam: 'gam', yaj: 'ij', as: 'as', vid: 'vid', vac: 'uc', // 1.1.45 samprasāraṇam
+      jFnA: 'jFA', zru: 'zrU', grah: 'gfh', // jñāyate/śrūyate/gṛhyate (Wiktionary)
     };
     const rawStem = BHAVE_STEMS[dhatu.text] ?? dhatu.text;
     // 6.1.65 (ṇo naḥ) / 6.1.64 (dhātvādeḥ ṣaḥ saḥ): dhātupāṭha root-initial
