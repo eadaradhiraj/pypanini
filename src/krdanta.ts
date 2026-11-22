@@ -318,7 +318,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.STran]: STRAN_STEMS, // dātra, netra, stotra, yotra
   [Krt.TRn]: { hu: 'ho', ni: 'neS', tviz: 'tvaS', gam: 'gan', vid: 'vet', ad: 'at', jFnA: 'jFA', DA: 'daD', grah: 'gfhI', zru: 'zrO', iS: 'ez', pUj: 'pUj' }, // hotṛ, neṣṭṛ, tvaṣṭṛ, gantṛ, vettṛ, attṛ, jñātṛ
   [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay', vraja: 'vraj', yaja: 'yaj', khan: 'khe', kf: 'kri' }, // kriyā/kheya (3.1.111)
-  [Krt.Sa]: { kf: 'kriy', iz: 'icC', jFnA: 'jFAn', zru: 'zrU', ciY: 'cay', pA: 'pI', dA: 'dAn', i: 'ay', ji: 'jay' }, // kriyā (3.3.100), icchā (3.3.101)
+  [Krt.Sa]: { kf: 'kriy', iz: 'icC', jFnA: 'jFAn', zru: 'zrU', ciY: 'cay', pA: 'pI', dA: 'dAn', i: 'ay', ji: 'jay', DA: 'DAn', sTA: 'sTAn', vid: 'vid', ad: 'ad', iS: 'ez', mfz: 'mArj', bhid: 'bhid', rudh: 'rudh', lab: 'lAB' }, // kriyā (3.3.100), icchā (3.3.101)
   [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv', vid: 'ved', diS: 'dez', car: 'cAr', nI: 'nAy', grah: 'grAh', gfhm: 'grAh', jFnA: 'jFAy', ji: 'jay', DA: 'dAp', ad: 'Ad', vac: 'vAc', iS: 'ez', mfz: 'mArj' }, // ṇini vṛddhi (3.1.134 grahādi)
   [Krt.Nvul]: { pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh', nI: 'nAy' }, // pācaka, yājaka, dāyaka, vāhaka, nāyaka
   [Krt.ac]: { ci: 'cay', i: 'ay', ji: 'jay', kzi: 'kzay', sf: 'sar', nI: 'nay' }, // caya, aya, jaya, kṣaya, naya (3.3.56)

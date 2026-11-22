@@ -1757,3 +1757,13 @@ test('ghaH bheda/śravaṇa', () => {
   assert.equal(deriveKrdantas({ dhatu: 'bhid', krt: Krt.ghaH })[0].text(), 'Bheda'); // bheda
   assert.equal(deriveKrdantas({ dhatu: 'zru', krt: Krt.ghaH })[0].text(), 'zravaRa'); // śravaṇa
 });
+
+test('ṣa dhānā/sthānā/vidā/eṣā/mārjā/lābhā', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Sa })[0].text();
+  assert.equal(f('DA'), 'DAnA');  // dhānā
+  assert.equal(f('sTA'), 'sTAnA'); // sthānā
+  assert.equal(f('vid'), 'vidA');  // vidā
+  assert.equal(f('iS'), 'ezA');    // eṣā
+  assert.equal(f('mfz'), 'mArjA'); // mārjā
+  assert.equal(f('lab'), 'lABA');  // lābhā
+});
