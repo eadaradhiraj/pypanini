@@ -1657,3 +1657,13 @@ test('ñit secondary conjugations cāyayati/sāvayati/cikīṣati', () => {
   assert.equal(f('ciY', Sanadi.San), 'cicizati'); // cikīṣati
   assert.equal(f('zuY', Sanadi.San), 'sisuzati'); // susūṣati
 });
+
+test('source-backed causatives dhāpayati/mocayati/eṣayati/mārjayati/lambhayati', () => {
+  const nic = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    sanadi: Sanadi.Nic, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(nic('DA'), 'DApayati');  // dhāpayati
+  assert.equal(nic('muc'), 'mocayati'); // mocayati
+  assert.equal(nic('iS'), 'ezayati');   // eṣayati
+  assert.equal(nic('mfz'), 'mArjayati'); // mārjayati
+  assert.equal(nic('lab'), 'lamBayati'); // lambhayati
+});
