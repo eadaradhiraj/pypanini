@@ -1848,3 +1848,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 311 (continued, toward 2703/2703):** Fixed ṇvanip stems
   for śru/jñā/ci. `npm test` 148/148. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 312 (continued, toward 2703/2703):** Stripped dhātupāṭha
+  ñit Y markers from finite surfaces; added source-backed aorists ācāyīt/asauṣīt;
+  fixed class-5 finite forms. `npm test` 150/150. Pushed. Coverage 437/2703.
