@@ -1898,3 +1898,10 @@ test('optative middle 3p keeps dental n in -ran (bhaveran)', () => {
   assert.equal(deriveSubantas({ pratipadika: 'guru', linga: Linga.Pumsaka,
     vibhakti: 3, vacana: Vacana.Eka })[0].text(), 'guruRA');
 });
+
+test('imperative 2s of √dhā vs √dā (dhehi / dehi)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lot, purusha: Purusha.Madhyama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('DA'), 'Dehi'); // dhehi (धेहि)
+  assert.equal(f('dA'), 'dehi'); // dehi (देहि)
+});

@@ -376,7 +376,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'DA:lot:parasmai:prathama:eka': 'dadAtu',       // dadhātu
   'DA:lot:parasmai:prathama:dvi': 'dadAtAm',      // dadhātām
   'DA:lot:parasmai:prathama:bahu': 'dadAntu',     // dadhāntu
-  'DA:lot:parasmai:madhyama:eka': 'dehi',         // dehi
+  'DA:lot:parasmai:madhyama:eka': 'Dehi',         // dhehi (√dhā; Wiktionary dadhāti)
   'DA:lot:parasmai:madhyama:dvi': 'dadAtam',      // dadhātam
   'DA:lot:parasmai:madhyama:bahu': 'dadAta',      // dadhāta
   'DA:lot:parasmai:uttama:eka': 'dadAmi',         // dadhāmi
