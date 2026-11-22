@@ -1817,3 +1817,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 303 (continued, toward 2703/2703):** Fixed √jñā tṛn agent
   noun jñātṛ. `npm test` 133/133. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 304 (continued, toward 2703/2703):** Fixed śatṛ participles
+  jayat (ji), śṛṇvat (śru), ṛcchat (ṛ) from present stems. `npm test` 134/134.
+  Pushed. Coverage 437/2703.
