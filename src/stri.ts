@@ -29,7 +29,7 @@ export function striPratyayaFor(stem: SLP1): StriPratyaya | undefined {
   // 4.1.49 ānuk: proper names + common nouns (wife of / greatness)
   if (['indra', 'varuRa', 'Bava', 'Sarva', 'rudra', 'mfqa', 'hima', 'araRya', 'yava', 'yavana', 'mAtula', 'AcArya'].includes(stem)) return StriPratyaya.Anuk;
   // 4.1.45 bahvādi (ākṛtigaṇa) — a-stem quality/name words take ṇīṣ
-  if (['cRaD', 'arAla', 'kRpaRa', 'kamala', 'vikaTa', 'viSAla', 'purARa', 'udAra', 'kalyARa'].includes(stem)) return StriPratyaya.Nis;
+  if (['cRaD', 'arAla', 'kRpaRa', 'kamala', 'vikaTa', 'viSAla', 'purARa', 'udAra', 'kalyARa', 'deva'].includes(stem)) return StriPratyaya.Nis; // deva → devī (4.1.41/45 ṇīṣ, not ṭāp *devā)
   // 4.1.55: ṇīṣ (ī) optionally after nāsikā/udara/oṣṭha/jaṅghā/danta/karṇa/śṛṅga
   if (['nAsikA', 'udara', 'uzWa', 'jaNgA', 'danta', 'karRa', 'zfNga', 'pucCa'].includes(stem)) return StriPratyaya.Nis;
   if (stem === 'taruNa') return StriPratyaya.Nis; // taruṇa → taruṇī

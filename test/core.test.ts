@@ -1033,7 +1033,7 @@ test('paradigm generator (full conjugation table)', () => {
 });
 
 test('strī-pratyayas: ṭāp (4.1.4) and ṅīp (4.1.5)', () => {
-  assert.equal(deriveStri({ stem: 'deva' })?.text(), 'devA');   // devā
+  assert.equal(deriveStri({ stem: 'deva' })?.text(), 'devI');   // devī (ṇīṣ, not *devā)
   assert.equal(deriveStri({ stem: 'aja' })?.text(), 'ajA');     // ajā
   assert.equal(deriveStri({ stem: 'kartf' })?.text(), 'kartrI'); // kartrī
   assert.equal(deriveStri({ stem: 'daNDin' })?.text(), 'daNDinI'); // daṇḍinī
