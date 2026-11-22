@@ -1886,3 +1886,15 @@ test('ud is a valid upasarga (1.4.58 prādayaḥ)', () => {
   assert.equal(f('gam'), 'udgacchati');
   assert.equal(f('kf'), 'udkaroti');
 });
+
+test('optative middle 3p keeps dental n in -ran (bhaveran)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lin, pada: Pada.Atmane,
+    purusha: Purusha.Prathama, vacana: Vacana.Bahu })[0].text();
+  assert.equal(f('BU'), 'Baveran');  // bháveran, not *bhaveraṇ
+  assert.equal(f('pac'), 'paceran'); // paceran
+  assert.equal(f('gam'), 'gacheran');
+  // Genuine ṇatva after r in the same pada is unaffected (guru → guruṇā).
+  assert.equal(deriveSubantas({ pratipadika: 'guru', linga: Linga.Pumsaka,
+    vibhakti: 3, vacana: Vacana.Eka })[0].text(), 'guruRA');
+});

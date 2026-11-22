@@ -201,6 +201,10 @@ export function applyNatva(s: string): string {
   // the dh cluster blocks ṇatva in these present-participle stems.
   return s.replace(new RegExp('([rfz])(' + between + ')n(?!dh)', 'g'),
     (_m: string, trigger: string, mid: string, offset: number, whole: string) => {
+      // The `r` of the optative middle 3s/3p ending -ran is part of the tiṅ
+      // affix itself, so it does not trigger ṇatva on its own n (bhaveran,
+      // paceraṇ → bhaveran; cf. Wiktionary bháveran).
+      if (trigger === 'r' && mid === 'a' && offset + _m.length === whole.length) return _m;
       // ṇatva is blocked when a ṣya- / śya- future marker intervenes (e.g.
       // bhaviṣyanti, kariṣyanti keep the dental n of -nti).
       if (trigger === 'z' && mid.startsWith('y')) return _m;
