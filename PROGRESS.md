@@ -1795,3 +1795,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-21 — Session 297 (continued, toward 2703/2703):** Fixed anīyar gerundives
   jñānīya/ayanīya/jayanīya; kept śravaṇīya (attested). `npm test` 127/127.
   Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 298 (continued, toward 2703/2703):** Fixed ghaH action nouns
+  dāna/dhāna/jñāna/śravaṇa (were bare-root forms). `npm test` 128/128. Pushed.
+  Coverage 437/2703.
