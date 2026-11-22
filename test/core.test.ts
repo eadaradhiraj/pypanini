@@ -1699,3 +1699,12 @@ test('śānan hanamāna/daśdamāna', () => {
   assert.equal(deriveKrdantas({ dhatu: 'han', krt: Krt.Sanan })[0].text(), 'hanamAna'); // hanamāna
   assert.equal(deriveKrdantas({ dhatu: 'DA', krt: Krt.Sanan })[0].text(), 'daDamAna');  // dadhamāna
 });
+
+test('ṇini dāpin/ādin/vācin/eṣṭṛ/mārjin', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Nini })[0].text();
+  assert.equal(f('DA'), 'dApin');   // dāpin
+  assert.equal(f('ad'), 'Adin');    // ādin
+  assert.equal(f('vac'), 'vAcin');  // vācin
+  assert.equal(f('iS'), 'eziR');    // eṣṭṛ
+  assert.equal(f('mfz'), 'mArjin'); // mārjin
+});
