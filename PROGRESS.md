@@ -1829,3 +1829,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 306 (continued, toward 2703/2703):** Fixed kyap kriyā
   (kṛ), verified passive/bhāve stems and reverse analyses. `npm test` 136/136.
   Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 307 (continued, toward 2703/2703):** Applied upasargas to
+  aorist forms (prāgamat/saṃgamat/vyagamat), stripped ñit Y markers from kṛt stems,
+  fixed class-5 śatṛ/śānan and ṣṭran forms, kyap kriyā. `npm test` 143/143.
+  0 unregistered emissions. Pushed. Coverage 437/2703.
