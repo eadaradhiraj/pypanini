@@ -1597,32 +1597,14 @@ export interface TinantaResult {
 /** Derive a finite-verb form matching `args`. */
 export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   const dhatu = resolveDhatu(args.dhatu);
-  // bhāve (impersonal passive) = passive stem + 3s ātmane -te (3.1.67/3.2.110).
+  // bhāve (impersonal passive) is always 3s ātmane, and its forms are
+  // identical to the karmani 3s. Delegate to the ordinary karmani derivation
+  // with prathama/eka forced so that lakāra-specific endings (aṣṭādhyāyī
+  // present-system yak vs. future/perfect stems) are honoured instead of
+  // emitting "*pacyate" for every lakāra.
   if (args.prayoga === Prayoga.Bhave) {
-    const BHAVE_STEMS: Record<string, string> = {
-      kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac',
-      gam: 'gam', yaj: 'ij', as: 'as', vid: 'vid', vac: 'uc', // 1.1.45 samprasāraṇam
-      jFnA: 'jFA', zru: 'zrU', grah: 'gfh', DA: 'dI', sTA: 'sTAt', pA: 'pI', // dhā/sthā/pā passives
-    };
-    const rawStem = BHAVE_STEMS[dhatu.text] ?? dhatu.text;
-    // 6.1.65 (ṇo naḥ) / 6.1.64 (dhātvādeḥ ṣaḥ saḥ): dhātupāṭha root-initial
-    // ṇ → n, ṣ → s (ṭham/mi exceptions per the bhāṣya are handled centrally).
-    // Both rules are "dhātvādeḥ": they apply only to roots enumerated in the
-    // dhātupāṭha (which carry a `code`), not to ad-hoc fallback root strings.
-    const natiStem = dhatu.code ? initialNati(rawStem) : rawStem;
-    const stem = dhatu.code ? initialShatva(natiStem) : natiStem;
-    const p = new Prakriya([stem + 'yate']);
-    if (stem !== rawStem) p.record(dhatu.text.startsWith('R')
-      ? '6.1.65 (ṇo naḥ — root-initial ṇ → n)'
-      : '6.1.64 (dhātvādeḥ ṣaḥ saḥ — root-initial ṣ → s)');
-    p.record('3.2.123 (lat vidhāna)');
-    p.record('3.1.67 (sārvaDhātuke yak — bhāve/impersonal passive)');
-    p.record('1.3.13 (bhāvakarmaṇoḥ — ātmane-pada in impersonal)');
-    if (['yaj', 'vac'].includes(dhatu.text)) {
-      p.record('1.1.45 (igyaṇaḥ samprasāraṇam — ijyate/ucyate)');
-    }
-    p.collapse();
-    return [p];
+    return deriveTinantas({ ...args, prayoga: Prayoga.Karmani,
+      purusha: Purusha.Prathama, vacana: Vacana.Eka });
   }
   // The aorist (luṅ) uses a separate formation system; dispatch to it.
   // Strip dhātupāṭha ñit marker Y (ciY → ci) for aorist lookup.
@@ -1921,7 +1903,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     sraMs: 'sras', DvaMs: 'Dvas', // 6.4.24: penultimate nasal elision before yak
     tanu: 'tA', // 6.4.44 (tanoteryaki — tāyate)
     vac: 'uc', yaj: 'ij', // 1.1.45 (igyaṇaḥ samprasāraṇam — ucyate/ijyate)
-    jFnA: 'jFA', zru: 'zrU', grah: 'gfh', DA: 'dI', sTA: 'sTAt', pA: 'pI', // dhā/sthā/pā passives
+    jFnA: 'jFA', zru: 'zrU', grah: 'gfh', DA: 'dI', sTA: 'sTI', pA: 'pI', // dhā/sthā/pā passives (sthīyate, not *sthātyate)
   };
   // In non-present lakāras the yak-vikaraṇa does not apply, so the passive
   // uses the ordinary lakāra stem (futureStem/perfectStem/...) with ātmane-pada

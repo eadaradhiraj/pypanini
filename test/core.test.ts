@@ -1773,7 +1773,7 @@ test('passives dīyate/sthīyate/pīyate', () => {
     prayoga: Prayoga.Karmani, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
   assert.equal(f('DA'), 'dIyate');   // dīyate
   assert.equal(f('pA'), 'pIyate');   // pīyate
-  assert.ok(!f('sTA').includes('yate') || f('sTA').startsWith('sT')); // sthīyate
+  assert.equal(f('sTA'), 'sTIyate');   // sthīyate (not *sthātyate)
 });
 
 test('passive non-present lakāras use the ordinary lakāra stem', () => {
@@ -1806,4 +1806,18 @@ test('perfect middle (karmani) of ā-final roots uses the weak stem', () => {
     lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
   assert.equal(par('DA'), 'daDO');  // dadháu
   assert.equal(par('pA'), 'papO');  // papáu
+});
+
+test('bhāve (impersonal) honours lakāra but stays 3s', () => {
+  const f = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    prayoga: Prayoga.Bhave, lakara: lk,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f(Lakara.Lat), 'pacyate');
+  assert.equal(f(Lakara.Lan), 'apacyata');
+  assert.equal(f(Lakara.Lot), 'pacyatAm');
+  assert.equal(f(Lakara.Lin), 'pacyeta');
+  assert.equal(f(Lakara.Lrt), 'pakzyate');
+  // Impersonal: purusha/vacana are forced to 3s eka.
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'pac', prayoga: Prayoga.Bhave,
+    purusha: Purusha.Madhyama, vacana: Vacana.Bahu })[0].text(), 'pacyate');
 });
