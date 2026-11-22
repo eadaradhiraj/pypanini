@@ -1614,3 +1614,10 @@ test('ṣa Feminine action nouns jñānā/śrūā/cayā/pīā/dānā/ayā/jayā'
   assert.equal(f('i'), 'ayA');      // ayā
   assert.equal(f('ji'), 'jayA');    // jayā
 });
+
+test('yat jñānya/śroya/cayya', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Yat })[0].text();
+  assert.equal(f('jFnA'), 'jFAnya'); // jñānya
+  assert.equal(f('zru'), 'zrOya');   // śroya
+  assert.equal(f('ciY'), 'cayya');   // cayya
+});

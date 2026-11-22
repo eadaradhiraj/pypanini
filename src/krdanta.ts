@@ -328,7 +328,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.atRn]: { jF: 'jar', jf: 'jar' },    // jarant (3.2.104)
   [Krt.NyuT]: { gAI: 'gAy' },              // gāyana (3.1.147)
   [Krt.thakan]: { gAI: 'gA' },             // gāthaka (3.1.146)
-  [Krt.Yat]: { gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam', f: 'ar', i: 'it', stu: 'stut', SAsu: 'Siz', vR: 'vRt', juza: 'juz', fR: 'adfRt', dA: 'de', DA: 'dhe', hA: 'he', stA: 'ste', kzi: 'kzay', ji: 'jay', kri: 'kray' }, // kṣayya/jayya/krayya (6.1.81/82)
+  [Krt.Yat]: { jFnA: 'jFAn', zru: 'zrO', ciY: 'cay', gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam', f: 'ar', i: 'it', stu: 'stut', SAsu: 'Siz', vR: 'vRt', juza: 'juz', fR: 'adfRt', dA: 'de', DA: 'dhe', hA: 'he', stA: 'ste', kzi: 'kzay', ji: 'jay', kri: 'kray' }, // kṣayya/jayya/krayya (6.1.81/82)
   [Krt.ka]: { jYA: 'jY', prIY: 'priy', kF: 'kir' }, // jña (6.4.64), priya (prī+ka 6.1.77), kira (kṝ→kir)
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved', jFnA: 'jFA', i: 'ay', ji: 'jay' },  // vedanīya/jñānīya/ayayanīya
