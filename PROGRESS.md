@@ -1953,3 +1953,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   prefixing (prajagāma/saṃjagāma/prababhūva, not *papragama). Added 6.1.84
   a+ā→ā coalescence for pra+ad → prāda. `npm test` 173/173, 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 338 (continued, toward 2703/2703):** Generalized the
+  upasarga stem fix to luṭ/lṛt/luṅ: bare-root override tables now apply before
+  prefixing (saṃpakṣyati/saṃpaktā, not *saṃpacizyati/*saṃpacitā).
+  `npm test` 173/173, 0 unregistered emissions. Pushed. Coverage 437/2703.
