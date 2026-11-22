@@ -1929,3 +1929,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   asthuḥ, pā apuḥ (3p). Verified 3s/3p against Wiktionary (ádāt/áduḥ, ádhāt/
   ádhuḥ). `npm test` 170/170, 0 unregistered emissions. Pushed. Coverage
   437/2703.
+
+- **2026-11-22 — Session 333 (continued, toward 2703/2703):** Fixed passive
+  aorists: karmani/bhāve now dispatch to ātmane pada with special 3s forms
+  avāci/anāyi/adāyi (previously returned active aorists). `npm test` 171/171,
+  0 unregistered emissions. Pushed. Coverage 437/2703.
