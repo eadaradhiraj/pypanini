@@ -1512,3 +1512,9 @@ test('bhāve (impersonal) gṛhyate/jñāyate/śrūyate', () => {
   assert.equal(bh('jFnA'), 'jFAyate'); // jñāyate
   assert.equal(bh('zru'), 'zrUyate');  // śrūyate
 });
+
+test('ṇini agent nouns jñāyin/jayin', () => {
+  const nini = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Nini })[0].text();
+  assert.equal(nini('jFnA'), 'jFAyin'); // jñāyin
+  assert.equal(nini('ji'), 'jayin');    // jayin
+});
