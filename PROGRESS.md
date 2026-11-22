@@ -1807,3 +1807,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 300 (continued, toward 2703/2703):** Fixed passive gṛhyate
   (grah), source-backed by Wiktionary. `npm test` 130/130. Pushed.
   Coverage 437/2703.
+
+- **2026-11-22 — Session 301 (continued, toward 2703/2703):** Fixed bhāve (impersonal)
+  passive stems gṛhyate/jñāyate/śrūyate via BHAVE_STEMS. `npm test` 131/131.
+  Pushed. Coverage 437/2703.
