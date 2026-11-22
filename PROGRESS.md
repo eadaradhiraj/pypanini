@@ -1856,3 +1856,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 313 (continued, toward 2703/2703):** Stripped ñit Y in
   sanādi stems (cāyayati/sāvayati/cikīṣati); kept iṭ-less futures via stripped
   root keys. `npm test` 151/151. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 314 (continued, toward 2703/2703):** Fixed causatives
+  dhāpayati/mocayati/eṣayati/mārjayati/lambhayati and desideratives
+  mumukṣati/lipsati/rurutsati, source-backed. `npm test` 153/153. Pushed.
+  Coverage 437/2703.
