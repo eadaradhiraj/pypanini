@@ -1499,3 +1499,8 @@ test('passives jñāyate/śrūyate', () => {
   assert.equal(pass('jFnA'), 'jFAyate'); // jñāyate
   assert.equal(pass('zru'), 'zrUyate');  // śrūyate
 });
+
+test('passive gṛhyate', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'grah', prayoga: Prayoga.Karmani,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'gfhyate'); // gṛhyate
+});
