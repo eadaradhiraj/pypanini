@@ -84,9 +84,19 @@ const AORIST: Record<string, AoristEntry> = {
   // √ji s-aorist: ajaiṣīt (3s) — vṛddhi i→ai.
   ji: { kind: 's', stem: 'jE', code: '3.1.44 (cleḥ sic — ji s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajEzIt' } } },
-  // √muc root aorist with guṇa: amok (3s) — Whitney §832.
+  // √muc root aorist (Vedic): active amok/ámucan, middle ámukta/ámucata —
+  // source: Wiktionary "अमोक्" (3.1.44 mucaḥ, guṇa o in strong forms).
   muc: { kind: 'root', stem: 'mok', code: '3.1.44 (mucaḥ — muc root aorist)',
-    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'amok' } } },
+    formsP: {
+      [Purusha.Prathama]: { [Vacana.Eka]: 'amok', [Vacana.Dvi]: 'amoktAm', [Vacana.Bahu]: 'amucan' },
+      [Purusha.Madhyama]: { [Vacana.Eka]: 'amok', [Vacana.Dvi]: 'amoktam', [Vacana.Bahu]: 'amokta' },
+      [Purusha.Uttama]: { [Vacana.Eka]: 'amocam', [Vacana.Dvi]: 'amocva', [Vacana.Bahu]: 'amocma' },
+    },
+    formsA: {
+      [Purusha.Prathama]: { [Vacana.Eka]: 'amukta', [Vacana.Dvi]: 'amucAtAm', [Vacana.Bahu]: 'amucata' },
+      [Purusha.Madhyama]: { [Vacana.Eka]: 'amukthAH', [Vacana.Dvi]: 'amucAthAm', [Vacana.Bahu]: 'amugDvam' },
+      [Purusha.Uttama]: { [Vacana.Eka]: 'amuci', [Vacana.Dvi]: 'amucvahi', [Vacana.Bahu]: 'amucmahi' },
+    } },
   // √nī s-aorist: anaiṣīt (3s), anaiṣṭām (3d), anaiṣuḥ (3p) — 7.2.11 iṭ-naṣi.
   nI: { kind: 's', stem: 'nE', code: '3.1.44 (cleḥ sic — nī s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'anEzIt' } } },

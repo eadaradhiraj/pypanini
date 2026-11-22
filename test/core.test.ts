@@ -1835,3 +1835,15 @@ test('passive aorists (karmani/bhāve) use ātmane and special 3s forms', () => 
   assert.equal(f('dA', Prayoga.Kartari), 'adAt');    // adāt
   assert.equal(f('vac', Prayoga.Kartari), 'avocat');
 });
+
+test('√muc root aorist full paradigm (active + middle)', () => {
+  const f = (pada: Pada, p: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'muc', lakara: Lakara.LatN, pada,
+      purusha: p, vacana: v })[0].text();
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'amok');    // ámok
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'amucan'); // ámucan
+  assert.equal(f(Pada.Parasmai, Purusha.Uttama, Vacana.Eka), 'amocam');    // ámocam
+  assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'amukta');    // ámukta
+  assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Bahu), 'amucata');  // ámucata
+  assert.equal(f(Pada.Atmane, Purusha.Uttama, Vacana.Eka), 'amuci');       // ámuci
+});
