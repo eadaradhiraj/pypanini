@@ -1598,3 +1598,8 @@ test('paradigm honours upasarga', () => {
     lakaras: [Lakara.Lat], padas: [Pada.Parasmai] });
   assert.equal(p.cells[0].text, 'pragacchati'); // pragacchati
 });
+
+test('ktin jñāti/śroti', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'jFnA', krt: Krt.Ktin })[0].text(), 'jFAti'); // jñāti
+  assert.equal(deriveKrdantas({ dhatu: 'zru', krt: Krt.Ktin })[0].text(), 'zrOti');  // śroti
+});
