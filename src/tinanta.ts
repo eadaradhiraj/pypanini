@@ -1607,6 +1607,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       pada: aoristPada,
       purusha: args.purusha,
       vacana: args.vacana,
+      upasarga: args.upasarga,
     });
     return p ? [p] : [];
   }

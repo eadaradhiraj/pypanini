@@ -256,6 +256,7 @@ export interface AoristArgs {
   pada: Pada;
   purusha: Purusha;
   vacana: Vacana;
+  upasarga?: SLP1;
 }
 
 export function aoristKind(root: SLP1): AoristKind | undefined {
@@ -265,6 +266,19 @@ export function aoristKind(root: SLP1): AoristKind | undefined {
 /** Whether this root has any aorist formation (regular or passive-3s). */
 export function hasAorist(root: SLP1): boolean {
   return Boolean(AORIST[root] || PASSIVE_AORIST[root]);
+}
+
+/** 6.1.101 etc.: upasarga + aorist surface (mirrors tinanta's coalesceUpasarga). */
+function withUpasarga(upa: SLP1 | undefined, form: SLP1): SLP1 {
+  if (!upa) return form;
+  if (upa.endsWith('A') && form.startsWith('a')) return upa + form.slice(1);
+  if (upa.endsWith('a') && form.startsWith('a')) return upa.slice(0, -1) + 'A' + form.slice(1);
+  if ((upa.endsWith('a') || upa.endsWith('A')) && form.startsWith('e')) {
+    return upa.slice(0, -1) + 'E' + form.slice(1);
+  }
+  if (upa.endsWith('u') && /[aAiIuUfFxXeEoO]/.test(form[0] ?? '')) return upa.slice(0, -1) + 'v' + form;
+  if (upa.endsWith('i') && /[aAiIuUfFxXeEoO]/.test(form[0] ?? '')) return upa.slice(0, -1) + 'y' + form;
+  return upa + form;
 }
 
 export function deriveAorist(args: AoristArgs): Prakriya | undefined {
@@ -286,7 +300,7 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
   const forms = args.pada === Pada.Atmane ? entry.formsA : entry.formsP;
   const explicit = forms?.[args.purusha]?.[args.vacana];
   if (explicit) {
-    p.insert(0, explicit, ['form']);
+    p.insert(0, withUpasarga(args.upasarga, explicit), ['form']);
     if (entry.code) p.record(entry.code);
     p.record(`3.2.110 (luN; ${kind}-aorist)`);
     if (args.purusha === Purusha.Prathama && args.vacana === Vacana.Bahu && kind === 's') {
@@ -351,6 +365,12 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
   const { noteUniversal } = require('./core/sutra-notes');
   noteUniversal(p);
   p.collapse();
+  if (args.upasarga) {
+    const form = p.terms[0]?.text;
+    if (form) p.setText(0, withUpasarga(args.upasarga, form));
+    p.record('1.4.59 (upasarga sandhi)');
+    p.collapse();
+  }
   return p;
 }
 

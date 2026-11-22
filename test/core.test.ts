@@ -1583,3 +1583,12 @@ test('class-5 śānan cinvamāna/sunvamāna/śinvamāna/stṛṇvamāna', () => 
   assert.equal(f('SiY'), 'SinvamAna');   // śinvamāna
   assert.equal(f('stfY'), 'stfRvamAna'); // stṛṇvamāna
 });
+
+test('upasargas apply to aorists', () => {
+  const f = (u: string, d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.LatN, purusha: Purusha.Prathama, vacana: Vacana.Eka, upasarga: u })[0].text();
+  assert.equal(f('pra', 'gam'), 'prAgamat');  // prāgamat
+  assert.equal(f('sam', 'gam'), 'samagamat'); // saṃgamat
+  assert.equal(f('vi', 'gam'), 'vyagamat');   // vigamat
+  assert.equal(f('pra', 'BU'), 'prABUt');     // prābhūt
+});
