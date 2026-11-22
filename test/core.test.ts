@@ -1918,3 +1918,13 @@ test('class-5 imperative paradigms (śṛṇu/cinu/sunu)', () => {
   assert.equal(f('SiY', Purusha.Prathama, Vacana.Bahu), 'SInvantu');  // śinvantu
   assert.equal(f('stfY', Purusha.Madhyama, Vacana.Eka), 'stfRnu');    // stṛṇu
 });
+
+test('class-5 optative paradigms (cinuyāt, sunuyāt, stṛṇuyāt)', () => {
+  const f = (d: string, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: Lakara.Lin, purusha: p, vacana: v })[0].text();
+  assert.equal(f('ciY', Purusha.Prathama, Vacana.Dvi), 'cinuyAtAm');
+  assert.equal(f('ciY', Purusha.Prathama, Vacana.Bahu), 'cinuyuH');
+  assert.equal(f('zuY', Purusha.Prathama, Vacana.Bahu), 'sunuyuH');
+  assert.equal(f('SiY', Purusha.Prathama, Vacana.Dvi), 'SinuyAtAm');
+  assert.equal(f('stfY', Purusha.Prathama, Vacana.Bahu), 'stfRnuyuH');
+});
