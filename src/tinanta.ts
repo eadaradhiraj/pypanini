@@ -1915,20 +1915,28 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   // endings. Restrict the yak-based PASSIVE_STEMS override to the present
   // system only; otherwise we would get *pacte /*Bavte instead of paksyate /
   // bhavisyate (cf. 3.1.67, which requires a sārvadhātuka affix).
-  // In the perfect, liṭ-reduplication applies to the root alone; the upasarga
-  // is prefixed afterwards (pra + gam → prajagāma, never *papragama). Derive
-  // the stem from the bare root and coalesce the prefix back onto it.
-  const litWithUpasarga = args.lakara === Lakara.Lit && upasargaArg && isUpasarga(upasargaArg) &&
+  // In non-present lakāras the special stem (liṭ-reduplication, lut/future
+  // stem) must be built from the bare root and only then have the upasarga
+  // prefixed: pra + gam → prajagāma / pragantā / pragamiṣyati, never
+  // *papragama / *pragamitā / *pragamiṣyati. The override tables are keyed by
+  // bare roots, so deriving from the prefixed rootText would miss them.
+  const upasargaStem = upasargaArg && isUpasarga(upasargaArg) && config.rootTransform &&
     (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
-    (args.sanadi ?? Sanadi.None) === Sanadi.None;
+    (args.sanadi ?? Sanadi.None) === Sanadi.None
+    ? (bare: string) => {
+        const base = args.lakara === Lakara.Lit
+          ? (presentForm(bare, Lakara.Lit, pada, args.purusha, args.vacana) ??
+             perfectStem(bare, args.purusha, args.vacana, pada))
+          : config.rootTransform!(bare, args.purusha, args.vacana, pada);
+        return coalesceUpasarga(upasargaArg!, base);
+      }
+    : undefined;
   const rootOverride = args.prayoga === Prayoga.Karmani && passivePresent
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
     : args.lakara === Lakara.Lin && dhatu.text === 'han' && (args.sanadi ?? Sanadi.None) === Sanadi.None
       ? 'vad' // 2.4.42 (hano vada liNi — vadet)
-      : litWithUpasarga
-        ? coalesceUpasarga(upasargaArg!,
-            presentForm(shatvaText, Lakara.Lit, pada, args.purusha, args.vacana) ??
-            perfectStem(shatvaText, args.purusha, args.vacana, pada))
+      : upasargaStem
+        ? upasargaStem(shatvaText)
         : config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana, pada);
   const ctx: RuleContext = {
     prakriya,

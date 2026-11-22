@@ -1858,4 +1858,11 @@ test('upasarga + perfect: reduplicate the root, not the prefix', () => {
   assert.equal(f('pra', 'BU'), 'prabaBUva');  // prababhūva
   assert.equal(f('pra', 'kf'), 'pracakAra');  // pracakāra
   assert.equal(f('pra', 'ad'), 'prAd');       // prāda (6.1.84 a+ā→ā)
+  // luṭ/lṛt use the bare-root stem tables too.
+  const fut = (upa: string, d: string, lk: Lakara) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: lk, upasarga: upa,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(fut('sam', 'pac', Lakara.Lrt), 'saMpakzyati'); // saṃpakṣyati
+  assert.equal(fut('sam', 'pac', Lakara.Lut), 'saMpaktA');    // saṃpaktā
+  assert.equal(fut('pra', 'kf', Lakara.Lrt), 'prakarizyati');   // prakariṣyati
 });
