@@ -1989,3 +1989,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   optative paradigms for √ci/√su/√śi/√stṛ (cinuyāt/cinuyuḥ, sunuyuḥ, ...),
   previously thematic *cayetām/*savetām. `npm test` 179/179, 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 345 (continued, toward 2703/2703):** Completed class-5
+  imperfect weak-stem forms (azṛṇutām/acinvat/ asunvān/aśinvat/astṛṇvat) and
+  aligned √śru imperative weak stem with its optative. `npm test` 180/180, 0
+  unregistered emissions. Pushed. Coverage 437/2703.
