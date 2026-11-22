@@ -1866,3 +1866,15 @@ test('upasarga + perfect: reduplicate the root, not the prefix', () => {
   assert.equal(fut('sam', 'pac', Lakara.Lut), 'saMpaktA');    // saṃpaktā
   assert.equal(fut('pra', 'kf', Lakara.Lrt), 'prakarizyati');   // prakariṣyati
 });
+
+test('upasarga + saṇādi: build the stem from the bare root', () => {
+  const f = (upa: string, d: string, sd: Sanadi) => deriveTinantas({ ...baseArgs,
+    dhatu: d, upasarga: upa, sanadi: sd,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('pra', 'BU', Sanadi.Nic), 'praBAvayati');   // prabhāvayati
+  assert.equal(f('sam', 'kf', Sanadi.Nic), 'saMkArayati');   // saṃkārayati
+  assert.equal(f('pra', 'pac', Sanadi.San), 'prapipakzati'); // prapipakṣati
+  assert.equal(f('vi', 'gam', Sanadi.San), 'vijigamizati');  // vijigamiṣati
+  assert.equal(f('pra', 'BU', Sanadi.Yan), 'praBoBUyate');   // prabobhūyate
+  assert.equal(f('pra', 'BU', Sanadi.YangLuk), 'praBoBavIti'); // prabobhavīti
+});

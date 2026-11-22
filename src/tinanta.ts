@@ -1823,7 +1823,15 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
     [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara);
   if (midGuna) rootText = 'med';
-  const sanadiResult = buildSanadiStem(rootText, sanadi);
+  // Saṇādi (causative/desiderative/intensive) stems are built from the bare
+  // root: reduplication must see the root, not an upasarga (pra+jigamiṣati,
+  // pra+bobhavīti). Prefix the upasarga onto the finished stem afterwards.
+  const sanadiResult = upasargaArg && isUpasarga(upasargaArg) && sanadi !== Sanadi.None
+    ? (() => {
+        const bare = buildSanadiStem(shatvaText, sanadi);
+        return { ...bare, root: coalesceUpasarga(upasargaArg!, bare.root) };
+      })()
+    : buildSanadiStem(rootText, sanadi);
   // karmāṇi (passive) always takes ātmane-pada endings.
   const pada = sanadiResult.pada ??
     ((args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani ? Pada.Atmane : args.pada ?? dhatu.pada);
