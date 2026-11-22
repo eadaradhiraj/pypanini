@@ -1838,3 +1838,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 308 (continued, toward 2703/2703):** paradigm command and
   deriveParadigm now honour --upasarga; verified aorists with prefixes.
   `npm test` 144/144. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 309 (continued, toward 2703/2703):** Fixed ktin jñāti/śroti.
+  `npm test` 145/145. Pushed. Coverage 437/2703.
