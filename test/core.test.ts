@@ -1490,7 +1490,7 @@ test('ghaH action nouns dāna/dhāna/jñāna/śravaṇa', () => {
   assert.equal(ghaH('dA'), 'dAna');    // dāna
   assert.equal(ghaH('DA'), 'dAna');    // dhāna
   assert.equal(ghaH('jFnA'), 'jFAna'); // jñāna
-  assert.equal(ghaH('zru'), 'zravRa'); // śravaṇa
+  assert.equal(ghaH('zru'), 'zravaRa'); // śravaṇa
 });
 
 test('passives jñāyate/śrūyate', () => {
@@ -1751,4 +1751,9 @@ test('lyuṭ dhāna/sthāna/pāna/eṣaṇa/mārjana', () => {
   assert.equal(f('pA'), 'pAna');   // pāna
   assert.equal(f('iS'), 'ezaRa');  // eṣaṇa
   assert.equal(f('mfz'), 'mArjana'); // mārjana
+});
+
+test('ghaH bheda/śravaṇa', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'bhid', krt: Krt.ghaH })[0].text(), 'Bheda'); // bheda
+  assert.equal(deriveKrdantas({ dhatu: 'zru', krt: Krt.ghaH })[0].text(), 'zravaRa'); // śravaṇa
 });
