@@ -1947,3 +1947,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 336 (continued, toward 2703/2703):** Updated README
   example trace to match current CLI output (6.1.84 ekādeśa replaced the stale
   6.1.104 TODO line). `npm test` 172/172. Coverage 437/2703.
+
+- **2026-11-22 — Session 337 (continued, toward 2703/2703):** Fixed upasarga
+  placement in the perfect: reduplication now applies to the bare root before
+  prefixing (prajagāma/saṃjagāma/prababhūva, not *papragama). Added 6.1.84
+  a+ā→ā coalescence for pra+ad → prāda. `npm test` 173/173, 0 unregistered
+  emissions. Pushed. Coverage 437/2703.
