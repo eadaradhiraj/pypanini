@@ -1743,3 +1743,12 @@ test('ktvā vitvā/bitvā/rudhvā', () => {
   assert.equal(f('bhid'), 'bitvA'); // bitvā
   assert.equal(f('rudh'), 'rudvA'); // rudhvā
 });
+
+test('lyuṭ dhāna/sthāna/pāna/eṣaṇa/mārjana', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.LyuT })[0].text();
+  assert.equal(f('DA'), 'DAna');   // dhāna
+  assert.equal(f('sTA'), 'sTAna'); // sthāna
+  assert.equal(f('pA'), 'pAna');   // pāna
+  assert.equal(f('iS'), 'ezaRa');  // eṣaṇa
+  assert.equal(f('mfz'), 'mArjana'); // mārjana
+});
