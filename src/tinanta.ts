@@ -1437,6 +1437,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {
   if (upa.endsWith('A') && form.startsWith('a')) return upa + form.slice(1); // 6.1.84: ā+a → ā
+  if (upa.endsWith('a') && form.startsWith('A')) return upa.slice(0, -1) + 'A' + form.slice(1); // 6.1.84: a+ā → ā (pra+āda → prāda)
   if (upa.endsWith('a') && form.startsWith('a')) return upa.slice(0, -1) + 'A' + form.slice(1);
   // 6.1.89 (etyedhatyūṭhsu): a/ā + e (guṇa of √i) → ai (vṛddhi) — upa+eti → upaiti.
   if ((upa.endsWith('a') || upa.endsWith('A')) && form.startsWith('e')) {
@@ -1914,11 +1915,21 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   // endings. Restrict the yak-based PASSIVE_STEMS override to the present
   // system only; otherwise we would get *pacte /*Bavte instead of paksyate /
   // bhavisyate (cf. 3.1.67, which requires a sārvadhātuka affix).
+  // In the perfect, liṭ-reduplication applies to the root alone; the upasarga
+  // is prefixed afterwards (pra + gam → prajagāma, never *papragama). Derive
+  // the stem from the bare root and coalesce the prefix back onto it.
+  const litWithUpasarga = args.lakara === Lakara.Lit && upasargaArg && isUpasarga(upasargaArg) &&
+    (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
+    (args.sanadi ?? Sanadi.None) === Sanadi.None;
   const rootOverride = args.prayoga === Prayoga.Karmani && passivePresent
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
     : args.lakara === Lakara.Lin && dhatu.text === 'han' && (args.sanadi ?? Sanadi.None) === Sanadi.None
       ? 'vad' // 2.4.42 (hano vada liNi — vadet)
-      : config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana, pada);
+      : litWithUpasarga
+        ? coalesceUpasarga(upasargaArg!,
+            presentForm(shatvaText, Lakara.Lit, pada, args.purusha, args.vacana) ??
+            perfectStem(shatvaText, args.purusha, args.vacana, pada))
+        : config.rootTransform?.(sanadiResult.root, args.purusha, args.vacana, pada);
   const ctx: RuleContext = {
     prakriya,
     args: { ...args, dhatu },

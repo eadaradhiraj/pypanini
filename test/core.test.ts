@@ -1847,3 +1847,15 @@ test('√muc root aorist full paradigm (active + middle)', () => {
   assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Bahu), 'amucata');  // ámucata
   assert.equal(f(Pada.Atmane, Purusha.Uttama, Vacana.Eka), 'amuci');       // ámuci
 });
+
+test('upasarga + perfect: reduplicate the root, not the prefix', () => {
+  const f = (upa: string, d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, upasarga: upa,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('pra', 'gam'), 'prajagAma'); // prajagāma, not *papragama
+  assert.equal(f('sam', 'gam'), 'saMjagAma'); // saṃjagāma
+  assert.equal(f('vi', 'gam'), 'vijagAma');   // vijagāma
+  assert.equal(f('pra', 'BU'), 'prabaBUva');  // prababhūva
+  assert.equal(f('pra', 'kf'), 'pracakAra');  // pracakāra
+  assert.equal(f('pra', 'ad'), 'prAd');       // prāda (6.1.84 a+ā→ā)
+});
