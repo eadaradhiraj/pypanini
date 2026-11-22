@@ -258,7 +258,8 @@ function main(): void {
     const dhatu = str(flags, 'dhatu', 'BU');
     const sanadi = parseEnum(str(flags, 'sanadi', 'none'), Object.values(Sanadi) as Sanadi[], Sanadi.None);
     const prayoga = parseEnum(str(flags, 'prayoga', 'kartari'), Object.values(Prayoga) as Prayoga[], Prayoga.Kartari);
-    const p = deriveParadigm({ dhatu, sanadi, prayoga });
+    const p = deriveParadigm({ dhatu, sanadi, prayoga,
+      upasarga: str(flags, 'upasarga') || undefined });
     console.log(formatParadigm(p));
     return;
   }

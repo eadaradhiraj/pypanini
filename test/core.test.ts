@@ -1592,3 +1592,9 @@ test('upasargas apply to aorists', () => {
   assert.equal(f('vi', 'gam'), 'vyagamat');   // vigamat
   assert.equal(f('pra', 'BU'), 'prABUt');     // prābhūt
 });
+
+test('paradigm honours upasarga', () => {
+  const p = deriveParadigm({ dhatu: 'gam', upasarga: 'pra',
+    lakaras: [Lakara.Lat], padas: [Pada.Parasmai] });
+  assert.equal(p.cells[0].text, 'pragacchati'); // pragacchati
+});

@@ -5,6 +5,7 @@ import {
   Pada,
   Prayoga,
   Purusha,
+  SLP1,
   Sanadi,
   TinantaArgs,
   Vacana,
@@ -52,6 +53,7 @@ export function deriveParadigm(options: {
   dhatu: Dhatu | string;
   sanadi?: Sanadi;
   prayoga?: Prayoga;
+  upasarga?: SLP1;
   lakaras?: readonly Lakara[];
   padas?: readonly Pada[];
 }): Paradigm {
@@ -70,6 +72,7 @@ export function deriveParadigm(options: {
         for (const vacana of VACANAS) {
           const args: TinantaArgs = {
             dhatu, lakara, prayoga, pada, purusha, vacana, sanadi,
+            upasarga: options.upasarga,
           };
           const forms = deriveTinantas(args);
           const p = forms[0];
