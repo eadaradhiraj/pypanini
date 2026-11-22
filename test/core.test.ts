@@ -1621,3 +1621,10 @@ test('yat jñānya/śroya/cayya', () => {
   assert.equal(f('zru'), 'zrOya');   // śroya
   assert.equal(f('ciY'), 'cayya');   // cayya
 });
+
+test('ṇvanip śrotra-vat/jñāna-vat/cayana-vat', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Nvanip })[0].text();
+  assert.equal(f('zru'), 'zrOvaR'); // śrotravān
+  assert.equal(f('jFnA'), 'jFAvan'); // jñānavān
+  assert.equal(f('ciY'), 'cayvan');  // cayanavān
+});
