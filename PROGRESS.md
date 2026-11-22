@@ -1923,3 +1923,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (apacyata/pacyatām/pacyeta/pakṣyate) while staying 3s; corrected sthā passive
   stem to sthīyate (was *sthātyate). `npm test` 170/170, 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 332 (continued, toward 2703/2703):** Fixed root aorists
+  of ā-final roots: dā now adāt/aduḥ (was *adāyi/*adāan), dhā adhuḥ, sthā
+  asthuḥ, pā apuḥ (3p). Verified 3s/3p against Wiktionary (ádāt/áduḥ, ádhāt/
+  ádhuḥ). `npm test` 170/170, 0 unregistered emissions. Pushed. Coverage
+  437/2703.
