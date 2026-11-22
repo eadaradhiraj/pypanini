@@ -1873,3 +1873,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 318 (continued, toward 2703/2703):** Fixed śānan
   hanamāna/daḍhamāna. `npm test` 157/157. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 319 (continued, toward 2703/2703):** Fixed ṇini dāpin/ādin/
+  vācin/eṣṭṛ/mārjin. `npm test` 158/158. Pushed. Coverage 437/2703.
