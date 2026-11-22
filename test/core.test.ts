@@ -1484,3 +1484,11 @@ test('anīyar gerundives jñānīya/ayanīya/jayanīya', () => {
   assert.equal(ani('i'), 'ayanIya');    // ayanīya
   assert.equal(ani('ji'), 'jayanIya');  // jayanīya
 });
+
+test('ghaH action nouns dāna/dhāna/jñāna/śravaṇa', () => {
+  const ghaH = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.ghaH })[0].text();
+  assert.equal(ghaH('dA'), 'dAna');    // dāna
+  assert.equal(ghaH('DA'), 'dAna');    // dhāna
+  assert.equal(ghaH('jFnA'), 'jFAna'); // jñāna
+  assert.equal(ghaH('zru'), 'zravRa'); // śravaṇa
+});
