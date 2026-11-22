@@ -490,7 +490,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'ciY:lat:parasmai:prathama:eka': 'cinoti',
   // 3.1.60 (ciṇ te padaḥ): √ci takes ṇa before 3s ātmane te — cinute.
   'ciY:lat:atmane:prathama:eka': 'cinute',
-  'ciY:lat:atmane:prathama:dvi': 'cinvAtAm',
+  'ciY:lat:atmane:prathama:dvi': 'cinvAte',  // cinvā́te (Wiktionary cinoti; not *cinvātām)
   'ciY:lat:atmane:prathama:bahu': 'cinvate',
   'pf:lat:parasmai:prathama:eka': 'pfNoti',
   // √śru (5P, 3.1.74 śruvaḥ śṛ ca): śṛṇoti/śṛṇutaḥ/śṛṇvanti.

@@ -1939,3 +1939,10 @@ test('class-5 imperfect weak-stem forms', () => {
   assert.equal(f('SiY', Purusha.Prathama, Vacana.Bahu), 'aSinvan');
   assert.equal(f('stfY', Purusha.Prathama, Vacana.Bahu), 'astfRnvan');
 });
+
+test('class-5 middle present 3d (cinvāte)', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'ciY', pada: Pada.Atmane,
+    purusha: Purusha.Prathama, vacana: Vacana.Dvi })[0].text(), 'cinvAte'); // cinvā́te
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'ciY', pada: Pada.Atmane,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'cinute'); // cinuté
+});
