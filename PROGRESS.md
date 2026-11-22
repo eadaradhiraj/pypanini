@@ -1888,3 +1888,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 323 (continued, toward 2703/2703):** Fixed gerundives
   dhātavya/sthātavya/pātavya. `npm test` 162/162. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 324 (continued, toward 2703/2703):** Fixed ktvā
+  vitvā/bitvā/rudhvā. `npm test` 163/163. Pushed. Coverage 437/2703.
