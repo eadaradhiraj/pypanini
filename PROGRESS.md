@@ -1975,3 +1975,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   retroflexes its own n (bhaveran/paceran, verified against Wiktionary
   bháveran). `npm test` 176/176, 0 unregistered emissions. Pushed. Coverage
   437/2703.
+
+- **2026-11-22 — Session 342 (continued, toward 2703/2703):** Fixed √dhā
+  imperative 2s to dhehi (धेहि, Wiktionary dadhāti), previously *dehi.
+  `npm test` 177/177, 0 unregistered emissions. Pushed. Coverage 437/2703.
