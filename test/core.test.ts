@@ -1675,3 +1675,10 @@ test('source-backed desideratives mumukṣati/lipsati/rurutsati', () => {
   assert.equal(san('lab'), 'lipsati');   // lipsati
   assert.equal(san('rudh'), 'rurutsati');// rurutsati
 });
+
+test('ktavatu hitavān/sthitavān/pītavān', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Ktavatu })[0].text();
+  assert.equal(f('DA'), 'hitavAn');  // hitavān
+  assert.equal(f('sTA'), 'sThitavAn'); // sthitavān
+  assert.equal(f('pA'), 'pItavAn');  // pītavān
+});
