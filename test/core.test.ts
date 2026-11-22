@@ -1535,3 +1535,7 @@ test('śānan participles nayamāna/jayamāna', () => {
   assert.equal(s('nI'), 'nayamAna'); // nayamāna
   assert.equal(s('ji'), 'jayamAna'); // jayamāna
 });
+
+test('kyap kriyā', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Kyap })[0].text(), 'kriyA'); // kriyā
+});
