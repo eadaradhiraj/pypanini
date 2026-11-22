@@ -1904,3 +1904,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 328 (continued, toward 2703/2703):** Fixed passive stems
   dīyate/sthīyate/pīyate (dhā/sthā/pā). `npm test` 167/167. Pushed.
   Coverage 437/2703.
+
+- **2026-11-22 — Session 329 (continued, toward 2703/2703):** Fixed passive
+  (karmani) non-present lakāras: yak-based PASSIVE_STEMS override now applies
+  only in the present system, so lrt/lit/lut/lng use the ordinary lakāra stem
+  (paksyate, bhavisyate, papāce, apaksyata) instead of *pacte/*Bavte.
+  `npm test` 168/168, 0 unregistered emissions. Pushed. Coverage 437/2703.
