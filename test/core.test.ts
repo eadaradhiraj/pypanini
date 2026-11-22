@@ -1708,3 +1708,11 @@ test('ṇini dāpin/ādin/vācin/eṣṭṛ/mārjin', () => {
   assert.equal(f('iS'), 'eziR');    // eṣṭṛ
   assert.equal(f('mfz'), 'mArjin'); // mārjin
 });
+
+test('tṛn dadhṛ/gṛhītṛ/śrotṛ/eṣṭṛ/pūjā', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.TRn })[0].text();
+  assert.equal(f('DA'), 'daDtf');   // dadhṛ
+  assert.equal(f('grah'), 'gfhItf'); // gṛhītṛ
+  assert.equal(f('zru'), 'zrOtf');   // śrotṛ
+  assert.equal(f('iS'), 'ezwf');     // eṣṭṛ
+});
