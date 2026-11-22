@@ -1821,3 +1821,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-22 — Session 304 (continued, toward 2703/2703):** Fixed śatṛ participles
   jayat (ji), śṛṇvat (śru), ṛcchat (ṛ) from present stems. `npm test` 134/134.
   Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 305 (continued, toward 2703/2703):** Fixed śānan participles
+  nayamāna (nī) and jayamāna (ji) from present stems. `npm test` 135/135.
+  Pushed. Coverage 437/2703.
