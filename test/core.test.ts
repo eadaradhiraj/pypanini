@@ -1909,9 +1909,9 @@ test('imperative 2s of √dhā vs √dā (dhehi / dehi)', () => {
 test('class-5 imperative paradigms (śṛṇu/cinu/sunu)', () => {
   const f = (d: string, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
     dhatu: d, lakara: Lakara.Lot, purusha: p, vacana: v })[0].text();
-  assert.equal(f('zru', Purusha.Madhyama, Vacana.Eka), 'zRnu');       // śṛṇu
-  assert.equal(f('zru', Purusha.Prathama, Vacana.Bahu), 'zRvantu');   // śṛṇvantu
-  assert.equal(f('zru', Purusha.Uttama, Vacana.Eka), 'zRnavARi');     // śṛṇavāni
+  assert.equal(f('zru', Purusha.Madhyama, Vacana.Eka), 'zRuNu');     // śṛṇu
+  assert.equal(f('zru', Purusha.Prathama, Vacana.Bahu), 'zRuNvantu'); // śṛṇvantu
+  assert.equal(f('zru', Purusha.Uttama, Vacana.Eka), 'zRuNavARi');   // śṛṇavāni
   assert.equal(f('ciY', Purusha.Madhyama, Vacana.Eka), 'cinu');       // cinu
   assert.equal(f('ciY', Purusha.Prathama, Vacana.Bahu), 'cinvantu');  // cinvantu
   assert.equal(f('zuY', Purusha.Madhyama, Vacana.Eka), 'sunu');       // sunu
@@ -1927,4 +1927,15 @@ test('class-5 optative paradigms (cinuyāt, sunuyāt, stṛṇuyāt)', () => {
   assert.equal(f('zuY', Purusha.Prathama, Vacana.Bahu), 'sunuyuH');
   assert.equal(f('SiY', Purusha.Prathama, Vacana.Dvi), 'SinuyAtAm');
   assert.equal(f('stfY', Purusha.Prathama, Vacana.Bahu), 'stfRnuyuH');
+});
+
+test('class-5 imperfect weak-stem forms', () => {
+  const f = (d: string, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: Lakara.Lan, purusha: p, vacana: v })[0].text();
+  assert.equal(f('zru', Purusha.Prathama, Vacana.Dvi), 'azRuNutAm');
+  assert.equal(f('zru', Purusha.Prathama, Vacana.Bahu), 'azRuNvan');
+  assert.equal(f('ciY', Purusha.Prathama, Vacana.Bahu), 'acinvan');
+  assert.equal(f('zuY', Purusha.Prathama, Vacana.Dvi), 'asunutAm');
+  assert.equal(f('SiY', Purusha.Prathama, Vacana.Bahu), 'aSinvan');
+  assert.equal(f('stfY', Purusha.Prathama, Vacana.Bahu), 'astfRnvan');
 });
