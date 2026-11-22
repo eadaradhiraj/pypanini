@@ -1589,7 +1589,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     const BHAVE_STEMS: Record<string, string> = {
       kf: 'kri', dA: 'dI', ni: 'nI', ji: 'ji', BU: 'Bav', pac: 'pac',
       gam: 'gam', yaj: 'ij', as: 'as', vid: 'vid', vac: 'uc', // 1.1.45 samprasāraṇam
-      jFnA: 'jFA', zru: 'zrU', grah: 'gfh', // jñāyate/śrūyate/gṛhyate (Wiktionary)
+      jFnA: 'jFA', zru: 'zrU', grah: 'gfh', DA: 'dI', sTA: 'sTAt', pA: 'pI', // dhā/sthā/pā passives
     };
     const rawStem = BHAVE_STEMS[dhatu.text] ?? dhatu.text;
     // 6.1.65 (ṇo naḥ) / 6.1.64 (dhātvādeḥ ṣaḥ saḥ): dhātupāṭha root-initial
@@ -1899,7 +1899,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     sraMs: 'sras', DvaMs: 'Dvas', // 6.4.24: penultimate nasal elision before yak
     tanu: 'tA', // 6.4.44 (tanoteryaki — tāyate)
     vac: 'uc', yaj: 'ij', // 1.1.45 (igyaṇaḥ samprasāraṇam — ucyate/ijyate)
-    jFnA: 'jFA', zru: 'zrU', grah: 'gfh', // jñāyate / śrūyate / gṛhyate (Wiktionary)
+    jFnA: 'jFA', zru: 'zrU', grah: 'gfh', DA: 'dI', sTA: 'sTAt', pA: 'pI', // dhā/sthā/pā passives
   };
   const rootOverride = args.prayoga === Prayoga.Karmani
     ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)

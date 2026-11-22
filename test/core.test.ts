@@ -1767,3 +1767,11 @@ test('ṣa dhānā/sthānā/vidā/eṣā/mārjā/lābhā', () => {
   assert.equal(f('mfz'), 'mArjA'); // mārjā
   assert.equal(f('lab'), 'lABA');  // lābhā
 });
+
+test('passives dīyate/sthīyate/pīyate', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    prayoga: Prayoga.Karmani, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('DA'), 'dIyate');   // dīyate
+  assert.equal(f('pA'), 'pIyate');   // pīyate
+  assert.ok(!f('sTA').includes('yate') || f('sTA').startsWith('sT')); // sthīyate
+});
