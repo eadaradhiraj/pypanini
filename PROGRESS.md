@@ -1841,3 +1841,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 309 (continued, toward 2703/2703):** Fixed ktin jñāti/śroti.
   `npm test` 145/145. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 310 (continued, toward 2703/2703):** Fixed ṣa action nouns
+  and yat gerundives for jñā/śru/ci/pā/dā/i/ji. `npm test` 147/147.
+  Pushed. Coverage 437/2703.
