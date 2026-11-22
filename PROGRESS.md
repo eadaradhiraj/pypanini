@@ -1969,3 +1969,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   upasarga list (1.4.58 prādayaḥ): ud (उद्) replaces the incorrect ut, so
   udeti/udgacchati now work instead of bare eti. `npm test` 175/175, 0
   unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 341 (continued, toward 2703/2703):** Fixed over-broad
+  8.4.1 ṇatva: the `r` of the optative middle 3p ending -ran no longer
+  retroflexes its own n (bhaveran/paceran, verified against Wiktionary
+  bháveran). `npm test` 176/176, 0 unregistered emissions. Pushed. Coverage
+  437/2703.
