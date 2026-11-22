@@ -1736,3 +1736,10 @@ test('gerundives dhātavya/sthātavya/pātavya', () => {
   assert.equal(f('sTA'), 'sTAtavya'); // sthātavya
   assert.equal(f('pA'), 'pAtavya');  // pātavya
 });
+
+test('ktvā vitvā/bitvā/rudhvā', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.KtvA })[0].text();
+  assert.equal(f('vid'), 'vitvA');  // vitvā
+  assert.equal(f('bhid'), 'bitvA'); // bitvā
+  assert.equal(f('rudh'), 'rudvA'); // rudhvā
+});
