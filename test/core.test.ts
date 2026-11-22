@@ -1878,3 +1878,11 @@ test('upasarga + saṇādi: build the stem from the bare root', () => {
   assert.equal(f('pra', 'BU', Sanadi.Yan), 'praBoBUyate');   // prabobhūyate
   assert.equal(f('pra', 'BU', Sanadi.YangLuk), 'praBoBavIti'); // prabobhavīti
 });
+
+test('ud is a valid upasarga (1.4.58 prādayaḥ)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    upasarga: 'ud', purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('i'), 'udeti');   // udeti (not bare eti)
+  assert.equal(f('gam'), 'udgacchati');
+  assert.equal(f('kf'), 'udkaroti');
+});

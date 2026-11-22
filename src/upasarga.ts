@@ -20,7 +20,7 @@ export const UPASARGAS: ReadonlyArray<{ slp1: SLP1; iast: string }> = [
   { slp1: 'api', iast: 'api' },
   { slp1: 'ati', iast: 'ati' },
   { slp1: 'su', iast: 'su' },
-  { slp1: 'ut', iast: 'ut' },
+  { slp1: 'ud', iast: 'ud' }, // 1.4.58 prādayaḥ: ud (उद्), e.g. udeti/udgacchati
   { slp1: 'aBi', iast: 'abhi' },
   { slp1: 'prati', iast: 'prati' },
   { slp1: 'pari', iast: 'pari' },
