@@ -1939,3 +1939,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   root-aorist paradigm (active amok/amucan/amocam, middle amukta/amucata/āmuci)
   from Wiktionary. `npm test` 172/172, 0 unregistered emissions. Pushed.
   Coverage 437/2703.
+
+- **2026-11-22 — Session 335 (continued, toward 2703/2703):** Fixed strī of deva
+  to devī (ṇīṣ) instead of *devā (ṭāp). `npm test` 172/172, 0 unregistered
+  emissions. Pushed. Coverage 437/2703.
