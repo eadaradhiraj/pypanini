@@ -1539,3 +1539,11 @@ test('śānan participles nayamāna/jayamāna', () => {
 test('kyap kriyā', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.Kyap })[0].text(), 'kriyA'); // kriyā
 });
+
+test('śānan gṛhyamāṇa/jñāyamāna/śrūyamāna/iyamāna', () => {
+  const s = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Sanan })[0].text();
+  assert.equal(s('grah'), 'gfhyamARa'); // gṛhyamāṇa
+  assert.equal(s('jFnA'), 'jFAyamAna'); // jñāyamāna
+  assert.equal(s('zru'), 'zrUyamARa');  // śrūyamāṇa
+  assert.equal(s('i'), 'iyamAna');      // iyamāna
+});
