@@ -1639,3 +1639,12 @@ test('class-5 ñit roots: no Y marker in finite forms', () => {
   assert.equal(f('SiY', Lakara.Lin), 'SinuyAt');  // śinuyāt
   assert.equal(f('stfY', Lakara.Lot), 'stfRnotu'); // stṛṇotu
 });
+
+test('ñit marker never leaks into finite surfaces', () => {
+  const f = (d: string, lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: lk,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('ciY', Lakara.LatN), 'acAyIt'); // ācāyīt
+  assert.equal(f('zuY', Lakara.LatN), 'asOzIt'); // asauṣīt
+  assert.ok(!f('SiY', Lakara.LatN).includes('Y')); // no indicatory Y
+  assert.ok(!f('stfY', Lakara.LatN).includes('Y'));
+});

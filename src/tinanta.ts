@@ -1612,11 +1612,13 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     return [p];
   }
   // The aorist (luṅ) uses a separate formation system; dispatch to it.
+  // Strip dhātupāṭha ñit marker Y (ciY → ci) for aorist lookup.
+  const aoristRoot = initialShatva(initialNati(dhatu.text)).replace(/Y$/, '');
   if ((args.lakara === Lakara.LatN || args.lakara === Lakara.Lang) &&
-      hasAorist(dhatu.text)) {
+      hasAorist(aoristRoot)) {
     const aoristPada = args.pada ?? dhatu.pada;
     const p = deriveAorist({
-      root: dhatu.text,
+      root: aoristRoot,
       pada: aoristPada,
       purusha: args.purusha,
       vacana: args.vacana,
@@ -1960,6 +1962,17 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     anusvaraApplied: prakriya.history.some((s) => s.rule.includes('8.3.23')),
     vikarana: vikarana.label,
   });
+  // Dhātupāṭha ñit marker Y (class-5 roots) is indicatory only — never let it
+  // leak into a derived surface form (SiYati → Sati, stfYati → stfati).
+  if (dhatu.text.endsWith('Y')) {
+    for (const term of result.terms) {
+      if (term.text.includes('Y')) {
+        term.text = term.text.replace(/Y/g, '');
+        result.collapse();
+        break;
+      }
+    }
+  }
   return [result];
 }
 

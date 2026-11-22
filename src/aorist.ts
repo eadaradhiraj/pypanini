@@ -48,6 +48,12 @@ const AORIST: Record<string, AoristEntry> = {
   // √hu s-aorist: ahauṣīt (ahOzIt) — vṛddhi u → au.
   hu: { kind: 's', stem: 'hOz', code: '3.1.43 (cli luṅi — hu s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ahOzIt' } } },
+  // √su (5P) iṣ-aorist: asauṣīt (asOzIt) — source: Wiktionary.
+  su: { kind: 'is', stem: 'sOz', code: '3.1.44 (cleḥ sic — su iṣ-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'asOzIt' } } },
+  // √ci (5P) iṣ-aorist: ācāyīt (acAyIt) — source: Wiktionary.
+  ci: { kind: 'is', stem: 'cAy', code: '3.1.44 (cleḥ sic — ci iṣ-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'acAyIt' } } },
   // √iṣ iṣ-aorist: aiṣīt (EzIt) — source: Wiktionary.
   iS: { kind: 's', stem: 'ez', code: '3.1.44 (cleḥ sic — iṣ iṣ-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'EzIt' } } },
