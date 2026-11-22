@@ -1628,3 +1628,14 @@ test('ṇvanip śrotra-vat/jñāna-vat/cayana-vat', () => {
   assert.equal(f('jFnA'), 'jFAvan'); // jñānavān
   assert.equal(f('ciY'), 'cayvan');  // cayanavān
 });
+
+test('class-5 ñit roots: no Y marker in finite forms', () => {
+  const f = (d: string, lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: lk,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('ciY', Lakara.Lin), 'cinuyAt');  // cinuyāt
+  assert.equal(f('ciY', Lakara.Lot), 'cinotu');   // cinotu
+  assert.equal(f('ciY', Lakara.Lit), 'cikAya');   // cikāya
+  assert.equal(f('zuY', Lakara.Lan), 'asunot');   // asunot
+  assert.equal(f('SiY', Lakara.Lin), 'SinuyAt');  // śinuyāt
+  assert.equal(f('stfY', Lakara.Lot), 'stfRnotu'); // stṛṇotu
+});

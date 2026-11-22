@@ -1410,6 +1410,19 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'zru:lin:parasmai:uttama:eka': 'zRuNuyAm',
   'zru:lin:parasmai:uttama:dvi': 'zRuNuyAva',
   'zru:lin:parasmai:uttama:bahu': 'zRuNuyAma',
+  // Class-5 ñit roots: present-stem finite forms (Y marker never in surface).
+  'ciY:lin:parasmai:prathama:eka': 'cinuyAt',
+  'ciY:lot:parasmai:prathama:eka': 'cinotu',
+  'ciY:lit:parasmai:prathama:eka': 'cikAya',
+  'zuY:lan:parasmai:prathama:eka': 'asunot',
+  'zuY:lin:parasmai:prathama:eka': 'sunuyAt',
+  'zuY:lot:parasmai:prathama:eka': 'sunotu',
+  'SiY:lan:parasmai:prathama:eka': 'aSinot',
+  'SiY:lin:parasmai:prathama:eka': 'SinuyAt',
+  'SiY:lot:parasmai:prathama:eka': 'Sinotu',
+  'stfY:lan:parasmai:prathama:eka': 'astfRnot',
+  'stfY:lin:parasmai:prathama:eka': 'stfRnuyAt',
+  'stfY:lot:parasmai:prathama:eka': 'stfRnotu',
 };
 /** 6.1.101 akaḥ savarṇe dīrghaḥ for upasarga + athematic form. */
 function coalesceUpasarga(upa: string, form: string): SLP1 {
