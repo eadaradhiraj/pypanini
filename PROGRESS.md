@@ -1864,3 +1864,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 315 (continued, toward 2703/2703):** Fixed ktavatu
   hitavān/sthitavān/pītavān. `npm test` 154/154. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 316 (continued, toward 2703/2703):** Fixed śānan
+  dāyamāna/sthātamāna/pāyamāna. `npm test` 155/155. Pushed. Coverage 437/2703.
