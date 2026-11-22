@@ -1879,3 +1879,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 
 - **2026-11-22 — Session 320 (continued, toward 2703/2703):** Fixed tṛn
   dadhṛ/gṛhītṛ/śrotṛ/eṣṭṛ. `npm test` 159/159. Pushed. Coverage 437/2703.
+
+- **2026-11-22 — Session 321 (continued, toward 2703/2703):** Fixed tṛc
+  dadhṛ/eṣṭṛ/mārjṭṛ/hantṛ. `npm test` 160/160. Pushed. Coverage 437/2703.
