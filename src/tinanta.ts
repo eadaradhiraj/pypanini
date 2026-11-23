@@ -115,25 +115,25 @@ function table(
 }
 
 const PARASMAI_LOT = table(
-  ['tu', 'tAm', 'antu'], ['', 'tam', 'ta'], ['Ani', 'AvaH', 'Ama'],
+  ['tu', 'tAm', 'antu'], ['', 'tam', 'ta'], ['Ani', 'Ava', 'Ama'],
 );
 const ATMANE_LOT = table(
   ['tAm', 'AtAm', 'antAm'], ['sva', 'AvAm', 'Dvam'], ['E', 'Avahai', 'Amahe'], // 3.4.93 eta ai (1s)
 );
 const PARASMAI_LAN = table(
-  ['t', 'tAm', 'an'], ['H', 'tam', 'ta'], ['m', 'vaH', 'maH'],
+  ['t', 'tAm', 'an'], ['H', 'tam', 'ta'], ['am', 'va', 'ma'], // 1s -am, 1d -āva, 1p -āma (no visarga)
 );
 const ATMANE_LAN = table(
   ['ta', 'tAm', 'anta'], ['TAH', 'AvAm', 'Dvam'], ['e', 'vahi', 'mahe'],
 );
 const PARASMAI_LIT = table(
-  ['a', 'atuH', 'uH'], ['iTa', 'aTuH', 'a'], ['a', 'va', 'ma'],
+  ['a', 'atuH', 'uH'], ['iTa', 'aTuH', 'a'], ['a', 'iva', 'ima'],
 );
 const ATMANE_LIT = table(
   ['e', 'Ate', 'ire'], ['ise', 'Athe', 'aDve'], ['e', 'vahe', 'mahe'],
 );
 const PARASMAI_LIN = table(
-  ['et', 'etAm', 'eyuH'], ['eH', 'etam', 'eta'], ['eyam', 'evaH', 'ema'],
+  ['et', 'etAm', 'eyuH'], ['eH', 'etam', 'eta'], ['eyam', 'eva', 'ema'],
 );
 const ATMANE_LIN = table(
   ['eta', 'eyAtAm', 'eran'], ['eTAH', 'eyATAm', 'edhvam'], ['e', 'evahi', 'emahe'],
@@ -251,6 +251,9 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'zru:lot:parasmai:uttama:bahu': 'zRuNavAma',
   'vac:lot:parasmai:prathama:eka': 'vaktu',
   'rudh:lot:parasmai:prathama:eka': 'rundhatu',
+  // Vidyut ashtadhyayi.com: bhū perfect 1d babhūviva, root-aorist 1s abhūvam.
+  'BU:lit:parasmai:uttama:dvi': 'baBUviva',
+  'BU:latN:parasmai:uttama:eka': 'aBUvam',
   // √śās perfect 3s śaśāsa (Wiktionary śāsti).
   'SAsu:lit:parasmai:prathama:eka': 'SaSAsa',
   // √jñā perfect jajñau (jajFau), aorist ajñāsīt handled in aorist.ts.
@@ -3263,7 +3266,7 @@ const LAKARA_CONFIG: Record<Lakara, LakaraConfig> = {
   },
   [Lakara.Lrt]: {
     parasmai: PARASMAI_LAT, atmane: ATMANE_LAT, vikarana: { label: '', surface: '' },
-    rootTransform: futureStem, doGuna: false, doOAtoAv: false, doDirgha: false,
+    rootTransform: futureStem, doGuna: false, doOAtoAv: false, doDirgha: true,
   },
   [Lakara.Lof]: {
     parasmai: PARASMAI_LOT, atmane: ATMANE_LOT, vikarana: VIKARANA_KARTARI,

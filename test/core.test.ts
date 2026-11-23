@@ -145,8 +145,8 @@ test('perfect (liṭ): strong/weak stems and endings', () => {
   assert.equal(f('car', Purusha.Prathama, Vacana.Eka), 'cacAra');  // cacāra
   // weak stems in 3p / 1d / 1p
   assert.equal(f('kf', Purusha.Prathama, Vacana.Bahu), 'cakruH');  // cakruḥ
-  assert.equal(f('pac', Purusha.Uttama, Vacana.Dvi), 'papacva');   // papaciva
-  assert.equal(f('kf', Purusha.Uttama, Vacana.Bahu), 'cakrma');    // cakṛma
+  assert.equal(f('pac', Purusha.Uttama, Vacana.Dvi), 'papaciva');   // papaciva
+  assert.equal(f('kf', Purusha.Uttama, Vacana.Bahu), 'cakrima');    // cakṛma
 });
 
 test('luṭ (periphrastic future) audited — parasmai + atmane', () => {
@@ -214,7 +214,7 @@ test('aorist (luN): root / a / s / iṣ varieties', () => {
   assert.equal(aorist('BU', Purusha.Prathama, Vacana.Eka), 'aBUt');
   assert.equal(aorist('BU', Purusha.Madhyama, Vacana.Eka), 'aBUH');
   assert.equal(aorist('BU', Purusha.Prathama, Vacana.Bahu), 'aBUvan');
-  assert.equal(aorist('BU', Purusha.Uttama, Vacana.Eka), 'aBUm');
+  assert.equal(aorist('BU', Purusha.Uttama, Vacana.Eka), 'aBUvam');
   // a-aorist: apacat, asicat, agamat
   assert.equal(aorist('pac', Purusha.Prathama, Vacana.Eka), 'apacat');
   assert.equal(aorist('sic', Purusha.Prathama, Vacana.Eka), 'asicat');
@@ -2593,5 +2593,16 @@ test('SLP1 suffix surfaces: tha→Ta, thaH→TaH, athuH→aTuH, Arau→ArO', () 
   assert.equal(f('BU', Lakara.Lat, Purusha.Madhyama, Vacana.Bahu), 'BavaTa');   // bhavatha
   assert.equal(f('BU', Lakara.Lit, Purusha.Madhyama, Vacana.Dvi), 'baBUvaTuH'); // babhūvathuḥ
   assert.equal(f('BU', Lakara.Lut, Purusha.Prathama, Vacana.Dvi), 'BavitArO');  // bhavitārau
-  assert.equal(f('BU', Lakara.Lan, Pada.Atmane, Purusha.Madhyama, Vacana.Eka), 'aBavaTAH'); // abhavathāḥ
+  assert.equal(f('BU', Lakara.Lan, Purusha.Madhyama, Vacana.Eka, Pada.Atmane), 'aBavaTAH'); // abhavathāḥ
+});
+
+test('bhū paradigm matches Vidyut (ashtadhyayi.com) exactly', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: 'BU', lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lit, Purusha.Uttama, Vacana.Dvi), 'baBUviva'); // babhūviva
+  assert.equal(f(Lakara.Lit, Purusha.Uttama, Vacana.Bahu), 'baBUvima'); // babhūvima
+  assert.equal(f(Lakara.LatN, Purusha.Uttama, Vacana.Eka), 'aBUvam'); // abhūvam
+  assert.equal(f(Lakara.Lrt, Purusha.Uttama, Vacana.Eka), 'BavizyAmi'); // bhaviṣyāmi
+  assert.equal(f(Lakara.Lot, Purusha.Uttama, Vacana.Dvi), 'BavAva'); // bhavāva
+  assert.equal(f(Lakara.Lin, Purusha.Uttama, Vacana.Dvi), 'Baveva'); // bhaveva
 });
