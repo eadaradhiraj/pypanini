@@ -2361,3 +2361,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   for 12 roots so luṭ agent nouns drop the spurious iṭ: jñātā/roddhā/vaktā/
   vartā/āptā/śaktā/hetā/metā/cetā/śetā/pavitā/lavitā (were *jñāitā etc.).
   `npm test` 245/245. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 420 (continued, toward 2703/2703):** Added luṭ stems
+  for √stṛ (startā), √śās (śāstā) and √dviṣ (dveṣṭā), replacing spurious-iṭ
+  forms *staritā/*śāsoitā/*dviṣaitā. `npm test` 246/246. Pushed. Coverage
+  437/2703.
