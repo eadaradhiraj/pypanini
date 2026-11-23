@@ -2306,3 +2306,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   conditional (lṅ) paradigms for √hi/√ji from Wiktionary áheṣyat/ajeṣyat
   (generic gave *aheizyat/*ajeizyat). `npm test` 237/237. Pushed. Coverage
   437/2703.
+
+- **2026-11-23 — Session 410 (continued, toward 2703/2703):** Added FUTURE_STEMS
+  entries `hi: hezya` and `jI: jezya`, so lṛṭ/lṅ are correct for both padas
+  (ātmane heṣyate/aheṣyata, jeṣyate/ajeṣyata), not just the overridden
+  parasmai forms. `npm test` 237/237. Pushed. Coverage 437/2703.
