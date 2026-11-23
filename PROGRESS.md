@@ -2248,3 +2248,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Global scan of all `:lan:` overrides found no other missing augments (vowel-
   initial roots √i/√iṣ/√āp correctly merge the augment). `npm test` 227/227.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 399 (continued, toward 2703/2703):** Resolved the final
+  two systematic athematic-middle flags: dhātupāṭha lists √yu (02.0027/10.0235)
+  and √ru (02.0028) as parasmai-only, so no ātmanepada forms are expected —
+  no overrides added rather than inventing unattested forms. All 2229 roots now
+  clean under the athematic-active + thematic-middle scan. `npm test` 227/227.
+  Pushed. Coverage 437/2703.
