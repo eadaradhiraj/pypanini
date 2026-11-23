@@ -2383,3 +2383,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   stems papāra/papruḥ (√pṛ), pupāva/pupuvuḥ (√pū, keyed pU after marker
   strip), lulāva/luluvuḥ (√lū, keyed lU) from Wiktionary.
   `npm test` 249/249. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 425 (continued, toward 2703/2703):** Fixed √śās
+  perfect 3s śaśāsa (was *śaśāsua). `npm test` 250/250. Pushed. Coverage
+  437/2703.
