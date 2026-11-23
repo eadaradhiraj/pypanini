@@ -2144,3 +2144,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 378 (continued, toward 2703/2703):** Fixed √dhā luṭ
   ātmane to dhātā (was *dhāitā) via the shared LUT_STEMS entry.
   `npm test` 211/211. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 379 (continued, toward 2703/2703):** Luṭ ātmane now
+  shares the verified parasmai stems for ad/vac/bhid/yuj (attā/vaktā/bhettā/
+  yoktā), replacing generic *aditā/*vacitā/*bhiditā/*yujitā.
+  `npm test` 212/212. Pushed. Coverage 437/2703.
