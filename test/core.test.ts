@@ -2621,3 +2621,11 @@ test('bhū kṛtas match Vidyut: bhava / bhāvaka', () => {
   assert.equal(f(Krt.ac), 'Bava');   // bhava
   assert.equal(f(Krt.Nvul), 'BAvaka'); // bhāvaka
 });
+
+test('√vac kṛtas with dhātupāṭha marker a (vaca)', () => {
+  const f = (k: Krt) => deriveKrdantas({ dhatu: 'vaca', krt: k })[0].text();
+  assert.equal(f(Krt.Tfc), 'vaktf');     // vaktṛ
+  assert.equal(f(Krt.Tavya), 'vaktavya'); // vaktavya
+  assert.equal(f(Krt.KtvA), 'uktvA');    // uktvā
+  assert.equal(f(Krt.Tum), 'vaktum');    // vaktum
+});
