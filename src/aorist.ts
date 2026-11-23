@@ -109,6 +109,13 @@ const AORIST: Record<string, AoristEntry> = {
   // √śak a-aorist: aśakat (3s), aśakatām (3d), aśakan (3p) — Wiktionary aśakat.
   Sak: { kind: 'a', stem: 'Sak', code: '3.1.57 (iritaḥ vā — śak a-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'aSakat' } } },
+  // √juṣ s-aorist: ajoṣīt (3s) — Wiktionary ją́ṣate/juṣáti.
+  juzI: { kind: 's', stem: 'joz', code: '3.1.44 (cleḥ sic — juṣ s-aorist)',
+    formsP: {
+      [Purusha.Prathama]: { [Vacana.Eka]: 'ajozIt', [Vacana.Dvi]: 'ajozwAm', [Vacana.Bahu]: 'ajozuH' },
+      [Purusha.Madhyama]: { [Vacana.Eka]: 'ajozIH', [Vacana.Dvi]: 'ajozwam', [Vacana.Bahu]: 'ajozwa' },
+      [Purusha.Uttama]: { [Vacana.Eka]: 'ajozam', [Vacana.Dvi]: 'ajozva', [Vacana.Bahu]: 'ajozma' },
+    } },
   // √jñā iṣ-aorist: ajñāsīt (3s) — guṇa jñā + iṣ, cf. Wiktionary jānā́ti.
   jYA: { kind: 's', stem: 'jYA', code: '3.1.44 (cleḥ sic — jñā iṣ-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajYAsIt' } } },

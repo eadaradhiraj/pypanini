@@ -2418,3 +2418,11 @@ test('√pat perfect papāta / pecuḥ (Wiktionary pátati)', () => {
   assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'pecuH');  // pecuḥ
   assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'pece');      // pece
 });
+
+test('√juṣ s-aorist ajoṣīt / ajoṣṭām / ajoṣuḥ', () => {
+  const f = (p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'juzI', lakara: Lakara.LatN, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Purusha.Prathama, Vacana.Eka), 'ajozIt');  // ajoṣīt
+  assert.equal(f(Purusha.Prathama, Vacana.Dvi), 'ajozwAm'); // ajoṣṭām
+  assert.equal(f(Purusha.Prathama, Vacana.Bahu), 'ajozuH'); // ajoṣuḥ
+});
