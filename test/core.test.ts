@@ -2739,3 +2739,10 @@ test('3.4.111 noted for laṅ only', () => {
   assert.ok(notes(Lakara.Lan).has('3.4.111'));
   assert.ok(!notes(Lakara.Lat).has('3.4.111'));
 });
+
+test('3.2.117 noted for liṭ only', () => {
+  const notes = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    lakara: lk, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Lakara.Lit).has('3.2.117'));
+  assert.ok(!notes(Lakara.Lat).has('3.2.117'));
+});

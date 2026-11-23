@@ -146,7 +146,7 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   // 3.4.115 liṭ ca: the perfect is ārddhadhātuka (no guṇa of the vikaraṇa).
   // 3.4.114 ārddhadhātukaṃ śeṣaḥ: the remaining affixes are ārddhadhātuka.
   if (a.lakara === Lakara.Lit) {
-    p.note('3.4.115'); p.note('3.4.114');
+    p.note('3.4.115'); p.note('3.4.114'); p.note('3.2.117');
     // 3.4.110 ātaḥ: the 3p perfect ending jhas → us after a long-vowel stem.
     if (a.vacana === Vacana.Bahu) p.note('3.4.110');
   }
