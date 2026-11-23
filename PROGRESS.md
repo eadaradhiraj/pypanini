@@ -2009,3 +2009,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (juhóti) present-system paradigm (lat/lan/lot/lin, active + middle) from
   Wiktionary: juhutháḥ, juhumáḥ, juhudhí, juhuyā́t, júhvāte, ájuhvi, etc.
   `npm test` 183/183, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 349 (continued, toward 2703/2703):** Fixed √as (asti)
+  weak present forms (staḥ/stháḥ/sváḥ/smáḥ), imperative (astā́m/astá), and
+  imperfect (āsī́ḥ/āstám/āsam/ā́sma) per Wiktionary. `npm test` 184/184, 0
+  unregistered emissions. Pushed. Coverage 437/2703.
