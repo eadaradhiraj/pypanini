@@ -90,6 +90,7 @@ const GUNA_DEFS: readonly string[] = [
 
 /** Sandhi sūtras noted when vowel coalescence (ekādeśa) occurred. */
 const EKADESHA_SUTRAS: readonly string[] = [
+  '6.1.2',  // ajāderdvitīyasya — asiddhavat section governing vowel sandhi here
   '1.1.9',  // tulyāsyaprayatnaṃ savarṇam
   '1.1.10', // nājjalau
   '6.1.84', // ekaḥ pūrvaparayoḥ

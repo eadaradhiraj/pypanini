@@ -2695,3 +2695,10 @@ test('3.4.67 emitted for agent kṛtas only', () => {
   assert.match(tr(Krt.Nvul), /3\.4\.67/);
   assert.doesNotMatch(tr(Krt.Tac), /3\.4\.67/);
 });
+
+test('6.1.2 noted with vowel-sandhi (ekādeśa)', () => {
+  const notes = deriveTinantas({ ...baseArgs, dhatu: 'BU', lakara: Lakara.Lat,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes.has('6.1.2'));
+  assert.ok(notes.has('6.1.84'));
+});
