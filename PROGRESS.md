@@ -2230,3 +2230,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (minīte) by regular class-9 analogy. Systematic scan of all 2229 roots for
   athematic active + thematic middle reduced suspicious roots 13 → 9.
   `npm test` 225/225. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 395 (continued, toward 2703/2703):** Added class-5
+  middle paradigms for √kṛ (kṛṇute), √vṛ (vṛṇute), √āp (āpnute), √śak
+  (śaknute, regular -nu pattern). Systematic athematic-middle scan across all
+  2229 roots now flags only 2 rare roots (√yu, √ru) — no reliable Wiktionary
+  data, left untouched rather than guessed. `npm test` 226/226. Pushed.
+  Coverage 437/2703.
