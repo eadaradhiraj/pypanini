@@ -2317,3 +2317,15 @@ test('class-7 middle voice: √rudh (rundhé) and √yuj (yuñjāte)', () => {
   assert.equal(f('yuj', Lakara.Lin, Purusha.Uttama, Vacana.Bahu), 'yuYjImahi');  // yuñjīmáhi
   assert.equal(f('yuj', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'ayuNkta');   // áyunakta
 });
+
+test('class-9/2 middle voice: √jñā (jānīte) and √brū (brūte)', () => {
+  const f = (d: string, lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: lk, pada: Pada.Atmane, purusha: p, vacana: v })[0].text();
+  assert.equal(f('jYA', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'jAnIte');   // jānīte
+  assert.equal(f('jYA', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'jAnAte');   // jānāte
+  assert.equal(f('jYA', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'ajAnIta');  // ajānīta
+  assert.equal(f('Bru', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'brUte');    // brūte
+  assert.equal(f('Bru', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'bruvAte');  // bruvāte
+  assert.equal(f('Bru', Lakara.Lot, Purusha.Uttama, Vacana.Eka), 'bravE');      // bravái
+  assert.equal(f('Bru', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'abrUta');   // abrūta
+});
