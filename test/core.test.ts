@@ -2527,3 +2527,17 @@ test('indicatory markers never leak into kvip/kvin kṛtas', () => {
   }
   assert.ok(!f('Gasx', Krt.kvip).includes('x'));
 });
+
+test('luṭ agent nouns without spurious iṭ', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lut, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('jYA'), 'jYAtA');   // jñātā
+  assert.equal(f('rudh'), 'rodDA');  // roddhā
+  assert.equal(f('Bru'), 'vaktA');   // vaktā
+  assert.equal(f('vfY'), 'vartA');   // vartā
+  assert.equal(f('Apx'), 'AptA');    // āptā
+  assert.equal(f('Sakx'), 'SaktA');  // śaktā
+  assert.equal(f('hi'), 'hetA');     // hetā
+  assert.equal(f('mIY'), 'metA');    // metā
+  assert.equal(f('pUY'), 'pavitA');  // pavitā
+});

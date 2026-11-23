@@ -175,6 +175,18 @@ const LUT_STEMS: Record<string, string> = {
   stu: 'stot',  // stotā
   han: 'hant',  // hantā
   nam: 'nant',  // nantā (m → n)
+  jYA: 'jYAt',    // jñātā (Wiktionary jñātā)
+  rudh: 'rodD',   // roddhā (√rudh)
+  Bru: 'vakt',    // vaktā (√brū, suppletive vaktṛ stem)
+  vf: 'vart',     // vartā (√vṛ)
+  Ap: 'Apt',      // āptā (√āp)
+  Sak: 'Sakt',    // śaktā (√śak)
+  hi: 'het',      // hetā (√hi, Wiktionary)
+  mI: 'met',      // metā (√mī)
+  ci: 'cet',      // cetā (√ci)
+  Si: 'Set',      // śetā (√śi)
+  pU: 'pavit',    // pavitā (√pū)
+  lU: 'lavit',    // lavitā (√lū)
 };
 function lutStem(root: string): string {
   return LUT_STEMS[root] ?? gunafy(root).text + 'it'; // fallback: guṇa + i + t
