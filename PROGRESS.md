@@ -2135,3 +2135,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   class-7 present active from Wiktionary bhinátti (bhinatsi/bhinttáḥ/bhinádmi/
   bhindmáḥ); previously only 3s/3p had athematic forms. `npm test` 209/209.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 377 (continued, toward 2703/2703):** Added the √dā
+  root-aorist middle paradigm (adita/adātām/adata/ādi/adivahi, Wiktionary adāt),
+  replacing generated *adāta/*adāanta. `npm test` 210/210. Pushed. Coverage
+  437/2703.
