@@ -2199,3 +2199,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ásāvahai/ásāmahai; sītá…sīmáhi; ā́sta/ā́sātām/ā́sata/ā́ddhvam/ā́smahi.
   Fixed 1pl imperative ásai/ásāvahai/ásāmahai (were *adE/*adAvahai/*adAmahai).
   `npm test` 221/221. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 390 (continued, toward 2703/2703):** Fixed systemic
+  `applyNatva` bug: root-final r retroflexed the n of a following tiṅ ending
+  across the theme vowel (*BaraRti/*smaraRti → Baranti/smaranti, Barante).
+  Wiktionary bhárati/smárati confirmed dental n. In-pada ṇatva (karmRA/guruRA)
+  preserved. `npm test` 222/222. Pushed. Coverage 437/2703.
