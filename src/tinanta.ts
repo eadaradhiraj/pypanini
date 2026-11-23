@@ -2089,6 +2089,24 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
     [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara);
   if (class4 && /[uI]$/.test(rootText)) rootText = rootText.slice(0, -1);
+  // 3.1.134ff: Curādi (class-10) roots take ṇic, so their present stem is
+  // guṇa(root) + ay (pūj + ay → pūjayati, cur → corayati).
+  const class10 = dhatu.gana === Gana.Curadi &&
+    (args.sanadi ?? Sanadi.None) === Sanadi.None &&
+    (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
+    [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara);
+  if (class10) {
+    const bare = /[ai]$/.test(rootText) ? rootText.slice(0, -1) : rootText;
+    // Guṇa the root's last SHORT vowel (cur → cor, mid → med); long vowels
+    // (pūj, kṣep) are already guṇa and stay unchanged.
+    let g = bare;
+    for (let i = bare.length - 1; i >= 0; i--) {
+      const short = { i: 'e', u: 'o', f: 'ar', x: 'al' }[bare[i]];
+      if (short) { g = bare.slice(0, i) + short + bare.slice(i + 1); break; }
+      if ('aA`.'.includes(bare[i])) break; // stop at a/a-like vowel
+    }
+    rootText = g + 'ay';
+  }
   // 6.4.25 (daṃśa-sañja-svañjāṃ śapi): penultimate nasal elision in the
   // present system (daśati/sajati/svajati).
   const NASAL_LOPA_SAP: Record<string, string> = { daMs: 'das', saYj: 'saj', svaYj: 'svaj', raYj: 'raj' };

@@ -2069,3 +2069,12 @@ test('class-4 indicatory ī stripped in all lakāras and kṛtas', () => {
   assert.ok(!f(Lakara.LatN).includes('I'));
   assert.equal(deriveKrdantas({ dhatu: 'nftI', krt: Krt.Nvanip })[0].text(), 'nftvan');
 });
+
+test('Curādi (class-10) roots take ṇic -ayati with guṇa', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('pUja'), 'pUjayati');  // pūjayati
+  assert.equal(f('cura'), 'corayati');  // corayati (u → o)
+  assert.equal(f('midi'), 'medayati');  // medayati (i → e)
+  assert.equal(f('kudri'), 'kodrayati');
+});
