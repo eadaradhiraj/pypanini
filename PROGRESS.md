@@ -2014,3 +2014,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   weak present forms (staḥ/stháḥ/sváḥ/smáḥ), imperative (astā́m/astá), and
   imperfect (āsī́ḥ/āstám/āsam/ā́sma) per Wiktionary. `npm test` 184/184, 0
   unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 350 (continued, toward 2703/2703):** Fixed √dā/√dhā
+  optative 1d/1p to dadyāva/dadyāma and dadhyāva/dadhyāma (were *dadyema/
+  *dadhyema) per Wiktionary. `npm test` 185/185, 0 unregistered emissions.
+  Pushed. Coverage 437/2703.
