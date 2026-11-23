@@ -2423,3 +2423,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   ā-lopa aduḥ), 7.2.11 (nī s-aorist iṭ-naṣi anaiṣīt). Registry updated only
   after each was verified in traces. `npm test` 259/259. Pushed. Coverage
   440/2703 (455/3983).
+
+- **2026-11-23 — Session 435 (continued, toward 2703/2703):** Genuinely emitted
+  1.1.53 (ṇicca — causative ṇic is ṇit) only for Sanadi.Nic derivations by
+  threading sanadi into noteTinanta. Registry updated after trace verification.
+  `npm test` 260/260. Pushed. Coverage 441/2703 (456/3983).
