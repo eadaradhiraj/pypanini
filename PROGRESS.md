@@ -2301,3 +2301,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   future from Wiktionary jeṣyati (jezyati/jezyatḥ/jezyanti) — generic iṭ gave
   *jeizyati. Together with session 407's √hi, covers the two vowel-final roots
   with Wiktionary future data. `npm test` 236/236. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 409 (continued, toward 2703/2703):** Added verified
+  conditional (lṅ) paradigms for √hi/√ji from Wiktionary áheṣyat/ajeṣyat
+  (generic gave *aheizyat/*ajeizyat). `npm test` 237/237. Pushed. Coverage
+  437/2703.
