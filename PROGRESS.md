@@ -2366,3 +2366,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   for √stṛ (startā), √śās (śāstā) and √dviṣ (dveṣṭā), replacing spurious-iṭ
   forms *staritā/*śāsoitā/*dviṣaitā. `npm test` 246/246. Pushed. Coverage
   437/2703.
+
+- **2026-11-23 — Session 421 (continued, toward 2703/2703):** Fixed √jñā
+  causative jñāpayati (was *jñāyati) and √hi causative hāyayati (was
+  *hayayati) from Wiktionary. `npm test` 247/247. Pushed. Coverage 437/2703.
