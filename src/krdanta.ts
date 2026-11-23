@@ -974,7 +974,12 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   p.insert(p.length, spec.suffix, ['krt']);
   p.record(spec.code);
 
-  p.record(`kṛt-prayoga: ${args.prayoga ?? spec.prayoga} (kāraka-vivakṣā)`);
+  const krtPrayoga = args.prayoga ?? spec.prayoga;
+  // 3.4.67 kartari kṛt: kṛt affixes express the agent when aktivam vivakṣitam.
+  if (krtPrayoga === Prayoga.Kartari) {
+    p.record('3.4.67 (kartari kṛt — kṛt-prayoga for the agent)');
+  }
+  p.record(`kṛt-prayoga: ${krtPrayoga} (kāraka-vivakṣā)`);
   p.collapse();
   // 6.1.84 ekādeśa for infix boundaries (e.g. eDa + a + mAna → eDamAna).
   const beforeEk = p.terms[0].text;

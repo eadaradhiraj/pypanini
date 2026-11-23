@@ -2688,3 +2688,10 @@ test('3.4.97 noted for parasmaipada it-lopa only', () => {
   assert.ok(notes(Pada.Parasmai).has('3.4.97'));
   assert.ok(!notes(Pada.Atmane).has('3.4.97'));
 });
+
+test('3.4.67 emitted for agent kṛtas only', () => {
+  const tr = (k: Krt) => deriveKrdantas({ dhatu: 'pac', krt: k })[0].history.map(s=>s.rule).join(' ');
+  assert.match(tr(Krt.Satr), /3\.4\.67/);
+  assert.match(tr(Krt.Nvul), /3\.4\.67/);
+  assert.doesNotMatch(tr(Krt.Tac), /3\.4\.67/);
+});
