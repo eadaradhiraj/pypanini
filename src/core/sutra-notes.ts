@@ -12,6 +12,7 @@
  */
 import type { Prakriya } from './prakriya';
 import type { Lakara, Pada, Purusha, Vacana } from './types';
+import { Sanadi } from './types';
 
 /**
  * Universal paribhāṣā / saṃjñā sūtras that govern the interpretation of every
@@ -122,6 +123,7 @@ export interface TinantaNoteArgs {
   natvaApplied?: boolean;
   anusvaraApplied?: boolean;
   vikarana?: string;
+  sanadi?: Sanadi;
 }
 
 /** Note all sūtras that genuinely govern a tiṅanta derivation. */
@@ -133,6 +135,8 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   if (a.natvaApplied) p.noteAll(NATVA_SUTRAS);
   if (p.text().includes('H')) p.noteAll(VISARGA_SUTRAS);
   if (a.anusvaraApplied || p.text().includes('M')) p.noteAll(ANUSVARA_SUTRAS);
+  // 1.1.53 ṇicca: ṇic (causative) is a ṇit affix — vṛddhi applies to the root.
+  if (a.sanadi === Sanadi.Nic) p.note('1.1.53');
   noteSandhi(p);
   // Lakāra-specific vidhāna sūtras.
   const lk = a.lakara;

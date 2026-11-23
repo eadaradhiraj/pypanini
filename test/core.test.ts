@@ -2654,3 +2654,10 @@ test('genuine sūtra emissions: 8.4.54, 6.4.108, 7.2.11', () => {
   assert.match(trace('dA', Lakara.LatN, Purusha.Prathama, Vacana.Bahu), /6\.4\.108/);
   assert.match(trace('nI', Lakara.LatN, Purusha.Prathama, Vacana.Eka), /7\.2\.11/);
 });
+
+test('1.1.53 ṇicca noted for causatives only', () => {
+  const notes = (sd: Sanadi) => deriveTinantas({ ...baseArgs, dhatu: 'kf',
+    lakara: Lakara.Lat, sanadi: sd, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Sanadi.Nic).has('1.1.53'));
+  assert.ok(!notes(Sanadi.None).has('1.1.53'));
+});

@@ -3768,6 +3768,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     natvaApplied: prakriya.history.some((s) => s.rule.includes('8.4.1') || s.rule.includes('ṇatva')),
     anusvaraApplied: prakriya.history.some((s) => s.rule.includes('8.3.23')),
     vikarana: vikarana.label,
+    sanadi: args.sanadi,
   });
   // Dhātupāṭha indicatory markers Y (class-5 ñit) and x (e.g. Apx/Sakx/mucx)
   // are not phonemes — never let them leak into a derived surface form
