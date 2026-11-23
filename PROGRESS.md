@@ -2276,3 +2276,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   plus full explicit √āp root aorist (āpāt/āpātām/āpuḥ/āpāḥ/āpatam/āpata/
   āpam/āpva/āpma) since the generic generator prepended a spurious a- to
   vowel-initial forms. `npm test` 231/231. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 404 (continued, toward 2703/2703):** Added √hi perfect
+  (liṭ) active/middle paradigms from Wiktionary hinóti: jighāya/jighatuḥ/jighúḥ
+  and jighé/jighāte/jighire (was *hahia). `npm test` 232/232. Pushed.
+  Coverage 437/2703.
