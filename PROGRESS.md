@@ -2391,3 +2391,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 426 (continued, toward 2703/2703):** Fixed perfect
   forms mimāya/mimiyuḥ (√mī) and tatāna/tatanuḥ (√tanu) from Wiktionary.
   `npm test` 251/251. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 428 (continued, toward 2703/2703):** Using the canonical
+  Vidyut form tables from ashtadhyayi.com data repo, brought the √bhū paradigm
+  to 0/81 mismatches: fixed lit 1d/1p (-iva/-ima), laṅ 1s/1d/1p (-am/-āva/-āma),
+  loṭ/liṅ 1d (no visarga), lṛṭ 1p dīrgha, luṭ 3d ArO, root-aorist 1s abhūvam.
+  `npm test` 253/253. Pushed. Coverage 437/2703.
