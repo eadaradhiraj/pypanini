@@ -2192,3 +2192,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   voice from Wiktionary atti: átte/átse/admáhe, attā́m/adátām/ádai, adītá/
   adīmáhi, átta/átthāḥ/ádmahi (were *adate/*adAtAm/*adeta/*adata etc.).
   `npm test` 220/220. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 389 (continued, toward 2703/2703):** Added full √as
+  middle-voice paradigm from Wiktionary asti (verified via expanded sa-conj tables):
+  sté/sā́te/sáte, sé/sā́the/dhvé, hé/sváhe/smáhe; stā́m/sā́tām/sátām, ásai/
+  ásāvahai/ásāmahai; sītá…sīmáhi; ā́sta/ā́sātām/ā́sata/ā́ddhvam/ā́smahi.
+  Fixed 1pl imperative ásai/ásāvahai/ásāmahai (were *adE/*adAvahai/*adAmahai).
+  `npm test` 221/221. Pushed. Coverage 437/2703.
