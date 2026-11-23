@@ -2443,3 +2443,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.97 (itaś ca lopaḥ parasmaipadeṣu) for parasmai it-lopa, absent in ātmane.
   Registry updated after trace verification. `npm test` 263/263. Pushed.
   Coverage 443/2703 (458/3983).
+
+- **2026-11-23 — Session 439 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.67 (kartari kṛt) for agent kṛtas (satr/nvul/tfc), absent for karmani
+  kṛtas (tac/tavya). Registry updated after trace verification.
+  `npm test` 264/264. Pushed. Coverage 444/2703 (459/3983).
