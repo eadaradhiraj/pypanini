@@ -2286,3 +2286,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   generic √pat perfect forms with Wiktionary-verified papāta/pecatuḥ/pecúḥ
   (active) and pece/pecāte/pecire (middle) — the generic strong stem *papat-
   was wrong throughout. `npm test` 233/233. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 406 (continued, toward 2703/2703):** Added √juṣ
+  s-aorist from Wiktionary ajoṣīt with explicit forms (generic generation gave
+  *ajozztAm with doubled ṣ). `npm test` 234/234. Pushed. Coverage 437/2703.
