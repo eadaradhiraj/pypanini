@@ -2265,3 +2265,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   iṣ-aorist ajñāsīt (ajYAsIt) using this project's SLP1 root spelling (not the
   legacy jFA variant). Dropped an uncertain √dviṣ aorist entry rather than
   guessing a form. `npm test` 229/229. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 402 (continued, toward 2703/2703):** Added √śak
+  a-aorist (aśakat/aśakatām/aśakan) from Wiktionary. Key detail: tinanta
+  strips the dhātupāṭha indicatory x before aorist lookup (Sakx → Sak), so
+  the AORIST entry is keyed `Sak`. `npm test` 230/230. Pushed. Coverage 437/2703.
