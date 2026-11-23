@@ -2083,3 +2083,14 @@ test('√diś causative is deśayati', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'diS', sanadi: Sanadi.Nic,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'deSayati');
 });
+
+test('causative guṇa/vṛddhi before ṇic (bodháyati etc.)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, sanadi: Sanadi.Nic,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('budh'), 'bodhayati'); // bodháyati (Wiktionary)
+  assert.equal(f('duh'), 'dohayati');
+  assert.equal(f('ruh'), 'rohayati');
+  assert.equal(f('sah'), 'sAhayati');   // sāhayati
+  assert.equal(f('vah'), 'vAhayati');   // vāhayati
+  assert.equal(f('ruC'), 'roCayati');   // rocayati
+});
