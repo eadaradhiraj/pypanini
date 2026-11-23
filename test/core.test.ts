@@ -2231,3 +2231,14 @@ test('√bhid class-7 imperative / imperfect (bhinddhí, ábhinat)', () => {
   assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Eka), 'abhinat');
   assert.equal(f(Lakara.Lan, Purusha.Uttama, Vacana.Bahu), 'abhindma');
 });
+
+test('√chid class-7 full present-system paradigm (chinátti)', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'Cid', lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Madhyama, Vacana.Eka), 'chinatsi');
+  assert.equal(f(Lakara.Lat, Purusha.Uttama, Vacana.Bahu), 'chindmaH');
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'acinat');
+  assert.equal(f(Lakara.Lot, Purusha.Prathama, Vacana.Eka), 'chinattu');
+  assert.equal(f(Lakara.Lot, Purusha.Madhyama, Vacana.Eka), 'chinDDi');
+  assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'chinDyAt');
+});
