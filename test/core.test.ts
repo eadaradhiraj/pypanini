@@ -2029,3 +2029,7 @@ test('indicatory markers stripped in saṇādi stems too', () => {
   assert.equal(f('mucx', Sanadi.Nic), 'mocayati');  // mocayati, not *mucxayati
   assert.equal(f('mucx', Sanadi.San), 'mumukzati'); // mumukṣati
 });
+
+test('√hu present participle is júhvat', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'hu', krt: Krt.Satr })[0].text(), 'juhvat');
+});
