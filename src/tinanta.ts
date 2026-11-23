@@ -251,6 +251,8 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'zru:lot:parasmai:uttama:bahu': 'zRuNavAma',
   'vac:lot:parasmai:prathama:eka': 'vaktu',
   'rudh:lot:parasmai:prathama:eka': 'rundhatu',
+  // √śās perfect 3s śaśāsa (Wiktionary śāsti).
+  'SAsu:lit:parasmai:prathama:eka': 'SaSAsa',
   // √jñā perfect jajñau (jajFau), aorist ajñāsīt handled in aorist.ts.
   'jFnA:lit:parasmai:prathama:eka': 'jajFau',
   // √jñā perfect ātmanepada (jajñe/jajñāte/jajñire/...), used for karmani.

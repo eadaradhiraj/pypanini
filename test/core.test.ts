@@ -2572,3 +2572,8 @@ test('perfect roots pṛ/pū/lū (Wiktionary papāra/pupāva/lulāva)', () => {
   assert.equal(f('pUY', Vacana.Eka), 'pupAva');  // pupāva
   assert.equal(f('lUY', Vacana.Eka), 'lulAva');  // lulāva
 });
+
+test('√śās perfect śaśāsa (Wiktionary śāsti)', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'SAsu', lakara: Lakara.Lit,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'SaSAsa'); // śaśāsa
+});
