@@ -2215,3 +2215,8 @@ test('class-5 cAnaS participles use the śatṛ stem', () => {
   assert.equal(f('stfY'), 'stfRvAna');
   assert.equal(f('zru'), 'zRNavAna');
 });
+
+test('cAnaS of kṛ/grah is kurvāṇa/gṛhṇāna', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.cAnaS })[0].text(), 'kurvARa');
+  assert.equal(deriveKrdantas({ dhatu: 'grah', krt: Krt.cAnaS })[0].text(), 'gfhRAna');
+});

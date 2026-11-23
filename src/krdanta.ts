@@ -359,7 +359,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
     duz: 'doz', dviS: 'dvez', yuj: 'yog', tyaj: 'tyAg', raj: 'rAg', Baj: 'BAG',
     Sram: 'SrAm', Bram: 'BrAm', klam: 'klAm',ksam: 'kzAm', tyag: 'tyAg',
   }, // +I → vikāṣī/vilāsī/doṣī/dveṣī/yogī/tyāgī/…
-  [Krt.cAnaS]: { buJ: 'buJj', biF: 'bibR', muND: 'muND', Buz: 'BuZ', yuj: 'yuNY', ciY: 'cinv', zuY: 'sunv', SiY: 'Sinv', stfY: 'stfRv', zru: 'zRNav' }, // +Ana → bhuñjāna/cinvāna/śṛṇvāna
+  [Krt.cAnaS]: { buJ: 'buJj', biF: 'bibR', muND: 'muND', Buz: 'BuZ', yuj: 'yuNY', ciY: 'cinv', zuY: 'sunv', SiY: 'Sinv', stfY: 'stfRv', zru: 'zRNav', kf: 'kurv', grah: 'gfhR' }, // +Ana → bhuñjāna/cinvāna/kurvāṇa/gṛhṇāna
   [Krt.aN]: { cint: 'cint', pUj: 'pUj', kath: 'kath', kumb: 'kumb', carc: 'carc', bhid: 'bhed' }, // cintā/pūjā; bheda (3.3.104)
   [Krt.gaNa]: { pac: 'pAk', tyaj: 'tyAg', rAj: 'rAg', bId: 'bEd', bif: 'bEd', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm', nI: 'nay', yaj: 'yAg' }, // yāga (3.3.18)
   [Krt.ap]: { BU: 'BAv', svan: 'svAn', has: 'hAs', kf: 'kar', gF: 'gar', sf: 'sar', yu: 'yav', lU: 'lav', pU: 'pav', ad: 'GAs' }, // praghasa (2.4.38)
