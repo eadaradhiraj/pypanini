@@ -2356,3 +2356,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   scans confirmed 0 indicatory marker leaks across 361,098 finite forms,
   122,595 kṛt derivations and 13,374 sanādi derivations. `npm test` 244/244.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 419 (continued, toward 2703/2703):** Added LUT_STEMS
+  for 12 roots so luṭ agent nouns drop the spurious iṭ: jñātā/roddhā/vaktā/
+  vartā/āptā/śaktā/hetā/metā/cetā/śetā/pavitā/lavitā (were *jñāitā etc.).
+  `npm test` 245/245. Pushed. Coverage 437/2703.
