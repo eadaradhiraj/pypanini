@@ -2206,3 +2206,12 @@ test('denominative iko-yaṇ sandhi (gurvayati, agnyayati, nadīyati)', () => {
   assert.equal(f('nadI', NamadhatuPratyaya.Kyac), 'nadIyati');
   assert.equal(f('guru', NamadhatuPratyaya.Kyac), 'gurvIyati');
 });
+
+test('class-5 cAnaS participles use the śatṛ stem', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.cAnaS })[0].text();
+  assert.equal(f('ciY'), 'cinvAna');
+  assert.equal(f('zuY'), 'sunvAna');
+  assert.equal(f('SiY'), 'SinvAna');
+  assert.equal(f('stfY'), 'stfRvAna');
+  assert.equal(f('zru'), 'zRNavAna');
+});
