@@ -589,6 +589,35 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // class 7 (śnam 3.1.78): √bhid→bhinatti, √chid→chinatti
   'rudh:lat:parasmai:prathama:eka': 'rundDi',   // runddhi
   'yuj:lat:atmane:prathama:eka': 'yuMkte',      // yuṅkte
+  // √ad middle voice (Wiktionary atti: átte/átse/admáhe, attā́m/ádai/
+  // adītá/adīmáhi, átta/átthāḥ/ádmahi).
+  'ad:lat:atmane:prathama:eka': 'atte',
+  'ad:lat:atmane:prathama:dvi': 'adAte',
+  'ad:lat:atmane:madhyama:eka': 'atse',
+  'ad:lat:atmane:madhyama:dvi': 'adAthe',
+  'ad:lat:atmane:uttama:dvi': 'advahi',
+  'ad:lat:atmane:uttama:bahu': 'admahi',
+  'ad:lot:atmane:prathama:eka': 'attAm',
+  'ad:lot:atmane:prathama:bahu': 'adatAm', // adátām (short a; distinct from 3d adā́tām)
+  'ad:lot:atmane:madhyama:eka': 'attsva',
+  'ad:lot:atmane:madhyama:dvi': 'adAthAm',
+  'ad:lot:atmane:uttama:bahu': 'adAmahai',
+  'ad:lin:atmane:prathama:eka': 'adIta',
+  'ad:lin:atmane:prathama:dvi': 'adIyAtAm',
+  'ad:lin:atmane:prathama:bahu': 'adIran',
+  'ad:lin:atmane:madhyama:eka': 'adIthAH',
+  'ad:lin:atmane:madhyama:dvi': 'adIyAthAm',
+  'ad:lin:atmane:madhyama:bahu': 'adIdhvam',
+  'ad:lin:atmane:uttama:eka': 'adIya',
+  'ad:lin:atmane:uttama:dvi': 'adIvahi',
+  'ad:lin:atmane:uttama:bahu': 'adImahi',
+  'ad:lan:atmane:prathama:eka': 'atta',
+  'ad:lan:atmane:prathama:dvi': 'adAtAm',
+  'ad:lan:atmane:madhyama:eka': 'atthAH',
+  'ad:lan:atmane:madhyama:dvi': 'adAthAm',
+  'ad:lan:atmane:uttama:eka': 'adi',
+  'ad:lan:atmane:uttama:dvi': 'advahi',
+  'ad:lan:atmane:uttama:bahu': 'admahi',
   // √vid middle voice (Wiktionary vitti: vitté/vidā́te/vitsé, vittā́m/
   // vidā́tām/vitsvá, vidīyá, ávidātām/ávidāthām) — generic gave *vidate etc.
   'vid:lat:atmane:prathama:eka': 'vitte',
