@@ -2352,3 +2352,16 @@ test('class-5 middle voice: √kṛ, √vṛ, √āp, √śak', () => {
   assert.equal(f('Sakx', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'Saknute'); // śaknute
   assert.equal(f('kfY', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'akfRuta'); // akṛṇuta
 });
+
+test('class-5 active paradigms: √kṛ (kṛṇóti) and √vṛ (vṛṇóti)', () => {
+  const f = (d: string, lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f('kfY', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'kfRoti');   // kṛṇoti
+  assert.equal(f('kfY', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'kfRutH');   // kṛṇutaḥ
+  assert.equal(f('kfY', Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'kfRvanti'); // kṛṇvanti
+  assert.equal(f('kfY', Lakara.Lot, Purusha.Madhyama, Vacana.Eka), 'kfRu');     // kṛṇu
+  assert.equal(f('kfY', Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'kfRuyAt');  // kṛṇuyāt
+  assert.equal(f('kfY', Lakara.Lan, Purusha.Prathama, Vacana.Bahu), 'akfRvan'); // akṛṇvan
+  assert.equal(f('vfY', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'vfRoti');   // vṛṇoti
+  assert.equal(f('vfY', Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'vfRvanti'); // vṛṇvanti
+});
