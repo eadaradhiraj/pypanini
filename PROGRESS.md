@@ -2370,3 +2370,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 421 (continued, toward 2703/2703):** Fixed √jñā
   causative jñāpayati (was *jñāyati) and √hi causative hāyayati (was
   *hayayati) from Wiktionary. `npm test` 247/247. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 422 (continued, toward 2703/2703):** Fixed √yuj
+  desiderative yuyukṣati (was *yiyujsati) from Wiktionary.
+  `npm test` 248/248. Pushed. Coverage 437/2703.
