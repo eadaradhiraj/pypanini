@@ -2044,3 +2044,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   noun of √grah to grāhin (hard n), blocking spurious 8.4.1 ṇatva across the
   r+h cluster while preserving gṛhyamāṇa/guruṇā/paceran. `npm test` 191/191,
   0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 356 (continued, toward 2703/2703):** Updated README
+  counts to match the code (55 kṛdanta suffixes, 17 subanta stem classes).
+  `npm test` 191/191. Pushed. Coverage 437/2703.
