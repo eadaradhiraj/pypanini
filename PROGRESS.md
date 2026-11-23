@@ -2458,3 +2458,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.2.116 (haśaśvator laṅ ca) for laṅ (imperfect) derivations, absent for lat.
   Registry updated after trace verification. `npm test` 266/266. Pushed.
   Coverage 446/2703 (461/3983).
+
+- **2026-11-23 — Session 442 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.98 (sa uttamasya) for first-person (uttama) endings only, absent for
+  prathama/madhyama. Registry updated after trace verification.
+  `npm test` 267/267. Pushed. Coverage 447/2703 (462/3983).
