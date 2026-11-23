@@ -2106,3 +2106,7 @@ test('explicit nic on Curādi midí does not double -ay', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'midi', sanadi: Sanadi.Nic,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'medayati');
 });
+
+test('√yuj śānac is yuñjāna', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'yuj', krt: Krt.cAnaS })[0].text(), 'yuNYAna');
+});
