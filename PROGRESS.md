@@ -2168,3 +2168,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   class-7 imperative/imperfect from Wiktionary bhinátti (bhinddhi/bhinttām/
   bhindantu/bhinadāni, abhinat/abhinttām/abhindan). `npm test` 216/216.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 384 (continued, toward 2703/2703):** Completed √chid
+  (chinátti) class-7 present-system paradigm from Wiktionary: chinatsi/chindmáḥ/
+  chinattu/chinddhí/chindyā́t, acchinat/ácchindan, etc. `npm test` 217/217.
+  Pushed. Coverage 437/2703.
