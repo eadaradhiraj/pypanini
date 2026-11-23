@@ -2732,3 +2732,10 @@ test('3.4.114 / 3.4.110 noted for liṭ', () => {
   assert.ok(!notes(Vacana.Eka).has('3.4.110'));
   assert.ok(notes(Vacana.Bahu).has('3.4.110'));
 });
+
+test('3.4.111 noted for laṅ only', () => {
+  const notes = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'nij',
+    lakara: lk, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Lakara.Lan).has('3.4.111'));
+  assert.ok(!notes(Lakara.Lat).has('3.4.111'));
+});

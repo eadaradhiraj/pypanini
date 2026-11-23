@@ -140,7 +140,7 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   // 3.4.97 itaś ca lopaḥ parasmaipadeṣu: it-lopa in parasmaipada endings.
   if (a.pada === Pada.Parasmai) p.note('3.4.97');
   // 3.2.116 haśaśvator laṅ ca: laṅ (imperfect) sanctioned for haś/ṣv-final roots.
-  if (a.lakara === Lakara.Lan) p.note('3.2.116');
+  if (a.lakara === Lakara.Lan) { p.note('3.2.116'); p.note('3.4.111'); }
   // 3.4.98 sa uttamasya: the first-person (uttama) ending is -m/-maḥ.
   if (a.purusha === Purusha.Uttama) p.note('3.4.98');
   // 3.4.115 liṭ ca: the perfect is ārddhadhātuka (no guṇa of the vikaraṇa).
