@@ -2237,3 +2237,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   2229 roots now flags only 2 rare roots (√yu, √ru) — no reliable Wiktionary
   data, left untouched rather than guessed. `npm test` 226/226. Pushed.
   Coverage 437/2703.
+
+- **2026-11-23 — Session 397 (continued, toward 2703/2703):** Completed the
+  class-5 active fix: added the missing laṅ a-augment to all 16 √kṛ/√vṛ
+  imperfect overrides (akfRutAm/akfRvan/akfRoH/… and vf equivalents). Corrected
+  session 396's test-count note. `npm test` 227/227. Pushed. Coverage 437/2703.
