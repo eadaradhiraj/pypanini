@@ -2463,3 +2463,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.98 (sa uttamasya) for first-person (uttama) endings only, absent for
   prathama/madhyama. Registry updated after trace verification.
   `npm test` 267/267. Pushed. Coverage 447/2703 (462/3983).
+
+- **2026-11-23 — Session 443 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.115 (liṭ ca — perfect is ārddhadhātuka) for liṭ only, absent for lat.
+  Registry updated after trace verification. `npm test` 268/268. Pushed.
+  Coverage 448/2703 (463/3983).
