@@ -1738,11 +1738,11 @@ test('gerundives dhātavya/sthātavya/pātavya', () => {
   assert.equal(f('pA'), 'pAtavya');  // pātavya
 });
 
-test('ktvā vitvā/bitvā/rudhvā', () => {
+test('ktvā vitvā/bitvā/ruddhvā', () => {
   const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.KtvA })[0].text();
   assert.equal(f('vid'), 'vitvA');  // vitvā
   assert.equal(f('bhid'), 'bitvA'); // bitvā
-  assert.equal(f('rudh'), 'rudvA'); // rudhvā
+  assert.equal(f('rudh'), 'rudDvA'); // ruddhvā (Wiktionary rudh)
 });
 
 test('lyuṭ dhāna/sthāna/pāna/eṣaṇa/mārjana', () => {
