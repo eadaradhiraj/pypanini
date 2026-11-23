@@ -2118,3 +2118,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (periphrastic future) of long-vowel roots to sthātā/pātā/jñātā/netā/jetā/
   śrotā (were *sthāitā/*pāitā/*jñāitā/*neitā/*jeitā/*śroiṣṭā).
   `npm test` 206/206, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 373 (continued, toward 2703/2703):** Fixed √muc luṭ
+  to moktā (was *mucitā), consistent with its mokṣya- future stem.
+  `npm test` 207/207. Pushed. Coverage 437/2703.
