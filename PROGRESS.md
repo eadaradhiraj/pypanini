@@ -2468,3 +2468,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.115 (liṭ ca — perfect is ārddhadhātuka) for liṭ only, absent for lat.
   Registry updated after trace verification. `npm test` 268/268. Pushed.
   Coverage 448/2703 (463/3983).
+
+- **2026-11-23 — Session 444 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.114 (ārddhadhātukaṃ śeṣaḥ) for liṭ and 3.4.110 (ātaḥ) for liṭ 3p.
+  Registry updated after trace verification. `npm test` 269/269. Pushed.
+  Coverage 450/2703 (465/3983).
