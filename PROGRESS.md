@@ -2374,3 +2374,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 422 (continued, toward 2703/2703):** Fixed √yuj
   desiderative yuyukṣati (was *yiyujsati) from Wiktionary.
   `npm test` 248/248. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 423 (continued, toward 2703/2703):** Re-verified
+  bundled data integrity: 2229 roots (no duplicate or malformed rows), 3984
+  unique sūtra codes. `npm test` 248/248. Pushed. Coverage 437/2703.
