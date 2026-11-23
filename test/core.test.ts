@@ -2746,3 +2746,11 @@ test('3.2.117 noted for liṭ only', () => {
   assert.ok(notes(Lakara.Lit).has('3.2.117'));
   assert.ok(!notes(Lakara.Lat).has('3.2.117'));
 });
+
+test('√jñā kṛtas jñeya / jñāpaka (Wiktionary)', () => {
+  const f = (k: Krt) => deriveKrdantas({ dhatu: 'jYA', krt: k })[0].text();
+  assert.equal(f(Krt.Yat), 'jYeya');     // jñeya
+  assert.equal(f(Krt.Nvul), 'jYApaka');  // jñāpaka
+  assert.equal(f(Krt.Tac), 'jYAta');     // jñāta
+  assert.equal(f(Krt.KtvA), 'jYAtvA');   // jñātvā
+});

@@ -320,7 +320,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Kyap]: { vid: 'vid', man: 'man', i: 'it', zi: 'zay', vraja: 'vraj', yaja: 'yaj', khan: 'khe', kf: 'kri' }, // kriyā/kheya (3.1.111)
   [Krt.Sa]: { kf: 'kriy', iz: 'icC', jFnA: 'jFAn', zru: 'zrU', ciY: 'cay', pA: 'pI', dA: 'dAn', i: 'ay', ji: 'jay', DA: 'DAn', sTA: 'sTAn', vid: 'vid', ad: 'ad', iS: 'ez', mfz: 'mArj', bhid: 'bhid', rudh: 'rudh', lab: 'lAB' }, // kriyā (3.3.100), icchā (3.3.101)
   [Krt.Nini]: { pac: 'pAc', yaj: 'yAj', gam: 'gAm', BU: 'BAv', vid: 'ved', diS: 'dez', car: 'cAr', nI: 'nAy', grah: 'grAh', gfhm: 'grAh', jFnA: 'jFAy', ji: 'jay', DA: 'dAp', ad: 'Ad', vac: 'vAc', vaca: 'vAc', iS: 'ez', mfz: 'mArj' }, // ṇini vṛddhi (3.1.134 grahādi)
-  [Krt.Nvul]: { kfY: 'kAr', hi: 'hAy', pUY: 'pAv', yA: 'yAy', pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh', nI: 'nAy', ji: 'jay', ci: 'cay', i: 'ay', kzi: 'kzay', BU: 'BAv' }, // pācaka, yājaka, jayaka, cayaka, bhāvaka (i→ay / au→āv before -aka; Vidyut)
+  [Krt.Nvul]: { jYA: 'jYAp', kfY: 'kAr', hi: 'hAy', pUY: 'pAv', yA: 'yAy', pac: 'pAc', yaj: 'yAj', dA: 'dAy', vaha: 'vAh', nI: 'nAy', ji: 'jay', ci: 'cay', i: 'ay', kzi: 'kzay', BU: 'BAv' }, // pācaka, yājaka, jayaka, cayaka, bhāvaka (i→ay / au→āv before -aka; Vidyut)
   [Krt.ac]: { kfY: 'kar', hi: 'hay', pUY: 'pav', ci: 'cay', i: 'ay', ji: 'jay', kzi: 'kzay', sf: 'sar', nI: 'nay', BU: 'Bav' }, // caya, aya, jaya, kṣaya, naya, bhava (3.3.56; Vidyut)
   [Krt.naN]: { yaj: 'yajY', yAc: 'yAcY' }, // yajña, yācñā (jñ/ñ)
   [Krt.kSnu]: { vid: 'ved' }, // vediṣṇu (guṇa before ṣṇu)
@@ -328,7 +328,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.atRn]: { jF: 'jar', jf: 'jar' },    // jarant (3.2.104)
   [Krt.NyuT]: { gAI: 'gAy' },              // gāyana (3.1.147)
   [Krt.thakan]: { gAI: 'gA' },             // gāthaka (3.1.146)
-  [Krt.Yat]: { yA: 'ye', jFnA: 'jFAn', zru: 'zrO', ciY: 'cay', gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam', f: 'ar', i: 'it', stu: 'stut', SAsu: 'Siz', vR: 'vRt', juza: 'juz', fR: 'adfRt', dA: 'de', DA: 'dhe', hA: 'he', stA: 'ste', kzi: 'kzay', ji: 'jay', kri: 'kray' }, // kṣayya/jayya/krayya (6.1.81/82)
+  [Krt.Yat]: { jYA: 'jYe', yA: 'ye', jFnA: 'jFAn', zru: 'zrO', ciY: 'cay', gada: 'gad', mada: 'mad', cara: 'car', yama: 'yam', yam: 'yam', f: 'ar', i: 'it', stu: 'stut', SAsu: 'Siz', vR: 'vRt', juza: 'juz', fR: 'adfRt', dA: 'de', DA: 'dhe', hA: 'he', stA: 'ste', kzi: 'kzay', ji: 'jay', kri: 'kray' }, // kṣayya/jayya/krayya (6.1.81/82)
   [Krt.ka]: { jYA: 'jY', prIY: 'priy', kF: 'kir' }, // jña (6.4.64), priya (prī+ka 6.1.77), kira (kṝ→kir)
   [Krt.Svun]: { nft: 'nart', khan: 'khan', raYj: 'raj' }, // nartaka/khanaka/rajaka
   [Krt.Ani]: { hi: 'hay', ni: 'nay', nI: 'nay', dviza: 'dvez', vid: 'ved', jFnA: 'jFA', i: 'ay', ji: 'jay' },  // vedanīya/jñānīya/ayayanīya
