@@ -599,6 +599,23 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'bhid:lat:parasmai:uttama:eka': 'bhinadmi',
   'bhid:lat:parasmai:uttama:dvi': 'bhindvaH',
   'bhid:lat:parasmai:uttama:bahu': 'bhindmaH',
+  // √bhid imperative / imperfect (Wiktionary bhinátti: bhinddhí, ábhinat).
+  'bhid:lot:parasmai:prathama:dvi': 'bhinttAm',
+  'bhid:lot:parasmai:prathama:bahu': 'bhindantu',
+  'bhid:lot:parasmai:madhyama:eka': 'bhinDDi',
+  'bhid:lot:parasmai:madhyama:dvi': 'bhintam',
+  'bhid:lot:parasmai:madhyama:bahu': 'bhinta',
+  'bhid:lot:parasmai:uttama:eka': 'bhinadAni',
+  'bhid:lot:parasmai:uttama:dvi': 'bhinadAva',
+  'bhid:lot:parasmai:uttama:bahu': 'bhinadAma',
+  'bhid:lan:parasmai:madhyama:eka': 'abhinat',   // 2s ábhinat (same as 3s)
+  'bhid:lan:parasmai:prathama:dvi': 'abhinttAm',
+  'bhid:lan:parasmai:prathama:bahu': 'abhindan',
+  'bhid:lan:parasmai:madhyama:dvi': 'abhinttam',
+  'bhid:lan:parasmai:madhyama:bahu': 'abhintta',
+  'bhid:lan:parasmai:uttama:eka': 'abhinadam',
+  'bhid:lan:parasmai:uttama:dvi': 'abhindva',
+  'bhid:lan:parasmai:uttama:bahu': 'abhindma',
   'Cid:lat:parasmai:prathama:eka': 'chinatti',
   'Cid:lat:parasmai:prathama:bahu': 'chindanti',
   // class 5 (śnu 3.1.73): √su→sunoti, √śi→śinoti, √stṛ→stṛṇoti

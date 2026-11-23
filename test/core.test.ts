@@ -2220,3 +2220,14 @@ test('cAnaS of kṛ/grah is kurvāṇa/gṛhṇāna', () => {
   assert.equal(deriveKrdantas({ dhatu: 'kf', krt: Krt.cAnaS })[0].text(), 'kurvARa');
   assert.equal(deriveKrdantas({ dhatu: 'grah', krt: Krt.cAnaS })[0].text(), 'gfhRAna');
 });
+
+test('√bhid class-7 imperative / imperfect (bhinddhí, ábhinat)', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'bhid', lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lot, Purusha.Madhyama, Vacana.Eka), 'bhinDDi');
+  assert.equal(f(Lakara.Lot, Purusha.Prathama, Vacana.Bahu), 'bhindantu');
+  assert.equal(f(Lakara.Lot, Purusha.Uttama, Vacana.Eka), 'bhinadAni');
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'abhinat');
+  assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Eka), 'abhinat');
+  assert.equal(f(Lakara.Lan, Purusha.Uttama, Vacana.Bahu), 'abhindma');
+});
