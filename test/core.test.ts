@@ -1946,3 +1946,16 @@ test('class-5 middle present 3d (cinvāte)', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'ciY', pada: Pada.Atmane,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'cinute'); // cinuté
 });
+
+test('class-5 middle present paradigms (cinvāte / śṛṇvāte)', () => {
+  const f = (d: string, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, pada: Pada.Atmane, purusha: p, vacana: v })[0].text();
+  assert.equal(f('ciY', Purusha.Madhyama, Vacana.Eka), 'cinuze');  // cinuṣé
+  assert.equal(f('ciY', Purusha.Uttama, Vacana.Eka), 'cinve');     // cinvé
+  assert.equal(f('ciY', Purusha.Uttama, Vacana.Bahu), 'cinmahe');  // cinmáhe
+  assert.equal(f('zru', Purusha.Prathama, Vacana.Dvi), 'zRuNvAte'); // śṛṇvā́te
+  assert.equal(f('zru', Purusha.Uttama, Vacana.Eka), 'zRuNve');    // śṛṇvé
+  assert.equal(f('zuY', Purusha.Prathama, Vacana.Bahu), 'sunvate'); // sunváte
+  assert.equal(f('SiY', Purusha.Madhyama, Vacana.Eka), 'Sinuze');  // śinuṣé
+  assert.equal(f('stfY', Purusha.Prathama, Vacana.Dvi), 'stfRnvAte'); // stṛṇvā́te
+});
