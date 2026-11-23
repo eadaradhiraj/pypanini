@@ -2177,3 +2177,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 385 (continued, toward 2703/2703):** Completed √bhid
   imperative/imperfect and √chid class-7 present-system (Wiktionary); fixed √rudh
   gerund to ruddhvā (was *rudvā). `npm test` 217/217. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 386 (continued, toward 2703/2703):** Fixed √labh middle
+  forms from Wiktionary labhate: labhetām/labhethām/labheya/labhāmahai and
+  alabhetām/alabhethām (were *labAtAm/*labAvAm/*labe/*labAmahe).
+  `npm test` 218/218. Pushed. Coverage 437/2703.
