@@ -168,7 +168,7 @@ original spelling in the reported base.
   for mutual invisibility of asiddha `when`-conditions. Ātmanepada audited for
   lat/lit/luṭ/laṅ/lṛṅ + aorist (luN, all varieties); 15 subanta stem classes.
 - **Implemented:** tiṅanta for all major lakāras, parasmai + karmani; saṇādi
-  (san/ṇic/yaṅ/yaṅluk); thirty-seven kṛdanta suffixes; subanta for 15 stem classes; nāmādhatu
+  (san/ṇic/yaṅ/yaṅluk); 55 kṛdanta suffixes; subanta for 15 stem classes; nāmādhatu
   (kyac/kāmyac/kyaṅ/ṇic + 3.1.12–18 kyaṅ types); upasargas (19 prefixes, 8.4.14
   ṇatva + 8.3.65 ṣatva); reverse declension.
   Each with prakriyā traces.
