@@ -2461,3 +2461,13 @@ test('√hi active present system fully athematic (Wiktionary hinóti)', () => {
   assert.equal(f(Lakara.Lot, Purusha.Uttama, Vacana.Eka), 'hinavAni');   // hinavāni
   assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'hinuyAt');  // hinuyāt
 });
+
+test('√jñā active present system complete (jānītaḥ, jānīmáḥ)', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'jYA', lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'jAnItH');  // jānītaḥ
+  assert.equal(f(Lakara.Lat, Purusha.Uttama, Vacana.Bahu), 'jAnImH');   // jānīmáḥ
+  assert.equal(f(Lakara.Lot, Purusha.Prathama, Vacana.Dvi), 'jAnItAm'); // jānītām
+  assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'jAnIyAt'); // jānīyāt
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Bahu), 'ajAnan'); // ajānan
+});
