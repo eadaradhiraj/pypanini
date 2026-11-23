@@ -584,8 +584,16 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // class 7 (śnam 3.1.78): √bhid→bhinatti, √chid→chinatti
   'rudh:lat:parasmai:prathama:eka': 'rundDi',   // runddhi
   'yuj:lat:atmane:prathama:eka': 'yuMkte',      // yuṅkte
+  // √bhid (class 7) present active — Wiktionary bhinátti table.
   'bhid:lat:parasmai:prathama:eka': 'bhinatti',
+  'bhid:lat:parasmai:prathama:dvi': 'bhinttaH',
   'bhid:lat:parasmai:prathama:bahu': 'bhindanti',
+  'bhid:lat:parasmai:madhyama:eka': 'bhinatsi',
+  'bhid:lat:parasmai:madhyama:dvi': 'bhintthaH',
+  'bhid:lat:parasmai:madhyama:bahu': 'bhinttha',
+  'bhid:lat:parasmai:uttama:eka': 'bhinadmi',
+  'bhid:lat:parasmai:uttama:dvi': 'bhindvaH',
+  'bhid:lat:parasmai:uttama:bahu': 'bhindmaH',
   'Cid:lat:parasmai:prathama:eka': 'chinatti',
   'Cid:lat:parasmai:prathama:bahu': 'chindanti',
   // class 5 (śnu 3.1.73): √su→sunoti, √śi→śinoti, √stṛ→stṛṇoti

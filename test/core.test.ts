@@ -2165,3 +2165,12 @@ test('luṭ stems grahītā / labdhā', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'vid', lakara: Lakara.Lut,
     pada: Pada.Atmane, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'veditA');
 });
+
+test('√bhid class-7 present paradigm (bhinátti)', () => {
+  const f = (p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs, dhatu: 'bhid',
+    purusha: p, vacana: v })[0].text();
+  assert.equal(f(Purusha.Madhyama, Vacana.Eka), 'bhinatsi');
+  assert.equal(f(Purusha.Prathama, Vacana.Dvi), 'bhinttaH');
+  assert.equal(f(Purusha.Uttama, Vacana.Eka), 'bhinadmi');
+  assert.equal(f(Purusha.Uttama, Vacana.Bahu), 'bhindmaH');
+});
