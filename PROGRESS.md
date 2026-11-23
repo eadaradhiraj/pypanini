@@ -2081,3 +2081,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   causative stems bodha-/doha-/roha-/sāha-/vāha-/roca- (√budh/√duh/√ruh/√sah/
   √vah/√ruc), replacing ungraded *budhayaati etc. `npm test` 198/198. Pushed.
   Coverage 437/2703.
+
+- **2026-11-23 — Session 364 (continued, toward 2703/2703):** Added causative
+  stems vart-/grās- for √vṛt/√gras (vartayati/grāsayati). `npm test` 199/199,
+  0 unregistered emissions. Pushed. Coverage 437/2703.
