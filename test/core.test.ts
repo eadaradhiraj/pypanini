@@ -2563,3 +2563,12 @@ test('desiderative yuyukṣati (Wiktionary yuj)', () => {
     sanadi: Sanadi.San, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(),
     'yuyukzati'); // yuyukṣati
 });
+
+test('perfect roots pṛ/pū/lū (Wiktionary papāra/pupāva/lulāva)', () => {
+  const f = (d: string, v: Vacana) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: v })[0].text();
+  assert.equal(f('pf', Vacana.Eka), 'papAra');   // papāra
+  assert.equal(f('pf', Vacana.Bahu), 'papruH');  // papruḥ
+  assert.equal(f('pUY', Vacana.Eka), 'pupAva');  // pupāva
+  assert.equal(f('lUY', Vacana.Eka), 'lulAva');  // lulāva
+});
