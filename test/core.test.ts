@@ -2303,3 +2303,17 @@ test('ṇatva does not cross vikaraṇa into tiṅ ending (bháranti, smáranti)
   assert.equal(deriveSubantas({ pratipadika: 'karman', linga: 'napumsaka',
     vibhakti: 3, vacana: 'eka' } as any)[0].text(), 'karmRA'); // karmaṇā
 });
+
+test('class-7 middle voice: √rudh (rundhé) and √yuj (yuñjāte)', () => {
+  const f = (d: string, lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: lk, pada: Pada.Atmane, purusha: p, vacana: v })[0].text();
+  assert.equal(f('rudh', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'rundDe');   // rundhé
+  assert.equal(f('rudh', Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'runDate'); // rundháte
+  assert.equal(f('rudh', Lakara.Lot, Purusha.Uttama, Vacana.Eka), 'ruRDE');      // ruṇḍhái
+  assert.equal(f('rudh', Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'runDIta');  // rundhītá
+  assert.equal(f('rudh', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'arundDa');  // árundha
+  assert.equal(f('yuj', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'yuNkte');    // yuṅkté
+  assert.equal(f('yuj', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'yuYjAte');   // yuñjā́te
+  assert.equal(f('yuj', Lakara.Lin, Purusha.Uttama, Vacana.Bahu), 'yuYjImahi');  // yuñjīmáhi
+  assert.equal(f('yuj', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'ayuNkta');   // áyunakta
+});
