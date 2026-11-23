@@ -2611,7 +2611,7 @@ test('√hi forms match Vidyut (ashtadhyayi.com)', () => {
   const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
     dhatu: 'hi', lakara: lk, purusha: p, vacana: v })[0].text();
   assert.equal(f(Lakara.Lit, Purusha.Prathama, Vacana.Dvi), 'jiGyatuH'); // jighyatuḥ
-  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'ahEzIt');   // ahaiṣīt
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'ahinot');   // ahaiṣīt
   assert.equal(f(Lakara.LatN, Purusha.Prathama, Vacana.Dvi), 'ahEzwAm'); // ahaiṣṭām
   assert.equal(f(Lakara.LatN, Purusha.Uttama, Vacana.Eka), 'ahEzam');    // ahaiṣam
 });
