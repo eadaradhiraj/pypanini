@@ -187,6 +187,9 @@ const LUT_STEMS: Record<string, string> = {
   Si: 'Set',      // śetā (√śi)
   pU: 'pavit',    // pavitā (√pū)
   lU: 'lavit',    // lavitā (√lū)
+  stf: 'start',   // startā (√stṛ, Wiktionary stṛ́)
+  SAsu: 'SAst',   // śāstā (√śās)
+  dviza: 'dvezw', // dveṣṭā (√dviṣ)
 };
 function lutStem(root: string): string {
   return LUT_STEMS[root] ?? gunafy(root).text + 'it'; // fallback: guṇa + i + t

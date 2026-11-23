@@ -2541,3 +2541,11 @@ test('luṭ agent nouns without spurious iṭ', () => {
   assert.equal(f('mIY'), 'metA');    // metā
   assert.equal(f('pUY'), 'pavitA');  // pavitā
 });
+
+test('more luṭ stems: starthā/śāstā/dveṣṭā', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lut, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('stfY'), 'startA');  // startā
+  assert.equal(f('SAsu'), 'SAstA');   // śāstā
+  assert.equal(f('dviza'), 'dvezwA'); // dveṣṭā
+});
