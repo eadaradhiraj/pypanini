@@ -2471,3 +2471,16 @@ test('√jñā active present system complete (jānītaḥ, jānīmáḥ)', () =
   assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'jAnIyAt'); // jānīyāt
   assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Bahu), 'ajAnan'); // ajānan
 });
+
+test('athematic active systems: √rudh, √yuj, √pṛ, √pū', () => {
+  const f = (d: string, lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f('rudh', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'rundDH');   // rundhāḥ? rundhatuḥ
+  assert.equal(f('rudh', Lakara.Lan, Purusha.Prathama, Vacana.Bahu), 'arunDan'); // arundhan
+  assert.equal(f('yuj', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'yuNktH');   // yuṅktaḥ
+  assert.equal(f('yuj', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'ayunak');   // ayunak
+  assert.equal(f('pf', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'pfRAti');    // pṛṇāti
+  assert.equal(f('pf', Lakara.Lan, Purusha.Prathama, Vacana.Bahu), 'apfRan');   // apṛṇan
+  assert.equal(f('pUY', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'punItH');   // punītaḥ
+  assert.equal(f('pUY', Lakara.Lan, Purusha.Uttama, Vacana.Eka), 'apunAm');    // apunām
+});
