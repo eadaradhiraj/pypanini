@@ -2253,3 +2253,15 @@ test('√labh middle-voice forms from Wiktionary labhate', () => {
   assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Dvi), 'alabetAm'); // alabhetām
   assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Dvi), 'alabethAm'); // alabhethām
 });
+
+test('√vid middle voice from Wiktionary vitti', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'vid', lakara: lk, pada: Pada.Atmane, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'vitte');   // vitté
+  assert.equal(f(Lakara.Lat, Purusha.Madhyama, Vacana.Eka), 'vitse');   // vitsé
+  assert.equal(f(Lakara.Lot, Purusha.Prathama, Vacana.Dvi), 'vidAtAm'); // vidā́tām
+  assert.equal(f(Lakara.Lin, Purusha.Uttama, Vacana.Eka), 'vidIya');    // vidīyá
+  assert.equal(f(Lakara.Lin, Purusha.Uttama, Vacana.Bahu), 'vidImahi'); // vidīmáhi
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'avitt');   // ávitta
+  assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Eka), 'avitthAH'); // ávitthāḥ
+});

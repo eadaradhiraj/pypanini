@@ -589,6 +589,24 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // class 7 (śnam 3.1.78): √bhid→bhinatti, √chid→chinatti
   'rudh:lat:parasmai:prathama:eka': 'rundDi',   // runddhi
   'yuj:lat:atmane:prathama:eka': 'yuMkte',      // yuṅkte
+  // √vid middle voice (Wiktionary vitti: vitté/vidā́te/vitsé, vittā́m/
+  // vidā́tām/vitsvá, vidīyá, ávidātām/ávidāthām) — generic gave *vidate etc.
+  'vid:lat:atmane:prathama:eka': 'vitte',
+  'vid:lat:atmane:prathama:dvi': 'vidAte',
+  'vid:lat:atmane:madhyama:eka': 'vitse',
+  'vid:lat:atmane:madhyama:dvi': 'vidAthe',
+  'vid:lot:atmane:prathama:eka': 'vittAm',
+  'vid:lot:atmane:prathama:dvi': 'vidAtAm',
+  'vid:lot:atmane:madhyama:eka': 'vitsva',
+  'vid:lot:atmane:madhyama:dvi': 'vidAthAm',
+  'vid:lot:atmane:uttama:bahu': 'vidAmahai',
+  'vid:lin:atmane:uttama:eka': 'vidIya',
+  'vid:lin:atmane:uttama:dvi': 'vidIvahi',
+  'vid:lin:atmane:uttama:bahu': 'vidImahi',
+  'vid:lan:atmane:prathama:eka': 'avitt',
+  'vid:lan:atmane:madhyama:eka': 'avitthAH',
+  'vid:lan:atmane:prathama:dvi': 'avidAtAm',
+  'vid:lan:atmane:madhyama:dvi': 'avidAthAm',
   // √labh (lab) middle-voice forms from Wiktionary labhate (labhetām/
   // labhethām/labheya, alabhetām/alabhethām) — the generic table gave
   // *labAtAm/*labAvAm/*labe/*alabatAm/*alabAvAm.
