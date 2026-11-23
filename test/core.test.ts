@@ -2043,3 +2043,11 @@ test('ṇin agent noun of √grah is grāhin (hard dental n)', () => {
 test('√ji ṇvul agent noun is jayaka (not *jeaka)', () => {
   assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.Nvul })[0].text(), 'jayaka');
 });
+
+test('i-final roots take ay before ṇvul -aka', () => {
+  const f = (d: string) => deriveKrdantas({ dhatu: d, krt: Krt.Nvul })[0].text();
+  assert.equal(f('ci'), 'cayaka');
+  assert.equal(f('i'), 'ayaka');
+  assert.equal(f('kzi'), 'kzayaka');
+  assert.equal(f('ji'), 'jayaka');
+});
