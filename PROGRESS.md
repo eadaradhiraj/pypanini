@@ -2281,3 +2281,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (liṭ) active/middle paradigms from Wiktionary hinóti: jighāya/jighatuḥ/jighúḥ
   and jighé/jighāte/jighire (was *hahia). `npm test` 232/232. Pushed.
   Coverage 437/2703.
+
+- **2026-11-23 — Session 405 (continued, toward 2703/2703):** Replaced all 18
+  generic √pat perfect forms with Wiktionary-verified papāta/pecatuḥ/pecúḥ
+  (active) and pece/pecāte/pecire (middle) — the generic strong stem *papat-
+  was wrong throughout. `npm test` 233/233. Pushed. Coverage 437/2703.
