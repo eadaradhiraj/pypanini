@@ -2130,3 +2130,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 375 (continued, toward 2703/2703):** Fixed √vid luṭ
   ātmane to veditā (was *viditā) via the shared LUT_STEMS entry.
   `npm test` 208/208. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 376 (continued, toward 2703/2703):** Completed √bhid
+  class-7 present active from Wiktionary bhinátti (bhinatsi/bhinttáḥ/bhinádmi/
+  bhindmáḥ); previously only 3s/3p had athematic forms. `npm test` 209/209.
+  Pushed. Coverage 437/2703.
