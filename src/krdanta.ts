@@ -349,7 +349,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.Du]: { viBU: 'viB', praBU: 'praB', samBU: 'samB' }, // vibhu/prabhu/sambhu (3.2.180)
   [Krt.knu]: { tras: 'tras', gFDi: 'gFd', DFzi: 'DFz', kzip: 'kziN' }, // trasnu/gṛdhnu/dhṛṣṇu/kṣiṇṇu
   [Krt.izNuc]: IZNU_STEMS, // bhaviṣṇu/rociṣṇu/sahiṣṇu/… (3.2.136/138)
-  [Krt.yuc]: { cal: 'cal', Sabd: 'Sabd', rav: 'rav', COP: 'Cop', kruD: 'kroD', maND: 'maND', As: 'As', vid: 'ved' }, // +ana → calana/krodhana/āsanā/vedanā
+  [Krt.yuc]: { BU: 'BAv', cal: 'cal', Sabd: 'Sabd', rav: 'rav', COP: 'Cop', kruD: 'kroD', maND: 'maND', As: 'As', vid: 'ved' }, // +ana → calana/krodhana/āsanā/vedanā
   [Krt.ruH2]: { dA: 'dA', si: 'sa', sad: 'sad', saD: 'saD' }, // +ru → dāru/saru/sadru
   [Krt.kurac]: { vid: 'vid', Bid: 'Bid', cid: 'cid', vyD: 'viD' }, // +ura → vidura/bhidura/chidura/vidhura
   [Krt.ghurac]: { baNj: 'baNg', BAs: 'BAs', mid: 'med' }, // +ura → bhaṅgura/bhāsura/medura
@@ -362,7 +362,7 @@ const STEM_OVERRIDE: Partial<Record<Krt, Record<string, string>>> = {
   [Krt.cAnaS]: { buJ: 'buJj', biF: 'bibR', muND: 'muND', Buz: 'BuZ', yuj: 'yuNY' }, // +Ana → bhuñjāna/bibhrāṇa/yuñjāna
   [Krt.aN]: { cint: 'cint', pUj: 'pUj', kath: 'kath', kumb: 'kumb', carc: 'carc', bhid: 'bhed' }, // cintā/pūjā; bheda (3.3.104)
   [Krt.gaNa]: { pac: 'pAk', tyaj: 'tyAg', rAj: 'rAg', bId: 'bEd', bif: 'bEd', yuj: 'yoj', BU: 'BAv', car: 'cAr', ji: 'jay', vid: 'ved', nam: 'nAm', nI: 'nay', yaj: 'yAg' }, // yāga (3.3.18)
-  [Krt.ap]: { svan: 'svAn', has: 'hAs', kf: 'kar', gF: 'gar', sf: 'sar', yu: 'yav', lU: 'lav', pU: 'pav', ad: 'GAs' }, // praghasa (2.4.38)
+  [Krt.ap]: { BU: 'BAv', svan: 'svAn', has: 'hAs', kf: 'kar', gF: 'gar', sf: 'sar', yu: 'yav', lU: 'lav', pU: 'pav', ad: 'GAs' }, // praghasa (2.4.38)
   [Krt.kaN]: { tad: 'tAdf', yad: 'yAdf', sa: 'sadf', anya: 'anyAdf' }, // +za → tādṛśa/yādṛśa/sadṛśa
   [Krt.khuKN]: { BU: 'bAv' }, // +uka → bhāvuka
   [Krt.khyun]: { kf: 'kar', BU: 'Bav' }, // karaRa (karaṇa), BavaRa (bhavaṇa)

@@ -2110,3 +2110,8 @@ test('explicit nic on Curādi midí does not double -ay', () => {
 test('√yuj śānac is yuñjāna', () => {
   assert.equal(deriveKrdantas({ dhatu: 'yuj', krt: Krt.cAnaS })[0].text(), 'yuNYAna');
 });
+
+test('√bhū ap/yuc stems are bhava/bhavana', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.ap })[0].text(), 'BAva');
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.yuc })[0].text(), 'BAvana');
+});
