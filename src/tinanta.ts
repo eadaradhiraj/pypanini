@@ -589,6 +589,44 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // class 7 (śnam 3.1.78): √bhid→bhinatti, √chid→chinatti
   'rudh:lat:parasmai:prathama:eka': 'rundDi',   // runddhi
   'yuj:lat:atmane:prathama:eka': 'yuMkte',      // yuṅkte
+  // √as middle voice (Wiktionary asti: sté/sā́te/sáte, sé/sā́the/dhvé,
+  // hé/sváhe/smáhe; stā́m/sā́tām/sátām; sītá/sīmáhi; ā́sta/ā́smahi).
+  'as:lat:atmane:prathama:eka': 'ste',
+  'as:lat:atmane:prathama:dvi': 'sAte',
+  'as:lat:atmane:prathama:bahu': 'sate',
+  'as:lat:atmane:madhyama:eka': 'se',
+  'as:lat:atmane:madhyama:dvi': 'sAthe',
+  'as:lat:atmane:madhyama:bahu': 'Dve',
+  'as:lat:atmane:uttama:eka': 'he',
+  'as:lat:atmane:uttama:dvi': 'svahe',
+  'as:lat:atmane:uttama:bahu': 'smahe',
+  'as:lot:atmane:prathama:eka': 'stAm',
+  'as:lot:atmane:prathama:dvi': 'sAtAm',
+  'as:lot:atmane:prathama:bahu': 'satAm',
+  'as:lot:atmane:madhyama:eka': 'sva',
+  'as:lot:atmane:madhyama:dvi': 'sAthAm',
+  'as:lot:atmane:madhyama:bahu': 'Dvam',
+  'as:lot:atmane:uttama:eka': 'asE',        // ásai
+  'as:lot:atmane:uttama:dvi': 'asAvahai',   // ásāvahai
+  'as:lot:atmane:uttama:bahu': 'asAmahai',  // ásāmahai
+  'as:lin:atmane:prathama:eka': 'sIta',
+  'as:lin:atmane:prathama:dvi': 'sIyAtAm',
+  'as:lin:atmane:prathama:bahu': 'sIran',
+  'as:lin:atmane:madhyama:eka': 'sIthAH',
+  'as:lin:atmane:madhyama:dvi': 'sIyAthAm',
+  'as:lin:atmane:madhyama:bahu': 'sIdhvam',
+  'as:lin:atmane:uttama:eka': 'sIya',
+  'as:lin:atmane:uttama:dvi': 'sIvahi',
+  'as:lin:atmane:uttama:bahu': 'sImahi',
+  'as:lan:atmane:prathama:eka': 'Asta',
+  'as:lan:atmane:prathama:dvi': 'AsAtAm',
+  'as:lan:atmane:prathama:bahu': 'Asata',
+  'as:lan:atmane:madhyama:eka': 'AsTAH',
+  'as:lan:atmane:madhyama:dvi': 'AsAthAm',
+  'as:lan:atmane:madhyama:bahu': 'Addhvam',
+  'as:lan:atmane:uttama:eka': 'Asi',
+  'as:lan:atmane:uttama:dvi': 'Asvahi',
+  'as:lan:atmane:uttama:bahu': 'Asmahi',
   // √ad middle voice (Wiktionary atti: átte/átse/admáhe, attā́m/ádai/
   // adītá/adīmáhi, átta/átthāḥ/ádmahi).
   'ad:lat:atmane:prathama:eka': 'atte',
@@ -795,7 +833,6 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lan:parasmai:prathama:eka': 'AsIt',
   'as:lan:parasmai:prathama:dvi': 'AstAm',
   'as:lan:parasmai:prathama:bahu': 'Asan',
-  'as:lan:atmane:prathama:eka': 'Asata',
   'as:lat:parasmai:prathama:eka': 'asti',
   'as:lat:parasmai:prathama:dvi': 'staH',    // stáḥ (Wiktionary asti)
   'as:lat:parasmai:madhyama:dvi': 'sthaH',   // stháḥ

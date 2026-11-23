@@ -2278,3 +2278,16 @@ test('√ad middle voice from Wiktionary atti', () => {
   assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'atta');    // átta
   assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Eka), 'atthAH');  // átthāḥ
 });
+
+test('√as middle voice from Wiktionary asti (sté, dhvé, hé, ā́sta)', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'as', lakara: lk, pada: Pada.Atmane, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'ste');       // sté
+  assert.equal(f(Lakara.Lat, Purusha.Madhyama, Vacana.Bahu), 'Dve');      // dhvé
+  assert.equal(f(Lakara.Lat, Purusha.Uttama, Vacana.Eka), 'he');          // hé
+  assert.equal(f(Lakara.Lot, Purusha.Uttama, Vacana.Eka), 'asE');         // ásai
+  assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'sIta');      // sītá
+  assert.equal(f(Lakara.Lin, Purusha.Uttama, Vacana.Bahu), 'sImahi');     // sīmáhi
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'Asta');      // ā́sta
+  assert.equal(f(Lakara.Lan, Purusha.Uttama, Vacana.Bahu), 'Asmahi');     // ā́smahi
+});
