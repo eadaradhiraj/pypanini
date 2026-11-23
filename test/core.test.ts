@@ -2399,3 +2399,13 @@ test('ṛ-root s-aorists and √āp root aorist', () => {
   assert.equal(aor('Apx', Purusha.Prathama, Vacana.Bahu), 'ApuH');   // āpuḥ
   assert.equal(aor('Apx', Purusha.Uttama, Vacana.Eka), 'Apam');      // āpam
 });
+
+test('√hi perfect jighāya (Wiktionary hinóti)', () => {
+  const f = (pada: Pada, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'hi', lakara: Lakara.Lit, pada, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'jiGAya'); // jighāya
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Dvi), 'jiGatuH'); // jighatuḥ
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'jiGuH');  // jighuḥ
+  assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'jiGe');      // jighé
+  assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Bahu), 'jiGire');   // jighire
+});
