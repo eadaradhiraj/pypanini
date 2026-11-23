@@ -2101,3 +2101,8 @@ test('causatives of √vṛt and √gras', () => {
   assert.equal(f('vft'), 'vartayati');
   assert.equal(f('gras'), 'grAsayati');
 });
+
+test('explicit nic on Curādi midí does not double -ay', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'midi', sanadi: Sanadi.Nic,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'medayati');
+});

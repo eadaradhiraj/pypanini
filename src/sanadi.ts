@@ -189,6 +189,7 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
         bhid: 'bhed', rudh: 'rodh', yuj: 'yoj', svap: 'svAp', // 7.2.116 vṛddhi
         budh: 'bodh', duh: 'doh', ruh: 'roh', ruC: 'roC', // guṇa before ṇic (bodhayati/dohayati)
         vft: 'vart', gras: 'grAs', // vartayati/grāsayati (guṇa/vṛddhi)
+        midi: 'med', // Curādi midí — avoid a second -ay when nic is explicit
         sah: 'sAh', vah: 'vAh', // vṛddhi a → ā (sāhayati/vāhayati)
         pf: 'pAr', stf: 'stAr', gf: 'gAr', // 7.2.115 acau ṇiti vṛddhiḥ (ṛ → ār)
         ad: 'Ad', dviS: 'dvez', diS: 'deS', vac: 'vAc', grah: 'grAh', // guṇa/vṛddhi before ṇic (deśayati)
