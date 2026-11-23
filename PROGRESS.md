@@ -2205,3 +2205,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   across the theme vowel (*BaraRti/*smaraRti → Baranti/smaranti, Barante).
   Wiktionary bhárati/smárati confirmed dental n. In-pada ṇatva (karmRA/guruRA)
   preserved. `npm test` 222/222. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 391 (continued, toward 2703/2703):** Extended the
+  tiṅ-boundary ṇatva guard from r to ṣ (z): kṣáyanti no longer *kṣáyaṇti.
+  Re-ran full unregistered-sūtra sweeps (38,880 tinanta + 13,848 kṛt/subanta
+  derivations): 0 unregistered codes. `npm test` 222/222. Pushed. Coverage
+  437/2703.
