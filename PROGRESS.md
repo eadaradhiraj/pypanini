@@ -2411,3 +2411,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 432 (continued, toward 2703/2703):** Fixed √yā kṛtas
   from Vidyut: ṇvul yāyaka (was *yāka), yat yeya (was *yāya), ghañ yāya
   (was *yā). `npm test` 257/257. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 433 (continued, toward 2703/2703):** Fixed √pū kṛtas
+  from Vidyut: pāvaka/pavitṛ/pavitavya/punat/pavitum/pava (were *pavaka/
+  *pavtṛ/*pavītavya/*pavat/*pavtum/*pūa). Kept Pāṇini 8.2.44 pūna for kta.
+  `npm test` 258/258. Pushed. Coverage 437/2703.
