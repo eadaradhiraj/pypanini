@@ -2072,3 +2072,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   roots now take the ṇic -ayati stem with guṇa of the root's last short vowel:
   pūjayati/corayati/medayati/kodrayati (were thematic *pūjati/*curati).
   `npm test` 196/196, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 362 (continued, toward 2703/2703):** Fixed √diś
+  (class 6 diśáti) causative to deśayati (guṇa i→e), was *diśayati.
+  `npm test` 197/197. Pushed. Coverage 437/2703.
