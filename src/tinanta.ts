@@ -152,6 +152,7 @@ const ATMANE_LUT = table(
 const LUT_STEMS: Record<string, string> = {
   BU: 'Bavit',  // bhavitā
   dA: 'dAt',    // dātā (no -i-)
+  DA: 'DAt',    // dhātā (also used by the atmane path)
   kf: 'kart',   // kartā
   gam: 'gant',  // gantā (m → n before t)
   sTA: 'sTAt',  // sthātā (no iṭ after long vowel)

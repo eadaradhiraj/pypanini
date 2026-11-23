@@ -2182,3 +2182,8 @@ test('√dā root-aorist middle (ádita)', () => {
   assert.equal(f(Purusha.Prathama, Vacana.Dvi), 'adAtAm');
   assert.equal(f(Purusha.Uttama, Vacana.Eka), 'adi');
 });
+
+test('√dhā luṭ ātmane is dhātā', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'DA', lakara: Lakara.Lut,
+    pada: Pada.Atmane, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'DAtA');
+});
