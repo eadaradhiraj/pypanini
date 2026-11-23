@@ -2113,3 +2113,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 371 (continued, toward 2703/2703):** Defensive fix:
   deriveTinantas now normalizes an omitted lakāra to lat so all lakāra-dependent
   branches see a concrete value. `npm test` 205/205. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 372 (continued, toward 2703/2703):** Fixed luṭ
+  (periphrastic future) of long-vowel roots to sthātā/pātā/jñātā/netā/jetā/
+  śrotā (were *sthāitā/*pāitā/*jñāitā/*neitā/*jeitā/*śroiṣṭā).
+  `npm test` 206/206, 0 unregistered emissions. Pushed. Coverage 437/2703.
