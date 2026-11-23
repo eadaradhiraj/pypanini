@@ -2080,12 +2080,13 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     rootText = anusvaraText;
   }
   // 3.1.69 divādibhyaḥ śyan — class-4 roots take the śyan (ya) vikaraṇa and
-  // drop the dhātupāṭha final -u marker in the present system.
+  // drop the dhātupāṭha final -u/-I marker in the present system
+  // (nftI → nṛtyati, trasI → trasyati, divu → dīvyati).
   const class4 = dhatu.gana === Gana.Divadi &&
     (args.sanadi ?? Sanadi.None) === Sanadi.None &&
     (args.prayoga ?? Prayoga.Kartari) === Prayoga.Kartari &&
     [Lakara.Lat, Lakara.Lot, Lakara.Lan, Lakara.Lin].includes(args.lakara);
-  if (class4 && rootText.endsWith('u')) rootText = rootText.slice(0, -1);
+  if (class4 && /[uI]$/.test(rootText)) rootText = rootText.slice(0, -1);
   // 6.4.25 (daṃśa-sañja-svañjāṃ śapi): penultimate nasal elision in the
   // present system (daśati/sajati/svajati).
   const NASAL_LOPA_SAP: Record<string, string> = { daMs: 'das', saYj: 'saj', svaYj: 'svaj', raYj: 'raj' };

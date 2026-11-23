@@ -2051,3 +2051,11 @@ test('i-final roots take ay before ṇvul -aka', () => {
   assert.equal(f('kzi'), 'kzayaka');
   assert.equal(f('ji'), 'jayaka');
 });
+
+test('class-4 roots drop indicatory final I/u (nṛtyati, trasyati)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('nftI'), 'nftyati');   // nṛtyati, not *nftayyati
+  assert.equal(f('trasI'), 'trasyati'); // trasyati, not *trasayyati
+  assert.equal(f('divu'), 'divyati');
+});
