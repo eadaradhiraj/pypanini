@@ -196,6 +196,8 @@ export function applyNatva(s: string): string {
   // labial p, nasal m, semivowel v, h/ñ/ya, and anusvāra (M) may intervene
   // between the trigger (r/ṣ/ṛ) and the n. The labial b is NOT on the list,
   // so prabhu + nā → prabhunā, but karman + nā → karmaṇā and guru → guruṇā.
+  // 8.4.2 (aṭkupvāṃ numvyavāye 'pi): vowels, gutturals (incl. h), p/v and n/m
+  // may intervene between the r/ṣ/ṛ trigger and n.
   const between = '[aAiIuUfFxXeEoOhYyvkKgGNpmvM]*'; // y = semivowel ya
   // Do not retroflex an `n` that is followed by `dh` (rundhat, bhinDati):
   // the dh cluster blocks ṇatva in these present-participle stems.
@@ -205,6 +207,9 @@ export function applyNatva(s: string): string {
       // affix itself, so it does not trigger ṇatva on its own n (bhaveran,
       // paceraṇ → bhaveran; cf. Wiktionary bháveran).
       if (trigger === 'r' && mid === 'a' && offset + _m.length === whole.length) return _m;
+      // ṇin (3.1.134 grahādiṣu) has a hard dental n even after a root-final
+      // r+h cluster: grAh+in → grāhin, never *grāhiṇ (cf. krdanta code note).
+      if (trigger === 'r' && mid.includes('h') && offset + _m.length === whole.length) return _m;
       // ṇatva is blocked when a ṣya- / śya- future marker intervenes (e.g.
       // bhaviṣyanti, kariṣyanti keep the dental n of -nti).
       if (trigger === 'z' && mid.startsWith('y')) return _m;

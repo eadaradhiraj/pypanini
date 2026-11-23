@@ -2033,3 +2033,9 @@ test('indicatory markers stripped in saṇādi stems too', () => {
 test('√hu present participle is júhvat', () => {
   assert.equal(deriveKrdantas({ dhatu: 'hu', krt: Krt.Satr })[0].text(), 'juhvat');
 });
+
+test('ṇin agent noun of √grah is grāhin (hard dental n)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'grah', krt: Krt.Nini })[0].text(), 'grAhin');
+  // Genuine ṇatva after r/h with intervening vowels still applies.
+  assert.equal(deriveKrdantas({ dhatu: 'grah', krt: Krt.SanaC })[0].text(), 'grahamARa');
+});
