@@ -1870,6 +1870,9 @@ export interface TinantaResult {
 
 /** Derive a finite-verb form matching `args`. */
 export function deriveTinantas(args: TinantaArgs): Prakriya[] {
+  // Library callers may omit lakāra; normalise once so every lakāra-dependent
+  // branch (present-system yak, lakāra labels, etc.) sees a concrete value.
+  if (args.lakara === undefined) args = { ...args, lakara: Lakara.Lat };
   const dhatu = resolveDhatu(args.dhatu);
   // bhāve (impersonal passive) is always 3s ātmane, and its forms are
   // identical to the karmani 3s. Delegate to the ordinary karmani derivation
@@ -2132,7 +2135,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   // karmāṇi (passive) always takes ātmane-pada endings.
   const pada = sanadiResult.pada ??
     ((args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani ? Pada.Atmane : args.pada ?? dhatu.pada);
-  const config = LAKARA_CONFIG[args.lakara] ?? LAKARA_CONFIG[Lakara.Lat];
+  // Default to lat when the library caller omits lakāra (the CLI always passes
+  // it), so every downstream lakāra-dependent check sees a concrete value.
+  const lakara = args.lakara ?? Lakara.Lat;
+  const config = LAKARA_CONFIG[lakara] ?? LAKARA_CONFIG[Lakara.Lat];
   const suffixTable = pada === Pada.Atmane ? config.atmane : config.parasmai;
   const suffix = suffixTable[args.purusha][args.vacana];
 

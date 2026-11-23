@@ -2138,3 +2138,4 @@ test('upasarga retained in passive aorist 3s', () => {
     prayoga: Prayoga.Karmani, lakara: Lakara.LatN,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'prAvAci');
 });
+
