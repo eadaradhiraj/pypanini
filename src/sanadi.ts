@@ -98,6 +98,7 @@ const DESIDERATIVE_STEMS: Record<string, string> = {
   ji: 'jijIza',     // ji → jijīṣa- (dīrgha in the abhyāsa)
   vid: 'vividiza',  // vid → vividiṣa-
   zru: 'zuzrUza',   // śru → śuśrūṣa- (u in the abhyāsa, dīrgha of ū)
+  yuj: 'yuyukza',   // yuj → yuyukṣa- (Wiktionary yuyukṣati)
   yaj: 'yiyakza',   // yaj → yiyakṣa- (8.2.30/36 jhal+ṣatva)
   han: 'jighAmsa',  // han → jighāṃsa-
   viz: 'viviza',    // viṣ → viviṣa-

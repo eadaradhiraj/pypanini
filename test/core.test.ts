@@ -2557,3 +2557,9 @@ test('causatives jñāpayati / hāyayati (Wiktionary)', () => {
   assert.equal(f('jYA'), 'jYApayati'); // jñāpayati
   assert.equal(f('hi'), 'hAyayati');   // hāyayati
 });
+
+test('desiderative yuyukṣati (Wiktionary yuj)', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'yuj', lakara: Lakara.Lat,
+    sanadi: Sanadi.San, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(),
+    'yuyukzati'); // yuyukṣati
+});
