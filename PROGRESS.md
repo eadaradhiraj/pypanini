@@ -2448,3 +2448,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.67 (kartari kṛt) for agent kṛtas (satr/nvul/tfc), absent for karmani
   kṛtas (tac/tavya). Registry updated after trace verification.
   `npm test` 264/264. Pushed. Coverage 444/2703 (459/3983).
+
+- **2026-11-23 — Session 440 (continued, toward 2703/2703):** Genuinely emitted
+  6.1.2 (ajāderdvitīyasya — asiddhavat section) alongside vowel sandhi/ekādeśa.
+  Registry updated after trace verification. `npm test` 265/265. Pushed.
+  Coverage 445/2703 (460/3983).
