@@ -2388,3 +2388,14 @@ test('√śak a-aorist aśakat (Wiktionary)', () => {
   assert.equal(f(Purusha.Prathama, Vacana.Dvi), 'aSakatAm'); // aśakatām
   assert.equal(f(Purusha.Prathama, Vacana.Bahu), 'aSakan');   // aśakan
 });
+
+test('ṛ-root s-aorists and √āp root aorist', () => {
+  const aor = (d: string, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: Lakara.LatN, purusha: p, vacana: v })[0].text();
+  assert.equal(aor('vfY', Purusha.Prathama, Vacana.Eka), 'avArzIt'); // avārṣīt
+  assert.equal(aor('vfY', Purusha.Prathama, Vacana.Bahu), 'avArzuH'); // avārṣuḥ
+  assert.equal(aor('pf', Purusha.Prathama, Vacana.Eka), 'apArzIt');  // apārṣīt
+  assert.equal(aor('Apx', Purusha.Prathama, Vacana.Eka), 'ApAt');    // āpāt
+  assert.equal(aor('Apx', Purusha.Prathama, Vacana.Bahu), 'ApuH');   // āpuḥ
+  assert.equal(aor('Apx', Purusha.Uttama, Vacana.Eka), 'Apam');      // āpam
+});

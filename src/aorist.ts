@@ -125,6 +125,17 @@ const AORIST: Record<string, AoristEntry> = {
   gam: { kind: 'a', stem: 'gam' },
   // s-aorist of kṛ: akārṣīt (a + kār + ṣ + īt)
   kf: { kind: 's', stem: 'kAr' },
+  // s-aorist of vṛ (class 5): avārṣīt — parallel to kf above.
+  vf: { kind: 's', stem: 'vAr', code: '3.1.44 (cleḥ sic — vṛ s-aorist)' },
+  // s-aorist of pṛ (class 3): apārṣīt — ṛ-root vṛddhi, parallel to kf above.
+  pf: { kind: 's', stem: 'pAr', code: '3.1.44 (cleḥ sic — pṛ s-aorist)' },
+  // root aorist of āp (class 5): āpāt — parallel to pA above.
+  Ap: { kind: 'root', stem: 'Ap', code: '2.4.77 (sic-lopa — āpāt)',
+    formsP: {
+      [Purusha.Prathama]: { [Vacana.Eka]: 'ApAt', [Vacana.Dvi]: 'ApAtAm', [Vacana.Bahu]: 'ApuH' },
+      [Purusha.Madhyama]: { [Vacana.Eka]: 'ApAH', [Vacana.Dvi]: 'Apatam', [Vacana.Bahu]: 'Apata' },
+      [Purusha.Uttama]: { [Vacana.Eka]: 'Apam', [Vacana.Dvi]: 'Apva', [Vacana.Bahu]: 'Apma' },
+    } },
   // a-aorist of bhid: abhidat (3.1.57 vārttika)
   bhid: { kind: 'a', stem: 'bhid', code: '3.1.57 (iritaḥ vā — bhid a-aorist)' },
   // a-aorist of vid (3.4.109 jus: aviduḥ)
