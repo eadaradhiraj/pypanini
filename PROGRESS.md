@@ -2173,3 +2173,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (chinátti) class-7 present-system paradigm from Wiktionary: chinatsi/chindmáḥ/
   chinattu/chinddhí/chindyā́t, acchinat/ácchindan, etc. `npm test` 217/217.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 385 (continued, toward 2703/2703):** Completed √bhid
+  imperative/imperfect and √chid class-7 present-system (Wiktionary); fixed √rudh
+  gerund to ruddhvā (was *rudvā). `npm test` 217/217. Pushed. Coverage 437/2703.
