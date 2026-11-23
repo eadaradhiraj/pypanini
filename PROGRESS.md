@@ -2296,3 +2296,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   generic iṭ insertion gave *heizyati. Noted the same systemic iṭ issue affects
   other vowel-final roots (jI/mIY/pUY/lUY) but left them pending source checks.
   `npm test` 235/235. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 408 (continued, toward 2703/2703):** Fixed √ji simple
+  future from Wiktionary jeṣyati (jezyati/jezyatḥ/jezyanti) — generic iṭ gave
+  *jeizyati. Together with session 407's √hi, covers the two vowel-final roots
+  with Wiktionary future data. `npm test` 236/236. Pushed. Coverage 437/2703.
