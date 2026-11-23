@@ -2441,3 +2441,11 @@ test('√ji future jeṣyati (Wiktionary)', () => {
   assert.equal(f(Purusha.Prathama, Vacana.Eka), 'jezyati');  // jeṣyati
   assert.equal(f(Purusha.Prathama, Vacana.Bahu), 'jezyanti'); // jeṣyanti
 });
+
+test('conditionals aheṣyat / ajeṣyat (Wiktionary)', () => {
+  const f = (d: string, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: Lakara.Lng, purusha: p, vacana: v })[0].text();
+  assert.equal(f('hi', Purusha.Prathama, Vacana.Eka), 'ahezyat');  // aheṣyat
+  assert.equal(f('hi', Purusha.Prathama, Vacana.Bahu), 'ahezyan'); // aheṣyan
+  assert.equal(f('jI', Purusha.Prathama, Vacana.Eka), 'ajezyat');  // ajeṣyat
+});
