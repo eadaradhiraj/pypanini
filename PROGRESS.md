@@ -2057,3 +2057,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   roots before ṇvul -aka to use ay (cayaka/ayaka/kṣayaka/jayaka), matching the
   3.3.56 ac overrides. `npm test` 193/193, 0 unregistered emissions. Pushed.
   Coverage 437/2703.
+
+- **2026-11-23 — Session 359 (continued, toward 2703/2703):** Class-4 roots now
+  drop indicatory final I as well as u (nftI → nṛtyati, trasI → trasyati,
+  previously *nftayyati/*trasayyati). `npm test` 194/194, 0 unregistered
+  emissions. Pushed. Coverage 437/2703.
