@@ -193,8 +193,8 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
         sah: 'sAh', vah: 'vAh', // vṛddhi a → ā (sāhayati/vāhayati)
         pf: 'pAr', stf: 'stAr', gf: 'gAr', // 7.2.115 acau ṇiti vṛddhiḥ (ṛ → ār)
         ad: 'Ad', dviS: 'dvez', diS: 'deS', vac: 'vAc', grah: 'grAh', // guṇa/vṛddhi before ṇic (deśayati)
-        pA: 'pAy', sTA: 'sTAp', jFnA: 'jFAp', fR: 'arp', // puk/dīrgha causatives
-        DA: 'DAp', muc: 'moc', iS: 'ez', mfz: 'mArj', lab: 'lamB', // source-backed causatives
+        pA: 'pAy', sTA: 'sTAp', jFnA: 'jFAp', jYA: 'jYAp', fR: 'arp', // puk/dīrgha causatives (jñāpayati, Wiktionary)
+        DA: 'DAp', muc: 'moc', iS: 'ez', mfz: 'mArj', lab: 'lamB', hi: 'hAy', // source-backed causatives (hāyayati, Wiktionary)
       };
       let r = CAUSATIVE_STEMS[root] ?? root;
       const c = r.slice(-1);

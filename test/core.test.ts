@@ -2549,3 +2549,11 @@ test('more luṭ stems: starthā/śāstā/dveṣṭā', () => {
   assert.equal(f('SAsu'), 'SAstA');   // śāstā
   assert.equal(f('dviza'), 'dvezwA'); // dveṣṭā
 });
+
+test('causatives jñāpayati / hāyayati (Wiktionary)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lat, sanadi: Sanadi.Nic, purusha: Purusha.Prathama,
+    vacana: Vacana.Eka })[0].text();
+  assert.equal(f('jYA'), 'jYApayati'); // jñāpayati
+  assert.equal(f('hi'), 'hAyayati');   // hāyayati
+});
