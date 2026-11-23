@@ -2223,3 +2223,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   paradigms (lat/lot/lin/lan × 9) for √jñā (jānīte/jānāte/ajānīta) and √brū
   (brūte/bruvāte/bravái/abrūta), verified via Wiktionary expandtemplates.
   `npm test` 224/224. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 394 (continued, toward 2703/2703):** Added full middle
+  paradigms for √pṛ (pṛṇīte), √pū (punīte), √lū (lunīte), √hi (hinute),
+  √dviṣ (dviṣṭe), √śās (śāste) from Wiktionary expandtemplates, plus √mī
+  (minīte) by regular class-9 analogy. Systematic scan of all 2229 roots for
+  athematic active + thematic middle reduced suspicious roots 13 → 9.
+  `npm test` 225/225. Pushed. Coverage 437/2703.
