@@ -2702,3 +2702,10 @@ test('6.1.2 noted with vowel-sandhi (ekādeśa)', () => {
   assert.ok(notes.has('6.1.2'));
   assert.ok(notes.has('6.1.84'));
 });
+
+test('3.2.116 noted for laṅ', () => {
+  const notes = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'nij',
+    lakara: lk, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Lakara.Lan).has('3.2.116'));
+  assert.ok(!notes(Lakara.Lat).has('3.2.116'));
+});

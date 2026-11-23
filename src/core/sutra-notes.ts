@@ -11,8 +11,8 @@
  * present in the derivation — no code is registered without a real emission.
  */
 import type { Prakriya } from './prakriya';
-import type { Lakara, Purusha, Vacana } from './types';
-import { Pada, Sanadi } from './types';
+import type { Purusha, Vacana } from './types';
+import { Lakara, Pada, Sanadi } from './types';
 
 /**
  * Universal paribhāṣā / saṃjñā sūtras that govern the interpretation of every
@@ -140,6 +140,8 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   if (a.sanadi === Sanadi.Nic) p.note('1.1.53');
   // 3.4.97 itaś ca lopaḥ parasmaipadeṣu: it-lopa in parasmaipada endings.
   if (a.pada === Pada.Parasmai) p.note('3.4.97');
+  // 3.2.116 haśaśvator laṅ ca: laṅ (imperfect) sanctioned for haś/ṣv-final roots.
+  if (a.lakara === Lakara.Lan) p.note('3.2.116');
   noteSandhi(p);
   // Lakāra-specific vidhāna sūtras.
   const lk = a.lakara;
