@@ -2387,3 +2387,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 425 (continued, toward 2703/2703):** Fixed √śās
   perfect 3s śaśāsa (was *śaśāsua). `npm test` 250/250. Pushed. Coverage
   437/2703.
+
+- **2026-11-23 — Session 426 (continued, toward 2703/2703):** Fixed perfect
+  forms mimāya/mimiyuḥ (√mī) and tatāna/tatanuḥ (√tanu) from Wiktionary.
+  `npm test` 251/251. Pushed. Coverage 437/2703.
