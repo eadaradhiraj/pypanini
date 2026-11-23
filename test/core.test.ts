@@ -2197,3 +2197,12 @@ test('luṭ ātmane shares parasmai stems for ad/vac/bhid/yuj', () => {
   assert.equal(f('bhid'), 'bhettA');
   assert.equal(f('yuj'), 'yoktA');
 });
+
+test('denominative iko-yaṇ sandhi (gurvayati, agnyayati, nadīyati)', () => {
+  const f = (w: string, pr: NamadhatuPratyaya) => deriveNamadhatus({
+    pratipadika: w, pratyaya: pr })[0].text();
+  assert.equal(f('guru', NamadhatuPratyaya.Nic), 'gurvayati');
+  assert.equal(f('agni', NamadhatuPratyaya.Nic), 'agnyayati');
+  assert.equal(f('nadI', NamadhatuPratyaya.Kyac), 'nadIyati');
+  assert.equal(f('guru', NamadhatuPratyaya.Kyac), 'gurvIyati');
+});

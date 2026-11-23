@@ -166,6 +166,23 @@ function coalesce(stem: SLP1, suffix: SLP1): SLP1 {
   if (stem.endsWith('A') && suffix.startsWith('A')) {
     return stem + suffix.slice(1); // ā + ā → ā (ekādeśa)
   }
+  // 6.1.77 (iko yaṇ aci): i/ī + vowel → y, u/ū + vowel → v.
+  const last = stem.slice(-1);
+  if (suffix.length && vowels.includes(suffix[0])) {
+    if (last === 'i' || last === 'I') {
+      // ī + ī / ī + i coalesce to ī (ekādeśa) — nadī + īya → nadīya.
+      if (last === 'I' && (suffix[0] === 'I' || suffix[0] === 'i')) {
+        return stem.slice(0, -1) + suffix;
+      }
+      return stem.slice(0, -1) + 'y' + suffix; // guru?-> no: i→y
+    }
+    if (last === 'u' || last === 'U') {
+      if (last === 'U' && (suffix[0] === 'U' || suffix[0] === 'u')) {
+        return stem.slice(0, -1) + suffix;
+      }
+      return stem.slice(0, -1) + 'v' + suffix;
+    }
+  }
   return stem + suffix;
 }
 
