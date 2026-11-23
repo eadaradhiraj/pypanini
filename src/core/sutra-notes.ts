@@ -11,8 +11,7 @@
  * present in the derivation — no code is registered without a real emission.
  */
 import type { Prakriya } from './prakriya';
-import type { Vacana } from './types';
-import { Lakara, Pada, Purusha, Sanadi } from './types';
+import { Lakara, Pada, Purusha, Sanadi, Vacana } from './types';
 
 /**
  * Universal paribhāṣā / saṃjñā sūtras that govern the interpretation of every
@@ -145,7 +144,12 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   // 3.4.98 sa uttamasya: the first-person (uttama) ending is -m/-maḥ.
   if (a.purusha === Purusha.Uttama) p.note('3.4.98');
   // 3.4.115 liṭ ca: the perfect is ārddhadhātuka (no guṇa of the vikaraṇa).
-  if (a.lakara === Lakara.Lit) p.note('3.4.115');
+  // 3.4.114 ārddhadhātukaṃ śeṣaḥ: the remaining affixes are ārddhadhātuka.
+  if (a.lakara === Lakara.Lit) {
+    p.note('3.4.115'); p.note('3.4.114');
+    // 3.4.110 ātaḥ: the 3p perfect ending jhas → us after a long-vowel stem.
+    if (a.vacana === Vacana.Bahu) p.note('3.4.110');
+  }
   noteSandhi(p);
   // Lakāra-specific vidhāna sūtras.
   const lk = a.lakara;
