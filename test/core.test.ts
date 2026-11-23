@@ -2119,3 +2119,13 @@ test('√bhū ap/yuc stems are bhava/bhavana', () => {
 test('√ji śānac is jayamāna', () => {
   assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.SanaC })[0].text(), 'jayamAna');
 });
+
+test('upasarga is retained in karmani passive stems', () => {
+  const f = (upa: string, d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    upasarga: upa, prayoga: Prayoga.Karmani,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('pra', 'gam'), 'pragamyate');
+  assert.equal(f('sam', 'pac'), 'saMpacyate');
+  assert.equal(f('vi', 'kf'), 'vikriyate');
+  assert.equal(f('anu', 'dA'), 'anudIyate');
+});

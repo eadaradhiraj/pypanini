@@ -2237,7 +2237,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       }
     : undefined;
   const rootOverride = args.prayoga === Prayoga.Karmani && passivePresent
-    ? (PASSIVE_STEMS[dhatu.text] ?? sanadiResult.root)
+    ? (PASSIVE_STEMS[dhatu.text]
+        ? (upasargaArg && isUpasarga(upasargaArg)
+            ? coalesceUpasarga(upasargaArg, PASSIVE_STEMS[dhatu.text])
+            : PASSIVE_STEMS[dhatu.text])
+        : sanadiResult.root) // rootText already carries any upasarga
     : args.lakara === Lakara.Lin && dhatu.text === 'han' && (args.sanadi ?? Sanadi.None) === Sanadi.None
       ? 'vad' // 2.4.42 (hano vada liNi — vadet)
       : upasargaStem
