@@ -2374,3 +2374,9 @@ test('√hi s-aorist ahaiṣīt (Wiktionary hinóti)', () => {
   assert.equal(f(Vacana.Dvi), 'ahEztAm'); // ahaiṣṭām
   assert.equal(f(Vacana.Bahu), 'ahEzuH'); // ahaiṣuḥ
 });
+
+test('√jñā iṣ-aorist ajñāsīt', () => {
+  const r = deriveAorist({ root: 'jYA', pada: Pada.Parasmai,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka });
+  assert.equal(r!.text(), 'ajYAsIt'); // ajñāsīt
+});
