@@ -2174,3 +2174,11 @@ test('√bhid class-7 present paradigm (bhinátti)', () => {
   assert.equal(f(Purusha.Uttama, Vacana.Eka), 'bhinadmi');
   assert.equal(f(Purusha.Uttama, Vacana.Bahu), 'bhindmaH');
 });
+
+test('√dā root-aorist middle (ádita)', () => {
+  const f = (p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs, dhatu: 'dA',
+    lakara: Lakara.LatN, pada: Pada.Atmane, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Purusha.Prathama, Vacana.Eka), 'adita');
+  assert.equal(f(Purusha.Prathama, Vacana.Dvi), 'adAtAm');
+  assert.equal(f(Purusha.Uttama, Vacana.Eka), 'adi');
+});

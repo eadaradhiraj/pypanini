@@ -38,7 +38,13 @@ const AORIST: Record<string, AoristEntry> = {
   pA: { kind: 'root', stem: 'pA', code: '2.4.77 (sic-lopa — apāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'apAt', [Vacana.Bahu]: 'apuH' } } },
   // √dā (3P) root aorist: adāt (adAt), 3p aduḥ (aduH) — 6.4.108 ā-lopa
   // before the jus ending uḥ; parallel to adhāt/adhuḥ (Wiktionary).
-  dA: { kind: 'root', stem: 'dA', code: '2.4.77 (sic-lopa — adāt)', formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'adAt', [Vacana.Bahu]: 'aduH' } } },
+  dA: { kind: 'root', stem: 'dA', code: '2.4.77 (sic-lopa — adāt)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'adAt', [Vacana.Bahu]: 'aduH' } },
+    formsA: {
+      [Purusha.Prathama]: { [Vacana.Eka]: 'adita', [Vacana.Dvi]: 'adAtAm', [Vacana.Bahu]: 'adata' },
+      [Purusha.Madhyama]: { [Vacana.Eka]: 'adithAH', [Vacana.Dvi]: 'adAthAm', [Vacana.Bahu]: 'adidhvam' },
+      [Purusha.Uttama]: { [Vacana.Eka]: 'adi', [Vacana.Dvi]: 'adivahi', [Vacana.Bahu]: 'adimahi' },
+    } },
   // √yaj s-aorist: ayākṣīt (ayAkzIt) — source: bhagavadgita.org.in.
   yaj: { kind: 's', stem: 'yAkz', code: '3.1.43 (cli luṅi — yaj s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ayAkzIt' } } },
