@@ -2378,3 +2378,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 423 (continued, toward 2703/2703):** Re-verified
   bundled data integrity: 2229 roots (no duplicate or malformed rows), 3984
   unique sūtra codes. `npm test` 248/248. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 424 (continued, toward 2703/2703):** Added perfect
+  stems papāra/papruḥ (√pṛ), pupāva/pupuvuḥ (√pū, keyed pU after marker
+  strip), lulāva/luluvuḥ (√lū, keyed lU) from Wiktionary.
+  `npm test` 249/249. Pushed. Coverage 437/2703.
