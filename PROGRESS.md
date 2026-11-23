@@ -2035,3 +2035,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   stems (mucx → mucati/mukta/mocayati, Apx → Apta not *Apxta); added verified
   class-5 strong forms āpnoti/śaknoti/kṛṇoti/vṛṇoti (Apx/Sakx/kfY/vfY).
   `npm test` 189/189, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 354 (continued, toward 2703/2703):** Stripped indicatory
+  x in aorist root lookup; fixed √hu śatṛ to júhvat (was *havat).
+  `npm test` 190/190, 0 unregistered emissions. Pushed. Coverage 437/2703.
