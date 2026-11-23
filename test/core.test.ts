@@ -2629,3 +2629,10 @@ test('√vac kṛtas with dhātupāṭha marker a (vaca)', () => {
   assert.equal(f(Krt.KtvA), 'uktvA');    // uktvā
   assert.equal(f(Krt.Tum), 'vaktum');    // vaktum
 });
+
+test('√yā kṛtas match Vidyut: yāyaka / yeya / yāya', () => {
+  const f = (k: Krt) => deriveKrdantas({ dhatu: 'yA', krt: k })[0].text();
+  assert.equal(f(Krt.Nvul), 'yAyaka'); // yāyaka
+  assert.equal(f(Krt.Yat), 'yeya');    // yeya
+  assert.equal(f(Krt.ghaH), 'yAya');   // yāya
+});
