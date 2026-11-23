@@ -2115,3 +2115,7 @@ test('√bhū ap/yuc stems are bhava/bhavana', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.ap })[0].text(), 'BAva');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.yuc })[0].text(), 'BAvana');
 });
+
+test('√ji śānac is jayamāna', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.SanaC })[0].text(), 'jayamAna');
+});
