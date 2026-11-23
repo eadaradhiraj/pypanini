@@ -2211,3 +2211,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Re-ran full unregistered-sūtra sweeps (38,880 tinanta + 13,848 kṛt/subanta
   derivations): 0 unregistered codes. `npm test` 222/222. Pushed. Coverage
   437/2703.
+
+- **2026-11-23 — Session 392 (continued, toward 2703/2703):** Added full class-7
+  middle-voice paradigms (lat/lot/lin/lan × 9 = 36 forms each) for √rudh
+  (rundhé/rundháte/ruṇḍhái/rundhītá/árundha) and √yuj (yuṅkté/yuñjā́te/
+  yuñjīmáhi/áyunakta), verified via Wiktionary expandtemplates. Fixed the
+  stale yuj 3s override *yuMkte → yuNkte (ङ, not anusvāra). `npm test` 223/223.
+  Pushed. Coverage 437/2703.
