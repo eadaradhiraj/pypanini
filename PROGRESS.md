@@ -2076,3 +2076,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 362 (continued, toward 2703/2703):** Fixed √diś
   (class 6 diśáti) causative to deśayati (guṇa i→e), was *diśayati.
   `npm test` 197/197. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 363 (continued, toward 2703/2703):** Added source-backed
+  causative stems bodha-/doha-/roha-/sāha-/vāha-/roca- (√budh/√duh/√ruh/√sah/
+  √vah/√ruc), replacing ungraded *budhayaati etc. `npm test` 198/198. Pushed.
+  Coverage 437/2703.
