@@ -2105,3 +2105,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   being dropped in karmani passives (pragamyate/saṃpacyate/vikriyate/anudīyate,
   previously bare gamyate/pacyate/...). `npm test` 204/204, 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 370 (continued, toward 2703/2703):** Fixed upasarga
+  being dropped in passive aorist 3s (anu+dā → anvadāyi, pra+vac → prāvāci).
+  `npm test` 205/205, 0 unregistered emissions. Pushed. Coverage 437/2703.
