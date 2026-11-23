@@ -2039,3 +2039,7 @@ test('ṇin agent noun of √grah is grāhin (hard dental n)', () => {
   // Genuine ṇatva after r/h with intervening vowels still applies.
   assert.equal(deriveKrdantas({ dhatu: 'grah', krt: Krt.SanaC })[0].text(), 'grahamARa');
 });
+
+test('√ji ṇvul agent noun is jayaka (not *jeaka)', () => {
+  assert.equal(deriveKrdantas({ dhatu: 'ji', krt: Krt.Nvul })[0].text(), 'jayaka');
+});
