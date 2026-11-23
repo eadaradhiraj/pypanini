@@ -2478,3 +2478,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.111 (laṇaḥ śākatāyanasyaiva) for laṅ only, absent for lat. Registry
   updated after trace verification. `npm test` 270/270. Pushed. Coverage
   451/2703 (466/3983).
+
+- **2026-11-23 — Session 446 (continued, toward 2703/2703):** Genuinely emitted
+  3.2.117 (praśne cāsannakāle) for liṭ only. Registry updated after trace
+  verification. `npm test` 271/271. Pushed. Coverage 452/2703 (467/3983).
