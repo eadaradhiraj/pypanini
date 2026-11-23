@@ -732,7 +732,7 @@ test('kṛdanta: bhū forms with iṭ', () => {
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tum })[0].text(), 'Bavitum');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Tavya })[0].text(), 'Bavitavya');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Satr })[0].text(), 'Bavat');
-  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Nvul })[0].text(), 'Bavaka');
+  assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Nvul })[0].text(), 'BAvaka');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.LyuT })[0].text(), 'Bavana');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.SanaC })[0].text(), 'BavamAna');
   assert.equal(deriveKrdantas({ dhatu: 'BU', krt: Krt.Yat })[0].text(), 'Bavya');
@@ -2614,4 +2614,10 @@ test('√hi forms match Vidyut (ashtadhyayi.com)', () => {
   assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'ahinot');   // ahaiṣīt
   assert.equal(f(Lakara.LatN, Purusha.Prathama, Vacana.Dvi), 'ahEzwAm'); // ahaiṣṭām
   assert.equal(f(Lakara.LatN, Purusha.Uttama, Vacana.Eka), 'ahEzam');    // ahaiṣam
+});
+
+test('bhū kṛtas match Vidyut: bhava / bhāvaka', () => {
+  const f = (k: Krt) => deriveKrdantas({ dhatu: 'BU', krt: k })[0].text();
+  assert.equal(f(Krt.ac), 'Bava');   // bhava
+  assert.equal(f(Krt.Nvul), 'BAvaka'); // bhāvaka
 });
