@@ -2321,3 +2321,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   active present system (lat/lot/lin/lan × 9) from Wiktionary jānā́ti:
   jānītaḥ/jānītháḥ/jānīmáḥ, ajānan etc. (generic thematic fallbacks replaced).
   `npm test` 239/239. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 413 (continued, toward 2703/2703):** Completed active
+  present systems (lat/lot/lin/lan × 9) for √rudh, √yuj, √pṛ (class 3 pṛṇāti),
+  √pū from Wiktionary. Retained the attested variant rundhatu for √rudh lot 3s
+  (Wiktionary also lists ruṇaddhu). `npm test` 240/240. Pushed. Coverage 437/2703.
