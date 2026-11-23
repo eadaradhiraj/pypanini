@@ -385,6 +385,20 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'nu:lat:parasmai:prathama:eka': 'nOti',   // nauti
   'stu:lat:parasmai:prathama:eka': 'stOti', // stauti
   'ru:lat:parasmai:prathama:eka': 'rOti',   // rauti
+  // class-5 roots with indicatory markers (x/Y) that have no full table yet:
+  // the marker is indicatory and the śnu vikaraṇa gives -noti in strong forms.
+  'Apx:lat:parasmai:prathama:eka': 'Apnoti',   // āpnoti (√āp, vyāptau)
+  'Apx:lot:parasmai:prathama:eka': 'Apnotu',
+  'Apx:lan:parasmai:prathama:eka': 'Apnot',
+  'Sakx:lat:parasmai:prathama:eka': 'Saknoti', // śaknoti (√śak)
+  'Sakx:lot:parasmai:prathama:eka': 'Saknotu',
+  'Sakx:lan:parasmai:prathama:eka': 'aSaknot',
+  'kfY:lat:parasmai:prathama:eka': 'kfRNoti',  // kṛṇoti (√kṛñ)
+  'kfY:lot:parasmai:prathama:eka': 'kfRNotu',
+  'kfY:lan:parasmai:prathama:eka': 'akfRNot',
+  'vfY:lat:parasmai:prathama:eka': 'vfRNoti',  // vṛṇoti (√vṛñ)
+  'vfY:lot:parasmai:prathama:eka': 'vfRNotu',
+  'vfY:lan:parasmai:prathama:eka': 'avfRNot',
   // class 3 (hu etc.): juhoti, jigāti
   'hu:lan:parasmai:prathama:eka': 'ajuhot',
   'hu:lot:parasmai:prathama:eka': 'juhotu',
@@ -2021,7 +2035,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   const upasargaArg = args.upasarga;
   let upasarga = upasargaArg;
-  let rootText = dhatu.text;
+  // Dhātupāṭha indicatory markers Y (ñit) and x are not phonemes. Strip them
+  // before any vikaraṇa/sandhi is applied; otherwise x + a can surface as *-la-
+  // (mucxati → *mucalati). Explicit athematic forms are keyed by dhatu.text.
+  let rootText = /[Yx]$/.test(dhatu.text) ? dhatu.text.slice(0, -1) : dhatu.text;
   // 6.1.65 (ṇo naḥ): root-initial ṇ → n; 6.1.64 (dhātvādeḥ ṣaḥ saḥ): ṣ → s.
   const natiText = dhatu.code ? initialNati(rootText) : rootText;
   const shatvaText = dhatu.code ? initialShatva(natiText) : natiText;
@@ -2261,12 +2278,13 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     anusvaraApplied: prakriya.history.some((s) => s.rule.includes('8.3.23')),
     vikarana: vikarana.label,
   });
-  // Dhātupāṭha ñit marker Y (class-5 roots) is indicatory only — never let it
-  // leak into a derived surface form (SiYati → Sati, stfYati → stfati).
-  if (dhatu.text.endsWith('Y')) {
+  // Dhātupāṭha indicatory markers Y (class-5 ñit) and x (e.g. Apx/Sakx/mucx)
+  // are not phonemes — never let them leak into a derived surface form
+  // (SiYati → Sati, Apxati → Apati).
+  if (/[Yx]$/.test(dhatu.text)) {
     for (const term of result.terms) {
-      if (term.text.includes('Y')) {
-        term.text = term.text.replace(/Y/g, '');
+      if (/[Yx]/.test(term.text)) {
+        term.text = term.text.replace(/[Yx]/g, '');
         result.collapse();
         break;
       }

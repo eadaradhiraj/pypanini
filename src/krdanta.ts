@@ -840,10 +840,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   // Grade the root. For u-final roots before consonant-initial suffixes, guṇa
   // yields o and 6.1.78 turns it into av (bhav-); handled after grading below.
   const override = STEM_OVERRIDE[args.krt]?.[dhatu.text];
-  // Dhātupāṭha SLP1 marker Y (ñit on class-5 roots like ciY/zuY/SiY/stfY)
-  // is an indicatory letter, not part of the stem — strip it for kṛtas.
-  // Explicit overrides (e.g. yaj→yajY for yajña) are authoritative, keep them.
-  let root = override ?? (sanadi.root.endsWith('Y') ? sanadi.root.slice(0, -1) : sanadi.root);
+  // Dhātupāṭha SLP1 markers Y (ñit on class-5 roots like ciY/zuY) and x
+  // (indicatory on roots like Apx/Sakx/mucx) are not part of the stem —
+  // strip them for kṛtas. Explicit overrides (e.g. yaj→yajY for yajña) are
+  // authoritative and kept.
+  let root = override ?? (/[Yx]$/.test(sanadi.root) ? sanadi.root.slice(0, -1) : sanadi.root);
   // 6.1.65 (ṇo naḥ) / 6.1.64 (dhātvādeḥ ṣaḥ saḥ): root-initial ṇ → n, ṣ → s.
   const natiRoot = dhatu.code ? initialNati(root) : root;
   const shatvaRoot = dhatu.code ? initialShatva(natiRoot) : natiRoot;

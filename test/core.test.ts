@@ -2009,3 +2009,23 @@ test('√tanu (tanoti) present-system paradigm from Wiktionary', () => {
   assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Dvi), 'tanvAte');
   assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Uttama, Vacana.Eka), 'tanve');
 });
+
+test('dhātupāṭha indicatory markers x/Y never leak into surfaces', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('mucx'), 'mucati'); // was *mucalati (x→l)
+  assert.equal(f('patx'), 'patati');
+  assert.equal(f('Apx'), 'Apnoti');  // āpnoti (explicit class-5 form)
+  assert.equal(f('Sakx'), 'Saknoti'); // śaknoti
+  assert.equal(f('ciY'), 'cinoti');   // Y stripped, explicit form kept
+  // kṛt stems too: Apx → āpta, not *āpxta.
+  assert.equal(deriveKrdantas({ dhatu: 'Apx', krt: Krt.Tac })[0].text(), 'Apta');
+  assert.equal(deriveKrdantas({ dhatu: 'mucx', krt: Krt.Tac })[0].text(), 'mukta');
+});
+
+test('indicatory markers stripped in saṇādi stems too', () => {
+  const f = (d: string, sd: Sanadi) => deriveTinantas({ ...baseArgs,
+    dhatu: d, sanadi: sd, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('mucx', Sanadi.Nic), 'mocayati');  // mocayati, not *mucxayati
+  assert.equal(f('mucx', Sanadi.San), 'mumukzati'); // mumukṣati
+});
