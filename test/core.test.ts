@@ -2449,3 +2449,15 @@ test('conditionals aheṣyat / ajeṣyat (Wiktionary)', () => {
   assert.equal(f('hi', Purusha.Prathama, Vacana.Bahu), 'ahezyan'); // aheṣyan
   assert.equal(f('jI', Purusha.Prathama, Vacana.Eka), 'ajezyat');  // ajeṣyat
 });
+
+test('√hi active present system fully athematic (Wiktionary hinóti)', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'hi', lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'hinutH');   // hinutaḥ
+  assert.equal(f(Lakara.Lat, Purusha.Madhyama, Vacana.Bahu), 'hinuTa');  // hinutha
+  assert.equal(f(Lakara.Lat, Purusha.Uttama, Vacana.Bahu), 'hinmH');     // hinmaḥ
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Bahu), 'ahinvan'); // ahinvan
+  assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Eka), 'ahinoH');   // ahinoḥ
+  assert.equal(f(Lakara.Lot, Purusha.Uttama, Vacana.Eka), 'hinavAni');   // hinavāni
+  assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'hinuyAt');  // hinuyāt
+});
