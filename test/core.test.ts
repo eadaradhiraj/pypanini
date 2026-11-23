@@ -2139,3 +2139,14 @@ test('upasarga retained in passive aorist 3s', () => {
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'prAvAci');
 });
 
+
+test('luṭ of long-vowel roots drops iṭ (sthātā, pātā, jñātā)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lut, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('sTA'), 'sTAtA');
+  assert.equal(f('pA'), 'pAtA');
+  assert.equal(f('jFnA'), 'jFAtA');
+  assert.equal(f('nI'), 'netA');
+  assert.equal(f('ji'), 'jetA');
+  assert.equal(f('zru'), 'zrotA');
+});

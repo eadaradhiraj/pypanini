@@ -154,6 +154,12 @@ const LUT_STEMS: Record<string, string> = {
   dA: 'dAt',    // dātā (no -i-)
   kf: 'kart',   // kartā
   gam: 'gant',  // gantā (m → n before t)
+  sTA: 'sTAt',  // sthātā (no iṭ after long vowel)
+  pA: 'pAt',    // pātā
+  jFnA: 'jFAt', // jñātā
+  nI: 'net',    // netā
+  ji: 'jet',    // jetā
+  zru: 'zrot',  // śrotā
   pac: 'pakt',  // paktā (c → k, 8.2.36)
   yaj: 'yaSt',  // yaṣṭā (j → ṣ, ṣṭ)
   ni: 'net',    // netā
