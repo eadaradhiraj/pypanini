@@ -2514,7 +2514,7 @@ test('kṛt stems for √hi, √śās, √mī, √pū, √lū, √brū', () => {
   assert.equal(f('SAsu', Krt.LyuT), 'SAsana');  // śāsana
   assert.equal(f('SAsu', Krt.Tavya), 'SAsitavya'); // śāsitavya
   assert.equal(f('mIY', Krt.LyuT), 'mAna');     // māna
-  assert.equal(f('pUY', Krt.Tavya), 'pavItavya'); // pavitavya
+  assert.equal(f('pUY', Krt.Tavya), 'pavitavya'); // pavitavya
   assert.equal(f('Bru', Krt.KtvA), 'uktvA');    // uktvā
   assert.equal(f('Bru', Krt.Tavya), 'vaktavya'); // vaktavya
 });
@@ -2635,4 +2635,14 @@ test('√yā kṛtas match Vidyut: yāyaka / yeya / yāya', () => {
   assert.equal(f(Krt.Nvul), 'yAyaka'); // yāyaka
   assert.equal(f(Krt.Yat), 'yeya');    // yeya
   assert.equal(f(Krt.ghaH), 'yAya');   // yāya
+});
+
+test('√pū kṛtas match Vidyut: pāvaka/pavitṛ/pavitavya/punat/pavitum', () => {
+  const f = (k: Krt) => deriveKrdantas({ dhatu: 'pUY', krt: k })[0].text();
+  assert.equal(f(Krt.Nvul), 'pAvaka');  // pāvaka
+  assert.equal(f(Krt.Tfc), 'pavitf');   // pavitṛ
+  assert.equal(f(Krt.Tavya), 'pavitavya'); // pavitavya
+  assert.equal(f(Krt.Satr), 'punat');   // punat
+  assert.equal(f(Krt.Tum), 'pavitum');  // pavitum
+  assert.equal(f(Krt.ac), 'pava');      // pava
 });
