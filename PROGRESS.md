@@ -2067,3 +2067,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   final ī now stripped in all lakāras and kṛtas (nftI → nṛtyati/nanarta stem
   without leaked I; kṛta nftvan). `npm test` 195/195, 0 unregistered emissions.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 361 (continued, toward 2703/2703):** Curādi (class-10)
+  roots now take the ṇic -ayati stem with guṇa of the root's last short vowel:
+  pūjayati/corayati/medayati/kodrayati (were thematic *pūjati/*curati).
+  `npm test` 196/196, 0 unregistered emissions. Pushed. Coverage 437/2703.
