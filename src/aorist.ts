@@ -121,7 +121,11 @@ const AORIST: Record<string, AoristEntry> = {
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajYAsIt' } } },
   // √hi s-aorist: ahaiṣīt (3s), ahaiṣṭām (3d), ahaiṣuḥ (3p) — Wiktionary hinóti.
   hi: { kind: 's', stem: 'hE', code: '3.1.44 (cleḥ sic — hi s-aorist)',
-    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ahEzIt' } } },
+    formsP: {
+      [Purusha.Prathama]: { [Vacana.Eka]: 'ahEzIt', [Vacana.Dvi]: 'ahEzwAm', [Vacana.Bahu]: 'ahEzuH' },
+      [Purusha.Madhyama]: { [Vacana.Eka]: 'ahEzIH', [Vacana.Dvi]: 'ahEzwam', [Vacana.Bahu]: 'ahEzwa' },
+      [Purusha.Uttama]: { [Vacana.Eka]: 'ahEzam', [Vacana.Dvi]: 'ahEzva', [Vacana.Bahu]: 'ahEzma' },
+    } },
   // √śru s-aorist: aśrauṣīt (3s) — vṛddhi of u→au.
   zru: { kind: 's', stem: 'zrO', code: '3.1.44 (cleḥ sic — śru s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'azrOzIt' } } },

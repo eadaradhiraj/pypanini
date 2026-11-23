@@ -2371,7 +2371,7 @@ test('√hi s-aorist ahaiṣīt (Wiktionary hinóti)', () => {
   const f = (v: Vacana) => deriveAorist({ root: 'hi', pada: Pada.Parasmai,
     purusha: Purusha.Prathama, vacana: v })!.text();
   assert.equal(f(Vacana.Eka), 'ahEzIt');  // ahaiṣīt
-  assert.equal(f(Vacana.Dvi), 'ahEztAm'); // ahaiṣṭām
+  assert.equal(f(Vacana.Dvi), 'ahEzwAm'); // ahaiṣṭām
   assert.equal(f(Vacana.Bahu), 'ahEzuH'); // ahaiṣuḥ
 });
 
@@ -2404,8 +2404,8 @@ test('√hi perfect jighāya (Wiktionary hinóti)', () => {
   const f = (pada: Pada, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
     dhatu: 'hi', lakara: Lakara.Lit, pada, purusha: p, vacana: v })[0].text();
   assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'jiGAya'); // jighāya
-  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Dvi), 'jiGatuH'); // jighatuḥ
-  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'jiGuH');  // jighuḥ
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Dvi), 'jiGyatuH'); // jighatuḥ
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'jiGyuH');  // jighuḥ
   assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'jiGe');      // jighé
   assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Bahu), 'jiGire');   // jighire
 });
@@ -2605,4 +2605,13 @@ test('bhū paradigm matches Vidyut (ashtadhyayi.com) exactly', () => {
   assert.equal(f(Lakara.Lrt, Purusha.Uttama, Vacana.Eka), 'BavizyAmi'); // bhaviṣyāmi
   assert.equal(f(Lakara.Lot, Purusha.Uttama, Vacana.Dvi), 'BavAva'); // bhavāva
   assert.equal(f(Lakara.Lin, Purusha.Uttama, Vacana.Dvi), 'Baveva'); // bhaveva
+});
+
+test('√hi forms match Vidyut (ashtadhyayi.com)', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'hi', lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lit, Purusha.Prathama, Vacana.Dvi), 'jiGyatuH'); // jighyatuḥ
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'ahEzIt');   // ahaiṣīt
+  assert.equal(f(Lakara.LatN, Purusha.Prathama, Vacana.Dvi), 'ahEzwAm'); // ahaiṣṭām
+  assert.equal(f(Lakara.LatN, Purusha.Uttama, Vacana.Eka), 'ahEzam');    // ahaiṣam
 });
