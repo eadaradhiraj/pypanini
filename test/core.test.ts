@@ -2717,3 +2717,10 @@ test('3.4.98 noted for uttama puruṣa only', () => {
   assert.ok(!notes(Purusha.Prathama).has('3.4.98'));
   assert.ok(!notes(Purusha.Madhyama).has('3.4.98'));
 });
+
+test('3.4.115 noted for liṭ only', () => {
+  const notes = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    lakara: lk, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Lakara.Lit).has('3.4.115'));
+  assert.ok(!notes(Lakara.Lat).has('3.4.115'));
+});

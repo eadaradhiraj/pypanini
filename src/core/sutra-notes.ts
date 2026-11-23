@@ -144,6 +144,8 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   if (a.lakara === Lakara.Lan) p.note('3.2.116');
   // 3.4.98 sa uttamasya: the first-person (uttama) ending is -m/-maḥ.
   if (a.purusha === Purusha.Uttama) p.note('3.4.98');
+  // 3.4.115 liṭ ca: the perfect is ārddhadhātuka (no guṇa of the vikaraṇa).
+  if (a.lakara === Lakara.Lit) p.note('3.4.115');
   noteSandhi(p);
   // Lakāra-specific vidhāna sūtras.
   const lk = a.lakara;
