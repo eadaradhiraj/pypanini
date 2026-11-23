@@ -188,7 +188,7 @@ export function buildSanadiStem(root: SLP1, sanadi: Sanadi): SanadiDerivation {
         duS: 'dUz', // 6.4.90 (doṣo ṇau — dūṣayati)
         bhid: 'bhed', rudh: 'rodh', yuj: 'yoj', svap: 'svAp', // 7.2.116 vṛddhi
         pf: 'pAr', stf: 'stAr', gf: 'gAr', // 7.2.115 acau ṇiti vṛddhiḥ (ṛ → ār)
-        ad: 'Ad', dviS: 'dvez', vac: 'vAc', grah: 'grAh', // guṇa/vṛddhi before ṇic
+        ad: 'Ad', dviS: 'dvez', diS: 'deS', vac: 'vAc', grah: 'grAh', // guṇa/vṛddhi before ṇic (deśayati)
         pA: 'pAy', sTA: 'sTAp', jFnA: 'jFAp', fR: 'arp', // puk/dīrgha causatives
         DA: 'DAp', muc: 'moc', iS: 'ez', mfz: 'mArj', lab: 'lamB', // source-backed causatives
       };

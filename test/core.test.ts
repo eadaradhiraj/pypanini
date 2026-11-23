@@ -2078,3 +2078,8 @@ test('Curādi (class-10) roots take ṇic -ayati with guṇa', () => {
   assert.equal(f('midi'), 'medayati');  // medayati (i → e)
   assert.equal(f('kudri'), 'kodrayati');
 });
+
+test('√diś causative is deśayati', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'diS', sanadi: Sanadi.Nic,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'deSayati');
+});
