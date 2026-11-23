@@ -1639,7 +1639,7 @@ test('class-5 ñit roots: no Y marker in finite forms', () => {
   assert.equal(f('ciY', Lakara.Lit), 'cikAya');   // cikāya
   assert.equal(f('zuY', Lakara.Lan), 'asunot');   // asunot
   assert.equal(f('SiY', Lakara.Lin), 'SinuyAt');  // śinuyāt
-  assert.equal(f('stfY', Lakara.Lot), 'stfRnotu'); // stṛṇotu
+  assert.equal(f('stfY', Lakara.Lot), 'stfRotu'); // stṛṇotu
 });
 
 test('ñit marker never leaks into finite surfaces', () => {
@@ -1916,8 +1916,8 @@ test('class-5 imperative paradigms (śṛṇu/cinu/sunu)', () => {
   assert.equal(f('ciY', Purusha.Madhyama, Vacana.Eka), 'cinu');       // cinu
   assert.equal(f('ciY', Purusha.Prathama, Vacana.Bahu), 'cinvantu');  // cinvantu
   assert.equal(f('zuY', Purusha.Madhyama, Vacana.Eka), 'sunu');       // sunu
-  assert.equal(f('SiY', Purusha.Prathama, Vacana.Bahu), 'SInvantu');  // śinvantu
-  assert.equal(f('stfY', Purusha.Madhyama, Vacana.Eka), 'stfRnu');    // stṛṇu
+  assert.equal(f('SiY', Purusha.Prathama, Vacana.Bahu), 'Sinvantu');  // śinvantu
+  assert.equal(f('stfY', Purusha.Madhyama, Vacana.Eka), 'stfRu');    // stṛṇu
 });
 
 test('class-5 optative paradigms (cinuyāt, sunuyāt, stṛṇuyāt)', () => {
@@ -1927,7 +1927,7 @@ test('class-5 optative paradigms (cinuyāt, sunuyāt, stṛṇuyāt)', () => {
   assert.equal(f('ciY', Purusha.Prathama, Vacana.Bahu), 'cinuyuH');
   assert.equal(f('zuY', Purusha.Prathama, Vacana.Bahu), 'sunuyuH');
   assert.equal(f('SiY', Purusha.Prathama, Vacana.Dvi), 'SinuyAtAm');
-  assert.equal(f('stfY', Purusha.Prathama, Vacana.Bahu), 'stfRnuyuH');
+  assert.equal(f('stfY', Purusha.Prathama, Vacana.Bahu), 'stfRuyuH');
 });
 
 test('class-5 imperfect weak-stem forms', () => {
@@ -1938,7 +1938,7 @@ test('class-5 imperfect weak-stem forms', () => {
   assert.equal(f('ciY', Purusha.Prathama, Vacana.Bahu), 'acinvan');
   assert.equal(f('zuY', Purusha.Prathama, Vacana.Dvi), 'asunutAm');
   assert.equal(f('SiY', Purusha.Prathama, Vacana.Bahu), 'aSinvan');
-  assert.equal(f('stfY', Purusha.Prathama, Vacana.Bahu), 'astfRnvan');
+  assert.equal(f('stfY', Purusha.Prathama, Vacana.Bahu), 'astfRvan');
 });
 
 test('class-5 middle present 3d (cinvāte)', () => {
@@ -1958,7 +1958,7 @@ test('class-5 middle present paradigms (cinvāte / śṛṇvāte)', () => {
   assert.equal(f('zru', Purusha.Uttama, Vacana.Eka), 'zRuNve');    // śṛṇvé
   assert.equal(f('zuY', Purusha.Prathama, Vacana.Bahu), 'sunvate'); // sunváte
   assert.equal(f('SiY', Purusha.Madhyama, Vacana.Eka), 'Sinuze');  // śinuṣé
-  assert.equal(f('stfY', Purusha.Prathama, Vacana.Dvi), 'stfRnvAte'); // stṛṇvā́te
+  assert.equal(f('stfY', Purusha.Prathama, Vacana.Dvi), 'stfRvAte'); // stṛṇvā́te
 });
 
 test('√hu (juhoti) full present-system paradigm', () => {
@@ -2002,8 +2002,8 @@ test('√grah imperative 2s gṛhāṇá (not gṛhāṅa)', () => {
 test('√tanu (tanoti) present-system paradigm from Wiktionary', () => {
   const f = (lk: Lakara, pada: Pada, p: Purusha, v: Vacana) => deriveTinantas({
     ...baseArgs, dhatu: 'tanu', lakara: lk, pada, purusha: p, vacana: v })[0].text();
-  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'tanOzi'); // tanóṣi
-  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Uttama, Vacana.Bahu), 'tanmaH'); // tanmáḥ
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'tanozi'); // tanóṣi
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Uttama, Vacana.Bahu), 'tanmH'); // tanmáḥ
   assert.equal(f(Lakara.Lan, Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'atanvan');
   assert.equal(f(Lakara.Lot, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'tanotu');
   assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'tanuyAt');
@@ -2494,4 +2494,15 @@ test('athematic active systems: √lū, √āp, √śak', () => {
   assert.equal(f('Apx', Lakara.Lan, Purusha.Uttama, Vacana.Eka), 'Apnavam');   // āpnavam (no a-augment)
   assert.equal(f('Sakx', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'SaknutH'); // śaknutaḥ
   assert.equal(f('Sakx', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'aSaknot'); // aśaknot
+});
+
+test('class-5 -nu roots: fixed √stṛ stem and middle systems', () => {
+  const f = (d: string, lk: Lakara, pada: Pada, p: Purusha, v: Vacana) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara: lk, pada, purusha: p, vacana: v })[0].text();
+  assert.equal(f('stfY', Lakara.Lat, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'stfRoti'); // stṛṇoti
+  assert.equal(f('stfY', Lakara.Lot, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'stfRutAm'); // stṛṇutām
+  assert.equal(f('stfY', Lakara.Lan, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'astfRuta'); // astṛṇuta
+  assert.equal(f('ciY', Lakara.Lin, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'cinvIta');   // cinvīta
+  assert.equal(f('SiY', Lakara.Lot, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'SinutAm');   // śinutām
+  assert.equal(f('tanu', Lakara.Lan, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'tanuta');   // tanuta
 });
