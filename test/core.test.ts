@@ -2484,3 +2484,14 @@ test('athematic active systems: √rudh, √yuj, √pṛ, √pū', () => {
   assert.equal(f('pUY', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'punItH');   // punītaḥ
   assert.equal(f('pUY', Lakara.Lan, Purusha.Uttama, Vacana.Eka), 'apunAm');    // apunām
 });
+
+test('athematic active systems: √lū, √āp, √śak', () => {
+  const f = (d: string, lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f('lUY', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'lunItH');   // lunītaḥ
+  assert.equal(f('lUY', Lakara.Lan, Purusha.Prathama, Vacana.Bahu), 'alunan');  // alunan
+  assert.equal(f('Apx', Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'Apnuvanti'); // āpnuvanti
+  assert.equal(f('Apx', Lakara.Lan, Purusha.Uttama, Vacana.Eka), 'Apnavam');   // āpnavam (no a-augment)
+  assert.equal(f('Sakx', Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'SaknutH'); // śaknutaḥ
+  assert.equal(f('Sakx', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'aSaknot'); // aśaknot
+});
