@@ -2409,3 +2409,12 @@ test('√hi perfect jighāya (Wiktionary hinóti)', () => {
   assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'jiGe');      // jighé
   assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Bahu), 'jiGire');   // jighire
 });
+
+test('√pat perfect papāta / pecuḥ (Wiktionary pátati)', () => {
+  const f = (pada: Pada, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'pat', lakara: Lakara.Lit, pada, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'papAta'); // papāta
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Dvi), 'pecatuH'); // pecatuḥ
+  assert.equal(f(Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'pecuH');  // pecuḥ
+  assert.equal(f(Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'pece');      // pece
+});
