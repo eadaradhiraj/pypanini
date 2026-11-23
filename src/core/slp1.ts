@@ -214,7 +214,8 @@ export function applyNatva(s: string): string {
       // even when a root-final r precedes it: bháranti, smáranti, bhárante
       // (not *bháraṇti / *smáraṇti).  Unlike karman + ā → karmaṇā, the n here
       // begins a tiṅ affix, so 8.4.1 does not cross the vikaraṇa boundary.
-      if (trigger === 'r' && /^[tTdDmvyH]/.test(whole.slice(offset + _m.length))) return _m;
+      if ((trigger === 'r' || trigger === 'z') &&
+          /^[tTdDmvyH]/.test(whole.slice(offset + _m.length))) return _m;
       // ṇatva is blocked when a ṣya- / śya- future marker intervenes (e.g.
       // bhaviṣyanti, kariṣyanti keep the dental n of -nti).
       if (trigger === 'z' && mid.startsWith('y')) return _m;
