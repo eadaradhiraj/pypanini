@@ -3614,6 +3614,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
 
   const initial = [sanadiResult.root, ...sanadiResult.extra];
   const prakriya = new Prakriya(initial);
+  // 3.4.69 laḥ karmani ca bhāve cākarmakebhyaḥ: in passive/bhāve prayoga the
+  // la-kāra takes ātmanepada endings (recorded when the passive is actually used).
+  if ((args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani) {
+    prakriya.record('3.4.69 (laḥ karmani ca bhāve cākarmakebhyaḥ — passive la-kāra)');
+  }
 
   if (upasargaArg && isUpasarga(upasargaArg)) {
     const ayati = applyAyatiSandhi(upasargaArg!, dhatu.text);

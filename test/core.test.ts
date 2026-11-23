@@ -2673,3 +2673,11 @@ test('kṛt stems for √kṛ(5P) and √hi from Vidyut', () => {
   assert.equal(f('hi', Krt.Ani), 'hayanIya'); // hayanīya
   assert.equal(f('hi', Krt.Ktin), 'heti');    // heti
 });
+
+test('3.4.69 emitted for passive la-kāra only', () => {
+  const hist = (pr: Prayoga) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    lakara: Lakara.Lat, prayoga: pr, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].history.map(s=>s.rule).join(' ');
+  assert.match(hist(Prayoga.Karmani), /3\.4\.69/);
+  assert.match(hist(Prayoga.Bhave), /3\.4\.69/);
+  assert.doesNotMatch(hist(Prayoga.Kartari), /3\.4\.69/);
+});
