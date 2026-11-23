@@ -1959,3 +1959,15 @@ test('class-5 middle present paradigms (cinvāte / śṛṇvāte)', () => {
   assert.equal(f('SiY', Purusha.Madhyama, Vacana.Eka), 'Sinuze');  // śinuṣé
   assert.equal(f('stfY', Purusha.Prathama, Vacana.Dvi), 'stfRnvAte'); // stṛṇvā́te
 });
+
+test('√hu (juhoti) full present-system paradigm', () => {
+  const f = (lk: Lakara, pada: Pada, p: Purusha, v: Vacana) => deriveTinantas({
+    ...baseArgs, dhatu: 'hu', lakara: lk, pada, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Madhyama, Vacana.Dvi), 'juhuthaH'); // juhutháḥ
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Uttama, Vacana.Bahu), 'juhumaH');  // juhumáḥ
+  assert.equal(f(Lakara.Lan, Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'ajuhavuH'); // ájuhavuḥ
+  assert.equal(f(Lakara.Lot, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'juhudhi'); // juhudhí
+  assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'juhuyAt'); // juhuyā́t
+  assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Dvi), 'juhvAte');   // júhvāte
+  assert.equal(f(Lakara.Lan, Pada.Atmane, Purusha.Uttama, Vacana.Eka), 'ajuhvi');      // ájuhvi
+});
