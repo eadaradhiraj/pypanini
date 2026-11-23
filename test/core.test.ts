@@ -2094,3 +2094,10 @@ test('causative guṇa/vṛddhi before ṇic (bodháyati etc.)', () => {
   assert.equal(f('vah'), 'vAhayati');   // vāhayati
   assert.equal(f('ruC'), 'roCayati');   // rocayati
 });
+
+test('causatives of √vṛt and √gras', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, sanadi: Sanadi.Nic,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('vft'), 'vartayati');
+  assert.equal(f('gras'), 'grAsayati');
+});
