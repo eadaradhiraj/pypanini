@@ -2154,3 +2154,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   yaṇ aci to denominative coalescence: guru/gurvayati, agni/agnyayati,
   nadī/nadīyati (were *guruayati/*agniayati/*nadIIyati).
   `npm test` 213/213. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 381 (continued, toward 2703/2703):** Class-5 cAnaS
+  (āna) participles now use the śatṛ weak stems: cinvāna/sunvāna/śinvāna/
+  stṛṇvāna/śṛṇvāna (were *ciāna/*suāna/*zruāṇa). `npm test` 214/214.
+  Pushed. Coverage 437/2703.
