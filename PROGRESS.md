@@ -2182,3 +2182,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   forms from Wiktionary labhate: labhetām/labhethām/labheya/labhāmahai and
   alabhetām/alabhethām (were *labAtAm/*labAvAm/*labe/*labAmahe).
   `npm test` 218/218. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 387 (continued, toward 2703/2703):** Fixed √vid middle
+  voice from Wiktionary vitti: vitté/vitsé/vidā́tām/vidīyá/vidīmáhi/ávitta/
+  ávitthāḥ (were *vidate/*vidAtAm/*videmahe/*avidata etc.). `npm test` 219/219.
+  Pushed. Coverage 437/2703.
