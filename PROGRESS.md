@@ -2316,3 +2316,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   active present system (lat/lot/lin/lan × 9) from Wiktionary hinóti — generic
   thematic fallbacks like *hayathaH/*ahayan replaced with hinuTH/ahinvan.
   `npm test` 238/238. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 412 (continued, toward 2703/2703):** Completed √jñā
+  active present system (lat/lot/lin/lan × 9) from Wiktionary jānā́ti:
+  jānītaḥ/jānītháḥ/jānīmáḥ, ajānan etc. (generic thematic fallbacks replaced).
+  `npm test` 239/239. Pushed. Coverage 437/2703.
