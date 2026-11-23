@@ -1257,6 +1257,17 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'hi:lrt:parasmai:uttama:eka': 'hezyAmi',
   'hi:lrt:parasmai:uttama:dvi': 'hezyAvH',
   'hi:lrt:parasmai:uttama:bahu': 'hezyAmH',
+  // √ji simple future (lṛṭ) — Wiktionary jeṣyati (generic *jeizyati has
+  // a spurious iṭ).
+  'jI:lrt:parasmai:prathama:eka': 'jezyati',
+  'jI:lrt:parasmai:prathama:dvi': 'jezyatH',
+  'jI:lrt:parasmai:prathama:bahu': 'jezyanti',
+  'jI:lrt:parasmai:madhyama:eka': 'jezyasi',
+  'jI:lrt:parasmai:madhyama:dvi': 'jezyaTH',
+  'jI:lrt:parasmai:madhyama:bahu': 'jezyaTa',
+  'jI:lrt:parasmai:uttama:eka': 'jezyAmi',
+  'jI:lrt:parasmai:uttama:dvi': 'jezyAvH',
+  'jI:lrt:parasmai:uttama:bahu': 'jezyAmH',
   // √as middle voice (Wiktionary asti: sté/sā́te/sáte, sé/sā́the/dhvé,
   // hé/sváhe/smáhe; stā́m/sā́tām/sátām; sītá/sīmáhi; ā́sta/ā́smahi).
   'as:lat:atmane:prathama:eka': 'ste',

@@ -2434,3 +2434,10 @@ test('√hi simple future heṣyati (Wiktionary hinóti)', () => {
   assert.equal(f(Purusha.Prathama, Vacana.Bahu), 'hezyanti'); // heṣyanti
   assert.equal(f(Purusha.Uttama, Vacana.Bahu), 'hezyAmH');    // heṣyāmaḥ
 });
+
+test('√ji future jeṣyati (Wiktionary)', () => {
+  const f = (p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'jI', lakara: Lakara.Lrt, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Purusha.Prathama, Vacana.Eka), 'jezyati');  // jeṣyati
+  assert.equal(f(Purusha.Prathama, Vacana.Bahu), 'jezyanti'); // jeṣyanti
+});
