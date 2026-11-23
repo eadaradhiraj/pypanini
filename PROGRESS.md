@@ -2140,3 +2140,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   root-aorist middle paradigm (adita/adātām/adata/ādi/adivahi, Wiktionary adāt),
   replacing generated *adāta/*adāanta. `npm test` 210/210. Pushed. Coverage
   437/2703.
+
+- **2026-11-23 — Session 378 (continued, toward 2703/2703):** Fixed √dhā luṭ
+  ātmane to dhātā (was *dhāitā) via the shared LUT_STEMS entry.
+  `npm test` 211/211. Pushed. Coverage 437/2703.
