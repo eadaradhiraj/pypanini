@@ -2162,4 +2162,6 @@ test('luṭ stems grahītā / labdhā', () => {
   assert.equal(f('grah'), 'grahItA');
   assert.equal(f('lab'), 'labDA');
   assert.equal(f('vid'), 'veditA');
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'vid', lakara: Lakara.Lut,
+    pada: Pada.Atmane, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'veditA');
 });

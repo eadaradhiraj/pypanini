@@ -162,6 +162,7 @@ const LUT_STEMS: Record<string, string> = {
   zru: 'zrot',  // śrotā
   muc: 'mokt',  // moktā (√muc future stem mokṣya-)
   grah: 'grahIt', // grahītā (iṭ before -tā)
+  vid: 'vedit',  // veditā (also used by the atmane path)
   lab: 'labD',  // labdhā
   pac: 'pakt',  // paktā (c → k, 8.2.36)
   yaj: 'yaSt',  // yaṣṭā (j → ṣ, ṣṭ)
