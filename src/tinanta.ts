@@ -198,6 +198,8 @@ const FUTURE_STEMS: Record<string, string> = {
   ni: 'nezya',   // ne-ṣya-
   nI: 'nezya',   // nī → neṣyati (no iṭ)
   ji: 'jezya',   // ji → jeṣyati (no iṭ)
+  jI: 'jezya',   // CLI root spelling for √ji (jayati) — jeṣyati, no iṭ
+  hi: 'hezya',   // hi → heṣyati (no iṭ), Wiktionary hinóti
   muc: 'mokzya', // muc → mokṣyati (o-grade, no iṭ)
   rudh: 'rotsya', // rudh → rotsyati (guṇa + t-sya, no iṭ)
   ciY: 'cezya', ci: 'cezya',   // ci → ceṣyati (guṇa i→e, ṣatva after e)
