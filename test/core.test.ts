@@ -1992,3 +1992,8 @@ test('√dā / √dhā optative 1d/1p (dadyāva, dadhyāma)', () => {
   assert.equal(f('DA', Vacana.Dvi), 'dadhyAva');
   assert.equal(f('DA', Vacana.Bahu), 'dadhyAma');
 });
+
+test('√grah imperative 2s gṛhāṇá (not gṛhāṅa)', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'grah', lakara: Lakara.Lot,
+    purusha: Purusha.Madhyama, vacana: Vacana.Eka })[0].text(), 'gfhARa');
+});

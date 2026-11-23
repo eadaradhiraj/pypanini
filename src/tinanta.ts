@@ -1179,7 +1179,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'grah:lot:parasmai:prathama:eka': 'gfhRAtu',
   'grah:lot:parasmai:prathama:dvi': 'gfhRItAm',
   'grah:lot:parasmai:prathama:bahu': 'gfhRantu',
-  'grah:lot:parasmai:madhyama:eka': 'gfhANa',
+  'grah:lot:parasmai:madhyama:eka': 'gfhARa',  // gṛhāṇá (Wiktionary; R=ण, not N=ङ)
   'grah:lot:parasmai:madhyama:dvi': 'gfhRItam',
   'grah:lot:parasmai:madhyama:bahu': 'gfhRIta',
   'grah:lot:parasmai:uttama:eka': 'gfhRAni',
