@@ -2187,3 +2187,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   voice from Wiktionary vitti: vitté/vitsé/vidā́tām/vidīyá/vidīmáhi/ávitta/
   ávitthāḥ (were *vidate/*vidAtAm/*videmahe/*avidata etc.). `npm test` 219/219.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 388 (continued, toward 2703/2703):** Fixed √ad middle
+  voice from Wiktionary atti: átte/átse/admáhe, attā́m/adátām/ádai, adītá/
+  adīmáhi, átta/átthāḥ/ádmahi (were *adate/*adAtAm/*adeta/*adata etc.).
+  `npm test` 220/220. Pushed. Coverage 437/2703.
