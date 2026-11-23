@@ -2029,3 +2029,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (tanóti, class 8) present-system paradigm from Wiktionary: tanóṣi/tanutháḥ/
   tanmáḥ, atanván, tanvā́te, tanuyā́t, etc. (were thematic *tanavasi/*tanavet).
   `npm test` 187/187, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 353 (continued, toward 2703/2703):** Strip dhātupāṭha
+  indicatory x/Y markers before vikaraṇa/sandhi in tinanta, kṛt and saṇādi
+  stems (mucx → mucati/mukta/mocayati, Apx → Apta not *Apxta); added verified
+  class-5 strong forms āpnoti/śaknoti/kṛṇoti/vṛṇoti (Apx/Sakx/kfY/vfY).
+  `npm test` 189/189, 0 unregistered emissions. Pushed. Coverage 437/2703.
