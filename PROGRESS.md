@@ -2433,3 +2433,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   for √kṛ class-5 and √hi from Vidyut: kāraka/kṛṇvat/kara, hāyaka/hinvat/
   haya/hayanīya/heti (were *karaka/*karat/*kṛa/*heaka/*heat/*hia etc.).
   `npm test` 261/261. Pushed. Coverage 441/2703.
+
+- **2026-11-23 — Session 437 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.69 (laḥ karmani ca bhāve cākarmakebhyaḥ) for karmāṇi/bhāve prayoga after
+  verifying it is absent from active traces. Registry updated after trace
+  verification. `npm test` 262/262. Pushed. Coverage 442/2703 (457/3983).
