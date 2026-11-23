@@ -2155,3 +2155,11 @@ test('√muc luṭ is moktā', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'muc', lakara: Lakara.Lut,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'moktA');
 });
+
+test('luṭ stems grahītā / labdhā', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lut, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('grah'), 'grahItA');
+  assert.equal(f('lab'), 'labDA');
+  assert.equal(f('vid'), 'veditA');
+});
