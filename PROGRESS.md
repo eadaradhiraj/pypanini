@@ -2407,3 +2407,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   tables, fixed √vac kṛtas for the dhātupāṭha spelling `vaca` (overrides were
   keyed only `vac`): vaktṛ/vaktavya/uktvā/vaktum. `npm test` 256/256. Pushed.
   Coverage 437/2703.
+
+- **2026-11-23 — Session 432 (continued, toward 2703/2703):** Fixed √yā kṛtas
+  from Vidyut: ṇvul yāyaka (was *yāka), yat yeya (was *yāya), ghañ yāya
+  (was *yā). `npm test` 257/257. Pushed. Coverage 437/2703.
