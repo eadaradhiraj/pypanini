@@ -2062,3 +2062,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   drop indicatory final I as well as u (nftI → nṛtyati, trasI → trasyati,
   previously *nftayyati/*trasayyati). `npm test` 194/194, 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 360 (continued, toward 2703/2703):** Class-4 indicatory
+  final ī now stripped in all lakāras and kṛtas (nftI → nṛtyati/nanarta stem
+  without leaked I; kṛta nftvan). `npm test` 195/195, 0 unregistered emissions.
+  Pushed. Coverage 437/2703.
