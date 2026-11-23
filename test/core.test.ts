@@ -2129,3 +2129,12 @@ test('upasarga is retained in karmani passive stems', () => {
   assert.equal(f('vi', 'kf'), 'vikriyate');
   assert.equal(f('anu', 'dA'), 'anudIyate');
 });
+
+test('upasarga retained in passive aorist 3s', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'dA', upasarga: 'anu',
+    prayoga: Prayoga.Karmani, lakara: Lakara.LatN,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'anvadAyi');
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'vac', upasarga: 'pra',
+    prayoga: Prayoga.Karmani, lakara: Lakara.LatN,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'prAvAci');
+});

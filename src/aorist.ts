@@ -307,7 +307,7 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
   // precedence over the regular active aorist when the prayoga is passive.
   if (args.passive && args.purusha === Purusha.Prathama &&
       args.vacana === Vacana.Eka && PASSIVE_AORIST[args.root]) {
-    const p = new Prakriya([PASSIVE_AORIST[args.root]]);
+    const p = new Prakriya([withUpasarga(args.upasarga, PASSIVE_AORIST[args.root])]);
     p.record('3.2.110 (luN), 3.1.67 (passive aorist 3s)');
     p.collapse();
     return p;
