@@ -60,8 +60,8 @@ const PARASMAI_LAT: Record<Purusha, Record<Vacana, SuffixInfo>> = {
   },
   [Purusha.Madhyama]: {
     [Vacana.Eka]: simple('sip', 'si'),
-    [Vacana.Dvi]: visarga('thas'),
-    [Vacana.Bahu]: simple('tha', 'tha'),
+    [Vacana.Dvi]: visarga('Tas'),
+    [Vacana.Bahu]: simple('tha', 'Ta'),
   },
   [Purusha.Uttama]: {
     [Vacana.Eka]: simple('mip', 'mi'),
@@ -124,10 +124,10 @@ const PARASMAI_LAN = table(
   ['t', 'tAm', 'an'], ['H', 'tam', 'ta'], ['m', 'vaH', 'maH'],
 );
 const ATMANE_LAN = table(
-  ['ta', 'tAm', 'anta'], ['thAH', 'AvAm', 'Dvam'], ['e', 'vahi', 'mahe'],
+  ['ta', 'tAm', 'anta'], ['TAH', 'AvAm', 'Dvam'], ['e', 'vahi', 'mahe'],
 );
 const PARASMAI_LIT = table(
-  ['a', 'atuH', 'uH'], ['iTa', 'athuH', 'a'], ['a', 'va', 'ma'],
+  ['a', 'atuH', 'uH'], ['iTa', 'aTuH', 'a'], ['a', 'va', 'ma'],
 );
 const ATMANE_LIT = table(
   ['e', 'Ate', 'ire'], ['ise', 'Athe', 'aDve'], ['e', 'vahe', 'mahe'],
@@ -136,16 +136,16 @@ const PARASMAI_LIN = table(
   ['et', 'etAm', 'eyuH'], ['eH', 'etam', 'eta'], ['eyam', 'evaH', 'ema'],
 );
 const ATMANE_LIN = table(
-  ['eta', 'eyAtAm', 'eran'], ['ethAH', 'eyAthAm', 'edhvam'], ['e', 'evahi', 'emahe'],
+  ['eta', 'eyAtAm', 'eran'], ['eTAH', 'eyATAm', 'edhvam'], ['e', 'evahi', 'emahe'],
 );
 // luṭ (periphrastic future): -tṛ agent noun + auxiliary "as". 3rd person uses
 // the noun's own nominative endings; 1st/2nd use the sg. noun + "as" endings.
 // The endings begin at -tā (the -i belongs to the stem for roots like bhū).
 const PARASMAI_LUT = table(
-  ['A', 'Arau', 'AraH'], ['Asi', 'AsTaH', 'AsTa'], ['Asmi', 'AsvaH', 'AsmaH'],
+  ['A', 'ArO', 'AraH'], ['Asi', 'AsTaH', 'AsTa'], ['Asmi', 'AsvaH', 'AsmaH'],
 );
 const ATMANE_LUT = table(
-  ['A', 'Arau', 'AraH'], ['Ase', 'AsAthe', 'Adhve'], ['Ahe', 'Avahe', 'Amahe'],
+  ['A', 'ArO', 'AraH'], ['Ase', 'AsAthe', 'Adhve'], ['Ahe', 'Avahe', 'Amahe'],
 );
 
 /** Periphrastic-future (luṭ) stems: -tṛ agent noun minus the nominative ending. */
@@ -3213,6 +3213,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   lU: { strong: 'lulAv', weak: 'luluv' },   // lulāva/luluvuḥ (Wiktionary lū)
   mI: { strong: 'mimAy', weak: 'mimiy' },   // mimāya (Wiktionary mī)
   tanu: { strong: 'tatAn', weak: 'tatan' }, // tatāna (Wiktionary tan)
+  Ap: { strong: 'Ap', weak: 'Ap' },         // āpa/āpuḥ (Wiktionary āp — vowel-initial, no reduplication)
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada): string {
   // Strong stem in 3s, 3d, 2s, 1s (parasmai); ātmane uses the weak stem throughout.

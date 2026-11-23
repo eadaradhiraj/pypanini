@@ -94,7 +94,7 @@ test('bhū lat parasmai paradigm (nine forms)', () => {
   const forms = deriveLatParadigm('BU').map((r) => r.text);
   assert.deepEqual(forms, [
     'Bavati', 'BavataH', 'Bavanti',
-    'Bavasi', 'BavathaH', 'Bavatha',
+    'Bavasi', 'BavaTaH', 'BavaTa',
     'BavAmi', 'BavAvaH', 'BavAmaH',
   ]);
 });
@@ -154,7 +154,7 @@ test('luṭ (periphrastic future) audited — parasmai + atmane', () => {
     deriveTinantas({ ...baseArgs, dhatu: 'BU', lakara: Lakara.Lut, purusha: p, vacana: v, pada })[0].text();
   // 3rd person = -tṛ noun nominative; 1st/2nd = sg. noun + "as"
   assert.equal(form(Purusha.Prathama, Vacana.Eka), 'BavitA');
-  assert.equal(form(Purusha.Prathama, Vacana.Dvi), 'BavitArau');
+  assert.equal(form(Purusha.Prathama, Vacana.Dvi), 'BavitArO');
   assert.equal(form(Purusha.Prathama, Vacana.Bahu), 'BavitAraH');
   assert.equal(form(Purusha.Madhyama, Vacana.Eka), 'BavitAsi');
   assert.equal(form(Purusha.Madhyama, Vacana.Dvi), 'BavitAsTaH');
@@ -2584,4 +2584,14 @@ test('perfect mimāya / tatāna (Wiktionary mī, tan)', () => {
   assert.equal(f('mIY', Vacana.Eka), 'mimAya');  // mimāya
   assert.equal(f('mIY', Vacana.Bahu), 'mimiyuH'); // mimiyuḥ
   assert.equal(f('tanu', Vacana.Eka), 'tatAna');  // tatāna
+});
+
+test('SLP1 suffix surfaces: tha→Ta, thaH→TaH, athuH→aTuH, Arau→ArO', () => {
+  const f = (d: string, lk: Lakara, p: Purusha, v: Vacana, pada = Pada.Parasmai) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara: lk, pada, purusha: p, vacana: v })[0].text();
+  assert.equal(f('BU', Lakara.Lat, Purusha.Madhyama, Vacana.Dvi), 'BavaTaH');   // bhavathaḥ
+  assert.equal(f('BU', Lakara.Lat, Purusha.Madhyama, Vacana.Bahu), 'BavaTa');   // bhavatha
+  assert.equal(f('BU', Lakara.Lit, Purusha.Madhyama, Vacana.Dvi), 'baBUvaTuH'); // babhūvathuḥ
+  assert.equal(f('BU', Lakara.Lut, Purusha.Prathama, Vacana.Dvi), 'BavitArO');  // bhavitārau
+  assert.equal(f('BU', Lakara.Lan, Pada.Atmane, Purusha.Madhyama, Vacana.Eka), 'aBavaTAH'); // abhavathāḥ
 });
