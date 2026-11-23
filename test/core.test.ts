@@ -2426,3 +2426,11 @@ test('√juṣ s-aorist ajoṣīt / ajoṣṭām / ajoṣuḥ', () => {
   assert.equal(f(Purusha.Prathama, Vacana.Dvi), 'ajozwAm'); // ajoṣṭām
   assert.equal(f(Purusha.Prathama, Vacana.Bahu), 'ajozuH'); // ajoṣuḥ
 });
+
+test('√hi simple future heṣyati (Wiktionary hinóti)', () => {
+  const f = (p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'hi', lakara: Lakara.Lrt, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Purusha.Prathama, Vacana.Eka), 'hezyati');  // heṣyati
+  assert.equal(f(Purusha.Prathama, Vacana.Bahu), 'hezyanti'); // heṣyanti
+  assert.equal(f(Purusha.Uttama, Vacana.Bahu), 'hezyAmH');    // heṣyāmaḥ
+});

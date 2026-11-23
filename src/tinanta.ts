@@ -1246,6 +1246,17 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'pat:lit:atmane:uttama:eka': 'pece',
   'pat:lit:atmane:uttama:dvi': 'pecivahe',
   'pat:lit:atmane:uttama:bahu': 'pecimahe',
+  // √hi simple future (lṛṭ) — Wiktionary hinóti: heṣyati/heṣyataḥ/heṣyanti.
+  // The generic iṭ-augmented future gives *heizyati (spurious i).
+  'hi:lrt:parasmai:prathama:eka': 'hezyati',
+  'hi:lrt:parasmai:prathama:dvi': 'hezyatH',
+  'hi:lrt:parasmai:prathama:bahu': 'hezyanti',
+  'hi:lrt:parasmai:madhyama:eka': 'hezyasi',
+  'hi:lrt:parasmai:madhyama:dvi': 'hezyaTH',
+  'hi:lrt:parasmai:madhyama:bahu': 'hezyaTa',
+  'hi:lrt:parasmai:uttama:eka': 'hezyAmi',
+  'hi:lrt:parasmai:uttama:dvi': 'hezyAvH',
+  'hi:lrt:parasmai:uttama:bahu': 'hezyAmH',
   // √as middle voice (Wiktionary asti: sté/sā́te/sáte, sé/sā́the/dhvé,
   // hé/sváhe/smáhe; stā́m/sā́tām/sátām; sītá/sīmáhi; ā́sta/ā́smahi).
   'as:lat:atmane:prathama:eka': 'ste',
