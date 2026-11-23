@@ -2085,3 +2085,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 364 (continued, toward 2703/2703):** Added causative
   stems vart-/grās- for √vṛt/√gras (vartayati/grāsayati). `npm test` 199/199,
   0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 365 (continued, toward 2703/2703):** Fixed explicit nic
+  on Curādi midí to medayati (no doubled -ay). `npm test` 200/200. Pushed.
+  Coverage 437/2703.
