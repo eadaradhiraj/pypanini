@@ -207,8 +207,8 @@ export function applyNatva(s: string): string {
       // affix itself, so it does not trigger ṇatva on its own n (bhaveran,
       // paceraṇ → bhaveran; cf. Wiktionary bháveran).
       if (trigger === 'r' && mid === 'a' && offset + _m.length === whole.length) return _m;
-      // ṇin (3.1.134 grahādiṣu) has a hard dental n even after a root-final
-      // r+h cluster: grAh+in → grāhin, never *grāhiṇ (cf. krdanta code note).
+      // ṇin (3.1.134 grahādiṣu) has a hard dental n after a root-final r+h
+      // cluster: grAh+in → grāhin, never *grāhiṇ (cf. krdanta code note).
       if (trigger === 'r' && mid.includes('h') && offset + _m.length === whole.length) return _m;
       // ṇatva is blocked when a ṣya- / śya- future marker intervenes (e.g.
       // bhaviṣyanti, kariṣyanti keep the dental n of -nti).
