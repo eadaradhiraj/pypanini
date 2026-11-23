@@ -2397,3 +2397,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   to 0/81 mismatches: fixed lit 1d/1p (-iva/-ima), laṅ 1s/1d/1p (-am/-āva/-āma),
   loṭ/liṅ 1d (no visarga), lṛṭ 1p dīrgha, luṭ 3d ArO, root-aorist 1s abhūvam.
   `npm test` 253/253. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 430 (continued, toward 2703/2703):** Using canonical
+  Vidyut kṛt tables, fixed √bhū ac → bhava (was *bhūa) and ṇvul → bhāvaka
+  (was *bhavaka); added O→Av (au+a→āv) case to 6.1.78 sandhi rule.
+  `npm test` 255/255. Pushed. Coverage 437/2703.
