@@ -2163,3 +2163,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 382 (continued, toward 2703/2703):** Fixed cAnaS
   (āna) participles of kṛ/grah to kurvāṇa/gṛhṇāna (were *kṛṣāṇa/*grahāṇa).
   `npm test` 215/215. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 383 (continued, toward 2703/2703):** Completed √bhid
+  class-7 imperative/imperfect from Wiktionary bhinátti (bhinddhi/bhinttām/
+  bhindantu/bhinadāni, abhinat/abhinttām/abhindan). `npm test` 216/216.
+  Pushed. Coverage 437/2703.
