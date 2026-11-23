@@ -2004,3 +2004,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   middle-present paradigms for √ci/√śru/√su/√śi/√stṛ (cinuṣé, cinvāthe,
   śṛṇvā́te, sunmáhe, ...) from Wiktionary's cinóti/śṛṇóti tables. `npm test`
   182/182, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 348 (continued, toward 2703/2703):** Completed √hu
+  (juhóti) present-system paradigm (lat/lan/lot/lin, active + middle) from
+  Wiktionary: juhutháḥ, juhumáḥ, juhudhí, juhuyā́t, júhvāte, ájuhvi, etc.
+  `npm test` 183/183, 0 unregistered emissions. Pushed. Coverage 437/2703.
