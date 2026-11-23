@@ -2159,3 +2159,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (āna) participles now use the śatṛ weak stems: cinvāna/sunvāna/śinvāna/
   stṛṇvāna/śṛṇvāna (were *ciāna/*suāna/*zruāṇa). `npm test` 214/214.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 382 (continued, toward 2703/2703):** Fixed cAnaS
+  (āna) participles of kṛ/grah to kurvāṇa/gṛhṇāna (were *kṛṣāṇa/*grahāṇa).
+  `npm test` 215/215. Pushed. Coverage 437/2703.
