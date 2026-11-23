@@ -2342,3 +2342,13 @@ test('more athematic middle voice: √pṛ, √pū, √lū, √hi, √dviṣ, �
   assert.equal(f('SAsu', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'SAste');   // śāste
   assert.equal(f('mIY', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'minIte');   // minīte
 });
+
+test('class-5 middle voice: √kṛ, √vṛ, √āp, √śak', () => {
+  const f = (d: string, lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: d, lakara: lk, pada: Pada.Atmane, purusha: p, vacana: v })[0].text();
+  assert.equal(f('kfY', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'kfRute');   // kṛṇute
+  assert.equal(f('vfY', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'vfRute');   // vṛṇute
+  assert.equal(f('Apx', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'Apnute');   // āpnute
+  assert.equal(f('Sakx', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'Saknute'); // śaknute
+  assert.equal(f('kfY', Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'akfRuta'); // akṛṇuta
+});
