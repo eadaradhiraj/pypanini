@@ -2242,3 +2242,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   class-5 active fix: added the missing laṅ a-augment to all 16 √kṛ/√vṛ
   imperfect overrides (akfRutAm/akfRvan/akfRoH/… and vf equivalents). Corrected
   session 396's test-count note. `npm test` 227/227. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 398 (continued, toward 2703/2703):** Added the laṅ
+  a-augment to 9 √śak imperfect middle overrides (aSaknuta/aSaknvAtAm/…).
+  Global scan of all `:lan:` overrides found no other missing augments (vowel-
+  initial roots √i/√iṣ/√āp correctly merge the augment). `npm test` 227/227.
+  Pushed. Coverage 437/2703.
