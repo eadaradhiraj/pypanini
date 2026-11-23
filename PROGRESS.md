@@ -2149,3 +2149,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   shares the verified parasmai stems for ad/vac/bhid/yuj (attā/vaktā/bhettā/
   yoktā), replacing generic *aditā/*vacitā/*bhiditā/*yujitā.
   `npm test` 212/212. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 380 (continued, toward 2703/2703):** Added 6.1.77 iko
+  yaṇ aci to denominative coalescence: guru/gurvayati, agni/agnyayati,
+  nadī/nadīyati (were *guruayati/*agniayati/*nadIIyati).
+  `npm test` 213/213. Pushed. Coverage 437/2703.
