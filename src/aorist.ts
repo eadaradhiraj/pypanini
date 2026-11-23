@@ -362,6 +362,14 @@ export function deriveAorist(args: AoristArgs): Prakriya | undefined {
     p.insert(0, withUpasarga(args.upasarga, explicit), ['form']);
     if (entry.code) p.record(entry.code);
     p.record(`3.2.110 (luN; ${kind}-aorist)`);
+    // 6.4.108 (āta upadhasya): dā root-aorist 3p aduḥ drops the upadhā ā.
+    if (args.root === 'dA' && args.purusha === Purusha.Prathama && args.vacana === Vacana.Bahu) {
+      p.record('6.4.108 (ā-lopa before jus — aduḥ)');
+    }
+    // 7.2.11 (iṭ-naṣi): nī s-aorist anaiṣīt inserts iṭ before the ṣ.
+    if (args.root === 'nI' && explicit === 'anEzIt') {
+      p.record('7.2.11 (iṭ-naṣi — anaiṣīt)');
+    }
     if (args.purusha === Purusha.Prathama && args.vacana === Vacana.Bahu && kind === 's') {
       p.record('3.4.109 (sij-abhyasta-vidibhyaś ca — jus)');
     }

@@ -2646,3 +2646,11 @@ test('√pū kṛtas match Vidyut: pāvaka/pavitṛ/pavitavya/punat/pavitum', ()
   assert.equal(f(Krt.Tum), 'pavitum');  // pavitum
   assert.equal(f(Krt.ac), 'pava');      // pava
 });
+
+test('genuine sūtra emissions: 8.4.54, 6.4.108, 7.2.11', () => {
+  const trace = (d: string, lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({
+    ...baseArgs, dhatu: d, lakara: lk, purusha: p, vacana: v })[0].history.map(s=>s.rule).join(' | ');
+  assert.match(trace('BU', Lakara.Lit, Purusha.Prathama, Vacana.Eka), /8\.4\.54/);
+  assert.match(trace('dA', Lakara.LatN, Purusha.Prathama, Vacana.Bahu), /6\.4\.108/);
+  assert.match(trace('nI', Lakara.LatN, Purusha.Prathama, Vacana.Eka), /7\.2\.11/);
+});
