@@ -2097,3 +2097,6 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 367 (continued, toward 2703/2703):** Fixed √bhū ap/yuc
   stems to bhava/bhavana (were *bhūa/*bhūana). `npm test` 202/202, 0
   unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 368 (continued, toward 2703/2703):** Fixed √ji śānac
+  to jayamāna (was *jeamāna). `npm test` 203/203. Pushed. Coverage 437/2703.
