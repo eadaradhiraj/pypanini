@@ -210,6 +210,11 @@ export function applyNatva(s: string): string {
       // ṇin (3.1.134 grahādiṣu) has a hard dental n after a root-final r+h
       // cluster: grAh+in → grāhin, never *grāhiṇ (cf. krdanta code note).
       if (trigger === 'r' && mid.includes('h') && offset + _m.length === whole.length) return _m;
+      // The n of a following tiṅ ending stays dental after the theme vowel
+      // even when a root-final r precedes it: bháranti, smáranti, bhárante
+      // (not *bháraṇti / *smáraṇti).  Unlike karman + ā → karmaṇā, the n here
+      // begins a tiṅ affix, so 8.4.1 does not cross the vikaraṇa boundary.
+      if (trigger === 'r' && /^[tTdDmvyH]/.test(whole.slice(offset + _m.length))) return _m;
       // ṇatva is blocked when a ṣya- / śya- future marker intervenes (e.g.
       // bhaviṣyanti, kariṣyanti keep the dental n of -nti).
       if (trigger === 'z' && mid.startsWith('y')) return _m;

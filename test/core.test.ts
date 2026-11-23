@@ -2291,3 +2291,14 @@ test('√as middle voice from Wiktionary asti (sté, dhvé, hé, ā́sta)', () =
   assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Eka), 'Asta');      // ā́sta
   assert.equal(f(Lakara.Lan, Purusha.Uttama, Vacana.Bahu), 'Asmahi');     // ā́smahi
 });
+
+test('ṇatva does not cross vikaraṇa into tiṅ ending (bháranti, smáranti)', () => {
+  const f = (d: string, lk: Lakara, p: Purusha, v: Vacana, pada = Pada.Parasmai) =>
+    deriveTinantas({ ...baseArgs, dhatu: d, lakara: lk, pada, purusha: p, vacana: v })[0].text();
+  assert.equal(f('Bf', Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'Baranti');   // bháranti
+  assert.equal(f('Bf', Lakara.Lat, Purusha.Prathama, Vacana.Bahu, Pada.Atmane), 'Barante'); // bhárante
+  assert.equal(f('smf', Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'smaranti'); // smáranti
+  // ṇatva still applies within a pada: karman + ā → karmaṇā.
+  assert.equal(deriveSubantas({ pratipadika: 'karman', linga: 'napumsaka',
+    vibhakti: 3, vacana: 'eka' } as any)[0].text(), 'karmRA'); // karmaṇā
+});
