@@ -1882,7 +1882,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   }
   // The aorist (luṅ) uses a separate formation system; dispatch to it.
   // Strip dhātupāṭha ñit marker Y (ciY → ci) for aorist lookup.
-  const aoristRoot = initialShatva(initialNati(dhatu.text)).replace(/Y$/, '');
+  const aoristRoot = initialShatva(initialNati(dhatu.text)).replace(/[Yx]$/, '');
   if ((args.lakara === Lakara.LatN || args.lakara === Lakara.Lang) &&
       hasAorist(aoristRoot)) {
     const passive = (args.prayoga ?? Prayoga.Kartari) === Prayoga.Karmani;
