@@ -613,14 +613,14 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lan:parasmai:prathama:bahu': 'Asan',
   'as:lan:atmane:prathama:eka': 'Asata',
   'as:lat:parasmai:prathama:eka': 'asti',
-  'as:lat:parasmai:prathama:dvi': 'astaH',   // staḥ
-  'as:lat:parasmai:madhyama:dvi': 'asTHaH',  // sthaḥ
-  'as:lat:parasmai:uttama:dvi': 'asvaH',     // svaḥ
+  'as:lat:parasmai:prathama:dvi': 'staH',    // stáḥ (Wiktionary asti)
+  'as:lat:parasmai:madhyama:dvi': 'sthaH',   // stháḥ
+  'as:lat:parasmai:uttama:dvi': 'svaH',     // sváḥ
   'as:lat:parasmai:madhyama:eka': 'asi',
   'as:lat:parasmai:uttama:eka': 'asmi',
   'as:lat:parasmai:prathama:bahu': 'santi',
-  'as:lat:parasmai:madhyama:bahu': 'sTHa',    // stha (स्थ)
-  'as:lat:parasmai:uttama:bahu': 'asmaH',     // asmaḥ
+  'as:lat:parasmai:madhyama:bahu': 'stha',    // sthá (स्थ)
+  'as:lat:parasmai:uttama:bahu': 'smaH',     // smáḥ
   'as:lin:parasmai:prathama:eka': 'syAt',   // syāt
   'as:lin:parasmai:madhyama:eka': 'syAH',   // syāḥ
   'as:lin:parasmai:uttama:eka': 'syAm',     // syām
@@ -650,8 +650,19 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'as:lrt:parasmai:uttama:dvi': 'BavizyAvaH',
   'as:lrt:parasmai:uttama:bahu': 'BavizyAmaH',
   'as:lot:parasmai:prathama:eka': 'astu',
+  'as:lot:parasmai:prathama:dvi': 'astAm',   // astā́m
   'as:lot:parasmai:prathama:bahu': 'santu', // santu
   'as:lot:parasmai:madhyama:eka': 'ehi',
+  'as:lot:parasmai:madhyama:dvi': 'astam',   // astám
+  'as:lot:parasmai:madhyama:bahu': 'asta',   // astá
+  'as:lot:parasmai:uttama:dvi': 'asAva',     // āsāva (no final visarga)
+  // √as imperfect weak forms (Wiktionary asti: āsī́ḥ, āstám, āsam, ...)
+  'as:lan:parasmai:madhyama:eka': 'AsIH',
+  'as:lan:parasmai:madhyama:dvi': 'Astam',
+  'as:lan:parasmai:madhyama:bahu': 'Asta',
+  'as:lan:parasmai:uttama:eka': 'Asam',
+  'as:lan:parasmai:uttama:dvi': 'Asva',
+  'as:lan:parasmai:uttama:bahu': 'Asma',
   // 8.2.31 (ho ḍhaḥ): √vah/√sah future agent — voḍhā/soḍhā.
   'vah:lut:parasmai:prathama:eka': 'voDhA',
   'sah:lut:parasmai:prathama:eka': 'soDhA',

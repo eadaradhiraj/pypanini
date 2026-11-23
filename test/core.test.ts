@@ -1971,3 +1971,15 @@ test('√hu (juhoti) full present-system paradigm', () => {
   assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Dvi), 'juhvAte');   // júhvāte
   assert.equal(f(Lakara.Lan, Pada.Atmane, Purusha.Uttama, Vacana.Eka), 'ajuhvi');      // ájuhvi
 });
+
+test('√as (asti) weak forms from Wiktionary', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'as', lakara: lk, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Purusha.Prathama, Vacana.Dvi), 'staH');   // stáḥ
+  assert.equal(f(Lakara.Lat, Purusha.Madhyama, Vacana.Dvi), 'sthaH');  // stháḥ
+  assert.equal(f(Lakara.Lat, Purusha.Uttama, Vacana.Bahu), 'smaH');    // smáḥ
+  assert.equal(f(Lakara.Lot, Purusha.Prathama, Vacana.Dvi), 'astAm');  // astā́m
+  assert.equal(f(Lakara.Lot, Purusha.Madhyama, Vacana.Bahu), 'asta');  // astá
+  assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Eka), 'AsIH');   // āsī́ḥ
+  assert.equal(f(Lakara.Lan, Purusha.Uttama, Vacana.Eka), 'Asam');     // ā́sam
+});
