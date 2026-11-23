@@ -2039,3 +2039,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 354 (continued, toward 2703/2703):** Stripped indicatory
   x in aorist root lookup; fixed √hu śatṛ to júhvat (was *havat).
   `npm test` 190/190, 0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 355 (continued, toward 2703/2703):** Fixed ṇin agent
+  noun of √grah to grāhin (hard n), blocking spurious 8.4.1 ṇatva across the
+  r+h cluster while preserving gṛhyamāṇa/guruṇā/paceran. `npm test` 191/191,
+  0 unregistered emissions. Pushed. Coverage 437/2703.
