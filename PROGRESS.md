@@ -2416,3 +2416,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   from Vidyut: pāvaka/pavitṛ/pavitavya/punat/pavitum/pava (were *pavaka/
   *pavtṛ/*pavītavya/*pavat/*pavtum/*pūa). Kept Pāṇini 8.2.44 pūna for kta.
   `npm test` 258/258. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 434 (continued, toward 2703/2703):** Genuinely
+  implemented and emitted three previously-unregistered sūtras: 8.4.54
+  (abhyāse carca de-aspiration in liṭ reduplication), 6.4.108 (dā aorist 3p
+  ā-lopa aduḥ), 7.2.11 (nī s-aorist iṭ-naṣi anaiṣīt). Registry updated only
+  after each was verified in traces. `npm test` 259/259. Pushed. Coverage
+  440/2703 (455/3983).
