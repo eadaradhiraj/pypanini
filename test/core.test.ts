@@ -2506,3 +2506,15 @@ test('class-5 -nu roots: fixed √stṛ stem and middle systems', () => {
   assert.equal(f('SiY', Lakara.Lot, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'SinutAm');   // śinutām
   assert.equal(f('tanu', Lakara.Lan, Pada.Atmane, Purusha.Prathama, Vacana.Eka), 'tanuta');   // tanuta
 });
+
+test('kṛt stems for √hi, √śās, √mī, √pū, √lū, √brū', () => {
+  const f = (d: string, k: Krt) => deriveKrdantas({ dhatu: d, krt: k })[0].text();
+  assert.equal(f('hi', Krt.LyuT), 'havana');    // havana
+  assert.equal(f('hi', Krt.Tavya), 'hetavya');  // hetavya
+  assert.equal(f('SAsu', Krt.LyuT), 'SAsana');  // śāsana
+  assert.equal(f('SAsu', Krt.Tavya), 'SAsitavya'); // śāsitavya
+  assert.equal(f('mIY', Krt.LyuT), 'mAna');     // māna
+  assert.equal(f('pUY', Krt.Tavya), 'pavItavya'); // pavitavya
+  assert.equal(f('Bru', Krt.KtvA), 'uktvA');    // uktvā
+  assert.equal(f('Bru', Krt.Tavya), 'vaktavya'); // vaktavya
+});
