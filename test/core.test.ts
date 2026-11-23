@@ -2242,3 +2242,14 @@ test('√chid class-7 full present-system paradigm (chinátti)', () => {
   assert.equal(f(Lakara.Lot, Purusha.Madhyama, Vacana.Eka), 'chinDDi');
   assert.equal(f(Lakara.Lin, Purusha.Prathama, Vacana.Eka), 'chinDyAt');
 });
+
+test('√labh middle-voice forms from Wiktionary labhate', () => {
+  const f = (lk: Lakara, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'lab', lakara: lk, pada: Pada.Atmane, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lot, Purusha.Prathama, Vacana.Dvi), 'labetAm'); // labhetām
+  assert.equal(f(Lakara.Lot, Purusha.Madhyama, Vacana.Dvi), 'labethAm'); // labhethām
+  assert.equal(f(Lakara.Lot, Purusha.Uttama, Vacana.Bahu), 'labAmahai'); // labhāmahai
+  assert.equal(f(Lakara.Lin, Purusha.Uttama, Vacana.Eka), 'labeya'); // labheya
+  assert.equal(f(Lakara.Lan, Purusha.Prathama, Vacana.Dvi), 'alabetAm'); // alabhetām
+  assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Dvi), 'alabethAm'); // alabhethām
+});

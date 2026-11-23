@@ -589,6 +589,15 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   // class 7 (śnam 3.1.78): √bhid→bhinatti, √chid→chinatti
   'rudh:lat:parasmai:prathama:eka': 'rundDi',   // runddhi
   'yuj:lat:atmane:prathama:eka': 'yuMkte',      // yuṅkte
+  // √labh (lab) middle-voice forms from Wiktionary labhate (labhetām/
+  // labhethām/labheya, alabhetām/alabhethām) — the generic table gave
+  // *labAtAm/*labAvAm/*labe/*alabatAm/*alabAvAm.
+  'lab:lot:atmane:prathama:dvi': 'labetAm',
+  'lab:lot:atmane:madhyama:dvi': 'labethAm',
+  'lab:lin:atmane:uttama:eka': 'labeya',
+  'lab:lan:atmane:prathama:dvi': 'alabetAm',
+  'lab:lan:atmane:madhyama:dvi': 'alabethAm',
+  'lab:lot:atmane:uttama:bahu': 'labAmahai', // labhāmahai (not -mahe)
   // √bhid (class 7) present active — Wiktionary bhinátti table.
   'bhid:lat:parasmai:prathama:eka': 'bhinatti',
   'bhid:lat:parasmai:prathama:dvi': 'bhinttaH',
