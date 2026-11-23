@@ -2052,3 +2052,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 357 (continued, toward 2703/2703):** Fixed √ji ṇvul
   agent noun to jayaka (was *jeaka); updated README counts. `npm test` 192/192,
   0 unregistered emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 358 (continued, toward 2703/2703):** Fixed i-final
+  roots before ṇvul -aka to use ay (cayaka/ayaka/kṣayaka/jayaka), matching the
+  3.3.56 ac overrides. `npm test` 193/193, 0 unregistered emissions. Pushed.
+  Coverage 437/2703.
