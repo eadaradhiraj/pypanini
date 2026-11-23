@@ -2518,3 +2518,12 @@ test('kṛt stems for √hi, √śās, √mī, √pū, √lū, √brū', () => {
   assert.equal(f('Bru', Krt.KtvA), 'uktvA');    // uktvā
   assert.equal(f('Bru', Krt.Tavya), 'vaktavya'); // vaktavya
 });
+
+test('indicatory markers never leak into kvip/kvin kṛtas', () => {
+  const f = (d: string, k: Krt) => deriveKrdantas({ dhatu: d, krt: k })[0].text();
+  for (const k of [Krt.kvip, Krt.kvin]) {
+    const form = f('BfY', k);
+    assert.ok(!form.includes('Y'), `kvip/kvin form ${form} leaked an indicatory Y`);
+  }
+  assert.ok(!f('Gasx', Krt.kvip).includes('x'));
+});

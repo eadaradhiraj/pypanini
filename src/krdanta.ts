@@ -399,13 +399,13 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
           ? '3.2.61 (satsu dviṣādi-kvip)'
           : "3.2.178 (anyebhyo 'pi dṛśyate — kvip)");
     if (form) p.insert(0, form, ['krt']);
-    else p.insert(0, dhatu.text, ['krt']);
+    else p.insert(0, dhatu.text.replace(/[Yx]$/, ''), ['krt']); // indicatory markers are not phonemes
     p.collapse();
     return [p];
   }
   // kvin (3.2.59): irregular zero-suffix agent nouns.
   if (args.krt === Krt.kvin) {
-    const form = KVIN_FORMS[dhatu.text] ?? dhatu.text;
+    const form = KVIN_FORMS[dhatu.text] ?? dhatu.text.replace(/[Yx]$/, '');
     const p = new Prakriya([]);
     p.record(['dviS', 'druh', 'duh', 'Bid', 'Cid'].includes(dhatu.text)
       ? '3.2.61 (dviṣādi-kvip — dviṭ/druk/duk)' 
