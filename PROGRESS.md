@@ -2402,3 +2402,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   Vidyut kṛt tables, fixed √bhū ac → bhava (was *bhūa) and ṇvul → bhāvaka
   (was *bhavaka); added O→Av (au+a→āv) case to 6.1.78 sandhi rule.
   `npm test` 255/255. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 431 (continued, toward 2703/2703):** Using Vidyut kṛt
+  tables, fixed √vac kṛtas for the dhātupāṭha spelling `vaca` (overrides were
+  keyed only `vac`): vaktṛ/vaktavya/uktvā/vaktum. `npm test` 256/256. Pushed.
+  Coverage 437/2703.
