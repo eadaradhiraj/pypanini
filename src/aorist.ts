@@ -106,6 +106,9 @@ const AORIST: Record<string, AoristEntry> = {
   // √nī s-aorist: anaiṣīt (3s), anaiṣṭām (3d), anaiṣuḥ (3p) — 7.2.11 iṭ-naṣi.
   nI: { kind: 's', stem: 'nE', code: '3.1.44 (cleḥ sic — nī s-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'anEzIt' } } },
+  // √śak a-aorist: aśakat (3s), aśakatām (3d), aśakan (3p) — Wiktionary aśakat.
+  Sak: { kind: 'a', stem: 'Sak', code: '3.1.57 (iritaḥ vā — śak a-aorist)',
+    formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'aSakat' } } },
   // √jñā iṣ-aorist: ajñāsīt (3s) — guṇa jñā + iṣ, cf. Wiktionary jānā́ti.
   jYA: { kind: 's', stem: 'jYA', code: '3.1.44 (cleḥ sic — jñā iṣ-aorist)',
     formsP: { [Purusha.Prathama]: { [Vacana.Eka]: 'ajYAsIt' } } },

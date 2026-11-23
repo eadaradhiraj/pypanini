@@ -2380,3 +2380,11 @@ test('√jñā iṣ-aorist ajñāsīt', () => {
     purusha: Purusha.Prathama, vacana: Vacana.Eka });
   assert.equal(r!.text(), 'ajYAsIt'); // ajñāsīt
 });
+
+test('√śak a-aorist aśakat (Wiktionary)', () => {
+  const f = (p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
+    dhatu: 'Sakx', lakara: Lakara.LatN, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Purusha.Prathama, Vacana.Eka), 'aSakat');  // aśakat
+  assert.equal(f(Purusha.Prathama, Vacana.Dvi), 'aSakatAm'); // aśakatām
+  assert.equal(f(Purusha.Prathama, Vacana.Bahu), 'aSakan');   // aśakan
+});
