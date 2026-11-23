@@ -2311,3 +2311,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   entries `hi: hezya` and `jI: jezya`, so lṛṭ/lṅ are correct for both padas
   (ātmane heṣyate/aheṣyata, jeṣyate/ajeṣyata), not just the overridden
   parasmai forms. `npm test` 237/237. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 411 (continued, toward 2703/2703):** Completed √hi
+  active present system (lat/lot/lin/lan × 9) from Wiktionary hinóti — generic
+  thematic fallbacks like *hayathaH/*ahayan replaced with hinuTH/ahinvan.
+  `npm test` 238/238. Pushed. Coverage 437/2703.
