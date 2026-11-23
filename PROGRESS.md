@@ -2255,3 +2255,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   no overrides added rather than inventing unattested forms. All 2229 roots now
   clean under the athematic-active + thematic-middle scan. `npm test` 227/227.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 400 (continued, toward 2703/2703):** Added √hi s-aorist
+  (ahaiṣīt/ahaiṣṭām/ahaiṣuḥ) to the AORIST table from Wiktionary hinóti;
+  latN now derives it instead of falling back to a present stem.
+  `npm test` 228/228. Pushed. Coverage 437/2703.
