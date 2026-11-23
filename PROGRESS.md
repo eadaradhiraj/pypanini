@@ -2438,3 +2438,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.69 (laḥ karmani ca bhāve cākarmakebhyaḥ) for karmāṇi/bhāve prayoga after
   verifying it is absent from active traces. Registry updated after trace
   verification. `npm test` 262/262. Pushed. Coverage 442/2703 (457/3983).
+
+- **2026-11-23 — Session 438 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.97 (itaś ca lopaḥ parasmaipadeṣu) for parasmai it-lopa, absent in ātmane.
+  Registry updated after trace verification. `npm test` 263/263. Pushed.
+  Coverage 443/2703 (458/3983).
