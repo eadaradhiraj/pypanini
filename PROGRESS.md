@@ -2345,3 +2345,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (√mī), pavitavya/lavitavya (√pū/√lū), and uktvā/vaktavya/vaktum/ukta
   for the `Bru` spelling (previously only keyed as `brU`).
   `npm test` 243/243. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 417 (continued, toward 2703/2703):** Fixed 124
+  indicatory-marker leaks in kvip/kvin kṛtas (the zero-suffix fallback inserted
+  the raw dhātupāṭha root). Global scans now show 0 marker leaks across
+  361,098 finite forms and 122,595 kṛt derivations. `npm test` 244/244.
+  Pushed. Coverage 437/2703.
