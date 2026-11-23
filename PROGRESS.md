@@ -1999,3 +1999,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   present 3d to cinvā́te (was *cinvātām) per Wiktionary; aligned √śru imperative
   weak stem with its optative (zRuNu). `npm test` 181/181, 0 unregistered
   emissions. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 347 (continued, toward 2703/2703):** Completed class-5
+  middle-present paradigms for √ci/√śru/√su/√śi/√stṛ (cinuṣé, cinvāthe,
+  śṛṇvā́te, sunmáhe, ...) from Wiktionary's cinóti/śṛṇóti tables. `npm test`
+  182/182, 0 unregistered emissions. Pushed. Coverage 437/2703.
