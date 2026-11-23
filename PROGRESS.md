@@ -2218,3 +2218,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   yuñjīmáhi/áyunakta), verified via Wiktionary expandtemplates. Fixed the
   stale yuj 3s override *yuMkte → yuNkte (ङ, not anusvāra). `npm test` 223/223.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 393 (continued, toward 2703/2703):** Added full middle
+  paradigms (lat/lot/lin/lan × 9) for √jñā (jānīte/jānāte/ajānīta) and √brū
+  (brūte/bruvāte/bravái/abrūta), verified via Wiktionary expandtemplates.
+  `npm test` 224/224. Pushed. Coverage 437/2703.
