@@ -2089,3 +2089,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 365 (continued, toward 2703/2703):** Fixed explicit nic
   on Curādi midí to medayati (no doubled -ay). `npm test` 200/200. Pushed.
   Coverage 437/2703.
+
+- **2026-11-23 — Session 366 (continued, toward 2703/2703):** Fixed √yuj śānac
+  to yuñjāna (yuNYAna), consistent with its śatṛ stem. `npm test` 201/201.
+  Pushed. Coverage 437/2703.
