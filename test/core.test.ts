@@ -2681,3 +2681,10 @@ test('3.4.69 emitted for passive la-kāra only', () => {
   assert.match(hist(Prayoga.Bhave), /3\.4\.69/);
   assert.doesNotMatch(hist(Prayoga.Kartari), /3\.4\.69/);
 });
+
+test('3.4.97 noted for parasmaipada it-lopa only', () => {
+  const notes = (pada: Pada) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    lakara: Lakara.Lat, pada, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Pada.Parasmai).has('3.4.97'));
+  assert.ok(!notes(Pada.Atmane).has('3.4.97'));
+});
