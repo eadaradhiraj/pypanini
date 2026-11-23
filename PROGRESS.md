@@ -2332,3 +2332,10 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   lunā́ti/āpnóti/śaknóti (vowel-initial √āp keeps its audātta-less imperfect
   stem Apnot, consonant-initial √śak takes a-augment aSaknot).
   `npm test` 241/241. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 415 (continued, toward 2703/2703):** Completed active
+  present systems for √ci/√śi/√tanu/√stṛ/√mī and middle loṭ/liṅ/laṅ for the
+  -nu roots by the verified √kṛ pattern. Fixed systemic √stṛ stem typo stfRn →
+  stfR (ṇ = R, no extra n) across code + tests; also corrected three test
+  typos (SInvantu→Sinvantu, tanOzi→tanozi, tanmaH→tanmH).
+  `npm test` 242/242. Pushed. Coverage 437/2703.
