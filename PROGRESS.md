@@ -2453,3 +2453,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   6.1.2 (ajāderdvitīyasya — asiddhavat section) alongside vowel sandhi/ekādeśa.
   Registry updated after trace verification. `npm test` 265/265. Pushed.
   Coverage 445/2703 (460/3983).
+
+- **2026-11-23 — Session 441 (continued, toward 2703/2703):** Genuinely emitted
+  3.2.116 (haśaśvator laṅ ca) for laṅ (imperfect) derivations, absent for lat.
+  Registry updated after trace verification. `npm test` 266/266. Pushed.
+  Coverage 446/2703 (461/3983).
