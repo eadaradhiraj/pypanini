@@ -2187,3 +2187,13 @@ test('√dhā luṭ ātmane is dhātā', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'DA', lakara: Lakara.Lut,
     pada: Pada.Atmane, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'DAtA');
 });
+
+test('luṭ ātmane shares parasmai stems for ad/vac/bhid/yuj', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lut, pada: Pada.Atmane,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('ad'), 'attA');
+  assert.equal(f('vac'), 'vaktA');
+  assert.equal(f('bhid'), 'bhettA');
+  assert.equal(f('yuj'), 'yoktA');
+});

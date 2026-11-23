@@ -166,6 +166,10 @@ const LUT_STEMS: Record<string, string> = {
   vid: 'vedit',  // veditā (also used by the atmane path)
   lab: 'labD',  // labdhā
   pac: 'pakt',  // paktā (c → k, 8.2.36)
+  ad: 'att',    // attā (also used by the atmane path)
+  vac: 'vakt',  // vaktā
+  bhid: 'bhett', // bhettā
+  yuj: 'yokt',  // yoktā
   yaj: 'yaSt',  // yaṣṭā (j → ṣ, ṣṭ)
   ni: 'net',    // netā
   stu: 'stot',  // stotā
