@@ -2661,3 +2661,15 @@ test('1.1.53 ṇicca noted for causatives only', () => {
   assert.ok(notes(Sanadi.Nic).has('1.1.53'));
   assert.ok(!notes(Sanadi.None).has('1.1.53'));
 });
+
+test('kṛt stems for √kṛ(5P) and √hi from Vidyut', () => {
+  const f = (d: string, k: Krt) => deriveKrdantas({ dhatu: d, krt: k })[0].text();
+  assert.equal(f('kfY', Krt.Nvul), 'kAraka');  // kāraka
+  assert.equal(f('kfY', Krt.Satr), 'kfRvat');  // kṛṇvat
+  assert.equal(f('kfY', Krt.ac), 'kara');      // kara
+  assert.equal(f('hi', Krt.Nvul), 'hAyaka');  // hāyaka
+  assert.equal(f('hi', Krt.Satr), 'hinvat');  // hinvat
+  assert.equal(f('hi', Krt.ac), 'haya');      // haya
+  assert.equal(f('hi', Krt.Ani), 'hayanIya'); // hayanīya
+  assert.equal(f('hi', Krt.Ktin), 'heti');    // heti
+});
