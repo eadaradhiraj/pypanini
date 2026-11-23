@@ -2150,3 +2150,8 @@ test('luṭ of long-vowel roots drops iṭ (sthātā, pātā, jñātā)', () => 
   assert.equal(f('ji'), 'jetA');
   assert.equal(f('zru'), 'zrotA');
 });
+
+test('√muc luṭ is moktā', () => {
+  assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'muc', lakara: Lakara.Lut,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'moktA');
+});

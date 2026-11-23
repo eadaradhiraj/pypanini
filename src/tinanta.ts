@@ -160,6 +160,7 @@ const LUT_STEMS: Record<string, string> = {
   nI: 'net',    // netā
   ji: 'jet',    // jetā
   zru: 'zrot',  // śrotā
+  muc: 'mokt',  // moktā (√muc future stem mokṣya-)
   pac: 'pakt',  // paktā (c → k, 8.2.36)
   yaj: 'yaSt',  // yaṣṭā (j → ṣ, ṣṭ)
   ni: 'net',    // netā
