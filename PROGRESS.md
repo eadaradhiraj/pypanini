@@ -2270,3 +2270,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   a-aorist (aśakat/aśakatām/aśakan) from Wiktionary. Key detail: tinanta
   strips the dhātupāṭha indicatory x before aorist lookup (Sakx → Sak), so
   the AORIST entry is keyed `Sak`. `npm test` 230/230. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 403 (continued, toward 2703/2703):** Added s-aorists
+  avārṣīt/avārṣuḥ (√vṛ) and apārṣīt/apārṣuḥ (√pṛ, ṛ-root vṛddhi pattern),
+  plus full explicit √āp root aorist (āpāt/āpātām/āpuḥ/āpāḥ/āpatam/āpata/
+  āpam/āpva/āpma) since the generic generator prepended a spurious a- to
+  vowel-initial forms. `npm test` 231/231. Pushed. Coverage 437/2703.
