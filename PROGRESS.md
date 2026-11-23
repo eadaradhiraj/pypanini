@@ -2482,3 +2482,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 446 (continued, toward 2703/2703):** Genuinely emitted
   3.2.117 (praśne cāsannakāle) for liṭ only. Registry updated after trace
   verification. `npm test` 271/271. Pushed. Coverage 452/2703 (467/3983).
+
+- **2026-11-23 — Session 447 (continued, toward 2703/2703):** Fixed √jñā kṛtas
+  from Wiktionary: jñeya (was *jñāya), jñāpaka (was *jñāka); kept jñāta/jñātvā.
+  `npm test` 272/272. Pushed. Coverage 452/2703.
