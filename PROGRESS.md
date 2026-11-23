@@ -2339,3 +2339,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   stfR (ṇ = R, no extra n) across code + tests; also corrected three test
   typos (SInvantu→Sinvantu, tanOzi→tanozi, tanmaH→tanmH).
   `npm test` 242/242. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 416 (continued, toward 2703/2703):** Fixed kṛt stems
+  from Wiktionary: havana/hetavya (√hi), śāsana/śāsitavya (√śās), māna
+  (√mī), pavitavya/lavitavya (√pū/√lū), and uktvā/vaktavya/vaktum/ukta
+  for the `Bru` spelling (previously only keyed as `brU`).
+  `npm test` 243/243. Pushed. Coverage 437/2703.
