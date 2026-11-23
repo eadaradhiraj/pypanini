@@ -2351,3 +2351,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   the raw dhātupāṭha root). Global scans now show 0 marker leaks across
   361,098 finite forms and 122,595 kṛt derivations. `npm test` 244/244.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 418 (continued, toward 2703/2703):** Global integrity
+  scans confirmed 0 indicatory marker leaks across 361,098 finite forms,
+  122,595 kṛt derivations and 13,374 sanādi derivations. `npm test` 244/244.
+  Pushed. Coverage 437/2703.
