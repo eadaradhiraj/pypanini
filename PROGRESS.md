@@ -2290,3 +2290,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 406 (continued, toward 2703/2703):** Added √juṣ
   s-aorist from Wiktionary ajoṣīt with explicit forms (generic generation gave
   *ajozztAm with doubled ṣ). `npm test` 234/234. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 407 (continued, toward 2703/2703):** Fixed √hi simple
+  future (lṛṭ) from Wiktionary heṣyáti: heṣyati/heṣyataḥ/heṣyanti etc. —
+  generic iṭ insertion gave *heizyati. Noted the same systemic iṭ issue affects
+  other vowel-final roots (jI/mIY/pUY/lUY) but left them pending source checks.
+  `npm test` 235/235. Pushed. Coverage 437/2703.
