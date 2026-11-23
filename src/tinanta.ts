@@ -515,10 +515,48 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'rA:lat:parasmai:prathama:eka': 'rAti',
   'dviza:lat:parasmai:prathama:eka': 'dvezwi', // dveṣṭi
   // class 8 (tanādi): √tan→tanoti, tanutaḥ, tanvanti
+  // √tanu (tanóti, class 8) — Wiktionary tanoti table.
   'tanu:lat:parasmai:prathama:eka': 'tanoti',
   'tanu:lat:parasmai:prathama:dvi': 'tanutaH',
   'tanu:lat:parasmai:prathama:bahu': 'tanvanti',
+  'tanu:lat:parasmai:madhyama:eka': 'tanOzi',   // tanóṣi
+  'tanu:lat:parasmai:madhyama:dvi': 'tanuthaH', // tanutháḥ
+  'tanu:lat:parasmai:madhyama:bahu': 'tanutha', // tanuthá
   'tanu:lat:parasmai:uttama:eka': 'tanomi',
+  'tanu:lat:parasmai:uttama:dvi': 'tanvaH',     // tanváḥ
+  'tanu:lat:parasmai:uttama:bahu': 'tanmaH',    // tanmáḥ
+  'tanu:lat:atmane:prathama:eka': 'tanute',
+  'tanu:lat:atmane:prathama:dvi': 'tanvAte',
+  'tanu:lat:atmane:prathama:bahu': 'tanvate',
+  'tanu:lat:atmane:madhyama:eka': 'tanuze',
+  'tanu:lat:atmane:madhyama:dvi': 'tanvAthe',
+  'tanu:lat:atmane:madhyama:bahu': 'tanudhve',
+  'tanu:lat:atmane:uttama:eka': 'tanve',
+  'tanu:lat:atmane:uttama:dvi': 'tanvahe',
+  'tanu:lat:atmane:uttama:bahu': 'tanmahe',
+  'tanu:lan:parasmai:prathama:dvi': 'atanutAm',
+  'tanu:lan:parasmai:prathama:bahu': 'atanvan',
+  'tanu:lan:parasmai:madhyama:eka': 'atanoH',
+  'tanu:lan:parasmai:madhyama:dvi': 'atanutam',
+  'tanu:lan:parasmai:madhyama:bahu': 'atanuta',
+  'tanu:lan:parasmai:uttama:eka': 'atanavam',
+  'tanu:lan:parasmai:uttama:dvi': 'atanva',
+  'tanu:lan:parasmai:uttama:bahu': 'atanma',
+  'tanu:lot:parasmai:prathama:eka': 'tanotu',
+  'tanu:lot:parasmai:prathama:dvi': 'tanutAm',
+  'tanu:lot:parasmai:prathama:bahu': 'tanvantu',
+  'tanu:lot:parasmai:madhyama:dvi': 'tanutam',
+  'tanu:lot:parasmai:madhyama:bahu': 'tanuta',
+  'tanu:lot:parasmai:uttama:dvi': 'tanavAva',
+  'tanu:lin:parasmai:prathama:eka': 'tanuyAt',
+  'tanu:lin:parasmai:prathama:dvi': 'tanuyAtAm',
+  'tanu:lin:parasmai:prathama:bahu': 'tanuyuH',
+  'tanu:lin:parasmai:madhyama:eka': 'tanuyAH',
+  'tanu:lin:parasmai:madhyama:dvi': 'tanuyAtam',
+  'tanu:lin:parasmai:madhyama:bahu': 'tanuyAta',
+  'tanu:lin:parasmai:uttama:eka': 'tanuyAm',
+  'tanu:lin:parasmai:uttama:dvi': 'tanuyAva',
+  'tanu:lin:parasmai:uttama:bahu': 'tanuyAma',
   // class 7 (śnam 3.1.78): √bhid→bhinatti, √chid→chinatti
   'rudh:lat:parasmai:prathama:eka': 'rundDi',   // runddhi
   'yuj:lat:atmane:prathama:eka': 'yuMkte',      // yuṅkte

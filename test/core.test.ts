@@ -1997,3 +1997,15 @@ test('√grah imperative 2s gṛhāṇá (not gṛhāṅa)', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'grah', lakara: Lakara.Lot,
     purusha: Purusha.Madhyama, vacana: Vacana.Eka })[0].text(), 'gfhARa');
 });
+
+test('√tanu (tanoti) present-system paradigm from Wiktionary', () => {
+  const f = (lk: Lakara, pada: Pada, p: Purusha, v: Vacana) => deriveTinantas({
+    ...baseArgs, dhatu: 'tanu', lakara: lk, pada, purusha: p, vacana: v })[0].text();
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Madhyama, Vacana.Eka), 'tanOzi'); // tanóṣi
+  assert.equal(f(Lakara.Lat, Pada.Parasmai, Purusha.Uttama, Vacana.Bahu), 'tanmaH'); // tanmáḥ
+  assert.equal(f(Lakara.Lan, Pada.Parasmai, Purusha.Prathama, Vacana.Bahu), 'atanvan');
+  assert.equal(f(Lakara.Lot, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'tanotu');
+  assert.equal(f(Lakara.Lin, Pada.Parasmai, Purusha.Prathama, Vacana.Eka), 'tanuyAt');
+  assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Prathama, Vacana.Dvi), 'tanvAte');
+  assert.equal(f(Lakara.Lat, Pada.Atmane, Purusha.Uttama, Vacana.Eka), 'tanve');
+});
