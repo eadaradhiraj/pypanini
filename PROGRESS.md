@@ -2126,3 +2126,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 374 (continued, toward 2703/2703):** Added luṭ stems
   grahītā/labdhā (were *grahīyā/*labitā) and kept veditā from its explicit
   athematic table. `npm test` 208/208. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 375 (continued, toward 2703/2703):** Fixed √vid luṭ
+  ātmane to veditā (was *viditā) via the shared LUT_STEMS entry.
+  `npm test` 208/208. Pushed. Coverage 437/2703.
