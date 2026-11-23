@@ -2059,3 +2059,13 @@ test('class-4 roots drop indicatory final I/u (nṛtyati, trasyati)', () => {
   assert.equal(f('trasI'), 'trasyati'); // trasyati, not *trasayyati
   assert.equal(f('divu'), 'divyati');
 });
+
+test('class-4 indicatory ī stripped in all lakāras and kṛtas', () => {
+  const f = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'nftI',
+    lakara: lk, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.ok(!f(Lakara.Lat).includes('I'));
+  assert.ok(!f(Lakara.Lit).includes('I'));
+  assert.ok(!f(Lakara.Lrt).includes('I'));
+  assert.ok(!f(Lakara.LatN).includes('I'));
+  assert.equal(deriveKrdantas({ dhatu: 'nftI', krt: Krt.Nvanip })[0].text(), 'nftvan');
+});

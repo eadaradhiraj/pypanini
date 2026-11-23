@@ -1,6 +1,6 @@
 import { Prakriya } from './core/prakriya';
 import { gunafy, vrddhify, applyNatva, initialNati, initialShatva } from './core/slp1';
-import { KrdantaArgs, Krt, Prayoga, Sanadi } from './core/types';
+import { Gana, KrdantaArgs, Krt, Prayoga, Sanadi } from './core/types';
 import { resolveDhatu } from './data/dhatupatha';
 import { buildSanadiStem } from './sanadi';
 
@@ -844,7 +844,11 @@ export function deriveKrdantas(args: KrdantaArgs): Prakriya[] {
   // (indicatory on roots like Apx/Sakx/mucx) are not part of the stem —
   // strip them for kṛtas. Explicit overrides (e.g. yaj→yajY for yajña) are
   // authoritative and kept.
-  let root = override ?? (/[Yx]$/.test(sanadi.root) ? sanadi.root.slice(0, -1) : sanadi.root);
+  let root = override ??
+    (/[Yx]$/.test(sanadi.root) ? sanadi.root.slice(0, -1)
+      : (dhatu.gana === Gana.Divadi && sanadi.root.endsWith('I')
+          ? sanadi.root.slice(0, -1) // class-4 indicatory ī (nftI → nṛt)
+          : sanadi.root));
   // 6.1.65 (ṇo naḥ) / 6.1.64 (dhātvādeḥ ṣaḥ saḥ): root-initial ṇ → n, ṣ → s.
   const natiRoot = dhatu.code ? initialNati(root) : root;
   const shatvaRoot = dhatu.code ? initialShatva(natiRoot) : natiRoot;

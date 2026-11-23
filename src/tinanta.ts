@@ -2038,7 +2038,9 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
   // Dhātupāṭha indicatory markers Y (ñit) and x are not phonemes. Strip them
   // before any vikaraṇa/sandhi is applied; otherwise x + a can surface as *-la-
   // (mucxati → *mucalati). Explicit athematic forms are keyed by dhatu.text.
-  let rootText = /[Yx]$/.test(dhatu.text) ? dhatu.text.slice(0, -1) : dhatu.text;
+  let rootText = /[Yx]$/.test(dhatu.text) ||
+    (dhatu.gana === Gana.Divadi && /I$/.test(dhatu.text)) // class-4 indicatory ī
+    ? dhatu.text.slice(0, -1) : dhatu.text;
   // 6.1.65 (ṇo naḥ): root-initial ṇ → n; 6.1.64 (dhātvādeḥ ṣaḥ saḥ): ṣ → s.
   const natiText = dhatu.code ? initialNati(rootText) : rootText;
   const shatvaText = dhatu.code ? initialShatva(natiText) : natiText;
