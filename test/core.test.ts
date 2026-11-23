@@ -11,6 +11,7 @@ import {
   Vacana,
 } from '../src/core/types';
 import { deriveTinantas, deriveLatParadigm } from '../src/tinanta';
+import { deriveAorist } from '../src/aorist';
 import { deriveKrdantas } from '../src/krdanta';
 import { deriveSubantas } from '../src/subanta';
 import { Krt, Linga, Vibhakti } from '../src/core/types';
@@ -2364,4 +2365,12 @@ test('class-5 active paradigms: √kṛ (kṛṇóti) and √vṛ (vṛṇóti)'
   assert.equal(f('kfY', Lakara.Lan, Purusha.Prathama, Vacana.Bahu), 'akfRvan'); // akṛṇvan
   assert.equal(f('vfY', Lakara.Lat, Purusha.Prathama, Vacana.Eka), 'vfRoti');   // vṛṇoti
   assert.equal(f('vfY', Lakara.Lat, Purusha.Prathama, Vacana.Bahu), 'vfRvanti'); // vṛṇvanti
+});
+
+test('√hi s-aorist ahaiṣīt (Wiktionary hinóti)', () => {
+  const f = (v: Vacana) => deriveAorist({ root: 'hi', pada: Pada.Parasmai,
+    purusha: Purusha.Prathama, vacana: v })!.text();
+  assert.equal(f(Vacana.Eka), 'ahEzIt');  // ahaiṣīt
+  assert.equal(f(Vacana.Dvi), 'ahEztAm'); // ahaiṣṭām
+  assert.equal(f(Vacana.Bahu), 'ahEzuH'); // ahaiṣuḥ
 });
