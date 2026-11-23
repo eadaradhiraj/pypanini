@@ -2326,3 +2326,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   present systems (lat/lot/lin/lan × 9) for √rudh, √yuj, √pṛ (class 3 pṛṇāti),
   √pū from Wiktionary. Retained the attested variant rundhatu for √rudh lot 3s
   (Wiktionary also lists ruṇaddhu). `npm test` 240/240. Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 414 (continued, toward 2703/2703):** Completed active
+  present systems (lat/lot/lin/lan × 9) for √lū, √āp, √śak from Wiktionary
+  lunā́ti/āpnóti/śaknóti (vowel-initial √āp keeps its audātta-less imperfect
+  stem Apnot, consonant-initial √śak takes a-augment aSaknot).
+  `npm test` 241/241. Pushed. Coverage 437/2703.
