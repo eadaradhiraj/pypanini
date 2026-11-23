@@ -487,7 +487,8 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'DA:lin:parasmai:madhyama:dvi': 'dadhyAtam',    // dadhyātam
   'DA:lin:parasmai:madhyama:bahu': 'dadhyata',    // dadhyata
   'DA:lin:parasmai:uttama:eka': 'dadhyAm',        // dadhyām
-  'DA:lin:parasmai:uttama:bahu': 'dadhyema',      // dadhyema
+  'DA:lin:parasmai:uttama:dvi': 'dadhyAva',       // dadhyāva
+  'DA:lin:parasmai:uttama:bahu': 'dadhyAma',      // dadhyāma
   'DA:lut:parasmai:prathama:eka': 'DAtA',         // dhātā
   'DA:lut:parasmai:prathama:dvi': 'DAtArau',
   'DA:lut:parasmai:prathama:bahu': 'DAtAraH',
@@ -682,7 +683,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'dA:lan:parasmai:madhyama:dvi': 'adadAtam', 'dA:lan:parasmai:madhyama:bahu': 'adadAta',
   'dA:lan:parasmai:uttama:dvi': 'adadAvaH', 'dA:lan:parasmai:uttama:bahu': 'adadAmaH',
   'dA:lin:parasmai:madhyama:dvi': 'dadyAtam', 'dA:lin:parasmai:madhyama:bahu': 'dadyata',
-  'dA:lin:parasmai:uttama:dvi': 'dadyAvaH', 'dA:lin:parasmai:uttama:bahu': 'dadyema',
+  'dA:lin:parasmai:uttama:dvi': 'dadyAva', 'dA:lin:parasmai:uttama:bahu': 'dadyAma',
   'dA:lat:atmane:prathama:eka': 'datte',
   'dA:lat:atmane:prathama:dvi': 'dadAte',
   'dA:lat:atmane:prathama:bahu': 'dadate',

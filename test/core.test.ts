@@ -1983,3 +1983,12 @@ test('√as (asti) weak forms from Wiktionary', () => {
   assert.equal(f(Lakara.Lan, Purusha.Madhyama, Vacana.Eka), 'AsIH');   // āsī́ḥ
   assert.equal(f(Lakara.Lan, Purusha.Uttama, Vacana.Eka), 'Asam');     // ā́sam
 });
+
+test('√dā / √dhā optative 1d/1p (dadyāva, dadhyāma)', () => {
+  const f = (d: string, v: Vacana) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lin, purusha: Purusha.Uttama, vacana: v })[0].text();
+  assert.equal(f('dA', Vacana.Dvi), 'dadyAva');
+  assert.equal(f('dA', Vacana.Bahu), 'dadyAma');
+  assert.equal(f('DA', Vacana.Dvi), 'dadhyAva');
+  assert.equal(f('DA', Vacana.Bahu), 'dadhyAma');
+});
