@@ -2024,3 +2024,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   imperative 2s to gṛhāṇá (gfhARa, R=ण) instead of *gfhANa (N=ङ), verified
   against Wiktionary. `npm test` 186/186, 0 unregistered emissions. Pushed.
   Coverage 437/2703.
+
+- **2026-11-23 — Session 352 (continued, toward 2703/2703):** Completed √tanu
+  (tanóti, class 8) present-system paradigm from Wiktionary: tanóṣi/tanutháḥ/
+  tanmáḥ, atanván, tanvā́te, tanuyā́t, etc. (were thematic *tanavasi/*tanavet).
+  `npm test` 187/187, 0 unregistered emissions. Pushed. Coverage 437/2703.
