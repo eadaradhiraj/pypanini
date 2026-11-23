@@ -2019,3 +2019,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   optative 1d/1p to dadyāva/dadyāma and dadhyāva/dadhyāma (were *dadyema/
   *dadhyema) per Wiktionary. `npm test` 185/185, 0 unregistered emissions.
   Pushed. Coverage 437/2703.
+
+- **2026-11-23 — Session 351 (continued, toward 2703/2703):** Fixed √grah
+  imperative 2s to gṛhāṇá (gfhARa, R=ण) instead of *gfhANa (N=ङ), verified
+  against Wiktionary. `npm test` 186/186, 0 unregistered emissions. Pushed.
+  Coverage 437/2703.
