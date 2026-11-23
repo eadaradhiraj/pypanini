@@ -2577,3 +2577,11 @@ test('√śās perfect śaśāsa (Wiktionary śāsti)', () => {
   assert.equal(deriveTinantas({ ...baseArgs, dhatu: 'SAsu', lakara: Lakara.Lit,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text(), 'SaSAsa'); // śaśāsa
 });
+
+test('perfect mimāya / tatāna (Wiktionary mī, tan)', () => {
+  const f = (d: string, v: Vacana) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: v })[0].text();
+  assert.equal(f('mIY', Vacana.Eka), 'mimAya');  // mimāya
+  assert.equal(f('mIY', Vacana.Bahu), 'mimiyuH'); // mimiyuḥ
+  assert.equal(f('tanu', Vacana.Eka), 'tatAna');  // tatāna
+});

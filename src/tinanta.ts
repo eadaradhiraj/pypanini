@@ -3211,6 +3211,8 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   pf: { strong: 'papAr', weak: 'papr' },     // papāra/papruḥ (Wiktionary pṛ)
   pU: { strong: 'pupAv', weak: 'pupuv' },   // pupāva/pupuvuḥ (Wiktionary pū)
   lU: { strong: 'lulAv', weak: 'luluv' },   // lulāva/luluvuḥ (Wiktionary lū)
+  mI: { strong: 'mimAy', weak: 'mimiy' },   // mimāya (Wiktionary mī)
+  tanu: { strong: 'tatAn', weak: 'tatan' }, // tatāna (Wiktionary tan)
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada): string {
   // Strong stem in 3s, 3d, 2s, 1s (parasmai); ātmane uses the weak stem throughout.
