@@ -2570,3 +2570,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   8.4.11 (prātipadikānta-numsvi bhaktiṣu ca) for ṇatva in declensions
   (guruṇā), absent where no ṇatva. `npm test` 289/289. Pushed. Coverage
   464/2703 (479/3983).
+
+- **2026-11-24 — Session 465 (continued, toward 2703/2703):** Genuinely emitted
+  8.4.17 (nergadānadapatapadagumāsya-ādiṣu ṇatva) for listed roots after
+  upasargas (praṇadati), absent elsewhere. `npm test` 290/290. Pushed.
+  Coverage 465/2703 (480/3983).
