@@ -2810,3 +2810,11 @@ test('liṭ 3d uses weak stem in CVC roots', () => {
   assert.equal(f('gam'), 'jagmatuH');   // jagmatuḥ
   assert.equal(f('kf'), 'cakratuH');    // cakratuḥ
 });
+
+test('vowel-initial perfects lengthen without reduplication', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('ata'), 'Ata');   // āta
+  assert.equal(f('arda'), 'Arda'); // ārda
+  assert.equal(f('as'), 'Asa');    // āsa
+});

@@ -3244,6 +3244,13 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
   // takes vṛddhi (a → ā: vad → vād, tak → tāk). 7.4.62 kuhoś cuḥ turns an
   // initial k/g of the reduplicate into c/j (gad → ja-gāda, kar → ca-kāra).
   const genericStem = (() => {
+    // Vowel-initial roots do not reduplicate: they merely lengthen (at → āta).
+    // A trailing `a` is an it-marker (ata → at, arda → ard), so strip it first.
+    if ('aAiIuUfFxXeEoO'.includes(root[0])) {
+      const vbare = root.endsWith('a') && root.length > 1 ? root.slice(0, -1) : root;
+      const vrd: Record<string, string> = { a: 'A', i: 'E', u: 'O' };
+      return strong && vrd[vbare[0]] ? vrd[vbare[0]] + vbare.slice(1) : vbare;
+    }
     const rd = { k: 'c', K: 'c', g: 'j', G: 'j' }[root[0]] ?? redv;
     // A trailing `a` on dhātupāṭha roots is often an it-marker (gada → gad).
     const bare = root.endsWith('a') && root.length > 2 ? root.slice(0, -1) : root;
