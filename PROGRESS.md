@@ -2505,3 +2505,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.7 (liṅarthe leṭ) for loṭ only (verified not in laṅ, distinguishing from
   3.4.78). Registry updated after trace verification. `npm test` 276/276.
   Pushed. Coverage 456/2703 (471/3983).
+
+- **2026-11-24 — Session 452 (continued, toward 2703/2703):** Fixed √śru and √su
+  perfect stems from Vidyut: śuśrāva/śuśruvaḥ and suṣāva/suṣuvaḥ (were
+  *śaśrua/*sasua); emitted 7.1.6 (śino ruḥ) for those roots.
+  `npm test` 277/277. Pushed. Coverage 457/2703 (472/3983).
