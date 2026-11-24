@@ -2560,3 +2560,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   śuśundha (were *siṣedha, *nanāda, *ārda etc.). Note the post-shatva/nati
   lookup keys (ziDa→siDa, Rada→nada). `npm test` 287/287. Pushed. Coverage
   463/2703.
+
+- **2026-11-24 — Session 463 (continued, toward 2703/2703):** Fixed generic future
+  stems: strip trailing it-marker `a` (ata→at, manTa→manT) and apply internal
+  guṇa (ziD→seD), giving atiṣyati/manthiṣyati/seṣiṣyati. Lrt mismatches vs
+  Vidyut dropped 11106→6416. `npm test` 288/288. Pushed. Coverage 463/2703.
