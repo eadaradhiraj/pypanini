@@ -2575,3 +2575,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   8.4.17 (nergadānadapatapadagumāsya-ādiṣu ṇatva) for listed roots after
   upasargas (praṇadati), absent elsewhere. `npm test` 290/290. Pushed.
   Coverage 465/2703 (480/3983).
+
+- **2026-11-24 — Session 466 (continued, toward 2703/2703):** Using Vidyut shabdapatha,
+  fixed systematic SLP1 declension bugs: `au` (अउ) → `O` (औ) in all dual/loc
+  endings (agnO/gOH/balO/gAvO), u-stem dual gen/loc `yoH` → `voH` (gurvoH),
+  ī-fem oblique `ya` → `I` (nadībhyām/nadībhiḥ) and loc pl `izu` → `Izu`
+  (nadīṣu). `npm test` 291/291. Pushed. Coverage 465/2703.
