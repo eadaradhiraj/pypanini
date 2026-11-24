@@ -2825,3 +2825,8 @@ test('1.4.109 saṃhitā noted universally', () => {
   assert.ok(deriveSubantas({ pratipadika: 'bala', linga: 'pumsaka',
     vibhakti: 1, vacana: 'eka' } as any)[0].notedSutras.has('1.4.109'));
 });
+
+test('1.4.110 avasāna noted universally', () => {
+  assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'pac', lakara: Lakara.Lat,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras.has('1.4.110'));
+});

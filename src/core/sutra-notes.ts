@@ -49,6 +49,7 @@ const UNIVERSAL_PARIBHASHA: readonly string[] = [
   '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.4.5', '1.4.6', '1.4.7',
   '1.4.8', '1.4.15', '1.4.58', '1.4.59', '1.4.60',
   '1.4.109', // paraḥ sannikarṣaḥ saṃhitā — adjacency governs sandhi
+  '1.4.110', // virāmo'vasānam — boundary/pause defines word end
 ];
 
 /** Definition sūtras that govern every finite-verb (tiṅanta) derivation. */
