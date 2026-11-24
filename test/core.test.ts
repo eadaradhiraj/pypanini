@@ -2837,3 +2837,10 @@ test('1.2.11 noted for ātmane liṅ only', () => {
   assert.ok(notes(Pada.Atmane).has('1.2.11'));
   assert.ok(!notes(Pada.Parasmai).has('1.2.11'));
 });
+
+test('1.2.9 noted for i/u-final denominative stems', () => {
+  const notes = (stem: string) => deriveNamadhatus({ pratipadika: stem,
+    pratyaya: NamadhatuPratyaya.Kyac })[0].notedSutras;
+  assert.ok(notes('guru').has('1.2.9'));
+  assert.ok(!notes('bala').has('1.2.9'));
+});

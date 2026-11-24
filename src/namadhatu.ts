@@ -238,6 +238,11 @@ export function deriveNamadhatus(args: NamadhatuArgs): Prakriya[] {
   p.record(`3.2.123 (${args.lakara ?? Lakara.Lat} vidhāna)`);
   p.record(`3.4.78 (tiṅ: ${suffix})`);
   p.setText(0, surface);
+  // 1.2.9 iko yaḻ: i/u before a vowel becomes a semi-vowel (yaṇ sandhi),
+  // governing the coalescence of i/ī/u/ū-final stems with vowel-initial suffixes.
+  if (/[iIuU]$/.test(base) && /^[aAiIuUfFxXeEoO]/.test(effectiveSuffix)) {
+    p.note('1.2.9');
+  }
   if (surface !== stem + suffix) p.record('6.1.84 (ekādeśa)');
   p.record('8.2.1 (final consolidation)');
   const { noteUniversal } = require('./core/sutra-notes');
