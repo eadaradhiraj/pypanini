@@ -20,14 +20,14 @@ export interface StemClass {
 }
 
 const A_PUMSAKA: EndingTable = {
-  [Vibhakti.Prathama]: ['H', 'au', 'AH'],
-  [Vibhakti.Dvitiya]: ['am', 'au', 'An'],
+  [Vibhakti.Prathama]: ['H', 'O', 'AH'],
+  [Vibhakti.Dvitiya]: ['am', 'O', 'An'],
   [Vibhakti.Trtiya]: ['ena', 'AByAm', 'EH'], // 7.1.9 ato bhisa ais (a + ais → ais = SLP1 "EH")
   [Vibhakti.Caturthi]: ['Aya', 'AByAm', 'ebyaH'],
   [Vibhakti.Pancami]: ['At', 'AByAm', 'ebyaH'],
   [Vibhakti.Sasti]: ['asya', 'ayoH', 'AnAm'],
   [Vibhakti.Saptami]: ['e', 'ayoH', 'ezu'],
-  [Vibhakti.Sambodhana]: ['a', 'au', 'AH'],
+  [Vibhakti.Sambodhana]: ['a', 'O', 'AH'],
 };
 
 const A_NAPUMSAKA: EndingTable = {
@@ -48,7 +48,7 @@ const I_PUMSAKA: EndingTable = {
   [Vibhakti.Caturthi]: ['aye', 'iByAm', 'iByaH'],
   [Vibhakti.Pancami]: ['eH', 'iByAm', 'iByaH'],
   [Vibhakti.Sasti]: ['eH', 'yoH', 'InAm'],
-  [Vibhakti.Saptami]: ['au', 'yoH', 'izu'],
+  [Vibhakti.Saptami]: ['O', 'yoH', 'izu'],
   [Vibhakti.Sambodhana]: ['e', 'I', 'ayaH'],
 };
 
@@ -58,8 +58,8 @@ const U_PUMSAKA: EndingTable = {
   [Vibhakti.Trtiya]: ['unA', 'uByAm', 'uBiH'],
   [Vibhakti.Caturthi]: ['ave', 'uByAm', 'uByaH'],
   [Vibhakti.Pancami]: ['oH', 'uByAm', 'uByaH'],
-  [Vibhakti.Sasti]: ['oH', 'yoH', 'UnAm'],
-  [Vibhakti.Saptami]: ['au', 'yoH', 'uzu'],
+  [Vibhakti.Sasti]: ['oH', 'voH', 'UnAm'],
+  [Vibhakti.Saptami]: ['O', 'voH', 'uzu'],
   [Vibhakti.Sambodhana]: ['o', 'U', 'avaH'],
 };
 
@@ -80,8 +80,8 @@ const U_NAPUMSAKA: EndingTable = {
   [Vibhakti.Trtiya]: ['unA', 'uByAm', 'uBiH'],
   [Vibhakti.Caturthi]: ['ave', 'uByAm', 'uByaH'],
   [Vibhakti.Pancami]: ['oH', 'uByAm', 'uByaH'],
-  [Vibhakti.Sasti]: ['oH', 'yoH', 'UnAm'],
-  [Vibhakti.Saptami]: ['u', 'yoH', 'uzu'],
+  [Vibhakti.Sasti]: ['oH', 'voH', 'UnAm'],
+  [Vibhakti.Saptami]: ['u', 'voH', 'uzu'],
   [Vibhakti.Sambodhana]: ['u', 'U', 'Uni'],
 };
 
@@ -97,14 +97,14 @@ const A_FEMININE: EndingTable = {
 };
 
 const I_FEMININE: EndingTable = {
-  [Vibhakti.Prathama]: ['I', 'yau', 'yaH'],
-  [Vibhakti.Dvitiya]: ['Im', 'yau', 'IH'],
-  [Vibhakti.Trtiya]: ['yA', 'yaByAm', 'yaBiH'],
-  [Vibhakti.Caturthi]: ['yE', 'yaByAm', 'yaByaH'],
-  [Vibhakti.Pancami]: ['yAH', 'yaByAm', 'yaByaH'],
+  [Vibhakti.Prathama]: ['I', 'yO', 'yaH'],
+  [Vibhakti.Dvitiya]: ['Im', 'yO', 'IH'],
+  [Vibhakti.Trtiya]: ['yA', 'IByAm', 'IBiH'],
+  [Vibhakti.Caturthi]: ['yE', 'IByAm', 'IByaH'],
+  [Vibhakti.Pancami]: ['yAH', 'IByAm', 'IByaH'],
   [Vibhakti.Sasti]: ['yAH', 'yoH', 'InAm'],
-  [Vibhakti.Saptami]: ['yAm', 'yoH', 'izu'],
-  [Vibhakti.Sambodhana]: ['I', 'yau', 'yaH'],
+  [Vibhakti.Saptami]: ['yAm', 'yoH', 'Izu'],
+  [Vibhakti.Sambodhana]: ['I', 'yO', 'yaH'],
 };
 
 const U_FEMININE: EndingTable = {
@@ -219,14 +219,14 @@ const I_FEMININE_SHORT: EndingTable = {
 
 /** Generic consonant-stem endings (e.g. marut, vāc, dviṣ, pathin). */
 const CONSONANT_GENERIC: EndingTable = {
-  [Vibhakti.Prathama]: ['', 'au', 'as'], // 8.2.23: final -s elided after consonant
-  [Vibhakti.Dvitiya]: ['am', 'au', 'as'],
+  [Vibhakti.Prathama]: ['', 'O', 'as'], // 8.2.23: final -s elided after consonant
+  [Vibhakti.Dvitiya]: ['am', 'O', 'as'],
   [Vibhakti.Trtiya]: ['A', 'ByAm', 'BiH'],
   [Vibhakti.Caturthi]: ['e', 'ByAm', 'ByaH'],
   [Vibhakti.Pancami]: ['aH', 'ByAm', 'ByaH'],
   [Vibhakti.Sasti]: ['aH', 'oH', 'Am'],
   [Vibhakti.Saptami]: ['i', 'oH', 'su'],
-  [Vibhakti.Sambodhana]: ['', 'au', 'as'],
+  [Vibhakti.Sambodhana]: ['', 'O', 'as'],
 };
 
 export const STEM_CLASSES: readonly StemClass[] = [
@@ -284,26 +284,26 @@ function applySandhi(base: SLP1, ending: SLP1): SLP1 {
 
 /** Irregular declension of go- (cow), common to masculine and feminine. */
 export const GO_ENDINGS: EndingTable = {
-  [Vibhakti.Prathama]: ['gauH', 'gAvau', 'gAvaH'],
-  [Vibhakti.Dvitiya]: ['gAm', 'gAvau', 'gAH'],
+  [Vibhakti.Prathama]: ['gOH', 'gAvO', 'gAvaH'],
+  [Vibhakti.Dvitiya]: ['gAm', 'gAvO', 'gAH'],
   [Vibhakti.Trtiya]: ['gavA', 'goByAm', 'goBiH'],
   [Vibhakti.Caturthi]: ['goByaH', 'goByAm', 'goByaH'],
   [Vibhakti.Pancami]: ['goH', 'goByAm', 'goByaH'],
   [Vibhakti.Sasti]: ['goH', 'gavoH', 'gavAm'],
   [Vibhakti.Saptami]: ['gavi', 'gavoH', 'gozu'],
-  [Vibhakti.Sambodhana]: ['gauH', 'gAvau', 'gAvaH'],
+  [Vibhakti.Sambodhana]: ['gOH', 'gAvO', 'gAvaH'],
 };
 
 /** Irregular declension of nau- (boat, feminine). */
 export const NAU_ENDINGS: EndingTable = {
-  [Vibhakti.Prathama]: ['nauH', 'nAvau', 'nAvaH'],
-  [Vibhakti.Dvitiya]: ['nAm', 'nAvau', 'nAH'],
+  [Vibhakti.Prathama]: ['nOH', 'nAvO', 'nAvaH'],
+  [Vibhakti.Dvitiya]: ['nAm', 'nAvO', 'nAH'],
   [Vibhakti.Trtiya]: ['nAvA', 'nAByAm', 'nABiH'],
   [Vibhakti.Caturthi]: ['nAByaH', 'nAByAm', 'nAByaH'],
   [Vibhakti.Pancami]: ['nAH', 'nAByAm', 'nAByaH'],
   [Vibhakti.Sasti]: ['nAH', 'nAvoH', 'nAvAm'],
   [Vibhakti.Saptami]: ['nAvi', 'nAvoH', 'nAsu'],
-  [Vibhakti.Sambodhana]: ['nauH', 'nAvau', 'nAvaH'],
+  [Vibhakti.Sambodhana]: ['nOH', 'nAvO', 'nAvaH'],
 };
 
 export function deriveSubantas(args: SubantaArgs): Prakriya[] {

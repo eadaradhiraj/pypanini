@@ -784,7 +784,7 @@ test('subanta: i-, u-, ā- and ī-stems', () => {
   assert.equal(form('nadI', Linga.Stri, Vibhakti.Caturthi, Vacana.Eka), 'nadyE');  // nadyai
   assert.equal(form('nadI', Linga.Stri, Vibhakti.Sasti, Vacana.Eka), 'nadyAH');   // nadyāḥ
   assert.equal(form('nadI', Linga.Stri, Vibhakti.Dvitiya, Vacana.Bahu), 'nadIH');  // nadīḥ
-  assert.equal(form('nadI', Linga.Stri, Vibhakti.Saptami, Vacana.Bahu), 'nadizu'); // nadīṣu
+  assert.equal(form('nadI', Linga.Stri, Vibhakti.Saptami, Vacana.Bahu), 'nadIzu'); // nadīṣu
 
   // mati (f), short-i stem
   assert.equal(form('mati', Linga.Stri, Vibhakti.Prathama, Vacana.Eka), 'matiH');
@@ -2890,4 +2890,15 @@ test('8.4.17 noted for ṇatva after upasarga in listed roots', () => {
     upasarga: 'pra', purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].history.map(s=>s.rule).join(' ');
   assert.match(h('nad'), /8\.4\.17/);
   assert.doesNotMatch(h('pac'), /8\.4\.17/);
+});
+
+test('SLP1 au/O and u/ī-stem declensions match Vidyut', () => {
+  const f = (w: string, l: Linga, v: number, vc: Vacana) =>
+    deriveSubantas({ pratipadika: w, linga: l, vibhakti: v, vacana: vc } as any)[0].text();
+  assert.equal(f('agni', Linga.Pumsaka, 7, Vacana.Eka), 'agnO');    // agnau
+  assert.equal(f('bala', Linga.Pumsaka, 1, Vacana.Dvi), 'balO');    // balau
+  assert.equal(f('go', Linga.Pumsaka, 1, Vacana.Eka), 'gOH');       // gauḥ
+  assert.equal(f('guru', Linga.Pumsaka, 6, Vacana.Dvi), 'gurvoH');  // gurvoḥ
+  assert.equal(f('nadI', Linga.Stri, 3, Vacana.Bahu), 'nadIBiH');   // nadībhiḥ
+  assert.equal(f('nadI', Linga.Stri, 7, Vacana.Bahu), 'nadIzu');    // nadīṣu
 });
