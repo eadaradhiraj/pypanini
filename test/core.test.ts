@@ -2902,3 +2902,10 @@ test('SLP1 au/O and u/ī-stem declensions match Vidyut', () => {
   assert.equal(f('nadI', Linga.Stri, 3, Vacana.Bahu), 'nadIBiH');   // nadībhiḥ
   assert.equal(f('nadI', Linga.Stri, 7, Vacana.Bahu), 'nadIzu');    // nadīṣu
 });
+
+test('6.1.17 noted for liṭ reduplication', () => {
+  const notes = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    lakara: lk, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Lakara.Lit).has('6.1.17'));
+  assert.ok(!notes(Lakara.Lat).has('6.1.17'));
+});

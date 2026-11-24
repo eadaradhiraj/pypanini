@@ -83,7 +83,7 @@ export const TINANTA_HEAD_RULES: Rule[] = [
       const i = ctx.prakriya.findTag('dhatu');
       const orig = ctx.prakriya.textAt(i);
       ctx.prakriya.setText(i, ctx.rootOverride);
-      ctx.prakriya.record(ctx.rootOverrideCode ?? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam)');
+      ctx.prakriya.record(ctx.rootOverrideCode ?? '6.1.8 (abhyāsa), 6.1.4 (pūrvo \'bhyāsaḥ), 6.1.5 (ubhe abhyastam), 6.1.17 (liṭyabhyāsasyobhayeṣām)');
       // 8.4.54 abhyāse carca: the reduplicate's initial aspirate is
       // de-aspirated (√bhū → ba-bhū-va, not *bha-bhū-va).
       const deasp: Record<string, string> = { K: 'k', G: 'g', C: 'c', J: 'j', T: 't', D: 'd', P: 'p', B: 'b' };
