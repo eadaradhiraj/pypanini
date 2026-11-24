@@ -2526,3 +2526,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   perfects: strip trailing it-marker `a` and lengthen the initial vowel without
   reduplication (āta/ārda, were *āāta/*āārda). Lit mismatches vs Vidyut 8359→8061.
   `npm test` 280/280. Pushed. Coverage 457/2703.
+
+- **2026-11-24 — Session 456 (continued, toward 2703/2703):** Genuinely emitted
+  1.4.109 (paraḥ sannikarṣaḥ saṃhitā) for all tiṅanta/subanta derivations.
+  Registry updated after trace verification. `npm test` 281/281. Pushed.
+  Coverage 458/2703 (473/3983).
