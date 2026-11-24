@@ -2549,3 +2549,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   1.2.10 (halantāc ca) alongside yaṇ sandhi after i/u-ending upasargas.
   Registry updated after trace verification. `npm test` 285/285. Pushed.
   Coverage 462/2703 (477/3983).
+
+- **2026-11-24 — Session 461 (continued, toward 2703/2703):** Genuinely emitted
+  7.2.12 (sani grahaguhoś ca) for √grah/√guh desideratives only. Registry
+  updated after trace verification. `npm test` 286/286. Pushed. Coverage
+  463/2703 (478/3983).
