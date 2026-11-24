@@ -2565,3 +2565,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   stems: strip trailing it-marker `a` (ata→at, manTa→manT) and apply internal
   guṇa (ziD→seD), giving atiṣyati/manthiṣyati/seṣiṣyati. Lrt mismatches vs
   Vidyut dropped 11106→6416. `npm test` 288/288. Pushed. Coverage 463/2703.
+
+- **2026-11-24 — Session 464 (continued, toward 2703/2703):** Genuinely emitted
+  8.4.11 (prātipadikānta-numsvi bhaktiṣu ca) for ṇatva in declensions
+  (guruṇā), absent where no ṇatva. `npm test` 289/289. Pushed. Coverage
+  464/2703 (479/3983).
