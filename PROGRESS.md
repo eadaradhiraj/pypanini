@@ -2586,3 +2586,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   6.1.17 (liṭyabhyāsasyobhayeṣām) for liṭ only, absent for lat. Registry
   updated after trace verification. `npm test` 292/292. Pushed. Coverage
   466/2703 (481/3983).
+
+- **2026-11-24 — Session 468 (continued, toward 2703/2703):** Genuinely emitted
+  6.1.16 (grahijyāvayivyādhiṣu ṇiti ca) for ṇit roots (gṛhṇāti), absent elsewhere.
+  Registry updated after trace verification. `npm test` 293/293. Pushed.
+  Coverage 467/2703 (482/3983).
