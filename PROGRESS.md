@@ -2607,3 +2607,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   stems from Vidyut: śiṣedha (initial z→s by 6.1.64), nanāda (strong vṛddhi),
   śuśundha (initial ś). Lit mismatches 8039→8010. `npm test` 295/295. Pushed.
   Coverage 469/2703.
+
+- **2026-11-24 — Session 472 (continued, toward 2703/2703):** Fixed imperfect
+  SLP1 strings from Vidyut: √śru aśṛṇot (was *azRNot), √kṛ akarot (was
+  *aKarot), √sthā atiṣṭhat (was *atiSThat) — ṣ/ś, k/K and ṣṭ conjunct order.
+  `npm test` 296/296. Pushed. Coverage 469/2703.
