@@ -3248,8 +3248,12 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
     // A trailing `a` on dhātupāṭha roots is often an it-marker (gada → gad).
     const bare = root.endsWith('a') && root.length > 2 ? root.slice(0, -1) : root;
     // CVC roots with an `a` vowel take vṛddhi (a→ā) in strong forms: gad → gād.
+    // 3d parasmai of liṭ uses the weak stem for CVC roots (jagadatuḥ,
+    // Papaco??): no vṛddhi/guṇa in the dual.
+    const weakDualGeneric = purusha === Purusha.Prathama && vacana === Vacana.Dvi &&
+      pada !== Pada.Atmane;
     const base = (() => {
-      if (!strong) return bare;
+      if (!strong || weakDualGeneric) return bare;
       if (/^[^aAiIuUfFxXeEoO]a[^aAiIuUfFxXeEoO]$/.test(bare)) return bare.replace('a', 'A');
       // guṇa of an internal u/i/ṛ in the strong perfect stem (śuc → śoc,
       // bhid → bhed, mṛj → marj): Vidyut ashtadhyayi.com.

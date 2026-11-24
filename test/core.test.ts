@@ -2801,3 +2801,12 @@ test('generic perfect stems from Vidyut (jagāda, śuśoca, mumroca, bibheda)', 
   assert.equal(f('mruc'), 'mumroca');  // mumroca
   assert.equal(f('bhid'), 'bibheda');  // bibheda
 });
+
+test('liṭ 3d uses weak stem in CVC roots', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: Vacana.Dvi })[0].text();
+  assert.equal(f('gada'), 'jagadatuH'); // jagadatuḥ
+  assert.equal(f('taka'), 'tatakatuH'); // tatakatuḥ
+  assert.equal(f('gam'), 'jagmatuH');   // jagmatuḥ
+  assert.equal(f('kf'), 'cakratuH');    // cakratuḥ
+});
