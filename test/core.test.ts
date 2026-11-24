@@ -2884,3 +2884,10 @@ test('8.4.11 noted for ṇatva in declensions', () => {
   assert.ok(notes('guru').has('8.4.11'));
   assert.ok(!notes('bala').has('8.4.11'));
 });
+
+test('8.4.17 noted for ṇatva after upasarga in listed roots', () => {
+  const h = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lat,
+    upasarga: 'pra', purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].history.map(s=>s.rule).join(' ');
+  assert.match(h('nad'), /8\.4\.17/);
+  assert.doesNotMatch(h('pac'), /8\.4\.17/);
+});

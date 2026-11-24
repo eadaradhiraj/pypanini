@@ -3440,7 +3440,8 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     if (upa && args.upasarga) {
       const satva = needsSatva(args.upasarga, dhatu.text);
       const anusvara = athemForm.includes('M') ? ', 8.3.23 (mo\'nusvāraḥ)' : '';
-      p.record(`1.4.59 (upasarga: ${upa}${satva ? ', 8.3.65 ṣatva' : ''}${anusvara})`);
+      const nadNatva = ['nad', 'gad', 'pad', 'pat', 'gum', 'As', 'ti', 'ha', 'vA', 'drA', 'psA', 'vap', 'vah', 'Sam', 'ci', 'tid', 'gD'].includes(dhatu.text) && athemForm.includes('R');
+      p.record(`1.4.59 (upasarga: ${upa}${satva ? ', 8.3.65 ṣatva' : ''}${anusvara}${nadNatva ? ', 8.4.17 ṇatva' : ''})`);
       if (/[iu]/.test(upa[upa.length - 1] ?? '') && /[aeiouAEIOU]/.test(athematic[0] ?? '')) {
         p.record(`6.1.77, 1.2.9, 1.2.10 (iko yaṇ aci — ${upa.slice(-1)} + vowel → ${upa.endsWith('i') ? 'y' : 'v'}, vyeti/anveti)`);
       }
@@ -3680,6 +3681,12 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
         ? needsSatva(upasargaArg!, dhatu.text) ? ', 8.3.65 ṣatva' : ', 8.4.14 ṇatva'
         : '';
     prakriya.record(`1.4.59 (upasarga: ${upasarga}${sandhi})`);
+    // 8.4.17 nergadānadapatapadagumāsyatihanti... — ṇatva for listed roots
+    // after certain upasargas (praṇadati, suṇadati, viṇadati).
+    if (['nad', 'gad', 'pad', 'pat', 'gum', 'As', 'ti', 'ha', 'vA', 'drA', 'psA', 'vap', 'vah', 'Sam', 'ci', 'tid', 'gD'].includes(dhatu.text) &&
+        sandhi.includes('ṇatva')) {
+      prakriya.record('8.4.17 (nergadānadapatapadagumāsya-ādiṣu ṇatva)');
+    }
     if (dhatu.text === 'an' && /[rfz]/.test(upasargaArg!)) {
       prakriya.record('8.4.19 (aniteḥ — prāṇiti/prāṇati: n → ṇ after upasarga)');
     }
