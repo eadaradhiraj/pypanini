@@ -2500,3 +2500,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-24 — Session 450 (continued, toward 2703/2703):** Genuinely emitted
   3.4.2 (kriyāsamaṃhiṣāre loṭ) for loṭ only. Registry updated after trace
   verification. `npm test` 275/275. Pushed. Coverage 455/2703 (470/3983).
+
+- **2026-11-24 — Session 451 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.7 (liṅarthe leṭ) for loṭ only (verified not in laṅ, distinguishing from
+  3.4.78). Registry updated after trace verification. `npm test` 276/276.
+  Pushed. Coverage 456/2703 (471/3983).
