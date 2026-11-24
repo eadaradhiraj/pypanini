@@ -149,7 +149,7 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
     p.note('3.4.92');
   }
   // 3.4.2 kriyāsamaṃhiṣāre loṭ: the imperative for command/exhortation.
-  if (a.lakara === Lakara.Lot) p.note('3.4.2');
+  if (a.lakara === Lakara.Lot) { p.note('3.4.2'); p.note('3.4.7'); }
   // 3.4.115 liṭ ca: the perfect is ārddhadhātuka (no guṇa of the vikaraṇa).
   // 3.4.114 ārddhadhātukaṃ śeṣaḥ: the remaining affixes are ārddhadhātuka.
   if (a.lakara === Lakara.Lit) {

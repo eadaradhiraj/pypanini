@@ -2774,3 +2774,10 @@ test('3.4.2 noted for loṭ only', () => {
   assert.ok(notes(Lakara.Lot).has('3.4.2'));
   assert.ok(!notes(Lakara.Lat).has('3.4.2'));
 });
+
+test('3.4.7 noted for loṭ only', () => {
+  const notes = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    lakara: lk, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Lakara.Lot).has('3.4.7'));
+  assert.ok(!notes(Lakara.Lan).has('3.4.7'));
+});
