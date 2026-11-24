@@ -2791,3 +2791,13 @@ test('√śru/√su perfect stems and 7.1.6', () => {
   assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'Sru', lakara: Lakara.Lit,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras.has('7.1.6'));
 });
+
+test('generic perfect stems from Vidyut (jagāda, śuśoca, mumroca, bibheda)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('gada'), 'jagAda');   // jagāda
+  assert.equal(f('taka'), 'tatAka');   // tatāka
+  assert.equal(f('zuc'), 'zuzoca');    // śuśoca
+  assert.equal(f('mruc'), 'mumroca');  // mumroca
+  assert.equal(f('bhid'), 'bibheda');  // bibheda
+});

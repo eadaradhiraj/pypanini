@@ -3240,7 +3240,29 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
   // vac uses the samprasāraṇa weak stem in the 3d (ucatuḥ, not uvācatuḥ).
   const weakDual = ['gam', 'han', 'khan', 'vac', 'i', 'kf'].includes(root) && purusha === Purusha.Prathama && vacana === Vacana.Dvi;
   const strong = auRoots.includes(root) ? auForm : isStrong && !weakDual;
-  const stem = entry ? (strong ? entry.strong : entry.weak) : redv + 'a' + root;
+  // Generic reduplication. For roots ending in a single `a`, the strong stem
+  // takes vṛddhi (a → ā: vad → vād, tak → tāk). 7.4.62 kuhoś cuḥ turns an
+  // initial k/g of the reduplicate into c/j (gad → ja-gāda, kar → ca-kāra).
+  const genericStem = (() => {
+    const rd = { k: 'c', K: 'c', g: 'j', G: 'j' }[root[0]] ?? redv;
+    // A trailing `a` on dhātupāṭha roots is often an it-marker (gada → gad).
+    const bare = root.endsWith('a') && root.length > 2 ? root.slice(0, -1) : root;
+    // CVC roots with an `a` vowel take vṛddhi (a→ā) in strong forms: gad → gād.
+    const base = (() => {
+      if (!strong) return bare;
+      if (/^[^aAiIuUfFxXeEoO]a[^aAiIuUfFxXeEoO]$/.test(bare)) return bare.replace('a', 'A');
+      // guṇa of an internal u/i/ṛ in the strong perfect stem (śuc → śoc,
+      // bhid → bhed, mṛj → marj): Vidyut ashtadhyayi.com.
+      if (/u/.test(bare) && !/[oO]/.test(bare)) return bare.replace('u', 'o');
+      if (/i/.test(bare) && !/[eE]/.test(bare)) return bare.replace('i', 'e');
+      return bare;
+    })();
+    // Reduplicate: first consonant + the root's own vowel (bi-bheda, śu-śoca,
+    // ja-gāda). Vowel-initial roots lengthen the reduplicate (6.1.8ff).
+    const rv = bare.match(/[aAiIuUfFxXeEoO]/)?.[0] ?? 'a';
+    return rd + (root[0] === 'a' ? 'A' : rv) + base;
+  })();
+  const stem = entry ? (strong ? entry.strong : entry.weak) : genericStem;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
   // (babhūv + va → babhūva, not *babhūvva).
   if (purusha === Purusha.Uttama && vacana === Vacana.Dvi && stem.endsWith('v')) {
