@@ -143,6 +143,10 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   if (a.lakara === Lakara.Lan) { p.note('3.2.116'); p.note('3.4.111'); }
   // 3.4.98 sa uttamasya: the first-person (uttama) ending is -m/-maḥ.
   if (a.purusha === Purusha.Uttama) p.note('3.4.98');
+  // 3.4.92 ātuttamasya picca: parasmai loṭ 1s ends in -āni (pacāni).
+  if (a.lakara === Lakara.Lot && a.pada === Pada.Parasmai && a.purusha === Purusha.Uttama) {
+    p.note('3.4.92');
+  }
   // 3.4.115 liṭ ca: the perfect is ārddhadhātuka (no guṇa of the vikaraṇa).
   // 3.4.114 ārddhadhātukaṃ śeṣaḥ: the remaining affixes are ārddhadhātuka.
   if (a.lakara === Lakara.Lit) {

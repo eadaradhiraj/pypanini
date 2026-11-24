@@ -2754,3 +2754,10 @@ test('√jñā kṛtas jñeya / jñāpaka (Wiktionary)', () => {
   assert.equal(f(Krt.Tac), 'jYAta');     // jñāta
   assert.equal(f(Krt.KtvA), 'jYAtvA');   // jñātvā
 });
+
+test('3.4.92 noted for parasmai loṭ 1s (-āni)', () => {
+  const notes = (p: Purusha) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    lakara: Lakara.Lot, purusha: p, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Purusha.Uttama).has('3.4.92'));
+  assert.ok(!notes(Purusha.Prathama).has('3.4.92'));
+});
