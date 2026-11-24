@@ -2877,3 +2877,10 @@ test('future stems from Vidyut strip it-marker a and apply guṇa', () => {
   assert.equal(f('manTa'), 'manTizyati'); // manthiṣyati
   assert.equal(f('ziDa'), 'seDizyati'); // seṣiṣyati
 });
+
+test('8.4.11 noted for ṇatva in declensions', () => {
+  const notes = (w: string) => deriveSubantas({ pratipadika: w, linga: 'pumsaka',
+    vibhakti: 3, vacana: 'eka' } as any)[0].notedSutras;
+  assert.ok(notes('guru').has('8.4.11'));
+  assert.ok(!notes('bala').has('8.4.11'));
+});
