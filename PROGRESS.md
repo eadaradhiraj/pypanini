@@ -2516,3 +2516,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (jagāda/tatāka), internal u/i guṇa (śuśoca/bibheda), and reduplicate carries
   the root vowel (bi-/śu-/ja-). Lit mismatches vs Vidyut dropped 10547→8358.
   `npm test` 278/278. Pushed. Coverage 457/2703.
+
+- **2026-11-24 — Session 454 (continued, toward 2703/2703):** Fixed liṭ 3d
+  parasmai to use the weak stem for CVC roots: jagadatuḥ/tatakatuḥ (were
+  *jagādatuḥ/*tatākatuḥ), matching Vidyut. `npm test` 279/279. Pushed.
+  Coverage 457/2703.
