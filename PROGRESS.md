@@ -2602,3 +2602,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   (abhyastasya ca — samprasāraṇa in reduplication) and corrected weak-dual
   handling for explicit PERFECT_STEMS entries. `npm test` 295/295. Pushed.
   Coverage 469/2703 (484/3983).
+
+- **2026-11-24 — Session 471 (continued, toward 2703/2703):** Corrected perfect
+  stems from Vidyut: śiṣedha (initial z→s by 6.1.64), nanāda (strong vṛddhi),
+  śuśundha (initial ś). Lit mismatches 8039→8010. `npm test` 295/295. Pushed.
+  Coverage 469/2703.
