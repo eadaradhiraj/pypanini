@@ -2491,3 +2491,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.92 (ātuttamasya picca) for parasmai loṭ 1s (-āni), absent elsewhere.
   Registry updated after trace verification. `npm test` 273/273. Pushed.
   Coverage 453/2703 (468/3983).
+
+- **2026-11-24 — Session 449 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.1 (dhātusambandhe pratyayāḥ) for all tiṅanta and kṛt derivations.
+  Registry updated after trace verification. `npm test` 274/274. Pushed.
+  Coverage 454/2703 (469/3983).
