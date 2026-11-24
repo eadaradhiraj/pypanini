@@ -2815,7 +2815,7 @@ test('vowel-initial perfects lengthen without reduplication', () => {
   const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
     lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
   assert.equal(f('ata'), 'Ata');   // āta
-  assert.equal(f('arda'), 'Arda'); // ārda
+  assert.equal(f('arda'), 'Anarda'); // ānarda (Vidyut)
   assert.equal(f('as'), 'Asa');    // āsa
 });
 
@@ -2856,4 +2856,16 @@ test('7.2.12 noted for √grah/√guh desideratives', () => {
     sanadi: Sanadi.San, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].history.map(s=>s.rule).join(' ');
   assert.match(h('grah'), /7\.2\.12/);
   assert.doesNotMatch(h('pac'), /7\.2\.12/);
+});
+
+test('Vidyut perfects: śiṣedha, neda, ānarda, paphakka, bubukka', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('ziDa'), 'zizeDa');   // śiṣedha
+  assert.equal(f('Rada'), 'neda');     // neda
+  assert.equal(f('arda'), 'Anarda');   // ānarda
+  assert.equal(f('Pakka'), 'paPakka'); // paphakka
+  assert.equal(f('bukka'), 'bubukka'); // bubukka
+  assert.equal(f('Barba'), 'baBarba'); // babharbha
+  assert.equal(f('SunDa'), 'zuSunDa'); // śuśundha
 });
