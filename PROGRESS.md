@@ -2486,3 +2486,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-23 — Session 447 (continued, toward 2703/2703):** Fixed √jñā kṛtas
   from Wiktionary: jñeya (was *jñāya), jñāpaka (was *jñāka); kept jñāta/jñātvā.
   `npm test` 272/272. Pushed. Coverage 452/2703.
+
+- **2026-11-24 — Session 448 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.92 (ātuttamasya picca) for parasmai loṭ 1s (-āni), absent elsewhere.
+  Registry updated after trace verification. `npm test` 273/273. Pushed.
+  Coverage 453/2703 (468/3983).
