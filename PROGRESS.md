@@ -2581,3 +2581,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   endings (agnO/gOH/balO/gAvO), u-stem dual gen/loc `yoH` → `voH` (gurvoH),
   ī-fem oblique `ya` → `I` (nadībhyām/nadībhiḥ) and loc pl `izu` → `Izu`
   (nadīṣu). `npm test` 291/291. Pushed. Coverage 465/2703.
+
+- **2026-11-24 — Session 467 (continued, toward 2703/2703):** Genuinely emitted
+  6.1.17 (liṭyabhyāsasyobhayeṣām) for liṭ only, absent for lat. Registry
+  updated after trace verification. `npm test` 292/292. Pushed. Coverage
+  466/2703 (481/3983).
