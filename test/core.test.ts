@@ -2850,3 +2850,10 @@ test('1.2.10 noted for yaṇ after i/u-ending upasarga', () => {
     upasarga: 'vi', purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].history.map(s=>s.rule).join(' ');
   assert.match(h, /1\.2\.10/);
 });
+
+test('7.2.12 noted for √grah/√guh desideratives', () => {
+  const h = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lat,
+    sanadi: Sanadi.San, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].history.map(s=>s.rule).join(' ');
+  assert.match(h('grah'), /7\.2\.12/);
+  assert.doesNotMatch(h('pac'), /7\.2\.12/);
+});
