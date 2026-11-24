@@ -3236,6 +3236,7 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   bukka: { strong: 'bubukka', weak: 'bubukka' }, // bubukka (Vidyut)
   Barba: { strong: 'baBarba', weak: 'baBarba' }, // babharbha (Vidyut)
   SunDa: { strong: 'zuSunDa', weak: 'zuSunDa' }, // śuśundha (Vidyut)
+  hvA: { strong: 'juhAv', weak: 'juhuv' },      // juhāva/juhuvatuḥ (Vidyut; 6.1.33 samprasāraṇa)
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada): string {
   // Strong stem in 3s, 3d, 2s, 1s (parasmai); ātmane uses the weak stem throughout.
@@ -3260,6 +3261,9 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
   // Generic reduplication. For roots ending in a single `a`, the strong stem
   // takes vṛddhi (a → ā: vad → vād, tak → tāk). 7.4.62 kuhoś cuḥ turns an
   // initial k/g of the reduplicate into c/j (gad → ja-gāda, kar → ca-kāra).
+  // 3d parasmai of liṭ uses the weak stem for CVC roots (jagadatuḥ).
+  const weakDualGeneric = purusha === Purusha.Prathama && vacana === Vacana.Dvi &&
+    pada !== Pada.Atmane;
   const genericStem = (() => {
     // Vowel-initial roots do not reduplicate: they merely lengthen (at → āta).
     // A trailing `a` is an it-marker (ata → at, arda → ard), so strip it first.
@@ -3272,10 +3276,6 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
     // A trailing `a` on dhātupāṭha roots is often an it-marker (gada → gad).
     const bare = root.endsWith('a') && root.length > 2 ? root.slice(0, -1) : root;
     // CVC roots with an `a` vowel take vṛddhi (a→ā) in strong forms: gad → gād.
-    // 3d parasmai of liṭ uses the weak stem for CVC roots (jagadatuḥ,
-    // Papaco??): no vṛddhi/guṇa in the dual.
-    const weakDualGeneric = purusha === Purusha.Prathama && vacana === Vacana.Dvi &&
-      pada !== Pada.Atmane;
     const base = (() => {
       if (!strong || weakDualGeneric) return bare;
       if (/^[^aAiIuUfFxXeEoO]a[^aAiIuUfFxXeEoO]$/.test(bare)) return bare.replace('a', 'A');
@@ -3290,7 +3290,7 @@ function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada
     const rv = bare.match(/[aAiIuUfFxXeEoO]/)?.[0] ?? 'a';
     return rd + (root[0] === 'a' ? 'A' : rv) + base;
   })();
-  const stem = entry ? (strong ? entry.strong : entry.weak) : genericStem;
+  const stem = entry ? (strong && !weakDualGeneric ? entry.strong : entry.weak) : genericStem;
   // 1d endings begin with v (-va / -vahe); a stem already ending in -v drops it
   // (babhūv + va → babhūva, not *babhūvva).
   if (purusha === Purusha.Uttama && vacana === Vacana.Dvi && stem.endsWith('v')) {

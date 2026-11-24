@@ -163,6 +163,8 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   if (a.lakara === Lakara.Lit && ['Sru', 'zru', 'zuY', 'su', 'zu'].includes(a.root ?? '')) {
     p.note('7.1.6');
   }
+  // 6.1.33 abhyastasya ca: samprasāraṇa in the reduplicate (√hvā → juhāva).
+  if (a.lakara === Lakara.Lit && a.root === 'hvA') p.note('6.1.33');
   // 3.4.115 liṭ ca: the perfect is ārddhadhātuka (no guṇa of the vikaraṇa).
   // 3.4.114 ārddhadhātukaṃ śeṣaḥ: the remaining affixes are ārddhadhātuka.
   if (a.lakara === Lakara.Lit) {

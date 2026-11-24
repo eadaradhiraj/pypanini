@@ -2922,3 +2922,12 @@ test('√hvā samprasāraṇa hūtvā and 6.1.32', () => {
   assert.equal(p.text(), 'hUtvA'); // hūtvā
   assert.ok(p.history.some(s=>s.rule.includes('6.1.32')));
 });
+
+test('√hvā perfect juhāva / juhuvatuḥ and 6.1.33', () => {
+  const f = (v: Vacana) => deriveTinantas({ ...baseArgs, dhatu: 'hvA',
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: v })[0].text();
+  assert.equal(f(Vacana.Eka), 'juhAva');  // juhāva
+  assert.equal(f(Vacana.Dvi), 'juhuvatuH'); // juhuvatuḥ
+  assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'hvA', lakara: Lakara.Lit,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras.has('6.1.33'));
+});
