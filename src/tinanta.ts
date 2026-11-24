@@ -3228,14 +3228,14 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   Ap: { strong: 'Ap', weak: 'Ap' },         // āpa/āpuḥ (Wiktionary āp — vowel-initial, no reduplication)
   Sru: { strong: 'zuzrAv', weak: 'zuzruv' }, // śuśrāva/śuśruvaḥ (Vidyut; 7.1.6 śino ruḥ)
   su: { strong: 'suzAv', weak: 'suzuv' },   // suṣāva/suṣuvaḥ (Vidyut)
-  siDa: { strong: 'zizeD', weak: 'zizid' }, // śiṣedha/śiṣid- (Vidyut)
-  siDU: { strong: 'zizeD', weak: 'zizid' }, // śiṣedha/śiṣid- (Vidyut)
-  nada: { strong: 'neda', weak: 'neda' },   // neda/ne- (Vidyut)
+  siDa: { strong: 'sizeD', weak: 'sizid' }, // śiṣedha/śiṣid- (Vidyut)
+  siDU: { strong: 'sizeD', weak: 'sizid' }, // śiṣedha/śiṣid- (Vidyut)
+  nada: { strong: 'nanAd', weak: 'neda' },   // neda/ne- (Vidyut)
   arda: { strong: 'Anard', weak: 'Anard' }, // ānarda (Vidyut)
   Pakka: { strong: 'paPakka', weak: 'paPakka' }, // paphakka (Vidyut)
   bukka: { strong: 'bubukka', weak: 'bubukka' }, // bubukka (Vidyut)
   Barba: { strong: 'baBarba', weak: 'baBarba' }, // babharbha (Vidyut)
-  SunDa: { strong: 'zuSunDa', weak: 'zuSunDa' }, // śuśundha (Vidyut)
+  SunDa: { strong: 'SuSunD', weak: 'SuSunD' }, // śuśundha (Vidyut)
   hvA: { strong: 'juhAv', weak: 'juhuv' },      // juhāva/juhuvatuḥ (Vidyut; 6.1.33 samprasāraṇa)
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada): string {

@@ -2861,13 +2861,13 @@ test('7.2.12 noted for √grah/√guh desideratives', () => {
 test('Vidyut perfects: śiṣedha, neda, ānarda, paphakka, bubukka', () => {
   const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
     lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
-  assert.equal(f('ziDa'), 'zizeDa');   // śiṣedha
-  assert.equal(f('Rada'), 'neda');     // neda
+  assert.equal(f('ziDa'), 'sizeDa');   // śiṣedha (initial z→s by 6.1.64)
+  assert.equal(f('Rada'), 'nanAda');   // nanāda
   assert.equal(f('arda'), 'Anarda');   // ānarda
   assert.equal(f('Pakka'), 'paPakka'); // paphakka
   assert.equal(f('bukka'), 'bubukka'); // bubukka
   assert.equal(f('Barba'), 'baBarba'); // babharbha
-  assert.equal(f('SunDa'), 'zuSunDa'); // śuśundha
+  assert.equal(f('SunDa'), 'SuSunDa'); // śuśundha
 });
 
 test('future stems from Vidyut strip it-marker a and apply guṇa', () => {
