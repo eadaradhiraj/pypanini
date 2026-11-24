@@ -1264,7 +1264,7 @@ test('√pā/√sthā present stems pib-/tiṣṭh- and iṭ-less futures', () =
   assert.equal(f('pA', Lakara.Lin), 'pibet');     // pibet
   assert.equal(f('pA', Lakara.Lrt), 'pAsyati');   // pāsyati (no iṭ)
   assert.equal(f('sTA', Lakara.Lat), 'tiSThati'); // tiṣṭhati (not *sthāti)
-  assert.equal(f('sTA', Lakara.Lan), 'atiSThat'); // atiṣṭhat
+  assert.equal(f('sTA', Lakara.Lan), 'atizWat'); // atiṣṭhat
   assert.equal(f('sTA', Lakara.Lrt), 'sTAsyati'); // sthāsyati (no iṭ)
 });
 
@@ -1393,7 +1393,7 @@ test('athematic imperative 3s: bhinattu/śṛṇotu/vaktu/rundhatu', () => {
 test('√śru imperfect/future without iṭ: aśṛṇot/śroṣyati', () => {
   const f = (lk: Lakara) => deriveTinantas({ ...baseArgs, dhatu: 'zru', lakara: lk,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
-  assert.equal(f(Lakara.Lan), 'azRNot');   // aśṛṇot
+  assert.equal(f(Lakara.Lan), 'aSfRot');   // aśṛṇot
   assert.equal(f(Lakara.Lrt), 'zrOzyati'); // śroṣyati (no iṭ)
 });
 
@@ -1933,8 +1933,8 @@ test('class-5 optative paradigms (cinuyāt, sunuyāt, stṛṇuyāt)', () => {
 test('class-5 imperfect weak-stem forms', () => {
   const f = (d: string, p: Purusha, v: Vacana) => deriveTinantas({ ...baseArgs,
     dhatu: d, lakara: Lakara.Lan, purusha: p, vacana: v })[0].text();
-  assert.equal(f('zru', Purusha.Prathama, Vacana.Dvi), 'azRuNutAm');
-  assert.equal(f('zru', Purusha.Prathama, Vacana.Bahu), 'azRuNvan');
+  assert.equal(f('zru', Purusha.Prathama, Vacana.Dvi), 'aSfRutAm');
+  assert.equal(f('zru', Purusha.Prathama, Vacana.Bahu), 'aSfRvan');
   assert.equal(f('ciY', Purusha.Prathama, Vacana.Bahu), 'acinvan');
   assert.equal(f('zuY', Purusha.Prathama, Vacana.Dvi), 'asunutAm');
   assert.equal(f('SiY', Purusha.Prathama, Vacana.Bahu), 'aSinvan');
@@ -2930,4 +2930,12 @@ test('√hvā perfect juhāva / juhuvatuḥ and 6.1.33', () => {
   assert.equal(f(Vacana.Dvi), 'juhuvatuH'); // juhuvatuḥ
   assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'hvA', lakara: Lakara.Lit,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras.has('6.1.33'));
+});
+
+test('imperfect SLP1 corrections from Vidyut (aśṛṇot, akarot, atiṣṭhat)', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lan, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('zru'), 'aSfRot');  // aśṛṇot
+  assert.equal(f('kf'), 'akarot');   // akarot
+  assert.equal(f('sTA'), 'atizWat'); // atiṣṭhat
 });

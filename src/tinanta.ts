@@ -244,7 +244,7 @@ function futureStem(root: string): string {
  * everything else falls through to the thematic pipeline.
  */
 const ATHEMATIC_FORMS: Record<string, SLP1> = {
-  'zru:lan:parasmai:prathama:eka': 'azRNot',  // aśṛṇot (5P imperfect)
+  'zru:lan:parasmai:prathama:eka': 'aSfRot',  // aśṛṇot (5P imperfect)
   // Athematic imperative (loṭ) 3s forms from present stems (sources:
   // bhagavadgita.org.in / standard): bhinattu/śṛṇotu/vaktu/rundhatu.
   'bhid:lot:parasmai:prathama:eka': 'bhinattu',
@@ -413,14 +413,14 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'stfY:lan:parasmai:uttama:eka': 'astfRavam',
   'stfY:lan:parasmai:uttama:dvi': 'astfRva',
   'stfY:lan:parasmai:uttama:bahu': 'astfRma',
-  'zru:lan:parasmai:prathama:dvi': 'azRuNutAm',
-  'zru:lan:parasmai:prathama:bahu': 'azRuNvan',
-  'zru:lan:parasmai:madhyama:eka': 'azRnOH',
-  'zru:lan:parasmai:madhyama:dvi': 'azRuNutam',
-  'zru:lan:parasmai:madhyama:bahu': 'azRuNuta',
-  'zru:lan:parasmai:uttama:eka': 'azRuNavam',
-  'zru:lan:parasmai:uttama:dvi': 'azRuNva',
-  'zru:lan:parasmai:uttama:bahu': 'azRuNma',
+  'zru:lan:parasmai:prathama:dvi': 'aSfRutAm',
+  'zru:lan:parasmai:prathama:bahu': 'aSfRvan',
+  'zru:lan:parasmai:madhyama:eka': 'aSfRot',
+  'zru:lan:parasmai:madhyama:dvi': 'aSfRutam',
+  'zru:lan:parasmai:madhyama:bahu': 'aSfRuta',
+  'zru:lan:parasmai:uttama:eka': 'aSfRavam',
+  'zru:lan:parasmai:uttama:dvi': 'aSfRva',
+  'zru:lan:parasmai:uttama:bahu': 'aSfRma',
   'ciY:lan:parasmai:prathama:eka': 'acinot',
   'pf:lan:parasmai:prathama:eka': 'apfRAt',
   'tanu:lan:parasmai:prathama:eka': 'atanot',
@@ -2283,7 +2283,7 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'kf:lin:parasmai:uttama:eka': 'kuryAm',
   'kf:lin:parasmai:uttama:dvi': 'kuryAva',
   'kf:lin:parasmai:uttama:bahu': 'kuryAma',
-  'kf:lan:parasmai:prathama:eka': 'aKarot',    // akarot
+  'kf:lan:parasmai:prathama:eka': 'akarot',    // akarot
   'kf:lan:parasmai:prathama:dvi': 'akurutAm',
   'kf:lan:parasmai:prathama:bahu': 'akurvan',
   'kf:lan:parasmai:madhyama:eka': 'akaroH',
@@ -2986,9 +2986,9 @@ const ATHEMATIC_FORMS: Record<string, SLP1> = {
   'sTA:lat:parasmai:uttama:eka': 'tiSThAmi',
   'sTA:lat:parasmai:uttama:dvi': 'tiSThAvaH',
   'sTA:lat:parasmai:uttama:bahu': 'tiSThAmaH',
-  'sTA:lan:parasmai:prathama:eka': 'atiSThat',
-  'sTA:lan:parasmai:prathama:dvi': 'atiSThatAm',
-  'sTA:lan:parasmai:prathama:bahu': 'atiSThan',
+  'sTA:lan:parasmai:prathama:eka': 'atizWat',
+  'sTA:lan:parasmai:prathama:dvi': 'atizWatAm',
+  'sTA:lan:parasmai:prathama:bahu': 'atizWan',
   'sTA:lan:parasmai:madhyama:eka': 'atiSThaH',
   'sTA:lan:parasmai:madhyama:dvi': 'atiSThatam',
   'sTA:lan:parasmai:madhyama:bahu': 'atiSThata',
