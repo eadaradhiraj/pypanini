@@ -2496,3 +2496,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   3.4.1 (dhātusambandhe pratyayāḥ) for all tiṅanta and kṛt derivations.
   Registry updated after trace verification. `npm test` 274/274. Pushed.
   Coverage 454/2703 (469/3983).
+
+- **2026-11-24 — Session 450 (continued, toward 2703/2703):** Genuinely emitted
+  3.4.2 (kriyāsamaṃhiṣāre loṭ) for loṭ only. Registry updated after trace
+  verification. `npm test` 275/275. Pushed. Coverage 455/2703 (470/3983).
