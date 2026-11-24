@@ -75,6 +75,14 @@ export const TINANTA_HEAD_RULES: Rule[] = [
     if (ctx.prefix) {
       ctx.prakriya.insert(0, ctx.prefix, ['augment']);
       ctx.prakriya.record(ctx.prefixCode ?? '6.4.71 (a-āgama)');
+      // 6.1.101 akaḥ savarṇe dīrghaḥ: augment a + vowel-initial root
+      // coalesces (a + at → āt, a + as → ās) — at the augment/root boundary.
+      const root = ctx.prakriya.findTag('dhatu');
+      if (root > 0 && ctx.prakriya.textAt(0) === 'a' && ctx.prakriya.textAt(root).startsWith('a')) {
+        ctx.prakriya.setText(0, 'A');
+        ctx.prakriya.setText(root, ctx.prakriya.textAt(root).slice(1));
+        ctx.prakriya.record('6.1.101 (akaḥ savarṇe dīrghaḥ — a+a → ā)');
+      }
     }
   }),
 
