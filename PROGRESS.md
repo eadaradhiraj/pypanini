@@ -2531,3 +2531,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   1.4.109 (paraḥ sannikarṣaḥ saṃhitā) for all tiṅanta/subanta derivations.
   Registry updated after trace verification. `npm test` 281/281. Pushed.
   Coverage 458/2703 (473/3983).
+
+- **2026-11-24 — Session 457 (continued, toward 2703/2703):** Genuinely emitted
+  1.4.110 (virāmo'vasānam — word boundary) for all derivations. Registry updated
+  after trace verification. `npm test` 282/282. Pushed. Coverage 459/2703 (474/3983).
