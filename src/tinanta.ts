@@ -3432,6 +3432,10 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       : dhatu.text === 'hi' ? upa + athematic.replace(/n/g, 'R') // 8.4.15
       : coalesceUpasarga(upa, athematic); // 6.1.101 a+a → ā (prāsti)
     const p = new Prakriya([athemForm]);
+    // 6.1.16 grahijyāvayivyādhiṣu ṇiti ca: ṇatva for ṇit roots (gṛhṇāti).
+    if (['grah', 'jYA', 'zru', 'Sru', 'vi', 'vya'].includes(dhatu.text) && athemForm.includes('R')) {
+      p.record('6.1.16 (grahijyāvayivyādhiṣu ṇiti ca — ṇatva)');
+    }
     p.record(`3.2.123 (${LAKARA_LABEL[args.lakara] ?? 'la~w'} vidhāna)`);
     p.record('3.4.78 (athematic tiṅ)');
     p.record((args.pada ?? dhatu.pada) === Pada.Atmane

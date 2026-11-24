@@ -2909,3 +2909,10 @@ test('6.1.17 noted for liṭ reduplication', () => {
   assert.ok(notes(Lakara.Lit).has('6.1.17'));
   assert.ok(!notes(Lakara.Lat).has('6.1.17'));
 });
+
+test('6.1.16 noted for ṇit-root ṇatva', () => {
+  const h = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d, lakara: Lakara.Lat,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].history.map(s=>s.rule).join(' ');
+  assert.match(h('grah'), /6\.1\.16/);
+  assert.doesNotMatch(h('pac'), /6\.1\.16/);
+});

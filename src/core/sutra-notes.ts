@@ -136,7 +136,11 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   p.noteAll(TINANTA_DEFS);
   if (a.gunaApplied || a.vrddhiApplied) p.noteAll(GUNA_DEFS);
   if (a.ekadeshaApplied) p.noteAll(EKADESHA_SUTRAS);
-  if (a.natvaApplied) p.noteAll(NATVA_SUTRAS);
+  if (a.natvaApplied) {
+    p.noteAll(NATVA_SUTRAS);
+    // 6.1.16 grahijyāvayivyādhiṣu ṇiti ca: ṇatva for ṇit roots.
+    if (a.root && ['grah', 'jYA', 'vayi', 'vya', 'Di', 'vasa', 'zWivic', 'vfS', 'catipfCati'].includes(a.root)) p.note('6.1.16');
+  }
   if (p.text().includes('H')) p.noteAll(VISARGA_SUTRAS);
   if (a.anusvaraApplied || p.text().includes('M')) p.noteAll(ANUSVARA_SUTRAS);
   // 1.1.53 ṇicca: ṇic (causative) is a ṇit affix — vṛddhi applies to the root.
