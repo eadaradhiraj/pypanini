@@ -2535,3 +2535,7 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-24 — Session 457 (continued, toward 2703/2703):** Genuinely emitted
   1.4.110 (virāmo'vasānam — word boundary) for all derivations. Registry updated
   after trace verification. `npm test` 282/282. Pushed. Coverage 459/2703 (474/3983).
+
+- **2026-11-24 — Session 458 (continued, toward 2703/2703):** Genuinely emitted
+  1.2.11 (liṅaś ca ātmanepadeṣu) for ātmane liṅ only. Registry updated after
+  trace verification. `npm test` 283/283. Pushed. Coverage 460/2703 (475/3983).
