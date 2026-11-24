@@ -3217,6 +3217,8 @@ const PERFECT_STEMS: Record<string, { strong: string; weak: string }> = {
   mI: { strong: 'mimAy', weak: 'mimiy' },   // mimāya (Wiktionary mī)
   tanu: { strong: 'tatAn', weak: 'tatan' }, // tatāna (Wiktionary tan)
   Ap: { strong: 'Ap', weak: 'Ap' },         // āpa/āpuḥ (Wiktionary āp — vowel-initial, no reduplication)
+  Sru: { strong: 'zuzrAv', weak: 'zuzruv' }, // śuśrāva/śuśruvaḥ (Vidyut; 7.1.6 śino ruḥ)
+  su: { strong: 'suzAv', weak: 'suzuv' },   // suṣāva/suṣuvaḥ (Vidyut)
 };
 function perfectStem(root: string, purusha: Purusha, vacana: Vacana, pada?: Pada): string {
   // Strong stem in 3s, 3d, 2s, 1s (parasmai); ātmane uses the weak stem throughout.
@@ -3774,6 +3776,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     anusvaraApplied: prakriya.history.some((s) => s.rule.includes('8.3.23')),
     vikarana: vikarana.label,
     sanadi: args.sanadi,
+    root: dhatu.text,
   });
   // Dhātupāṭha indicatory markers Y (class-5 ñit) and x (e.g. Apx/Sakx/mucx)
   // are not phonemes — never let them leak into a derived surface form

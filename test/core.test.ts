@@ -2781,3 +2781,13 @@ test('3.4.7 noted for loṭ only', () => {
   assert.ok(notes(Lakara.Lot).has('3.4.7'));
   assert.ok(!notes(Lakara.Lan).has('3.4.7'));
 });
+
+test('√śru/√su perfect stems and 7.1.6', () => {
+  const f = (d: string, v: Vacana) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lit, purusha: Purusha.Prathama, vacana: v })[0].text();
+  assert.equal(f('Sru', Vacana.Eka), 'zuzrAva');  // śuśrāva
+  assert.equal(f('Sru', Vacana.Bahu), 'zuzruvuH'); // śuśruvaḥ
+  assert.equal(f('zuY', Vacana.Eka), 'suzAva');  // suṣāva
+  assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'Sru', lakara: Lakara.Lit,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras.has('7.1.6'));
+});
