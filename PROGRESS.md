@@ -2554,3 +2554,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   7.2.12 (sani grahaguhoś ca) for √grah/√guh desideratives only. Registry
   updated after trace verification. `npm test` 286/286. Pushed. Coverage
   463/2703 (478/3983).
+
+- **2026-11-24 — Session 462 (continued, toward 2703/2703):** Added Vidyut-verified
+  perfect stems: śiṣedha/śiṣid-, neda/ne-, ānarda, paphakka, bubukka, babharbha,
+  śuśundha (were *siṣedha, *nanāda, *ārda etc.). Note the post-shatva/nati
+  lookup keys (ziDa→siDa, Rada→nada). `npm test` 287/287. Pushed. Coverage
+  463/2703.
