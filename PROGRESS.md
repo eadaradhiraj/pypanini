@@ -2544,3 +2544,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   1.2.9 (iko yaḻ) for i/u-final denominative stems, absent for a-stems.
   Registry updated after trace verification. `npm test` 284/284. Pushed.
   Coverage 461/2703 (476/3983).
+
+- **2026-11-24 — Session 460 (continued, toward 2703/2703):** Genuinely emitted
+  1.2.10 (halantāc ca) alongside yaṇ sandhi after i/u-ending upasargas.
+  Registry updated after trace verification. `npm test` 285/285. Pushed.
+  Coverage 462/2703 (477/3983).
