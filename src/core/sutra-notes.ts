@@ -148,6 +148,8 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   if (a.lakara === Lakara.Lot && a.pada === Pada.Parasmai && a.purusha === Purusha.Uttama) {
     p.note('3.4.92');
   }
+  // 3.4.2 kriyāsamaṃhiṣāre loṭ: the imperative for command/exhortation.
+  if (a.lakara === Lakara.Lot) p.note('3.4.2');
   // 3.4.115 liṭ ca: the perfect is ārddhadhātuka (no guṇa of the vikaraṇa).
   // 3.4.114 ārddhadhātukaṃ śeṣaḥ: the remaining affixes are ārddhadhātuka.
   if (a.lakara === Lakara.Lit) {
