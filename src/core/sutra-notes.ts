@@ -64,6 +64,7 @@ const TINANTA_DEFS: readonly string[] = [
   '1.4.100',// taṅānāvātmanepadam
   '1.4.101',// tiṇas trīṇi
   '1.4.102',// ekavacanādi
+  '3.4.1',  // dhātusambandhe pratyayāḥ — affixes belong to a dhātu
   '3.1.1',  // pratyayaḥ paraś ca
   '3.1.2',  // vibhaktau naḥ
   '3.1.68', // vikaraṇa insertion (śap etc.)
@@ -274,6 +275,7 @@ const KRT_FAMILY: Readonly<Record<string, string[]>> = {
 
 /** Note kṛt-family sūtras that genuinely govern the derived affix. */
 export function noteKrdantaFamily(p: Prakriya, krt: string): void {
+  p.note('3.4.1'); // dhātusambandhe pratyayāḥ
   const codes = KRT_FAMILY[krt];
   if (codes) p.noteAll(codes);
 }
@@ -281,7 +283,7 @@ export function noteKrdantaFamily(p: Prakriya, krt: string): void {
 /** Note the universal definition/sandhi sūtras that govern any derivation. */
 export function noteUniversal(p: Prakriya): void {
   p.noteAll(UNIVERSAL_PARIBHASHA);
-  p.noteAll(['1.1.23', '1.4.13', '1.4.14', '8.2.1', '8.4.68']);
+  p.noteAll(['1.1.23', '1.4.13', '1.4.14', '3.4.1', '8.2.1', '8.4.68']);
   noteSandhi(p);
 }
 

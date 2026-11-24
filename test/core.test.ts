@@ -2761,3 +2761,9 @@ test('3.4.92 noted for parasmai loṭ 1s (-āni)', () => {
   assert.ok(notes(Purusha.Uttama).has('3.4.92'));
   assert.ok(!notes(Purusha.Prathama).has('3.4.92'));
 });
+
+test('3.4.1 dhātusambandhe pratyayāḥ noted universally', () => {
+  assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'pac', lakara: Lakara.Lat,
+    purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras.has('3.4.1'));
+  assert.ok(deriveKrdantas({ dhatu: 'pac', krt: Krt.Tac })[0].notedSutras.has('3.4.1'));
+});
