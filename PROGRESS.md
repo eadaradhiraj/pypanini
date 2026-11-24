@@ -2510,3 +2510,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   perfect stems from Vidyut: śuśrāva/śuśruvaḥ and suṣāva/suṣuvaḥ (were
   *śaśrua/*sasua); emitted 7.1.6 (śino ruḥ) for those roots.
   `npm test` 277/277. Pushed. Coverage 457/2703 (472/3983).
+
+- **2026-11-24 — Session 453 (continued, toward 2703/2703):** Improved generic
+  liṭ stem derivation from Vidyut: it-marker a stripped, CVC a-vowel vṛddhi
+  (jagāda/tatāka), internal u/i guṇa (śuśoca/bibheda), and reduplicate carries
+  the root vowel (bi-/śu-/ja-). Lit mismatches vs Vidyut dropped 10547→8358.
+  `npm test` 278/278. Pushed. Coverage 457/2703.
