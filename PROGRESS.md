@@ -2521,3 +2521,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   parasmai to use the weak stem for CVC roots: jagadatuḥ/tatakatuḥ (were
   *jagādatuḥ/*tatākatuḥ), matching Vidyut. `npm test` 279/279. Pushed.
   Coverage 457/2703.
+
+- **2026-11-24 — Session 455 (continued, toward 2703/2703):** Fixed vowel-initial
+  perfects: strip trailing it-marker `a` and lengthen the initial vowel without
+  reduplication (āta/ārda, were *āāta/*āārda). Lit mismatches vs Vidyut 8359→8061.
+  `npm test` 280/280. Pushed. Coverage 457/2703.
