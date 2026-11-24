@@ -2539,3 +2539,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
 - **2026-11-24 — Session 458 (continued, toward 2703/2703):** Genuinely emitted
   1.2.11 (liṅaś ca ātmanepadeṣu) for ātmane liṅ only. Registry updated after
   trace verification. `npm test` 283/283. Pushed. Coverage 460/2703 (475/3983).
+
+- **2026-11-24 — Session 459 (continued, toward 2703/2703):** Genuinely emitted
+  1.2.9 (iko yaḻ) for i/u-final denominative stems, absent for a-stems.
+  Registry updated after trace verification. `npm test` 284/284. Pushed.
+  Coverage 461/2703 (476/3983).
