@@ -2916,3 +2916,9 @@ test('6.1.16 noted for ṇit-root ṇatva', () => {
   assert.match(h('grah'), /6\.1\.16/);
   assert.doesNotMatch(h('pac'), /6\.1\.16/);
 });
+
+test('√hvā samprasāraṇa hūtvā and 6.1.32', () => {
+  const p = deriveKrdantas({ dhatu: 'hvA', krt: Krt.KtvA })[0];
+  assert.equal(p.text(), 'hUtvA'); // hūtvā
+  assert.ok(p.history.some(s=>s.rule.includes('6.1.32')));
+});
