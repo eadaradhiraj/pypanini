@@ -2596,3 +2596,9 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   to hūtvā (was *hvātvā) from Vidyut and emitted 6.1.32 (hvaḥ samprasāraṇam).
   Registry updated after trace verification. `npm test` 294/294. Pushed.
   Coverage 468/2703 (483/3983).
+
+- **2026-11-24 — Session 470 (continued, toward 2703/2703):** Fixed √hvā perfect
+  from Vidyut: juhāva/juhuvatuḥ (were *hāhvā/*hāhvatuh); emitted 6.1.33
+  (abhyastasya ca — samprasāraṇa in reduplication) and corrected weak-dual
+  handling for explicit PERFECT_STEMS entries. `npm test` 295/295. Pushed.
+  Coverage 469/2703 (484/3983).
