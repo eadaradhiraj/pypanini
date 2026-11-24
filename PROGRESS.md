@@ -2612,3 +2612,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   SLP1 strings from Vidyut: √śru aśṛṇot (was *azRNot), √kṛ akarot (was
   *aKarot), √sthā atiṣṭhat (was *atiSThat) — ṣ/ś, k/K and ṣṭ conjunct order.
   `npm test` 296/296. Pushed. Coverage 469/2703.
+
+- **2026-11-24 — Session 473 (continued, toward 2703/2703):** Added 6.1.101
+  (akaḥ savarṇe dīrghaḥ) augment/root coalescence for laṅ: vowel-initial roots
+  now give ātat/ātaḥ/ātam (were *atat/*ataḥ/*atam). Lan mismatches vs Vidyut
+  7269→7066. `npm test` 296/296. Pushed. Coverage 469/2703.
