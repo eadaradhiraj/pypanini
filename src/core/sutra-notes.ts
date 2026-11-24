@@ -145,6 +145,8 @@ export function noteTinanta(p: Prakriya, a: TinantaNoteArgs): void {
   if (a.pada === Pada.Parasmai) p.note('3.4.97');
   // 3.2.116 haśaśvator laṅ ca: laṅ (imperfect) sanctioned for haś/ṣv-final roots.
   if (a.lakara === Lakara.Lan) { p.note('3.2.116'); p.note('3.4.111'); }
+  // 1.2.11 liṅaś ca ātmanepadeṣu: liṅ affixes also take ātmane endings.
+  if (a.lakara === Lakara.Lin && a.pada === Pada.Atmane) p.note('1.2.11');
   // 3.4.98 sa uttamasya: the first-person (uttama) ending is -m/-maḥ.
   if (a.purusha === Purusha.Uttama) p.note('3.4.98');
   // 3.4.92 ātuttamasya picca: parasmai loṭ 1s ends in -āni (pacāni).

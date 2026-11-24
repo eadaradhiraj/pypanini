@@ -2830,3 +2830,10 @@ test('1.4.110 avasāna noted universally', () => {
   assert.ok(deriveTinantas({ ...baseArgs, dhatu: 'pac', lakara: Lakara.Lat,
     purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras.has('1.4.110'));
 });
+
+test('1.2.11 noted for ātmane liṅ only', () => {
+  const notes = (pada: Pada) => deriveTinantas({ ...baseArgs, dhatu: 'pac',
+    lakara: Lakara.Lin, pada, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].notedSutras;
+  assert.ok(notes(Pada.Atmane).has('1.2.11'));
+  assert.ok(!notes(Pada.Parasmai).has('1.2.11'));
+});
