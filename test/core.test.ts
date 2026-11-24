@@ -2869,3 +2869,11 @@ test('Vidyut perfects: śiṣedha, neda, ānarda, paphakka, bubukka', () => {
   assert.equal(f('Barba'), 'baBarba'); // babharbha
   assert.equal(f('SunDa'), 'zuSunDa'); // śuśundha
 });
+
+test('future stems from Vidyut strip it-marker a and apply guṇa', () => {
+  const f = (d: string) => deriveTinantas({ ...baseArgs, dhatu: d,
+    lakara: Lakara.Lrt, purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].text();
+  assert.equal(f('ata'), 'atizyati');   // atiṣyati
+  assert.equal(f('manTa'), 'manTizyati'); // manthiṣyati
+  assert.equal(f('ziDa'), 'seDizyati'); // seṣiṣyati
+});

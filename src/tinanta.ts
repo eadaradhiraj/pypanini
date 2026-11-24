@@ -226,7 +226,16 @@ const FUTURE_STEMS: Record<string, string> = {
   diS: 'dekzya', // dekṣya-
 };
 function futureStem(root: string): string {
-  return FUTURE_STEMS[root] ?? gunafy(root).text + 'izya'; // fallback: guṇa + i + ṣya
+  const explicit = FUTURE_STEMS[root];
+  if (explicit) return explicit;
+  // A trailing short `a` on a dhātupāṭha root is typically an it-marker
+  // (ata → at, manTa → manT), so strip it before adding the future suffix.
+  const bare = root.endsWith('a') && root.length > 2 ? root.slice(0, -1) : root;
+  let stem = gunafy(bare).text;
+  // 1.1.2/1.1.3 guṇa of an internal u/i in the root vowel (ṣedh → sedh).
+  if (/u/.test(stem) && !/[oO]/.test(stem)) stem = stem.replace('u', 'o');
+  else if (/i/.test(stem) && !/[eE]/.test(stem)) stem = stem.replace('i', 'e');
+  return stem + 'izya'; // guṇa + i + ṣya
 }
 
 /**
