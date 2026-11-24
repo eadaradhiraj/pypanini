@@ -3425,7 +3425,7 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
       const anusvara = athemForm.includes('M') ? ', 8.3.23 (mo\'nusvāraḥ)' : '';
       p.record(`1.4.59 (upasarga: ${upa}${satva ? ', 8.3.65 ṣatva' : ''}${anusvara})`);
       if (/[iu]/.test(upa[upa.length - 1] ?? '') && /[aeiouAEIOU]/.test(athematic[0] ?? '')) {
-        p.record(`6.1.77 (iko yaṇ aci — ${upa.slice(-1)} + vowel → ${upa.endsWith('i') ? 'y' : 'v'}, vyeti/anveti)`);
+        p.record(`6.1.77, 1.2.9, 1.2.10 (iko yaṇ aci — ${upa.slice(-1)} + vowel → ${upa.endsWith('i') ? 'y' : 'v'}, vyeti/anveti)`);
       }
     }
     if (['hi', 'ciY', 'pf', 'zuY', 'SiY', 'stfY'].includes(dhatu.text)) p.record(upa && dhatu.text === 'hi' ? '3.1.73 (svādibhyaḥ śnu), 8.4.15 (hinumīnā ṇatva)' : '3.1.73 (svādibhyaḥ śnu)');
@@ -3567,11 +3567,11 @@ export function deriveTinantas(args: TinantaArgs): Prakriya[] {
     } else if (upasarga.endsWith('i') && mutatedRoot.startsWith('a')) {
       prefix = upasarga.slice(0, -1); // i → y (yaṇ)
       rootPart = 'y' + mutatedRoot;
-      prefixSandhiCode = '6.1.77 (iko yaṇ aci: i+a → ya)';
+      prefixSandhiCode = '6.1.77, 1.2.9, 1.2.10 (iko yaṇ aci: i+a → ya)';
     } else if (upasarga.endsWith('u') && mutatedRoot.startsWith('a')) {
       prefix = upasarga.slice(0, -1); // u → v (yaṇ)
       rootPart = 'v' + mutatedRoot;
-      prefixSandhiCode = '6.1.77 (iko yaṇ aci: u+a → va)';
+      prefixSandhiCode = '6.1.77, 1.2.9, 1.2.10 (iko yaṇ aci: u+a → va)';
     }
     const anusvaraText = applyAnusvara(prefix + rootPart); // 8.3.23 mo'nusvāraḥ
     if (anusvaraText.includes('M') && !prefix.includes('M')) {

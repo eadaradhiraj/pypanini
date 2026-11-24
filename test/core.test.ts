@@ -2844,3 +2844,9 @@ test('1.2.9 noted for i/u-final denominative stems', () => {
   assert.ok(notes('guru').has('1.2.9'));
   assert.ok(!notes('bala').has('1.2.9'));
 });
+
+test('1.2.10 noted for yaṇ after i/u-ending upasarga', () => {
+  const h = deriveTinantas({ ...baseArgs, dhatu: 'as', lakara: Lakara.Lat,
+    upasarga: 'vi', purusha: Purusha.Prathama, vacana: Vacana.Eka })[0].history.map(s=>s.rule).join(' ');
+  assert.match(h, /1\.2\.10/);
+});
