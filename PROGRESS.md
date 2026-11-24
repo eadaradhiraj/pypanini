@@ -2591,3 +2591,8 @@ Expected (with `--trace`): each form followed by its rule-by-rule derivation.
   6.1.16 (grahijyāvayivyādhiṣu ṇiti ca) for ṇit roots (gṛhṇāti), absent elsewhere.
   Registry updated after trace verification. `npm test` 293/293. Pushed.
   Coverage 467/2703 (482/3983).
+
+- **2026-11-24 — Session 469 (continued, toward 2703/2703):** Fixed √hvā ktvā
+  to hūtvā (was *hvātvā) from Vidyut and emitted 6.1.32 (hvaḥ samprasāraṇam).
+  Registry updated after trace verification. `npm test` 294/294. Pushed.
+  Coverage 468/2703 (483/3983).
